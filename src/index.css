@@ -2,95 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/*
+  Ivan de Murard — Digital Hospitality
+  Design tokens lifted from the Stitch prototypes.
+  All colors are HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Surfaces — warm creams */
+    --surface: 42 41% 97%;                    /* #fbf9f4 */
+    --surface-bright: 42 41% 97%;
+    --surface-dim: 45 7% 85%;                 /* #dbdad5 */
+    --surface-container-lowest: 0 0% 100%;    /* #ffffff */
+    --surface-container-low: 42 26% 95%;      /* #f5f3ee */
+    --surface-container: 43 21% 92%;          /* #f0eee9 */
+    --surface-container-high: 40 14% 91%;     /* #eae8e3 */
+    --surface-container-highest: 43 11% 88%;  /* #e4e2dd */
+    --surface-variant: 43 11% 88%;            /* #e4e2dd */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Primary — Picasso Blue Era */
+    --primary: 215 100% 11%;                  /* #001b3a */
+    --primary-container: 215 56% 20%;         /* #163052 */
+    --primary-fixed: 217 100% 92%;            /* #d5e3ff */
+    --primary-fixed-dim: 217 71% 82%;         /* #afc8f1 */
+    --on-primary: 0 0% 100%;
+    --on-primary-container: 215 36% 63%;      /* #8199c0 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Secondary — tarnished gold */
+    --secondary: 38 42% 31%;                  /* #715b2e */
+    --secondary-fixed: 39 96% 82%;            /* #fddfa6 */
+    --secondary-fixed-dim: 39 56% 71%;        /* #dfc38d */
+    --on-secondary: 0 0% 100%;
+    --on-secondary-container: 38 41% 33%;     /* #776134 */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Tertiary */
+    --tertiary: 50 17% 9%;                    /* #1d1b15 */
+    --on-tertiary: 0 0% 100%;
+    --tertiary-container: 45 11% 17%;         /* #323029 */
+    --on-tertiary-container: 47 5% 58%;       /* #9b988f */
+    --on-tertiary-fixed-variant: 49 9% 27%;   /* #49473f */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* On-surface text */
+    --on-surface: 90 4% 11%;                  /* #1b1c19 */
+    --on-surface-variant: 230 7% 30%;         /* #454652 */
+    --background: 42 41% 97%;
+    --on-background: 90 4% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Outline */
+    --outline: 233 6% 49%;                    /* #767683 */
+    --outline-variant: 240 14% 80%;           /* #c6c5d4 */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Error */
+    --error: 0 75% 42%;
+    --on-error: 0 0% 100%;
+    --error-container: 5 100% 92%;
+    --on-error-container: 0 100% 29%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Inverse */
+    --inverse-surface: 90 3% 19%;             /* #30312e */
+    --inverse-on-surface: 50 16% 94%;         /* #f2f1ec */
+    --inverse-primary: 217 71% 82%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Aliases for shadcn compatibility */
+    --foreground: var(--on-surface);
+    --card: var(--surface-container-lowest);
+    --card-foreground: var(--on-surface);
+    --popover: var(--surface-container-lowest);
+    --popover-foreground: var(--on-surface);
+    --primary-foreground: var(--on-primary);
+    --secondary-foreground: var(--on-secondary);
+    --muted: var(--surface-container);
+    --muted-foreground: var(--on-surface-variant);
+    --accent: var(--secondary-fixed);
+    --accent-foreground: var(--on-secondary-container);
+    --destructive: var(--error);
+    --destructive-foreground: var(--on-error);
+    --border: var(--outline-variant);
+    --input: var(--outline-variant);
+    --ring: var(--primary);
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar (unused, kept for shadcn) */
+    --sidebar-background: var(--surface);
+    --sidebar-foreground: var(--on-surface);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--on-primary);
+    --sidebar-accent: var(--surface-container);
+    --sidebar-accent-foreground: var(--on-surface);
+    --sidebar-border: var(--outline-variant);
+    --sidebar-ring: var(--primary);
   }
 }
 
@@ -98,8 +100,70 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-surface text-on-surface font-body antialiased;
+    font-feature-settings: "ss01", "kern";
+  }
+  ::selection {
+    background: hsl(var(--secondary-fixed));
+    color: hsl(var(--on-secondary-container));
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+    vertical-align: middle;
+  }
+
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .turner-gradient {
+    background: linear-gradient(45deg, hsl(var(--primary)) 0%, hsl(var(--primary-container)) 100%);
+  }
+
+  .turner-gradient-warm {
+    background: linear-gradient(45deg, hsl(var(--surface)) 0%, hsl(var(--secondary-fixed)) 50%, hsl(var(--primary-fixed-dim)) 100%);
+    opacity: 0.15;
+  }
+
+  .hilma-circle {
+    background: radial-gradient(circle, hsl(var(--primary-fixed-dim) / 0.15) 0%, hsl(var(--surface) / 0) 70%);
+  }
+
+  .perspective-text {
+    text-shadow: 0 10px 30px hsl(var(--primary) / 0.05);
+  }
+
+  .ambient-shadow {
+    box-shadow: 0 20px 40px hsl(var(--primary) / 0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

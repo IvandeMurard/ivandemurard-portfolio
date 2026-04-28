@@ -1,5 +1,6 @@
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { SiteLayout } from "@/components/layout/SiteLayout";
 
 const NotFound = () => {
   const location = useLocation();
@@ -9,15 +10,28 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
-      </div>
-    </div>
+    <SiteLayout title="Page not found">
+      <main className="min-h-[80vh] flex items-center justify-center px-6 md:px-12 pt-32 pb-24">
+        <div className="text-center max-w-xl">
+          <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
+            A quiet detour
+          </span>
+          <h1 className="font-headline italic text-6xl md:text-8xl text-primary leading-[1.1] mb-8">
+            This room <br />
+            is empty.
+          </h1>
+          <p className="text-on-surface-variant font-light leading-relaxed mb-12">
+            The page you were looking for is not here. Let's walk back to the entrance together.
+          </p>
+          <Link
+            to="/"
+            className="inline-block bg-primary text-on-primary px-10 py-5 rounded-xl font-label uppercase tracking-[0.2em] text-[11px] hover:bg-primary-container transition-all duration-500 ambient-shadow"
+          >
+            Return to the Atrium
+          </Link>
+        </div>
+      </main>
+    </SiteLayout>
   );
 };
 
