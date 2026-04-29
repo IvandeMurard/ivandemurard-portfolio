@@ -103,6 +103,9 @@
   html, body {
     overflow-x: clip;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-surface text-on-surface font-body antialiased;
     font-feature-settings: "ss01", "kern";
