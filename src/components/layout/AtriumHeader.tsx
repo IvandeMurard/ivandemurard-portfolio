@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { PRIMARY_NAV, UTILITY_NAV } from "@/content/site";
+import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
+import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
+
+const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
+  { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail },
+  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar },
+  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin },
+  { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github },
+];
 
 export const AtriumHeader = () => {
   const [open, setOpen] = useState(false);
@@ -44,16 +52,18 @@ export const AtriumHeader = () => {
           </div>
 
           {/* Right utility links */}
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {UTILITY_NAV.map((item) => (
+          <div className="hidden md:flex items-center space-x-5 lg:space-x-6">
+            {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon }) => (
               <a
-                key={item.label}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="font-headline italic tracking-wide text-[13px] text-on-surface-variant hover:text-primary transition-colors duration-500"
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={label}
+                title={label}
+                className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110"
               >
-                {item.label}
+                <LucideIcon size={18} strokeWidth={1.5} />
               </a>
             ))}
           </div>
@@ -95,15 +105,17 @@ export const AtriumHeader = () => {
           ))}
           <div className="h-px w-16 bg-outline-variant/30 my-4" />
           <div className="flex flex-wrap justify-center gap-6">
-            {UTILITY_NAV.map((item) => (
+            {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon }) => (
               <a
-                key={item.label}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="font-headline italic text-base text-on-surface-variant"
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={label}
+                title={label}
+                className="text-on-surface-variant hover:text-secondary transition-colors"
               >
-                {item.label}
+                <LucideIcon size={22} strokeWidth={1.5} />
               </a>
             ))}
           </div>
