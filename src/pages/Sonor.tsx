@@ -9,6 +9,38 @@ import sonorRecommandations from "@/assets/sonor-recommandations.png";
 import sonorLogo from "@/assets/sonor-logo.png";
 import logoBanqueTerritoires from "@/assets/logo-banque-territoires.png";
 import logoMatrice from "@/assets/logo-matrice.png";
+import logoNightingale from "@/assets/logo-nightingale.png";
+import logoPhilosophie from "@/assets/logo-philosophie.png";
+import logoTed from "@/assets/logo-ted.png";
+
+const GO_FURTHER = [
+  {
+    logo: logoNightingale,
+    alt: "Nightingale, Journal of the Data Visualization Society",
+    title: "Noisy Cities: Behind the Scenes with Karim Douïeb",
+    description:
+      "Discover how noise pollution open data maps of Paris, Brussels, and New York were made.",
+    cta: "Read",
+    href: "https://nightingaledvs.com/noisy-cities-behind-the-scenes-with-karim-douieb/",
+  },
+  {
+    logo: logoPhilosophie,
+    alt: "Philosophie Magazine",
+    title: "Jura: A Forest Under Surveillance",
+    description: "Discover how data is used to preserve one of Jura's most important forests.",
+    cta: "Read",
+    href: "https://www.philomag.com/articles/une-foret-sur-ecoute",
+  },
+  {
+    logo: logoTed,
+    alt: "TED",
+    title: "TEDx: The benefits of the sound of silence",
+    description:
+      "TEDx by Mathias Basner telling the dangers of noise pollution and the benefits of silence.",
+    cta: "Watch",
+    href: "https://www.youtube.com/watch?v=ewNTwBbLUhM",
+  },
+];
 
 const FIGMA_PROTOTYPE_URL =
   "https://www.figma.com/embed?embed_host=lovable&url=" +
@@ -362,6 +394,47 @@ const Sonor = () => {
                 <h4 className="text-xl font-bold text-primary mb-4">{f.q}</h4>
                 <p className="text-on-surface-variant leading-relaxed">{f.a}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Go Further */}
+      <section className="py-16 md:py-28 bg-surface border-t border-outline-variant/20">
+        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
+          <div className="text-center mb-12 md:mb-20">
+            <p className="font-label uppercase tracking-[0.3em] text-xs text-secondary mb-4">
+              Further Reading
+            </p>
+            <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Go Further</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {GO_FURTHER.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-outline-variant/60"
+              >
+                <div className="h-16 mb-8 flex items-center">
+                  <img
+                    src={item.logo}
+                    alt={item.alt}
+                    className="max-h-12 max-w-[70%] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                  />
+                </div>
+                <h3 className="text-xl md:text-2xl font-headline italic text-on-surface mb-4 leading-snug">
+                  {item.title}
+                </h3>
+                <p className="text-base text-on-surface-variant leading-relaxed mb-8 flex-1">
+                  {item.description}
+                </p>
+                <span className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-primary">
+                  {item.cta}
+                  <Icon name="open_in_new" className="text-sm" />
+                </span>
+              </a>
             ))}
           </div>
         </div>
