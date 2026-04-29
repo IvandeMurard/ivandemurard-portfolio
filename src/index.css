@@ -207,30 +207,41 @@
     z-index: -1;
     pointer-events: none;
     background-color: hsl(var(--surface));
-    background-image: radial-gradient(
-      ellipse 90% 55% at 50% 100%,
-      hsl(var(--secondary-fixed) / 0.28) 0%,
-      hsl(var(--secondary-fixed-dim) / 0.14) 45%,
-      transparent 80%
-    );
     transform: translateZ(0);
   }
   /*
-    Cool blue afternoon overlay. Fully visible at the top of the page,
-    fades out as the user scrolls toward the warm cream + gold dusk below.
-    Saturation is hard-capped at 0.35, the Thank-you card's reference.
+    Cool Picasso-blue afternoon, anchored at the top of the viewport.
+    Strongest at scroll 0, fades out as the user descends.
+  */
+  .page-light::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 110% 75% at 50% 0%,
+      hsl(var(--primary-fixed) / 0.55) 0%,
+      hsl(var(--primary-fixed-dim) / 0.32) 40%,
+      transparent 80%
+    );
+    opacity: calc(1 - var(--page-light-progress, 0));
+    will-change: opacity;
+    transform: translateZ(0);
+  }
+  /*
+    Warm cream + gold dusk, anchored at the bottom of the viewport.
+    Absent at scroll 0, fully present at the page's bottom.
   */
   .page-light::after {
     content: "";
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      ellipse 90% 60% at 50% 0%,
-      hsl(var(--primary-fixed) / 0.30) 0%,
-      hsl(var(--primary-fixed-dim) / 0.18) 45%,
+      ellipse 110% 75% at 50% 100%,
+      hsl(var(--secondary-fixed) / 0.55) 0%,
+      hsl(var(--secondary-fixed-dim) / 0.30) 40%,
       transparent 80%
     );
-    opacity: calc(0.35 * (1 - var(--page-light-progress, 0)));
+    opacity: var(--page-light-progress, 0);
     will-change: opacity;
     transform: translateZ(0);
   }

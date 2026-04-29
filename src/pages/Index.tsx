@@ -256,14 +256,10 @@ const Index = () => (
       </div>
     </Reveal>
 
-    {/* Thank you for your visit, with a soft blue halo bookend */}
+    {/* Thank you for your visit, a cool blue bookend on the warm dusk page-light */}
     <Reveal as="section" className="relative py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
-      <div
-        aria-hidden="true"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] max-w-[110vw] max-h-[110vw] aspect-square rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
-      />
-      <div className="relative z-10 bg-gradient-to-br from-secondary-fixed/60 via-secondary-fixed-dim/40 to-surface-container-low p-12 md:p-24 rounded-lg overflow-hidden group ambient-shadow ring-1 ring-secondary-fixed-dim/40">
-        <div className="absolute inset-0 bg-secondary-fixed-dim/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-lg overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
+        <div className="absolute inset-0 bg-primary-fixed-dim/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
           Thank you for your visit
         </h2>

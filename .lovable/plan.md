@@ -1,55 +1,50 @@
-# Homepage & navigation refinements
+## What's actually happening
 
-## 1. Footer, no trailing space
+Looking at your screenshot against the code, three different things are conflated:
 
-In `src/components/layout/Footer.tsx`, the `<footer>` currently uses `py-16 mt-24`, which creates a tall empty band below the copyright line. Drop `mt-24` and tighten to `py-10`, so the copyright row sits cleanly at the page's bottom edge with just enough breathing room.
+1. **The "blue page tinting" you saw before** was the `.page-light::after` blue overlay at the top of the page. We flipped its formula so it now fades on scroll, but the **base layer underneath is mostly cream with a faint gold radial at the bottom**. So the page reads as "cream throughout" rather than "blue afternoon → gold dusk". The journey is too subtle to feel.
 
-## 2. Thank-you note, dusk cream/gold instead of blue tint
+2. **The Thank-you card was repainted gold** in the last pass. That's wrong, you want the card to stay cool/blue and *contrast* with the warm dusk background. The big gold blob in your screenshot is actually the **gold halo on that section**, 720px tall, escaping below the section because the section has no `overflow-hidden`. That blob is also what you're reading as "footer space not deleted", the footer itself is correctly tightened to `py-10`, but the halo bleeds past it into the cream area beneath.
 
-Two sources of the blue tint at the bottom of the homepage:
+3. **PageLight updates are throttled to ~10fps** (50ms minInterval), which makes the wash feel steppy rather than tied to scroll. For a "light changing naturally" feel it should update every frame.
 
-- The Thank-you bookend in `src/pages/Index.tsx` uses `bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low` with `ring-1 ring-primary-fixed-dim/40` and a `blue-halo` background. `primary-fixed*` are the Picasso blues.
-- The `PageLight` overlay in `src/index.css` is currently inverted vs. the intent: the blue overlay is fully visible at the top and fades to cream toward the bottom. Reading the surrounding comments ("warm cream + gold dusk below"), this is a regression we should also fix.
+## Fix, four edits
 
-Changes:
+### 1. `src/index.css`, real blue → gold light wash
 
-- Replace the Thank-you card gradient with a dusk cream/gold palette: `bg-gradient-to-br from-secondary-fixed/60 via-secondary-fixed-dim/40 to-surface-container-low`, ring `ring-secondary-fixed-dim/40`, hover overlay `bg-secondary-fixed-dim/30`.
-- Swap the section's `blue-halo / blue-halo-pulse` for `gold-halo / gold-halo-pulse`.
-- In `src/index.css`, flip the `.page-light::after` opacity formula so the blue overlay shows at the top and fades out as the user scrolls down: `opacity: calc(0.35 * (1 - var(--page-light-progress, 0)))` is the intended formula and matches the comment, but the visible result is reversed because the base layer also carries gold at the top. Re-tune by moving the gold radial in `.page-light` to `at 50% 100%` (bottom) and keep the blue overlay anchored at the top. End state: top of page reads cool/blue, bottom reads warm cream + gold, matching the dusk metaphor and the Thank-you bookend.
+Restructure `.page-light` so both lights live in the same fixed layer and crossfade with `--page-light-progress`:
 
-## 3. Index copy and structure
+- **Base layer**, the static surface color stays.
+- **Blue afternoon layer** (`::before`), large radial anchored at the top, opacity `calc(0.55 * (1 - var(--page-light-progress)))`. Uses `--primary-fixed` Picasso blue. Stronger than the current 0.35 cap so it actually reads as afternoon light.
+- **Gold dusk layer** (`::after`), large radial anchored at the bottom, opacity `calc(0.55 * var(--page-light-progress))`. Uses `--secondary-fixed`. Stronger and warmer than today's faint 0.28 base.
 
-In `src/pages/Index.tsx`:
+At scroll 0 the page reads cool blue, at scroll 1 it reads warm gold dusk, and every position in between is a smooth crossfade. Both layers stay full-viewport, fixed, GPU-composited.
 
-- Rename the "Why I care" section heading to **My approach**. Keep its supporting line.
-- Reorder the `CONVICTIONS` array so the cards render as: 1) Human interactions first, 2) Real business value, 3) Full-stack 0→1 craft.
+### 2. `src/components/PageLight.tsx`, smooth updates
 
-## 4. Project labels
+Drop the 50ms throttle. Use a single `requestAnimationFrame` with a "pending" guard, so progress updates every paint frame while scrolling. This is still cheap, we only set one CSS variable per frame, no layout, no paint, only compositor.
 
-In `src/content/site.ts`, update the `label` field:
+### 3. `src/pages/Index.tsx`, Thank-you card stays cool
 
-- Sonor: `SaaS • Urban Noise Insights • 2020 - 2022`
-- Aetherix: `AI Agent • Boutique Hotel Operations • 2026`
-- Tacet: `B2C • iOS • Wellness • 2026`
+Revert the Thank-you card to its **blue palette** so it sits beautifully on the gold dusk background:
+- Gradient: `from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low`
+- Ring: `ring-primary-fixed-dim/40`
+- Hover overlay: `bg-primary-fixed-dim/30`
 
-## 5. Navigation, Home link and active state
+**Remove the halo entirely** from this section, no `gold-halo`, no `blue-halo`. The page background already provides the warm dusk light, the card should be a clean cool object on it. This also kills the gold blob bleeding under the footer in your screenshot.
 
-In `src/content/site.ts`, leave `PRIMARY_NAV` as-is (it does not contain Home).
+### 4. Verify the footer space
 
-In `src/components/layout/AtriumHeader.tsx`:
-
-- The brand wordmark "Ivan de Murard" already links to `/`, so it stays as the always-visible home anchor on the left.
-- Add a conditional **Home** entry to the centered desktop nav and the mobile overlay, rendered only when `location.pathname !== "/"`. It links to `/` with `end` so it only matches the homepage.
-- Refine the active-link treatment so the current page is unmistakably but elegantly highlighted: keep the italic headline font, change to `text-secondary` with a subtle gold underline (`border-b border-secondary/60 pb-1`) and a faint `text-shadow` for warmth. Inactive links keep `text-on-surface-variant` with a hover transition to `text-primary`. Apply the same active treatment in the mobile overlay.
-- Result: on `/`, no Home link appears in the nav (the wordmark covers it). On any other route, a Home link sits at the start of the centered nav and the active route is gold-underlined.
+Footer is already `py-10` with no `mt-24`, so the markup is correct. The trailing space in your screenshot is the halo bleed, not real space. Once the halo is removed in step 3, the footer will sit flush against the Thank-you section with just its own `py-10` breathing room.
 
 ## Files to edit
 
-- `src/components/layout/Footer.tsx`
-- `src/components/layout/AtriumHeader.tsx`
-- `src/components/PageLight.tsx` (no change expected, listed for reference)
-- `src/index.css`
-- `src/pages/Index.tsx`
-- `src/content/site.ts`
+- `src/index.css`, restructure `.page-light` with `::before` (blue, top, fades out) and `::after` (gold, bottom, fades in), both keyed to `--page-light-progress`.
+- `src/components/PageLight.tsx`, remove the 50ms throttle, update every animation frame.
+- `src/pages/Index.tsx`, restore blue palette on the Thank-you card, remove the halo div from that section.
 
-No new dependencies, no route changes, no schema changes.
+No changes to `Footer.tsx` (already correct), no schema, no new dependencies.
+
+## What you'll see after
+
+Scrolling down the homepage: the light slides from a soft Picasso-blue afternoon at the hero, through a balanced midday crossfade around the case studies, into a warm cream + gold dusk by the time you reach the Thank-you card, which now stands as a cool blue bookend on that golden light. Reverse smoothly on scroll up. No halo blob, footer tight.
