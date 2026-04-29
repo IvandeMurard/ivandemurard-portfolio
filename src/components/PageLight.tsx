@@ -15,7 +15,7 @@ export const PageLight = () => {
     let lastRun = 0;
     let pending = false;
     // Throttle to ~10 fps. The wash is slow, the eye does not need 60 updates per second.
-    const MIN_INTERVAL = 100;
+    const MIN_INTERVAL = 50;
 
     const apply = () => {
       pending = false;
