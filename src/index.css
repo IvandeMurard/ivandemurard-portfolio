@@ -100,9 +100,6 @@
   * {
     @apply border-border;
   }
-  html {
-    scroll-behavior: smooth;
-  }
   body {
     @apply bg-surface text-on-surface font-body antialiased;
     font-feature-settings: "ss01", "kern";
@@ -158,17 +155,20 @@
   }
 
   .gold-halo {
-    background: radial-gradient(
-      circle,
-      hsl(var(--secondary-fixed) / 0.7) 0%,
-      hsl(var(--secondary-fixed) / 0.35) 35%,
-      hsl(var(--surface) / 0) 70%
-    );
-    filter: blur(50px);
+    background:
+      radial-gradient(
+        circle at 50% 50%,
+        hsl(var(--secondary-fixed) / 0.95) 0%,
+        hsl(var(--secondary-fixed) / 0.6) 22%,
+        hsl(var(--secondary-fixed-dim) / 0.35) 45%,
+        hsl(var(--surface) / 0) 72%
+      );
+    filter: blur(36px);
+    transform: translateZ(0);
   }
 
   .gold-halo-pulse {
-    animation: gold-halo-breathe 5s ease-in-out infinite;
+    animation: gold-halo-breathe 9s ease-in-out infinite;
     will-change: opacity, transform;
   }
 
@@ -181,16 +181,19 @@
       hsl(var(--surface) / 0) 72%
     );
     filter: blur(60px);
+    transform: translateZ(0);
   }
   .blue-halo-pulse {
-    animation: gold-halo-breathe 7s ease-in-out infinite;
+    animation: gold-halo-breathe 11s ease-in-out infinite;
     will-change: opacity, transform;
   }
 
   /*
     PageLight, fixed full-viewport background layer.
-    Reads --page-light-progress (0..1) and interpolates the cream surface
-    toward a desaturated Picasso-blue wash. Three stops, slow-out feel.
+    Two stacked layers: a static cream + gold ambient base, and a blue dusk
+    overlay whose opacity is driven by --page-light-progress (0..1).
+    Opacity changes on a fixed, GPU-promoted layer are composited, not painted,
+    which keeps scrolling smooth.
   */
   .page-light {
     position: fixed;
@@ -198,26 +201,26 @@
     z-index: -1;
     pointer-events: none;
     background-color: hsl(var(--surface));
-    background-image:
-      /* gold ambient at the top, fades out as we scroll */
-      radial-gradient(
-        ellipse 80% 50% at 50% 0%,
-        hsl(var(--secondary-fixed) / calc(0.18 * (1 - var(--page-light-progress, 0)))) 0%,
-        transparent 60%
-      ),
-      /* mid cooling, peaks around 55% */
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        hsl(var(--primary-fixed) / calc(0.28 * var(--page-light-progress, 0))) 100%
-      ),
-      /* dusk blue at the bottom, only present in the back third */
-      radial-gradient(
-        ellipse 90% 55% at 50% 100%,
-        hsl(var(--primary-fixed-dim) / calc(0.42 * max(0, var(--page-light-progress, 0) - 0.45) * 1.8)) 0%,
-        transparent 65%
-      );
-    transition: background-color 800ms ease-out;
+    background-image: radial-gradient(
+      ellipse 80% 45% at 50% 0%,
+      hsl(var(--secondary-fixed) / 0.16) 0%,
+      transparent 60%
+    );
+    transform: translateZ(0);
+  }
+  .page-light::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      hsl(var(--primary-fixed) / 0.22) 55%,
+      hsl(var(--primary-fixed-dim) / 0.5) 100%
+    );
+    opacity: var(--page-light-progress, 0);
+    will-change: opacity;
+    transform: translateZ(0);
   }
 
   /*
@@ -252,8 +255,8 @@
 }
 
 @keyframes gold-halo-breathe {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50%      { opacity: 1; transform: scale(1.06); }
+  0%, 100% { opacity: 0.85; transform: translateZ(0) scale(1); }
+  50%      { opacity: 1;    transform: translateZ(0) scale(1.03); }
 }
 
 @media (prefers-reduced-motion: reduce) {
