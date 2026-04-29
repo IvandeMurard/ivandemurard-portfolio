@@ -29,14 +29,14 @@ const PILLARS = [
 
 const CONVICTIONS = [
   {
-    Icon: Compass,
-    title: "Real business value",
-    body: "Reducing operational costs, freeing capacity, sharpening decisions. Every product I ship has to move a number that matters to the business.",
-  },
-  {
     Icon: HeartHandshake,
     title: "Human interactions first",
     body: "Technology should give time back to people, not pull them deeper into screens. The best automation is the one that lets a host be more present.",
+  },
+  {
+    Icon: Compass,
+    title: "Real business value",
+    body: "Reducing operational costs, freeing capacity, sharpening decisions. Every product I ship has to move a number that matters to the business.",
   },
   {
     Icon: Cpu,
