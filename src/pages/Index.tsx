@@ -69,13 +69,13 @@ const Index = () => (
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[700px] max-w-[110vw] rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
           />
           <h1 className="relative z-10 font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text">
-            Welcome.
+            Welcome,
             <br />
             <span className="text-on-primary-container opacity-90">It's great to see you!</span>
           </h1>
         </div>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light">
-          A digital practice where AI-powered systems quietly deliver measurable business impact by reducing
+          I build AI-powered systems that quietly deliver measurable business impact by reducing
           operational costs, eliminating waste, sharing intelligence, while keeping the human at the center.
         </p>
         <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8">
@@ -93,10 +93,6 @@ const Index = () => (
             <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
-      </div>
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40">
-        <span className="font-label text-[10px] uppercase tracking-widest">Descend</span>
-        <div className="w-[1px] h-16 bg-gradient-to-b from-primary to-transparent" />
       </div>
     </header>
 
