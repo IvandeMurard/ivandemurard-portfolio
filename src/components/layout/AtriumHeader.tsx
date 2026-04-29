@@ -92,14 +92,20 @@ export const AtriumHeader = () => {
         ].join(" ")}
       >
         <div className="flex flex-col justify-center items-center h-full gap-10 px-8 text-center">
-          {PRIMARY_NAV.map((item) => (
+          {[
+            ...(location.pathname !== "/" ? [{ label: "Home", to: "/" }] : []),
+            ...PRIMARY_NAV,
+          ].map((item) => (
             <NavLink
               key={item.label}
               to={item.to}
+              end={item.to === "/"}
               className={({ isActive }) =>
                 [
                   "font-headline italic text-3xl transition-colors",
-                  isActive ? "text-secondary" : "text-primary",
+                  isActive
+                    ? "text-secondary border-b border-secondary/60 pb-1 [text-shadow:0_0_24px_hsl(var(--secondary)/0.3)]"
+                    : "text-primary",
                 ].join(" ")
               }
             >
