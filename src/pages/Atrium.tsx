@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
-import { PortraitPlaceholder } from "@/components/PortraitPlaceholder";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
+import portraitIvan from "@/assets/portrait-ivan.jpg";
+import portraitIvanOrigin from "@/assets/portrait-ivan-origin.jpg";
 
 const PRINCIPLES = [
   {
