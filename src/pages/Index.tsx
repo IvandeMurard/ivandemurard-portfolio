@@ -207,10 +207,10 @@ const Index = () => (
       </div>
     </Reveal>
 
-    {/* Why I care, convictions */}
+    {/* My approach, convictions */}
     <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
-        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Why I care</h2>
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">My approach</h2>
         <p className="text-on-surface-variant font-light leading-relaxed">
           Three convictions that shape every product I build.
         </p>
@@ -260,10 +260,10 @@ const Index = () => (
     <Reveal as="section" className="relative py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] max-w-[110vw] max-h-[110vw] aspect-square rounded-full blue-halo blue-halo-pulse pointer-events-none z-0"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] max-w-[110vw] max-h-[110vw] aspect-square rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
       />
-      <div className="relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-lg overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
-        <div className="absolute inset-0 bg-primary-fixed-dim/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="relative z-10 bg-gradient-to-br from-secondary-fixed/60 via-secondary-fixed-dim/40 to-surface-container-low p-12 md:p-24 rounded-lg overflow-hidden group ambient-shadow ring-1 ring-secondary-fixed-dim/40">
+        <div className="absolute inset-0 bg-secondary-fixed-dim/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
           Thank you for your visit
         </h2>
