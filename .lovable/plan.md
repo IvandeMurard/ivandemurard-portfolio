@@ -1,123 +1,64 @@
-## Why the current wash feels invisible
+## What's wrong with the current toggle
 
-The crossfade is wired correctly, but it's competing with itself: the cream `--surface` underneath is so warm that the gold `::after` layer adds almost no perceptual change at the bottom, and the blue `::before` only registers near the very top of the hero. The result reads as "white/blue throughout", not as a journey.
+Looking at both screenshots side by side, three things are working against affordance:
 
-You also like the hero balance as-is. So instead of pushing the scroll wash harder (which would break the hero), let's reframe the whole idea:
+1. **The knob looks like a status indicator, not a control.** A single warm dot reads as "an LED is on" rather than "slide me." There's no visible track contrast.
+2. **The sun and moon glyphs are too faint and too small** (12px, 30 to 90% opacity). At a glance they disappear, so users lose the day/night metaphor.
+3. **No label, no tooltip, no first-time hint.** Even users who recognise it as a switch don't immediately know *what* it switches.
 
-> **The page has two states: Day and Dusk. Scroll nudges the ambience subtly. A manual analog toggle commits to the full evening mood.**
+Your "blue dot in day mode" instinct is good but misplaced. Toggles read most clearly when the knob shows the **current** state, not the destination. Inverting it breaks the convention used by iOS, macOS, and every hospitality lighting panel I can find. Better to keep the knob honest and let the **track** carry the destination cue.
 
-This matches your hospitality reference (In Common With) where lights don't blast on, they warm.
+## The fix, four small moves
 
-## The model
+### 1. Make the track tell the story
 
-Three layers of light, in increasing intensity:
+Right now the track is the same neutral surface in both modes. Change that:
 
-1. **Theme state** (Day | Dusk), set by the toggle, persisted in `localStorage`. Drives the base palette via a `data-mood` attribute on `<html>`.
-2. **Scroll ambience**, the existing `--page-light-progress`, but scoped to a much narrower, more felt range. In Day mode it warms the page slightly toward late afternoon as you descend. In Dusk mode it deepens further into evening.
-3. **Accent halos** on hero and Thank-you stay where they are.
+- **Day**: track shows a warm cream-to-honey gradient on the right half (where the moon waits), faintly glowing. Visual message: "evening lives over there."
+- **Dusk**: track shows a soft cool indigo gradient on the left half (where the sun waits). Visual message: "morning lives over there."
 
-### Day mode (current default, refined)
+The knob itself stays as the warm brass element in both modes. It represents *the light that is currently on in the room*, which is always warm because the lamp is always lit, only the surroundings change. This matches the In Common With reference perfectly.
 
-- Surface stays cream.
-- Hero keeps its current Picasso-blue ambience (you like it).
-- As you scroll, a warm amber/honey wash fades in at the bottom, reaching ~40% by the Thank-you card. Soft, not gold-blob.
+### 2. Brighter, larger glyphs, always visible
 
-### Dusk mode (the new toggle target)
+- Bump glyph size from 12px to 14px.
+- Change the contrast ratios: the *active* glyph (sun in day, moon in dusk) sits at full opacity in `--secondary`. The *inactive* glyph stays visible at ~55% (was 30%) so both metaphor anchors are always legible.
+- Slightly increase stroke weight from 1.5 to 1.75 for crispness at small size.
 
-- Surface shifts to a deeper warm tone: think candlelit room, not dark mode. Background goes from cream `42 41% 97%` to a warm taupe `35 18% 14%`.
-- Text inverts to warm cream `38 30% 92%`.
-- Picasso-blue accents stay (they read beautifully on warm dark, like a Hopper night scene), but desaturate slightly.
-- Gold accents intensify, halos glow warmer, like sconces coming on.
-- Scroll ambience in Dusk: top is cooler indigo evening, bottom is full amber lamplight.
+### 3. A quiet "Ambience" micro-label
 
-### The transition between modes
+Add a small italic label `Ambience` to the *left* of the toggle in the desktop header, in the same `font-headline italic text-xs text-on-surface-variant` style as the nav. This is the single biggest scannability win, it tells the user what the control is in under a glance, and it fits the editorial tone.
 
-This is where it earns its keep:
+On mobile, skip the label (space is tight) but keep the existing `aria-label`.
 
-- Toggle Day → Dusk: a **2.4s ease** crossfade on every color token. The page literally dims like a hotel lobby at sunset. No jarring flip.
-- All token transitions use the same `cubic-bezier(0.22, 1, 0.36, 1)` curve we use for reveals, so it feels like one continuous breath.
-- Halos brighten on a small delay (300ms) so lamps "come on" after the room darkens, the In Common With moment.
+### 4. A first-visit tooltip, then never again
 
-## The analog toggle
+On first page load (no `localStorage["mood-tooltip-seen"]`), after a 1.2s delay, show a small tooltip below the toggle: *"Switch from afternoon to evening light"*. Fades in over 600ms, dismisses on any interaction or after 4s, sets the flag so it never appears again. Uses the existing `cubic-bezier(0.22, 1, 0.36, 1)` curve.
 
-Placed in the header, right side, before the utility icons. Replaces nothing, sits as a quiet ritual element.
+This is the hospitality move: the room shows you the switch once, gracefully, then trusts you.
 
-Visual:
-- A slim brass-toned **knob** (about 44 x 24px) inside a recessed track.
-- Track has subtle inset shadow, like a brushed metal channel.
-- Knob is a small cream-to-gold circle with a faint highlight, casts a soft drop shadow on the track.
-- On the left of the track: a tiny sun glyph (lucide `Sun`). On the right: a tiny moon-with-warmth glyph (lucide `Moon`). Both fade in/out by 30% based on state, never fully hidden.
-- Knob slides with a slight overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`), 600ms, so it feels weighted, not snappy. Like a real switch with a spring.
-- On hover: knob lifts 1px, shadow deepens.
-- On click: a tiny "click" haptic-feel via a 80ms inner-shadow flash on the track. No sound.
-- Respects `prefers-reduced-motion`: instant swap, no overshoot.
+### 5. Slightly larger touch target
 
-Accessibility:
-- `role="switch"`, `aria-checked`, `aria-label="Toggle ambience"`.
-- Keyboard: Space/Enter toggles. Visible focus ring in `--secondary`.
+Bump the desktop track from `h-7 w-14` to `h-8 w-16`, knob from `h-6 w-6` to `h-7 w-7`. Mobile stays as-is. Better fingertip target, more obvious as a control.
 
-Persistence:
-- First visit: respects `prefers-color-scheme`. If user has dark, default to Dusk. Otherwise Day.
-- Once user toggles, `localStorage["mood"]` wins forever.
+## What you'll see
 
-## Implementation plan
-
-### 1. New theme tokens, `src/index.css`
-
-Keep `:root` (Day) as today. Add a `[data-mood="dusk"]` block that overrides:
-
-- `--surface` and surface-container scale to warm dark taupes (not pure black, kept warm).
-- `--on-surface` to warm cream.
-- `--primary-fixed` slightly desaturated, still the Picasso blue family.
-- `--secondary-fixed` pushed warmer and brighter, this is the lamplight.
-- `--outline-variant` to a low-contrast warm gray.
-
-Add a global transition on `html` for `background-color, color`, 2400ms with the slow-out curve. Add the same transition on `.page-light::before/::after` opacities.
-
-### 2. Theme provider, `src/components/MoodProvider.tsx` (new)
-
-Tiny React context:
-- Reads `localStorage["mood"]`, falls back to `prefers-color-scheme`.
-- Sets `document.documentElement.dataset.mood = "day" | "dusk"`.
-- Exposes `{ mood, setMood, toggle }`.
-- Wraps in `App.tsx` around the router.
-
-### 3. The toggle, `src/components/MoodToggle.tsx` (new)
-
-Pure CSS + Tailwind, no extra deps. Custom-built (not Radix Switch) because we need the analog character: brass knob, recessed track, sun/moon glyphs, overshoot motion. Respects reduced-motion.
-
-Mounted in `AtriumHeader` between the center nav and the utility icons.
-
-### 4. Refine `.page-light`, `src/index.css`
-
-Two adjustments:
-- **Strengthen the gold layer** in Day mode so the journey actually reads. Bump `::after` peak opacity from 0.55 to 0.7, and warm its color toward honey (`38 80% 75%`) instead of pure secondary-fixed. Keep blue as-is.
-- **Different gradients per mood**: under `[data-mood="dusk"]` the `::before` becomes deep indigo evening, `::after` becomes amber lamplight. Same `--page-light-progress` variable drives both.
-
-### 5. Reduced-motion
-
-Already handled globally for animations. Add an explicit override so the 2.4s mood crossfade collapses to 0ms when `prefers-reduced-motion: reduce`.
-
-## What you'll feel
-
-- **Day, scrolling down**: hero stays cool and balanced (unchanged). By mid-page the cream warms, by the Thank-you card the room glows late-afternoon honey. Subtle, never theatrical.
-- **Tap the toggle**: knob slides with weight, the room dims over ~2.5s. Walls go warm taupe, lamps (halos) come on a beat later. Picasso-blue accents now sit on warm dark like night-window light.
-- **Dusk, scrolling**: top is indigo evening, bottom is full lamplight amber.
-- **Tap again**: morning returns just as slowly.
-
-## Files to create
-
-- `src/components/MoodProvider.tsx`
-- `src/components/MoodToggle.tsx`
+- **Day mode**: small italic *Ambience* label, then a track that fades from neutral on the left into a soft amber glow on the right (where the moon glyph sits, now clearly visible), warm brass knob on the left.
+- **Dusk mode**: same label, track fades from cool indigo on the left (where the sun glyph sits) into neutral on the right, warm brass knob on the right.
+- **First visit**: a brief tooltip appears once, then the system trusts you.
+- **At any zoom**: the sun and moon are now both legible, so the metaphor is instant.
 
 ## Files to edit
 
-- `src/index.css`, add `[data-mood="dusk"]` token overrides, slow `html` color transition, mood-aware `.page-light` gradients, stronger Day gold layer.
-- `src/App.tsx`, wrap routes in `MoodProvider`.
-- `src/components/layout/AtriumHeader.tsx`, mount `MoodToggle` between center nav and utility icons (and in mobile overlay).
+- `src/components/MoodToggle.tsx`, restructure track gradients per mood, enlarge glyphs and knob, raise inactive opacity, optional `label` prop for desktop *Ambience* text, integrate first-visit tooltip with localStorage flag.
+- `src/components/layout/AtriumHeader.tsx`, render `<MoodToggle label="Ambience" />` on desktop, plain `<MoodToggle size="sm" />` on mobile.
 
-No new dependencies, no schema, no routing changes.
+No new dependencies. No changes to `MoodProvider`, `index.css`, or any other file.
 
-## Open question
+## On the inverted-color knob idea
 
-One small choice for you, do you want the toggle visible on every page including case studies, or only on the homepage? My recommendation: every page, it's part of the site's identity, like a hotel that adjusts its lights regardless of which room you're in.
+I'd skip it. Two reasons:
+1. It breaks the "the knob is the current state" convention, which is the one piece of toggle grammar everyone already knows.
+2. The cool/warm story is better told by the *track*, because the track is the room and the knob is the lamp. That mental model maps cleanly onto your hospitality framing and onto what the page itself does when toggled.
+
+The track-gradient + brighter-glyphs + label combination gets you the same "you can tell what this does at a glance" outcome without the cognitive friction.
