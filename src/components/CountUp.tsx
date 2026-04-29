@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useReveal } from "@/hooks/useReveal";
 
 interface CountUpProps {
   value: number;
@@ -12,6 +11,7 @@ interface CountUpProps {
 /**
  * Counts from 0 → value once the element enters the viewport.
  * Single rAF tween, no library. Honors prefers-reduced-motion.
+ * Does not toggle its own opacity, the parent Reveal handles that.
  */
 export const CountUp = ({
   value,
@@ -20,38 +20,58 @@ export const CountUp = ({
   duration = 1200,
   className,
 }: CountUpProps) => {
-  const ref = useReveal<HTMLSpanElement>(0.4);
+  const ref = useRef<HTMLSpanElement | null>(null);
   const [n, setN] = useState(0);
   const started = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
       setN(value);
       return;
     }
-    const obs = new MutationObserver(() => {
+
+    const start = () => {
       if (started.current) return;
-      if (el.getAttribute("data-revealed") !== "true") return;
       started.current = true;
-      const start = performance.now();
+      const t0 = performance.now();
       const tick = (now: number) => {
-        const t = Math.min(1, (now - start) / duration);
+        const t = Math.min(1, (now - t0) / duration);
         const eased = 1 - Math.pow(1 - t, 3);
         setN(value * eased);
         if (t < 1) requestAnimationFrame(tick);
         else setN(value);
       };
       requestAnimationFrame(tick);
-    });
-    obs.observe(el, { attributes: true, attributeFilter: ["data-revealed"] });
-    return () => obs.disconnect();
-  }, [ref, value, duration]);
+    };
+
+    if (typeof IntersectionObserver === "undefined") {
+      start();
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            start();
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [value, duration]);
 
   return (
-    <span ref={ref} className={className} data-reveal>
+    <span ref={ref} className={className}>
       {prefix}
       {Math.round(n)}
       {suffix}
