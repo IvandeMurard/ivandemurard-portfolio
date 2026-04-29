@@ -1,71 +1,50 @@
-## Sonor Case Study: asset integration
+## Sonor: "Go Further" section + harmonized spacing
 
-Replace external/placeholder content with the user's uploaded assets and embed the Figma prototype for the Hypothesis section.
+### 1. Spacing (already partially done via exec, will be confirmed)
 
-### 1. Copy uploaded assets into the project
+All section vertical padding harmonized to `py-16 md:py-28` (was a mix of `py-20 md:py-40`, `py-20 md:py-48`, `py-20 md:py-32`, `py-24 md:py-48`). Hero bottom margin and inner block margins similarly tightened to `mb-16 md:mb-28` / `mb-12 md:mb-20`. Result: shorter, consistent rhythm with ample whitespace preserved.
 
-Save the four uploads under `src/assets/` so they bundle through Vite:
+### 2. Add "Go Further" section
 
-- `user-uploads://image-9.png` -> `src/assets/sonor-cartographie.png` (Cartographie / map dashboard)
-- `user-uploads://image-10.png` -> `src/assets/sonor-recommandations.png` (Recommandations table)
-- `user-uploads://image-11.png` -> `src/assets/sonor-logo.png` (Sonor wordmark)
-- `user-uploads://image-12.png` -> `src/assets/logo-banque-territoires.png`
-- `user-uploads://image-13.png` -> `src/assets/logo-matrice.png`
+Three new logo assets already copied to `src/assets/`:
+- `logo-nightingale.png`
+- `logo-philosophie.png`
+- `logo-ted.png`
 
-### 2. Update `src/pages/Sonor.tsx`
+In `src/pages/Sonor.tsx`:
 
-Add ES6 imports for the five new assets at the top of the file.
+**Imports** (added after `logoMatrice`):
+```ts
+import logoNightingale from "@/assets/logo-nightingale.png";
+import logoPhilosophie from "@/assets/logo-philosophie.png";
+import logoTed from "@/assets/logo-ted.png";
+```
 
-**Data Synthesis block**
-Replace the external `lh3.googleusercontent.com` `<img src=...>` with `src={sonorCartographie}` and update the `alt` to "Sonor Cartographie dashboard, real-time acoustic mapping".
+**`GO_FURTHER` data array** (alongside `META`, `TIMELINE`, `STATS`, `QUOTES`, `FAQ`):
+- Nightingale, "Noisy Cities: Behind the Scenes with Karim Douïeb", https://nightingaledvs.com/noisy-cities-behind-the-scenes-with-karim-douieb/, CTA "Read"
+- Philosophie Magazine, "Jura: A Forest Under Surveillance", https://www.philomag.com/articles/une-foret-sur-ecoute, CTA "Read"
+- TED, "TEDx: The benefits of the sound of silence", https://www.youtube.com/watch?v=ewNTwBbLUhM, CTA "Watch"
 
-**Citizen Engagement & Urban Quietude block**
-Replace the second external `lh3.googleusercontent.com` `<img>` with `src={sonorRecommandations}` and update `alt` to "Sonor Recommandations interface, prioritized action plans for planners".
-
-**Hypothesis section (Figma prototype)**
-Replace the current placeholder (the play icon + paragraph in the 16:9 box) with a real Figma prototype embed, and add the requested subtitle. Structure:
+**Section markup**, inserted between the FAQ section and the Acknowledgments section:
 
 ```text
-[eyebrow] The Hypothesis
-[h2 italic primary] Our first 2020 prototype
-[16:9 iframe] Figma prototype
-[paragraph, below the frame, muted] By making noise visible and data
-truly actionable... silence.
+<section py-16 md:py-28, bg-surface-container-lowest, border-t outline-variant/20>
+  centered eyebrow "Further Reading"
+  h2 italic primary "Go Further"
+  3-column grid (1 col on mobile), cards:
+    - bg-surface-container-lowest, border outline-variant/30, rounded-2xl, p-8, hover shadow + slight lift
+    - logo: h-12, object-contain, opacity-80, mb-8 (logos stay native color, sit on cream surface)
+    - h3 font-headline italic text-primary text-xl, the title
+    - p text-on-surface-variant leading-relaxed
+    - link with arrow icon (Icon name="open_in_new"): text-primary font-label uppercase tracking-widest text-xs, "Read"/"Watch"
+    - whole card is an <a target="_blank" rel="noopener noreferrer">
 ```
 
-The iframe uses Figma's standard embed wrapper:
+The styling stays in the existing palette (cream/ivory surfaces, primary blue accents, headline italic, label uppercase tracking) so the Awwwards editorial tone is preserved. No new colors introduced. The Acknowledgments section that follows now shares the same `py-16 md:py-28` rhythm.
 
-```
-src = "https://www.figma.com/embed?embed_host=lovable&url="
-    + encodeURIComponent(
-        "https://www.figma.com/proto/OcBu81qdpjpPdjHQPA6oae/"
-        + "Sonor-Site-Mairie?content-scaling=fixed&kind=proto"
-        + "&node-id=25-0&page-id=0%3A1&scaling=scale-down"
-        + "&starting-point-node-id=25%3A0"
-      )
-```
-
-Attributes: `allowFullScreen`, `title="Sonor 2020 prototype"`, `loading="lazy"`, absolutely positioned to fill the 16:9 container. The `Icon` import is removed only if no longer used (it is still used by the Outcome timeline, so keep it).
-
-The supporting paragraph keeps the existing copy ("By making noise visible...") but moves below the prototype as a caption.
-
-**Acknowledgments section**
-Replace the three text spans (`SONOR`, `Banque des Territoires`, `Matrice`) with the actual logos. Each rendered as:
-
-```
-<img src={...} alt="..." className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
-```
-
-Layout stays `flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16`. Logos: Sonor, Banque des Territoires, Matrice, in that order.  
-  
-Allow the user to click on images to view them fullscreen.
-
-### Files edited
-
+### Files to edit
 - `src/pages/Sonor.tsx`
-- `src/assets/` (5 new image files copied in)
 
 ### Out of scope
-
-- No changes to the Hypothesis copy itself, only its placement (caption under the prototype).
-- No changes to other pages, layout, or scroll/PageLight behavior.
+- No changes to other case-study pages (only Sonor was requested).
+- No changes to global CSS, PageLight, or layout.

@@ -9,6 +9,38 @@ import sonorRecommandations from "@/assets/sonor-recommandations.png";
 import sonorLogo from "@/assets/sonor-logo.png";
 import logoBanqueTerritoires from "@/assets/logo-banque-territoires.png";
 import logoMatrice from "@/assets/logo-matrice.png";
+import logoNightingale from "@/assets/logo-nightingale.png";
+import logoPhilosophie from "@/assets/logo-philosophie.png";
+import logoTed from "@/assets/logo-ted.png";
+
+const GO_FURTHER = [
+  {
+    logo: logoNightingale,
+    alt: "Nightingale, Journal of the Data Visualization Society",
+    title: "Noisy Cities: Behind the Scenes with Karim Douïeb",
+    description:
+      "Discover how noise pollution open data maps of Paris, Brussels, and New York were made.",
+    cta: "Read",
+    href: "https://nightingaledvs.com/noisy-cities-behind-the-scenes-with-karim-douieb/",
+  },
+  {
+    logo: logoPhilosophie,
+    alt: "Philosophie Magazine",
+    title: "Jura: A Forest Under Surveillance",
+    description: "Discover how data is used to preserve one of Jura's most important forests.",
+    cta: "Read",
+    href: "https://www.philomag.com/articles/une-foret-sur-ecoute",
+  },
+  {
+    logo: logoTed,
+    alt: "TED",
+    title: "TEDx: The benefits of the sound of silence",
+    description:
+      "TEDx by Mathias Basner telling the dangers of noise pollution and the benefits of silence.",
+    cta: "Watch",
+    href: "https://www.youtube.com/watch?v=ewNTwBbLUhM",
+  },
+];
 
 const FIGMA_PROTOTYPE_URL =
   "https://www.figma.com/embed?embed_host=lovable&url=" +
