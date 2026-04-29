@@ -74,7 +74,10 @@ const FAQ = [
   },
 ];
 
-const Sonor = () => (
+const Sonor = () => {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+
+  return (
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
     <main className="pt-32">
       {/* Hero */}
