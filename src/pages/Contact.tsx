@@ -43,12 +43,10 @@ const Contact = () => (
         </span>
         <h1 className="font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic relative z-10">
           Shall <br />
-          we begin?
+          we meet again?
         </h1>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light relative z-10">
-          Let's discuss how these digital systems can create real business value and meaningful human experiences for
-          your operations or users. Choose the channel that suits you best, every conversation begins with attentive
-          listening.
+          Let's discuss how to create business value and meaningful human experiences for your operations or users.
         </p>
       </section>
 
