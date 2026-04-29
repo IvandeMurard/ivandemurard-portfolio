@@ -1,50 +1,123 @@
-## What's actually happening
+## Why the current wash feels invisible
 
-Looking at your screenshot against the code, three different things are conflated:
+The crossfade is wired correctly, but it's competing with itself: the cream `--surface` underneath is so warm that the gold `::after` layer adds almost no perceptual change at the bottom, and the blue `::before` only registers near the very top of the hero. The result reads as "white/blue throughout", not as a journey.
 
-1. **The "blue page tinting" you saw before** was the `.page-light::after` blue overlay at the top of the page. We flipped its formula so it now fades on scroll, but the **base layer underneath is mostly cream with a faint gold radial at the bottom**. So the page reads as "cream throughout" rather than "blue afternoon → gold dusk". The journey is too subtle to feel.
+You also like the hero balance as-is. So instead of pushing the scroll wash harder (which would break the hero), let's reframe the whole idea:
 
-2. **The Thank-you card was repainted gold** in the last pass. That's wrong, you want the card to stay cool/blue and *contrast* with the warm dusk background. The big gold blob in your screenshot is actually the **gold halo on that section**, 720px tall, escaping below the section because the section has no `overflow-hidden`. That blob is also what you're reading as "footer space not deleted", the footer itself is correctly tightened to `py-10`, but the halo bleeds past it into the cream area beneath.
+> **The page has two states: Day and Dusk. Scroll nudges the ambience subtly. A manual analog toggle commits to the full evening mood.**
 
-3. **PageLight updates are throttled to ~10fps** (50ms minInterval), which makes the wash feel steppy rather than tied to scroll. For a "light changing naturally" feel it should update every frame.
+This matches your hospitality reference (In Common With) where lights don't blast on, they warm.
 
-## Fix, four edits
+## The model
 
-### 1. `src/index.css`, real blue → gold light wash
+Three layers of light, in increasing intensity:
 
-Restructure `.page-light` so both lights live in the same fixed layer and crossfade with `--page-light-progress`:
+1. **Theme state** (Day | Dusk), set by the toggle, persisted in `localStorage`. Drives the base palette via a `data-mood` attribute on `<html>`.
+2. **Scroll ambience**, the existing `--page-light-progress`, but scoped to a much narrower, more felt range. In Day mode it warms the page slightly toward late afternoon as you descend. In Dusk mode it deepens further into evening.
+3. **Accent halos** on hero and Thank-you stay where they are.
 
-- **Base layer**, the static surface color stays.
-- **Blue afternoon layer** (`::before`), large radial anchored at the top, opacity `calc(0.55 * (1 - var(--page-light-progress)))`. Uses `--primary-fixed` Picasso blue. Stronger than the current 0.35 cap so it actually reads as afternoon light.
-- **Gold dusk layer** (`::after`), large radial anchored at the bottom, opacity `calc(0.55 * var(--page-light-progress))`. Uses `--secondary-fixed`. Stronger and warmer than today's faint 0.28 base.
+### Day mode (current default, refined)
 
-At scroll 0 the page reads cool blue, at scroll 1 it reads warm gold dusk, and every position in between is a smooth crossfade. Both layers stay full-viewport, fixed, GPU-composited.
+- Surface stays cream.
+- Hero keeps its current Picasso-blue ambience (you like it).
+- As you scroll, a warm amber/honey wash fades in at the bottom, reaching ~40% by the Thank-you card. Soft, not gold-blob.
 
-### 2. `src/components/PageLight.tsx`, smooth updates
+### Dusk mode (the new toggle target)
 
-Drop the 50ms throttle. Use a single `requestAnimationFrame` with a "pending" guard, so progress updates every paint frame while scrolling. This is still cheap, we only set one CSS variable per frame, no layout, no paint, only compositor.
+- Surface shifts to a deeper warm tone: think candlelit room, not dark mode. Background goes from cream `42 41% 97%` to a warm taupe `35 18% 14%`.
+- Text inverts to warm cream `38 30% 92%`.
+- Picasso-blue accents stay (they read beautifully on warm dark, like a Hopper night scene), but desaturate slightly.
+- Gold accents intensify, halos glow warmer, like sconces coming on.
+- Scroll ambience in Dusk: top is cooler indigo evening, bottom is full amber lamplight.
 
-### 3. `src/pages/Index.tsx`, Thank-you card stays cool
+### The transition between modes
 
-Revert the Thank-you card to its **blue palette** so it sits beautifully on the gold dusk background:
-- Gradient: `from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low`
-- Ring: `ring-primary-fixed-dim/40`
-- Hover overlay: `bg-primary-fixed-dim/30`
+This is where it earns its keep:
 
-**Remove the halo entirely** from this section, no `gold-halo`, no `blue-halo`. The page background already provides the warm dusk light, the card should be a clean cool object on it. This also kills the gold blob bleeding under the footer in your screenshot.
+- Toggle Day → Dusk: a **2.4s ease** crossfade on every color token. The page literally dims like a hotel lobby at sunset. No jarring flip.
+- All token transitions use the same `cubic-bezier(0.22, 1, 0.36, 1)` curve we use for reveals, so it feels like one continuous breath.
+- Halos brighten on a small delay (300ms) so lamps "come on" after the room darkens, the In Common With moment.
 
-### 4. Verify the footer space
+## The analog toggle
 
-Footer is already `py-10` with no `mt-24`, so the markup is correct. The trailing space in your screenshot is the halo bleed, not real space. Once the halo is removed in step 3, the footer will sit flush against the Thank-you section with just its own `py-10` breathing room.
+Placed in the header, right side, before the utility icons. Replaces nothing, sits as a quiet ritual element.
+
+Visual:
+- A slim brass-toned **knob** (about 44 x 24px) inside a recessed track.
+- Track has subtle inset shadow, like a brushed metal channel.
+- Knob is a small cream-to-gold circle with a faint highlight, casts a soft drop shadow on the track.
+- On the left of the track: a tiny sun glyph (lucide `Sun`). On the right: a tiny moon-with-warmth glyph (lucide `Moon`). Both fade in/out by 30% based on state, never fully hidden.
+- Knob slides with a slight overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`), 600ms, so it feels weighted, not snappy. Like a real switch with a spring.
+- On hover: knob lifts 1px, shadow deepens.
+- On click: a tiny "click" haptic-feel via a 80ms inner-shadow flash on the track. No sound.
+- Respects `prefers-reduced-motion`: instant swap, no overshoot.
+
+Accessibility:
+- `role="switch"`, `aria-checked`, `aria-label="Toggle ambience"`.
+- Keyboard: Space/Enter toggles. Visible focus ring in `--secondary`.
+
+Persistence:
+- First visit: respects `prefers-color-scheme`. If user has dark, default to Dusk. Otherwise Day.
+- Once user toggles, `localStorage["mood"]` wins forever.
+
+## Implementation plan
+
+### 1. New theme tokens, `src/index.css`
+
+Keep `:root` (Day) as today. Add a `[data-mood="dusk"]` block that overrides:
+
+- `--surface` and surface-container scale to warm dark taupes (not pure black, kept warm).
+- `--on-surface` to warm cream.
+- `--primary-fixed` slightly desaturated, still the Picasso blue family.
+- `--secondary-fixed` pushed warmer and brighter, this is the lamplight.
+- `--outline-variant` to a low-contrast warm gray.
+
+Add a global transition on `html` for `background-color, color`, 2400ms with the slow-out curve. Add the same transition on `.page-light::before/::after` opacities.
+
+### 2. Theme provider, `src/components/MoodProvider.tsx` (new)
+
+Tiny React context:
+- Reads `localStorage["mood"]`, falls back to `prefers-color-scheme`.
+- Sets `document.documentElement.dataset.mood = "day" | "dusk"`.
+- Exposes `{ mood, setMood, toggle }`.
+- Wraps in `App.tsx` around the router.
+
+### 3. The toggle, `src/components/MoodToggle.tsx` (new)
+
+Pure CSS + Tailwind, no extra deps. Custom-built (not Radix Switch) because we need the analog character: brass knob, recessed track, sun/moon glyphs, overshoot motion. Respects reduced-motion.
+
+Mounted in `AtriumHeader` between the center nav and the utility icons.
+
+### 4. Refine `.page-light`, `src/index.css`
+
+Two adjustments:
+- **Strengthen the gold layer** in Day mode so the journey actually reads. Bump `::after` peak opacity from 0.55 to 0.7, and warm its color toward honey (`38 80% 75%`) instead of pure secondary-fixed. Keep blue as-is.
+- **Different gradients per mood**: under `[data-mood="dusk"]` the `::before` becomes deep indigo evening, `::after` becomes amber lamplight. Same `--page-light-progress` variable drives both.
+
+### 5. Reduced-motion
+
+Already handled globally for animations. Add an explicit override so the 2.4s mood crossfade collapses to 0ms when `prefers-reduced-motion: reduce`.
+
+## What you'll feel
+
+- **Day, scrolling down**: hero stays cool and balanced (unchanged). By mid-page the cream warms, by the Thank-you card the room glows late-afternoon honey. Subtle, never theatrical.
+- **Tap the toggle**: knob slides with weight, the room dims over ~2.5s. Walls go warm taupe, lamps (halos) come on a beat later. Picasso-blue accents now sit on warm dark like night-window light.
+- **Dusk, scrolling**: top is indigo evening, bottom is full lamplight amber.
+- **Tap again**: morning returns just as slowly.
+
+## Files to create
+
+- `src/components/MoodProvider.tsx`
+- `src/components/MoodToggle.tsx`
 
 ## Files to edit
 
-- `src/index.css`, restructure `.page-light` with `::before` (blue, top, fades out) and `::after` (gold, bottom, fades in), both keyed to `--page-light-progress`.
-- `src/components/PageLight.tsx`, remove the 50ms throttle, update every animation frame.
-- `src/pages/Index.tsx`, restore blue palette on the Thank-you card, remove the halo div from that section.
+- `src/index.css`, add `[data-mood="dusk"]` token overrides, slow `html` color transition, mood-aware `.page-light` gradients, stronger Day gold layer.
+- `src/App.tsx`, wrap routes in `MoodProvider`.
+- `src/components/layout/AtriumHeader.tsx`, mount `MoodToggle` between center nav and utility icons (and in mobile overlay).
 
-No changes to `Footer.tsx` (already correct), no schema, no new dependencies.
+No new dependencies, no schema, no routing changes.
 
-## What you'll see after
+## Open question
 
-Scrolling down the homepage: the light slides from a soft Picasso-blue afternoon at the hero, through a balanced midday crossfade around the case studies, into a warm cream + gold dusk by the time you reach the Thank-you card, which now stands as a cool blue bookend on that golden light. Reverse smoothly on scroll up. No halo blob, footer tight.
+One small choice for you, do you want the toggle visible on every page including case studies, or only on the homepage? My recommendation: every page, it's part of the site's identity, like a hotel that adjusts its lights regardless of which room you're in.

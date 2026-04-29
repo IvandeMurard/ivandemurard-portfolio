@@ -13,15 +13,17 @@ import Contact from "./pages/Contact.tsx";
 import Journal from "./pages/Journal.tsx";
 import JournalEntry from "./pages/JournalEntry.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import { MoodProvider } from "./components/MoodProvider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+    <MoodProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/journeys" element={<Journeys />} />
