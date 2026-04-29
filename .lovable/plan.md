@@ -1,71 +1,113 @@
 ## Intent
 
-Six small, surgical changes. No structural rewrites.
+Seven targeted edits. No new components, no new routes.
 
 ---
 
-## 1. Hero (`src/pages/Index.tsx`)
+## 1. Navigation, "Stories" → "Case Studies"
 
-- Replace `Welcome.` with `Welcome,` (period becomes comma, italic preserved).
-- Subtitle: replace the opening words `A digital practice where` with `I build`. Full new line:
-  > "I build AI-powered systems that quietly deliver measurable business impact by reducing operational costs, eliminating waste, sharing intelligence, while keeping the human at the center."
-- Remove the "Descend" indicator (the bottom block with the vertical hairline and `Descend` label).
-- Make the gold halo slightly more present and alive:
-  - In `src/index.css`, push opacity in `.gold-halo` (0.55 → 0.7 inner, 0.25 → 0.35 mid) and reduce blur (60px → 50px) so it reads as light, not haze.
-  - Strengthen the pulse: keyframes go `0.7 → 1.0` opacity, scale `1 → 1.06`, cycle shortened from 7s to 5s for a more "alive" breath.
+`src/content/site.ts`, in `PRIMARY_NAV`, rename the first item label from `Stories` to `Case Studies`. The route `/journeys` stays unchanged so no link breaks.
 
-## 2. Navigation underline (`src/components/layout/AtriumHeader.tsx`)
+## 2. Hero, circular centered halo
 
-Add a thin elegant divider under the nav bar. On the `<nav>` element, append `border-b border-outline-variant/20` so a hairline sits below the bar without breaking the existing translucent glass treatment.
+`src/pages/Index.tsx`, the halo div currently uses `w-[900px] h-[700px]` (oval). Make it a true circle: `w-[720px] h-[720px] max-w-[110vw] max-h-[110vw]`, kept centered with the existing `left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`. Aspect stays 1:1 at every breakpoint, so it reads as a luminous disc behind the headline.
 
-## 3. Case Studies, new Tacet image
+## 3. Signature line, business value + human interactions
 
-- Copy `user-uploads://image-4.png` to `src/assets/case-tacet.jpg`, overwriting the current asset (the import in `src/content/site.ts` stays the same, so it propagates everywhere automatically).
+`src/pages/Index.tsx`, replace the signature quote with a line that braids the two threads, no em-dashes:
 
-## 4. Restore "What I do" as a complement to "How I work" (`src/pages/Index.tsx`)
+> *"I read environments from the inside, then turn what I see into products that create real business value while keeping human interactions at the center."*
 
-Keep `How I work` (sequential method, 01/02/03) as is. Add a second, distinct section above or below it titled **"What I do"** with the three cards from the screenshot:
+## 4. Funnel: rename "What I do" → "Why I care", widen the gap with "How I work"
 
-1. *Product Strategy 0→1* — From insight to shipped product, bridging digital interfaces and physical operations.
-2. *Agentic AI Systems* — Architectures and real-time agents that anticipate needs, reduce waste, and free teams to focus on what matters : human interactions.
-3. *Human-centered Craft* — Designing holistic user journeys and services with the right balance between technology and human interactions.
+Rename the upper section to **Why I care** (belief layer), keep **How I work** as the method layer. The two now read as funnel: *belief → method*.
 
-Each card uses a Lucide icon (Compass, Cpu, HeartHandshake — same icon set already imported), italic headline, no numerals (numerals stay reserved for `How I work` to keep the two sections visually distinct).
+`src/pages/Index.tsx` updates to `CAPABILITIES`:
 
-Section subcopy under the heading: *"A practice at the intersection of product, AI, and operations and human interaction."*
+- Section heading: *"Why I care"*
+- Section subcopy: *"Three convictions that shape every product I build."*
+- Card 1, Compass, *"Real business value"* — "Reducing operational costs, freeing capacity, sharpening decisions. Every product I ship has to move a number that matters to the business."
+- Card 2, HeartHandshake, *"Human interactions first"* — "Technology should give time back to people, not pull them deeper into screens. The best automation is the one that lets a host be more present."
+- Card 3, Cpu, *"Full-stack 0→1 craft"* — "From insight to shipped product, bridging digital interfaces and physical operations, so the experience holds together end to end."
 
-Order on the page:
+For **How I work**, keep section heading and subcopy, but rewrite pillar 03 so agentic AI is one tool among many:
+
+- 03 title: *"Right tool for the problem"*
+- 03 body: "Sometimes a workflow, sometimes a checklist, sometimes an agentic system. I pick the lightest mechanism that solves the job, with the human always in the loop."
+- Keep the `Cpu` icon, or swap to `Wrench` if available (Lucide has `Wrench`); using `Cpu` is fine to avoid a new import.
+
+Also lighten **How I work** subcopy so the funnel is clearer:
+- New subcopy: *"And how those convictions translate into a working method."*
+
+## 5. Milestones, lift above the fold and expand to 8
+
+`src/pages/Index.tsx`:
+
+- **Move** the `Milestones` section out of its current position and place it directly after the Hero, before the Signature line. New page order:
 
 ```text
-Hero → Signature line → Case Studies → What I do (capabilities) → How I work (method) → Milestones → Thank you
+Hero
+  ↓
+Milestones (proof bar)
+  ↓
+Signature line (quiet breath)
+  ↓
+Case Studies
+  ↓
+Why I care (belief)
+  ↓
+How I work (method)
+  ↓
+Thank you
 ```
 
-This way "What I do" reads as **capabilities** (full-stack 0→1, human-centered) and "How I work" reads as **method** (read the ground → product decisions → agentic ecosystems). They complement, they don't repeat.
+- **Expand** `MILESTONES` to 8 entries, displayed as a `grid-cols-2 md:grid-cols-4` with two rows on desktop. New full list:
 
-## 5. Milestones, add a section title (`src/pages/Index.tsx`)
+  1. `5 yrs` — Product Management experience
+  2. `10+` — Products launched (DomusVi, Bouygues Telecom, Opendatasoft, …)
+  3. `2 yrs` — Co-founder & Product Lead, Sonor
+  4. `3` — Shipped products: Sonor, Aetherix, Tacet
+  5. `MCP` — Agentic architecture (Aetherix)
+  6. `Field` — Hotel & F&B design partners
+  7. `2` — Hackathons won
+  8. `Paris` — Based
 
-Add a heading block above the four-column row, matching the typographic style of the other section headings:
+- Add subtle row separation: keep `md:divide-x divide-outline-variant/20` on each row, and a faint `border-t border-outline-variant/15` between the two rows on desktop (`md:[&>div:nth-child(n+5)]:border-t md:[&>div:nth-child(n+5)]:pt-12`) so the second row breathes.
 
-- Heading: *"Milestones"* (font-headline italic, 4xl/5xl, text-primary)
-- Subcopy: "A few markers along the way."
+## 6. Thank-you section, stronger blue presence
 
-Same left-aligned `max-w-2xl` block used by the other sections, with consistent bottom margin before the row.
+`src/pages/Index.tsx`, the Thank-you block currently uses `from-primary-fixed/50 via-surface-container-low to-primary-fixed-dim/30` which renders nearly cream. Deepen it:
+
+- Outer gradient: `bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low`.
+- Hover overlay: `bg-primary-fixed-dim/40` (was `/25`).
+- Add a soft inner ring: `ring-1 ring-primary-fixed-dim/40`.
+- Underline links go from `border-primary/30` to `border-primary/50` so the blue thread is consistent.
+
+Result: the panel reads clearly as a Picasso-blue washed card on the cream background, instead of disappearing into it.
+
+## 7. Memory
+
+Save two project memories:
+
+- `mem://design/punctuation` — *No em-dashes anywhere. Use commas, colons, parentheses.*
+- `mem://design/positioning` — *Hospitality is felt, never named. Headline themes: business value, human interactions, full-stack 0→1 craft. Agentic AI is one tool among others, not the identity.*
+
+Update `mem://index.md` Core with: *No em-dashes. Hospitality felt not named. Agentic is a tool, not the identity.*
 
 ---
 
 ## Files touched
 
-- `src/pages/Index.tsx` — hero copy + remove Descend + add "What I do" section + Milestones title
-- `src/index.css` — halo opacity, blur, pulse keyframes
-- `src/components/layout/AtriumHeader.tsx` — bottom hairline border on `<nav>`
-- `src/assets/case-tacet.jpg` — overwritten with new uploaded Paris street image
+- `src/content/site.ts` — nav label rename
+- `src/pages/Index.tsx` — halo shape, signature copy, sections rename + reorder + new copy, Milestones expansion + relocation, Thank-you palette
+- `mem://index.md`, `mem://design/punctuation`, `mem://design/positioning` — persistent rules
 
-No new components, no new routes, no new dependencies.
+No CSS token changes, no new dependencies.
 
 ---
 
 ## Out of scope
 
-- No changes to typography, color tokens, or component library.
-- No edits to Field Notes, case study pages, About, or Contact.
-- No re-architecture of the homepage beyond inserting the "What I do" section and the Milestones title.
+- No edits to Field Notes, case study pages, About, Contact, Footer.
+- No changes to halo opacity or pulse timing (kept from previous round).
+- No changes to typography or color tokens.
