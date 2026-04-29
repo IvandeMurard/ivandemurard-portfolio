@@ -278,10 +278,11 @@
     pointer-events: none;
     background-color: hsl(var(--surface));
     transform: translateZ(0);
+    transition: background-color 2400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   /*
-    Cool Picasso-blue afternoon, anchored at the top of the viewport.
-    Strongest at scroll 0, fades out as the user descends.
+    Top-anchored layer: cool Picasso-blue afternoon in Day mode,
+    deeper indigo evening in Dusk mode. Strongest at scroll 0.
   */
   .page-light::before {
     content: "";
@@ -296,24 +297,46 @@
     opacity: calc(1 - var(--page-light-progress, 0));
     will-change: opacity;
     transform: translateZ(0);
+    transition: background 2400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   /*
-    Warm cream + gold dusk, anchored at the bottom of the viewport.
-    Absent at scroll 0, fully present at the page's bottom.
+    Bottom-anchored layer: honey/amber dusk in Day mode,
+    full lamplight amber in Dusk mode. Fades in as the user descends.
   */
   .page-light::after {
     content: "";
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      ellipse 110% 75% at 50% 100%,
-      hsl(var(--secondary-fixed) / 0.55) 0%,
-      hsl(var(--secondary-fixed-dim) / 0.30) 40%,
-      transparent 80%
+      ellipse 120% 80% at 50% 100%,
+      hsl(38 80% 72% / 0.70) 0%,
+      hsl(38 70% 65% / 0.45) 35%,
+      hsl(var(--secondary-fixed-dim) / 0.20) 60%,
+      transparent 85%
     );
     opacity: var(--page-light-progress, 0);
     will-change: opacity;
     transform: translateZ(0);
+    transition: background 2400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Dusk mode reshapes both layers into evening light. */
+  [data-mood="dusk"] .page-light::before {
+    background: radial-gradient(
+      ellipse 110% 75% at 50% 0%,
+      hsl(225 45% 22% / 0.85) 0%,
+      hsl(220 40% 16% / 0.55) 40%,
+      transparent 80%
+    );
+  }
+  [data-mood="dusk"] .page-light::after {
+    background: radial-gradient(
+      ellipse 130% 85% at 50% 100%,
+      hsl(32 75% 45% / 0.55) 0%,
+      hsl(28 65% 35% / 0.35) 40%,
+      hsl(28 50% 22% / 0.18) 65%,
+      transparent 88%
+    );
   }
 
   /*
