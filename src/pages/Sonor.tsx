@@ -81,7 +81,7 @@ const Sonor = () => {
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
     <main className="pt-32">
       {/* Hero */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-40">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
           <div className="lg:col-span-7">
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
@@ -118,7 +118,7 @@ const Sonor = () => {
       </section>
 
       {/* The Curiosity */}
-      <section className="py-20 md:py-40 bg-surface-container-low">
+      <section className="py-16 md:py-28 bg-surface-container-low">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12 md:gap-20">
             <div className="w-full md:w-1/3">
@@ -149,7 +149,7 @@ const Sonor = () => {
       </section>
 
       {/* The Hypothesis (Figma prototype) */}
-      <section className="py-20 md:py-40 bg-surface">
+      <section className="py-16 md:py-28 bg-surface">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
             The Hypothesis
@@ -176,9 +176,9 @@ const Sonor = () => {
       </section>
 
       {/* Product interfaces */}
-      <section className="py-20 md:py-48 overflow-hidden">
+      <section className="py-16 md:py-28 overflow-hidden">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center mb-24 md:mb-40">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center mb-16 md:mb-28">
             <div className="order-2 lg:order-1">
               <div className="relative bg-surface-container rounded-lg p-4 shadow-xl">
               <button
@@ -241,7 +241,7 @@ const Sonor = () => {
       </section>
 
       {/* Outcome, midnight */}
-      <section className="bg-primary text-on-primary py-20 md:py-40">
+      <section className="bg-primary text-on-primary py-16 md:py-28">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="space-y-12">
@@ -295,7 +295,7 @@ const Sonor = () => {
       </section>
 
       {/* Explore the platform */}
-      <section className="py-20 md:py-40 bg-surface-container-low">
+      <section className="py-16 md:py-28 bg-surface-container-low">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Explore the Platform</h2>
@@ -324,9 +324,9 @@ const Sonor = () => {
       </section>
 
       {/* Stakeholders */}
-      <section className="py-20 md:py-40 bg-surface">
+      <section className="py-16 md:py-28 bg-surface">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 md:mb-24">
+          <div className="text-center mb-12 md:mb-20">
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">What Stakeholders Said</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
@@ -348,7 +348,7 @@ const Sonor = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 md:py-32 bg-surface-container-low border-t border-outline-variant/20">
+      <section className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant/20">
         <div className="px-6 md:px-12 max-w-3xl mx-auto space-y-12 md:space-y-16">
           <h2 className="text-3xl md:text-4xl font-headline italic text-primary text-center">
             Frequently Asked Questions
@@ -368,10 +368,10 @@ const Sonor = () => {
       </section>
 
       {/* Acknowledgments */}
-      <section className="py-24 md:py-48 bg-surface-container-lowest border-t border-outline-variant/10">
+      <section className="py-16 md:py-28 bg-surface-container-lowest border-t border-outline-variant/10">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">Acknowledgments</h2>
-          <p className="text-xl md:text-2xl font-headline text-on-surface-variant leading-relaxed mb-16 md:mb-24 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl font-headline text-on-surface-variant leading-relaxed mb-12 md:mb-20 max-w-3xl mx-auto">
             This project would not have been possible without the support of Banque des Territoires and Matrice
             association, and the collaboration of my three co-founders: Émilie, Majda and Benjamin.
           </p>
