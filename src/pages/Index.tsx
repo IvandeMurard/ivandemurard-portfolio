@@ -69,19 +69,15 @@ const Index = () => (
   <SiteLayout title="The Atrium">
     {/* Hero */}
     <header className="relative min-h-screen flex items-center justify-center pt-24 px-6 md:px-8 overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-primary-fixed-dim rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-secondary-fixed-dim rounded-full blur-[100px]" />
-      </div>
       <div className="relative z-10 max-w-5xl w-full text-center">
         <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10">
           Ivan de Murard
         </span>
         <div className="relative">
-          {/* Animated gold halo, perfect circle centered behind the headline */}
+          {/* Animated gold halo, perfect circle concentrated behind the headline + subtitle */}
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] max-w-[110vw] max-h-[110vw] aspect-square rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] max-w-[95vw] max-h-[95vw] aspect-square rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
           />
           <h1 className="relative z-10 font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text">
             Welcome,

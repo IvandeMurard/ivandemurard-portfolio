@@ -12,23 +12,35 @@ import { useEffect } from "react";
 export const PageLight = () => {
   useEffect(() => {
     let raf = 0;
+    let lastRun = 0;
     let pending = false;
+    // Throttle to ~10 fps. The wash is slow, the eye does not need 60 updates per second.
+    const MIN_INTERVAL = 100;
 
-    const update = () => {
+    const apply = () => {
       pending = false;
+      lastRun = performance.now();
       const doc = document.documentElement;
       const max = Math.max(1, doc.scrollHeight - window.innerHeight);
       const p = Math.min(1, Math.max(0, window.scrollY / max));
-      doc.style.setProperty("--page-light-progress", p.toFixed(4));
+      doc.style.setProperty("--page-light-progress", p.toFixed(3));
     };
 
     const onScroll = () => {
       if (pending) return;
+      const now = performance.now();
+      const wait = Math.max(0, MIN_INTERVAL - (now - lastRun));
       pending = true;
-      raf = requestAnimationFrame(update);
+      if (wait === 0) {
+        raf = requestAnimationFrame(apply);
+      } else {
+        window.setTimeout(() => {
+          raf = requestAnimationFrame(apply);
+        }, wait);
+      }
     };
 
-    update();
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
