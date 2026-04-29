@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
 import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
+import { MoodToggle } from "@/components/MoodToggle";
 
 const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail },
@@ -56,6 +57,8 @@ export const AtriumHeader = () => {
 
           {/* Right utility links */}
           <div className="hidden md:flex items-center space-x-5 lg:space-x-6">
+            <MoodToggle />
+            <span className="hidden lg:inline-block h-4 w-px bg-outline-variant/40" aria-hidden="true" />
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon }) => (
               <a
                 key={label}
@@ -71,16 +74,19 @@ export const AtriumHeader = () => {
             ))}
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            className="md:hidden text-primary hover:opacity-80 transition-opacity duration-500 active:scale-95"
-          >
-            <Icon name={open ? "close" : "menu"} />
-          </button>
+          {/* Mobile right cluster: toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-3">
+            <MoodToggle size="sm" />
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={open}
+              className="text-primary hover:opacity-80 transition-opacity duration-500 active:scale-95"
+            >
+              <Icon name={open ? "close" : "menu"} />
+            </button>
+          </div>
         </div>
       </nav>
 
