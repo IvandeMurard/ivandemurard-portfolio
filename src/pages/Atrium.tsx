@@ -279,7 +279,7 @@ const Atrium = () => (
               href={SOCIAL_LINKS.schedule}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-primary text-on-primary px-10 py-5 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all duration-500 ambient-shadow inline-flex items-center gap-3 group"
+              className="bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-10 py-5 rounded-xl font-medium tracking-wide [transition:background-color_500ms_ease,color_500ms_ease,box-shadow_500ms_ease] ambient-shadow inline-flex items-center gap-3 group"
             >
               Book a call
               <Icon
@@ -289,7 +289,7 @@ const Atrium = () => (
             </a>
             <a
               href={SOCIAL_LINKS.email}
-              className="border border-primary/40 text-primary px-10 py-5 rounded-xl font-medium tracking-wide hover:border-primary hover:bg-primary/5 transition-all duration-500 inline-flex items-center gap-3"
+              className="border border-primary/40 text-primary hover:bg-primary hover:text-on-primary hover:border-primary px-10 py-5 rounded-xl font-medium tracking-wide [transition:background-color_500ms_ease,color_500ms_ease,border-color_500ms_ease] inline-flex items-center gap-3"
             >
               <Icon name="mail" className="text-sm" />
               Email
