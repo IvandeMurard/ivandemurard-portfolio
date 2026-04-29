@@ -217,12 +217,23 @@ const Sonor = () => {
             </div>
             <div>
               <div className="relative bg-surface-container rounded-lg p-4 shadow-xl">
-                <img
-                  src="https://lh3.googleusercontent.com/aida/ADBb0uizONYHMWB38LdSfX2-YV2-l8QwqcEy7p52FvGB44y7XBnaFJ8cV31Uqe4W_ykns5xuUvYaPpG16QO84mycjqYuf4Bw95YrxmeWXS1q5dAh5ZqSodMsfr6Q_VVySKcBeQUZSrI3Y8C9jgkg_gM524ydgII5HJQklgv7p7RPdmYyTfgI5eaFSMTwVnUZAX7oNoMmeZrZlyD0GMYSeYe4bTUxJP2wOc6sgpEBnZvWfWXGtyo07mxy_NZ_v7FJIDzbzmj72v4-ttahe4E"
-                  alt="Quiet Intelligence dashboard interface"
-                  loading="lazy"
-                  className="w-full h-auto rounded border border-outline-variant/20 shadow-sm"
-                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLightbox({
+                      src: sonorRecommandations,
+                      alt: "Sonor Recommandations interface, prioritized action plans for planners",
+                    })
+                  }
+                  className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                >
+                  <img
+                    src={sonorRecommandations}
+                    alt="Sonor Recommandations interface, prioritized action plans for planners"
+                    loading="lazy"
+                    className="w-full h-auto rounded border border-outline-variant/20 shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
+                  />
+                </button>
               </div>
             </div>
           </div>
