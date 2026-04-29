@@ -22,7 +22,7 @@ export const SiteLayout = ({ children, title }: SiteLayoutProps) => {
   }, [title]);
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-surface text-on-surface overflow-x-hidden">
+    <div className="relative min-h-screen flex flex-col bg-surface text-on-surface">
       <PageLight />
       <AtriumHeader />
       <main className="flex-1">{children}</main>
