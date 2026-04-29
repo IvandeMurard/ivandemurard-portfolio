@@ -94,7 +94,76 @@
     --sidebar-border: var(--outline-variant);
     --sidebar-ring: var(--primary);
   }
+
+  /*
+    Dusk mood: candlelit room, not dark mode.
+    Warm taupe surfaces, warm cream text, lamplight gold, indigo evening blues.
+    Triggered by [data-mood="dusk"] on <html> via MoodProvider.
+  */
+  [data-mood="dusk"] {
+    --surface: 32 14% 11%;                    /* warm taupe room */
+    --surface-bright: 32 14% 14%;
+    --surface-dim: 32 14% 8%;
+    --surface-container-lowest: 32 14% 9%;
+    --surface-container-low: 32 14% 12%;
+    --surface-container: 32 13% 14%;
+    --surface-container-high: 32 13% 17%;
+    --surface-container-highest: 32 12% 20%;
+    --surface-variant: 32 12% 20%;
+
+    --primary: 217 71% 82%;                   /* invert: blue becomes the light source */
+    --primary-container: 215 56% 28%;
+    --primary-fixed: 217 60% 78%;
+    --primary-fixed-dim: 217 45% 60%;
+    --on-primary: 215 100% 11%;
+    --on-primary-container: 217 71% 88%;
+
+    --secondary: 39 80% 70%;                  /* lamplight */
+    --secondary-fixed: 39 95% 76%;
+    --secondary-fixed-dim: 38 70% 58%;
+    --on-secondary: 38 42% 14%;
+    --on-secondary-container: 39 90% 84%;
+
+    --tertiary: 50 30% 88%;
+    --tertiary-container: 45 11% 22%;
+    --on-tertiary: 50 17% 9%;
+    --on-tertiary-container: 47 25% 78%;
+    --on-tertiary-fixed-variant: 49 18% 70%;
+
+    --on-surface: 38 30% 92%;                 /* warm cream text */
+    --on-surface-variant: 38 14% 70%;
+    --background: 32 14% 11%;
+    --on-background: 38 30% 92%;
+
+    --outline: 38 8% 45%;
+    --outline-variant: 38 10% 25%;
+
+    --inverse-surface: 38 30% 92%;
+    --inverse-on-surface: 32 14% 14%;
+    --inverse-primary: 215 100% 11%;
+  }
 }
+
+@layer base {
+  /*
+    Slow ambience crossfade between Day and Dusk, like a hotel lobby
+    dimming at sunset. Applies to the surfaces and text that carry the mood.
+  */
+  html, body {
+    transition:
+      background-color 2400ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 2400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Most colored chrome should also breathe across the transition. */
+  nav, header, footer, main, section, article, aside,
+  .glass-nav, [class*="bg-surface"], [class*="text-on-surface"],
+  [class*="border-outline"], [class*="bg-primary"], [class*="text-primary"],
+  [class*="bg-secondary"], [class*="text-secondary"] {
+    transition:
+      background-color 2400ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 2400ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 2400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
 
 @layer base {
   * {
