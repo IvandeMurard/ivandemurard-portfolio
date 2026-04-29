@@ -12,7 +12,7 @@ export const Footer = () => (
   <footer className="w-full py-16 mt-24 bg-surface-container-low border-t border-outline-variant/10">
     <div className="flex flex-col md:flex-row justify-between items-center px-6 md:px-12 gap-8 w-full max-w-screen-2xl mx-auto">
       <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-        © {new Date().getFullYear()} Ivan de Murard — Curated with Care
+        © {new Date().getFullYear()} Ivan de Murard · Curated with Care
       </p>
       <div className="flex items-center gap-8">
         {ICON_LINKS.map(({ label, href, Icon, external }) => (

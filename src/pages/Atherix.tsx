@@ -89,7 +89,7 @@ const FAQ = [
 ];
 
 const Atherix = () => (
-  <SiteLayout title="Aetherix — Boutique Hotel Operations AI">
+  <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
     <main className="pt-32">
       {/* Hero */}
       <header className="px-6 md:px-12 mb-20 md:mb-24">
@@ -383,7 +383,7 @@ const Atherix = () => (
           <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-12">The Horizon</h2>
           <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-4xl mx-auto leading-relaxed flex flex-col gap-6">
             <p>
-              Aetherix's ultimate vision is to become the core intelligence layer in a fully agentic operations mesh —
+              Aetherix's ultimate vision is to become the core intelligence layer in a fully agentic operations mesh,
               where specialized agents detect opportunities in real time, orchestrate complex workflows, and continuously
               optimize experiences, all while humans remain firmly in the loop for strategic direction.
             </p>

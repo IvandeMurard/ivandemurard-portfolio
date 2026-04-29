@@ -6,7 +6,7 @@ const PRINCIPLES = [
   {
     icon: "architecture",
     title: "Holistic Product Building",
-    body: "I approach every project with a complete 0→1 vision — connecting digital interfaces with physical operations, online experiences with offline realities, front-end to back-end.",
+    body: "I approach every project with a complete 0→1 vision, connecting digital interfaces with physical operations, online experiences with offline realities, front-end to back-end.",
   },
   {
     icon: "favorite",
@@ -83,8 +83,8 @@ const Atrium = () => (
             <h2 className="font-headline text-4xl md:text-6xl text-primary mb-10 italic">The Curiosity</h2>
             <div className="space-y-8 font-body text-lg text-on-surface-variant leading-relaxed">
               <p>
-                Curiosity is a discipline. It has been the compass throughout my journey — from mechanical engineering
-                and co-founding Sonor, an open-data SaaS platform that helps cities protect acoustic health, to
+                Curiosity is a discipline. It has been the compass throughout my journey, from mechanical engineering
+                and co-founding Sonor (an open-data SaaS platform that helps cities protect acoustic health) to
                 designing Atherix, an agentic AI framework for boutique hotel operations. It guides me through complex
                 systems toward purposeful, human-centered product building.
               </p>
@@ -109,7 +109,7 @@ const Atrium = () => (
         </div>
       </section>
 
-      {/* The Principles I Build With — midnight */}
+      {/* The Principles I Build With, midnight */}
       <section className="relative py-32 md:py-56 overflow-hidden">
         <div className="absolute inset-0 bg-primary z-0">
           <div className="absolute inset-0 turner-gradient-warm opacity-20" />

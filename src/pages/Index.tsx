@@ -6,27 +6,30 @@ import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 
 const PILLARS = [
   {
+    n: "01",
     Icon: Compass,
-    title: "Product Strategy 0→1",
-    body: "From insight to shipped product, bridging digital interfaces and physical operations.",
+    title: "Reading the ground",
+    body: "Field-level fluency in operations (boutique hotels, F&B, design partners, open-data ecosystems). I learn an environment before I design for it.",
   },
   {
+    n: "02",
     Icon: Cpu,
-    title: "Agentic AI Systems",
-    body: "Real-time agents that anticipate needs, reduce waste, and free teams to focus on what matters.",
+    title: "From insight to product decisions",
+    body: "I turn that reading into shipped products. Aetherix is the proof: a real operating layer for boutique hotels, not a slideware concept.",
   },
   {
+    n: "03",
     Icon: HeartHandshake,
-    title: "Human-centered Craft",
-    body: "Interfaces and operations designed to feel calm, attentive, and quietly precise.",
+    title: "Agentic ecosystems, not isolated features",
+    body: "I design in systems (MCP architecture, Prophet/Claude separation, an Agent Hub) with a clear place for the human in every loop.",
   },
 ];
 
 const MILESTONES = [
   { value: "2 yrs", label: "Co-founder & Product Lead, Sonor" },
   { value: "3", label: "Shipped products: Sonor, Aetherix, Tacet" },
-  { value: "0→1", label: "From concept to live" },
-  { value: "Open data", label: "Public datasets, public impact" },
+  { value: "MCP", label: "Agentic architecture (Aetherix)" },
+  { value: "Field", label: "Hotel & F&B design partners" },
 ];
 
 const Index = () => (
@@ -54,8 +57,8 @@ const Index = () => (
           </h1>
         </div>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light">
-          A digital practice where AI-powered systems quietly deliver measurable business impact — reducing operational
-          costs, eliminating waste, unlocking new value — while keeping the human at the center.
+          A digital practice where AI-powered systems quietly deliver measurable business impact by reducing
+          operational costs, eliminating waste, sharing intelligence, while keeping the human at the center.
         </p>
         <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8">
           <Link
@@ -79,12 +82,12 @@ const Index = () => (
       </div>
     </header>
 
-    {/* Signature line — a quiet breath */}
+    {/* Signature line, a quiet breath */}
     <section className="py-24 md:py-32 px-6 md:px-8">
       <div className="max-w-4xl mx-auto text-center">
         <div className="w-px h-16 bg-primary/20 mx-auto mb-12" />
         <p className="font-headline italic text-2xl md:text-4xl text-primary leading-snug">
-          Designing systems that take care of the details, so people can take care of what matters.
+          I read environments from the inside, then translate what I see into products that hold together as systems.
         </p>
         <div className="w-px h-16 bg-primary/20 mx-auto mt-12" />
       </div>
@@ -137,20 +140,22 @@ const Index = () => (
       </div>
     </section>
 
-    {/* What I do — three pillars */}
+    {/* How I work, three pillars */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
-        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">What I do</h2>
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">How I work</h2>
         <p className="text-on-surface-variant font-light leading-relaxed">
-          A practice at the intersection of product, AI, and operations.
+          A practice at the intersection of product, AI, and operations: PM training, experience-design instinct,
+          agentic-systems thinking.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-        {PILLARS.map(({ Icon: PillarIcon, title, body }) => (
+        {PILLARS.map(({ n, Icon: PillarIcon, title, body }) => (
           <div
             key={title}
             className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
           >
+            <span className="font-headline italic text-secondary text-sm tracking-[0.2em] block mb-6">{n}</span>
             <PillarIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
             <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>

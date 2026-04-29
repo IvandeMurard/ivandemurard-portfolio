@@ -30,7 +30,7 @@ const FAQ = [
 ];
 
 const Tacet = () => (
-  <SiteLayout title="Tacet — The Architecture of Silence">
+  <SiteLayout title="Tacet: The Architecture of Silence">
     <main className="pt-32">
       {/* Hero */}
       <section className="relative min-h-[80vh] md:min-h-[800px] flex flex-col justify-center px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 overflow-hidden">
@@ -155,7 +155,7 @@ const Tacet = () => (
         </div>
       </section>
 
-      {/* Chromatic Silence — midnight */}
+      {/* Chromatic Silence, midnight */}
       <section className="bg-primary py-32 md:py-48 text-on-primary relative overflow-hidden mb-32 md:mb-48">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-0 right-0 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-primary-container rounded-full blur-[160px] -translate-y-1/2 translate-x-1/2" />
@@ -226,7 +226,7 @@ const Tacet = () => (
           </h2>
           <p className="text-lg text-on-surface-variant leading-relaxed">
             Tacet aide les Parisiens à évaluer leur quartier, choisir des rues calmes pour se déplacer ou habiter, et
-            reprendre le contrôle sur leur exposition quotidienne au bruit — avec des données officielles et une
+            reprendre le contrôle sur leur exposition quotidienne au bruit, avec des données officielles et une
             interface pensée pour le mobile.
           </p>
         </div>
