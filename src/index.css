@@ -375,6 +375,18 @@
   50%      { opacity: 1;    transform: translateZ(0) scale(1.03); }
 }
 
+/* Preview mode: page rendered inside the CaseHoverPreview iframe. */
+[data-preview="1"] header,
+[data-preview="1"] footer {
+  display: none !important;
+}
+[data-preview="1"] {
+  scroll-behavior: auto !important;
+}
+[data-preview="1"] body {
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
