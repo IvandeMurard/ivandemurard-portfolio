@@ -1,113 +1,105 @@
-## Intent
+# Milestone fix + page-wide light progression
 
-Seven targeted edits. No new components, no new routes.
+## 1. Milestone copy fix
+
+In `src/pages/Index.tsx`, replace milestone #4:
+
+- before: `{ value: "3", label: "Shipped products: Sonor, Aetherix, Tacet" }`
+- after: `{ value: "4", label: "Sizes of companies explored (entrepreneur, start-up, scale-up, large group)" }`
+
+Keep the 2x4 grid intact.
 
 ---
 
-## 1. Navigation, "Stories" → "Case Studies"
+## 2. The "light progression" idea, refined
 
-`src/content/site.ts`, in `PRIMARY_NAV`, rename the first item label from `Stories` to `Case Studies`. The route `/journeys` stays unchanged so no link breaks.
+Going **cream/gold → Picasso blue** as the user scrolls is the right instinct. It mirrors the editorial arc of the page (welcome → proof → conviction → invitation), and both colors already live in the palette (`--surface`, `--secondary-fixed`, `--primary`, `--primary-fixed-dim`). No new hue needed, the site already has its own answer.
 
-## 2. Hero, circular centered halo
+A few refinements for the high-end feel:
 
-`src/pages/Index.tsx`, the halo div currently uses `w-[900px] h-[700px]` (oval). Make it a true circle: `w-[720px] h-[720px] max-w-[110vw] max-h-[110vw]`, kept centered with the existing `left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`. Aspect stays 1:1 at every breakpoint, so it reads as a luminous disc behind the headline.
+- **Three stops, not two.** A pure cream→blue ramp risks feeling like a slider. Stage it as three breaths so it reads as light moving through a room, not a hue dial:
+  ```text
+  Hero / Milestones        warm cream + gold halo, current state
+  Signature / Case Studies cream cooling, faint blue undertone rising
+  Why I care / How I work  blue-tinted cream, gold receding
+  Thank you                deepest blue wash, current panel as climax
+  ```
+- **Stay desaturated.** Saturation never exceeds what the Thank-you card already shows. The page should feel like late-afternoon light shifting toward dusk, not a color picker.
+- **Tint the surface, not the text.** Body text and primary blue stay constant. Only the page background and ambient glows shift. This keeps legibility editorial and avoids the "marketing site" vibe.
+- **Reverse on scroll up,** identical curve. The state is purely a function of scroll position, so up and down feel symmetrical.
 
-## 3. Signature line, business value + human interactions
+This is more pertinent than introducing a third color (sage, terracotta, etc.). The site's identity is built on the cream↔Picasso-blue dialogue with gold as the warm note. Adding a fourth hue would dilute that.
 
-`src/pages/Index.tsx`, replace the signature quote with a line that braids the two threads, no em-dashes:
+---
 
-> *"I read environments from the inside, then turn what I see into products that create real business value while keeping human interactions at the center."*
+## 3. How to animate the page, discreet and high-end
 
-## 4. Funnel: rename "What I do" → "Why I care", widen the gap with "How I work"
+Four layers, each tuned for restraint:
 
-Rename the upper section to **Why I care** (belief layer), keep **How I work** as the method layer. The two now read as funnel: *belief → method*.
+### a. Scroll-linked background tint (the "light")
 
-`src/pages/Index.tsx` updates to `CAPABILITIES`:
+A single fixed gradient layer behind the whole page, driven by `scrollYProgress`. Implementation: a `<div>` mounted once in `SiteLayout`, `position: fixed; inset: 0; z-index: -1; pointer-events: none;`, with its `background` interpolated between three stops as scroll progresses 0 → 1.
 
-- Section heading: *"Why I care"*
-- Section subcopy: *"Three convictions that shape every product I build."*
-- Card 1, Compass, *"Real business value"* — "Reducing operational costs, freeing capacity, sharpening decisions. Every product I ship has to move a number that matters to the business."
-- Card 2, HeartHandshake, *"Human interactions first"* — "Technology should give time back to people, not pull them deeper into screens. The best automation is the one that lets a host be more present."
-- Card 3, Cpu, *"Full-stack 0→1 craft"* — "From insight to shipped product, bridging digital interfaces and physical operations, so the experience holds together end to end."
+- 0%   `hsl(var(--surface))` (cream)
+- 55%  blend of cream and `hsl(var(--primary-fixed) / 0.35)` (cooling)
+- 100% `hsl(var(--primary-fixed-dim) / 0.55)` over cream base (dusk blue wash)
 
-For **How I work**, keep section heading and subcopy, but rewrite pillar 03 so agentic AI is one tool among many:
+Use a single `requestAnimationFrame` loop, clamp updates to ~60fps, and only write a CSS variable (`--page-light`). The gradient itself reads from that variable. No layout thrash.
 
-- 03 title: *"Right tool for the problem"*
-- 03 body: "Sometimes a workflow, sometimes a checklist, sometimes an agentic system. I pick the lightest mechanism that solves the job, with the human always in the loop."
-- Keep the `Cpu` icon, or swap to `Wrench` if available (Lucide has `Wrench`); using `Cpu` is fine to avoid a new import.
+Transitions on the variable use a long `ease-out` so micro-scrolls don't flicker.
 
-Also lighten **How I work** subcopy so the funnel is clearer:
-- New subcopy: *"And how those convictions translate into a working method."*
+### b. Halo color drift
 
-## 5. Milestones, lift above the fold and expand to 8
+The hero gold halo fades in opacity and warmth as the page scrolls past it (already partially out of view), and a faint **blue halo** equivalent (using `--primary-fixed-dim`) appears behind the Thank-you section, mirroring the gold one. Same blur, same breathing animation, same restraint. This bookends the page: gold welcome, blue farewell.
 
-`src/pages/Index.tsx`:
+### c. Section reveal, the only "motion" the user notices
 
-- **Move** the `Milestones` section out of its current position and place it directly after the Hero, before the Signature line. New page order:
+Each section (Milestones, Signature, Case Studies, Why I care, How I work, Thank you) fades + lifts on enter:
 
-```text
-Hero
-  ↓
-Milestones (proof bar)
-  ↓
-Signature line (quiet breath)
-  ↓
-Case Studies
-  ↓
-Why I care (belief)
-  ↓
-How I work (method)
-  ↓
-Thank you
-```
+- `opacity: 0 → 1`
+- `transform: translateY(16px) → translateY(0)`
+- duration `900ms`, easing `cubic-bezier(0.22, 1, 0.36, 1)` (slow start, soft land)
+- `IntersectionObserver`, `threshold: 0.15`, fires once per section
+- staggered children inside grids: 80ms delay between cards in Why I care, How I work, Case Studies
 
-- **Expand** `MILESTONES` to 8 entries, displayed as a `grid-cols-2 md:grid-cols-4` with two rows on desktop. New full list:
+Implementation as a tiny `useReveal` hook (10 lines) plus a `data-reveal` attribute, no library. Avoids Framer Motion bloat for a static site.
 
-  1. `5 yrs` — Product Management experience
-  2. `10+` — Products launched (DomusVi, Bouygues Telecom, Opendatasoft, …)
-  3. `2 yrs` — Co-founder & Product Lead, Sonor
-  4. `3` — Shipped products: Sonor, Aetherix, Tacet
-  5. `MCP` — Agentic architecture (Aetherix)
-  6. `Field` — Hotel & F&B design partners
-  7. `2` — Hackathons won
-  8. `Paris` — Based
+### d. Micro-details that sell the elegance
 
-- Add subtle row separation: keep `md:divide-x divide-outline-variant/20` on each row, and a faint `border-t border-outline-variant/15` between the two rows on desktop (`md:[&>div:nth-child(n+5)]:border-t md:[&>div:nth-child(n+5)]:pt-12`) so the second row breathes.
+- Headline italic words get a 600ms fade + 4px lift on first paint (hero only).
+- Milestone numbers count up from 0 to their value over 1.2s on first reveal (`5 yrs`, `10+`, `4`, `2`, plus the textual ones stay static). Single `requestAnimationFrame` tween, no library.
+- Case Study images: existing `group-hover:scale-105` stays, but ease lengthened to `duration-1000` (already there). Add a 300ms opacity fade on the image when it first reveals.
+- Underline links in Thank you grow from `scaleX(0)` to `scaleX(1)` on hover, left origin. (Tailwind `story-link` utility already documented in animations context.)
 
-## 6. Thank-you section, stronger blue presence
+Everything respects `prefers-reduced-motion: reduce`, which the CSS already enforces globally.
 
-`src/pages/Index.tsx`, the Thank-you block currently uses `from-primary-fixed/50 via-surface-container-low to-primary-fixed-dim/30` which renders nearly cream. Deepen it:
+---
 
-- Outer gradient: `bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low`.
-- Hover overlay: `bg-primary-fixed-dim/40` (was `/25`).
-- Add a soft inner ring: `ring-1 ring-primary-fixed-dim/40`.
-- Underline links go from `border-primary/30` to `border-primary/50` so the blue thread is consistent.
+## Why this stays high-end
 
-Result: the panel reads clearly as a Picasso-blue washed card on the cream background, instead of disappearing into it.
-
-## 7. Memory
-
-Save two project memories:
-
-- `mem://design/punctuation` — *No em-dashes anywhere. Use commas, colons, parentheses.*
-- `mem://design/positioning` — *Hospitality is felt, never named. Headline themes: business value, human interactions, full-stack 0→1 craft. Agentic AI is one tool among others, not the identity.*
-
-Update `mem://index.md` Core with: *No em-dashes. Hospitality felt not named. Agentic is a tool, not the identity.*
+- One idea per layer, no compounding effects.
+- No parallax, no horizontal scroll, no scroll-jacking, no scrub-locked video.
+- All easing curves are slow-out, like a door closing.
+- Color shift is sub-perceptual at any single moment, only obvious if you compare top vs bottom.
+- Numbers count up once, never loop. No gimmicks.
 
 ---
 
 ## Files touched
 
-- `src/content/site.ts` — nav label rename
-- `src/pages/Index.tsx` — halo shape, signature copy, sections rename + reorder + new copy, Milestones expansion + relocation, Thank-you palette
-- `mem://index.md`, `mem://design/punctuation`, `mem://design/positioning` — persistent rules
+- `src/pages/Index.tsx`, milestone copy + `data-reveal` attributes + count-up on numerals
+- `src/components/layout/SiteLayout.tsx`, mount the fixed `<PageLight />` background layer
+- `src/components/PageLight.tsx`, **new**, scroll listener + CSS variable writer + gradient div
+- `src/hooks/useReveal.ts`, **new**, IntersectionObserver hook
+- `src/index.css`, `[data-reveal]` base + revealed state, `--page-light` variable, blue halo class
 
-No CSS token changes, no new dependencies.
+No new dependencies. No token changes. Memories already cover the punctuation and positioning rules, no updates needed.
 
 ---
 
 ## Out of scope
 
-- No edits to Field Notes, case study pages, About, Contact, Footer.
-- No changes to halo opacity or pulse timing (kept from previous round).
-- No changes to typography or color tokens.
+- No animation on Case Study, About, Contact pages (yet). This round is the home page only, to validate the language.
+- No changes to typography, palette tokens, or layout.
+- No Framer Motion, GSAP, Lenis, or smooth-scroll libraries. Native scroll only.
+

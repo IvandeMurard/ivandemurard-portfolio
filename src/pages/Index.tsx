@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Compass, Cpu, HeartHandshake } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/Reveal";
+import { CountUp } from "@/components/CountUp";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 
 const PILLARS = [
@@ -43,15 +45,24 @@ const CONVICTIONS = [
   },
 ];
 
-const MILESTONES = [
-  { value: "5 yrs", label: "Product Management experience" },
-  { value: "10+", label: "Products launched (DomusVi, Bouygues Telecom, Opendatasoft, …)" },
-  { value: "2 yrs", label: "Co-founder & Product Lead, Sonor" },
-  { value: "3", label: "Shipped products: Sonor, Aetherix, Tacet" },
-  { value: "MCP", label: "Agentic architecture (Aetherix)" },
-  { value: "Field", label: "Hotel & F&B design partners" },
-  { value: "2", label: "Hackathons won" },
-  { value: "Paris", label: "Based" },
+// Numeric milestones get a count-up. Textual ones (MCP, Field, Paris) stay static.
+type Milestone =
+  | { kind: "count"; value: number; suffix?: string; label: string }
+  | { kind: "text"; value: string; label: string };
+
+const MILESTONES: Milestone[] = [
+  { kind: "count", value: 5, suffix: " yrs", label: "Product Management experience" },
+  { kind: "count", value: 10, suffix: "+", label: "Products launched (DomusVi, Bouygues Telecom, Opendatasoft, …)" },
+  { kind: "count", value: 2, suffix: " yrs", label: "Co-founder & Product Lead, Sonor" },
+  {
+    kind: "count",
+    value: 4,
+    label: "Sizes of companies explored (entrepreneur, start-up, scale-up, large group)",
+  },
+  { kind: "text", value: "MCP", label: "Agentic architecture (Aetherix)" },
+  { kind: "text", value: "Field", label: "Hotel & F&B design partners" },
+  { kind: "count", value: 2, label: "Hackathons won" },
+  { kind: "text", value: "Paris", label: "Based" },
 ];
 
 const Index = () => (
@@ -101,7 +112,7 @@ const Index = () => (
     </header>
 
     {/* Milestones, proof bar right after the hero */}
-    <section className="py-24 md:py-28 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <Reveal as="section" className="py-24 md:py-28 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Milestones</h2>
         <p className="text-on-surface-variant font-light leading-relaxed">
@@ -111,23 +122,31 @@ const Index = () => (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:divide-x md:divide-outline-variant/20">
         {MILESTONES.map((m, i) => (
           <div
-            key={m.label}
+            key={`${m.value}-${m.label}`}
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
             className={[
               "px-2 md:px-8 text-center",
               i >= 4 ? "md:border-t md:border-outline-variant/15 md:pt-12" : "",
             ].join(" ")}
           >
-            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-4">{m.value}</p>
+            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-4">
+              {m.kind === "count" ? (
+                <CountUp value={m.value} suffix={m.suffix ?? ""} />
+              ) : (
+                m.value
+              )}
+            </p>
             <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
               {m.label}
             </p>
           </div>
         ))}
       </div>
-    </section>
+    </Reveal>
 
     {/* Signature line, a quiet breath */}
-    <section className="py-24 md:py-32 px-6 md:px-8">
+    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8">
       <div className="max-w-4xl mx-auto text-center">
         <div className="w-px h-16 bg-primary/20 mx-auto mb-12" />
         <p className="font-headline italic text-2xl md:text-4xl text-primary leading-snug">
@@ -135,10 +154,10 @@ const Index = () => (
         </p>
         <div className="w-px h-16 bg-primary/20 mx-auto mt-12" />
       </div>
-    </section>
+    </Reveal>
 
     {/* Case Studies */}
-    <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
         <div className="max-w-xl">
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Case Studies</h2>
@@ -155,8 +174,14 @@ const Index = () => (
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {Object.values(PROJECTS).map((p) => (
-          <Link key={p.slug} to={`/${p.slug}`} className="group block">
+        {Object.values(PROJECTS).map((p, i) => (
+          <Link
+            key={p.slug}
+            to={`/${p.slug}`}
+            className="group block"
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}
+          >
             <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
               <img
                 src={p.image}
@@ -182,10 +207,10 @@ const Index = () => (
           </Link>
         ))}
       </div>
-    </section>
+    </Reveal>
 
     {/* Why I care, convictions */}
-    <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Why I care</h2>
         <p className="text-on-surface-variant font-light leading-relaxed">
@@ -193,9 +218,11 @@ const Index = () => (
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-        {CONVICTIONS.map(({ Icon: ConvIcon, title, body }) => (
+        {CONVICTIONS.map(({ Icon: ConvIcon, title, body }, i) => (
           <div
             key={title}
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}
             className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
           >
             <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
@@ -204,10 +231,10 @@ const Index = () => (
           </div>
         ))}
       </div>
-    </section>
+    </Reveal>
 
     {/* How I work, three pillars */}
-    <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">How I work</h2>
         <p className="text-on-surface-variant font-light leading-relaxed">
@@ -215,9 +242,11 @@ const Index = () => (
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-        {PILLARS.map(({ n, Icon: PillarIcon, title, body }) => (
+        {PILLARS.map(({ n, Icon: PillarIcon, title, body }, i) => (
           <div
             key={title}
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}
             className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
           >
             <span className="font-headline italic text-secondary text-sm tracking-[0.2em] block mb-6">{n}</span>
@@ -227,11 +256,15 @@ const Index = () => (
           </div>
         ))}
       </div>
-    </section>
+    </Reveal>
 
-    {/* Thank you for your visit */}
-    <section className="py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
-      <div className="bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-lg relative overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
+    {/* Thank you for your visit, with a soft blue halo bookend */}
+    <Reveal as="section" className="relative py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] max-w-[110vw] max-h-[110vw] aspect-square rounded-full blue-halo blue-halo-pulse pointer-events-none z-0"
+      />
+      <div className="relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-lg overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
         <div className="absolute inset-0 bg-primary-fixed-dim/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
           Thank you for your visit
@@ -273,7 +306,7 @@ const Index = () => (
           </a>
         </div>
       </div>
-    </section>
+    </Reveal>
   </SiteLayout>
 );
 

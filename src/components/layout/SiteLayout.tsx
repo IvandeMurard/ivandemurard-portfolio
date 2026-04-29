@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { AtriumHeader } from "./AtriumHeader";
 import { Footer } from "./Footer";
+import { PageLight } from "@/components/PageLight";
 
 interface SiteLayoutProps {
   children: React.ReactNode;
@@ -21,7 +22,8 @@ export const SiteLayout = ({ children, title }: SiteLayoutProps) => {
   }, [title]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-surface text-on-surface overflow-x-hidden">
+    <div className="relative min-h-screen flex flex-col bg-surface text-on-surface overflow-x-hidden">
+      <PageLight />
       <AtriumHeader />
       <main className="flex-1">{children}</main>
       <Footer />
