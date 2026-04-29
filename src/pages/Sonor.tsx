@@ -62,7 +62,7 @@ const FAQ = [
 ];
 
 const Sonor = () => (
-  <SiteLayout title="Sonor — The Quiet Art of Urban Intelligence">
+  <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
     <main className="pt-32">
       {/* Hero */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-40">
@@ -121,8 +121,8 @@ const Sonor = () => (
                     to dangerous nighttime noise levels.
                   </p>
                   <p className="text-on-surface-variant leading-relaxed">
-                    It generates multiple deep disorders — chronic stress, cardiovascular diseases, cognitive impacts in
-                    children — and carries a heavy social cost (48 000 deaths/year in Europe). Yet noise remains largely
+                    It generates multiple deep disorders (chronic stress, cardiovascular diseases, cognitive impacts in
+                    children) and carries a heavy social cost (48 000 deaths/year in Europe). Yet noise remains largely
                     invisible and under-addressed by public policies.
                   </p>
                 </div>
@@ -146,8 +146,8 @@ const Sonor = () => (
                   className="text-6xl text-primary/40 group-hover:scale-110 transition-transform duration-500"
                 />
                 <p className="font-headline italic text-primary/60">
-                  By making noise visible and data truly actionable — through real-time multi-source mapping,
-                  prioritized action plans, citizen engagement, and impact measurement — we could equip municipalities
+                  By making noise visible and data truly actionable (through real-time multi-source mapping,
+                  prioritized action plans, citizen engagement, and impact measurement), we could equip municipalities
                   and urban planners with the tools to anticipate, act, and protect the most fragile resource of a city:
                   silence.
                 </p>
@@ -185,7 +185,7 @@ const Sonor = () => (
               <h3 className="text-4xl font-headline italic text-primary">Citizen Engagement & Urban Quietude</h3>
               <p className="text-on-surface-variant leading-relaxed text-lg">
                 The platform puts residents at the center: citizens can report local issues and share testimonies
-                directly. Planners receive prioritized action plans and can measure real impact over time — turning data
+                directly. Planners receive prioritized action plans and can measure real impact over time, turning data
                 into concrete public policies that protect acoustic health.
               </p>
             </div>
@@ -203,7 +203,7 @@ const Sonor = () => (
         </div>
       </section>
 
-      {/* Outcome — midnight */}
+      {/* Outcome, midnight */}
       <section className="bg-primary text-on-primary py-20 md:py-40">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
@@ -240,7 +240,7 @@ const Sonor = () => (
                   attractiveness.
                 </p>
                 <p>
-                  Beyond the data points, the project proved that a quieter city isn't just a quieter city — it is a
+                  Beyond the data points, the project proved that a quieter city isn't just a quieter city, it is a
                   more humane, human-centric sanctuary for everyone who calls it home.
                 </p>
               </div>

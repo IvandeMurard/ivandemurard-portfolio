@@ -16,8 +16,8 @@ export const SiteLayout = ({ children, title }: SiteLayoutProps) => {
   }, [pathname]);
 
   useEffect(() => {
-    if (title) document.title = `${title} — Ivan de Murard`;
-    else document.title = "Ivan de Murard — Product Builder";
+    if (title) document.title = `${title} · Ivan de Murard`;
+    else document.title = "Ivan de Murard, Product Builder";
   }, [title]);
 
   return (

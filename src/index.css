@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 /*
-  Ivan de Murard — Product Builder
+  Ivan de Murard, Product Builder
   Design tokens lifted from the Stitch prototypes.
   All colors are HSL.
 */
 
 @layer base {
   :root {
-    /* Surfaces — warm creams */
+    /* Surfaces: warm creams */
     --surface: 42 41% 97%;                    /* #fbf9f4 */
     --surface-bright: 42 41% 97%;
     --surface-dim: 45 7% 85%;                 /* #dbdad5 */
@@ -21,7 +21,7 @@
     --surface-container-highest: 43 11% 88%;  /* #e4e2dd */
     --surface-variant: 43 11% 88%;            /* #e4e2dd */
 
-    /* Primary — Picasso Blue Era */
+    /* Primary: Picasso Blue Era */
     --primary: 215 100% 11%;                  /* #001b3a */
     --primary-container: 215 56% 20%;         /* #163052 */
     --primary-fixed: 217 100% 92%;            /* #d5e3ff */
@@ -29,7 +29,7 @@
     --on-primary: 0 0% 100%;
     --on-primary-container: 215 36% 63%;      /* #8199c0 */
 
-    /* Secondary — tarnished gold */
+    /* Secondary: tarnished gold */
     --secondary: 38 42% 31%;                  /* #715b2e */
     --secondary-fixed: 39 96% 82%;            /* #fddfa6 */
     --secondary-fixed-dim: 39 56% 71%;        /* #dfc38d */
