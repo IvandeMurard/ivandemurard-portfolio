@@ -154,6 +154,28 @@ const Index = () => (
       </div>
     </section>
 
+    {/* What I do, capabilities */}
+    <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-16 md:mb-20">
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">What I do</h2>
+        <p className="text-on-surface-variant font-light leading-relaxed">
+          A practice at the intersection of product, AI, operations, and human interaction.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        {CAPABILITIES.map(({ Icon: CapIcon, title, body }) => (
+          <div
+            key={title}
+            className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+          >
+            <CapIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
+            <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
+            <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     {/* How I work, three pillars */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
