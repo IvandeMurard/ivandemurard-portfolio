@@ -226,6 +226,14 @@
     text-shadow: 0 10px 30px hsl(var(--primary) / 0.05);
   }
 
+  /* Hero second line: keep the warm/cool duo readable in both moods.
+     Day mode inherits the existing on-primary-container (muted blue against navy).
+     Dusk mode shifts to a deeper ink blue against the bright pale-blue first line. */
+  [data-mood="dusk"] .hero-line-2 {
+    color: hsl(217 55% 55%);
+    text-shadow: 0 1px 0 hsl(var(--surface) / 0.4);
+  }
+
   .ambient-shadow {
     box-shadow: 0 20px 40px hsl(var(--primary) / 0.1);
   }
