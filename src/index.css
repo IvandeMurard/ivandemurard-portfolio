@@ -160,22 +160,22 @@
   .gold-halo {
     background: radial-gradient(
       circle,
-      hsl(var(--secondary-fixed) / 0.55) 0%,
-      hsl(var(--secondary-fixed) / 0.25) 35%,
+      hsl(var(--secondary-fixed) / 0.7) 0%,
+      hsl(var(--secondary-fixed) / 0.35) 35%,
       hsl(var(--surface) / 0) 70%
     );
-    filter: blur(60px);
+    filter: blur(50px);
   }
 
   .gold-halo-pulse {
-    animation: gold-halo-breathe 7s ease-in-out infinite;
+    animation: gold-halo-breathe 5s ease-in-out infinite;
     will-change: opacity, transform;
   }
 }
 
 @keyframes gold-halo-breathe {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50%      { opacity: 0.85; transform: scale(1.04); }
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.06); }
 }
 
 @media (prefers-reduced-motion: reduce) {

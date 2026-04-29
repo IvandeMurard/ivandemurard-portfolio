@@ -25,6 +25,24 @@ const PILLARS = [
   },
 ];
 
+const CAPABILITIES = [
+  {
+    Icon: Compass,
+    title: "Product Strategy 0→1",
+    body: "From insight to shipped product, bridging digital interfaces and physical operations.",
+  },
+  {
+    Icon: Cpu,
+    title: "Agentic AI Systems",
+    body: "Architectures and real-time agents that anticipate needs, reduce waste, and free teams to focus on what matters: human interactions.",
+  },
+  {
+    Icon: HeartHandshake,
+    title: "Human-centered Craft",
+    body: "Designing holistic user journeys and services with the right balance between technology and human interactions.",
+  },
+];
+
 const MILESTONES = [
   { value: "2 yrs", label: "Co-founder & Product Lead, Sonor" },
   { value: "3", label: "Shipped products: Sonor, Aetherix, Tacet" },
@@ -51,13 +69,13 @@ const Index = () => (
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[700px] max-w-[110vw] rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
           />
           <h1 className="relative z-10 font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text">
-            Welcome.
+            Welcome,
             <br />
             <span className="text-on-primary-container opacity-90">It's great to see you!</span>
           </h1>
         </div>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light">
-          A digital practice where AI-powered systems quietly deliver measurable business impact by reducing
+          I build AI-powered systems that quietly deliver measurable business impact by reducing
           operational costs, eliminating waste, sharing intelligence, while keeping the human at the center.
         </p>
         <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8">
@@ -75,10 +93,6 @@ const Index = () => (
             <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
-      </div>
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40">
-        <span className="font-label text-[10px] uppercase tracking-widest">Descend</span>
-        <div className="w-[1px] h-16 bg-gradient-to-b from-primary to-transparent" />
       </div>
     </header>
 
@@ -140,6 +154,28 @@ const Index = () => (
       </div>
     </section>
 
+    {/* What I do, capabilities */}
+    <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-16 md:mb-20">
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">What I do</h2>
+        <p className="text-on-surface-variant font-light leading-relaxed">
+          A practice at the intersection of product, AI, operations, and human interaction.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        {CAPABILITIES.map(({ Icon: CapIcon, title, body }) => (
+          <div
+            key={title}
+            className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+          >
+            <CapIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
+            <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
+            <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     {/* How I work, three pillars */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
@@ -166,6 +202,12 @@ const Index = () => (
 
     {/* Selected milestones */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-16 md:mb-20">
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Milestones</h2>
+        <p className="text-on-surface-variant font-light leading-relaxed">
+          A few markers along the way.
+        </p>
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-0 md:divide-x md:divide-outline-variant/20">
         {MILESTONES.map((m) => (
           <div key={m.label} className="px-2 md:px-8 text-center">
