@@ -202,6 +202,12 @@ const Index = () => (
 
     {/* Selected milestones */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-16 md:mb-20">
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Milestones</h2>
+        <p className="text-on-surface-variant font-light leading-relaxed">
+          A few markers along the way.
+        </p>
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-0 md:divide-x md:divide-outline-variant/20">
         {MILESTONES.map((m) => (
           <div key={m.label} className="px-2 md:px-8 text-center">
