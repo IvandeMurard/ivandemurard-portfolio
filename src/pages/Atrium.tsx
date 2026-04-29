@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
-import { PortraitPlaceholder } from "@/components/PortraitPlaceholder";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
+import portraitIvan from "@/assets/portrait-ivan.jpg";
+import portraitIvanOrigin from "@/assets/portrait-ivan-origin.jpg";
 
 const PRINCIPLES = [
   {
@@ -66,8 +67,20 @@ const Atrium = () => (
               projects. I build from operational reality, with the human kept at the centre.
             </p>
           </div>
-          <div className="lg:col-span-4 h-[340px] lg:h-[440px]">
-            <PortraitPlaceholder variant="hero" className="w-full h-full" />
+          <div className="lg:col-span-4 h-[340px] lg:h-[440px] relative">
+            <div
+              aria-hidden="true"
+              className="absolute -inset-6 gold-halo opacity-50 pointer-events-none"
+            />
+            <div className="relative h-full w-full overflow-hidden ring-1 ring-secondary-fixed-dim/30">
+              <img
+                src={portraitIvan}
+                alt="Ivan de Murard, Product Builder"
+                className="h-full w-full object-cover"
+                loading="eager"
+              />
+              <div className="absolute inset-3 border border-secondary-fixed-dim/30 pointer-events-none" />
+            </div>
           </div>
         </div>
       </section>
@@ -104,12 +117,14 @@ const Atrium = () => (
             </div>
           </div>
           <div className="md:col-span-5 relative">
-            <div className="aspect-[4/5] relative">
-              <PortraitPlaceholder
-                variant="inline"
-                className="w-full h-full"
-                caption="Studio, coming soon"
+            <div className="aspect-[4/5] relative overflow-hidden ring-1 ring-secondary-fixed-dim/30">
+              <img
+                src={portraitIvanOrigin}
+                alt="Ivan at his desk, notebook open"
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
               />
+              <div className="absolute inset-3 border border-secondary-fixed-dim/30 pointer-events-none" />
             </div>
           </div>
         </div>
