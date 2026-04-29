@@ -1,30 +1,41 @@
-# Ambience: bind soundtrack to day/dusk, with separate mute
+## Problem
 
-## Decision
-- The mood toggle (day/dusk) controls **both** the light and the soundtrack.
-  - Day → smooth Brazilian downtempo (Bala Desejo, Castello Branco, Caetano Veloso, Ignacio Maria Gomez register).
-  - Dusk → uptempo UK new-jazz / soul (Ezra Collective, Kokoroko, Thee Sacred Souls register).
-- A **separate small control** (tonearm-style icon, near the mood toggle) lets visitors mute/unmute without changing the light.
-- Audio is **off by default**. First play requires an explicit user gesture (browser autoplay policy, and respectful default for a CV-like site).
-- Mute state and last-known volume are persisted in `localStorage`.
-- Crossfade (~800ms) when switching between day and dusk tracks.
-- Respects `prefers-reduced-motion` only for visual animation of the tonearm; not for audio.
+The turntable SVG is fiddly at small sizes, sits awkwardly next to the day/dusk toggle, and the active state (tonearm + spinning ellipse) doesn't read cleanly. Silentsongs solves the same problem with a tiny, restrained glass button: a single icon that swaps between "muted" and "playing" states, no decorative hardware.
 
-## Header label
-- Removed "Ambience" text label next to the mood toggle to gain breathing room. The toggle stands alone.
+## Direction
 
-## Music sourcing (next decision, not built yet)
-Three viable paths, in order of recommendation for a professional site:
-1. **Licensed library** (Musicbed, Artlist, Epidemic Sound) — pick 1 day track + 1 dusk track in the requested registers. Safe, clearable, sounds like the real thing.
-2. **Bespoke ElevenLabs Music** generations tuned to those registers. Original, no licensing risk, slight quality variance.
-3. Commission a short loop from a musician on Fiverr/SoundBetter in those registers. Original, fully owned.
+Replace the turntable illustration with a small, square-ish glass pill that matches the day/dusk toggle's footprint and visual weight. Inside: just an icon, with a soft pulse when audio is playing.
 
-## Components to build (next turn)
-- `AmbienceProvider` (context): holds `muted`, `volume`, `currentTrack`, exposes `toggleMute`. Reads `mood` from `useMood`. Manages two `<audio>` elements with crossfade.
-- `AmbienceControl` (tonearm): small analogue control next to `MoodToggle` in the header. Shows tonearm "lifted" when muted, "down on the record" when playing. Subtle rotating disc behind it when playing.
-- File slots: `public/audio/day.mp3` and `public/audio/dusk.mp3` — empty until tracks are sourced. Component checks for file presence and gracefully hides the control if files are missing, so nothing ships half-built.
+```text
+[ day/dusk pill ]  [ ◐ sound pill ]   email  cal  in  gh
+```
 
-## Out of scope for this turn
-- No audio code yet.
-- No tonearm component yet.
-- No track files yet.
+Reference cues taken from silentsongs.com:
+- Glass/blurred surface, very low contrast border
+- Single line-weight icon, no fills
+- Icon morphs between two states (they cross-fade moon/sun; we'll cross-fade muted/unmuted)
+- Subtle motion only when active (a slow opacity pulse, not spinning)
+
+## Visual spec
+
+- Shape: rounded-md pill, same height as the day/dusk switch (~h-7), width ~w-9 so it sits as a quiet sibling, not a competing graphic.
+- Surface: `bg-surface-container/60` with `backdrop-blur-sm`, `border-outline-variant/40`. On hover: border lifts to `secondary/50`, slight `scale-[1.04]`.
+- Icon: lucide `Volume2` when playing, `VolumeX` when muted. Stroke `currentColor`, color `text-on-surface-variant`, `text-secondary` when active. Size 14px.
+- State transition: cross-fade + tiny scale between the two icons (200ms), so the swap feels intentional like silentsongs' moon/sun morph.
+- Active affordance: a 2px dot to the right of the icon, `bg-secondary`, animating with the existing `ambience-pulse` keyframe. Hidden when muted. This is the only "it's on" cue, replacing the spinning record.
+- Focus ring and aria-checked behaviour kept from the current component.
+
+## Why this works better
+
+- Same silhouette as the day/dusk toggle, so the header reads as two small controls rather than "switch + miniature appliance".
+- No tiny moving parts to misread at 44px wide.
+- Active state is unambiguous: icon changes, accent dot pulses.
+- Honors the project's restraint (no em-dashes, hospitality felt not named, minimal ornamentation).
+
+## Technical changes
+
+- `src/components/AmbienceControl.tsx`: remove the SVG turntable. Render a `<button role="switch">` containing a relative wrapper with two stacked lucide icons (`Volume2`, `VolumeX`) cross-fading via opacity, plus an absolute-positioned pulse dot shown only when `!muted`. Keep the existing `useAmbience` hook, `available` gate, and `toggleMute` handler. Keep the `size` prop with `sm`/`md` mapping to slightly different paddings so the header desktop and mobile slots both look right.
+- `src/index.css`: keep `ambience-pulse`. Remove `ambience-spin` if nothing else references it (will verify before deleting).
+- `src/components/layout/AtriumHeader.tsx`: no structural change; the new control drops into the same two slots.
+
+No changes to the audio engine, crossfade, or file paths.
