@@ -121,14 +121,6 @@ export const NOW_PROJECTS: NowEntry[] = [
     meta: "Case study",
   },
   {
-    name: "EvalLabs",
-    blurb:
-      "Evaluation solution for agent-to-agent workflows, scored on business-centric metrics, not vibes.",
-    href: "https://github.com/IvandeMurard/Evaluation-Agents-Marketplace",
-    external: true,
-    meta: "GitHub",
-  },
-  {
     name: "Kissa",
     blurb:
       "Digital twin of a record collection. Scan, contextualise and curate, built for selectors and listening culture.",

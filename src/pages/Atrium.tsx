@@ -48,19 +48,17 @@ const METHOD = [
 
 const Atrium = () => (
   <SiteLayout title="About">
-    <main className="relative pt-32 md:pt-48 pb-24 md:pb-32">
+    <main className="relative pt-24 md:pt-32 pb-24 md:pb-32">
       {/* Hero */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-end">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
           <div className="lg:col-span-8">
             <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
               About
             </span>
-            <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl text-primary leading-[1.05] tracking-tight italic mb-10">
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl text-primary leading-[1.05] tracking-tight italic mb-10">
               I'm Ivan, <br />
-              <span className="text-on-primary-container opacity-90">a Product Builder,</span>
-              <br />
-              <span className="pl-12 md:pl-24">by curiosity and craft.</span>
+              <span className="text-on-primary-container opacity-90">a Product Builder.</span>
             </h1>
             <p className="font-body text-lg md:text-2xl text-on-surface-variant max-w-3xl leading-relaxed">
               Five years in Product Management across start-ups, scale-ups and large groups, two
@@ -68,7 +66,7 @@ const Atrium = () => (
               projects. I build from operational reality, with the human kept at the centre.
             </p>
           </div>
-          <div className="lg:col-span-4 h-[400px] lg:h-[500px]">
+          <div className="lg:col-span-4 h-[340px] lg:h-[440px]">
             <PortraitPlaceholder variant="hero" className="w-full h-full" />
           </div>
         </div>
