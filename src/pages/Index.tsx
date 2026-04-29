@@ -257,19 +257,20 @@ const Index = () => (
 
     {/* Thank you for your visit, a cool blue bookend on the warm dusk page-light */}
     <Reveal as="section" className="relative py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
-      <div className="relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-lg overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
+      <div className="farewell-card relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-2xl overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
         <div className="absolute inset-0 bg-primary-fixed-dim/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
           Thank you for your visit
         </h2>
-        <p className="text-on-surface-variant font-light mb-12 max-w-lg mx-auto relative z-10">
+        <p className="text-on-surface font-light mb-12 max-w-lg mx-auto relative z-10">
           Shall we meet again? Let's discuss how to create business value and meaningful human experiences for your
           operations or users.
         </p>
         <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 relative z-10">
           <a
             href={SOCIAL_LINKS.email}
-            className="text-primary font-medium border-b border-primary/50 pb-1 font-headline italic tracking-wide hover:opacity-70 transition-all"
+            aria-label="Email Ivan"
+            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
           >
             Email
           </a>
@@ -277,7 +278,8 @@ const Index = () => (
             href={SOCIAL_LINKS.schedule}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary font-medium border-b border-primary/50 pb-1 font-headline italic tracking-wide hover:opacity-70 transition-all"
+            aria-label="Book a call with Ivan"
+            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
           >
             Book a Call
           </a>
@@ -285,7 +287,8 @@ const Index = () => (
             href={SOCIAL_LINKS.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary font-medium border-b border-primary/50 pb-1 font-headline italic tracking-wide hover:opacity-70 transition-all"
+            aria-label="Ivan on LinkedIn"
+            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
           >
             LinkedIn
           </a>
@@ -293,7 +296,8 @@ const Index = () => (
             href={SOCIAL_LINKS.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary font-medium border-b border-primary/50 pb-1 font-headline italic tracking-wide hover:opacity-70 transition-all"
+            aria-label="Ivan on GitHub"
+            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
           >
             GitHub
           </a>
