@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { PRIMARY_NAV, UTILITY_NAV } from "@/content/site";
+import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
+import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
+
+const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
+  { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail },
+  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar },
+  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin },
+  { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github },
+];
 
 export const AtriumHeader = () => {
   const [open, setOpen] = useState(false);
