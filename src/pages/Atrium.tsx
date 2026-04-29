@@ -136,7 +136,7 @@ const Atrium = () => (
               key={`${entry.company}-${entry.range}`}
               data-reveal-child
               style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}
-              className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+              className="atrium-card p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
             >
               <span className="font-label italic text-secondary text-sm tracking-[0.18em] block mb-6">
                 {entry.range}
@@ -179,7 +179,7 @@ const Atrium = () => (
                 {...(wrapperProps as Record<string, unknown>)}
                 data-reveal-child
                 style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
-                className="group p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500 flex flex-col"
+                className="atrium-card group p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500 flex flex-col"
               >
                 <h3 className="font-headline italic text-2xl text-primary mb-4">{p.name}</h3>
                 <p className="text-on-surface-variant font-light leading-relaxed mb-8 flex-1">
@@ -247,7 +247,7 @@ const Atrium = () => (
               key={m.n}
               data-reveal-child
               style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-              className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+              className="atrium-card p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
             >
               <span className="font-headline italic text-secondary text-sm tracking-[0.2em] block mb-6">
                 {m.n}

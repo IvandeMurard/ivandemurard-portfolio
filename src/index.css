@@ -293,6 +293,15 @@
     background-color: hsl(var(--tertiary));
   }
 
+  /*
+    Atrium content cards (Track record, Now, Method) sit on the warm cream
+    page surface. In day mode, surface-container-low reads almost identical
+    to the page, so we bump them one step darker. Dusk stays untouched.
+  */
+  :root:not([data-mood="dusk"]) .atrium-card {
+    background-color: hsl(var(--surface-container));
+  }
+
   .gold-halo {
     background:
       radial-gradient(
