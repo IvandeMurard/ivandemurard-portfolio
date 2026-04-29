@@ -11,20 +11,22 @@ const Index = () => (
         <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-primary-fixed-dim rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-secondary-fixed-dim rounded-full blur-[100px]" />
       </div>
-      {/* Animated gold halo behind the headline */}
-      <div
-        aria-hidden="true"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] max-w-[110vw] max-h-[110vw] rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
-      />
       <div className="relative z-10 max-w-5xl w-full text-center">
-        <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
+        <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10">
           Ivan de Murard
         </span>
-        <h1 className="font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text">
-          Welcome.
-          <br />
-          <span className="text-on-primary-container opacity-90">It's great to see you!</span>
-        </h1>
+        <div className="relative">
+          {/* Animated gold halo centered behind the headline */}
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[700px] max-w-[110vw] rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
+          />
+          <h1 className="relative z-10 font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text">
+            Welcome.
+            <br />
+            <span className="text-on-primary-container opacity-90">It's great to see you!</span>
+          </h1>
+        </div>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light">
           A digital practice rooted in the philosophy of high-hospitality. I design and ship AI-powered systems that
           deliver measurable business impact — reducing operational costs, eliminating waste, and unlocking new value —
@@ -101,8 +103,8 @@ const Index = () => (
 
     {/* Shall we begin? */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
-      <div className="bg-gradient-to-br from-secondary-fixed/40 via-surface to-primary-fixed/30 p-12 md:p-24 rounded-lg relative overflow-hidden group ambient-shadow">
-        <div className="absolute inset-0 bg-secondary-fixed/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="bg-gradient-to-br from-primary-fixed/50 via-surface-container-low to-primary-fixed-dim/30 p-12 md:p-24 rounded-lg relative overflow-hidden group ambient-shadow">
+        <div className="absolute inset-0 bg-primary-fixed/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
           Thank you for your visit
         </h2>
