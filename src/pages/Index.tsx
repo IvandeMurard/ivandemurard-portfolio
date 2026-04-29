@@ -89,7 +89,7 @@ const Index = () => (
           </h1>
         </div>
         <p className="mt-12 text-lg md:text-xl text-on-surface/85 max-w-2xl mx-auto leading-relaxed font-normal">
-          Product builder with 5 years across start-ups, scale-ups and large groups, and 2 years co-founding a SaaS. I design from operational experience, ship with AI, and keep the human at the center.
+          I'm Ivan, a product builder with 5 years across start-ups, scale-ups and large groups, and 2 years co-founding a SaaS. I design from operational experience, ship with AI, and keep the human at the center.
         </p>
         <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8">
           <Link
