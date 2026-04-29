@@ -11,14 +11,19 @@ const Index = () => (
         <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-primary-fixed-dim rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-secondary-fixed-dim rounded-full blur-[100px]" />
       </div>
+      {/* Animated gold halo behind the headline */}
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] max-w-[110vw] max-h-[110vw] rounded-full gold-halo gold-halo-pulse pointer-events-none z-0"
+      />
       <div className="relative z-10 max-w-5xl w-full text-center">
         <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
-          The Digital Atrium
+          Ivan de Murard
         </span>
         <h1 className="font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text">
           Welcome.
           <br />
-          <span className="text-on-primary-container opacity-90">I've been expecting you.</span>
+          <span className="text-on-primary-container opacity-90">It's great to see you!</span>
         </h1>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light">
           A digital practice rooted in the philosophy of high-hospitality. I design and ship AI-powered systems that
@@ -51,10 +56,10 @@ const Index = () => (
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
         <div className="max-w-xl">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Current Journeys</h2>
+          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Case Studies</h2>
           <p className="text-on-surface-variant font-light leading-relaxed">
-            A small selection of recent collaborations, treated with the same care as a concierge would handle a
-            guest's most precious request.
+            A small selection of recent projects and collaborations, driven by curiosity and a passion for hands-on
+            crafting.
           </p>
         </div>
         <Link
@@ -96,12 +101,14 @@ const Index = () => (
 
     {/* Shall we begin? */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
-      <div className="bg-surface-container-highest p-12 md:p-24 rounded-lg relative overflow-hidden group">
-        <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">Shall we begin?</h2>
+      <div className="bg-gradient-to-br from-secondary-fixed/40 via-surface to-primary-fixed/30 p-12 md:p-24 rounded-lg relative overflow-hidden group ambient-shadow">
+        <div className="absolute inset-0 bg-secondary-fixed/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
+          Thank you for your visit
+        </h2>
         <p className="text-on-surface-variant font-light mb-12 max-w-lg mx-auto relative z-10">
-          Let's discuss how these digital systems can create real business value and meaningful human experiences for
-          your operations or users.
+          Shall we meet again? Let's discuss how to create business value and meaningful human experiences for your
+          operations or users.
         </p>
         <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 relative z-10">
           <a
@@ -116,7 +123,7 @@ const Index = () => (
             rel="noopener noreferrer"
             className="text-primary font-medium border-b border-primary/30 pb-1 font-headline italic tracking-wide hover:opacity-70 transition-all"
           >
-            Schedule
+            Book a Call
           </a>
           <a
             href={SOCIAL_LINKS.linkedin}

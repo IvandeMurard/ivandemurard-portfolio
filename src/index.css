@@ -156,6 +156,26 @@
   .ambient-shadow {
     box-shadow: 0 20px 40px hsl(var(--primary) / 0.1);
   }
+
+  .gold-halo {
+    background: radial-gradient(
+      circle,
+      hsl(var(--secondary-fixed) / 0.55) 0%,
+      hsl(var(--secondary-fixed) / 0.25) 35%,
+      hsl(var(--surface) / 0) 70%
+    );
+    filter: blur(60px);
+  }
+
+  .gold-halo-pulse {
+    animation: gold-halo-breathe 7s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+}
+
+@keyframes gold-halo-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.04); }
 }
 
 @media (prefers-reduced-motion: reduce) {
