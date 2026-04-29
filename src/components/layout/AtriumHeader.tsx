@@ -21,7 +21,7 @@ export const AtriumHeader = () => {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-surface/70 glass-nav transition-all duration-500">
+      <nav className="fixed top-0 w-full z-50 bg-surface/70 glass-nav border-b border-outline-variant/20 transition-all duration-500">
         <div className="flex justify-between items-center px-6 md:px-12 py-6 md:py-8 w-full max-w-screen-2xl mx-auto relative">
           <Link
             to="/"
