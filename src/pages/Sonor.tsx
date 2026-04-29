@@ -399,49 +399,8 @@ const Sonor = () => {
         </div>
       </section>
 
-      {/* Go Further */}
-      <section className="py-16 md:py-28 bg-surface border-t border-outline-variant/20">
-        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
-          <div className="text-center mb-12 md:mb-20">
-            <p className="font-label uppercase tracking-[0.3em] text-xs text-secondary mb-4">
-              Further Reading
-            </p>
-            <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Go Further</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {GO_FURTHER.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-outline-variant/60"
-              >
-                <div className="h-16 mb-8 flex items-center">
-                  <img
-                    src={item.logo}
-                    alt={item.alt}
-                    className="max-h-12 max-w-[70%] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <h3 className="text-xl md:text-2xl font-headline italic text-on-surface mb-4 leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-base text-on-surface-variant leading-relaxed mb-8 flex-1">
-                  {item.description}
-                </p>
-                <span className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-primary">
-                  {item.cta}
-                  <Icon name="open_in_new" className="text-sm" />
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Acknowledgments */}
-      <section className="py-16 md:py-28 bg-surface-container-lowest border-t border-outline-variant/10">
+      <section className="py-16 md:py-28 bg-surface border-t border-outline-variant/20">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">Acknowledgments</h2>
           <p className="text-xl md:text-2xl font-headline text-on-surface-variant leading-relaxed mb-12 md:mb-20 max-w-3xl mx-auto">
@@ -468,7 +427,48 @@ const Sonor = () => {
               className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
             />
           </div>
-          <div className="mt-16">
+        </div>
+      </section>
+
+      {/* Go Further */}
+      <section className="py-16 md:py-28 bg-surface-container-lowest border-t border-outline-variant/10">
+        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
+          <div className="text-center mb-12 md:mb-20">
+            <p className="font-label uppercase tracking-[0.3em] text-xs text-secondary mb-4">
+              Further Reading
+            </p>
+            <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Go Further</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
+            {GO_FURTHER.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col bg-surface border border-outline-variant/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-outline-variant/60"
+              >
+                <div className="h-16 mb-8 flex items-center">
+                  <img
+                    src={item.logo}
+                    alt={item.alt}
+                    className="max-h-12 max-w-[70%] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                  />
+                </div>
+                <h3 className="text-xl md:text-2xl font-headline italic text-on-surface mb-4 leading-snug">
+                  {item.title}
+                </h3>
+                <p className="text-base text-on-surface-variant leading-relaxed mb-8 flex-1">
+                  {item.description}
+                </p>
+                <span className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-primary">
+                  {item.cta}
+                  <Icon name="open_in_new" className="text-sm" />
+                </span>
+              </a>
+            ))}
+          </div>
+          <div className="text-center">
             <Link
               to="/contact"
               className="inline-block bg-primary text-on-primary px-10 py-4 rounded-xl font-label uppercase tracking-[0.2em] text-[11px] hover:bg-primary-container transition-all"
