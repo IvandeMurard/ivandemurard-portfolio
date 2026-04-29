@@ -10,6 +10,8 @@ import Atherix from "./pages/Atherix.tsx";
 import Tacet from "./pages/Tacet.tsx";
 import Atrium from "./pages/Atrium.tsx";
 import Contact from "./pages/Contact.tsx";
+import Journal from "./pages/Journal.tsx";
+import JournalEntry from "./pages/JournalEntry.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/tacet" element={<Tacet />} />
           <Route path="/atrium" element={<Atrium />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/journal" element={<Journal />} />
+          <Route path="/journal/:slug" element={<JournalEntry />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
