@@ -425,6 +425,11 @@
   50%      { opacity: 1;    transform: translateZ(0) scale(1.03); }
 }
 
+@keyframes ambience-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 /* Preview mode: page rendered inside the CaseHoverPreview iframe. */
 [data-preview="1"] header,
 [data-preview="1"] footer {

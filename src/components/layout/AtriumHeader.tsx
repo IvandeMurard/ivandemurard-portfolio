@@ -4,6 +4,7 @@ import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react"
 import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
 import { MoodToggle } from "@/components/MoodToggle";
+import { AmbienceControl } from "@/components/AmbienceControl";
 
 const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail },
@@ -58,6 +59,7 @@ export const AtriumHeader = () => {
           {/* Right utility links */}
           <div className="hidden md:flex items-center space-x-5 lg:space-x-6">
             <MoodToggle />
+            <AmbienceControl />
             <span className="hidden lg:inline-block h-4 w-px bg-outline-variant/40" aria-hidden="true" />
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon }) => (
               <a
@@ -75,8 +77,9 @@ export const AtriumHeader = () => {
           </div>
 
           {/* Mobile right cluster: toggle + hamburger */}
-          <div className="md:hidden flex items-center gap-3">
+          <div className="md:hidden flex items-center gap-2">
             <MoodToggle size="sm" />
+            <AmbienceControl size="sm" />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
