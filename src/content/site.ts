@@ -28,15 +28,15 @@ export const PROJECTS = {
     name: "Sonor",
     tagline: "Two-year journey as Co-founder & Product Lead. Turned open data into a SaaS platform used by municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness.",
     label: "SaaS • Urban Noise Insights • 2024",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDogW3hnTyvO1mOpFDqS98V3PU318gkspKvg9at7VD2tY3XU9BRAIF8WN1HkhcV5eGLTa5tWoRbVT7M91iA-K4yWW9etf5cKGGyIN3g-cDSr9BWMT_euUFT-sApE3NeVPQMwPYyHg8bOFm4G7suAhSJq72Tyufw87kazEiL3va133hNUvaZSZq5Ej-1hna7Fzepy_3N7BjxBsQD-aD6suYO8OxFLgMEFZQDL4qUQJXlZUbjdlg8Z8_XKAT2N3wNlPsG0QM212z6N_gW",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80",
     cta: "The Full Narrative",
   },
   atherix: {
     slug: "atherix",
-    name: "Atherix",
+    name: "Aetherix",
     tagline: "Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.",
     label: "AI Agent • Hospitality Operations",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJj8pqco3G2Hq93O7h037g7Mq11stPvvybosiWAChmYU-M6WVoj9MtGdlEBp7OkrLkybn_m6-Ba23aT0Uhl9d6aQtyF5xmzblqQp14UWYUSp7VI5KkkuhMWx9O-gUfO372I0Rv9FOOh5fD1LIc9vPAwWE5rnLArGx5Jz28tFMMN3Y557xX3k4aWslbYDMP1Gw3P_IlKhGY05VKLMoEf6CbSskfS62bfzuUfqK6PntaSFoA7m4vrRU29OXgqB2g_TwyAn3aCvmDhmlO",
+    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
     cta: "Read the Vision",
   },
   tacet: {
@@ -44,7 +44,7 @@ export const PROJECTS = {
     name: "Tacet",
     tagline: "Personal mobile sanctuary for Parisians. Puts real-time Bruitparif data and Serenity Score in users' hands to reclaim quiet in daily life, housing choices, and urban commutes.",
     label: "B2C • iOS • Wellness",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCshxC-2ndyHiSMfYsfo3wyGle4QYN9a723qLo_lEpBHt-A5XwqhIef2ME27mOo67MNq-bRPE6Mwpg2mTLHXqKg4w3t2LU3uPkh78U-fXQ3JnWxq-z5r6RPbnz4w4QLNvVcUtLDACQoUzTkqknXqMjlA1fLFNJ9g_DQm0UaZeeUVqZtDu0v89ooPFXjCZOgMfAVVSFUS5yxwgEmzXgNqpqBA871uJDfIGxTh4TtiDQQP3ZF4h3VZCzyGHYkPj-RPFhbh5vfIvoELiVs",
+    image: "https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&w=1600&q=80",
     cta: "The Full Narrative",
   },
 } as const;

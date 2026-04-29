@@ -1,4 +1,12 @@
+import { Mail, Calendar, Linkedin, Github } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
+
+const ICON_LINKS = [
+  { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, external: false },
+  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar, external: true },
+  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin, external: true },
+  { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, external: true },
+];
 
 export const Footer = () => (
   <footer className="w-full py-16 mt-24 bg-surface-container-low border-t border-outline-variant/10">
@@ -6,29 +14,20 @@ export const Footer = () => (
       <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
         © {new Date().getFullYear()} Ivan de Murard — Curated with Care
       </p>
-      <div className="flex items-center gap-12">
-        <a
-          href={SOCIAL_LINKS.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant hover:text-secondary hover:tracking-[0.25em] transition-all duration-700"
-        >
-          Instagram
-        </a>
-        <a
-          href={SOCIAL_LINKS.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant hover:text-secondary hover:tracking-[0.25em] transition-all duration-700"
-        >
-          LinkedIn
-        </a>
-        <a
-          href="#"
-          className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary hover:tracking-[0.25em] transition-all duration-700"
-        >
-          Journal
-        </a>
+      <div className="flex items-center gap-8">
+        {ICON_LINKS.map(({ label, href, Icon, external }) => (
+          <a
+            key={label}
+            href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
+            aria-label={label}
+            title={label}
+            className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110"
+          >
+            <Icon size={20} strokeWidth={1.5} />
+          </a>
+        ))}
       </div>
     </div>
   </footer>
