@@ -376,9 +376,24 @@ const Sonor = () => {
             association, and the collaboration of my three co-founders: Émilie, Majda and Benjamin.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-            <span className="font-headline italic text-2xl text-on-surface-variant">SONOR</span>
-            <span className="font-headline italic text-2xl text-on-surface-variant">Banque des Territoires</span>
-            <span className="font-headline italic text-2xl text-on-surface-variant">Matrice</span>
+            <img
+              src={sonorLogo}
+              alt="Sonor logo"
+              loading="lazy"
+              className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
+            <img
+              src={logoBanqueTerritoires}
+              alt="Banque des Territoires, Groupe Caisse des Dépôts"
+              loading="lazy"
+              className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
+            <img
+              src={logoMatrice}
+              alt="Matrice"
+              loading="lazy"
+              className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
           </div>
           <div className="mt-16">
             <Link
@@ -391,7 +406,20 @@ const Sonor = () => {
         </div>
       </section>
     </main>
+
+    <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
+      <DialogContent className="max-w-[95vw] md:max-w-6xl p-2 md:p-4 bg-surface-container border-outline-variant/30">
+        {lightbox && (
+          <img
+            src={lightbox.src}
+            alt={lightbox.alt}
+            className="w-full h-auto max-h-[85vh] object-contain rounded"
+          />
+        )}
+      </DialogContent>
+    </Dialog>
   </SiteLayout>
-);
+  );
+};
 
 export default Sonor;
