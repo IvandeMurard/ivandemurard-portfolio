@@ -57,7 +57,7 @@ export const AtriumHeader = () => {
 
           {/* Right utility links */}
           <div className="hidden md:flex items-center space-x-5 lg:space-x-6">
-            <MoodToggle label="Ambience" />
+            <MoodToggle />
             <span className="hidden lg:inline-block h-4 w-px bg-outline-variant/40" aria-hidden="true" />
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon }) => (
               <a
