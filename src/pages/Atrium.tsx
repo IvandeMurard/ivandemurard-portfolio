@@ -40,7 +40,7 @@ const Atrium = () => (
             </h1>
             <p className="font-body text-lg md:text-2xl text-on-surface-variant max-w-4xl leading-relaxed">
               A personal space telling the story of a Product Builder dedicated to curiosity, determination, and a
-              philosophy rooted in digital hospitality. From{" "}
+              philosophy rooted in care and craft. From{" "}
               <Link
                 to="/sonor"
                 className="border-b border-on-surface-variant/30 hover:border-primary hover:text-primary transition-all duration-300"
@@ -52,7 +52,7 @@ const Atrium = () => (
                 to="/atherix"
                 className="border-b border-on-surface-variant/30 hover:border-primary hover:text-primary transition-all duration-300"
               >
-                designing agentic AI systems for hospitality
+                designing agentic AI for boutique hotel operations
               </Link>
               , I build products that bridge digital interfaces with physical operations, always placing the human
               experience at the center while delivering measurable business impact.

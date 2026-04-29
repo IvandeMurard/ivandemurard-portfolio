@@ -1,7 +1,33 @@
 import { Link } from "react-router-dom";
+import { Compass, Cpu, HeartHandshake } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
+
+const PILLARS = [
+  {
+    Icon: Compass,
+    title: "Product Strategy 0→1",
+    body: "From insight to shipped product, bridging digital interfaces and physical operations.",
+  },
+  {
+    Icon: Cpu,
+    title: "Agentic AI Systems",
+    body: "Real-time agents that anticipate needs, reduce waste, and free teams to focus on what matters.",
+  },
+  {
+    Icon: HeartHandshake,
+    title: "Human-centered Craft",
+    body: "Interfaces and operations designed to feel calm, attentive, and quietly precise.",
+  },
+];
+
+const MILESTONES = [
+  { value: "2 yrs", label: "Co-founder & Product Lead, Sonor" },
+  { value: "3", label: "Shipped products: Sonor, Aetherix, Tacet" },
+  { value: "0→1", label: "From concept to live" },
+  { value: "Open data", label: "Public datasets, public impact" },
+];
 
 const Index = () => (
   <SiteLayout title="The Atrium">
@@ -28,9 +54,8 @@ const Index = () => (
           </h1>
         </div>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light">
-          A digital practice rooted in the philosophy of high-hospitality. I design and ship AI-powered systems that
-          deliver measurable business impact — reducing operational costs, eliminating waste, and unlocking new value —
-          while restoring the human touch in complex environments.
+          A digital practice where AI-powered systems quietly deliver measurable business impact — reducing operational
+          costs, eliminating waste, unlocking new value — while keeping the human at the center.
         </p>
         <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8">
           <Link
@@ -54,7 +79,18 @@ const Index = () => (
       </div>
     </header>
 
-    {/* Current Journeys */}
+    {/* Signature line — a quiet breath */}
+    <section className="py-24 md:py-32 px-6 md:px-8">
+      <div className="max-w-4xl mx-auto text-center">
+        <div className="w-px h-16 bg-primary/20 mx-auto mb-12" />
+        <p className="font-headline italic text-2xl md:text-4xl text-primary leading-snug">
+          Designing systems that take care of the details, so people can take care of what matters.
+        </p>
+        <div className="w-px h-16 bg-primary/20 mx-auto mt-12" />
+      </div>
+    </section>
+
+    {/* Case Studies */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
         <div className="max-w-xl">
@@ -79,9 +115,9 @@ const Index = () => (
                 src={p.image}
                 alt={`${p.name} project preview`}
                 loading="lazy"
-                className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000"
               />
-              <div className="absolute inset-0 bg-primary/15 mix-blend-multiply transition-opacity group-hover:opacity-0" />
+              <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0" />
             </div>
             <div className="mt-8 flex justify-between items-start">
               <div>
@@ -101,7 +137,43 @@ const Index = () => (
       </div>
     </section>
 
-    {/* Shall we begin? */}
+    {/* What I do — three pillars */}
+    <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-16 md:mb-20">
+        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">What I do</h2>
+        <p className="text-on-surface-variant font-light leading-relaxed">
+          A practice at the intersection of product, AI, and operations.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        {PILLARS.map(({ Icon: PillarIcon, title, body }) => (
+          <div
+            key={title}
+            className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+          >
+            <PillarIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
+            <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
+            <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Selected milestones */}
+    <section className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-0 md:divide-x md:divide-outline-variant/20">
+        {MILESTONES.map((m) => (
+          <div key={m.label} className="px-2 md:px-8 text-center">
+            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-4">{m.value}</p>
+            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
+              {m.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Thank you for your visit */}
     <section className="py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
       <div className="bg-gradient-to-br from-primary-fixed/50 via-surface-container-low to-primary-fixed-dim/30 p-12 md:p-24 rounded-lg relative overflow-hidden group ambient-shadow">
         <div className="absolute inset-0 bg-primary-fixed/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

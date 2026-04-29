@@ -39,7 +39,7 @@ const Contact = () => (
       <section className="px-6 md:px-12 max-w-4xl mx-auto text-center mb-20 md:mb-24 relative">
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 hilma-circle pointer-events-none" />
         <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10">
-          The Concierge Desk
+          Get in touch
         </span>
         <h1 className="font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic relative z-10">
           Shall <br />
@@ -47,8 +47,8 @@ const Contact = () => (
         </h1>
         <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light relative z-10">
           Let's discuss how these digital systems can create real business value and meaningful human experiences for
-          your operations or users. Choose the channel that suits you best — every conversation begins as it should:
-          with care.
+          your operations or users. Choose the channel that suits you best — every conversation begins with attentive
+          listening.
         </p>
       </section>
 

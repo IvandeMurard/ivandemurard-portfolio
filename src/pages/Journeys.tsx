@@ -21,7 +21,7 @@ const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => (
           src={image}
           alt={`${name} cover`}
           loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 opacity-80 mix-blend-multiply"
+          className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
         />
       </div>
       <div className={`absolute -bottom-8 ${flip ? "-left-8" : "-right-8"} w-48 h-48 hilma-circle hidden md:block`} />
@@ -81,7 +81,7 @@ const Journeys = () => (
           index="Journey 02"
           slug="atherix"
           name={PROJECTS.atherix.name}
-          body="The Hospitality Vision. An agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees the human team to focus on exceptional guest experiences."
+          body="An agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees the human team to focus on exceptional guest experiences."
           image={PROJECTS.atherix.image}
           cta="Trace the Path"
           flip

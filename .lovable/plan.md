@@ -1,64 +1,112 @@
-# Homepage & Footer Refinements
+## Intent
 
-Targeted changes across `src/pages/Index.tsx`, `src/index.css`, `src/content/site.ts`, and `src/components/layout/Footer.tsx`. No new dependencies.
+Make hospitality a **felt** quality of the site — through tone, imagery, pacing, micro-gestures — rather than a stated label. Enrich the homepage so it stands as a complete first impression. Replace the three Case Studies images with the uploaded color photos.
 
-## 1. Hero section (`src/pages/Index.tsx`)
+---
 
-- Replace eyebrow `THE DIGITAL ATRIUM` → `IVAN DE MURARD`.
-- Replace headline second line `I've been expecting you.` → `It's great to see you!`.
-- Strengthen the gold halo behind the headline:
-  - Add a dedicated `secondary-fixed` (warm gold) blurred orb centered behind the H1, larger and more opaque than current ambient blobs (kept as supporting layers).
-  - Apply a new utility class `gold-halo-pulse` driving a slow, subtle breathing animation (opacity + scale only — no position shift, no flicker that feels nervous).
+## 1. Remove explicit "hospitality" language (felt, not announced)
 
-## 2. Halo animation (`src/index.css`)
+Goal: no visitor should read the word "hospitality" / "hospitalité" on public surfaces of the site, except where it is genuinely a *business domain* (Aetherix is for hotels — that stays, but reworded once).
 
-Add a new keyframe + utility, respectful of the existing `prefers-reduced-motion` block already in the file:
+| File | Current | New |
+|---|---|---|
+| `index.html` `<title>` | `Ivan de Murard — Digital Hospitality` | `Ivan de Murard — Product Builder` |
+| `index.html` meta description | "rooted in the philosophy of high-hospitality…" | "A digital practice where AI-powered systems quietly deliver business impact while keeping the human at the center." |
+| `index.html` og:title / og:description | same | mirror the new title/description |
+| `src/index.css` header comment | "Digital Hospitality" | "Ivan de Murard — Product Builder" |
+| `src/components/layout/SiteLayout.tsx` default title | `… Digital Hospitality` | `… Product Builder` |
+| `src/pages/Index.tsx` hero subcopy | "A digital practice rooted in the philosophy of high-hospitality. I design and ship AI-powered systems…" | "A digital practice where AI-powered systems quietly deliver measurable business impact — reducing operational costs, eliminating waste, unlocking new value — while keeping the human at the center." |
+| `src/pages/Atrium.tsx` intro paragraph | "philosophy rooted in digital hospitality" + "designing agentic AI systems for hospitality" | "philosophy rooted in care and craft" + "designing agentic AI systems for boutique hotel operations" |
+| `src/pages/Contact.tsx` eyebrow | `The Concierge Desk` | `Get in touch` |
+| `src/pages/Contact.tsx` body | "every conversation begins as it should: with care." | keep "with care" tone but drop concierge framing — "Choose the channel that suits you best — every conversation begins with attentive listening." |
+| `src/content/site.ts` Aetherix `label` | `AI Agent • Hospitality Operations` | `AI Agent • Boutique Hotel Operations` |
+| `src/pages/Journeys.tsx` Aetherix body | "The Hospitality Vision. An agentic AI…" | "An agentic AI framework for boutique hotel operations…" (drop the label) |
+| `src/pages/Atherix.tsx` | Multiple visible mentions: page title, eyebrow `Project Detail / Hospitality AI`, H1 `Aetherix: The Hospitality Vision`, section heading `The Hospitality Vision`, `Core Design Principles for Hospitality AI`, "fully agentic hospitality mesh" | Reword to: page title `Aetherix — Boutique Hotel Operations AI`; eyebrow `Project Detail / Operations AI`; H1 `Aetherix: A new operating layer for boutique hotels`; section heading `The Vision`; `Core Design Principles for Operations AI`; "fully agentic operations mesh". The single French sentence about transforming automation into "expériences d'hospitalité humaines" → "expériences profondément humaines". One contextual mention "Food waste is one of the biggest challenges in hospitality" stays — it's a domain-fact quote, not a brand claim. The GitHub repo URL stays unchanged (external). |
 
-```css
-@keyframes gold-halo-breathe {
-  0%, 100% { opacity: 0.45; transform: scale(1); }
-  50%      { opacity: 0.7;  transform: scale(1.04); }
-}
-.gold-halo-pulse {
-  animation: gold-halo-breathe 7s ease-in-out infinite;
-  will-change: opacity, transform;
-}
+Result: hospitality becomes the texture (typography, pacing, warm palette, halo, "with care" footer line, "thank you for your visit" panel) — never the headline.
+
+---
+
+## 2. Swap Case Studies images (color, uploaded)
+
+Copy uploads into the project and reference them as ES6 imports in `src/content/site.ts`:
+
+- `user-uploads://image.png` → `src/assets/case-sonor.jpg` (Paris rooftops with Eiffel Tower) → `PROJECTS.sonor.image`
+- `user-uploads://image-2.png` → `src/assets/case-aetherix.jpg` (warm hotel lobby) → `PROJECTS.atherix.image`
+- `user-uploads://image-3.png` → `src/assets/case-tacet.jpg` (Paris street with Eiffel Tower) → `PROJECTS.tacet.image`
+
+Also, since the photos are now meant to read in **color**:
+
+- `src/pages/Index.tsx` Case Studies cards: remove the `grayscale opacity-80` from `<img>` and the `bg-primary/15 mix-blend-multiply` overlay. Keep the gentle hover scale + a much lighter overlay (e.g. `bg-primary/5` → fully transparent on hover) so images feel alive but still cohesive.
+- `src/pages/Journeys.tsx` Row images: remove `mix-blend-multiply opacity-80` so the same photos display in full color on the Stories page too.
+
+---
+
+## 3. Enrich the homepage
+
+The current homepage is: Hero → Case Studies → Contact. Add three sections so it stands on its own as a richer first encounter, while staying calm and on-brand.
+
+New homepage structure:
+
+```text
+1. Hero (existing, kept)
+2. Signature line — one quiet sentence (NEW)
+3. Case Studies (existing, with new color images)
+4. What I do — three pillars (NEW)
+5. Selected milestones / numbers (NEW)
+6. Thank you for your visit (existing contact panel)
 ```
 
-7s cycle and small delta keep it meditative — aligned with the "Digital Hospitality" tone.
+### 3a. Signature line (between Hero and Case Studies)
 
-## 3. Current Journeys section (`src/pages/Index.tsx` + `src/content/site.ts`)
+A single italic sentence on a soft band, full-width, generous vertical padding. Sets the tone without labeling it.
 
-- Heading `Current Journeys` → `Case Studies`.
-- Subcopy → `A small selection of recent projects and collaborations, driven by curiosity and a passion for hands-on crafting.`
-- Update project image URLs in `src/content/site.ts` (keeps Journeys page in sync automatically since it reads the same source):
-  - `sonor.image` → Paris cityscape (Unsplash, e.g. an aerial of Haussmannian rooftops).
-  - `atherix.image` → boutique hotel lobby.
-  - `tacet.image` → a different Paris view (e.g. street-level / Seine) so it visually echoes Sonor without duplicating it.
-- Rename `atherix.name` from `Atherix` → `Aetherix`. Slug, route, and folder remain `/atherix` to avoid breaking links; only the display name changes.
+> "Designing systems that take care of the details, so people can take care of what matters."
 
-Image source: Unsplash direct URLs with sizing params (consistent with how AIDA URLs are used today). Final URLs picked at implementation time.
+Layout: centered, `font-headline italic`, ~3xl/4xl, on a thin top/bottom hairline divider. No CTA. Acts as a breath between hero and work.
 
-## 4. Contact panel on home (`src/pages/Index.tsx`)
+### 3b. "What I do" — three pillars (after Case Studies)
 
-- Heading `Shall we begin?` → `Thank you for your visit`.
-- Body → `Shall we meet again? Let's discuss how to create business value and meaningful human experiences for your operations or users.`
-- Replace the `Schedule` link label with `Book a Call`.
-- Background: current `bg-surface-container-highest` reads grey. Switch the panel to a soft, warm, luminous tone using existing tokens — a tinted gradient blending `secondary-fixed` (warm gold) and `surface` so it stays gentle and on-brand:
-  - `bg-gradient-to-br from-secondary-fixed/30 via-surface to-primary-fixed/20`
-  - Keep rounded-lg, hover overlay, and existing typography untouched.
+A 3-column grid (stacks on mobile). Reuses the visual language of `Atrium.tsx` `PRINCIPLES` but tighter: small icon (Lucide), short title, 2-line body. Pillars:
 
-## 5. Footer (`src/components/layout/Footer.tsx` + `src/content/site.ts`)
+1. **Product Strategy 0→1** — From insight to shipped product, bridging digital interfaces and physical operations.
+2. **Agentic AI Systems** — Real-time agents that anticipate needs, reduce waste, and free teams to focus on what matters.
+3. **Human-centered Craft** — Interfaces and operations designed to feel calm, attentive, and quietly precise.
 
-Replace the three text links (Instagram / LinkedIn / Journal) with four icon-only links: Email, Book a Call, LinkedIn, GitHub.
+Section heading: `What I do` (font-headline italic, sized like Case Studies). Subcopy one line: "A practice at the intersection of product, AI, and operations."
 
-- Use `lucide-react` icons (already a dependency): `Mail`, `Calendar`, `Linkedin`, `Github`.
-- Each link: 20px icon, `text-on-surface-variant` → hover `text-secondary`, subtle scale on hover, `aria-label` for accessibility, `title` tooltip with the label.
-- Hrefs reuse `SOCIAL_LINKS` (`email`, `schedule`, `linkedin`, `github`); external ones get `target="_blank" rel="noopener noreferrer"`.
-- Drop the Instagram entry from `SOCIAL_LINKS` usage in the footer (kept in the export for now — safe no-op).
+### 3c. Selected milestones (after the pillars)
 
-## Out of scope
+A compact row of 3–4 numeric/credential highlights — visual rhythm, easy to scan. Pulled from the existing narratives (no new claims invented).
 
-- No changes to header, About, Journeys page layout, or case study pages.
-- No new routes, no new dependencies.
-- The folder/route name `atherix` stays; only the displayed brand becomes `Aetherix`.
+Tentative items (subject to your confirmation in the build step):
+- `2 yrs` — Co-founder & Product Lead, Sonor
+- `3` — Shipped products: Sonor, Aetherix, Tacet
+- `0→1` — Products taken from concept to live
+- `Open data` — Built on public datasets (Bruitparif, etc.)
+
+If any of these doesn't feel accurate, I'll swap it for "Available for select collaborations" or remove the row. Visual: large `font-headline italic` number/keyword, small uppercase label below, divided by thin vertical hairlines on desktop.
+
+### 3d. Hero refinements (small)
+
+- Keep `IVAN DE MURARD` eyebrow, `Welcome. / It's great to see you!` headline, and the centered animated gold halo (already correct).
+- Subcopy reworded as in §1 (no "high-hospitality").
+- Keep the "Step inside" + "View the Journeys" CTAs.
+
+---
+
+## 4. Out of scope
+
+- No changes to routing, header structure, footer (already done), or color tokens.
+- No new dependencies.
+- The `/atherix` route slug stays; only display copy changes.
+- The Atherix case study page gets text reworded (per §1) but no layout change.
+
+---
+
+## Technical notes
+
+- Image imports: `import sonorImg from "@/assets/case-sonor.jpg"` etc., then `image: sonorImg` in `PROJECTS`. Vite handles hashing/optimization. Both Index and Journeys consume `PROJECTS[x].image` so a single change updates both pages.
+- Removing `grayscale` + `mix-blend-multiply` from the two consumers is a 2-line edit each.
+- New homepage sections live inline in `src/pages/Index.tsx` (consistent with current pattern). No new components needed unless the file grows past ~250 lines, in which case I'll extract `HomePillars` and `HomeMilestones` into `src/components/home/`.
+- All copy uses existing tokens (`text-primary`, `text-on-surface-variant`, `font-headline`, `font-label`) — no Tailwind config changes.

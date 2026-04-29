@@ -1,3 +1,7 @@
+import sonorImg from "@/assets/case-sonor.jpg";
+import aetherixImg from "@/assets/case-aetherix.jpg";
+import tacetImg from "@/assets/case-tacet.jpg";
+
 export const SOCIAL_LINKS = {
   email: "mailto:ivandemurard@gmail.com",
   schedule: "https://cal.com/ivandemurard/30min?month=2026-05",
@@ -28,15 +32,15 @@ export const PROJECTS = {
     name: "Sonor",
     tagline: "Two-year journey as Co-founder & Product Lead. Turned open data into a SaaS platform used by municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness.",
     label: "SaaS • Urban Noise Insights • 2024",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80",
+    image: sonorImg,
     cta: "The Full Narrative",
   },
   atherix: {
     slug: "atherix",
     name: "Aetherix",
     tagline: "Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.",
-    label: "AI Agent • Hospitality Operations",
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
+    label: "AI Agent • Boutique Hotel Operations",
+    image: aetherixImg,
     cta: "Read the Vision",
   },
   tacet: {
@@ -44,7 +48,7 @@ export const PROJECTS = {
     name: "Tacet",
     tagline: "Personal mobile sanctuary for Parisians. Puts real-time Bruitparif data and Serenity Score in users' hands to reclaim quiet in daily life, housing choices, and urban commutes.",
     label: "B2C • iOS • Wellness",
-    image: "https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&w=1600&q=80",
+    image: tacetImg,
     cta: "The Full Narrative",
   },
 } as const;
