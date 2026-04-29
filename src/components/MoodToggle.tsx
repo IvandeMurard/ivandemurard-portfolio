@@ -134,7 +134,7 @@ export const MoodToggle = ({
           className={[
             "absolute transition-opacity duration-700",
             dims.glyphRight,
-            isDusk ? "opacity-100 text-secondary-fixed" : "opacity-55 text-on-surface-variant",
+            isDusk ? "opacity-100 text-secondary-fixed" : "opacity-70 text-primary",
           ].join(" ")}
           aria-hidden="true"
         />
