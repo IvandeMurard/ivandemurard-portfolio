@@ -216,7 +216,7 @@ const Atrium = () => (
               >
                 <Icon
                   name={p.icon}
-                  className="text-secondary-fixed text-4xl mb-8 group-hover:scale-110 transition-transform duration-500"
+                  className="text-surface text-4xl mb-8 group-hover:scale-110 transition-transform duration-500"
                 />
                 <h3 className="font-headline text-2xl text-surface-bright mb-4 italic">
                   {p.title}
