@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { CaseHoverPreview } from "@/components/CaseHoverPreview";
 import { Compass, Cpu, HeartHandshake } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
@@ -180,13 +181,13 @@ const Index = () => (
             style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}
           >
             <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
-              <img
-                src={p.image}
+              <CaseHoverPreview
+                slug={p.slug}
+                image={p.image}
                 alt={`${p.name} project preview`}
-                loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000"
+                className="w-full h-full"
               />
-              <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0" />
+              <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none" />
             </div>
             <div className="mt-8 flex justify-between items-start">
               <div>
