@@ -1,73 +1,71 @@
-## Hero light, dusk gradient, scroll polish
+## Sonor Case Study: asset integration
 
-The current `page-light::after` overlay piles `primary-fixed` then `primary-fixed-dim` at full progress, ending in a saturated blue band that reads as a flat rectangle behind the footer. Goal: turn that band into ambient light, keep saturation capped at what the Thank-you card already shows, and let the page feel like late-afternoon light shifting toward dusk.
+Replace external/placeholder content with the user's uploaded assets and embed the Figma prototype for the Hypothesis section.
 
-### 1. Direction, blue → cream/gold (dusk)
+### 1. Copy uploaded assets into the project
 
-You're right, it reads better that way. Late afternoon starts cool and ends warm. So:
+Save the four uploads under `src/assets/` so they bundle through Vite:
 
-- **Top of page (progress 0):** cool, slightly desaturated blue wash (Picasso-blue dawn).
-- **Bottom of page (progress 1):** warm cream + faint gold (the cream the surface already uses).
+- `user-uploads://image-9.png` -> `src/assets/sonor-cartographie.png` (Cartographie / map dashboard)
+- `user-uploads://image-10.png` -> `src/assets/sonor-recommandations.png` (Recommandations table)
+- `user-uploads://image-11.png` -> `src/assets/sonor-logo.png` (Sonor wordmark)
+- `user-uploads://image-12.png` -> `src/assets/logo-banque-territoires.png`
+- `user-uploads://image-13.png` -> `src/assets/logo-matrice.png`
 
-The Thank-you card's blue halo then becomes a callback near the end, not the dominant note. The hero's gold halo crowns the headline as today.
+### 2. Update `src/pages/Sonor.tsx`
 
-### 2. Remove the blue rectangle
+Add ES6 imports for the five new assets at the top of the file.
 
-The flat blue band comes from the `linear-gradient(... primary-fixed 55%, primary-fixed-dim 100%)` overlay reaching opacity 1 at the bottom. Two changes in `src/index.css`:
+**Data Synthesis block**
+Replace the external `lh3.googleusercontent.com` `<img src=...>` with `src={sonorCartographie}` and update the `alt` to "Sonor Cartographie dashboard, real-time acoustic mapping".
 
-- **Lower the overlay ceiling.** Cap the overlay's `opacity` at the Thank-you card's saturation reference (~0.35), not 1. This is the "saturation never exceeds the Thank-you card" rule, encoded once.
-- **Reshape the gradient.** Replace the bottom-heavy linear gradient with a soft top-anchored radial wash so the tint fades into surface, never piles into a band:
+**Citizen Engagement & Urban Quietude block**
+Replace the second external `lh3.googleusercontent.com` `<img>` with `src={sonorRecommandations}` and update `alt` to "Sonor Recommandations interface, prioritized action plans for planners".
+
+**Hypothesis section (Figma prototype)**
+Replace the current placeholder (the play icon + paragraph in the 16:9 box) with a real Figma prototype embed, and add the requested subtitle. Structure:
 
 ```text
-radial-gradient(
-  ellipse 90% 60% at 50% 0%,
-  hsl(var(--primary-fixed) / 0.30) 0%,
-  hsl(var(--primary-fixed-dim) / 0.18) 45%,
-  transparent 80%
-)
+[eyebrow] The Hypothesis
+[h2 italic primary] Our first 2020 prototype
+[16:9 iframe] Figma prototype
+[paragraph, below the frame, muted] By making noise visible and data
+truly actionable... silence.
 ```
 
-Then the static base layer (the warm cream + gold radial at top) becomes the **end state**, and the blue overlay becomes the **start state**. We swap which one is driven by `--page-light-progress`:
+The iframe uses Figma's standard embed wrapper:
 
-- Base layer: warm cream + faint gold radial at top, always on (this is "surface at dusk").
-- Overlay layer: cool blue radial at top, opacity = `1 - var(--page-light-progress)`, capped at 0.35.
+```
+src = "https://www.figma.com/embed?embed_host=lovable&url="
+    + encodeURIComponent(
+        "https://www.figma.com/proto/OcBu81qdpjpPdjHQPA6oae/"
+        + "Sonor-Site-Mairie?content-scaling=fixed&kind=proto"
+        + "&node-id=25-0&page-id=0%3A1&scaling=scale-down"
+        + "&starting-point-node-id=25%3A0"
+      )
+```
 
-Result: scroll down, the blue afternoon light recedes, the cream + gold dusk takes over. Scroll up, it returns identically (state is a pure function of scroll, so symmetry is automatic).
+Attributes: `allowFullScreen`, `title="Sonor 2020 prototype"`, `loading="lazy"`, absolutely positioned to fill the 16:9 container. The `Icon` import is removed only if no longer used (it is still used by the Outcome timeline, so keep it).
 
-### 3. Tint the surface, not the text
+The supporting paragraph keeps the existing copy ("By making noise visible...") but moves below the prototype as a caption.
 
-Confirmed:
-- `--on-surface`, `--on-surface-variant`, `--primary`, `--secondary` stay constant. No text color changes anywhere.
-- Only `.page-light` and `.page-light::after` change. Halos (gold, blue) are untouched.
+**Acknowledgments section**
+Replace the three text spans (`SONOR`, `Banque des Territoires`, `Matrice`) with the actual logos. Each rendered as:
 
-### 4. Smooth scrolling, single scrollbar
+```
+<img src={...} alt="..." className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
+```
 
-Two small additions:
+Layout stays `flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16`. Logos: Sonor, Banque des Territoires, Matrice, in that order.  
+  
+Allow the user to click on images to view them fullscreen.
 
-- **`html { scroll-behavior: smooth; }`** in `src/index.css`. Makes anchor jumps and programmatic scrolls glide instead of snap. Browser respects `prefers-reduced-motion` automatically.
-- **PageLight throttle** is already 100 ms (10 fps), which is fine for an opacity tween but reads slightly steppy on long scrolls. Drop `MIN_INTERVAL` from 100 to 50 (20 fps). Still composited-only work, no layout, no paint.
-- Single scrollbar is already correct since the previous `overflow-x: clip` fix on `html, body`. No change needed there.
+### Files edited
 
-### 5. What stays untouched
-
-- Hero gold halo position, size, animation.
-- Thank-you card, its blue halo, its gradient, its ring. It remains the saturation ceiling and the standalone front card.
-- Milestones, Case Studies, Why I care, How I work. No layout or color changes.
-- All text colors, font weights, sizes.
-- The `clip` overflow rule.
-
-### Technical summary
-
-**`src/index.css`:**
-- `html { scroll-behavior: smooth; }` added to the base layer.
-- `.page-light` background-image swapped to the warm cream + faint gold radial as the **always-on** dusk base (re-using the existing `secondary-fixed` radial, slightly stronger).
-- `.page-light::after` rewritten:
-  - `background:` top-anchored radial in `primary-fixed` / `primary-fixed-dim`, max stop alpha 0.30.
-  - `opacity: calc(0.35 * (1 - var(--page-light-progress, 0)));` so the cap is hard-coded at the Thank-you card's reference saturation, and the curve is identical up and down.
-
-**`src/components/PageLight.tsx`:**
-- `MIN_INTERVAL` 100 → 50.
-- No logic change. Progress still 0 at top, 1 at bottom; the CSS does the inversion.
+- `src/pages/Sonor.tsx`
+- `src/assets/` (5 new image files copied in)
 
 ### Out of scope
-No changes to halos, hero, Thank-you card, milestones, typography, or layout. No new dependencies.
+
+- No changes to the Hypothesis copy itself, only its placement (caption under the prototype).
+- No changes to other pages, layout, or scroll/PageLight behavior.

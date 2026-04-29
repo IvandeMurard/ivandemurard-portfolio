@@ -1,7 +1,20 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
+import sonorCartographie from "@/assets/sonor-cartographie.png";
+import sonorRecommandations from "@/assets/sonor-recommandations.png";
+import sonorLogo from "@/assets/sonor-logo.png";
+import logoBanqueTerritoires from "@/assets/logo-banque-territoires.png";
+import logoMatrice from "@/assets/logo-matrice.png";
+
+const FIGMA_PROTOTYPE_URL =
+  "https://www.figma.com/embed?embed_host=lovable&url=" +
+  encodeURIComponent(
+    "https://www.figma.com/proto/OcBu81qdpjpPdjHQPA6oae/Sonor-Site-Mairie?content-scaling=fixed&kind=proto&node-id=25-0&page-id=0%3A1&scaling=scale-down&starting-point-node-id=25%3A0",
+  );
 
 const META = [
   { label: "Role", value: "Co-founder & Product Lead" },
@@ -61,7 +74,10 @@ const FAQ = [
   },
 ];
 
-const Sonor = () => (
+const Sonor = () => {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+
+  return (
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
     <main className="pt-32">
       {/* Hero */}
@@ -132,28 +148,30 @@ const Sonor = () => (
         </div>
       </section>
 
-      {/* The Hypothesis (video placeholder) */}
+      {/* The Hypothesis (Figma prototype) */}
       <section className="py-20 md:py-40 bg-surface">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
             The Hypothesis
           </span>
+          <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">
+            Our first 2020 prototype
+          </h2>
           <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant/30">
-            <div className="absolute inset-0 flex items-center justify-center bg-primary/5 group cursor-pointer">
-              <div className="text-center space-y-4 px-8">
-                <Icon
-                  name="play_circle"
-                  className="text-6xl text-primary/40 group-hover:scale-110 transition-transform duration-500"
-                />
-                <p className="font-headline italic text-primary/60">
-                  By making noise visible and data truly actionable (through real-time multi-source mapping,
-                  prioritized action plans, citizen engagement, and impact measurement), we could equip municipalities
-                  and urban planners with the tools to anticipate, act, and protect the most fragile resource of a city:
-                  silence.
-                </p>
-              </div>
-            </div>
+            <iframe
+              title="Sonor 2020 prototype"
+              src={FIGMA_PROTOTYPE_URL}
+              allowFullScreen
+              loading="lazy"
+              className="absolute inset-0 w-full h-full"
+            />
           </div>
+          <p className="font-headline italic text-on-surface-variant/80 text-lg md:text-xl leading-relaxed mt-10 max-w-3xl mx-auto">
+            By making noise visible and data truly actionable (through real-time multi-source mapping,
+            prioritized action plans, citizen engagement, and impact measurement), we could equip municipalities
+            and urban planners with the tools to anticipate, act, and protect the most fragile resource of a city:
+            silence.
+          </p>
         </div>
       </section>
 
@@ -163,12 +181,20 @@ const Sonor = () => (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center mb-24 md:mb-40">
             <div className="order-2 lg:order-1">
               <div className="relative bg-surface-container rounded-lg p-4 shadow-xl">
+              <button
+                type="button"
+                onClick={() =>
+                  setLightbox({ src: sonorCartographie, alt: "Sonor Cartographie dashboard, real-time acoustic mapping" })
+                }
+                className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+              >
                 <img
-                  src="https://lh3.googleusercontent.com/aida/ADBb0uhXfmnbxEoVVOeIxkmbCp6Zh7e8OyPDsW10ZrZR6zZ59L-gTkSWAmavfrONTK9DuOjgMtQZ0knjL_7KPJD8OjK8X5o1ZQfticeyJOe8mB3j73I2Nnlxvxt-1X0nvAVYF_KMhCJ3D1wLCETmsPxW4l29YucBW6JHoBXjQJ75HnN7mhO7N1QE8L0p4UwpbqJAboflIutayUm_-VpvY4eWZPHDzQjGZzKGgSLW9EYCJU6fQv340WELWaSEyrbxDV49Y7NJvf215VJqyhQ"
-                  alt="Atmospheric Map interface"
+                  src={sonorCartographie}
+                  alt="Sonor Cartographie dashboard, real-time acoustic mapping"
                   loading="lazy"
-                  className="w-full h-auto rounded border border-outline-variant/20 shadow-sm"
+                  className="w-full h-auto rounded border border-outline-variant/20 shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
                 />
+              </button>
               </div>
             </div>
             <div className="order-1 lg:order-2 space-y-8">
@@ -191,12 +217,23 @@ const Sonor = () => (
             </div>
             <div>
               <div className="relative bg-surface-container rounded-lg p-4 shadow-xl">
-                <img
-                  src="https://lh3.googleusercontent.com/aida/ADBb0uizONYHMWB38LdSfX2-YV2-l8QwqcEy7p52FvGB44y7XBnaFJ8cV31Uqe4W_ykns5xuUvYaPpG16QO84mycjqYuf4Bw95YrxmeWXS1q5dAh5ZqSodMsfr6Q_VVySKcBeQUZSrI3Y8C9jgkg_gM524ydgII5HJQklgv7p7RPdmYyTfgI5eaFSMTwVnUZAX7oNoMmeZrZlyD0GMYSeYe4bTUxJP2wOc6sgpEBnZvWfWXGtyo07mxy_NZ_v7FJIDzbzmj72v4-ttahe4E"
-                  alt="Quiet Intelligence dashboard interface"
-                  loading="lazy"
-                  className="w-full h-auto rounded border border-outline-variant/20 shadow-sm"
-                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLightbox({
+                      src: sonorRecommandations,
+                      alt: "Sonor Recommandations interface, prioritized action plans for planners",
+                    })
+                  }
+                  className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                >
+                  <img
+                    src={sonorRecommandations}
+                    alt="Sonor Recommandations interface, prioritized action plans for planners"
+                    loading="lazy"
+                    className="w-full h-auto rounded border border-outline-variant/20 shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
+                  />
+                </button>
               </div>
             </div>
           </div>
@@ -339,9 +376,24 @@ const Sonor = () => (
             association, and the collaboration of my three co-founders: Émilie, Majda and Benjamin.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-            <span className="font-headline italic text-2xl text-on-surface-variant">SONOR</span>
-            <span className="font-headline italic text-2xl text-on-surface-variant">Banque des Territoires</span>
-            <span className="font-headline italic text-2xl text-on-surface-variant">Matrice</span>
+            <img
+              src={sonorLogo}
+              alt="Sonor logo"
+              loading="lazy"
+              className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
+            <img
+              src={logoBanqueTerritoires}
+              alt="Banque des Territoires, Groupe Caisse des Dépôts"
+              loading="lazy"
+              className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
+            <img
+              src={logoMatrice}
+              alt="Matrice"
+              loading="lazy"
+              className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
           </div>
           <div className="mt-16">
             <Link
@@ -354,7 +406,20 @@ const Sonor = () => (
         </div>
       </section>
     </main>
+
+    <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
+      <DialogContent className="max-w-[95vw] md:max-w-6xl p-2 md:p-4 bg-surface-container border-outline-variant/30">
+        {lightbox && (
+          <img
+            src={lightbox.src}
+            alt={lightbox.alt}
+            className="w-full h-auto max-h-[85vh] object-contain rounded"
+          />
+        )}
+      </DialogContent>
+    </Dialog>
   </SiteLayout>
-);
+  );
+};
 
 export default Sonor;
