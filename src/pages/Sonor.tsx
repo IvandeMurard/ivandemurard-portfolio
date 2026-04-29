@@ -181,12 +181,20 @@ const Sonor = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center mb-24 md:mb-40">
             <div className="order-2 lg:order-1">
               <div className="relative bg-surface-container rounded-lg p-4 shadow-xl">
+              <button
+                type="button"
+                onClick={() =>
+                  setLightbox({ src: sonorCartographie, alt: "Sonor Cartographie dashboard, real-time acoustic mapping" })
+                }
+                className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+              >
                 <img
-                  src="https://lh3.googleusercontent.com/aida/ADBb0uhXfmnbxEoVVOeIxkmbCp6Zh7e8OyPDsW10ZrZR6zZ59L-gTkSWAmavfrONTK9DuOjgMtQZ0knjL_7KPJD8OjK8X5o1ZQfticeyJOe8mB3j73I2Nnlxvxt-1X0nvAVYF_KMhCJ3D1wLCETmsPxW4l29YucBW6JHoBXjQJ75HnN7mhO7N1QE8L0p4UwpbqJAboflIutayUm_-VpvY4eWZPHDzQjGZzKGgSLW9EYCJU6fQv340WELWaSEyrbxDV49Y7NJvf215VJqyhQ"
-                  alt="Atmospheric Map interface"
+                  src={sonorCartographie}
+                  alt="Sonor Cartographie dashboard, real-time acoustic mapping"
                   loading="lazy"
-                  className="w-full h-auto rounded border border-outline-variant/20 shadow-sm"
+                  className="w-full h-auto rounded border border-outline-variant/20 shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
                 />
+              </button>
               </div>
             </div>
             <div className="order-1 lg:order-2 space-y-8">
