@@ -208,9 +208,9 @@
     pointer-events: none;
     background-color: hsl(var(--surface));
     background-image: radial-gradient(
-      ellipse 90% 55% at 50% 0%,
-      hsl(var(--secondary-fixed) / 0.22) 0%,
-      hsl(var(--secondary-fixed-dim) / 0.10) 45%,
+      ellipse 90% 55% at 50% 100%,
+      hsl(var(--secondary-fixed) / 0.28) 0%,
+      hsl(var(--secondary-fixed-dim) / 0.14) 45%,
       transparent 80%
     );
     transform: translateZ(0);
