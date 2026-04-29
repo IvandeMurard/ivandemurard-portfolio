@@ -20,8 +20,42 @@ const PILLARS = [
   {
     n: "03",
     Icon: HeartHandshake,
+const PILLARS = [
+  {
+    n: "01",
+    Icon: Compass,
+    title: "Reading the ground",
+    body: "Field-level fluency in operations (boutique hotels, F&B, design partners, open-data ecosystems). I learn an environment before I design for it.",
+  },
+  {
+    n: "02",
+    Icon: Cpu,
+    title: "From insight to product decisions",
+    body: "I turn that reading into shipped products. Aetherix is the proof: a real operating layer for boutique hotels, not a slideware concept.",
+  },
+  {
+    n: "03",
+    Icon: HeartHandshake,
     title: "Agentic ecosystems, not isolated features",
     body: "I design in systems (MCP architecture, Prophet/Claude separation, an Agent Hub) with a clear place for the human in every loop.",
+  },
+];
+
+const CAPABILITIES = [
+  {
+    Icon: Compass,
+    title: "Product Strategy 0→1",
+    body: "From insight to shipped product, bridging digital interfaces and physical operations.",
+  },
+  {
+    Icon: Cpu,
+    title: "Agentic AI Systems",
+    body: "Architectures and real-time agents that anticipate needs, reduce waste, and free teams to focus on what matters: human interactions.",
+  },
+  {
+    Icon: HeartHandshake,
+    title: "Human-centered Craft",
+    body: "Designing holistic user journeys and services with the right balance between technology and human interactions.",
   },
 ];
 
