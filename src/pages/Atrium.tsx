@@ -4,7 +4,6 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
 import portraitIvan from "@/assets/portrait-ivan.jpg";
-import portraitIvanOrigin from "@/assets/portrait-ivan-origin.jpg";
 
 const PRINCIPLES = [
   {
@@ -87,45 +86,32 @@ const Atrium = () => (
 
       {/* Origin */}
       <section className="mb-32 md:mb-48">
-        <div className="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20">
-          <div className="md:col-span-7 flex flex-col justify-center">
-            <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs">
-              Origin
-            </span>
-            <h2 className="font-headline text-4xl md:text-6xl text-primary mb-10 italic">
-              Where I come from
-            </h2>
-            <div className="space-y-6 font-body text-lg text-on-surface-variant leading-relaxed">
-              <p>
-                I started in mechanical engineering, then trained in service design at the
-                Interaction Design Foundation, with an MSc in management on the side. Curiosity
-                pulled me out of pure engineering and into product, where the question is never
-                only "can we build it" but "what changes for the people on the other side".
-              </p>
-              <p>
-                Sonor was the moment that crystallised it. Co-founding a 0 to 1 SaaS for urban
-                noise mapping, backed by Matrice and Banque des Territoires, taught me how to read
-                a field, build with very little, and ship something cities actually used. Every
-                role since has been a different angle on the same craft.
-              </p>
-            </div>
-            <div className="mt-12 flex items-center gap-6">
-              <div className="w-16 h-px bg-outline-variant/30" />
-              <span className="font-headline italic text-primary text-2xl">
-                Curiosity is a discipline.
-              </span>
-            </div>
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+            Origin
+          </span>
+          <h2 className="font-headline text-4xl md:text-6xl text-primary mb-10 italic">
+            Where I come from
+          </h2>
+          <div className="space-y-6 font-body text-lg text-on-surface-variant leading-relaxed">
+            <p>
+              I started in mechanical engineering, then trained in service design at the
+              Interaction Design Foundation, with an MSc in management on the side. Curiosity
+              pulled me out of pure engineering and into product, where the question is never
+              only "can we build it" but "what changes for the people on the other side".
+            </p>
+            <p>
+              Sonor was the moment that crystallised it. Co-founding a 0 to 1 SaaS for urban
+              noise mapping, backed by Matrice and Banque des Territoires, taught me how to read
+              a field, build with very little, and ship something cities actually used. Every
+              role since has been a different angle on the same craft.
+            </p>
           </div>
-          <div className="md:col-span-5 relative">
-            <div className="aspect-[4/5] relative overflow-hidden ring-1 ring-secondary-fixed-dim/30">
-              <img
-                src={portraitIvanOrigin}
-                alt="Ivan at his desk, notebook open"
-                className="absolute inset-0 h-full w-full object-cover"
-                loading="lazy"
-              />
-              <div className="absolute inset-3 border border-secondary-fixed-dim/30 pointer-events-none" />
-            </div>
+          <div className="mt-12 flex items-center gap-6">
+            <div className="w-16 h-px bg-outline-variant/30" />
+            <span className="font-headline italic text-primary text-2xl">
+              Curiosity is a discipline.
+            </span>
           </div>
         </div>
       </section>
