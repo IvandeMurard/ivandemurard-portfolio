@@ -148,28 +148,30 @@ const Sonor = () => {
         </div>
       </section>
 
-      {/* The Hypothesis (video placeholder) */}
+      {/* The Hypothesis (Figma prototype) */}
       <section className="py-20 md:py-40 bg-surface">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
             The Hypothesis
           </span>
+          <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">
+            Our first 2020 prototype
+          </h2>
           <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant/30">
-            <div className="absolute inset-0 flex items-center justify-center bg-primary/5 group cursor-pointer">
-              <div className="text-center space-y-4 px-8">
-                <Icon
-                  name="play_circle"
-                  className="text-6xl text-primary/40 group-hover:scale-110 transition-transform duration-500"
-                />
-                <p className="font-headline italic text-primary/60">
-                  By making noise visible and data truly actionable (through real-time multi-source mapping,
-                  prioritized action plans, citizen engagement, and impact measurement), we could equip municipalities
-                  and urban planners with the tools to anticipate, act, and protect the most fragile resource of a city:
-                  silence.
-                </p>
-              </div>
-            </div>
+            <iframe
+              title="Sonor 2020 prototype"
+              src={FIGMA_PROTOTYPE_URL}
+              allowFullScreen
+              loading="lazy"
+              className="absolute inset-0 w-full h-full"
+            />
           </div>
+          <p className="font-headline italic text-on-surface-variant/80 text-lg md:text-xl leading-relaxed mt-10 max-w-3xl mx-auto">
+            By making noise visible and data truly actionable (through real-time multi-source mapping,
+            prioritized action plans, citizen engagement, and impact measurement), we could equip municipalities
+            and urban planners with the tools to anticipate, act, and protect the most fragile resource of a city:
+            silence.
+          </p>
         </div>
       </section>
 
