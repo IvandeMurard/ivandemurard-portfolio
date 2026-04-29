@@ -290,7 +290,7 @@
     background-color: hsl(var(--primary));
   }
   [data-mood="dusk"] .principles-band {
-    background-color: hsl(var(--tertiary-container));
+    background-color: hsl(var(--tertiary));
   }
 
   .gold-halo {
