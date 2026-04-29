@@ -32,7 +32,10 @@ export const AtriumHeader = () => {
 
           {/* Center primary nav */}
           <div className="hidden lg:flex items-center space-x-12 absolute left-1/2 -translate-x-1/2">
-            {PRIMARY_NAV.map((item) => (
+            {[
+              ...(location.pathname !== "/" ? [{ label: "Home", to: "/" }] : []),
+              ...PRIMARY_NAV,
+            ].map((item) => (
               <NavLink
                 key={item.label}
                 to={item.to}
@@ -41,7 +44,7 @@ export const AtriumHeader = () => {
                   [
                     "font-headline italic tracking-wide text-sm transition-colors duration-500",
                     isActive
-                      ? "text-secondary border-b border-secondary/40 pb-1"
+                      ? "text-secondary border-b border-secondary/60 pb-1 [text-shadow:0_0_18px_hsl(var(--secondary)/0.25)]"
                       : "text-on-surface-variant hover:text-primary",
                   ].join(" ")
                 }
