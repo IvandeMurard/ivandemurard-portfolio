@@ -1,7 +1,20 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
+import sonorCartographie from "@/assets/sonor-cartographie.png";
+import sonorRecommandations from "@/assets/sonor-recommandations.png";
+import sonorLogo from "@/assets/sonor-logo.png";
+import logoBanqueTerritoires from "@/assets/logo-banque-territoires.png";
+import logoMatrice from "@/assets/logo-matrice.png";
+
+const FIGMA_PROTOTYPE_URL =
+  "https://www.figma.com/embed?embed_host=lovable&url=" +
+  encodeURIComponent(
+    "https://www.figma.com/proto/OcBu81qdpjpPdjHQPA6oae/Sonor-Site-Mairie?content-scaling=fixed&kind=proto&node-id=25-0&page-id=0%3A1&scaling=scale-down&starting-point-node-id=25%3A0",
+  );
 
 const META = [
   { label: "Role", value: "Co-founder & Product Lead" },
