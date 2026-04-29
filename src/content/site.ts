@@ -8,6 +8,8 @@ export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/ivandemurard/",
   github: "https://github.com/IvandeMurard",
   instagram: "https://www.instagram.com/",
+  x: "https://x.com/IvanMurard",
+  cv: "/cv/Ivan_de_Murard_CV.pdf",
 };
 
 export type NavItem = { label: string; to: string };
@@ -52,3 +54,102 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
 } as const;
+
+// Roles drawn from the CV, used by the About page Track record section.
+export type TrackRecordEntry = {
+  range: string;
+  role: string;
+  company: string;
+  outcome: string;
+};
+
+export const TRACK_RECORD: TrackRecordEntry[] = [
+  {
+    range: "2024 to 2025",
+    role: "Product Manager, SaaS",
+    company: "FORTIL for DomusVi",
+    outcome:
+      "Rolled out an internal SaaS to 500+ users across 100 care homes. Led the full lifecycle, from discovery and POC (Airtable, Make) to specs, IT mapping and field training.",
+  },
+  {
+    range: "2023 to 2024",
+    role: "Product Manager, Data & Operations",
+    company: "ALTEN for Bouygues Telecom",
+    outcome:
+      "Built a data-driven dashboard to track and recover 1.9M EUR of receivables. 40% recovered, adopted by ops teams. Cross-functional with IT, Finance, Sales and leadership.",
+  },
+  {
+    range: "2022 to 2023",
+    role: "Customer Success Manager, Public Sector SaaS",
+    company: "Opendatasoft",
+    outcome:
+      "Owned 22 European city and metropolitan clients from onboarding to production. 2 launches, zero churn, growing data volumes loaded.",
+  },
+  {
+    range: "2020 to 2022",
+    role: "Co-founder & Product Manager",
+    company: "Sonor",
+    outcome:
+      "0 to 1 B2G SaaS for urban noise mapping (open data). Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped.",
+  },
+];
+
+// Current builds, surfaced from the GitHub profile.
+export type NowEntry = {
+  name: string;
+  blurb: string;
+  href: string;
+  external: boolean;
+  meta: string;
+};
+
+export const NOW_PROJECTS: NowEntry[] = [
+  {
+    name: "Aetherix",
+    blurb:
+      "Contextual intelligence layer for boutique hotel operations. Anticipates staffing and F&B needs, frees teams for guest care.",
+    href: "/atherix",
+    external: false,
+    meta: "Case study",
+  },
+  {
+    name: "Tacet",
+    blurb:
+      "Mobile-first app to visualise noise pollution in Paris and find calm streets, homes, and commutes.",
+    href: "/tacet",
+    external: false,
+    meta: "Case study",
+  },
+  {
+    name: "EvalLabs",
+    blurb:
+      "Evaluation solution for agent-to-agent workflows, scored on business-centric metrics, not vibes.",
+    href: "https://github.com/IvandeMurard/Evaluation-Agents-Marketplace",
+    external: true,
+    meta: "GitHub",
+  },
+  {
+    name: "Kissa",
+    blurb:
+      "Digital twin of a record collection. Scan, contextualise and curate, built for selectors and listening culture.",
+    href: "https://github.com/IvandeMurard/kissa-project-mvp-B2C",
+    external: true,
+    meta: "GitHub",
+  },
+  {
+    name: "Lore",
+    blurb:
+      "Voice AI mentor that captures tacit expertise from senior technicians and shares it on the shop floor. 24h hackathon win.",
+    href: "https://github.com/IvandeMurard/Lore",
+    external: true,
+    meta: "GitHub",
+  },
+  {
+    name: "Field Notes",
+    blurb:
+      "Where I write what I learn while building, in product, evaluation, and AI systems design.",
+    href: "/journal",
+    external: false,
+    meta: "Read",
+  },
+];

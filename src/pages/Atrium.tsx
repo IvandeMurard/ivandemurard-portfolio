@@ -1,195 +1,338 @@
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/Reveal";
+import { PortraitPlaceholder } from "@/components/PortraitPlaceholder";
+import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
 
 const PRINCIPLES = [
   {
-    icon: "architecture",
-    title: "Holistic Product Building",
-    body: "I approach every project with a complete 0→1 vision, connecting digital interfaces with physical operations, online experiences with offline realities, front-end to back-end.",
+    icon: "trending_up",
+    title: "Real business value",
+    body: "Every product I ship has to move a number that matters: operational cost down, capacity freed, decisions sharpened. If it doesn't, it's a demo.",
   },
   {
     icon: "favorite",
-    title: "Human-Centered Impact",
-    body: "Every system I design aims to reduce friction, eliminate waste, and create space for genuine human connection and care while delivering clear business value.",
+    title: "Human interactions first",
+    body: "Technology should give time back to people, not pull them deeper into screens. The best automation is the one that lets a host be more present.",
   },
   {
-    icon: "visibility_off",
-    title: "Quiet Confidence",
-    body: "I build technology that stays out of the way, anticipates needs, and empowers people rather than demanding their attention.",
+    icon: "architecture",
+    title: "Full-stack 0 to 1 craft",
+    body: "From insight to shipped product, bridging digital interfaces with physical operations, so the experience holds together end to end.",
   },
 ];
 
-const STEPS = [
-  { n: "01", title: "Discovery", body: "Deep listening to users, business needs and operational realities" },
-  { n: "02", title: "Refinement", body: "Removing noise until only essential value remains" },
-  { n: "03", title: "The Welcome", body: "Delivering elegant, impactful solutions that feel natural and human." },
+const METHOD = [
+  {
+    n: "01",
+    title: "Problem analysis",
+    body: "I start by understanding context, problem and architecture before writing a line. Field-level fluency before design.",
+  },
+  {
+    n: "02",
+    title: "Build",
+    body: "I pick the lightest stack and methodology that solves the job, then iterate fast on real usage, not demos.",
+  },
+  {
+    n: "03",
+    title: "Continuous discovery",
+    body: "I keep challenging the vision and roadmap by reading the market, the competition, and the weak signals.",
+  },
+  {
+    n: "04",
+    title: "Documenting",
+    body: "I keep a single source of truth, so context, decisions, and learnings stay accessible to everyone who follows.",
+  },
 ];
 
 const Atrium = () => (
   <SiteLayout title="About">
-    <main className="relative pt-32 md:pt-48">
+    <main className="relative pt-32 md:pt-48 pb-24 md:pb-32">
       {/* Hero */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-56">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-end">
           <div className="lg:col-span-8">
-            <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl text-primary leading-none tracking-tight italic mb-8">
-              About: <br />
-              A Conversation <br />
-              <span className="pl-12 md:pl-24">with Ivan</span>
+            <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
+              About
+            </span>
+            <h1 className="font-headline text-6xl md:text-8xl lg:text-9xl text-primary leading-[1.05] tracking-tight italic mb-10">
+              I'm Ivan, <br />
+              <span className="text-on-primary-container opacity-90">a Product Builder,</span>
+              <br />
+              <span className="pl-12 md:pl-24">by curiosity and craft.</span>
             </h1>
-            <p className="font-body text-lg md:text-2xl text-on-surface-variant max-w-4xl leading-relaxed">
-              A personal space telling the story of a Product Builder dedicated to curiosity, determination, and a
-              philosophy rooted in care and craft. From{" "}
-              <Link
-                to="/sonor"
-                className="border-b border-on-surface-variant/30 hover:border-primary hover:text-primary transition-all duration-300"
-              >
-                co-founding an open-data SaaS
-              </Link>{" "}
-              to{" "}
-              <Link
-                to="/atherix"
-                className="border-b border-on-surface-variant/30 hover:border-primary hover:text-primary transition-all duration-300"
-              >
-                designing agentic AI for boutique hotel operations
-              </Link>
-              , I build products that bridge digital interfaces with physical operations, always placing the human
-              experience at the center while delivering measurable business impact.
+            <p className="font-body text-lg md:text-2xl text-on-surface-variant max-w-3xl leading-relaxed">
+              Five years in Product Management across start-ups, scale-ups and large groups, two
+              years co-founding a SaaS, and a long-running habit of shipping AI-native side
+              projects. I build from operational reality, with the human kept at the centre.
             </p>
           </div>
-          <div className="lg:col-span-4 relative h-[400px] lg:h-[500px] bg-surface-container-high overflow-hidden">
-            <div className="absolute inset-0 turner-gradient-warm" />
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNkD8TPVVqC2tcCNIvT2A8tVAEKEOW8yhVB6zL38ht2dOuHzmm0BXXzazpV6r-jcB6-ST3QldmVrqlQhzavhvgQi8BwDLm1kbVfQ4k-4_y_NT565cLoN0rvrIO7NOuQ3DaFRNtCi9i-cDPsQWyhtDKL_B1SDnvtO_iCgFOxC865X1eGLFEjmjf8rZnsxs8sUCT6c9WtWONdVCUuXzVBYk_ea3aUfIHTzVehYQK1nj6nkwBdc8QmjbRb9e7B3GzQ22fs9llREiTYB1g"
-              alt="Portrait of Ivan in soft lighting"
-              loading="lazy"
-              className="w-full h-full object-cover mix-blend-luminosity opacity-80"
-            />
-            <div className="absolute bottom-8 left-8">
-              <span className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface">
-                Reflection No. 01
-              </span>
-            </div>
+          <div className="lg:col-span-4 h-[400px] lg:h-[500px]">
+            <PortraitPlaceholder variant="hero" className="w-full h-full" />
           </div>
         </div>
       </section>
 
-      {/* The Curiosity */}
-      <section className="mb-32 md:mb-56">
-        <div className="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-          <div className="flex flex-col justify-center order-2 md:order-1">
-            <span className="font-label text-secondary mb-6 tracking-widest uppercase text-sm">Chapter One</span>
-            <h2 className="font-headline text-4xl md:text-6xl text-primary mb-10 italic">The Curiosity</h2>
-            <div className="space-y-8 font-body text-lg text-on-surface-variant leading-relaxed">
+      {/* Origin */}
+      <section className="mb-32 md:mb-48">
+        <div className="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20">
+          <div className="md:col-span-7 flex flex-col justify-center">
+            <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs">
+              Origin
+            </span>
+            <h2 className="font-headline text-4xl md:text-6xl text-primary mb-10 italic">
+              Where I come from
+            </h2>
+            <div className="space-y-6 font-body text-lg text-on-surface-variant leading-relaxed">
               <p>
-                Curiosity is a discipline. It has been the compass throughout my journey, from mechanical engineering
-                and co-founding Sonor (an open-data SaaS platform that helps cities protect acoustic health) to
-                designing Atherix, an agentic AI framework for boutique hotel operations. It guides me through complex
-                systems toward purposeful, human-centered product building.
+                I started in mechanical engineering, then trained in service design at the
+                Interaction Design Foundation, with an MSc in management on the side. Curiosity
+                pulled me out of pure engineering and into product, where the question is never
+                only "can we build it" but "what changes for the people on the other side".
+              </p>
+              <p>
+                Sonor was the moment that crystallised it. Co-founding a 0 to 1 SaaS for urban
+                noise mapping, backed by Matrice and Banque des Territoires, taught me how to read
+                a field, build with very little, and ship something cities actually used. Every
+                role since has been a different angle on the same craft.
               </p>
             </div>
             <div className="mt-12 flex items-center gap-6">
               <div className="w-16 h-px bg-outline-variant/30" />
-              <span className="font-headline italic text-primary text-2xl">Seeking the unseen connections.</span>
+              <span className="font-headline italic text-primary text-2xl">
+                Curiosity is a discipline.
+              </span>
             </div>
           </div>
-          <div className="relative order-1 md:order-2">
-            <div className="aspect-[4/5] bg-surface-container-low overflow-hidden relative">
-              <div className="absolute top-10 right-10 w-48 md:w-64 h-48 md:h-64 bg-secondary-fixed/30 rounded-full mix-blend-multiply" />
-              <div className="absolute bottom-20 left-10 w-32 md:w-40 h-32 md:h-40 bg-primary-container/10 rounded-full mix-blend-multiply" />
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeBdNJ9Jo17dT0Utajts10Kc0pme6VYhYbls8QtDjwJPCDyRdTkiV6ASIbVEafxO_z2FH5uMLzu4uo8Su-bhyf5GHf4okreDzhXb67dBrdH1OH6UBlmvK1Wl3Brr6o3-yp8vLEECsC2vBV4e9amcEOKm1KU14ZyT4nOHCxCYj_akk9eFOVXM54zR3gcBTqpcxHfdD_ysXlJfugQXZ1xBmqLAaysqTLCUvJ1a7CSwyKGyTARF5REMlqRgFso-3zEIL1IOWRUN2-QFks"
-                alt="Soft light casting shadows on textured wall"
-                loading="lazy"
-                className="w-full h-full object-cover mix-blend-multiply opacity-60"
+          <div className="md:col-span-5 relative">
+            <div className="aspect-[4/5] relative">
+              <PortraitPlaceholder
+                variant="inline"
+                className="w-full h-full"
+                caption="Studio, coming soon"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* The Principles I Build With, midnight */}
-      <section className="relative py-32 md:py-56 overflow-hidden">
-        <div className="absolute inset-0 bg-primary z-0">
-          <div className="absolute inset-0 turner-gradient-warm opacity-20" />
-        </div>
-        <div className="relative z-10 max-w-screen-xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-headline text-4xl md:text-7xl text-surface mb-16 md:mb-24 italic">
-            The Principles I Build With
+      {/* Track record */}
+      <Reveal as="section" className="mb-32 md:mb-48 px-6 md:px-12 max-w-screen-2xl mx-auto">
+        <div className="max-w-2xl mb-16 md:mb-20">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+            Track record
+          </span>
+          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+            Where I've shipped
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <p className="text-on-surface-variant font-light leading-relaxed">
+            Four roles, four sizes of company, one constant: data-driven SaaS that lands in real
+            operations.
+          </p>
+        </div>
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+          {TRACK_RECORD.map((entry, i) => (
+            <article
+              key={`${entry.company}-${entry.range}`}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}
+              className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+            >
+              <span className="font-label italic text-secondary text-sm tracking-[0.18em] block mb-6">
+                {entry.range}
+              </span>
+              <h3 className="font-headline italic text-2xl text-primary mb-2 leading-tight">
+                {entry.role}
+              </h3>
+              <p className="font-label uppercase tracking-[0.18em] text-[11px] text-on-surface-variant mb-6">
+                {entry.company}
+              </p>
+              <p className="text-on-surface-variant font-light leading-relaxed">{entry.outcome}</p>
+            </article>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* Now */}
+      <Reveal as="section" className="mb-32 md:mb-48 px-6 md:px-12 max-w-screen-2xl mx-auto">
+        <div className="max-w-2xl mb-16 md:mb-20">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+            Now
+          </span>
+          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+            What I'm building
+          </h2>
+          <p className="text-on-surface-variant font-light leading-relaxed">
+            A handful of live builds, in hospitality operations, civic life, evaluation, music, and
+            industrial knowledge. I work in public, with the source open whenever I can.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          {NOW_PROJECTS.map((p, i) => {
+            const Wrapper: React.ElementType = p.external ? "a" : Link;
+            const wrapperProps = p.external
+              ? { href: p.href, target: "_blank", rel: "noopener noreferrer" }
+              : { to: p.href };
+            return (
+              <Wrapper
+                key={p.name}
+                {...(wrapperProps as Record<string, unknown>)}
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
+                className="group p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500 flex flex-col"
+              >
+                <h3 className="font-headline italic text-2xl text-primary mb-4">{p.name}</h3>
+                <p className="text-on-surface-variant font-light leading-relaxed mb-8 flex-1">
+                  {p.blurb}
+                </p>
+                <span className="inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+                  {p.meta}
+                  <Icon
+                    name={p.external ? "arrow_outward" : "arrow_forward"}
+                    className="text-sm group-hover:translate-x-1 transition-transform"
+                  />
+                </span>
+              </Wrapper>
+            );
+          })}
+        </div>
+      </Reveal>
+
+      {/* Principles, dark band */}
+      <section className="principles-band relative py-32 md:py-48 overflow-hidden mb-32 md:mb-48">
+        <div className="absolute inset-0 turner-gradient-warm opacity-15" />
+        <div className="relative z-10 max-w-screen-xl mx-auto px-6 md:px-12 text-center">
+          <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary-fixed mb-6 block opacity-80">
+            Principles
+          </span>
+          <h2 className="font-headline text-4xl md:text-7xl text-surface mb-16 md:mb-20 italic">
+            What I build with
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
             {PRINCIPLES.map((p) => (
               <div
                 key={p.title}
-                className="p-8 md:p-12 bg-surface/10 backdrop-blur-2xl border border-surface/5 flex flex-col items-center group transition-all duration-500 hover:bg-surface/15"
+                className="p-10 md:p-12 bg-surface-container-high/15 backdrop-blur-2xl border border-outline-variant/20 rounded-lg flex flex-col items-center text-center group transition-all duration-500 hover:bg-surface-container-high/25"
               >
                 <Icon
                   name={p.icon}
-                  className="text-surface-variant text-4xl mb-8 group-hover:scale-110 transition-transform duration-500"
+                  className="text-secondary-fixed text-4xl mb-8 group-hover:scale-110 transition-transform duration-500"
                 />
-                <h3 className="font-headline text-2xl text-surface-bright mb-4 italic">{p.title}</h3>
-                <p className="font-body text-surface-dim/80 leading-relaxed">{p.body}</p>
+                <h3 className="font-headline text-2xl text-surface-bright mb-4 italic">
+                  {p.title}
+                </h3>
+                <p className="font-body text-surface-dim/85 leading-relaxed">{p.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* A Journey Together */}
-      <section className="mt-32 md:mt-56 mb-24 md:mb-32 px-6 md:px-12 max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16">
-          <div className="lg:col-span-5 relative h-[400px] lg:h-[600px] bg-surface-container-high">
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOawyRk3Fc4Fwbnplm0TSJjwM1t8n0A8lHQDDVibzOMgGjeq0EOQG5ApTFXxjpuPHp1S9BqLLcmVEzJtefh-AgtXk_T6KVp7sFkI3HGXcXFvDBK7gTyxzquG8SSDfCcmBHTeQA_2Hv_7PPq47Jn1rAhfoX_XI1Zj_NRpyjbqVbWCglI_hnhIEY5jd7ZRNeguSzpDC4zIBFTs0-o20_VPiwbVw5XIJKj9kDnJy-wrKDlY7bdoOzHa4rL3U8gIZhPwF6oiJY-pK46tla"
-              alt="Abstract networks"
-              loading="lazy"
-              className="w-full h-full object-cover mix-blend-overlay opacity-70"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 md:w-80 h-64 md:h-80 rounded-full border border-secondary/20 p-8 flex items-center justify-center">
-                <div className="w-full h-full rounded-full border border-secondary/40 p-8 flex items-center justify-center">
-                  <span className="font-headline italic text-secondary text-2xl">Together.</span>
-                </div>
-              </div>
+      {/* Method */}
+      <Reveal as="section" className="mb-32 md:mb-48 px-6 md:px-12 max-w-screen-2xl mx-auto">
+        <div className="max-w-2xl mb-16 md:mb-20">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+            Method
+          </span>
+          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+            How I work
+          </h2>
+          <p className="text-on-surface-variant font-light leading-relaxed">
+            A loop, not a waterfall. Four moves I keep returning to, on every project.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+          {METHOD.map((m, i) => (
+            <div
+              key={m.n}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+              className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+            >
+              <span className="font-headline italic text-secondary text-sm tracking-[0.2em] block mb-6">
+                {m.n}
+              </span>
+              <h3 className="font-headline italic text-xl text-primary mb-4">{m.title}</h3>
+              <p className="text-on-surface-variant font-light leading-relaxed text-[15px]">
+                {m.body}
+              </p>
             </div>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* Let's talk */}
+      <Reveal as="section" className="relative px-6 md:px-12 max-w-5xl mx-auto text-center">
+        <div className="farewell-card relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-20 rounded-2xl overflow-hidden ambient-shadow ring-1 ring-primary-fixed-dim/40">
+          <span className="font-label uppercase tracking-[0.3em] text-[11px] text-secondary mb-6 block opacity-80">
+            Let's talk
+          </span>
+          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+            Shall we build something?
+          </h2>
+          <p className="text-on-surface font-light mb-12 max-w-xl mx-auto leading-relaxed">
+            Hiring leads, design partners, fellow builders, all welcome. Pick the door that suits
+            you.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-10">
+            <a
+              href={SOCIAL_LINKS.schedule}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary text-on-primary px-10 py-5 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all duration-500 ambient-shadow inline-flex items-center gap-3 group"
+            >
+              Book a call
+              <Icon
+                name="arrow_forward"
+                className="text-sm group-hover:translate-x-1 transition-transform"
+              />
+            </a>
+            <a
+              href={SOCIAL_LINKS.email}
+              className="border border-primary/40 text-primary px-10 py-5 rounded-xl font-medium tracking-wide hover:border-primary hover:bg-primary/5 transition-all duration-500 inline-flex items-center gap-3"
+            >
+              <Icon name="mail" className="text-sm" />
+              Email
+            </a>
+            <a
+              href={SOCIAL_LINKS.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-secondary font-medium tracking-wide hover:underline decoration-secondary/30 underline-offset-8 transition-all duration-500 inline-flex items-center gap-2 group"
+            >
+              <Icon name="download" className="text-sm" />
+              Download CV
+            </a>
           </div>
-          <div className="lg:col-span-7 flex flex-col justify-center">
-            <h2 className="font-headline text-4xl md:text-7xl text-primary mb-8 italic">A Journey Together</h2>
-            <p className="font-body text-lg md:text-xl text-on-surface-variant leading-relaxed mb-12 max-w-2xl">
-              Building products is a shared walk through a landscape of possibilities. Whether launching a SaaS
-              platform that influences public policy or creating agentic systems that optimize hotel operations, my
-              goal remains the same: to craft digital experiences that respect the human on the other side while
-              driving real, measurable impact.
-            </p>
-            <div className="space-y-10 md:space-y-12">
-              {STEPS.map((s) => (
-                <div key={s.n} className="flex gap-6 md:gap-8 items-start">
-                  <span className="font-headline text-3xl text-secondary italic">{s.n}</span>
-                  <div>
-                    <h4 className="font-body font-bold text-primary uppercase tracking-wider text-sm mb-2">
-                      {s.title}
-                    </h4>
-                    <p className="text-on-surface-variant">{s.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-16 md:mt-20">
-              <Link
-                to="/contact"
-                className="bg-primary text-on-primary px-10 md:px-12 py-5 rounded-xl font-label uppercase tracking-widest text-xs hover:opacity-90 transition-all duration-300 inline-flex items-center gap-4 group"
-              >
-                Inquire for a Journey
-                <Icon
-                  name="arrow_forward"
-                  className="text-sm group-hover:translate-x-2 transition-transform duration-300"
-                />
-              </Link>
-            </div>
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 pt-8 border-t border-primary/10">
+            <a
+              href={SOCIAL_LINKS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={SOCIAL_LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href={SOCIAL_LINKS.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
+            >
+              X
+            </a>
           </div>
         </div>
-      </section>
+      </Reveal>
     </main>
   </SiteLayout>
 );
