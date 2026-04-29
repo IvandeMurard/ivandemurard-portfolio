@@ -77,7 +77,7 @@ const Index = () => (
           {/* Animated gold halo, perfect circle concentrated behind the headline + subtitle */}
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-[620px] h-[520px] max-w-[96vw] max-h-[82vw] pointer-events-none z-0"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[58%] w-[620px] h-[440px] max-w-[96vw] max-h-[70vw] pointer-events-none z-0"
           >
             <div className="w-full h-full rounded-full gold-halo gold-halo-pulse" />
           </div>
@@ -87,7 +87,7 @@ const Index = () => (
             <span className="text-on-primary-container opacity-90">It's great to see you!</span>
           </h1>
         </div>
-        <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light">
+        <p className="mt-12 text-lg md:text-xl text-on-surface/85 max-w-2xl mx-auto leading-relaxed font-normal">
           I build AI-powered systems that quietly deliver measurable business impact by reducing
           operational costs, eliminating waste, sharing intelligence, while keeping the human at the center.
         </p>
