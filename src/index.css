@@ -430,6 +430,11 @@
   to   { transform: rotate(360deg); }
 }
 
+@keyframes ambience-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
 /* Preview mode: page rendered inside the CaseHoverPreview iframe. */
 [data-preview="1"] header,
 [data-preview="1"] footer {
