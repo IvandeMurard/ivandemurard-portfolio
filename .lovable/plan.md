@@ -1,64 +1,76 @@
-## What's wrong with the current toggle
+# Case Studies page: layout fix + hover scroll teasing
 
-Looking at both screenshots side by side, three things are working against affordance:
+## Goals
+1. Show the "Case studies" subtitle directly under the title (not floated to the right).
+2. Make multiple case studies visible without scrolling so far. Today the Sonor image takes nearly full viewport height because of `aspect-[4/5]` on a 7-column image.
+3. Add a hover effect: the case study image becomes a live, slowly auto-scrolling teaser of the actual case page.
 
-1. **The knob looks like a status indicator, not a control.** A single warm dot reads as "an LED is on" rather than "slide me." There's no visible track contrast.
-2. **The sun and moon glyphs are too faint and too small** (12px, 30 to 90% opacity). At a glance they disappear, so users lose the day/night metaphor.
-3. **No label, no tooltip, no first-time hint.** Even users who recognise it as a switch don't immediately know *what* it switches.
+---
 
-Your "blue dot in day mode" instinct is good but misplaced. Toggles read most clearly when the knob shows the **current** state, not the destination. Inverting it breaks the convention used by iOS, macOS, and every hospitality lighting panel I can find. Better to keep the knob honest and let the **track** carry the destination cue.
+## 1. Header: subtitle under the title
 
-## The fix, four small moves
+In `src/pages/Journeys.tsx`, replace the 12-col grid header (title in col-8, paragraph in col-4) with a stacked structure:
 
-### 1. Make the track tell the story
+- Eyebrow: "The Project Index"
+- H1: "Case studies" (keep the italic two-line treatment, but tighter)
+- Paragraph subtitle directly underneath, max-width ~xl, left-aligned
 
-Right now the track is the same neutral surface in both modes. Change that:
+This also reclaims vertical space (no more `mb-24 md:mb-32` giant gap pushing rows down).
 
-- **Day**: track shows a warm cream-to-honey gradient on the right half (where the moon waits), faintly glowing. Visual message: "evening lives over there."
-- **Dusk**: track shows a soft cool indigo gradient on the left half (where the sun waits). Visual message: "morning lives over there."
+## 2. Denser case study rows so 2+ are visible at once
 
-The knob itself stays as the warm brass element in both modes. It represents *the light that is currently on in the room*, which is always warm because the lamp is always lit, only the surroundings change. This matches the In Common With reference perfectly.
+Current row: `aspect-[4/5]` image in 7/12 cols → on a 1313px viewport the image is ~720px tall, eating the whole fold.
 
-### 2. Brighter, larger glyphs, always visible
+Changes in the `Row` component:
+- Image aspect: `aspect-[4/5]` → `aspect-[16/11]` on desktop (keep 4/5 only on mobile). Wider, shorter, more cinematic.
+- Reduce image column from `md:col-span-7` to `md:col-span-6`, text from 5 to 6, so layout is balanced.
+- Reduce hero `mb-24 md:mb-32` → `mb-16 md:mb-20`.
+- Reduce row spacing `space-y-24 md:space-y-32` → `space-y-16 md:space-y-24`.
+- Reduce top padding `pt-32 md:pt-40` → `pt-28 md:pt-32`.
 
-- Bump glyph size from 12px to 14px.
-- Change the contrast ratios: the *active* glyph (sun in day, moon in dusk) sits at full opacity in `--secondary`. The *inactive* glyph stays visible at ~55% (was 30%) so both metaphor anchors are always legible.
-- Slightly increase stroke weight from 1.5 to 1.75 for crispness at small size.
+Result on 1313×843: the hero + first case fully visible, with the top of case 02 peeking, signaling there's more.
 
-### 3. A quiet "Ambience" micro-label
+## 3. Hover teaser: live scrolling preview of the case page
 
-Add a small italic label `Ambience` to the *left* of the toggle in the desktop header, in the same `font-headline italic text-xs text-on-surface-variant` style as the nav. This is the single biggest scannability win, it tells the user what the control is in under a glance, and it fits the editorial tone.
+Yes, technically feasible. Recommended approach: render the actual case route inside an `<iframe>` that appears on hover, with a JS-driven slow auto-scroll. This guarantees the preview matches the real page (no duplicate content to maintain).
 
-On mobile, skip the label (space is tight) but keep the existing `aria-label`.
+### Component: `src/components/CaseHoverPreview.tsx` (new)
 
-### 4. A first-visit tooltip, then never again
+Props: `slug`, `image`, `alt`.
 
-On first page load (no `localStorage["mood-tooltip-seen"]`), after a 1.2s delay, show a small tooltip below the toggle: *"Switch from afternoon to evening light"*. Fades in over 600ms, dismisses on any interaction or after 4s, sets the flag so it never appears again. Uses the existing `cubic-bezier(0.22, 1, 0.36, 1)` curve.
+Behavior:
+- Always renders the static `<img>` as today.
+- On `mouseenter` (desktop, pointer: fine only), after a 250 ms delay to avoid accidental triggers:
+  - Mounts an `<iframe src={`/${slug}?preview=1`} />` absolutely positioned over the image, `pointer-events-none`, scaled with CSS `transform: scale(0.5); transform-origin: top left; width: 200%; height: 200%;` so a desktop-width render fits the card.
+  - Fades it in over 400 ms.
+  - Starts a `requestAnimationFrame` loop posting `window.scrollTo` messages via `postMessage` to the iframe, advancing ~0.4 px/frame for a slow drift from top to bottom, then easing back to top in a loop.
+- On `mouseleave`: fades out, unmounts after 500 ms, cancels rAF.
+- Respects `prefers-reduced-motion`: no auto-scroll, just a static preview fade.
+- Touch / coarse pointer: skip entirely, image stays as-is.
 
-This is the hospitality move: the room shows you the switch once, gracefully, then trusts you.
+### Iframe-side helper
 
-### 5. Slightly larger touch target
+Add a tiny `usePreviewMode()` hook called from `SiteLayout` (or directly in `Sonor`, `Atherix`, `Tacet`):
+- Reads `?preview=1` from URL.
+- When true, sets `document.documentElement.dataset.preview = "1"`, which CSS uses to:
+  - Hide the header/footer (`[data-preview="1"] header, [data-preview="1"] footer { display: none; }`).
+  - Disable smooth scroll and the page-light transitions for snappier preview.
+- Listens to `message` events from the parent: `{ type: "preview-scroll", y: number }` → `window.scrollTo(0, y)`.
 
-Bump the desktop track from `h-7 w-14` to `h-8 w-16`, knob from `h-6 w-6` to `h-7 w-7`. Mobile stays as-is. Better fingertip target, more obvious as a control.
+This keeps the preview faithful to the real page while letting the parent drive the scroll.
 
-## What you'll see
+### Performance notes
+- Iframe is only created on hover, then destroyed on leave. No upfront cost on the listing page.
+- `loading="lazy"` and `referrerpolicy="no-referrer"` on the iframe.
+- One iframe at a time: if the user moves to another card, the previous one unmounts first.
+- Scaled-down render means the iframe paints at half resolution, which is cheap.
 
-- **Day mode**: small italic *Ambience* label, then a track that fades from neutral on the left into a soft amber glow on the right (where the moon glyph sits, now clearly visible), warm brass knob on the left.
-- **Dusk mode**: same label, track fades from cool indigo on the left (where the sun glyph sits) into neutral on the right, warm brass knob on the right.
-- **First visit**: a brief tooltip appears once, then the system trusts you.
-- **At any zoom**: the sun and moon are now both legible, so the metaphor is instant.
+## Files to change
+- `src/pages/Journeys.tsx` — header restructure + Row aspect/spacing + use `CaseHoverPreview`.
+- `src/components/CaseHoverPreview.tsx` — new component (image + hover iframe + rAF scroll driver).
+- `src/components/layout/SiteLayout.tsx` — call new `usePreviewMode` hook, hide chrome via `data-preview`.
+- `src/hooks/usePreviewMode.ts` — new hook (parse `?preview=1`, listen for postMessage scroll commands).
+- `src/index.css` — `[data-preview="1"]` rules to hide header/footer and quiet transitions.
 
-## Files to edit
-
-- `src/components/MoodToggle.tsx`, restructure track gradients per mood, enlarge glyphs and knob, raise inactive opacity, optional `label` prop for desktop *Ambience* text, integrate first-visit tooltip with localStorage flag.
-- `src/components/layout/AtriumHeader.tsx`, render `<MoodToggle label="Ambience" />` on desktop, plain `<MoodToggle size="sm" />` on mobile.
-
-No new dependencies. No changes to `MoodProvider`, `index.css`, or any other file.
-
-## On the inverted-color knob idea
-
-I'd skip it. Two reasons:
-1. It breaks the "the knob is the current state" convention, which is the one piece of toggle grammar everyone already knows.
-2. The cool/warm story is better told by the *track*, because the track is the room and the knob is the lamp. That mental model maps cleanly onto your hospitality framing and onto what the page itself does when toggled.
-
-The track-gradient + brighter-glyphs + label combination gets you the same "you can tell what this does at a glance" outcome without the cognitive friction.
+## Recommendation
+Do all three changes together: the layout fix alone makes the page scannable, and the hover teaser then rewards exploration without overwhelming first impression. If you want to ship incrementally, items 1+2 are a one-step quick win; item 3 is a separate, slightly larger build.
