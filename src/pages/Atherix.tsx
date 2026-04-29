@@ -89,17 +89,17 @@ const FAQ = [
 ];
 
 const Atherix = () => (
-  <SiteLayout title="Atherix — The Hospitality Vision">
+  <SiteLayout title="Aetherix — Boutique Hotel Operations AI">
     <main className="pt-32">
       {/* Hero */}
       <header className="px-6 md:px-12 mb-20 md:mb-24">
         <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-end gap-12 lg:gap-16">
           <div className="flex-1">
             <span className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block">
-              Project Detail / Hospitality AI
+              Project Detail / Operations AI
             </span>
             <h1 className="font-headline text-5xl md:text-8xl lg:text-9xl text-primary italic leading-[0.9] tracking-tight mb-8">
-              Aetherix: The Hospitality Vision
+              Aetherix: A new operating layer for boutique hotels
             </h1>
             <div className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
               <p>
@@ -173,7 +173,7 @@ const Atherix = () => (
               className="w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 flex items-center justify-center text-center">
-              <h2 className="font-headline text-3xl md:text-5xl text-surface-bright italic">The Hospitality Vision</h2>
+              <h2 className="font-headline text-3xl md:text-5xl text-surface-bright italic">The Vision</h2>
             </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -182,8 +182,8 @@ const Atherix = () => (
                 Restoring the human touch through algorithms.
               </h3>
               <p className="text-on-surface-variant leading-loose mb-8">
-                Atherix transforme les systèmes automatisés en expériences d'hospitalité profondément humaines. Il
-                réintroduit le soin authentique qui définit le service.
+                Aetherix transforme les systèmes automatisés en expériences profondément humaines. Il réintroduit le
+                soin authentique qui définit le service.
               </p>
             </div>
             <div className="lg:col-start-7 lg:col-span-6">
@@ -284,7 +284,7 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-24">
             <h2 className="font-headline text-4xl md:text-5xl text-primary mb-6">
-              Core Design Principles for Hospitality AI
+              Core Design Principles for Operations AI
             </h2>
             <p className="text-on-surface-variant text-lg">Built for operational efficiency and human trust</p>
           </div>
