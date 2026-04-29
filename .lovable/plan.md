@@ -1,37 +1,33 @@
-# Hero refinements: dusk contrast and intro copy
+# Soften farewell card edges (dusk) and improve accessibility
 
-## 1. Dusk mode: restore the two-tone hero
+## Problem
+In dusk mode, the "Thank you for your visit" card sits as a hard rectangle on the warm taupe page. The blue gradient stops abruptly at the rounded corners, and the body paragraph (`text-on-surface-variant`, a muted warm tone) sits on a mid-blue gradient where contrast is borderline.
 
-**Problem.** In day mode, "Welcome," is deep navy and "It's great to see you!" is a softer muted blue, giving a clear value contrast. In dusk, both lines sit in the same pale-blue family at near-identical lightness (82% vs 88%), so the pairing flattens.
+Day mode looks fine, so changes are dusk-scoped only. Inner layout untouched.
 
-**Direction chosen: Deep ink blue.** Mirror the day pairing literally, just inverted in value:
+## 1. Feather the edges (dusk only)
 
-- Line 1 ("Welcome,") stays the bright pale blue (current `text-primary` in dusk).
-- Line 2 ("It's great to see you!") becomes a deeper, more saturated ink blue, set against the dark surface so it reads as a quieter sibling, not a duplicate.
+Add a `.farewell-card` class on the card div in `src/pages/Index.tsx`, then in `src/index.css` under `[data-mood="dusk"]`:
 
-**Implementation.** In `src/index.css`, under `[data-mood="dusk"]`, redefine `--on-primary-container` to a deeper blue (around `hsl(217 55% 55%)`) instead of the current `217 71% 88%`. This token is only used on the hero second line and a couple of decorative spots, so the scoped change is safe. No JSX change needed since `Index.tsx` already uses `text-on-primary-container` on line 2.
+- Apply a radial `mask-image` so the card fades from fully opaque at center to fully transparent at the corners and outer edges (feather starts ~75%, fully transparent at 100%). This melts the gradient into the surface instead of clipping it.
+- Replace the existing hard `ring-1 ring-primary-fixed-dim/40` with a masked inset hairline via a `::before` pseudo-element, so the border itself fades at the corners and does not reintroduce a hard edge.
+- Widen and soften the shadow so the card reads as a glow on the taupe field, not a clipped panel.
+- Slightly larger radius for a softer silhouette.
 
-If the decorative uses elsewhere (gradients, borders) end up too dark, fall back to a hero-only override: add a `.hero-line-2` class in `index.css` with a dusk-specific color, and apply it to the `<span>` in `src/pages/Index.tsx`. Decision made at edit time after a visual check.
+Day mode is untouched: the class only applies extra styles inside `[data-mood="dusk"]`.
 
-## 2. Hero intro paragraph
+## 2. Accessibility on the card
 
-Replace the current paragraph in `src/pages/Index.tsx` with version A:
-
-> Product builder with 5 years across start-ups, scale-ups and large groups, and 2 years co-founding a SaaS. I design and build from operational experience, ship with AI, and keep the human at the center of interactions.
-
-Notes:
-
-- No em-dashes (per project rule).
-- "Hospitality" stays implied, not named.
-- AI present as a tool, not the identity.
-- The "Thank you for your visit" closing block keeps its existing copy.
+- Body copy: change `text-on-surface-variant` to `text-on-surface` so the paragraph sits at the higher-contrast cream tone in dusk and on solid dark in day. Brings WCAG ratio comfortably above AA on the gradient.
+- Link underlines: keep underlines visible at rest (already present), and replace the `hover:opacity-70` with a clearer hover state that keeps text contrast: stronger underline (`border-primary` instead of `border-primary/50`) plus a small color brighten via `hover:text-primary` (no opacity drop).
+- Add `focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary rounded-sm` on each link so keyboard users get a clear focus ring.
+- Add `aria-label` on the four links (`"Email Ivan"`, `"Book a call with Ivan"`, `"Ivan on LinkedIn"`, `"Ivan on GitHub"`) since the visible labels are short and out of context for screen readers.
 
 ## Files touched
-
-- `src/index.css` — adjust dusk `--on-primary-container` (and add a scoped hero class only if needed).
-- `src/pages/Index.tsx` — swap the hero paragraph text.
+- `src/index.css` — add `.farewell-card` dusk styles (mask, ring pseudo, shadow).
+- `src/pages/Index.tsx` — add `farewell-card` class, swap paragraph color token, refine link classes and add `aria-label` + `focus-visible` styles.
 
 ## Out of scope
-
-- No changes to day mode colors.
-- No changes to milestones, case studies, or other sections.
+- No copy changes.
+- No layout, padding, or typographic scale changes.
+- No changes to day mode.
