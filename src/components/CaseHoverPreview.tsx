@@ -1,3 +1,4 @@
+import { SafeImage } from "@/components/SafeImage";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface CaseHoverPreviewProps {
