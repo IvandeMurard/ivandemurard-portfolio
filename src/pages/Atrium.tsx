@@ -101,10 +101,19 @@ const Atrium = () => (
               with the same drive: build meaningful, lasting products.
             </p>
             <p>
-              Lately, I worked two years co-founding Sonor, a 0 to 1 open data SaaS for urban noise
-              mapping, backed by Matrice and La Banque des Territoires, which taught me how to
-              read a field, build with very little, and ship something cities actually used. Every
-              role since has been a different angle on the same craft.
+              Lately, I worked two years co-founding{" "}
+              <a
+                href="https://sonor.dorik.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline decoration-secondary/40 underline-offset-4 hover:decoration-secondary transition-colors"
+              >
+                Sonor
+              </a>
+              , a 0 to 1 open data SaaS for urban noise mapping, backed by Matrice and La Banque
+              des Territoires, which taught me how to read a field, build with very little, and
+              ship something cities actually used. Every role since has been a different angle on
+              the same craft.
             </p>
           </div>
         </div>
