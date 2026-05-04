@@ -6,30 +6,42 @@ const CHANNELS = [
   {
     label: "Email",
     desc: "For thoughtful, in-depth conversations.",
+    cta: "Write a message",
     href: SOCIAL_LINKS.email,
     icon: "mail",
     external: false,
+    accent: "from-secondary/15 via-secondary/5 to-transparent",
+    ring: "ring-secondary/25",
   },
   {
     label: "Schedule",
     desc: "Book a 30-minute discovery call.",
+    cta: "Book a slot",
     href: SOCIAL_LINKS.schedule,
     icon: "calendar_month",
     external: true,
+    accent: "from-primary-fixed-dim/30 via-primary-fixed/15 to-transparent",
+    ring: "ring-primary/25",
   },
   {
     label: "LinkedIn",
     desc: "Follow my professional journey.",
+    cta: "Visit profile",
     href: SOCIAL_LINKS.linkedin,
     icon: "share",
     external: true,
+    accent: "from-tertiary/15 via-tertiary/5 to-transparent",
+    ring: "ring-tertiary/25",
   },
   {
     label: "GitHub",
     desc: "Explore the open-source work.",
+    cta: "Browse repos",
     href: SOCIAL_LINKS.github,
     icon: "code",
     external: true,
+    accent: "from-on-surface/10 via-on-surface/5 to-transparent",
+    ring: "ring-outline-variant/40",
   },
 ];
 
@@ -58,20 +70,23 @@ const Contact = () => (
               href={c.href}
               target={c.external ? "_blank" : undefined}
               rel={c.external ? "noopener noreferrer" : undefined}
-              className="group relative bg-surface-container-lowest p-10 md:p-12 rounded-xl border border-outline-variant/15 hover:border-outline-variant/40 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col gap-6"
+              className={`group relative overflow-hidden bg-surface-container-lowest p-8 md:p-12 rounded-xl border border-outline-variant/15 hover:border-outline-variant/50 md:hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 flex flex-col gap-6 ring-1 ${c.ring}`}
             >
-              <Icon
-                name={c.icon}
-                className="text-secondary text-4xl group-hover:scale-110 transition-transform duration-500"
+              <div
+                aria-hidden="true"
+                className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
               />
-              <div>
-                <h3 className="font-headline italic text-3xl text-primary mb-3">{c.label}</h3>
+              <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-xl bg-surface-container border border-outline-variant/30 group-hover:border-secondary/40 group-hover:scale-105 transition-all duration-500">
+                <Icon name={c.icon} className="text-secondary text-2xl" />
+              </div>
+              <div className="relative z-10">
+                <h3 className="font-headline italic text-3xl md:text-4xl text-primary mb-3">{c.label}</h3>
                 <p className="text-on-surface-variant font-light leading-relaxed">{c.desc}</p>
               </div>
-              <span className="inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[11px] text-secondary mt-auto">
-                Open
+              <span className="relative z-10 inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[11px] text-secondary mt-auto">
+                {c.cta}
                 <Icon
-                  name={c.external ? "open_in_new" : "arrow_forward"}
+                  name={c.external ? "arrow_outward" : "arrow_forward"}
                   className="text-sm group-hover:translate-x-1 transition-transform"
                 />
               </span>

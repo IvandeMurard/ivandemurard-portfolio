@@ -1,29 +1,47 @@
-Make the Atrium content cards (Track record, Now, Method) slightly darker in light mode so they read as cards instead of melting into the warm cream page. Dusk mode stays untouched.
+## Goal
+On /contact, keep the existing 2x2 grid of 4 cards (Email, Schedule, LinkedIn, GitHub) but make each card visually distinct and more alive, while keeping mobile clean.
 
-## Changes
+## Changes (src/pages/Contact.tsx)
 
-### 1. `src/index.css`
-Add a small day-mode-scoped rule under the existing `.principles-band` block:
+### 1. Color accent per card
+Each card gets a subtle gradient overlay and matching `ring-1` border tint, using existing semantic tokens, so they remain on-brand but instantly differentiable:
+- Email: secondary gold tint (`from-secondary/15`)
+- Schedule: warm primary gradient (`from-primary-fixed-dim/30`)
+- LinkedIn: tertiary tint (`from-tertiary/15`)
+- GitHub: neutral on-surface tint (`from-on-surface/10`)
 
-```css
-/*
-  Atrium content cards (Track record, Now, Method) sit on the warm cream
-  page surface. In day mode, surface-container-low reads almost identical
-  to the page, so we bump them one step darker. Dusk reads fine as-is,
-  so we scope the override to day mode only.
-*/
-:root:not([data-mood="dusk"]) .atrium-card {
-  background-color: hsl(var(--surface-container));
-}
-```
+Gradient sits behind content via an absolute layer, transitioning opacity 60% to 100% on hover.
 
-This shifts those cards from `--surface-container-low` (`#f5f3ee`) to `--surface-container` (`#f0eee9`), which is one step deeper on the existing cream ramp, no new tokens.
+### 2. Iconography treatment
+Wrap each icon in a rounded square chip (`w-14 h-14`, surface-container background, soft border). Gives every card a clear visual anchor and a "launcher tile" feel.
 
-### 2. `src/pages/Atrium.tsx`
-Add `atrium-card` to the three card class lists (Track record, Now, Method). The hardcoded `bg-surface-container-low` stays as the dusk-mode default; the new CSS rule overrides it in day mode.
+### 3. Distinct CTAs
+Replace the generic "Open" with channel-specific micro-copy:
+- Email: "Write a message"
+- Schedule: "Book a slot"
+- LinkedIn: "Visit profile"
+- GitHub: "Browse repos"
 
-- Line 139 (Track record `<article>`): prepend `atrium-card`
-- Line 182 (Now `<Wrapper>`): prepend `atrium-card`
-- Line 250 (Method `<div>`): prepend `atrium-card`
+External links use `arrow_outward`, internal `arrow_forward`.
 
-No changes to the Principles band, the farewell card, the hero portrait card, or any other surface.
+### 4. Hover polish
+Add `hover:-translate-y-1` lift, stronger border on hover, and the gradient opacity transition. No new animations on mobile (hover states naturally don't fire on touch).
+
+### 5. Mobile responsiveness
+- Keep `grid-cols-1 md:grid-cols-2` so cards stack to a single column under 768px.
+- Reduce card padding on mobile (`p-8 md:p-12`) so the chip + heading + CTA breathe without overflow.
+- Use `text-3xl md:text-4xl` for the card title so it scales down on small screens.
+- Pill/chip and CTA already wrap naturally; no absolute positioning that could clip.
+- Verify at 375px and 390px viewports during QA.
+
+## Out of scope
+- No reordering or resizing of cards (grid stays 2x2 on desktop).
+- No copy changes to hero or closing quote.
+- No changes to `SOCIAL_LINKS`.
+
+## QA
+After implementation, check the preview at 1329px, 768px, and 375px:
+- Cards remain 2x2 on desktop, single column on mobile.
+- Each accent reads as distinct without breaking the palette.
+- CTAs and chips never overflow.
+- No em-dashes introduced (per project rule).
