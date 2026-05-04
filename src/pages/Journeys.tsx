@@ -44,7 +44,7 @@ const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => (
 
 const Journeys = () => (
   <SiteLayout title="Stories">
-    <main className="pt-28 md:pt-32 pb-24 overflow-hidden">
+    <div className="pt-28 md:pt-32 pb-24 overflow-hidden">
       {/* Hero */}
       <header className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-20 relative">
         <div className="absolute -top-20 -left-20 w-96 h-96 hilma-circle pointer-events-none" />
