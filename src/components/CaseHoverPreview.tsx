@@ -98,7 +98,7 @@ export const CaseHoverPreview = ({ slug, image, alt, className }: CaseHoverPrevi
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
     >
-      <img
+      <SafeImage
         src={image}
         alt={alt}
         loading="lazy"
