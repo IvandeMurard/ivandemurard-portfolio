@@ -6,18 +6,20 @@ import { Icon } from "@/components/ui/Icon";
 import { MoodToggle } from "@/components/MoodToggle";
 import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
+import { useTrackClick } from "@/hooks/useTrackClick";
 
-const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
-  { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail },
-  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar },
-  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin },
-  { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github },
+const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "contact" | "social" }[] = [
+  { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, kind: "contact" },
+  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar, kind: "contact" },
+  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin, kind: "social" },
+  { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, kind: "social" },
 ];
 
 export const AtriumHeader = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const haptic = useHaptic();
+  const track = useTrackClick();
 
   useEffect(() => {
     setOpen(false);
