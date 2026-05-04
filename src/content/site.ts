@@ -1,6 +1,6 @@
-import sonorImg from "@/assets/case-sonor.jpg";
-import aetherixImg from "@/assets/case-aetherix.jpg";
-import tacetImg from "@/assets/case-tacet.jpg";
+import sonorImg from "@/assets/case-sonor.png";
+import aetherixImg from "@/assets/case-aetherix.png";
+import tacetImg from "@/assets/case-tacet.png";
 
 export const SOCIAL_LINKS = {
   email: "mailto:ivandemurard@gmail.com",
