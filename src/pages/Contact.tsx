@@ -73,6 +73,7 @@ const Contact = () => {
               href={c.href}
               target={c.external ? "_blank" : undefined}
               rel={c.external ? "noopener noreferrer" : undefined}
+              onClick={() => haptic("tap")}
               aria-label={`${c.label}: ${c.desc}${c.external ? " (opens in a new tab)" : ""}`}
               className={`group relative overflow-hidden bg-surface-container-lowest p-8 md:p-12 rounded-xl border border-outline-variant/15 hover:border-outline-variant/50 md:hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 flex flex-col gap-6 ring-1 ${c.ring} focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background`}
             >
@@ -107,6 +108,7 @@ const Contact = () => {
       </section>
     </div>
   </SiteLayout>
-);
+  );
+};
 
 export default Contact;
