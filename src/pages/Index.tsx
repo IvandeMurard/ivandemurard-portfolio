@@ -67,7 +67,9 @@ const MILESTONES: Milestone[] = [
   { kind: "text", value: "Paris", label: "Based" },
 ];
 
-const Index = () => (
+const Index = () => {
+  const track = useTrackClick();
+  return (
   <SiteLayout title="The Atrium">
     {/* Hero */}
     <header className="relative min-h-screen flex items-center justify-center pt-24 px-6 md:px-8 overflow-hidden">
@@ -307,6 +309,7 @@ const Index = () => (
       </div>
     </Reveal>
   </SiteLayout>
-);
+  );
+};
 
 export default Index;
