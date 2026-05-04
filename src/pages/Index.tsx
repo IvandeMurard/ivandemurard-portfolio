@@ -148,7 +148,7 @@ const Index = () => (
       <div className="max-w-4xl mx-auto text-center">
         <div className="w-px h-16 bg-primary/20 mx-auto mb-12" />
         <p className="font-headline italic text-2xl md:text-4xl text-primary leading-snug">
-          I combine my operational experience, with a taste for service design and product methodology to create lasting business value.
+          I combine my operational experience, with a taste for service design and hands-on product bulding to create lasting business value.
         </p>
         <div className="w-px h-16 bg-primary/20 mx-auto mt-12" />
       </div>
