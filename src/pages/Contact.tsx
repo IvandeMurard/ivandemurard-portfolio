@@ -47,7 +47,7 @@ const CHANNELS = [
 
 const Contact = () => (
   <SiteLayout title="Contact">
-    <main className="pt-40 md:pt-48 pb-32">
+    <div className="pt-40 md:pt-48 pb-32">
       <section className="px-6 md:px-12 max-w-4xl mx-auto text-center mb-20 md:mb-24 relative">
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 hilma-circle pointer-events-none" />
         <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10">
@@ -102,7 +102,7 @@ const Contact = () => (
           "Every journey begins with a single conversation."
         </p>
       </section>
-    </main>
+    </div>
   </SiteLayout>
 );
 

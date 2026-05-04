@@ -111,7 +111,7 @@ const Sonor = () => {
 
   return (
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
-    <main className="pt-32">
+    <div className="pt-32">
       {/* Hero */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
@@ -478,7 +478,7 @@ const Sonor = () => {
           </div>
         </div>
       </section>
-    </main>
+    </div>
 
     <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
       <DialogContent className="max-w-[95vw] md:max-w-6xl p-2 md:p-4 bg-surface-container border-outline-variant/30">

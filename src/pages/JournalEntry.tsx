@@ -13,7 +13,7 @@ const JournalEntry = () => {
   if (!entry) {
     return (
       <SiteLayout title="Field Notes">
-        <main className="pt-40 px-6 md:px-12 max-w-3xl mx-auto min-h-[60vh]">
+        <div className="pt-40 px-6 md:px-12 max-w-3xl mx-auto min-h-[60vh]">
           <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block">
             Field Notes
           </span>
@@ -27,14 +27,14 @@ const JournalEntry = () => {
           >
             Back to Field Notes
           </Link>
-        </main>
+        </div>
       </SiteLayout>
     );
   }
 
   return (
     <SiteLayout title={entry.title}>
-      <main className="pt-32 md:pt-40 pb-32 md:pb-48">
+      <div className="pt-32 md:pt-40 pb-32 md:pb-48">
         <article className="px-6 md:px-12 max-w-3xl mx-auto">
           <div className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{entry.category}</span>
@@ -63,7 +63,7 @@ const JournalEntry = () => {
             </Link>
           </div>
         </article>
-      </main>
+      </div>
     </SiteLayout>
   );
 };

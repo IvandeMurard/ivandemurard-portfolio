@@ -11,7 +11,7 @@ const NotFound = () => {
 
   return (
     <SiteLayout title="Page not found">
-      <main className="min-h-[80vh] flex items-center justify-center px-6 md:px-12 pt-32 pb-24">
+      <div className="min-h-[80vh] flex items-center justify-center px-6 md:px-12 pt-32 pb-24">
         <div className="text-center max-w-xl">
           <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
             A quiet detour
@@ -30,7 +30,7 @@ const NotFound = () => {
             Return to the Atrium
           </Link>
         </div>
-      </main>
+      </div>
     </SiteLayout>
   );
 };

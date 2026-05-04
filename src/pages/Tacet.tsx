@@ -31,7 +31,7 @@ const FAQ = [
 
 const Tacet = () => (
   <SiteLayout title="Tacet: The Architecture of Silence">
-    <main className="pt-32">
+    <div className="pt-32">
       {/* Hero */}
       <section className="relative min-h-[80vh] md:min-h-[800px] flex flex-col justify-center px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 overflow-hidden">
         <div className="relative z-10 max-w-4xl">
@@ -296,7 +296,7 @@ const Tacet = () => (
           </a>
         </div>
       </section>
-    </main>
+    </div>
   </SiteLayout>
 );
 

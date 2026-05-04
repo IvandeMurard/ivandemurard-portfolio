@@ -90,7 +90,7 @@ const FAQ = [
 
 const Atherix = () => (
   <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
-    <main className="pt-32">
+    <div className="pt-32">
       {/* Hero */}
       <header className="px-6 md:px-12 mb-20 md:mb-24">
         <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-end gap-12 lg:gap-16">
@@ -416,7 +416,7 @@ const Atherix = () => (
           </div>
         </div>
       </section>
-    </main>
+    </div>
   </SiteLayout>
 );
 
