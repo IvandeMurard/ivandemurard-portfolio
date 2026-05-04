@@ -282,17 +282,17 @@ const Atherix = () => (
       </section>
 
       {/* Core Design Principles */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-surface-container">
+      <Reveal as="section" className="py-24 md:py-40 px-6 md:px-12 bg-surface-container">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-24">
-            <h2 className="font-headline text-4xl md:text-5xl text-primary mb-6">
+            <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary mb-6">
               Core Design Principles for Operations AI
             </h2>
-            <p className="text-on-surface-variant text-lg">Built for operational efficiency and human trust</p>
+            <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant text-lg">Built for operational efficiency and human trust</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
-            {PRINCIPLES.map((p) => (
-              <div key={p.title} className="flex flex-col gap-6">
+            {PRINCIPLES.map((p, i) => (
+              <div key={p.title} data-reveal-child style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }} className="flex flex-col gap-6">
                 <Icon name={p.icon} className="text-secondary text-4xl" />
                 <h3 className="font-bold text-xl text-primary">{p.title}</h3>
                 <p className="text-on-surface leading-relaxed">{p.body}</p>
@@ -300,7 +300,7 @@ const Atherix = () => (
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* The Agentic Operations Pipeline */}
       <section className="py-20 md:py-32 px-6 md:px-12 bg-surface">
