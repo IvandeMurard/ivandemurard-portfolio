@@ -172,7 +172,7 @@ const Atherix = () => (
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFr-Za01-kmwl92MZL7hRd9LNi19YoiNqo9paewwgBPEmluCOCExh6ZQlxIFlBBp4Qo2WsJ0LsD2GIjbw3G9yTNV3jyKiNxvAosRWD1R-8iRsp2F0dBAY-y1uQAPl4gGjp5VG1yOyOHdJM1zoZGkRGcAZ4Lq56jyZMDwkfwoLB6w3DT0CjfxMGy_gGPaUxIOn_Na01jrGB30WP-RkRM2cjecFQXit-B8imM60BemLprw1SYYqG7W-IbIYHdd5rCL-HSK-QnsN5rRdn"
               alt="Luxury hotel lobby with warm morning light"
               loading="lazy"
-              className="w-full h-full object-cover opacity-60"
+              className="kenburns w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 flex items-center justify-center text-center">
               <h2 className="font-headline text-3xl md:text-5xl text-surface-bright italic">The Vision</h2>
