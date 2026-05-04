@@ -179,6 +179,7 @@ const Index = () => {
           <Link
             key={p.slug}
             to={`/${p.slug}`}
+            onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
             className="group block"
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}
