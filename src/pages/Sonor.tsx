@@ -115,24 +115,24 @@ const Sonor = () => {
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
     <div className="pt-32">
       {/* Hero */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-28">
+      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
           <div className="lg:col-span-7">
-            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
+            <span data-reveal-child className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
               Case Study: Sonor (2020-2022)
             </span>
-            <h1 className="text-5xl md:text-8xl font-headline italic text-primary leading-[1.1] mb-8">
+            <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink text-5xl md:text-8xl font-headline italic text-primary leading-[1.1] mb-8">
               Sonor: The Quiet Art of <br />
               Urban Intelligence.
             </h1>
-            <p className="text-xl md:text-2xl font-body text-on-surface-variant max-w-xl leading-relaxed mb-16">
+            <p data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-xl md:text-2xl font-body text-on-surface-variant max-w-xl leading-relaxed mb-16">
               A two-year entrepreneurial journey as Co-founder & Product Lead into the heart of city noise. Building an
               open-data SaaS platform to transform invisible pollution into actionable insights for more silent,
               sustainable, and livable cities.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-8 border-t border-outline-variant/30">
-              {META.map((m) => (
-                <div key={m.label}>
+              {META.map((m, i) => (
+                <div key={m.label} data-reveal-child style={{ ["--reveal-delay" as string]: `${440 + i * 60}ms` }}>
                   <h4 className="font-label uppercase tracking-widest text-[10px] text-secondary mb-2">{m.label}</h4>
                   <p className="text-on-surface-variant font-medium">{m.value}</p>
                 </div>
@@ -140,16 +140,16 @@ const Sonor = () => {
             </div>
           </div>
           <div className="lg:col-span-5 flex justify-end">
-            <div className="w-full aspect-[4/5] bg-surface-container-high overflow-hidden relative group">
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="w-full aspect-[4/5] bg-surface-container-high overflow-hidden relative group">
               <SafeImage
                 src={PROJECTS.sonor.image}
                 alt="Aerial view of urban landscape"
-                className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-[2000ms] ease-out"
+                className="kenburns w-full h-full object-cover opacity-90"
               />
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* The Curiosity */}
       <section className="py-16 md:py-28 bg-surface-container-low">
