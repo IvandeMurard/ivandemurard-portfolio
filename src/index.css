@@ -176,6 +176,15 @@
   html {
     scroll-behavior: smooth;
   }
+  /*
+    Global keyboard focus ring: gold, low-specificity (`:where`) so any
+    component with its own focus-visible style still wins.
+  */
+  :where(a, button, [role="button"], [role="switch"], [role="link"], [role="menuitem"], input, select, textarea, summary):focus-visible {
+    outline: 2px solid hsl(var(--secondary));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
   body {
     @apply bg-surface text-on-surface font-body antialiased;
     font-feature-settings: "ss01", "kern";

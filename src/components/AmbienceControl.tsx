@@ -1,5 +1,6 @@
 import { Volume2, VolumeX } from "lucide-react";
 import { useAmbience } from "./AmbienceProvider";
+import { useHaptic } from "@/hooks/useHaptic";
 
 /**
  * AmbienceControl: a quiet, glass-style sound toggle.
@@ -13,6 +14,7 @@ import { useAmbience } from "./AmbienceProvider";
  */
 export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
   const { muted, available, toggleMute } = useAmbience();
+  const haptic = useHaptic();
 
   if (!available) return null;
 
@@ -28,7 +30,10 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
       aria-checked={!muted}
       aria-label={muted ? "Play ambience" : "Mute ambience"}
       title={muted ? "Play ambience" : "Mute ambience"}
-      onClick={toggleMute}
+      onClick={() => {
+        haptic("toggle");
+        toggleMute();
+      }}
       className={[
         "group relative inline-flex items-center justify-center rounded-md",
         "border border-outline-variant/40",

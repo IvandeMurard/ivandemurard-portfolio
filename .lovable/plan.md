@@ -1,42 +1,62 @@
-## Goal
-Fix accessibility issues that an axe/Lighthouse audit would surface on Home, Case Studies (Journeys), and About (Atrium). I cannot run Lighthouse from the sandbox, so I performed a static audit (semantic landmarks, ARIA, focus order, contrast against existing tokens) and will fix the concrete issues found.
+## Plan: tap haptics + keyboard focus polish
 
-## Issues found
+Quiet, hospitable feedback. No click sounds (would clash with ambience). Haptics where they confirm a deliberate choice. One consistent gold focus ring everywhere.
 
-1. **Duplicate `<main>` landmark** (axe: `landmark-no-duplicate-main`, `landmark-unique`).
-   `SiteLayout` already wraps page content in `<main>`. Every page (`Index`, `Journeys`, `Atrium`, plus others) adds a second `<main>` inside, producing two main landmarks per page.
+### 1. New hook: `src/hooks/useHaptic.ts`
 
-2. **No skip link** (axe: `bypass`, WCAG 2.4.1).
-   Keyboard users have no way to bypass the fixed nav and utility icons (8+ tab stops) on every page.
+```ts
+type Pattern = "tap" | "toggle" | "select";
+const PATTERNS: Record<Pattern, number | number[]> = {
+  tap: 10,
+  toggle: [6, 40, 6],
+  select: 12,
+};
+```
 
-3. **Main landmark not focusable target for skip link** (related to #2).
+Returns `(pattern) => void`. No-ops when:
+- `navigator.vibrate` is undefined (iOS Safari, desktop)
+- `window.matchMedia('(prefers-reduced-motion: reduce)').matches`
+- `window.matchMedia('(hover: hover)').matches` (treat hover-capable devices as desktop, skip vibration)
 
-4. **Hero `<header>` inside future `<main>`** is fine semantically, no change needed.
+### 2. Wire haptics into deliberate-action surfaces
 
-5. **Material Symbols `Icon` already has `aria-hidden="true"`** and link icons in nav already have `aria-label`. No change.
+- `MoodToggle.tsx`: `toggle` pattern in onClick
+- `AmbienceControl.tsx`: `toggle` pattern in onClick
+- `Contact.tsx` cards: `tap` pattern in onClick
+- `AtriumHeader.tsx` mobile menu hamburger: `tap` pattern
 
-6. **Contrast**: Sampled the design tokens used on the three pages. `text-on-surface-variant` on `bg-surface` and `text-primary` on `bg-surface` are above 4.5:1 in both themes (verified in earlier reviews). The "Inquire Within" CTA uses `bg-primary` + `text-on-primary` (the canonical pair). No real contrast violation to fix in this pass; the only borderline element previously flagged was the gold gradient farewell card, which already uses `text-on-surface` on a primary tint.
+Skipping: nav links, footer links, hover states. Too noisy.
 
-## Changes
+### 3. Global focus-visible style in `src/index.css`
 
-### `src/components/layout/SiteLayout.tsx`
-- Add a skip-to-content link as the first focusable element (`sr-only` until focused, then visible top-left, primary background).
-- Add `id="main-content"` and `tabIndex={-1}` to the existing `<main>` so the skip link can focus it.
+In `@layer base`, add:
 
-### `src/pages/Index.tsx`
-- Convert the outer `<header>` (hero) to remain `<header>`, fine as-is.
-- Note: `Index` does not add its own `<main>`, only `<header>` and `<Reveal as="section">`. No change needed.
+```css
+:where(a, button, [role="button"], [role="switch"], input, select, textarea, summary):focus-visible {
+  outline: 2px solid hsl(var(--secondary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+```
 
-### `src/pages/Journeys.tsx`
-- Replace the inner `<main>` (line 47) opening tag with `<div>` and the closing `</main>` (line 105) with `</div>`.
+Uses `:where()` so specificity is 0, components can still override (Contact cards already have a richer ring, that wins). This catches all the ad-hoc cases (nav links, footer, journal cards, utility icons) without touching each file.
 
-### `src/pages/Atrium.tsx`
-- Replace the inner `<main>` (line 51) opening tag with `<div>` and the closing `</main>` (line 338) with `</div>`.
+### 4. No sound
 
-### Other pages with the same nested-main bug (out of scope but listed)
-`Contact.tsx`, `Journal.tsx`, `JournalEntry.tsx`, `Atherix.tsx`, `Tacet.tsx`, `Sonor.tsx`, `NotFound.tsx`. The user asked specifically for Home, Case Studies, About, so I will only fix those three. I'll mention the others in the summary so the user can decide.
+Documented decision: ambience is the sound surface, per-tap clicks would conflict.
 
-## QA
-- Tab from the page top once: the skip link should appear at the top-left with a clear gold focus outline. Activating it should jump focus to the page content.
-- View source on /, /journeys, /about and confirm a single `<main id="main-content">` per page.
-- No visual regressions: replacing `<main>` with `<div>` keeps identical class strings.
+### Files
+
+- create `src/hooks/useHaptic.ts`
+- edit `src/components/MoodToggle.tsx`
+- edit `src/components/AmbienceControl.tsx`
+- edit `src/components/layout/AtriumHeader.tsx`
+- edit `src/pages/Contact.tsx`
+- edit `src/index.css`
+
+### QA
+
+- Desktop: tab through header, confirm gold ring on every link/icon/toggle. No vibration attempted (hover:hover guard).
+- Android Chrome: tap mood toggle, ambience toggle, contact card, hamburger. Feel a brief pulse. Other taps stay silent.
+- iOS Safari: silent (no API), no errors.
+- Reduced motion enabled: no vibration on any surface.

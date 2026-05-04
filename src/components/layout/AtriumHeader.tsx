@@ -5,6 +5,7 @@ import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
 import { MoodToggle } from "@/components/MoodToggle";
 import { AmbienceControl } from "@/components/AmbienceControl";
+import { useHaptic } from "@/hooks/useHaptic";
 
 const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail },
@@ -16,6 +17,7 @@ const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
 export const AtriumHeader = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const haptic = useHaptic();
 
   useEffect(() => {
     setOpen(false);
@@ -82,7 +84,10 @@ export const AtriumHeader = () => {
             <AmbienceControl size="sm" />
             <button
               type="button"
-              onClick={() => setOpen((v) => !v)}
+              onClick={() => {
+                haptic("tap");
+                setOpen((v) => !v);
+              }}
               aria-label="Toggle menu"
               aria-expanded={open}
               className="text-primary hover:opacity-80 transition-opacity duration-500 active:scale-95"
