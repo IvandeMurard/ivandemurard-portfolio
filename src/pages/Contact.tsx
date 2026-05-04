@@ -1,6 +1,7 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
 import { SOCIAL_LINKS } from "@/content/site";
+import { useHaptic } from "@/hooks/useHaptic";
 
 const CHANNELS = [
   {

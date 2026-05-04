@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { useMood } from "./MoodProvider";
+import { useHaptic } from "@/hooks/useHaptic";
 
 const TOOLTIP_FLAG = "mood-tooltip-seen";
 
@@ -17,6 +18,7 @@ export const MoodToggle = ({
   label?: string;
 }) => {
   const { mood, toggle } = useMood();
+  const haptic = useHaptic();
   const isDusk = mood === "dusk";
 
   const dims =
@@ -102,6 +104,7 @@ export const MoodToggle = ({
         title={`Ambience: ${isDusk ? "Dusk" : "Day"}`}
         onClick={() => {
           dismissTip();
+          haptic("toggle");
           toggle();
         }}
         className={[
