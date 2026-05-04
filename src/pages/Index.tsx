@@ -148,7 +148,7 @@ const Index = () => (
       <div className="max-w-4xl mx-auto text-center">
         <div className="w-px h-16 bg-primary/20 mx-auto mb-12" />
         <p className="font-headline italic text-2xl md:text-4xl text-primary leading-snug">
-          I read environments from the inside, then turn what I see into products that create real business value while keeping human interactions at the center.
+          I combine my operational experience, with a taste for service design and product methodology to create lasting business value.
         </p>
         <div className="w-px h-16 bg-primary/20 mx-auto mt-12" />
       </div>
