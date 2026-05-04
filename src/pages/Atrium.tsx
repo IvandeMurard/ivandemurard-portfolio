@@ -262,7 +262,7 @@ const Atrium = () => (
             Let's talk
           </span>
           <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
-            Shall we build something?
+            Ready to build the future?
           </h2>
           <p className="text-on-surface font-light mb-12 max-w-xl mx-auto leading-relaxed">
             Hiring leads, design partners, fellow builders, all welcome. Pick the door that suits
