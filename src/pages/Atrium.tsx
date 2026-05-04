@@ -48,7 +48,7 @@ const METHOD = [
 
 const Atrium = () => (
   <SiteLayout title="About">
-    <main className="relative pt-24 md:pt-32 pb-24 md:pb-32">
+    <div className="relative pt-24 md:pt-32 pb-24 md:pb-32">
       {/* Hero */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
@@ -335,7 +335,7 @@ const Atrium = () => (
           </div>
         </div>
       </Reveal>
-    </main>
+    </div>
   </SiteLayout>
 );
 
