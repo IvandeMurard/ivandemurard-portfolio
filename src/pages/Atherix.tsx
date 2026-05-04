@@ -146,7 +146,7 @@ const Atherix = () => (
             <Icon name="expand_more" className="animate-bounce" />
           </div>
         </div>
-      </header>
+      </Reveal>
 
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-24 md:mb-40">
