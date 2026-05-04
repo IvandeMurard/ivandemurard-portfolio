@@ -107,12 +107,6 @@ const Atrium = () => (
               role since has been a different angle on the same craft.
             </p>
           </div>
-          <div className="mt-12 flex items-center gap-6">
-            <div className="w-16 h-px bg-outline-variant/30" />
-            <span className="font-headline italic text-primary text-2xl">
-              Curiosity is a discipline.
-            </span>
-          </div>
         </div>
       </section>
 
