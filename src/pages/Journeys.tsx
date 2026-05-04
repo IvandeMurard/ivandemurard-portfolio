@@ -102,7 +102,7 @@ const Journeys = () => (
           Inquire Within
         </Link>
       </section>
-    </main>
+    </div>
   </SiteLayout>
 );
 
