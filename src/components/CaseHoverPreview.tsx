@@ -1,3 +1,4 @@
+import { SafeImage } from "@/components/SafeImage";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface CaseHoverPreviewProps {
@@ -97,7 +98,7 @@ export const CaseHoverPreview = ({ slug, image, alt, className }: CaseHoverPrevi
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
     >
-      <img
+      <SafeImage
         src={image}
         alt={alt}
         loading="lazy"

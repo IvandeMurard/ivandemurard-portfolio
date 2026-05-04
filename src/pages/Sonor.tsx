@@ -1,3 +1,4 @@
+import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
@@ -139,7 +140,7 @@ const Sonor = () => {
           </div>
           <div className="lg:col-span-5 flex justify-end">
             <div className="w-full aspect-[4/5] bg-surface-container-high overflow-hidden relative group">
-              <img
+              <SafeImage
                 src={PROJECTS.sonor.image}
                 alt="Aerial view of urban landscape"
                 className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-[2000ms] ease-out"
@@ -220,7 +221,7 @@ const Sonor = () => {
                 }
                 className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
               >
-                <img
+                <SafeImage
                   src={sonorCartographie}
                   alt="Sonor Cartographie dashboard, real-time acoustic mapping"
                   loading="lazy"
@@ -259,7 +260,7 @@ const Sonor = () => {
                   }
                   className="block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
                 >
-                  <img
+                  <SafeImage
                     src={sonorRecommandations}
                     alt="Sonor Recommandations interface, prioritized action plans for planners"
                     loading="lazy"
@@ -408,19 +409,19 @@ const Sonor = () => {
             association, and the collaboration of my three co-founders: Émilie, Majda and Benjamin.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-            <img
+            <SafeImage
               src={sonorLogo}
               alt="Sonor logo"
               loading="lazy"
               className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
             />
-            <img
+            <SafeImage
               src={logoBanqueTerritoires}
               alt="Banque des Territoires, Groupe Caisse des Dépôts"
               loading="lazy"
               className="h-16 md:h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
             />
-            <img
+            <SafeImage
               src={logoMatrice}
               alt="Matrice"
               loading="lazy"
@@ -449,7 +450,7 @@ const Sonor = () => {
                 className="group flex flex-col bg-surface border border-outline-variant/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-outline-variant/60"
               >
                 <div className="h-16 mb-8 flex items-center">
-                  <img
+                  <SafeImage
                     src={item.logo}
                     alt={item.alt}
                     className="max-h-12 max-w-[70%] object-contain opacity-90 group-hover:opacity-100 transition-opacity"
@@ -483,7 +484,7 @@ const Sonor = () => {
     <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
       <DialogContent className="max-w-[95vw] md:max-w-6xl p-2 md:p-4 bg-surface-container border-outline-variant/30">
         {lightbox && (
-          <img
+          <SafeImage
             src={lightbox.src}
             alt={lightbox.alt}
             className="w-full h-auto max-h-[85vh] object-contain rounded"

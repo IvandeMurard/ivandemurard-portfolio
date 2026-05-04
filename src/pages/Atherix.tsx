@@ -1,3 +1,4 @@
+import { SafeImage } from "@/components/SafeImage";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
@@ -166,7 +167,7 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-secondary/30 mix-blend-overlay" />
-            <img
+            <SafeImage
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFr-Za01-kmwl92MZL7hRd9LNi19YoiNqo9paewwgBPEmluCOCExh6ZQlxIFlBBp4Qo2WsJ0LsD2GIjbw3G9yTNV3jyKiNxvAosRWD1R-8iRsp2F0dBAY-y1uQAPl4gGjp5VG1yOyOHdJM1zoZGkRGcAZ4Lq56jyZMDwkfwoLB6w3DT0CjfxMGy_gGPaUxIOn_Na01jrGB30WP-RkRM2cjecFQXit-B8imM60BemLprw1SYYqG7W-IbIYHdd5rCL-HSK-QnsN5rRdn"
               alt="Luxury hotel lobby with warm morning light"
               loading="lazy"
@@ -228,7 +229,7 @@ const Atherix = () => (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-2 relative group h-[400px] md:h-[500px] rounded-xl overflow-hidden bg-surface shadow-sm border border-outline-variant/20">
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-surface z-10" />
-              <img
+              <SafeImage
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNes2XJVzG6F6dET-wBvp1lAp3Z0jBdHmFYxeZJLtI1pRgdL4Eufw9vmDn8lJdXZnUuhHy9Lbmc8J5vNgh7K1rsitxO8hXRFe78fKmARxpdHxF1mNue3AJ5VK7jTfb1ZOAOVdMqYiD3rClaZAirO_6DKFajvxDi8xHLTwMdq1IS9pPaFNv982heAW92qBh1inUxuw_u9sa76oSBNhXS8g0XXq_4XB6lG96zCTEl9xzRcDzD0eSiDfvesS_MsxmalCjFkDcPi2On_50"
                 alt="AI Dashboard Interface"
                 loading="lazy"

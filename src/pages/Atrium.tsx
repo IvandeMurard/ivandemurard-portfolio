@@ -1,3 +1,4 @@
+import { SafeImage } from "@/components/SafeImage";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
@@ -72,7 +73,7 @@ const Atrium = () => (
               className="absolute -inset-6 gold-halo opacity-50 pointer-events-none"
             />
             <div className="relative h-full w-full overflow-hidden ring-1 ring-secondary-fixed-dim/30">
-              <img
+              <SafeImage
                 src={portraitIvan}
                 alt="Ivan de Murard, Product Builder"
                 className="h-full w-full object-cover"
