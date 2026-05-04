@@ -318,7 +318,7 @@ const Sonor = () => {
             </div>
             <div className="grid grid-cols-2 gap-6 md:gap-8">
               {STATS.map((s) => (
-                <div key={s.k} className="p-6 md:p-8 border border-on-primary/10 space-y-4">
+                <div key={s.k} className="lift-card p-6 md:p-8 border border-on-primary/10 space-y-4">
                   <span className="text-4xl font-headline italic block">{s.v}</span>
                   <p className="text-sm font-label uppercase tracking-widest text-primary-fixed-dim">{s.k}</p>
                 </div>
