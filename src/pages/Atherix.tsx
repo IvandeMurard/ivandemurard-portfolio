@@ -2,6 +2,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
 
 const PIPELINE = [
@@ -93,16 +94,16 @@ const Atherix = () => (
   <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
     <div className="pt-32">
       {/* Hero */}
-      <header className="px-6 md:px-12 mb-20 md:mb-24">
+      <Reveal as="header" className="px-6 md:px-12 mb-20 md:mb-24">
         <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-end gap-12 lg:gap-16">
           <div className="flex-1">
-            <span className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block">
+            <span data-reveal-child className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block">
               Project Detail / Operations AI
             </span>
-            <h1 className="font-headline text-5xl md:text-8xl lg:text-9xl text-primary italic leading-[0.9] tracking-tight mb-8">
+            <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-8xl lg:text-9xl text-primary italic leading-[0.9] tracking-tight mb-8">
               Aetherix: A new operating layer for boutique hotels
             </h1>
-            <div className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
               <p>
                 Aetherix is an agentic framework focused on hotel operations. It anticipates staffing, F&B
                 preparation, and resource needs in real time, reduces food waste and operational costs, and frees the
@@ -145,7 +146,7 @@ const Atherix = () => (
             <Icon name="expand_more" className="animate-bounce" />
           </div>
         </div>
-      </header>
+      </Reveal>
 
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-24 md:mb-40">
@@ -171,7 +172,7 @@ const Atherix = () => (
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFr-Za01-kmwl92MZL7hRd9LNi19YoiNqo9paewwgBPEmluCOCExh6ZQlxIFlBBp4Qo2WsJ0LsD2GIjbw3G9yTNV3jyKiNxvAosRWD1R-8iRsp2F0dBAY-y1uQAPl4gGjp5VG1yOyOHdJM1zoZGkRGcAZ4Lq56jyZMDwkfwoLB6w3DT0CjfxMGy_gGPaUxIOn_Na01jrGB30WP-RkRM2cjecFQXit-B8imM60BemLprw1SYYqG7W-IbIYHdd5rCL-HSK-QnsN5rRdn"
               alt="Luxury hotel lobby with warm morning light"
               loading="lazy"
-              className="w-full h-full object-cover opacity-60"
+              className="kenburns w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 flex items-center justify-center text-center">
               <h2 className="font-headline text-3xl md:text-5xl text-surface-bright italic">The Vision</h2>
@@ -281,17 +282,17 @@ const Atherix = () => (
       </section>
 
       {/* Core Design Principles */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-surface-container">
+      <Reveal as="section" className="py-24 md:py-40 px-6 md:px-12 bg-surface-container">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-24">
-            <h2 className="font-headline text-4xl md:text-5xl text-primary mb-6">
+            <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary mb-6">
               Core Design Principles for Operations AI
             </h2>
-            <p className="text-on-surface-variant text-lg">Built for operational efficiency and human trust</p>
+            <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant text-lg">Built for operational efficiency and human trust</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
-            {PRINCIPLES.map((p) => (
-              <div key={p.title} className="flex flex-col gap-6">
+            {PRINCIPLES.map((p, i) => (
+              <div key={p.title} data-reveal-child style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }} className="flex flex-col gap-6">
                 <Icon name={p.icon} className="text-secondary text-4xl" />
                 <h3 className="font-bold text-xl text-primary">{p.title}</h3>
                 <p className="text-on-surface leading-relaxed">{p.body}</p>
@@ -299,7 +300,7 @@ const Atherix = () => (
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* The Agentic Operations Pipeline */}
       <section className="py-20 md:py-32 px-6 md:px-12 bg-surface">
@@ -317,7 +318,7 @@ const Atherix = () => (
             {PIPELINE_CARDS.map((c) => (
               <div
                 key={c.title}
-                className="bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md transition-shadow"
+                className="lift-card bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md"
               >
                 <Icon name={c.icon} className="text-secondary text-3xl mb-6 block" />
                 <h3 className="font-headline text-2xl md:text-3xl text-primary mb-4">{c.title}</h3>

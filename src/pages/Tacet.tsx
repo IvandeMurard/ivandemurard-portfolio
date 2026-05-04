@@ -1,5 +1,6 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/Reveal";
 
 const PROJECT_INFO = [
   { label: "Rôle", value: "Product Builder & Lead Developer (solo side project)" },
@@ -33,25 +34,24 @@ const Tacet = () => (
   <SiteLayout title="Tacet: The Architecture of Silence">
     <div className="pt-32">
       {/* Hero */}
-      <section className="relative min-h-[80vh] md:min-h-[800px] flex flex-col justify-center px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 overflow-hidden">
+      <Reveal as="section" className="relative min-h-[80vh] md:min-h-[800px] flex flex-col justify-center px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 overflow-hidden">
         <div className="relative z-10 max-w-4xl">
-          <p className="font-label text-secondary uppercase tracking-[0.3em] text-xs mb-8">Selected Work / 2026</p>
-          <h1 className="font-headline text-5xl md:text-9xl italic leading-tight text-primary mb-12">
+          <p data-reveal-child className="font-label text-secondary uppercase tracking-[0.3em] text-xs mb-8">Selected Work / 2026</p>
+          <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-9xl italic leading-tight text-primary mb-12">
             Tacet: The <br />
             Architecture <br />
             of Silence.
           </h1>
-          <p className="font-headline text-2xl md:text-3xl text-on-surface-variant max-w-xl italic leading-relaxed">
+          <p data-reveal-child style={{ ["--reveal-delay" as string]: "380ms" }} className="font-headline text-2xl md:text-3xl text-on-surface-variant max-w-xl italic leading-relaxed">
             A personal sanctuary for the traveler in a noisy world.
           </p>
         </div>
         <div className="absolute -right-24 top-1/2 -translate-y-1/2 w-full md:w-3/4 h-[600px] md:h-[800px] opacity-80 pointer-events-none">
           <div
-            className="w-full h-full bg-gradient-to-tr from-primary/20 via-primary-container/10 to-transparent rounded-full blur-3xl animate-pulse"
-            style={{ animationDuration: "8s" }}
+            className="halo-drift w-full h-full bg-gradient-to-tr from-primary/20 via-primary-container/10 to-transparent rounded-full blur-3xl"
           />
         </div>
-      </section>
+      </Reveal>
 
       {/* Project Info */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
@@ -194,16 +194,18 @@ const Tacet = () => (
       </section>
 
       {/* The Path Through Silence */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
+      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
         <div className="text-center mb-16 md:mb-32">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">The Path Through Silence</h2>
-          <div className="h-px w-24 bg-secondary/30 mx-auto" />
+          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6">The Path Through Silence</h2>
+          <span data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="block h-px w-24 bg-secondary/30 mx-auto" />
         </div>
         <div className="grid md:grid-cols-4 gap-8 md:gap-12">
-          {STEPS.map((s) => (
+          {STEPS.map((s, i) => (
             <div
               key={s.n}
-              className="p-8 bg-surface-container-low rounded-lg transition-all duration-500 hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }}
+              className="lift-card p-8 bg-surface-container-low rounded-lg hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
               <span className="font-label text-[10px] text-secondary mb-8 block tracking-widest">{s.n}</span>
               <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/40">
@@ -216,7 +218,7 @@ const Tacet = () => (
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* A Sanctuary in Daily Life */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-16 md:py-24 mb-24 md:mb-32 border-t border-surface-variant/50">
