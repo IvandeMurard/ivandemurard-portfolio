@@ -318,7 +318,7 @@ const Atherix = () => (
             {PIPELINE_CARDS.map((c) => (
               <div
                 key={c.title}
-                className="bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md transition-shadow"
+                className="lift-card bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md"
               >
                 <Icon name={c.icon} className="text-secondary text-3xl mb-6 block" />
                 <h3 className="font-headline text-2xl md:text-3xl text-primary mb-4">{c.title}</h3>
