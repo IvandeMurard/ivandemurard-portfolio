@@ -1,5 +1,6 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/Reveal";
 
 const PROJECT_INFO = [
   { label: "Rôle", value: "Product Builder & Lead Developer (solo side project)" },
