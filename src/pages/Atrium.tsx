@@ -95,10 +95,10 @@ const Atrium = () => (
           </h2>
           <div className="space-y-6 font-body text-lg text-on-surface-variant leading-relaxed">
             <p>
-              I started in mechanical engineering, then trained in service design at the
-              Interaction Design Foundation, with an MSc in management on the side. Curiosity
-              pulled me out of pure engineering and into product, where the question is never
-              only "can we build it" but "what changes for the people on the other side".
+              I started in agri-food business, passionate about food and where it came from, and
+              working in hospitality. In 2017, I win my first team innovation competition, since then
+              curiosity led me to explore various topics, environments, and organizations, always
+              with the same drive: build meaningful, lasting products.
             </p>
             <p>
               Sonor was the moment that crystallised it. Co-founding a 0 to 1 SaaS for urban
