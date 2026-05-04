@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
-import portraitIvan from "@/assets/portrait-ivan.jpg";
+import portraitIvan from "@/assets/portrait-ivan.png";
 
 const PRINCIPLES = [
   {
