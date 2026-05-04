@@ -14,7 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      link_clicks: {
+        Row: {
+          created_at: string
+          href: string
+          id: string
+          kind: string
+          label: string
+          page: string | null
+          referrer: string | null
+          session_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          href: string
+          id?: string
+          kind: string
+          label: string
+          page?: string | null
+          referrer?: string | null
+          session_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          href?: string
+          id?: string
+          kind?: string
+          label?: string
+          page?: string | null
+          referrer?: string | null
+          session_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
