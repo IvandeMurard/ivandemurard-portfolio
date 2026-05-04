@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
 import sonorCartographie from "@/assets/sonor-cartographie.png";
