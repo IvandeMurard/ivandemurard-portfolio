@@ -94,16 +94,16 @@ const Atherix = () => (
   <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
     <div className="pt-32">
       {/* Hero */}
-      <header className="px-6 md:px-12 mb-20 md:mb-24">
+      <Reveal as="header" className="px-6 md:px-12 mb-20 md:mb-24">
         <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-end gap-12 lg:gap-16">
           <div className="flex-1">
-            <span className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block">
+            <span data-reveal-child className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block">
               Project Detail / Operations AI
             </span>
-            <h1 className="font-headline text-5xl md:text-8xl lg:text-9xl text-primary italic leading-[0.9] tracking-tight mb-8">
+            <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-8xl lg:text-9xl text-primary italic leading-[0.9] tracking-tight mb-8">
               Aetherix: A new operating layer for boutique hotels
             </h1>
-            <div className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
               <p>
                 Aetherix is an agentic framework focused on hotel operations. It anticipates staffing, F&B
                 preparation, and resource needs in real time, reduces food waste and operational costs, and frees the
