@@ -456,6 +456,131 @@
   50%      { opacity: 1;    transform: translateZ(0) scale(1.03); }
 }
 
+/*
+  Shared motion primitives, used across Journeys, the case study pages,
+  Contact, and Atrium polish. One easing curve, predictable distances.
+*/
+@layer components {
+  /* Italic headline ink-in: clip-path wipes left to right while fading in. */
+  .headline-ink {
+    opacity: 0;
+    -webkit-clip-path: inset(0 100% 0 0);
+            clip-path: inset(0 100% 0 0);
+    transition:
+      opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+      -webkit-clip-path 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+      clip-path 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, clip-path;
+  }
+  [data-revealed="true"] .headline-ink,
+  [data-reveal][data-revealed="true"].headline-ink,
+  [data-revealed="true"] [data-reveal-child].headline-ink {
+    opacity: 1;
+    -webkit-clip-path: inset(0 0 0 0);
+            clip-path: inset(0 0 0 0);
+  }
+
+  /* Vertical 1px gold line that grows from 0 to full length on reveal. */
+  .divider-fall {
+    display: block;
+    width: 1px;
+    background-color: hsl(var(--secondary) / 0.4);
+    transform-origin: top center;
+    transform: scaleY(0);
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: transform;
+  }
+  [data-revealed="true"] .divider-fall,
+  [data-reveal][data-revealed="true"].divider-fall {
+    transform: scaleY(1);
+  }
+
+  /* Case row image: 12px lift, slow ease. */
+  .case-row-image {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  [data-revealed="true"] .case-row-image {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Case row text: 8px lift, 120ms behind the image by default. */
+  .case-row-text {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 120ms);
+    will-change: opacity, transform;
+  }
+  [data-revealed="true"] .case-row-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Slow Ken Burns on hero imagery. */
+  .kenburns {
+    animation: kenburns-drift 14s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    will-change: transform;
+  }
+
+  /* Hover utility: 2px lift + deeper shadow. */
+  .lift-card {
+    transition:
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .lift-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 48px -28px hsl(var(--primary) / 0.22);
+  }
+
+  /* Group-hover icon nudge, 3px on the X axis. */
+  .icon-shift {
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .group:hover .icon-shift {
+    transform: translateX(3px);
+  }
+
+  /* Slow drift on ambient hilma circles, ±6px both axes, 60s. */
+  .halo-drift {
+    animation: halo-drift 60s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Quiet letter-spacing breath on hover (rows). */
+  .row-title {
+    transition: letter-spacing 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .group:hover .row-title {
+    letter-spacing: 0.005em;
+  }
+}
+
+@keyframes kenburns-drift {
+  0%   { transform: scale(1.00); }
+  100% { transform: scale(1.04); }
+}
+
+@keyframes halo-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25%      { transform: translate3d(6px, -4px, 0); }
+  50%      { transform: translate3d(-4px, 6px, 0); }
+  75%      { transform: translate3d(-6px, -2px, 0); }
+}
+
 
 @keyframes ambience-pulse {
   0%, 100% { opacity: 0.55; }
