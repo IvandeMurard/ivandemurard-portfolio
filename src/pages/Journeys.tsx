@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
 import { PROJECTS } from "@/content/site";
 import { CaseHoverPreview } from "@/components/CaseHoverPreview";
+import { useTrackClick } from "@/hooks/useTrackClick";
 
 interface RowProps {
   index: string;
@@ -14,7 +15,9 @@ interface RowProps {
   flip?: boolean;
 }
 
-const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => (
+const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => {
+  const track = useTrackClick();
+  return (
   <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
     <div className={`md:col-span-6 group relative ${flip ? "md:order-2" : ""}`}>
       <CaseHoverPreview
@@ -33,6 +36,7 @@ const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => (
       <p className="text-on-surface-variant mb-7 leading-relaxed">{body}</p>
       <Link
         to={`/${slug}`}
+        onClick={() => track({ label: name, href: `/${slug}`, kind: "project" })}
         className="text-secondary font-body tracking-wider hover:underline underline-offset-8 transition-all duration-500 inline-flex items-center gap-2 group w-fit"
       >
         {cta}
@@ -40,7 +44,8 @@ const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => (
       </Link>
     </div>
   </div>
-);
+  );
+};
 
 const Journeys = () => (
   <SiteLayout title="Stories">

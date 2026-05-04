@@ -6,18 +6,20 @@ import { Icon } from "@/components/ui/Icon";
 import { MoodToggle } from "@/components/MoodToggle";
 import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
+import { useTrackClick } from "@/hooks/useTrackClick";
 
-const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon }[] = [
-  { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail },
-  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar },
-  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin },
-  { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github },
+const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "contact" | "social" }[] = [
+  { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, kind: "contact" },
+  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar, kind: "contact" },
+  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin, kind: "social" },
+  { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, kind: "social" },
 ];
 
 export const AtriumHeader = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const haptic = useHaptic();
+  const track = useTrackClick();
 
   useEffect(() => {
     setOpen(false);
@@ -63,7 +65,7 @@ export const AtriumHeader = () => {
             <MoodToggle />
             <AmbienceControl />
             <span className="hidden lg:inline-block h-4 w-px bg-outline-variant/40" aria-hidden="true" />
-            {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon }) => (
+            {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (
               <a
                 key={label}
                 href={href}
@@ -71,6 +73,7 @@ export const AtriumHeader = () => {
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={label}
                 title={label}
+                onClick={() => track({ label, href, kind })}
                 className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110"
               >
                 <LucideIcon size={18} strokeWidth={1.5} />
@@ -128,7 +131,7 @@ export const AtriumHeader = () => {
           ))}
           <div className="h-px w-16 bg-outline-variant/30 my-4" />
           <div className="flex flex-wrap justify-center gap-6">
-            {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon }) => (
+            {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (
               <a
                 key={label}
                 href={href}
@@ -136,6 +139,7 @@ export const AtriumHeader = () => {
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={label}
                 title={label}
+                onClick={() => track({ label, href, kind })}
                 className="text-on-surface-variant hover:text-secondary transition-colors"
               >
                 <LucideIcon size={22} strokeWidth={1.5} />

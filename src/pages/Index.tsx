@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
+import { useTrackClick } from "@/hooks/useTrackClick";
 
 const PILLARS = [
   {
@@ -66,7 +67,9 @@ const MILESTONES: Milestone[] = [
   { kind: "text", value: "Paris", label: "Based" },
 ];
 
-const Index = () => (
+const Index = () => {
+  const track = useTrackClick();
+  return (
   <SiteLayout title="The Atrium">
     {/* Hero */}
     <header className="relative min-h-screen flex items-center justify-center pt-24 px-6 md:px-8 overflow-hidden">
@@ -176,6 +179,7 @@ const Index = () => (
           <Link
             key={p.slug}
             to={`/${p.slug}`}
+            onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
             className="group block"
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}
@@ -306,6 +310,7 @@ const Index = () => (
       </div>
     </Reveal>
   </SiteLayout>
-);
+  );
+};
 
 export default Index;
