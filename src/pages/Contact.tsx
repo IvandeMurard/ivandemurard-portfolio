@@ -40,8 +40,8 @@ const CHANNELS = [
     href: SOCIAL_LINKS.github,
     icon: "code",
     external: true,
-    accent: "from-on-surface/10 via-on-surface/5 to-transparent",
-    ring: "ring-outline-variant/40",
+    accent: "from-secondary-fixed-dim/20 via-secondary/5 to-transparent",
+    ring: "ring-secondary-fixed-dim/30",
   },
 ];
 
