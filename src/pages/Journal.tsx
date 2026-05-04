@@ -8,7 +8,7 @@ const formatDate = (iso: string) =>
 
 const Journal = () => (
   <SiteLayout title="Field Notes">
-    <main className="pt-32 md:pt-40">
+    <div className="pt-32 md:pt-40">
       {/* Hero strip */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
         <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
@@ -109,7 +109,7 @@ const Journal = () => (
           </div>
         </div>
       </section>
-    </main>
+    </div>
   </SiteLayout>
 );
 
