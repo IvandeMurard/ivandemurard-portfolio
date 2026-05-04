@@ -4,7 +4,17 @@ import { SOCIAL_LINKS } from "@/content/site";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick, type ClickKind } from "@/hooks/useTrackClick";
 
-const CHANNELS = [
+const CHANNELS: Array<{
+  label: string;
+  desc: string;
+  cta: string;
+  href: string;
+  icon: string;
+  external: boolean;
+  accent: string;
+  ring: string;
+  kind: ClickKind;
+}> = [
   {
     label: "Email",
     desc: "For thoughtful, in-depth conversations.",
@@ -14,6 +24,7 @@ const CHANNELS = [
     external: false,
     accent: "from-secondary/15 via-secondary/5 to-transparent",
     ring: "ring-secondary/25",
+    kind: "contact",
   },
   {
     label: "Schedule",
@@ -24,6 +35,7 @@ const CHANNELS = [
     external: true,
     accent: "from-primary-fixed-dim/30 via-primary-fixed/15 to-transparent",
     ring: "ring-primary/25",
+    kind: "contact",
   },
   {
     label: "LinkedIn",
@@ -34,6 +46,7 @@ const CHANNELS = [
     external: true,
     accent: "from-tertiary/15 via-tertiary/5 to-transparent",
     ring: "ring-tertiary/25",
+    kind: "social",
   },
   {
     label: "GitHub",
@@ -44,6 +57,7 @@ const CHANNELS = [
     external: true,
     accent: "from-secondary-fixed-dim/20 via-secondary/5 to-transparent",
     ring: "ring-secondary/25",
+    kind: "social",
   },
 ];
 
