@@ -41,7 +41,7 @@ const CHANNELS = [
     icon: "code",
     external: true,
     accent: "from-secondary-fixed-dim/20 via-secondary/5 to-transparent",
-    ring: "ring-secondary-fixed-dim/30",
+    ring: "ring-secondary/25",
   },
 ];
 
