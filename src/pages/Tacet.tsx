@@ -194,16 +194,18 @@ const Tacet = () => (
       </section>
 
       {/* The Path Through Silence */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
+      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
         <div className="text-center mb-16 md:mb-32">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">The Path Through Silence</h2>
-          <div className="h-px w-24 bg-secondary/30 mx-auto" />
+          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6">The Path Through Silence</h2>
+          <span data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="block h-px w-24 bg-secondary/30 mx-auto" />
         </div>
         <div className="grid md:grid-cols-4 gap-8 md:gap-12">
-          {STEPS.map((s) => (
+          {STEPS.map((s, i) => (
             <div
               key={s.n}
-              className="p-8 bg-surface-container-low rounded-lg transition-all duration-500 hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }}
+              className="lift-card p-8 bg-surface-container-low rounded-lg hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
               <span className="font-label text-[10px] text-secondary mb-8 block tracking-widest">{s.n}</span>
               <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/40">
@@ -216,7 +218,7 @@ const Tacet = () => (
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* A Sanctuary in Daily Life */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-16 md:py-24 mb-24 md:mb-32 border-t border-surface-variant/50">
