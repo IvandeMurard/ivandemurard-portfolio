@@ -117,10 +117,10 @@ const Atrium = () => (
             Track record
           </span>
           <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
-            Where I've shipped
+            Last Experiences
           </h2>
           <p className="text-on-surface-variant font-light leading-relaxed">
-            Four roles, four sizes of company, one constant: data-driven SaaS that lands in real
+            Four roles, four sizes of company, one constant: data-driven SaaS that lands in
             operations.
           </p>
         </div>
