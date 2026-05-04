@@ -335,7 +335,7 @@ const Atrium = () => (
           </div>
         </div>
       </Reveal>
-    </main>
+    </div>
   </SiteLayout>
 );
 
