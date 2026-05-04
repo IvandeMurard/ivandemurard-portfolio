@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
+import { useTrackClick } from "@/hooks/useTrackClick";
 
 const PILLARS = [
   {
