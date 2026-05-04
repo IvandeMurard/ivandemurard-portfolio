@@ -46,7 +46,9 @@ const CHANNELS = [
   },
 ];
 
-const Contact = () => (
+const Contact = () => {
+  const haptic = useHaptic();
+  return (
   <SiteLayout title="Contact">
     <div className="pt-40 md:pt-48 pb-32">
       <section className="px-6 md:px-12 max-w-4xl mx-auto text-center mb-20 md:mb-24 relative">
