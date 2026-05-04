@@ -60,10 +60,10 @@ const Atrium = () => (
               I'm Ivan, <br />
               <span className="text-on-primary-container opacity-90">a Product Builder.</span>
             </h1>
-            <p className="font-body text-lg md:text-2xl text-on-surface-variant max-w-3xl leading-relaxed">
-              Five years in Product Management across start-ups, scale-ups and large groups, two
-              years co-founding a SaaS, and a long-running habit of shipping AI-native side
-              projects. I build from operational reality, with the human kept at the centre.
+            <p className="font-body text-lg md:text-2xl text-on-surface-variant max-w-3xl leading-relaxed whitespace-pre-line">
+              I'm Ivan, a product builder with 5 years of experience across start-ups, scale-ups and
+              large groups as a consultant, and 2 years co-founding a SaaS dedicated to noise
+              pollution.{"\n"}I build with AI, while always keeping the human at the center.
             </p>
           </div>
           <div className="lg:col-span-4 h-[340px] lg:h-[440px] relative">
