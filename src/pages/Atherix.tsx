@@ -5,7 +5,10 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
 import heroLobby from "@/assets/atherix-hero-lobby.jpg";
-import opsImage from "@/assets/atherix-dashboard.jpg";
+import toniPortrait from "@/assets/toni-stoeckl.webp";
+import aviPortrait from "@/assets/avi-brosh.webp";
+import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchitectureDiagram";
+import { AetherixHorizonIllustration } from "@/components/atherix/AetherixHorizonIllustration";
 
 const PIPELINE = [
   { icon: "dns", title: "Apaleo PMS", sub: "" },
@@ -24,7 +27,11 @@ const PROJECT_INFO = [
     value: "Agentic AI for boutique hotel operations (Apaleo PMS, staffing, F&B forecasting, WhatsApp push)",
     wide: true,
   },
-  { label: "Current Status", value: "End-to-end pipeline operational in sandbox", wide: true },
+  {
+    label: "Current Status",
+    value: "End-to-end pipeline operational in sandbox, Apaleo OAuth and MCP read access live, outbound MCP server in progress",
+    wide: true,
+  },
 ];
 
 const PRINCIPLES = [
@@ -186,8 +193,8 @@ const Atherix = () => (
                 Restoring the human touch through algorithms.
               </h3>
               <p className="text-on-surface-variant leading-loose mb-8">
-                Aetherix transforme les systèmes automatisés en expériences profondément humaines. Il réintroduit le
-                soin authentique qui définit le service.
+                Aetherix turns automated systems into experiences that feel cared for. It gives the team back the
+                hours that define real service: the welcome, the conversation, the small attentions a guest remembers.
               </p>
             </div>
             <div className="lg:col-start-7 lg:col-span-6">
@@ -219,52 +226,35 @@ const Atherix = () => (
       </section>
 
       {/* Intelligent Anticipation */}
-      <section className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden">
+      <Reveal as="section" className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
           <div className="mb-16 md:mb-20">
-            <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
-            <p className="text-on-surface-variant max-w-2xl text-lg">
-              Aetherix agit comme une couche d'intelligence contextuelle <strong>MCP-ready</strong> pour tout le stack
-              hôtelier. L'agent se concentre sur l'optimisation en temps réel de la dotation en personnel, la
-              préparation F&B et l'allocation des ressources via des recommandations WhatsApp proactives ou MCP.
+            <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
+            <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl text-lg">
+              Four intelligence layers in sequence: numerical forecasting (Prophet), semantic patterns (Qdrant, 495+ scenarios), cognitive memory (pgvector, per hotel feedback), and reasoning (Claude Sonnet). The result is a single recommendation, pushed when it matters, callable by other agents over MCP.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-2 relative group h-[400px] md:h-[500px] rounded-xl overflow-hidden bg-surface shadow-sm border border-outline-variant/20">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-surface z-10" />
-              <SafeImage
-                src={opsImage}
-                alt="Hospitality team preparing the dining room at golden hour"
-                loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-              />
-              <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12 z-20">
-                <span className="text-secondary font-label uppercase text-[10px] tracking-widest mb-2 block">
-                  Agentic Operations
-                </span>
-                <h3 className="font-headline text-2xl md:text-3xl text-primary italic">
-                  Real-Time Resource Optimization
-                </h3>
-              </div>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "300ms" }} className="md:col-span-2 relative min-h-[500px] md:min-h-[560px] rounded-xl overflow-hidden bg-surface shadow-sm border border-outline-variant/20">
+              <AetherixArchitectureDiagram />
             </div>
-            <div className="bg-surface rounded-xl p-8 md:p-12 border border-outline-variant/20 shadow-sm flex flex-col justify-between">
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="bg-surface rounded-xl p-8 md:p-12 border border-outline-variant/20 shadow-sm flex flex-col justify-between">
               <div>
                 <Icon name="forum" className="text-secondary text-4xl mb-6 block" />
                 <h4 className="font-headline text-2xl text-primary mb-4">Proactive Messaging</h4>
                 <p className="text-on-surface-variant leading-relaxed">
-                  Delivering precise, timely recommendations directly to team members via WhatsApp, eliminating friction
-                  and keeping human operators ahead of guest needs.
+                  Recommendations land where teams already work: WhatsApp first, with explainable reasoning attached. Apaleo OAuth gives read access, an outbound MCP server lets orchestration agents call Aetherix directly.
                 </p>
               </div>
               <div className="pt-8 border-t border-outline-variant/20 mt-6">
                 <p className="text-xs font-label uppercase tracking-widest text-secondary">
-                  Operational Readiness: MCP-Ready Architecture
+                  Apaleo PMS, MCP callable, WhatsApp delivery
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/* Quote 1 */}
       <section className="py-20 md:py-24 px-6 md:px-12">
@@ -274,7 +264,7 @@ const Atherix = () => (
             ways we can reduce our impact as a hotel group."
           </h3>
           <div className="flex items-center justify-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-surface-container-highest" />
+            <img src={toniPortrait} alt="Toni Stoeckl" loading="lazy" className="w-12 h-12 rounded-full object-cover" />
             <div className="text-left">
               <p className="font-bold text-primary">Toni Stoeckl</p>
               <p className="text-xs text-on-surface-variant">Chief Marketing Officer, Starwood Hotels (1 Hotels)</p>
@@ -335,7 +325,7 @@ const Atherix = () => (
               guest's memory."
             </h3>
             <div className="flex items-center justify-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-surface-container-highest" />
+              <img src={aviPortrait} alt="Avi Brosh" loading="lazy" className="w-12 h-12 rounded-full object-cover" />
               <div className="text-left">
                 <p className="font-bold text-primary">Avi Brosh</p>
                 <p className="text-xs text-on-surface-variant">Founder, Palisociety (Roadbook)</p>
@@ -384,6 +374,7 @@ const Atherix = () => (
       {/* The Horizon */}
       <section className="py-24 md:py-40 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
         <div className="max-w-screen-xl mx-auto text-center">
+          <AetherixHorizonIllustration />
           <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-12">The Horizon</h2>
           <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-4xl mx-auto leading-relaxed flex flex-col gap-6">
             <p>
