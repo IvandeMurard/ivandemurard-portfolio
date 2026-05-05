@@ -5,7 +5,10 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
 import heroLobby from "@/assets/atherix-hero-lobby.jpg";
-import opsImage from "@/assets/atherix-dashboard.jpg";
+import toniPortrait from "@/assets/toni-stoeckl.webp";
+import aviPortrait from "@/assets/avi-brosh.webp";
+import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchitectureDiagram";
+import { AetherixHorizonIllustration } from "@/components/atherix/AetherixHorizonIllustration";
 
 const PIPELINE = [
   { icon: "dns", title: "Apaleo PMS", sub: "" },
