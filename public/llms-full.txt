@@ -20,7 +20,7 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/30min. Li
 
 ## Aetherix
 
-URL: https://www.ivandemurard.com/atherix. Repository: https://github.com/IvandeMurard/aetherix-hospitality-ai.
+URL: https://www.ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/aetherix-hospitality-ai.
 
 Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.
 
