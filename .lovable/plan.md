@@ -1,62 +1,82 @@
 ## Goal
 
-Make the Aetherix case study visually specific to the actual repo (github.com/IvandeMurard/aetherix-hospitality-ai), not generic stock-feeling imagery. Replace two image slots with custom illustrations that reflect the real architecture, and wire in the real portraits for Toni Stoeckl and Avi Brosh.
+Reflect the real repo state on `/atherix`: the **outbound MCP server is in progress** and should appear as a distinct node in the Intelligent Anticipation architecture diagram. Add quiet, on-brand motion that signals "data flowing" without becoming decorative.
 
-## What changes on /atherix
+## Changes to `src/components/atherix/AetherixArchitectureDiagram.tsx`
 
-### 1. "Intelligent Anticipation" section
-Currently shows a generic golden-hour dining-room photo (`opsImage`). Replace the large left card with a **custom architecture illustration** rendered as an inline SVG React component (`AetherixArchitectureDiagram.tsx`), based on the real mermaid graph from the repo README:
+### 1. New "Outbound MCP" node in the delivery row
+
+Today the delivery row has two cards: `WhatsApp push` and `Next.js verification`. Reframe it so the MCP server is the orchestrator that fans out to both channels:
 
 ```text
-External signals          Fat Backend (FastAPI)         Intelligence
-────────────────          ─────────────────────         ────────────
-Apaleo PMS  ──┐                                      ┌── Supabase PG
-Weather     ──┼──►  Sync ─► Semantic ─► Claude  ─────┼── Qdrant (495+ patterns)
-Events      ──┘             Reasoning   Sonnet       └── pgvector memory
-                                  │
-                                  ▼
-                       WhatsApp / SMS  +  Next.js dashboard
+                    Intelligence layers
+                            │
+                    ┌───────┴───────┐
+                    │ Outbound MCP  │   (in progress, dashed border)
+                    │   server      │
+                    └───┬───────┬───┘
+                        │       │
+                  WhatsApp   Next.js
+                  push       verification
 ```
 
-Style: thin gold/secondary lines on cream `surface-container-lowest`, small Material icon nodes (matching the existing pipeline strip), `font-label` uppercase node titles, italic `font-headline` layer captions ("Numerical · Semantic · Cognitive · Reasoning"). Animated with the existing `.divider-fall` for connecting lines and staggered `data-reveal-child` fades for nodes (no new motion primitives). Rendered via `<Reveal>` so it plays when scrolled into view.
+Implementation:
+- Replace the current 2-column delivery grid with a centered MCP node above a 2-column children row.
+- MCP node: same card styling as backend column, but with `border-dashed border-secondary-fixed-dim/60` and a small `font-label` "IN PROGRESS" tag in the top-right to honour the README's actual status.
+- Icon: `hub` (Material Symbols) for the MCP node, keeps the gold-on-cream language.
+- Two thin connector lines from MCP down into WhatsApp and Next.js cards, each using `.divider-fall` with staggered `--reveal-delay`.
 
-The right-side "Proactive Messaging" card stays, with copy tightened to mention Apaleo + MCP-callable explicitly.
+### 2. Minimalist motion
 
-Delete `src/assets/atherix-dashboard.jpg`.
+All new motion stays inside the existing primitives so we add zero new keyframes except for one tiny pulse that signals the live MCP path:
 
-### 2. "The Horizon" section
-Currently text-only. Add a **custom illustration** above the heading: an inline SVG `AetherixHorizonIllustration.tsx` showing a minimalist horizon line with three concentric arcs labelled "Phase 1 Sandbox · Phase 2 Pilot · Phase 3 Hive Memory", a small Aetherix node anchored at the center, and faint orbiting dots representing other agents in the "agentic operations mesh". Same gold-on-cream palette, `.halo-drift` on the outer arc for slow ambient motion, `.divider-fall` on the horizon line.
+- **Reveal cascade** (already present): nodes fade up via `data-reveal-child` with delays. Add the MCP node at delay `440ms`, its two child cards at `520ms` and `600ms`.
+- **Connector lines**: existing `.divider-fall` for the new vertical connectors from intelligence column → MCP node, and MCP → delivery cards. Vertical lines using `.divider-fall` (which scales Y from 0 → 1, 700ms ease).
+- **Single new "data pulse"**: a subtle 1px gold dot that travels down each connector line on a slow loop (4s, ease-in-out, infinite). Pure CSS using `@keyframes mcp-pulse` translating Y from 0% → 100% with opacity easing in then out. Respects `prefers-reduced-motion` (motion disabled, dot hidden).
 
-### 3. Real portraits for the two quotes
-Replace the empty grey `w-12 h-12 rounded-full bg-surface-container-highest` circles with the actual portraits:
+Add to `src/index.css` (in the `@layer components` block, near `halo-drift`):
 
-- Copy `user-uploads://toni_stoeckl.webp` → `src/assets/toni-stoeckl.webp`
-- Copy `user-uploads://avi_brosh.webp` → `src/assets/avi-brosh.webp`
-- Import and render in the two quote blocks at `w-12 h-12 rounded-full object-cover` (with `loading="lazy"` and proper alt text)
+```css
+.mcp-pulse-track { position: relative; }
+.mcp-pulse-track::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: hsl(var(--secondary) / 0.7);
+  transform: translate(-50%, 0);
+  animation: mcp-pulse 4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: var(--pulse-delay, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mcp-pulse-track::after { animation: none; opacity: 0; }
+}
+@keyframes mcp-pulse {
+  0%   { transform: translate(-50%, -2px); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translate(-50%, calc(100% + 2px)); opacity: 0; }
+}
+```
 
-### 4. Hero image
-Keep `atherix-hero-lobby.jpg` (it reads as boutique-hotel context, which matches the repo's domain). No change.
+Apply `.mcp-pulse-track` to each of the three new vertical connector divs (intelligence → MCP, MCP → WhatsApp, MCP → Next.js) with staggered `--pulse-delay` (`0ms`, `1300ms`, `2600ms`) so the pulse feels like a continuous heartbeat moving through the system rather than three synchronized blinks.
 
-### 5. Copy tightening (specificity to the real repo)
-Small edits so the page reflects what's actually in the README, no fluff:
-- Pipeline diagram already correct (Apaleo, Prophet, Claude Sonnet, MCP, WhatsApp), keep as is.
-- "Intelligent Anticipation" intro: mention the four layers explicitly (Numerical forecast via Prophet, Semantic patterns via Qdrant, Cognitive memory via pgvector, Reasoning via Claude Sonnet).
-- "Current Status" project-info row: update to "End-to-end pipeline operational in sandbox, Apaleo OAuth + MCP read access live, outbound MCP server in progress".
-- Remove the lone French paragraph in "The Vision" (mixes languages, the rest of the page is English). Replace with an English equivalent that keeps the same sentiment, no em-dashes.
+### 3. Caption update
+
+Change the bottom italic caption from `Numerical · Semantic · Cognitive · Reasoning` to `Numerical · Semantic · Cognitive · Reasoning · Action` so the MCP server (the action layer) is acknowledged in the legend without adding a separate label.
 
 ## Files touched
 
-- `src/pages/Atherix.tsx` (edits, ~30 lines changed)
-- `src/components/atherix/AetherixArchitectureDiagram.tsx` (new)
-- `src/components/atherix/AetherixHorizonIllustration.tsx` (new)
-- `src/assets/toni-stoeckl.webp` (copied from upload)
-- `src/assets/avi-brosh.webp` (copied from upload)
-- `src/assets/atherix-dashboard.jpg` (deleted)
+- `src/components/atherix/AetherixArchitectureDiagram.tsx` (restructure delivery row, add MCP node + connectors, ~40 lines changed)
+- `src/index.css` (add `.mcp-pulse-track` + `@keyframes mcp-pulse`, ~25 lines)
 
 ## Out of scope
 
-- No new motion primitives (reuse `.divider-fall`, `.halo-drift`, `<Reveal>`).
-- No backend/database changes.
-- Other case study pages (Sonor, Tacet) untouched.
+- No copy changes elsewhere on the page (status row already says "outbound MCP server in progress").
+- No new dependencies, no SVG path animations, no JS-driven motion.
+- Horizon illustration untouched.
 
 Reply "go" to implement.
