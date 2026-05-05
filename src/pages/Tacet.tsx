@@ -1,3 +1,5 @@
+// Source of truth for facts (dates, stack, metrics, status).
+// If you change facts here, also update public/tacet.md and public/llms-full.txt.
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";

@@ -1,3 +1,5 @@
+// Source of truth for facts (dates, stack, metrics, status).
+// If you change facts here, also update public/sonor.md and public/llms-full.txt.
 import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 import { Link } from "react-router-dom";
