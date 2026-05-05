@@ -9,4 +9,7 @@
   <url><loc>https://www.ivandemurard.com/journal</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.ivandemurard.com/journal/agent-boundaries-aetherix</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.ivandemurard.com/contact</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.ivandemurard.com/atherix.md</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.ivandemurard.com/sonor.md</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.ivandemurard.com/tacet.md</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>
