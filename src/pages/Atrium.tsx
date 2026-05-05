@@ -1,6 +1,7 @@
 import { SafeImage } from "@/components/SafeImage";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";

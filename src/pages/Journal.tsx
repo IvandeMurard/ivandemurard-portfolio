@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { JOURNAL_ENTRIES, READING_LIST } from "@/content/journal";
 

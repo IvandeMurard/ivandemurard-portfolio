@@ -2,6 +2,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
