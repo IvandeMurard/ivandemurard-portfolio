@@ -50,11 +50,46 @@ export const AetherixArchitectureDiagram = () => {
           <Column items={intelligence} delay={240} />
         </div>
 
-        {/* Connector divider */}
-        <div className="flex items-center gap-3 px-2">
-          <div className="divider-fall flex-1 h-px bg-secondary-fixed-dim/50" />
-          <Icon name="arrow_downward" className="text-secondary text-base" />
-          <div className="divider-fall flex-1 h-px bg-secondary-fixed-dim/50" />
+        {/* Intelligence → MCP connector */}
+        <div className="flex justify-center">
+          <div
+            className="divider-fall mcp-pulse-track h-10"
+            style={{ ["--reveal-delay" as string]: "360ms", ["--pulse-delay" as string]: "0ms" }}
+          />
+        </div>
+
+        {/* Outbound MCP server (in progress) */}
+        <div className="flex justify-center">
+          <div
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "440ms" }}
+            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim/60 rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
+          >
+            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center shrink-0">
+              <Icon name="hub" className="text-outline text-lg" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="font-headline italic text-primary text-base md:text-lg leading-tight">Outbound MCP server</p>
+              <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">Tool calls, action layer</p>
+            </div>
+            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary/80 shrink-0">In progress</span>
+          </div>
+        </div>
+
+        {/* MCP → delivery channels connectors */}
+        <div className="grid grid-cols-2 gap-4 md:gap-6 px-8">
+          <div className="flex justify-center">
+            <div
+              className="divider-fall mcp-pulse-track h-8"
+              style={{ ["--reveal-delay" as string]: "500ms", ["--pulse-delay" as string]: "1300ms" }}
+            />
+          </div>
+          <div className="flex justify-center">
+            <div
+              className="divider-fall mcp-pulse-track h-8"
+              style={{ ["--reveal-delay" as string]: "500ms", ["--pulse-delay" as string]: "2600ms" }}
+            />
+          </div>
         </div>
 
         {/* Delivery row */}
@@ -63,7 +98,7 @@ export const AetherixArchitectureDiagram = () => {
             <div
               key={d.title}
               data-reveal-child
-              style={{ ["--reveal-delay" as string]: `${360 + i * 80}ms` }}
+              style={{ ["--reveal-delay" as string]: `${560 + i * 80}ms` }}
               className="flex items-center gap-3 px-4 py-3 border border-outline-variant/30 rounded-xl bg-surface/80 backdrop-blur-sm"
             >
               <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center">
@@ -75,7 +110,7 @@ export const AetherixArchitectureDiagram = () => {
         </div>
 
         <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant/70 text-center pt-2">
-          Numerical · Semantic · Cognitive · Reasoning
+          Numerical · Semantic · Cognitive · Reasoning · Action
         </p>
       </div>
     </div>
