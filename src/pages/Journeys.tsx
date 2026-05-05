@@ -69,7 +69,7 @@ const Journeys = () => (
         name: "Case Studies",
         url: "https://www.ivandemurard.com/journeys",
         hasPart: [
-          { "@type": "CreativeWork", name: "Aetherix", url: "https://www.ivandemurard.com/atherix" },
+          { "@type": "CreativeWork", name: "Aetherix", url: "https://www.ivandemurard.com/aetherix" },
           { "@type": "CreativeWork", name: "Sonor", url: "https://www.ivandemurard.com/sonor" },
           { "@type": "CreativeWork", name: "Tacet", url: "https://www.ivandemurard.com/tacet" },
         ],
@@ -103,7 +103,7 @@ const Journeys = () => (
         />
         <Row
           index="Journey 02"
-          slug="atherix"
+          slug="aetherix"
           name={PROJECTS.atherix.name}
           body="An agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees the human team to focus on exceptional guest experiences."
           image={PROJECTS.atherix.image}
