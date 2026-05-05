@@ -264,7 +264,7 @@ const Atherix = () => (
             ways we can reduce our impact as a hotel group."
           </h3>
           <div className="flex items-center justify-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-surface-container-highest" />
+            <img src={toniPortrait} alt="Toni Stoeckl" loading="lazy" className="w-12 h-12 rounded-full object-cover" />
             <div className="text-left">
               <p className="font-bold text-primary">Toni Stoeckl</p>
               <p className="text-xs text-on-surface-variant">Chief Marketing Officer, Starwood Hotels (1 Hotels)</p>
@@ -325,7 +325,7 @@ const Atherix = () => (
               guest's memory."
             </h3>
             <div className="flex items-center justify-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-surface-container-highest" />
+              <img src={aviPortrait} alt="Avi Brosh" loading="lazy" className="w-12 h-12 rounded-full object-cover" />
               <div className="text-left">
                 <p className="font-bold text-primary">Avi Brosh</p>
                 <p className="text-xs text-on-surface-variant">Founder, Palisociety (Roadbook)</p>
@@ -374,6 +374,7 @@ const Atherix = () => (
       {/* The Horizon */}
       <section className="py-24 md:py-40 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
         <div className="max-w-screen-xl mx-auto text-center">
+          <AetherixHorizonIllustration />
           <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-12">The Horizon</h2>
           <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-4xl mx-auto leading-relaxed flex flex-col gap-6">
             <p>
