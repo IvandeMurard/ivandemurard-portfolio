@@ -1,6 +1,7 @@
 import { SafeImage } from "@/components/SafeImage";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
