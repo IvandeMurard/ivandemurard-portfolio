@@ -497,6 +497,15 @@ const Sonor = () => {
           </div>
         </div>
       </section>
+
+      <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">
+        <a
+          href="/sonor.md"
+          className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
+        >
+          View as markdown
+        </a>
+      </div>
     </div>
 
     <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
