@@ -1,4 +1,5 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 
@@ -32,6 +33,21 @@ const FAQ = [
 
 const Tacet = () => (
   <SiteLayout title="Tacet: The Architecture of Silence">
+    <Seo
+      title="Tacet, Real-time Noise App for Paris"
+      description="Tacet is a mobile-first sanctuary for Parisians. Real-time Bruitparif data and a Serenity Score help reclaim quiet in housing choices, daily life and urban commutes."
+      path="/tacet"
+      type="article"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        name: "Tacet",
+        applicationCategory: "LifestyleApplication",
+        operatingSystem: "iOS",
+        url: "https://www.ivandemurard.com/tacet",
+        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://www.ivandemurard.com" },
+      }}
+    />
     <div className="pt-32">
       {/* Hero */}
       <Reveal as="section" className="relative min-h-[80vh] md:min-h-[800px] flex flex-col justify-center px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 overflow-hidden">

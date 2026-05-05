@@ -2,6 +2,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -113,6 +114,22 @@ const Sonor = () => {
 
   return (
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
+    <Seo
+      title="Sonor, Urban Noise Intelligence for Cities"
+      description="Sonor turned open data into a B2G SaaS used by municipalities to map urban noise, protect acoustic health and drive sustainability policies. Two-year journey as Co-founder and Product Lead, 2020 to 2022."
+      path="/sonor"
+      type="article"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        name: "Sonor",
+        headline: "Sonor: The Quiet Art of Urban Intelligence",
+        url: "https://www.ivandemurard.com/sonor",
+        about: ["Urban Noise", "Open Data", "Public Sector SaaS"],
+        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://www.ivandemurard.com" },
+        dateCreated: "2020-01-01",
+      }}
+    />
     <div className="pt-32">
       {/* Hero */}
       <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-28">

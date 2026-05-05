@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 
@@ -34,6 +35,23 @@ const JournalEntry = () => {
 
   return (
     <SiteLayout title={entry.title}>
+      <Seo
+        title={entry.title}
+        description={entry.excerpt}
+        path={`/journal/${entry.slug}`}
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: entry.title,
+          description: entry.excerpt,
+          datePublished: entry.date,
+          dateModified: entry.date,
+          author: { "@type": "Person", name: "Ivan de Murard", url: "https://www.ivandemurard.com" },
+          articleSection: entry.category,
+          url: `https://www.ivandemurard.com/journal/${entry.slug}`,
+        }}
+      />
       <div className="pt-32 md:pt-40 pb-32 md:pb-48">
         <article className="px-6 md:px-12 max-w-3xl mx-auto">
           <div className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-2">

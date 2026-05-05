@@ -1,4 +1,5 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useHaptic } from "@/hooks/useHaptic";
@@ -66,6 +67,17 @@ const Contact = () => {
   const track = useTrackClick();
   return (
   <SiteLayout title="Contact">
+    <Seo
+      title="Contact Ivan de Murard"
+      description="Get in touch with Ivan de Murard. Email, schedule a call, or connect on LinkedIn and GitHub."
+      path="/contact"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        url: "https://www.ivandemurard.com/contact",
+        name: "Contact",
+      }}
+    />
     <div className="pt-40 md:pt-48 pb-32">
       <section className="px-6 md:px-12 max-w-4xl mx-auto text-center mb-20 md:mb-24 relative">
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 hilma-circle pointer-events-none" />

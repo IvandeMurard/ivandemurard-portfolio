@@ -1,6 +1,7 @@
 import { SafeImage } from "@/components/SafeImage";
 import { Link } from "react-router-dom";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
@@ -101,6 +102,27 @@ const FAQ = [
 
 const Atherix = () => (
   <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
+    <Seo
+      title="Aetherix, Agentic AI for Boutique Hotel Operations"
+      description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience."
+      path="/atherix"
+      type="article"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        name: "Aetherix",
+        headline: "Aetherix: A new operating layer for boutique hotels",
+        url: "https://www.ivandemurard.com/atherix",
+        about: ["Agentic AI", "Hospitality Operations", "Boutique Hotels"],
+        creator: {
+          "@type": "Person",
+          name: "Ivan de Murard",
+          url: "https://www.ivandemurard.com",
+        },
+        dateCreated: "2026-01-01",
+        codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+      }}
+    />
     <div className="pt-32">
       {/* Hero */}
       <Reveal as="header" className="px-6 md:px-12 mb-20 md:mb-24">

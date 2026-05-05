@@ -1,82 +1,89 @@
-## Goal
 
-Reflect the real repo state on `/atherix`: the **outbound MCP server is in progress** and should appear as a distinct node in the Intelligent Anticipation architecture diagram. Add quiet, on-brand motion that signals "data flowing" without becoming decorative.
+# SEO + GEO strategy for ivandemurard.com
 
-## Changes to `src/components/atherix/AetherixArchitectureDiagram.tsx`
+Goal: rank for "Ivan de Murard" + intent queries (product builder Paris, agentic AI hospitality, boutique hotel AI, Aetherix, Sonor, Tacet), and be cited by generative engines (ChatGPT, Perplexity, Gemini, Claude, Google AI Overviews).
 
-### 1. New "Outbound MCP" node in the delivery row
+## Current state (gaps)
 
-Today the delivery row has two cards: `WhatsApp push` and `Next.js verification`. Reframe it so the MCP server is the orchestrator that fans out to both channels:
+- `index.html` ships a single static title/description for every route (SPA). No canonical, no per-page meta.
+- No structured data (JSON-LD): no Person, WebSite, Article, CreativeWork.
+- No `sitemap.xml`. `robots.txt` exists but does not reference a sitemap.
+- OG image is a Google Storage URL with a non-ASCII filename (fragile). No per-page OG.
+- No `lang` variants, no author bios on case study pages, no FAQ schema, no published/updated dates on Field Notes.
+- No `llms.txt` or AI-friendly plain-text surfaces.
 
-```text
-                    Intelligence layers
-                            │
-                    ┌───────┴───────┐
-                    │ Outbound MCP  │   (in progress, dashed border)
-                    │   server      │
-                    └───┬───────┬───┘
-                        │       │
-                  WhatsApp   Next.js
-                  push       verification
-```
+## Plan
 
-Implementation:
-- Replace the current 2-column delivery grid with a centered MCP node above a 2-column children row.
-- MCP node: same card styling as backend column, but with `border-dashed border-secondary-fixed-dim/60` and a small `font-label` "IN PROGRESS" tag in the top-right to honour the README's actual status.
-- Icon: `hub` (Material Symbols) for the MCP node, keeps the gold-on-cream language.
-- Two thin connector lines from MCP down into WhatsApp and Next.js cards, each using `.divider-fall` with staggered `--reveal-delay`.
+### 1. Per-page meta via a lightweight `<Seo>` component
 
-### 2. Minimalist motion
+Create `src/components/Seo.tsx` that imperatively sets `document.title`, description, canonical, OG, Twitter, and JSON-LD on mount (no extra deps; matches existing `SiteLayout` pattern that already sets `document.title`). Props: `title`, `description`, `canonical`, `image`, `type` (website/article/profile), `jsonLd`.
 
-All new motion stays inside the existing primitives so we add zero new keyframes except for one tiny pulse that signals the live MCP path:
+Wire into every page (Index, Atrium, Journeys, Atherix, Sonor, Tacet, Journal, JournalEntry, Contact, NotFound) with hand-written, keyword-rich, human descriptions (no em-dashes, per memory).
 
-- **Reveal cascade** (already present): nodes fade up via `data-reveal-child` with delays. Add the MCP node at delay `440ms`, its two child cards at `520ms` and `600ms`.
-- **Connector lines**: existing `.divider-fall` for the new vertical connectors from intelligence column → MCP node, and MCP → delivery cards. Vertical lines using `.divider-fall` (which scales Y from 0 → 1, 700ms ease).
-- **Single new "data pulse"**: a subtle 1px gold dot that travels down each connector line on a slow loop (4s, ease-in-out, infinite). Pure CSS using `@keyframes mcp-pulse` translating Y from 0% → 100% with opacity easing in then out. Respects `prefers-reduced-motion` (motion disabled, dot hidden).
+Canonical base: `https://www.ivandemurard.com`.
 
-Add to `src/index.css` (in the `@layer components` block, near `halo-drift`):
+### 2. Structured data (JSON-LD)
 
-```css
-.mcp-pulse-track { position: relative; }
-.mcp-pulse-track::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 3px;
-  height: 3px;
-  border-radius: 9999px;
-  background: hsl(var(--secondary) / 0.7);
-  transform: translate(-50%, 0);
-  animation: mcp-pulse 4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-  animation-delay: var(--pulse-delay, 0ms);
-}
-@media (prefers-reduced-motion: reduce) {
-  .mcp-pulse-track::after { animation: none; opacity: 0; }
-}
-@keyframes mcp-pulse {
-  0%   { transform: translate(-50%, -2px); opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translate(-50%, calc(100% + 2px)); opacity: 0; }
-}
-```
+- Site-wide on `/`: `Person` (Ivan de Murard, jobTitle, sameAs LinkedIn/GitHub/X, knowsAbout, address Paris) + `WebSite` with `SearchAction` placeholder removed if no search.
+- Each case study (`/atherix`, `/sonor`, `/tacet`): `CreativeWork` or `SoftwareApplication` with `creator` Person, `dateCreated`, `about`, `image`, `url`.
+- Journal entries: `Article` with `headline`, `datePublished`, `dateModified`, `author`, `image`.
+- Journeys index + Journal index: `CollectionPage` + `ItemList`.
+- Contact: `ContactPage`.
 
-Apply `.mcp-pulse-track` to each of the three new vertical connector divs (intelligence → MCP, MCP → WhatsApp, MCP → Next.js) with staggered `--pulse-delay` (`0ms`, `1300ms`, `2600ms`) so the pulse feels like a continuous heartbeat moving through the system rather than three synchronized blinks.
+### 3. Crawlability
 
-### 3. Caption update
+- Add `public/sitemap.xml` (static, regenerated when routes change) listing all canonical URLs with `lastmod`.
+- Update `public/robots.txt` to add `Sitemap: https://www.ivandemurard.com/sitemap.xml`.
+- Add `<link rel="canonical">` per page (handled by `<Seo>`).
+- Add a static prerendered fallback for crawlers via a build-time prerender step (see Technical notes for the lightest option).
 
-Change the bottom italic caption from `Numerical · Semantic · Cognitive · Reasoning` to `Numerical · Semantic · Cognitive · Reasoning · Action` so the MCP server (the action layer) is acknowledged in the legend without adding a separate label.
+### 4. GEO (generative engine optimization)
 
-## Files touched
+- Add `public/llms.txt` and `public/llms-full.txt`: plain-text site map and condensed bios + case studies, optimized for LLM ingestion. Include name, location, expertise, current builds, and stable URLs.
+- Add a public `/about.txt`-style answer-shaped bio block on the Atrium page and ensure it appears in raw HTML (prerender) so retrieval-augmented engines pick it up.
+- Strengthen entity clarity: consistent name spelling, employer/role history, schema `Person.sameAs` linking LinkedIn, GitHub, X, Cal.com. Helps Google Knowledge Graph + LLM disambiguation.
+- Add concise, question-shaped subheads on case studies ("What is Aetherix?", "How does it work?", "What problem does it solve?") with short answers under 60 words. This is the format LLMs quote.
+- Add `Article` `dateModified` on Field Notes so engines prefer fresh content.
 
-- `src/components/atherix/AetherixArchitectureDiagram.tsx` (restructure delivery row, add MCP node + connectors, ~40 lines changed)
-- `src/index.css` (add `.mcp-pulse-track` + `@keyframes mcp-pulse`, ~25 lines)
+### 5. Content + on-page
+
+- Replace generic homepage `<title>` with a keyword-shaped one, e.g. `Ivan de Murard, Product Builder, Paris (AI, Hospitality, SaaS)`.
+- Per-page H1/H2 audit: ensure each route has one H1 containing the entity (already mostly true; Journeys + Journal need tightening).
+- Add author byline + published date on Field Notes entries.
+- Internal linking: every case study links back to `/journeys` and to related entries; homepage already links to all three.
+- Image alts: scan and tighten (portraits, case images, architecture diagram).
+- Self-host the OG image under `/og/` with ASCII filenames (e.g. `/og/ivan-default.jpg`, `/og/atherix.jpg`, etc.) and per-page overrides.
+
+### 6. Performance + Core Web Vitals (ranking factor)
+
+- Preload hero font subset, drop unused Google Font weights (currently `200..800` for Newsreader + Manrope, very heavy).
+- Add `loading="lazy"` + explicit `width`/`height` to all non-hero images.
+- Defer Material Symbols Outlined or swap for tree-shaken Lucide icons already in use.
+
+### 7. Analytics + monitoring
+
+- Confirm Google Search Console + Bing Webmaster property for `ivandemurard.com`, submit sitemap (manual step for user, list in deliverables).
+- Optional: add basic `referrer`-aware logging on outbound links (already partially via `useTrackClick`).
+
+## Technical notes
+
+- Prerender: use `vite-plugin-prerender-spa` or a small post-build script that renders each route to static HTML using `react-dom/server`. Without prerender, `<Seo>` still works for social crawlers that execute JS (Google does, Twitter/Facebook do not). Recommended: ship `<Seo>` first, prerender second.
+- No new runtime deps required for step 1-5. Prerender step is optional and can be deferred.
+- `lang="en"` stays on `<html>`. If a French version is desired later, add `hreflang` alternates.
+
+## Deliverables (in order)
+
+1. `src/components/Seo.tsx` + wire into all 10 pages with handcrafted titles, descriptions, JSON-LD.
+2. `public/sitemap.xml`, updated `public/robots.txt`.
+3. `public/llms.txt`, `public/llms-full.txt`.
+4. `public/og/` directory with per-page social images (ASCII filenames).
+5. Font + image perf cleanup pass.
+6. (Optional, follow-up) Build-time prerender for static HTML.
 
 ## Out of scope
 
-- No copy changes elsewhere on the page (status row already says "outbound MCP server in progress").
-- No new dependencies, no SVG path animations, no JS-driven motion.
-- Horizon illustration untouched.
+- New pages or copy redesign (only targeted question-shaped subheads on existing case studies).
+- Backend/CMS work, edge functions, analytics dashboards.
+- Paid SEO tooling.
 
-Reply "go" to implement.
+After approval I will implement steps 1-5 in a single pass and flag step 6 for a follow-up.

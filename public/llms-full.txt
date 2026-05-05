@@ -1,0 +1,69 @@
+# Ivan de Murard, Product Builder
+
+## Identity
+
+Ivan de Murard is a product builder based in Paris, France. He has five years of product management experience across start-ups, scale-ups and large groups, plus two years as co-founder and product lead of Sonor, a B2G SaaS for urban noise mapping. He designs from operational experience, ships with AI, and keeps the human at the center.
+
+Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/30min. LinkedIn: https://www.linkedin.com/in/ivandemurard/. GitHub: https://github.com/IvandeMurard.
+
+## Convictions
+
+1. Human interactions first. Technology should give time back to people, not pull them deeper into screens. The best automation is the one that lets a host be more present.
+2. Real business value. Reducing operational costs, freeing capacity, sharpening decisions. Every product has to move a number that matters to the business.
+3. Full-stack 0 to 1 craft. From insight to shipped product, bridging digital interfaces and physical operations, so the experience holds together end to end.
+
+## How he works
+
+1. Reading the ground. Field-level fluency in operations: boutique hotels, F&B, design partners, open-data ecosystems. He learns an environment before he designs for it.
+2. From insight to product decisions. Aetherix is the proof: a real operating layer for boutique hotels, not a slideware concept.
+3. Right tool for the problem. Sometimes a workflow, sometimes a checklist, sometimes an agentic system. The lightest mechanism that solves the job, with the human in the loop.
+
+## Aetherix
+
+URL: https://www.ivandemurard.com/atherix. Repository: https://github.com/IvandeMurard/aetherix-hospitality-ai.
+
+Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.
+
+Architecture: External signals (Apaleo PMS, weather, events) feed a FastAPI backend. Intelligence layers combine Prophet for numerical forecasting, Qdrant and pgvector for semantic memory, Claude Sonnet for cognitive reasoning, and an outbound MCP server for action. Delivery channels include WhatsApp push and Next.js verification dashboards. Current status: live Apaleo OAuth and MCP read access.
+
+Design partners include Toni Stoeckl and Avi Brosh.
+
+## Sonor
+
+URL: https://www.ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness. Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped.
+
+## Tacet
+
+URL: https://www.ivandemurard.com/tacet. Personal mobile sanctuary for Parisians (iOS, B2C, 2026). Puts real-time Bruitparif data and a Serenity Score in users' hands to reclaim quiet in daily life, housing choices, and urban commutes.
+
+## Track record
+
+- 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Rolled out an internal SaaS to 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.
+- 2023 to 2024, Product Manager, Data & Operations, ALTEN for Bouygues Telecom. Built a data-driven dashboard to track and recover 1.9M EUR of receivables. 40% recovered, adopted by ops teams.
+- 2022 to 2023, Customer Success Manager, Public Sector SaaS, Opendatasoft. Owned 22 European city and metropolitan clients from onboarding to production. 2 launches, zero churn.
+- 2020 to 2022, Co-founder & Product Manager, Sonor. 0 to 1 B2G SaaS for urban noise mapping, backed by Matrice and Banque des Territoires.
+
+## Current builds
+
+- Aetherix: contextual intelligence layer for boutique hotel operations.
+- Tacet: mobile-first Paris noise app.
+- Kissa: digital twin of a record collection.
+- Lore: voice AI mentor for senior technicians, 24h hackathon win.
+- Field Notes: writing on product, evaluation, and AI systems design.
+
+## Field Notes
+
+Index: https://www.ivandemurard.com/journal.
+
+- A hard call on Aetherix's agent boundaries (2026-04-20). On where to draw the line between forecasting and acting, and why splitting Prophet from Claude shaped the rest of the architecture.
+
+## Frequently asked questions
+
+Q: Who is Ivan de Murard?
+A: A Paris-based product builder with five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor. He focuses on product management, service design, and agentic AI for operations.
+
+Q: What is Aetherix?
+A: An agentic AI framework for boutique hotel operations that anticipates staffing and F&B needs, reducing waste and freeing teams for guest care.
+
+Q: How can I reach him?
+A: Email ivandemurard@gmail.com or book a call at https://cal.com/ivandemurard/30min.
