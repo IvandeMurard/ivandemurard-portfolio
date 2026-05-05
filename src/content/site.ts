@@ -108,7 +108,7 @@ export const NOW_PROJECTS: NowEntry[] = [
     name: "Aetherix",
     blurb:
       "Contextual intelligence layer for boutique hotel operations. Anticipates staffing and F&B needs, frees teams for guest care.",
-    href: "/atherix",
+    href: "/aetherix",
     external: false,
     meta: "Case study",
   },
