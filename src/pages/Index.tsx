@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { CaseHoverPreview } from "@/components/CaseHoverPreview";
 import { Compass, Cpu, HeartHandshake } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
@@ -71,6 +72,22 @@ const Index = () => {
   const track = useTrackClick();
   return (
   <SiteLayout title="The Atrium">
+    <Seo
+      title="Ivan de Murard, Product Builder in Paris"
+      rawTitle
+      description="Product builder based in Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding a SaaS. Designs from operational experience, ships with AI, keeps the human at the center."
+      path="/"
+      jsonLd={[
+        personJsonLd,
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Ivan de Murard",
+          url: SITE.url,
+          inLanguage: "en",
+        },
+      ]}
+    />
     {/* Hero */}
     <header className="relative min-h-screen flex items-center justify-center pt-24 px-6 md:px-8 overflow-hidden">
       <div className="relative z-10 max-w-5xl w-full text-center">
