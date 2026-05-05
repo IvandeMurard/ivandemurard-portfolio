@@ -50,6 +50,12 @@ const METHOD = [
 
 const Atrium = () => (
   <SiteLayout title="About">
+    <Seo
+      title="About Ivan de Murard, Product Builder"
+      description="Ivan de Murard is a product builder based in Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor. Convictions, method, and track record."
+      path="/atrium"
+      type="profile"
+    />
     <div className="relative pt-24 md:pt-32 pb-24 md:pb-32">
       {/* Hero */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">

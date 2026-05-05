@@ -59,6 +59,22 @@ const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => {
 
 const Journeys = () => (
   <SiteLayout title="Stories">
+    <Seo
+      title="Case Studies, Selected Work by Ivan de Murard"
+      description="Selected case studies: Aetherix (agentic AI for boutique hotels), Sonor (urban noise SaaS for cities), Tacet (Paris noise app). Product, design and AI work shipped 0 to 1."
+      path="/journeys"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Case Studies",
+        url: "https://www.ivandemurard.com/journeys",
+        hasPart: [
+          { "@type": "CreativeWork", name: "Aetherix", url: "https://www.ivandemurard.com/atherix" },
+          { "@type": "CreativeWork", name: "Sonor", url: "https://www.ivandemurard.com/sonor" },
+          { "@type": "CreativeWork", name: "Tacet", url: "https://www.ivandemurard.com/tacet" },
+        ],
+      }}
+    />
     <div className="pt-28 md:pt-32 pb-24 overflow-hidden">
       {/* Hero */}
       <Reveal as="header" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-20 relative">

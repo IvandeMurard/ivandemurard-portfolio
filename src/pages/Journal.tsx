@@ -9,6 +9,11 @@ const formatDate = (iso: string) =>
 
 const Journal = () => (
   <SiteLayout title="Field Notes">
+    <Seo
+      title="Field Notes by Ivan de Murard"
+      description="Notes from the field on product, evaluation, and AI systems design. Written while building Aetherix and other 0 to 1 products."
+      path="/journal"
+    />
     <div className="pt-32 md:pt-40">
       {/* Hero strip */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
