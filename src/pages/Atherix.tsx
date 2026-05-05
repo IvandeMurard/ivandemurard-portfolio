@@ -27,7 +27,11 @@ const PROJECT_INFO = [
     value: "Agentic AI for boutique hotel operations (Apaleo PMS, staffing, F&B forecasting, WhatsApp push)",
     wide: true,
   },
-  { label: "Current Status", value: "End-to-end pipeline operational in sandbox", wide: true },
+  {
+    label: "Current Status",
+    value: "End-to-end pipeline operational in sandbox, Apaleo OAuth and MCP read access live, outbound MCP server in progress",
+    wide: true,
+  },
 ];
 
 const PRINCIPLES = [
