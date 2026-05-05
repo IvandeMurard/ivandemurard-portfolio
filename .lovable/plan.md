@@ -1,89 +1,102 @@
+## Goal
+Serve hand-curated markdown versions of the three case studies at stable URLs, and add a discreet "View as markdown" link near the bottom of each case study page.
 
-# SEO + GEO strategy for ivandemurard.com
+## Files to create
 
-Goal: rank for "Ivan de Murard" + intent queries (product builder Paris, agentic AI hospitality, boutique hotel AI, Aetherix, Sonor, Tacet), and be cited by generative engines (ChatGPT, Perplexity, Gemini, Claude, Google AI Overviews).
+Three static markdown files in `public/` so they are served as plain text (no JS, ideal for LLM crawlers and humans who curl them):
 
-## Current state (gaps)
+- `public/atherix.md`
+- `public/sonor.md`
+- `public/tacet.md`
 
-- `index.html` ships a single static title/description for every route (SPA). No canonical, no per-page meta.
-- No structured data (JSON-LD): no Person, WebSite, Article, CreativeWork.
-- No `sitemap.xml`. `robots.txt` exists but does not reference a sitemap.
-- OG image is a Google Storage URL with a non-ASCII filename (fragile). No per-page OG.
-- No `lang` variants, no author bios on case study pages, no FAQ schema, no published/updated dates on Field Notes.
-- No `llms.txt` or AI-friendly plain-text surfaces.
+Each file follows the same structure, tightened and quotable:
 
-## Plan
+```text
+# {Project name}
+{One-line positioning, same voice as the case study hero}
 
-### 1. Per-page meta via a lightweight `<Seo>` component
+URL: https://www.ivandemurard.com/{slug}
+Role, Duration, Team, Year
+Stack: {key tools}
 
-Create `src/components/Seo.tsx` that imperatively sets `document.title`, description, canonical, OG, Twitter, and JSON-LD on mount (no extra deps; matches existing `SiteLayout` pattern that already sets `document.title`). Props: `title`, `description`, `canonical`, `image`, `type` (website/article/profile), `jsonLd`.
+## What it is
+2 to 4 sentences.
 
-Wire into every page (Index, Atrium, Journeys, Atherix, Sonor, Tacet, Journal, JournalEntry, Contact, NotFound) with hand-written, keyword-rich, human descriptions (no em-dashes, per memory).
+## Why it exists
+The problem and the conviction behind the build.
 
-Canonical base: `https://www.ivandemurard.com`.
+## How it works
+Architecture in plain prose, no diagrams. Mention MCP, Apaleo, FastAPI, Bruitparif, etc. where relevant.
 
-### 2. Structured data (JSON-LD)
+## Outcomes and signals
+Concrete numbers when available (Sonor grants, DomusVi rollout style facts that already live in the site).
 
-- Site-wide on `/`: `Person` (Ivan de Murard, jobTitle, sameAs LinkedIn/GitHub/X, knowsAbout, address Paris) + `WebSite` with `SearchAction` placeholder removed if no search.
-- Each case study (`/atherix`, `/sonor`, `/tacet`): `CreativeWork` or `SoftwareApplication` with `creator` Person, `dateCreated`, `about`, `image`, `url`.
-- Journal entries: `Article` with `headline`, `datePublished`, `dateModified`, `author`, `image`.
-- Journeys index + Journal index: `CollectionPage` + `ItemList`.
-- Contact: `ContactPage`.
+## Links
+- Live: ...
+- Repo: ...
+- Contact: ivandemurard@gmail.com
+```
 
-### 3. Crawlability
+Content will be drawn directly from the existing case study pages (`src/pages/Atherix.tsx`, `Sonor.tsx`, `Tacet.tsx`) and `public/llms-full.txt`, then tightened. No new claims.
 
-- Add `public/sitemap.xml` (static, regenerated when routes change) listing all canonical URLs with `lastmod`.
-- Update `public/robots.txt` to add `Sitemap: https://www.ivandemurard.com/sitemap.xml`.
-- Add `<link rel="canonical">` per page (handled by `<Seo>`).
-- Add a static prerendered fallback for crawlers via a build-time prerender step (see Technical notes for the lightest option).
+## Discreet link in each case study footer
 
-### 4. GEO (generative engine optimization)
+In each of `Atherix.tsx`, `Sonor.tsx`, `Tacet.tsx`, add a small text link just above the final CTA section, in the existing `font-label` micro-type style already used for utility lines:
 
-- Add `public/llms.txt` and `public/llms-full.txt`: plain-text site map and condensed bios + case studies, optimized for LLM ingestion. Include name, location, expertise, current builds, and stable URLs.
-- Add a public `/about.txt`-style answer-shaped bio block on the Atrium page and ensure it appears in raw HTML (prerender) so retrieval-augmented engines pick it up.
-- Strengthen entity clarity: consistent name spelling, employer/role history, schema `Person.sameAs` linking LinkedIn, GitHub, X, Cal.com. Helps Google Knowledge Graph + LLM disambiguation.
-- Add concise, question-shaped subheads on case studies ("What is Aetherix?", "How does it work?", "What problem does it solve?") with short answers under 60 words. This is the format LLMs quote.
-- Add `Article` `dateModified` on Field Notes so engines prefer fresh content.
+```tsx
+<div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-8 text-right">
+  <a
+    href="/atherix.md"
+    className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
+  >
+    View as markdown
+  </a>
+</div>
+```
 
-### 5. Content + on-page
+Same pattern for `/sonor.md` and `/tacet.md`. Right-aligned, muted, no icon. It reads as a footnote, not a CTA.
 
-- Replace generic homepage `<title>` with a keyword-shaped one, e.g. `Ivan de Murard, Product Builder, Paris (AI, Hospitality, SaaS)`.
-- Per-page H1/H2 audit: ensure each route has one H1 containing the entity (already mostly true; Journeys + Journal need tightening).
-- Add author byline + published date on Field Notes entries.
-- Internal linking: every case study links back to `/journeys` and to related entries; homepage already links to all three.
-- Image alts: scan and tighten (portraits, case images, architecture diagram).
-- Self-host the OG image under `/og/` with ASCII filenames (e.g. `/og/ivan-default.jpg`, `/og/atherix.jpg`, etc.) and per-page overrides.
+## Sitemap and crawl signals
 
-### 6. Performance + Core Web Vitals (ranking factor)
+Append the three markdown URLs to `public/sitemap.xml` so crawlers discover them:
 
-- Preload hero font subset, drop unused Google Font weights (currently `200..800` for Newsreader + Manrope, very heavy).
-- Add `loading="lazy"` + explicit `width`/`height` to all non-hero images.
-- Defer Material Symbols Outlined or swap for tree-shaken Lucide icons already in use.
+```xml
+<url><loc>https://www.ivandemurard.com/atherix.md</loc></url>
+<url><loc>https://www.ivandemurard.com/sonor.md</loc></url>
+<url><loc>https://www.ivandemurard.com/tacet.md</loc></url>
+```
 
-### 7. Analytics + monitoring
+`robots.txt` already allows everything, no change needed.
 
-- Confirm Google Search Console + Bing Webmaster property for `ivandemurard.com`, submit sitemap (manual step for user, list in deliverables).
-- Optional: add basic `referrer`-aware logging on outbound links (already partially via `useTrackClick`).
+## Keeping markdown in sync with the case studies
 
-## Technical notes
+Two options. Recommendation: option A.
 
-- Prerender: use `vite-plugin-prerender-spa` or a small post-build script that renders each route to static HTML using `react-dom/server`. Without prerender, `<Seo>` still works for social crawlers that execute JS (Google does, Twitter/Facebook do not). Recommended: ship `<Seo>` first, prerender second.
-- No new runtime deps required for step 1-5. Prerender step is optional and can be deferred.
-- `lang="en"` stays on `<html>`. If a French version is desired later, add `hreflang` alternates.
+**A. Hand-curated, with a checklist (recommended)**
+The .md files are intentionally tighter than the React pages. They are the quotable version, not a transcript. Drift is fine for marketing copy but not for facts. Mitigation:
 
-## Deliverables (in order)
+- Add a short comment block at the top of each `src/pages/{Project}.tsx`:
+  ```
+  // Source of truth for facts (dates, stack, metrics).
+  // If you change facts here, also update public/{slug}.md and public/llms-full.txt.
+  ```
+- Add the same reminder once in `.lovable/plan.md` so future sessions see it.
 
-1. `src/components/Seo.tsx` + wire into all 10 pages with handcrafted titles, descriptions, JSON-LD.
-2. `public/sitemap.xml`, updated `public/robots.txt`.
-3. `public/llms.txt`, `public/llms-full.txt`.
-4. `public/og/` directory with per-page social images (ASCII filenames).
-5. Font + image perf cleanup pass.
-6. (Optional, follow-up) Build-time prerender for static HTML.
+This is the standard approach for portfolio sites. Low maintenance, high editorial quality.
+
+**B. Generated at build time**
+Write a `scripts/generate-case-md.ts` that imports a shared content module (e.g. `src/content/cases/atherix.ts` exporting structured fields) and writes `public/*.md` plus feeds the React pages. This is correct engineering but requires refactoring the three case study pages to read from a content module they currently do not use. Heavier, and the rendered React pages have layout-specific copy (captions, image alts, FAQ blocks) that does not belong in the markdown.
+
+Going with A unless you want the refactor.
 
 ## Out of scope
+- Download buttons in the hero
+- PDF exports
+- Auto-generation from JSX
+- New routes or React rendering of markdown
 
-- New pages or copy redesign (only targeted question-shaped subheads on existing case studies).
-- Backend/CMS work, edge functions, analytics dashboards.
-- Paid SEO tooling.
-
-After approval I will implement steps 1-5 in a single pass and flag step 6 for a follow-up.
+## Acceptance
+- `curl https://www.ivandemurard.com/atherix.md` returns clean markdown
+- Each case study page shows a small right-aligned "View as markdown" link near the bottom
+- Sitemap lists the three .md URLs
+- Source-of-truth comment present at the top of each case study page
