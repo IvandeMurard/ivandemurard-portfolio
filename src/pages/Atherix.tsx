@@ -4,6 +4,8 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
+import heroLobby from "@/assets/atherix-hero-lobby.jpg";
+import opsImage from "@/assets/atherix-dashboard.jpg";
 
 const PIPELINE = [
   { icon: "dns", title: "Apaleo PMS", sub: "" },
