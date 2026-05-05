@@ -193,8 +193,8 @@ const Atherix = () => (
                 Restoring the human touch through algorithms.
               </h3>
               <p className="text-on-surface-variant leading-loose mb-8">
-                Aetherix transforme les systèmes automatisés en expériences profondément humaines. Il réintroduit le
-                soin authentique qui définit le service.
+                Aetherix turns automated systems into experiences that feel cared for. It gives the team back the
+                hours that define real service: the welcome, the conversation, the small attentions a guest remembers.
               </p>
             </div>
             <div className="lg:col-start-7 lg:col-span-6">
