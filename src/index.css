@@ -607,6 +607,13 @@
 }
 
 
+@keyframes mcp-pulse {
+  0%   { transform: translate(-50%, -2px); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translate(-50%, calc(100% + 2px)); opacity: 0; }
+}
+
 @keyframes ambience-pulse {
   0%, 100% { opacity: 0.55; }
   50%      { opacity: 1; }
