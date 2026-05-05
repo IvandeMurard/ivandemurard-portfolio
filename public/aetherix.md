@@ -2,7 +2,7 @@
 
 Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operating costs, frees teams to focus on guest experience.
 
-- URL: https://www.ivandemurard.com/atherix
+- URL: https://www.ivandemurard.com/aetherix
 - Role: Product Builder and AI Agent Designer (side project)
 - Duration: 2026, ongoing (validation phase)
 - Team: Solo architect and builder
