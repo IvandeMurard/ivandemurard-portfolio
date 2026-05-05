@@ -1,3 +1,5 @@
+// Source of truth for facts (dates, stack, metrics, status).
+// If you change facts here, also update public/tacet.md and public/llms-full.txt.
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -314,6 +316,15 @@ const Tacet = () => (
           </a>
         </div>
       </section>
+
+      <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">
+        <a
+          href="/tacet.md"
+          className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
+        >
+          View as markdown
+        </a>
+      </div>
     </div>
   </SiteLayout>
 );
