@@ -56,9 +56,9 @@ export const TacetPipelineDiagram = () => {
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "440ms" }}
-            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim/60 rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
+            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim rounded-xl bg-surface-container-high shadow-sm backdrop-blur-sm max-w-sm w-full"
           >
-            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim flex items-center justify-center shrink-0">
               <Icon name="bolt" className="text-outline text-lg" />
             </div>
             <div className="min-w-0 flex-1">
