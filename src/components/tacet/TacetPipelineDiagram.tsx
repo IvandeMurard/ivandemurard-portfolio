@@ -56,9 +56,9 @@ export const TacetPipelineDiagram = () => {
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "440ms" }}
-            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim/60 rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
+            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim rounded-xl bg-surface-container-high shadow-sm backdrop-blur-sm max-w-sm w-full"
           >
-            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim flex items-center justify-center shrink-0">
               <Icon name="bolt" className="text-outline text-lg" />
             </div>
             <div className="min-w-0 flex-1">
@@ -100,9 +100,9 @@ const Column = ({
         style={{ ["--reveal-delay" as string]: `${delay + i * 70}ms` }}
         className={`flex items-start gap-3 px-3 py-3 rounded-lg border ${
           accent
-            ? "border-secondary-fixed-dim/50 bg-surface-container-low/70"
-            : "border-outline-variant/25 bg-surface/60"
-        } backdrop-blur-sm`}
+            ? "border-secondary-fixed-dim bg-surface-container-high"
+            : "border-outline-variant bg-surface-container"
+        } shadow-sm backdrop-blur-sm`}
       >
         <div className="w-8 h-8 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shrink-0">
           <Icon name={it.icon} className="text-outline text-base" />
