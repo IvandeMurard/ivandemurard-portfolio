@@ -288,27 +288,27 @@ const Tacet = () => (
               </div>
             </div>
             <div className="grid gap-6">
-              <div className="bg-primary-container/40 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary-container/10">
-                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary-container mb-4">
+              <div className="bg-on-primary/10 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary/20">
+                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary mb-4">
                   Chromatic Silence
                 </h4>
-                <p className="text-on-primary-container leading-relaxed">
+                <p className="text-on-primary/90 leading-relaxed">
                   A deep, tailored palette anchored on #001b3a. Calm enough for executive committees, distinctive enough to remember.
                 </p>
               </div>
-              <div className="bg-primary-container/40 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary-container/10">
-                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary-container mb-4">
+              <div className="bg-on-primary/10 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary/20">
+                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary mb-4">
                   Soft Components
                 </h4>
-                <p className="text-on-primary-container leading-relaxed">
+                <p className="text-on-primary/90 leading-relaxed">
                   Interface elements that feel responsive and alive, using micro-animations to convey serenity rather than urgency.
                 </p>
               </div>
-              <div className="bg-primary-container/40 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary-container/10">
-                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary-container mb-4">
+              <div className="bg-on-primary/10 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary/20">
+                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary mb-4">
                   Data Provenance
                 </h4>
-                <p className="text-on-primary-container leading-relaxed">
+                <p className="text-on-primary/90 leading-relaxed">
                   Transparent sourcing to build trust with investment committees and hotel management.
                 </p>
               </div>
