@@ -276,7 +276,7 @@ const Tacet = () => (
               </span>
               <h2 className="font-headline text-4xl md:text-5xl italic mb-12 leading-tight">The Sound of Quiet</h2>
               <div className="space-y-8 max-w-md">
-                <p className="text-on-primary-container text-lg leading-relaxed">
+                <p className="text-on-primary/90 text-lg leading-relaxed">
                   While Tacet V3 is API-first, the visual language developed for the original dashboard remains crucial for B2B reporting. Navy, subtle golds, soft whites: a palette evoking premium hospitality.
                 </p>
                 <div className="flex gap-4">
