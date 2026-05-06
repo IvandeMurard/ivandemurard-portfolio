@@ -75,7 +75,7 @@ export const TacetPipelineDiagram = () => {
           </div>
         </div>
 
-        <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant/70 text-center pt-2">
+        <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface text-center pt-2">
           Proxy signals · Synthetic model · 3D geometry · JSON alerts
         </p>
       </div>
