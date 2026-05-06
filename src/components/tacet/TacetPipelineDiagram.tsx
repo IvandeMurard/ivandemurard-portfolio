@@ -100,9 +100,9 @@ const Column = ({
         style={{ ["--reveal-delay" as string]: `${delay + i * 70}ms` }}
         className={`flex items-start gap-3 px-3 py-3 rounded-lg border ${
           accent
-            ? "border-secondary-fixed-dim/50 bg-surface-container-low/70"
-            : "border-outline-variant/25 bg-surface/60"
-        } backdrop-blur-sm`}
+            ? "border-secondary-fixed-dim bg-surface-container-high"
+            : "border-outline-variant bg-surface-container"
+        } shadow-sm backdrop-blur-sm`}
       >
         <div className="w-8 h-8 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shrink-0">
           <Icon name={it.icon} className="text-outline text-base" />
