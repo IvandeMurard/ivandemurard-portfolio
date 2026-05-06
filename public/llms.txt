@@ -13,7 +13,7 @@
 
 - [Aetherix](https://www.ivandemurard.com/aetherix): Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, frees teams to focus on guest experience. Stack: Apaleo PMS, FastAPI, Claude Sonnet, Qdrant, pgvector, MCP.
 - [Sonor](https://www.ivandemurard.com/sonor): Two-year journey as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to map urban noise and drive sustainability policy.
-- [Tacet](https://www.ivandemurard.com/tacet): Mobile-first app that puts real-time Bruitparif data and a Serenity Score in Parisians' hands to reclaim quiet in housing and commutes.
+- [Tacet](https://www.ivandemurard.com/tacet): Synthetic Acoustic Twin for hospitality. A headless, physics-based intelligence layer that predicts how the external environment (construction, traffic, weather, events) affects hotel rooms, pushing JSON alerts to RMS and PMS for proactive yield management.
 
 ## Field Notes
 

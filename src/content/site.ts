@@ -48,8 +48,8 @@ export const PROJECTS = {
   tacet: {
     slug: "tacet",
     name: "Tacet",
-    tagline: "Personal mobile sanctuary for Parisians. Puts real-time Bruitparif data and Serenity Score in users' hands to reclaim quiet in daily life, housing choices, and urban commutes.",
-    label: "B2C • iOS • Wellness • 2026",
+    tagline: "Synthetic Acoustic Twin for hospitality. A headless intelligence layer that predicts how the external environment affects revenue and guest experience, pushing JSON alerts to RMS and PMS.",
+    label: "B2B • Hospitality • Acoustic Intelligence • 2026",
     image: tacetImg,
     cta: "The Full Narrative",
   },
@@ -115,7 +115,7 @@ export const NOW_PROJECTS: NowEntry[] = [
   {
     name: "Tacet",
     blurb:
-      "Mobile-first app to visualise noise pollution in Paris and find calm streets, homes, and commutes.",
+      "Synthetic acoustic twin for hospitality. Predicts how street, weather and events affect rooms, alerts RMS and PMS.",
     href: "/tacet",
     external: false,
     meta: "Case study",

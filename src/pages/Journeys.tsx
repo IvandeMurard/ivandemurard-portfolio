@@ -114,7 +114,7 @@ const Journeys = () => (
           index="Journey 03"
           slug="tacet"
           name={PROJECTS.tacet.name}
-          body="The Architecture of Silence. A personal mobile sanctuary for Parisians. Using real-time Bruitparif data and Serenity Score, it helps users reclaim quiet in daily life, housing choices, and urban commutes."
+          body="The Synthetic Acoustic Twin. A headless intelligence layer for hotels: physics-based, software-only acoustic model that predicts how construction, traffic, weather and events affect guest rooms, then pushes JSON alerts to RMS and PMS for proactive yield management."
           image={PROJECTS.tacet.image}
           cta="Begin the Ascent"
         />
