@@ -40,7 +40,7 @@ export const SectionDivider = ({
     >
       <span
         data-reveal-child
-        className="block w-px h-16 md:h-20 bg-outline-variant/40 origin-top section-divider-line"
+        className="divider-fall h-16 md:h-20"
       />
       {hasMeta && (
         <span
