@@ -262,6 +262,47 @@ const Atherix = () => (
         </div>
       </section>
 
+      <SectionDivider label="Synergy" />
+
+      {/* Synergy with Tacet */}
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
+        <div className="text-center mb-16">
+          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Aetherix and Tacet</h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Aetherix reads internal context (PMS, occupancy, F&B, staffing).{" "}
+            <Link to="/tacet" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
+              Tacet
+            </Link>
+            {" "}reads external context (street, weather, events). Together they form one predictive digital twin for the hotel.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+            <Icon name="hub" className="text-secondary text-2xl mb-6" />
+            <h3 className="font-headline italic text-2xl text-primary mb-4">Aetherix, internal context</h3>
+            <p className="text-on-surface-variant leading-relaxed">
+              Forecasts operational needs, F&B demand, and staffing from occupancy, PMS data, and historical patterns.
+            </p>
+          </div>
+          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+            <Icon name="public" className="text-secondary text-2xl mb-6" />
+            <h3 className="font-headline italic text-2xl text-primary mb-4">Tacet, external context</h3>
+            <p className="text-on-surface-variant leading-relaxed">
+              Predicts environmental impact, street disruptions, and acoustic risks from weather, events, and city signals.
+            </p>
+          </div>
+        </div>
+        <p className="text-center text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-12">
+          Together, they let hotel teams act on what is happening inside and what is approaching from outside.
+        </p>
+        <div className="text-center mt-8">
+          <Link to="/tacet" className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-secondary hover:text-primary transition-colors">
+            <span>Read the Tacet case</span>
+            <Icon name="arrow_forward" className="text-sm" />
+          </Link>
+        </div>
+      </section>
+
       {/* Intelligent Anticipation */}
       <Reveal as="section" className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
