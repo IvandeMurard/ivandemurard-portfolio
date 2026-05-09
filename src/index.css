@@ -318,10 +318,10 @@
         circle at 50% 50%,
         hsl(var(--secondary-fixed) / 0.95) 0%,
         hsl(var(--secondary-fixed) / 0.6) 22%,
-        hsl(var(--secondary-fixed-dim) / 0.35) 45%,
-        hsl(var(--surface) / 0) 72%
+        hsl(var(--secondary-fixed-dim) / 0.35) 40%,
+        hsl(var(--surface) / 0) 62%
       );
-    filter: blur(36px);
+    filter: blur(44px);
     transform: translateZ(0);
   }
 

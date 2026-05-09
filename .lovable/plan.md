@@ -1,73 +1,34 @@
 ## Goal
-Bring the Home page to life with the same editorial rhythm used across case studies: numbered `SectionDivider`s, `headline-ink` reveals, `lift-card` hovers, halo drifts, and tightened reveal choreography. Purely presentational, no copy rewrites, no IA changes.
 
-All work in `src/pages/Index.tsx`, with one or two small additions to `src/index.css` only if shared utilities need a Home-friendly variant.
+The gold halo on the Home hero currently extends above the headline and intersects the fixed navbar. Because the navbar has a translucent surface fill (`bg-surface/70 glass-nav`) and a hairline bottom border, the halo gets clipped abruptly, breaking the soft circular feel.
 
-## Section rhythm (final)
+## Approach
 
-```text
-Hero                                  (unnumbered, page itself is the index)
-SectionDivider 01 / Milestones
-Milestones
-SectionDivider              (unlabeled hairline, tight)
-Signature line              (single line, kept as the breath between Case Studies and Approach)
-SectionDivider 02 / Case Studies
-Case Studies
-SectionDivider 03 / Approach
-My approach (convictions)
-SectionDivider 04 / Method
-How I work (pillars)
-SectionDivider              (unlabeled hairline, tight)
-Farewell card
-```
+Keep the halo visually intact, but reposition and reshape it so its falloff stays clear of the navbar, and soften the navbar boundary on the hero so any residual overlap reads as light, not a cut.
 
-The two existing italic signature lines collapse into one, placed between Case Studies and Approach. The other is removed.
+## Changes
 
-## Changes to `src/pages/Index.tsx`
+**1. `src/pages/Index.tsx` (hero halo wrapper, around line 105)**
+   - Lower the halo center: change `-translate-y-[58%]` to roughly `-translate-y-[42%]` so the bright core sits behind the headline instead of above it.
+   - Slightly reduce vertical reach: change `h-[440px] max-h-[70vw]` to `h-[400px] max-h-[62vw]` to keep the shape circular while pulling the top edge down.
+   - No change to width or animation.
 
-### 1. Hero, light additions only
-- Add `headline-ink` to the H1 so the title performs the same ink-reveal as case-study headlines.
-- Add staggered `data-reveal-child` + `--reveal-delay` to eyebrow (0ms), headline (120ms), subtitle (360ms), CTAs (540ms).
-- Add a small scroll cue at the bottom of the hero: `Scroll` label + animated chevron (`Icon name="keyboard_arrow_down"`), so the page does not end mid-air.
+**2. `src/index.css` (`.gold-halo`, lines 315 to 326)**
+   - Soften the outer falloff so the halo dissolves earlier and never presents a visible edge: extend the transparent stop from `72%` to `62%`, and lower the mid stop from `45%` to `40%`.
+   - Optionally bump blur from `36px` to `44px` for a more diffuse perimeter.
 
-### 2. Milestones, lighter motion
-- Wrap the section header in `headline-ink` and stagger reveal-children at 70ms steps.
-- Keep the bare divided-grid look (no full card chrome), this stays a proof bar.
-- Add a subtle gold underline under each numeric value that animates in on reveal (`divider-fall`-style, 1px, `bg-secondary/30`, scaling from 0 to 100% width). This is the "lighter option".
-
-### 3. Single signature line
-- Remove the second `Signature line` section.
-- Keep the first one between Case Studies and Approach. Wrap headline in `headline-ink`.
-
-### 4. Case Studies
-- Add `<SectionDivider index="02" label="Case Studies" />` above the section.
-- Apply `lift-card` chrome around each project card (subtle elevation + ambient shadow on hover) so the existing `CaseHoverPreview` image effect sits inside a richer container.
-- Tighten reveal stagger to 80ms.
-
-### 5. Convictions and Pillars
-- `<SectionDivider index="03" label="Approach" />` above Convictions.
-- `<SectionDivider index="04" label="Method" />` above Pillars.
-- Replace the bare bordered cards with `lift-card` (matches Tacet `HOW` cards): subtle elevation, gold-tinted hover border, soft ambient shadow.
-- For Pillars, restyle the `01 / 02 / 03` numerals with the case-study label style: `font-label text-[10px] uppercase tracking-[0.25em] text-secondary`.
-
-### 6. Farewell card
-- Add `<SectionDivider />` (unlabeled, tight) above it.
-- Add a faint `halo-drift` blur element behind the card so the dusk feels animated. Strict z-index discipline so existing content stays on top.
-
-### 7. Section headers, consistent ink animation
-Apply `headline-ink` to every H2 (`Milestones`, `Case Studies`, `My approach`, `How I work`) so the page speaks with one voice.
-
-### 8. Reveal delays, unified scale
-Standardize stagger to 70-90ms increments across all sections, matching case-study pacing.
-
-## Optional, only if scope allows
-- Subtle parallax on the hero gold halo, tied to `--page-light-progress` (one CSS rule, no JS).
+**3. `src/components/layout/AtriumHeader.tsx` (nav element, line 30)**
+   - Remove the hard hairline under the bar on the hero: replace `border-b border-outline-variant/20` with a softer gradient fade, e.g. add an `after:` pseudo with `bg-gradient-to-b from-outline-variant/15 to-transparent h-px`, so the navbar bottom dissolves instead of cutting.
+   - This is a global navbar tweak; it benefits every page where a halo or warm wash sits near the top.
 
 ## Out of scope
-- No copy rewrites.
-- No new sections beyond dividers.
-- No data, Seo, or routing changes.
 
-## Files affected
-- `src/pages/Index.tsx`, presentational edits only.
-- `src/index.css`, possibly a small `lift-card` variant tweak.
+- No changes to the `Welcome, It's great to see you!` text, CTAs, or scroll cue.
+- No changes to other halos (Atrium, Tacet, Aetherix diagrams, Portrait).
+- No layout or spacing changes elsewhere on the page.
+
+## Verification
+
+- Reload `/` and confirm the halo reads as a continuous soft circle, with no visible line where the navbar ends.
+- Check both day and dusk moods.
+- Check at 1308px (current viewport) and a narrower mobile width.
