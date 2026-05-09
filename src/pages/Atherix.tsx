@@ -415,9 +415,7 @@ const Atherix = () => (
           <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-12">The Horizon</h2>
           <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-4xl mx-auto leading-relaxed flex flex-col gap-6">
             <p>
-              Aetherix's ultimate vision is to become the core intelligence layer in a fully agentic operations mesh,
-              where specialized agents detect opportunities in real time, orchestrate complex workflows, and continuously
-              optimize experiences, all while humans remain firmly in the loop for strategic direction.
+              Aetherix anchors the internal layer, Tacet the external one. Together they form a single predictive digital twin where specialised agents detect opportunities in real time, orchestrate workflows, and continuously optimise experiences, with humans firmly in the loop for strategic direction.
             </p>
             <p>This is how we move from reactive operations to invisible, self-improving intelligence.</p>
             <p>Curious to explore what this could look like for your hotel or product vision?</p>
