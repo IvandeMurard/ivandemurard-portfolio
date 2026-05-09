@@ -22,6 +22,11 @@ const PROJECT_INFO = [
     value:
       "Proxy data APIs (OpenData permits, traffic, weather, events), OpenStreetMap 3D geometry, synthetic acoustic model, JSON alerts to RMS and PMS",
   },
+  {
+    label: "Repository",
+    value: "github.com/IvandeMurard/tacet-app",
+    href: "https://github.com/IvandeMurard/tacet-app",
+  },
 ];
 
 const HOW = [
@@ -110,7 +115,19 @@ const Tacet = () => (
                 <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">
                   {info.label}
                 </p>
-                <p className="font-body text-sm text-on-surface">{info.value}</p>
+                {info.href ? (
+                  <a
+                    href={info.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-sm text-on-surface inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary hover:text-primary transition-colors"
+                  >
+                    {info.value}
+                    <Icon name="open_in_new" className="text-xs" />
+                  </a>
+                ) : (
+                  <p className="font-body text-sm text-on-surface">{info.value}</p>
+                )}
               </div>
             ))}
           </div>
