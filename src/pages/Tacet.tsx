@@ -263,64 +263,10 @@ const Tacet = () => (
         </p>
       </section>
 
-      {/* 5. Chromatic Silence, midnight */}
-      <section className="bg-primary py-32 md:py-48 text-on-primary relative overflow-hidden mb-32 md:mb-48">
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-primary-container rounded-full blur-[160px] -translate-y-1/2 translate-x-1/2" />
-        </div>
-        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
-            <div>
-              <span className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary/70 mb-4 block">
-                05 / UI/UX
-              </span>
-              <h2 className="font-headline text-4xl md:text-5xl italic mb-12 leading-tight">The Sound of Quiet</h2>
-              <div className="space-y-8 max-w-md">
-                <p className="text-on-primary/90 text-lg leading-relaxed">
-                  While Tacet V3 is API-first, the visual language developed for the original dashboard remains crucial for B2B reporting. Navy, subtle golds, soft whites: a palette evoking premium hospitality.
-                </p>
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary ring-1 ring-on-primary-container/30" />
-                  <div className="w-12 h-12 rounded-full bg-primary-container ring-1 ring-on-primary-container/30" />
-                  <div className="w-12 h-12 rounded-full bg-on-primary-container ring-1 ring-on-primary-container/30" />
-                  <div className="w-12 h-12 rounded-full bg-secondary ring-1 ring-on-primary-container/30" />
-                </div>
-              </div>
-            </div>
-            <div className="grid gap-6">
-              <div className="bg-on-primary/10 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary/20">
-                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary mb-4">
-                  Chromatic Silence
-                </h4>
-                <p className="text-on-primary/90 leading-relaxed">
-                  A deep, tailored palette anchored on #001b3a. Calm enough for executive committees, distinctive enough to remember.
-                </p>
-              </div>
-              <div className="bg-on-primary/10 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary/20">
-                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary mb-4">
-                  Soft Components
-                </h4>
-                <p className="text-on-primary/90 leading-relaxed">
-                  Interface elements that feel responsive and alive, using micro-animations to convey serenity rather than urgency.
-                </p>
-              </div>
-              <div className="bg-on-primary/10 p-6 md:p-8 rounded-2xl glass-nav border border-on-primary/20">
-                <h4 className="font-label text-[10px] uppercase tracking-[0.3em] text-on-primary mb-4">
-                  Data Provenance
-                </h4>
-                <p className="text-on-primary/90 leading-relaxed">
-                  Transparent sourcing to build trust with investment committees and hotel management.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. The 5-Year Horizon */}
+      {/* 5. The 5-Year Horizon */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-16 md:py-24 mb-24 md:mb-32 border-t border-surface-variant/50">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">06 / Horizon</span>
+          <span className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">05 / Horizon</span>
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
             The 5-Year Horizon
           </h2>
@@ -355,6 +301,17 @@ const Tacet = () => (
             >
               <span className="font-label text-xs uppercase tracking-widest mr-3">
                 Original B2C dashboard, visual reference
+              </span>
+              <Icon name="open_in_new" className="text-xs" />
+            </a>
+            <a
+              href="https://github.com/IvandeMurard/tacet-app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-secondary border-b border-secondary/30 pb-1 hover:border-secondary transition-colors"
+            >
+              <span className="font-label text-xs uppercase tracking-widest mr-3">
+                View source on GitHub
               </span>
               <Icon name="open_in_new" className="text-xs" />
             </a>
