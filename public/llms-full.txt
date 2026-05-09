@@ -20,11 +20,11 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/30min. Li
 
 ## Aetherix
 
-URL: https://www.ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/aetherix-hospitality-ai.
+URL: https://www.ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main.
 
 Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.
 
-Architecture: External signals (Apaleo PMS, weather, events) feed a FastAPI backend. Intelligence layers combine Prophet for numerical forecasting, Qdrant and pgvector for semantic memory, Claude Sonnet for cognitive reasoning, and an outbound MCP server for action. Delivery channels include WhatsApp push and Next.js verification dashboards. Current status: live Apaleo OAuth and MCP read access.
+Architecture: Internal context (Apaleo PMS via OAuth and MCP read) combines with external signals (weather, events, social sentiment) to feed a FastAPI backend. Intelligence layers combine Prophet for numerical forecasting, Qdrant and pgvector for semantic memory, Claude Sonnet for cognitive reasoning, and an outbound MCP server for action. Delivery channels include WhatsApp push and Next.js verification dashboards. Current status: live Apaleo OAuth and MCP read access.
 
 Design partners include Toni Stoeckl and Avi Brosh.
 
