@@ -99,7 +99,7 @@ const Tacet = () => (
       </Reveal>
 
       {/* Project Info */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="grid md:grid-cols-5 gap-8 py-12 border-y border-surface-variant">
           <div className="md:col-span-1">
             <h4 className="font-label text-xs uppercase tracking-[0.2em] text-secondary mb-2">Project Info</h4>
@@ -117,10 +117,11 @@ const Tacet = () => (
         </div>
       </section>
 
+      <SectionDivider index="01" label="Overview" />
+
       {/* 1. Overview */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-16 md:py-24 mb-24 md:mb-32 grid md:grid-cols-12 gap-12">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-12 md:mb-16 grid md:grid-cols-12 gap-12">
         <div className="md:col-start-2 md:col-span-4 self-start">
-          <span className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">01 / Overview</span>
           <h2 className="font-headline text-3xl md:text-4xl italic text-primary mb-8 leading-snug">
             From dashboard <br />
             to anticipation
@@ -138,10 +139,11 @@ const Tacet = () => (
         </div>
       </section>
 
+      <SectionDivider index="02" label="The Problem" spacing="tight" />
+
       {/* 2. The Problem */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-8 md:mb-10">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">02 / The Problem</span>
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
             "Quiet room" is a subjective request.
           </h2>
@@ -151,8 +153,10 @@ const Tacet = () => (
         </div>
       </section>
 
+      <SectionDivider spacing="tight" />
+
       {/* 3. Solution illustration */}
-      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
+      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20">
           <img
             src={acousticTwinImg}
@@ -172,11 +176,12 @@ const Tacet = () => (
         </div>
       </Reveal>
 
+      <SectionDivider index="03" label="The Solution" />
+
       {/* 3. Solution, three steps */}
-      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
+      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="text-center mb-16 md:mb-24">
-          <span data-reveal-child className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">03 / The Solution</span>
-          <h2 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6">
+          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6">
             A Synthetic Digital Twin
           </h2>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
@@ -212,13 +217,12 @@ const Tacet = () => (
         </div>
       </Reveal>
 
+      <SectionDivider label="Architecture" />
+
       {/* The Intelligence Pipeline diagram */}
-      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
+      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24">
         <div className="text-center mb-12 md:mb-16">
-          <span data-reveal-child className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">
-            Architecture
-          </span>
-          <h2 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4">
+          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4">
             The Intelligence Pipeline
           </h2>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-xl mx-auto">
@@ -230,10 +234,11 @@ const Tacet = () => (
         </div>
       </Reveal>
 
+      <SectionDivider index="04" label="Synergy" />
+
       {/* 4. Synergy with Aetherix */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24">
         <div className="text-center mb-16">
-          <span className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">04 / Synergy</span>
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Tacet and Aetherix</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
             Tacet is designed to work in tandem with{" "}
@@ -264,10 +269,11 @@ const Tacet = () => (
         </p>
       </section>
 
+      <SectionDivider index="05" label="Horizon" />
+
       {/* 5. The 5-Year Horizon */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-16 md:py-24 mb-24 md:mb-32 border-t border-surface-variant/50">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-8 md:mb-10">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="font-label text-[10px] uppercase tracking-widest text-secondary mb-4 block">05 / Horizon</span>
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
             The 5-Year Horizon
           </h2>
@@ -279,8 +285,10 @@ const Tacet = () => (
         </div>
       </section>
 
+      <SectionDivider spacing="tight" />
+
       {/* CTA / Explore */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="bg-surface-container-low rounded-3xl p-12 md:p-24 flex flex-col items-center text-center relative overflow-hidden">
           <h2 className="font-headline text-3xl md:text-4xl italic text-primary mb-6 relative z-10">
             Pilot Tacet with your hotel
@@ -322,8 +330,10 @@ const Tacet = () => (
         </div>
       </section>
 
+      <SectionDivider spacing="tight" />
+
       {/* FAQ */}
-      <section className="px-6 md:px-12 max-w-3xl mx-auto mb-24 md:mb-32">
+      <section className="px-6 md:px-12 max-w-3xl mx-auto mb-16 md:mb-24">
         <h3 className="font-headline text-2xl md:text-3xl italic text-primary mb-12 text-center">
           Frequently Asked Questions
         </h3>
