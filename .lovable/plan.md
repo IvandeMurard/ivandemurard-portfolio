@@ -1,61 +1,47 @@
-## Decision
-Going with **B: hairlines + section numerals**, applied to all case studies (Tacet, Atherix, Sonor, Atrium) and reusable for future ones.
+## Diagnosis
 
-## Build a shared component
+The slow ambience crossfade lives in `src/index.css` (lines 152-166). It applies `transition: background-color, color, border-color 2400ms` to:
+- `html, body`
+- a hardcoded list of selectors: `nav, header, footer, main, section, article, aside, .glass-nav` and class-substring matches for `bg-surface*`, `text-on-surface*`, `border-outline*`, `bg-primary*`, `text-primary*`, `bg-secondary*`, `text-secondary*`.
 
-`src/components/SectionDivider.tsx` (new, ~40 lines)
+The list is incomplete. Text using any of these utilities transitions instantly because they're not matched:
+`text-foreground`, `text-on-primary`, `text-on-primary-container`, `text-on-secondary`, `text-on-tertiary-fixed-variant`, `text-outline`, `text-outline-variant`, `text-muted-foreground`, `text-secondary-fixed`, `text-primary-fixed-dim`, `text-surface`, `text-surface-bright`, `text-surface-dim`, `text-card-foreground`, `text-popover-foreground`, `text-accent-foreground`, `text-destructive`, `text-destructive-foreground`, `text-sidebar-foreground`, `text-sidebar-accent-foreground`.
 
-- Thin 1px vertical hairline, ~80px tall, centered, `bg-outline-variant/40`.
-- Optional `index` and `label` props rendered next to the hairline in `font-label text-[10px] uppercase tracking-[0.25em] text-secondary` (e.g. `02  ──  The Problem`).
-- Animated in via the existing `Reveal` pattern: hairline scales from `scaleY(0)` to `scaleY(1)` over ~600ms ease-out; numeral fades + translates up 8px.
-- Two layout variants:
-  - `variant="center"` (default): hairline + numeral centered, used between sections that already have centered headings.
-  - `variant="left"`: numeral aligned to the editorial column, for sections with left-aligned headings.
-- Honors `prefers-reduced-motion`.
+Result: the background breathes over 2.4s, but most text snaps. Hence the broken effect the user noticed.
 
-Usage:
-```tsx
-<SectionDivider index="02" label="The Problem" />
+## Fix
+
+Replace the hardcoded selector list with a universal base rule that applies the 2.4s easing to every element's color, background, and border tokens. Keep the existing easing curve so the tempo is unchanged.
+
+```css
+*, *::before, *::after {
+  transition-property: background-color, color, border-color, fill, stroke;
+  transition-duration: 2400ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
 ```
 
-## Apply to Tacet (`src/pages/Tacet.tsx`)
+This covers:
+- All text colors (the missing ones listed above), so text now fades at the same tempo as the surface.
+- SVG `fill` and `stroke` (icons, the SectionDivider hairline, illustrations), so iconography matches.
+- Borders, in case any are themed.
 
-Insert `<SectionDivider />` between sections, retune margins for varied cadence:
+### Why this won't break existing motion
 
-- Hero → Project Info: no divider (already adjacent by design).
-- Project Info → Overview: divider `01 / Overview`, keep wide spacing.
-- Overview → Problem: divider `02 / The Problem`, tighten to `mb-20 md:mb-28`.
-- Problem → Solution illustration: hairline only (no numeral), tighten to `mb-20 md:mb-28`.
-- Solution illustration → Solution steps: divider `03 / The Solution`, keep wide.
-- Solution → Pipeline: divider with label `Architecture`, keep wide.
-- Pipeline → Synergy: divider `04 / Synergy`, keep wide.
-- Synergy → Horizon: divider `05 / Horizon`, keep wide.
-- Horizon → CTA: tighten to `mb-20 md:mb-28`, hairline only.
-- CTA → FAQ: hairline only.
+- Tailwind's `transition-colors`, `transition-all`, `transition-[bg]` utilities have higher specificity than `*` and override per-component (e.g. nav links keep their fast hover, the MoodToggle keeps its 700ms, buttons keep their 300ms hover). I'll grep to confirm: any element that already declares its own `transition` keeps it.
+- `prefers-reduced-motion` already forces `transition-duration: 0.01ms !important` on line 639, so accessibility behavior is unchanged.
+- No layout or paint thrash, color/bg/border interpolation is GPU-friendly.
 
-Remove the duplicate inline `01 / Overview` style numerals inside each section heading (now they live in the divider, which is the new source of truth). Keep the `<h2>` text.
+### What gets removed
 
-## Apply to Atherix, Sonor, Atrium
-
-These case studies don't currently use 01–05 numerals. Two-pass:
-
-1. **Light pass (immediate)**: insert `<SectionDivider />` (hairline only, no numeral) between each major section to give the same rhythm and connective tissue. Apply the same targeted margin tightening between short adjacent sections.
-2. **Numbered pass (per page, reviewed individually)**: assign 01–0N numerals to each page's main sections so the divider can carry a label. Done page by page so wording stays right.
-
-For this implementation cycle: ship the light pass on Atherix, Sonor, Atrium, and the full numbered pass on Tacet. Future case studies follow the Tacet template from day one.
-
-## Spacing rules (codified)
-- Default between major sections: `mb-32 md:mb-48`.
-- Tightened between two short or thematically linked sections: `mb-20 md:mb-28`.
-- The divider itself sits in the gap with `py-12 md:py-16` of its own, so the visual rhythm is: section → breath → tick → breath → section.
+The redundant block at lines 158-166 (long selector list) goes away. The `html, body` rule at lines 152-156 stays as a fallback for inherited `color` on text without explicit utilities.
 
 ## Files affected
-- `src/components/SectionDivider.tsx` (new)
-- `src/pages/Tacet.tsx` (full pass)
-- `src/pages/Atherix.tsx` (light pass)
-- `src/pages/Sonor.tsx` (light pass)
-- `src/pages/Atrium.tsx` (light pass)
-- `mem://design/section-rhythm` (new memory) so future case studies inherit the rule
 
-## Memory to save
-`mem://design/section-rhythm`: case studies use `<SectionDivider>` between sections, with editorial numerals (01–0N) where the page has a numbered structure; spacing alternates wide (`mb-32 md:mb-48`) and tight (`mb-20 md:mb-28`) for cadence; no decorative shapes.
+- `src/index.css` only. About 10 lines changed.
+
+## Verification
+
+1. Toggle dark/light. Background, text, and icons should now all fade in lockstep over ~2.4s.
+2. Hover states on nav links, buttons, the MoodToggle still feel snappy (their own transitions win).
+3. Spot-check Tacet's Horizon paragraph (the one we just rewrote) and the Synergy cards. Both currently snap; both should breathe after the fix.

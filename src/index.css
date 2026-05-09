@@ -154,15 +154,16 @@
       background-color 2400ms cubic-bezier(0.22, 1, 0.36, 1),
       color 2400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  /* Most colored chrome should also breathe across the transition. */
-  nav, header, footer, main, section, article, aside,
-  .glass-nav, [class*="bg-surface"], [class*="text-on-surface"],
-  [class*="border-outline"], [class*="bg-primary"], [class*="text-primary"],
-  [class*="bg-secondary"], [class*="text-secondary"] {
-    transition:
-      background-color 2400ms cubic-bezier(0.22, 1, 0.36, 1),
-      color 2400ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 2400ms cubic-bezier(0.22, 1, 0.36, 1);
+  /*
+    Universal slow crossfade so every themed colour, text, surface,
+    border, icon stroke, fades at the same tempo as the background.
+    Components that declare their own transition (hover states,
+    MoodToggle, nav links) win on specificity and keep their own timing.
+  */
+  *, *::before, *::after {
+    transition-property: background-color, color, border-color, fill, stroke;
+    transition-duration: 2400ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
