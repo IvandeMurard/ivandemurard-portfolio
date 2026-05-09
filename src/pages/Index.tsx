@@ -6,6 +6,7 @@ import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
+import { SectionDivider } from "@/components/SectionDivider";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
 
@@ -89,9 +90,12 @@ const Index = () => {
       ]}
     />
     {/* Hero */}
-    <header className="relative min-h-screen flex items-center justify-center pt-24 px-6 md:px-8 overflow-hidden">
+    <Reveal as="header" className="relative min-h-screen flex items-center justify-center pt-24 px-6 md:px-8 overflow-hidden">
       <div className="relative z-10 max-w-5xl w-full text-center">
-        <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10">
+        <span
+          data-reveal-child
+          className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10"
+        >
           Ivan de Murard
         </span>
         <div className="relative">
@@ -102,16 +106,28 @@ const Index = () => {
           >
             <div className="w-full h-full rounded-full gold-halo gold-halo-pulse" />
           </div>
-          <h1 className="relative z-10 font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text">
+          <h1
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "120ms" }}
+            className="headline-ink relative z-10 font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text"
+          >
             Welcome,
             <br />
             <span className="text-on-primary-container opacity-90 hero-line-2">It's great to see you!</span>
           </h1>
         </div>
-        <p className="mt-12 text-lg md:text-xl text-on-surface/85 max-w-2xl mx-auto leading-relaxed font-normal">
+        <p
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "360ms" }}
+          className="mt-12 text-lg md:text-xl text-on-surface/85 max-w-2xl mx-auto leading-relaxed font-normal"
+        >
           I'm Ivan, a product builder with 5 years across start-ups, scale-ups and large groups, and 2 years co-founding a SaaS. I design from operational experience, ship with AI, and keep the human at the center.
         </p>
-        <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8">
+        <div
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "540ms" }}
+          className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8"
+        >
           <Link
             to="/journeys"
             className="bg-primary text-on-primary px-10 py-5 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all duration-500 ambient-shadow"
@@ -126,14 +142,35 @@ const Index = () => {
             <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
+        {/* Scroll cue */}
+        <div
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "780ms" }}
+          aria-hidden="true"
+          className="mt-20 md:mt-24 flex flex-col items-center gap-2 text-on-surface-variant/70"
+        >
+          <span className="font-label uppercase tracking-[0.3em] text-[10px]">Scroll</span>
+          <Icon name="keyboard_arrow_down" className="text-base animate-bounce" />
+        </div>
       </div>
-    </header>
+    </Reveal>
 
-    {/* Milestones, proof bar right after the hero */}
-    <Reveal as="section" className="py-24 md:py-28 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <SectionDivider index="01" label="Milestones" />
+
+    {/* Milestones, proof bar */}
+    <Reveal as="section" className="py-16 md:py-20 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
-        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Milestones</h2>
-        <p className="text-on-surface-variant font-light leading-relaxed">
+        <h2
+          data-reveal-child
+          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+        >
+          Milestones
+        </h2>
+        <p
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "120ms" }}
+          className="text-on-surface-variant font-light leading-relaxed"
+        >
           A few markers along the way.
         </p>
       </div>
@@ -142,19 +179,23 @@ const Index = () => {
           <div
             key={`${m.value}-${m.label}`}
             data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
+            style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
             className={[
               "px-2 md:px-8 text-center",
               i >= 4 ? "md:border-t md:border-outline-variant/15 md:pt-12" : "",
             ].join(" ")}
           >
-            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-4">
+            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
               {m.kind === "count" ? (
                 <CountUp value={m.value} suffix={m.suffix ?? ""} />
               ) : (
                 m.value
               )}
             </p>
+            <span
+              className="underline-grow mx-auto mb-4 w-10"
+              style={{ ["--reveal-delay" as string]: `${360 + i * 70}ms` }}
+            />
             <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
               {m.label}
             </p>
@@ -163,23 +204,39 @@ const Index = () => {
       </div>
     </Reveal>
 
+    <SectionDivider spacing="tight" />
+
     {/* Signature line, a quiet breath */}
-    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8">
+    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8">
       <div className="max-w-4xl mx-auto text-center">
         <div className="w-px h-16 bg-primary/20 mx-auto mb-12" />
-        <p className="font-headline italic text-2xl md:text-4xl text-primary leading-snug">
+        <p
+          data-reveal-child
+          className="headline-ink font-headline italic text-2xl md:text-4xl text-primary leading-snug"
+        >
           I combine my operational experience, with a taste for service design and hands-on product bulding to create lasting business value.
         </p>
         <div className="w-px h-16 bg-primary/20 mx-auto mt-12" />
       </div>
     </Reveal>
 
+    <SectionDivider index="02" label="Case Studies" />
+
     {/* Case Studies */}
-    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
         <div className="max-w-xl">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Case Studies</h2>
-          <p className="text-on-surface-variant font-light leading-relaxed">
+          <h2
+            data-reveal-child
+            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+          >
+            Case Studies
+          </h2>
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "120ms" }}
+            className="text-on-surface-variant font-light leading-relaxed"
+          >
             A small selection of recent projects and collaborations, driven by curiosity and a passion for hands-on
             crafting.
           </p>
@@ -197,9 +254,9 @@ const Index = () => {
             key={p.slug}
             to={`/${p.slug}`}
             onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
-            className="group block"
+            className="lift-card group block p-4 rounded-xl border border-outline-variant/15 bg-surface-container-low/40 hover:border-outline-variant/40"
             data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}
+            style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
           >
             <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
               <CaseHoverPreview
@@ -210,7 +267,7 @@ const Index = () => {
               />
               <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none" />
             </div>
-            <div className="mt-8 flex justify-between items-start">
+            <div className="mt-8 px-2 pb-2 flex justify-between items-start">
               <div>
                 <h3 className="font-headline text-3xl italic text-primary">{p.name}</h3>
                 <p className="text-on-surface-variant font-light leading-relaxed mt-4">{p.tagline}</p>
@@ -228,11 +285,22 @@ const Index = () => {
       </div>
     </Reveal>
 
+    <SectionDivider index="03" label="Approach" />
+
     {/* My approach, convictions */}
-    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
-        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">My approach</h2>
-        <p className="text-on-surface-variant font-light leading-relaxed">
+        <h2
+          data-reveal-child
+          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+        >
+          My approach
+        </h2>
+        <p
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "120ms" }}
+          className="text-on-surface-variant font-light leading-relaxed"
+        >
           Three convictions that shape every product I build.
         </p>
       </div>
@@ -241,8 +309,8 @@ const Index = () => {
           <div
             key={title}
             data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}
-            className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+            style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+            className="lift-card p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
           >
             <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
@@ -252,11 +320,22 @@ const Index = () => {
       </div>
     </Reveal>
 
+    <SectionDivider index="04" label="Method" />
+
     {/* How I work, three pillars */}
-    <Reveal as="section" className="py-24 md:py-32 px-6 md:px-8 max-w-screen-2xl mx-auto">
+    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
       <div className="max-w-2xl mb-16 md:mb-20">
-        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">How I work</h2>
-        <p className="text-on-surface-variant font-light leading-relaxed">
+        <h2
+          data-reveal-child
+          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+        >
+          How I work
+        </h2>
+        <p
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "120ms" }}
+          className="text-on-surface-variant font-light leading-relaxed"
+        >
           And how those convictions translate into a working method.
         </p>
       </div>
@@ -265,10 +344,10 @@ const Index = () => {
           <div
             key={title}
             data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}
-            className="p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500"
+            style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+            className="lift-card p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
           >
-            <span className="font-headline italic text-secondary text-sm tracking-[0.2em] block mb-6">{n}</span>
+            <span className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary block mb-6">{n}</span>
             <PillarIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
             <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
@@ -277,8 +356,17 @@ const Index = () => {
       </div>
     </Reveal>
 
+    <SectionDivider spacing="tight" />
+
     {/* Thank you for your visit, a cool blue bookend on the warm dusk page-light */}
-    <Reveal as="section" className="relative py-24 md:py-32 px-6 md:px-8 max-w-5xl mx-auto text-center">
+    <Reveal as="section" className="relative py-16 md:py-24 px-6 md:px-8 max-w-5xl mx-auto text-center">
+      {/* Faint drifting halo behind the farewell card */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
+      >
+        <div className="halo-drift w-[80%] h-[80%] rounded-full bg-gradient-to-br from-primary-fixed/40 via-secondary-fixed/20 to-transparent blur-3xl opacity-60" />
+      </div>
       <div className="farewell-card relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-2xl overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
         <div className="absolute inset-0 bg-primary-fixed-dim/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
