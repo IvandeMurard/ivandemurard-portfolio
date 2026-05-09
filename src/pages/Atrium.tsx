@@ -4,6 +4,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
+import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
 import portraitIvan from "@/assets/portrait-ivan.png";
 
@@ -58,7 +59,7 @@ const Atrium = () => (
     />
     <div className="relative pt-24 md:pt-32 pb-24 md:pb-32">
       {/* Hero */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
           <div className="lg:col-span-8">
             <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
@@ -92,8 +93,10 @@ const Atrium = () => (
         </div>
       </section>
 
+      <SectionDivider label="Origin" />
+
       {/* Origin */}
-      <section className="mb-32 md:mb-48">
+      <section className="mb-12 md:mb-16">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Origin
@@ -128,7 +131,10 @@ const Atrium = () => (
       </section>
 
       {/* Track record */}
-      <Reveal as="section" className="mb-32 md:mb-48 px-6 md:px-12 max-w-screen-2xl mx-auto">
+      <SectionDivider label="Track record" />
+
+      {/* Track record */}
+      <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
         <div className="max-w-2xl mb-16 md:mb-20">
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Track record
