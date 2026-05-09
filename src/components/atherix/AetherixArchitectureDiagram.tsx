@@ -6,10 +6,13 @@ import { Icon } from "@/components/ui/Icon";
  *   External signals → Fat Backend (FastAPI) → Intelligence layers → Delivery
  */
 export const AetherixArchitectureDiagram = () => {
-  const externals = [
+  const internalContext = [
     { icon: "hotel", title: "Apaleo PMS", sub: "OAuth, MCP read" },
+  ];
+  const externalContext = [
     { icon: "cloud", title: "Weather", sub: "Open Meteo" },
     { icon: "event", title: "Events", sub: "PredictHQ" },
+    { icon: "forum", title: "Social sentiment", sub: "Web, reviews" },
   ];
   const backend = [
     { icon: "sync", title: "PMS Sync", sub: "Capture rate" },
