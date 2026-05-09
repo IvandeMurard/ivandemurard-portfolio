@@ -373,7 +373,7 @@ const Index = () => {
           Thank you for your visit
         </h2>
         <p className="text-on-surface font-light mb-12 max-w-lg mx-auto relative z-10">
-          Shall we meet again? Let's discuss how to create business value and meaningful human experiences for your
+          Contact. Let's discuss how to create business value and meaningful human experiences for your
           operations or users.
         </p>
         <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 relative z-10">
