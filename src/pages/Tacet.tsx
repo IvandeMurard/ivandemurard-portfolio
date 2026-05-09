@@ -278,9 +278,9 @@ const Tacet = () => (
             The 5-Year Horizon
           </h2>
           <p className="text-lg text-on-surface-variant leading-relaxed">
-            The goal is to continually improve the acoustic analysis and connectivity, while integrating new context specific agents, allowing for a greater scope of action.
+            The roadmap is to keep deepening the acoustic analysis and connectivity, while plugging in context-specific agents that widen what Tacet can act on.
             <br /><br />
-            Ultimately, Tacet becomes the agentic solution offering hyper-personalized environmental contextual intelligence, allowing for better responsivity.
+            Over time, Tacet becomes a layer of hyper-personalised environmental intelligence: each hotel reads its surroundings with its own context, and responds faster because of it.
           </p>
         </div>
       </section>
