@@ -282,6 +282,8 @@ const Atrium = () => (
         </div>
       </Reveal>
 
+      <SectionDivider label="Let's talk" />
+
       {/* Let's talk */}
       <Reveal as="section" className="relative px-6 md:px-12 max-w-5xl mx-auto text-center">
         <div className="farewell-card relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-20 rounded-2xl overflow-hidden ambient-shadow ring-1 ring-primary-fixed-dim/40">
