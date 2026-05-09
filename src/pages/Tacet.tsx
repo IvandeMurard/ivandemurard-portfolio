@@ -271,7 +271,9 @@ const Tacet = () => (
             The 5-Year Horizon
           </h2>
           <p className="text-lg text-on-surface-variant leading-relaxed">
-            The ultimate goal is to establish the definitive Quiet Certification for the industry. Once Tacet powers the yield management of the top 500 boutique hotels in Europe, major aggregators (Booking.com, Airbnb) will integrate the Tacet API as the standard metric for acoustic quality.
+            The goal is to continually improve the acoustic analysis and connectivity, while integrating new context specific agents, allowing for a greater scope of action.
+            <br /><br />
+            Ultimately, Tacet becomes the agentic solution offering hyper-personalized environmental contextual intelligence, allowing for better responsivity.
           </p>
         </div>
       </section>
