@@ -1,75 +1,61 @@
-## Tacet case study, V3 reframe
+## Decision
+Going with **B: hairlines + section numerals**, applied to all case studies (Tacet, Atherix, Sonor, Atrium) and reusable for future ones.
 
-Reposition Tacet from "Architecture of Silence" (B2C noise app) to **"The Synthetic Acoustic Twin"** (headless B2B intelligence layer for hospitality), while keeping the original visual language as a B2B reporting reference.
+## Build a shared component
 
-### 1. Page rewrite, `src/pages/Tacet.tsx`
+`src/components/SectionDivider.tsx` (new, ~40 lines)
 
-**Hero**
-- New headline: *"Tacet: The Synthetic Acoustic Twin."*
-- New sub: *"A proactive, headless intelligence layer that predicts the impact of the external acoustic environment on revenue and guest experience."*
-- Eyebrow: `Selected Work / 2026 — Hospitality`
+- Thin 1px vertical hairline, ~80px tall, centered, `bg-outline-variant/40`.
+- Optional `index` and `label` props rendered next to the hairline in `font-label text-[10px] uppercase tracking-[0.25em] text-secondary` (e.g. `02  ──  The Problem`).
+- Animated in via the existing `Reveal` pattern: hairline scales from `scaleY(0)` to `scaleY(1)` over ~600ms ease-out; numeral fades + translates up 8px.
+- Two layout variants:
+  - `variant="center"` (default): hairline + numeral centered, used between sections that already have centered headings.
+  - `variant="left"`: numeral aligned to the editorial column, for sections with left-aligned headings.
+- Honors `prefers-reduced-motion`.
 
-**Project Info** (refresh values)
-- Rôle: Product Builder, Architect of an acoustic intelligence layer
-- Durée: 2026, ongoing (V3 pivot from B2C to B2B)
-- Équipe: Solo (with AI collaboration)
-- Contexte: Headless API for hospitality, complement to Aetherix
-- Stack: Proxy data APIs (OpenData permits, traffic, weather, events), OpenStreetMap 3D geometry, synthetic acoustic model, JSON alerts to RMS/PMS
+Usage:
+```tsx
+<SectionDivider index="02" label="The Problem" />
+```
 
-**Replace narrative sections** with the six numbered sections from the new copy:
-1. *Overview* — origin as Bruitparif dashboard, evolution to Synthetic Acoustic Twin.
-2. *The Problem* — one bad noise review costs thousands; "quiet room" is subjective.
-3. *The Solution: A Synthetic Digital Twin* — three-step "How it works" (Proxy Data Ingestion, Spatial Geometry, Proactive Alerts) plus the jackhammer example workflow as a pulled quote.
-4. *Synergy: Tacet & Aetherix* — side-by-side card (Internal context vs External context). Internal link to `/aetherix` using `react-router` `Link`.
-5. *UI/UX: The Sound of Quiet* — keep the existing "Chromatic Silence" midnight section and the two phone mockups, but reframe them as **B2B reporting language** (Chromatic Silence, Soft Components, Data Provenance). Drop "Guided Respiration / Soft Haptics" wording.
-6. *The 5-Year Horizon* — Quiet Certification, top 500 boutique hotels, Booking.com / Airbnb integration.
+## Apply to Tacet (`src/pages/Tacet.tsx`)
 
-**New section: "The Intelligence Pipeline"**
-- Title + sub from the brief.
-- New component `src/components/tacet/TacetPipelineDiagram.tsx`, modelled on `AetherixArchitectureDiagram.tsx` (same column + connector + reveal pattern, same tokens).
-- Three groups, matching the mermaid:
-  - Proxy Data Sources: OpenData Permits (webhooks), Traffic APIs (streams), Weather APIs (streams).
-  - Tacet Engine: Synthetic Acoustic Model (accent node) + OpenStreetMap 3D Geometry (data store).
-  - Hotel Operations: Revenue Management System, Property Management System.
-- Labelled connectors: `Webhooks`, `Streams`, `JSON Alerts`, `Room Tags`.
-- Caption row at bottom: `Proxy signals · Synthetic model · 3D geometry · JSON alerts`.
+Insert `<SectionDivider />` between sections, retune margins for varied cadence:
 
-**New illustration**
-- Copy `user-uploads://abstract_city_data_1778066028977.jpg` to `src/assets/tacet-acoustic-twin.jpg`.
-- Use it in the "Solution" section as a full-width 16/9 plate with gradient overlay and a `Reveal` ink-in animation, captioned *"Synthetic acoustic twin, isometric view."* This replaces text-only density without overshadowing the diagram.
+- Hero → Project Info: no divider (already adjacent by design).
+- Project Info → Overview: divider `01 / Overview`, keep wide spacing.
+- Overview → Problem: divider `02 / The Problem`, tighten to `mb-20 md:mb-28`.
+- Problem → Solution illustration: hairline only (no numeral), tighten to `mb-20 md:mb-28`.
+- Solution illustration → Solution steps: divider `03 / The Solution`, keep wide.
+- Solution → Pipeline: divider with label `Architecture`, keep wide.
+- Pipeline → Synergy: divider `04 / Synergy`, keep wide.
+- Synergy → Horizon: divider `05 / Horizon`, keep wide.
+- Horizon → CTA: tighten to `mb-20 md:mb-28`, hairline only.
+- CTA → FAQ: hairline only.
 
-**FAQ refresh**
-- "Why headless and not a dashboard?" → API-first integrates into RMS/PMS where decisions already happen.
-- "How accurate is a software-only model vs hardware sensors?" → physics-based, calibrated against Bruitparif baselines, no capex.
-- "How does Tacet relate to Aetherix?" → external context vs internal context, same digital twin.
+Remove the duplicate inline `01 / Overview` style numerals inside each section heading (now they live in the divider, which is the new source of truth). Keep the `<h2>` text.
 
-**CTA + footer**
-- Keep "Explore the Platform" but reframe: primary button → `mailto:` for hotel pilot inquiries; secondary → existing `tacet.vercel.app` demo (labelled *"Original B2C dashboard, visual reference"*).
-- Keep the discreet `View as markdown` link at the bottom right.
+## Apply to Atherix, Sonor, Atrium
 
-**SEO**
-- Update `<Seo title>` to `Tacet, Synthetic Acoustic Twin for Hospitality`.
-- Update description and JSON-LD `@type` from `MobileApplication` to `SoftwareApplication` with `applicationCategory: BusinessApplication`.
+These case studies don't currently use 01–05 numerals. Two-pass:
 
-### 2. Cross-references
+1. **Light pass (immediate)**: insert `<SectionDivider />` (hairline only, no numeral) between each major section to give the same rhythm and connective tissue. Apply the same targeted margin tightening between short adjacent sections.
+2. **Numbered pass (per page, reviewed individually)**: assign 01–0N numerals to each page's main sections so the divider can carry a label. Done page by page so wording stays right.
 
-- `src/content/site.ts`: update `PROJECTS.tacet.tagline`, `label` (`B2B • Hospitality • Acoustic Intelligence • 2026`), `NOW_PROJECTS` Tacet blurb.
-- `src/pages/Journeys.tsx`: rewrite Journey 03 body to match the new vision (synthetic acoustic twin, hospitality, JSON alerts to RMS/PMS).
-- `src/pages/Index.tsx` if it surfaces a Tacet line, align tagline.
+For this implementation cycle: ship the light pass on Atherix, Sonor, Atrium, and the full numbered pass on Tacet. Future case studies follow the Tacet template from day one.
 
-### 3. Markdown source of truth
+## Spacing rules (codified)
+- Default between major sections: `mb-32 md:mb-48`.
+- Tightened between two short or thematically linked sections: `mb-20 md:mb-28`.
+- The divider itself sits in the gap with `py-12 md:py-16` of its own, so the visual rhythm is: section → breath → tick → breath → section.
 
-Rewrite `public/tacet.md` with the exact six-section copy from the brief (Overview, Problem, Solution, Synergy, UI/UX, 5-Year Horizon), updated front-matter facts (role, status, stack), and links section pointing to `/aetherix`, `tacet.vercel.app`, repo, contact.
+## Files affected
+- `src/components/SectionDivider.tsx` (new)
+- `src/pages/Tacet.tsx` (full pass)
+- `src/pages/Atherix.tsx` (light pass)
+- `src/pages/Sonor.tsx` (light pass)
+- `src/pages/Atrium.tsx` (light pass)
+- `mem://design/section-rhythm` (new memory) so future case studies inherit the rule
 
-### 4. LLM and SEO assets
-
-- `public/llms.txt`: update Tacet one-liner to the new positioning.
-- `public/llms-full.txt`: replace the Tacet block to mirror the new `tacet.md`.
-- `public/sitemap.xml`: no URL change needed, just bump `lastmod` for `/tacet` and `/tacet.md`.
-
-### Technical notes
-
-- Diagram component uses the same Tailwind tokens (`surface-container-low`, `secondary-fixed-dim`, `divider-fall`, `mcp-pulse-track`) as Aetherix to stay visually consistent.
-- New illustration imported as ES module from `@/assets/`.
-- All new copy follows the no-em-dash rule (use commas, colons, parentheses).
-- Hospitality remains felt, not named as a slogan; positioning stays "business value + human interactions".
+## Memory to save
+`mem://design/section-rhythm`: case studies use `<SectionDivider>` between sections, with editorial numerals (01–0N) where the page has a numbered structure; spacing alternates wide (`mb-32 md:mb-48`) and tight (`mb-20 md:mb-28`) for cadence; no decorative shapes.
