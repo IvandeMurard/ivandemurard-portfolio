@@ -24,7 +24,7 @@ const PROJECT_INFO = [
   },
   {
     label: "Repository",
-    value: "github.com/IvandeMurard/tacet-app",
+    value: "GitHub Repository",
     href: "https://github.com/IvandeMurard/tacet-app",
   },
 ];
