@@ -6,6 +6,7 @@ import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
+import { SectionDivider } from "@/components/SectionDivider";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
 
