@@ -22,10 +22,15 @@ const PIPELINE = [
   { icon: "chat", title: "WhatsApp Push", sub: "To Team" },
 ];
 
-const PROJECT_INFO = [
+const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (side project)" },
   { label: "Duration", value: "2026 – ongoing (validation phase)" },
   { label: "Team", value: "Solo architect & builder" },
+  {
+    label: "Repository",
+    value: "GitHub Repository",
+    href: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main",
+  },
   {
     label: "Context",
     value: "Agentic AI for boutique hotel operations (Apaleo PMS, staffing, F&B forecasting, WhatsApp push)",
@@ -132,7 +137,7 @@ const Atherix = () => (
           url: "https://www.ivandemurard.com",
         },
         dateCreated: "2026-01-01",
-        codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+        codeRepository: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B",
         relatedLink: ["https://www.ivandemurard.com/tacet"],
       }}
     />
@@ -154,36 +159,6 @@ const Atherix = () => (
                 human team to deliver exceptional guest experiences.
               </p>
             </div>
-
-            {/* Pipeline diagram */}
-            <div className="mt-12 md:mt-16 mb-8 w-full max-w-6xl">
-              <h4 className="text-sm font-label uppercase tracking-widest text-secondary mb-6 pl-2">
-                How Aetherix Works
-              </h4>
-              <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between relative px-4 md:px-8 py-8 md:py-10 border border-outline-variant/20 rounded-3xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm gap-6 md:gap-0">
-                {PIPELINE.map((step, i) => (
-                  <div key={step.title} className="contents md:contents">
-                    <div className="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/5 py-2">
-                      <div className="w-16 h-16 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shadow-sm">
-                        <Icon name={step.icon} className="text-outline text-2xl" />
-                      </div>
-                      <div className="text-center bg-surface-container-lowest/90 px-4 py-3 rounded-xl backdrop-blur-md shadow-sm border border-outline-variant/10">
-                        <h5 className="font-headline text-lg md:text-xl italic text-primary">{step.title}</h5>
-                        {step.sub && (
-                          <p className="text-[10px] uppercase tracking-widest text-secondary mt-1">{step.sub}</p>
-                        )}
-                      </div>
-                    </div>
-                    {i < PIPELINE.length - 1 && (
-                      <Icon
-                        name="arrow_forward"
-                        className="hidden md:inline-block text-outline-variant/60 relative z-10 px-2"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
           <div className="hidden lg:flex flex-none items-center gap-4 text-secondary italic font-headline text-2xl pb-4">
             <span>Scroll to Explore</span>
@@ -200,13 +175,55 @@ const Atherix = () => (
             {PROJECT_INFO.map((info) => (
               <div key={info.label} className={info.wide ? "lg:col-span-2" : ""}>
                 <h4 className="text-xs text-on-surface-variant mb-2">{info.label}</h4>
-                <p className="text-sm font-medium text-primary">{info.value}</p>
+                {info.href ? (
+                  <a
+                    href={info.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary transition-colors"
+                  >
+                    {info.value}
+                    <Icon name="open_in_new" className="text-xs" />
+                  </a>
+                ) : (
+                  <p className="text-sm font-medium text-primary">{info.value}</p>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      <SectionDivider label="How Aetherix Works" />
+
+      {/* How Aetherix Works, pipeline */}
+      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between relative px-4 md:px-8 py-8 md:py-10 border border-outline-variant/20 rounded-3xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm gap-6 md:gap-0">
+            {PIPELINE.map((step, i) => (
+              <div key={step.title} className="contents md:contents">
+                <div data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 80}ms` }} className="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/5 py-2">
+                  <div className="w-16 h-16 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shadow-sm">
+                    <Icon name={step.icon} className="text-outline text-2xl" />
+                  </div>
+                  <div className="text-center bg-surface-container-lowest/90 px-4 py-3 rounded-xl backdrop-blur-md shadow-sm border border-outline-variant/10">
+                    <h5 className="font-headline text-lg md:text-xl italic text-primary">{step.title}</h5>
+                    {step.sub && (
+                      <p className="text-[10px] uppercase tracking-widest text-secondary mt-1">{step.sub}</p>
+                    )}
+                  </div>
+                </div>
+                {i < PIPELINE.length - 1 && (
+                  <Icon
+                    name="arrow_forward"
+                    className="hidden md:inline-block text-outline-variant/60 relative z-10 px-2"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
       <SectionDivider label="The Vision" />
 
       {/* The Vision */}

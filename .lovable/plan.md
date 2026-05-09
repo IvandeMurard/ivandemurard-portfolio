@@ -1,34 +1,54 @@
-## Goal
+## Aetherix case study, three corrections
 
-The gold halo on the Home hero currently extends above the headline and intersects the fixed navbar. Because the navbar has a translucent surface fill (`bg-surface/70 glass-nav`) and a hairline bottom border, the halo gets clipped abruptly, breaking the soft circular feel.
+### 1. Project Info first, after hero
 
-## Approach
+Today the hero block embeds the "How Aetherix Works" pipeline diagram, so Project Info appears below that pipeline. Move the pipeline out of the hero into its own section that lives **after** Project Info, so the order becomes:
 
-Keep the halo visually intact, but reposition and reshape it so its falloff stays clear of the navbar, and soften the navbar boundary on the hero so any residual overlap reads as light, not a cut.
+1. Hero (headline + intro paragraph + "Scroll to Explore")
+2. Project Info
+3. How Aetherix Works (pipeline strip)
+4. The Vision
+5. Synergy
+6. Intelligent Anticipation
+7. ... rest unchanged
 
-## Changes
+### 2. GitHub repository in Project Info
 
-**1. `src/pages/Index.tsx` (hero halo wrapper, around line 105)**
-   - Lower the halo center: change `-translate-y-[58%]` to roughly `-translate-y-[42%]` so the bright core sits behind the headline instead of above it.
-   - Slightly reduce vertical reach: change `h-[440px] max-h-[70vw]` to `h-[400px] max-h-[62vw]` to keep the shape circular while pulling the top edge down.
-   - No change to width or animation.
+Mirror the Tacet pattern: add a `Repository` row with a clickable link and the `open_in_new` icon. Use the URL provided:
+`https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main`
 
-**2. `src/index.css` (`.gold-halo`, lines 315 to 326)**
-   - Soften the outer falloff so the halo dissolves earlier and never presents a visible edge: extend the transparent stop from `72%` to `62%`, and lower the mid stop from `45%` to `40%`.
-   - Optionally bump blur from `36px` to `44px` for a more diffuse perimeter.
+Also update the JSON-LD `codeRepository` field on the page (currently points to the old `aetherix-hospitality-ai` repo) so the structured data stays accurate.
 
-**3. `src/components/layout/AtriumHeader.tsx` (nav element, line 30)**
-   - Remove the hard hairline under the bar on the hero: replace `border-b border-outline-variant/20` with a softer gradient fade, e.g. add an `after:` pseudo with `bg-gradient-to-b from-outline-variant/15 to-transparent h-px`, so the navbar bottom dissolves instead of cutting.
-   - This is a global navbar tweak; it benefits every page where a halo or warm wash sits near the top.
+The Project Info row renderer will be extended to support an optional `href` (same shape as Tacet's `PROJECT_INFO`), so links render with the underline + external icon affordance.
 
-## Out of scope
+### 3. Internal vs external context, fixed in the architecture diagram
 
-- No changes to the `Welcome, It's great to see you!` text, CTAs, or scroll cue.
-- No changes to other halos (Atrium, Tacet, Aetherix diagrams, Portrait).
-- No layout or spacing changes elsewhere on the page.
+In `AetherixArchitectureDiagram`, the leftmost column is currently captioned "External signals" and groups Apaleo PMS with Weather and Events. That's incorrect: PMS / POS / occupancy data are **internal** context. Weather, Events, and Social sentiment are **external** context.
 
-## Verification
+Restructure that column into two clearly labelled sub-stacks within the same first column:
 
-- Reload `/` and confirm the halo reads as a continuous soft circle, with no visible line where the navbar ends.
-- Check both day and dusk moods.
-- Check at 1308px (current viewport) and a narrower mobile width.
+```text
+Caption: "Context inputs"
+
+  Internal context
+    • Apaleo PMS  (OAuth, MCP read)
+
+  External context
+    • Weather          (Open Meteo)
+    • Events           (PredictHQ)
+    • Social sentiment (web + reviews)
+```
+
+The two middle/right column captions ("Fat backend, FastAPI", "Intelligence layers") stay as they are. Visually, each sub-group gets a small uppercase label above its cards so the distinction is obvious without adding a fourth column.
+
+Also tighten the body copy of the **Intelligent Anticipation** intro and the **Synergy** card so the wording is consistent with this split (Aetherix = internal context truth + selected external signals; Tacet = deeper external/environmental context). One-line edits, no structural change.
+
+### Files touched
+
+- `src/pages/Atherix.tsx` — reorder sections (move pipeline out of hero into its own section after Project Info), add `Repository` entry to `PROJECT_INFO` with `href`, render link variant in the Project Info grid, update `codeRepository` in JSON-LD, minor copy tweak in Synergy/Anticipation intros.
+- `src/components/atherix/AetherixArchitectureDiagram.tsx` — split the first column into "Internal context" and "External context" sub-groups, add Social sentiment, update the column caption.
+- `public/aetherix.md` — update repo URL to the new GitHub link so the markdown source of truth matches.
+
+### Out of scope
+
+No design-token, layout-grid, or animation changes beyond the small label additions in the diagram. No new images.

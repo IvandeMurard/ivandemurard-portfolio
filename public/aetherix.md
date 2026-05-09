@@ -30,6 +30,6 @@ Boutique hotel operations are not a scheduling problem, they are an attention pr
 - Humans remain in the loop on every recommendation that affects staff or guests.
 
 ## Links
-- Repository: https://github.com/IvandeMurard/aetherix-hospitality-ai
+- Repository: https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main
 - Contact: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/30min

@@ -6,10 +6,13 @@ import { Icon } from "@/components/ui/Icon";
  *   External signals → Fat Backend (FastAPI) → Intelligence layers → Delivery
  */
 export const AetherixArchitectureDiagram = () => {
-  const externals = [
+  const internalContext = [
     { icon: "hotel", title: "Apaleo PMS", sub: "OAuth, MCP read" },
+  ];
+  const externalContext = [
     { icon: "cloud", title: "Weather", sub: "Open Meteo" },
     { icon: "event", title: "Events", sub: "PredictHQ" },
+    { icon: "forum", title: "Social sentiment", sub: "Web, reviews" },
   ];
   const backend = [
     { icon: "sync", title: "PMS Sync", sub: "Capture rate" },
@@ -38,14 +41,23 @@ export const AetherixArchitectureDiagram = () => {
       <div className="relative z-10 flex flex-col gap-6">
         {/* Caption row */}
         <div className="grid grid-cols-3 gap-6 text-center">
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">External signals</span>
+          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Context inputs</span>
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Fat backend, FastAPI</span>
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Intelligence layers</span>
         </div>
 
         {/* Three columns */}
         <div className="grid grid-cols-3 gap-4 md:gap-6 items-stretch">
-          <Column items={externals} delay={0} />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant/80">Internal context</span>
+              <Column items={internalContext} delay={0} />
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant/80">External context</span>
+              <Column items={externalContext} delay={80} />
+            </div>
+          </div>
           <Column items={backend} delay={120} accent />
           <Column items={intelligence} delay={240} />
         </div>
