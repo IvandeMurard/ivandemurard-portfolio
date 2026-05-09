@@ -358,6 +358,17 @@ const Tacet = () => (
               </span>
               <Icon name="open_in_new" className="text-xs" />
             </a>
+            <a
+              href="https://github.com/IvandeMurard/tacet-app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-secondary border-b border-secondary/30 pb-1 hover:border-secondary transition-colors"
+            >
+              <span className="font-label text-xs uppercase tracking-widest mr-3">
+                View source on GitHub
+              </span>
+              <Icon name="open_in_new" className="text-xs" />
+            </a>
           </div>
         </div>
       </section>
