@@ -6,7 +6,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
-import { SOCIAL_LINKS } from "@/content/site";
+import { SectionDivider } from "@/components/SectionDivider";
 import heroLobby from "@/assets/atherix-hero-lobby.jpg";
 import toniPortrait from "@/assets/toni-stoeckl.webp";
 import aviPortrait from "@/assets/avi-brosh.webp";
