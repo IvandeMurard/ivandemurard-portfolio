@@ -137,7 +137,7 @@ const Atherix = () => (
           url: "https://www.ivandemurard.com",
         },
         dateCreated: "2026-01-01",
-        codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+        codeRepository: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B",
         relatedLink: ["https://www.ivandemurard.com/tacet"],
       }}
     />
