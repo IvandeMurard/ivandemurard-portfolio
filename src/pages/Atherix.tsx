@@ -36,6 +36,11 @@ const PROJECT_INFO = [
     value: "End-to-end pipeline operational in sandbox, Apaleo OAuth and MCP read access live, outbound MCP server in progress",
     wide: true,
   },
+  {
+    label: "Companion",
+    value: "Tacet, the synthetic acoustic twin (external context)",
+    wide: true,
+  },
 ];
 
 const PRINCIPLES = [
@@ -101,13 +106,17 @@ const FAQ = [
     q: "How does it integrate with existing hotel systems?",
     a: "Through Apaleo PMS and WhatsApp for instant, contextual recommendations.",
   },
+  {
+    q: "How does Aetherix relate to Tacet?",
+    a: "Aetherix reads internal context (PMS, occupancy, F&B, staffing). Tacet reads external context (street, weather, events). They are designed as complements, one predictive digital twin for the hotel.",
+  },
 ];
 
 const Atherix = () => (
   <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
     <Seo
       title="Aetherix, Agentic AI for Boutique Hotel Operations"
-      description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience."
+      description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience. Companion to Tacet, the external-context twin."
       path="/aetherix"
       type="article"
       jsonLd={{
@@ -124,6 +133,7 @@ const Atherix = () => (
         },
         dateCreated: "2026-01-01",
         codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+        relatedLink: ["https://www.ivandemurard.com/tacet"],
       }}
     />
     <div className="pt-32">
