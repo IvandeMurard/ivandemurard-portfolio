@@ -102,7 +102,7 @@ const Index = () => {
           {/* Animated gold halo, perfect circle concentrated behind the headline + subtitle */}
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[58%] w-[620px] h-[440px] max-w-[96vw] max-h-[70vw] pointer-events-none z-0"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-[620px] h-[400px] max-w-[96vw] max-h-[62vw] pointer-events-none z-0"
           >
             <div className="w-full h-full rounded-full gold-halo gold-halo-pulse" />
           </div>
