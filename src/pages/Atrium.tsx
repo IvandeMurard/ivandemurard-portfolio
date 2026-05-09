@@ -170,8 +170,10 @@ const Atrium = () => (
         </div>
       </Reveal>
 
+      <SectionDivider label="Now" />
+
       {/* Now */}
-      <Reveal as="section" className="mb-32 md:mb-48 px-6 md:px-12 max-w-screen-2xl mx-auto">
+      <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
         <div className="max-w-2xl mb-16 md:mb-20">
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Now
@@ -216,7 +218,7 @@ const Atrium = () => (
       </Reveal>
 
       {/* Principles, dark band */}
-      <section className="principles-band relative py-32 md:py-48 overflow-hidden mb-32 md:mb-48">
+      <section className="principles-band relative py-32 md:py-48 overflow-hidden mb-12 md:mb-16">
         <div className="absolute inset-0 turner-gradient-warm opacity-15" />
         <div className="relative z-10 max-w-screen-xl mx-auto px-6 md:px-12 text-center">
           <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary-fixed mb-6 block opacity-80">
