@@ -22,10 +22,15 @@ const PIPELINE = [
   { icon: "chat", title: "WhatsApp Push", sub: "To Team" },
 ];
 
-const PROJECT_INFO = [
+const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (side project)" },
   { label: "Duration", value: "2026 – ongoing (validation phase)" },
   { label: "Team", value: "Solo architect & builder" },
+  {
+    label: "Repository",
+    value: "GitHub Repository",
+    href: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main",
+  },
   {
     label: "Context",
     value: "Agentic AI for boutique hotel operations (Apaleo PMS, staffing, F&B forecasting, WhatsApp push)",
