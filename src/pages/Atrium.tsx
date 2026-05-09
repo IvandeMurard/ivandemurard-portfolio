@@ -247,8 +247,10 @@ const Atrium = () => (
         </div>
       </section>
 
+      <SectionDivider label="Method" />
+
       {/* Method */}
-      <Reveal as="section" className="mb-32 md:mb-48 px-6 md:px-12 max-w-screen-2xl mx-auto">
+      <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
         <div className="max-w-2xl mb-16 md:mb-20">
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Method
