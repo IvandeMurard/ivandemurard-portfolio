@@ -6,6 +6,7 @@ import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { TacetPipelineDiagram } from "@/components/tacet/TacetPipelineDiagram";
+import { SectionDivider } from "@/components/SectionDivider";
 import acousticTwinImg from "@/assets/tacet-acoustic-twin.jpg";
 
 const PROJECT_INFO = [
