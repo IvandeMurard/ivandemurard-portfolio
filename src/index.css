@@ -498,6 +498,22 @@
     transform: scaleY(1);
   }
 
+  /* Horizontal 1px gold underline that grows from 0 to full width on reveal. */
+  .underline-grow {
+    display: block;
+    height: 1px;
+    background-color: hsl(var(--secondary) / 0.35);
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: transform;
+  }
+  [data-revealed="true"] .underline-grow,
+  [data-revealed="true"] [data-reveal-child] .underline-grow {
+    transform: scaleX(1);
+  }
+
   /* Case row image: 12px lift, slow ease. */
   .case-row-image {
     opacity: 0;
