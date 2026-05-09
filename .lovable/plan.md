@@ -1,50 +1,73 @@
 ## Goal
-Make the Aetherix case study acknowledge Tacet as its external-context counterpart. Today the relationship is one-sided: Tacet has a "Synergy with Aetherix" section, Aetherix has zero mentions of Tacet.
+Bring the Home page to life with the same editorial rhythm used across case studies: numbered `SectionDivider`s, `headline-ink` reveals, `lift-card` hovers, halo drifts, and tightened reveal choreography. Purely presentational, no copy rewrites, no IA changes.
 
-## Changes to `src/pages/Atherix.tsx`
+All work in `src/pages/Index.tsx`, with one or two small additions to `src/index.css` only if shared utilities need a Home-friendly variant.
 
-### 1. Project Info, add a Companion entry
-Add to `PROJECT_INFO`:
-- label: `Companion`
-- value: `Tacet, the synthetic acoustic twin (external context)`
+## Section rhythm (final)
 
-Mirrors Tacet's existing line "Headless API for hospitality, complement to Aetherix".
+```text
+Hero                                  (unnumbered, page itself is the index)
+SectionDivider 01 / Milestones
+Milestones
+SectionDivider              (unlabeled hairline, tight)
+Signature line              (single line, kept as the breath between Case Studies and Approach)
+SectionDivider 02 / Case Studies
+Case Studies
+SectionDivider 03 / Approach
+My approach (convictions)
+SectionDivider 04 / Method
+How I work (pillars)
+SectionDivider              (unlabeled hairline, tight)
+Farewell card
+```
 
-### 2. New Synergy section, placed before Intelligent Anticipation
-Insert between "The Vision" (ends ~line 252) and "Intelligent Anticipation" (line 256), preceded by `<SectionDivider label="Synergy" />` to follow the established case-study rhythm.
+The two existing italic signature lines collapse into one, placed between Case Studies and Approach. The other is removed.
 
-Section content:
-- Label: `Synergy`, headline `Aetherix and Tacet`.
-- Intro paragraph: Aetherix reads internal context (PMS, occupancy, F&B, staffing). Tacet reads external context (street, weather, events). Together they form one predictive digital twin for the hotel.
-- Two static cards in a 2-column grid, matching the visual treatment of the Tacet page's Synergy section so the pair feels symmetric:
-  - Card 1, `hub` icon, "Aetherix, internal context": forecasts operational needs, F&B demand, and staffing from occupancy, PMS data, and historical patterns.
-  - Card 2, `public` icon, "Tacet, external context": predicts environmental impact, street disruptions, and acoustic risks from weather, events, and city signals.
-- Below the duo, a small inline link: `Read the Tacet case ->` pointing to `/tacet`. Cards themselves stay static (not link-wrapped), per your call.
-- Closing line: Together, they let hotel teams act on what is happening inside and what is approaching from outside.
+## Changes to `src/pages/Index.tsx`
 
-Spacing follows the default `mb-12 md:mb-16` rhythm.
+### 1. Hero, light additions only
+- Add `headline-ink` to the H1 so the title performs the same ink-reveal as case-study headlines.
+- Add staggered `data-reveal-child` + `--reveal-delay` to eyebrow (0ms), headline (120ms), subtitle (360ms), CTAs (540ms).
+- Add a small scroll cue at the bottom of the hero: `Scroll` label + animated chevron (`Icon name="keyboard_arrow_down"`), so the page does not end mid-air.
 
-### 3. The Horizon, weave Tacet in
-Edit the first paragraph of "The Horizon" so the long-term vision is consistent across both case studies. New wording, roughly:
+### 2. Milestones, lighter motion
+- Wrap the section header in `headline-ink` and stagger reveal-children at 70ms steps.
+- Keep the bare divided-grid look (no full card chrome), this stays a proof bar.
+- Add a subtle gold underline under each numeric value that animates in on reveal (`divider-fall`-style, 1px, `bg-secondary/30`, scaling from 0 to 100% width). This is the "lighter option".
 
-"Aetherix anchors the internal layer, Tacet the external one. Together they form a single predictive digital twin where specialised agents detect opportunities in real time, orchestrate workflows, and continuously optimise experiences, with humans firmly in the loop for strategic direction."
+### 3. Single signature line
+- Remove the second `Signature line` section.
+- Keep the first one between Case Studies and Approach. Wrap headline in `headline-ink`.
 
-The two follow-up paragraphs stay as is.
+### 4. Case Studies
+- Add `<SectionDivider index="02" label="Case Studies" />` above the section.
+- Apply `lift-card` chrome around each project card (subtle elevation + ambient shadow on hover) so the existing `CaseHoverPreview` image effect sits inside a richer container.
+- Tighten reveal stagger to 80ms.
 
-### 4. FAQ, add one entry
-Add to `FAQ`, mirroring the symmetric question already on the Tacet page:
-- q: `How does Aetherix relate to Tacet?`
-- a: `Aetherix reads internal context (PMS, occupancy, F&B, staffing). Tacet reads external context (street, weather, events). They are designed as complements, one predictive digital twin for the hotel.`
+### 5. Convictions and Pillars
+- `<SectionDivider index="03" label="Approach" />` above Convictions.
+- `<SectionDivider index="04" label="Method" />` above Pillars.
+- Replace the bare bordered cards with `lift-card` (matches Tacet `HOW` cards): subtle elevation, gold-tinted hover border, soft ambient shadow.
+- For Pillars, restyle the `01 / 02 / 03` numerals with the case-study label style: `font-label text-[10px] uppercase tracking-[0.25em] text-secondary`.
 
-### 5. SEO and JSON-LD
-- Update the `Seo` description to briefly mention Tacet as the external-context companion.
-- Add a `relatedLink: ["https://www.ivandemurard.com/tacet"]` field to the JSON-LD object.
+### 6. Farewell card
+- Add `<SectionDivider />` (unlabeled, tight) above it.
+- Add a faint `halo-drift` blur element behind the card so the dusk feels animated. Strict z-index discipline so existing content stays on top.
 
-## Copy rules
-No em-dashes (commas, colons, parentheses only). Hospitality stays implied, never named. Agentic AI mentioned as a tool, not an identity.
+### 7. Section headers, consistent ink animation
+Apply `headline-ink` to every H2 (`Milestones`, `Case Studies`, `My approach`, `How I work`) so the page speaks with one voice.
 
-## Files affected
-- `src/pages/Atherix.tsx` only.
+### 8. Reveal delays, unified scale
+Standardize stagger to 70-90ms increments across all sections, matching case-study pacing.
+
+## Optional, only if scope allows
+- Subtle parallax on the hero gold halo, tied to `--page-light-progress` (one CSS rule, no JS).
 
 ## Out of scope
-- `public/aetherix.md` and `public/llms-full.txt` are the markdown sources of truth flagged in the file header. They can be synced in a follow-up pass; not required for the visual update to ship.
+- No copy rewrites.
+- No new sections beyond dividers.
+- No data, Seo, or routing changes.
+
+## Files affected
+- `src/pages/Index.tsx`, presentational edits only.
+- `src/index.css`, possibly a small `lift-card` variant tweak.
