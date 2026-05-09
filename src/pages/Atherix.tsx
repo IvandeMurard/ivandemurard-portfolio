@@ -183,7 +183,7 @@ const Atherix = () => (
       </Reveal>
 
       {/* Project Info */}
-      <section className="px-6 md:px-12 mb-24 md:mb-40">
+      <section className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-12">
           <h3 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-8">Project Info</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -197,8 +197,10 @@ const Atherix = () => (
         </div>
       </section>
 
+      <SectionDivider label="The Vision" />
+
       {/* The Vision */}
-      <section className="mb-24 md:mb-32 px-6 md:px-12">
+      <section className="mb-12 md:mb-16 px-6 md:px-12">
         <div className="max-w-screen-2xl mx-auto">
           <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-secondary/30 mix-blend-overlay" />
