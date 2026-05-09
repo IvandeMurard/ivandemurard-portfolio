@@ -36,6 +36,11 @@ const PROJECT_INFO = [
     value: "End-to-end pipeline operational in sandbox, Apaleo OAuth and MCP read access live, outbound MCP server in progress",
     wide: true,
   },
+  {
+    label: "Companion",
+    value: "Tacet, the synthetic acoustic twin (external context)",
+    wide: true,
+  },
 ];
 
 const PRINCIPLES = [
@@ -101,13 +106,17 @@ const FAQ = [
     q: "How does it integrate with existing hotel systems?",
     a: "Through Apaleo PMS and WhatsApp for instant, contextual recommendations.",
   },
+  {
+    q: "How does Aetherix relate to Tacet?",
+    a: "Aetherix reads internal context (PMS, occupancy, F&B, staffing). Tacet reads external context (street, weather, events). They are designed as complements, one predictive digital twin for the hotel.",
+  },
 ];
 
 const Atherix = () => (
   <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
     <Seo
       title="Aetherix, Agentic AI for Boutique Hotel Operations"
-      description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience."
+      description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience. Companion to Tacet, the external-context twin."
       path="/aetherix"
       type="article"
       jsonLd={{
@@ -124,6 +133,7 @@ const Atherix = () => (
         },
         dateCreated: "2026-01-01",
         codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+        relatedLink: ["https://www.ivandemurard.com/tacet"],
       }}
     />
     <div className="pt-32">
@@ -249,6 +259,47 @@ const Atherix = () => (
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <SectionDivider label="Synergy" />
+
+      {/* Synergy with Tacet */}
+      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
+        <div className="text-center mb-16">
+          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Aetherix and Tacet</h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Aetherix reads internal context (PMS, occupancy, F&B, staffing).{" "}
+            <Link to="/tacet" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
+              Tacet
+            </Link>
+            {" "}reads external context (street, weather, events). Together they form one predictive digital twin for the hotel.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+            <Icon name="hub" className="text-secondary text-2xl mb-6" />
+            <h3 className="font-headline italic text-2xl text-primary mb-4">Aetherix, internal context</h3>
+            <p className="text-on-surface-variant leading-relaxed">
+              Forecasts operational needs, F&B demand, and staffing from occupancy, PMS data, and historical patterns.
+            </p>
+          </div>
+          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+            <Icon name="public" className="text-secondary text-2xl mb-6" />
+            <h3 className="font-headline italic text-2xl text-primary mb-4">Tacet, external context</h3>
+            <p className="text-on-surface-variant leading-relaxed">
+              Predicts environmental impact, street disruptions, and acoustic risks from weather, events, and city signals.
+            </p>
+          </div>
+        </div>
+        <p className="text-center text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-12">
+          Together, they let hotel teams act on what is happening inside and what is approaching from outside.
+        </p>
+        <div className="text-center mt-8">
+          <Link to="/tacet" className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-secondary hover:text-primary transition-colors">
+            <span>Read the Tacet case</span>
+            <Icon name="arrow_forward" className="text-sm" />
+          </Link>
         </div>
       </section>
 
@@ -405,9 +456,7 @@ const Atherix = () => (
           <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-12">The Horizon</h2>
           <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-4xl mx-auto leading-relaxed flex flex-col gap-6">
             <p>
-              Aetherix's ultimate vision is to become the core intelligence layer in a fully agentic operations mesh,
-              where specialized agents detect opportunities in real time, orchestrate complex workflows, and continuously
-              optimize experiences, all while humans remain firmly in the loop for strategic direction.
+              Aetherix anchors the internal layer, Tacet the external one. Together they form a single predictive digital twin where specialised agents detect opportunities in real time, orchestrate workflows, and continuously optimise experiences, with humans firmly in the loop for strategic direction.
             </p>
             <p>This is how we move from reactive operations to invisible, self-improving intelligence.</p>
             <p>Curious to explore what this could look like for your hotel or product vision?</p>
