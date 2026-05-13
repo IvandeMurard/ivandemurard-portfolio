@@ -358,6 +358,9 @@ const Atherix = () => (
         </div>
       </Reveal>
 
+      {/* The Hive, scaling soul through collective intelligence */}
+      <AetherixHiveStanzas />
+
       {/* Quote 1 */}
       <section className="py-20 md:py-24 px-6 md:px-12">
         <div className="max-w-5xl mx-auto bg-surface-container-low p-8 md:p-12 rounded-3xl text-center shadow-sm">
