@@ -65,8 +65,19 @@ const FAQ = [
   },
 ];
 
+const TACET_SECTIONS = [
+  { id: "overview", label: "Overview" },
+  { id: "problem", label: "Problem" },
+  { id: "solution", label: "Solution" },
+  { id: "architecture", label: "Architecture" },
+  { id: "synergy", label: "Synergy" },
+  { id: "horizon", label: "Horizon" },
+  { id: "faq", label: "FAQ" },
+  { id: "contact", label: "Contact" },
+];
+
 const Tacet = () => (
-  <SiteLayout title="Tacet: The Synthetic Acoustic Twin">
+  <SiteLayout title="Tacet: The Synthetic Acoustic Twin" sections={TACET_SECTIONS}>
     <Seo
       title="Tacet, Synthetic Acoustic Twin for Hospitality"
       description="Tacet is a proactive, headless intelligence layer for hotels. It predicts the impact of the external acoustic environment on revenue and guest experience, pushing JSON alerts to RMS and PMS."
@@ -137,7 +148,7 @@ const Tacet = () => (
       <SectionDivider index="01" label="Overview" />
 
       {/* 1. Overview */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-12 md:mb-16 grid md:grid-cols-12 gap-12">
+      <section id="overview" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-12 md:mb-16 grid md:grid-cols-12 gap-12 scroll-mt-24">
         <div className="md:col-start-2 md:col-span-4 self-start">
           <h2 className="font-headline text-3xl md:text-4xl italic text-primary mb-8 leading-snug">
             From dashboard <br />
@@ -159,7 +170,7 @@ const Tacet = () => (
       <SectionDivider index="02" label="The Problem" spacing="tight" />
 
       {/* 2. The Problem */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-8 md:mb-10">
+      <section id="problem" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
             "Quiet room" is a subjective request.
@@ -173,7 +184,7 @@ const Tacet = () => (
       <SectionDivider spacing="tight" />
 
       {/* 3. Solution illustration */}
-      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
+      <Reveal as="section" id="solution" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16 scroll-mt-24">
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20">
           <img
             src={acousticTwinImg}
@@ -237,7 +248,7 @@ const Tacet = () => (
       <SectionDivider label="Architecture" />
 
       {/* The Intelligence Pipeline diagram */}
-      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24">
+      <Reveal as="section" id="architecture" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-12 md:mb-16">
           <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4">
             The Intelligence Pipeline
@@ -254,7 +265,7 @@ const Tacet = () => (
       <SectionDivider index="04" label="Synergy" />
 
       {/* 4. Synergy with Aetherix */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24">
+      <section id="synergy" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-16">
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Tacet and Aetherix</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
@@ -289,7 +300,7 @@ const Tacet = () => (
       <SectionDivider index="05" label="Horizon" />
 
       {/* 5. The 5-Year Horizon */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-8 md:mb-10">
+      <section id="horizon" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
             The 5-Year Horizon
@@ -350,7 +361,7 @@ const Tacet = () => (
       <SectionDivider spacing="tight" />
 
       {/* FAQ */}
-      <section className="px-6 md:px-12 max-w-3xl mx-auto mb-16 md:mb-24">
+      <section id="faq" className="px-6 md:px-12 max-w-3xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <h3 className="font-headline text-2xl md:text-3xl italic text-primary mb-12 text-center">
           Frequently Asked Questions
         </h3>
@@ -365,7 +376,7 @@ const Tacet = () => (
       </section>
 
       {/* Closing CTA */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-surface-container-high">
+      <section id="contact" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-surface-container-high scroll-mt-24">
         <div className="max-w-4xl">
           <h2 className="font-headline text-4xl md:text-7xl italic text-primary mb-12 leading-tight">
             Interested in proactive intelligence for hotel operations?

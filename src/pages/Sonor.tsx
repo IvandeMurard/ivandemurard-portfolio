@@ -111,11 +111,21 @@ const FAQ = [
   },
 ];
 
+const SONOR_SECTIONS = [
+  { id: "curiosity", label: "Curiosity" },
+  { id: "hypothesis", label: "Hypothesis" },
+  { id: "product", label: "Product" },
+  { id: "outcome", label: "Outcome" },
+  { id: "platform", label: "Platform" },
+  { id: "stakeholders", label: "Stakeholders" },
+  { id: "faq", label: "FAQ" },
+];
+
 const Sonor = () => {
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-  <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
+  <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS}>
     <Seo
       title="Sonor, Urban Noise Intelligence for Cities"
       description="Sonor turned open data into a B2G SaaS used by municipalities to map urban noise, protect acoustic health and drive sustainability policies. Two-year journey as Co-founder and Product Lead, 2020 to 2022."
@@ -171,7 +181,7 @@ const Sonor = () => {
       </Reveal>
 
       {/* The Curiosity */}
-      <section className="py-16 md:py-28 bg-surface-container-low">
+      <section id="curiosity" className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12 md:gap-20">
             <div className="w-full md:w-1/3">
@@ -202,7 +212,7 @@ const Sonor = () => {
       </section>
 
       {/* The Hypothesis (Figma prototype) */}
-      <section className="py-16 md:py-28 bg-surface">
+      <section id="hypothesis" className="py-16 md:py-28 bg-surface scroll-mt-24">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
             The Hypothesis
@@ -229,7 +239,7 @@ const Sonor = () => {
       </section>
 
       {/* Product interfaces */}
-      <section className="py-16 md:py-28 overflow-hidden">
+      <section id="product" className="py-16 md:py-28 overflow-hidden scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center mb-16 md:mb-28">
             <div className="order-2 lg:order-1">
@@ -294,7 +304,7 @@ const Sonor = () => {
       </section>
 
       {/* Outcome, midnight */}
-      <section className="bg-primary text-on-primary py-16 md:py-28">
+      <section id="outcome" className="bg-primary text-on-primary py-16 md:py-28 scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="space-y-12">
@@ -348,7 +358,7 @@ const Sonor = () => {
       </section>
 
       {/* Explore the platform */}
-      <section className="py-16 md:py-28 bg-surface-container-low">
+      <section id="platform" className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Explore the Platform</h2>
@@ -377,7 +387,7 @@ const Sonor = () => {
       </section>
 
       {/* Stakeholders */}
-      <section className="py-16 md:py-28 bg-surface">
+      <section id="stakeholders" className="py-16 md:py-28 bg-surface scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">What Stakeholders Said</h2>
@@ -401,7 +411,7 @@ const Sonor = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant/20">
+      <section id="faq" className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant/20 scroll-mt-24">
         <div className="px-6 md:px-12 max-w-3xl mx-auto space-y-12 md:space-y-16">
           <h2 className="text-3xl md:text-4xl font-headline italic text-primary text-center">
             Frequently Asked Questions
