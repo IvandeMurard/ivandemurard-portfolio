@@ -461,7 +461,7 @@ const Atherix = () => (
       </section>
 
       {/* The Hive Vision, the engine that powers the pipelines */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section id="hive" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
         <div className="max-w-screen-xl mx-auto text-center">
           <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The moat beneath the agents</span>
           <h2 className="font-headline text-4xl md:text-6xl text-primary italic mt-4 mb-10 leading-[1.05]">The Hive Vision</h2>
