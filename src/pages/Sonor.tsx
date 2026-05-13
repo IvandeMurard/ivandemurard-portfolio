@@ -239,7 +239,7 @@ const Sonor = () => {
       </section>
 
       {/* Product interfaces */}
-      <section className="py-16 md:py-28 overflow-hidden">
+      <section id="product" className="py-16 md:py-28 overflow-hidden scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center mb-16 md:mb-28">
             <div className="order-2 lg:order-1">
