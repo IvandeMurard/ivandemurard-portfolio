@@ -333,7 +333,7 @@ const Atherix = () => (
           <div className="mb-16 md:mb-20">
             <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
             <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl text-lg">
-              Four intelligence layers in sequence: numerical forecasting (Prophet), semantic patterns (Qdrant, 495+ scenarios), cognitive memory (pgvector, per hotel feedback), and reasoning (Claude Sonnet). The result is a single recommendation, pushed when it matters, callable by other agents over MCP.
+              Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. Qdrant matches today against 495+ past scenarios. pgvector remembers what worked in <em className="italic">your</em> hotel. Claude Sonnet turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over MCP.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
