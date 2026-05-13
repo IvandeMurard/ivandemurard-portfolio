@@ -65,8 +65,19 @@ const FAQ = [
   },
 ];
 
+const TACET_SECTIONS = [
+  { id: "overview", label: "Overview" },
+  { id: "problem", label: "Problem" },
+  { id: "solution", label: "Solution" },
+  { id: "architecture", label: "Architecture" },
+  { id: "synergy", label: "Synergy" },
+  { id: "horizon", label: "Horizon" },
+  { id: "faq", label: "FAQ" },
+  { id: "contact", label: "Contact" },
+];
+
 const Tacet = () => (
-  <SiteLayout title="Tacet: The Synthetic Acoustic Twin">
+  <SiteLayout title="Tacet: The Synthetic Acoustic Twin" sections={TACET_SECTIONS}>
     <Seo
       title="Tacet, Synthetic Acoustic Twin for Hospitality"
       description="Tacet is a proactive, headless intelligence layer for hotels. It predicts the impact of the external acoustic environment on revenue and guest experience, pushing JSON alerts to RMS and PMS."
