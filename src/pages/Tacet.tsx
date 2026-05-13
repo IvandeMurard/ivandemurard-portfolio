@@ -248,7 +248,7 @@ const Tacet = () => (
       <SectionDivider label="Architecture" />
 
       {/* The Intelligence Pipeline diagram */}
-      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24">
+      <Reveal as="section" id="architecture" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-12 md:mb-16">
           <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4">
             The Intelligence Pipeline
