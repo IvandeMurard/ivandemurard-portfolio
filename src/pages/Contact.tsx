@@ -74,7 +74,7 @@ const Contact = () => {
       jsonLd={{
         "@context": "https://schema.org",
         "@type": "ContactPage",
-        url: "https://www.ivandemurard.com/contact",
+        url: "https://ivandemurard.com/contact",
         name: "Contact",
       }}
     />

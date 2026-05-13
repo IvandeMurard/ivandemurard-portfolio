@@ -47,9 +47,9 @@ const JournalEntry = () => {
           description: entry.excerpt,
           datePublished: entry.date,
           dateModified: entry.date,
-          author: { "@type": "Person", name: "Ivan de Murard", url: "https://www.ivandemurard.com" },
+          author: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           articleSection: entry.category,
-          url: `https://www.ivandemurard.com/journal/${entry.slug}`,
+          url: `https://ivandemurard.com/journal/${entry.slug}`,
         }}
       />
       <div className="pt-32 md:pt-40 pb-32 md:pb-48">

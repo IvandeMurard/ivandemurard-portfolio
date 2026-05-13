@@ -2,7 +2,7 @@
 
 A proactive, headless intelligence layer designed for the hospitality sector. It predicts the impact of the external acoustic environment on revenue and guest experience, moving from passive awareness to proactive yield management.
 
-- URL: https://www.ivandemurard.com/tacet
+- URL: https://ivandemurard.com/tacet
 - Role: Product Builder, Architect of an acoustic intelligence layer
 - Duration: 2026, ongoing (V3 pivot from B2C dashboard to B2B headless API)
 - Team: Solo (with AI collaboration)
@@ -31,7 +31,7 @@ Example workflow:
 
 ## 4. The Synergy: Tacet and Aetherix
 
-Tacet is designed to work in tandem with [Aetherix](https://www.ivandemurard.com/aetherix), forming a complete Predictive Digital Twin for hotels:
+Tacet is designed to work in tandem with [Aetherix](https://ivandemurard.com/aetherix), forming a complete Predictive Digital Twin for hotels:
 
 - **Aetherix (internal context):** predicts operational needs, F&B demand, and staffing based on occupancy and historical trends.
 - **Tacet (external context):** predicts environmental impact, street disruptions, and acoustic risks.
@@ -54,5 +54,5 @@ The ultimate goal is to establish the definitive Quiet Certification for the ind
 
 - Original B2C dashboard (visual reference): https://tacet.vercel.app
 - Repository: https://github.com/IvandeMurard/tacet-app
-- Related: https://www.ivandemurard.com/aetherix
+- Related: https://ivandemurard.com/aetherix
 - Contact: ivandemurard@gmail.com

@@ -20,7 +20,7 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/30min. Li
 
 ## Aetherix
 
-URL: https://www.ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main.
+URL: https://ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main.
 
 Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.
 
@@ -30,11 +30,11 @@ Design partners include Toni Stoeckl and Avi Brosh.
 
 ## Sonor
 
-URL: https://www.ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness. Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped.
+URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness. Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped.
 
 ## Tacet
 
-URL: https://www.ivandemurard.com/tacet. Tacet is the Synthetic Acoustic Twin: a proactive, headless intelligence layer for hospitality (B2B, 2026). It began as a Bruitparif-powered Score Sérénité dashboard for Parisians, then pivoted to a physics-based, software-only acoustic model of the hotel. It ingests proxy APIs (OpenData construction permits, traffic flow, weather, local events), uses OpenStreetMap 3D geometry to compute acoustic line of sight and building shielding, and pushes JSON alerts to the hotel's Revenue Management System and Property Management System. Designed to work in tandem with Aetherix: Aetherix reads internal context (occupancy, F&B, staffing), Tacet reads external context (street, weather, events). Together they form one predictive digital twin. Five-year goal: establish the Quiet Certification standard for the industry, integrated by major aggregators (Booking.com, Airbnb).
+URL: https://ivandemurard.com/tacet. Tacet is the Synthetic Acoustic Twin: a proactive, headless intelligence layer for hospitality (B2B, 2026). It began as a Bruitparif-powered Score Sérénité dashboard for Parisians, then pivoted to a physics-based, software-only acoustic model of the hotel. It ingests proxy APIs (OpenData construction permits, traffic flow, weather, local events), uses OpenStreetMap 3D geometry to compute acoustic line of sight and building shielding, and pushes JSON alerts to the hotel's Revenue Management System and Property Management System. Designed to work in tandem with Aetherix: Aetherix reads internal context (occupancy, F&B, staffing), Tacet reads external context (street, weather, events). Together they form one predictive digital twin. Five-year goal: establish the Quiet Certification standard for the industry, integrated by major aggregators (Booking.com, Airbnb).
 
 ## Track record
 
@@ -53,7 +53,7 @@ URL: https://www.ivandemurard.com/tacet. Tacet is the Synthetic Acoustic Twin: a
 
 ## Field Notes
 
-Index: https://www.ivandemurard.com/journal.
+Index: https://ivandemurard.com/journal.
 
 - A hard call on Aetherix's agent boundaries (2026-04-20). On where to draw the line between forecasting and acting, and why splitting Prophet from Claude shaped the rest of the architecture.
 

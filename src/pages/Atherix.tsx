@@ -129,16 +129,16 @@ const Atherix = () => (
         "@type": "CreativeWork",
         name: "Aetherix",
         headline: "Aetherix: A new operating layer for boutique hotels",
-        url: "https://www.ivandemurard.com/aetherix",
+        url: "https://ivandemurard.com/aetherix",
         about: ["Agentic AI", "Hospitality Operations", "Boutique Hotels"],
         creator: {
           "@type": "Person",
           name: "Ivan de Murard",
-          url: "https://www.ivandemurard.com",
+          url: "https://ivandemurard.com",
         },
         dateCreated: "2026-01-01",
         codeRepository: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B",
-        relatedLink: ["https://www.ivandemurard.com/tacet"],
+        relatedLink: ["https://ivandemurard.com/tacet"],
       }}
     />
     <div className="pt-32">

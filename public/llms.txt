@@ -2,7 +2,7 @@
 
 > Product builder based in Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor (B2G SaaS). Designs from operational experience, ships with AI, keeps the human at the center. Focus areas: agentic AI, boutique hotel operations, service design, SaaS, open data.
 
-- Site: https://www.ivandemurard.com
+- Site: https://ivandemurard.com
 - LinkedIn: https://www.linkedin.com/in/ivandemurard/
 - GitHub: https://github.com/IvandeMurard
 - X: https://x.com/IvanMurard
@@ -11,14 +11,14 @@
 
 ## Case studies
 
-- [Aetherix](https://www.ivandemurard.com/aetherix): Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, frees teams to focus on guest experience. Stack: Apaleo PMS, FastAPI, Claude Sonnet, Qdrant, pgvector, MCP.
-- [Sonor](https://www.ivandemurard.com/sonor): Two-year journey as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to map urban noise and drive sustainability policy.
-- [Tacet](https://www.ivandemurard.com/tacet): Synthetic Acoustic Twin for hospitality. A headless, physics-based intelligence layer that predicts how the external environment (construction, traffic, weather, events) affects hotel rooms, pushing JSON alerts to RMS and PMS for proactive yield management.
+- [Aetherix](https://ivandemurard.com/aetherix): Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, frees teams to focus on guest experience. Stack: Apaleo PMS, FastAPI, Claude Sonnet, Qdrant, pgvector, MCP.
+- [Sonor](https://ivandemurard.com/sonor): Two-year journey as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to map urban noise and drive sustainability policy.
+- [Tacet](https://ivandemurard.com/tacet): Synthetic Acoustic Twin for hospitality. A headless, physics-based intelligence layer that predicts how the external environment (construction, traffic, weather, events) affects hotel rooms, pushing JSON alerts to RMS and PMS for proactive yield management.
 
 ## Field Notes
 
-- [Journal index](https://www.ivandemurard.com/journal)
-- [A hard call on Aetherix's agent boundaries](https://www.ivandemurard.com/journal/agent-boundaries-aetherix)
+- [Journal index](https://ivandemurard.com/journal)
+- [A hard call on Aetherix's agent boundaries](https://ivandemurard.com/journal/agent-boundaries-aetherix)
 
 ## Track record
 

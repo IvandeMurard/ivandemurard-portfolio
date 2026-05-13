@@ -67,11 +67,11 @@ const Journeys = () => (
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         name: "Case Studies",
-        url: "https://www.ivandemurard.com/journeys",
+        url: "https://ivandemurard.com/journeys",
         hasPart: [
-          { "@type": "CreativeWork", name: "Aetherix", url: "https://www.ivandemurard.com/aetherix" },
-          { "@type": "CreativeWork", name: "Sonor", url: "https://www.ivandemurard.com/sonor" },
-          { "@type": "CreativeWork", name: "Tacet", url: "https://www.ivandemurard.com/tacet" },
+          { "@type": "CreativeWork", name: "Aetherix", url: "https://ivandemurard.com/aetherix" },
+          { "@type": "CreativeWork", name: "Sonor", url: "https://ivandemurard.com/sonor" },
+          { "@type": "CreativeWork", name: "Tacet", url: "https://ivandemurard.com/tacet" },
         ],
       }}
     />
