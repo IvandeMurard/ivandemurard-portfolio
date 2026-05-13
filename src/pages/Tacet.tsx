@@ -184,7 +184,7 @@ const Tacet = () => (
       <SectionDivider spacing="tight" />
 
       {/* 3. Solution illustration */}
-      <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
+      <Reveal as="section" id="solution" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16 scroll-mt-24">
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20">
           <img
             src={acousticTwinImg}
