@@ -116,8 +116,18 @@ const FAQ = [
   },
 ];
 
+const ATHERIX_SECTIONS = [
+  { id: "architecture", label: "Architecture" },
+  { id: "vision", label: "Vision" },
+  { id: "anticipation", label: "Anticipation" },
+  { id: "pipeline", label: "Pipeline" },
+  { id: "hive", label: "The Hive" },
+  { id: "economics", label: "Economics" },
+  { id: "contact", label: "Contact" },
+];
+
 const Atherix = () => (
-  <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
+  <SiteLayout title="Aetherix: Boutique Hotel Operations AI" sections={ATHERIX_SECTIONS}>
     <Seo
       title="Aetherix, Agentic AI for Boutique Hotel Operations"
       description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience. Companion to Tacet, the external-context twin."
