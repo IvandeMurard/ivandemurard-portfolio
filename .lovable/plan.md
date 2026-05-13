@@ -1,58 +1,64 @@
-# Fix Google Search Console redirect errors
+# Plan
 
-## Diagnosis
+## 1. Rewrite the "Intelligent Anticipation" intro paragraph
 
-Live HTTP checks confirm the root cause:
+File: `src/pages/Atherix.tsx`, line 336.
 
-```text
-https://www.ivandemurard.com/         -> 302 -> https://ivandemurard.com/
-https://www.ivandemurard.com/aetherix -> 302 -> https://ivandemurard.com/aetherix
-https://www.ivandemurard.com/sonor    -> 302 -> https://ivandemurard.com/sonor
-https://ivandemurard.com/             -> 200 OK
-```
+Current copy reads as a flat technical list ("Four intelligence layers in sequence: numerical forecasting (Prophet)..."). Rewrite it so each layer maps to a tangible GM outcome, keeps the human-in-the-loop framing, and ends on the MCP/WhatsApp delivery beat. No em-dashes (project rule).
 
-The site is served from the **apex** `ivandemurard.com`, but every canonical, OG URL, sitemap entry, JSON-LD `url`, and `llms.txt` link points to **`www.ivandemurard.com`**, which 302-redirects to the apex. Google therefore reports:
+Proposed copy (final wording open to your edit):
 
-- "Page avec redirection" for `/` (the canonical URL it was given is the one that redirects)
-- "Erreur liée à des redirections" for `/aetherix`, `/journeys`, `/journal`, `/tacet`, `/sonor`
-- "Détectée, actuellement non indexée" for the rest, because the sitemap advertises non-canonical (redirecting) URLs
+> Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. Qdrant matches today against 495+ past scenarios. pgvector remembers what worked in *your* hotel. Claude Sonnet turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over MCP.
 
-A secondary issue: `sitemap.xml` lists three `.md` files (`/aetherix.md`, `/sonor.md`, `/tacet.md`). These are not HTML pages and don't belong in the sitemap; they pollute indexing and dilute crawl budget.
+Rationale:
+- Verbs first ("forecasts / matches / remembers / turns") instead of nouns in parentheses.
+- Each layer answers "so what?" for a GM.
+- Closes on the unique moat: per-hotel memory + agent-callable.
+- Keeps technical names (Prophet, Qdrant, pgvector, Claude Sonnet, MCP) for credibility, but each is anchored to an outcome.
 
-## Fix
+Single-line edit, no structural change to the section.
 
-Pick the apex as the single canonical host (matches the 200 responses) and align everything to it. Code-level only, no infra changes required.
+## 2. Site-wide section TOC + back-to-top rail
 
-### 1. Switch canonical host from `www.` to apex
+Goal: on long pages (case studies, journal entries, about), let the reader (a) see where they are, (b) jump to a section, (c) return to top.
 
-Update every hardcoded `https://www.ivandemurard.com` to `https://ivandemurard.com` in:
+### Component to build
 
-- `src/components/Seo.tsx` — `SITE_URL` constant (drives canonical, og:url, twitter:url for every page)
-- `index.html` — `<link rel="canonical">` and `<meta property="og:url">`
-- `src/pages/Atherix.tsx` — JSON-LD `url`, creator `url`, `relatedLink`
-- `src/pages/Sonor.tsx` — JSON-LD `url`, creator `url`
-- `src/pages/Tacet.tsx` — JSON-LD `url`, creator `url`
-- `src/pages/Journeys.tsx` — JSON-LD `url`, all `CreativeWork` URLs
-- `src/pages/Contact.tsx` — JSON-LD `url`
-- `src/pages/JournalEntry.tsx` — JSON-LD author `url` and entry `url`
+`src/components/layout/SectionRail.tsx` (new). A fixed vertical rail, right side, desktop only (≥ lg). Hidden on mobile to preserve the editorial silence. It shows:
 
-### 2. Update sitemap and robots
+- A thin column of dots, one per section, with the active dot filled.
+- Section label revealed on hover (italic headline font, low-opacity surface chip).
+- A small "Top" affordance (arrow_upward icon) at the bottom that scrolls to top with `behavior: smooth` once the user has scrolled past ~600px.
 
-- `public/sitemap.xml` — rewrite all `<loc>` to apex; remove the three `.md` entries (not HTML, shouldn't be in a sitemap)
-- `public/robots.txt` — point `Sitemap:` to `https://ivandemurard.com/sitemap.xml`
+Behavior:
+- Accepts a prop `sections: { id: string; label: string }[]`.
+- Uses `IntersectionObserver` on the matching `#id` anchors to track the active section. Threshold tuned so the section in the upper third is considered active.
+- Click on a dot → `scrollIntoView({ behavior: "smooth", block: "start" })`.
+- Respects `prefers-reduced-motion`: disables smooth scroll.
+- Keyboard accessible: each dot is a `<button>` with `aria-label`, focus ring uses existing tokens.
 
-### 3. Update LLM/markdown surfaces for consistency
+Styling: uses semantic tokens only (`text-on-surface-variant`, `bg-surface/70`, `border-outline-variant/30`, secondary glow on active). Matches the glass-nav vocabulary already used in `AtriumHeader`.
 
-- `public/llms.txt` — site URL and three case study URLs to apex
-- `public/llms-full.txt` — all `ivandemurard.com` URLs to apex
-- `public/aetherix.md`, `public/sonor.md`, `public/tacet.md` — the `URL:` and any internal cross-links to apex
+### Where to mount it
 
-### 4. After deploy, in Google Search Console
+Add an optional `sections` prop to `SiteLayout` (`src/components/layout/SiteLayout.tsx`). When present, render `<SectionRail sections={...} />` next to `<main>`. When absent, layout renders unchanged.
 
-(User action, not code.) Set the apex as the preferred property if not already, and request re-indexing of the affected URLs. The 302 from `www` to apex is fine to keep; once Google's canonical signal is the apex, those redirect errors disappear. Upgrading the redirect from 302 to 301 in Cloudflare/hosting would be ideal long-term but is not required to clear the indexing errors.
+Pages to wire up in this pass:
+- `src/pages/Atherix.tsx` — sections: Hero, Vision, Operations Pipeline, Hive, Architecture, Economics, Why, Closing.
+- `src/pages/Tacet.tsx` — equivalent sections.
+- `src/pages/Sonor.tsx` — equivalent sections.
+- `src/pages/JournalEntry.tsx` — auto-extract h2s, or pass an explicit list.
+
+Each target section gets an `id="…"` and `scroll-mt-24` utility so anchored scroll lands below the fixed nav.
+
+Other pages (Index, Contact, Atrium, Journal index) are short; they get a simpler standalone **back-to-top** button only — same component, but rendered in "minimal" mode (`sections={[]}`), so only the top arrow appears after scroll.
+
+### Accessibility & polish
+- Rail is `aria-label="Section navigation"`, dots are `<button>` with `aria-current="true"` on active.
+- Reduced-motion fallback for both scroll and the dot's transition.
+- z-index below the header (`z-30`), above page content.
 
 ## Out of scope
-
-- No design changes, no route changes, no content changes
-- No change to where the site is actually hosted
-- No change to the cal.com, mailto, LinkedIn, or GitHub URLs (those legitimately use `www.linkedin.com` etc.)
+- No new icon library, no new dependency.
+- No copy changes outside the one paragraph in §1.
+- No mobile bottom-bar variant in this pass (can be a follow-up if you want it on phones).

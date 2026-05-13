@@ -116,8 +116,18 @@ const FAQ = [
   },
 ];
 
+const ATHERIX_SECTIONS = [
+  { id: "architecture", label: "Architecture" },
+  { id: "vision", label: "Vision" },
+  { id: "anticipation", label: "Anticipation" },
+  { id: "pipeline", label: "Pipeline" },
+  { id: "hive", label: "The Hive" },
+  { id: "economics", label: "Economics" },
+  { id: "contact", label: "Contact" },
+];
+
 const Atherix = () => (
-  <SiteLayout title="Aetherix: Boutique Hotel Operations AI">
+  <SiteLayout title="Aetherix: Boutique Hotel Operations AI" sections={ATHERIX_SECTIONS}>
     <Seo
       title="Aetherix, Agentic AI for Boutique Hotel Operations"
       description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience. Companion to Tacet, the external-context twin."
@@ -212,7 +222,7 @@ const Atherix = () => (
       <SectionDivider label="Architecture" index="01" />
 
       {/* Layer Architecture: Interface, Brain, Foundation */}
-      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+      <Reveal as="section" id="architecture" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
@@ -234,7 +244,7 @@ const Atherix = () => (
       <SectionDivider label="The Vision" index="02" />
 
       {/* The Vision */}
-      <section className="mb-12 md:mb-16 px-6 md:px-12">
+      <section id="vision" className="mb-12 md:mb-16 px-6 md:px-12 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-secondary/30 mix-blend-overlay" />
@@ -328,12 +338,12 @@ const Atherix = () => (
       </section>
 
       {/* Intelligent Anticipation */}
-      <Reveal as="section" className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden">
+      <Reveal as="section" id="anticipation" className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
           <div className="mb-16 md:mb-20">
             <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
             <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl text-lg">
-              Four intelligence layers in sequence: numerical forecasting (Prophet), semantic patterns (Qdrant, 495+ scenarios), cognitive memory (pgvector, per hotel feedback), and reasoning (Claude Sonnet). The result is a single recommendation, pushed when it matters, callable by other agents over MCP.
+              Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. Qdrant matches today against 495+ past scenarios. pgvector remembers what worked in <em className="italic">your</em> hotel. Claude Sonnet turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over MCP.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -400,7 +410,7 @@ const Atherix = () => (
       </Reveal>
 
       {/* The Agentic Operations Pipeline */}
-      <section className="py-20 md:py-32 px-6 md:px-12 bg-surface">
+      <section id="pipeline" className="py-20 md:py-32 px-6 md:px-12 bg-surface scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <h2 className="font-headline text-4xl md:text-6xl text-primary italic mb-6">
@@ -461,7 +471,7 @@ const Atherix = () => (
       </section>
 
       {/* The Hive Vision, the engine that powers the pipelines */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section id="hive" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
         <div className="max-w-screen-xl mx-auto text-center">
           <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The moat beneath the agents</span>
           <h2 className="font-headline text-4xl md:text-6xl text-primary italic mt-4 mb-10 leading-[1.05]">The Hive Vision</h2>
@@ -526,7 +536,7 @@ const Atherix = () => (
       </section>
 
       {/* The Economics of Anticipation, RaaS Ready */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section id="economics" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
             <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Economics</span>
@@ -597,7 +607,7 @@ const Atherix = () => (
       </section>
 
       {/* The Horizon */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section id="contact" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
         <div className="max-w-screen-xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-4xl text-primary italic mb-6">
             Curious to explore what this could look like for your hotel?

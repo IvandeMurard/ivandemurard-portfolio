@@ -2,15 +2,17 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { AtriumHeader } from "./AtriumHeader";
 import { Footer } from "./Footer";
+import { SectionRail, type RailSection } from "./SectionRail";
 import { PageLight } from "@/components/PageLight";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
 
 interface SiteLayoutProps {
   children: React.ReactNode;
   title?: string;
+  sections?: RailSection[];
 }
 
-export const SiteLayout = ({ children, title }: SiteLayoutProps) => {
+export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
   const { pathname } = useLocation();
   usePreviewMode();
 
@@ -33,6 +35,7 @@ export const SiteLayout = ({ children, title }: SiteLayoutProps) => {
       </a>
       <PageLight />
       <AtriumHeader />
+      <SectionRail sections={sections} />
       <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}
       </main>
@@ -42,3 +45,4 @@ export const SiteLayout = ({ children, title }: SiteLayoutProps) => {
 };
 
 export default SiteLayout;
+
