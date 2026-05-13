@@ -170,7 +170,7 @@ const Tacet = () => (
       <SectionDivider index="02" label="The Problem" spacing="tight" />
 
       {/* 2. The Problem */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-8 md:mb-10">
+      <section id="problem" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
             "Quiet room" is a subjective request.
