@@ -181,7 +181,7 @@ const Sonor = () => {
       </Reveal>
 
       {/* The Curiosity */}
-      <section className="py-16 md:py-28 bg-surface-container-low">
+      <section id="curiosity" className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12 md:gap-20">
             <div className="w-full md:w-1/3">
