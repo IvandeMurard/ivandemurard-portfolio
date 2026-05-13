@@ -265,7 +265,7 @@ const Tacet = () => (
       <SectionDivider index="04" label="Synergy" />
 
       {/* 4. Synergy with Aetherix */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24">
+      <section id="synergy" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-16">
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Tacet and Aetherix</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
