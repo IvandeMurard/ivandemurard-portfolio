@@ -358,7 +358,7 @@ const Sonor = () => {
       </section>
 
       {/* Explore the platform */}
-      <section className="py-16 md:py-28 bg-surface-container-low">
+      <section id="platform" className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Explore the Platform</h2>
