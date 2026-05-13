@@ -32,4 +32,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://www.ivandemurard.com/sitemap.xml
+Sitemap: https://ivandemurard.com/sitemap.xml

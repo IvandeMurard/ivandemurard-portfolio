@@ -126,9 +126,9 @@ const Sonor = () => {
         "@type": "CreativeWork",
         name: "Sonor",
         headline: "Sonor: The Quiet Art of Urban Intelligence",
-        url: "https://www.ivandemurard.com/sonor",
+        url: "https://ivandemurard.com/sonor",
         about: ["Urban Noise", "Open Data", "Public Sector SaaS"],
-        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://www.ivandemurard.com" },
+        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
         dateCreated: "2020-01-01",
       }}
     />

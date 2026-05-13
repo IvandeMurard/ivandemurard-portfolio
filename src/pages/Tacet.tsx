@@ -78,8 +78,8 @@ const Tacet = () => (
         name: "Tacet",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web, API",
-        url: "https://www.ivandemurard.com/tacet",
-        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://www.ivandemurard.com" },
+        url: "https://ivandemurard.com/tacet",
+        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
       }}
     />
     <div className="pt-32">

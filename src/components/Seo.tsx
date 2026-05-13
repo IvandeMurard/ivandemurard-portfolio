@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const SITE_URL = "https://www.ivandemurard.com";
+const SITE_URL = "https://ivandemurard.com";
 const DEFAULT_OG = `${SITE_URL}/og/ivan-default.jpg`;
 
 type SeoProps = {

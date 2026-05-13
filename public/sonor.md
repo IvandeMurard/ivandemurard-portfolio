@@ -2,7 +2,7 @@
 
 B2G SaaS that turned acoustic open data into a decision tool for European cities. Used by municipalities to protect acoustic health, drive sustainability policy, and increase territorial attractiveness.
 
-- URL: https://www.ivandemurard.com/sonor
+- URL: https://ivandemurard.com/sonor
 - Role: Co-founder and Product Lead
 - Duration: 2 years, 2020 to 2022
 - Team: 4 co-founders plus 1 developer
@@ -38,6 +38,6 @@ Noise is the second environmental cause of disease burden in Europe after air qu
 Tacet is the B2C derivative, putting the same data lineage into the hands of individual residents.
 
 ## Links
-- Case study: https://www.ivandemurard.com/sonor
-- Tacet (consumer derivative): https://www.ivandemurard.com/tacet
+- Case study: https://ivandemurard.com/sonor
+- Tacet (consumer derivative): https://ivandemurard.com/tacet
 - Contact: ivandemurard@gmail.com
