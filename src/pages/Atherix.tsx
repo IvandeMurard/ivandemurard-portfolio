@@ -13,6 +13,9 @@ import toniPortrait from "@/assets/toni-stoeckl.webp";
 import aviPortrait from "@/assets/avi-brosh.webp";
 import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchitectureDiagram";
 import { AetherixHorizonIllustration } from "@/components/atherix/AetherixHorizonIllustration";
+import { AetherixLayerStack } from "@/components/atherix/AetherixLayerStack";
+import { AetherixHiveStanzas } from "@/components/atherix/AetherixHiveStanzas";
+import { AnticipationCeiling } from "@/components/atherix/AnticipationCeiling";
 
 const PIPELINE = [
   { icon: "dns", title: "Apaleo PMS", sub: "" },
