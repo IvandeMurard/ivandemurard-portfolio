@@ -115,7 +115,7 @@ const Sonor = () => {
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
 
   return (
-  <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence">
+  <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS}>
     <Seo
       title="Sonor, Urban Noise Intelligence for Cities"
       description="Sonor turned open data into a B2G SaaS used by municipalities to map urban noise, protect acoustic health and drive sustainability policies. Two-year journey as Co-founder and Product Lead, 2020 to 2022."
