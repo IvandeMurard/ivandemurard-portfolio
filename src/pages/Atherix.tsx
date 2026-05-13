@@ -234,7 +234,7 @@ const Atherix = () => (
       <SectionDivider label="The Vision" index="02" />
 
       {/* The Vision */}
-      <section className="mb-12 md:mb-16 px-6 md:px-12">
+      <section id="vision" className="mb-12 md:mb-16 px-6 md:px-12 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-secondary/30 mix-blend-overlay" />
