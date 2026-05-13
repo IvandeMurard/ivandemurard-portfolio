@@ -361,7 +361,7 @@ const Tacet = () => (
       <SectionDivider spacing="tight" />
 
       {/* FAQ */}
-      <section className="px-6 md:px-12 max-w-3xl mx-auto mb-16 md:mb-24">
+      <section id="faq" className="px-6 md:px-12 max-w-3xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <h3 className="font-headline text-2xl md:text-3xl italic text-primary mb-12 text-center">
           Frequently Asked Questions
         </h3>
