@@ -80,18 +80,29 @@ const Tacet = () => (
   <SiteLayout title="Tacet: The Synthetic Acoustic Twin" sections={TACET_SECTIONS}>
     <Seo
       title="Tacet, Synthetic Acoustic Twin for Hospitality"
-      description="Tacet is a proactive, headless intelligence layer for hotels. It predicts the impact of the external acoustic environment on revenue and guest experience, pushing JSON alerts to RMS and PMS."
+      description="Headless intelligence layer for hotels. Predicts how the external acoustic environment affects revenue and guest experience, alerts RMS and PMS."
       path="/tacet"
       type="article"
-      jsonLd={{
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        name: "Tacet",
-        applicationCategory: "BusinessApplication",
-        operatingSystem: "Web, API",
-        url: "https://ivandemurard.com/tacet",
-        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
-      }}
+      jsonLd={[
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "Tacet",
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web, API",
+          url: "https://ivandemurard.com/tacet",
+          creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        },
+      ]}
     />
     <div className="pt-32">
       {/* Hero */}

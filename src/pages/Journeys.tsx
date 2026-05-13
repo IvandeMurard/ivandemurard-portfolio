@@ -61,7 +61,7 @@ const Journeys = () => (
   <SiteLayout title="Stories">
     <Seo
       title="Case Studies, Selected Work by Ivan de Murard"
-      description="Selected case studies: Aetherix (agentic AI for boutique hotels), Sonor (urban noise SaaS for cities), Tacet (Paris noise app). Product, design and AI work shipped 0 to 1."
+      description="Case studies: Aetherix (agentic AI for boutique hotels), Sonor (urban noise SaaS), Tacet (acoustic twin). Product and AI work shipped 0 to 1."
       path="/journeys"
       jsonLd={{
         "@context": "https://schema.org",
