@@ -387,7 +387,7 @@ const Sonor = () => {
       </section>
 
       {/* Stakeholders */}
-      <section className="py-16 md:py-28 bg-surface">
+      <section id="stakeholders" className="py-16 md:py-28 bg-surface scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">What Stakeholders Said</h2>
