@@ -376,7 +376,7 @@ const Tacet = () => (
       </section>
 
       {/* Closing CTA */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-surface-container-high">
+      <section id="contact" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-surface-container-high scroll-mt-24">
         <div className="max-w-4xl">
           <h2 className="font-headline text-4xl md:text-7xl italic text-primary mb-12 leading-tight">
             Interested in proactive intelligence for hotel operations?
