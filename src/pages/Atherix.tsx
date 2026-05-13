@@ -261,8 +261,14 @@ const Atherix = () => (
               loading="lazy"
               className="kenburns w-full h-full object-cover opacity-60"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent" />
             <div className="absolute inset-0 flex items-center justify-center text-center">
-              <h2 className="font-headline text-3xl md:text-5xl text-surface-bright italic">The Vision</h2>
+              <h2
+                className="font-headline text-3xl md:text-5xl text-on-primary italic"
+                style={{ textShadow: "0 2px 24px hsl(var(--primary) / 0.7)" }}
+              >
+                The Vision
+              </h2>
             </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
