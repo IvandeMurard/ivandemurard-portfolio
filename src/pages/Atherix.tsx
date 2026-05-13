@@ -328,7 +328,7 @@ const Atherix = () => (
       </section>
 
       {/* Intelligent Anticipation */}
-      <Reveal as="section" className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden">
+      <Reveal as="section" id="anticipation" className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
           <div className="mb-16 md:mb-20">
             <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
