@@ -526,7 +526,7 @@ const Atherix = () => (
       </section>
 
       {/* The Economics of Anticipation, RaaS Ready */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section id="economics" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
             <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Economics</span>
