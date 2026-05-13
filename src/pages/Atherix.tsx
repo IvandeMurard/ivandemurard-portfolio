@@ -415,11 +415,31 @@ const Atherix = () => (
             {PIPELINE_CARDS.map((c) => (
               <div
                 key={c.title}
-                className="lift-card bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md"
+                tabIndex={0}
+                className="group relative lift-card bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 overflow-hidden"
               >
+                <span
+                  aria-hidden="true"
+                  className="absolute left-8 md:left-12 top-0 h-px w-8 bg-gradient-to-r from-secondary-fixed-dim to-transparent transition-all duration-700 ease-out group-hover:w-2/3 group-focus-visible:w-2/3"
+                />
+                <span className="absolute top-6 right-6 md:top-8 md:right-8 font-label uppercase tracking-[0.2em] text-[9px] text-secondary opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500">
+                  → recommends
+                </span>
                 <Icon name={c.icon} className="text-secondary text-3xl mb-6 block" />
                 <h3 className="font-headline text-2xl md:text-3xl text-primary mb-4">{c.title}</h3>
                 <p className="text-on-surface-variant text-lg leading-relaxed">{c.body}</p>
+                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
+                  <div className="overflow-hidden">
+                    <div className="pt-6 mt-6 border-t border-secondary-fixed-dim/40">
+                      <p className="font-headline italic text-base md:text-lg text-primary leading-snug">
+                        {c.outcome}
+                      </p>
+                      <p className="font-label uppercase tracking-[0.2em] text-[9px] text-secondary mt-3">
+                        Human in the loop
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
