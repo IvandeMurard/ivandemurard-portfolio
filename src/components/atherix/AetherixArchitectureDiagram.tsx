@@ -27,7 +27,7 @@ export const AetherixArchitectureDiagram = () => {
   ];
   const delivery = [
     { icon: "chat", title: "WhatsApp push" },
-    { icon: "dashboard", title: "Next.js verification" },
+    { icon: "task_alt", title: "One-tap human approval" },
   ];
 
   return (

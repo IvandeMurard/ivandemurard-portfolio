@@ -13,14 +13,9 @@ import toniPortrait from "@/assets/toni-stoeckl.webp";
 import aviPortrait from "@/assets/avi-brosh.webp";
 import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchitectureDiagram";
 import { AetherixHorizonIllustration } from "@/components/atherix/AetherixHorizonIllustration";
-
-const PIPELINE = [
-  { icon: "dns", title: "Apaleo PMS", sub: "" },
-  { icon: "monitoring", title: "Forecasting", sub: "Prophet" },
-  { icon: "psychology", title: "Semantic Reasoning", sub: "RAG + Claude Sonnet" },
-  { icon: "hub", title: "Contextual Agent", sub: "MCP Callable" },
-  { icon: "chat", title: "WhatsApp Push", sub: "To Team" },
-];
+import { AetherixLayerStack } from "@/components/atherix/AetherixLayerStack";
+import { AetherixHiveStanzas } from "@/components/atherix/AetherixHiveStanzas";
+import { AnticipationCeiling } from "@/components/atherix/AnticipationCeiling";
 
 const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (side project)" },
@@ -75,22 +70,26 @@ const PIPELINE_CARDS = [
   {
     icon: "group_add",
     title: "Staffing Forecasts",
-    body: "Intelligent shift optimization based on predicted occupancy, local events, and historical labor utilization patterns.",
+    body: "Reads tonight's occupancy and tomorrow's local events, then proposes a shift grid.",
+    outcome: "Reads occupancy and upcoming events, suggests the shift grid, the team validates.",
   },
   {
     icon: "restaurant",
     title: "F&B Preparation",
-    body: "Dynamic inventory planning and food preparation guidelines to match anticipated guest dining intent.",
+    body: "Estimates tomorrow's covers and the prep quantities to match anticipated guest dining intent.",
+    outcome: "Estimates tomorrow's covers, suggests prep quantities, the chef confirms.",
   },
   {
     icon: "notifications_active",
     title: "Proactive Push",
-    body: "Context-aware recommendations delivered directly to team members via WhatsApp exactly when action is needed.",
+    body: "Context-aware recommendations delivered to the team where they already work.",
+    outcome: "Lands the recommendation in WhatsApp with one tap to accept, adjust, or override.",
   },
   {
     icon: "eco",
     title: "Food Waste Reduction",
-    body: "Measurable reduction of food waste and overarching operational costs through precise algorithmic anticipation.",
+    body: "Surfaces over-ordering risk before it ships, with the historical signals that triggered the flag.",
+    outcome: "Spots the over-order before purchase, alerts the team, the manager decides.",
   },
 ];
 
@@ -194,37 +193,45 @@ const Atherix = () => (
         </div>
       </section>
 
-      <SectionDivider label="How Aetherix Works" />
-
-      {/* How Aetherix Works, pipeline */}
+      {/* Glue, not Replacement, single editorial line */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between relative px-4 md:px-8 py-8 md:py-10 border border-outline-variant/20 rounded-3xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm gap-6 md:gap-0">
-            {PIPELINE.map((step, i) => (
-              <div key={step.title} className="contents md:contents">
-                <div data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 80}ms` }} className="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/5 py-2">
-                  <div className="w-16 h-16 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shadow-sm">
-                    <Icon name={step.icon} className="text-outline text-2xl" />
-                  </div>
-                  <div className="text-center bg-surface-container-lowest/90 px-4 py-3 rounded-xl backdrop-blur-md shadow-sm border border-outline-variant/10">
-                    <h5 className="font-headline text-lg md:text-xl italic text-primary">{step.title}</h5>
-                    {step.sub && (
-                      <p className="text-[10px] uppercase tracking-widest text-secondary mt-1">{step.sub}</p>
-                    )}
-                  </div>
-                </div>
-                {i < PIPELINE.length - 1 && (
-                  <Icon
-                    name="arrow_forward"
-                    className="hidden md:inline-block text-outline-variant/60 relative z-10 px-2"
-                  />
-                )}
-              </div>
-            ))}
+        <div className="max-w-screen-2xl mx-auto">
+          <div
+            data-reveal-child
+            className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 text-center"
+          >
+            <span className="font-headline italic text-lg md:text-2xl text-primary">Zero training required</span>
+            <span aria-hidden="true" className="hidden md:inline-block w-10 h-px bg-secondary-fixed-dim/60" />
+            <span className="font-headline italic text-lg md:text-2xl text-primary">Zero new tab</span>
+            <span aria-hidden="true" className="hidden md:inline-block w-10 h-px bg-secondary-fixed-dim/60" />
+            <span className="font-headline italic text-lg md:text-2xl text-primary">5 minute integration</span>
           </div>
         </div>
       </Reveal>
-      <SectionDivider label="The Vision" />
+
+      <SectionDivider label="Architecture" index="01" />
+
+      {/* Layer Architecture: Interface, Brain, Foundation */}
+      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              An extension of the team's brain, not a new tool to learn.
+            </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "180ms" }}
+              className="text-on-surface-variant mt-6 leading-relaxed"
+            >
+              Three layers, one promise: intelligence flows where the team already works, the human stays in the loop,
+              the network remembers.
+            </p>
+          </div>
+          <AetherixLayerStack />
+        </div>
+      </Reveal>
+
+      <SectionDivider label="The Vision" index="02" />
 
       {/* The Vision */}
       <section className="mb-12 md:mb-16 px-6 md:px-12">
@@ -266,7 +273,7 @@ const Atherix = () => (
                   <div className="flex items-start gap-6">
                     <Icon name="chat_bubble" className="text-secondary" />
                     <div>
-                      <h4 className="font-bold text-primary mb-2">Zero-UI Interfaces</h4>
+                      <h4 className="font-bold text-primary mb-2">Zero-UI Action Layer</h4>
                       <p className="text-sm text-on-surface-variant">
                         Interactions that feel natural and invisible, occurring exactly when and where they are needed.
                       </p>
@@ -351,6 +358,9 @@ const Atherix = () => (
         </div>
       </Reveal>
 
+      {/* The Hive, scaling soul through collective intelligence */}
+      <AetherixHiveStanzas />
+
       {/* Quote 1 */}
       <section className="py-20 md:py-24 px-6 md:px-12">
         <div className="max-w-5xl mx-auto bg-surface-container-low p-8 md:p-12 rounded-3xl text-center shadow-sm">
@@ -405,11 +415,31 @@ const Atherix = () => (
             {PIPELINE_CARDS.map((c) => (
               <div
                 key={c.title}
-                className="lift-card bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md"
+                tabIndex={0}
+                className="group relative lift-card bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 overflow-hidden"
               >
+                <span
+                  aria-hidden="true"
+                  className="absolute left-8 md:left-12 top-0 h-px w-8 bg-gradient-to-r from-secondary-fixed-dim to-transparent transition-all duration-700 ease-out group-hover:w-2/3 group-focus-visible:w-2/3"
+                />
+                <span className="absolute top-6 right-6 md:top-8 md:right-8 font-label uppercase tracking-[0.2em] text-[9px] text-secondary opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500">
+                  → recommends
+                </span>
                 <Icon name={c.icon} className="text-secondary text-3xl mb-6 block" />
                 <h3 className="font-headline text-2xl md:text-3xl text-primary mb-4">{c.title}</h3>
                 <p className="text-on-surface-variant text-lg leading-relaxed">{c.body}</p>
+                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
+                  <div className="overflow-hidden">
+                    <div className="pt-6 mt-6 border-t border-secondary-fixed-dim/40">
+                      <p className="font-headline italic text-base md:text-lg text-primary leading-snug">
+                        {c.outcome}
+                      </p>
+                      <p className="font-label uppercase tracking-[0.2em] text-[9px] text-secondary mt-3">
+                        Human in the loop
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -425,6 +455,106 @@ const Atherix = () => (
                 <p className="font-bold text-primary">Avi Brosh</p>
                 <p className="text-xs text-on-surface-variant">Founder, Palisociety (Roadbook)</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Hive Vision, the engine that powers the pipelines */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+        <div className="max-w-screen-xl mx-auto text-center">
+          <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The moat beneath the agents</span>
+          <h2 className="font-headline text-4xl md:text-6xl text-primary italic mt-4 mb-10 leading-[1.05]">The Hive Vision</h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-10">
+            Anonymous peer metadata, shared anticipation, no shared data. The pipelines above run on this collective memory.
+          </p>
+          <AetherixHorizonIllustration />
+          <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-3xl mx-auto leading-relaxed flex flex-col gap-6 mt-8">
+            <p>
+              Each property keeps its own memory, while contributing anonymous signals to a shared layer. Independent operators gain the anticipation that, until now, only the largest groups could afford.
+            </p>
+            <p className="font-headline italic text-primary text-2xl md:text-3xl pt-4">
+              From reactive operations to invisible, self-improving intelligence.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Aetherix, Glue not Replacement */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
+            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Strategy</span>
+            <h2 className="font-headline italic text-4xl md:text-5xl text-primary mt-4 leading-tight">
+              Glue, not replacement.
+            </h2>
+            <p className="text-on-surface-variant mt-6 leading-relaxed">
+              Aetherix is not another dashboard to open. It is the connective tissue between the systems your team already uses.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+            {[
+              {
+                num: "01",
+                title: "Zero training required",
+                body: "Aetherix operates through WhatsApp and native PMS task lists. The team does not learn a new interface. Onboarding takes minutes, not weeks.",
+              },
+              {
+                num: "02",
+                title: "Eliminate tech fatigue",
+                body: "We do not add a new tab to the browser. We add intelligence to the ones already open.",
+              },
+              {
+                num: "03",
+                title: "Low-churn infrastructure",
+                body: "By acting as the glue between disparate legacy systems, Aetherix becomes part of the operational nervous system, not a disposable add-on.",
+              },
+            ].map((card) => (
+              <div
+                key={card.num}
+                className="lift-card bg-surface-container-low border border-outline-variant/20 rounded-3xl p-8 md:p-10"
+              >
+                <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">{card.num}</span>
+                <h3 className="font-headline italic text-2xl md:text-3xl text-primary mt-4 mb-4 leading-tight">
+                  {card.title}
+                </h3>
+                <p className="text-on-surface-variant leading-relaxed">{card.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Economics of Anticipation, RaaS Ready */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
+            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Economics</span>
+            <h2 className="font-headline italic text-4xl md:text-5xl text-primary mt-4 leading-tight">
+              The Economics of Anticipation.
+            </h2>
+            <p className="text-on-surface-variant mt-6 leading-relaxed">
+              Results-as-a-Service. Aligned incentives, measurable outcomes.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-6xl mx-auto">
+            <div>
+              <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">Results as a Service</span>
+              <h3 className="font-headline italic text-2xl md:text-3xl text-primary mt-4 mb-5 leading-tight">
+                We win when you win.
+              </h3>
+              <p className="text-on-surface-variant leading-relaxed">
+                Aetherix does not sell analytics. It drives RevPAR and reduces labour waste through agentic anticipation. Pricing follows outcomes, not seats.
+              </p>
+            </div>
+            <div className="bg-surface-container-low border border-outline-variant/20 rounded-3xl p-8 md:p-10">
+              <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">The Anticipation Ceiling</span>
+              <div className="my-6">
+                <AnticipationCeiling />
+              </div>
+              <p className="text-on-surface-variant leading-relaxed">
+                Legacy systems record what happened. Aetherix anticipates what is next, turning expressed and unexpressed wishes into direct revenue.
+              </p>
             </div>
           </div>
         </div>
@@ -467,40 +597,35 @@ const Atherix = () => (
       </section>
 
       {/* The Horizon */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
         <div className="max-w-screen-xl mx-auto text-center">
-          <AetherixHorizonIllustration />
-          <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-12">The Horizon</h2>
-          <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-4xl mx-auto leading-relaxed flex flex-col gap-6">
-            <p>
-              Aetherix anchors the internal layer, Tacet the external one. Together they form a single predictive digital twin where specialised agents detect opportunities in real time, orchestrate workflows, and continuously optimise experiences, with humans firmly in the loop for strategic direction.
-            </p>
-            <p>This is how we move from reactive operations to invisible, self-improving intelligence.</p>
-            <p>Curious to explore what this could look like for your hotel or product vision?</p>
-          </div>
-          <div className="mt-16 md:mt-24 pt-12 md:pt-16 border-t border-outline-variant/20 flex flex-col items-center">
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16">
-              <a
-                href={SOCIAL_LINKS.email}
-                className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
-              >
-                Email me
-              </a>
-              <a
-                href={SOCIAL_LINKS.schedule}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
-              >
-                Schedule a conversation
-              </a>
-              <Link
-                to="/contact"
-                className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
-              >
-                Begin a journey
-              </Link>
-            </div>
+          <h2 className="font-headline text-3xl md:text-4xl text-primary italic mb-6">
+            Curious to explore what this could look like for your hotel?
+          </h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-12">
+            Aetherix is in validation. Pilots and product conversations are open.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16">
+            <a
+              href={SOCIAL_LINKS.email}
+              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+            >
+              Email me
+            </a>
+            <a
+              href={SOCIAL_LINKS.schedule}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+            >
+              Schedule a conversation
+            </a>
+            <Link
+              to="/contact"
+              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+            >
+              Begin a journey
+            </Link>
           </div>
         </div>
       </section>
