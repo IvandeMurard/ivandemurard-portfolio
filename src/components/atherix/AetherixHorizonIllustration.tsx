@@ -9,7 +9,7 @@ export const AetherixHorizonIllustration = () => (
       viewBox="0 0 800 400"
       className="absolute inset-0 w-full h-full"
       role="img"
-      aria-label="Aetherix horizon: three phases of an agentic operations mesh"
+      aria-label="The Hive Vision: three phases of a shared anticipation mesh"
     >
       {/* Horizon line */}
       <line
@@ -38,8 +38,8 @@ export const AetherixHorizonIllustration = () => (
         fill="hsl(var(--secondary))"
       >
         <text x="400" y="195" textAnchor="middle">PHASE 1 · SANDBOX</text>
-        <text x="400" y="115" textAnchor="middle">PHASE 2 · PILOT</text>
-        <text x="400" y="40" textAnchor="middle">PHASE 3 · HIVE MEMORY</text>
+        <text x="400" y="115" textAnchor="middle">PHASE 2 · PILOT NETWORK</text>
+        <text x="400" y="40" textAnchor="middle">PHASE 3 · THE HIVE MEMORY</text>
       </g>
 
       {/* Orbiting agent dots */}
@@ -68,7 +68,7 @@ export const AetherixHorizonIllustration = () => (
         fontSize="14"
         fill="hsl(var(--primary))"
       >
-        Aetherix
+        The Hive
       </text>
     </svg>
   </div>
