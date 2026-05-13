@@ -411,7 +411,7 @@ const Sonor = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant/20">
+      <section id="faq" className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant/20 scroll-mt-24">
         <div className="px-6 md:px-12 max-w-3xl mx-auto space-y-12 md:space-y-16">
           <h2 className="text-3xl md:text-4xl font-headline italic text-primary text-center">
             Frequently Asked Questions
