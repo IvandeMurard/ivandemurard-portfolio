@@ -273,7 +273,7 @@ const Atherix = () => (
                   <div className="flex items-start gap-6">
                     <Icon name="chat_bubble" className="text-secondary" />
                     <div>
-                      <h4 className="font-bold text-primary mb-2">Zero-UI Interfaces</h4>
+                      <h4 className="font-bold text-primary mb-2">Zero-UI Action Layer</h4>
                       <p className="text-sm text-on-surface-variant">
                         Interactions that feel natural and invisible, occurring exactly when and where they are needed.
                       </p>
