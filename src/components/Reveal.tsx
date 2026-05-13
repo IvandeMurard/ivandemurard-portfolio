@@ -6,13 +6,14 @@ interface RevealProps {
   as?: ElementType;
   className?: string;
   threshold?: number;
+  id?: string;
 }
 
-export const Reveal = ({ children, as, className, threshold = 0.15 }: RevealProps) => {
+export const Reveal = ({ children, as, className, threshold = 0.15, id }: RevealProps) => {
   const Tag = (as ?? "div") as ElementType;
   const ref = useReveal<HTMLElement>(threshold);
   return (
-    <Tag ref={ref} data-reveal className={className}>
+    <Tag ref={ref} id={id} data-reveal className={className}>
       {children}
     </Tag>
   );
