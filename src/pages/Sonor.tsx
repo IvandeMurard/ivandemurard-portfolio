@@ -128,19 +128,30 @@ const Sonor = () => {
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS}>
     <Seo
       title="Sonor, Urban Noise Intelligence for Cities"
-      description="Sonor turned open data into a B2G SaaS used by municipalities to map urban noise, protect acoustic health and drive sustainability policies. Two-year journey as Co-founder and Product Lead, 2020 to 2022."
+      description="B2G SaaS turning open data into urban noise maps for municipalities. Co-founder and Product Lead, 2020 to 2022."
       path="/sonor"
       type="article"
-      jsonLd={{
-        "@context": "https://schema.org",
-        "@type": "CreativeWork",
-        name: "Sonor",
-        headline: "Sonor: The Quiet Art of Urban Intelligence",
-        url: "https://ivandemurard.com/sonor",
-        about: ["Urban Noise", "Open Data", "Public Sector SaaS"],
-        creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
-        dateCreated: "2020-01-01",
-      }}
+      jsonLd={[
+        {
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: "Sonor",
+          headline: "Sonor: The Quiet Art of Urban Intelligence",
+          url: "https://ivandemurard.com/sonor",
+          about: ["Urban Noise", "Open Data", "Public Sector SaaS"],
+          creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
+          dateCreated: "2020-01-01",
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        },
+      ]}
     />
     <div className="pt-32">
       {/* Hero */}

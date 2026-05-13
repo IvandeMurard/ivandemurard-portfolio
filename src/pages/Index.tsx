@@ -76,7 +76,7 @@ const Index = () => {
     <Seo
       title="Ivan de Murard, Product Builder in Paris"
       rawTitle
-      description="Product builder based in Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding a SaaS. Designs from operational experience, ships with AI, keeps the human at the center."
+      description="Product builder in Paris. 5 years across start-ups, scale-ups and large groups, plus 2 years co-founding a SaaS. Designs from ops, ships with AI."
       path="/"
       jsonLd={[
         personJsonLd,

@@ -130,25 +130,32 @@ const Atherix = () => (
   <SiteLayout title="Aetherix: Boutique Hotel Operations AI" sections={ATHERIX_SECTIONS}>
     <Seo
       title="Aetherix, Agentic AI for Boutique Hotel Operations"
-      description="Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs, reduces food waste and operational costs, and frees teams to focus on guest experience. Companion to Tacet, the external-context twin."
+      description="Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs, cuts food waste and costs, frees teams for guest experience."
       path="/aetherix"
       type="article"
-      jsonLd={{
-        "@context": "https://schema.org",
-        "@type": "CreativeWork",
-        name: "Aetherix",
-        headline: "Aetherix: A new operating layer for boutique hotels",
-        url: "https://ivandemurard.com/aetherix",
-        about: ["Agentic AI", "Hospitality Operations", "Boutique Hotels"],
-        creator: {
-          "@type": "Person",
-          name: "Ivan de Murard",
-          url: "https://ivandemurard.com",
+      jsonLd={[
+        {
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: "Aetherix",
+          headline: "Aetherix: A new operating layer for boutique hotels",
+          url: "https://ivandemurard.com/aetherix",
+          about: ["Agentic AI", "Hospitality Operations", "Boutique Hotels"],
+          creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
+          dateCreated: "2026-01-01",
+          codeRepository: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B",
+          relatedLink: ["https://ivandemurard.com/tacet"],
         },
-        dateCreated: "2026-01-01",
-        codeRepository: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B",
-        relatedLink: ["https://ivandemurard.com/tacet"],
-      }}
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        },
+      ]}
     />
     <div className="pt-32">
       {/* Hero */}
