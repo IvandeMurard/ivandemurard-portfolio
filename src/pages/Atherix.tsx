@@ -201,37 +201,45 @@ const Atherix = () => (
         </div>
       </section>
 
-      <SectionDivider label="How Aetherix Works" />
-
-      {/* How Aetherix Works, pipeline */}
+      {/* Glue, not Replacement, single editorial line */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between relative px-4 md:px-8 py-8 md:py-10 border border-outline-variant/20 rounded-3xl bg-surface-container-lowest/80 backdrop-blur-md shadow-sm gap-6 md:gap-0">
-            {PIPELINE.map((step, i) => (
-              <div key={step.title} className="contents md:contents">
-                <div data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 80}ms` }} className="flex flex-col items-center gap-4 relative z-10 w-full md:w-1/5 py-2">
-                  <div className="w-16 h-16 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shadow-sm">
-                    <Icon name={step.icon} className="text-outline text-2xl" />
-                  </div>
-                  <div className="text-center bg-surface-container-lowest/90 px-4 py-3 rounded-xl backdrop-blur-md shadow-sm border border-outline-variant/10">
-                    <h5 className="font-headline text-lg md:text-xl italic text-primary">{step.title}</h5>
-                    {step.sub && (
-                      <p className="text-[10px] uppercase tracking-widest text-secondary mt-1">{step.sub}</p>
-                    )}
-                  </div>
-                </div>
-                {i < PIPELINE.length - 1 && (
-                  <Icon
-                    name="arrow_forward"
-                    className="hidden md:inline-block text-outline-variant/60 relative z-10 px-2"
-                  />
-                )}
-              </div>
-            ))}
+        <div className="max-w-screen-2xl mx-auto">
+          <div
+            data-reveal-child
+            className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 text-center"
+          >
+            <span className="font-headline italic text-lg md:text-2xl text-primary">Zero training required</span>
+            <span aria-hidden="true" className="hidden md:inline-block w-10 h-px bg-secondary-fixed-dim/60" />
+            <span className="font-headline italic text-lg md:text-2xl text-primary">Zero new tab</span>
+            <span aria-hidden="true" className="hidden md:inline-block w-10 h-px bg-secondary-fixed-dim/60" />
+            <span className="font-headline italic text-lg md:text-2xl text-primary">5 minute integration</span>
           </div>
         </div>
       </Reveal>
-      <SectionDivider label="The Vision" />
+
+      <SectionDivider label="Architecture" index="01" />
+
+      {/* Layer Architecture: Interface, Brain, Foundation */}
+      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              An extension of the team's brain, not a new tool to learn.
+            </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "180ms" }}
+              className="text-on-surface-variant mt-6 leading-relaxed"
+            >
+              Three layers, one promise: intelligence flows where the team already works, the human stays in the loop,
+              the network remembers.
+            </p>
+          </div>
+          <AetherixLayerStack />
+        </div>
+      </Reveal>
+
+      <SectionDivider label="The Vision" index="02" />
 
       {/* The Vision */}
       <section className="mb-12 md:mb-16 px-6 md:px-12">
