@@ -212,7 +212,7 @@ const Sonor = () => {
       </section>
 
       {/* The Hypothesis (Figma prototype) */}
-      <section className="py-16 md:py-28 bg-surface">
+      <section id="hypothesis" className="py-16 md:py-28 bg-surface scroll-mt-24">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
             The Hypothesis
