@@ -597,40 +597,35 @@ const Atherix = () => (
       </section>
 
       {/* The Horizon */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
         <div className="max-w-screen-xl mx-auto text-center">
-          <AetherixHorizonIllustration />
-          <h2 className="font-headline text-4xl md:text-5xl text-primary italic mb-12">The Horizon</h2>
-          <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-4xl mx-auto leading-relaxed flex flex-col gap-6">
-            <p>
-              Aetherix anchors the internal layer, Tacet the external one. Together they form a single predictive digital twin where specialised agents detect opportunities in real time, orchestrate workflows, and continuously optimise experiences, with humans firmly in the loop for strategic direction.
-            </p>
-            <p>This is how we move from reactive operations to invisible, self-improving intelligence.</p>
-            <p>Curious to explore what this could look like for your hotel or product vision?</p>
-          </div>
-          <div className="mt-16 md:mt-24 pt-12 md:pt-16 border-t border-outline-variant/20 flex flex-col items-center">
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16">
-              <a
-                href={SOCIAL_LINKS.email}
-                className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
-              >
-                Email me
-              </a>
-              <a
-                href={SOCIAL_LINKS.schedule}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
-              >
-                Schedule a conversation
-              </a>
-              <Link
-                to="/contact"
-                className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
-              >
-                Begin a journey
-              </Link>
-            </div>
+          <h2 className="font-headline text-3xl md:text-4xl text-primary italic mb-6">
+            Curious to explore what this could look like for your hotel?
+          </h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-12">
+            Aetherix is in validation. Pilots and product conversations are open.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16">
+            <a
+              href={SOCIAL_LINKS.email}
+              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+            >
+              Email me
+            </a>
+            <a
+              href={SOCIAL_LINKS.schedule}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+            >
+              Schedule a conversation
+            </a>
+            <Link
+              to="/contact"
+              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+            >
+              Begin a journey
+            </Link>
           </div>
         </div>
       </section>
