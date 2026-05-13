@@ -212,7 +212,7 @@ const Atherix = () => (
       <SectionDivider label="Architecture" index="01" />
 
       {/* Layer Architecture: Interface, Brain, Foundation */}
-      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+      <Reveal as="section" id="architecture" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
