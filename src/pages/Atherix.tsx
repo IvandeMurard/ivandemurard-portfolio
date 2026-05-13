@@ -78,22 +78,26 @@ const PIPELINE_CARDS = [
   {
     icon: "group_add",
     title: "Staffing Forecasts",
-    body: "Intelligent shift optimization based on predicted occupancy, local events, and historical labor utilization patterns.",
+    body: "Reads tonight's occupancy and tomorrow's local events, then proposes a shift grid.",
+    outcome: "Reads occupancy and upcoming events, suggests the shift grid, the team validates.",
   },
   {
     icon: "restaurant",
     title: "F&B Preparation",
-    body: "Dynamic inventory planning and food preparation guidelines to match anticipated guest dining intent.",
+    body: "Estimates tomorrow's covers and the prep quantities to match anticipated guest dining intent.",
+    outcome: "Estimates tomorrow's covers, suggests prep quantities, the chef confirms.",
   },
   {
     icon: "notifications_active",
     title: "Proactive Push",
-    body: "Context-aware recommendations delivered directly to team members via WhatsApp exactly when action is needed.",
+    body: "Context-aware recommendations delivered to the team where they already work.",
+    outcome: "Lands the recommendation in WhatsApp with one tap to accept, adjust, or override.",
   },
   {
     icon: "eco",
     title: "Food Waste Reduction",
-    body: "Measurable reduction of food waste and overarching operational costs through precise algorithmic anticipation.",
+    body: "Surfaces over-ordering risk before it ships, with the historical signals that triggered the flag.",
+    outcome: "Spots the over-order before purchase, alerts the team, the manager decides.",
   },
 ];
 
