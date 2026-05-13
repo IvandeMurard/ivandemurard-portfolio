@@ -400,7 +400,7 @@ const Atherix = () => (
       </Reveal>
 
       {/* The Agentic Operations Pipeline */}
-      <section className="py-20 md:py-32 px-6 md:px-12 bg-surface">
+      <section id="pipeline" className="py-20 md:py-32 px-6 md:px-12 bg-surface scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <h2 className="font-headline text-4xl md:text-6xl text-primary italic mb-6">
