@@ -17,14 +17,6 @@ import { AetherixLayerStack } from "@/components/atherix/AetherixLayerStack";
 import { AetherixHiveStanzas } from "@/components/atherix/AetherixHiveStanzas";
 import { AnticipationCeiling } from "@/components/atherix/AnticipationCeiling";
 
-const PIPELINE = [
-  { icon: "dns", title: "Apaleo PMS", sub: "" },
-  { icon: "monitoring", title: "Forecasting", sub: "Prophet" },
-  { icon: "psychology", title: "Semantic Reasoning", sub: "RAG + Claude Sonnet" },
-  { icon: "hub", title: "Contextual Agent", sub: "MCP Callable" },
-  { icon: "chat", title: "WhatsApp Push", sub: "To Team" },
-];
-
 const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (side project)" },
   { label: "Duration", value: "2026 – ongoing (validation phase)" },
