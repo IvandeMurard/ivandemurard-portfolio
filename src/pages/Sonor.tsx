@@ -304,7 +304,7 @@ const Sonor = () => {
       </section>
 
       {/* Outcome, midnight */}
-      <section className="bg-primary text-on-primary py-16 md:py-28">
+      <section id="outcome" className="bg-primary text-on-primary py-16 md:py-28 scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="space-y-12">
