@@ -300,7 +300,7 @@ const Tacet = () => (
       <SectionDivider index="05" label="Horizon" />
 
       {/* 5. The 5-Year Horizon */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-8 md:mb-10">
+      <section id="horizon" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
             The 5-Year Horizon
