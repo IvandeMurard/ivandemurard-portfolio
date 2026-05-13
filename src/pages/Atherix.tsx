@@ -460,6 +460,106 @@ const Atherix = () => (
         </div>
       </section>
 
+      {/* The Hive Vision, the engine that powers the pipelines */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+        <div className="max-w-screen-xl mx-auto text-center">
+          <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The moat beneath the agents</span>
+          <h2 className="font-headline text-4xl md:text-6xl text-primary italic mt-4 mb-10 leading-[1.05]">The Hive Vision</h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-10">
+            Anonymous peer metadata, shared anticipation, no shared data. The pipelines above run on this collective memory.
+          </p>
+          <AetherixHorizonIllustration />
+          <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-3xl mx-auto leading-relaxed flex flex-col gap-6 mt-8">
+            <p>
+              Each property keeps its own memory, while contributing anonymous signals to a shared layer. Independent operators gain the anticipation that, until now, only the largest groups could afford.
+            </p>
+            <p className="font-headline italic text-primary text-2xl md:text-3xl pt-4">
+              From reactive operations to invisible, self-improving intelligence.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Aetherix, Glue not Replacement */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
+            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Strategy</span>
+            <h2 className="font-headline italic text-4xl md:text-5xl text-primary mt-4 leading-tight">
+              Glue, not replacement.
+            </h2>
+            <p className="text-on-surface-variant mt-6 leading-relaxed">
+              Aetherix is not another dashboard to open. It is the connective tissue between the systems your team already uses.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+            {[
+              {
+                num: "01",
+                title: "Zero training required",
+                body: "Aetherix operates through WhatsApp and native PMS task lists. The team does not learn a new interface. Onboarding takes minutes, not weeks.",
+              },
+              {
+                num: "02",
+                title: "Eliminate tech fatigue",
+                body: "We do not add a new tab to the browser. We add intelligence to the ones already open.",
+              },
+              {
+                num: "03",
+                title: "Low-churn infrastructure",
+                body: "By acting as the glue between disparate legacy systems, Aetherix becomes part of the operational nervous system, not a disposable add-on.",
+              },
+            ].map((card) => (
+              <div
+                key={card.num}
+                className="lift-card bg-surface-container-low border border-outline-variant/20 rounded-3xl p-8 md:p-10"
+              >
+                <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">{card.num}</span>
+                <h3 className="font-headline italic text-2xl md:text-3xl text-primary mt-4 mb-4 leading-tight">
+                  {card.title}
+                </h3>
+                <p className="text-on-surface-variant leading-relaxed">{card.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Economics of Anticipation, RaaS Ready */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
+            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Economics</span>
+            <h2 className="font-headline italic text-4xl md:text-5xl text-primary mt-4 leading-tight">
+              The Economics of Anticipation.
+            </h2>
+            <p className="text-on-surface-variant mt-6 leading-relaxed">
+              Results-as-a-Service. Aligned incentives, measurable outcomes.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-6xl mx-auto">
+            <div>
+              <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">Results as a Service</span>
+              <h3 className="font-headline italic text-2xl md:text-3xl text-primary mt-4 mb-5 leading-tight">
+                We win when you win.
+              </h3>
+              <p className="text-on-surface-variant leading-relaxed">
+                Aetherix does not sell analytics. It drives RevPAR and reduces labour waste through agentic anticipation. Pricing follows outcomes, not seats.
+              </p>
+            </div>
+            <div className="bg-surface-container-low border border-outline-variant/20 rounded-3xl p-8 md:p-10">
+              <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">The Anticipation Ceiling</span>
+              <div className="my-6">
+                <AnticipationCeiling />
+              </div>
+              <p className="text-on-surface-variant leading-relaxed">
+                Legacy systems record what happened. Aetherix anticipates what is next, turning expressed and unexpressed wishes into direct revenue.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Explore the Platform */}
       <section className="py-20 md:py-24 px-6 md:px-12 bg-surface-container-high/30">
         <div className="max-w-screen-2xl mx-auto flex flex-col items-center text-center">
