@@ -111,6 +111,16 @@ const FAQ = [
   },
 ];
 
+const SONOR_SECTIONS = [
+  { id: "curiosity", label: "Curiosity" },
+  { id: "hypothesis", label: "Hypothesis" },
+  { id: "product", label: "Product" },
+  { id: "outcome", label: "Outcome" },
+  { id: "platform", label: "Platform" },
+  { id: "stakeholders", label: "Stakeholders" },
+  { id: "faq", label: "FAQ" },
+];
+
 const Sonor = () => {
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
 
