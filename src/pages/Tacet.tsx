@@ -148,7 +148,7 @@ const Tacet = () => (
       <SectionDivider index="01" label="Overview" />
 
       {/* 1. Overview */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-12 md:mb-16 grid md:grid-cols-12 gap-12">
+      <section id="overview" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-12 md:mb-16 grid md:grid-cols-12 gap-12 scroll-mt-24">
         <div className="md:col-start-2 md:col-span-4 self-start">
           <h2 className="font-headline text-3xl md:text-4xl italic text-primary mb-8 leading-snug">
             From dashboard <br />
