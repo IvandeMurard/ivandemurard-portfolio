@@ -597,7 +597,7 @@ const Atherix = () => (
       </section>
 
       {/* The Horizon */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20">
+      <section id="contact" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
         <div className="max-w-screen-xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-4xl text-primary italic mb-6">
             Curious to explore what this could look like for your hotel?
