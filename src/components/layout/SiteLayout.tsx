@@ -36,12 +36,16 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
       </a>
       <PageLight />
       <BrandCursor />
-      <AtriumHeader />
+      <div style={{ viewTransitionName: "site-header" }}>
+        <AtriumHeader />
+      </div>
       <SectionRail sections={sections} />
       <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}
       </main>
-      <Footer />
+      <div style={{ viewTransitionName: "site-footer" }}>
+        <Footer />
+      </div>
     </div>
   );
 };
