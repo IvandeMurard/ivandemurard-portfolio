@@ -20,8 +20,9 @@ export function useViewTransitionNavigate() {
       const reduce =
         typeof window !== "undefined" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      // @ts-expect-error startViewTransition is not yet in lib.dom in all envs
-      const start = document.startViewTransition?.bind(document);
+      const start = (document as Document & {
+        startViewTransition?: (cb: () => void) => unknown;
+      }).startViewTransition?.bind(document);
       if (!start || reduce) {
         navigate(to, options);
         return;
