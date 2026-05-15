@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { TransitionLink, useViewTransitionNavigate } from "@/hooks/useViewTransition";
 import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
 import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
@@ -20,6 +21,16 @@ export const AtriumHeader = () => {
   const location = useLocation();
   const haptic = useHaptic();
   const track = useTrackClick();
+  const tnav = useViewTransitionNavigate();
+
+  const handleNavClick =
+    (to: string) =>
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      tnav(to);
+    };
 
   useEffect(() => {
     setOpen(false);
@@ -29,12 +40,12 @@ export const AtriumHeader = () => {
     <>
       <nav className="fixed top-0 w-full z-50 bg-surface/70 glass-nav transition-all duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-gradient-to-b after:from-outline-variant/15 after:to-transparent after:pointer-events-none">
         <div className="flex justify-between items-center px-6 md:px-12 py-6 md:py-8 w-full max-w-screen-2xl mx-auto relative">
-          <Link
+          <TransitionLink
             to="/"
             className="text-xl md:text-2xl font-headline italic text-primary tracking-wide hover:opacity-80 transition-opacity duration-500"
           >
             Ivan de Murard
-          </Link>
+          </TransitionLink>
 
           {/* Center primary nav */}
           <div className="hidden lg:flex items-center space-x-12 absolute left-1/2 -translate-x-1/2">
@@ -46,6 +57,7 @@ export const AtriumHeader = () => {
                 key={item.label}
                 to={item.to}
                 end={item.to === "/"}
+                onClick={handleNavClick(item.to)}
                 className={({ isActive }) =>
                   [
                     "font-headline italic tracking-wide text-sm transition-colors duration-500",
@@ -117,6 +129,7 @@ export const AtriumHeader = () => {
               key={item.label}
               to={item.to}
               end={item.to === "/"}
+              onClick={handleNavClick(item.to)}
               className={({ isActive }) =>
                 [
                   "font-headline italic text-3xl transition-colors",

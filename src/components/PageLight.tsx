@@ -38,7 +38,7 @@ export const PageLight = () => {
     };
   }, []);
 
-  return <div aria-hidden="true" className="page-light" />;
+  return <div aria-hidden="true" className="page-light" style={{ viewTransitionName: "page-light" }} />;
 };
 
 export default PageLight;

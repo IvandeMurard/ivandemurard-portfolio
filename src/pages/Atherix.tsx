@@ -1,7 +1,7 @@
 // Source of truth for facts (dates, stack, metrics, status).
 // If you change facts here, also update public/atherix.md and public/llms-full.txt.
 import { SafeImage } from "@/components/SafeImage";
-import { Link } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -253,7 +253,7 @@ const Atherix = () => (
       {/* The Vision */}
       <section id="vision" className="mb-12 md:mb-16 px-6 md:px-12 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12">
+          <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12" style={{ viewTransitionName: "case-hero-aetherix" }}>
             <div className="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-secondary/30 mix-blend-overlay" />
             <SafeImage
               src={heroLobby}

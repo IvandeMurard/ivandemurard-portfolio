@@ -1,6 +1,6 @@
 // Source of truth for facts (dates, stack, metrics, status).
 // If you change facts here, also update public/tacet.md and public/llms-full.txt.
-import { Link } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -196,7 +196,7 @@ const Tacet = () => (
 
       {/* 3. Solution illustration */}
       <Reveal as="section" id="solution" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16 scroll-mt-24">
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20" style={{ viewTransitionName: "case-hero-tacet" }}>
           <img
             src={acousticTwinImg}
             alt="Isometric synthetic acoustic twin visualisation, concentric waves over a wireframe city"

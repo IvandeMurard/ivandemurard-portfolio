@@ -2,7 +2,7 @@
 // If you change facts here, also update public/sonor.md and public/llms-full.txt.
 import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -180,7 +180,7 @@ const Sonor = () => {
             </div>
           </div>
           <div className="lg:col-span-5 flex justify-end">
-            <div data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="w-full aspect-[4/5] bg-surface-container-high overflow-hidden relative group">
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "200ms", viewTransitionName: "case-hero-sonor" }} className="w-full aspect-[4/5] bg-surface-container-high overflow-hidden relative group">
               <SafeImage
                 src={PROJECTS.sonor.image}
                 alt="Aerial view of urban landscape"
