@@ -2,7 +2,7 @@
 // If you change facts here, also update public/sonor.md and public/llms-full.txt.
 import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
