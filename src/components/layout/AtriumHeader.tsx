@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { TransitionLink } from "@/hooks/useViewTransition";
+import { useViewTransitionNavigate } from "@/hooks/useViewTransition";
 import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
 import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
