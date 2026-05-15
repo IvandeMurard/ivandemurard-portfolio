@@ -253,7 +253,7 @@ const Atherix = () => (
       {/* The Vision */}
       <section id="vision" className="mb-12 md:mb-16 px-6 md:px-12 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12">
+          <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12" style={{ viewTransitionName: "case-hero-aetherix" }}>
             <div className="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-secondary/30 mix-blend-overlay" />
             <SafeImage
               src={heroLobby}
