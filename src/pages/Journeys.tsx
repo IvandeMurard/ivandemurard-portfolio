@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -22,7 +22,7 @@ const Row = ({ index, slug, name, body, image, cta, flip }: RowProps) => {
   return (
     <Reveal threshold={0.2} className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center group">
       <div className={`md:col-span-6 relative ${flip ? "md:order-2" : ""}`}>
-        <div data-reveal-child className="case-row-image">
+        <div data-reveal-child className="case-row-image" style={{ viewTransitionName: `case-hero-${slug === "atherix" ? "aetherix" : slug}` }}>
           <CaseHoverPreview
             slug={slug}
             image={image}
