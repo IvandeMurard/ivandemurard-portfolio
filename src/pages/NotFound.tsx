@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 

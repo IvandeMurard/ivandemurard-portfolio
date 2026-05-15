@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { CaseHoverPreview } from "@/components/CaseHoverPreview";
 import { Compass, Cpu, HeartHandshake } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
