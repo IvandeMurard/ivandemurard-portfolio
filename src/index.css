@@ -636,6 +636,55 @@
   50%      { opacity: 1; }
 }
 
+/*
+  Route transitions, View Transitions API.
+  Quiet 8px-lift crossfade on the page body. Header, footer, and PageLight
+  are tagged as persistent so only the main content swaps. Shared-element
+  morph for case study covers between Journeys and each case page.
+  Honors prefers-reduced-motion (browser disables animations natively).
+*/
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) {
+  animation: vt-fade-out 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+::view-transition-new(root) {
+  animation: vt-fade-in-up 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes vt-fade-out {
+  to { opacity: 0; }
+}
+@keyframes vt-fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Persistent chrome, no animation, no flicker. */
+::view-transition-group(site-header),
+::view-transition-group(site-footer),
+::view-transition-group(page-light) {
+  animation: none;
+}
+::view-transition-old(site-header),
+::view-transition-new(site-header),
+::view-transition-old(site-footer),
+::view-transition-new(site-footer),
+::view-transition-old(page-light),
+::view-transition-new(page-light) {
+  animation: none;
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+/* Shared-element morph for case covers, Journeys ↔ case page. */
+::view-transition-group(case-hero-aetherix),
+::view-transition-group(case-hero-sonor),
+::view-transition-group(case-hero-tacet) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Preview mode: page rendered inside the CaseHoverPreview iframe. */
 [data-preview="1"] header,
 [data-preview="1"] footer {
