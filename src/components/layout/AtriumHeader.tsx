@@ -57,6 +57,7 @@ export const AtriumHeader = () => {
                 key={item.label}
                 to={item.to}
                 end={item.to === "/"}
+                onClick={handleNavClick(item.to)}
                 className={({ isActive }) =>
                   [
                     "font-headline italic tracking-wide text-sm transition-colors duration-500",
@@ -128,6 +129,7 @@ export const AtriumHeader = () => {
               key={item.label}
               to={item.to}
               end={item.to === "/"}
+              onClick={handleNavClick(item.to)}
               className={({ isActive }) =>
                 [
                   "font-headline italic text-3xl transition-colors",
