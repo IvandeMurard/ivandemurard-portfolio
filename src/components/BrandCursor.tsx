@@ -13,6 +13,11 @@ export const BrandCursor = () => {
   const styleRef = useRef<HTMLStyleElement | null>(null);
   const pressed = useRef(false);
   const hovering = useRef(false);
+  const suppressed = useRef(false);
+  const idle = useRef(false);
+  const idleTimer = useRef<number | null>(null);
+  const IDLE_MS = 1500;
+  const IDLE_OPACITY = "0.18";
 
   useEffect(() => {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
