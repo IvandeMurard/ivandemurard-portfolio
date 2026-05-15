@@ -40,37 +40,65 @@ export const BrandCursor = () => {
     document.head.appendChild(style);
     styleRef.current = style;
 
+    const setOpacity = () => {
+      if (!dotRef.current) return;
+      if (suppressed.current) {
+        dotRef.current.style.opacity = "0";
+        return;
+      }
+      if (hovering.current || pressed.current || !idle.current) {
+        dotRef.current.style.opacity = "1";
+        return;
+      }
+      dotRef.current.style.opacity = IDLE_OPACITY;
+    };
+
     const apply = (x: number, y: number) => {
       if (!dotRef.current) return;
       const scale = pressed.current ? 0.55 : hovering.current ? 2.4 : 1;
       dotRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${scale})`;
     };
 
+    const scheduleIdle = () => {
+      if (idleTimer.current) window.clearTimeout(idleTimer.current);
+      idleTimer.current = window.setTimeout(() => {
+        idle.current = true;
+        setOpacity();
+      }, IDLE_MS);
+    };
+
     const onMove = (e: MouseEvent) => {
       const el = e.target as HTMLElement | null;
-      const suppress = !!el?.closest(
+      suppressed.current = !!el?.closest(
         'input, textarea, select, [contenteditable="true"], [data-cursor="native"], iframe',
       );
-      hovering.current = !suppress && !!el?.closest(
+      hovering.current = !suppressed.current && !!el?.closest(
         'a, button, [role="button"], [data-cursor="hover"], summary, label[for]',
       );
-      if (dotRef.current) dotRef.current.style.opacity = suppress ? "0" : "1";
+      idle.current = false;
+      setOpacity();
       apply(e.clientX, e.clientY);
+      scheduleIdle();
     };
 
     const onDown = (e: MouseEvent) => {
       pressed.current = true;
+      setOpacity();
       apply(e.clientX, e.clientY);
     };
     const onUp = (e: MouseEvent) => {
       pressed.current = false;
+      setOpacity();
       apply(e.clientX, e.clientY);
     };
     const onLeave = () => {
+      if (idleTimer.current) window.clearTimeout(idleTimer.current);
       if (dotRef.current) dotRef.current.style.opacity = "0";
     };
     const onEnter = () => {
-      if (dotRef.current) dotRef.current.style.opacity = "1";
+      idle.current = false;
+      setOpacity();
+      scheduleIdle();
     };
 
     window.addEventListener("mousemove", onMove);
