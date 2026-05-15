@@ -113,6 +113,7 @@ export const BrandCursor = () => {
       window.removeEventListener("mouseup", onUp);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
+      if (idleTimer.current) window.clearTimeout(idleTimer.current);
       styleRef.current?.remove();
     };
   }, []);
