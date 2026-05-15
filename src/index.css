@@ -660,20 +660,16 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Persistent chrome, no animation, no flicker. */
-::view-transition-group(site-header),
-::view-transition-group(site-footer),
-::view-transition-group(page-light) {
-  animation: none;
-}
+/* Persistent chrome, no flicker. Use a finite no-op so the transition
+   completes and the overlay tears down (otherwise it would swallow clicks). */
+@keyframes vt-noop { from { opacity: 1; } to { opacity: 1; } }
 ::view-transition-old(site-header),
 ::view-transition-new(site-header),
 ::view-transition-old(site-footer),
 ::view-transition-new(site-footer),
 ::view-transition-old(page-light),
 ::view-transition-new(page-light) {
-  animation: none;
-  opacity: 1;
+  animation: vt-noop 220ms linear both;
   mix-blend-mode: normal;
 }
 
