@@ -1,122 +1,114 @@
-## Goal
+# Glossaire contextuel pour les études de cas
 
-Add premium route transitions across the site using the View Transitions API: a quiet 8px-lift crossfade everywhere, plus a shared-element morph from each Journeys card to its case study hero.
+Un composant unique `<Term>` qui rend les jargons explicables sans alourdir la lecture. Hover + focus + tap ouvrent un aperçu court; un lien "En savoir plus" dans le popover déroule un paragraphe complet. Déployé d'abord sur Sonor, Aetherix, Tacet.
 
-No new dependencies. CSS-first, honors `prefers-reduced-motion`, graceful instant-cut fallback for Firefox.
+## Principes
 
----
+1. **Une annotation par terme par page**, à sa première occurrence. Les répétitions restent en texte simple.
+2. **Affordance discrète:** underline pointillé fin, teinté gold/secondary à 60% d'opacité. Le terme reste lisible en flux normal.
+3. **Un seul composant pour toutes les entrées:** hover desktop, focus clavier, tap mobile. Pas d'interaction parallèle qui se contredise.
+4. **Source unique** dans `src/content/glossary.ts`. Réutilisable, traduisible, auditable.
+5. **Respect direction artistique:** pas d'em-dash dans les définitions, ton calme, hospitalité jamais nommée, agentic présenté comme un outil.
 
-## 1. Navigation wrapper
+## Composant `<Term>`
 
-Create `src/hooks/useViewTransition.ts`:
+Fichier: `src/components/Term.tsx`
 
-- Exports `useViewTransitionNavigate()` returning a function `(to: string) => void`.
-- Internally uses `useNavigate` from `react-router-dom`.
-- If `document.startViewTransition` exists and user does not prefer reduced motion, wraps the navigation in it. Otherwise, navigates directly.
-- Also exports a `<TransitionLink>` component, a drop-in replacement for `react-router-dom`'s `Link` that calls the hook on click (preserving cmd/ctrl-click, middle-click, target=_blank semantics).
-
-This is the only behavioral change: `Link` becomes `TransitionLink` in the few places that benefit (nav, case rows, Journeys cards, Journal cards). Internal anchor links (`#section`) stay as plain `<a>`.
-
----
-
-## 2. Global crossfade + lift (direction 2)
-
-Add to `src/index.css` under `@layer base`:
-
-```text
-@view-transition { navigation: auto; }
-
-::view-transition-old(root) {
-  animation: vt-fade-out 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-::view-transition-new(root) {
-  animation: vt-fade-in-up 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes vt-fade-out { to { opacity: 0; } }
-@keyframes vt-fade-in-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) { animation: none; }
-}
+API:
+```tsx
+<Term id="rms">RMS</Term>
+// children = libellé affiché (peut différer de la clé)
+// id = clé dans le glossaire
 ```
 
-Outgoing fades for 220ms, incoming fades + lifts 8px over 320ms, slight overlap. Same easing curve as the rest of the site.
+Comportement:
+- Rend un `<button type="button">` avec `aria-describedby` pointant le popover.
+- Underline pointillé via classe Tailwind: `border-b border-dotted border-secondary/60 hover:border-secondary cursor-help`.
+- Sur desktop: Radix `HoverCard` (hover + focus). Délai d'ouverture 120ms, fermeture 80ms.
+- Sur tactile (`matchMedia('(hover: none)')`): bascule en Radix `Popover` (tap).
+- Radix gère collision et flip, donc pas de chevauchement ni de contenu masqué.
+- Le popover contient:
+  - **Niveau 1:** le terme en `font-headline italic text-primary`, puis 1 à 2 phrases (12 à 30 mots) en `font-body text-sm`.
+  - **Niveau 2:** un bouton `En savoir plus` discret en bas. Au clic, le popover s'agrandit (height auto, transition 220ms) et révèle un paragraphe de 40 à 80 mots, plus éventuellement un lien externe ou interne (`/journal/...`, doc, source).
+- Le second niveau est mémorisé côté composant uniquement (state local), pas de persistance.
+- Largeur popover: `w-72` (288px) niveau 1, `w-80` (320px) niveau 2. Cap sur mobile à `max-w-[calc(100vw-2rem)]`.
 
----
+Style du popover (cohérent avec `TacetPipelineDiagram` et le reste):
+- `bg-surface-container-high` avec `backdrop-blur-sm`
+- `border border-outline-variant`
+- `rounded-xl shadow-md`
+- Padding `p-4`
+- Petit halo gold optionnel en fond, opacity 0.2, comme signature visuelle
 
-## 3. Persistent chrome (no header/footer blink)
+Accessibilité:
+- `role="button"`, `tabIndex={0}`, déclenche au clavier (Enter/Space)
+- `aria-expanded` reflète l'état niveau 2
+- `prefers-reduced-motion: reduce` retire la transition d'agrandissement
+- Contraste vérifié sur surface-container-high (clair) et sur le mode actif du site
 
-Tag the elements that should not animate during a route change with stable `view-transition-name` values so the browser treats them as continuous:
+## Glossaire
 
-- `SiteLayout` header: `style={{ viewTransitionName: 'site-header' }}`
-- `SiteLayout` footer: `style={{ viewTransitionName: 'site-footer' }}`
-- `PageLight` background layer: `style={{ viewTransitionName: 'page-light' }}`
+Fichier: `src/content/glossary.ts`
 
-Add matching CSS so these named elements get no animation:
+```ts
+export type GlossaryEntry = {
+  id: string;
+  term: string;          // forme canonique pour affichage
+  brief: string;         // niveau 1, 12 à 30 mots
+  detail: string;        // niveau 2, 40 à 80 mots
+  link?: { label: string; href: string; external?: boolean };
+};
 
-```text
-::view-transition-group(site-header),
-::view-transition-group(site-footer),
-::view-transition-group(page-light) { animation: none; }
-::view-transition-old(site-header),
-::view-transition-new(site-header),
-::view-transition-old(site-footer),
-::view-transition-new(site-footer),
-::view-transition-old(page-light),
-::view-transition-new(page-light) { animation: none; opacity: 1; }
+export const GLOSSARY: Record<string, GlossaryEntry> = {
+  rms: { ... },
+  pms: { ... },
+  agentic: { ... },
+  // etc.
+};
 ```
 
-Result: only the main content swaps, the chrome stays still.
+Termes candidats initiaux (à confirmer en relisant les pages):
 
----
+- **Sonor:** open data, B2G, SaaS, cartographie acoustique, MVP
+- **Aetherix:** agentic AI, agent, orchestration, F&B, RevPAR, anticipation, Prophet, Claude, human-in-the-loop
+- **Tacet:** synthetic acoustic twin, headless, RMS (Revenue Management System), PMS (Property Management System), JSON alerts, API-first, proxy data, OpenStreetMap, line of sight, yield
 
-## 4. Shared element: Journeys card → case hero (direction 3)
+Je consoliderai la liste finale en relisant les trois pages avant rédaction.
 
-For the three case studies (Aetherix, Sonor, Tacet):
+## Déploiement sur les pages
 
-- In `Journeys.tsx`, the `<CaseHoverPreview>` image for each row gets `style={{ viewTransitionName: \`case-hero-${slug}\` }}`.
-- In each case page (`Atherix.tsx`, `Sonor.tsx`, `Tacet.tsx`), find the hero image element and give it the same `view-transition-name` (e.g. `case-hero-aetherix`).
-- The browser interpolates position, size, and border-radius automatically. No JS.
+Édits ciblés dans:
+- `src/pages/Sonor.tsx`
+- `src/pages/Atherix.tsx`
+- `src/pages/Tacet.tsx`
 
-Add a small CSS rule for smoother morph timing:
+Règle d'application: première occurrence d'un terme dans le flux narratif uniquement. Les diagrammes (ex: `TacetPipelineDiagram`) gardent leurs libellés tels quels pour préserver la composition visuelle; ils ne sont pas annotés.
 
-```text
-::view-transition-group(case-hero-aetherix),
-::view-transition-group(case-hero-sonor),
-::view-transition-group(case-hero-tacet) {
-  animation-duration: 520ms;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-```
+## Section technique
 
-Reverse navigation (case → Journeys via back button or breadcrumb) morphs back automatically because the names match in both directions.
+- Dépendances déjà présentes: `@radix-ui/react-hover-card`, `@radix-ui/react-popover`. Zéro install.
+- Détection tactile: hook léger `useIsTouch()` basé sur `matchMedia('(hover: none) and (pointer: coarse)')`, avec listener pour les changements (ex: passage tablette/clavier).
+- View transitions déjà en place: le popover monte dans un portail, donc indépendant du flux de transition, pas de conflit.
+- Pas de changement à `tailwind.config.ts` ni au design system; on utilise les tokens existants (`secondary`, `outline-variant`, `surface-container-high`, `primary`, `font-headline`, `font-body`, `font-label`).
+- Pas d'em-dash dans les définitions (règle Core de la mémoire projet).
 
----
+## Fichiers créés ou édités
 
-## 5. Files touched
+Nouveau:
+- `src/components/Term.tsx`
+- `src/content/glossary.ts`
+- `src/hooks/useIsTouch.ts`
 
-- **New:** `src/hooks/useViewTransition.ts` (hook + `TransitionLink` component).
-- **Edited:** `src/index.css` (view transition rules, ~40 lines).
-- **Edited:** `src/components/layout/SiteLayout.tsx` (add `viewTransitionName` on header/footer, swap internal nav `Link`s for `TransitionLink`).
-- **Edited:** `src/components/PageLight.tsx` (add `viewTransitionName: 'page-light'`).
-- **Edited:** `src/pages/Journeys.tsx` (swap `Link` for `TransitionLink`, add `viewTransitionName` on case images).
-- **Edited:** `src/pages/Atherix.tsx`, `src/pages/Sonor.tsx`, `src/pages/Tacet.tsx` (add matching `viewTransitionName` on hero image).
-- **Edited (light):** `Journal.tsx`, `Atrium.tsx`, `Contact.tsx`, `Index.tsx`, `Footer.tsx` where internal `Link`s exist, swap to `TransitionLink` so transitions fire from anywhere.
+Édités:
+- `src/pages/Sonor.tsx`
+- `src/pages/Atherix.tsx`
+- `src/pages/Tacet.tsx`
 
-No changes to `App.tsx` routes, no library installs, no behavioral change for users on Firefox or with reduced motion.
+Aucun changement aux routes, au layout, au header/footer, ni aux diagrammes.
 
----
+## Hors périmètre (pour plus tard si validé)
 
-## 6. Verification
-
-After implementation:
-1. Navigate `/` → `/journeys` → confirm 8px crossfade, header/footer don't blink.
-2. Click a case card on `/journeys` → confirm hero image morphs into place on the case page.
-3. Browser back from case → Journeys → confirm reverse morph.
-4. Toggle `prefers-reduced-motion` in devtools → confirm instant cut, no broken state.
-5. Check Firefox (or simulate by stubbing `startViewTransition`) → confirm instant cut fallback works.
+- Field Notes, About, accueil
+- Page glossaire dédiée (`/glossary`)
+- Recherche dans le glossaire
+- Traduction FR/EN des définitions

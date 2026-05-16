@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
+import { Term } from "@/components/Term";
 import sonorCartographie from "@/assets/sonor-cartographie.png";
 import sonorRecommandations from "@/assets/sonor-recommandations.png";
 import sonorLogo from "@/assets/sonor-logo.png";
@@ -166,8 +167,8 @@ const Sonor = () => {
               Urban Intelligence.
             </h1>
             <p data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-xl md:text-2xl font-body text-on-surface-variant max-w-xl leading-relaxed mb-16">
-              A two-year entrepreneurial journey as Co-founder & Product Lead into the heart of city noise. Building an
-              open-data SaaS platform to transform invisible pollution into actionable insights for more silent,
+              A two-year entrepreneurial journey as Co-founder & Product Lead into the heart of city noise. Building an{" "}
+              <Term id="openData">open-data</Term> <Term id="saas">SaaS</Term> platform to transform invisible pollution into actionable insights for more silent,
               sustainable, and livable cities.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-8 border-t border-outline-variant/30">

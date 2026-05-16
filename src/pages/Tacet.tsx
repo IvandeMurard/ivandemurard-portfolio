@@ -8,6 +8,7 @@ import { Reveal } from "@/components/Reveal";
 import { TacetPipelineDiagram } from "@/components/tacet/TacetPipelineDiagram";
 import { SectionDivider } from "@/components/SectionDivider";
 import acousticTwinImg from "@/assets/tacet-acoustic-twin.jpg";
+import { Term } from "@/components/Term";
 
 const PROJECT_INFO = [
   { label: "Rôle", value: "Product Builder, Architect of an acoustic intelligence layer" },
@@ -117,7 +118,7 @@ const Tacet = () => (
             Acoustic Twin.
           </h1>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "380ms" }} className="font-headline text-2xl md:text-3xl text-on-surface-variant max-w-2xl italic leading-relaxed">
-            A proactive, headless intelligence layer that predicts the impact of the external acoustic environment on revenue and guest experience.
+            A proactive, <Term id="headless">headless</Term> intelligence layer that predicts the impact of the external acoustic environment on revenue and guest experience.
           </p>
         </div>
         <div className="absolute -right-24 top-1/2 -translate-y-1/2 w-full md:w-3/4 h-[600px] md:h-[800px] opacity-80 pointer-events-none">
@@ -172,7 +173,7 @@ const Tacet = () => (
               Tacet began as an exploration of urban noise pollution, a dashboard translating Bruitparif data into a human-readable Score Sérénité for Parisians.
             </p>
             <p>
-              The true value of data, however, lies not in visualization but in anticipation. Tacet has evolved into a headless Synthetic Acoustic Twin, designed specifically for the hospitality sector. It predicts the impact of the external environment on the guest experience, moving from passive awareness to proactive yield management.
+              The true value of data, however, lies not in visualization but in anticipation. Tacet has evolved into a headless <Term id="syntheticAcousticTwin">Synthetic Acoustic Twin</Term>, designed specifically for the hospitality sector. It predicts the impact of the external environment on the guest experience, moving from passive awareness to proactive <Term id="yield">yield management</Term>.
             </p>
           </div>
         </div>
