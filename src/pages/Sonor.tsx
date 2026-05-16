@@ -315,37 +315,52 @@ const Sonor = () => {
         </div>
       </section>
 
-      {/* Outcome, midnight */}
-      <section id="outcome" className="bg-primary text-on-primary py-16 md:py-28 scroll-mt-24">
-        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
+      {/* Outcome, midnight (day) / deep surface (dusk) */}
+      <section
+        id="outcome"
+        className="bg-primary text-on-primary data-[mood=dusk]:bg-surface-container-lowest data-[mood=dusk]:text-on-surface py-16 md:py-28 scroll-mt-24"
+        data-mood={mood}
+      >
+        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto space-y-16 md:space-y-24">
+          {/* Full-width timeline */}
+          <div className="space-y-8">
+            <span className="font-label uppercase tracking-[0.25em] text-xs md:text-sm text-primary-fixed-dim block">
+              From Hypothesis to Reality
+            </span>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-8 md:gap-x-6">
+              {TIMELINE.map((t, i) => (
+                <div key={t.phase} className="relative flex flex-col space-y-3">
+                  <span className="font-label uppercase tracking-[0.2em] text-xs text-secondary-fixed">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-xs font-label tracking-wider text-primary-fixed-dim uppercase">
+                    {t.date}
+                  </span>
+                  <span className="text-lg md:text-xl font-headline italic leading-tight">
+                    {t.phase}
+                  </span>
+                  {i < TIMELINE.length - 1 && (
+                    <Icon
+                      name="arrow_forward"
+                      className="hidden lg:block absolute -right-3 top-0 text-primary-fixed-dim text-sm"
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Title + stats split */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="space-y-12">
-              <div className="space-y-6">
-                <span className="font-label uppercase tracking-[0.2em] text-[10px] text-primary-fixed-dim block">
-                  From Hypothesis to Reality
-                </span>
-                <div className="flex items-center space-x-4 text-on-primary-container text-sm font-label tracking-wider overflow-x-auto pb-4">
-                  {TIMELINE.map((t, i) => (
-                    <div key={t.phase} className="flex items-center gap-4 min-w-max">
-                      <div className="flex flex-col space-y-2">
-                        <span className="text-primary-fixed-dim text-xs">{t.date}</span>
-                        <span>{t.phase}</span>
-                      </div>
-                      {i < TIMELINE.length - 1 && (
-                        <Icon name="arrow_forward" className="text-primary-fixed-dim text-sm" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
               <span className="font-label uppercase tracking-[0.2em] text-[10px] text-primary-fixed-dim block">
                 Milestones & Results
               </span>
               <h2 className="text-5xl md:text-7xl font-headline italic leading-tight">
-                A Sanctuary in <br />
-                the Concrete.
+                Quiet, Measured, <br />
+                Returned.
               </h2>
-              <div className="space-y-6 text-on-primary-container text-lg max-w-lg">
+              <div className="space-y-6 text-on-primary-container data-[mood=dusk]:text-on-surface-variant text-lg max-w-lg" data-mood={mood}>
                 <p>
                   Through partnerships with Banque des Territoires and Matrice, Sonor has become a vital tool for
                   municipalities seeking to value acoustic health as a cornerstone of sustainability and territorial
@@ -359,7 +374,11 @@ const Sonor = () => {
             </div>
             <div className="grid grid-cols-2 gap-6 md:gap-8">
               {STATS.map((s) => (
-                <div key={s.k} className="lift-card p-6 md:p-8 border border-on-primary/10 space-y-4">
+                <div
+                  key={s.k}
+                  className="lift-card p-6 md:p-8 border border-on-primary/10 data-[mood=dusk]:border-outline-variant/30 space-y-4"
+                  data-mood={mood}
+                >
                   <span className="text-4xl font-headline italic block">{s.v}</span>
                   <p className="text-sm font-label uppercase tracking-widest text-primary-fixed-dim">{s.k}</p>
                 </div>
