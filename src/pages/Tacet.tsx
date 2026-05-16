@@ -11,17 +11,17 @@ import acousticTwinImg from "@/assets/tacet-acoustic-twin.jpg";
 import { Term } from "@/components/Term";
 
 const PROJECT_INFO = [
-  { label: "Rôle", value: "Product Builder, Architect of an acoustic intelligence layer" },
-  { label: "Durée", value: "2026, ongoing (V3 pivot from B2C to B2B)" },
+  { label: "Rôle", value: "Product Builder, Architect of an environmental intelligence layer" },
+  { label: "Durée", value: "2026, ongoing (V3, MCP server and Dual Memory)" },
   { label: "Équipe", value: "Solo (with AI collaboration)" },
   {
     label: "Contexte",
-    value: "Headless API for hospitality, complement to Aetherix",
+    value: "Headless Environmental Twin for hospitality, exposed via MCP, complement to Aetherix",
   },
   {
     label: "Stack",
     value:
-      "Proxy data APIs (OpenData permits, traffic, weather, events), OpenStreetMap 3D geometry, synthetic acoustic model, JSON alerts to RMS and PMS",
+      "Python 3.12, FastAPI, Anthropic MCP SDK, OSMnx and Shapely ray-tracing, SQLAlchemy dual-memory store, Mews and Apaleo connectors",
   },
   {
     label: "Repository",
@@ -34,35 +34,84 @@ const HOW = [
   {
     n: "01",
     icon: "sensors",
-    title: "Proxy Data Ingestion",
-    body: "The engine continuously ingests APIs for construction permits, traffic flow, weather conditions, and local events.",
+    title: "Sense",
+    body: "The engine continuously ingests proxy APIs: construction permits, traffic flow, weather conditions, local events and mobility disruptions.",
   },
   {
     n: "02",
-    icon: "view_in_ar",
-    title: "Spatial Geometry",
-    body: "Using OpenStreetMap 3D building data, the algorithm calculates acoustic line of sight and building shielding.",
+    icon: "polyline",
+    title: "Reason",
+    body: "A 3D ray-tracing physics engine, paired with a dual-memory store, turns raw signals into a calibrated impact score for each room of each property.",
   },
   {
     n: "03",
-    icon: "bolt",
-    title: "Proactive Alerts",
-    body: "Tacet pushes JSON payloads directly to the hotel's Revenue Management System (RMS) or Property Management System (PMS).",
+    icon: "hub",
+    title: "Expose",
+    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or an orchestration agent like Aetherix.",
+  },
+];
+
+const PILLARS = [
+  {
+    letter: "A",
+    icon: "view_in_ar",
+    title: "Spatial Physics Engine",
+    body: "Tacet does not just measure distance, it measures physics. Using shapely and osmnx, it draws 3D lines of sight between a disruptive event and the property, then applies a shielding penalty when urban buildings block the path. False positives drop, alert fatigue disappears.",
+  },
+  {
+    letter: "B",
+    icon: "memory",
+    title: "Dual Memory",
+    body: "Idiosyncratic memory learns each property's quirks: a hotel that rejects \"traffic noise\" alerts probably has triple-glazed windows, so Tacet applies a persistent shielding bonus at that GPS point. Hive Mind aggregates rejection rates across the network to recalibrate baseline sensitivity.",
+  },
+  {
+    letter: "C",
+    icon: "verified_user",
+    title: "Human-in-the-Loop Guardrail",
+    body: "Tacet never executes destructive actions on its own. It formulates a precise Price Modifier Rule (for example, minus 15% on street-facing suites between June 12 and 14) and pushes it to the RMS for a Revenue Manager to approve. Accountability stays with the team.",
+  },
+  {
+    letter: "D",
+    icon: "forum",
+    title: "Conversational Explainability",
+    body: "Every JSON payload carries a mathematical Chain of Thought: base noise, distance attenuation, ray-tracing penalty, final impact. An orchestration agent parses it and explains the decision to the Revenue Manager in natural language, without a GUI.",
+  },
+];
+
+const IMPACT = [
+  {
+    icon: "shield",
+    title: "Yield protection",
+    body: "Pricing noisy inventory ahead of time prevents costly post-stay refunds and protects average daily rate on the rest of the building.",
+  },
+  {
+    icon: "restaurant",
+    title: "Operational excellence",
+    body: "When a heatwave overlaps with a transport strike, the orchestration layer adjusts F&B prep and staffing buffers before the day starts.",
+  },
+  {
+    icon: "eco",
+    title: "Sustainability",
+    body: "Less energy waste through proactive HVAC optimisation, less urban noise pollution carried into rooms, measured against a stable baseline.",
   },
 ];
 
 const FAQ = [
   {
-    q: "Why headless and not a dashboard?",
-    a: "An API-first layer integrates into the RMS and PMS where decisions already happen, instead of asking managers to watch yet another screen.",
+    q: "Why headless and exposed via MCP?",
+    a: "MCP is becoming the standard contract between agents and tools. Tacet ships as an MCP server so any RMS, PMS or orchestration agent can read its rules and reasoning without a bespoke integration.",
   },
   {
-    q: "How accurate is a software-only model versus hardware sensors?",
-    a: "The synthetic twin is physics-based and calibrated against Bruitparif baselines. No capex, no rooftop sensors, the model improves as data sources expand.",
+    q: "How accurate is a software-only model versus rooftop sensors?",
+    a: "Tacet ray-traces 3D building geometry from OpenStreetMap and calibrates against public acoustic baselines like Bruitparif. No capex, no hardware to maintain, and the model gets sharper as the dual-memory store learns each property.",
+  },
+  {
+    q: "Does Tacet change prices on its own?",
+    a: "No. Tacet formulates a Price Modifier Rule with an explicit window and inventory scope, then sends it to the RMS for a human Revenue Manager to approve. Accountability and brand control stay with the team.",
   },
   {
     q: "How does Tacet relate to Aetherix?",
-    a: "Aetherix reads internal context (occupancy, F&B, staffing). Tacet reads external context (street, weather, events). Together they form one predictive digital twin for the hotel.",
+    a: "Aetherix reads the internal context (occupancy, F&B, staffing). Tacet reads the external context (street, weather, events) and exposes it through MCP. Together they form one predictive twin of the property.",
   },
 ];
 
@@ -71,6 +120,8 @@ const TACET_SECTIONS = [
   { id: "problem", label: "Problem" },
   { id: "solution", label: "Solution" },
   { id: "architecture", label: "Architecture" },
+  { id: "pillars", label: "Pillars" },
+  { id: "impact", label: "Impact" },
   { id: "synergy", label: "Synergy" },
   { id: "horizon", label: "Horizon" },
   { id: "faq", label: "FAQ" },
@@ -78,10 +129,10 @@ const TACET_SECTIONS = [
 ];
 
 const Tacet = () => (
-  <SiteLayout title="Tacet: The Synthetic Acoustic Twin" sections={TACET_SECTIONS}>
+  <SiteLayout title="Tacet: The Environmental Twin" sections={TACET_SECTIONS}>
     <Seo
-      title="Tacet, Synthetic Acoustic Twin for Hospitality"
-      description="Headless intelligence layer for hotels. Predicts how the external acoustic environment affects revenue and guest experience, alerts RMS and PMS."
+      title="Tacet, Environmental Twin for Hospitality"
+      description="Headless MCP server that turns street, weather and crowd signals into yield rules and Chain of Thought payloads for RMS, PMS and orchestration agents."
       path="/tacet"
       type="article"
       jsonLd={[
@@ -90,8 +141,16 @@ const Tacet = () => (
           "@type": "SoftwareApplication",
           name: "Tacet",
           applicationCategory: "BusinessApplication",
+          applicationSubCategory: "MCP server",
           operatingSystem: "Web, API",
           url: "https://ivandemurard.com/tacet",
+          featureList: [
+            "3D ray-tracing physics engine",
+            "Dual memory (idiosyncratic and hive mind)",
+            "Human-in-the-loop price modifier rules",
+            "Chain of Thought JSON payloads",
+            "MCP server for RMS, PMS and orchestration agents",
+          ],
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
         },
         {
@@ -110,15 +169,15 @@ const Tacet = () => (
       <Reveal as="section" className="relative min-h-[80vh] md:min-h-[800px] flex flex-col justify-center px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 overflow-hidden">
         <div className="relative z-10 max-w-4xl">
           <p data-reveal-child className="font-label text-secondary uppercase tracking-[0.3em] text-xs mb-8">
-            Selected Work / 2026 — Hospitality
+            Selected Work / 2026, Hospitality
           </p>
           <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-9xl italic leading-tight text-primary mb-12">
             Tacet: The <br />
-            Synthetic <br />
-            Acoustic Twin.
+            Environmental <br />
+            Twin.
           </h1>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "380ms" }} className="font-headline text-2xl md:text-3xl text-on-surface-variant max-w-2xl italic leading-relaxed">
-            A proactive, <Term id="headless">headless</Term> intelligence layer that predicts the impact of the external acoustic environment on revenue and guest experience.
+            A <Term id="headless">headless</Term> <Term id="environmentalTwin">environmental twin</Term> that turns street, weather and crowd signals into yield rules your RMS can act on, exposed via <Term id="mcp">MCP</Term>.
           </p>
         </div>
         <div className="absolute -right-24 top-1/2 -translate-y-1/2 w-full md:w-3/4 h-[600px] md:h-[800px] opacity-80 pointer-events-none">
@@ -170,10 +229,10 @@ const Tacet = () => (
         <div className="md:col-span-6">
           <div className="space-y-6 text-lg text-on-surface-variant leading-relaxed max-w-lg">
             <p>
-              Tacet began as an exploration of urban noise pollution, a dashboard translating Bruitparif data into a human-readable Score Sérénité for Parisians.
+              Tacet began as an exploration of urban noise pollution, a Bruitparif-powered Score Sérénité dashboard for Parisians.
             </p>
             <p>
-              The true value of data, however, lies not in visualization but in anticipation. Tacet has evolved into a headless <Term id="syntheticAcousticTwin">Synthetic Acoustic Twin</Term>, designed specifically for the hospitality sector. It predicts the impact of the external environment on the guest experience, moving from passive awareness to proactive <Term id="yield">yield management</Term>.
+              The true value of data, however, lies not in visualisation but in anticipation. Tacet became a <Term id="environmentalTwin">headless environmental twin</Term>: a physics-based model of the property and its surroundings, exposed via an <Term id="mcp">MCP</Term> server that any RMS, PMS or orchestration agent can consume.
             </p>
           </div>
         </div>
@@ -185,10 +244,10 @@ const Tacet = () => (
       <section id="problem" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
-            "Quiet room" is a subjective request.
+            RMS and PMS run on history.
           </h2>
           <p className="text-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
-            A single bad review about noise can cost thousands in lost bookings. Yet hotel managers lack the tools to anticipate environmental disruptions (construction, traffic spikes, local events) and adjust their operations or pricing dynamically.
+            A transport strike, an unannounced street excavation, a sudden heatwave: the street, the sky and the crowd are not in the booking data. That blindness shows up as mispriced inventory, operational friction and avoidable refunds.
           </p>
         </div>
       </section>
@@ -200,17 +259,17 @@ const Tacet = () => (
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20" style={{ viewTransitionName: "case-hero-tacet" }}>
           <img
             src={acousticTwinImg}
-            alt="Isometric synthetic acoustic twin visualisation, concentric waves over a wireframe city"
+            alt="Isometric environmental twin visualisation, concentric waves over a wireframe city"
             className="w-full h-full object-cover"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-primary/10 to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
             <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary/80 mb-2">
-              Synthetic acoustic twin, isometric view
+              Environmental twin, isometric view
             </p>
             <p className="font-headline italic text-on-primary text-xl md:text-2xl max-w-md leading-snug">
-              A physics-based, software-only model of the hotel and its surroundings.
+              A physics-based, software-only model of the property and its surroundings.
             </p>
           </div>
         </div>
@@ -222,10 +281,10 @@ const Tacet = () => (
       <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="text-center mb-16 md:mb-24">
           <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6">
-            A Synthetic Digital Twin
+            An environmental twin, exposed via MCP
           </h2>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            Instead of relying on costly hardware sensors, Tacet builds a physics-based, software-only acoustic model of the hotel.
+            Instead of pushing yet another dashboard, Tacet publishes calibrated yield rules and a mathematical <Term id="chainOfThought">Chain of Thought</Term> on an <Term id="mcp">MCP</Term> server. Sense, reason, expose.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-8 md:gap-12 mb-16">
@@ -252,21 +311,21 @@ const Tacet = () => (
             Example workflow
           </span>
           <p className="font-headline italic text-xl md:text-2xl leading-relaxed">
-            "Alert: OpenData Paris shows jackhammering scheduled for 7:00 AM tomorrow outside the East Wing. Recommendation: reduce booking price by 10% for affected rooms, and automatically reassign VIP guests to the West Wing."
+            "Heatwave forecast plus rail strike on June 13. Tacet suggests minus 15% on street-facing suites for two nights, and a staffing buffer for breakfast service. Awaiting Revenue Manager approval."
           </p>
         </div>
       </Reveal>
 
-      <SectionDivider label="Architecture" />
+      <SectionDivider index="04" label="Architecture" />
 
       {/* The Intelligence Pipeline diagram */}
       <Reveal as="section" id="architecture" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-12 md:mb-16">
           <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4">
-            The Intelligence Pipeline
+            The intelligence pipeline
           </h2>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-xl mx-auto">
-            An architecture diagram illustrating the headless data flow.
+            From proxy signals to MCP rules, the headless flow that turns context into decisions.
           </p>
         </div>
         <div className="rounded-2xl border border-outline-variant/20 overflow-hidden">
@@ -274,18 +333,76 @@ const Tacet = () => (
         </div>
       </Reveal>
 
-      <SectionDivider index="04" label="Synergy" />
+      <SectionDivider index="05" label="Pillars" />
 
-      {/* 4. Synergy with Aetherix */}
+      {/* 5. Architectural Pillars */}
+      <Reveal as="section" id="pillars" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
+        <div className="text-center mb-16">
+          <h2 data-reveal-child className="font-headline text-4xl md:text-5xl italic text-primary mb-6">
+            Four pillars give Tacet its edge
+          </h2>
+          <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Physics, memory, restraint and explainability. Each pillar protects the others against the failure modes of a headless agent.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
+          {PILLARS.map((p, i) => (
+            <div
+              key={p.letter}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }}
+              className="lift-card p-8 md:p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <span className="font-label text-[10px] text-secondary tracking-[0.25em]">PILLAR {p.letter}</span>
+                <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 flex items-center justify-center text-primary/70">
+                  <Icon name={p.icon} className="text-sm" />
+                </div>
+              </div>
+              <h3 className="font-headline text-2xl md:text-3xl italic text-primary mb-4 leading-snug">{p.title}</h3>
+              <p className="text-sm md:text-base text-on-surface-variant leading-relaxed">{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+
+      <SectionDivider index="06" label="Impact" />
+
+      {/* 6. Impact & ESG */}
+      <section id="impact" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
+        <div className="text-center mb-16">
+          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">
+            Impact, beyond yield
+          </h2>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Embedded in an agentic OS, Tacet shifts properties from reactive to proactive. Yield protected, operations smoothed, footprint reduced.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto">
+          {IMPACT.map((it) => (
+            <div key={it.title} className="p-8 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+              <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/70">
+                <Icon name={it.icon} className="text-sm" />
+              </div>
+              <h3 className="font-headline italic text-2xl text-primary mb-4 leading-snug">{it.title}</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">{it.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <SectionDivider index="07" label="Synergy" />
+
+      {/* 7. Synergy with Aetherix */}
       <section id="synergy" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-16">
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Tacet and Aetherix</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            Tacet is designed to work in tandem with{" "}
+            Tacet exposes its rules and reasoning through <Term id="mcp">MCP</Term>.{" "}
             <Link to="/aetherix" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
               Aetherix
             </Link>
-            , forming a complete Predictive Digital Twin for hotels.
+            {" "}consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
@@ -293,34 +410,34 @@ const Tacet = () => (
             <Icon name="hub" className="text-secondary text-2xl mb-6" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">Aetherix, internal context</h3>
             <p className="text-on-surface-variant leading-relaxed">
-              Predicts operational needs, F&B demand, and staffing based on occupancy and historical trends.
+              Anticipates operational needs, F&B demand and staffing, based on occupancy and historical trends.
             </p>
           </div>
           <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
             <Icon name="public" className="text-secondary text-2xl mb-6" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">Tacet, external context</h3>
             <p className="text-on-surface-variant leading-relaxed">
-              Predicts environmental impact, street disruptions, and acoustic risks.
+              Reads street, weather and event signals, ray-traces their impact, and publishes yield rules on MCP.
             </p>
           </div>
         </div>
         <p className="text-center text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-12">
-          Together, they allow hotel operators to control costs, reduce waste, and guarantee an unparalleled guest experience.
+          Together, they let teams control costs, reduce waste and protect the experience guests came for.
         </p>
       </section>
 
-      <SectionDivider index="05" label="Horizon" />
+      <SectionDivider index="08" label="Horizon" />
 
-      {/* 5. The 5-Year Horizon */}
+      {/* 8. Horizon */}
       <section id="horizon" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
-            The 5-Year Horizon
+            Where Tacet is going
           </h2>
           <p className="text-lg text-on-surface-variant leading-relaxed">
-            The roadmap is to keep deepening the acoustic analysis and connectivity, while plugging in context-specific agents that widen what Tacet can act on.
+            Widen the catalogue of signals (mobility, air quality, cultural events), invite more orchestration agents on the MCP layer, and let the dual memory get sharper at each property.
             <br /><br />
-            Over time, Tacet becomes a layer of hyper-personalised environmental intelligence: each hotel reads its surroundings with its own context, and responds faster because of it.
+            Over time, Tacet becomes the environmental layer of an agentic OS for hospitality: each property reads its surroundings with its own context, and responds faster because of it. A Quiet Certification standard is a likely side-effect, not the goal.
           </p>
         </div>
       </section>

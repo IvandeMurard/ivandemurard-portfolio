@@ -34,7 +34,7 @@ URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-found
 
 ## Tacet
 
-URL: https://ivandemurard.com/tacet. Tacet is the Synthetic Acoustic Twin: a proactive, headless intelligence layer for hospitality (B2B, 2026). It began as a Bruitparif-powered Score Sérénité dashboard for Parisians, then pivoted to a physics-based, software-only acoustic model of the hotel. It ingests proxy APIs (OpenData construction permits, traffic flow, weather, local events), uses OpenStreetMap 3D geometry to compute acoustic line of sight and building shielding, and pushes JSON alerts to the hotel's Revenue Management System and Property Management System. Designed to work in tandem with Aetherix: Aetherix reads internal context (occupancy, F&B, staffing), Tacet reads external context (street, weather, events). Together they form one predictive digital twin. Five-year goal: establish the Quiet Certification standard for the industry, integrated by major aggregators (Booking.com, Airbnb).
+URL: https://ivandemurard.com/tacet. Tacet is a headless Environmental Twin for hospitality (B2B, 2026, V3). It began as a Bruitparif-powered Score Sérénité dashboard for Parisians, then pivoted to a physics-based, software-only model of the property and its surroundings, exposed via an MCP (Model Context Protocol) server. Four architectural pillars: (A) a 3D ray-tracing physics engine built on shapely and osmnx that computes line of sight and building shielding to cut false positives; (B) a dual memory store with idiosyncratic learning per GPS coordinate plus a Hive Mind that recalibrates baseline sensitivity across the network; (C) a human-in-the-loop guardrail that never changes prices on its own but formulates Price Modifier Rules (for example minus 15% on street-facing suites between June 12 and 14) for Revenue Manager approval; (D) conversational explainability through a mathematical Chain of Thought embedded in every JSON payload (base noise, distance attenuation, ray-tracing penalty, final impact). Stack: Python 3.12, FastAPI, Anthropic MCP SDK, SQLAlchemy, OSMnx, Shapely, GeoPandas, OAuth2, Mews Open API, Apaleo API, RMS webhooks. Designed to work in tandem with Aetherix: Aetherix consumes Tacet rules via MCP, providing internal context (occupancy, F&B, staffing) while Tacet provides external context (street, weather, events). Together they form one predictive twin. ESG impact: yield protection through pre-emptive pricing of noisy inventory, operational excellence through F&B and staffing buffers ahead of weather or social disruption, sustainability through proactive HVAC optimisation and noise mitigation. Source: https://github.com/IvandeMurard/tacet-app/blob/main/CASE_STUDY_V3.md.
 
 ## Track record
 
@@ -46,7 +46,7 @@ URL: https://ivandemurard.com/tacet. Tacet is the Synthetic Acoustic Twin: a pro
 ## Current builds
 
 - Aetherix: contextual intelligence layer for boutique hotel operations.
-- Tacet: Synthetic Acoustic Twin, headless intelligence layer for hotels.
+- Tacet: headless Environmental Twin for hotels, exposed via an MCP server.
 - Kissa: digital twin of a record collection.
 - Lore: voice AI mentor for senior technicians, 24h hackathon win.
 - Field Notes: writing on product, evaluation, and AI systems design.

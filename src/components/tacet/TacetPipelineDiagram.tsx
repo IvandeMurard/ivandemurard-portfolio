@@ -13,12 +13,12 @@ export const TacetPipelineDiagram = () => {
     { icon: "event", title: "Local Events", sub: "Streams" },
   ];
   const engine = [
-    { icon: "graph_3", title: "Synthetic Acoustic Model", sub: "Physics-based, software only" },
-    { icon: "view_in_ar", title: "OpenStreetMap 3D", sub: "Geometry, line of sight" },
+    { icon: "polyline", title: "Ray-tracing Physics Engine", sub: "3D line of sight, shielding" },
+    { icon: "memory", title: "Dual Memory store", sub: "Idiosyncratic + Hive Mind" },
   ];
   const ops = [
-    { icon: "trending_up", title: "Revenue Management", sub: "JSON alerts" },
-    { icon: "hotel", title: "Property Management", sub: "Room tags" },
+    { icon: "trending_up", title: "Revenue Management", sub: "Yield rules, HITL approval" },
+    { icon: "hotel", title: "Property Management", sub: "Room tags, reassignment" },
   ];
 
   return (
@@ -59,24 +59,24 @@ export const TacetPipelineDiagram = () => {
             className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim rounded-xl bg-surface-container-high shadow-sm backdrop-blur-sm max-w-sm w-full"
           >
             <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim flex items-center justify-center shrink-0">
-              <Icon name="bolt" className="text-outline text-lg" />
+              <Icon name="hub" className="text-outline text-lg" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-headline italic text-primary text-base md:text-lg leading-tight">
-                Proactive JSON alerts
+                MCP server: rules and Chain of Thought
               </p>
               <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">
-                Yield, ops, room reassignment
+                Consumed by RMS, PMS and orchestration agents
               </p>
             </div>
             <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary/80 shrink-0">
-              API-first
+              MCP
             </span>
           </div>
         </div>
 
         <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface text-center pt-2">
-          Proxy signals · Synthetic model · 3D geometry · JSON alerts
+          Proxy signals · Ray-traced physics · Dual memory · MCP rules
         </p>
       </div>
     </div>
