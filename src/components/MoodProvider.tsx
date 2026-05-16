@@ -6,6 +6,8 @@ interface MoodContextValue {
   mood: Mood;
   setMood: (m: Mood) => void;
   toggle: () => void;
+  preview: Mood | null;
+  setPreview: (m: Mood | null) => void;
 }
 
 const MoodContext = createContext<MoodContextValue | undefined>(undefined);
@@ -26,9 +28,10 @@ const readInitialMood = (): Mood => {
 
 export const MoodProvider = ({ children }: { children: ReactNode }) => {
   const [mood, setMoodState] = useState<Mood>(() => readInitialMood());
+  const [preview, setPreviewState] = useState<Mood | null>(null);
 
+  // Persist only the real mood.
   useEffect(() => {
-    document.documentElement.dataset.mood = mood;
     try {
       window.localStorage.setItem(STORAGE_KEY, mood);
     } catch {
@@ -36,10 +39,20 @@ export const MoodProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [mood]);
 
+  // Apply preview if set, otherwise the real mood.
+  useEffect(() => {
+    document.documentElement.dataset.mood = preview ?? mood;
+  }, [mood, preview]);
+
   const setMood = (m: Mood) => setMoodState(m);
   const toggle = () => setMoodState((m) => (m === "day" ? "dusk" : "day"));
+  const setPreview = (m: Mood | null) => setPreviewState(m);
 
-  return <MoodContext.Provider value={{ mood, setMood, toggle }}>{children}</MoodContext.Provider>;
+  return (
+    <MoodContext.Provider value={{ mood, setMood, toggle, preview, setPreview }}>
+      {children}
+    </MoodContext.Provider>
+  );
 };
 
 export const useMood = () => {
