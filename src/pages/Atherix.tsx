@@ -16,6 +16,7 @@ import { AetherixHorizonIllustration } from "@/components/atherix/AetherixHorizo
 import { AetherixLayerStack } from "@/components/atherix/AetherixLayerStack";
 import { AetherixHiveStanzas } from "@/components/atherix/AetherixHiveStanzas";
 import { AnticipationCeiling } from "@/components/atherix/AnticipationCeiling";
+import { Term } from "@/components/Term";
 
 const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (side project)" },
@@ -170,8 +171,8 @@ const Atherix = () => (
             </h1>
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
               <p>
-                Aetherix is an agentic framework focused on hotel operations. It anticipates staffing, F&B
-                preparation, and resource needs in real time, reduces food waste and operational costs, and frees the
+                Aetherix is an <Term id="agenticAi">agentic</Term> framework focused on hotel operations. It anticipates staffing, <Term id="fnb">F&B</Term>
+                {" "}preparation, and resource needs in real time, reduces food waste and operational costs, and frees the
                 human team to deliver exceptional guest experiences.
               </p>
             </div>
@@ -316,7 +317,7 @@ const Atherix = () => (
         <div className="text-center mb-16">
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Aetherix and Tacet</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            Aetherix reads internal context (PMS, occupancy, F&B, staffing).{" "}
+            Aetherix reads internal context (<Term id="pms">PMS</Term>, occupancy, F&B, staffing).{" "}
             <Link to="/tacet" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
               Tacet
             </Link>
@@ -356,7 +357,7 @@ const Atherix = () => (
           <div className="mb-16 md:mb-20">
             <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
             <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl text-lg">
-              Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. Qdrant matches today against 495+ past scenarios. pgvector remembers what worked in <em className="italic">your</em> hotel. Claude Sonnet turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over MCP.
+              Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. Qdrant matches today against 495+ past scenarios. pgvector remembers what worked in <em className="italic">your</em> hotel. Claude Sonnet turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over <Term id="mcp">MCP</Term>.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
