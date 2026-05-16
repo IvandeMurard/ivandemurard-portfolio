@@ -92,7 +92,31 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     id: "syntheticAcousticTwin",
     term: "synthetic acoustic twin",
     brief:
-      "A software model that simulates how sound propagates from streets, construction, and events to specific rooms, built from physics and public data rather than rooftop sensors.",
+      "A software model that ray-traces how sound propagates from streets, construction and events to specific rooms, built from physics and public data rather than rooftop sensors.",
+  },
+  environmentalTwin: {
+    id: "environmentalTwin",
+    term: "environmental twin",
+    brief:
+      "A software model of the hotel and its surroundings that simulates acoustic, weather and mobility impacts on specific rooms, so the property can anticipate friction before guests feel it.",
+  },
+  rayTracing: {
+    id: "rayTracing",
+    term: "ray-tracing",
+    brief:
+      "A geometric technique that draws 3D lines of sight between a noise source and a facade, then applies shielding penalties when buildings stand in the way. Cuts false positives.",
+  },
+  dualMemory: {
+    id: "dualMemory",
+    term: "dual memory",
+    brief:
+      "A stateful store with two layers. Idiosyncratic memory learns each hotel's quirks at a GPS coordinate. Hive Mind aggregates rejection rates across the network to recalibrate baseline sensitivity.",
+  },
+  chainOfThought: {
+    id: "chainOfThought",
+    term: "Chain of Thought",
+    brief:
+      "A structured breakdown of the calculation embedded in every payload (base noise, distance attenuation, ray-tracing penalty, final impact), so a client agent can explain the decision in natural language.",
   },
   apiFirst: {
     id: "apiFirst",
