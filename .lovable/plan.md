@@ -1,43 +1,62 @@
-## Aperçu live au survol du toggle ambiance
+## Sonor, section Outcome: 3 corrections
 
-Quand l'utilisateur survole (ou focus clavier) le toggle Day/Dusk dans le header, le site entier bascule visuellement dans l'autre ambiance pendant le hover. Quand il quitte le bouton sans cliquer, l'ambiance d'origine revient. Au clic, le choix est confirmé et persisté comme aujourd'hui.
+### 1. Lisibilité en dusk mode
 
-C'est cohérent avec l'esprit du site: l'affordance n'est pas un mot, c'est la sensation. On voit ce qu'on s'apprête à choisir.
+**Problème**: la section `#outcome` est peinte avec `bg-primary text-on-primary`. En dusk, ces tokens convergent et le contenu devient illisible.
 
-## Comportement
+**Correction**: ajouter une variante dusk via attribut `data-mood`. La section garde sa signature midnight en day, et bascule sur une palette sombre lisible en dusk.
 
-- **Survol / focus**: applique l'ambiance opposée à tout le document, sans toucher au state stocké, sans écrire dans `localStorage`.
-- **Sortie / blur** sans clic: rétablit l'ambiance d'origine.
-- **Clic**: comportement actuel, `toggle()` met à jour le state et la persistance. L'aperçu se résout naturellement puisque l'état réel rattrape l'aperçu.
-- **Désactivé**: si `prefers-reduced-motion: reduce` est actif, on retire la transition CSS mais on garde l'aperçu (le swap reste utile, juste sans fondu).
-- **Tactile**: aucun aperçu (pas de hover fiable). On garde le tap = toggle.
-- **Effet visuel pendant l'aperçu**: léger halo du knob (déjà présent au hover) + très subtile pulsation 1s sur la track pour signaler que c'est un aperçu, pas le choix définitif. Optionnel, à valider.
+- Wrapper de la section: `bg-primary text-on-primary` reste pour day, on ajoute `data-[mood=dusk]:bg-surface-container-lowest data-[mood=dusk]:text-on-surface` au niveau d'un parent ou via une classe utilitaire conditionnelle.
+- Approche retenue: lire `useMood()` dans le composant et appliquer des classes conditionnelles. Plus simple et déjà utilisé ailleurs.
+- Sous-éléments à reconsidérer en dusk: `text-primary-fixed-dim` (déjà lisible sur fond sombre, conservé), bordures `border-on-primary/10` (remplacées par `border-outline-variant/30` en dusk).
 
-## Implémentation
+### 2. Chronologie « From Hypothesis to Reality »
 
-1. **`MoodProvider`**: exposer une API d'aperçu sans toucher au state persistant.
-   - Ajouter `preview: Mood | null`, `setPreview(m: Mood | null)`.
-   - Dans l'effet qui synchronise `document.documentElement.dataset.mood`, utiliser `preview ?? mood`.
-   - Ne JAMAIS écrire `preview` dans `localStorage`. Le `useEffect` de persistance écrit uniquement `mood`.
+**Décisions utilisateur**: grid responsive sur une ligne, sans scroll horizontal, pleine largeur + typo agrandie.
 
-2. **`MoodToggle`**: brancher les events sur le `<button>`.
-   - `onMouseEnter` / `onFocus` (uniquement non-touch): `setPreview(isDusk ? "day" : "dusk")`.
-   - `onMouseLeave` / `onBlur`: `setPreview(null)`.
-   - `onClick`: `setPreview(null)` puis `toggle()` (sinon le preview écraserait brièvement le nouveau mood).
-   - Détection tactile via le hook `useIsTouch` existant.
+**Restructuration**:
 
-3. **Pas de changement de CSS**: les variables de thème basculent déjà via `[data-mood="dusk"]`. Les transitions CSS globales sur `background`, `color`, `border` (déjà présentes dans `index.css`) assurent un fondu naturel.
+```text
+┌───────────────────────────────────────────────────────────────┐
+│  FROM HYPOTHESIS TO REALITY                                   │
+│                                                               │
+│  01 ──→ 02 ──→ 03 ──→ 04 ──→ 05 ──→ 06 ──→ 07                 │
+│  Oct    Phase  Phase  Phase  Phase  Phase  End                │
+│  2020   1      2      3      4      5      2022               │
+│  Hack.  Disc.  Pivot  Proto. GTM    ...    Concl.             │
+└───────────────────────────────────────────────────────────────┘
+```
 
-## Risques et garde-fous
+- Sortie de la grille 2 colonnes: la timeline devient un bloc pleine largeur **au-dessus** du split (titre + stats). La grille `lg:grid-cols-2` reste pour le reste du contenu.
+- Layout: `grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6` (7 étapes existantes). Plus de `overflow-x-auto`, plus de scroll.
+- Connecteurs: flèches `arrow_forward` visibles en `lg:` entre colonnes, masquées en mobile (les cellules s'empilent en grille 2 colonnes).
+- Numérotation: chaque étape commence par un numéral en gold (`text-secondary-fixed` ou équivalent dusk-safe), style `font-label tracking-[0.2em] text-xs`.
+- Typo agrandie: les phases passent de `text-sm` à `text-lg md:text-xl font-headline italic`. Les dates restent en `text-xs font-label tracking-wider`.
+- Label « FROM HYPOTHESIS TO REALITY »: agrandi à `text-xs md:text-sm`, espacement renforcé.
 
-- **Flicker au clic**: résolu en posant `setPreview(null)` avant `toggle()`.
-- **Hover bloqué sur mobile pseudo-hover** (iPad clavier-souris): `useIsTouch` se base sur `(hover: none) and (pointer: coarse)`, donc un iPad avec souris déclenche l'aperçu. Acceptable.
-- **Performance**: un seul `data-attribute` change, pas de re-render React global, juste un repaint CSS.
-- **Coût visuel**: si le swap entier semble trop fort à l'usage, on peut limiter l'aperçu au header + premier viewport via une classe sur `<html>`. À garder en plan B, pas en V1.
+### 3. Nouveau titre
 
-## Fichiers touchés
+Remplacer:
 
-- `src/components/MoodProvider.tsx` (ajout `preview` + `setPreview`)
-- `src/components/MoodToggle.tsx` (handlers hover/focus)
+```text
+A Sanctuary in
+the Concrete.
+```
 
-Aucun autre fichier impacté. Pas de nouvelle dépendance.
+par:
+
+```text
+Quiet, Measured,
+Returned.
+```
+
+Garder `text-5xl md:text-7xl font-headline italic leading-tight`.
+
+## Fichiers modifiés
+
+- `src/pages/Sonor.tsx`: section `#outcome` uniquement (l. 318 à 370). Import de `useMood` si pas déjà présent.
+
+## Hors scope
+
+- Pas de changement sur les autres sections, pas de refonte du composant `Timeline` (il n'est pas utilisé ici, c'est un `.map` inline).
+- Pas de modification de tokens globaux ni de `index.css`.
