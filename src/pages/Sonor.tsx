@@ -124,6 +124,7 @@ const SONOR_SECTIONS = [
 
 const Sonor = () => {
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const { mood } = useMood();
 
   return (
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS}>
