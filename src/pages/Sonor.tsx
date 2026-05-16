@@ -10,6 +10,7 @@ import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
 import { Term } from "@/components/Term";
+import { useMood } from "@/components/MoodProvider";
 import sonorCartographie from "@/assets/sonor-cartographie.png";
 import sonorRecommandations from "@/assets/sonor-recommandations.png";
 import sonorLogo from "@/assets/sonor-logo.png";
