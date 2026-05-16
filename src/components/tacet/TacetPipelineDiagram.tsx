@@ -13,12 +13,12 @@ export const TacetPipelineDiagram = () => {
     { icon: "event", title: "Local Events", sub: "Streams" },
   ];
   const engine = [
-    { icon: "graph_3", title: "Synthetic Acoustic Model", sub: "Physics-based, software only" },
-    { icon: "view_in_ar", title: "OpenStreetMap 3D", sub: "Geometry, line of sight" },
+    { icon: "polyline", title: "Ray-tracing Physics Engine", sub: "3D line of sight, shielding" },
+    { icon: "memory", title: "Dual Memory store", sub: "Idiosyncratic + Hive Mind" },
   ];
   const ops = [
-    { icon: "trending_up", title: "Revenue Management", sub: "JSON alerts" },
-    { icon: "hotel", title: "Property Management", sub: "Room tags" },
+    { icon: "trending_up", title: "Revenue Management", sub: "Yield rules, HITL approval" },
+    { icon: "hotel", title: "Property Management", sub: "Room tags, reassignment" },
   ];
 
   return (
