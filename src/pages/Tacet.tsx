@@ -11,17 +11,17 @@ import acousticTwinImg from "@/assets/tacet-acoustic-twin.jpg";
 import { Term } from "@/components/Term";
 
 const PROJECT_INFO = [
-  { label: "Rôle", value: "Product Builder, Architect of an acoustic intelligence layer" },
-  { label: "Durée", value: "2026, ongoing (V3 pivot from B2C to B2B)" },
+  { label: "Rôle", value: "Product Builder, Architect of an environmental intelligence layer" },
+  { label: "Durée", value: "2026, ongoing (V3, MCP server and Dual Memory)" },
   { label: "Équipe", value: "Solo (with AI collaboration)" },
   {
     label: "Contexte",
-    value: "Headless API for hospitality, complement to Aetherix",
+    value: "Headless Environmental Twin for hospitality, exposed via MCP, complement to Aetherix",
   },
   {
     label: "Stack",
     value:
-      "Proxy data APIs (OpenData permits, traffic, weather, events), OpenStreetMap 3D geometry, synthetic acoustic model, JSON alerts to RMS and PMS",
+      "Python 3.12, FastAPI, Anthropic MCP SDK, OSMnx and Shapely ray-tracing, SQLAlchemy dual-memory store, Mews and Apaleo connectors",
   },
   {
     label: "Repository",
@@ -34,35 +34,84 @@ const HOW = [
   {
     n: "01",
     icon: "sensors",
-    title: "Proxy Data Ingestion",
-    body: "The engine continuously ingests APIs for construction permits, traffic flow, weather conditions, and local events.",
+    title: "Sense",
+    body: "The engine continuously ingests proxy APIs: construction permits, traffic flow, weather conditions, local events and mobility disruptions.",
   },
   {
     n: "02",
-    icon: "view_in_ar",
-    title: "Spatial Geometry",
-    body: "Using OpenStreetMap 3D building data, the algorithm calculates acoustic line of sight and building shielding.",
+    icon: "polyline",
+    title: "Reason",
+    body: "A 3D ray-tracing physics engine, paired with a dual-memory store, turns raw signals into a calibrated impact score for each room of each property.",
   },
   {
     n: "03",
-    icon: "bolt",
-    title: "Proactive Alerts",
-    body: "Tacet pushes JSON payloads directly to the hotel's Revenue Management System (RMS) or Property Management System (PMS).",
+    icon: "hub",
+    title: "Expose",
+    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or an orchestration agent like Aetherix.",
+  },
+];
+
+const PILLARS = [
+  {
+    letter: "A",
+    icon: "view_in_ar",
+    title: "Spatial Physics Engine",
+    body: "Tacet does not just measure distance, it measures physics. Using shapely and osmnx, it draws 3D lines of sight between a disruptive event and the property, then applies a shielding penalty when urban buildings block the path. False positives drop, alert fatigue disappears.",
+  },
+  {
+    letter: "B",
+    icon: "memory",
+    title: "Dual Memory",
+    body: "Idiosyncratic memory learns each property's quirks: a hotel that rejects \"traffic noise\" alerts probably has triple-glazed windows, so Tacet applies a persistent shielding bonus at that GPS point. Hive Mind aggregates rejection rates across the network to recalibrate baseline sensitivity.",
+  },
+  {
+    letter: "C",
+    icon: "verified_user",
+    title: "Human-in-the-Loop Guardrail",
+    body: "Tacet never executes destructive actions on its own. It formulates a precise Price Modifier Rule (for example, minus 15% on street-facing suites between June 12 and 14) and pushes it to the RMS for a Revenue Manager to approve. Accountability stays with the team.",
+  },
+  {
+    letter: "D",
+    icon: "forum",
+    title: "Conversational Explainability",
+    body: "Every JSON payload carries a mathematical Chain of Thought: base noise, distance attenuation, ray-tracing penalty, final impact. An orchestration agent parses it and explains the decision to the Revenue Manager in natural language, without a GUI.",
+  },
+];
+
+const IMPACT = [
+  {
+    icon: "shield",
+    title: "Yield protection",
+    body: "Pricing noisy inventory ahead of time prevents costly post-stay refunds and protects average daily rate on the rest of the building.",
+  },
+  {
+    icon: "restaurant",
+    title: "Operational excellence",
+    body: "When a heatwave overlaps with a transport strike, the orchestration layer adjusts F&B prep and staffing buffers before the day starts.",
+  },
+  {
+    icon: "eco",
+    title: "Sustainability",
+    body: "Less energy waste through proactive HVAC optimisation, less urban noise pollution carried into rooms, measured against a stable baseline.",
   },
 ];
 
 const FAQ = [
   {
-    q: "Why headless and not a dashboard?",
-    a: "An API-first layer integrates into the RMS and PMS where decisions already happen, instead of asking managers to watch yet another screen.",
+    q: "Why headless and exposed via MCP?",
+    a: "MCP is becoming the standard contract between agents and tools. Tacet ships as an MCP server so any RMS, PMS or orchestration agent can read its rules and reasoning without a bespoke integration.",
   },
   {
-    q: "How accurate is a software-only model versus hardware sensors?",
-    a: "The synthetic twin is physics-based and calibrated against Bruitparif baselines. No capex, no rooftop sensors, the model improves as data sources expand.",
+    q: "How accurate is a software-only model versus rooftop sensors?",
+    a: "Tacet ray-traces 3D building geometry from OpenStreetMap and calibrates against public acoustic baselines like Bruitparif. No capex, no hardware to maintain, and the model gets sharper as the dual-memory store learns each property.",
+  },
+  {
+    q: "Does Tacet change prices on its own?",
+    a: "No. Tacet formulates a Price Modifier Rule with an explicit window and inventory scope, then sends it to the RMS for a human Revenue Manager to approve. Accountability and brand control stay with the team.",
   },
   {
     q: "How does Tacet relate to Aetherix?",
-    a: "Aetherix reads internal context (occupancy, F&B, staffing). Tacet reads external context (street, weather, events). Together they form one predictive digital twin for the hotel.",
+    a: "Aetherix reads the internal context (occupancy, F&B, staffing). Tacet reads the external context (street, weather, events) and exposes it through MCP. Together they form one predictive twin of the property.",
   },
 ];
 
@@ -71,6 +120,8 @@ const TACET_SECTIONS = [
   { id: "problem", label: "Problem" },
   { id: "solution", label: "Solution" },
   { id: "architecture", label: "Architecture" },
+  { id: "pillars", label: "Pillars" },
+  { id: "impact", label: "Impact" },
   { id: "synergy", label: "Synergy" },
   { id: "horizon", label: "Horizon" },
   { id: "faq", label: "FAQ" },
