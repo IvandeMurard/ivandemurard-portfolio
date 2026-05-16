@@ -1,58 +1,76 @@
-# Tacet: The Synthetic Acoustic Twin
+# Tacet: The Environmental Twin
 
-A proactive, headless intelligence layer designed for the hospitality sector. It predicts the impact of the external acoustic environment on revenue and guest experience, moving from passive awareness to proactive yield management.
+A headless Environmental Twin for the hospitality sector. Tacet turns street, weather and crowd signals into yield rules and Chain of Thought payloads, exposed via an MCP server that any RMS, PMS or orchestration agent can consume.
 
 - URL: https://ivandemurard.com/tacet
-- Role: Product Builder, Architect of an acoustic intelligence layer
-- Duration: 2026, ongoing (V3 pivot from B2C dashboard to B2B headless API)
+- Role: Product Builder, Architect of an environmental intelligence layer
+- Duration: 2026, ongoing (V3, MCP server and Dual Memory)
 - Team: Solo (with AI collaboration)
-- Context: Headless API for hospitality, complement to Aetherix
-- Stack: Proxy data APIs (OpenData permits, traffic, weather, events), OpenStreetMap 3D geometry, synthetic acoustic model, JSON alerts to RMS and PMS
+- Context: Headless Environmental Twin for hospitality, exposed via MCP, complement to Aetherix
+- Stack: Python 3.12, FastAPI, Anthropic MCP SDK, OSMnx and Shapely ray-tracing, SQLAlchemy dual-memory store, Mews and Apaleo connectors
 
-## 1. Overview
+## 1. The Problem
 
-Tacet began as an exploration of urban noise pollution, a dashboard translating Bruitparif data into a human-readable Score Sérénité for Parisians. The true value of data, however, lies not in visualization but in anticipation. Tacet has evolved into a headless Synthetic Acoustic Twin, designed specifically for the hospitality sector. It predicts the impact of the external environment on the guest experience, moving from passive awareness to proactive yield management.
+Revenue Management Systems and Property Management Systems run on historical booking data. They are blind to the physical and contextual future of the property's surroundings. A transport strike, an unannounced street excavation, a sudden heatwave: none of it is in the data. That blindness shows up as mispriced inventory, operational friction and avoidable refunds.
 
-## 2. The Problem
+## 2. The Solution: An Environmental Twin
 
-In the hospitality industry, a single bad review about noise can cost thousands in lost bookings. Yet "quiet room" remains a subjective request. Hotel managers lack the tools to anticipate environmental disruptions (construction, traffic spikes, local events) and adjust their operations or pricing dynamically.
+Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer of a broader hospitality agentic mesh.
 
-## 3. The Solution: A Synthetic Digital Twin
+Rather than overwhelming staff with another dashboard of raw data, Tacet mathematically calculates the real-world impact of external events. It exposes this intelligence via an MCP (Model Context Protocol) server so that operational agents like Aetherix can adjust F&B and staffing, while Tacet pushes actionable yield rules directly to the RMS (Atomize, Duetto and similar) for human approval.
 
-Instead of relying on costly hardware sensors, Tacet builds a physics-based, software-only acoustic model of the hotel.
-
-1. **Proxy Data Ingestion:** the engine continuously ingests APIs for construction permits, traffic flow, weather conditions, and local events.
-2. **Spatial Geometry:** using OpenStreetMap 3D building data, the algorithm calculates acoustic line of sight and building shielding.
-3. **Proactive Alerts:** Tacet acts as an invisible intelligence layer, pushing JSON payloads directly to the hotel's Revenue Management System (RMS) or Property Management System (PMS).
+Three steps: Sense (proxy signals), Reason (ray-tracing physics + dual memory), Expose (MCP server with yield rules and Chain of Thought).
 
 Example workflow:
 
-> "Alert: OpenData Paris shows jackhammering scheduled for 7:00 AM tomorrow outside the East Wing. Recommendation: reduce booking price by 10% for affected rooms, and automatically reassign VIP guests to the West Wing."
+> "Heatwave forecast plus rail strike on June 13. Tacet suggests minus 15% on street-facing suites for two nights, and a staffing buffer for breakfast service. Awaiting Revenue Manager approval."
 
-## 4. The Synergy: Tacet and Aetherix
+## 3. Architectural Pillars
 
-Tacet is designed to work in tandem with [Aetherix](https://ivandemurard.com/aetherix), forming a complete Predictive Digital Twin for hotels:
+**A. Spatial Physics Engine (Acoustic Ray-Tracing).** Using shapely and osmnx, Tacet draws 3D lines of sight between a disruptive event (jackhammer, stadium crowd, traffic spike) and the property. It cross-references the path against urban building polygons. When a building blocks the source, Tacet applies a dynamic shielding penalty. False positives drop, alert fatigue disappears.
 
-- **Aetherix (internal context):** predicts operational needs, F&B demand, and staffing based on occupancy and historical trends.
-- **Tacet (external context):** predicts environmental impact, street disruptions, and acoustic risks.
+**B. Dual Memory System (Idiosyncratic + Hive Mind).** A predictive engine must learn from its mistakes.
+- Idiosyncratic memory: if a hotel manager repeatedly rejects an automated alert for "traffic noise", Tacet learns the building likely has triple-glazed windows and applies a persistent shielding bonus at that GPS coordinate.
+- Hive Mind: a statistical aggregation engine analyses rejection rates across the global network to recalibrate baseline sensitivity for the entire ecosystem.
 
-Together, they allow hotel operators to control costs, reduce waste, and guarantee an unparalleled guest experience.
+**C. Human-in-the-Loop Guardrail.** Tacet never executes autonomous, destructive actions like changing a price blindly. It formulates a precise Price Modifier Rule (for example, minus 15% on street-facing suites between June 12 and 14) and pushes it to the RMS for human approval. Accountability stays with the team.
 
-## 5. UI/UX: The Sound of Quiet
+**D. Conversational Explainability.** To guarantee transparency without a GUI, Tacet embeds a mathematical Chain of Thought in every JSON response. An orchestration agent like Aetherix parses it and explains the calculation (base noise, distance attenuation, ray-tracing penalty, final impact) to the Revenue Manager in natural language.
 
-While Tacet V3 is API-first, the visual language developed for the original dashboard remains crucial for B2B reporting.
+## 4. Impact and ESG Alignment
 
-- **Chromatic Silence:** a deep, tailored color palette (navy, subtle golds, soft whites) evoking premium hospitality.
-- **Soft Components:** interface elements that feel responsive and alive, using micro-animations to convey serenity rather than urgency.
-- **Data Provenance:** transparent sourcing to build trust with investment committees and hotel management.
+Embedded in an agentic OS, properties shift from reactive to proactive yield and operational management.
 
-## 6. The 5-Year Horizon
+- **Yield protection.** Pricing noisy inventory ahead of time prevents costly post-stay refunds and protects the average daily rate of the rest of the building.
+- **Operational excellence.** When Tacet detects an impending heatwave plus transport strike, the orchestration layer adjusts F&B supply and staffing buffers before the day starts, preventing food waste and labour inefficiencies.
+- **Sustainability.** Less energy waste through proactive HVAC optimisation, measurable improvement in guest well-being through proactive mitigation of urban noise pollution.
 
-The ultimate goal is to establish the definitive Quiet Certification for the industry. Once Tacet powers the yield management of the top 500 boutique hotels in Europe, major aggregators (Booking.com, Airbnb) will integrate the Tacet API as the standard metric for acoustic quality.
+## 5. Synergy with Aetherix
+
+Tacet exposes its rules and reasoning through MCP. [Aetherix](https://ivandemurard.com/aetherix) consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
+
+- **Aetherix (internal context):** anticipates operational needs, F&B demand and staffing based on occupancy and historical trends.
+- **Tacet (external context):** reads street, weather and event signals, ray-traces their impact, publishes yield rules on MCP.
+
+Together they let teams control costs, reduce waste and protect the experience guests came for.
+
+## 6. Horizon
+
+Widen the catalogue of signals (mobility, air quality, cultural events), invite more orchestration agents on the MCP layer, and let the dual memory get sharper at each property. Over time, Tacet becomes the environmental layer of an agentic OS for hospitality: each property reads its surroundings with its own context, and responds faster because of it. A Quiet Certification standard is a likely side-effect, not the goal.
+
+## Technical Stack
+
+- **Agentic Protocol:** Anthropic MCP (Model Context Protocol) SDK
+- **Language:** Python 3.12
+- **Framework:** FastAPI (REST, OpenAPI)
+- **Database:** SQLAlchemy / SQLite (dual-memory store)
+- **Spatial Processing:** OSMnx, Shapely, GeoPandas
+- **Integrations:** OAuth2, Mews Open API, Apaleo API, RMS webhooks
 
 ## Links
 
 - Original B2C dashboard (visual reference): https://tacet.vercel.app
 - Repository: https://github.com/IvandeMurard/tacet-app
+- Case study source: https://github.com/IvandeMurard/tacet-app/blob/main/CASE_STUDY_V3.md
 - Related: https://ivandemurard.com/aetherix
 - Contact: ivandemurard@gmail.com
