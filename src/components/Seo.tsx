@@ -15,6 +15,8 @@ type SeoProps = {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   /** If true, title is used verbatim (no " · Ivan de Murard" suffix). */
   rawTitle?: boolean;
+  /** If true, emits <meta name="robots" content="noindex, follow">. */
+  noIndex?: boolean;
 };
 
 const upsertMeta = (selector: string, attr: "name" | "property", key: string, value: string) => {
