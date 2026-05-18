@@ -49,6 +49,7 @@ export const Seo = ({
   type = "website",
   jsonLd,
   rawTitle,
+  noIndex,
 }: SeoProps) => {
   const { pathname } = useLocation();
   const finalPath = path ?? pathname;
@@ -59,6 +60,13 @@ export const Seo = ({
     document.title = fullTitle;
     upsertMeta('meta[name="description"]', "name", "description", description);
     upsertLink("canonical", canonical);
+
+    if (noIndex) {
+      upsertMeta('meta[name="robots"]', "name", "robots", "noindex, follow");
+    } else {
+      const r = document.head.querySelector('meta[name="robots"]');
+      if (r) r.remove();
+    }
 
     upsertMeta('meta[property="og:title"]', "property", "og:title", fullTitle);
     upsertMeta('meta[property="og:description"]', "property", "og:description", description);
@@ -88,7 +96,7 @@ export const Seo = ({
       const s = document.getElementById(SCRIPT_ID);
       if (s) s.remove();
     };
-  }, [fullTitle, description, canonical, image, type, jsonLd]);
+  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex]);
 
   return null;
 };

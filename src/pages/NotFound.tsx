@@ -13,7 +13,7 @@ const NotFound = () => {
 
   return (
     <SiteLayout title="Page not found">
-      <Seo title="Page not found" description="This page does not exist on ivandemurard.com." />
+      <Seo title="Page not found" description="This page does not exist on ivandemurard.com." noIndex />
       <div className="min-h-[80vh] flex items-center justify-center px-6 md:px-12 pt-32 pb-24">
         <div className="text-center max-w-xl">
           <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
