@@ -15,6 +15,8 @@ type SeoProps = {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   /** If true, title is used verbatim (no " · Ivan de Murard" suffix). */
   rawTitle?: boolean;
+  /** If true, emits <meta name="robots" content="noindex, follow">. */
+  noIndex?: boolean;
 };
 
 const upsertMeta = (selector: string, attr: "name" | "property", key: string, value: string) => {
@@ -47,6 +49,7 @@ export const Seo = ({
   type = "website",
   jsonLd,
   rawTitle,
+  noIndex,
 }: SeoProps) => {
   const { pathname } = useLocation();
   const finalPath = path ?? pathname;
@@ -57,6 +60,13 @@ export const Seo = ({
     document.title = fullTitle;
     upsertMeta('meta[name="description"]', "name", "description", description);
     upsertLink("canonical", canonical);
+
+    if (noIndex) {
+      upsertMeta('meta[name="robots"]', "name", "robots", "noindex, follow");
+    } else {
+      const r = document.head.querySelector('meta[name="robots"]');
+      if (r) r.remove();
+    }
 
     upsertMeta('meta[property="og:title"]', "property", "og:title", fullTitle);
     upsertMeta('meta[property="og:description"]', "property", "og:description", description);
@@ -86,7 +96,7 @@ export const Seo = ({
       const s = document.getElementById(SCRIPT_ID);
       if (s) s.remove();
     };
-  }, [fullTitle, description, canonical, image, type, jsonLd]);
+  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex]);
 
   return null;
 };
