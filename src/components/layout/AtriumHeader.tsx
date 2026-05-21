@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { TransitionLink, useViewTransitionNavigate } from "@/hooks/useViewTransition";
+import { useLocation } from "react-router-dom";
+import { TransitionLink } from "@/hooks/useViewTransition";
 import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
 import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
@@ -16,21 +16,16 @@ const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "
   { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, kind: "social" },
 ];
 
+const isNavActive = (pathname: string, to: string) => {
+  if (to === "/") return pathname === "/";
+  return pathname === to || pathname.startsWith(`${to}/`);
+};
+
 export const AtriumHeader = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const haptic = useHaptic();
   const track = useTrackClick();
-  const tnav = useViewTransitionNavigate();
-
-  const handleNavClick =
-    (to: string) =>
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
-      if (e.button !== 0) return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      e.preventDefault();
-      tnav(to);
-    };
 
   useEffect(() => {
     setOpen(false);
