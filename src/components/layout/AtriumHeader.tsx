@@ -37,9 +37,23 @@ export const AtriumHeader = () => {
         <div className="flex justify-between items-center px-6 md:px-12 py-6 md:py-8 w-full max-w-screen-2xl mx-auto relative">
           <TransitionLink
             to="/"
-            className="text-xl md:text-2xl font-headline italic text-primary tracking-wide hover:opacity-80 transition-opacity duration-500"
+            className="group relative inline-flex items-baseline text-xl md:text-2xl font-headline italic text-primary tracking-wide"
           >
-            Ivan de Murard
+            <span className="transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-secondary">
+              Ivan de Murard
+            </span>
+            <span
+              aria-hidden="true"
+              className="ml-1 inline-block h-1 w-1 rounded-full bg-secondary opacity-0 scale-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100 group-hover:scale-100"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-0.5 left-0 h-px w-0 bg-secondary transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-full"
+            />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-1.5 left-0 h-px w-0 bg-secondary/30 transition-[width] duration-1000 delay-150 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-full"
+            />
           </TransitionLink>
 
           {/* Center primary nav */}

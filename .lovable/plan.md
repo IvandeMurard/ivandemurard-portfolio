@@ -1,35 +1,48 @@
-# Fix: navigation bar links non functional on the home page
+## Delight: signature gildée au survol du nom
 
-## Symptom
+Cible unique : le `TransitionLink` "Ivan de Murard" dans `src/components/layout/AtriumHeader.tsx` (ligne 38-43). Aucun autre fichier modifié.
 
-Reproduit via le navigateur depuis `/` :
+### Comportement au hover
 
-- Clic sur "Case Studies", "About", "Field Notes", "Contact" dans la barre du haut → URL ne change pas, aucun log console.
-- Clic sur les CTA hero "Step inside" / "View the Journeys" → navigation vers `/journeys` OK.
-- Clic sur "Explore all stories" (TransitionLink) → OK.
+Trois éléments orchestrés sur le groupe :
 
-Donc le routeur, `useViewTransitionNavigate`, et le composant `TransitionLink` fonctionnent. Seuls les `NavLink` du centre de `AtriumHeader` échouent.
+1. **Couleur du texte** : transition lente du `text-primary` (navy Picasso) vers `text-secondary` (or terni), durée 700ms, easing `cubic-bezier(0.22, 1, 0.36, 1)` (déjà utilisé dans le site).
 
-## Cause
+2. **Point d'or** : un petit point (`•` ou un `<span>` rond de 4px) apparaît juste après "Murard". Au repos : `opacity-0 scale-0`. Au hover : `opacity-100 scale-100`, transition 500ms. Couleur `bg-secondary`. Lecture : point final d'une signature manuscrite.
 
-Dans `src/components/layout/AtriumHeader.tsx`, le centre de la nav utilise `NavLink` de react-router avec un `onClick` custom qui fait `e.preventDefault()` puis appelle `tnav(to)`. Ce pattern de chaînage avec le handler interne de `NavLink` casse la navigation dans ce contexte (le `preventDefault` neutralise la navigation native du Link mais la View Transition lancée juste après ne déclenche pas la navigation react-router attendue). Le pattern n'est utilisé que dans `AtriumHeader`, ce qui explique que seul ce composant soit cassé. `TransitionLink` (utilisé partout ailleurs) gère ce chaînage correctement et fonctionne.
+3. **Double trait à l'encre** : deux `<span>` absolus en bas du nom.
+   - Trait 1 : 1px, `bg-secondary`, largeur 0 → 100% en 700ms.
+   - Trait 2 : 1px, `bg-secondary/30`, largeur 0 → 100% en 1000ms avec `delay-150`. Positionné 2px sous le premier.
+   
+   Lecture : trace d'une plume qui repasse légèrement.
 
-## Correction
+### Implémentation technique
 
-**Fichier modifié : `src/components/layout/AtriumHeader.tsx`**
+Structure proposée :
 
-1. Supprimer le helper `handleNavClick` et l'import `useViewTransitionNavigate`.
-2. Remplacer les deux `NavLink` (centre desktop + overlay mobile) par `TransitionLink`, déjà importé dans le fichier.
-3. Calculer l'état actif manuellement à partir de `useLocation` :
-   - Pour `to === "/"` : actif si `pathname === "/"` (équivalent du `end` prop).
-   - Sinon : actif si `pathname === to` ou commence par `to + "/"`.
-4. Conserver toutes les classes existantes (idle, actif, hover, text-shadow gold) pour préserver l'esthétique.
-5. Garder l'import `NavLink` uniquement s'il reste utilisé ailleurs dans le fichier, sinon le retirer.
+```text
+<TransitionLink to="/" className="group relative inline-flex items-baseline ...">
+  <span className="transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-secondary">
+    Ivan de Murard
+  </span>
+  <span className="ml-1 h-1 w-1 rounded-full bg-secondary opacity-0 scale-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100" />
+  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-secondary transition-all duration-700 group-hover:w-full" />
+  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-secondary/30 transition-all duration-1000 delay-150 group-hover:w-full" />
+</TransitionLink>
+```
 
-## Validation
+### Détails
 
-- Recharger `/`, cliquer sur chaque lien de la nav centrale (Case Studies, About, Field Notes, Contact) → URL change et la page transitionne.
-- Depuis `/journeys`, cliquer "Home" puis revenir → toujours OK.
-- Vérifier que l'état actif (souligné doré + text-shadow) s'affiche bien sur la page courante.
-- Vérifier le menu mobile (hamburger ouvert) : mêmes liens cliquables, ferme le menu après navigation grâce au `useEffect` existant sur `location.pathname`.
-- Aucun changement d'apparence : seul le mécanisme de clic est remplacé.
+- Retirer l'actuel `hover:opacity-80 transition-opacity duration-500`.
+- Garder `text-xl md:text-2xl font-headline italic text-primary tracking-wide`.
+- `aria-hidden="true"` sur les 3 spans décoratifs (point + 2 traits).
+- Respect implicite de `prefers-reduced-motion` : pas de transform, uniquement opacity/color/width, donc acceptable. Pas de keyframes nécessaires.
+- Fonctionne en mode Day comme en Dusk (l'or `--secondary` est défini dans les deux moods).
+
+### Hors scope
+
+- Pas de changement sur les autres liens de la nav.
+- Pas de nouveaux tokens dans `index.css`.
+- Pas de modification du composant `TransitionLink`.
+
+Prêt à implémenter.
