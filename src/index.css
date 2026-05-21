@@ -833,6 +833,14 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .journey-preview img {
+      transition-duration: 200ms !important;
+      transform: none !important;
+    }
+  }
+
+
   .journey-summary-link {
     position: relative;
     display: inline-flex;
