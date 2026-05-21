@@ -11,7 +11,7 @@
 
 ## Case studies
 
-- [Aetherix](https://ivandemurard.com/aetherix): Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, frees teams to focus on guest experience. Stack: Apaleo PMS, FastAPI, Claude Sonnet, Qdrant, pgvector, MCP.
+- [Aetherix](https://ivandemurard.com/aetherix): F&B Execution Node of the Hospitality Agentic Mesh. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, frees teams to focus on guest experience. Stack: Apaleo PMS, FastAPI, Prophet, pgvector, HiveMemory, Claude Sonnet (Gemini and GPT fallback), MCP Server v0 live on Fly.io.
 - [Sonor](https://ivandemurard.com/sonor): Two-year journey as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to map urban noise and drive sustainability policy.
 - [Tacet](https://ivandemurard.com/tacet): Headless Environmental Twin for hospitality, exposed via an MCP server. A 3D ray-tracing physics engine plus a dual memory store (idiosyncratic and hive mind) turns street, weather and crowd signals into human-approved yield rules and Chain of Thought payloads for RMS, PMS and orchestration agents like Aetherix.
 

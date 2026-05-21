@@ -20,11 +20,13 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/30min. Li
 
 ## Aetherix
 
-URL: https://ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main.
+URL: https://ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/aetherix-hospitality-ai.
 
-Aetherix is an agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.
+Aetherix is the F&B Execution Node of the Hospitality Agentic Mesh. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences, while remaining callable by any other agent in the stack via MCP.
 
-Architecture: Internal context (Apaleo PMS via OAuth and MCP read) combines with external signals (weather, events, social sentiment) to feed a FastAPI backend. Intelligence layers combine Prophet for numerical forecasting, Qdrant and pgvector for semantic memory, Claude Sonnet for cognitive reasoning, and an outbound MCP server for action. Delivery channels include WhatsApp push and Next.js verification dashboards. Current status: live Apaleo OAuth and MCP read access.
+The Mesh is a constellation of specialized AI agents communicating exclusively via MCP: Aetherix (F&B Execution, Live), Tacet (Sensory Node, Phase 3), Orchestrator (Supervisory Agent, Phase 3), Anima (Guest Context, Phase 4). Each node owns one domain. A supervisory agent routes between them, applying hotel business rules. The whole system plugs into PMS Agent Hubs (Apaleo today, Mews next) like LEGO, rather than replacing them.
+
+Architecture: Internal context (Apaleo PMS via OAuth2 and MCP read) combines with external signals (weather, events, social sentiment) to feed a FastAPI backend. Intelligence layers combine Prophet for numerical forecasting, pgvector for per-property memory, HiveMemory for anonymized peer patterns, and LLMProvider (Claude Sonnet primary, Gemini and GPT fallback) for cognitive reasoning. The MCP Server v0 is live (three atomic tools, multi-tenant by design) for orchestration agents and the Apaleo Agent Hub. Delivery channels include WhatsApp push and Next.js verification dashboards. Current status: MCP Server v0 shipped, staging live on Fly.io (Paris), design partner pilot starting (Phase 3). No real-world MAPE measurement yet, backtest harness built.
 
 Design partners include Toni Stoeckl and Avi Brosh.
 
