@@ -119,24 +119,24 @@ export const AtriumHeader = () => {
           {[
             ...(location.pathname !== "/" ? [{ label: "Home", to: "/" }] : []),
             ...PRIMARY_NAV,
-          ].map((item) => (
-            <NavLink
-              key={item.label}
-              to={item.to}
-              end={item.to === "/"}
-              onClick={handleNavClick(item.to)}
-              className={({ isActive }) =>
-                [
+          ].map((item) => {
+            const active = isNavActive(location.pathname, item.to);
+            return (
+              <TransitionLink
+                key={item.label}
+                to={item.to}
+                aria-current={active ? "page" : undefined}
+                className={[
                   "font-headline italic text-3xl transition-colors",
-                  isActive
+                  active
                     ? "text-secondary border-b border-secondary/60 pb-1 [text-shadow:0_0_24px_hsl(var(--secondary)/0.3)]"
                     : "text-primary",
-                ].join(" ")
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
+                ].join(" ")}
+              >
+                {item.label}
+              </TransitionLink>
+            );
+          })}
           <div className="h-px w-16 bg-outline-variant/30 my-4" />
           <div className="flex flex-wrap justify-center gap-6">
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (
