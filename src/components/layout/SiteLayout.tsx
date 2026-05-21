@@ -36,7 +36,7 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
       </a>
       <PageLight />
       <BrandCursor />
-      <div style={{ viewTransitionName: "site-header" }}>
+      <div className="relative z-50" style={{ viewTransitionName: "site-header" }}>
         <AtriumHeader />
       </div>
       <SectionRail sections={sections} />

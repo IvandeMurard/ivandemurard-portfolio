@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { TransitionLink, useViewTransitionNavigate } from "@/hooks/useViewTransition";
+import { useLocation } from "react-router-dom";
+import { TransitionLink } from "@/hooks/useViewTransition";
 import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
 import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
@@ -16,21 +16,16 @@ const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "
   { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, kind: "social" },
 ];
 
+const isNavActive = (pathname: string, to: string) => {
+  if (to === "/") return pathname === "/";
+  return pathname === to || pathname.startsWith(`${to}/`);
+};
+
 export const AtriumHeader = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const haptic = useHaptic();
   const track = useTrackClick();
-  const tnav = useViewTransitionNavigate();
-
-  const handleNavClick =
-    (to: string) =>
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
-      if (e.button !== 0) return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      e.preventDefault();
-      tnav(to);
-    };
 
   useEffect(() => {
     setOpen(false);
@@ -52,24 +47,24 @@ export const AtriumHeader = () => {
             {[
               ...(location.pathname !== "/" ? [{ label: "Home", to: "/" }] : []),
               ...PRIMARY_NAV,
-            ].map((item) => (
-              <NavLink
-                key={item.label}
-                to={item.to}
-                end={item.to === "/"}
-                onClick={handleNavClick(item.to)}
-                className={({ isActive }) =>
-                  [
+            ].map((item) => {
+              const active = isNavActive(location.pathname, item.to);
+              return (
+                <TransitionLink
+                  key={item.label}
+                  to={item.to}
+                  aria-current={active ? "page" : undefined}
+                  className={[
                     "font-headline italic tracking-wide text-sm transition-colors duration-500",
-                    isActive
+                    active
                       ? "text-secondary border-b border-secondary/60 pb-1 [text-shadow:0_0_18px_hsl(var(--secondary)/0.25)]"
                       : "text-on-surface-variant hover:text-primary",
-                  ].join(" ")
-                }
-              >
-                {item.label}
-              </NavLink>
-            ))}
+                  ].join(" ")}
+                >
+                  {item.label}
+                </TransitionLink>
+              );
+            })}
           </div>
 
           {/* Right utility links */}
@@ -124,24 +119,24 @@ export const AtriumHeader = () => {
           {[
             ...(location.pathname !== "/" ? [{ label: "Home", to: "/" }] : []),
             ...PRIMARY_NAV,
-          ].map((item) => (
-            <NavLink
-              key={item.label}
-              to={item.to}
-              end={item.to === "/"}
-              onClick={handleNavClick(item.to)}
-              className={({ isActive }) =>
-                [
+          ].map((item) => {
+            const active = isNavActive(location.pathname, item.to);
+            return (
+              <TransitionLink
+                key={item.label}
+                to={item.to}
+                aria-current={active ? "page" : undefined}
+                className={[
                   "font-headline italic text-3xl transition-colors",
-                  isActive
+                  active
                     ? "text-secondary border-b border-secondary/60 pb-1 [text-shadow:0_0_24px_hsl(var(--secondary)/0.3)]"
                     : "text-primary",
-                ].join(" ")
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
+                ].join(" ")}
+              >
+                {item.label}
+              </TransitionLink>
+            );
+          })}
           <div className="h-px w-16 bg-outline-variant/30 my-4" />
           <div className="flex flex-wrap justify-center gap-6">
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (

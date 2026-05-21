@@ -1,47 +1,35 @@
-# Mise à jour Case Study Aetherix — Hospitality Agentic Mesh
+# Fix: navigation bar links non functional on the home page
 
-Repositionner Aetherix : non plus un framework standalone, mais le **F&B Execution Node** d'un Mesh d'agents (Aetherix, Tacet, Orchestrator, Anima) communiquant via MCP. Ton produit/business, pas technique.
+## Symptom
 
-## Fichiers modifiés
+Reproduit via le navigateur depuis `/` :
 
-**1. `src/pages/Atherix.tsx`** (page principale)
+- Clic sur "Case Studies", "About", "Field Notes", "Contact" dans la barre du haut → URL ne change pas, aucun log console.
+- Clic sur les CTA hero "Step inside" / "View the Journeys" → navigation vers `/journeys` OK.
+- Clic sur "Explore all stories" (TransitionLink) → OK.
 
-- `PROJECT_INFO` : nouvelle URL repo (`aetherix-hospitality-ai`), statut mai 2026 ("MCP Server v0 shipped · Staging live on Fly.io Paris · design partner pilot starting"), remplacer ligne "Companion" par "Mesh" listant les 4 nœuds.
-- Hero subtitle : "Aetherix is the F&B Execution Node of the Hospitality Agentic Mesh…"
-- **Nouvelle section "Part of a Mesh"** insérée après le bloc Architecture (`AetherixLayerStack`) et avant `SectionDivider label="The Vision" index="02"`. Précédée d'un `SectionDivider label="The Mesh"`. Contient 4 cartes : Aetherix (Live), Tacet (Phase 3), Orchestrator (Phase 3), Anima (Phase 4, opacité réduite). Réindexer les `SectionDivider` suivants si nécessaire pour garder une numérotation cohérente.
-- Section "Aetherix and Tacet" : titre devient "Aetherix ↔ Tacet", paragraphe reformulé avec scénario Orchestrator (roadworks 65dB → ajustement staffing breakfast). Cartes conservées.
-- Section "Intelligent Anticipation" : retirer Qdrant et "495+ patterns", introduire pgvector + HiveMemory + fallback Gemini/GPT via `LLMProvider`.
-- Carte "Proactive Messaging" : "MCP Server v0 is live — three atomic tools, multi-tenant…" remplace "outbound MCP server in progress". Caption : "Apaleo MCP · MCP Server v0 live · WhatsApp delivery · Fly.io Paris".
-- Constante `FAQ` : 6 entrées (stage actuel, pas encore en prod, rôle humain, intégration, qu'est-ce que le Mesh, relation avec Tacet). Pas de claim MAPE.
-- Lien GitHub "Explore the Platform" → `https://github.com/IvandeMurard/aetherix-hospitality-ai`.
+Donc le routeur, `useViewTransitionNavigate`, et le composant `TransitionLink` fonctionnent. Seuls les `NavLink` du centre de `AtriumHeader` échouent.
 
-**2. `src/components/atherix/AetherixArchitectureDiagram.tsx`**
+## Cause
 
-- Retirer toute référence à Qdrant et "495+ patterns" (déjà présentes dans le composant actuel).
-- Remplacer par pgvector (mémoire propre) + HiveMemory (patterns anonymisés de pairs).
-- Bloc LLM : "Claude Sonnet (primary) · Gemini / GPT (fallback)" via `LLMProvider`.
-- Mention "Fly.io · Paris" en caption (parallélisme avec le README).
-- Statut "Outbound MCP server" : passer de "In progress" à "Live · v0".
+Dans `src/components/layout/AtriumHeader.tsx`, le centre de la nav utilise `NavLink` de react-router avec un `onClick` custom qui fait `e.preventDefault()` puis appelle `tnav(to)`. Ce pattern de chaînage avec le handler interne de `NavLink` casse la navigation dans ce contexte (le `preventDefault` neutralise la navigation native du Link mais la View Transition lancée juste après ne déclenche pas la navigation react-router attendue). Le pattern n'est utilisé que dans `AtriumHeader`, ce qui explique que seul ce composant soit cassé. `TransitionLink` (utilisé partout ailleurs) gère ce chaînage correctement et fonctionne.
 
-**3. Fichiers miroirs (synchronisation factuelle, pas de JSX)**
+## Correction
 
-- `public/atherix.md` : repo URL, statut, stack (retirer Qdrant, ajouter HiveMemory et fallback LLM), section Mesh, MCP Server v0 live.
-- `public/llms-full.txt` : même mise à jour dans le paragraphe Aetherix (architecture, statut, positionnement Mesh).
+**Fichier modifié : `src/components/layout/AtriumHeader.tsx`**
 
-**4. `scripts/seo-routes.ts`** (vérification)
+1. Supprimer le helper `handleNavClick` et l'import `useViewTransitionNavigate`.
+2. Remplacer les deux `NavLink` (centre desktop + overlay mobile) par `TransitionLink`, déjà importé dans le fichier.
+3. Calculer l'état actif manuellement à partir de `useLocation` :
+   - Pour `to === "/"` : actif si `pathname === "/"` (équivalent du `end` prop).
+   - Sinon : actif si `pathname === to` ou commence par `to + "/"`.
+4. Conserver toutes les classes existantes (idle, actif, hover, text-shadow gold) pour préserver l'esthétique.
+5. Garder l'import `NavLink` uniquement s'il reste utilisé ailleurs dans le fichier, sinon le retirer.
 
-- Confirmer que la description SEO `/aetherix` reflète le positionnement Mesh. Ajuster si elle parle encore de "agentic framework".
+## Validation
 
-## Checklist de validation
-
-- [ ] PROJECT_INFO : repo URL, statut Phase 3, ligne Mesh
-- [ ] Hero mentionne "F&B Execution Node of the Mesh"
-- [ ] Nouvelle section "Part of a Mesh" avec 4 cartes visible
-- [ ] Section Tacet reframée avec scénario Orchestrator
-- [ ] Qdrant et "495+" supprimés partout (page + diagramme)
-- [ ] HiveMemory + fallback Gemini/GPT mentionnés
-- [ ] "MCP Server v0 live" partout (caption, FAQ, diagramme)
-- [ ] FAQ : 6 questions incluant Mesh
-- [ ] Lien GitHub → `aetherix-hospitality-ai`
-- [ ] `public/atherix.md` et `public/llms-full.txt` synchronisés
-- [ ] Aucun claim MAPE
+- Recharger `/`, cliquer sur chaque lien de la nav centrale (Case Studies, About, Field Notes, Contact) → URL change et la page transitionne.
+- Depuis `/journeys`, cliquer "Home" puis revenir → toujours OK.
+- Vérifier que l'état actif (souligné doré + text-shadow) s'affiche bien sur la page courante.
+- Vérifier le menu mobile (hamburger ouvert) : mêmes liens cliquables, ferme le menu après navigation grâce au `useEffect` existant sur `location.pathname`.
+- Aucun changement d'apparence : seul le mécanisme de clic est remplacé.
