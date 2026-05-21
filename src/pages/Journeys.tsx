@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
+import { cn } from "@/lib/utils";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -194,6 +195,7 @@ const ActSection = ({ act }: { act: Act }) => {
 
 const Journeys = () => {
   const track = useTrackClick();
+  const [hoveredSlug, setHoveredSlug] = useState<string>(ACTS[0].slug);
 
   // Toggle scroll-snap only while on this page.
   useEffect(() => {
@@ -236,9 +238,9 @@ const Journeys = () => {
           threshold={0.1}
         >
           <div className="journey-act-text md:!py-0">
-            <div className="max-w-screen-2xl w-full mx-auto md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
+            <div className="max-w-screen-2xl w-full mx-auto md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
               {/* Left: editorial title */}
-              <div className="md:col-span-7 relative">
+              <div className="md:col-span-5 relative">
                 <div className="absolute -top-16 -left-16 w-80 h-80 hilma-circle halo-drift pointer-events-none hidden md:block" />
                 <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-6 block">
                   The Project Index
@@ -264,17 +266,20 @@ const Journeys = () => {
                 </p>
               </div>
 
-              {/* Right: numbered, hoverable summary */}
+              {/* Middle: numbered, hoverable summary */}
               <nav
                 aria-label="Case studies index"
-                className="md:col-span-5"
+                className="md:col-span-3"
+                onMouseLeave={() => setHoveredSlug(ACTS[0].slug)}
               >
-                <ol className="flex flex-col gap-2 md:gap-3">
+                <ol className="flex flex-col gap-3 md:gap-5">
                   {ACTS.map((act, i) => (
                     <li key={act.slug} data-reveal-child style={{ ["--reveal-delay" as string]: `${500 + i * 120}ms` }}>
                       <a
                         href={`#act-${act.slug}`}
                         onClick={scrollToAct(act.slug)}
+                        onMouseEnter={() => setHoveredSlug(act.slug)}
+                        onFocus={() => setHoveredSlug(act.slug)}
                         className="journey-summary-link group"
                       >
                         <span className="font-label uppercase tracking-[0.25em] text-[10px] text-on-tertiary-fixed-variant w-8 shrink-0">
@@ -292,9 +297,36 @@ const Journeys = () => {
                   Scroll to enter
                 </div>
               </nav>
+
+              {/* Right: hover preview */}
+              <div
+                className="hidden md:block md:col-span-4"
+                aria-hidden="true"
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: "640ms" }}
+              >
+                <div className="journey-preview relative aspect-[4/5] overflow-hidden rounded-sm bg-surface-container">
+                  {ACTS.map((act) => (
+                    <SafeImage
+                      key={act.slug}
+                      src={act.image}
+                      alt=""
+                      loading="lazy"
+                      className={cn(
+                        "absolute inset-0 w-full h-full object-cover transition-all duration-[900ms] ease-out",
+                        hoveredSlug === act.slug
+                          ? "opacity-100 scale-100"
+                          : "opacity-0 scale-105",
+                      )}
+                    />
+                  ))}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>
+
 
         {/* Three acts */}
         {ACTS.map((act) => (
