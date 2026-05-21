@@ -1,53 +1,47 @@
-## Analyse réalisée
+# Mise à jour Case Study Aetherix — Hospitality Agentic Mesh
 
-- Les URLs publiques testées répondent bien en `200`: `/`, `/atherix`, `/atrium`, `/contact`, `/journal/agent-boundaries-aetherix`, `/journeys`, `/sonor`, `/tacet`, `robots.txt`, `sitemap.xml`.
-- `robots.txt` autorise Google et référence bien `https://ivandemurard.com/sitemap.xml`.
-- Le sitemap est accessible, mais Search Console indique: 10 URLs soumises, 0 indexées via sitemap.
-- Le HTML initial servi pour toutes les routes est identique: même `<title>`, même description, même `og:url`, surtout même canonical: `https://ivandemurard.com/`.
-- Les métadonnées par page existent dans React via `Seo`, mais elles sont injectées après hydratation. Google découvre donc d’abord une SPA dont toutes les routes semblent canoniser vers la homepage.
-- Le sitemap contient `/atherix`, alias historique de `/aetherix`, ce qui crée un signal de duplication inutile.
-- Le site n’a pas de `noindex`, le problème n’est donc pas un blocage volontaire, mais un manque de signaux statiques fiables pour Google.
+Repositionner Aetherix : non plus un framework standalone, mais le **F&B Execution Node** d'un Mesh d'agents (Aetherix, Tacet, Orchestrator, Anima) communiquant via MCP. Ton produit/business, pas technique.
 
-## Diagnostic principal
+## Fichiers modifiés
 
-Google voit plusieurs URLs distinctes, mais leur HTML initial dit toutes: même page, même canonical racine. C’est probablement la cause majeure de “Détectée, actuellement non indexée”, et peut aussi contribuer au “Soft 404” ou à une indexation partielle.
+**1. `src/pages/Atherix.tsx`** (page principale)
 
-## Plan d’application
+- `PROJECT_INFO` : nouvelle URL repo (`aetherix-hospitality-ai`), statut mai 2026 ("MCP Server v0 shipped · Staging live on Fly.io Paris · design partner pilot starting"), remplacer ligne "Companion" par "Mesh" listant les 4 nœuds.
+- Hero subtitle : "Aetherix is the F&B Execution Node of the Hospitality Agentic Mesh…"
+- **Nouvelle section "Part of a Mesh"** insérée après le bloc Architecture (`AetherixLayerStack`) et avant `SectionDivider label="The Vision" index="02"`. Précédée d'un `SectionDivider label="The Mesh"`. Contient 4 cartes : Aetherix (Live), Tacet (Phase 3), Orchestrator (Phase 3), Anima (Phase 4, opacité réduite). Réindexer les `SectionDivider` suivants si nécessaire pour garder une numérotation cohérente.
+- Section "Aetherix and Tacet" : titre devient "Aetherix ↔ Tacet", paragraphe reformulé avec scénario Orchestrator (roadworks 65dB → ajustement staffing breakfast). Cartes conservées.
+- Section "Intelligent Anticipation" : retirer Qdrant et "495+ patterns", introduire pgvector + HiveMemory + fallback Gemini/GPT via `LLMProvider`.
+- Carte "Proactive Messaging" : "MCP Server v0 is live — three atomic tools, multi-tenant…" remplace "outbound MCP server in progress". Caption : "Apaleo MCP · MCP Server v0 live · WhatsApp delivery · Fly.io Paris".
+- Constante `FAQ` : 6 entrées (stage actuel, pas encore en prod, rôle humain, intégration, qu'est-ce que le Mesh, relation avec Tacet). Pas de claim MAPE.
+- Lien GitHub "Explore the Platform" → `https://github.com/IvandeMurard/aetherix-hospitality-ai`.
 
-1. **Créer une source SEO unique pour toutes les routes indexables**
-   - Ajouter un registre central des pages publiques: chemin, titre, description, canonical, priorité sitemap, fréquence, type, JSON-LD léger.
-   - Inclure seulement les URLs à indexer: `/`, `/atrium`, `/journeys`, `/aetherix`, `/sonor`, `/tacet`, `/journal`, `/journal/agent-boundaries-aetherix`, `/contact`.
-   - Retirer `/atherix` du sitemap, le garder uniquement comme alias de compatibilité.
+**2. `src/components/atherix/AetherixArchitectureDiagram.tsx`**
 
-2. **Corriger les balises statiques servies à Google**
-   - Supprimer le canonical global `https://ivandemurard.com/` de `index.html`, qui pollue toutes les routes.
-   - Garder un fallback propre pour la homepage.
-   - Générer, au build, des fichiers HTML statiques par route avec le bon `<title>`, `<meta name="description">`, `<link rel="canonical">`, `og:url`, `og:title`, `og:description`, `twitter:*`, et JSON-LD.
-   - Résultat attendu: `curl https://ivandemurard.com/tacet` devra montrer directement le canonical `/tacet`, sans attendre le JavaScript.
+- Retirer toute référence à Qdrant et "495+ patterns" (déjà présentes dans le composant actuel).
+- Remplacer par pgvector (mémoire propre) + HiveMemory (patterns anonymisés de pairs).
+- Bloc LLM : "Claude Sonnet (primary) · Gemini / GPT (fallback)" via `LLMProvider`.
+- Mention "Fly.io · Paris" en caption (parallélisme avec le README).
+- Statut "Outbound MCP server" : passer de "In progress" à "Live · v0".
 
-3. **Automatiser sitemap et HTML SEO**
-   - Ajouter un script de génération qui produit `public/sitemap.xml` depuis le registre SEO.
-   - Ajouter un script post-build qui écrit les snapshots HTML par route dans `dist/`.
-   - Brancher les scripts dans `package.json` avec `predev`, `prebuild` et `postbuild`, sans remplacer le mécanisme de routing existant.
+**3. Fichiers miroirs (synchronisation factuelle, pas de JSX)**
 
-4. **Traiter l’alias `/atherix`**
-   - Retirer `/atherix` du sitemap.
-   - Transformer la route React `/atherix` en redirection vers `/aetherix`.
-   - Ne pas encourager Google à indexer cette variante.
+- `public/atherix.md` : repo URL, statut, stack (retirer Qdrant, ajouter HiveMemory et fallback LLM), section Mesh, MCP Server v0 live.
+- `public/llms-full.txt` : même mise à jour dans le paragraphe Aetherix (architecture, statut, positionnement Mesh).
 
-5. **Renforcer la page 404 côté SEO**
-   - Ajouter la capacité `robots: noindex, follow` au composant SEO.
-   - L’appliquer à la page NotFound pour éviter qu’une URL invalide découverte par Google soit considérée comme une page indexable.
+**4. `scripts/seo-routes.ts`** (vérification)
 
-6. **Vérifier après application**
-   - Vérifier localement que le sitemap ne liste plus `/atherix`.
-   - Vérifier que chaque route a un canonical statique unique.
-   - Vérifier que `robots.txt` reste ouvert.
-   - Vérifier que la navigation React continue à fonctionner.
+- Confirmer que la description SEO `/aetherix` reflète le positionnement Mesh. Ajuster si elle parle encore de "agentic framework".
 
-## Après publication
+## Checklist de validation
 
-- Resoumettre `https://ivandemurard.com/sitemap.xml` dans Search Console.
-- Demander une validation de correction pour “Détectée, actuellement non indexée” et “Soft 404”.
-- Inspecter en priorité: `/tacet`, `/aetherix`, `/sonor`, `/atrium`, `/journeys`, `/contact`.
-- L’indexation peut rester différée quelques jours même après correction, mais les signaux envoyés à Google seront cohérents.
+- [ ] PROJECT_INFO : repo URL, statut Phase 3, ligne Mesh
+- [ ] Hero mentionne "F&B Execution Node of the Mesh"
+- [ ] Nouvelle section "Part of a Mesh" avec 4 cartes visible
+- [ ] Section Tacet reframée avec scénario Orchestrator
+- [ ] Qdrant et "495+" supprimés partout (page + diagramme)
+- [ ] HiveMemory + fallback Gemini/GPT mentionnés
+- [ ] "MCP Server v0 live" partout (caption, FAQ, diagramme)
+- [ ] FAQ : 6 questions incluant Mesh
+- [ ] Lien GitHub → `aetherix-hospitality-ai`
+- [ ] `public/atherix.md` et `public/llms-full.txt` synchronisés
+- [ ] Aucun claim MAPE

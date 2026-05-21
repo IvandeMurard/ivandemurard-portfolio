@@ -20,26 +20,26 @@ import { Term } from "@/components/Term";
 
 const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (side project)" },
-  { label: "Duration", value: "2026 – ongoing (validation phase)" },
+  { label: "Duration", value: "2026, ongoing (validation phase)" },
   { label: "Team", value: "Solo architect & builder" },
   {
     label: "Repository",
     value: "GitHub Repository",
-    href: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B/tree/main",
+    href: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
   },
   {
     label: "Context",
-    value: "Agentic AI for boutique hotel operations (Apaleo PMS, staffing, F&B forecasting, WhatsApp push)",
+    value: "F&B Execution Node of the Hospitality Agentic Mesh: staffing, F&B forecasting, WhatsApp push, MCP-native",
     wide: true,
   },
   {
     label: "Current Status",
-    value: "End-to-end pipeline operational in sandbox, Apaleo OAuth and MCP read access live, outbound MCP server in progress",
+    value: "MCP Server v0 shipped · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational · Design partner pilot starting (Phase 3)",
     wide: true,
   },
   {
-    label: "Companion",
-    value: "Tacet, the synthetic acoustic twin (external context)",
+    label: "Mesh",
+    value: "Aetherix (F&B) · Tacet (Sensory Node) · Orchestrator (Supervisory Agent) · Anima (Guest Context, Phase 4)",
     wide: true,
   },
 ];
@@ -97,11 +97,11 @@ const PIPELINE_CARDS = [
 const FAQ = [
   {
     q: "What stage is Aetherix currently at?",
-    a: "End-to-end pipeline is operational in sandbox with real PMS data (Apaleo). Live pilots are next.",
+    a: "MCP Server v0 is shipped. Staging is live on Fly.io (Paris). The backtest harness is built and the first real-world MAPE measurement is pending: it will run on design partner data in Phase 3, currently starting.",
   },
   {
-    q: "Is this already deployed in hotels?",
-    a: "Not yet. We are in technical validation and security review phase.",
+    q: "Is this already deployed in production hotels?",
+    a: "Not yet. We are in technical validation and onboarding the first design partner on Apaleo prod (Phase 3).",
   },
   {
     q: "What is the role of the human team?",
@@ -109,11 +109,15 @@ const FAQ = [
   },
   {
     q: "How does it integrate with existing hotel systems?",
-    a: "Through Apaleo PMS and WhatsApp for instant, contextual recommendations.",
+    a: "Through Apaleo PMS (OAuth2 + MCP) today, Mews next. WhatsApp for delivery. MCP for inbound agent calls. No new dashboard to learn.",
+  },
+  {
+    q: "What is the Hospitality Agentic Mesh?",
+    a: "An architecture of specialized AI agents: Aetherix (F&B), Tacet (environmental), Anima (guest context, Phase 4), orchestrated by a supervisory agent. They communicate via MCP only, with no monolithic dependencies. Each node has a strict bounded context, making the whole system composable and PMS-agnostic.",
   },
   {
     q: "How does Aetherix relate to Tacet?",
-    a: "Aetherix reads internal context (PMS, occupancy, F&B, staffing). Tacet reads external context (street, weather, events). They are designed as complements, one predictive digital twin for the hotel.",
+    a: "Both are nodes of the Hospitality Agentic Mesh. Aetherix reads internal context (PMS, occupancy, F&B, staffing). Tacet reads external context (weather, noise, public events). They communicate exclusively via MCP, never as a monolith.",
   },
 ];
 
@@ -144,7 +148,7 @@ const Atherix = () => (
           about: ["Agentic AI", "Hospitality Operations", "Boutique Hotels"],
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           dateCreated: "2026-01-01",
-          codeRepository: "https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B",
+          codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
           relatedLink: ["https://ivandemurard.com/tacet"],
         },
         {
@@ -171,9 +175,9 @@ const Atherix = () => (
             </h1>
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
               <p>
-                Aetherix is an <Term id="agenticAi">agentic</Term> framework focused on hotel operations. It anticipates staffing, <Term id="fnb">F&B</Term>
+                Aetherix is the F&B Execution Node of the Hospitality <Term id="agenticAi">Agentic</Term> Mesh. It anticipates staffing, <Term id="fnb">F&B</Term>
                 {" "}preparation, and resource needs in real time, reduces food waste and operational costs, and frees the
-                human team to deliver exceptional guest experiences.
+                human team to deliver exceptional guest experiences, while remaining callable by any other agent in your stack.
               </p>
             </div>
           </div>
@@ -249,7 +253,46 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="The Vision" index="02" />
+      <SectionDivider label="The Mesh" index="02" />
+
+      {/* Part of a Mesh */}
+      <section className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center mb-12 max-w-3xl mx-auto">
+            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Part of a Mesh</span>
+            <h2 className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight">
+              Aetherix does not orchestrate. It executes.
+            </h2>
+            <p className="text-on-surface-variant mt-6 leading-relaxed">
+              The future of hotel tech is composable. Aetherix is one node of the Hospitality Agentic Mesh, a constellation of specialized AI agents communicating exclusively via <Term id="mcp">MCP</Term>. Each node owns one domain with precision. A supervisory agent routes between them, applying your hotel's business rules. The result: a system that plugs into PMS Agent Hubs (Apaleo today, Mews next) like LEGO, rather than replacing them.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="p-6 bg-surface-container-low border border-secondary/30 rounded-2xl">
+              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Live</span>
+              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Aetherix</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">F&B Execution Node: forecast, staffing, memory, receipts.</p>
+            </div>
+            <div className="p-6 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Phase 3</span>
+              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Tacet</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">Sensory Node: weather, noise, public events, structured signals.</p>
+            </div>
+            <div className="p-6 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Phase 3</span>
+              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Orchestrator</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">Supervisory Agent: routes between nodes, applies hotel business rules.</p>
+            </div>
+            <div className="p-6 bg-surface-container-low border border-outline-variant/20 rounded-2xl opacity-70">
+              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Phase 4</span>
+              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Anima</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">Guest Context Node: relational memory (emotional state, flight delays, CRM history).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider label="The Vision" index="03" />
 
       {/* The Vision */}
       <section id="vision" className="mb-12 md:mb-16 px-6 md:px-12 scroll-mt-24">
@@ -315,13 +358,13 @@ const Atherix = () => (
       {/* Synergy with Tacet */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="text-center mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Aetherix and Tacet</h2>
+          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Aetherix ↔ Tacet</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            Aetherix reads internal context (<Term id="pms">PMS</Term>, occupancy, F&B, staffing).{" "}
+            Two nodes of the same Mesh, two domains, one conversation via MCP. Aetherix reads <Term id="pms">PMS</Term>, occupancy, F&B, staffing, the property's internal operations.{" "}
             <Link to="/tacet" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
               Tacet
             </Link>
-            {" "}reads external context (street, weather, events). Together they form one predictive digital twin for the hotel.
+            {" "}reads the world outside: weather, noise, public events. The Orchestrator combines both into a single decision: <em className="italic">if Tacet detects 65dB roadworks tomorrow morning, Aetherix adjusts staffing for the in-room breakfast surge it anticipates.</em>
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
@@ -357,7 +400,7 @@ const Atherix = () => (
           <div className="mb-16 md:mb-20">
             <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
             <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl text-lg">
-              Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. Qdrant matches today against 495+ past scenarios. pgvector remembers what worked in <em className="italic">your</em> hotel. Claude Sonnet turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over <Term id="mcp">MCP</Term>.
+              Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. pgvector recalls how similar days played out across <em className="italic">your</em> property's history. HiveMemory adds anonymized patterns from peer hotels in the same segment. Claude Sonnet (with Gemini and GPT on fallback) turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over <Term id="mcp">MCP</Term>.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -369,12 +412,12 @@ const Atherix = () => (
                 <Icon name="forum" className="text-secondary text-4xl mb-6 block" />
                 <h4 className="font-headline text-2xl text-primary mb-4">Proactive Messaging</h4>
                 <p className="text-on-surface-variant leading-relaxed">
-                  Recommendations land where teams already work: WhatsApp first, with explainable reasoning attached. Apaleo OAuth gives read access, an outbound MCP server lets orchestration agents call Aetherix directly.
+                  Recommendations land where teams already work: WhatsApp first, with explainable reasoning attached. Apaleo OAuth gives read access. The MCP Server v0 is live: three atomic tools, multi-tenant by design, ready for orchestration agents and the Apaleo Agent Hub.
                 </p>
               </div>
               <div className="pt-8 border-t border-outline-variant/20 mt-6">
                 <p className="text-xs font-label uppercase tracking-widest text-secondary">
-                  Apaleo PMS, MCP callable, WhatsApp delivery
+                  Apaleo MCP · MCP Server v0 live · WhatsApp delivery · Fly.io Paris
                 </p>
               </div>
             </div>
@@ -592,7 +635,7 @@ const Atherix = () => (
             End-to-end pipeline (PMS Apaleo, forecasting, semantic reasoning, WhatsApp push)
           </p>
           <a
-            href="https://github.com/IvandeMurard/Hospitality-Operations-Agentic-AI-B2B"
+            href="https://github.com/IvandeMurard/aetherix-hospitality-ai"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 border border-outline-variant/40 px-8 py-4 rounded-full text-on-surface-variant hover:text-primary hover:border-outline transition-all duration-500"
