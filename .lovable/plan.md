@@ -1,48 +1,106 @@
-## Delight: signature gildée au survol du nom
+# Redesign /journeys, version cinématographique
 
-Cible unique : le `TransitionLink` "Ivan de Murard" dans `src/components/layout/AtriumHeader.tsx` (ligne 38-43). Aucun autre fichier modifié.
+## Intention
+Transformer la page d'index en deux mouvements :
+1. **Ouverture éditoriale** (1 écran) : "Case studies" + sommaire des 3 projets cliquables, déjà nommés et numérotés. On voit ce qui attend, on choisit ou on scrolle.
+2. **Trois actes plein écran** (3 écrans) : un projet par section, 100vh, image large en parallax, titre italic monumental, baseline, CTA. Snap scroll vertical pour un sentiment de chapitres.
 
-### Comportement au hover
+Pas de grille asymétrique de cartes. La page devient une expérience filmique, pas un catalogue.
 
-Trois éléments orchestrés sur le groupe :
+## Section 1, l'ouverture (≈ 100vh desktop)
 
-1. **Couleur du texte** : transition lente du `text-primary` (navy Picasso) vers `text-secondary` (or terni), durée 700ms, easing `cubic-bezier(0.22, 1, 0.36, 1)` (déjà utilisé dans le site).
+Layout : colonne gauche, colonne droite.
 
-2. **Point d'or** : un petit point (`•` ou un `<span>` rond de 4px) apparaît juste après "Murard". Au repos : `opacity-0 scale-0`. Au hover : `opacity-100 scale-100`, transition 500ms. Couleur `bg-secondary`. Lecture : point final d'une signature manuscrite.
+````text
++------------------------------------------+
+| THE PROJECT INDEX                        |
+|                                          |
+| Case            01 / Sonor               |
+|   studies       02 / Aetherix            |
+|                 03 / Tacet               |
+|                                          |
+| A curated collection...                  |
++------------------------------------------+
+````
 
-3. **Double trait à l'encre** : deux `<span>` absolus en bas du nom.
-   - Trait 1 : 1px, `bg-secondary`, largeur 0 → 100% en 700ms.
-   - Trait 2 : 1px, `bg-secondary/30`, largeur 0 → 100% en 1000ms avec `delay-150`. Positionné 2px sous le premier.
-   
-   Lecture : trace d'une plume qui repasse légèrement.
+- Gauche : eyebrow, titre `Case` / `studies` italic (réutilise le pattern existant), baseline.
+- Droite : liste verticale des 3 noms en `font-headline italic`, taille `text-3xl md:text-5xl`, chacun précédé de son numéral `01 / 02 / 03` en `font-label`. Au hover d'un nom :
+  - le filet d'or se trace sous le nom (réutilise le pattern du hover Ivan de Murard),
+  - la couleur transitionne `text-primary` → `text-secondary`,
+  - en fond de la section (derrière toute l'ouverture), un voile coloré bascule vers la lumière du projet survolé (Sonor = bleu froid, Aetherix = ambre, Tacet = nuit profonde). Géré via `--page-light-progress` ou une variable locale `--journey-tint`.
+- Click sur un nom = scroll-snap vers la section correspondante (pas navigation), ou navigation directe vers la case study via modifier (à valider, défaut : scroll vers la section in-page).
 
-### Implémentation technique
+Indicateur de scroll en bas, hairline + "scroll" en `font-label`.
 
-Structure proposée :
+## Section 2, les trois actes (3 × 100vh, scroll-snap)
 
-```text
-<TransitionLink to="/" className="group relative inline-flex items-baseline ...">
-  <span className="transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-secondary">
-    Ivan de Murard
-  </span>
-  <span className="ml-1 h-1 w-1 rounded-full bg-secondary opacity-0 scale-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100" />
-  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-secondary transition-all duration-700 group-hover:w-full" />
-  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-secondary/30 transition-all duration-1000 delay-150 group-hover:w-full" />
-</TransitionLink>
-```
+Container parent : `scroll-snap-type: y mandatory`. Chaque acte : `scroll-snap-align: start; min-height: 100dvh`.
 
-### Détails
+Structure d'un acte (alterne gauche/droite pour éviter la monotonie) :
 
-- Retirer l'actuel `hover:opacity-80 transition-opacity duration-500`.
-- Garder `text-xl md:text-2xl font-headline italic text-primary tracking-wide`.
-- `aria-hidden="true"` sur les 3 spans décoratifs (point + 2 traits).
-- Respect implicite de `prefers-reduced-motion` : pas de transform, uniquement opacity/color/width, donc acceptable. Pas de keyframes nécessaires.
-- Fonctionne en mode Day comme en Dusk (l'or `--secondary` est défini dans les deux moods).
+````text
++------------------------------------------+
+| [image plein hauteur, 60% largeur]       |
+|                            01 / 03       |
+|                            Sonor         |
+|                            (italic, 7xl) |
+|                            baseline      |
+|                            [Explore →]   |
++------------------------------------------+
+````
 
-### Hors scope
+Effets cinématographiques :
+- **Image zoom out scroll-driven** : l'image entre `scale-110`, se résout à `scale-100` au centre de la section, repart en `scale-105` à la sortie. Utilise `animation-timeline: view()` quand supporté, fallback IntersectionObserver + transform.
+- **Parallax image** : `translateY` de -8% à +8% sur la durée de la section.
+- **Titre split** : `Sonor` apparaît lettre par lettre (stagger 40ms) à l'entrée dans le viewport.
+- **Numéral `01 / 03`** : compte à rebours visuel, le `01` se trace comme à l'encre.
+- **Tint de fond** : chaque acte pousse `--journey-tint` vers sa couleur (bleu / ambre / nuit), interpolé avec le `PageLight` existant.
+- **CTA `Explore the Narrative`** : flèche qui se déplie au hover.
 
-- Pas de changement sur les autres liens de la nav.
-- Pas de nouveaux tokens dans `index.css`.
-- Pas de modification du composant `TransitionLink`.
+L'image est cliquable (toute la zone image = lien vers la case study), pas seulement le CTA.
 
-Prêt à implémenter.
+## Section 3, outro
+Réutilise le bloc CTA actuel "Every journey begins with a single conversation" + bouton Inquire Within. Hors snap scroll (snap se termine après l'acte 3).
+
+## Accessibilité
+- `prefers-reduced-motion` : désactive parallax, zoom, split letters, tint transitions. Garde fade simple et le snap scroll (le snap n'est pas une animation).
+- Le sommaire de l'ouverture est une vraie `<nav aria-label="Case studies index">` avec liens.
+- Chaque acte a un `<section aria-labelledby="...">` et un heading propre.
+- Skip-link déjà en place via SiteLayout, conservé.
+- Tap targets ≥ 44px (noms du sommaire en mobile : padding vertical généreux).
+- Focus visible sur les noms du sommaire (filet or = indicateur de focus aussi, pas seulement hover).
+
+## Responsivité mobile
+- Ouverture : titre `Case studies` en haut, sommaire en dessous (stack vertical), baseline en bas. Pas de split colonnes.
+- Actes : image plein écran en background, texte par-dessus avec voile foncé sur la moitié basse pour lisibilité. Pas de parallax sur mobile (perf), juste fade-up + image zoom léger.
+- Snap scroll conservé sur mobile, c'est même plus naturel au touch.
+
+## Hors scope
+- Pas de modification des case studies elles-mêmes (`/sonor`, `/aetherix`, `/tacet`).
+- Pas de nouveau contenu copy, on réutilise les `body` et CTA actuels de `Journeys.tsx`.
+- Pas de changement à `AtriumHeader` ni au footer.
+- `CaseHoverPreview` (iframe preview) : retiré de cette page, l'expérience snap-scroll plein écran le rend redondant. Le composant reste pour d'éventuels autres usages.
+- Pas de nouvelle dépendance, tout en CSS + IntersectionObserver natif.
+
+## Section technique
+
+Fichiers touchés :
+- `src/pages/Journeys.tsx` : réécriture quasi complète du JSX, conserve `Seo`, `SiteLayout`, imports `PROJECTS`.
+- `src/index.css` : ajouter classes utilitaires `.journey-snap-container`, `.journey-act`, `.journey-tint`, keyframes pour le split letters, variable `--journey-tint`.
+- Pas de modif `tailwind.config.ts` (utilise les tokens existants : `primary`, `secondary`, `on-surface-variant`, `font-headline`, `font-label`).
+
+Approche animation :
+- Scroll-driven : feature-detect `CSS.supports('animation-timeline: view()')`. Si oui, CSS pur. Sinon, hook `useScrollProgress(ref)` léger basé sur `getBoundingClientRect` + rAF (1 listener global, throttled).
+- Split letters : composant `<SplitText text="Sonor" />` qui rend une `<span>` par lettre avec `--char-index` et delay calculé.
+- Tint : chaque acte porte `data-tint="ocean|amber|night"`, un observer met à jour `--journey-tint` sur `<main>` quand l'acte est ≥ 50% visible.
+
+Respect du design system :
+- Pas de couleurs hex en dur. Tints définies en HSL via tokens (`--journey-tint-sonor`, `-aetherix`, `-tacet`) dans `index.css`, dérivées de la palette existante (variations de `primary` et `secondary`).
+- Typo : `font-headline` italic partout pour les titres, `font-label` uppercase tracking-wide pour numéraux et eyebrow.
+- Respect règle Core : pas d'em-dashes dans la copy.
+
+## Question ouverte (réponse implicite : "non, séquentiel")
+Tu as choisi "un seul projet à la fois plein écran", donc la réponse à *"tous les projets doivent-ils apparaître en même temps ?"* est **non**. L'ouverture les nomme tous (sommaire), mais visuellement chaque projet a son moment, son espace, sa lumière.
+
+## Validation visuelle prévue
+Après implémentation : screenshot desktop (1440) de l'ouverture, screenshot mid-scroll d'un acte, screenshot mobile (390) de l'ouverture et d'un acte. Vérifier le tint, le snap, la lisibilité du texte sur l'image en mobile.
