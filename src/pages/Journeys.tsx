@@ -314,7 +314,7 @@ const Journeys = () => {
           <span data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="inline-block">
             <Link
               to="/contact"
-              onClick={() => track({ label: "Inquire Within", href: "/contact", kind: "cta" })}
+              onClick={() => track({ label: "Inquire Within", href: "/contact", kind: "contact" })}
               className="inline-block bg-primary text-on-primary px-10 py-5 rounded-xl font-label uppercase tracking-[0.2em] text-[11px] transition-all duration-500 hover:bg-primary-container active:scale-95 ambient-shadow"
             >
               Inquire Within
