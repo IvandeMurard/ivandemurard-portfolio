@@ -195,6 +195,7 @@ const ActSection = ({ act }: { act: Act }) => {
 
 const Journeys = () => {
   const track = useTrackClick();
+  const [hoveredSlug, setHoveredSlug] = useState<string>(ACTS[0].slug);
 
   // Toggle scroll-snap only while on this page.
   useEffect(() => {
