@@ -1,6 +1,5 @@
 // Source of truth for facts (dates, stack, metrics, status).
-// If you change facts here, also update public/atherix.md and public/llms-full.txt.
-import { SafeImage } from "@/components/SafeImage";
+// If you change facts here, also update public/aetherix.md and public/llms-full.txt.
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
@@ -8,18 +7,17 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS } from "@/content/site";
-import heroLobby from "@/assets/atherix-hero-lobby.jpg";
-import toniPortrait from "@/assets/toni-stoeckl.webp";
-import aviPortrait from "@/assets/avi-brosh.webp";
 import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchitectureDiagram";
-import { AetherixHorizonIllustration } from "@/components/atherix/AetherixHorizonIllustration";
-import { AetherixLayerStack } from "@/components/atherix/AetherixLayerStack";
-import { AetherixHiveStanzas } from "@/components/atherix/AetherixHiveStanzas";
-import { AnticipationCeiling } from "@/components/atherix/AnticipationCeiling";
+import { AetherixHeroBadges } from "@/components/atherix/AetherixHeroBadges";
+import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
+import { AetherixMetricCards } from "@/components/atherix/AetherixMetricCards";
+import { AetherixDailyReceipt } from "@/components/atherix/AetherixDailyReceipt";
+import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimeline";
+import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { Term } from "@/components/Term";
 
 const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
-  { label: "Role", value: "Product Builder & AI Agent Designer (side project)" },
+  { label: "Role", value: "Product Builder & AI Agent Designer (solo)" },
   { label: "Duration", value: "2026, ongoing (validation phase)" },
   { label: "Team", value: "Solo architect & builder" },
   {
@@ -28,114 +26,96 @@ const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolea
     href: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
   },
   {
-    label: "Context",
-    value: "F&B Execution Node of the Hospitality Agentic Mesh: staffing, F&B forecasting, WhatsApp push, MCP-native",
-    wide: true,
-  },
-  {
-    label: "Current Status",
-    value: "MCP Server v0 shipped · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational · Design partner pilot starting (Phase 3)",
-    wide: true,
-  },
-  {
-    label: "Mesh",
-    value: "Aetherix (F&B) · Tacet (Sensory Node) · Orchestrator (Supervisory Agent) · Anima (Guest Context, Phase 4)",
+    label: "Status",
+    value: "Phase 3 · Pilot · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational · Design partner pilot starting",
     wide: true,
   },
 ];
 
-const PRINCIPLES = [
-  {
-    icon: "api",
-    title: "API-First Architecture",
-    body: "Built from the ground up to integrate seamlessly with property management systems and external data providers.",
-  },
-  {
-    icon: "architecture",
-    title: "Context-Aware Intelligence",
-    body: "Bridges external signals (events, weather) with internal truth (PMS, calendars, occupancy) into unified prediction.",
-  },
-  {
-    icon: "insights",
-    title: "Explainable Predictions",
-    body: "RAG architecture provides transparency: managers see historical scenarios used, not just numbers.",
-  },
-  {
-    icon: "group",
-    title: "Human-in-the-Loop Design",
-    body: "The agent recommends and managers approve, adjust, or override based on local expertise.",
-  },
-];
-
-const PIPELINE_CARDS = [
-  {
-    icon: "group_add",
-    title: "Staffing Forecasts",
-    body: "Reads tonight's occupancy and tomorrow's local events, then proposes a shift grid.",
-    outcome: "Reads occupancy and upcoming events, suggests the shift grid, the team validates.",
-  },
+const PROMISES = [
   {
     icon: "restaurant",
-    title: "F&B Preparation",
-    body: "Estimates tomorrow's covers and the prep quantities to match anticipated guest dining intent.",
-    outcome: "Estimates tomorrow's covers, suggests prep quantities, the chef confirms.",
+    title: "Tomorrow's covers",
+    body: "Anticipates how many breakfasts, lunches, dinners to expect, with a confidence score and the drivers behind it.",
   },
   {
-    icon: "notifications_active",
-    title: "Proactive Push",
-    body: "Context-aware recommendations delivered to the team where they already work.",
-    outcome: "Lands the recommendation in WhatsApp with one tap to accept, adjust, or override.",
+    icon: "group_add",
+    title: "Staffing that fits",
+    body: "Proposes a shift grid based on occupancy, capture rate history and local context. The manager approves, adjusts or overrides.",
   },
   {
     icon: "eco",
-    title: "Food Waste Reduction",
-    body: "Surfaces over-ordering risk before it ships, with the historical signals that triggered the flag.",
-    outcome: "Spots the over-order before purchase, alerts the team, the manager decides.",
+    title: "Less waste",
+    body: "Spots over-ordering risk before purchase, with the historical signals that triggered the flag.",
+  },
+];
+
+const TRUST = [
+  {
+    icon: "verified",
+    title: "Evaluation as a contract",
+    body: "Qonto-inspired. Versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge. A hard CI gate, not a habit.",
+  },
+  {
+    icon: "monitoring",
+    title: "Observability & metering",
+    body: "Every MCP tool call is one structured event. Auditable, queryable, priceable. The product is operable, not opaque.",
+  },
+  {
+    icon: "lock",
+    title: "Multi-tenant security",
+    body: "hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.",
   },
 ];
 
 const FAQ = [
   {
     q: "What stage is Aetherix currently at?",
-    a: "MCP Server v0 is shipped. Staging is live on Fly.io (Paris). The backtest harness is built and the first real-world MAPE measurement is pending: it will run on design partner data in Phase 3, currently starting.",
+    a: "Phase 3, pilot. MCP Server v0 is shipped, staging is live on Fly.io (Paris), the backtest harness is built (15.09% MAPE, 22% gate PASS on synthetic data). The first real-world MAPE measurement begins with the Phase 3 design partner.",
   },
   {
     q: "Is this already deployed in production hotels?",
-    a: "Not yet. We are in technical validation and onboarding the first design partner on Apaleo prod (Phase 3).",
+    a: "Not yet. We are in technical validation and onboarding the first design partner on Apaleo prod (Phase 3, current).",
   },
   {
-    q: "What is the role of the human team?",
-    a: "Humans stay firmly in the loop for strategic decisions. Aetherix proposes, never decides alone.",
-  },
-  {
-    q: "How does it integrate with existing hotel systems?",
-    a: "Through Apaleo PMS (OAuth2 + MCP) today, Mews next. WhatsApp for delivery. MCP for inbound agent calls. No new dashboard to learn.",
+    q: "How is multi-tenant security handled?",
+    a: "hotel_id is scoped at every layer (Postgres RLS, Python guards, MCP token binding), resolved server-side, never accepted as a tool input. PMS access is read-only. Data residency: Supabase EU. HiveMemory holds anonymized aggregates only.",
   },
   {
     q: "What is the Hospitality Agentic Mesh?",
-    a: "An architecture of specialized AI agents: Aetherix (F&B), Tacet (environmental), Anima (guest context, Phase 4), orchestrated by a supervisory agent. They communicate via MCP only, with no monolithic dependencies. Each node has a strict bounded context, making the whole system composable and PMS-agnostic.",
+    a: "A network of specialized AI agents communicating exclusively via MCP. Each node owns a strict bounded context: Aetherix (F&B execution), Tacet (sensory), Orchestrator (supervisory routing), Anima (guest cognition, PoC). No shared code, no monolith to displace. Glue, not replacement.",
   },
   {
-    q: "How does Aetherix relate to Tacet?",
-    a: "Both are nodes of the Hospitality Agentic Mesh. Aetherix reads internal context (PMS, occupancy, F&B, staffing). Tacet reads external context (weather, noise, public events). They communicate exclusively via MCP, never as a monolith.",
+    q: "How does it integrate with existing hotel systems?",
+    a: "Apaleo PMS through OAuth2 and MCP read access today, Mews next. Delivery in WhatsApp. Inbound calls via MCP. No new dashboard to learn.",
+  },
+  {
+    q: "What does the 15.09% MAPE mean?",
+    a: "Mean Absolute Percentage Error on J+1 covers forecasts, measured on a synthetic backtest with a 22% gate that passes. It is a calibration baseline, not a live result. Real-world measurement starts with the Phase 3 design partner.",
+  },
+  {
+    q: "What is Anima?",
+    a: "A Guest Cognition Layer PoC, shipped at the Anthropic hackathon in June 2026. A four-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.",
   },
 ];
 
 const ATHERIX_SECTIONS = [
-  { id: "architecture", label: "Architecture" },
-  { id: "vision", label: "Vision" },
-  { id: "anticipation", label: "Anticipation" },
-  { id: "pipeline", label: "Pipeline" },
-  { id: "hive", label: "The Hive" },
-  { id: "economics", label: "Economics" },
+  { id: "problem", label: "Problem" },
+  { id: "mesh", label: "Mesh" },
+  { id: "what-it-does", label: "What it does" },
+  { id: "receipt", label: "Daily Receipt" },
+  { id: "how", label: "How it works" },
+  { id: "trust", label: "Trust" },
+  { id: "performance", label: "Performance" },
+  { id: "roadmap", label: "Roadmap" },
   { id: "contact", label: "Contact" },
 ];
 
 const Atherix = () => (
-  <SiteLayout title="Aetherix: Boutique Hotel Operations AI" sections={ATHERIX_SECTIONS}>
+  <SiteLayout title="Aetherix: F&B Execution Node of the Hospitality Agentic Mesh" sections={ATHERIX_SECTIONS}>
     <Seo
-      title="Aetherix, Agentic AI for Boutique Hotel Operations"
-      description="Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs, cuts food waste and costs, frees teams for guest experience."
+      title="Aetherix, F&B Execution Node of the Hospitality Agentic Mesh"
+      description="Tells boutique hotel managers how many covers to expect, how to staff, how to cut food waste. MCP-native, delivered via WhatsApp. Phase 3 pilot."
       path="/aetherix"
       type="article"
       jsonLd={[
@@ -143,11 +123,16 @@ const Atherix = () => (
           "@context": "https://schema.org",
           "@type": "CreativeWork",
           name: "Aetherix",
-          headline: "Aetherix: A new operating layer for boutique hotels",
+          headline: "Aetherix, F&B Execution Node of the Hospitality Agentic Mesh",
+          description:
+            "Aetherix is the F&B execution node of the Hospitality Agentic Mesh. It tells a hotel manager how many covers to expect tomorrow, how to staff for them, and how to cut food waste, delivered where they already work.",
           url: "https://ivandemurard.com/aetherix",
-          about: ["Agentic AI", "Hospitality Operations", "Boutique Hotels"],
+          about: ["Agentic AI", "Hospitality Operations", "F&B Forecasting", "MCP"],
+          keywords:
+            "Agentic AI, MCP, Model Context Protocol, Apaleo, Hospitality, F&B forecasting, Prophet, pgvector, Claude Sonnet, Boutique Hotels",
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           dateCreated: "2026-01-01",
+          dateModified: "2026-06-18",
           codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
           relatedLink: ["https://ivandemurard.com/tacet"],
         },
@@ -164,21 +149,33 @@ const Atherix = () => (
     />
     <div className="pt-32">
       {/* Hero */}
-      <Reveal as="header" className="px-6 md:px-12 mb-20 md:mb-24">
+      <Reveal as="header" className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-end gap-12 lg:gap-16">
           <div className="flex-1">
-            <span data-reveal-child className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block">
-              Project Detail / Operations AI
+            <span
+              data-reveal-child
+              className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block"
+            >
+              Case Study / Operations AI
             </span>
-            <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-8xl lg:text-9xl text-primary italic leading-[0.9] tracking-tight mb-8">
-              Aetherix: A new operating layer for boutique hotels
+            <h1
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "120ms" }}
+              className="headline-ink font-headline text-5xl md:text-7xl lg:text-8xl text-primary italic leading-[0.95] tracking-tight mb-8"
+            >
+              Aetherix
             </h1>
-            <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-on-surface-variant font-body text-xl max-w-xl leading-relaxed">
-              <p>
-                Aetherix is the F&B Execution Node of the Hospitality <Term id="agenticAi">Agentic</Term> Mesh. It anticipates staffing, <Term id="fnb">F&B</Term>
-                {" "}preparation, and resource needs in real time, reduces food waste and operational costs, and frees the
-                human team to deliver exceptional guest experiences, while remaining callable by any other agent in your stack.
-              </p>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "240ms" }}
+              className="text-on-surface-variant font-body text-xl max-w-2xl leading-relaxed"
+            >
+              The F&amp;B execution node of the Hospitality <Term id="agenticAi">Agentic</Term> Mesh. It tells a hotel
+              manager how many covers to expect tomorrow, how to staff for them, and how to cut food waste, delivered
+              where they already work.
+            </p>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }}>
+              <AetherixHeroBadges />
             </div>
           </div>
           <div className="hidden lg:flex flex-none items-center gap-4 text-secondary italic font-headline text-2xl pb-4">
@@ -190,7 +187,7 @@ const Atherix = () => (
 
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-12">
+        <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-10">
           <h3 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-8">Project Info</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {PROJECT_INFO.map((info) => (
@@ -215,496 +212,309 @@ const Atherix = () => (
         </div>
       </section>
 
-      {/* Glue, not Replacement, single editorial line */}
-      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-screen-2xl mx-auto">
+      <SectionDivider label="Problem" index="01" />
+
+      {/* PROBLEM */}
+      <Reveal as="section" id="problem" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-3xl mx-auto">
+          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+            Why it exists
+          </span>
+          <h2
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "120ms" }}
+            className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+          >
+            The bottleneck isn't data. It's synthesis.
+          </h2>
           <div
             data-reveal-child
-            className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 text-center"
+            style={{ ["--reveal-delay" as string]: "240ms" }}
+            className="mt-6 space-y-5 text-on-surface-variant leading-relaxed"
           >
-            <span className="font-headline italic text-lg md:text-2xl text-primary">Zero training required</span>
-            <span aria-hidden="true" className="hidden md:inline-block w-10 h-px bg-secondary-fixed-dim/60" />
-            <span className="font-headline italic text-lg md:text-2xl text-primary">Zero new tab</span>
-            <span aria-hidden="true" className="hidden md:inline-block w-10 h-px bg-secondary-fixed-dim/60" />
-            <span className="font-headline italic text-lg md:text-2xl text-primary">5 minute integration</span>
-          </div>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="Architecture" index="01" />
-
-      {/* Layer Architecture: Interface, Brain, Foundation */}
-      <Reveal as="section" id="architecture" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
-        <div className="max-w-screen-2xl mx-auto">
-          <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
-            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
-              An extension of the team's brain, not a new tool to learn.
-            </h2>
-            <p
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: "180ms" }}
-              className="text-on-surface-variant mt-6 leading-relaxed"
-            >
-              Three layers, one promise: intelligence flows where the team already works, the human stays in the loop,
-              the network remembers.
+            <p>
+              F&amp;B demand anticipation is still a daily, manual, error-prone task. Hotels rely on limited data,
+              disconnected tools, and spreadsheets. Labor is 25 to 35% of F&amp;B operating cost; a significant share
+              of purchased food is wasted; over and understaffing hits both staff and guests.
+            </p>
+            <p>
+              The bottleneck isn't data, it's synthesis: combining internal context (occupancy, capture rates, POS
+              history) with external signals (weather, local events) into a recommendation calibrated to <em>this</em>
+              {" "}property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it
+              where managers already are. Glue, not replacement.
             </p>
           </div>
-          <AetherixLayerStack />
         </div>
       </Reveal>
 
       <SectionDivider label="The Mesh" index="02" />
 
-      {/* Part of a Mesh */}
-      <section className="px-6 md:px-12 mb-12 md:mb-16">
+      {/* THE MESH */}
+      <Reveal as="section" id="mesh" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="text-center mb-12 max-w-3xl mx-auto">
-            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Part of a Mesh</span>
-            <h2 className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight">
-              Aetherix does not orchestrate. It executes.
+          <div className="max-w-3xl mb-10 md:mb-12">
+            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+              Bounded context by design
+            </span>
+            <h2
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "120ms" }}
+              className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+            >
+              Aetherix executes. It does not orchestrate.
             </h2>
-            <p className="text-on-surface-variant mt-6 leading-relaxed">
-              The future of hotel tech is composable. Aetherix is one node of the Hospitality Agentic Mesh, a constellation of specialized AI agents communicating exclusively via <Term id="mcp">MCP</Term>. Each node owns one domain with precision. A supervisory agent routes between them, applying your hotel's business rules. The result: a system that plugs into PMS Agent Hubs (Apaleo today, Mews next) like LEGO, rather than replacing them.
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "240ms" }}
+              className="mt-6 text-on-surface-variant leading-relaxed"
+            >
+              Aetherix is one node in a network of specialized, <Term id="mcp">MCP</Term>-native agents. Each node owns
+              a strict bounded context and communicates only through MCP, no shared code, no monolith to displace. An
+              Orchestrator decides when to call it.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            <div className="p-6 bg-surface-container-low border border-secondary/30 rounded-2xl">
-              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Live</span>
-              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Aetherix</h3>
-              <p className="text-sm text-on-surface-variant leading-relaxed">F&B Execution Node: forecast, staffing, memory, receipts.</p>
-            </div>
-            <div className="p-6 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
-              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Phase 3</span>
-              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Tacet</h3>
-              <p className="text-sm text-on-surface-variant leading-relaxed">Sensory Node: weather, noise, public events, structured signals.</p>
-            </div>
-            <div className="p-6 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
-              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Phase 3</span>
-              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Orchestrator</h3>
-              <p className="text-sm text-on-surface-variant leading-relaxed">Supervisory Agent: routes between nodes, applies hotel business rules.</p>
-            </div>
-            <div className="p-6 bg-surface-container-low border border-outline-variant/20 rounded-2xl opacity-70">
-              <span className="font-label uppercase tracking-widest text-[10px] text-secondary">Phase 4</span>
-              <h3 className="font-headline italic text-xl text-primary mt-2 mb-3">Anima</h3>
-              <p className="text-sm text-on-surface-variant leading-relaxed">Guest Context Node: relational memory (emotional state, flight delays, CRM history).</p>
-            </div>
+          <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }}>
+            <AetherixMeshDiagram />
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <SectionDivider label="The Vision" index="03" />
+      <SectionDivider label="What it does" index="03" />
 
-      {/* The Vision */}
-      <section id="vision" className="mb-12 md:mb-16 px-6 md:px-12 scroll-mt-24">
+      {/* WHAT IT DOES */}
+      <Reveal as="section" id="what-it-does" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="relative w-full aspect-[21/9] overflow-hidden rounded-xl bg-primary mb-12" style={{ viewTransitionName: "case-hero-aetherix" }}>
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary via-primary-container to-secondary/30 mix-blend-overlay" />
-            <SafeImage
-              src={heroLobby}
-              alt="Luxury hotel lobby with warm morning light"
-              loading="lazy"
-              className="kenburns w-full h-full object-cover opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center text-center">
-              <h2
-                className="font-headline text-3xl md:text-5xl text-on-primary italic"
-                style={{ textShadow: "0 2px 24px hsl(var(--primary) / 0.7)" }}
+          <div className="max-w-2xl mb-10">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              Three promises, one message a day.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {PROMISES.map((p, i) => (
+              <div
+                key={p.title}
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
+                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
               >
-                The Vision
-              </h2>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-5">
-              <h3 className="font-headline text-2xl md:text-3xl text-primary mb-6">
-                Restoring the human touch through algorithms.
-              </h3>
-              <p className="text-on-surface-variant leading-loose mb-8">
-                Aetherix turns automated systems into experiences that feel cared for. It gives the team back the
-                hours that define real service: the welcome, the conversation, the small attentions a guest remembers.
-              </p>
-            </div>
-            <div className="lg:col-start-7 lg:col-span-6">
-              <div className="bg-surface-container-high p-8 md:p-12 rounded-xl">
-                <div className="flex flex-col gap-8">
-                  <div className="flex items-start gap-6">
-                    <Icon name="auto_awesome" className="text-secondary" />
-                    <div>
-                      <h4 className="font-bold text-primary mb-2">Guest Ritual Automation</h4>
-                      <p className="text-sm text-on-surface-variant">
-                        Seamlessly synchronizing check-in rituals and room ambiance to individual guest preferences.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-6">
-                    <Icon name="chat_bubble" className="text-secondary" />
-                    <div>
-                      <h4 className="font-bold text-primary mb-2">Zero-UI Action Layer</h4>
-                      <p className="text-sm text-on-surface-variant">
-                        Interactions that feel natural and invisible, occurring exactly when and where they are needed.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <Icon name={p.icon} className="text-secondary text-3xl" />
+                <h3 className="font-headline italic text-2xl text-primary leading-tight">{p.title}</h3>
+                <p className="text-on-surface-variant leading-relaxed">{p.body}</p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <SectionDivider label="Synergy" />
+      <SectionDivider label="What you see" index="04" />
 
-      {/* Synergy with Tacet */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
-        <div className="text-center mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Aetherix ↔ Tacet</h2>
-          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            Two nodes of the same Mesh, two domains, one conversation via MCP. Aetherix reads <Term id="pms">PMS</Term>, occupancy, F&B, staffing, the property's internal operations.{" "}
-            <Link to="/tacet" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
-              Tacet
-            </Link>
-            {" "}reads the world outside: weather, noise, public events. The Orchestrator combines both into a single decision: <em className="italic">if Tacet detects 65dB roadworks tomorrow morning, Aetherix adjusts staffing for the in-room breakfast surge it anticipates.</em>
-          </p>
+      {/* DAILY RECEIPT */}
+      <Reveal as="section" id="receipt" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+              Daily Receipt
+            </span>
+            <h2 className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight">
+              What a manager actually sees.
+            </h2>
+          </div>
+          <div data-reveal-child>
+            <AetherixDailyReceipt />
+          </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
-            <Icon name="hub" className="text-secondary text-2xl mb-6" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">Aetherix, internal context</h3>
-            <p className="text-on-surface-variant leading-relaxed">
-              Forecasts operational needs, F&B demand, and staffing from occupancy, PMS data, and historical patterns.
+      </Reveal>
+
+      <SectionDivider label="How it works" index="05" />
+
+      {/* HOW IT WORKS */}
+      <Reveal as="section" id="how" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="max-w-3xl mb-10">
+            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+              Architecture
+            </span>
+            <h2
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "120ms" }}
+              className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+            >
+              Push-first pipeline.
+            </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "240ms" }}
+              className="mt-6 text-on-surface-variant leading-relaxed"
+            >
+              Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory
+              recall (OperationalMemory + HiveMemory cold-start) → Claude Sonnet reasoning → WhatsApp or Email.
             </p>
           </div>
-          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
-            <Icon name="public" className="text-secondary text-2xl mb-6" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">Tacet, external context</h3>
-            <p className="text-on-surface-variant leading-relaxed">
-              Predicts environmental impact, street disruptions, and acoustic risks from weather, events, and city signals.
-            </p>
-          </div>
-        </div>
-        <p className="text-center text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-12">
-          Together, they let hotel teams act on what is happening inside and what is approaching from outside.
-        </p>
-        <div className="text-center mt-8">
-          <Link to="/tacet" className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-secondary hover:text-primary transition-colors">
-            <span>Read the Tacet case</span>
-            <Icon name="arrow_forward" className="text-sm" />
-          </Link>
-        </div>
-      </section>
-
-      {/* Intelligent Anticipation */}
-      <Reveal as="section" id="anticipation" className="py-20 md:py-32 bg-primary-fixed/20 overflow-hidden scroll-mt-24">
-        <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
-          <div className="mb-16 md:mb-20">
-            <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary italic mb-6">Intelligent Anticipation</h2>
-            <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl text-lg">
-              Four layers, one recommendation. Prophet forecasts tomorrow's covers and shifts. pgvector recalls how similar days played out across <em className="italic">your</em> property's history. HiveMemory adds anonymized patterns from peer hotels in the same segment. Claude Sonnet (with Gemini and GPT on fallback) turns the whole picture into one plain-language call, pushed only when it matters, and callable by any other agent over <Term id="mcp">MCP</Term>.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div data-reveal-child style={{ ["--reveal-delay" as string]: "300ms" }} className="md:col-span-2 relative min-h-[500px] md:min-h-[560px] rounded-xl overflow-hidden bg-surface shadow-sm border border-outline-variant/20">
+          <div
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "360ms" }}
+            className="rounded-2xl overflow-hidden border border-outline-variant/20 bg-surface mb-10"
+          >
+            <div className="min-h-[520px]">
               <AetherixArchitectureDiagram />
             </div>
-            <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="bg-surface rounded-xl p-8 md:p-12 border border-outline-variant/20 shadow-sm flex flex-col justify-between">
-              <div>
-                <Icon name="forum" className="text-secondary text-4xl mb-6 block" />
-                <h4 className="font-headline text-2xl text-primary mb-4">Proactive Messaging</h4>
-                <p className="text-on-surface-variant leading-relaxed">
-                  Recommendations land where teams already work: WhatsApp first, with explainable reasoning attached. Apaleo OAuth gives read access. The MCP Server v0 is live: three atomic tools, multi-tenant by design, ready for orchestration agents and the Apaleo Agent Hub.
-                </p>
-              </div>
-              <div className="pt-8 border-t border-outline-variant/20 mt-6">
-                <p className="text-xs font-label uppercase tracking-widest text-secondary">
-                  Apaleo MCP · MCP Server v0 live · WhatsApp delivery · Fly.io Paris
-                </p>
-              </div>
-            </div>
+          </div>
+          <div data-reveal-child>
+            <h3 className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-4">Stack</h3>
+            <AetherixStackChips />
           </div>
         </div>
       </Reveal>
 
-      {/* The Hive, scaling soul through collective intelligence */}
-      <AetherixHiveStanzas />
+      <SectionDivider label="Built to be trusted" index="06" />
 
-      {/* Quote 1 */}
-      <section className="py-20 md:py-24 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto bg-surface-container-low p-8 md:p-12 rounded-3xl text-center shadow-sm">
-          <h3 className="font-headline text-2xl md:text-3xl text-primary italic leading-relaxed mb-8">
-            "Food waste is one of the biggest challenges in hospitality. It is one of the most immediate and measurable
-            ways we can reduce our impact as a hotel group."
-          </h3>
-          <div className="flex items-center justify-center gap-4">
-            <img src={toniPortrait} alt="Toni Stoeckl" loading="lazy" className="w-12 h-12 rounded-full object-cover" />
-            <div className="text-left">
-              <p className="font-bold text-primary">Toni Stoeckl</p>
-              <p className="text-xs text-on-surface-variant">Chief Marketing Officer, Starwood Hotels (1 Hotels)</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Design Principles */}
-      <Reveal as="section" className="py-24 md:py-40 px-6 md:px-12 bg-surface-container">
+      {/* TRUST */}
+      <Reveal as="section" id="trust" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 md:mb-24">
-            <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl text-primary mb-6">
-              Core Design Principles for Operations AI
+          <div className="max-w-2xl mb-10">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              Trust is engineered, not promised.
             </h2>
-            <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant text-lg">Built for operational efficiency and human trust</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
-            {PRINCIPLES.map((p, i) => (
-              <div key={p.title} data-reveal-child style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }} className="flex flex-col gap-6">
-                <Icon name={p.icon} className="text-secondary text-4xl" />
-                <h3 className="font-bold text-xl text-primary">{p.title}</h3>
-                <p className="text-on-surface leading-relaxed">{p.body}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {TRUST.map((t, i) => (
+              <div
+                key={t.title}
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
+                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+              >
+                <Icon name={t.icon} className="text-secondary text-3xl" />
+                <h3 className="font-headline italic text-2xl text-primary leading-tight">{t.title}</h3>
+                <p className="text-on-surface-variant text-sm leading-relaxed">{t.body}</p>
               </div>
             ))}
           </div>
         </div>
       </Reveal>
 
-      {/* The Agentic Operations Pipeline */}
-      <section id="pipeline" className="py-20 md:py-32 px-6 md:px-12 bg-surface scroll-mt-24">
+      <SectionDivider label="Performance" index="07" />
+
+      {/* PERFORMANCE */}
+      <Reveal as="section" id="performance" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 md:mb-20">
-            <h2 className="font-headline text-4xl md:text-6xl text-primary italic mb-6">
-              The Agentic Operations Pipeline
+          <div className="max-w-2xl mb-10">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              Forecast accuracy and target outcomes.
             </h2>
-            <p className="text-on-surface-variant text-lg md:text-xl max-w-3xl mx-auto">
-              Aetherix anticipates real-time operational needs in boutique hotels, allowing the human team to focus on
-              delivering exceptional guest experiences instead of reacting to daily operational chaos.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24 md:mb-32">
-            {PIPELINE_CARDS.map((c) => (
-              <div
-                key={c.title}
-                tabIndex={0}
-                className="group relative lift-card bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-3xl hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 overflow-hidden"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute left-8 md:left-12 top-0 h-px w-8 bg-gradient-to-r from-secondary-fixed-dim to-transparent transition-all duration-700 ease-out group-hover:w-2/3 group-focus-visible:w-2/3"
-                />
-                <span className="absolute top-6 right-6 md:top-8 md:right-8 font-label uppercase tracking-[0.2em] text-[9px] text-secondary opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500">
-                  → recommends
-                </span>
-                <Icon name={c.icon} className="text-secondary text-3xl mb-6 block" />
-                <h3 className="font-headline text-2xl md:text-3xl text-primary mb-4">{c.title}</h3>
-                <p className="text-on-surface-variant text-lg leading-relaxed">{c.body}</p>
-                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
-                  <div className="overflow-hidden">
-                    <div className="pt-6 mt-6 border-t border-secondary-fixed-dim/40">
-                      <p className="font-headline italic text-base md:text-lg text-primary leading-snug">
-                        {c.outcome}
-                      </p>
-                      <p className="font-label uppercase tracking-[0.2em] text-[9px] text-secondary mt-3">
-                        Human in the loop
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="max-w-5xl mx-auto bg-surface-container-low p-8 md:p-12 rounded-3xl text-center shadow-sm">
-            <h3 className="font-headline text-2xl md:text-3xl text-primary italic leading-relaxed mb-8">
-              "Technology has brought incredible convenience, but the human element is irreplaceable. A warm welcome, a
-              local tip from the front desk, a morning conversation over coffee, these are the things that linger in a
-              guest's memory."
-            </h3>
-            <div className="flex items-center justify-center gap-4">
-              <img src={aviPortrait} alt="Avi Brosh" loading="lazy" className="w-12 h-12 rounded-full object-cover" />
-              <div className="text-left">
-                <p className="font-bold text-primary">Avi Brosh</p>
-                <p className="text-xs text-on-surface-variant">Founder, Palisociety (Roadbook)</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The Hive Vision, the engine that powers the pipelines */}
-      <section id="hive" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
-        <div className="max-w-screen-xl mx-auto text-center">
-          <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The moat beneath the agents</span>
-          <h2 className="font-headline text-4xl md:text-6xl text-primary italic mt-4 mb-10 leading-[1.05]">The Hive Vision</h2>
-          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-10">
-            Anonymous peer metadata, shared anticipation, no shared data. The pipelines above run on this collective memory.
-          </p>
-          <AetherixHorizonIllustration />
-          <div className="text-on-surface-variant font-body text-lg md:text-xl max-w-3xl mx-auto leading-relaxed flex flex-col gap-6 mt-8">
-            <p>
-              Each property keeps its own memory, while contributing anonymous signals to a shared layer. Independent operators gain the anticipation that, until now, only the largest groups could afford.
-            </p>
-            <p className="font-headline italic text-primary text-2xl md:text-3xl pt-4">
-              From reactive operations to invisible, self-improving intelligence.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Aetherix, Glue not Replacement */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface">
-        <div className="max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
-            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Strategy</span>
-            <h2 className="font-headline italic text-4xl md:text-5xl text-primary mt-4 leading-tight">
-              Glue, not replacement.
-            </h2>
-            <p className="text-on-surface-variant mt-6 leading-relaxed">
-              Aetherix is not another dashboard to open. It is the connective tissue between the systems your team already uses.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-            {[
-              {
-                num: "01",
-                title: "Zero training required",
-                body: "Aetherix operates through WhatsApp and native PMS task lists. The team does not learn a new interface. Onboarding takes minutes, not weeks.",
-              },
-              {
-                num: "02",
-                title: "Eliminate tech fatigue",
-                body: "We do not add a new tab to the browser. We add intelligence to the ones already open.",
-              },
-              {
-                num: "03",
-                title: "Low-churn infrastructure",
-                body: "By acting as the glue between disparate legacy systems, Aetherix becomes part of the operational nervous system, not a disposable add-on.",
-              },
-            ].map((card) => (
-              <div
-                key={card.num}
-                className="lift-card bg-surface-container-low border border-outline-variant/20 rounded-3xl p-8 md:p-10"
-              >
-                <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">{card.num}</span>
-                <h3 className="font-headline italic text-2xl md:text-3xl text-primary mt-4 mb-4 leading-tight">
-                  {card.title}
-                </h3>
-                <p className="text-on-surface-variant leading-relaxed">{card.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Economics of Anticipation, RaaS Ready */}
-      <section id="economics" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
-        <div className="max-w-screen-2xl mx-auto">
-          <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
-            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Economics</span>
-            <h2 className="font-headline italic text-4xl md:text-5xl text-primary mt-4 leading-tight">
-              The Economics of Anticipation.
-            </h2>
-            <p className="text-on-surface-variant mt-6 leading-relaxed">
-              Results-as-a-Service. Aligned incentives, measurable outcomes.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center max-w-6xl mx-auto">
-            <div>
-              <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">Results as a Service</span>
-              <h3 className="font-headline italic text-2xl md:text-3xl text-primary mt-4 mb-5 leading-tight">
-                We win when you win.
-              </h3>
-              <p className="text-on-surface-variant leading-relaxed">
-                Aetherix does not sell analytics. It drives RevPAR and reduces labour waste through agentic anticipation. Pricing follows outcomes, not seats.
-              </p>
-            </div>
-            <div className="bg-surface-container-low border border-outline-variant/20 rounded-3xl p-8 md:p-10">
-              <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary">The Anticipation Ceiling</span>
-              <div className="my-6">
-                <AnticipationCeiling />
-              </div>
-              <p className="text-on-surface-variant leading-relaxed">
-                Legacy systems record what happened. Aetherix anticipates what is next, turning expressed and unexpressed wishes into direct revenue.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Explore the Platform */}
-      <section className="py-20 md:py-24 px-6 md:px-12 bg-surface-container-high/30">
-        <div className="max-w-screen-2xl mx-auto flex flex-col items-center text-center">
-          <h2 className="font-headline text-3xl md:text-4xl text-primary italic mb-6">Explore the Platform</h2>
-          <p className="text-on-surface-variant text-lg mb-8 max-w-xl">
-            End-to-end pipeline (PMS Apaleo, forecasting, semantic reasoning, WhatsApp push)
-          </p>
-          <a
-            href="https://github.com/IvandeMurard/aetherix-hospitality-ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-outline-variant/40 px-8 py-4 rounded-full text-on-surface-variant hover:text-primary hover:border-outline transition-all duration-500"
-          >
-            <span className="font-label uppercase tracking-widest text-xs">View on GitHub</span>
-            <Icon name="arrow_forward" className="text-sm" />
-          </a>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-surface">
-        <div className="max-w-screen-xl mx-auto">
-          <h2 className="font-headline text-3xl md:text-4xl text-primary italic mb-12 md:mb-16 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {FAQ.map((f) => (
-              <div key={f.q} className="bg-surface-container-low p-8 rounded-2xl">
-                <h4 className="font-bold text-primary mb-4">{f.q}</h4>
-                <p className="text-on-surface-variant leading-relaxed">{f.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Horizon */}
-      <section id="contact" className="py-24 md:py-32 px-6 md:px-12 bg-surface-container-lowest border-t border-outline-variant/20 scroll-mt-24">
-        <div className="max-w-screen-xl mx-auto text-center">
-          <h2 className="font-headline text-3xl md:text-4xl text-primary italic mb-6">
-            Curious to explore what this could look like for your hotel?
-          </h2>
-          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-12">
-            Aetherix is in validation. Pilots and product conversations are open.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16">
-            <a
-              href={SOCIAL_LINKS.email}
-              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "180ms" }}
+              className="mt-6 text-on-surface-variant leading-relaxed"
             >
-              Email me
-            </a>
+              <Term id="mape">MAPE</Term> on J+1 covers, target labor cost variance, and the security gate baseline.
+              Every claim carries its caveat: synthetic, target, or measured.
+            </p>
+          </div>
+          <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }}>
+            <AetherixMetricCards />
+          </div>
+        </div>
+      </Reveal>
+
+      <SectionDivider label="Roadmap" index="08" />
+
+      {/* ROADMAP */}
+      <Reveal as="section" id="roadmap" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="max-w-2xl mb-10">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              Where we are, where we're going.
+            </h2>
+          </div>
+          <div data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }}>
+            <AetherixPhaseTimeline />
+          </div>
+        </div>
+      </Reveal>
+
+      <SectionDivider label="Recent milestone" index="09" />
+
+      {/* ANIMA MILESTONE */}
+      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-3xl mx-auto bg-surface-container-low border border-outline-variant/25 rounded-2xl p-8 md:p-10">
+          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+            Anima PoC
+          </span>
+          <h2
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "120ms" }}
+            className="font-headline italic text-2xl md:text-3xl text-primary mt-4 leading-tight"
+          >
+            Guest Cognition Layer prototype shipped at the Anthropic hackathon.
+          </h2>
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "240ms" }}
+            className="mt-5 text-on-surface-variant leading-relaxed"
+          >
+            A 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims.
+            Production is Phase 4, DPIA-gated.
+          </p>
+        </div>
+      </Reveal>
+
+      <SectionDivider label="Role & model" index="10" />
+
+      {/* ROLE & CTA */}
+      <Reveal as="section" id="contact" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
+        <div className="max-w-3xl mx-auto text-center">
+          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+            Role &amp; pricing
+          </span>
+          <h2
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "120ms" }}
+            className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+          >
+            Solo architect &amp; builder. Results-as-a-Service.
+          </h2>
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "240ms" }}
+            className="mt-6 text-on-surface-variant leading-relaxed"
+          >
+            Product Builder &amp; AI Agent Designer, 2026, ongoing (validation phase). Pricing follows outcomes, not
+            seats: we win when you win. Pilots and product conversations open.
+          </p>
+          <div
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "360ms" }}
+            className="mt-10 flex flex-wrap gap-4 justify-center"
+          >
             <a
               href={SOCIAL_LINKS.schedule}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
             >
-              Schedule a conversation
+              <Icon name="event" className="text-base" />
+              Book a call
+            </a>
+            <a
+              href="https://github.com/IvandeMurard/aetherix-hospitality-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+            >
+              <Icon name="code" className="text-base" />
+              GitHub repo
             </a>
             <Link
-              to="/contact"
-              className="font-headline italic text-xl text-on-surface-variant hover:text-primary transition-colors duration-500"
+              to="/tacet"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
-              Begin a journey
+              <Icon name="arrow_forward" className="text-base" />
+              Read Tacet
             </Link>
           </div>
         </div>
-      </section>
-
-      <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">
-        <a
-          href="/aetherix.md"
-          className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
-        >
-          View as markdown
-        </a>
-      </div>
+      </Reveal>
     </div>
   </SiteLayout>
 );

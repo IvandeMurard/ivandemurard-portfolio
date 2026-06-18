@@ -1,87 +1,109 @@
-## Diagnostic
 
-### Ce que dit la Search Console (et comment l'interpréter)
+# Refonte /aetherix : contenu Livrable 1 + composants visuels
 
-Tu as inspecté `https://www.ivandemurard.com/`. Test live:
+Mise à jour du contenu de la case study Aetherix (route `/aetherix`) avec la copie verbatim du Livrable 1 et 6 nouveaux composants visuels, en gardant 100% du design system (tokens, typo, cards, SectionDivider, rythme) déjà utilisé sur `/sonor` et `/tacet`.
 
-- `www` → **HTTP 302** redirige vers `https://ivandemurard.com/` (apex)
-- apex → **HTTP 200** OK
-- canonique déclarée = apex
-- canonique choisie par Google = apex (= identique)
+## Contraintes design (non-négociables)
 
-Donc le message "Page non indexée: Page avec redirection" sur `www` est **normal et attendu**. Google ne doit pas indexer la version `www` puisqu'elle redirige vers l'apex (qui, lui, est la version à indexer). Ce n'est pas un bug.
+- Aucune nouvelle couleur, font, shadow. Réutilise: `bg-surface-container-*`, `border-outline-variant/*`, `text-primary`/`secondary`/`on-surface-variant`, `font-headline italic`, `font-label uppercase tracking-[0.2em]`.
+- Même pattern que `/sonor` et `/tacet`: hero, bloc Project Info encadré, `<SectionDivider index label>` entre sections, `<Reveal>` sur entrées, spacing `mb-12 md:mb-16`.
+- Pas d'em-dashes (règle mémoire). Conserver chaque caveat ("synthetic backtest", "target", "illustrative", "PoC").
+- Animation `<Term>` sur les termes techniques (MCP, F&B, Agentic, MAPE, RLS, etc.).
+- Mobile-first, dark/light auto via tokens.
 
-Deux petits points à régler côté GSC, sans code:
+## Nouveau plan de page
 
-1. Inspecter directement `https://ivandemurard.com/` (apex) pour voir le vrai statut d'indexation de la page canonique.
-2. Soumettre le sitemap dans GSC: Sitemaps → ajouter `sitemap.xml`. Le fichier est bien servi (`https://ivandemurard.com/sitemap.xml` → 200).
-
-### Le vrai bug d'indexation (caché)
-
-En testant les routes en prod, je vois que **toutes les routes servent le même `<head>` que la racine**:
-
+```text
+Hero (titre + sous-titre + badges row)
+Project Info (bloc existant, mis à jour)
+SectionDivider 01 / Problem            → "Why it exists"
+SectionDivider 02 / The Mesh           → diagramme nodes + tableau bounded contexts
+SectionDivider 03 / What it does       → 3 promesses (covers, staffing, waste)
+SectionDivider 04 / What you see       → Daily Receipt mockup + chips ✅ ✏️ ❌
+SectionDivider 05 / How it works       → Pipeline push-first + stack chips
+SectionDivider 06 / Built to be trusted→ 3 piliers (Eval contract, Observability, Multi-tenant security)
+SectionDivider 07 / Performance        → 3 metric cards
+SectionDivider 08 / Roadmap            → Phase timeline 0→5
+SectionDivider 09 / Recent milestone   → Anima PoC
+SectionDivider 10 / Role & model       → Solo builder + pricing + CTAs
 ```
-GET /journeys
-<title>Ivan de Murard, Product Builder in Paris</title>   ← titre racine
-<link rel="canonical" href="https://ivandemurard.com/" /> ← canonique racine
-<meta property="og:url" content="https://ivandemurard.com/" />
-```
 
-Cause: le script postbuild `scripts/generate-seo-snapshots.ts` écrit bien `dist/journeys/index.html`, `dist/atrium/index.html`, etc., mais le SPA fallback de l'hébergement Lovable sert `dist/index.html` pour toute route sans extension, **sans regarder les sous-dossiers**. Les snapshots ne sont donc jamais servis aux crawlers.
+## Composants à créer (réutilisent primitives existantes)
 
-Conséquence directe: pour Google, `/`, `/atrium`, `/journeys`, `/aetherix`, `/sonor`, `/tacet`, `/journal`, `/contact` ont **le même titre, la même description, et tous une canonique pointant vers `/`**. Résultat: Google ne garde que `/` à l'index et marque les autres comme "Page en double, Google a choisi une autre canonique" ou "Page avec redirection". Exactement le motif qu'on voit dans la console.
+Tous sous `src/components/atherix/`, stylés via tokens DS, zéro nouvelle dépendance:
 
-Le composant `Seo.tsx` existe (mutation du `<head>` côté client via `useEffect`) mais n'est utilisé que dans `NotFound.tsx`. Aucune autre page ne l'appelle.
+1. **`AetherixHeroBadges.tsx`** — rangée de pills `font-label uppercase tracking-[0.2em] text-[10px]` sur fond `bg-surface-container-low border border-outline-variant/30 rounded-full`. Contenu: Phase 3 · Pilot · Staging Live · MCP-Native · Claude Sonnet · Python 3.12 · FastAPI · Fly.io (Paris).
 
-### Synthèse GEO/SEO
+2. **`AetherixMeshDiagram.tsx`** — graphe horizontal (flex + bordures, pas de lib):
+   - Gauche: 2 cards empilées (Tacet, Orchestrator) → flèche
+   - Centre: card Aetherix **emphasized** (border `secondary/60`, fond `surface-container-high`, label "this node")
+   - Droite: flèche → card Manager (WhatsApp, icône Material `chat`)
+   - HiveMemory en side-input pointillé (border dashed) vers Aetherix
+   
+   Sous le diagramme, le tableau sémantique verbatim:
+   
+   | Node | Role | Status |
+   |---|---|---|
+   | 🍽️ Aetherix | F&B execution: forecast, staffing, memory, receipts | ✅ Live (staging) |
+   | 🌦️ Tacet | Sensory: weather, noise, open data → risk | Phase 3 |
+   | 🎛️ Orchestrator | Supervisory: MCP routing, business rules, stub P3, dedicated repo P4 | Phase 3 |
+   | 🧡 Anima | Guest Cognition Layer | Shipped (Anthropic hackathon, Jun 2026) |
+   
+   Stylé via `<Table>` shadcn existant, bordures `outline-variant/30`, statut "Live" en pill `secondary`.
 
-Très propre par ailleurs: JSON-LD Person/Article/SoftwareApplication, `llms.txt` + `llms-full.txt`, `robots.txt` autorise GPTBot, PerplexityBot, ClaudeBot, Google-Extended, Applebot-Extended, sitemap à jour, OG/Twitter en place. Une fois la canonique par route corrigée, le reste est solide.
+3. **`AetherixMetricCards.tsx`** — grille 3-up `grid-cols-1 md:grid-cols-3 gap-6`. Chaque carte `bg-surface-container-low border rounded-2xl p-6`: gros chiffre `font-headline italic text-4xl text-primary`, label, caveat en `text-xs text-on-surface-variant`.
+   - "15.09% MAPE" — J+1 covers, synthetic backtest, 22% gate PASS
+   - "−3% to −8%" — target labor cost variance, 90d live (target)
+   - "14/14" — security gates passing
 
-## Plan
+4. **`AetherixDailyReceipt.tsx`** — carte type chat-bubble (`bg-surface-container-high rounded-2xl p-6 md:p-8`), entête WhatsApp-like minimaliste (icône + "Aetherix · today 18:42"), corps en `font-mono text-sm` reprenant le bloc verbatim (Breakfast 84 covers · conf 88% (illustrative), driver, Last week MAPE 2.5%). Trois chips `✅ accept / ✏️ modify / ❌ reject` stylés en `Button variant="outline" size="sm"`.
 
-### 1. Brancher `<Seo>` sur chaque page (correctif principal)
+5. **`AetherixPhaseTimeline.tsx`** — stepper horizontal scroll-x sur mobile, flex sur desktop. Chaque étape: numéro, label, icône d'état (✅ done / 🔨 current / 📋 planned via Material Icons `check_circle`, `construction`, `event`). Phase 3 highlight (border `secondary`, fond `surface-container-high`).
+   - Phase 0 Validation ✅
+   - Phase 1 Observability ✅
+   - Phase 2 Receipts ✅
+   - Phase 3 Pilot 🔨 (current)
+   - Phase 4 Scale 📋 (Mews, POS, Federated HiveMemory, Context Graph, Anima)
+   - Phase 5 Vision 📋 (Revenue Orchestrator)
 
-Googlebot exécute le JS et lit le `<head>` après hydratation. Le composant `Seo` (`useEffect` + `upsertMeta`/`upsertLink`) écrase déjà titre, description, canonique, OG, Twitter et JSON-LD. On l'ajoute en haut de chaque page avec les mêmes valeurs que `scripts/seo-routes.ts` (source de vérité unique côté snapshots et sitemap).
+6. **`AetherixStackChips.tsx`** — rangée wrap de chips secondaires: FastAPI · Python 3.12 · Prophet · pgvector (Mistral 1024d, HNSW) · Claude Sonnet (Gemini/GPT fallback) · Redis (Upstash) · Supabase (PostgreSQL, RLS, EU) · Fly.io (Paris).
 
-Pages à équiper:
-- `src/pages/Index.tsx` → home
-- `src/pages/Atrium.tsx` → `/atrium`
-- `src/pages/Journeys.tsx` → `/journeys`
-- `src/pages/Atherix.tsx` → `/aetherix`
-- `src/pages/Sonor.tsx` → `/sonor`
-- `src/pages/Tacet.tsx` → `/tacet`
-- `src/pages/Journal.tsx` → `/journal`
-- `src/pages/JournalEntry.tsx` → `/journal/<slug>` (lit le slug depuis l'URL)
-- `src/pages/Contact.tsx` → `/contact`
+`AetherixArchitectureDiagram` existant est réemployé tel quel dans "How it works" pour la pipeline push-first.
 
-Refactor léger: exporter une map `path → SeoRoute` depuis `scripts/seo-routes.ts` (ou déplacer la liste vers `src/content/seoRoutes.ts` importable des deux côtés) pour éviter la duplication entre snapshots build-time et `Seo` runtime.
+## Composants existants retirés du flow
 
-### 2. Nettoyer le `<head>` statique de `index.html`
+`AetherixLayerStack`, `AetherixHiveStanzas`, `AnticipationCeiling`, `AetherixHorizonIllustration` ne sont plus utilisés dans le nouveau plan. Les fichiers restent en place (pas de `rm`).
 
-- Retirer `<link rel="canonical">` de `index.html`. Sinon, sur la home, la canonique statique et celle de `Seo` cohabitent (le doc head-meta interne dit explicitement: "Remove `<link rel="canonical">` from `index.html`. Each route owns its own canonical via Helmet.").
-- Garder les OG sitewide en fallback pour les crawlers sociaux non-JS (LinkedIn, Slack), comme aujourd'hui.
-- Garder le titre + meta description par défaut (Google les remplace par ceux de `Seo` après JS).
+## Copy verbatim à intégrer
 
-### 3. Vérifications post-déploiement
+Le texte Livrable 1 (Hero, Problem, What it does, Daily Receipt, How it works, Built to be trusted, Performance, Roadmap, Anima milestone, Role & model + CTA) est intégré tel quel section par section, sans aucune reformulation.
 
-- `curl https://ivandemurard.com/journeys` doit toujours servir le HTML racine (normal sans SSR), mais après publication, demander un nouveau test live dans GSC: Googlebot rend le JS et verra le bon `<title>` / canonical par page.
-- Inspecter `https://ivandemurard.com/` (apex) dans GSC pour confirmer son indexation propre.
-- Ajouter le sitemap dans GSC (action utilisateur, pas de code).
+## SEO / GEO
 
-### 4. Optionnel, hors-périmètre code
+- `<Seo>` (déjà en place): mise à jour
+  - `title`: "Aetherix, F&B Execution Node of the Hospitality Agentic Mesh"
+  - `description`: "Tells boutique hotel managers how many covers to expect, how to staff, how to cut food waste. MCP-native, delivered via WhatsApp. Phase 3 pilot."
+- JSON-LD `CreativeWork`: `description` mise à jour, ajout `keywords` (Agentic AI, MCP, Apaleo, Hospitality, F&B forecasting, Prophet, pgvector), `dateModified: "2026-06-18"`.
+- JSON-LD `FAQPage`: questions Livrable 1 (phase actuelle, pilote, sécurité multi-tenant, MCP, intégration Apaleo, MAPE backtest vs réel, Anima PoC).
+- Mise à jour cohérente de `public/aetherix.md` et `public/llms-full.txt` (source of truth multi-fichiers, comme le commentaire en tête de `Atherix.tsx` l'exige).
+- `public/sitemap.xml` `lastmod` mis à jour à 2026-06-18 pour `/aetherix`.
 
-- Ajouter aussi la propriété GSC `https://www.ivandemurard.com/` (Domain property couvrirait les deux d'un coup si tu préfères passer en "domain property" via vérification DNS).
-- 302 vs 301 sur `www` → apex: dépend de l'infra Lovable, on ne peut pas le changer dans le code. Pas bloquant pour l'indexation tant que la canonique apex est explicite (ce que la fix #1 garantit).
+## Fichiers touchés
 
-## Détails techniques
+- `src/pages/Atherix.tsx` — refonte body, nouveau Seo, nouvelles constantes copy
+- `src/components/atherix/AetherixHeroBadges.tsx` (nouveau)
+- `src/components/atherix/AetherixMeshDiagram.tsx` (nouveau)
+- `src/components/atherix/AetherixMetricCards.tsx` (nouveau)
+- `src/components/atherix/AetherixDailyReceipt.tsx` (nouveau)
+- `src/components/atherix/AetherixPhaseTimeline.tsx` (nouveau)
+- `src/components/atherix/AetherixStackChips.tsx` (nouveau)
+- `public/aetherix.md` — sync copy Livrable 1
+- `public/llms-full.txt` — sync section Aetherix
+- `public/sitemap.xml` — `lastmod`
 
-- `Seo.tsx` est déjà idempotent: `upsertMeta`/`upsertLink` font un `querySelector` + `setAttribute`, donc safe à appeler à chaque navigation client.
-- `SiteLayout.tsx` re-scrolle à 0 sur changement de route, donc l'ordre `<SiteLayout>` → page avec `<Seo>` au top n'a pas de race.
-- `jsonLd` passé à `Seo` doit être stable (mémoïsé ou défini hors composant) sinon `useEffect` réécrit le `<script>` à chaque render. Les valeurs viennent de `seoRoutes.ts` (constantes), donc OK.
-- `JournalEntry` lit le slug via `useParams`, construit titre/description/JSON-LD Article à partir de l'entrée `journal.ts` correspondante (réutilise la logique existante).
+## Vérification
 
-## Pas dans ce plan
-
-- Pas de migration vers `react-helmet-async` (le `Seo` maison fait exactement le même job sans dépendance).
-- Pas de SSR/prerender. La perte côté crawlers sociaux non-JS reste limitée car les OG par défaut de `index.html` restent valides.
-- Pas de retrait du script `generate-seo-snapshots.ts`: il ne nuit pas et reste utile si un jour l'hébergement sert les sous-dossiers.
+- Build OK, route `/aetherix` rendue sans erreur.
+- Playwright screenshots mobile (375px) + desktop (1280px) pour vérifier rythme et lisibilité.
+- Console clean, pas de warning React.
+- Vérif manuelle: aucun em-dash, tous les caveats présents, badges et chips cohérents avec le DS, dark/light mode lisible.
