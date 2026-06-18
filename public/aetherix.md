@@ -1,52 +1,80 @@
 # Aetherix
 
-F&B Execution Node of the Hospitality Agentic Mesh. Anticipates staffing and F&B needs in real time, reduces food waste and operating costs, frees teams to focus on guest experience. MCP-native, callable by any other agent in the stack.
+The F&B execution node of the Hospitality Agentic Mesh. It tells a hotel manager how many covers to expect tomorrow, how to staff for them, and how to cut food waste, delivered where they already work.
 
 - URL: https://ivandemurard.com/aetherix
-- Role: Product Builder and AI Agent Designer (side project)
+- Role: Product Builder & AI Agent Designer (solo)
 - Duration: 2026, ongoing (validation phase)
-- Team: Solo architect and builder
-- Status: MCP Server v0 shipped. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. Design partner pilot starting (Phase 3).
-- Stack: Apaleo PMS, FastAPI, Prophet, pgvector, HiveMemory, LLMProvider (Claude Sonnet primary, Gemini and GPT fallback), Model Context Protocol (MCP), WhatsApp push.
+- Team: Solo architect & builder
+- Status: Phase 3 · Pilot. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. Design partner pilot starting.
+- Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris). MCP-native.
 
-## The Mesh
+## Problem, why it exists
 
-Aetherix does not orchestrate. It executes. It is one node of the Hospitality Agentic Mesh, a constellation of specialized AI agents communicating exclusively via MCP.
+F&B demand anticipation is still a daily, manual, error-prone task. Hotels rely on limited data, disconnected tools, and spreadsheets. Labor is 25 to 35% of F&B operating cost; a significant share of purchased food is wasted; over and understaffing hits both staff and guests.
 
-- Aetherix (Live): F&B Execution Node, forecast, staffing, memory, receipts.
-- Tacet (Phase 3): Sensory Node, weather, noise, public events, structured signals.
-- Orchestrator (Phase 3): Supervisory Agent, routes between nodes, applies hotel business rules.
-- Anima (Phase 4): Guest Context Node, relational memory (emotional state, flight delays, CRM history).
+The bottleneck isn't data, it's synthesis: combining internal context (occupancy, capture rates, POS history) with external signals (weather, local events) into a recommendation calibrated to this property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it where managers already are. Glue, not replacement.
 
-The whole system plugs into PMS Agent Hubs (Apaleo today, Mews next) like LEGO, rather than replacing them.
+## The Mesh, bounded context by design
 
-## What it is
+Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP, no shared code, no monolith to displace. Aetherix executes F&B. It does not orchestrate, it does not route. An Orchestrator decides when to call it.
 
-Aetherix is a contextual intelligence layer that sits next to a boutique hotel's PMS. It reads occupancy, calendar, weather and local event signals, forecasts staffing and F&B demand, then pushes a small set of recommended actions to the team via WhatsApp. API-first and human-in-the-loop: the agent recommends, the manager decides.
+| Node | Role | Status |
+|---|---|---|
+| Aetherix | F&B execution: forecast, staffing, memory, receipts | Live (staging) |
+| Tacet | Sensory: weather, noise, open data, risk | Phase 3 |
+| Orchestrator | Supervisory: MCP routing, business rules, stub P3, dedicated repo P4 | Phase 3 |
+| Anima | Guest Cognition Layer | Shipped (Anthropic hackathon, Jun 2026) |
 
-## Why it exists
+## What it does
 
-Boutique hotel operations are not a scheduling problem, they are an attention problem. Managers spend their best hours reconciling spreadsheets, occupancy reports and supplier orders instead of being present with guests and teams. Aetherix exists to absorb the reconciliation work so hospitality can be felt, not engineered.
+Three promises, one message a day: tomorrow's covers, staffing that fits, less waste. Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
 
-## How it works
+## What the manager sees, the Daily Receipt
 
-1. Apaleo PMS provides the operational truth (occupancy, arrivals, segment mix) via OAuth.
-2. A forecasting layer (Prophet plus contextual features) projects staffing and F&B needs.
-3. pgvector recalls how similar days played out across the property's own history. HiveMemory adds anonymized patterns from peer hotels in the same segment.
-4. LLMProvider routes reasoning to Claude Sonnet (primary), with Gemini and GPT on fallback, and explains the prediction in plain language.
-5. The MCP Server v0 exposes Aetherix as a callable tool (three atomic tools, multi-tenant by design) for orchestration agents and the Apaleo Agent Hub.
-6. The recommendation lands in the team's WhatsApp with a one-tap accept, adjust, or override.
+```
+Breakfast    84 covers   ·  confidence 88%        (illustrative)
+             72 rooms booked + 12 typical Tue walk-ins
+             Staff: 4 FOH  (you ran 3 last Tue → 1 understaffing flag)
+Driver       local conference check-ins + clear weather
+Last week    forecast 79 · actual 81 · MAPE 2.5%
+Reply  ✅ accept   ✏️ modify   ❌ reject
+```
 
-## Aetherix and Tacet
+One tap. That reply is the signal Aetherix learns from. The day-90 receipt is sharper than the day-7 one.
 
-Two nodes of the same Mesh. Aetherix reads PMS, occupancy, F&B, staffing. Tacet reads the world outside: weather, noise, public events. The Orchestrator combines both into a single decision. Example: if Tacet detects 65dB roadworks tomorrow morning, Aetherix adjusts staffing for the in-room breakfast surge it anticipates.
+## How it works, architecture
 
-## Convictions
+Push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start) → Claude Sonnet reasoning → WhatsApp or Email.
 
-- API-first, no vendor lock-in. MCP is the only interface.
-- Context beats raw model capability. The win is in fusing external signals with internal truth.
-- Predictions must be explainable. Managers see the historical scenarios used, not just numbers.
-- Humans remain in the loop on every recommendation that affects staff or guests.
+## Built to be trusted
+
+- Evaluation as a contract (Qonto-inspired): versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge, a hard CI gate.
+- Observability and metering: every MCP tool call is one structured event, auditable, queryable, priceable.
+- Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.
+
+## Performance
+
+- Forecast accuracy: 15.09% MAPE on J+1 covers, synthetic backtest, 22% gate PASS. Real-world measurement begins with the Phase 3 design partner.
+- Target outcomes (90 days, live property): labor cost variance −3% to −8%, food cost per cover tracked and declining, planning time from hours to one validated message.
+- Security: 14/14 gates passing.
+
+## Roadmap
+
+- Phase 0 Validation, done
+- Phase 1 Observability, done
+- Phase 2 Receipts, done
+- Phase 3 Pilot, current
+- Phase 4 Scale (Mews, POS, Federated HiveMemory, Context Graph, Anima), planned
+- Phase 5 Vision (Revenue Orchestrator), planned
+
+## Recent milestone, Anima PoC
+
+Guest Cognition Layer prototype shipped at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
+
+## Role and model
+
+Solo architect and builder. Product Builder and AI Agent Designer. 2026, ongoing (validation phase). Pricing: Results-as-a-Service, outcome-based, "we win when you win." Pilots and product conversations open.
 
 ## Links
 

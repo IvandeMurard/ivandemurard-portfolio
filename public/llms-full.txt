@@ -22,13 +22,23 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/30min. Li
 
 URL: https://ivandemurard.com/aetherix. Repository: https://github.com/IvandeMurard/aetherix-hospitality-ai.
 
-Aetherix is the F&B Execution Node of the Hospitality Agentic Mesh. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences, while remaining callable by any other agent in the stack via MCP.
+Aetherix is the F&B execution node of the Hospitality Agentic Mesh. It tells a hotel manager how many covers to expect tomorrow, how to staff for them, and how to cut food waste, delivered where they already work (WhatsApp). MCP-native, callable by any other agent in the stack. Status: Phase 3, Pilot. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. Design partner pilot starting.
 
-The Mesh is a constellation of specialized AI agents communicating exclusively via MCP: Aetherix (F&B Execution, Live), Tacet (Sensory Node, Phase 3), Orchestrator (Supervisory Agent, Phase 3), Anima (Guest Context, Phase 4). Each node owns one domain. A supervisory agent routes between them, applying hotel business rules. The whole system plugs into PMS Agent Hubs (Apaleo today, Mews next) like LEGO, rather than replacing them.
+Problem. F&B demand anticipation is still a daily, manual, error-prone task. Labor is 25 to 35% of F&B operating cost; a significant share of purchased food is wasted; over and understaffing hits both staff and guests. The bottleneck isn't data, it's synthesis: combining internal context (occupancy, capture rates, POS history) with external signals (weather, local events) into a recommendation calibrated to this property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it where managers already are. Glue, not replacement.
 
-Architecture: Internal context (Apaleo PMS via OAuth2 and MCP read) combines with external signals (weather, events, social sentiment) to feed a FastAPI backend. Intelligence layers combine Prophet for numerical forecasting, pgvector for per-property memory, HiveMemory for anonymized peer patterns, and LLMProvider (Claude Sonnet primary, Gemini and GPT fallback) for cognitive reasoning. The MCP Server v0 is live (three atomic tools, multi-tenant by design) for orchestration agents and the Apaleo Agent Hub. Delivery channels include WhatsApp push and Next.js verification dashboards. Current status: MCP Server v0 shipped, staging live on Fly.io (Paris), design partner pilot starting (Phase 3). No real-world MAPE measurement yet, backtest harness built.
+The Mesh. Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP. Nodes: Aetherix (F&B execution: forecast, staffing, memory, receipts, Live staging), Tacet (Sensory: weather, noise, open data, risk, Phase 3), Orchestrator (Supervisory: MCP routing, business rules, stub P3, dedicated repo P4, Phase 3), Anima (Guest Cognition Layer, shipped at Anthropic hackathon Jun 2026).
 
-Design partners include Toni Stoeckl and Avi Brosh.
+Architecture, push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start) → Claude Sonnet reasoning → WhatsApp or Email. Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris).
+
+Built to be trusted. Evaluation as a contract (Qonto-inspired): versioned golden datasets, hard CI gate. Observability and metering: every MCP tool call is one structured event, auditable, queryable, priceable. Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.
+
+Performance. Forecast accuracy: 15.09% MAPE on J+1 covers, synthetic backtest, 22% gate PASS. Real-world measurement begins with the Phase 3 design partner. Target outcomes (90 days, live property): labor cost variance −3% to −8%, food cost per cover tracked and declining, planning time from hours to one validated message. Security: 14/14 gates passing.
+
+Roadmap. Phase 0 Validation done · Phase 1 Observability done · Phase 2 Receipts done · Phase 3 Pilot current · Phase 4 Scale planned (Mews, POS, Federated HiveMemory, Context Graph, Anima) · Phase 5 Vision planned (Revenue Orchestrator).
+
+Recent milestone: Anima PoC, Guest Cognition Layer shipped at Anthropic hackathon Jun 2026. 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
+
+Role and model. Solo architect and builder. Pricing: Results-as-a-Service, outcome-based.
 
 ## Sonor
 
