@@ -1,6 +1,10 @@
 # Aetherix
 
-The F&B execution node of the Hospitality Agentic Mesh. It tells a hotel manager how many covers to expect tomorrow, how to staff for them, and how to cut food waste, delivered where they already work.
+Persistent Operational Cognition for Hospitality. Turning scattered local experience into durable organizational intelligence. Most hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational memory that survives turnover and grows stronger over time, while executing F&B forecasting, staffing and waste reduction as the F&B node of the Hospitality Agentic Mesh.
+
+Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply sharpens the next).
+
+Understands like a human. Measures like a machine. Remembers like an institution.
 
 - URL: https://ivandemurard.com/aetherix
 - Role: Product Builder & AI Agent Designer (solo)
@@ -11,9 +15,21 @@ The F&B execution node of the Hospitality Agentic Mesh. It tells a hotel manager
 
 ## Problem, why it exists
 
-F&B demand anticipation is still a daily, manual, error-prone task. Hotels rely on limited data, disconnected tools, and spreadsheets. Labor is 25 to 35% of F&B operating cost; a significant share of purchased food is wasted; over and understaffing hits both staff and guests.
+In hospitality, the people who know how the property really runs (which Tuesdays spike, how a local conference reshapes breakfast, how to staff a rainy Sunday) carry that knowledge in their heads. When a manager leaves, the property starts again from scratch.
 
-The bottleneck isn't data, it's synthesis: combining internal context (occupancy, capture rates, POS history) with external signals (weather, local events) into a recommendation calibrated to this property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it where managers already are. Glue, not replacement.
+Combined with the inherent complexity of F&B operations (multiple outlets, mixed guest segments, volatile demand, labor shortages), this creates chronic inefficiencies: persistent over or under-staffing, avoidable food waste, reactive decision-making instead of anticipation, slow onboarding and inconsistent execution across properties.
+
+Traditional systems store data. Very few build living operational memory that learns from real outcomes and makes that knowledge available at the exact moment it is needed. This is the gap Aetherix was created to close.
+
+The underlying bottleneck is not data, it is synthesis: combining internal context (occupancy, capture rates, POS history) with external signals (weather, local events) into a recommendation calibrated to this property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it where managers already are. Glue, not replacement.
+
+## How the memory compounds
+
+Day 7: cold-start. Confidence is honest about what it does not yet know. Recommendations lean on anonymized patterns from peer properties (opt-in) and on the first week of local signals.
+
+Day 90: the receipt is sharper. Drivers are property-specific. The system has seen enough Tuesdays, enough events, enough overrides to calibrate to this exact place.
+
+Caveat: HiveMemory is anonymized aggregates only, used as cold-start across peer properties. No cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
 
 ## The Mesh, bounded context by design
 
