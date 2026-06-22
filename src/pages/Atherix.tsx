@@ -337,7 +337,7 @@ const Atherix = () => (
             <p className="font-headline italic text-primary text-lg leading-snug">
               This is the gap Aetherix was created to close.
             </p>
-            <p className="text-sm text-on-surface-variant/80">
+            <p className="text-sm text-on-surface-variant">
               The underlying bottleneck is not data, it is synthesis: combining internal context (occupancy, capture
               rates, POS history) with external signals (weather, local events) into a recommendation calibrated to
               this property.
@@ -417,7 +417,7 @@ const Atherix = () => (
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "720ms" }}
-            className="mt-6 text-xs text-on-surface-variant/80 max-w-3xl"
+            className="mt-6 text-xs text-on-surface-variant max-w-3xl"
           >
             Caveat: HiveMemory is anonymized aggregates only, used as cold-start across peer properties. No
             cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
@@ -588,7 +588,7 @@ const Atherix = () => (
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "440ms" }}
-            className="mt-6 text-xs text-on-surface-variant/80 max-w-3xl"
+            className="mt-6 text-xs text-on-surface-variant max-w-3xl"
           >
             The MAPE figure above comes from a synthetic backtest, not a live property. Real-world measurement begins
             with the Phase 3 design partner. Labor and waste targets are projections to be validated in the pilot.

@@ -142,7 +142,7 @@ export const AetherixLayerStack = () => {
         })}
       </ol>
 
-      <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant/70 text-center pt-8 md:pt-10">
+      <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant text-center pt-8 md:pt-10">
         Zero-UI Action Layer · Native Workflow Injection
       </p>
     </div>
