@@ -76,12 +76,18 @@ export const AetherixMeshDiagram = () => (
         <div className="flex flex-col gap-3">
           <NodeCard title="Tacet" sub="Sensory" />
           <NodeCard title="Orchestrator" sub="Supervisory" />
+          <div className="flex flex-col items-center gap-1">
+            <NodeCard title="Anima" sub="Guest Cognition" />
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label uppercase tracking-[0.18em] text-[8px]">
+              Shipped
+            </span>
+          </div>
         </div>
         <Arrow />
         <div className="flex flex-col items-center gap-4">
           <NodeCard title="Aetherix" sub="F&B execution" emphasized />
           <div className="flex flex-col items-center gap-1">
-            <Icon name="more_vert" className="text-outline/60 text-sm" />
+            <Icon name="more_vert" className="text-outline text-sm" />
             <NodeCard title="HiveMemory" sub="Anonymized peers" dashed />
           </div>
         </div>
@@ -103,6 +109,12 @@ export const AetherixMeshDiagram = () => (
           <NodeCard title="Tacet" sub="Sensory" />
           <NodeCard title="Orchestrator" sub="Supervisory" />
         </div>
+        <div className="w-full flex flex-col items-center gap-1">
+          <NodeCard title="Anima" sub="Guest Cognition" />
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label uppercase tracking-[0.18em] text-[8px]">
+            Shipped
+          </span>
+        </div>
         <Icon name="arrow_downward" className="text-outline text-xl" />
         <NodeCard title="Aetherix" sub="F&B execution" emphasized />
         <NodeCard title="HiveMemory" sub="Anonymized peers, side input" dashed />
@@ -118,7 +130,7 @@ export const AetherixMeshDiagram = () => (
         </div>
       </div>
 
-      <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant/70 text-center mt-8">
+      <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant text-center mt-8">
         Aetherix executes. It does not orchestrate.
       </p>
     </div>
