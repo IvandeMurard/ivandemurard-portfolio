@@ -51,11 +51,11 @@ export const AetherixArchitectureDiagram = () => {
         <div className="grid grid-cols-3 gap-4 md:gap-6 items-stretch">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant/80">Internal context</span>
+              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant">Internal context</span>
               <Column items={internalContext} delay={0} />
             </div>
             <div className="flex flex-col gap-2">
-              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant/80">External context</span>
+              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant">External context</span>
               <Column items={externalContext} delay={80} />
             </div>
           </div>
@@ -85,7 +85,7 @@ export const AetherixArchitectureDiagram = () => {
               <p className="font-headline italic text-primary text-base md:text-lg leading-tight">MCP Server v0</p>
               <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">Three atomic tools, multi-tenant</p>
             </div>
-            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary/80 shrink-0">Live · Fly.io Paris</span>
+            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary shrink-0">Live · Fly.io Paris</span>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export const AetherixArchitectureDiagram = () => {
           ))}
         </div>
 
-        <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant/70 text-center pt-2">
+        <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant text-center pt-2">
           Numerical · Semantic · Cognitive · Reasoning · Action
         </p>
       </div>
