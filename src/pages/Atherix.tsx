@@ -32,6 +32,36 @@ const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolea
   },
 ];
 
+const PROBLEM_PAINS = [
+  "Persistent over or under-staffing",
+  "Avoidable food waste",
+  "Reactive decision-making instead of anticipation",
+  "Slow onboarding and inconsistent execution across properties",
+];
+
+const MEMORY_CYCLE = [
+  {
+    icon: "psychology",
+    title: "Memory",
+    body: "Recall what worked here, on similar days, in similar contexts. Local history first, anonymized peer patterns as cold-start.",
+  },
+  {
+    icon: "insights",
+    title: "Prediction",
+    body: "A calibrated forecast for tomorrow: covers, staffing, waste risk, with the drivers behind it.",
+  },
+  {
+    icon: "send",
+    title: "Action",
+    body: "One message on WhatsApp. Accept, modify, or reject in one tap. No new dashboard to learn.",
+  },
+  {
+    icon: "autorenew",
+    title: "Learning",
+    body: "Every reply is a signal. The day-90 receipt is sharper than the day-7 one.",
+  },
+];
+
 const PROMISES = [
   {
     icon: "restaurant",
@@ -70,6 +100,10 @@ const TRUST = [
 
 const FAQ = [
   {
+    q: "How does Aetherix handle manager turnover?",
+    a: "Operational memory is property-scoped, not person-scoped. When a manager leaves, the local memory layer (OperationalMemory + feedback history) stays. A new manager inherits the calibrated forecasts, the drivers, and the learned preferences of the property. No magic: measured gains start once the pilot is live.",
+  },
+  {
     q: "What stage is Aetherix currently at?",
     a: "Phase 3, pilot. MCP Server v0 is shipped, staging is live on Fly.io (Paris), the backtest harness is built (15.09% MAPE, 22% gate PASS on synthetic data). The first real-world MAPE measurement begins with the Phase 3 design partner.",
   },
@@ -101,7 +135,7 @@ const FAQ = [
 
 const ATHERIX_SECTIONS = [
   { id: "problem", label: "Problem" },
-  { id: "mesh", label: "Mesh" },
+  { id: "memory", label: "Memory" },
   { id: "what-it-does", label: "What it does" },
   { id: "receipt", label: "Daily Receipt" },
   { id: "how", label: "How it works" },
@@ -112,10 +146,10 @@ const ATHERIX_SECTIONS = [
 ];
 
 const Atherix = () => (
-  <SiteLayout title="Aetherix: F&B Execution Node of the Hospitality Agentic Mesh" sections={ATHERIX_SECTIONS}>
+  <SiteLayout title="Aetherix: Persistent Operational Cognition for Hospitality" sections={ATHERIX_SECTIONS}>
     <Seo
-      title="Aetherix, F&B Execution Node of the Hospitality Agentic Mesh"
-      description="Tells boutique hotel managers how many covers to expect, how to staff, how to cut food waste. MCP-native, delivered via WhatsApp. Phase 3 pilot."
+      title="Aetherix, Persistent Operational Cognition for Hospitality"
+      description="Hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational memory that survives turnover, anticipates F&B demand, and delivers one-tap decisions on WhatsApp."
       path="/aetherix"
       type="article"
       jsonLd={[
@@ -123,16 +157,16 @@ const Atherix = () => (
           "@context": "https://schema.org",
           "@type": "CreativeWork",
           name: "Aetherix",
-          headline: "Aetherix, F&B Execution Node of the Hospitality Agentic Mesh",
+          headline: "Aetherix, Persistent Operational Cognition for Hospitality",
           description:
-            "Aetherix is the F&B execution node of the Hospitality Agentic Mesh. It tells a hotel manager how many covers to expect tomorrow, how to staff for them, and how to cut food waste, delivered where they already work.",
+            "Aetherix turns scattered local experience into durable organizational intelligence. It builds persistent operational memory that survives manager turnover and grows stronger over time, while executing F&B forecasting, staffing and waste reduction as the F&B node of the Hospitality Agentic Mesh.",
           url: "https://ivandemurard.com/aetherix",
-          about: ["Agentic AI", "Hospitality Operations", "F&B Forecasting", "MCP"],
+          about: ["Operational Memory", "Organizational Intelligence", "Agentic AI", "Hospitality Operations", "F&B Forecasting", "MCP"],
           keywords:
-            "Agentic AI, MCP, Model Context Protocol, Apaleo, Hospitality, F&B forecasting, Prophet, pgvector, Claude Sonnet, Boutique Hotels",
+            "Operational memory, Organizational intelligence, Manager turnover, Hospitality cognition, Agentic AI, MCP, Model Context Protocol, Apaleo, F&B forecasting, Prophet, pgvector, Claude Sonnet, Boutique Hotels",
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           dateCreated: "2026-01-01",
-          dateModified: "2026-06-18",
+          dateModified: "2026-06-22",
           codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
           relatedLink: ["https://ivandemurard.com/tacet"],
         },
@@ -161,20 +195,68 @@ const Atherix = () => (
             <h1
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
-              className="headline-ink font-headline text-5xl md:text-7xl lg:text-8xl text-primary italic leading-[0.95] tracking-tight mb-8"
+              className="headline-ink font-headline text-5xl md:text-7xl lg:text-8xl text-primary italic leading-[0.95] tracking-tight mb-6"
             >
               Aetherix
             </h1>
             <p
               data-reveal-child
-              style={{ ["--reveal-delay" as string]: "240ms" }}
-              className="text-on-surface-variant font-body text-xl max-w-2xl leading-relaxed"
+              style={{ ["--reveal-delay" as string]: "200ms" }}
+              className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
-              The F&amp;B execution node of the Hospitality <Term id="agenticAi">Agentic</Term> Mesh. It tells a hotel
-              manager how many covers to expect tomorrow, how to staff for them, and how to cut food waste, delivered
-              where they already work.
+              Persistent Operational Cognition for Hospitality.
             </p>
-            <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }}>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "280ms" }}
+              className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed mb-4"
+            >
+              Turning scattered local experience into durable organizational intelligence.
+            </p>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "340ms" }}
+              className="text-on-surface-variant font-body text-base max-w-2xl leading-relaxed"
+            >
+              Most hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational
+              memory that survives turnover and grows stronger over time.
+            </p>
+
+            {/* Cycle 4 lignes */}
+            <ul
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "420ms" }}
+              className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 max-w-2xl"
+              aria-label="Aetherix cycle"
+            >
+              {MEMORY_CYCLE.map((step, i) => (
+                <li key={step.title} className="flex items-baseline gap-3 text-sm text-on-surface">
+                  <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums">
+                    0{i + 1}
+                  </span>
+                  <span>
+                    <span className="font-headline italic text-primary">{step.title}.</span>{" "}
+                    <span className="text-on-surface-variant">
+                      {step.title === "Memory" && "Recall what worked here."}
+                      {step.title === "Prediction" && "Calibrated for tomorrow."}
+                      {step.title === "Action" && "One tap on WhatsApp."}
+                      {step.title === "Learning" && "Every reply sharpens the next."}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Triptyque */}
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "500ms" }}
+              className="mt-8 font-headline italic text-primary text-lg md:text-xl leading-snug max-w-2xl"
+            >
+              Understands like a human. Measures like a machine. Remembers like an institution.
+            </p>
+
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "580ms" }}>
               <AetherixHeroBadges />
             </div>
           </div>
@@ -214,7 +296,7 @@ const Atherix = () => (
 
       <SectionDivider label="Problem" index="01" />
 
-      {/* PROBLEM */}
+      {/* PROBLEM — V2 turnover */}
       <Reveal as="section" id="problem" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-3xl mx-auto">
           <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
@@ -225,7 +307,7 @@ const Atherix = () => (
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
           >
-            The bottleneck isn't data. It's synthesis.
+            Your greatest operational asset walks out the door.
           </h2>
           <div
             data-reveal-child
@@ -233,49 +315,113 @@ const Atherix = () => (
             className="mt-6 space-y-5 text-on-surface-variant leading-relaxed"
           >
             <p>
-              F&amp;B demand anticipation is still a daily, manual, error-prone task. Hotels rely on limited data,
-              disconnected tools, and spreadsheets. Labor is 25 to 35% of F&amp;B operating cost; a significant share
-              of purchased food is wasted; over and understaffing hits both staff and guests.
+              In hospitality, the people who know how the property really runs (which Tuesdays spike, how a local
+              conference reshapes breakfast, how to staff a rainy Sunday) carry that knowledge in their heads. When a
+              manager leaves, the property starts again from scratch.
             </p>
             <p>
-              The bottleneck isn't data, it's synthesis: combining internal context (occupancy, capture rates, POS
-              history) with external signals (weather, local events) into a recommendation calibrated to <em>this</em>
-              {" "}property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it
-              where managers already are. Glue, not replacement.
+              Combined with the inherent complexity of <Term id="fnb">F&amp;B</Term> operations (multiple outlets, mixed
+              guest segments, volatile demand, labor shortages), this creates chronic inefficiencies:
+            </p>
+            <ul className="space-y-2 pl-5 list-disc marker:text-secondary">
+              {PROBLEM_PAINS.map((pain) => (
+                <li key={pain} className="text-on-surface">
+                  {pain}
+                </li>
+              ))}
+            </ul>
+            <p>
+              Traditional systems store data. Very few build living operational memory that learns from real outcomes
+              and makes that knowledge available at the exact moment it is needed.
+            </p>
+            <p className="font-headline italic text-primary text-lg leading-snug">
+              This is the gap Aetherix was created to close.
+            </p>
+            <p className="text-sm text-on-surface-variant/80">
+              The underlying bottleneck is not data, it is synthesis: combining internal context (occupancy, capture
+              rates, POS history) with external signals (weather, local events) into a recommendation calibrated to
+              this property.
             </p>
           </div>
         </div>
       </Reveal>
 
-      <SectionDivider label="The Mesh" index="02" />
+      <SectionDivider label="How the memory compounds" index="02" />
 
-      {/* THE MESH */}
-      <Reveal as="section" id="mesh" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+      {/* MEMORY COMPOUNDS */}
+      <Reveal as="section" id="memory" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-3xl mb-10 md:mb-12">
             <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
-              Bounded context by design
+              The cycle
             </span>
             <h2
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
               className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
             >
-              Aetherix executes. It does not orchestrate.
+              Memory, Prediction, Action, Learning.
             </h2>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "240ms" }}
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
-              Aetherix is one node in a network of specialized, <Term id="mcp">MCP</Term>-native agents. Each node owns
-              a strict bounded context and communicates only through MCP, no shared code, no monolith to displace. An
-              Orchestrator decides when to call it.
+              Every day, Aetherix runs the same loop. Each turn deposits one more grain of calibrated experience into
+              the property's operational memory.
             </p>
           </div>
-          <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }}>
-            <AetherixMeshDiagram />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {MEMORY_CYCLE.map((step, i) => (
+              <div
+                key={step.title}
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: `${200 + i * 100}ms` }}
+                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 flex flex-col gap-3"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums">
+                    0{i + 1}
+                  </span>
+                  <Icon name={step.icon} className="text-secondary text-xl" />
+                </div>
+                <h3 className="font-headline italic text-xl text-primary leading-tight">{step.title}</h3>
+                <p className="text-on-surface-variant text-sm leading-relaxed">{step.body}</p>
+              </div>
+            ))}
           </div>
+
+          {/* Day-7 vs Day-90 */}
+          <div
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "640ms" }}
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl"
+          >
+            <div className="border border-outline-variant/25 rounded-2xl p-6 bg-surface-container-lowest">
+              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
+                Day 7
+              </span>
+              <p className="mt-3 text-on-surface leading-relaxed text-sm">
+                Cold-start. Confidence is honest about what it does not yet know. Recommendations lean on anonymized
+                patterns from peer properties (opt-in) and on the first week of local signals.
+              </p>
+            </div>
+            <div className="border border-secondary/40 rounded-2xl p-6 bg-surface-container-high">
+              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Day 90</span>
+              <p className="mt-3 text-on-surface leading-relaxed text-sm">
+                The receipt is sharper. Drivers are property-specific. The system has seen enough Tuesdays, enough
+                events, enough overrides to calibrate to this exact place.
+              </p>
+            </div>
+          </div>
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "720ms" }}
+            className="mt-6 text-xs text-on-surface-variant/80 max-w-3xl"
+          >
+            Caveat: HiveMemory is anonymized aggregates only, used as cold-start across peer properties. No
+            cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
+          </p>
         </div>
       </Reveal>
 
@@ -327,20 +473,45 @@ const Atherix = () => (
 
       <SectionDivider label="How it works" index="05" />
 
-      {/* HOW IT WORKS */}
+      {/* HOW IT WORKS — Mesh + Pipeline + Stack */}
       <Reveal as="section" id="how" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-3xl mb-10">
             <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
-              Architecture
+              The Mesh, bounded context by design
             </span>
             <h2
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
               className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
             >
-              Push-first pipeline.
+              Aetherix executes. It does not orchestrate.
             </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "240ms" }}
+              className="mt-6 text-on-surface-variant leading-relaxed"
+            >
+              Aetherix is one node in a network of specialized, <Term id="mcp">MCP</Term>-native agents. Each node owns
+              a strict bounded context and communicates only through MCP, no shared code, no monolith to displace. An
+              Orchestrator decides when to call it.
+            </p>
+          </div>
+          <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }} className="mb-14">
+            <AetherixMeshDiagram />
+          </div>
+
+          <div className="max-w-3xl mb-10">
+            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+              Architecture
+            </span>
+            <h3
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "120ms" }}
+              className="font-headline italic text-2xl md:text-4xl text-primary mt-4 leading-tight"
+            >
+              Push-first pipeline.
+            </h3>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "240ms" }}
@@ -414,6 +585,14 @@ const Atherix = () => (
           <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }}>
             <AetherixMetricCards />
           </div>
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "440ms" }}
+            className="mt-6 text-xs text-on-surface-variant/80 max-w-3xl"
+          >
+            The MAPE figure above comes from a synthetic backtest, not a live property. Real-world measurement begins
+            with the Phase 3 design partner. Labor and waste targets are projections to be validated in the pilot.
+          </p>
         </div>
       </Reveal>
 
