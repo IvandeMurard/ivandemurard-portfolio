@@ -181,6 +181,17 @@ const Sonor = () => {
                 </div>
               ))}
             </div>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "800ms" }} className="mt-6">
+              <a
+                href="https://sonor.dorik.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition-colors border-b border-outline-variant/40 hover:border-primary/60 pb-0.5"
+              >
+                <span>Original project site (2020)</span>
+                <Icon name="arrow_outward" className="text-sm" />
+              </a>
+            </div>
           </div>
           <div className="lg:col-span-5 flex justify-end">
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "200ms", viewTransitionName: "case-hero-sonor" }} className="w-full aspect-[4/5] bg-surface-container-high overflow-hidden relative group">
