@@ -283,13 +283,19 @@ const Atherix = () => (
                     href={info.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    title={info.hint}
+                    aria-label={info.hint ? `${info.value}, ${info.hint}` : undefined}
                     className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary transition-colors"
                   >
                     {info.value}
+                    {info.hint && <Icon name="lock" className="text-xs text-secondary" />}
                     <Icon name="open_in_new" className="text-xs" />
                   </a>
                 ) : (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
+                )}
+                {info.hint && (
+                  <p className="mt-1 text-[10px] text-on-surface-variant/70 italic">{info.hint}</p>
                 )}
               </div>
             ))}
