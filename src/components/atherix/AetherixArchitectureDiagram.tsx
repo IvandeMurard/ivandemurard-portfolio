@@ -16,8 +16,8 @@ export const AetherixArchitectureDiagram = () => {
   ];
   const backend = [
     { icon: "sync", title: "PMS Sync", sub: "Capture rate" },
-    { icon: "psychology", title: "Semantic Reasoning", sub: "Anomaly detection" },
-    { icon: "auto_awesome", title: "Claude Sonnet", sub: "RAG engine" },
+    { icon: "insights", title: "Prophet", sub: "Forecast & staffing" },
+    { icon: "auto_awesome", title: "Claude Sonnet", sub: "Reasoning, fallback Gemini/GPT" },
     { icon: "verified", title: "Explainability", sub: "Why? service" },
   ];
   const intelligence = [

@@ -14,9 +14,19 @@ import { AetherixMetricCards } from "@/components/atherix/AetherixMetricCards";
 import { AetherixDailyReceipt } from "@/components/atherix/AetherixDailyReceipt";
 import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimeline";
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
+import { AetherixLoopCards } from "@/components/atherix/AetherixLoopCards";
+import { AetherixTrustFrames } from "@/components/atherix/AetherixTrustFrames";
+import { AetherixVideoPlaceholder } from "@/components/atherix/AetherixVideoPlaceholder";
+import { AetherixAnimaSpotlight } from "@/components/atherix/AetherixAnimaSpotlight";
 import { Term } from "@/components/Term";
 
-const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
+const PROJECT_INFO: {
+  label: string;
+  value: string;
+  href?: string;
+  wide?: boolean;
+  hint?: string;
+}[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (solo)" },
   { label: "Duration", value: "2026, ongoing (validation phase)" },
   { label: "Team", value: "Solo architect & builder" },
@@ -24,6 +34,7 @@ const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolea
     label: "Repository",
     value: "GitHub Repository",
     href: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+    hint: "Private repository, access upon request",
   },
   {
     label: "Status",
@@ -100,36 +111,28 @@ const TRUST = [
 
 const FAQ = [
   {
-    q: "How does Aetherix handle manager turnover?",
-    a: "Operational memory is property-scoped, not person-scoped. When a manager leaves, the local memory layer (OperationalMemory + feedback history) stays. A new manager inherits the calibrated forecasts, the drivers, and the learned preferences of the property. No magic: measured gains start once the pilot is live.",
+    q: "What is Aetherix in one sentence?",
+    a: "Persistent operational cognition for hospitality: a living memory that survives manager turnover and executes F&B forecasting, staffing and waste reduction on WhatsApp, as one node of the Hospitality Agentic Mesh.",
   },
   {
-    q: "What stage is Aetherix currently at?",
-    a: "Phase 3, pilot. MCP Server v0 is shipped, staging is live on Fly.io (Paris), the backtest harness is built (15.09% MAPE, 22% gate PASS on synthetic data). The first real-world MAPE measurement begins with the Phase 3 design partner.",
+    q: "Why memory, not just forecasting?",
+    a: "Forecasting is commoditized. The moat is compounding local experience: which Tuesdays spike here, how a conference reshapes breakfast here, how to staff a rainy Sunday here. Aetherix captures that context, learns from every reply, and makes it available at the exact moment a decision is due.",
   },
   {
-    q: "Is this already deployed in production hotels?",
-    a: "Not yet. We are in technical validation and onboarding the first design partner on Apaleo prod (Phase 3, current).",
+    q: "How does the closed loop work?",
+    a: "Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing and waste risk. Action lands as one WhatsApp message with one-tap accept, modify, or reject. Learning turns that reply into a fresh grain of memory. The day-90 receipt is sharper than the day-7 one.",
+  },
+  {
+    q: "How is Aetherix part of a Mesh?",
+    a: "A network of specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (sensory), Orchestrator (supervisory routing, Phase 3 stub), Anima (guest cognition, shipped as PoC). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
   },
   {
     q: "How is multi-tenant security handled?",
-    a: "hotel_id is scoped at every layer (Postgres RLS, Python guards, MCP token binding), resolved server-side, never accepted as a tool input. PMS access is read-only. Data residency: Supabase EU. HiveMemory holds anonymized aggregates only.",
+    a: "hotel_id is scoped at every layer (Postgres RLS, Python guards, MCP token binding), resolved server-side, never accepted as a tool input. PMS access is read-only. Data residency: Supabase EU. HiveMemory holds anonymized aggregates only, no cross-tenant raw data.",
   },
   {
-    q: "What is the Hospitality Agentic Mesh?",
-    a: "A network of specialized AI agents communicating exclusively via MCP. Each node owns a strict bounded context: Aetherix (F&B execution), Tacet (sensory), Orchestrator (supervisory routing), Anima (guest cognition, PoC). No shared code, no monolith to displace. Glue, not replacement.",
-  },
-  {
-    q: "How does it integrate with existing hotel systems?",
-    a: "Apaleo PMS through OAuth2 and MCP read access today, Mews next. Delivery in WhatsApp. Inbound calls via MCP. No new dashboard to learn.",
-  },
-  {
-    q: "What does the 15.09% MAPE mean?",
-    a: "Mean Absolute Percentage Error on J+1 covers forecasts, measured on a synthetic backtest with a 22% gate that passes. It is a calibration baseline, not a live result. Real-world measurement starts with the Phase 3 design partner.",
-  },
-  {
-    q: "What is Anima?",
-    a: "A Guest Cognition Layer PoC, shipped at the Anthropic hackathon in June 2026. A four-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.",
+    q: "How do I pilot Aetherix?",
+    a: "Book a call. Phase 3 is open to one design partner running Apaleo. Pricing is outcome-based, we win when you win. First real-world measurements start with the pilot.",
   },
 ];
 
@@ -280,19 +283,32 @@ const Atherix = () => (
                     href={info.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    title={info.hint}
+                    aria-label={info.hint ? `${info.value}, ${info.hint}` : undefined}
                     className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary transition-colors"
                   >
                     {info.value}
+                    {info.hint && <Icon name="lock" className="text-xs text-secondary" />}
                     <Icon name="open_in_new" className="text-xs" />
                   </a>
                 ) : (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
+                )}
+                {info.hint && (
+                  <p className="mt-1 text-[10px] text-on-surface-variant/70 italic">{info.hint}</p>
                 )}
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* CLOSED-LOOP DEMO VIDEO PLACEHOLDER */}
+      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-5xl mx-auto" data-reveal-child>
+          <AetherixVideoPlaceholder />
+        </div>
+      </Reveal>
 
       <SectionDivider label="Problem" index="01" />
 
@@ -371,53 +387,11 @@ const Atherix = () => (
               the property's operational memory.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {MEMORY_CYCLE.map((step, i) => (
-              <div
-                key={step.title}
-                data-reveal-child
-                style={{ ["--reveal-delay" as string]: `${200 + i * 100}ms` }}
-                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 flex flex-col gap-3"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums">
-                    0{i + 1}
-                  </span>
-                  <Icon name={step.icon} className="text-secondary text-xl" />
-                </div>
-                <h3 className="font-headline italic text-xl text-primary leading-tight">{step.title}</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed">{step.body}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Day-7 vs Day-90 */}
-          <div
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "640ms" }}
-            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl"
-          >
-            <div className="border border-outline-variant/25 rounded-2xl p-6 bg-surface-container-lowest">
-              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-                Day 7
-              </span>
-              <p className="mt-3 text-on-surface leading-relaxed text-sm">
-                Cold-start. Confidence is honest about what it does not yet know. Recommendations lean on anonymized
-                patterns from peer properties (opt-in) and on the first week of local signals.
-              </p>
-            </div>
-            <div className="border border-secondary/40 rounded-2xl p-6 bg-surface-container-high">
-              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Day 90</span>
-              <p className="mt-3 text-on-surface leading-relaxed text-sm">
-                The receipt is sharper. Drivers are property-specific. The system has seen enough Tuesdays, enough
-                events, enough overrides to calibrate to this exact place.
-              </p>
-            </div>
-          </div>
+          <AetherixLoopCards />
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "720ms" }}
-            className="mt-6 text-xs text-on-surface-variant max-w-3xl"
+            className="mt-8 text-xs text-on-surface-variant max-w-3xl"
           >
             Caveat: HiveMemory is anonymized aggregates only, used as cold-start across peer properties. No
             cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
@@ -561,6 +535,26 @@ const Atherix = () => (
               </div>
             ))}
           </div>
+
+          {/* Trust engineering, visible */}
+          <div className="mt-14 md:mt-16">
+            <div className="max-w-2xl mb-8">
+              <span
+                data-reveal-child
+                className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary"
+              >
+                Trust engineering, visible
+              </span>
+              <h3
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: "120ms" }}
+                className="font-headline italic text-2xl md:text-3xl text-primary mt-3 leading-tight"
+              >
+                Three artifacts, three proofs.
+              </h3>
+            </div>
+            <AetherixTrustFrames />
+          </div>
         </div>
       </Reveal>
 
@@ -571,14 +565,14 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-2xl mb-10">
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
-              Forecast accuracy and target outcomes.
+              Where we are, honestly.
             </h2>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "180ms" }}
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
-              <Term id="mape">MAPE</Term> on J+1 covers, target labor cost variance, and the security gate baseline.
+              No live forecasting accuracy claim, yet. Phase status, target outcomes, and the security gate baseline.
               Every claim carries its caveat: synthetic, target, or measured.
             </p>
           </div>
@@ -590,8 +584,9 @@ const Atherix = () => (
             style={{ ["--reveal-delay" as string]: "440ms" }}
             className="mt-6 text-xs text-on-surface-variant max-w-3xl"
           >
-            The MAPE figure above comes from a synthetic backtest, not a live property. Real-world measurement begins
-            with the Phase 3 design partner. Labor and waste targets are projections to be validated in the pilot.
+            Calibration baseline (synthetic backtest, not published as a headline): <Term id="mape">MAPE</Term> 15.09%
+            on J+1 covers, 22% gate PASS. Real-world measurement begins with the Phase 3 design partner. Labor and
+            waste targets are projections to be validated in the pilot.
           </p>
         </div>
       </Reveal>
@@ -612,29 +607,12 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Recent milestone" index="09" />
+      <SectionDivider label="Anima, sister node" index="09" />
 
-      {/* ANIMA MILESTONE */}
+      {/* ANIMA SPOTLIGHT */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-3xl mx-auto bg-surface-container-low border border-outline-variant/25 rounded-2xl p-8 md:p-10">
-          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
-            Anima PoC
-          </span>
-          <h2
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="font-headline italic text-2xl md:text-3xl text-primary mt-4 leading-tight"
-          >
-            Guest Cognition Layer prototype shipped at the Anthropic hackathon.
-          </h2>
-          <p
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "240ms" }}
-            className="mt-5 text-on-surface-variant leading-relaxed"
-          >
-            A 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims.
-            Production is Phase 4, DPIA-gated.
-          </p>
+        <div className="max-w-screen-2xl mx-auto" data-reveal-child>
+          <AetherixAnimaSpotlight />
         </div>
       </Reveal>
 
@@ -667,10 +645,19 @@ const Atherix = () => (
             className="mt-10 flex flex-wrap gap-4 justify-center"
           >
             <a
-              href={SOCIAL_LINKS.schedule}
+              href="https://github.com/IvandeMurard/hospitality-agentic-mesh"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
+            >
+              <Icon name="hub" className="text-base" />
+              Explore the Mesh
+            </a>
+            <a
+              href={SOCIAL_LINKS.schedule}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="event" className="text-base" />
               Book a call
@@ -679,10 +666,11 @@ const Atherix = () => (
               href="https://github.com/IvandeMurard/aetherix-hospitality-ai"
               target="_blank"
               rel="noopener noreferrer"
+              title="Private repository, access upon request"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
-              <Icon name="code" className="text-base" />
-              GitHub repo
+              <Icon name="lock" className="text-base" />
+              Aetherix repo
             </a>
             <Link
               to="/tacet"

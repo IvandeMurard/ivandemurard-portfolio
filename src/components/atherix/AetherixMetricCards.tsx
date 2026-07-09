@@ -1,8 +1,8 @@
 const METRICS = [
   {
-    value: "15.09%",
-    label: "MAPE on J+1 covers",
-    caveat: "Synthetic backtest, 22% gate PASS. Real-world measurement begins with the Phase 3 design partner.",
+    value: "Phase 3",
+    label: "Pilot · design partner starting",
+    caveat: "Staging live on Fly.io (Paris). Apaleo OAuth and MCP read operational. Real-world measurement begins now, no live MAPE yet.",
   },
   {
     value: "−3% to −8%",
