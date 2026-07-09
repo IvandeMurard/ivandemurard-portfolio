@@ -600,29 +600,12 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Recent milestone" index="09" />
+      <SectionDivider label="Anima, sister node" index="09" />
 
-      {/* ANIMA MILESTONE */}
+      {/* ANIMA SPOTLIGHT */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-3xl mx-auto bg-surface-container-low border border-outline-variant/25 rounded-2xl p-8 md:p-10">
-          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
-            Anima PoC
-          </span>
-          <h2
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="font-headline italic text-2xl md:text-3xl text-primary mt-4 leading-tight"
-          >
-            Guest Cognition Layer prototype shipped at the Anthropic hackathon.
-          </h2>
-          <p
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "240ms" }}
-            className="mt-5 text-on-surface-variant leading-relaxed"
-          >
-            A 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims.
-            Production is Phase 4, DPIA-gated.
-          </p>
+        <div className="max-w-screen-2xl mx-auto" data-reveal-child>
+          <AetherixAnimaSpotlight />
         </div>
       </Reveal>
 
