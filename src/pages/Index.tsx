@@ -130,14 +130,14 @@ const Index = () => {
         >
           <Link
             to="/journeys"
-            onClick={() => track({ label: "Case Studies", href: "/journeys", kind: "navigate" })}
+            onClick={() => track({ label: "Case Studies", href: "/journeys", kind: "nav" })}
             className="bg-primary text-on-primary px-10 py-5 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all duration-500 ambient-shadow"
           >
             Case Studies
           </Link>
           <Link
             to="/atrium"
-            onClick={() => track({ label: "About", href: "/atrium", kind: "navigate" })}
+            onClick={() => track({ label: "About", href: "/atrium", kind: "nav" })}
             className="text-secondary font-medium tracking-wide hover:underline decoration-secondary/30 underline-offset-8 transition-all duration-500 flex items-center gap-2 group"
           >
             About
