@@ -380,53 +380,11 @@ const Atherix = () => (
               the property's operational memory.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {MEMORY_CYCLE.map((step, i) => (
-              <div
-                key={step.title}
-                data-reveal-child
-                style={{ ["--reveal-delay" as string]: `${200 + i * 100}ms` }}
-                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 flex flex-col gap-3"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums">
-                    0{i + 1}
-                  </span>
-                  <Icon name={step.icon} className="text-secondary text-xl" />
-                </div>
-                <h3 className="font-headline italic text-xl text-primary leading-tight">{step.title}</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed">{step.body}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Day-7 vs Day-90 */}
-          <div
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "640ms" }}
-            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl"
-          >
-            <div className="border border-outline-variant/25 rounded-2xl p-6 bg-surface-container-lowest">
-              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-                Day 7
-              </span>
-              <p className="mt-3 text-on-surface leading-relaxed text-sm">
-                Cold-start. Confidence is honest about what it does not yet know. Recommendations lean on anonymized
-                patterns from peer properties (opt-in) and on the first week of local signals.
-              </p>
-            </div>
-            <div className="border border-secondary/40 rounded-2xl p-6 bg-surface-container-high">
-              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Day 90</span>
-              <p className="mt-3 text-on-surface leading-relaxed text-sm">
-                The receipt is sharper. Drivers are property-specific. The system has seen enough Tuesdays, enough
-                events, enough overrides to calibrate to this exact place.
-              </p>
-            </div>
-          </div>
+          <AetherixLoopCards />
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "720ms" }}
-            className="mt-6 text-xs text-on-surface-variant max-w-3xl"
+            className="mt-8 text-xs text-on-surface-variant max-w-3xl"
           >
             Caveat: HiveMemory is anonymized aggregates only, used as cold-start across peer properties. No
             cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
