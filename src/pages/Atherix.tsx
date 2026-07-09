@@ -14,9 +14,19 @@ import { AetherixMetricCards } from "@/components/atherix/AetherixMetricCards";
 import { AetherixDailyReceipt } from "@/components/atherix/AetherixDailyReceipt";
 import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimeline";
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
+import { AetherixLoopCards } from "@/components/atherix/AetherixLoopCards";
+import { AetherixTrustFrames } from "@/components/atherix/AetherixTrustFrames";
+import { AetherixVideoPlaceholder } from "@/components/atherix/AetherixVideoPlaceholder";
+import { AetherixAnimaSpotlight } from "@/components/atherix/AetherixAnimaSpotlight";
 import { Term } from "@/components/Term";
 
-const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolean }[] = [
+const PROJECT_INFO: {
+  label: string;
+  value: string;
+  href?: string;
+  wide?: boolean;
+  hint?: string;
+}[] = [
   { label: "Role", value: "Product Builder & AI Agent Designer (solo)" },
   { label: "Duration", value: "2026, ongoing (validation phase)" },
   { label: "Team", value: "Solo architect & builder" },
@@ -24,6 +34,7 @@ const PROJECT_INFO: { label: string; value: string; href?: string; wide?: boolea
     label: "Repository",
     value: "GitHub Repository",
     href: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+    hint: "Private repository, access upon request",
   },
   {
     label: "Status",
@@ -100,36 +111,28 @@ const TRUST = [
 
 const FAQ = [
   {
-    q: "How does Aetherix handle manager turnover?",
-    a: "Operational memory is property-scoped, not person-scoped. When a manager leaves, the local memory layer (OperationalMemory + feedback history) stays. A new manager inherits the calibrated forecasts, the drivers, and the learned preferences of the property. No magic: measured gains start once the pilot is live.",
+    q: "What is Aetherix in one sentence?",
+    a: "Persistent operational cognition for hospitality: a living memory that survives manager turnover and executes F&B forecasting, staffing and waste reduction on WhatsApp, as one node of the Hospitality Agentic Mesh.",
   },
   {
-    q: "What stage is Aetherix currently at?",
-    a: "Phase 3, pilot. MCP Server v0 is shipped, staging is live on Fly.io (Paris), the backtest harness is built (15.09% MAPE, 22% gate PASS on synthetic data). The first real-world MAPE measurement begins with the Phase 3 design partner.",
+    q: "Why memory, not just forecasting?",
+    a: "Forecasting is commoditized. The moat is compounding local experience: which Tuesdays spike here, how a conference reshapes breakfast here, how to staff a rainy Sunday here. Aetherix captures that context, learns from every reply, and makes it available at the exact moment a decision is due.",
   },
   {
-    q: "Is this already deployed in production hotels?",
-    a: "Not yet. We are in technical validation and onboarding the first design partner on Apaleo prod (Phase 3, current).",
+    q: "How does the closed loop work?",
+    a: "Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing and waste risk. Action lands as one WhatsApp message with one-tap accept, modify, or reject. Learning turns that reply into a fresh grain of memory. The day-90 receipt is sharper than the day-7 one.",
+  },
+  {
+    q: "How is Aetherix part of a Mesh?",
+    a: "A network of specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (sensory), Orchestrator (supervisory routing, Phase 3 stub), Anima (guest cognition, shipped as PoC). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
   },
   {
     q: "How is multi-tenant security handled?",
-    a: "hotel_id is scoped at every layer (Postgres RLS, Python guards, MCP token binding), resolved server-side, never accepted as a tool input. PMS access is read-only. Data residency: Supabase EU. HiveMemory holds anonymized aggregates only.",
+    a: "hotel_id is scoped at every layer (Postgres RLS, Python guards, MCP token binding), resolved server-side, never accepted as a tool input. PMS access is read-only. Data residency: Supabase EU. HiveMemory holds anonymized aggregates only, no cross-tenant raw data.",
   },
   {
-    q: "What is the Hospitality Agentic Mesh?",
-    a: "A network of specialized AI agents communicating exclusively via MCP. Each node owns a strict bounded context: Aetherix (F&B execution), Tacet (sensory), Orchestrator (supervisory routing), Anima (guest cognition, PoC). No shared code, no monolith to displace. Glue, not replacement.",
-  },
-  {
-    q: "How does it integrate with existing hotel systems?",
-    a: "Apaleo PMS through OAuth2 and MCP read access today, Mews next. Delivery in WhatsApp. Inbound calls via MCP. No new dashboard to learn.",
-  },
-  {
-    q: "What does the 15.09% MAPE mean?",
-    a: "Mean Absolute Percentage Error on J+1 covers forecasts, measured on a synthetic backtest with a 22% gate that passes. It is a calibration baseline, not a live result. Real-world measurement starts with the Phase 3 design partner.",
-  },
-  {
-    q: "What is Anima?",
-    a: "A Guest Cognition Layer PoC, shipped at the Anthropic hackathon in June 2026. A four-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.",
+    q: "How do I pilot Aetherix?",
+    a: "Book a call. Phase 3 is open to one design partner running Apaleo. Pricing is outcome-based, we win when you win. First real-world measurements start with the pilot.",
   },
 ];
 
