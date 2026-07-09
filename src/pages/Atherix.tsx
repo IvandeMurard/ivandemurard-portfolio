@@ -558,14 +558,14 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-2xl mb-10">
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
-              Forecast accuracy and target outcomes.
+              Where we are, honestly.
             </h2>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "180ms" }}
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
-              <Term id="mape">MAPE</Term> on J+1 covers, target labor cost variance, and the security gate baseline.
+              No live forecasting accuracy claim, yet. Phase status, target outcomes, and the security gate baseline.
               Every claim carries its caveat: synthetic, target, or measured.
             </p>
           </div>
