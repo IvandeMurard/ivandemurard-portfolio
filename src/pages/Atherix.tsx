@@ -303,6 +303,13 @@ const Atherix = () => (
         </div>
       </section>
 
+      {/* CLOSED-LOOP DEMO VIDEO PLACEHOLDER */}
+      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-5xl mx-auto" data-reveal-child>
+          <AetherixVideoPlaceholder />
+        </div>
+      </Reveal>
+
       <SectionDivider label="Problem" index="01" />
 
       {/* PROBLEM — V2 turnover */}
