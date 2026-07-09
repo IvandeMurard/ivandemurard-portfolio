@@ -528,6 +528,26 @@ const Atherix = () => (
               </div>
             ))}
           </div>
+
+          {/* Trust engineering, visible */}
+          <div className="mt-14 md:mt-16">
+            <div className="max-w-2xl mb-8">
+              <span
+                data-reveal-child
+                className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary"
+              >
+                Trust engineering, visible
+              </span>
+              <h3
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: "120ms" }}
+                className="font-headline italic text-2xl md:text-3xl text-primary mt-3 leading-tight"
+              >
+                Three artifacts, three proofs.
+              </h3>
+            </div>
+            <AetherixTrustFrames />
+          </div>
         </div>
       </Reveal>
 
