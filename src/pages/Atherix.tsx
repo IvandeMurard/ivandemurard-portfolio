@@ -645,10 +645,19 @@ const Atherix = () => (
             className="mt-10 flex flex-wrap gap-4 justify-center"
           >
             <a
-              href={SOCIAL_LINKS.schedule}
+              href="https://github.com/IvandeMurard/hospitality-agentic-mesh"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
+            >
+              <Icon name="hub" className="text-base" />
+              Explore the Mesh
+            </a>
+            <a
+              href={SOCIAL_LINKS.schedule}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="event" className="text-base" />
               Book a call
@@ -657,10 +666,11 @@ const Atherix = () => (
               href="https://github.com/IvandeMurard/aetherix-hospitality-ai"
               target="_blank"
               rel="noopener noreferrer"
+              title="Private repository, access upon request"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
-              <Icon name="code" className="text-base" />
-              GitHub repo
+              <Icon name="lock" className="text-base" />
+              Aetherix repo
             </a>
             <Link
               to="/tacet"
