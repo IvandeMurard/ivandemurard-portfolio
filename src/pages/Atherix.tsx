@@ -577,8 +577,9 @@ const Atherix = () => (
             style={{ ["--reveal-delay" as string]: "440ms" }}
             className="mt-6 text-xs text-on-surface-variant max-w-3xl"
           >
-            The MAPE figure above comes from a synthetic backtest, not a live property. Real-world measurement begins
-            with the Phase 3 design partner. Labor and waste targets are projections to be validated in the pilot.
+            Calibration baseline (synthetic backtest, not published as a headline): <Term id="mape">MAPE</Term> 15.09%
+            on J+1 covers, 22% gate PASS. Real-world measurement begins with the Phase 3 design partner. Labor and
+            waste targets are projections to be validated in the pilot.
           </p>
         </div>
       </Reveal>
