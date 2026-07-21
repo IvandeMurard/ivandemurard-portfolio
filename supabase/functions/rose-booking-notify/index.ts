@@ -26,7 +26,7 @@ const BodySchema = z.object({
   referrer: z.string().max(2048).nullable().optional(),
 });
 
-const NOTIFY_TO = "ivandemurard@gmail.com";
+const NOTIFY_TO = "ivandemurard@hotmail.fr";
 const NOTIFY_FROM = "Rose <onboarding@resend.dev>";
 
 function escapeHtml(s: string) {
