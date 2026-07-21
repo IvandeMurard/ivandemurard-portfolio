@@ -112,4 +112,4 @@ Solo architect and builder. Product Builder and AI Agent Designer. 2026, ongoing
 - Mesh (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
 - Aetherix (private, access upon request): https://github.com/IvandeMurard/aetherix-hospitality-ai
 - Contact: ivandemurard@gmail.com
-- Schedule: https://cal.com/ivandemurard/30min
+- Schedule: https://cal.com/ivandemurard/discussion-and-introduction

@@ -1,4 +1,4 @@
-export const CAL_URL = "https://cal.com/ivandemurard/30min";
+export const CAL_URL = "https://cal.com/ivandemurard/discussion-and-introduction";
 
 export const INTENT_CHIPS: Array<{
   intent: "product" | "technical" | "culture" | "exploring";

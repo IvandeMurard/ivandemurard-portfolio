@@ -35,4 +35,4 @@ Current builds: Aetherix (F&B execution agent for boutique hotels, part of a Hos
 
 Case studies on the site: Sonor (/sonor), Aetherix (/aetherix), Tacet (/tacet). Point visitors there when relevant.
 
-Contact channels: email ivandemurard@gmail.com, cal.com booking https://cal.com/ivandemurard/30min, LinkedIn https://www.linkedin.com/in/ivandemurard/, GitHub https://github.com/IvandeMurard.`;
+Contact channels: email ivandemurard@gmail.com, cal.com booking https://cal.com/ivandemurard/discussion-and-introduction, LinkedIn https://www.linkedin.com/in/ivandemurard/, GitHub https://github.com/IvandeMurard.`;

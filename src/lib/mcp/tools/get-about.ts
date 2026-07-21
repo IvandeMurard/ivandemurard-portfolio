@@ -38,7 +38,7 @@ const ABOUT = {
   current_builds: ["Aetherix", "Tacet", "Kissa", "Lore"],
   links: {
     email: "ivandemurard@gmail.com",
-    schedule: "https://cal.com/ivandemurard/30min",
+    schedule: "https://cal.com/ivandemurard/discussion-and-introduction",
     linkedin: "https://www.linkedin.com/in/ivandemurard/",
     github: "https://github.com/IvandeMurard",
     x: "https://x.com/IvanMurard",
