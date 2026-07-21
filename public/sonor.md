@@ -35,9 +35,9 @@ Noise is the second environmental cause of disease burden in Europe after air qu
 - A B2G product lives or dies on the quality of its onboarding and the legibility of its recommendations.
 
 ## Related work
-Tacet is the B2C derivative, putting the same data lineage into the hands of individual residents.
+Tacet is the V3 continuation of that acoustic thesis, now a B2B environmental twin for boutique hotels that ray-traces street noise and pushes yield rules to the RMS for human approval.
 
 ## Links
 - Case study: https://ivandemurard.com/sonor
-- Tacet (consumer derivative): https://ivandemurard.com/tacet
+- Tacet (V3, hospitality environmental twin): https://ivandemurard.com/tacet
 - Contact: ivandemurard@gmail.com
