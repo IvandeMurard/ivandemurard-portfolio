@@ -8,7 +8,7 @@ import {
 } from "npm:ai@5.0.217";
 import { z } from "npm:zod@3.23.8";
 import { createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
-import { ROSE_SYSTEM_PROMPT } from "../_shared/rose-context.ts";
+import { getRoseSystemPrompt } from "../_shared/rose-context.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -61,9 +61,10 @@ Deno.serve(async (req) => {
   const model = gateway("google/gemini-3-flash-preview");
 
   try {
+    const system = await getRoseSystemPrompt();
     const result = streamText({
       model,
-      system: ROSE_SYSTEM_PROMPT,
+      system,
       messages: convertToModelMessages(messages),
       stopWhen: stepCountIs(5),
       tools: {
