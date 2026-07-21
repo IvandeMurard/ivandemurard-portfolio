@@ -47,6 +47,39 @@ export type Database = {
         }
         Relationships: []
       }
+      rose_sessions: {
+        Row: {
+          booking_clicked: boolean
+          created_at: string
+          id: string
+          intent: string | null
+          page: string | null
+          referrer: string | null
+          session_id: string | null
+          transcript: Json
+        }
+        Insert: {
+          booking_clicked?: boolean
+          created_at?: string
+          id?: string
+          intent?: string | null
+          page?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          transcript?: Json
+        }
+        Update: {
+          booking_clicked?: boolean
+          created_at?: string
+          id?: string
+          intent?: string | null
+          page?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          transcript?: Json
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
