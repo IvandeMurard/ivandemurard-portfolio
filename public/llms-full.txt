@@ -4,7 +4,7 @@
 
 Ivan de Murard is a product builder based in Paris, France. He has five years of product management experience across start-ups, scale-ups and large groups, plus two years as co-founder and product lead of Sonor, a B2G SaaS for urban noise mapping. He designs from operational experience, ships with AI, and keeps the human at the center.
 
-Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/30min. LinkedIn: https://www.linkedin.com/in/ivandemurard/. GitHub: https://github.com/IvandeMurard.
+Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/discussion-and-introduction. LinkedIn: https://www.linkedin.com/in/ivandemurard/. GitHub: https://github.com/IvandeMurard.
 
 ## Convictions
 
@@ -80,4 +80,4 @@ Q: What is Aetherix?
 A: An agentic AI framework for boutique hotel operations that anticipates staffing and F&B needs, reducing waste and freeing teams for guest care.
 
 Q: How can I reach him?
-A: Email ivandemurard@gmail.com or book a call at https://cal.com/ivandemurard/30min.
+A: Email ivandemurard@gmail.com or book a call at https://cal.com/ivandemurard/discussion-and-introduction.

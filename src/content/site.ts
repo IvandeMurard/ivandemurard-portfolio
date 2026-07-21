@@ -4,7 +4,7 @@ import tacetImg from "@/assets/case-tacet.png";
 
 export const SOCIAL_LINKS = {
   email: "mailto:ivandemurard@gmail.com",
-  schedule: "https://cal.com/ivandemurard/30min?month=2026-05",
+  schedule: "https://cal.com/ivandemurard/discussion-and-introduction",
   linkedin: "https://www.linkedin.com/in/ivandemurard/",
   github: "https://github.com/IvandeMurard",
   instagram: "https://www.instagram.com/",
