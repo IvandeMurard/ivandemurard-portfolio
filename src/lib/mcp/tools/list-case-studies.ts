@@ -1,0 +1,44 @@
+import { defineTool } from "@lovable.dev/mcp-js";
+
+const STUDIES = [
+  {
+    slug: "sonor",
+    name: "Sonor",
+    label: "SaaS · Urban Noise Insights · 2020-2022",
+    tagline:
+      "Two-year journey as Co-founder & Product Lead. Turned open data into a SaaS platform used by European municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness.",
+    url: "https://ivandemurard.com/sonor",
+    markdown_path: "/sonor.md",
+  },
+  {
+    slug: "aetherix",
+    name: "Aetherix",
+    label: "AI Agent · Boutique Hotel Operations · 2026",
+    tagline:
+      "Persistent operational cognition for hospitality. F&B execution node of the Hospitality Agentic Mesh. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on guest experience.",
+    url: "https://ivandemurard.com/aetherix",
+    markdown_path: "/aetherix.md",
+  },
+  {
+    slug: "tacet",
+    name: "Tacet",
+    label: "B2B · Hospitality · Environmental Twin · 2026",
+    tagline:
+      "Headless Environmental Twin for the hospitality sector. Turns street, weather and crowd signals into yield rules and Chain of Thought payloads, exposed via an MCP server that any RMS, PMS or orchestration agent can consume.",
+    url: "https://ivandemurard.com/tacet",
+    markdown_path: "/tacet.md",
+  },
+];
+
+export default defineTool({
+  name: "list_case_studies",
+  title: "List case studies",
+  description:
+    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+  inputSchema: {},
+  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  handler: () => ({
+    content: [{ type: "text", text: JSON.stringify(STUDIES, null, 2) }],
+    structuredContent: { case_studies: STUDIES },
+  }),
+});
