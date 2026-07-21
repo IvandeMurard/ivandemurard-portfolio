@@ -5,6 +5,7 @@ import { Footer } from "./Footer";
 import { SectionRail, type RailSection } from "./SectionRail";
 import { PageLight } from "@/components/PageLight";
 import { BrandCursor } from "@/components/BrandCursor";
+import { RoseDock } from "@/components/rose/RoseDock";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
 
 interface SiteLayoutProps {
@@ -46,6 +47,7 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
       <div style={{ viewTransitionName: "site-footer" }}>
         <Footer />
       </div>
+      <RoseDock />
     </div>
   );
 };
