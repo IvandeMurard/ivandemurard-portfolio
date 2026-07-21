@@ -1,0 +1,13 @@
+// Shared helper: Lovable AI Gateway provider for AI SDK.
+import { createOpenAICompatible } from "npm:@ai-sdk/openai-compatible@1.0.46";
+
+export function createLovableAiGatewayProvider(lovableApiKey: string) {
+  return createOpenAICompatible({
+    name: "lovable",
+    baseURL: "https://ai.gateway.lovable.dev/v1",
+    headers: {
+      "Lovable-API-Key": lovableApiKey,
+      "X-Lovable-AIG-SDK": "vercel-ai-sdk",
+    },
+  });
+}
