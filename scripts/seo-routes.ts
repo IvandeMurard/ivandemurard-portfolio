@@ -97,7 +97,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       about: ["Agentic AI", "Hospitality Operations", "Model Context Protocol", "Boutique Hotels"],
       creator: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
       dateCreated: "2026-01-01",
-      codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+      codeRepository: "https://github.com/IvandeMurard/hospitality-agentic-mesh",
       relatedLink: [`${BASE_URL}/tacet`],
     },
   },
