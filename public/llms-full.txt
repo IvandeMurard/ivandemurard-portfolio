@@ -20,7 +20,7 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/discussio
 
 ## Aetherix
 
-URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/hospitality-agentic-mesh. Aetherix repo (private, access upon request): https://github.com/IvandeMurard/aetherix-hospitality-ai.
+URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/hospitality-agentic-mesh.
 
 Aetherix, Persistent Operational Cognition for Hospitality. Turning scattered local experience into durable organizational intelligence. Most hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational memory that survives turnover and grows stronger over time, while executing F&B forecasting, staffing and waste reduction as the F&B node of the Hospitality Agentic Mesh. Cycle: Memory, Prediction, Action, Learning. Delivered on WhatsApp. MCP-native, callable by any other agent in the stack. Status: Phase 3, Pilot. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live. Design partner pilot starting.
 

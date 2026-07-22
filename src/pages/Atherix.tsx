@@ -33,8 +33,8 @@ const PROJECT_INFO: {
   {
     label: "Repository",
     value: "GitHub Repository",
-    href: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
-    hint: "Private repository, access upon request",
+    href: "https://github.com/IvandeMurard/hospitality-agentic-mesh",
+    hint: "Public meta-repo for the Hospitality Agentic Mesh",
   },
   {
     label: "Status",
@@ -170,7 +170,7 @@ const Atherix = () => (
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           dateCreated: "2026-01-01",
           dateModified: "2026-06-22",
-          codeRepository: "https://github.com/IvandeMurard/aetherix-hospitality-ai",
+          codeRepository: "https://github.com/IvandeMurard/hospitality-agentic-mesh",
           relatedLink: ["https://ivandemurard.com/tacet"],
         },
         {
@@ -663,14 +663,14 @@ const Atherix = () => (
               Book a call
             </a>
             <a
-              href="https://github.com/IvandeMurard/aetherix-hospitality-ai"
+              href="https://github.com/IvandeMurard/hospitality-agentic-mesh"
               target="_blank"
               rel="noopener noreferrer"
-              title="Private repository, access upon request"
+              title="Public meta-repo for the Hospitality Agentic Mesh"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
-              <Icon name="lock" className="text-base" />
-              Aetherix repo
+              <Icon name="hub" className="text-base" />
+              Mesh repo
             </a>
             <Link
               to="/tacet"

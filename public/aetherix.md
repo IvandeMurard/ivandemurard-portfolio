@@ -64,7 +64,6 @@ Aetherix is one node in a network of specialized, MCP-native agents. Each node o
 | Anima | Guest Cognition Layer | Shipped (Anthropic hackathon, Jun 2026) |
 
 Meta-repo (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
-Aetherix repo (private, access upon request): https://github.com/IvandeMurard/aetherix-hospitality-ai
 
 ## Aetherix ↔ Tacet, MCP handshake
 
@@ -110,6 +109,5 @@ Solo architect and builder. Product Builder and AI Agent Designer. 2026, ongoing
 ## Links
 
 - Mesh (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
-- Aetherix (private, access upon request): https://github.com/IvandeMurard/aetherix-hospitality-ai
 - Contact: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/discussion-and-introduction
