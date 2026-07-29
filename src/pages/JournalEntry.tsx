@@ -44,7 +44,12 @@ const Block = ({ block }: { block: JournalBlock }) => {
       );
     case "code":
       return (
-        <div className="overflow-x-auto rounded-sm border border-outline-variant/30 bg-surface-container-low">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Code sample"
+          className="overflow-x-auto rounded-sm border border-outline-variant/30 bg-surface-container-low"
+        >
           <pre className="p-4 md:p-6 text-sm leading-relaxed">
             <code className="font-mono text-on-surface-variant">{block.text}</code>
           </pre>
@@ -52,8 +57,14 @@ const Block = ({ block }: { block: JournalBlock }) => {
       );
     case "table":
       return (
-        <div className="overflow-x-auto rounded-sm border border-outline-variant/30">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Data table"
+          className="overflow-x-auto rounded-sm border border-outline-variant/30"
+        >
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
+            <caption className="sr-only">{block.head.join(", ")}</caption>
             <thead>
               <tr className="border-b border-outline-variant/40">
                 {block.head.map((h, i) => (
