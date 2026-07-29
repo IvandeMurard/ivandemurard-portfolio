@@ -113,11 +113,14 @@ const Block = ({ block }: { block: JournalBlock }) => {
     case "pyramid": {
       const total = block.layers.length;
       return (
-        <div className="flex flex-col items-center gap-2">
+        <ol
+          aria-label="Layered model, from top layer to foundation"
+          className="flex flex-col items-center gap-2 list-none p-0 m-0"
+        >
           {block.layers.map((layer, i) => {
             const width = 55 + ((i + 1) / total) * 45;
             return (
-              <div
+              <li
                 key={i}
                 style={{ ["--pw" as string]: `${width}%` }}
                 className={`w-full md:w-[var(--pw)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
@@ -126,9 +129,9 @@ const Block = ({ block }: { block: JournalBlock }) => {
                     : "bg-surface-container-low border border-outline-variant/30"
                 }`}
               >
-
                 <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
                   {layer.level}
+                  {layer.base && <span className="sr-only"> (foundation)</span>}
                 </div>
                 <div
                   className={`font-headline italic text-lg ${
@@ -142,10 +145,10 @@ const Block = ({ block }: { block: JournalBlock }) => {
                     {layer.note}
                   </div>
                 )}
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ol>
       );
     }
     case "deployed":
