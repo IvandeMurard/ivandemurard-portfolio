@@ -12,9 +12,19 @@ The knowledge retiring technicians carry isn't in any manual.
 - Repository: https://github.com/IvandeMurard/Lore (tag v0.1-hackathon for the V1 build)
 - Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard (thread per aircraft and per technician), OpenAI TTS, Next.js 14, TypeScript, Tailwind, Vercel
 
+## Three figures
+
+| Figure | What it measures | Source |
+|---|---|---|
+| 9,000 to 6,800 | New mechanic certificates issued in 2024, against annual retirements over the decade | United States, FAA-certificated mechanics. Around 9,000 new certificates in 2024; more than 68,000 mechanics reaching retirement age over ten years, about 6,800 a year. Source: ATEC Pipeline Report. |
+| 35% | Share of the maintenance workforce over 55 | Germany. Estimate from the German aerospace industries association, reported in trade press; primary report not consulted. |
+| −30% | Target on time-to-autonomy for a junior on an engine type | Design target, not measured. No public benchmark exists for this interval in MRO. The lever is not working faster but removing unproductive time: waiting, escalating out of caution, redoing. |
+
+The pipeline replaces the headcount. It does not replace the experience.
+
 ## The loss
 
-By 2033, one in five aviation maintenance jobs will go unfilled. Every senior who retires takes decades of contextual knowledge with them: the exceptions, the quirks of one specific airframe, the patterns a manual cannot hold because nobody thought to write them down.
+Every senior who retires takes decades of contextual knowledge with them: the exceptions, the quirks of one specific airframe, the patterns a manual cannot hold because nobody thought to write them down.
 
 The tools that exist do RAG on explicit documents: manuals, standard procedures, service bulletins. Zymbly, LexX, AWS Q. They retrieve what somebody already put in. None of them capture what a senior never thought to write.
 
@@ -30,52 +40,58 @@ Rule number one: Lore never contradicts a procedure. It completes it.
 
 ## The hangar, 23:00
 
-Thomas, two years in, alone on an A320 tail F-GKXA. He finds something that is not on the job card.
+Night shift. Thomas is two years in, working a scheduled check on F-GKXA. He finds a vibration that is not on the job card.
+
+There are other people in the hangar. None of them worked this airframe for twenty-six years. Marc did, and Marc retired in March.
 
 - Thomas: I'm on F-GKXA, CFM56-5B, fan section. Unusual low-frequency vibration on the N1 shaft. It's not in the job card. What do I know about this?
 - Lore: AMM 72-21-00 requires escalation above 4 units. Marc Delaunay noted in October that F-GKXA specifically shows a harmonic resonance between 2 and 3 units below 8°C, a known characteristic of this airframe, not a defect. He recommended logging it and monitoring across the next cycles before escalating. Always verify the AMM procedure before intervening.
 - Thomas: Logging: vibration at 2.4 units, temperature 6°C, no escalation per Marc's note. Add this to F-GKXA's memory.
 - Lore: Logged. F-GKXA memory updated.
 
-Two years of experience just borrowed twenty-six.
+Marc has been retired for four months. He answered anyway.
 
 ## The same thesis as Aetherix, one industry over
 
 Aetherix exists because most hotels lose critical knowledge every time a manager leaves. Lore exists because the same thing happens when a senior technician retires. A manager who resigns and a technician who retires are the same loss wearing different clothes: institutional memory that lives in one head and leaves with it.
 
-What separates them is the cost of being wrong. In hospitality, a bad forecast wastes food and overstaffs a Tuesday. In maintenance, a bad answer touches airworthiness. Same architecture of memory, one notch tighter on every guarantee, which is why the evaluation protocol got built here first and hardest.
+What separates them is the cost of being wrong. In hospitality it compounds quietly: food thrown away, a shift overstaffed while another runs short, a new manager taking a year to learn what the last one knew, a guest who meets the consequences before anyone in the building does. In maintenance it does not compound. A wrong figure touches airworthiness on the first occurrence.
 
 Related: https://ivandemurard.com/aetherix
 
 ## The hazard nobody else has
 
-Lore's core promise creates a risk no pure-retrieval product carries: the oral knowledge it surfaces is trusted and partially outside the manual at the same time. That is the whole value, and it is the whole danger.
+A junior with a manual has the limits but not the judgement. A junior with a senior on shift has both, which is why shops have always run that way.
+
+Lore's bet is that the second half survives the person. What it surfaces is a named technician's judgement about a specific airframe, in the same breath as the procedure that governs it, never instead of it.
+
+That is also the part that has to be engineered rather than promised. Oral knowledge is trusted and sits partly outside the manual, so the only acceptable design is one where the procedure always wins and the judgement always arrives attributed.
 
 It is not hypothetical. It is already in the demo data.
 
-| The expert | The manual |
-|---|---|
-| Marc's October note: 2–3 NU is normal on F-GKXA in cold weather | AMM 72-00-00-810-001 sets the cold-weather action trigger at 2.5 NU |
-| Marc: monitor across 2 cycles | The AMM MONITOR band requires 3 flight cycles |
-| Marc: don't flag oil below 0.4 qt/hr | AMM 72-53-00 classes 0.30–0.50 qt/hr as ELEVATED |
+| Marc, from experience | The AMM | What Lore answers |
+|---|---|---|
+| 2–3 NU is normal on this airframe in cold weather | 72-00-00-810-001 sets the cold-weather action trigger at 2.5 NU | "You're at 2.9. The trigger is 2.5, so this escalates. Marc Delaunay's October note calls 2–3 NU characteristic of F-GKXA below 8°C, worth knowing, but it does not move the limit." |
+| Monitor across 2 cycles | The MONITOR band requires 3 flight cycles | "Three, not two. Marc's habit was tighter than the manual on other things and looser here." |
+| Don't flag oil below 0.4 qt/hr | 72-53-00 classes 0.30–0.50 qt/hr as ELEVATED | "0.35 is ELEVATED: monitor every flight, check for leaks. Marc's 0.4 was his own threshold, not the manual's." |
 
-At 2.9 NU they disagree, and the procedure wins. Every time, by construction.
+The manual sets the limit. The senior tells you what you are looking at. Lore is the only place both arrive in the same answer, in that order.
 
 These are not contrived conflicts. They are what happens when you put a real expert's judgement next to a manual, which is the entire product.
 
 ## What makes an answer admissible
 
-Two rules that were not designed in advance. Both were written after watching the system fail.
+Two rules, neither designed in advance. They are not a defence against a bad model, they are the condition under which used knowledge can be counted at all: a system that invents figures or manufactures agreement would feed the loop noise and call it evidence.
 
-The refusal contract. Eight rules, and they exist because "say so honestly" was not enough. In the first live evaluation the model refused correctly and then answered anyway: it stated that the source did not cover the fan blade count, then volunteered "36 fan blades". In another it answered a question about one tail number using a different aircraft's borescope record. Honesty about the gap did not stop it filling the gap. The rules now say it plainly: no figure absent from the sources, no other aircraft's record, no general engine knowledge, no unnamed source, no claimed consensus.
+The refusal contract. Eight rules, written because "say so honestly" was not enough: early on the model refused correctly and then volunteered "36 fan blades" anyway, and elsewhere answered about one tail number using a different aircraft's borescope record. Honesty about the gap did not stop it filling the gap. The rules now say it plainly: no figure absent from the sources, no other aircraft's record, no general engine knowledge, no unnamed source, no claimed consensus.
 
-The closing sentence is enforced in code, not in the prompt. Every maintenance answer ends with "Always verify the AMM procedure before intervening." Asked to both close with that sentence and ask a follow-up question, the model reliably did both in the wrong order, "…before intervening. Is there anything else?", which reads as if the reminder applied to the pleasantry. The safety documentation calls that sentence non-removable. That is a claim about code, so it is now enforced by code.
+The closing sentence is enforced in code, not in the prompt. Every maintenance answer ends with "Always verify the AMM procedure before intervening." Asked to close with it and also ask a follow-up, the model reliably ordered them the wrong way round, so the reminder read as if it applied to the pleasantry. The safety documentation calls that sentence non-removable, which is a claim about code, so code now holds it.
 
 ## How we know it holds
 
 The failure mode here is not a crash. It is a syntactically perfect answer that gives a technician the wrong threshold. Test coverage cannot see that, so the answers get graded instead of the code.
 
-64 cases across 12 categories. 9 graders, every one a pure function, because a grader that needs a model to decide cannot gate a safety property: it fails the same way as the thing it grades.
+64 cases across 12 categories. 9 graders, every one a pure function, because a grader that needs a model to decide cannot gate a safety property: it fails the same way as the thing it grades. The tiers are not an inventory of what goes wrong. They are the standing conditions under which an answer, and later the record of how it was used, can be trusted.
 
 | Tier | Threshold | What it covers |
 |---|---|---|
@@ -85,9 +101,41 @@ The failure mode here is not a crash. It is a syntactically perfect answer that 
 
 One run scored 52 out of 53 and was declared a failure, because the single miss was in tier 1.
 
-The harness and its tests are 2,867 lines, about 27% of the codebase, larger than the application library it guards.
+The full protocol, how the 9 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Harnais, graders, boucles fermées": https://ivandemurard.com/journal/harnais-graders-boucles-fermees
 
-The full protocol, and where it came from, is written up in "Harnais, graders, boucles fermées": https://ivandemurard.com/journal/harnais-graders-boucles-fermees
+## What it is for
+
+### Accompanied autonomy
+
+Lore does not shorten certification and does not sign anything. It shortens the distance between being certified and being sure.
+
+A junior works at the edge of their competence when the net is there, and waits when it is not. Waiting is the cost: the escalation raised out of caution, the interesting task quietly given to someone else, the question not asked because asking twice in an hour has a price. Competence grows by doing things slightly too hard, which only happens when a mistake gets caught.
+
+Target: cut time-to-autonomy on an engine type by 30%. The lever is not working faster. It is removing the wait between a question and the person who already answered it.
+
+### Three modes, one circuit
+
+Capture, query and log are not three features. They are one circuit, and the third decides whether the other two are worth anything.
+
+A junior asks. Lore answers with the procedure, the senior's judgement, the aircraft's history. Then he logs what he actually did: the reading, the conditions, the call he made. That log is not an archive entry. It is evidence about the knowledge that was just used.
+
+Marc's observation, acted on once, is one technician's note. Acted on twelve times across four winters with the same outcome, it is something the shop knows. And when an outcome contradicts it, the vibration that did escalate at 2.4 NU, that has to surface too, rather than sit buried under twelve confirmations.
+
+Knowledge that is only ever read decays. Knowledge that is used and measured gets sharper, and the reason to trust it stops being who said it and becomes what happened next.
+
+The circuit is open today. All three modes work; nothing yet weights an observation by what happened after it was used.
+
+What already exists is the guardrail. Lore will not state that technicians agree unless two or more retrieved sources actually say so, and that rule is held by a deterministic check rather than by asking the model nicely. The rule that will govern the counting is in place before the counting. Most products do it the other way round and discover later that they manufactured a consensus.
+
+### An aircraft keeps its own reasoning
+
+Not the maintenance log, which records what was done, but the reasoning around it: why this airframe was left alone at 2.4 NU in January and escalated at 2.9 in March. Tail number as the unit of memory, rather than one technician's recollection.
+
+### What it opens elsewhere
+
+Aviation is the most demanding case, not the only one. Wherever expertise is oral, specific to one machine, and held by a generation on its way out, the same loss occurs: energy and nuclear, rail, process industry, shipping, utilities, and operating theatres where technique passes by apprenticeship.
+
+That portability is not a projection. Aetherix solves the same loss in hospitality: a manager leaves and takes what they knew about the property. Same memory architecture, two industries, two levels of tolerance for being wrong. Built twice, not argued once.
 
 ## Where it stands, honestly
 

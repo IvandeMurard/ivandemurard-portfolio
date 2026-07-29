@@ -6,6 +6,8 @@ interface CountUpProps {
   prefix?: string;
   duration?: number;
   className?: string;
+  /** Render with thousands separators (1,234). */
+  separator?: boolean;
 }
 
 /**
@@ -19,6 +21,7 @@ export const CountUp = ({
   prefix = "",
   duration = 1200,
   className,
+  separator = false,
 }: CountUpProps) => {
   const ref = useRef<HTMLSpanElement | null>(null);
   const [n, setN] = useState(0);
@@ -73,7 +76,7 @@ export const CountUp = ({
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {Math.round(n)}
+      {separator ? Math.round(n).toLocaleString("en-US") : Math.round(n)}
       {suffix}
     </span>
   );
