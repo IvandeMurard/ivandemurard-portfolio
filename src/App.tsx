@@ -8,6 +8,7 @@ import Journeys from "./pages/Journeys.tsx";
 import Sonor from "./pages/Sonor.tsx";
 import Atherix from "./pages/Atherix.tsx";
 import Tacet from "./pages/Tacet.tsx";
+import Lore from "./pages/Lore.tsx";
 import Atrium from "./pages/Atrium.tsx";
 import Contact from "./pages/Contact.tsx";
 import Journal from "./pages/Journal.tsx";
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/aetherix" element={<Atherix />} />
               <Route path="/atherix" element={<Navigate to="/aetherix" replace />} />
               <Route path="/tacet" element={<Tacet />} />
+              <Route path="/lore" element={<Lore />} />
               <Route path="/atrium" element={<Atrium />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/journal" element={<Journal />} />

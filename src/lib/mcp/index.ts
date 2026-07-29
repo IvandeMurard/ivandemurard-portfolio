@@ -10,7 +10,7 @@ export default defineMcp({
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
   instructions:
-    "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet), professional bio and contact, and Field Notes. Start with list_case_studies or get_about, then fetch details with get_case_study or get_journal_entry.",
+    "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet, Lore), professional bio and contact, and Field Notes. Start with list_case_studies or get_about, then fetch details with get_case_study or get_journal_entry.",
   tools: [listCaseStudies, getCaseStudy, getAbout, listJournal, getJournalEntry],
 });
 

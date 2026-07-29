@@ -31,12 +31,20 @@ var STUDIES = [
     tagline: "Headless Environmental Twin for the hospitality sector. Turns street, weather and crowd signals into yield rules and Chain of Thought payloads, exposed via an MCP server that any RMS, PMS or orchestration agent can consume.",
     url: "https://ivandemurard.com/tacet",
     markdown_path: "/tacet.md"
+  },
+  {
+    slug: "lore",
+    name: "Lore",
+    label: "AI Agent \xB7 Aviation Maintenance \xB7 2026",
+    tagline: "Voice AI mentor for aviation maintenance. Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure. Graded by a 64-case evaluation harness with pure-function graders and a hard safety tier.",
+    url: "https://ivandemurard.com/lore",
+    markdown_path: "/lore.md"
   }
 ];
 var list_case_studies_default = defineTool({
   name: "list_case_studies",
   title: "List case studies",
-  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
@@ -52,14 +60,15 @@ var SITE_ORIGIN = "https://ivandemurard.com";
 var SLUGS = {
   sonor: "/sonor.md",
   aetherix: "/aetherix.md",
-  tacet: "/tacet.md"
+  tacet: "/tacet.md",
+  lore: "/lore.md"
 };
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet'. Content covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore'. Content covers vision, architecture, stack and outcomes.",
   inputSchema: {
-    slug: z.enum(["sonor", "aetherix", "tacet"]).describe("Case study slug: sonor, aetherix, or tacet.")
+    slug: z.enum(["sonor", "aetherix", "tacet", "lore"]).describe("Case study slug: sonor, aetherix, tacet, or lore.")
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
   handler: async ({ slug }) => {
@@ -296,7 +305,7 @@ var mcp_default = defineMcp({
   name: "ivan-de-murard-portfolio",
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
-  instructions: "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet), professional bio and contact, and Field Notes. Start with list_case_studies or get_about, then fetch details with get_case_study or get_journal_entry.",
+  instructions: "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet, Lore), professional bio and contact, and Field Notes. Start with list_case_studies or get_about, then fetch details with get_case_study or get_journal_entry.",
   tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default]
 });
 
