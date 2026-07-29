@@ -142,7 +142,78 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     brief:
       "Adjusting price and allocation in real time to extract the most revenue from a perishable inventory like hotel rooms, by blending demand forecasts, segmentation, and competitive context.",
   },
+
+  // Aviation maintenance
+  mro: {
+    id: "mro",
+    term: "MRO",
+    brief:
+      "Maintenance, Repair and Overhaul. The industry that keeps aircraft airworthy between flights, covering scheduled checks, fault diagnosis and component replacement, usually under a regulator-approved organisation.",
+  },
+  sop: {
+    id: "sop",
+    term: "SOP",
+    brief:
+      "Standard Operating Procedure. The written, approved method for a task. In maintenance it carries the numbers that matter: limits, bands, intervals. It always takes precedence over informal advice.",
+  },
+  amm: {
+    id: "amm",
+    term: "AMM",
+    brief:
+      "Aircraft Maintenance Manual. The manufacturer's approved procedures for a specific aircraft type, referenced by chapter number. It is the document a technician is accountable to, not a guideline.",
+  },
+  part145: {
+    id: "part145",
+    term: "Part 145",
+    brief:
+      "The European approval that lets an organisation perform aircraft maintenance. It defines who may certify that work was done correctly, and that person is always a named human being.",
+  },
+  airworthiness: {
+    id: "airworthiness",
+    term: "airworthiness",
+    brief:
+      "The condition of an aircraft being safe and legal to fly. Every maintenance decision either preserves it or compromises it, which is why informal advice never overrides an approved procedure.",
+  },
+  tacitKnowledge: {
+    id: "tacitKnowledge",
+    term: "tacit knowledge",
+    brief:
+      "What an expert knows but has never written down. The exceptions, the quirks of one machine, the pattern learned over years. It leaves the organisation when the person does.",
+  },
+
+  // Evaluation
+  goldenDataset: {
+    id: "goldenDataset",
+    term: "golden dataset",
+    brief:
+      "A fixed set of situations with known-correct answers, used to measure a system before release. It doubles as a specification: writing it forces you to define what a bad output actually is.",
+  },
+  grader: {
+    id: "grader",
+    term: "grader",
+    brief:
+      "One line of an evaluation grid. It checks a single property of an answer and returns pass or fail with a reason. Kept deterministic, because a model judging a model fails the same way.",
+  },
+  evalHarness: {
+    id: "evalHarness",
+    term: "eval harness",
+    brief:
+      "The machinery that runs a case set through a system, applies the graders, and returns a verdict with an exit code. It turns a pass rate into a decision about whether to ship.",
+  },
+  abstention: {
+    id: "abstention",
+    term: "abstention",
+    brief:
+      "A system saying it does not know, rather than guessing. In safety contexts it is a feature to be measured, because an honest refusal followed by an invented figure is worse than either alone.",
+  },
+  stt: {
+    id: "stt",
+    term: "STT",
+    brief:
+      "Speech to text. Converting spoken audio into written words in real time. In a workshop the hard part is not the words but the noise, the accents, and the jargon a general model has never heard.",
+  },
 };
+
 
 export function getEntry(id: string): GlossaryEntry | undefined {
   return GLOSSARY[id];

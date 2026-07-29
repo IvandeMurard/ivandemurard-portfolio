@@ -147,35 +147,147 @@ var get_about_default = defineTool3({
 
 // src/lib/mcp/tools/list-journal.ts
 import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
+
+// src/content/journal.ts
+var JOURNAL_ENTRIES = [
+  {
+    slug: "agent-boundaries-aetherix",
+    title: "A hard call on Aetherix's agent boundaries",
+    date: "2026-04-20",
+    category: "Agentic AI",
+    excerpt: "Where to draw the line between a forecasting model and an acting agent, and why splitting Prophet from Claude was the decision that shaped the rest of the architecture.",
+    body: [
+      {
+        kind: "p",
+        text: "When you build an operations layer for boutique hotels, the temptation is to let one large model do everything: predict, decide, act. It looks elegant on a slide."
+      },
+      {
+        kind: "p",
+        text: "In practice, it collapses. Forecasting and acting have different failure modes, different feedback loops, different audit requirements. So we split them. Prophet handles the read of the environment (occupancy, F&B demand, staffing pressure). Claude orchestrates the response, with the human always one click away from the loop."
+      },
+      {
+        kind: "p",
+        text: "This is not a technical decision dressed up as a product one. It is a product decision that happens to need a specific architecture. The boundary is the experience."
+      }
+    ]
+  }
+];
+
+// src/lib/mcp/tools/list-journal.ts
 var SITE_ORIGIN2 = "https://ivandemurard.com";
 var list_journal_default = defineTool4({
   name: "list_journal_entries",
   title: "List Field Notes",
-  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry to read the full body.",
+  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry with a slug from this list to read the full body.",
   inputSchema: {},
-  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
-  handler: async () => {
-    try {
-      const res = await fetch(`${SITE_ORIGIN2}/llms-full.txt`);
-      const hint = res.ok ? "See llms-full.txt for the full field-notes corpus." : "Fetch canonical pages under /journal for entries.";
+  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  handler: () => {
+    const entries = JOURNAL_ENTRIES.map((e) => ({
+      slug: e.slug,
+      title: e.title,
+      subtitle: e.subtitle ?? null,
+      date: e.date,
+      category: e.category,
+      excerpt: e.excerpt,
+      url: `${SITE_ORIGIN2}/journal/${e.slug}`
+    })).sort((a, b) => b.date.localeCompare(a.date));
+    return {
+      content: [{ type: "text", text: JSON.stringify(entries, null, 2) }],
+      structuredContent: {
+        index_url: `${SITE_ORIGIN2}/journal`,
+        entries
+      }
+    };
+  }
+});
+
+// src/lib/mcp/tools/get-journal-entry.ts
+import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.24.0";
+import { z as z2 } from "npm:zod@^3.25.76";
+var SITE_ORIGIN3 = "https://ivandemurard.com";
+function renderBlock(block) {
+  switch (block.kind) {
+    case "p":
+      return block.text;
+    case "h2":
+      return `## ${block.text}`;
+    case "h3":
+      return `### ${block.text}`;
+    case "quote":
+      return `> ${block.text}`;
+    case "list":
+      return block.items.map((i) => `- ${i}`).join("\n");
+    case "code":
+      return `\`\`\`${block.lang ?? ""}
+${block.text}
+\`\`\``;
+    case "table":
+      return [
+        `| ${block.head.join(" | ")} |`,
+        `| ${block.head.map(() => "---").join(" | ")} |`,
+        ...block.rows.map((r) => `| ${r.join(" | ")} |`)
+      ].join("\n");
+    case "defs":
+      return block.items.map((i) => `**${i.term}**: ${i.def}`).join("\n");
+    case "pyramid":
+      return block.layers.map((l) => `${l.level}: ${l.name}${l.note ? ` (${l.note})` : ""}${l.base ? " [foundation]" : ""}`).join("\n");
+    case "deployed":
+      return block.items.map((i) => `Deployed: ${i.project} (${SITE_ORIGIN3}${i.to}) ${i.text}`).join("\n");
+    case "lines":
+      return block.items.map((i) => `Q: ${i.q}
+A: ${i.a}`).join("\n\n");
+    default:
+      return "";
+  }
+}
+var get_journal_entry_default = defineTool5({
+  name: "get_journal_entry",
+  title: "Get Field Note",
+  description: "Fetch one Field Notes entry in full by slug: title, subtitle, date, category and the complete body rendered as readable Markdown. Use list_journal_entries to discover valid slugs.",
+  inputSchema: {
+    slug: z2.string().describe("Field Note slug, as returned by list_journal_entries.")
+  },
+  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  handler: ({ slug }) => {
+    const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+    if (!entry) {
+      const available = JOURNAL_ENTRIES.map((e) => e.slug).join(", ");
       return {
         content: [
           {
             type: "text",
-            text: `Field Notes index: ${SITE_ORIGIN2}/journal
-${hint}`
+            text: `Unknown Field Note slug "${slug}". Available slugs: ${available || "none"}.`
           }
         ],
-        structuredContent: {
-          index_url: `${SITE_ORIGIN2}/journal`,
-          corpus_url: `${SITE_ORIGIN2}/llms-full.txt`
-        }
-      };
-    } catch {
-      return {
-        content: [{ type: "text", text: `Field Notes index: ${SITE_ORIGIN2}/journal` }]
+        isError: true
       };
     }
+    const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+    const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
+    const text = [
+      `# ${entry.title}`,
+      entry.subtitle ?? "",
+      `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
+      entry.excerpt,
+      bodyText,
+      `Source: ${url}`
+    ].filter(Boolean).join("\n\n");
+    return {
+      content: [{ type: "text", text }],
+      structuredContent: {
+        slug: entry.slug,
+        title: entry.title,
+        subtitle: entry.subtitle ?? null,
+        date: entry.date,
+        category: entry.category,
+        excerpt: entry.excerpt,
+        reading_minutes: entry.readingMinutes ?? null,
+        related: entry.related ?? [],
+        url,
+        body: entry.body,
+        body_text: bodyText
+      }
+    };
   }
 });
 
@@ -184,8 +296,8 @@ var mcp_default = defineMcp({
   name: "ivan-de-murard-portfolio",
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
-  instructions: "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet), professional bio and contact, and Field Notes index. Start with list_case_studies or get_about, then fetch details with get_case_study.",
-  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default]
+  instructions: "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet), professional bio and contact, and Field Notes. Start with list_case_studies or get_about, then fetch details with get_case_study or get_journal_entry.",
+  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default]
 });
 
 // lovable-mcp-supabase-entry.ts

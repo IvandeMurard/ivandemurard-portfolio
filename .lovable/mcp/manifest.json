@@ -77,16 +77,41 @@
       {
         "name": "list_journal_entries",
         "title": "List Field Notes",
-        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry to read the full body.",
+        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry with a slug from this list to read the full body.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         "inputSchema": {
           "$schema": "http://json-schema.org/draft-07/schema#",
           "type": "object",
           "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_journal_entry",
+        "title": "Get Field Note",
+        "description": "Fetch one Field Notes entry in full by slug: title, subtitle, date, category and the complete body rendered as readable Markdown. Use list_journal_entries to discover valid slugs.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "description": "Field Note slug, as returned by list_journal_entries."
+            }
+          },
+          "required": [
+            "slug"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
         },
         "outputSchema": null
       }
