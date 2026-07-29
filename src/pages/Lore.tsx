@@ -470,14 +470,15 @@ const Lore = () => (
             data-reveal-child
             className="rounded-2xl border border-outline-variant/25 bg-surface-container-low overflow-hidden"
           >
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Stack and links table">
               <table className="w-full min-w-[32rem] border-collapse text-left">
+                <caption className="sr-only">Lore technical stack by layer and technology</caption>
                 <thead>
                   <tr className="border-b border-outline-variant/30">
-                    <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
                       Layer
                     </th>
-                    <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
                       Technology
                     </th>
                   </tr>
