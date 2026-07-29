@@ -229,18 +229,48 @@ const JournalEntry = () => {
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
               {formatDate(entry.date)}
             </span>
+            {entry.readingMinutes && (
+              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
+                {entry.readingMinutes} min read
+              </span>
+            )}
           </div>
-          <h1 className="font-headline text-4xl md:text-6xl italic text-primary leading-[1.1] mb-12">
+          <h1 className="font-headline text-4xl md:text-6xl italic text-primary leading-[1.1] mb-6">
             {entry.title}
           </h1>
+          {entry.subtitle && (
+            <p className="font-body font-light text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
+          )}
           <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
             {entry.excerpt}
           </p>
           <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
-            {entry.body.map((p, i) => (
-              <p key={i}>{p}</p>
+            {entry.body.map((block, i) => (
+              <Reveal key={i}>
+                <Block block={block} />
+              </Reveal>
             ))}
           </div>
+          {entry.related && entry.related.length > 0 && (
+            <div className="mt-20 pt-10 border-t border-outline-variant/20">
+              <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+                Related
+              </div>
+              <ul className="space-y-2">
+                {entry.related.map((r, i) => (
+                  <li key={i}>
+                    <Link
+                      to={r.to}
+                      className="font-headline italic text-primary border-b border-secondary/30 pb-0.5 hover:opacity-70 transition-opacity"
+                    >
+                      {r.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="mt-24 pt-12 border-t border-outline-variant/20 flex items-center justify-between">
             <Link
               to="/journal"
