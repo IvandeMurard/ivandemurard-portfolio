@@ -204,6 +204,7 @@ var list_journal_default = defineTool4({
       content: [{ type: "text", text: JSON.stringify(entries, null, 2) }],
       structuredContent: {
         index_url: `${SITE_ORIGIN2}/journal`,
+        corpus_url: `${SITE_ORIGIN2}/llms-full.txt`,
         entries
       }
     };
