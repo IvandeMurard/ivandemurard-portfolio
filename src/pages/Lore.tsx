@@ -149,7 +149,7 @@ const Lore = () => (
         </div>
       </section>
 
-      <SectionDivider label="The loss" index="02" />
+      <SectionDivider label="The loss" index="01" />
 
       {/* THE LOSS */}
       <Reveal as="section" id="loss" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -192,7 +192,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Three modes" index="03" />
+      <SectionDivider label="Three modes" index="02" />
 
       {/* THREE MODES */}
       <Reveal as="section" id="modes" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -206,7 +206,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="The hangar, 23:00" index="04" />
+      <SectionDivider label="The hangar, 23:00" index="03" />
 
       {/* HANGAR DIALOGUE */}
       <Reveal as="section" id="hangar" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -235,7 +235,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Same thesis, one industry over" index="05" />
+      <SectionDivider label="Same thesis, one industry over" index="04" />
 
       {/* SAME THESIS */}
       <Reveal as="section" id="thesis" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -264,7 +264,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="The hazard" index="06" />
+      <SectionDivider label="The hazard" index="05" />
 
       {/* HAZARD */}
       <Reveal as="section" id="hazard" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -299,7 +299,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="What makes an answer admissible" index="07" />
+      <SectionDivider label="What makes an answer admissible" index="06" />
 
       {/* ADMISSIBLE */}
       <Reveal as="section" id="admissible" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -353,7 +353,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="How we know it holds" index="08" />
+      <SectionDivider label="How we know it holds" index="07" />
 
       {/* EVALUATION */}
       <Reveal as="section" id="evaluation" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -409,7 +409,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Where it stands" index="09" />
+      <SectionDivider label="Where it stands" index="08" />
 
       {/* HONESTY */}
       <Reveal as="section" id="honesty" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -421,7 +421,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Role & team" index="10" />
+      <SectionDivider label="Role & team" index="09" />
 
       {/* ROLE & TEAM */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
@@ -458,7 +458,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Stack & links" index="11" />
+      <SectionDivider label="Stack & links" index="10" />
 
       {/* STACK & LINKS */}
       <Reveal as="section" id="contact" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
