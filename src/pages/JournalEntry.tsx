@@ -3,10 +3,179 @@ import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
-import { JOURNAL_ENTRIES } from "@/content/journal";
+import { Reveal } from "@/components/Reveal";
+import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
+const Block = ({ block }: { block: JournalBlock }) => {
+  switch (block.kind) {
+    case "p":
+      return <p className="font-body">{block.text}</p>;
+    case "h2":
+      return (
+        <h2 className="font-headline italic text-2xl md:text-3xl text-primary pt-8">{block.text}</h2>
+      );
+    case "h3":
+      return (
+        <h3 className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary pt-6">
+          {block.text}
+        </h3>
+      );
+    case "quote":
+      return (
+        <blockquote className="border-l border-secondary/40 pl-6 font-headline italic text-xl md:text-2xl text-primary leading-relaxed">
+          {block.text}
+        </blockquote>
+      );
+    case "list":
+      return (
+        <ul className="space-y-3 font-body">
+          {block.items.map((item, i) => (
+            <li key={i} className="flex gap-3">
+              <span aria-hidden="true" className="text-secondary select-none">
+                &mdash;
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      );
+    case "code":
+      return (
+        <div className="overflow-x-auto rounded-sm border border-outline-variant/30 bg-surface-container-low">
+          <pre className="p-4 md:p-6 text-sm leading-relaxed">
+            <code className="font-mono text-on-surface-variant">{block.text}</code>
+          </pre>
+        </div>
+      );
+    case "table":
+      return (
+        <div className="overflow-x-auto rounded-sm border border-outline-variant/30">
+          <table className="w-full min-w-[520px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="border-b border-outline-variant/40">
+                {block.head.map((h, i) => (
+                  <th
+                    key={i}
+                    scope="col"
+                    className="px-4 py-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary"
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, ri) => (
+                <tr key={ri} className="border-b border-outline-variant/15 last:border-0">
+                  {row.map((cell, ci) => (
+                    <td
+                      key={ci}
+                      className={`px-4 py-3 align-top font-body ${
+                        ci === 0 ? "text-primary font-medium" : "text-on-surface-variant font-light"
+                      }`}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    case "defs":
+      return (
+        <dl className="space-y-6">
+          {block.items.map((item, i) => (
+            <div key={i} className="border-l border-outline-variant/40 pl-5">
+              <dt className="font-label uppercase tracking-[0.16em] text-[11px] text-primary mb-1">
+                {item.term}
+              </dt>
+              <dd className="font-body font-light text-base text-on-surface-variant">{item.def}</dd>
+            </div>
+          ))}
+        </dl>
+      );
+    case "pyramid": {
+      const total = block.layers.length;
+      return (
+        <div className="flex flex-col items-center gap-2">
+          {block.layers.map((layer, i) => {
+            const width = 55 + ((i + 1) / total) * 45;
+            return (
+              <div
+                key={i}
+                style={{ width: `${width}%` }}
+                className={`w-full md:!w-[var(--w)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
+                  layer.base
+                    ? "bg-surface-container-high border border-secondary/40"
+                    : "bg-surface-container-low border border-outline-variant/30"
+                }`}
+              >
+                <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
+                  {layer.level}
+                </div>
+                <div
+                  className={`font-headline italic text-lg ${
+                    layer.base ? "text-primary" : "text-on-surface-variant"
+                  }`}
+                >
+                  {layer.name}
+                </div>
+                {layer.note && (
+                  <div className="font-body font-light text-xs text-on-surface-variant mt-1">
+                    {layer.note}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+    case "deployed":
+      return (
+        <div className="border-t border-outline-variant/40 pt-5">
+          <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+            Deployed
+          </div>
+          <div className="space-y-3">
+            {block.items.map((item, i) => (
+              <p key={i} className="font-body font-light text-base">
+                <Link
+                  to={item.to}
+                  className="text-primary border-b border-secondary/30 pb-0.5 hover:opacity-70 transition-opacity"
+                >
+                  {item.project}
+                </Link>{" "}
+                <span className="text-on-surface-variant">{item.text}</span>
+              </p>
+            ))}
+          </div>
+        </div>
+      );
+    case "lines":
+      return (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {block.items.map((item, i) => (
+            <div
+              key={i}
+              className="rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-5"
+            >
+              <p className="font-headline italic text-lg text-primary mb-2">{item.q}</p>
+              <p className="font-body font-light text-sm text-on-surface-variant">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      );
+    default:
+      return null;
+  }
+};
+
 
 const JournalEntry = () => {
   const { slug } = useParams<{ slug: string }>();
