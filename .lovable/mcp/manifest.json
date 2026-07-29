@@ -77,11 +77,11 @@
       {
         "name": "list_journal_entries",
         "title": "List Field Notes",
-        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry to read the full body.",
+        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry with a slug from this list to read the full body.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         "inputSchema": {
           "$schema": "http://json-schema.org/draft-07/schema#",

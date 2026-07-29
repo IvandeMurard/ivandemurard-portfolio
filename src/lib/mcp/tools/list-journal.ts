@@ -1,4 +1,5 @@
 import { defineTool } from "@lovable.dev/mcp-js";
+import { JOURNAL_ENTRIES } from "@/content/journal";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -6,31 +7,26 @@ export default defineTool({
   name: "list_journal_entries",
   title: "List Field Notes",
   description:
-    "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry to read the full body.",
+    "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry with a slug from this list to read the full body.",
   inputSchema: {},
-  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
-  handler: async () => {
-    try {
-      const res = await fetch(`${SITE_ORIGIN}/llms-full.txt`);
-      const hint = res.ok
-        ? "See llms-full.txt for the full field-notes corpus."
-        : "Fetch canonical pages under /journal for entries.";
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Field Notes index: ${SITE_ORIGIN}/journal\n${hint}`,
-          },
-        ],
-        structuredContent: {
-          index_url: `${SITE_ORIGIN}/journal`,
-          corpus_url: `${SITE_ORIGIN}/llms-full.txt`,
-        },
-      };
-    } catch {
-      return {
-        content: [{ type: "text", text: `Field Notes index: ${SITE_ORIGIN}/journal` }],
-      };
-    }
+  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  handler: () => {
+    const entries = JOURNAL_ENTRIES.map((e) => ({
+      slug: e.slug,
+      title: e.title,
+      subtitle: e.subtitle ?? null,
+      date: e.date,
+      category: e.category,
+      excerpt: e.excerpt,
+      url: `${SITE_ORIGIN}/journal/${e.slug}`,
+    })).sort((a, b) => b.date.localeCompare(a.date));
+
+    return {
+      content: [{ type: "text" as const, text: JSON.stringify(entries, null, 2) }],
+      structuredContent: {
+        index_url: `${SITE_ORIGIN}/journal`,
+        entries,
+      },
+    };
   },
 });

@@ -147,42 +147,38 @@ var get_about_default = defineTool3({
 
 // src/lib/mcp/tools/list-journal.ts
 import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
+import { JOURNAL_ENTRIES } from "npm:@/content/journal";
 var SITE_ORIGIN2 = "https://ivandemurard.com";
 var list_journal_default = defineTool4({
   name: "list_journal_entries",
   title: "List Field Notes",
-  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry to read the full body.",
+  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry with a slug from this list to read the full body.",
   inputSchema: {},
-  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
-  handler: async () => {
-    try {
-      const res = await fetch(`${SITE_ORIGIN2}/llms-full.txt`);
-      const hint = res.ok ? "See llms-full.txt for the full field-notes corpus." : "Fetch canonical pages under /journal for entries.";
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Field Notes index: ${SITE_ORIGIN2}/journal
-${hint}`
-          }
-        ],
-        structuredContent: {
-          index_url: `${SITE_ORIGIN2}/journal`,
-          corpus_url: `${SITE_ORIGIN2}/llms-full.txt`
-        }
-      };
-    } catch {
-      return {
-        content: [{ type: "text", text: `Field Notes index: ${SITE_ORIGIN2}/journal` }]
-      };
-    }
+  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  handler: () => {
+    const entries = JOURNAL_ENTRIES.map((e) => ({
+      slug: e.slug,
+      title: e.title,
+      subtitle: e.subtitle ?? null,
+      date: e.date,
+      category: e.category,
+      excerpt: e.excerpt,
+      url: `${SITE_ORIGIN2}/journal/${e.slug}`
+    })).sort((a, b) => b.date.localeCompare(a.date));
+    return {
+      content: [{ type: "text", text: JSON.stringify(entries, null, 2) }],
+      structuredContent: {
+        index_url: `${SITE_ORIGIN2}/journal`,
+        entries
+      }
+    };
   }
 });
 
 // src/lib/mcp/tools/get-journal-entry.ts
 import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z2 } from "npm:zod@^3.25.76";
-import { JOURNAL_ENTRIES } from "npm:@/content/journal";
+import { JOURNAL_ENTRIES as JOURNAL_ENTRIES2 } from "npm:@/content/journal";
 var SITE_ORIGIN3 = "https://ivandemurard.com";
 function renderBlock(block) {
   switch (block.kind) {
@@ -228,9 +224,9 @@ var get_journal_entry_default = defineTool5({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ slug }) => {
-    const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+    const entry = JOURNAL_ENTRIES2.find((e) => e.slug === slug);
     if (!entry) {
-      const available = JOURNAL_ENTRIES.map((e) => e.slug).join(", ");
+      const available = JOURNAL_ENTRIES2.map((e) => e.slug).join(", ");
       return {
         content: [
           {
