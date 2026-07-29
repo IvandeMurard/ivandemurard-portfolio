@@ -28,13 +28,22 @@ const STUDIES = [
     url: "https://ivandemurard.com/tacet",
     markdown_path: "/tacet.md",
   },
+  {
+    slug: "lore",
+    name: "Lore",
+    label: "AI Agent · Aviation Maintenance · 2026",
+    tagline:
+      "Voice AI mentor for aviation maintenance. Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure. Graded by a 64-case evaluation harness with pure-function graders and a hard safety tier.",
+    url: "https://ivandemurard.com/lore",
+    markdown_path: "/lore.md",
+  },
 ];
 
 export default defineTool({
   name: "list_case_studies",
   title: "List case studies",
   description:
-    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({

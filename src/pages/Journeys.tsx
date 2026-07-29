@@ -52,6 +52,16 @@ const ACTS: Act[] = [
     cta: "Begin the Ascent",
     tint: { h: 230, s: 45, l: 22, a: 0.22 },
   },
+  {
+    index: "04",
+    slug: "lore",
+    name: PROJECTS.lore.name,
+    body: "A living memory for a trade that is handed down out loud. Lore captures what a retiring aviation technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure, graded by a harness that treats safety as a tier with no budget.",
+    image: PROJECTS.lore.image,
+    cta: "Follow the Thread",
+    tint: { h: 28, s: 55, l: 40, a: 0.18 },
+    flip: true,
+  },
 ];
 
 /** Split a word into per-letter spans for the ink reveal. */
@@ -158,7 +168,7 @@ const ActSection = ({ act }: { act: Act }) => {
         >
           <span className="text-primary/70">{act.index}</span>
           <span className="text-outline-variant/60 mx-2">/</span>
-          <span>03</span>
+          <span>{String(ACTS.length).padStart(2, "0")}</span>
         </span>
         <h2
           id={headingId}
@@ -226,6 +236,7 @@ const Journeys = () => {
             { "@type": "CreativeWork", name: "Aetherix", url: "https://ivandemurard.com/aetherix" },
             { "@type": "CreativeWork", name: "Sonor", url: "https://ivandemurard.com/sonor" },
             { "@type": "CreativeWork", name: "Tacet", url: "https://ivandemurard.com/tacet" },
+            { "@type": "CreativeWork", name: "Lore", url: "https://ivandemurard.com/lore" },
           ],
         }}
       />

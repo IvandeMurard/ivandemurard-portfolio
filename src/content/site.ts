@@ -1,6 +1,7 @@
 import sonorImg from "@/assets/case-sonor.png";
 import aetherixImg from "@/assets/case-aetherix.png";
 import tacetImg from "@/assets/case-tacet.png";
+import loreImg from "@/assets/case-lore.png";
 
 export const SOCIAL_LINKS = {
   email: "mailto:ivandemurard@gmail.com",
@@ -51,6 +52,14 @@ export const PROJECTS = {
     tagline: "Synthetic Acoustic Twin for hospitality. A headless intelligence layer that predicts how the external environment affects revenue and guest experience, pushing JSON alerts to RMS and PMS.",
     label: "B2B • Hospitality • Acoustic Intelligence • 2026",
     image: tacetImg,
+    cta: "The Full Narrative",
+  },
+  lore: {
+    slug: "lore",
+    name: "Lore",
+    tagline: "Voice AI mentor for aviation maintenance. Captures what a retiring technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure.",
+    label: "AI Agent · Aviation Maintenance · 2026",
+    image: loreImg,
     cta: "The Full Narrative",
   },
 } as const;
@@ -131,10 +140,10 @@ export const NOW_PROJECTS: NowEntry[] = [
   {
     name: "Lore",
     blurb:
-      "Voice AI mentor that captures tacit expertise from senior technicians and shares it on the shop floor. 24h hackathon win.",
-    href: "https://github.com/IvandeMurard/Lore",
-    external: true,
-    meta: "GitHub",
+      "Voice AI mentor that captures tacit expertise from senior technicians and shares it on the shop floor. Built in 24 hours by a team of 4.",
+    href: "/lore",
+    external: false,
+    meta: "Case study",
   },
   {
     name: "Field Notes",

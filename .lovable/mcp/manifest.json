@@ -15,7 +15,7 @@
       {
         "name": "list_case_studies",
         "title": "List case studies",
-        "description": "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+        "description": "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -31,7 +31,7 @@
       {
         "name": "get_case_study",
         "title": "Get case study",
-        "description": "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet'. Content covers vision, architecture, stack and outcomes.",
+        "description": "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore'. Content covers vision, architecture, stack and outcomes.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -45,9 +45,10 @@
               "enum": [
                 "sonor",
                 "aetherix",
-                "tacet"
+                "tacet",
+                "lore"
               ],
-              "description": "Case study slug: sonor, aetherix, or tacet."
+              "description": "Case study slug: sonor, aetherix, tacet, or lore."
             }
           },
           "required": [
