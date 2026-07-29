@@ -168,7 +168,7 @@ const ActSection = ({ act }: { act: Act }) => {
         >
           <span className="text-primary/70">{act.index}</span>
           <span className="text-outline-variant/60 mx-2">/</span>
-          <span>03</span>
+          <span>{String(ACTS.length).padStart(2, "0")}</span>
         </span>
         <h2
           id={headingId}
