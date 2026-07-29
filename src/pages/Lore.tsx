@@ -15,6 +15,8 @@ import { LoreMemoryThread } from "@/components/lore/LoreMemoryThread";
 import { LoreSopConflictCard } from "@/components/lore/LoreSopConflictCard";
 import { LoreTierTable } from "@/components/lore/LoreTierTable";
 import { LoreHonestyBlock } from "@/components/lore/LoreHonestyBlock";
+import { LoreStatBand } from "@/components/lore/LoreStatBand";
+import { LoreWhatItIsFor } from "@/components/lore/LoreWhatItIsFor";
 
 const REPO = "https://github.com/IvandeMurard/Lore";
 
@@ -43,6 +45,7 @@ const LORE_SECTIONS = [
   { id: "hazard", label: "The hazard" },
   { id: "admissible", label: "Admissible" },
   { id: "evaluation", label: "Evaluation" },
+  { id: "purpose", label: "What it is for" },
   { id: "honesty", label: "Honestly" },
   { id: "contact", label: "Stack & links" },
 ];
@@ -120,6 +123,15 @@ const Lore = () => (
         </div>
       </Reveal>
 
+      {/* Stat band */}
+      <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-screen-2xl mx-auto">
+          <LoreStatBand />
+        </div>
+      </Reveal>
+
+
+
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-10">
@@ -170,9 +182,8 @@ const Lore = () => (
             className="mt-6 space-y-5 text-on-surface-variant leading-relaxed"
           >
             <p>
-              By 2033, one in five aviation maintenance jobs will go unfilled. Every senior who retires takes decades of
-              contextual knowledge with them: the exceptions, the quirks of one specific airframe, the patterns a manual
-              cannot hold because nobody thought to write them down.
+              Every senior who retires takes decades of contextual knowledge with them: the exceptions, the quirks of
+              one specific airframe, the patterns a manual cannot hold because nobody thought to write them down.
             </p>
             <p>
               The tools that exist do <Term id="rag">RAG</Term> on explicit documents: manuals, standard procedures,
@@ -217,20 +228,27 @@ const Lore = () => (
           >
             The hangar, 23:00.
           </h2>
-          <p
+          <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "140ms" }}
-            className="mt-6 mb-10 text-on-surface-variant leading-relaxed max-w-2xl"
+            className="mt-6 mb-10 space-y-4 text-on-surface-variant leading-relaxed max-w-2xl"
           >
-            Thomas, two years in, alone on an A320 tail F-GKXA. He finds something that is not on the job card.
-          </p>
+            <p>
+              Night shift. Thomas is two years in, working a scheduled check on F-GKXA. He finds a vibration that is not
+              on the job card.
+            </p>
+            <p>
+              There are other people in the hangar. None of them worked this airframe for twenty-six years. Marc did,
+              and Marc retired in March.
+            </p>
+          </div>
           <LoreHangarDialogue />
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "700ms" }}
             className="mt-8 font-headline italic text-primary text-xl md:text-2xl leading-snug"
           >
-            Two years of experience just borrowed twenty-six.
+            Marc has been retired for four months. He answered anyway.
           </p>
         </div>
       </Reveal>
@@ -256,8 +274,10 @@ const Lore = () => (
               style={{ ["--reveal-delay" as string]: "240ms" }}
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
-              What separates them is the cost of being wrong. In hospitality, a bad forecast wastes food and overstaffs
-              a Tuesday. In maintenance, a bad answer touches airworthiness.
+              What separates them is the cost of being wrong. In hospitality it compounds quietly: food thrown away, a
+              shift overstaffed while another runs short, a new manager taking a year to learn what the last one knew, a
+              guest who meets the consequences before anyone in the building does. In maintenance it does not compound.
+              A wrong figure touches <Term id="airworthiness">airworthiness</Term> on the first occurrence.
             </p>
           </div>
           <LoreMemoryThread />
@@ -278,9 +298,19 @@ const Lore = () => (
             className="mt-6 mb-10 space-y-5 text-on-surface-variant leading-relaxed"
           >
             <p>
-              Lore's core promise creates a risk no pure-retrieval product carries: the oral knowledge it surfaces is{" "}
-              <span className="text-on-surface font-medium">trusted and partially outside the manual at the same time</span>
-              . That is the whole value, and it is the whole danger.
+              A junior with a manual has the limits but not the judgement. A junior with a senior on shift has both,
+              which is why shops have always run that way.
+            </p>
+            <p>
+              Lore's bet is that{" "}
+              <span className="text-on-surface font-medium">the second half survives the person</span>. What it
+              surfaces is a named technician's judgement about a specific airframe, in the same breath as the procedure
+              that governs it, never instead of it.
+            </p>
+            <p>
+              That is also the part that has to be engineered rather than promised. Oral knowledge is trusted{" "}
+              <em className="italic">and</em> sits partly outside the manual, so the only acceptable design is one where
+              the procedure always wins and the judgement always arrives attributed.
             </p>
             <p>
               It is not hypothetical. It is already in the demo data, where a senior's judgement sits next to the{" "}
@@ -312,7 +342,9 @@ const Lore = () => (
             style={{ ["--reveal-delay" as string]: "140ms" }}
             className="mt-6 text-on-surface-variant leading-relaxed"
           >
-            Two rules that were not designed in advance. Both were written after watching the system fail.
+            Two rules, neither designed in advance. They are not a defence against a bad model, they are the condition
+            under which used knowledge can be counted at all: a system that invents figures or manufactures agreement
+            would feed the loop noise and call it evidence.
           </p>
 
           <div
@@ -322,12 +354,11 @@ const Lore = () => (
           >
             <h3 className="font-headline italic text-2xl text-primary leading-tight">The refusal contract.</h3>
             <p className="mt-4 text-on-surface-variant leading-relaxed">
-              Eight rules, and they exist because "say so honestly" was not enough. In the first live evaluation the
-              model refused correctly and then answered anyway: it stated that the source did not cover the fan blade
-              count, then volunteered "36 fan blades". In another it answered a question about one tail number using a
-              different aircraft's borescope record. Honesty about the gap did not stop it filling the gap. The rules
-              now say it plainly: no figure absent from the sources, no other aircraft's record, no general engine
-              knowledge, no unnamed source, no claimed consensus.
+              Eight rules, written because "say so honestly" was not enough: early on the model refused correctly and
+              then volunteered "36 fan blades" anyway, and elsewhere answered about one tail number using a different
+              aircraft's borescope record. Honesty about the gap did not stop it filling the gap. The rules now say it
+              plainly: no figure absent from the sources, no other aircraft's record, no general engine knowledge, no
+              unnamed source, no claimed consensus.
             </p>
           </div>
 
@@ -344,10 +375,9 @@ const Lore = () => (
               <span className="font-headline italic text-primary">
                 "Always verify the AMM procedure before intervening."
               </span>{" "}
-              Asked to both close with that sentence and ask a follow-up question, the model reliably did both in the
-              wrong order, "…before intervening. Is there anything else?", which reads as if the reminder applied to the
-              pleasantry. The safety documentation calls that sentence non-removable. That is a claim about code, so it
-              is now enforced by code.
+              Asked to close with it and also ask a follow-up, the model reliably ordered them the wrong way round, so
+              the reminder read as if it applied to the pleasantry. The safety documentation calls that sentence
+              non-removable, which is a claim about code, so code now holds it.
             </p>
           </div>
         </div>
@@ -375,7 +405,8 @@ const Lore = () => (
                 64 cases across 12 categories. 9 <Term id="grader">graders</Term>, every one a pure function
               </span>
               , because a grader that needs a model to decide cannot gate a safety property: it fails the same way as
-              the thing it grades.
+              the thing it grades. The tiers below are not an inventory of what goes wrong. They are the standing
+              conditions under which an answer, and later the record of how it was used, can be trusted.
             </p>
           </div>
           <LoreTierTable />
@@ -386,30 +417,50 @@ const Lore = () => (
           >
             One run scored 52 out of 53 and was declared a failure, because the single miss was in tier 1.
           </p>
-          <p
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "400ms" }}
-            className="mt-8 text-on-surface-variant leading-relaxed"
-          >
-            The harness and its tests are{" "}
-            <span className="text-on-surface font-medium">2,867 lines, about 27% of the codebase</span>, larger than the
-            application library it guards.
-          </p>
           <Link
             data-reveal-child
             to="/journal/harnais-graders-boucles-fermees"
-            className="mt-8 inline-flex items-center gap-3 px-6 py-4 rounded-2xl border border-outline-variant/40 bg-surface-container-low hover:bg-surface-container transition-colors"
+            className="mt-8 flex items-start gap-4 px-6 py-5 rounded-2xl border border-outline-variant/40 bg-surface-container-low hover:bg-surface-container transition-colors"
           >
-            <Icon name="arrow_forward" className="text-secondary text-base" />
+            <Icon name="arrow_forward" className="text-secondary text-base mt-1" />
             <span className="text-primary">
-              The full protocol, and where it came from, is written up in{" "}
-              <span className="font-headline italic">Harnais, graders, boucles fermées</span>
+              <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary block mb-2">
+                Field note
+              </span>
+              <span className="font-headline italic text-xl md:text-2xl leading-snug block">
+                Harnais, graders, boucles fermées
+              </span>
+              <span className="block mt-2 text-sm text-on-surface-variant leading-relaxed">
+                The full protocol: how the 9 graders were written, why every one is deterministic, and how the
+                acceptance tiers came out of runs that failed.
+              </span>
             </span>
           </Link>
         </div>
       </Reveal>
 
-      <SectionDivider label="Where it stands" index="08" />
+      <SectionDivider label="What it is for" index="08" />
+
+      {/* WHAT IT IS FOR */}
+      <Reveal as="section" id="purpose" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="max-w-3xl mb-10 md:mb-12">
+            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+              The vision
+            </span>
+            <h2
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "120ms" }}
+              className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+            >
+              What it is for.
+            </h2>
+          </div>
+          <LoreWhatItIsFor />
+        </div>
+      </Reveal>
+
+      <SectionDivider label="Where it stands" index="09" />
 
       {/* HONESTY */}
       <Reveal as="section" id="honesty" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -421,7 +472,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Role & team" index="09" />
+      <SectionDivider label="Role & team" index="10" />
 
       {/* ROLE & TEAM */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
@@ -458,7 +509,7 @@ const Lore = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Stack & links" index="10" />
+      <SectionDivider label="Stack & links" index="11" />
 
       {/* STACK & LINKS */}
       <Reveal as="section" id="contact" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
