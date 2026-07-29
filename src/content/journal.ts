@@ -1,12 +1,25 @@
-export type JournalCategory = "Product" | "Operations" | "Agentic AI" | "Field";
+export type JournalCategory = "Product" | "Operations" | "Agentic AI" | "Field" | "Evaluation";
+
+export type JournalBlock =
+  | { kind: "p" | "h2" | "h3" | "quote"; text: string }
+  | { kind: "list"; items: string[] }
+  | { kind: "code"; lang?: string; text: string }
+  | { kind: "table"; head: string[]; rows: string[][] }
+  | { kind: "defs"; items: { term: string; def: string }[] }
+  | { kind: "pyramid"; layers: { level: string; name: string; note?: string; base?: boolean }[] }
+  | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
+  | { kind: "lines"; items: { q: string; a: string }[] };
 
 export type JournalEntry = {
   slug: string;
   title: string;
+  subtitle?: string;
   date: string; // ISO yyyy-mm-dd
   category: JournalCategory;
   excerpt: string;
-  body: string[]; // paragraphs
+  readingMinutes?: number;
+  related?: { label: string; to: string }[];
+  body: JournalBlock[];
 };
 
 export type ReadingItem = {
@@ -28,12 +41,22 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
     excerpt:
       "Where to draw the line between a forecasting model and an acting agent, and why splitting Prophet from Claude was the decision that shaped the rest of the architecture.",
     body: [
-      "When you build an operations layer for boutique hotels, the temptation is to let one large model do everything: predict, decide, act. It looks elegant on a slide.",
-      "In practice, it collapses. Forecasting and acting have different failure modes, different feedback loops, different audit requirements. So we split them. Prophet handles the read of the environment (occupancy, F&B demand, staffing pressure). Claude orchestrates the response, with the human always one click away from the loop.",
-      "This is not a technical decision dressed up as a product one. It is a product decision that happens to need a specific architecture. The boundary is the experience.",
+      {
+        kind: "p",
+        text: "When you build an operations layer for boutique hotels, the temptation is to let one large model do everything: predict, decide, act. It looks elegant on a slide.",
+      },
+      {
+        kind: "p",
+        text: "In practice, it collapses. Forecasting and acting have different failure modes, different feedback loops, different audit requirements. So we split them. Prophet handles the read of the environment (occupancy, F&B demand, staffing pressure). Claude orchestrates the response, with the human always one click away from the loop.",
+      },
+      {
+        kind: "p",
+        text: "This is not a technical decision dressed up as a product one. It is a product decision that happens to need a specific architecture. The boundary is the experience.",
+      },
     ],
   },
 ];
+
 
 // TODO: replace with real reading list
 export const READING_LIST: ReadingItem[] = [
