@@ -174,17 +174,17 @@ const Block = ({ block }: { block: JournalBlock }) => {
       );
     case "lines":
       return (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <dl className="grid gap-4 sm:grid-cols-2">
           {block.items.map((item, i) => (
             <div
               key={i}
               className="rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-5"
             >
-              <p className="font-headline italic text-lg text-primary mb-2">{item.q}</p>
-              <p className="font-body font-light text-sm text-on-surface-variant">{item.a}</p>
+              <dt className="font-headline italic text-lg text-primary mb-2">{item.q}</dt>
+              <dd className="font-body font-light text-sm text-on-surface-variant">{item.a}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       );
     default:
       return null;
