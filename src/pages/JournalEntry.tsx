@@ -108,13 +108,14 @@ const Block = ({ block }: { block: JournalBlock }) => {
             return (
               <div
                 key={i}
-                style={{ width: `${width}%` }}
-                className={`w-full md:!w-[var(--w)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
+                style={{ ["--pw" as string]: `${width}%` }}
+                className={`w-full md:w-[var(--pw)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
                   layer.base
                     ? "bg-surface-container-high border border-secondary/40"
                     : "bg-surface-container-low border border-outline-variant/30"
                 }`}
               >
+
                 <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
                   {layer.level}
                 </div>
