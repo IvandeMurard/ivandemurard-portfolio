@@ -26,13 +26,14 @@ const TIERS: { tier: string; threshold: string; note?: string; covers: string; w
  */
 export const LoreTierTable = () => (
   <div data-reveal-child className="rounded-2xl border border-outline-variant/25 bg-surface-container-low overflow-hidden">
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Acceptance tiers table">
       <table className="w-full min-w-[40rem] border-collapse text-left">
+        <caption className="sr-only">Acceptance tiers, thresholds and what each tier covers</caption>
         <thead>
           <tr className="border-b-2 border-outline-variant/50">
-            <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Tier</th>
-            <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Threshold</th>
-            <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Tier</th>
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Threshold</th>
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
               What it covers
             </th>
           </tr>
