@@ -1,5 +1,5 @@
 import { defineTool } from "@lovable.dev/mcp-js";
-import { JOURNAL_ENTRIES } from "@/content/journal";
+import { JOURNAL_ENTRIES } from "../../../content/journal";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 

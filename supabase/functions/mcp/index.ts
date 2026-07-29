@@ -147,7 +147,33 @@ var get_about_default = defineTool3({
 
 // src/lib/mcp/tools/list-journal.ts
 import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
-import { JOURNAL_ENTRIES } from "npm:@/content/journal";
+
+// src/content/journal.ts
+var JOURNAL_ENTRIES = [
+  {
+    slug: "agent-boundaries-aetherix",
+    title: "A hard call on Aetherix's agent boundaries",
+    date: "2026-04-20",
+    category: "Agentic AI",
+    excerpt: "Where to draw the line between a forecasting model and an acting agent, and why splitting Prophet from Claude was the decision that shaped the rest of the architecture.",
+    body: [
+      {
+        kind: "p",
+        text: "When you build an operations layer for boutique hotels, the temptation is to let one large model do everything: predict, decide, act. It looks elegant on a slide."
+      },
+      {
+        kind: "p",
+        text: "In practice, it collapses. Forecasting and acting have different failure modes, different feedback loops, different audit requirements. So we split them. Prophet handles the read of the environment (occupancy, F&B demand, staffing pressure). Claude orchestrates the response, with the human always one click away from the loop."
+      },
+      {
+        kind: "p",
+        text: "This is not a technical decision dressed up as a product one. It is a product decision that happens to need a specific architecture. The boundary is the experience."
+      }
+    ]
+  }
+];
+
+// src/lib/mcp/tools/list-journal.ts
 var SITE_ORIGIN2 = "https://ivandemurard.com";
 var list_journal_default = defineTool4({
   name: "list_journal_entries",
@@ -178,7 +204,6 @@ var list_journal_default = defineTool4({
 // src/lib/mcp/tools/get-journal-entry.ts
 import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z2 } from "npm:zod@^3.25.76";
-import { JOURNAL_ENTRIES as JOURNAL_ENTRIES2 } from "npm:@/content/journal";
 var SITE_ORIGIN3 = "https://ivandemurard.com";
 function renderBlock(block) {
   switch (block.kind) {
@@ -224,9 +249,9 @@ var get_journal_entry_default = defineTool5({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ slug }) => {
-    const entry = JOURNAL_ENTRIES2.find((e) => e.slug === slug);
+    const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
     if (!entry) {
-      const available = JOURNAL_ENTRIES2.map((e) => e.slug).join(", ");
+      const available = JOURNAL_ENTRIES.map((e) => e.slug).join(", ");
       return {
         content: [
           {
