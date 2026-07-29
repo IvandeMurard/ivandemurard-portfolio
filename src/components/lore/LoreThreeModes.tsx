@@ -41,23 +41,23 @@ const MODES: { icon: string; title: string; lead: string; body: ReactNode }[] = 
 
 export const LoreThreeModes = () => (
   <div>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 list-none p-0 m-0">
       {MODES.map((m, i) => (
-        <div
+        <li
           key={m.title}
           data-reveal-child
           style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
           className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
         >
           <Icon name={m.icon} className="text-secondary text-3xl" />
-          <h3 className="font-headline italic text-2xl text-primary leading-tight">
-            {m.title}
-            <span className="text-on-surface-variant not-italic font-body text-base block mt-1">{m.lead}</span>
-          </h3>
+          <div>
+            <h3 className="font-headline italic text-2xl text-primary leading-tight">{m.title}</h3>
+            <p className="text-on-surface-variant not-italic font-body text-base mt-1">{m.lead}</p>
+          </div>
           <p className="text-on-surface-variant leading-relaxed">{m.body}</p>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
     <p
       data-reveal-child
       style={{ ["--reveal-delay" as string]: "600ms" }}
