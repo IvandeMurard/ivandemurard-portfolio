@@ -33,14 +33,15 @@ export const LoreSopConflictCard = () => (
     data-reveal-child
     className="rounded-2xl border border-outline-variant/25 bg-surface-container-low overflow-hidden"
   >
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Expert knowledge versus manual procedure table">
       <table className="w-full min-w-[36rem] border-collapse text-left">
+        <caption className="sr-only">Where the expert's oral knowledge and the manual disagree</caption>
         <thead>
           <tr className="border-b border-outline-variant/30">
-            <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/2">
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/2">
               The expert
             </th>
-            <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/2">
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/2">
               The manual
             </th>
           </tr>

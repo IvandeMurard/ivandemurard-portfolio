@@ -123,11 +123,11 @@ const Lore = () => (
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-10">
-          <h3 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-8">Project Info</h3>
+          <h2 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-8">Project Info</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {PROJECT_INFO.map((info) => (
               <div key={info.label} className={info.wide ? "lg:col-span-2" : ""}>
-                <h4 className="text-xs text-on-surface-variant mb-2">{info.label}</h4>
+                <h3 className="text-xs text-on-surface-variant mb-2">{info.label}</h3>
                 {info.href ? (
                   <a
                     href={info.href}
@@ -470,14 +470,15 @@ const Lore = () => (
             data-reveal-child
             className="rounded-2xl border border-outline-variant/25 bg-surface-container-low overflow-hidden"
           >
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Stack and links table">
               <table className="w-full min-w-[32rem] border-collapse text-left">
+                <caption className="sr-only">Lore technical stack by layer and technology</caption>
                 <thead>
                   <tr className="border-b border-outline-variant/30">
-                    <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
                       Layer
                     </th>
-                    <th className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
                       Technology
                     </th>
                   </tr>

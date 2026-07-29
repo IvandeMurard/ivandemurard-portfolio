@@ -44,7 +44,12 @@ const Block = ({ block }: { block: JournalBlock }) => {
       );
     case "code":
       return (
-        <div className="overflow-x-auto rounded-sm border border-outline-variant/30 bg-surface-container-low">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Code sample"
+          className="overflow-x-auto rounded-sm border border-outline-variant/30 bg-surface-container-low"
+        >
           <pre className="p-4 md:p-6 text-sm leading-relaxed">
             <code className="font-mono text-on-surface-variant">{block.text}</code>
           </pre>
@@ -52,8 +57,14 @@ const Block = ({ block }: { block: JournalBlock }) => {
       );
     case "table":
       return (
-        <div className="overflow-x-auto rounded-sm border border-outline-variant/30">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Data table"
+          className="overflow-x-auto rounded-sm border border-outline-variant/30"
+        >
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
+            <caption className="sr-only">{block.head.join(", ")}</caption>
             <thead>
               <tr className="border-b border-outline-variant/40">
                 {block.head.map((h, i) => (
@@ -102,11 +113,14 @@ const Block = ({ block }: { block: JournalBlock }) => {
     case "pyramid": {
       const total = block.layers.length;
       return (
-        <div className="flex flex-col items-center gap-2">
+        <ol
+          aria-label="Layered model, from top layer to foundation"
+          className="flex flex-col items-center gap-2 list-none p-0 m-0"
+        >
           {block.layers.map((layer, i) => {
             const width = 55 + ((i + 1) / total) * 45;
             return (
-              <div
+              <li
                 key={i}
                 style={{ ["--pw" as string]: `${width}%` }}
                 className={`w-full md:w-[var(--pw)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
@@ -115,9 +129,9 @@ const Block = ({ block }: { block: JournalBlock }) => {
                     : "bg-surface-container-low border border-outline-variant/30"
                 }`}
               >
-
                 <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
                   {layer.level}
+                  {layer.base && <span className="sr-only"> (foundation)</span>}
                 </div>
                 <div
                   className={`font-headline italic text-lg ${
@@ -131,10 +145,10 @@ const Block = ({ block }: { block: JournalBlock }) => {
                     {layer.note}
                   </div>
                 )}
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ol>
       );
     }
     case "deployed":
@@ -160,17 +174,17 @@ const Block = ({ block }: { block: JournalBlock }) => {
       );
     case "lines":
       return (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <dl className="grid gap-4 sm:grid-cols-2">
           {block.items.map((item, i) => (
             <div
               key={i}
               className="rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-5"
             >
-              <p className="font-headline italic text-lg text-primary mb-2">{item.q}</p>
-              <p className="font-body font-light text-sm text-on-surface-variant">{item.a}</p>
+              <dt className="font-headline italic text-lg text-primary mb-2">{item.q}</dt>
+              <dd className="font-body font-light text-sm text-on-surface-variant">{item.a}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       );
     default:
       return null;

@@ -25,6 +25,7 @@ export default defineTool({
       content: [{ type: "text" as const, text: JSON.stringify(entries, null, 2) }],
       structuredContent: {
         index_url: `${SITE_ORIGIN}/journal`,
+        corpus_url: `${SITE_ORIGIN}/llms-full.txt`,
         entries,
       },
     };
