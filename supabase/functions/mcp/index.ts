@@ -179,13 +179,104 @@ ${hint}`
   }
 });
 
+// src/lib/mcp/tools/get-journal-entry.ts
+import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.24.0";
+import { z as z2 } from "npm:zod@^3.25.76";
+import { JOURNAL_ENTRIES } from "npm:@/content/journal";
+var SITE_ORIGIN3 = "https://ivandemurard.com";
+function renderBlock(block) {
+  switch (block.kind) {
+    case "p":
+      return block.text;
+    case "h2":
+      return `## ${block.text}`;
+    case "h3":
+      return `### ${block.text}`;
+    case "quote":
+      return `> ${block.text}`;
+    case "list":
+      return block.items.map((i) => `- ${i}`).join("\n");
+    case "code":
+      return `\`\`\`${block.lang ?? ""}
+${block.text}
+\`\`\``;
+    case "table":
+      return [
+        `| ${block.head.join(" | ")} |`,
+        `| ${block.head.map(() => "---").join(" | ")} |`,
+        ...block.rows.map((r) => `| ${r.join(" | ")} |`)
+      ].join("\n");
+    case "defs":
+      return block.items.map((i) => `**${i.term}**: ${i.def}`).join("\n");
+    case "pyramid":
+      return block.layers.map((l) => `${l.level}: ${l.name}${l.note ? ` (${l.note})` : ""}${l.base ? " [foundation]" : ""}`).join("\n");
+    case "deployed":
+      return block.items.map((i) => `Deployed: ${i.project} (${SITE_ORIGIN3}${i.to}) ${i.text}`).join("\n");
+    case "lines":
+      return block.items.map((i) => `Q: ${i.q}
+A: ${i.a}`).join("\n\n");
+    default:
+      return "";
+  }
+}
+var get_journal_entry_default = defineTool5({
+  name: "get_journal_entry",
+  title: "Get Field Note",
+  description: "Fetch one Field Notes entry in full by slug: title, subtitle, date, category and the complete body rendered as readable Markdown. Use list_journal_entries to discover valid slugs.",
+  inputSchema: {
+    slug: z2.string().describe("Field Note slug, as returned by list_journal_entries.")
+  },
+  annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  handler: ({ slug }) => {
+    const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+    if (!entry) {
+      const available = JOURNAL_ENTRIES.map((e) => e.slug).join(", ");
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Unknown Field Note slug "${slug}". Available slugs: ${available || "none"}.`
+          }
+        ],
+        isError: true
+      };
+    }
+    const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+    const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
+    const text = [
+      `# ${entry.title}`,
+      entry.subtitle ?? "",
+      `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
+      entry.excerpt,
+      bodyText,
+      `Source: ${url}`
+    ].filter(Boolean).join("\n\n");
+    return {
+      content: [{ type: "text", text }],
+      structuredContent: {
+        slug: entry.slug,
+        title: entry.title,
+        subtitle: entry.subtitle ?? null,
+        date: entry.date,
+        category: entry.category,
+        excerpt: entry.excerpt,
+        reading_minutes: entry.readingMinutes ?? null,
+        related: entry.related ?? [],
+        url,
+        body: entry.body,
+        body_text: bodyText
+      }
+    };
+  }
+});
+
 // src/lib/mcp/index.ts
 var mcp_default = defineMcp({
   name: "ivan-de-murard-portfolio",
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
-  instructions: "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet), professional bio and contact, and Field Notes index. Start with list_case_studies or get_about, then fetch details with get_case_study.",
-  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default]
+  instructions: "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet), professional bio and contact, and Field Notes. Start with list_case_studies or get_about, then fetch details with get_case_study or get_journal_entry.",
+  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default]
 });
 
 // lovable-mcp-supabase-entry.ts
