@@ -413,6 +413,14 @@ const Atherix = () => (
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
               Three promises, one message a day.
             </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "160ms" }}
+              className="mt-5 text-on-surface-variant leading-relaxed"
+            >
+              Two of the three are pilot hypotheses, not measured results. They are the outcomes the live pilot is set
+              up to test.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {PROMISES.map((p, i) => (
@@ -422,7 +430,12 @@ const Atherix = () => (
                 style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
                 className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
               >
-                <Icon name={p.icon} className="text-secondary text-3xl" />
+                <div className="flex items-center gap-3">
+                  <Icon name={p.icon} className="text-secondary text-3xl" />
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant/40 font-label uppercase tracking-[0.18em] text-[9px] text-secondary">
+                    {p.tag}
+                  </span>
+                </div>
                 <h3 className="font-headline italic text-2xl text-primary leading-tight">{p.title}</h3>
                 <p className="text-on-surface-variant leading-relaxed">{p.body}</p>
               </div>
