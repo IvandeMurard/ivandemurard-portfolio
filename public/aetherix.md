@@ -2,7 +2,7 @@
 
 Persistent Operational Cognition for Hospitality. Turning scattered local experience into durable organizational intelligence. Most hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational memory that survives turnover and grows stronger over time, while executing F&B forecasting, staffing and waste reduction as the F&B node of the Hospitality Agentic Mesh.
 
-Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply sharpens the next).
+Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
 
 Understands like a human. Measures like a machine. Remembers like an institution.
 
@@ -17,15 +17,15 @@ Understands like a human. Measures like a machine. Remembers like an institution
 
 Every day, the same loop deposits one more grain of calibrated experience into the property's operational memory.
 
-- Memory. Recall what worked here, on similar days, in similar contexts. Local history first, anonymized peer patterns as cold-start.
+- Memory. Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin. A true federated cohort prior (HiveMemory) is research, Phase 4+.
 - Prediction. A calibrated forecast for tomorrow: covers, staffing, waste risk, with the drivers behind it.
 - Action. One message on WhatsApp. Accept, modify, or reject in one tap. No new dashboard to learn.
 - Learning. Every reply is a signal. The day-90 receipt is sharper than the day-7 one.
 
-Day 7: cold-start. Confidence is honest. Recommendations lean on anonymized peer patterns and the first week of local signals.
-Day 90: sharper. Drivers are property-specific, calibrated by enough Tuesdays, events and overrides to fit this exact place.
+Day 7: cold-start. Confidence is honest. Recommendations lean on generic context patterns and the first week of local signals.
+Day 90 (expected, not measured): drivers become property-specific, calibrated by enough Tuesdays, events and overrides to fit this exact place. This is the hypothesis the pilot tests.
 
-Caveat: HiveMemory is anonymized aggregates only. No cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
+Caveat: a true federated cohort prior (HiveMemory) is research, targeted for Phase 4 and beyond, and would remain anonymized aggregates only. No cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
 
 ## Problem, why it exists
 
@@ -37,7 +37,7 @@ The underlying bottleneck is not data, it is synthesis: combining internal conte
 
 ## What it does
 
-Three promises, one message a day: tomorrow's covers, staffing that fits, less waste. Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
+Three promises, one message a day: tomorrow's covers (shipped, in pilot), staffing that fits (pilot hypothesis), less waste (target outcome). Two of the three are not measured results yet. Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
 
 ## The Daily Receipt
 
@@ -61,7 +61,7 @@ Aetherix is one node in a network of specialized, MCP-native agents. Each node o
 | Aetherix | F&B execution: forecast, staffing, memory, receipts | Live (staging) |
 | Tacet | Sensory: weather, noise, open data, risk | Phase 3 |
 | Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
-| Anima | Guest Cognition Layer | Shipped (Anthropic hackathon, Jun 2026) |
+| Anima | Guest Cognition Layer | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
 
 Meta-repo (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
 
@@ -71,7 +71,7 @@ Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external c
 
 ## Architecture
 
-Push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start) → Claude Sonnet reasoning (Gemini/GPT fallback) → WhatsApp or Email.
+Push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning (Gemini/GPT fallback) → WhatsApp or Email.
 
 MCP Server v0 is live on Fly.io (Paris), three atomic tools, multi-tenant.
 
@@ -89,6 +89,10 @@ MCP Server v0 is live on Fly.io (Paris), three atomic tools, multi-tenant.
 
 Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 covers, 22% gate PASS. Real-world MAPE begins with the pilot.
 
+## What remains private
+
+The project includes proprietary research on cross-domain operational context and cold-start learning. Public materials focus on the engineering evidence: evaluation gates, traceability, safety guardrails, privacy boundaries, and outcome measurement.
+
 ## Roadmap
 
 - Phase 0 Validation, done
@@ -100,7 +104,7 @@ Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 co
 
 ## Anima, sister node
 
-Guest Cognition Layer prototype shipped at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
+Guest Cognition Layer, a synthetic proof of concept built at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
 
 ## Role and model
 
