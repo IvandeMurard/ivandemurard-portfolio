@@ -34,6 +34,8 @@ Architecture, push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + P
 
 Built to be trusted. Evaluation as a contract (Qonto-inspired): versioned golden datasets, hard CI gate. Observability and metering: every MCP tool call is one structured event, auditable, queryable, priceable. Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.
 
+What remains private. The project includes proprietary research on cross-domain operational context and cold-start learning. Public materials focus on the engineering evidence: evaluation gates, traceability, safety guardrails, privacy boundaries, and outcome measurement.
+
 Where we are, honestly. Phase 3 · Pilot, design partner starting, real-world measurement begins now. Target labor cost variance: −3% to −8% over 90 days on a live property (target, not measured yet). Security: 14/14 gates passing. Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 covers, 22% gate PASS. Real-world MAPE begins with the pilot.
 
 Roadmap. Phase 0 Validation done · Phase 1 Observability done · Phase 2 Receipts done · Phase 3 Pilot current · Phase 4 Scale planned (Mews, POS, Federated HiveMemory, Context Graph, Anima) · Phase 5 Vision planned (Revenue Orchestrator).
