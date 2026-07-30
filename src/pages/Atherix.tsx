@@ -54,7 +54,7 @@ const MEMORY_CYCLE = [
   {
     icon: "psychology",
     title: "Memory",
-    body: "Recall what worked here, on similar days, in similar contexts. Local history first, anonymized peer patterns as cold-start.",
+    body: "Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin.",
   },
   {
     icon: "insights",
@@ -69,7 +69,7 @@ const MEMORY_CYCLE = [
   {
     icon: "autorenew",
     title: "Learning",
-    body: "Every reply is a signal. The day-90 receipt is sharper than the day-7 one.",
+    body: "Every reply is recorded as feedback; the pilot tests whether it improves future recommendations.",
   },
 ];
 
@@ -77,16 +77,19 @@ const PROMISES = [
   {
     icon: "restaurant",
     title: "Tomorrow's covers",
+    tag: "Shipped, in pilot",
     body: "Anticipates how many breakfasts, lunches, dinners to expect, with a confidence score and the drivers behind it.",
   },
   {
     icon: "group_add",
     title: "Staffing that fits",
+    tag: "Pilot hypothesis",
     body: "Proposes a shift grid based on occupancy, capture rate history and local context. The manager approves, adjusts or overrides.",
   },
   {
     icon: "eco",
     title: "Less waste",
+    tag: "Target outcome",
     body: "Spots over-ordering risk before purchase, with the historical signals that triggered the flag.",
   },
 ];
