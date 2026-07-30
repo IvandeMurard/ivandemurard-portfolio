@@ -26,7 +26,7 @@ const NODES = [
     emoji: "🧡",
     name: "Anima",
     role: "Guest Cognition Layer",
-    status: "Shipped (Anthropic hackathon, Jun 2026)",
+    status: "Synthetic PoC, hackathon prototype; production DPIA-gated",
     statusTone: "shipped" as const,
   },
 ];
