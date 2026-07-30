@@ -1,21 +1,50 @@
-## Objective
-Replace the outdated `aetherix-hospitality-ai` private repo link with the public `hospitality-agentic-mesh` meta-repo link on the Aetherix case study page and in all mirrors.
+## Goal
 
-## Verified current state
-- `src/pages/Atherix.tsx` line 36: Project Info "Repository" row → old URL.
-- `src/pages/Atherix.tsx` line 173: JSON-LD `codeRepository` → old URL.
-- `src/pages/Atherix.tsx` line 666: Bottom "Aetherix repo" CTA → old URL.
-- `public/aetherix.md` lines 67 and 113: two "Aetherix repo (private, access upon request)" lines → old URL.
-- `public/llms-full.txt` line 23: same private repo reference → old URL.
+Tighten the Aetherix case study so every claim matches what is actually proven today, and add a short box that frames the unpublished part as deliberate research, not a gap.
 
-## Plan
-1. Update `src/pages/Atherix.tsx` at lines 36, 173, and 666 to `https://github.com/IvandeMurard/hospitality-agentic-mesh`.
-2. In `public/aetherix.md`, remove the now-redundant "Aetherix repo (private, access upon request)" lines (67 and 113), since the meta-repo is already listed just above/below as the canonical public link. Keeps the mirror clean rather than pointing two labels at the same URL.
-3. In `public/llms-full.txt` line 23, drop the ", Aetherix repo (private, access upon request): ..." clause and keep only the meta-repo reference.
-4. Also update the "Repository" row label context ("Private repository, access upon request" hint on line 37 and the `title` attribute on line 669) so they no longer describe a private repo — replace with a neutral hint like "Public meta-repo for the Hospitality Agentic Mesh".
-5. Grep `aetherix-hospitality-ai` across the whole repo to confirm zero remaining references.
-6. Verify build compiles.
+## 1. Learning claim
 
-## Technical details
-- Edits are content-only; no component or route changes.
-- No backend, no edge function, no schema changes.
+In `src/pages/Atherix.tsx` (hero cycle line) and `src/components/atherix/AetherixLoopCards.tsx`:
+
+- "Every reply sharpens the next." becomes "Every reply is recorded as feedback; the pilot tests whether it improves future recommendations."
+- Hero cycle line, shorter variant: "Every reply is recorded as feedback." with the full sentence carried in the Learning card body.
+- The Learning card body "The day-90 receipt is sharper than the day-7 one." is rewritten as a hypothesis under test, not a stated fact.
+
+## 2. Cold-start and Day 7 / Day 90
+
+Separate two things that are currently conflated:
+
+- What exists now: global and cross-property context patterns recallable through pgvector, used as a generic prior.
+- What does not exist yet: a true federated cohort prior (HiveMemory as described). Tag it Research, Phase 4+.
+
+Applied to:
+- `AetherixLoopCards.tsx` Memory card body, and every `day7` / `day90` string, which move from deterministic statements ("Confidence intervals tighten", "The system knows how this property behaves") to expected-behaviour phrasing under pilot ("what the pilot is set up to measure").
+- The `MEMORY_CYCLE` Memory entry in `Atherix.tsx`.
+- The caveat paragraph after the loop cards: state plainly that federated cohort priors are research, not shipped.
+- The architecture line "OperationalMemory + HiveMemory cold-start" gains a "(research)" qualifier on HiveMemory.
+
+## 3. Anima status
+
+- `AetherixMeshDiagram.tsx`: node status and the two "Shipped" badges become "Synthetic PoC" / "PoC (hackathon)"; full status text "Synthetic PoC, hackathon prototype; production DPIA-gated".
+- `AetherixAnimaSpotlight.tsx`: "Shipped as a proof of concept" becomes "A synthetic hackathon prototype (June 2026); production is DPIA-gated".
+
+## 4. Promises tagged as pilot hypotheses
+
+`PROMISES` in `Atherix.tsx`: "Staffing that fits" and "Less waste" each get a small label chip reading "Pilot hypothesis" (and "Target outcome" for waste), rendered above the title, so the reader sees the status without extra prose. Section intro adds one line: these are the pilot's target outcomes, not measured results.
+
+## 5. New box: What remains private
+
+New component `src/components/atherix/AetherixWhatRemainsPrivate.tsx`, placed just after the "Built to be trusted" section (before the honesty/where-we-are section), styled like the existing bordered surface cards:
+
+> **What remains private**
+> The project includes proprietary research on cross-domain operational context and cold-start learning. Public materials focus on the engineering evidence: evaluation gates, traceability, safety guardrails, privacy boundaries, and outcome measurement.
+
+The five engineering evidence items render as a compact inline list so the box reads as a strength.
+
+## 6. Mirrors
+
+Same corrections applied to `public/aetherix.md` (cycle line, Memory bullet, Day 7 / Day 90 lines, caveat, promises line, Anima row and section, architecture line) and the Aetherix paragraphs of `public/llms-full.txt`, including the new "What remains private" paragraph.
+
+## Notes
+
+No em-dashes. No layout redesign, no new sections beyond the private-research box, section numbering unchanged.
