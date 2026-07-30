@@ -18,9 +18,9 @@ export const AetherixAnimaSpotlight = () => (
           Anima. Guest memory, four layers deep.
         </h2>
         <p className="mt-6 text-on-surface-variant leading-relaxed max-w-2xl">
-          Where Aetherix remembers the property, Anima remembers the guest. Shipped as a proof of concept at the
-          Anthropic hackathon (June 2026): a four-layer temporal memory with confidence-weighted claims. Production is
-          Phase 4, DPIA-gated.
+          Where Aetherix remembers the property, Anima remembers the guest. A synthetic proof of concept built at the
+          Anthropic hackathon (June 2026): a four-layer temporal memory with confidence-weighted claims, run on
+          synthetic data. Production is Phase 4, DPIA-gated.
         </p>
       </div>
       <a

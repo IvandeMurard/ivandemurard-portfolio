@@ -16,6 +16,7 @@ import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimelin
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { AetherixLoopCards } from "@/components/atherix/AetherixLoopCards";
 import { AetherixTrustFrames } from "@/components/atherix/AetherixTrustFrames";
+import { AetherixWhatRemainsPrivate } from "@/components/atherix/AetherixWhatRemainsPrivate";
 import { AetherixVideoPlaceholder } from "@/components/atherix/AetherixVideoPlaceholder";
 import { AetherixAnimaSpotlight } from "@/components/atherix/AetherixAnimaSpotlight";
 import { Term } from "@/components/Term";
@@ -54,7 +55,7 @@ const MEMORY_CYCLE = [
   {
     icon: "psychology",
     title: "Memory",
-    body: "Recall what worked here, on similar days, in similar contexts. Local history first, anonymized peer patterns as cold-start.",
+    body: "Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin.",
   },
   {
     icon: "insights",
@@ -69,7 +70,7 @@ const MEMORY_CYCLE = [
   {
     icon: "autorenew",
     title: "Learning",
-    body: "Every reply is a signal. The day-90 receipt is sharper than the day-7 one.",
+    body: "Every reply is recorded as feedback; the pilot tests whether it improves future recommendations.",
   },
 ];
 
@@ -77,16 +78,19 @@ const PROMISES = [
   {
     icon: "restaurant",
     title: "Tomorrow's covers",
+    tag: "Shipped, in pilot",
     body: "Anticipates how many breakfasts, lunches, dinners to expect, with a confidence score and the drivers behind it.",
   },
   {
     icon: "group_add",
     title: "Staffing that fits",
+    tag: "Pilot hypothesis",
     body: "Proposes a shift grid based on occupancy, capture rate history and local context. The manager approves, adjusts or overrides.",
   },
   {
     icon: "eco",
     title: "Less waste",
+    tag: "Target outcome",
     body: "Spots over-ordering risk before purchase, with the historical signals that triggered the flag.",
   },
 ];
@@ -243,7 +247,7 @@ const Atherix = () => (
                       {step.title === "Memory" && "Recall what worked here."}
                       {step.title === "Prediction" && "Calibrated for tomorrow."}
                       {step.title === "Action" && "One tap on WhatsApp."}
-                      {step.title === "Learning" && "Every reply sharpens the next."}
+                      {step.title === "Learning" && "Every reply is recorded as feedback."}
                     </span>
                   </span>
                 </li>
@@ -393,8 +397,10 @@ const Atherix = () => (
             style={{ ["--reveal-delay" as string]: "720ms" }}
             className="mt-8 text-xs text-on-surface-variant max-w-3xl"
           >
-            Caveat: HiveMemory is anonymized aggregates only, used as cold-start across peer properties. No
-            cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
+            Caveat: what is recallable today is local history plus generic cross-property context patterns. A true
+            federated cohort prior (HiveMemory) is research, targeted for Phase 4 and beyond, and would remain
+            anonymized aggregates only. No cross-tenant raw data, ever. Measured gains begin with the live pilot, not
+            the synthetic baseline.
           </p>
         </div>
       </Reveal>
@@ -408,6 +414,14 @@ const Atherix = () => (
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
               Three promises, one message a day.
             </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "160ms" }}
+              className="mt-5 text-on-surface-variant leading-relaxed"
+            >
+              Two of the three are pilot hypotheses, not measured results. They are the outcomes the live pilot is set
+              up to test.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {PROMISES.map((p, i) => (
@@ -417,7 +431,12 @@ const Atherix = () => (
                 style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
                 className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
               >
-                <Icon name={p.icon} className="text-secondary text-3xl" />
+                <div className="flex items-center gap-3">
+                  <Icon name={p.icon} className="text-secondary text-3xl" />
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant/40 font-label uppercase tracking-[0.18em] text-[9px] text-secondary">
+                    {p.tag}
+                  </span>
+                </div>
                 <h3 className="font-headline italic text-2xl text-primary leading-tight">{p.title}</h3>
                 <p className="text-on-surface-variant leading-relaxed">{p.body}</p>
               </div>
@@ -492,7 +511,7 @@ const Atherix = () => (
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
               Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory
-              recall (OperationalMemory + HiveMemory cold-start) → Claude Sonnet reasoning → WhatsApp or Email.
+              recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning → WhatsApp or Email.
             </p>
           </div>
           <div
@@ -554,6 +573,10 @@ const Atherix = () => (
               </h3>
             </div>
             <AetherixTrustFrames />
+          </div>
+
+          <div className="mt-14 md:mt-16" data-reveal-child>
+            <AetherixWhatRemainsPrivate />
           </div>
         </div>
       </Reveal>

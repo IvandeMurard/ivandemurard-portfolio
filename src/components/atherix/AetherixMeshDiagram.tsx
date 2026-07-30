@@ -26,7 +26,7 @@ const NODES = [
     emoji: "🧡",
     name: "Anima",
     role: "Guest Cognition Layer",
-    status: "Shipped (Anthropic hackathon, Jun 2026)",
+    status: "Synthetic PoC, hackathon prototype; production DPIA-gated",
     statusTone: "shipped" as const,
   },
 ];
@@ -79,7 +79,7 @@ export const AetherixMeshDiagram = () => (
           <div className="flex flex-col items-center gap-1">
             <NodeCard title="Anima" sub="Guest Cognition" />
             <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label uppercase tracking-[0.18em] text-[8px]">
-              Shipped
+              Synthetic PoC
             </span>
           </div>
         </div>
@@ -112,7 +112,7 @@ export const AetherixMeshDiagram = () => (
         <div className="w-full flex flex-col items-center gap-1">
           <NodeCard title="Anima" sub="Guest Cognition" />
           <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label uppercase tracking-[0.18em] text-[8px]">
-            Shipped
+            Synthetic PoC
           </span>
         </div>
         <Icon name="arrow_downward" className="text-outline text-xl" />
