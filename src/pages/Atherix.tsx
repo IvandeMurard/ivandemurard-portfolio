@@ -246,7 +246,7 @@ const Atherix = () => (
                       {step.title === "Memory" && "Recall what worked here."}
                       {step.title === "Prediction" && "Calibrated for tomorrow."}
                       {step.title === "Action" && "One tap on WhatsApp."}
-                      {step.title === "Learning" && "Every reply sharpens the next."}
+                      {step.title === "Learning" && "Every reply is recorded as feedback."}
                     </span>
                   </span>
                 </li>
@@ -396,8 +396,10 @@ const Atherix = () => (
             style={{ ["--reveal-delay" as string]: "720ms" }}
             className="mt-8 text-xs text-on-surface-variant max-w-3xl"
           >
-            Caveat: HiveMemory is anonymized aggregates only, used as cold-start across peer properties. No
-            cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
+            Caveat: what is recallable today is local history plus generic cross-property context patterns. A true
+            federated cohort prior (HiveMemory) is research, targeted for Phase 4 and beyond, and would remain
+            anonymized aggregates only. No cross-tenant raw data, ever. Measured gains begin with the live pilot, not
+            the synthetic baseline.
           </p>
         </div>
       </Reveal>
@@ -495,7 +497,7 @@ const Atherix = () => (
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
               Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory
-              recall (OperationalMemory + HiveMemory cold-start) → Claude Sonnet reasoning → WhatsApp or Email.
+              recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning → WhatsApp or Email.
             </p>
           </div>
           <div
