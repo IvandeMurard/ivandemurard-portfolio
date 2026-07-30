@@ -4,30 +4,30 @@ const LOOP = [
   {
     icon: "psychology",
     title: "Memory",
-    body: "Recall what worked here, on similar days, in similar contexts. Local history first, anonymized peer patterns as cold-start.",
+    body: "Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin.",
     day7: "Cold-start. Confidence is honest about what is not yet known.",
-    day90: "Drivers are property-specific, calibrated by enough Tuesdays.",
+    day90: "Expected: drivers become property-specific, calibrated by enough Tuesdays. This is what the pilot measures.",
   },
   {
     icon: "insights",
     title: "Prediction",
     body: "A calibrated forecast for tomorrow: covers, staffing, waste risk, with the drivers behind it.",
-    day7: "Baseline lean on peer aggregates and first-week local signals.",
-    day90: "Confidence intervals tighten. Fewer surprises, fewer overrides.",
+    day7: "Baseline leans on generic patterns and first-week local signals.",
+    day90: "Expected: tighter confidence intervals and fewer overrides, to be verified on live data.",
   },
   {
     icon: "send",
     title: "Action",
     body: "One message on WhatsApp. Accept, modify, or reject in one tap. No new dashboard to learn.",
     day7: "The receipt is verbose, spells out every assumption.",
-    day90: "Compact. The manager reads a paragraph, taps once.",
+    day90: "Intended: compact. The manager reads a paragraph, taps once.",
   },
   {
     icon: "autorenew",
     title: "Learning",
-    body: "Every reply is a signal. The day-90 receipt is sharper than the day-7 one.",
+    body: "Every reply is recorded as feedback; the pilot tests whether it improves future recommendations.",
     day7: "Every accept, modify, reject deposits one grain of memory.",
-    day90: "The system knows how this property behaves, not just how hotels behave.",
+    day90: "Hypothesis under test: the system reflects how this property behaves, not just how hotels behave.",
   },
 ];
 
