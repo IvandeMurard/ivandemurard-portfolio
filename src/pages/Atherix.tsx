@@ -16,6 +16,7 @@ import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimelin
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { AetherixLoopCards } from "@/components/atherix/AetherixLoopCards";
 import { AetherixTrustFrames } from "@/components/atherix/AetherixTrustFrames";
+import { AetherixWhatRemainsPrivate } from "@/components/atherix/AetherixWhatRemainsPrivate";
 import { AetherixVideoPlaceholder } from "@/components/atherix/AetherixVideoPlaceholder";
 import { AetherixAnimaSpotlight } from "@/components/atherix/AetherixAnimaSpotlight";
 import { Term } from "@/components/Term";
@@ -572,6 +573,10 @@ const Atherix = () => (
               </h3>
             </div>
             <AetherixTrustFrames />
+          </div>
+
+          <div className="mt-14 md:mt-16" data-reveal-child>
+            <AetherixWhatRemainsPrivate />
           </div>
         </div>
       </Reveal>
