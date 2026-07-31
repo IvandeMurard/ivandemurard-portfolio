@@ -179,6 +179,338 @@ var JOURNAL_ENTRIES = [
         text: "This is not a technical decision dressed up as a product one. It is a product decision that happens to need a specific architecture. The boundary is the experience."
       }
     ]
+  },
+  {
+    slug: "harnais-graders-boucles-fermees",
+    title: "Harnais, graders, boucles ferm\xE9es",
+    subtitle: "La fiche que je me suis \xE9crite pour savoir r\xE9pondre.",
+    date: "2026-07-31",
+    category: "Evaluation",
+    lang: "fr",
+    readingMinutes: 14,
+    related: [
+      { label: "Lore", to: "/lore" },
+      { label: "Aetherix", to: "/aetherix" }
+    ],
+    excerpt: "Le vocabulaire, les cadres, et les deux projets o\xF9 ils tournent vraiment. \xC9crit d'abord pour moi, avant des entretiens, parce que je savais faire des choses que je ne savais pas nommer.",
+    body: [
+      {
+        kind: "p",
+        text: "J'ai \xE9crit cette fiche pour moi, avant des entretiens, parce que je m'apercevais que je savais faire des choses que je ne savais pas nommer. Je la publie telle quelle, avec ses trous. Tout ce qui suit tourne dans deux projets : Aetherix, agent d'op\xE9rations pour l'h\xF4tellerie, et Lore, mentor vocal pour la maintenance a\xE9ronautique. Les chiffres viennent de leurs d\xE9p\xF4ts."
+      },
+      { kind: "h2", text: "1. Le vocabulaire, par l'analogie de l'examen" },
+      {
+        kind: "p",
+        text: "Un examen du permis de conduire contient toutes les pi\xE8ces. C'est l'analogie \xE0 d\xE9rouler quand on demande de d\xE9finir ces termes, et elle sert une fois, pour poser le vocabulaire."
+      },
+      {
+        kind: "defs",
+        items: [
+          { term: "Jeu de cas", def: "Le parcours d'examen. Les situations qu'on fait passer au syst\xE8me, choisies \xE0 l'avance, dont on conna\xEEt la bonne r\xE9ponse." },
+          { term: "Grader", def: "Une ligne de la grille d'\xE9valuation. \xAB A-t-il regard\xE9 dans le r\xE9troviseur ? \xBB Oui/non, plus la raison. Un crit\xE8re, rien d'autre." },
+          { term: "Harnais", def: "Tout le dispositif d'examen. Le parcours, l'examinateur, la grille, la note de passage, le proc\xE8s-verbal." },
+          { term: "Protocole", def: "Les r\xE8gles. Quoi mesurer, sur quelles donn\xE9es, \xE0 partir de quel seuil c'est inacceptable, qui d\xE9cide, quand \xE7a bloque. Un document et une d\xE9cision, pas du code." },
+          { term: "Boucle ouverte", def: "On mesure, un humain lit, il agit peut-\xEAtre. La mesure ne change rien par elle-m\xEAme." },
+          { term: "Boucle ferm\xE9e", def: "La mesure est rec\xE2bl\xE9e dans le syst\xE8me et le change toute seule. Le merge est bloqu\xE9, la version retir\xE9e, l'\xE9chec devient un cas de test." }
+        ]
+      },
+      {
+        kind: "quote",
+        text: "Un grader juge un crit\xE8re, le harnais fait passer l'examen, le protocole dit ce que \xAB r\xE9ussi \xBB veut dire. Protocole sans harnais : une intention. Harnais sans protocole : un nombre sans d\xE9cision attach\xE9e."
+      },
+      {
+        kind: "p",
+        text: "Le pi\xE8ge fr\xE9quent : un grader n'est pas une alerte. Un grader juge, une alerte pr\xE9vient. Savoir si quelqu'un l'apprend est le travail de la boucle."
+      },
+      { kind: "h2", text: "2. Les trois bras, et ce que chaque projet peut se permettre" },
+      {
+        kind: "p",
+        text: "Un gate pr\xE9-merge prouve la qualit\xE9 sur des sc\xE9narios fig\xE9s. Il n'\xE9value rien du comportement en production. Les trois bras sont compl\xE9mentaires, pas alternatifs, et partagent une taxonomie de s\xE9v\xE9rit\xE9 commune pour qu'un FAIL veuille dire la m\xEAme chose partout."
+      },
+      {
+        kind: "table",
+        caption: "Les trois bras de l'\xE9valuation",
+        head: ["Bras", "Quand", "Ce qu'il prouve"],
+        rows: [
+          ["A \u2014 Offline / dev-time", "Avant le merge", "Non-r\xE9gression sur le jeu de cas : pr\xE9cision stratifi\xE9e, couverture cat\xE9gorielle"],
+          ["B \u2014 Runtime / online", "En production, continu", "Garde-fous et d\xE9tection d'anomalie sur trafic r\xE9el : taux d'erreur, bornes de sortie, abstention, d\xE9rive, latence"],
+          ["C \u2014 Outcome / aval", "Apr\xE8s coup, boucle longue", "La sortie a-t-elle \xE9t\xE9 actionn\xE9e, et a-t-elle produit de la valeur"]
+        ]
+      },
+      {
+        kind: "p",
+        text: "On ne passe pas un parachute au jeu de cas, on le mesure en vol. \xC0 condition que le bras B soit tenu au m\xEAme standard : chaque \xE9tage \xE9met un signal mesurable, \xE0 raison typ\xE9e."
+      },
+      { kind: "h3", text: "Ce dont chaque projet dispose" },
+      {
+        kind: "table",
+        caption: "Boucles d'apprentissage disponibles dans chaque projet",
+        head: ["", "Aetherix", "Lore"],
+        rows: [
+          ["Boucle humaine", "Une tape sur WhatsApp : accepter, modifier, rejeter", "Le log d'intervention, non exploit\xE9 \xE0 ce jour"],
+          ["Comparaison automatique", "Oui. La MAPE se calcule seule et sert de KPI produit de niveau 1", "Aucune"],
+          ["V\xE9rit\xE9 terrain", "D\xE9clar\xE9e par le manager. Lire le point de vente est en phase 4 et porte son propre ADR", "Inexistante, et le signal est censur\xE9 : d\xE8s qu'on escalade, le contrefactuel dispara\xEEt"]
+        ]
+      },
+      {
+        kind: "p",
+        text: "Aetherix fait tourner une boucle et demie, pas deux. La comparaison est autonome : la pr\xE9cision se calcule sans que personne d\xE9cide de la calculer, et des seuils bloquent dessus. La v\xE9rit\xE9 \xE0 laquelle elle se compare reste d\xE9clar\xE9e par un humain. C'est \xE0 dire pr\xE9cis\xE9ment, parce que \xAB boucle ferm\xE9e sur une v\xE9rit\xE9 d\xE9clar\xE9e \xBB est un propos d'ing\xE9nieur et \xAB double boucle autonome \xBB un propos de plaquette."
+      },
+      {
+        kind: "p",
+        text: "Lore n'a ni l'une ni l'autre moiti\xE9. Rien ne lui dit si une observation \xE9tait juste, et le peu qui pourrait le faire est censur\xE9 : on escalade, et on n'apprend jamais ce qui se serait pass\xE9 sans. Les r\xE9sultats en maintenance sont lents, rares et confondus."
+      },
+      {
+        kind: "quote",
+        text: "Quand on ne peut pas apprendre des r\xE9sultats, il faut sur-investir en amont. Aetherix peut se permettre un bras C parce que la r\xE9alit\xE9 l'alimente. Lore doit compenser par les deux premiers. C'est pour \xE7a que son harnais d'\xE9val p\xE8se pr\xE8s du tiers de sa base de code : ce n'est pas de la rigueur gratuite, c'est le prix d'une boucle de r\xE9sultat absente."
+      },
+      {
+        kind: "deployed",
+        items: [
+          { project: "Aetherix", to: "/aetherix", text: ": Bras A en gate CI, bras B avec son propre ADR sur les garde-fous runtime, et chaque appel d'outil \xE9mis comme un \xE9v\xE9nement structur\xE9, auditable et facturable." },
+          { project: "Lore", to: "/lore", text: ": Bras A seulement, offline et live. Pas de runtime." }
+        ]
+      },
+      { kind: "h2", text: "3. \xAB Working \xBB contre \xAB Reliable \xBB, les cinq dimensions" },
+      { kind: "quote", text: "\xAB Working \xBB se prouve sur un jeu de test. \xAB Reliable \xBB se prouve en production." },
+      {
+        kind: "p",
+        text: "Cinq dimensions, une question chacune, \xE0 r\xE9pondre avant de livrer. La colonne de droite est l'\xE9tat r\xE9el de Lore. Savoir dire o\xF9 on en est vaut mieux que pr\xE9tendre couvrir."
+      },
+      {
+        kind: "table",
+        caption: "Les cinq dimensions de la fiabilit\xE9, et l'\xE9tat de Lore",
+        head: ["Dimension", "La question", "Lore"],
+        rows: [
+          ["Edge behavior", "A-t-on test\xE9 hors distribution, pas seulement le chemin heureux ?", "partiel \u2014 quatre cas sur les bornes de bandes"],
+          ["Graceful degradation", "Quand l'agent ne sait pas, le dit-il, ou improvise-t-il ? Le refus est-il cod\xE9 comme un contrat ?", "acquis \u2014 contrat de refus en huit r\xE8gles, grader d\xE9di\xE9, palier 1"],
+          ["Observability", "A-t-on un tableau de bord de ce que le mod\xE8le fait en prod, pas juste l'uptime ?", "absent"],
+          ["Reproducibility", "La m\xEAme entr\xE9e demain produit-elle la m\xEAme sortie ?", "acquis \u2014 temp\xE9rature 0, baselines gel\xE9es, canari pass\xE9"],
+          ["Distribution shift", "A-t-on une alerte si la distribution d'entr\xE9e d\xE9rive ?", "absent"]
+        ]
+      },
+      {
+        kind: "p",
+        text: "Deux \xAB absent \xBB sur cinq, et les deux rel\xE8vent du bras B. Ce n'est pas un hasard : c'est le plus co\xFBteux, et le seul dont on ne voit l'absence qu'en production."
+      },
+      { kind: "h2", text: "4. La pyramide de fiabilit\xE9" },
+      {
+        kind: "p",
+        text: "Chaque \xE9tage suppose celui du dessous. La base n'est pas un \xE9tage parmi d'autres : c'est un pr\xE9requis bloquant. Sans jeu de cas et sans d\xE9finition de l'\xE9chec, rien au-dessus ne se mesure."
+      },
+      {
+        kind: "pyramid",
+        layers: [
+          { level: "Layer 5", name: "Trust KPI ablation" },
+          { level: "Layer 4", name: "Memory recall relevance" },
+          { level: "Layer 3", name: "Inbound feedback parser" },
+          { level: "Layer 2", name: "LLM reasoning quality" },
+          { level: "Layer 1", name: "Forecast accuracy", note: "MAPE" },
+          { level: "Base", name: "Jeu de cas et d\xE9finitions d'\xE9chec", note: "pr\xE9requis bloquant", base: true }
+        ]
+      },
+      {
+        kind: "deployed",
+        items: [
+          { project: "Aetherix", to: "/aetherix", text: ": La pyramide vient de son plan de fiabilit\xE9. Chaque \xE9tage a sa d\xE9finition d'\xE9chec chiffr\xE9e : une MAPE qui d\xE9vie de plus de trois points de la baseline, une pr\xE9cision de parser sous 90 %, un rappel m\xE9moire sous 0,7 de pr\xE9cision \xE0 5." },
+          { project: "Lore", to: "/lore", text: ": La base existe. Le Layer 2 est ce que gradent les neuf graders. Le Layer 4 est le trou b\xE9ant : la similarit\xE9 du moteur de m\xE9moire n'est ni observ\xE9e ni \xE9valu\xE9e." }
+        ]
+      },
+      { kind: "h2", text: "5. \xAB Eval as a contract \xBB" },
+      {
+        kind: "quote",
+        text: "Pas apr\xE8s le bug. Avant la premi\xE8re ligne de code mod\xE8le, r\xE9pondre \xE0 : comment saurons-nous que \xE7a marche ?"
+      },
+      {
+        kind: "list",
+        items: [
+          "Jeu de cas d'abord, exemples repr\xE9sentatifs, bords inclus, avant tout code.",
+          "D\xE9finir l'\xE9chec : qu'est-ce qu'une mauvaise sortie, et \xE0 partir de quel seuil est-ce inacceptable ?",
+          "Le jeu d'\xE9val est une sp\xE9cification, pas un test ajout\xE9 apr\xE8s.",
+          "D\xE8s que la sortie est vue par un client, la barre est ship-or-fail, pas \xAB \xE7a informe une d\xE9cision \xBB."
+        ]
+      },
+      {
+        kind: "p",
+        text: "L'id\xE9e n'est pas de moi. Je l'ai prise \xE0 l'ing\xE9nierie de Qonto, qui la formule comme un contrat plut\xF4t que comme une bonne pratique. C'est ce d\xE9placement qui la rend op\xE9rante : un contrat a une contrepartie et une sanction."
+      },
+      {
+        kind: "deployed",
+        items: [
+          { project: "Aetherix", to: "/aetherix", text: ": Une d\xE9cision d'architecture trac\xE9e, \xAB Evaluation by design \xBB, pas une consigne d'\xE9quipe. Jeux de cas versionn\xE9s, merge bloqu\xE9 sans pipeline vert." },
+          { project: "Lore", to: "/lore", text: ": Le jeu de cas existait avant le contrat de refus, et c'est lui qui a rendu les d\xE9fauts visibles." }
+        ]
+      },
+      { kind: "h2", text: "6. Crit\xE8res d'acceptation, la partie que tout le monde oublie" },
+      {
+        kind: "p",
+        text: "Un taux de r\xE9ussite sans seuil attach\xE9 est un nombre, pas une d\xE9cision. Une phrase de cl\xF4ture manquante et un seuil de vibration invent\xE9 sont deux \xE9checs ; un seul peut immobiliser le mauvais avion."
+      },
+      {
+        kind: "table",
+        caption: "Les trois paliers de s\xE9v\xE9rit\xE9 et leurs seuils",
+        head: ["Palier", "Seuil", "Ce qu'il contient"],
+        rows: [
+          ["1 \u2014 safety", "100 %", "Aucun budget. Chiffre invent\xE9, refus suivi d'une devinette, contradiction de la proc\xE9dure, consensus fabriqu\xE9."],
+          ["2 \u2014 trust", "95 %", "Attribution nomm\xE9e, primaut\xE9 de la proc\xE9dure. Utilisable m\xEAme d\xE9grad\xE9, mais \xE9rode la raison de faire confiance."],
+          ["3 \u2014 form", "90 %", "Formulation et discipline de cl\xF4ture. Une faute n'induit personne en erreur sur une limite."]
+        ]
+      },
+      {
+        kind: "table",
+        caption: "Verdicts et codes de sortie",
+        head: ["Code", "Verdict", "Sens"],
+        rows: [
+          ["0", "PASS", "Tous les paliers \xE0 100 %"],
+          ["1", "FAIL", "Un palier sous son seuil"],
+          ["2", "ERROR", "Le harnais a plant\xE9. Aucune mesure n'a \xE9t\xE9 prise"],
+          ["3", "WARN", "Seuils tenus mais un palier n'est pas propre. Pas un synonyme de \xAB \xE7a va \xBB"]
+        ]
+      },
+      {
+        kind: "p",
+        text: "C'est ici que l'analogie du permis rend son dernier service : on peut collectionner les points et rentrer \xE0 pied pour une seule faute \xE9liminatoire. Un run de Lore a fini \xE0 52 sur 53 et a \xE9t\xE9 d\xE9clar\xE9 FAIL, parce que l'unique \xE9chec \xE9tait en palier 1."
+      },
+      {
+        kind: "p",
+        text: "S\xE9parer ERROR de FAIL n'est pas de la coquetterie. Le runner n'\xE9mettait que 0 et 1, donc un plantage sortait en FAIL. \xAB Aucune mesure n'a \xE9t\xE9 prise \xBB et \xAB la mesure est mauvaise \xBB appellent des actions oppos\xE9es, et un CI qui confond les deux lit un crash comme un signal de qualit\xE9."
+      },
+      { kind: "h3", text: "Les deux r\xE8gles qui font la diff\xE9rence" },
+      {
+        kind: "list",
+        items: [
+          "R\xE9gression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gel\xE9e est un \xE9chec m\xEAme si le palier reste au-dessus de son seuil. Et tout cas qui tenait \xE0 la baseline et \xE9choue maintenant fait \xE9chouer le run : moyenner l'\xE9rosion, c'est la mani\xE8re dont elle se cache.",
+          "Le d\xE9terminisme est un pr\xE9requis. Des crit\xE8res d'acceptation contre une mesure mouvante ne veulent rien dire."
+        ]
+      },
+      {
+        kind: "p",
+        text: "Le cas v\xE9cu : deux runs des m\xEAmes 53 cas ont donn\xE9 38 puis 36, avec seulement 12 des 17 \xE9checs en commun. Huit cas ont bascul\xE9 entre deux passages. \xC0 temp\xE9rature 0,5 le taux est un tirage, pas une mesure."
+      },
+      {
+        kind: "p",
+        text: "Et la suite, qui compte autant. Le protocole demande trois runs identiques \xE0 0,00 point d'\xE9cart avant qu'un seuil ait le droit de bloquer un merge. La progression a \xE9t\xE9 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs cons\xE9cutifs \xE0 53 sur 53 sans aucune variance. Les baselines n'ont \xE9t\xE9 gel\xE9es qu'apr\xE8s. Un canari qu'on d\xE9crit sans le passer ne sert \xE0 rien."
+      },
+      {
+        kind: "deployed",
+        items: [
+          { project: "Aetherix", to: "/aetherix", text: ": L'origine. Le fichier de seuils d'\xE9chec et le script de couverture, contrat de codes de sortie inclus. Le gate n'est pass\xE9 de WARN \xE0 bloquant qu'apr\xE8s le m\xEAme canari, et la d\xE9rive d'environnement y a \xE9t\xE9 d\xE9sign\xE9e comme coupable r\xE9el plut\xF4t que le mod\xE8le." },
+          { project: "Lore", to: "/lore", text: ": La r\xE9impl\xE9mentation, avec ses baselines gel\xE9es et commit\xE9es, et un gate CI o\xF9 l'offline bloque, la couverture bloque en FAIL et rapporte en WARN, et la cible live reste consultative \u2014 elle co\xFBte des tokens et d\xE9pend d'une API tierce, donc bloquer dessus revient \xE0 confier sa capacit\xE9 \xE0 livrer \xE0 la disponibilit\xE9 d'un autre." }
+        ]
+      },
+      { kind: "h2", text: "7. L'indice de confiance, trois objets qu'on confond" },
+      {
+        kind: "defs",
+        items: [
+          { term: "Auto-d\xE9clar\xE9e", def: "Le mod\xE8le qui \xE9crit une confiance de 0,85. C'est un token g\xE9n\xE9r\xE9, pas une mesure : il produit le chiffre plausible dans le contexte, comme le reste de la phrase." },
+          { term: "Par corroboration", def: "Combien de sources ind\xE9pendantes, quelle fra\xEEcheur, quelle coh\xE9rence. Fiable parce que compt\xE9e, pas devin\xE9e." },
+          { term: "Calibration", def: "Quand le syst\xE8me annonce 80 %, est-ce vrai 80 % du temps ? Le seul sens strict. Exige des donn\xE9es de r\xE9sultat, donc le bras C." }
+        ]
+      },
+      {
+        kind: "quote",
+        text: "Un chiffre faux dans un produit de s\xE9curit\xE9 est pire que pas de chiffre, parce que le code en aval et les humains le croiront. L'absence est honn\xEAte ; 0,7 est un mensonge avec une d\xE9cimale."
+      },
+      {
+        kind: "deployed",
+        items: [
+          { project: "Lore", to: "/lore", text: ": Ce n'est pas une figure de style. Il y avait une confiance de 0,7 en dur dans la branche de repli de la capture. Le d\xE9faut n'\xE9tait pas la constante mais sa direction : cette branche s'ex\xE9cute quand l'extraction a \xE9chou\xE9, donc quand la confiance est au plus bas, et 0,7 est au-dessus du neutre. Retir\xE9." }
+        ]
+      },
+      { kind: "h2", text: "8. Humain dans la boucle : par conception ou par d\xE9faut" },
+      {
+        kind: "table",
+        caption: "Humain dans la boucle, par conception contre par d\xE9faut",
+        head: ["", "Par conception", "Par d\xE9faut"],
+        rows: [
+          ["Statut", "Un n\u0153ud de d\xE9cision : entr\xE9es d\xE9finies, d\xE9cision d\xE9finie, sortie enregistr\xE9e", "Personne n'a automatis\xE9 l'\xE9tape, donc quelqu'un doit s'en souvenir"],
+          ["Trace", "L'approbation devient une donn\xE9e, chaque rejet un cas d'\xE9val", "Aucune trace, aucun apprentissage"],
+          ["Sous charge", "Tient", "Casse"]
+        ]
+      },
+      {
+        kind: "quote",
+        text: "Garder un humain ne d\xE9truit pas la valeur. Laisser l'humain comme seul m\xE9canisme, sans capturer sa d\xE9cision, la d\xE9truit. Le correctif n'est pas de le retirer, c'est de transformer son jugement en artefact."
+      },
+      {
+        kind: "p",
+        text: "Fermer la boucle de mesure, bloquer un merge, alerter sur une d\xE9rive, r\xE9injecter les \xE9checs dans le jeu de cas, est une d\xE9cision purement architecturale. Fermer la boucle d'autorit\xE9, laisser le syst\xE8me agir sans humain, est une d\xE9cision m\xE9tier et r\xE9glementaire. En a\xE9ronautique elle est interdite : le technicien reste l'agent certificateur."
+      },
+      { kind: "h2", text: "9. Signaux, ontologie, priors" },
+      {
+        kind: "defs",
+        items: [
+          { term: "Signaux", def: "Des \xE9missions typ\xE9es \xE0 chaque \xE9tage : raison de refus, score de r\xE9cup\xE9ration, \xE9v\xE9nement d'abstention, latence. Sans signaux, le bras B est structurellement impossible. On ne surveille pas ce qui ne parle pas." },
+          { term: "Ontologie", def: "Le vocabulaire partag\xE9 qui rend \xAB la m\xEAme situation \xBB calculable. Sans elle, la distinction entre deux appareils n'est que des mots dans un prompt." },
+          { term: "Priors", def: "Ce que le syst\xE8me croit avant de voir la preuve. \xAB Je l'ai vu quatre fois en huit ans \xBB est un prior. En prose c'est une anecdote, en poids c'est un prior." },
+          { term: "Similarit\xE9", def: "R\xE9cup\xE9ration plus ontologie. C'est le Layer 4 de la pyramide, et c'est le plus souvent non \xE9valu\xE9." }
+        ]
+      },
+      {
+        kind: "deployed",
+        items: [
+          { project: "Lore", to: "/lore", text: ": La d\xE9monstration en creux. Interrog\xE9 sur un appareil sans historique, le mod\xE8le a r\xE9pondu avec le dossier d'un autre. La s\xE9paration par immatriculation \xE9tait un principe \xE9crit dans la doc, et rien dans le code ne la rendait dure." },
+          { project: "Aetherix", to: "/aetherix", text: ": L'inverse, fait expr\xE8s. L'identifiant client est r\xE9solu c\xF4t\xE9 serveur \xE0 chaque couche et n'est jamais une entr\xE9e d'outil. Ce que le mod\xE8le ne peut pas nommer, il ne peut pas le franchir." }
+        ]
+      },
+      { kind: "h2", text: "10. Le cas Lore, ce qu'un harnais trouve qu'aucun test unitaire ne voit" },
+      {
+        kind: "p",
+        text: "Premier run live, 53 cas, 17 \xE9checs. Trois d\xE9fauts que la couverture de code n'aurait jamais r\xE9v\xE9l\xE9s, parce que le code fonctionnait parfaitement."
+      },
+      {
+        kind: "list",
+        items: [
+          "Hallucination apr\xE8s un refus honn\xEAte. Le mod\xE8le dit que la proc\xE9dure ne couvre pas le nombre d'aubes, puis en donne un. Mieux reconna\xEEtre le refus aurait fait passer la r\xE9ponse.",
+          "Fuite entre appareils. Interrog\xE9 sur un appareil sans historique, il r\xE9pond avec l'historique d'un autre.",
+          "Consensus fabriqu\xE9. \xC0 partir d'une seule note : \xAB les autres techniciens familiers de cet appareil sont probablement d'accord \xBB. Inventer l'accord fabrique l'autorit\xE9 sur laquelle le lecteur p\xE8se le conseil."
+        ]
+      },
+      { kind: "h3", text: "La le\xE7on la moins confortable" },
+      {
+        kind: "p",
+        text: "Sur ces 17 \xE9checs, la r\xE9partition \xE9tait presque \xE9galement partag\xE9e entre de vrais d\xE9fauts du mod\xE8le et des graders simplement trop stricts. Un grader qui crie au loup co\xFBte de la s\xE9curit\xE9 : au troisi\xE8me faux positif on arr\xEAte de lire le rapport, et c'est ce jour-l\xE0 que le vrai d\xE9faut passe."
+      },
+      {
+        kind: "quote",
+        text: "Une suite de r\xE9gressions prouve que les graders rejettent du mauvais. Elle ne prouve jamais qu'ils acceptent du bon formul\xE9 autrement que par leur auteur. Il faut un run r\xE9el pour \xE7a."
+      },
+      { kind: "h3", text: "Et la partie que je pr\xE9f\xE8re" },
+      {
+        kind: "p",
+        text: "Onze cas plus durs ont \xE9t\xE9 ajout\xE9s : bornes de bandes, second expert qui contredit le premier, pression sociale du junior seul \xE0 deux heures du matin qui veut une autorisation. Les 64 cas sont pass\xE9s du premier coup en live. C'\xE9tait l'issue la moins informative possible, alors les r\xE9ponses ont \xE9t\xE9 lues au lieu d'\xEAtre crues."
+      },
+      {
+        kind: "p",
+        text: "La lecture a trouv\xE9 trois cas grad\xE9s trop faiblement pour \xE9chouer, dont un vrai d\xE9faut que le harnais avait laiss\xE9 passer : \xE0 une consommation d'huile de 0,30 qt/h exactement, la r\xE9ponse annon\xE7ait \xAB NORMAL, aucune action requise \xBB. C'est ELEVATED, la borne basse de la bande \xE9tant inclusive. Le motif requis acceptait la r\xE9ponse parce que le mot \xAB NORMAL \xBB y figurait."
+      },
+      {
+        kind: "p",
+        text: "Les trois cas \xE9chouent maintenant, ce qui est le but. Et la baseline n'a d\xE9lib\xE9r\xE9ment pas \xE9t\xE9 re-gel\xE9e : le protocole dit de geler apr\xE8s trois runs stables, jamais pour faire passer un run rouge au vert."
+      },
+      {
+        kind: "quote",
+        text: "Un jeu de cas qui passe int\xE9gralement a cess\xE9 d'\xEAtre un instrument de d\xE9couverte pour devenir un filet de s\xE9curit\xE9. Les deux sont utiles ; ce ne sont pas le m\xEAme objet."
+      },
+      { kind: "h2", text: "11. R\xE9ponses courtes, pr\xEAtes \xE0 dire" },
+      {
+        kind: "lines",
+        items: [
+          { q: "\xAB C'est quoi un grader ? \xBB", a: "Une ligne de grille d'\xE9valuation : un crit\xE8re, oui/non, plus la raison. D\xE9terministe, parce qu'un juge LLM \xE9choue comme ce qu'il juge." },
+          { q: "\xAB Harnais ou protocole ? \xBB", a: "Le protocole dit ce que \xAB r\xE9ussi \xBB veut dire. Le harnais est la machine qui l'applique. L'un sans l'autre ne d\xE9cide rien." },
+          { q: "\xAB Pourquoi pas juste des tests ? \xBB", a: "Parce que le mode de d\xE9faillance est une r\xE9ponse parfaitement form\xE9e qui donne le mauvais seuil. Le code marchait dans les quatre cas que j'ai trouv\xE9s." },
+          { q: "\xAB Boucle ferm\xE9e, chez vous ? \xBB", a: "Sur la mesure oui, sur l'autorit\xE9 non, et c'est un choix r\xE9glementaire, pas technique. Le technicien reste l'agent certificateur." },
+          { q: "\xAB Comment \xE9vitez-vous les hallucinations ? \xBB", a: "On ne les \xE9vite pas, on les rend visibles et bloquantes. Palier de s\xE9curit\xE9 \xE0 100 %, aucun budget, et le refus cod\xE9 comme un contrat plut\xF4t qu'une consigne de style." },
+          { q: "\xAB Votre indice de confiance ? \xBB", a: "Trois choses diff\xE9rentes : auto-d\xE9clar\xE9e sans valeur, par corroboration compt\xE9e donc utile, calibr\xE9e qui exige des donn\xE9es de r\xE9sultat." }
+        ]
+      },
+      { kind: "h2", text: "Note de fin" },
+      {
+        kind: "p",
+        text: "Cadres repris de la d\xE9cision d'architecture \xAB Evaluation by design \xBB et du plan de fiabilit\xE9 d'Aetherix. La formulation \xAB eval as a contract \xBB vient de l'ing\xE9nierie de Qonto. Chiffres et exemples issus du harnais de Lore : 64 cas en 12 cat\xE9gories, 9 graders, 21 r\xE9ponses de r\xE9f\xE9rence, 17 r\xE9gressions, 61 tests."
+      },
+      { kind: "p", text: "Ce texte a des trous, et ils sont dans le tableau de la section 3." }
+    ]
   }
 ];
 

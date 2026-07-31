@@ -578,6 +578,18 @@ const Atherix = () => (
           <div className="mt-14 md:mt-16" data-reveal-child>
             <AetherixWhatRemainsPrivate />
           </div>
+
+          <p data-reveal-child className="mt-10 text-sm text-on-surface-variant max-w-3xl">
+            The evaluation vocabulary behind these gates, harnesses, graders, acceptance tiers and closed loops, is
+            written up in a field note:{" "}
+            <Link
+              to="/journal/harnais-graders-boucles-fermees"
+              className="text-primary border-b border-secondary/40 pb-0.5 hover:opacity-70 transition-opacity"
+            >
+              Harnais, graders, boucles fermées
+            </Link>{" "}
+            <span className="text-on-surface-variant">(in French)</span>.
+          </p>
         </div>
       </Reveal>
 

@@ -45,7 +45,6 @@ const SourceNote = ({ title, children, note }: { title: string; children: ReactN
           type="button"
           aria-describedby={open ? headingId : undefined}
           aria-expanded={open}
-          aria-label={`${title}. Source`}
           onMouseEnter={scheduleOpen}
           onMouseLeave={scheduleClose}
           onFocus={scheduleOpen}

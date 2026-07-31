@@ -6,10 +6,29 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
 
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+type Lang = "en" | "fr";
 
-const Block = ({ block }: { block: JournalBlock }) => {
+const LABELS: Record<Lang, { locale: string; readTime: (m: number) => string; deployed: string; related: string; dataTable: string }> = {
+  en: {
+    locale: "en-US",
+    readTime: (m) => `${m} min read`,
+    deployed: "Deployed",
+    related: "Related",
+    dataTable: "Data table",
+  },
+  fr: {
+    locale: "fr-FR",
+    readTime: (m) => `${m} min de lecture`,
+    deployed: "En production",
+    related: "À lire aussi",
+    dataTable: "Tableau de données",
+  },
+};
+
+const formatDate = (iso: string, locale: string) =>
+  new Date(iso).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+
+const Block = ({ block, labels }: { block: JournalBlock; labels: (typeof LABELS)[Lang] }) => {
   switch (block.kind) {
     case "p":
       return <p className="font-body">{block.text}</p>;
@@ -60,11 +79,11 @@ const Block = ({ block }: { block: JournalBlock }) => {
         <div
           tabIndex={0}
           role="region"
-          aria-label="Data table"
+          aria-label={block.caption ?? labels.dataTable}
           className="overflow-x-auto rounded-sm border border-outline-variant/30"
         >
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
-            <caption className="sr-only">{block.head.join(", ")}</caption>
+            <caption className="sr-only">{block.caption ?? block.head.join(", ")}</caption>
             <thead>
               <tr className="border-b border-outline-variant/40">
                 {block.head.map((h, i) => (
@@ -155,7 +174,7 @@ const Block = ({ block }: { block: JournalBlock }) => {
       return (
         <div className="border-t border-outline-variant/40 pt-5">
           <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
-            Deployed
+            {labels.deployed}
           </div>
           <div className="space-y-3">
             {block.items.map((item, i) => (
@@ -195,6 +214,8 @@ const Block = ({ block }: { block: JournalBlock }) => {
 const JournalEntry = () => {
   const { slug } = useParams<{ slug: string }>();
   const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+  const lang: Lang = entry?.lang ?? "en";
+  const labels = LABELS[lang];
 
   if (!entry) {
     return (
@@ -238,15 +259,15 @@ const JournalEntry = () => {
         }}
       />
       <div className="pt-32 md:pt-40 pb-32 md:pb-48">
-        <article className="px-6 md:px-12 max-w-3xl mx-auto">
+        <article lang={lang} className="px-6 md:px-12 max-w-3xl mx-auto">
           <div className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{entry.category}</span>
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-              {formatDate(entry.date)}
+              {formatDate(entry.date, labels.locale)}
             </span>
             {entry.readingMinutes && (
               <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-                {entry.readingMinutes} min read
+                {labels.readTime(entry.readingMinutes)}
               </span>
             )}
           </div>
@@ -262,14 +283,14 @@ const JournalEntry = () => {
           <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
             {entry.body.map((block, i) => (
               <Reveal key={i}>
-                <Block block={block} />
+                <Block block={block} labels={labels} />
               </Reveal>
             ))}
           </div>
           {entry.related && entry.related.length > 0 && (
             <div className="mt-20 pt-10 border-t border-outline-variant/20">
               <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
-                Related
+                {labels.related}
               </div>
               <ul className="space-y-2">
                 {entry.related.map((r, i) => (
