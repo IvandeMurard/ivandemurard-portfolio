@@ -4,7 +4,7 @@ export type JournalBlock =
   | { kind: "p" | "h2" | "h3" | "quote"; text: string }
   | { kind: "list"; items: string[] }
   | { kind: "code"; lang?: string; text: string }
-  | { kind: "table"; head: string[]; rows: string[][] }
+  | { kind: "table"; head: string[]; rows: string[][]; caption?: string }
   | { kind: "defs"; items: { term: string; def: string }[] }
   | { kind: "pyramid"; layers: { level: string; name: string; note?: string; base?: boolean }[] }
   | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
@@ -15,6 +15,7 @@ export type JournalEntry = {
   title: string;
   subtitle?: string;
   date: string; // ISO yyyy-mm-dd
+  lang?: "en" | "fr";
   category: JournalCategory;
   excerpt: string;
   readingMinutes?: number;
