@@ -196,6 +196,28 @@ export const SEO_ROUTES: SeoRoute[] = [
     },
   },
   {
+    path: "/journal/harnais-graders-boucles-fermees",
+    title: "Harnais, graders, boucles fermées · Ivan de Murard",
+    description:
+      "Le vocabulaire de l'évaluation des systèmes IA, les cadres, et les deux projets où ils tournent vraiment : Aetherix et Lore. Note de terrain en français.",
+    type: "article",
+    changefreq: "monthly",
+    priority: "0.7",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: "Harnais, graders, boucles fermées",
+      description:
+        "Le vocabulaire, les cadres, et les deux projets où ils tournent vraiment. Écrit d'abord pour moi, avant des entretiens.",
+      inLanguage: "fr",
+      datePublished: "2026-07-31",
+      dateModified: "2026-07-31",
+      author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
+      articleSection: "Evaluation",
+      url: `${BASE_URL}/journal/harnais-graders-boucles-fermees`,
+    },
+  },
+  {
     path: "/contact",
     title: "Contact Ivan de Murard · Ivan de Murard",
     description:
