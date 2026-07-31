@@ -588,7 +588,7 @@ const Atherix = () => (
             >
               Harnais, graders, boucles fermées
             </Link>{" "}
-            <span lang="fr" className="text-on-surface-variant">(in French)</span>.
+            <span className="text-on-surface-variant">(in French)</span>.
           </p>
         </div>
       </Reveal>
