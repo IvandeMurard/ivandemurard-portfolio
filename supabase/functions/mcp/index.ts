@@ -389,7 +389,23 @@ var JOURNAL_ENTRIES = [
       },
       {
         kind: "p",
-        text: "Et la suite, qui compte autant. Le protocole demande trois runs identiques \xE0 0,00 point d'\xE9cart avant qu'un seuil ait le droit de bloquer un merge. La progression a \xE9t\xE9 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs cons\xE9cutifs \xE0 53 sur 53 sans aucune variance. Les baselines n'ont \xE9t\xE9 gel\xE9es qu'apr\xE8s. Un canari qu'on d\xE9crit sans le passer ne sert \xE0 rien."
+        text: "Et la suite, qui compte autant. Le protocole demandait trois runs identiques \xE0 0,00 point d'\xE9cart avant qu'un seuil ait le droit de bloquer un merge. La progression a \xE9t\xE9 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs cons\xE9cutifs sans variance. Les baselines n'ont \xE9t\xE9 gel\xE9es qu'apr\xE8s."
+      },
+      {
+        kind: "p",
+        text: "Ce canari a depuis \xE9t\xE9 invalid\xE9, et la raison vaut mieux que le r\xE9sultat. La temp\xE9rature 0 rend une requ\xEAte reproductible en pratique, pas d\xE9terministe par construction : le fournisseur reste libre de varier. Quatre runs identiques \xE9taient une preuve empirique, pas une garantie. Puis l'application structurelle de la primaut\xE9 de la proc\xE9dure a ajout\xE9 un second appel mod\xE8le conditionnel sur les r\xE9ponses qu'elle corrige, deux appels par cas corrig\xE9, donc deux occasions de diverger, et la correction se propage dans le texte \xE9valu\xE9. Constat imm\xE9diat : deux runs des m\xEAmes 64 cas \xE0 61 et 62, avec des ensembles d'\xE9checs disjoints."
+      },
+      {
+        kind: "p",
+        text: "L'application a donc relev\xE9 la moyenne et relev\xE9 la variance. Les deux sont vrais, et l'\xE9change vaut la peine : une r\xE9ponse corrig\xE9e vaut mieux qu'une r\xE9ponse fluide et fausse."
+      },
+      {
+        kind: "p",
+        text: "Le canari refait sur le pipeline appliqu\xE9 donne la forme \xE0 attendre : trois runs de 64 cas, palier 1 \xE0 100 % dans les trois, toute la variance observ\xE9e log\xE9e dans le palier 3 \xE0 0,6 point, largement dans le budget de 3. D'o\xF9 la r\xE8gle corrig\xE9e plut\xF4t que tue : 0,00 point d'\xE9cart exig\xE9 sur le palier 1 seul, les paliers 2 et 3 libres de bouger dans leur budget. Le palier de s\xE9curit\xE9 est gard\xE9 par du code et ne bouge pas ; le palier de forme d\xE9pend de la formulation et bougera toujours."
+      },
+      {
+        kind: "quote",
+        text: "Exiger 0,00 sur tous les paliers fixe une barre qu'on ne peut pas tenir, et un gate qu'on ne peut pas tenir est un gate qu'on apprend \xE0 ignorer. C'est exactement la d\xE9faillance que les graders eux-m\xEAmes r\xE9p\xE9taient."
       },
       {
         kind: "deployed",
