@@ -272,7 +272,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": L'origine. Le fichier de seuils d'échec et le script de couverture, contrat de codes de sortie inclus. Le gate n'est passé de WARN à bloquant qu'après le même canari, et la dérive d'environnement y a été désignée comme coupable réel plutôt que le modèle." },
-          { project: "Lore", to: "/lore", text: ": La réimplémentation, avec ses baselines gelées et commitées, et un gate CI où l'offline bloque, la couverture bloque en FAIL et rapporte en WARN, et la cible live reste consultative — elle coûte des tokens et dépend d'une API tierce, donc bloquer dessus revient à confier sa capacité à livrer à la disponibilité d'un autre." },
+          { project: "Lore", to: "/lore", text: ": La réimplémentation, avec ses baselines gelées et commitées, et un gate CI où l'offline bloque et la couverture bloque en FAIL. La cible live, elle, ne part plus toute seule : elle exige une étiquette posée sur la demande de fusion ou un déclenchement manuel. Un run complet, c'est environ soixante-dix appels modèle pour un quart d'euro, et un CI ne doit pas pouvoir dépenser de sa propre initiative. Le travail sauté est affiché comme sauté, pas comme réussi, et le job gratuit rappelle sur chaque demande qu'aucun modèle n'a été appelé." },
         ],
       },
       { kind: "h2", text: "7. L'indice de confiance, trois objets qu'on confond" },

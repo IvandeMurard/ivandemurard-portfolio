@@ -395,7 +395,7 @@ var JOURNAL_ENTRIES = [
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": L'origine. Le fichier de seuils d'\xE9chec et le script de couverture, contrat de codes de sortie inclus. Le gate n'est pass\xE9 de WARN \xE0 bloquant qu'apr\xE8s le m\xEAme canari, et la d\xE9rive d'environnement y a \xE9t\xE9 d\xE9sign\xE9e comme coupable r\xE9el plut\xF4t que le mod\xE8le." },
-          { project: "Lore", to: "/lore", text: ": La r\xE9impl\xE9mentation, avec ses baselines gel\xE9es et commit\xE9es, et un gate CI o\xF9 l'offline bloque, la couverture bloque en FAIL et rapporte en WARN, et la cible live reste consultative \u2014 elle co\xFBte des tokens et d\xE9pend d'une API tierce, donc bloquer dessus revient \xE0 confier sa capacit\xE9 \xE0 livrer \xE0 la disponibilit\xE9 d'un autre." }
+          { project: "Lore", to: "/lore", text: ": La r\xE9impl\xE9mentation, avec ses baselines gel\xE9es et commit\xE9es, et un gate CI o\xF9 l'offline bloque et la couverture bloque en FAIL. La cible live, elle, ne part plus toute seule : elle exige une \xE9tiquette pos\xE9e sur la demande de fusion ou un d\xE9clenchement manuel. Un run complet, c'est environ soixante-dix appels mod\xE8le pour un quart d'euro, et un CI ne doit pas pouvoir d\xE9penser de sa propre initiative. Le travail saut\xE9 est affich\xE9 comme saut\xE9, pas comme r\xE9ussi, et le job gratuit rappelle sur chaque demande qu'aucun mod\xE8le n'a \xE9t\xE9 appel\xE9." }
         ]
       },
       { kind: "h2", text: "7. L'indice de confiance, trois objets qu'on confond" },
