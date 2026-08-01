@@ -212,6 +212,10 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         text: "L'idée n'est pas de moi. Je l'ai prise à l'ingénierie de Qonto, qui la formule comme un contrat plutôt que comme une bonne pratique. C'est ce déplacement qui la rend opérante : un contrat a une contrepartie et une sanction.",
       },
       {
+        kind: "p",
+        text: "Un exemple de ce que « contrat » veut dire concrètement. La documentation de Lore qualifiait depuis toujours la primauté de la procédure d'« appliquée structurellement », alors que c'était une phrase dans deux prompts, c'est-à-dire une requête. Trois tentatives pour renforcer la requête ont échoué, dont une qui a fait chuter le palier de sécurité de près de quatre points. La garantie vit maintenant dans du code qui vérifie la réponse après génération contre la règle calculable, envoie une correction ciblée citant les termes du manuel, revérifie, et se rabat sur un verdict déterministe. Le pipeline ne peut plus émettre une réponse qui contredit une règle calculable, quoi que fasse le modèle. Une affirmation sur le code doit être tenue par du code.",
+      },
+      {
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": Une décision d'architecture tracée, « Evaluation by design », pas une consigne d'équipe. Jeux de cas versionnés, merge bloqué sans pipeline vert." },

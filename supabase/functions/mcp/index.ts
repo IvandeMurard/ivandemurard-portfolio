@@ -335,6 +335,10 @@ var JOURNAL_ENTRIES = [
         text: "L'id\xE9e n'est pas de moi. Je l'ai prise \xE0 l'ing\xE9nierie de Qonto, qui la formule comme un contrat plut\xF4t que comme une bonne pratique. C'est ce d\xE9placement qui la rend op\xE9rante : un contrat a une contrepartie et une sanction."
       },
       {
+        kind: "p",
+        text: "Un exemple de ce que \xAB contrat \xBB veut dire concr\xE8tement. La documentation de Lore qualifiait depuis toujours la primaut\xE9 de la proc\xE9dure d'\xAB appliqu\xE9e structurellement \xBB, alors que c'\xE9tait une phrase dans deux prompts, c'est-\xE0-dire une requ\xEAte. Trois tentatives pour renforcer la requ\xEAte ont \xE9chou\xE9, dont une qui a fait chuter le palier de s\xE9curit\xE9 de pr\xE8s de quatre points. La garantie vit maintenant dans du code qui v\xE9rifie la r\xE9ponse apr\xE8s g\xE9n\xE9ration contre la r\xE8gle calculable, envoie une correction cibl\xE9e citant les termes du manuel, rev\xE9rifie, et se rabat sur un verdict d\xE9terministe. Le pipeline ne peut plus \xE9mettre une r\xE9ponse qui contredit une r\xE8gle calculable, quoi que fasse le mod\xE8le. Une affirmation sur le code doit \xEAtre tenue par du code."
+      },
+      {
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": Une d\xE9cision d'architecture trac\xE9e, \xAB Evaluation by design \xBB, pas une consigne d'\xE9quipe. Jeux de cas versionn\xE9s, merge bloqu\xE9 sans pipeline vert." },
