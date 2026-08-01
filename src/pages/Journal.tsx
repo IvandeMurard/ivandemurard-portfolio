@@ -30,7 +30,7 @@ const Journal = () => (
       </section>
 
       {/* Entries */}
-      <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-32 md:mb-48">
+      <section className={`px-6 md:px-12 max-w-screen-2xl mx-auto ${READING_LIST.length > 0 ? "mb-32 md:mb-48" : "pb-32 md:pb-48"}`}>
         <div className="flex items-end justify-between mb-12 md:mb-16 gap-8">
           <h2 className="font-headline text-3xl md:text-4xl italic text-primary">Entries</h2>
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
@@ -71,6 +71,7 @@ const Journal = () => (
       </section>
 
       {/* Reading list */}
+      {READING_LIST.length > 0 && (
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-32 md:pb-48">
         <div className="border-t border-outline-variant/20 pt-16 md:pt-24">
           <div className="flex items-end justify-between mb-12 md:mb-16 gap-8">
@@ -115,6 +116,7 @@ const Journal = () => (
           </div>
         </div>
       </section>
+      )}
     </div>
   </SiteLayout>
 );
