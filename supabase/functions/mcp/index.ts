@@ -379,7 +379,7 @@ var JOURNAL_ENTRIES = [
       {
         kind: "list",
         items: [
-          "R\xE9gression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gel\xE9e est un \xE9chec m\xEAme si le palier reste au-dessus de son seuil. Et tout cas qui tenait \xE0 la baseline et \xE9choue maintenant fait \xE9chouer le run : moyenner l'\xE9rosion, c'est la mani\xE8re dont elle se cache.",
+          "R\xE9gression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gel\xE9e est un \xE9chec m\xEAme si le palier reste au-dessus de son seuil. Et un cas qui tenait \xE0 la baseline et \xE9choue maintenant fait \xE9chouer le run si un grader de palier 1 figure parmi ses \xE9checs ; sur les paliers 2 et 3 il avertit et le dit. La s\xE9v\xE9rit\xE9 suit ce qui a cass\xE9, sinon un \xE9cart de forme mesur\xE9 \xE0 0,6 point ferait passer la construction au rouge.",
           "Le d\xE9terminisme est un pr\xE9requis. Des crit\xE8res d'acceptation contre une mesure mouvante ne veulent rien dire."
         ]
       },

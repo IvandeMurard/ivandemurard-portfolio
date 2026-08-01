@@ -256,7 +256,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       {
         kind: "list",
         items: [
-          "Régression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gelée est un échec même si le palier reste au-dessus de son seuil. Et tout cas qui tenait à la baseline et échoue maintenant fait échouer le run : moyenner l'érosion, c'est la manière dont elle se cache.",
+          "Régression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gelée est un échec même si le palier reste au-dessus de son seuil. Et un cas qui tenait à la baseline et échoue maintenant fait échouer le run si un grader de palier 1 figure parmi ses échecs ; sur les paliers 2 et 3 il avertit et le dit. La sévérité suit ce qui a cassé, sinon un écart de forme mesuré à 0,6 point ferait passer la construction au rouge.",
           "Le déterminisme est un prérequis. Des critères d'acceptation contre une mesure mouvante ne veulent rien dire.",
         ],
       },
