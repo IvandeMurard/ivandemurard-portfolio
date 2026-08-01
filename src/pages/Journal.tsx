@@ -71,6 +71,7 @@ const Journal = () => (
       </section>
 
       {/* Reading list */}
+      {READING_LIST.length > 0 && (
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-32 md:pb-48">
         <div className="border-t border-outline-variant/20 pt-16 md:pt-24">
           <div className="flex items-end justify-between mb-12 md:mb-16 gap-8">

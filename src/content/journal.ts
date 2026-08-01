@@ -393,29 +393,4 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
 
 
 // TODO: replace with real reading list
-export const READING_LIST: ReadingItem[] = [
-  {
-    source: "Substack",
-    title: "Placeholder essay on operations as product",
-    author: "Author Name",
-    url: "https://example.com",
-    take: "Argues that the operating model is the product, and the UI is just its surface. Useful frame for hospitality tech.",
-    date: "2026-03-12",
-  },
-  {
-    source: "Podcast",
-    title: "Placeholder podcast on agentic systems in regulated industries",
-    author: "Host Name",
-    url: "https://example.com",
-    take: "The conversation about where the human stays in the loop is the right one. Skip the first 10 minutes.",
-    date: "2026-02-04",
-  },
-  {
-    source: "Article",
-    title: "Placeholder article on field research for product teams",
-    author: "Author Name",
-    url: "https://example.com",
-    take: "A reminder that you cannot design for an environment you have not stood inside.",
-    date: "2026-01-21",
-  },
-];
+export const READING_LIST: ReadingItem[] = [];
