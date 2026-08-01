@@ -116,6 +116,7 @@ const Journal = () => (
           </div>
         </div>
       </section>
+      )}
     </div>
   </SiteLayout>
 );
