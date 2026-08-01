@@ -285,7 +285,7 @@ var JOURNAL_ENTRIES = [
           ["Edge behavior", "A-t-on test\xE9 hors distribution, pas seulement le chemin heureux ?", "partiel \u2014 quatre cas sur les bornes de bandes"],
           ["Graceful degradation", "Quand l'agent ne sait pas, le dit-il, ou improvise-t-il ? Le refus est-il cod\xE9 comme un contrat ?", "acquis \u2014 contrat de refus en huit r\xE8gles, grader d\xE9di\xE9, palier 1"],
           ["Observability", "A-t-on un tableau de bord de ce que le mod\xE8le fait en prod, pas juste l'uptime ?", "absent"],
-          ["Reproducibility", "La m\xEAme entr\xE9e demain produit-elle la m\xEAme sortie ?", "acquis \u2014 temp\xE9rature 0, baselines gel\xE9es, canari pass\xE9"],
+          ["Reproducibility", "La m\xEAme entr\xE9e demain produit-elle la m\xEAme sortie ?", "partiel \u2014 temp\xE9rature 0, baselines gel\xE9es, mais le canari a \xE9t\xE9 invalid\xE9"],
           ["Distribution shift", "A-t-on une alerte si la distribution d'entr\xE9e d\xE9rive ?", "absent"]
         ]
       },
@@ -335,6 +335,10 @@ var JOURNAL_ENTRIES = [
         text: "L'id\xE9e n'est pas de moi. Je l'ai prise \xE0 l'ing\xE9nierie de Qonto, qui la formule comme un contrat plut\xF4t que comme une bonne pratique. C'est ce d\xE9placement qui la rend op\xE9rante : un contrat a une contrepartie et une sanction."
       },
       {
+        kind: "p",
+        text: "Un exemple de ce que \xAB contrat \xBB veut dire concr\xE8tement. La documentation de Lore qualifiait depuis toujours la primaut\xE9 de la proc\xE9dure d'\xAB appliqu\xE9e structurellement \xBB, alors que c'\xE9tait une phrase dans deux prompts, c'est-\xE0-dire une requ\xEAte. Trois tentatives pour renforcer la requ\xEAte ont \xE9chou\xE9, dont une qui a fait chuter le palier de s\xE9curit\xE9 de pr\xE8s de quatre points. La garantie vit maintenant dans du code qui v\xE9rifie la r\xE9ponse apr\xE8s g\xE9n\xE9ration contre la r\xE8gle calculable, envoie une correction cibl\xE9e citant les termes du manuel, rev\xE9rifie, et se rabat sur un verdict d\xE9terministe. Le pipeline ne peut plus \xE9mettre une r\xE9ponse qui contredit une r\xE8gle calculable, quoi que fasse le mod\xE8le. Une affirmation sur le code doit \xEAtre tenue par du code."
+      },
+      {
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": Une d\xE9cision d'architecture trac\xE9e, \xAB Evaluation by design \xBB, pas une consigne d'\xE9quipe. Jeux de cas versionn\xE9s, merge bloqu\xE9 sans pipeline vert." },
@@ -379,7 +383,7 @@ var JOURNAL_ENTRIES = [
       {
         kind: "list",
         items: [
-          "R\xE9gression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gel\xE9e est un \xE9chec m\xEAme si le palier reste au-dessus de son seuil. Et tout cas qui tenait \xE0 la baseline et \xE9choue maintenant fait \xE9chouer le run : moyenner l'\xE9rosion, c'est la mani\xE8re dont elle se cache.",
+          "R\xE9gression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gel\xE9e est un \xE9chec m\xEAme si le palier reste au-dessus de son seuil. Et un cas qui tenait \xE0 la baseline et \xE9choue maintenant fait \xE9chouer le run si un grader de palier 1 figure parmi ses \xE9checs ; sur les paliers 2 et 3 il avertit et le dit. La s\xE9v\xE9rit\xE9 suit ce qui a cass\xE9, sinon un \xE9cart de forme mesur\xE9 \xE0 0,6 point ferait passer la construction au rouge.",
           "Le d\xE9terminisme est un pr\xE9requis. Des crit\xE8res d'acceptation contre une mesure mouvante ne veulent rien dire."
         ]
       },
@@ -389,13 +393,29 @@ var JOURNAL_ENTRIES = [
       },
       {
         kind: "p",
-        text: "Et la suite, qui compte autant. Le protocole demande trois runs identiques \xE0 0,00 point d'\xE9cart avant qu'un seuil ait le droit de bloquer un merge. La progression a \xE9t\xE9 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs cons\xE9cutifs \xE0 53 sur 53 sans aucune variance. Les baselines n'ont \xE9t\xE9 gel\xE9es qu'apr\xE8s. Un canari qu'on d\xE9crit sans le passer ne sert \xE0 rien."
+        text: "Et la suite, qui compte autant. Le protocole demandait trois runs identiques \xE0 0,00 point d'\xE9cart avant qu'un seuil ait le droit de bloquer un merge. La progression a \xE9t\xE9 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs cons\xE9cutifs sans variance. Les baselines n'ont \xE9t\xE9 gel\xE9es qu'apr\xE8s."
+      },
+      {
+        kind: "p",
+        text: "Ce canari a depuis \xE9t\xE9 invalid\xE9, et la raison vaut mieux que le r\xE9sultat. La temp\xE9rature 0 rend une requ\xEAte reproductible en pratique, pas d\xE9terministe par construction : le fournisseur reste libre de varier. Quatre runs identiques \xE9taient une preuve empirique, pas une garantie. Puis l'application structurelle de la primaut\xE9 de la proc\xE9dure a ajout\xE9 un second appel mod\xE8le conditionnel sur les r\xE9ponses qu'elle corrige, deux appels par cas corrig\xE9, donc deux occasions de diverger, et la correction se propage dans le texte \xE9valu\xE9. Constat imm\xE9diat : deux runs des m\xEAmes 64 cas \xE0 61 et 62, avec des ensembles d'\xE9checs disjoints."
+      },
+      {
+        kind: "p",
+        text: "L'application a donc relev\xE9 la moyenne et relev\xE9 la variance. Les deux sont vrais, et l'\xE9change vaut la peine : une r\xE9ponse corrig\xE9e vaut mieux qu'une r\xE9ponse fluide et fausse."
+      },
+      {
+        kind: "p",
+        text: "Le canari refait sur le pipeline appliqu\xE9 donne la forme \xE0 attendre : trois runs de 64 cas, palier 1 \xE0 100 % dans les trois, toute la variance observ\xE9e log\xE9e dans le palier 3 \xE0 0,6 point, largement dans le budget de 3. D'o\xF9 la r\xE8gle corrig\xE9e plut\xF4t que tue : 0,00 point d'\xE9cart exig\xE9 sur le palier 1 seul, les paliers 2 et 3 libres de bouger dans leur budget. Le palier de s\xE9curit\xE9 est gard\xE9 par du code et ne bouge pas ; le palier de forme d\xE9pend de la formulation et bougera toujours."
+      },
+      {
+        kind: "quote",
+        text: "Exiger 0,00 sur tous les paliers fixe une barre qu'on ne peut pas tenir, et un gate qu'on ne peut pas tenir est un gate qu'on apprend \xE0 ignorer. C'est exactement la d\xE9faillance que les graders eux-m\xEAmes r\xE9p\xE9taient."
       },
       {
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": L'origine. Le fichier de seuils d'\xE9chec et le script de couverture, contrat de codes de sortie inclus. Le gate n'est pass\xE9 de WARN \xE0 bloquant qu'apr\xE8s le m\xEAme canari, et la d\xE9rive d'environnement y a \xE9t\xE9 d\xE9sign\xE9e comme coupable r\xE9el plut\xF4t que le mod\xE8le." },
-          { project: "Lore", to: "/lore", text: ": La r\xE9impl\xE9mentation, avec ses baselines gel\xE9es et commit\xE9es, et un gate CI o\xF9 l'offline bloque, la couverture bloque en FAIL et rapporte en WARN, et la cible live reste consultative \u2014 elle co\xFBte des tokens et d\xE9pend d'une API tierce, donc bloquer dessus revient \xE0 confier sa capacit\xE9 \xE0 livrer \xE0 la disponibilit\xE9 d'un autre." }
+          { project: "Lore", to: "/lore", text: ": La r\xE9impl\xE9mentation, avec ses baselines gel\xE9es et commit\xE9es, et un gate CI o\xF9 l'offline bloque et la couverture bloque en FAIL. La cible live, elle, ne part plus toute seule : elle exige une \xE9tiquette pos\xE9e sur la demande de fusion ou un d\xE9clenchement manuel. Un run complet, c'est environ soixante-dix appels mod\xE8le pour un quart d'euro, et un CI ne doit pas pouvoir d\xE9penser de sa propre initiative. Le travail saut\xE9 est affich\xE9 comme saut\xE9, pas comme r\xE9ussi, et le job gratuit rappelle sur chaque demande qu'aucun mod\xE8le n'a \xE9t\xE9 appel\xE9." }
         ]
       },
       { kind: "h2", text: "7. L'indice de confiance, trois objets qu'on confond" },

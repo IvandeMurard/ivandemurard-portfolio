@@ -162,7 +162,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
           ["Edge behavior", "A-t-on testé hors distribution, pas seulement le chemin heureux ?", "partiel — quatre cas sur les bornes de bandes"],
           ["Graceful degradation", "Quand l'agent ne sait pas, le dit-il, ou improvise-t-il ? Le refus est-il codé comme un contrat ?", "acquis — contrat de refus en huit règles, grader dédié, palier 1"],
           ["Observability", "A-t-on un tableau de bord de ce que le modèle fait en prod, pas juste l'uptime ?", "absent"],
-          ["Reproducibility", "La même entrée demain produit-elle la même sortie ?", "acquis — température 0, baselines gelées, canari passé"],
+          ["Reproducibility", "La même entrée demain produit-elle la même sortie ?", "partiel — température 0, baselines gelées, mais le canari a été invalidé"],
           ["Distribution shift", "A-t-on une alerte si la distribution d'entrée dérive ?", "absent"],
         ],
       },
@@ -212,6 +212,10 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         text: "L'idée n'est pas de moi. Je l'ai prise à l'ingénierie de Qonto, qui la formule comme un contrat plutôt que comme une bonne pratique. C'est ce déplacement qui la rend opérante : un contrat a une contrepartie et une sanction.",
       },
       {
+        kind: "p",
+        text: "Un exemple de ce que « contrat » veut dire concrètement. La documentation de Lore qualifiait depuis toujours la primauté de la procédure d'« appliquée structurellement », alors que c'était une phrase dans deux prompts, c'est-à-dire une requête. Trois tentatives pour renforcer la requête ont échoué, dont une qui a fait chuter le palier de sécurité de près de quatre points. La garantie vit maintenant dans du code qui vérifie la réponse après génération contre la règle calculable, envoie une correction ciblée citant les termes du manuel, revérifie, et se rabat sur un verdict déterministe. Le pipeline ne peut plus émettre une réponse qui contredit une règle calculable, quoi que fasse le modèle. Une affirmation sur le code doit être tenue par du code.",
+      },
+      {
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": Une décision d'architecture tracée, « Evaluation by design », pas une consigne d'équipe. Jeux de cas versionnés, merge bloqué sans pipeline vert." },
@@ -256,7 +260,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       {
         kind: "list",
         items: [
-          "Régression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gelée est un échec même si le palier reste au-dessus de son seuil. Et tout cas qui tenait à la baseline et échoue maintenant fait échouer le run : moyenner l'érosion, c'est la manière dont elle se cache.",
+          "Régression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gelée est un échec même si le palier reste au-dessus de son seuil. Et un cas qui tenait à la baseline et échoue maintenant fait échouer le run si un grader de palier 1 figure parmi ses échecs ; sur les paliers 2 et 3 il avertit et le dit. La sévérité suit ce qui a cassé, sinon un écart de forme mesuré à 0,6 point ferait passer la construction au rouge.",
           "Le déterminisme est un prérequis. Des critères d'acceptation contre une mesure mouvante ne veulent rien dire.",
         ],
       },
@@ -266,13 +270,29 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       },
       {
         kind: "p",
-        text: "Et la suite, qui compte autant. Le protocole demande trois runs identiques à 0,00 point d'écart avant qu'un seuil ait le droit de bloquer un merge. La progression a été 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs consécutifs à 53 sur 53 sans aucune variance. Les baselines n'ont été gelées qu'après. Un canari qu'on décrit sans le passer ne sert à rien.",
+        text: "Et la suite, qui compte autant. Le protocole demandait trois runs identiques à 0,00 point d'écart avant qu'un seuil ait le droit de bloquer un merge. La progression a été 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs consécutifs sans variance. Les baselines n'ont été gelées qu'après.",
+      },
+      {
+        kind: "p",
+        text: "Ce canari a depuis été invalidé, et la raison vaut mieux que le résultat. La température 0 rend une requête reproductible en pratique, pas déterministe par construction : le fournisseur reste libre de varier. Quatre runs identiques étaient une preuve empirique, pas une garantie. Puis l'application structurelle de la primauté de la procédure a ajouté un second appel modèle conditionnel sur les réponses qu'elle corrige, deux appels par cas corrigé, donc deux occasions de diverger, et la correction se propage dans le texte évalué. Constat immédiat : deux runs des mêmes 64 cas à 61 et 62, avec des ensembles d'échecs disjoints.",
+      },
+      {
+        kind: "p",
+        text: "L'application a donc relevé la moyenne et relevé la variance. Les deux sont vrais, et l'échange vaut la peine : une réponse corrigée vaut mieux qu'une réponse fluide et fausse.",
+      },
+      {
+        kind: "p",
+        text: "Le canari refait sur le pipeline appliqué donne la forme à attendre : trois runs de 64 cas, palier 1 à 100 % dans les trois, toute la variance observée logée dans le palier 3 à 0,6 point, largement dans le budget de 3. D'où la règle corrigée plutôt que tue : 0,00 point d'écart exigé sur le palier 1 seul, les paliers 2 et 3 libres de bouger dans leur budget. Le palier de sécurité est gardé par du code et ne bouge pas ; le palier de forme dépend de la formulation et bougera toujours.",
+      },
+      {
+        kind: "quote",
+        text: "Exiger 0,00 sur tous les paliers fixe une barre qu'on ne peut pas tenir, et un gate qu'on ne peut pas tenir est un gate qu'on apprend à ignorer. C'est exactement la défaillance que les graders eux-mêmes répétaient.",
       },
       {
         kind: "deployed",
         items: [
           { project: "Aetherix", to: "/aetherix", text: ": L'origine. Le fichier de seuils d'échec et le script de couverture, contrat de codes de sortie inclus. Le gate n'est passé de WARN à bloquant qu'après le même canari, et la dérive d'environnement y a été désignée comme coupable réel plutôt que le modèle." },
-          { project: "Lore", to: "/lore", text: ": La réimplémentation, avec ses baselines gelées et commitées, et un gate CI où l'offline bloque, la couverture bloque en FAIL et rapporte en WARN, et la cible live reste consultative — elle coûte des tokens et dépend d'une API tierce, donc bloquer dessus revient à confier sa capacité à livrer à la disponibilité d'un autre." },
+          { project: "Lore", to: "/lore", text: ": La réimplémentation, avec ses baselines gelées et commitées, et un gate CI où l'offline bloque et la couverture bloque en FAIL. La cible live, elle, ne part plus toute seule : elle exige une étiquette posée sur la demande de fusion ou un déclenchement manuel. Un run complet, c'est environ soixante-dix appels modèle pour un quart d'euro, et un CI ne doit pas pouvoir dépenser de sa propre initiative. Le travail sauté est affiché comme sauté, pas comme réussi, et le job gratuit rappelle sur chaque demande qu'aucun modèle n'a été appelé." },
         ],
       },
       { kind: "h2", text: "7. L'indice de confiance, trois objets qu'on confond" },
