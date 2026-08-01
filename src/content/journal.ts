@@ -162,7 +162,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
           ["Edge behavior", "A-t-on testé hors distribution, pas seulement le chemin heureux ?", "partiel — quatre cas sur les bornes de bandes"],
           ["Graceful degradation", "Quand l'agent ne sait pas, le dit-il, ou improvise-t-il ? Le refus est-il codé comme un contrat ?", "acquis — contrat de refus en huit règles, grader dédié, palier 1"],
           ["Observability", "A-t-on un tableau de bord de ce que le modèle fait en prod, pas juste l'uptime ?", "absent"],
-          ["Reproducibility", "La même entrée demain produit-elle la même sortie ?", "acquis — température 0, baselines gelées, canari passé"],
+          ["Reproducibility", "La même entrée demain produit-elle la même sortie ?", "partiel — température 0, baselines gelées, mais le canari a été invalidé"],
           ["Distribution shift", "A-t-on une alerte si la distribution d'entrée dérive ?", "absent"],
         ],
       },

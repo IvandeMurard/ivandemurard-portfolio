@@ -285,7 +285,7 @@ var JOURNAL_ENTRIES = [
           ["Edge behavior", "A-t-on test\xE9 hors distribution, pas seulement le chemin heureux ?", "partiel \u2014 quatre cas sur les bornes de bandes"],
           ["Graceful degradation", "Quand l'agent ne sait pas, le dit-il, ou improvise-t-il ? Le refus est-il cod\xE9 comme un contrat ?", "acquis \u2014 contrat de refus en huit r\xE8gles, grader d\xE9di\xE9, palier 1"],
           ["Observability", "A-t-on un tableau de bord de ce que le mod\xE8le fait en prod, pas juste l'uptime ?", "absent"],
-          ["Reproducibility", "La m\xEAme entr\xE9e demain produit-elle la m\xEAme sortie ?", "acquis \u2014 temp\xE9rature 0, baselines gel\xE9es, canari pass\xE9"],
+          ["Reproducibility", "La m\xEAme entr\xE9e demain produit-elle la m\xEAme sortie ?", "partiel \u2014 temp\xE9rature 0, baselines gel\xE9es, mais le canari a \xE9t\xE9 invalid\xE9"],
           ["Distribution shift", "A-t-on une alerte si la distribution d'entr\xE9e d\xE9rive ?", "absent"]
         ]
       },
