@@ -196,26 +196,91 @@ export const SEO_ROUTES: SeoRoute[] = [
     },
   },
   {
-    path: "/journal/harnais-graders-boucles-fermees",
-    title: "Harnais, graders, boucles fermées · Ivan de Murard",
+    path: "/journal/harnesses-graders-closed-loops",
+    title: "Harnesses, graders, closed loops · Ivan de Murard",
     description:
-      "Le vocabulaire de l'évaluation des systèmes IA, les cadres, et les deux projets où ils tournent vraiment : Aetherix et Lore. Note de terrain en français.",
+      "A working vocabulary for evaluating AI systems: graders, harnesses, protocols, closed loops, and the two products where it runs, Aetherix and Lore.",
     type: "article",
     changefreq: "monthly",
     priority: "0.7",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: "Harnais, graders, boucles fermées",
-      description:
-        "Le vocabulaire, les cadres, et les deux projets où ils tournent vraiment. Écrit d'abord pour moi, avant des entretiens.",
-      inLanguage: "fr",
-      datePublished: "2026-07-31",
-      dateModified: "2026-07-31",
-      author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
-      articleSection: "Evaluation",
-      url: `${BASE_URL}/journal/harnais-graders-boucles-fermees`,
-    },
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Harnesses, graders, closed loops",
+        description:
+          "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release.",
+        inLanguage: "en",
+        datePublished: "2026-07-31",
+        dateModified: "2026-08-02",
+        author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
+        articleSection: "Evaluation",
+        url: `${BASE_URL}/journal/harnesses-graders-closed-loops`,
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        url: `${BASE_URL}/journal/harnesses-graders-closed-loops`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "What is a grader?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "One line of a marking sheet: a single criterion, pass or fail, plus the reason. Kept deterministic, because a model judging a model fails the same way as the thing it judges.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Harness or protocol, what is the difference?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "The protocol says what passing means. The harness is the machinery that applies it. Neither decides anything without the other.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Why not just write tests?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Because the failure mode is a perfectly formed answer carrying the wrong threshold. Code coverage cannot see that. In the four real defects found on Lore, the code worked exactly as written.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can an LLM judge another LLM's output?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "On criteria where the cost of a wrong verdict is bounded, yes, provided it is calibrated against a golden set and its agreement rate with humans is measured. Never on a tier that admits no failures, because it fails in the same way as the thing it grades.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What does a closed loop actually require?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Ground truth. Without something that says whether the output was right, you have measurement, not learning. Closing the measurement loop is architectural; closing the authority loop is a business and regulatory decision, and in aviation it is prohibited.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How do you prevent hallucinations?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "You do not prevent them, you make them visible and blocking. A safety tier at 100% with no budget, and refusal coded as a contract rather than requested as a style note.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What is a confidence score worth?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "It depends which of three things it is. Self-declared by the model: a generated token, not a measurement. By corroboration: counted, therefore useful. Calibrated: the only strict sense, and it requires outcome data.",
+            },
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/contact",
