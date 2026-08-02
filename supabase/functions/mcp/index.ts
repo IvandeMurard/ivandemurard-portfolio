@@ -181,122 +181,126 @@ var JOURNAL_ENTRIES = [
     ]
   },
   {
-    slug: "harnais-graders-boucles-fermees",
-    title: "Harnais, graders, boucles ferm\xE9es",
-    subtitle: "La fiche que je me suis \xE9crite pour savoir r\xE9pondre.",
+    slug: "harnesses-graders-closed-loops",
+    title: "Harnesses, graders, closed loops",
+    subtitle: "A working vocabulary for evaluating AI systems, and the two products where it runs.",
     date: "2026-07-31",
     category: "Evaluation",
-    lang: "fr",
-    readingMinutes: 14,
+    lang: "en",
+    readingMinutes: 16,
     related: [
       { label: "Lore", to: "/lore" },
       { label: "Aetherix", to: "/aetherix" }
     ],
-    excerpt: "Le vocabulaire, les cadres, et les deux projets o\xF9 ils tournent vraiment. \xC9crit d'abord pour moi, avant des entretiens, parce que je savais faire des choses que je ne savais pas nommer.",
+    excerpt: "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
     body: [
       {
         kind: "p",
-        text: "J'ai \xE9crit cette fiche pour moi, avant des entretiens, parce que je m'apercevais que je savais faire des choses que je ne savais pas nommer. Je la publie telle quelle, avec ses trous. Tout ce qui suit tourne dans deux projets : Aetherix, agent d'op\xE9rations pour l'h\xF4tellerie, et Lore, mentor vocal pour la maintenance a\xE9ronautique. Les chiffres viennent de leurs d\xE9p\xF4ts."
+        text: "Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision."
       },
-      { kind: "h2", text: "1. Le vocabulaire, par l'analogie de l'examen" },
       {
         kind: "p",
-        text: "Un examen du permis de conduire contient toutes les pi\xE8ces. C'est l'analogie \xE0 d\xE9rouler quand on demande de d\xE9finir ces termes, et elle sert une fois, pour poser le vocabulaire."
+        text: "Everything here runs in two products: Aetherix, an operations agent for hospitality, and Lore, a voice mentor for aviation maintenance. The numbers come from their repositories, not from a whitepaper. Where something is not yet built, it says so."
+      },
+      { kind: "h2", text: "1. The vocabulary, through the driving test" },
+      {
+        kind: "p",
+        text: "A driving test contains every piece of the machinery. It is worth one pass to fix the words, and the rest of this piece will not need it again."
       },
       {
         kind: "defs",
         items: [
-          { term: "Jeu de cas", def: "Le parcours d'examen. Les situations qu'on fait passer au syst\xE8me, choisies \xE0 l'avance, dont on conna\xEEt la bonne r\xE9ponse." },
-          { term: "Grader", def: "Une ligne de la grille d'\xE9valuation. \xAB A-t-il regard\xE9 dans le r\xE9troviseur ? \xBB Oui/non, plus la raison. Un crit\xE8re, rien d'autre." },
-          { term: "Harnais", def: "Tout le dispositif d'examen. Le parcours, l'examinateur, la grille, la note de passage, le proc\xE8s-verbal." },
-          { term: "Protocole", def: "Les r\xE8gles. Quoi mesurer, sur quelles donn\xE9es, \xE0 partir de quel seuil c'est inacceptable, qui d\xE9cide, quand \xE7a bloque. Un document et une d\xE9cision, pas du code." },
-          { term: "Boucle ouverte", def: "On mesure, un humain lit, il agit peut-\xEAtre. La mesure ne change rien par elle-m\xEAme." },
-          { term: "Boucle ferm\xE9e", def: "La mesure est rec\xE2bl\xE9e dans le syst\xE8me et le change toute seule. Le merge est bloqu\xE9, la version retir\xE9e, l'\xE9chec devient un cas de test." }
+          { term: "Case set", def: "The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset." },
+          { term: "Grader", def: `One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.` },
+          { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict." },
+          { term: "Protocol", def: "The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code." },
+          { term: "Open loop", def: "You measure, a human reads it, they may act. The measurement changes nothing by itself." },
+          { term: "Closed loop", def: "The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case." }
         ]
       },
       {
         kind: "quote",
-        text: "Un grader juge un crit\xE8re, le harnais fait passer l'examen, le protocole dit ce que \xAB r\xE9ussi \xBB veut dire. Protocole sans harnais : une intention. Harnais sans protocole : un nombre sans d\xE9cision attach\xE9e."
+        text: "A grader judges one criterion, a harness runs the exam, a protocol says what passing means. A protocol without a harness is an intention. A harness without a protocol is a number with no decision attached."
       },
       {
         kind: "p",
-        text: "Le pi\xE8ge fr\xE9quent : un grader n'est pas une alerte. Un grader juge, une alerte pr\xE9vient. Savoir si quelqu'un l'apprend est le travail de la boucle."
+        text: "The common confusion: a grader is not an alert. A grader judges, an alert tells someone. Whether anyone finds out is the loop's job, not the grader's. Same criterion, two moments, two mechanisms."
       },
-      { kind: "h2", text: "2. Les trois bras, et ce que chaque projet peut se permettre" },
+      { kind: "h2", text: "2. Three arms, and what each product can afford" },
       {
         kind: "p",
-        text: "Un gate pr\xE9-merge prouve la qualit\xE9 sur des sc\xE9narios fig\xE9s. Il n'\xE9value rien du comportement en production. Les trois bras sont compl\xE9mentaires, pas alternatifs, et partagent une taxonomie de s\xE9v\xE9rit\xE9 commune pour qu'un FAIL veuille dire la m\xEAme chose partout."
+        text: "A pre-merge gate proves quality on frozen scenarios. It says nothing about behaviour in production. The three arms are complementary, not alternatives, and they share one severity vocabulary so that FAIL means the same thing everywhere."
       },
       {
         kind: "table",
-        caption: "Les trois bras de l'\xE9valuation",
-        head: ["Bras", "Quand", "Ce qu'il prouve"],
+        caption: "The three arms of evaluation",
+        head: ["Arm", "When", "What it proves"],
         rows: [
-          ["A \u2014 Offline / dev-time", "Avant le merge", "Non-r\xE9gression sur le jeu de cas : pr\xE9cision stratifi\xE9e, couverture cat\xE9gorielle"],
-          ["B \u2014 Runtime / online", "En production, continu", "Garde-fous et d\xE9tection d'anomalie sur trafic r\xE9el : taux d'erreur, bornes de sortie, abstention, d\xE9rive, latence"],
-          ["C \u2014 Outcome / aval", "Apr\xE8s coup, boucle longue", "La sortie a-t-elle \xE9t\xE9 actionn\xE9e, et a-t-elle produit de la valeur"]
+          ["A \u2014 Offline, dev-time", "Before the merge", "No regression on the case set: stratified accuracy, category coverage"],
+          ["B \u2014 Runtime, online", "In production, continuously", "Guardrails and anomaly detection on real traffic: error rates, output bounds, abstention, drift, latency"],
+          ["C \u2014 Outcome, downstream", "After the fact, long loop", "Was the output acted on, and did it produce value"]
         ]
       },
       {
         kind: "p",
-        text: "On ne passe pas un parachute au jeu de cas, on le mesure en vol. \xC0 condition que le bras B soit tenu au m\xEAme standard : chaque \xE9tage \xE9met un signal mesurable, \xE0 raison typ\xE9e."
+        text: "You do not test a parachute against a case set; you measure it in flight. Provided arm B is held to the same standard: every layer emits a measurable signal with a typed reason."
       },
-      { kind: "h3", text: "Ce dont chaque projet dispose" },
+      { kind: "h3", text: "What each product actually has" },
       {
         kind: "table",
-        caption: "Boucles d'apprentissage disponibles dans chaque projet",
+        caption: "Learning loops available in each product",
         head: ["", "Aetherix", "Lore"],
         rows: [
-          ["Boucle humaine", "Une tape sur WhatsApp : accepter, modifier, rejeter", "Le log d'intervention, non exploit\xE9 \xE0 ce jour"],
-          ["Comparaison automatique", "Oui. La MAPE se calcule seule et sert de KPI produit de niveau 1", "Aucune"],
-          ["V\xE9rit\xE9 terrain", "D\xE9clar\xE9e par le manager. Lire le point de vente est en phase 4 et porte son propre ADR", "Inexistante, et le signal est censur\xE9 : d\xE8s qu'on escalade, le contrefactuel dispara\xEEt"]
+          ["Human loop", "One tap on WhatsApp: accept, modify, reject", "The intervention log, not yet exploited"],
+          ["Automatic comparison", "Yes. Forecast error computes itself and is the level-1 product KPI", "None"],
+          ["Ground truth", "Declared by the manager. Reading it from the point of sale is phase 4 and has its own architecture decision on file", "None, and the signal is censored: escalate, and the counterfactual disappears"]
         ]
       },
       {
         kind: "p",
-        text: "Aetherix fait tourner une boucle et demie, pas deux. La comparaison est autonome : la pr\xE9cision se calcule sans que personne d\xE9cide de la calculer, et des seuils bloquent dessus. La v\xE9rit\xE9 \xE0 laquelle elle se compare reste d\xE9clar\xE9e par un humain. C'est \xE0 dire pr\xE9cis\xE9ment, parce que \xAB boucle ferm\xE9e sur une v\xE9rit\xE9 d\xE9clar\xE9e \xBB est un propos d'ing\xE9nieur et \xAB double boucle autonome \xBB un propos de plaquette."
+        text: 'Aetherix runs one and a half loops, not two. The comparison is autonomous, accuracy is computed without anyone deciding to compute it, and thresholds gate on it. The truth it compares against is still declared by a human. That is worth saying precisely, because "closed loop on a declared truth" is an engineering statement and "dual autonomous loop" is a brochure statement.'
       },
       {
         kind: "p",
-        text: "Lore n'a ni l'une ni l'autre moiti\xE9. Rien ne lui dit si une observation \xE9tait juste, et le peu qui pourrait le faire est censur\xE9 : on escalade, et on n'apprend jamais ce qui se serait pass\xE9 sans. Les r\xE9sultats en maintenance sont lents, rares et confondus."
+        text: "Lore has neither half. Nothing tells it whether an observation was right, and the little that could is censored: escalate, and you never learn what would have happened otherwise. Maintenance outcomes are slow, sparse and confounded."
       },
       {
         kind: "quote",
-        text: "Quand on ne peut pas apprendre des r\xE9sultats, il faut sur-investir en amont. Aetherix peut se permettre un bras C parce que la r\xE9alit\xE9 l'alimente. Lore doit compenser par les deux premiers. C'est pour \xE7a que son harnais d'\xE9val p\xE8se pr\xE8s du tiers de sa base de code : ce n'est pas de la rigueur gratuite, c'est le prix d'une boucle de r\xE9sultat absente."
+        text: "When you cannot learn from outcomes, you have to over-invest upstream. Aetherix can afford a third arm because reality feeds it. Lore has to compensate through the first two. That is why its evaluation harness weighs close to a third of its codebase: not gratuitous rigour, but the price of a missing outcome loop."
       },
       {
         kind: "deployed",
         items: [
-          { project: "Aetherix", to: "/aetherix", text: ": Bras A en gate CI, bras B avec son propre ADR sur les garde-fous runtime, et chaque appel d'outil \xE9mis comme un \xE9v\xE9nement structur\xE9, auditable et facturable." },
-          { project: "Lore", to: "/lore", text: ": Bras A seulement, offline et live. Pas de runtime." }
+          { project: "Aetherix", to: "/aetherix", text: "Arm A as a CI gate, arm B with its own architecture decision on runtime guardrails, and every tool call emitted as a structured event, auditable and billable." },
+          { project: "Lore", to: "/lore", text: "Arm A only, offline and live. No runtime." }
         ]
       },
-      { kind: "h2", text: "3. \xAB Working \xBB contre \xAB Reliable \xBB, les cinq dimensions" },
-      { kind: "quote", text: "\xAB Working \xBB se prouve sur un jeu de test. \xAB Reliable \xBB se prouve en production." },
+      { kind: "h2", text: '3. "Working" against "Reliable", five dimensions' },
+      { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. \u2014 Qonto" },
       {
         kind: "p",
-        text: "Cinq dimensions, une question chacune, \xE0 r\xE9pondre avant de livrer. La colonne de droite est l'\xE9tat r\xE9el de Lore. Savoir dire o\xF9 on en est vaut mieux que pr\xE9tendre couvrir."
+        text: "Five dimensions, one question each, to answer before shipping. The right-hand column is Lore's actual state. Saying where you are beats claiming coverage."
       },
       {
         kind: "table",
-        caption: "Les cinq dimensions de la fiabilit\xE9, et l'\xE9tat de Lore",
-        head: ["Dimension", "La question", "Lore"],
+        caption: "Five reliability dimensions, and where Lore stands",
+        head: ["Dimension", "The question", "Lore"],
         rows: [
-          ["Edge behavior", "A-t-on test\xE9 hors distribution, pas seulement le chemin heureux ?", "partiel \u2014 quatre cas sur les bornes de bandes"],
-          ["Graceful degradation", "Quand l'agent ne sait pas, le dit-il, ou improvise-t-il ? Le refus est-il cod\xE9 comme un contrat ?", "acquis \u2014 contrat de refus en huit r\xE8gles, grader d\xE9di\xE9, palier 1"],
-          ["Observability", "A-t-on un tableau de bord de ce que le mod\xE8le fait en prod, pas juste l'uptime ?", "absent"],
-          ["Reproducibility", "La m\xEAme entr\xE9e demain produit-elle la m\xEAme sortie ?", "partiel \u2014 temp\xE9rature 0, baselines gel\xE9es, mais le canari a \xE9t\xE9 invalid\xE9"],
-          ["Distribution shift", "A-t-on une alerte si la distribution d'entr\xE9e d\xE9rive ?", "absent"]
+          ["Edge behaviour", "Tested outside the distribution, not just the happy path?", "partial \u2014 four cases on band boundaries"],
+          ["Graceful degradation", "When the agent does not know, does it say so, or improvise? Is refusal coded as a contract?", "met \u2014 eight-rule refusal contract, dedicated grader, tier 1"],
+          ["Observability", "Is there a dashboard of what the model does in production, not just uptime?", "absent"],
+          ["Reproducibility", "Does the same input produce the same output tomorrow?", "partial \u2014 temperature 0 and frozen baselines, but the canary has been invalidated"],
+          ["Distribution shift", "Is there an alert if the input distribution drifts?", "absent"]
         ]
       },
       {
         kind: "p",
-        text: "Deux \xAB absent \xBB sur cinq, et les deux rel\xE8vent du bras B. Ce n'est pas un hasard : c'est le plus co\xFBteux, et le seul dont on ne voit l'absence qu'en production."
+        text: "Two absents out of five, and both belong to arm B. Not a coincidence: it is the most expensive arm, and the only one whose absence stays invisible until production."
       },
-      { kind: "h2", text: "4. La pyramide de fiabilit\xE9" },
+      { kind: "h2", text: "4. The reliability pyramid" },
       {
         kind: "p",
-        text: "Chaque \xE9tage suppose celui du dessous. La base n'est pas un \xE9tage parmi d'autres : c'est un pr\xE9requis bloquant. Sans jeu de cas et sans d\xE9finition de l'\xE9chec, rien au-dessus ne se mesure."
+        text: "Each layer assumes the one below it. The base is not one layer among others, it is a blocking prerequisite. Without a case set and without failure definitions, nothing above it can be measured."
       },
       {
         kind: "pyramid",
@@ -306,230 +310,235 @@ var JOURNAL_ENTRIES = [
           { level: "Layer 3", name: "Inbound feedback parser" },
           { level: "Layer 2", name: "LLM reasoning quality" },
           { level: "Layer 1", name: "Forecast accuracy", note: "MAPE" },
-          { level: "Base", name: "Jeu de cas et d\xE9finitions d'\xE9chec", note: "pr\xE9requis bloquant", base: true }
+          { level: "Base", name: "Case set and failure definitions", note: "blocking prerequisite", base: true }
         ]
       },
       {
         kind: "deployed",
         items: [
-          { project: "Aetherix", to: "/aetherix", text: ": La pyramide vient de son plan de fiabilit\xE9. Chaque \xE9tage a sa d\xE9finition d'\xE9chec chiffr\xE9e : une MAPE qui d\xE9vie de plus de trois points de la baseline, une pr\xE9cision de parser sous 90 %, un rappel m\xE9moire sous 0,7 de pr\xE9cision \xE0 5." },
-          { project: "Lore", to: "/lore", text: ": La base existe. Le Layer 2 est ce que gradent les neuf graders. Le Layer 4 est le trou b\xE9ant : la similarit\xE9 du moteur de m\xE9moire n'est ni observ\xE9e ni \xE9valu\xE9e." }
+          { project: "Aetherix", to: "/aetherix", text: "The pyramid comes from its reliability plan. Every layer has a numeric failure definition: forecast error drifting more than three points from baseline, intent parser accuracy below 90%, memory recall below 0.7 precision at five." },
+          { project: "Lore", to: "/lore", text: "The base exists. Layer 2 is what the nine graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated." }
         ]
       },
-      { kind: "h2", text: "5. \xAB Eval as a contract \xBB" },
+      { kind: "h2", text: "5. Evaluation as a contract" },
       {
         kind: "quote",
-        text: "Pas apr\xE8s le bug. Avant la premi\xE8re ligne de code mod\xE8le, r\xE9pondre \xE0 : comment saurons-nous que \xE7a marche ?"
+        text: "Not after the bug. Before the first line of model code, answer this: how will we know it works?"
       },
       {
         kind: "list",
         items: [
-          "Jeu de cas d'abord, exemples repr\xE9sentatifs, bords inclus, avant tout code.",
-          "D\xE9finir l'\xE9chec : qu'est-ce qu'une mauvaise sortie, et \xE0 partir de quel seuil est-ce inacceptable ?",
-          "Le jeu d'\xE9val est une sp\xE9cification, pas un test ajout\xE9 apr\xE8s.",
-          "D\xE8s que la sortie est vue par un client, la barre est ship-or-fail, pas \xAB \xE7a informe une d\xE9cision \xBB."
+          "Case set first. Representative examples, edges included, before any code.",
+          "Define failure. What is a bad output, and above what threshold is it unacceptable?",
+          "The evaluation set is a specification, not a test added afterwards.",
+          'Once the output is seen by a customer, the bar is ship-or-fail, not "it informs a decision".'
         ]
       },
       {
         kind: "p",
-        text: "L'id\xE9e n'est pas de moi. Je l'ai prise \xE0 l'ing\xE9nierie de Qonto, qui la formule comme un contrat plut\xF4t que comme une bonne pratique. C'est ce d\xE9placement qui la rend op\xE9rante : un contrat a une contrepartie et une sanction."
+        text: "The idea is not mine. I took it from Qonto's engineering, which frames it as a contract rather than a best practice. That shift is what makes it operative: a contract has a counterparty and a sanction."
       },
       {
         kind: "p",
-        text: "Un exemple de ce que \xAB contrat \xBB veut dire concr\xE8tement. La documentation de Lore qualifiait depuis toujours la primaut\xE9 de la proc\xE9dure d'\xAB appliqu\xE9e structurellement \xBB, alors que c'\xE9tait une phrase dans deux prompts, c'est-\xE0-dire une requ\xEAte. Trois tentatives pour renforcer la requ\xEAte ont \xE9chou\xE9, dont une qui a fait chuter le palier de s\xE9curit\xE9 de pr\xE8s de quatre points. La garantie vit maintenant dans du code qui v\xE9rifie la r\xE9ponse apr\xE8s g\xE9n\xE9ration contre la r\xE8gle calculable, envoie une correction cibl\xE9e citant les termes du manuel, rev\xE9rifie, et se rabat sur un verdict d\xE9terministe. Le pipeline ne peut plus \xE9mettre une r\xE9ponse qui contredit une r\xE8gle calculable, quoi que fasse le mod\xE8le. Une affirmation sur le code doit \xEAtre tenue par du code."
+        text: `An example of what "contract" means concretely. Lore's documentation had always described procedure primacy as "structurally enforced", when it was a sentence in two prompts, which is a request. Three attempts to strengthen the request failed, one of them dropping the safety tier by nearly four points. The guarantee now lives in code that checks the answer after generation against the computable rule, sends one targeted correction quoting the manual's own terms, checks again, and falls back to a deterministic verdict. The pipeline can no longer emit an answer contradicting a computable rule, whatever the model does. A claim about code has to be held by code.`
       },
       {
         kind: "deployed",
         items: [
-          { project: "Aetherix", to: "/aetherix", text: ": Une d\xE9cision d'architecture trac\xE9e, \xAB Evaluation by design \xBB, pas une consigne d'\xE9quipe. Jeux de cas versionn\xE9s, merge bloqu\xE9 sans pipeline vert." },
-          { project: "Lore", to: "/lore", text: ": Le jeu de cas existait avant le contrat de refus, et c'est lui qui a rendu les d\xE9fauts visibles." }
+          { project: "Aetherix", to: "/aetherix", text: 'A traced architecture decision, "evaluation by design", not a team convention. Versioned case sets, merge blocked without a green pipeline.' },
+          { project: "Lore", to: "/lore", text: "The case set existed before the refusal contract, and it is what made the defects visible." }
         ]
       },
-      { kind: "h2", text: "6. Crit\xE8res d'acceptation, la partie que tout le monde oublie" },
+      { kind: "h2", text: "6. Acceptance criteria, the part everyone skips" },
       {
         kind: "p",
-        text: "Un taux de r\xE9ussite sans seuil attach\xE9 est un nombre, pas une d\xE9cision. Une phrase de cl\xF4ture manquante et un seuil de vibration invent\xE9 sont deux \xE9checs ; un seul peut immobiliser le mauvais avion."
+        text: "A pass rate with no threshold attached is a number, not a decision. A missing closing sentence and an invented vibration threshold are both failures; only one of them can ground the wrong aircraft."
       },
       {
         kind: "table",
-        caption: "Les trois paliers de s\xE9v\xE9rit\xE9 et leurs seuils",
-        head: ["Palier", "Seuil", "Ce qu'il contient"],
+        caption: "Severity tiers and their thresholds",
+        head: ["Tier", "Threshold", "What it covers"],
         rows: [
-          ["1 \u2014 safety", "100 %", "Aucun budget. Chiffre invent\xE9, refus suivi d'une devinette, contradiction de la proc\xE9dure, consensus fabriqu\xE9."],
-          ["2 \u2014 trust", "95 %", "Attribution nomm\xE9e, primaut\xE9 de la proc\xE9dure. Utilisable m\xEAme d\xE9grad\xE9, mais \xE9rode la raison de faire confiance."],
-          ["3 \u2014 form", "90 %", "Formulation et discipline de cl\xF4ture. Une faute n'induit personne en erreur sur une limite."]
+          ["1 \u2014 safety", "100%", "No budget. Invented figures, a refusal followed by a guess, contradicting the procedure, manufactured consensus."],
+          ["2 \u2014 trust", "95%", "Named attribution, procedure cited first. Usable when degraded, but it erodes the reason to trust the system."],
+          ["3 \u2014 form", "90%", "Wording and closing discipline. A miss misleads nobody about a limit."]
         ]
       },
       {
         kind: "table",
-        caption: "Verdicts et codes de sortie",
-        head: ["Code", "Verdict", "Sens"],
+        caption: "Verdicts and exit codes",
+        head: ["Code", "Verdict", "Meaning"],
         rows: [
-          ["0", "PASS", "Tous les paliers \xE0 100 %"],
-          ["1", "FAIL", "Un palier sous son seuil"],
-          ["2", "ERROR", "Le harnais a plant\xE9. Aucune mesure n'a \xE9t\xE9 prise"],
-          ["3", "WARN", "Seuils tenus mais un palier n'est pas propre. Pas un synonyme de \xAB \xE7a va \xBB"]
+          ["0", "PASS", "Every tier at 100%"],
+          ["1", "FAIL", "A tier below its threshold"],
+          ["2", "ERROR", "The harness crashed. No measurement was taken"],
+          ["3", "WARN", 'Thresholds met but a tier is not clean. Not a synonym for "fine"']
         ]
       },
       {
         kind: "p",
-        text: "C'est ici que l'analogie du permis rend son dernier service : on peut collectionner les points et rentrer \xE0 pied pour une seule faute \xE9liminatoire. Un run de Lore a fini \xE0 52 sur 53 et a \xE9t\xE9 d\xE9clar\xE9 FAIL, parce que l'unique \xE9chec \xE9tait en palier 1."
+        text: "This is where the driving test earns its keep. You can collect minor faults and still pass. One major fault and you walk home, whatever the rest of the sheet says. A Lore run finished at 52 out of 53 and was declared a failure, because the single miss sat in tier 1."
       },
       {
         kind: "p",
-        text: "S\xE9parer ERROR de FAIL n'est pas de la coquetterie. Le runner n'\xE9mettait que 0 et 1, donc un plantage sortait en FAIL. \xAB Aucune mesure n'a \xE9t\xE9 prise \xBB et \xAB la mesure est mauvaise \xBB appellent des actions oppos\xE9es, et un CI qui confond les deux lit un crash comme un signal de qualit\xE9."
+        text: 'Separating ERROR from FAIL is not fussiness. The runner emitted only 0 and 1, so a crash exited as FAIL. "No measurement was taken" and "the measurement came back bad" call for opposite actions, and a CI that conflates them reads a crash as a quality signal.'
       },
-      { kind: "h3", text: "Les deux r\xE8gles qui font la diff\xE9rence" },
+      { kind: "h3", text: "The two rules that make the difference" },
       {
         kind: "list",
         items: [
-          "R\xE9gression relative, pas seulement plancher absolu. Une chute de plus de trois points contre la baseline gel\xE9e est un \xE9chec m\xEAme si le palier reste au-dessus de son seuil. Et un cas qui tenait \xE0 la baseline et \xE9choue maintenant fait \xE9chouer le run si un grader de palier 1 figure parmi ses \xE9checs ; sur les paliers 2 et 3 il avertit et le dit. La s\xE9v\xE9rit\xE9 suit ce qui a cass\xE9, sinon un \xE9cart de forme mesur\xE9 \xE0 0,6 point ferait passer la construction au rouge.",
-          "Le d\xE9terminisme est un pr\xE9requis. Des crit\xE8res d'acceptation contre une mesure mouvante ne veulent rien dire."
+          "Relative regression, not just an absolute floor. A drop of more than three points against the frozen baseline is a failure even when the tier stays above its threshold. And a case that held at baseline and fails now fails the run if a tier-1 grader is among its failures; on tiers 2 and 3 it warns and says so. Severity follows what broke, otherwise a measured 0.6-point wording flap would turn the build red.",
+          "Determinism is a prerequisite. Acceptance criteria against a moving measurement mean nothing."
         ]
       },
       {
         kind: "p",
-        text: "Le cas v\xE9cu : deux runs des m\xEAmes 53 cas ont donn\xE9 38 puis 36, avec seulement 12 des 17 \xE9checs en commun. Huit cas ont bascul\xE9 entre deux passages. \xC0 temp\xE9rature 0,5 le taux est un tirage, pas une mesure."
+        text: "The case in point: two runs of the same 53 cases scored 38 then 36, with only 12 of the 17 failures in common. Eight cases flipped between passes. At temperature 0.5 the rate is a draw, not a measurement."
       },
       {
         kind: "p",
-        text: "Et la suite, qui compte autant. Le protocole demandait trois runs identiques \xE0 0,00 point d'\xE9cart avant qu'un seuil ait le droit de bloquer un merge. La progression a \xE9t\xE9 36, 48, 48, 52, puis 53 sur 53, suivie de quatre runs cons\xE9cutifs sans variance. Les baselines n'ont \xE9t\xE9 gel\xE9es qu'apr\xE8s."
+        text: "And what came next, which matters as much. The protocol required three identical runs at 0.00 points of variance before a threshold could block a merge. The progression was 36, 48, 48, 52, then 53 out of 53, followed by four consecutive runs with no variance. The baselines were frozen only after that."
       },
       {
         kind: "p",
-        text: "Ce canari a depuis \xE9t\xE9 invalid\xE9, et la raison vaut mieux que le r\xE9sultat. La temp\xE9rature 0 rend une requ\xEAte reproductible en pratique, pas d\xE9terministe par construction : le fournisseur reste libre de varier. Quatre runs identiques \xE9taient une preuve empirique, pas une garantie. Puis l'application structurelle de la primaut\xE9 de la proc\xE9dure a ajout\xE9 un second appel mod\xE8le conditionnel sur les r\xE9ponses qu'elle corrige, deux appels par cas corrig\xE9, donc deux occasions de diverger, et la correction se propage dans le texte \xE9valu\xE9. Constat imm\xE9diat : deux runs des m\xEAmes 64 cas \xE0 61 et 62, avec des ensembles d'\xE9checs disjoints."
+        text: "That canary has since been invalidated, and the reason is worth more than the result. Temperature 0 makes a request reproducible in practice, not deterministic by construction: the provider remains free to vary. Four identical runs were empirical evidence, not a guarantee. Then structural enforcement of procedure primacy added a conditional second model call on the answers it corrects, two calls per corrected case, so two chances to diverge, and the correction feeds forward into the graded text. Observed immediately: two runs of the same 64 cases at 61 and 62, with disjoint failure sets."
       },
       {
         kind: "p",
-        text: "L'application a donc relev\xE9 la moyenne et relev\xE9 la variance. Les deux sont vrais, et l'\xE9change vaut la peine : une r\xE9ponse corrig\xE9e vaut mieux qu'une r\xE9ponse fluide et fausse."
+        text: "Enforcement therefore raised the mean and raised the variance. Both are true, and the trade is worth making: a corrected answer beats a fluent wrong one."
       },
       {
         kind: "p",
-        text: "Le canari refait sur le pipeline appliqu\xE9 donne la forme \xE0 attendre : trois runs de 64 cas, palier 1 \xE0 100 % dans les trois, toute la variance observ\xE9e log\xE9e dans le palier 3 \xE0 0,6 point, largement dans le budget de 3. D'o\xF9 la r\xE8gle corrig\xE9e plut\xF4t que tue : 0,00 point d'\xE9cart exig\xE9 sur le palier 1 seul, les paliers 2 et 3 libres de bouger dans leur budget. Le palier de s\xE9curit\xE9 est gard\xE9 par du code et ne bouge pas ; le palier de forme d\xE9pend de la formulation et bougera toujours."
+        text: "The canary rerun on the enforced pipeline gives the shape to expect: three runs of 64 cases, tier 1 at 100% in all three, all observed variance sitting in tier 3 at 0.6 points, well inside the three-point budget. Hence the rule corrected rather than quietly dropped: 0.00 points of variance required on tier 1 alone, tiers 2 and 3 free to move inside their budget. The safety tier is guarded by code and does not move; the form tier depends on phrasing and always will."
       },
       {
         kind: "quote",
-        text: "Exiger 0,00 sur tous les paliers fixe une barre qu'on ne peut pas tenir, et un gate qu'on ne peut pas tenir est un gate qu'on apprend \xE0 ignorer. C'est exactement la d\xE9faillance que les graders eux-m\xEAmes r\xE9p\xE9taient."
+        text: "Demanding 0.00 across every tier sets a bar that cannot be met, and a gate that cannot be met is a gate people learn to ignore. That is exactly the failure the graders themselves kept making."
       },
       {
         kind: "deployed",
         items: [
-          { project: "Aetherix", to: "/aetherix", text: ": L'origine. Le fichier de seuils d'\xE9chec et le script de couverture, contrat de codes de sortie inclus. Le gate n'est pass\xE9 de WARN \xE0 bloquant qu'apr\xE8s le m\xEAme canari, et la d\xE9rive d'environnement y a \xE9t\xE9 d\xE9sign\xE9e comme coupable r\xE9el plut\xF4t que le mod\xE8le." },
-          { project: "Lore", to: "/lore", text: ": La r\xE9impl\xE9mentation, avec ses baselines gel\xE9es et commit\xE9es, et un gate CI o\xF9 l'offline bloque et la couverture bloque en FAIL. La cible live, elle, ne part plus toute seule : elle exige une \xE9tiquette pos\xE9e sur la demande de fusion ou un d\xE9clenchement manuel. Un run complet, c'est environ soixante-dix appels mod\xE8le pour un quart d'euro, et un CI ne doit pas pouvoir d\xE9penser de sa propre initiative. Le travail saut\xE9 est affich\xE9 comme saut\xE9, pas comme r\xE9ussi, et le job gratuit rappelle sur chaque demande qu'aucun mod\xE8le n'a \xE9t\xE9 appel\xE9." }
+          { project: "Aetherix", to: "/aetherix", text: "The origin. The failure-thresholds file and the coverage script, exit-code contract included. Its gate moved from advisory to blocking only after the same canary, and environment drift was named as the real culprit rather than the model." },
+          { project: "Lore", to: "/lore", text: "The reimplementation, with frozen baselines committed, and a CI gate where the offline job blocks and coverage blocks on FAIL. The live target no longer starts on its own: it requires a label on the pull request or a manual trigger. A full run is about seventy model calls for a quarter of a euro, and CI must not be able to spend on its own initiative. Skipped work is shown as skipped rather than passed, and the free job states on every request that no model was called." }
         ]
       },
-      { kind: "h2", text: "7. L'indice de confiance, trois objets qu'on confond" },
+      { kind: "h2", text: "7. Confidence, three things people conflate" },
       {
         kind: "defs",
         items: [
-          { term: "Auto-d\xE9clar\xE9e", def: "Le mod\xE8le qui \xE9crit une confiance de 0,85. C'est un token g\xE9n\xE9r\xE9, pas une mesure : il produit le chiffre plausible dans le contexte, comme le reste de la phrase." },
-          { term: "Par corroboration", def: "Combien de sources ind\xE9pendantes, quelle fra\xEEcheur, quelle coh\xE9rence. Fiable parce que compt\xE9e, pas devin\xE9e." },
-          { term: "Calibration", def: "Quand le syst\xE8me annonce 80 %, est-ce vrai 80 % du temps ? Le seul sens strict. Exige des donn\xE9es de r\xE9sultat, donc le bras C." }
+          { term: "Self-declared", def: "The model writing a confidence of 0.85. That is a generated token, not a measurement: it produces the plausible number for the context, like the rest of the sentence." },
+          { term: "By corroboration", def: "How many independent sources, how recent, how consistent. Reliable because counted, not guessed." },
+          { term: "Calibration", def: "When the system says 80%, is it right 80% of the time? The only strict sense. It requires outcome data, therefore arm C." }
         ]
       },
       {
         kind: "quote",
-        text: "Un chiffre faux dans un produit de s\xE9curit\xE9 est pire que pas de chiffre, parce que le code en aval et les humains le croiront. L'absence est honn\xEAte ; 0,7 est un mensonge avec une d\xE9cimale."
+        text: "A wrong number in a safety product is worse than no number, because the downstream code and the humans will believe it. Absence is honest; 0.7 is a lie with a decimal place."
       },
       {
         kind: "deployed",
         items: [
-          { project: "Lore", to: "/lore", text: ": Ce n'est pas une figure de style. Il y avait une confiance de 0,7 en dur dans la branche de repli de la capture. Le d\xE9faut n'\xE9tait pas la constante mais sa direction : cette branche s'ex\xE9cute quand l'extraction a \xE9chou\xE9, donc quand la confiance est au plus bas, et 0,7 est au-dessus du neutre. Retir\xE9." }
+          { project: "Lore", to: "/lore", text: "Not a figure of speech. A hard-coded confidence of 0.7 sat in the capture fallback branch. The defect was not the constant but its direction: that branch runs when extraction failed, which is when confidence is lowest, and 0.7 is above neutral. Removed." }
         ]
       },
-      { kind: "h2", text: "8. Humain dans la boucle : par conception ou par d\xE9faut" },
+      { kind: "h2", text: "8. Human in the loop: by design or by default" },
       {
         kind: "table",
-        caption: "Humain dans la boucle, par conception contre par d\xE9faut",
-        head: ["", "Par conception", "Par d\xE9faut"],
+        caption: "Human in the loop, by design against by default",
+        head: ["", "By design", "By default"],
         rows: [
-          ["Statut", "Un n\u0153ud de d\xE9cision : entr\xE9es d\xE9finies, d\xE9cision d\xE9finie, sortie enregistr\xE9e", "Personne n'a automatis\xE9 l'\xE9tape, donc quelqu'un doit s'en souvenir"],
-          ["Trace", "L'approbation devient une donn\xE9e, chaque rejet un cas d'\xE9val", "Aucune trace, aucun apprentissage"],
-          ["Sous charge", "Tient", "Casse"]
+          ["Status", "A decision node: defined inputs, defined decision, recorded output", "Nobody automated the step, so someone has to remember"],
+          ["Trace", "The approval becomes data, every rejection an evaluation case", "No trace, no learning"],
+          ["Under load", "Holds", "Breaks"]
         ]
       },
       {
         kind: "quote",
-        text: "Garder un humain ne d\xE9truit pas la valeur. Laisser l'humain comme seul m\xE9canisme, sans capturer sa d\xE9cision, la d\xE9truit. Le correctif n'est pas de le retirer, c'est de transformer son jugement en artefact."
+        text: "Keeping a human does not destroy the value. Leaving the human as the only mechanism, without capturing their decision, does. The fix is not to remove them, it is to turn their judgement into an artefact."
       },
       {
         kind: "p",
-        text: "Fermer la boucle de mesure, bloquer un merge, alerter sur une d\xE9rive, r\xE9injecter les \xE9checs dans le jeu de cas, est une d\xE9cision purement architecturale. Fermer la boucle d'autorit\xE9, laisser le syst\xE8me agir sans humain, est une d\xE9cision m\xE9tier et r\xE9glementaire. En a\xE9ronautique elle est interdite : le technicien reste l'agent certificateur."
+        text: "Closing the measurement loop, blocking a merge, alerting on drift, feeding failures back into the case set, is a purely architectural decision. Closing the authority loop, letting the system act without a human, is a business and regulatory decision. In aviation it is prohibited: the technician remains the certifying agent."
       },
-      { kind: "h2", text: "9. Signaux, ontologie, priors" },
+      { kind: "h2", text: "9. Signals, ontology, priors" },
       {
         kind: "defs",
         items: [
-          { term: "Signaux", def: "Des \xE9missions typ\xE9es \xE0 chaque \xE9tage : raison de refus, score de r\xE9cup\xE9ration, \xE9v\xE9nement d'abstention, latence. Sans signaux, le bras B est structurellement impossible. On ne surveille pas ce qui ne parle pas." },
-          { term: "Ontologie", def: "Le vocabulaire partag\xE9 qui rend \xAB la m\xEAme situation \xBB calculable. Sans elle, la distinction entre deux appareils n'est que des mots dans un prompt." },
-          { term: "Priors", def: "Ce que le syst\xE8me croit avant de voir la preuve. \xAB Je l'ai vu quatre fois en huit ans \xBB est un prior. En prose c'est une anecdote, en poids c'est un prior." },
-          { term: "Similarit\xE9", def: "R\xE9cup\xE9ration plus ontologie. C'est le Layer 4 de la pyramide, et c'est le plus souvent non \xE9valu\xE9." }
+          { term: "Signals", def: "Typed emissions at every layer: refusal reason, retrieval score, abstention event, latency. Without signals, arm B is structurally impossible. You do not monitor what does not speak." },
+          { term: "Ontology", def: 'The shared vocabulary that makes "the same situation" computable. Without it, the distinction between two aircraft is only words in a prompt.' },
+          { term: "Priors", def: 'What the system believes before seeing evidence. "I have seen it four times in eight years" is a prior. In prose it is an anecdote; as a weight it is a prior.' },
+          { term: "Similarity", def: "Retrieval plus ontology. This is layer 4 of the pyramid, and it is most often unevaluated." }
         ]
       },
       {
         kind: "deployed",
         items: [
-          { project: "Lore", to: "/lore", text: ": La d\xE9monstration en creux. Interrog\xE9 sur un appareil sans historique, le mod\xE8le a r\xE9pondu avec le dossier d'un autre. La s\xE9paration par immatriculation \xE9tait un principe \xE9crit dans la doc, et rien dans le code ne la rendait dure." },
-          { project: "Aetherix", to: "/aetherix", text: ": L'inverse, fait expr\xE8s. L'identifiant client est r\xE9solu c\xF4t\xE9 serveur \xE0 chaque couche et n'est jamais une entr\xE9e d'outil. Ce que le mod\xE8le ne peut pas nommer, il ne peut pas le franchir." }
+          { project: "Lore", to: "/lore", text: "The proof by absence. Asked about an aircraft with no history, the model answered with another aircraft's record. Separation by registration was a principle written in the documentation, and nothing in the code made it hard." },
+          { project: "Aetherix", to: "/aetherix", text: "The opposite, deliberately. The tenant identifier is resolved server-side at every layer and is never a tool input. What the model cannot name, it cannot cross." }
         ]
       },
-      { kind: "h2", text: "10. Le cas Lore, ce qu'un harnais trouve qu'aucun test unitaire ne voit" },
+      { kind: "h2", text: "10. The Lore case: what a harness finds that no unit test sees" },
       {
         kind: "p",
-        text: "Premier run live, 53 cas, 17 \xE9checs. Trois d\xE9fauts que la couverture de code n'aurait jamais r\xE9v\xE9l\xE9s, parce que le code fonctionnait parfaitement."
+        text: "First live run, 53 cases, 17 failures. Three defects that code coverage would never have revealed, because the code worked perfectly."
       },
       {
         kind: "list",
         items: [
-          "Hallucination apr\xE8s un refus honn\xEAte. Le mod\xE8le dit que la proc\xE9dure ne couvre pas le nombre d'aubes, puis en donne un. Mieux reconna\xEEtre le refus aurait fait passer la r\xE9ponse.",
-          "Fuite entre appareils. Interrog\xE9 sur un appareil sans historique, il r\xE9pond avec l'historique d'un autre.",
-          "Consensus fabriqu\xE9. \xC0 partir d'une seule note : \xAB les autres techniciens familiers de cet appareil sont probablement d'accord \xBB. Inventer l'accord fabrique l'autorit\xE9 sur laquelle le lecteur p\xE8se le conseil."
+          "Hallucination after an honest refusal. The model says the procedure does not cover the fan blade count, then supplies one. Recognising the refusal better would have let the answer pass.",
+          "Cross-aircraft leakage. Asked about an aircraft with no history, it answers with another aircraft's.",
+          'Manufactured consensus. From a single note: "other technicians familiar with this airframe likely agree". Inventing agreement fabricates the authority the reader weighs the advice by.'
         ]
       },
-      { kind: "h3", text: "La le\xE7on la moins confortable" },
+      { kind: "h3", text: "The least comfortable lesson" },
       {
         kind: "p",
-        text: "Sur ces 17 \xE9checs, la r\xE9partition \xE9tait presque \xE9galement partag\xE9e entre de vrais d\xE9fauts du mod\xE8le et des graders simplement trop stricts. Un grader qui crie au loup co\xFBte de la s\xE9curit\xE9 : au troisi\xE8me faux positif on arr\xEAte de lire le rapport, et c'est ce jour-l\xE0 que le vrai d\xE9faut passe."
+        text: "Across those 17 failures, the split was almost even between real model defects and graders that were simply too strict. A grader that cries wolf costs safety: after the third false alarm nobody reads the report, and that is the run where the real failure goes past."
       },
       {
         kind: "quote",
-        text: "Une suite de r\xE9gressions prouve que les graders rejettent du mauvais. Elle ne prouve jamais qu'ils acceptent du bon formul\xE9 autrement que par leur auteur. Il faut un run r\xE9el pour \xE7a."
+        text: "A regression suite proves that graders reject bad answers. It never proves they accept good ones phrased differently from how their author phrased them. That takes a real run."
       },
-      { kind: "h3", text: "Et la partie que je pr\xE9f\xE8re" },
+      { kind: "h3", text: "And the part I prefer" },
       {
         kind: "p",
-        text: "Onze cas plus durs ont \xE9t\xE9 ajout\xE9s : bornes de bandes, second expert qui contredit le premier, pression sociale du junior seul \xE0 deux heures du matin qui veut une autorisation. Les 64 cas sont pass\xE9s du premier coup en live. C'\xE9tait l'issue la moins informative possible, alors les r\xE9ponses ont \xE9t\xE9 lues au lieu d'\xEAtre crues."
-      },
-      {
-        kind: "p",
-        text: "La lecture a trouv\xE9 trois cas grad\xE9s trop faiblement pour \xE9chouer, dont un vrai d\xE9faut que le harnais avait laiss\xE9 passer : \xE0 une consommation d'huile de 0,30 qt/h exactement, la r\xE9ponse annon\xE7ait \xAB NORMAL, aucune action requise \xBB. C'est ELEVATED, la borne basse de la bande \xE9tant inclusive. Le motif requis acceptait la r\xE9ponse parce que le mot \xAB NORMAL \xBB y figurait."
+        text: "Eleven harder cases were added: band boundaries, a second expert contradicting the first, the social pressure of a junior alone at two in the morning who wants permission. All 64 passed live on the first attempt. That was the least informative outcome available, so the answers were read rather than trusted."
       },
       {
         kind: "p",
-        text: "Les trois cas \xE9chouent maintenant, ce qui est le but. Et la baseline n'a d\xE9lib\xE9r\xE9ment pas \xE9t\xE9 re-gel\xE9e : le protocole dit de geler apr\xE8s trois runs stables, jamais pour faire passer un run rouge au vert."
+        text: `Reading them found three cases graded too weakly to fail, including a real defect the harness had waved through: at an oil consumption of exactly 0.30 qt/hr, the answer said "NORMAL, no further action required". It is ELEVATED, the band's lower bound being inclusive. The required pattern accepted the answer because the word NORMAL appeared in it.`
+      },
+      {
+        kind: "p",
+        text: "All three now fail, which is the point. And the baseline was deliberately not re-frozen: the protocol says freeze after three stable runs, never to turn a red run green."
       },
       {
         kind: "quote",
-        text: "Un jeu de cas qui passe int\xE9gralement a cess\xE9 d'\xEAtre un instrument de d\xE9couverte pour devenir un filet de s\xE9curit\xE9. Les deux sont utiles ; ce ne sont pas le m\xEAme objet."
+        text: "A case set that passes completely has stopped being an instrument of discovery and become a safety net. Both are useful; they are not the same object."
       },
-      { kind: "h2", text: "11. R\xE9ponses courtes, pr\xEAtes \xE0 dire" },
+      { kind: "h2", text: "11. Frequently asked questions" },
       {
         kind: "lines",
         items: [
-          { q: "\xAB C'est quoi un grader ? \xBB", a: "Une ligne de grille d'\xE9valuation : un crit\xE8re, oui/non, plus la raison. D\xE9terministe, parce qu'un juge LLM \xE9choue comme ce qu'il juge." },
-          { q: "\xAB Harnais ou protocole ? \xBB", a: "Le protocole dit ce que \xAB r\xE9ussi \xBB veut dire. Le harnais est la machine qui l'applique. L'un sans l'autre ne d\xE9cide rien." },
-          { q: "\xAB Pourquoi pas juste des tests ? \xBB", a: "Parce que le mode de d\xE9faillance est une r\xE9ponse parfaitement form\xE9e qui donne le mauvais seuil. Le code marchait dans les quatre cas que j'ai trouv\xE9s." },
-          { q: "\xAB Boucle ferm\xE9e, chez vous ? \xBB", a: "Sur la mesure oui, sur l'autorit\xE9 non, et c'est un choix r\xE9glementaire, pas technique. Le technicien reste l'agent certificateur." },
-          { q: "\xAB Comment \xE9vitez-vous les hallucinations ? \xBB", a: "On ne les \xE9vite pas, on les rend visibles et bloquantes. Palier de s\xE9curit\xE9 \xE0 100 %, aucun budget, et le refus cod\xE9 comme un contrat plut\xF4t qu'une consigne de style." },
-          { q: "\xAB Votre indice de confiance ? \xBB", a: "Trois choses diff\xE9rentes : auto-d\xE9clar\xE9e sans valeur, par corroboration compt\xE9e donc utile, calibr\xE9e qui exige des donn\xE9es de r\xE9sultat." }
+          { q: "What is a grader?", a: "One line of a marking sheet: a single criterion, pass or fail, plus the reason. Kept deterministic, because a model judging a model fails the same way as the thing it judges." },
+          { q: "Harness or protocol, what is the difference?", a: "The protocol says what passing means. The harness is the machinery that applies it. Neither decides anything without the other." },
+          { q: "Why not just write tests?", a: "Because the failure mode is a perfectly formed answer carrying the wrong threshold. Code coverage cannot see that. In the four real defects found on Lore, the code worked exactly as written." },
+          { q: "Can an LLM judge another LLM's output?", a: "On criteria where the cost of a wrong verdict is bounded, yes, provided it is calibrated against a golden set and its agreement rate with humans is measured. Never on a tier that admits no failures, because it fails in the same way as the thing it grades." },
+          { q: "What does a closed loop actually require?", a: "Ground truth. Without something that says whether the output was right, you have measurement, not learning. Closing the measurement loop is architectural; closing the authority loop is a business and regulatory decision, and in aviation it is prohibited." },
+          { q: "How do you prevent hallucinations?", a: "You do not prevent them, you make them visible and blocking. A safety tier at 100% with no budget, and refusal coded as a contract rather than requested as a style note." },
+          { q: "What is a confidence score worth?", a: "It depends which of three things it is. Self-declared by the model: a generated token, not a measurement. By corroboration: counted, therefore useful. Calibrated: the only strict sense, and it requires outcome data." }
         ]
       },
-      { kind: "h2", text: "Note de fin" },
+      { kind: "h2", text: "Closing note" },
       {
         kind: "p",
-        text: "Cadres repris de la d\xE9cision d'architecture \xAB Evaluation by design \xBB et du plan de fiabilit\xE9 d'Aetherix. La formulation \xAB eval as a contract \xBB vient de l'ing\xE9nierie de Qonto. Chiffres et exemples issus du harnais de Lore : 64 cas en 12 cat\xE9gories, 9 graders, 21 r\xE9ponses de r\xE9f\xE9rence, 17 r\xE9gressions, 61 tests."
+        text: `Sources: the "evaluation by design" architecture decision and Aetherix's reliability plan. "Eval as a contract" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.`
       },
-      { kind: "p", text: "Ce texte a des trous, et ils sont dans le tableau de la section 3." }
+      { kind: "p", text: "This piece has gaps, and they are in the table in section 3." },
+      {
+        kind: "p",
+        text: "A note on where it came from. I wrote the first version for myself, before interviews, because I kept noticing I could do things I could not name. It turned out to be more useful as a reference than as a memory aid, so it became this."
+      }
     ]
   }
 ];

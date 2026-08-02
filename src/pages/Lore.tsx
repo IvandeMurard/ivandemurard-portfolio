@@ -419,7 +419,7 @@ const Lore = () => (
           </p>
           <Link
             data-reveal-child
-            to="/journal/harnais-graders-boucles-fermees"
+            to="/journal/harnesses-graders-closed-loops"
             className="mt-8 flex items-start gap-4 px-6 py-5 rounded-2xl border border-outline-variant/40 bg-surface-container-low hover:bg-surface-container transition-colors"
           >
             <Icon name="arrow_forward" className="text-secondary text-base mt-1" />
@@ -572,7 +572,7 @@ const Lore = () => (
               Read Aetherix
             </Link>
             <Link
-              to="/journal/harnais-graders-boucles-fermees"
+              to="/journal/harnesses-graders-closed-loops"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="rule" className="text-base" />
