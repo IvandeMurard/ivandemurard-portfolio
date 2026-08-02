@@ -101,7 +101,7 @@ The failure mode here is not a crash. It is a syntactically perfect answer that 
 
 One run scored 52 out of 53 and was declared a failure, because the single miss was in tier 1.
 
-The full protocol, how the 9 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Harnais, graders, boucles fermées": https://ivandemurard.com/journal/harnais-graders-boucles-fermees
+The full protocol, how the 9 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Harnesses, graders, closed loops": https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 ## What it is for
 
@@ -170,6 +170,6 @@ AUTHORS.md: https://github.com/IvandeMurard/Lore/blob/main/AUTHORS.md
 
 - Repository: https://github.com/IvandeMurard/Lore
 - Related: https://ivandemurard.com/aetherix
-- Evaluation protocol: https://ivandemurard.com/journal/harnais-graders-boucles-fermees
+- Evaluation protocol: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 - Contact: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/discussion-and-introduction

@@ -583,7 +583,7 @@ const Atherix = () => (
             The evaluation vocabulary behind these gates, harnesses, graders, acceptance tiers and closed loops, is
             written up in a field note:{" "}
             <Link
-              to="/journal/harnais-graders-boucles-fermees"
+              to="/journal/harnesses-graders-closed-loops"
               className="text-primary border-b border-secondary/40 pb-0.5 hover:opacity-70 transition-opacity"
             >
               Harnais, graders, boucles fermées
