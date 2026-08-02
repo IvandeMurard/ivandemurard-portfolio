@@ -38,6 +38,10 @@ const App = () => (
               <Route path="/atrium" element={<Atrium />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/journal" element={<Journal />} />
+              <Route
+                path="/journal/harnais-graders-boucles-fermees"
+                element={<Navigate to="/journal/harnesses-graders-closed-loops" replace />}
+              />
               <Route path="/journal/:slug" element={<JournalEntry />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
