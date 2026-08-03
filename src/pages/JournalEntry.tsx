@@ -1,10 +1,22 @@
+import { useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
+import { JournalToc, type TocItem } from "@/components/journal/JournalToc";
+import { ReadingProgress } from "@/components/journal/ReadingProgress";
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
+
+const slugifyHeading = (text: string) =>
+  text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "section";
+
 
 type Lang = "en" | "fr";
 
@@ -28,18 +40,58 @@ const LABELS: Record<Lang, { locale: string; readTime: (m: number) => string; de
 const formatDate = (iso: string, locale: string) =>
   new Date(iso).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
 
-const Block = ({ block, labels }: { block: JournalBlock; labels: (typeof LABELS)[Lang] }) => {
+const HeadingAnchor = ({ id, text }: { id: string; text: string }) => (
+  <a
+    href={`#${id}`}
+    aria-label={`Link to section: ${text}`}
+    onClick={(e) => {
+      e.preventDefault();
+      const url = `${window.location.origin}${window.location.pathname}#${id}`;
+      window.history.replaceState(null, "", `#${id}`);
+      navigator.clipboard?.writeText(url).catch(() => undefined);
+      document.getElementById(id)?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start",
+      });
+    }}
+    className="ml-2 align-middle inline-flex items-center text-secondary opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus:opacity-100 transition-opacity duration-300"
+  >
+    <Icon name="link" aria-hidden="true" className="text-base not-italic" />
+  </a>
+);
+
+const Block = ({
+  block,
+  labels,
+  headingId,
+}: {
+  block: JournalBlock;
+  labels: (typeof LABELS)[Lang];
+  headingId?: string;
+}) => {
   switch (block.kind) {
     case "p":
       return <p className="font-body">{block.text}</p>;
     case "h2":
       return (
-        <h2 className="font-headline italic text-2xl md:text-3xl text-primary pt-8">{block.text}</h2>
+        <h2
+          id={headingId}
+          tabIndex={-1}
+          className="group scroll-mt-32 font-headline italic text-2xl md:text-3xl text-primary pt-8"
+        >
+          {block.text}
+          {headingId && <HeadingAnchor id={headingId} text={block.text} />}
+        </h2>
       );
     case "h3":
       return (
-        <h3 className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary pt-6">
+        <h3
+          id={headingId}
+          tabIndex={-1}
+          className="group scroll-mt-32 font-label uppercase tracking-[0.2em] text-[11px] text-secondary pt-6"
+        >
           {block.text}
+          {headingId && <HeadingAnchor id={headingId} text={block.text} />}
         </h3>
       );
     case "quote":
@@ -85,7 +137,7 @@ const Block = ({ block, labels }: { block: JournalBlock; labels: (typeof LABELS)
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
             <caption className="sr-only">{block.caption ?? block.head.join(", ")}</caption>
             <thead>
-              <tr className="border-b border-outline-variant/40">
+              <tr className="border-b border-outline">
                 {block.head.map((h, i) => (
                   <th
                     key={i}
@@ -99,7 +151,7 @@ const Block = ({ block, labels }: { block: JournalBlock; labels: (typeof LABELS)
             </thead>
             <tbody>
               {block.rows.map((row, ri) => (
-                <tr key={ri} className="border-b border-outline-variant/15 last:border-0">
+                <tr key={ri} className="border-b border-outline last:border-0">
                   {row.map((cell, ci) => (
                     <td
                       key={ci}
@@ -216,6 +268,30 @@ const JournalEntry = () => {
   const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
   const lang: Lang = entry?.lang ?? "en";
   const labels = LABELS[lang];
+  const articleRef = useRef<HTMLElement>(null);
+
+  const headingIds = useMemo(() => {
+    const used = new Map<string, number>();
+    return (entry?.body ?? []).map((b) => {
+      if (b.kind !== "h2" && b.kind !== "h3") return undefined;
+      const base = slugifyHeading(b.text);
+      const n = used.get(base) ?? 0;
+      used.set(base, n + 1);
+      return n === 0 ? base : `${base}-${n + 1}`;
+    });
+  }, [entry]);
+
+  const tocItems = useMemo<TocItem[]>(
+    () =>
+      (entry?.body ?? []).flatMap((b, i) =>
+        b.kind === "h2" && headingIds[i] ? [{ id: headingIds[i] as string, text: b.text }] : []
+      ),
+    [entry, headingIds]
+  );
+
+  const tocLabel = lang === "fr" ? "Sommaire" : "Contents";
+
+
 
   if (!entry) {
     return (
@@ -258,8 +334,10 @@ const JournalEntry = () => {
           url: `https://ivandemurard.com/journal/${entry.slug}`,
         }}
       />
-      <div className="pt-32 md:pt-40 pb-32 md:pb-48">
-        <article lang={lang} className="px-6 md:px-12 max-w-3xl mx-auto">
+      <ReadingProgress targetRef={articleRef} />
+      <div className="pt-32 md:pt-40 pb-32 md:pb-48 px-6 md:px-12">
+        <div className="max-w-3xl lg:max-w-6xl mx-auto lg:grid lg:grid-cols-[minmax(0,42rem)_minmax(0,15rem)] lg:gap-16 lg:justify-center">
+        <article ref={articleRef} lang={lang} className="min-w-0">
           <div className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{entry.category}</span>
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
@@ -280,10 +358,11 @@ const JournalEntry = () => {
           <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
             {entry.excerpt}
           </p>
+          {tocItems.length > 1 && <JournalToc items={tocItems} label={tocLabel} variant="mobile" />}
           <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
             {entry.body.map((block, i) => (
               <Reveal key={i}>
-                <Block block={block} labels={labels} />
+                <Block block={block} labels={labels} headingId={headingIds[i]} />
               </Reveal>
             ))}
           </div>
@@ -317,6 +396,12 @@ const JournalEntry = () => {
             </Link>
           </div>
         </article>
+        {tocItems.length > 1 && (
+          <aside className="hidden lg:block">
+            <JournalToc items={tocItems} label={tocLabel} />
+          </aside>
+        )}
+        </div>
       </div>
     </SiteLayout>
   );

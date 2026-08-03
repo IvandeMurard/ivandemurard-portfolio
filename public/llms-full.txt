@@ -52,6 +52,20 @@ URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-found
 
 URL: https://ivandemurard.com/tacet. Tacet is a headless Environmental Twin for hospitality (B2B, 2026, V3). It began as a Bruitparif-powered Score Sérénité dashboard for Parisians, then pivoted to a physics-based, software-only model of the property and its surroundings, exposed via an MCP (Model Context Protocol) server. Four architectural pillars: (A) a 3D ray-tracing physics engine built on shapely and osmnx that computes line of sight and building shielding to cut false positives; (B) a dual memory store with idiosyncratic learning per GPS coordinate plus a Hive Mind that recalibrates baseline sensitivity across the network; (C) a human-in-the-loop guardrail that never changes prices on its own but formulates Price Modifier Rules (for example minus 15% on street-facing suites between June 12 and 14) for Revenue Manager approval; (D) conversational explainability through a mathematical Chain of Thought embedded in every JSON payload (base noise, distance attenuation, ray-tracing penalty, final impact). Stack: Python 3.12, FastAPI, Anthropic MCP SDK, SQLAlchemy, OSMnx, Shapely, GeoPandas, OAuth2, Mews Open API, Apaleo API, RMS webhooks. Designed to work in tandem with Aetherix: Aetherix consumes Tacet rules via MCP, providing internal context (occupancy, F&B, staffing) while Tacet provides external context (street, weather, events). Together they form one predictive twin. ESG impact: yield protection through pre-emptive pricing of noisy inventory, operational excellence through F&B and staffing buffers ahead of weather or social disruption, sustainability through proactive HVAC optimisation and noise mitigation. Source: https://github.com/IvandeMurard/tacet-app/blob/main/CASE_STUDY_V3.md.
 
+## Lore
+
+URL: https://ivandemurard.com/lore. Repository: https://github.com/IvandeMurard/Lore (tag v0.1-hackathon for the V1 build).
+
+Lore is a voice AI mentor for aviation maintenance: a living memory for a trade that is handed down out loud. It captures what a retiring technician knows and never wrote down, then gives it back to a junior on the shop floor by voice. Origin: Speechmatics x AI Collective Paris hackathon, 28 Feb to 1 Mar 2026, V1 built in 24 hours by a team of four, developed solo since. Status: prototype, synthetic procedures, mock aircraft data, evaluation harness running in CI.
+
+Three modes. Capture: the senior debriefs by voice after an intervention and Lore interviews back, filing knowledge against airframe, component and conditions. Query: the junior asks out loud and the answer arrives in three layers, in order, the relevant SOP excerpt, then the senior's oral knowledge attributed by name and month, then that specific aircraft's own history. Log: spoken work records go straight into the aircraft's memory, no keyboard.
+
+Rule number one: Lore never contradicts a procedure, it completes it. Where a senior's habit and the manual disagree, the manual sets the limit and the senior's judgement is reported as context, attributed.
+
+Thesis. Aetherix exists because hotels lose critical knowledge when a manager leaves; Lore exists because the same loss happens when a senior technician retires. What separates them is the cost of being wrong: in hospitality it compounds quietly, in maintenance a wrong figure touches airworthiness on the first occurrence.
+
+Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard (thread per aircraft and per technician), OpenAI TTS, Next.js 14, TypeScript, Tailwind, Vercel.
+
 ## Track record
 
 - 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Rolled out an internal SaaS to 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.
@@ -71,7 +85,8 @@ URL: https://ivandemurard.com/tacet. Tacet is a headless Environmental Twin for 
 
 Index: https://ivandemurard.com/journal.
 
-- A hard call on Aetherix's agent boundaries (2026-04-20). On where to draw the line between forecasting and acting, and why splitting Prophet from Claude shaped the rest of the architecture.
+- Harnesses, graders, closed loops (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for evaluating AI systems: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Runs in two products, Aetherix and Lore.
+- A hard call on Aetherix's agent boundaries (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. On where to draw the line between forecasting and acting, and why splitting Prophet from Claude shaped the rest of the architecture.
 
 ## Frequently asked questions
 
@@ -80,6 +95,9 @@ A: A Paris-based product builder with five years across start-ups, scale-ups and
 
 Q: What is Aetherix?
 A: An agentic AI framework for boutique hotel operations that anticipates staffing and F&B needs, reducing waste and freeing teams for guest care.
+
+Q: What is Lore?
+A: A voice AI mentor for aviation maintenance that captures a retiring technician's undocumented knowledge and returns it to juniors by voice, always after the governing procedure. Prototype, built at a Speechmatics hackathon in early 2026.
 
 Q: How can I reach him?
 A: Email ivandemurard@gmail.com or book a call at https://cal.com/ivandemurard/discussion-and-introduction.

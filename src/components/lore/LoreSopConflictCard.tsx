@@ -47,7 +47,7 @@ export const LoreSopConflictCard = () => (
           Where the expert's oral knowledge and the manual disagree, and what Lore answers
         </caption>
         <thead>
-          <tr className="border-b border-outline-variant/30">
+          <tr className="border-b border-outline">
             <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/4">
               Marc, from experience
             </th>
@@ -61,7 +61,7 @@ export const LoreSopConflictCard = () => (
         </thead>
         <tbody>
           {ROWS.map((r, i) => (
-            <tr key={i} className="border-b border-outline-variant/20 last:border-0 align-top">
+            <tr key={i} className="border-b border-outline last:border-0 align-top">
               <td className="px-6 py-5 text-on-surface-variant leading-relaxed">{r.expert}</td>
               <td className="px-6 py-5 text-on-surface leading-relaxed">{r.manual}</td>
               <td className="px-6 py-5 font-headline italic text-primary text-base md:text-lg leading-relaxed">
