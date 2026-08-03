@@ -268,6 +268,30 @@ const JournalEntry = () => {
   const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
   const lang: Lang = entry?.lang ?? "en";
   const labels = LABELS[lang];
+  const articleRef = useRef<HTMLElement>(null);
+
+  const headingIds = useMemo(() => {
+    const used = new Map<string, number>();
+    return (entry?.body ?? []).map((b) => {
+      if (b.kind !== "h2" && b.kind !== "h3") return undefined;
+      const base = slugifyHeading(b.text);
+      const n = used.get(base) ?? 0;
+      used.set(base, n + 1);
+      return n === 0 ? base : `${base}-${n + 1}`;
+    });
+  }, [entry]);
+
+  const tocItems = useMemo<TocItem[]>(
+    () =>
+      (entry?.body ?? []).flatMap((b, i) =>
+        b.kind === "h2" && headingIds[i] ? [{ id: headingIds[i] as string, text: b.text }] : []
+      ),
+    [entry, headingIds]
+  );
+
+  const tocLabel = lang === "fr" ? "Sommaire" : "Contents";
+
+
 
   if (!entry) {
     return (
