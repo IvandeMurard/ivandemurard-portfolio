@@ -12,13 +12,15 @@
 ## Case studies
 
 - [Aetherix](https://ivandemurard.com/aetherix): F&B Execution Node of the Hospitality Agentic Mesh. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, frees teams to focus on guest experience. Stack: Apaleo PMS, FastAPI, Prophet, pgvector, HiveMemory, Claude Sonnet (Gemini and GPT fallback), MCP Server v0 live on Fly.io.
+- [Lore](https://ivandemurard.com/lore): Voice AI mentor for aviation maintenance. Captures what a retiring technician knows and never wrote down, then gives it back to a junior on the shop floor by voice. Three modes: Capture, Query, Log. The procedure always wins, the senior's judgement always arrives attributed by name and month. Built in 24 hours at Speechmatics x AI Collective Paris, Feb 2026, developed solo since. Prototype: synthetic procedures, mock aircraft data, evaluation harness in CI. Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard, OpenAI TTS, Next.js 14, TypeScript, Tailwind, Vercel.
 - [Sonor](https://ivandemurard.com/sonor): Two-year journey as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to map urban noise and drive sustainability policy.
 - [Tacet](https://ivandemurard.com/tacet): Headless Environmental Twin for hospitality, exposed via an MCP server. A 3D ray-tracing physics engine plus a dual memory store (idiosyncratic and hive mind) turns street, weather and crowd signals into human-approved yield rules and Chain of Thought payloads for RMS, PMS and orchestration agents like Aetherix.
 
 ## Field Notes
 
 - [Journal index](https://ivandemurard.com/journal)
-- [A hard call on Aetherix's agent boundaries](https://ivandemurard.com/journal/agent-boundaries-aetherix)
+- [Harnesses, graders, closed loops](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (2026-07-31): A working vocabulary for evaluating AI systems (case set, grader, harness, protocol, open and closed loops), and the two products where it runs, Aetherix and Lore.
+- [A hard call on Aetherix's agent boundaries](https://ivandemurard.com/journal/agent-boundaries-aetherix) (2026-04-20)
 
 ## Track record
 
