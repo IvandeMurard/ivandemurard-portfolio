@@ -8,9 +8,10 @@ const prefersReducedMotion = () =>
 interface JournalTocProps {
   items: TocItem[];
   label?: string;
+  variant?: "mobile" | "desktop";
 }
 
-export const JournalToc = ({ items, label = "Contents" }: JournalTocProps) => {
+export const JournalToc = ({ items, label = "Contents", variant = "desktop" }: JournalTocProps) => {
   const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);
   const [open, setOpen] = useState(false);
 
@@ -72,9 +73,8 @@ export const JournalToc = ({ items, label = "Contents" }: JournalTocProps) => {
     </ol>
   );
 
-  return (
-    <>
-      {/* Mobile: collapsible */}
+  if (variant === "mobile") {
+    return (
       <nav aria-label={label} className="lg:hidden mb-10 rounded-sm border border-outline-variant/25">
         <button
           type="button"
@@ -92,13 +92,14 @@ export const JournalToc = ({ items, label = "Contents" }: JournalTocProps) => {
           {list}
         </div>
       </nav>
+    );
+  }
 
-      {/* Desktop: sticky column */}
-      <nav aria-label={label} className="hidden lg:block sticky top-32 max-h-[70vh] overflow-y-auto pr-2">
-        <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">{label}</div>
-        {list}
-      </nav>
-    </>
+  return (
+    <nav aria-label={label} className="hidden lg:block sticky top-32 max-h-[70vh] overflow-y-auto pr-2">
+      <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">{label}</div>
+      {list}
+    </nav>
   );
 };
 
