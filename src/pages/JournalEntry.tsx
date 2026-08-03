@@ -334,8 +334,10 @@ const JournalEntry = () => {
           url: `https://ivandemurard.com/journal/${entry.slug}`,
         }}
       />
-      <div className="pt-32 md:pt-40 pb-32 md:pb-48">
-        <article lang={lang} className="px-6 md:px-12 max-w-3xl mx-auto">
+      <ReadingProgress targetRef={articleRef} />
+      <div className="pt-32 md:pt-40 pb-32 md:pb-48 px-6 md:px-12">
+        <div className="max-w-3xl lg:max-w-6xl mx-auto lg:grid lg:grid-cols-[minmax(0,42rem)_minmax(0,15rem)] lg:gap-16 lg:justify-center">
+        <article ref={articleRef} lang={lang} className="min-w-0">
           <div className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{entry.category}</span>
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
@@ -356,10 +358,11 @@ const JournalEntry = () => {
           <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
             {entry.excerpt}
           </p>
+          {tocItems.length > 1 && <JournalToc items={tocItems} label={tocLabel} variant="mobile" />}
           <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
             {entry.body.map((block, i) => (
               <Reveal key={i}>
-                <Block block={block} labels={labels} />
+                <Block block={block} labels={labels} headingId={headingIds[i]} />
               </Reveal>
             ))}
           </div>
@@ -393,6 +396,12 @@ const JournalEntry = () => {
             </Link>
           </div>
         </article>
+        {tocItems.length > 1 && (
+          <aside className="hidden lg:block">
+            <JournalToc items={tocItems} label={tocLabel} />
+          </aside>
+        )}
+        </div>
       </div>
     </SiteLayout>
   );
