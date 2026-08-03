@@ -40,18 +40,58 @@ const LABELS: Record<Lang, { locale: string; readTime: (m: number) => string; de
 const formatDate = (iso: string, locale: string) =>
   new Date(iso).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
 
-const Block = ({ block, labels }: { block: JournalBlock; labels: (typeof LABELS)[Lang] }) => {
+const HeadingAnchor = ({ id, text }: { id: string; text: string }) => (
+  <a
+    href={`#${id}`}
+    aria-label={`Link to section: ${text}`}
+    onClick={(e) => {
+      e.preventDefault();
+      const url = `${window.location.origin}${window.location.pathname}#${id}`;
+      window.history.replaceState(null, "", `#${id}`);
+      navigator.clipboard?.writeText(url).catch(() => undefined);
+      document.getElementById(id)?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start",
+      });
+    }}
+    className="ml-2 align-middle inline-flex items-center text-secondary opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus:opacity-100 transition-opacity duration-300"
+  >
+    <Icon name="link" aria-hidden="true" className="text-base not-italic" />
+  </a>
+);
+
+const Block = ({
+  block,
+  labels,
+  headingId,
+}: {
+  block: JournalBlock;
+  labels: (typeof LABELS)[Lang];
+  headingId?: string;
+}) => {
   switch (block.kind) {
     case "p":
       return <p className="font-body">{block.text}</p>;
     case "h2":
       return (
-        <h2 className="font-headline italic text-2xl md:text-3xl text-primary pt-8">{block.text}</h2>
+        <h2
+          id={headingId}
+          tabIndex={-1}
+          className="group scroll-mt-32 font-headline italic text-2xl md:text-3xl text-primary pt-8"
+        >
+          {block.text}
+          {headingId && <HeadingAnchor id={headingId} text={block.text} />}
+        </h2>
       );
     case "h3":
       return (
-        <h3 className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary pt-6">
+        <h3
+          id={headingId}
+          tabIndex={-1}
+          className="group scroll-mt-32 font-label uppercase tracking-[0.2em] text-[11px] text-secondary pt-6"
+        >
           {block.text}
+          {headingId && <HeadingAnchor id={headingId} text={block.text} />}
         </h3>
       );
     case "quote":
