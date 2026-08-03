@@ -4,6 +4,9 @@ import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { JOURNAL_ENTRIES, READING_LIST } from "@/content/journal";
 
+// Newest first. Default ordering for every entry.
+const ENTRIES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.date));
+
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
@@ -24,8 +27,7 @@ const Journal = () => (
           Notes from the field.
         </h1>
         <p className="text-lg md:text-xl text-on-surface-variant max-w-3xl leading-relaxed font-light">
-          Opinion on hard product decisions in hospitality tech, and a curated trail of what I am reading, listening
-          to, and thinking with.
+          Opinion on hard product decisions in hospitality tech.
         </p>
       </section>
 
@@ -34,11 +36,11 @@ const Journal = () => (
         <div className="flex items-end justify-between mb-12 md:mb-16 gap-8">
           <h2 className="font-headline text-3xl md:text-4xl italic text-primary">Entries</h2>
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-            {JOURNAL_ENTRIES.length} {JOURNAL_ENTRIES.length === 1 ? "piece" : "pieces"}
+            {ENTRIES.length} {ENTRIES.length === 1 ? "piece" : "pieces"}
           </span>
         </div>
         <ul className="divide-y divide-outline-variant/20 border-t border-outline-variant/20">
-          {JOURNAL_ENTRIES.map((e) => (
+          {ENTRIES.map((e) => (
             <li key={e.slug}>
               <Link
                 to={`/journal/${e.slug}`}

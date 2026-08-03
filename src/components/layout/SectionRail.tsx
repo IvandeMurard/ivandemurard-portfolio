@@ -102,9 +102,9 @@ export const SectionRail = ({ sections = [] }: SectionRailProps) => {
         aria-label="Back to top"
         className={[
           "fixed bottom-8 right-6 lg:right-10 z-30",
-          "w-11 h-11 rounded-full bg-surface/80 backdrop-blur-sm border border-outline-variant/40",
-          "flex items-center justify-center text-on-surface-variant hover:text-secondary hover:border-secondary/50",
-          "shadow-sm transition-all duration-500",
+          "w-11 h-11 rounded-full bg-surface-container-high border border-outline",
+          "flex items-center justify-center text-on-surface hover:text-secondary hover:border-secondary",
+          "shadow-md transition-all duration-500",
           showTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-3 pointer-events-none",
         ].join(" ")}
       >
