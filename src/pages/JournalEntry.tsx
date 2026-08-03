@@ -1,10 +1,22 @@
+import { useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
+import { JournalToc, type TocItem } from "@/components/journal/JournalToc";
+import { ReadingProgress } from "@/components/journal/ReadingProgress";
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
+
+const slugifyHeading = (text: string) =>
+  text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "section";
+
 
 type Lang = "en" | "fr";
 
