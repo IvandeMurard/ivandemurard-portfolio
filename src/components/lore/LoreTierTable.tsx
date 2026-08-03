@@ -30,7 +30,7 @@ export const LoreTierTable = () => (
       <table className="w-full min-w-[40rem] border-collapse text-left">
         <caption className="sr-only">Acceptance tiers, thresholds and what each tier covers</caption>
         <thead>
-          <tr className="border-b-2 border-outline-variant/50">
+          <tr className="border-b-2 border-outline">
             <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Tier</th>
             <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Threshold</th>
             <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
@@ -42,7 +42,7 @@ export const LoreTierTable = () => (
           {TIERS.map((t, i) => (
             <tr
               key={t.tier}
-              className={`align-top ${i === 0 ? "border-b-2 border-outline-variant/40" : "border-b border-outline-variant/20 last:border-0"}`}
+              className={`align-top ${i === 0 ? "border-b-2 border-outline" : "border-b border-outline last:border-0"}`}
             >
               <td className={`px-6 py-5 font-headline italic text-xl ${i === 0 ? "text-primary" : "text-on-surface"}`}>
                 {t.tier}

@@ -137,7 +137,7 @@ const Block = ({
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
             <caption className="sr-only">{block.caption ?? block.head.join(", ")}</caption>
             <thead>
-              <tr className="border-b border-outline-variant/40">
+              <tr className="border-b border-outline">
                 {block.head.map((h, i) => (
                   <th
                     key={i}
@@ -151,7 +151,7 @@ const Block = ({
             </thead>
             <tbody>
               {block.rows.map((row, ri) => (
-                <tr key={ri} className="border-b border-outline-variant/15 last:border-0">
+                <tr key={ri} className="border-b border-outline last:border-0">
                   {row.map((cell, ci) => (
                     <td
                       key={ci}
