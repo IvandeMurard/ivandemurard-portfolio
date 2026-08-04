@@ -1,10 +1,16 @@
 # Aetherix
 
-Persistent Operational Cognition for Hospitality. Turning scattered local experience into durable organizational intelligence. Most hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational memory that survives turnover and grows stronger over time, while executing F&B forecasting, staffing and waste reduction as the F&B node of the Hospitality Agentic Mesh.
+The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B node of the Hospitality Agentic Mesh.
 
-Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
+Three promises, with honesty labels: Tomorrow's covers (Shipped, in pilot) anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Two of the three are pilot hypotheses, not measured results.
 
-Understands like a human. Measures like a machine. Remembers like an institution.
+Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
+
+Vision, four nodes with honest status: Aetherix, the F&B agent (forecast, staffing, memory) — Built. Tacet, the environmental-signal node — Prototype. Anima, the Guest Cognition agent — Design. Orchestrator, the supervisory agent — Stub.
+
+Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
+
+Contrast with Lore: Lore, in aviation maintenance, shares this architecture and cannot close the same loop. Nothing there tells the system whether an observation was right, and the moment a technician escalates the counterfactual disappears. Aetherix has an outcome to compare against; that difference decides how much each product is allowed to learn on its own.
 
 - URL: https://ivandemurard.com/aetherix
 - Role: Product Builder & AI Agent Designer (solo)

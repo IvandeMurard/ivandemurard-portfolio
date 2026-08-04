@@ -56,7 +56,7 @@ const NodeCard = ({
       <p className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary mt-1">{sub}</p>
     )}
     {emphasized && (
-      <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[8px] whitespace-nowrap">
+      <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px] whitespace-nowrap">
         this node
       </span>
     )}
@@ -78,7 +78,7 @@ export const AetherixMeshDiagram = () => (
           <NodeCard title="Orchestrator" sub="Supervisory" />
           <div className="flex flex-col items-center gap-1">
             <NodeCard title="Anima" sub="Guest Cognition" />
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label uppercase tracking-[0.18em] text-[8px]">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px]">
               Synthetic PoC
             </span>
           </div>
@@ -111,7 +111,7 @@ export const AetherixMeshDiagram = () => (
         </div>
         <div className="w-full flex flex-col items-center gap-1">
           <NodeCard title="Anima" sub="Guest Cognition" />
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label uppercase tracking-[0.18em] text-[8px]">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px]">
             Synthetic PoC
           </span>
         </div>
@@ -165,15 +165,8 @@ export const AetherixMeshDiagram = () => (
               </td>
               <td className="px-5 py-4 text-on-surface leading-relaxed">{n.role}</td>
               <td className="px-5 py-4">
-                <span
-                  className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-label uppercase tracking-[0.18em] ${
-                    n.statusTone === "live"
-                      ? "bg-secondary text-on-secondary"
-                      : n.statusTone === "shipped"
-                      ? "bg-secondary-fixed text-on-secondary-container"
-                      : "bg-surface-container-high text-on-surface-variant border border-outline-variant/30"
-                  }`}
-                >
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-label uppercase tracking-[0.18em] bg-secondary text-on-secondary">
+
                   {n.status}
                 </span>
               </td>
