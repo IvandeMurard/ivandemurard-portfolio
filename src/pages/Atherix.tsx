@@ -116,7 +116,7 @@ const TRUST = [
 const FAQ = [
   {
     q: "What is Aetherix in one sentence?",
-    a: "Persistent operational cognition for hospitality: a living memory that survives manager turnover and executes F&B forecasting, staffing and waste reduction on WhatsApp, as one node of the Hospitality Agentic Mesh.",
+    a: "The F&B execution agent for boutique hotels: tomorrow's covers, a staffing grid that fits and less waste, in one WhatsApp message a day with the reasoning attached, as one node of the Hospitality Agentic Mesh.",
   },
   {
     q: "Why memory, not just forecasting?",
@@ -181,10 +181,10 @@ const ATHERIX_SECTIONS = [
 
 
 const Atherix = () => (
-  <SiteLayout title="Aetherix: Persistent Operational Cognition for Hospitality" sections={ATHERIX_SECTIONS}>
+  <SiteLayout title="Aetherix: the F&B execution agent for boutique hotels" sections={ATHERIX_SECTIONS}>
     <Seo
-      title="Aetherix, Persistent Operational Cognition for Hospitality"
-      description="Hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational memory that survives turnover, anticipates F&B demand, and delivers one-tap decisions on WhatsApp."
+      title="Aetherix, the F&B execution agent for boutique hotels"
+      description="Aetherix is the F&B execution agent for boutique hotels: tomorrow's covers, a staffing grid that fits, and less waste, in one WhatsApp message a day with the reasoning attached."
       path="/aetherix"
       type="article"
       jsonLd={[
@@ -192,9 +192,9 @@ const Atherix = () => (
           "@context": "https://schema.org",
           "@type": "CreativeWork",
           name: "Aetherix",
-          headline: "Aetherix, Persistent Operational Cognition for Hospitality",
+          headline: "Aetherix, the F&B execution agent for boutique hotels",
           description:
-            "Aetherix turns scattered local experience into durable organizational intelligence. It builds persistent operational memory that survives manager turnover and grows stronger over time, while executing F&B forecasting, staffing and waste reduction as the F&B node of the Hospitality Agentic Mesh.",
+            "Aetherix is the F&B execution agent for boutique hotels. It forecasts tomorrow's covers, proposes a staffing grid that fits and flags waste risk, in one WhatsApp message a day with the reasoning attached. Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Aetherix is the F&B node of the Hospitality Agentic Mesh.",
           url: "https://ivandemurard.com/aetherix",
           about: ["Operational Memory", "Organizational Intelligence", "Agentic AI", "Hospitality Operations", "F&B Forecasting", "MCP"],
           keywords:
@@ -239,56 +239,15 @@ const Atherix = () => (
               style={{ ["--reveal-delay" as string]: "200ms" }}
               className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
-              Persistent Operational Cognition for Hospitality.
+              The F&amp;B execution agent for boutique hotels.
             </p>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "280ms" }}
-              className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed mb-4"
+              className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed"
             >
-              Turning scattered local experience into durable organizational intelligence.
-            </p>
-            <p
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: "340ms" }}
-              className="text-on-surface-variant font-body text-base max-w-2xl leading-relaxed"
-            >
-              Most hotels lose critical knowledge every time a manager leaves. Aetherix builds persistent operational
-              memory that survives turnover and grows stronger over time.
-            </p>
-
-            {/* Cycle 4 lignes */}
-            <ul
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: "420ms" }}
-              className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 max-w-2xl"
-              aria-label="Aetherix cycle"
-            >
-              {MEMORY_CYCLE.map((step, i) => (
-                <li key={step.title} className="flex items-baseline gap-3 text-sm text-on-surface">
-                  <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums">
-                    0{i + 1}
-                  </span>
-                  <span>
-                    <span className="font-headline italic text-primary">{step.title}.</span>{" "}
-                    <span className="text-on-surface-variant">
-                      {step.title === "Memory" && "Recall what worked here."}
-                      {step.title === "Prediction" && "Calibrated for tomorrow."}
-                      {step.title === "Action" && "One tap on WhatsApp."}
-                      {step.title === "Learning" && "Every reply is recorded as feedback."}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            {/* Triptyque */}
-            <p
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: "500ms" }}
-              className="mt-8 font-headline italic text-primary text-lg md:text-xl leading-snug max-w-2xl"
-            >
-              Understands like a human. Measures like a machine. Remembers like an institution.
+              Tomorrow's covers, a staffing grid that fits, and less waste. One message a day, in WhatsApp, with the
+              reasoning attached.
             </p>
 
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "580ms" }}>
