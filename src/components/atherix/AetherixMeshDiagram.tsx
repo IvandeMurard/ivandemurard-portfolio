@@ -165,15 +165,8 @@ export const AetherixMeshDiagram = () => (
               </td>
               <td className="px-5 py-4 text-on-surface leading-relaxed">{n.role}</td>
               <td className="px-5 py-4">
-                <span
-                  className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-label uppercase tracking-[0.18em] ${
-                    n.statusTone === "live"
-                      ? "bg-secondary text-on-secondary"
-                      : n.statusTone === "shipped"
-                      ? "bg-secondary text-on-secondary"
-                      : "bg-secondary text-on-secondary"
-                  }`}
-                >
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-label uppercase tracking-[0.18em] bg-secondary text-on-secondary">
+
                   {n.status}
                 </span>
               </td>
