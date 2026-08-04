@@ -450,8 +450,10 @@ const Atherix = () => (
               style={{ ["--reveal-delay" as string]: "240ms" }}
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
-              Every day, Aetherix runs the same loop. Each turn deposits one more grain of calibrated experience into
-              the property's operational memory.
+              Memory is not the offer, it is the mechanism that makes the forecast specific to one property rather
+              than generic. Every day, Aetherix runs the same loop. Each turn deposits one more grain of calibrated
+              experience into the property's operational memory, which is why the day-90 recommendation is sharper
+              than the day-7 one.
             </p>
           </div>
           <AetherixLoopCards />
@@ -600,6 +602,24 @@ const Atherix = () => (
 
           <div className="mt-14 md:mt-16" data-reveal-child>
             <AetherixWhatRemainsPrivate />
+          </div>
+
+          <div data-reveal-child className="mt-14 md:mt-16 max-w-3xl">
+            <h3 className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+              Why Lore cannot close the same loop
+            </h3>
+            <p className="mt-4 text-on-surface-variant leading-relaxed">
+              <Link
+                to="/lore"
+                className="text-primary border-b border-secondary/40 pb-0.5 hover:opacity-70 transition-opacity"
+              >
+                Lore
+              </Link>
+              , in aviation maintenance, shares this architecture and cannot close the same loop. Nothing there tells
+              the system whether an observation was right, and the moment a technician escalates the counterfactual
+              disappears. Aetherix has an outcome to compare against; that difference decides how much each product is
+              allowed to learn on its own.
+            </p>
           </div>
 
           <p data-reveal-child className="mt-10 text-sm text-on-surface-variant max-w-3xl">
