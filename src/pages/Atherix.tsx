@@ -140,10 +140,37 @@ const FAQ = [
   },
 ];
 
+const THESIS = [
+  {
+    icon: "psychology",
+    title: "Understand, like a human",
+    body: "Contextual reasoning grounded in each property's history.",
+  },
+  {
+    icon: "monitoring",
+    title: "Measure, like a machine",
+    body: "Every recommendation is stored next to its real outcome, so the system knows what it said and what happened.",
+  },
+  {
+    icon: "hive",
+    title: "Learn, like a network",
+    body: "Per-property memory today, federated priors next, to give independents the power of a hive.",
+  },
+];
+
+const VISION_NODES = [
+  { name: "Aetherix", role: "The F&B agent: forecast, staffing, memory.", status: "Built" },
+  { name: "Tacet", role: "The environmental-signal node.", status: "Prototype" },
+  { name: "Anima", role: "The Guest Cognition agent.", status: "Design" },
+  { name: "Orchestrator", role: "The supervisory agent.", status: "Stub" },
+];
+
 const ATHERIX_SECTIONS = [
+  { id: "what-it-does", label: "What it does" },
+  { id: "thesis", label: "Thesis" },
+  { id: "vision", label: "The vision" },
   { id: "problem", label: "Problem" },
   { id: "memory", label: "Memory" },
-  { id: "what-it-does", label: "What it does" },
   { id: "receipt", label: "Daily Receipt" },
   { id: "how", label: "How it works" },
   { id: "trust", label: "Trust" },
@@ -151,6 +178,7 @@ const ATHERIX_SECTIONS = [
   { id: "roadmap", label: "Roadmap" },
   { id: "contact", label: "Contact" },
 ];
+
 
 const Atherix = () => (
   <SiteLayout title="Aetherix: Persistent Operational Cognition for Hospitality" sections={ATHERIX_SECTIONS}>
