@@ -51,29 +51,6 @@ const PROBLEM_PAINS = [
   "Slow onboarding and inconsistent execution across properties",
 ];
 
-const MEMORY_CYCLE = [
-  {
-    icon: "psychology",
-    title: "Memory",
-    body: "Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin.",
-  },
-  {
-    icon: "insights",
-    title: "Prediction",
-    body: "A calibrated forecast for tomorrow: covers, staffing, waste risk, with the drivers behind it.",
-  },
-  {
-    icon: "send",
-    title: "Action",
-    body: "One message on WhatsApp. Accept, modify, or reject in one tap. No new dashboard to learn.",
-  },
-  {
-    icon: "autorenew",
-    title: "Learning",
-    body: "Every reply is recorded as feedback; the pilot tests whether it improves future recommendations.",
-  },
-];
-
 const PROMISES = [
   {
     icon: "restaurant",
@@ -261,6 +238,105 @@ const Atherix = () => (
         </div>
       </Reveal>
 
+      <SectionDivider label="What it does" index="01" />
+
+      {/* WHAT IT DOES */}
+      <Reveal as="section" id="what-it-does" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="max-w-2xl mb-10">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              Three promises, one message a day.
+            </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "160ms" }}
+              className="mt-5 text-on-surface-variant leading-relaxed"
+            >
+              Two of the three are pilot hypotheses, not measured results. They are the outcomes the live pilot is set
+              up to test.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {PROMISES.map((p, i) => (
+              <div
+                key={p.title}
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
+                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+              >
+                <div className="flex items-center gap-3">
+                  <Icon name={p.icon} className="text-secondary text-3xl" />
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant/40 font-label uppercase tracking-[0.18em] text-[9px] text-secondary">
+                    {p.tag}
+                  </span>
+                </div>
+                <h3 className="font-headline italic text-2xl text-primary leading-tight">{p.title}</h3>
+                <p className="text-on-surface-variant leading-relaxed">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      <SectionDivider label="Thesis" index="02" />
+
+      {/* THESIS */}
+      <Reveal as="section" id="thesis" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="max-w-2xl mb-10">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              Understand, measure, learn.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {THESIS.map((t, i) => (
+              <div
+                key={t.title}
+                data-reveal-child
+                style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
+                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+              >
+                <Icon name={t.icon} className="text-secondary text-3xl" />
+                <h3 className="font-headline italic text-2xl text-primary leading-tight">{t.title}.</h3>
+                <p className="text-on-surface-variant leading-relaxed">{t.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      <SectionDivider label="The vision" index="03" />
+
+      {/* VISION — four nodes */}
+      <Reveal as="section" id="vision" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
+        <div className="max-w-3xl mx-auto">
+          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+            The Hospitality Agentic Mesh
+          </span>
+          <h2
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "120ms" }}
+            className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+          >
+            Four nodes, honest status.
+          </h2>
+          <ul data-reveal-child style={{ ["--reveal-delay" as string]: "240ms" }} className="mt-8 space-y-4">
+            {VISION_NODES.map((n) => (
+              <li
+                key={n.name}
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-2 border-b border-outline-variant/25 pb-4 last:border-b-0"
+              >
+                <span className="font-headline italic text-primary text-xl">{n.name}</span>
+                <span className="text-on-surface-variant flex-1 min-w-[12rem]">{n.role}</span>
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px]">
+                  {n.status}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Reveal>
+
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-10">
@@ -301,7 +377,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Problem" index="01" />
+      <SectionDivider label="Problem" index="04" />
 
       {/* PROBLEM — V2 turnover */}
       <Reveal as="section" id="problem" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -353,7 +429,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="How the memory compounds" index="02" />
+      <SectionDivider label="How the memory compounds" index="05" />
 
       {/* MEMORY COMPOUNDS */}
       <Reveal as="section" id="memory" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -392,47 +468,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="What it does" index="03" />
-
-      {/* WHAT IT DOES */}
-      <Reveal as="section" id="what-it-does" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
-        <div className="max-w-screen-2xl mx-auto">
-          <div className="max-w-2xl mb-10">
-            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
-              Three promises, one message a day.
-            </h2>
-            <p
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: "160ms" }}
-              className="mt-5 text-on-surface-variant leading-relaxed"
-            >
-              Two of the three are pilot hypotheses, not measured results. They are the outcomes the live pilot is set
-              up to test.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {PROMISES.map((p, i) => (
-              <div
-                key={p.title}
-                data-reveal-child
-                style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
-                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
-              >
-                <div className="flex items-center gap-3">
-                  <Icon name={p.icon} className="text-secondary text-3xl" />
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant/40 font-label uppercase tracking-[0.18em] text-[9px] text-secondary">
-                    {p.tag}
-                  </span>
-                </div>
-                <h3 className="font-headline italic text-2xl text-primary leading-tight">{p.title}</h3>
-                <p className="text-on-surface-variant leading-relaxed">{p.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="What you see" index="04" />
+      <SectionDivider label="What you see" index="06" />
 
       {/* DAILY RECEIPT */}
       <Reveal as="section" id="receipt" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -451,7 +487,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="How it works" index="05" />
+      <SectionDivider label="How it works" index="07" />
 
       {/* HOW IT WORKS — Mesh + Pipeline + Stack */}
       <Reveal as="section" id="how" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -517,7 +553,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Built to be trusted" index="06" />
+      <SectionDivider label="Built to be trusted" index="08" />
 
       {/* TRUST */}
       <Reveal as="section" id="trust" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -580,7 +616,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Performance" index="07" />
+      <SectionDivider label="Performance" index="09" />
 
       {/* PERFORMANCE */}
       <Reveal as="section" id="performance" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -613,7 +649,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Roadmap" index="08" />
+      <SectionDivider label="Roadmap" index="10" />
 
       {/* ROADMAP */}
       <Reveal as="section" id="roadmap" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -629,7 +665,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Anima, sister node" index="09" />
+      <SectionDivider label="Anima, sister node" index="11" />
 
       {/* ANIMA SPOTLIGHT */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
@@ -638,7 +674,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="Role & model" index="10" />
+      <SectionDivider label="Role & model" index="12" />
 
       {/* ROLE & CTA */}
       <Reveal as="section" id="contact" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
