@@ -8,6 +8,8 @@ import { Reveal } from "@/components/Reveal";
 import { JournalToc, type TocItem } from "@/components/journal/JournalToc";
 import { ReadingProgress } from "@/components/journal/ReadingProgress";
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
+import { getJournalTerms, type TermMark } from "@/content/journalTerms";
+import { createTermTaker } from "@/components/journal/TermText";
 
 const slugifyHeading = (text: string) =>
   text
@@ -60,18 +62,46 @@ const HeadingAnchor = ({ id, text }: { id: string; text: string }) => (
   </a>
 );
 
+const blockStrings = (block: JournalBlock): string[] => {
+  switch (block.kind) {
+    case "p":
+    case "h2":
+    case "h3":
+    case "quote":
+    case "code":
+      return [block.text];
+    case "list":
+      return block.items;
+    case "table":
+      return [...block.head, ...block.rows.flat()];
+    case "defs":
+      return block.items.map((i) => i.def);
+    case "pyramid":
+      return block.layers.flatMap((l) => [l.name, l.note ?? ""]);
+    case "deployed":
+      return block.items.map((i) => i.text);
+    case "lines":
+      return block.items.flatMap((i) => [i.q, i.a]);
+    default:
+      return [];
+  }
+};
+
 const Block = ({
   block,
   labels,
   headingId,
+  marks = [],
 }: {
   block: JournalBlock;
   labels: (typeof LABELS)[Lang];
   headingId?: string;
+  marks?: TermMark[];
 }) => {
+  const t = createTermTaker(marks);
   switch (block.kind) {
     case "p":
-      return <p className="font-body">{block.text}</p>;
+      return <p className="font-body">{t(block.text)}</p>;
     case "h2":
       return (
         <h2
@@ -97,7 +127,7 @@ const Block = ({
     case "quote":
       return (
         <blockquote className="border-l border-secondary/40 pl-6 font-headline italic text-xl md:text-2xl text-primary leading-relaxed">
-          {block.text}
+          {t(block.text)}
         </blockquote>
       );
     case "list":
@@ -108,7 +138,7 @@ const Block = ({
               <span aria-hidden="true" className="text-secondary select-none">
                 &mdash;
               </span>
-              <span>{item}</span>
+              <span>{t(item)}</span>
             </li>
           ))}
         </ul>
@@ -159,7 +189,7 @@ const Block = ({
                         ci === 0 ? "text-primary font-medium" : "text-on-surface-variant font-light"
                       }`}
                     >
-                      {cell}
+                      {t(cell)}
                     </td>
                   ))}
                 </tr>
@@ -176,7 +206,7 @@ const Block = ({
               <dt className="font-label uppercase tracking-[0.16em] text-[11px] text-primary mb-1">
                 {item.term}
               </dt>
-              <dd className="font-body font-light text-base text-on-surface-variant">{item.def}</dd>
+              <dd className="font-body font-light text-base text-on-surface-variant">{t(item.def)}</dd>
             </div>
           ))}
         </dl>
@@ -213,7 +243,7 @@ const Block = ({
                 </div>
                 {layer.note && (
                   <div className="font-body font-light text-xs text-on-surface-variant mt-1">
-                    {layer.note}
+                    {t(layer.note)}
                   </div>
                 )}
               </li>
@@ -237,7 +267,7 @@ const Block = ({
                 >
                   {item.project}
                 </Link>{" "}
-                <span className="text-on-surface-variant">{item.text}</span>
+                <span className="text-on-surface-variant">{t(item.text)}</span>
               </p>
             ))}
           </div>
@@ -252,7 +282,7 @@ const Block = ({
               className="rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-5"
             >
               <dt className="font-headline italic text-lg text-primary mb-2">{item.q}</dt>
-              <dd className="font-body font-light text-sm text-on-surface-variant">{item.a}</dd>
+              <dd className="font-body font-light text-sm text-on-surface-variant">{t(item.a)}</dd>
             </div>
           ))}
         </dl>
@@ -290,6 +320,24 @@ const JournalEntry = () => {
   );
 
   const tocLabel = lang === "fr" ? "Sommaire" : "Contents";
+
+  const blockMarks = useMemo<TermMark[][]>(() => {
+    const body = entry?.body ?? [];
+    const pending = [...getJournalTerms(entry?.slug)];
+    return body.map((b) => {
+      if (!pending.length) return [];
+      const strings = blockStrings(b);
+      const taken: TermMark[] = [];
+      for (const mark of [...pending]) {
+        const re = new RegExp(`\\b${mark.phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+        if (strings.some((s) => re.test(s))) {
+          taken.push(mark);
+          pending.splice(pending.indexOf(mark), 1);
+        }
+      }
+      return taken;
+    });
+  }, [entry]);
 
 
 
@@ -362,7 +410,7 @@ const JournalEntry = () => {
           <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
             {entry.body.map((block, i) => (
               <Reveal key={i}>
-                <Block block={block} labels={labels} headingId={headingIds[i]} />
+                <Block block={block} labels={labels} headingId={headingIds[i]} marks={blockMarks[i]} />
               </Reveal>
             ))}
           </div>
