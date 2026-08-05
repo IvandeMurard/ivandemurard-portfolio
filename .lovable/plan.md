@@ -1,50 +1,49 @@
-## Goal
+# Field Note "Harnesses, graders, closed loops": accessibility, glossary, reading experience
 
-Tighten the Aetherix case study so every claim matches what is actually proven today, and add a short box that frames the unpublished part as deliberate research, not a gap.
+## What the audit found
 
-## 1. Learning claim
+Measured on the live page, both moods, every text node inside `<main>` against its real background:
 
-In `src/pages/Atherix.tsx` (hero cycle line) and `src/components/atherix/AetherixLoopCards.tsx`:
+- **Text contrast: zero failures** in day and dusk. All body, label, table and contents text clears WCAG AA.
+- **Table rules**: 4.21:1 (day) and 3.72:1 (dusk), both above the 3:1 non-text threshold.
+- **Structure**: single `h1`, ordered `h2`/`h3`, table captions and column scopes present, contents panel is a real `nav` with keyboard support, progress bar is decorative and suppressed under reduced motion.
 
-- "Every reply sharpens the next." becomes "Every reply is recorded as feedback; the pilot tests whether it improves future recommendations."
-- Hero cycle line, shorter variant: "Every reply is recorded as feedback." with the full sentence carried in the Learning card body.
-- The Learning card body "The day-90 receipt is sharper than the day-7 one." is rewritten as a hypothesis under test, not a stated fact.
+So point 1 needs no repair. Two real gaps remain.
 
-## 2. Cold-start and Day 7 / Day 90
+- **No glossary tooltips exist on this page at all.** `Term` is wired into the case study pages (Aetherix, Lore, Tacet, Sonor) but Field Note blocks are plain strings, so the renderer has no way to mark a term. Words like harness, grader, golden dataset, abstention, MAPE, drift and closed loop are defined in prose but carry no hover definition, and several are not in the glossary at all.
+- **The contents panel and the anchors work, but the page reads as one long text column.** Two of its ideas are structural (the three arms, the reliability pyramid) and only the pyramid is drawn.
 
-Separate two things that are currently conflated:
+## 1. Glossary tooltips in Field Notes (priority)
 
-- What exists now: global and cross-property context patterns recallable through pgvector, used as a generic prior.
-- What does not exist yet: a true federated cohort prior (HiveMemory as described). Tag it Research, Phase 4+.
+Give journal text an inline term syntax, so the note's own prose can point at glossary entries without changing a single word of the text.
 
-Applied to:
-- `AetherixLoopCards.tsx` Memory card body, and every `day7` / `day90` string, which move from deterministic statements ("Confidence intervals tighten", "The system knows how this property behaves") to expected-behaviour phrasing under pilot ("what the pilot is set up to measure").
-- The `MEMORY_CYCLE` Memory entry in `Atherix.tsx`.
-- The caveat paragraph after the loop cards: state plainly that federated cohort priors are research, not shipped.
-- The architecture line "OperationalMemory + HiveMemory cold-start" gains a "(research)" qualifier on HiveMemory.
+- Markup inside any `p`, `list`, `quote`, `defs` or table cell: `[[grader]]` renders the word "grader" with a tooltip, `[[grader|harnesses]]` renders a different label for the same entry.
+- A small renderer turns those tokens into the existing `Term` component, so the tooltip behaviour, hover delay, focus handling and touch tap are exactly the ones already shipped, unchanged.
+- Mark the **first meaningful occurrence** of each term only, so the page does not turn into a field of dotted underlines. Roughly 12 marks across the note.
 
-## 3. Anima status
+Glossary entries to add (the note uses them, the glossary does not have them): case set, harness (distinct from eval harness), protocol, open loop, closed loop, MAPE, drift, canary, counterfactual, CI gate, precision at k, ontology. Existing entries reused: grader, golden dataset, abstention, eval harness, tacit knowledge, SOP.
 
-- `AetherixMeshDiagram.tsx`: node status and the two "Shipped" badges become "Synthetic PoC" / "PoC (hackathon)"; full status text "Synthetic PoC, hackathon prototype; production DPIA-gated".
-- `AetherixAnimaSpotlight.tsx`: "Shipped as a proof of concept" becomes "A synthetic hackathon prototype (June 2026); production is DPIA-gated".
+Also verify the tooltip animation itself: open and close timing, that it survives moving the cursor into the panel, and that Escape and blur close it, in both moods.
 
-## 4. Promises tagged as pilot hypotheses
+## 2. Accessibility follow-through
 
-`PROMISES` in `Atherix.tsx`: "Staffing that fits" and "Less waste" each get a small label chip reading "Pilot hypothesis" (and "Target outcome" for waste), rendered above the title, so the reader sees the status without extra prose. Section intro adds one line: these are the pilot's target outcomes, not measured results.
+Nothing to fix on measured contrast. Two small hardening items found while reading the renderer:
 
-## 5. New box: What remains private
+- The definition list in section 1 renders terms as uppercase labels, which screen readers spell out letter by letter in some voices. Keep the visual treatment, set the accessible text to normal case.
+- Terms marked with a tooltip must not break the heading anchors or the contents observer: confirm ids and active-section highlighting still behave after the change.
 
-New component `src/components/atherix/AetherixWhatRemainsPrivate.tsx`, placed just after the "Built to be trusted" section (before the honesty/where-we-are section), styled like the existing bordered surface cards:
+## 3. Reading experience (only after the above)
 
-> **What remains private**
-> The project includes proprietary research on cross-domain operational context and cold-start learning. Public materials focus on the engineering evidence: evaluation gates, traceability, safety guardrails, privacy boundaries, and outcome measurement.
+Two additions, both from tokens, no new colours:
 
-The five engineering evidence items render as a compact inline list so the box reads as a strength.
+- **The three arms as a diagram**: a compact three-band figure (offline / runtime / outcome) placed next to the existing table, showing when each arm fires along a release timeline. The table stays as the accessible text equivalent.
+- **A vocabulary recap strip** pinned after section 1: six short chips (case set, grader, harness, protocol, open loop, closed loop), each opening the same tooltip. It gives a reader who lands mid-page a way back to the definitions without scrolling up.
 
-## 6. Mirrors
+Plus two cheap wins: mark the contents panel's active item with `aria-current="location"` rather than `"true"`, and add the entry's estimated read time to the contents header so the sticky column carries orientation on long scrolls.
 
-Same corrections applied to `public/aetherix.md` (cycle line, Memory bullet, Day 7 / Day 90 lines, caveat, promises line, Anima row and section, architecture line) and the Aetherix paragraphs of `public/llms-full.txt`, including the new "What remains private" paragraph.
+## Technical notes
 
-## Notes
-
-No em-dashes. No layout redesign, no new sections beyond the private-research box, section numbering unchanged.
+- New: an inline-markup parser used by `src/pages/JournalEntry.tsx`, plus a `ThreeArmsDiagram` and a vocabulary strip under `src/components/journal/`.
+- Edited: `src/content/journal.ts` (tokens only, no wording changes), `src/content/glossary.ts` (new entries), `src/pages/JournalEntry.tsx`, `src/components/journal/JournalToc.tsx`.
+- `src/components/Term.tsx` is reused as is.
+- Mirrors: the markup tokens are stripped when the note is served to the corpus, so `public/llms.txt`, `public/llms-full.txt` and the MCP tool output stay clean prose.
