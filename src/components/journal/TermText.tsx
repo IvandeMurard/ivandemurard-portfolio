@@ -32,7 +32,7 @@ export const createTermTaker = (marks: TermMark[]) => {
     return (
       <>
         {before}
-        <Term id={best.mark.mark ? best.mark.mark : best.mark.id}>{label}</Term>
+        <Term id={best.mark.id}>{label}</Term>
         {render(after, depth + 1)}
       </>
     );
