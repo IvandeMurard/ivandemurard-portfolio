@@ -54,7 +54,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop" }: J
           <li key={item.id}>
             <a
               href={`#${item.id}`}
-              aria-current={active ? "true" : undefined}
+              aria-current={active ? "location" : undefined}
               onClick={(e) => {
                 e.preventDefault();
                 go(item.id);
