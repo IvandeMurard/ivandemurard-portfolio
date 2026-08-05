@@ -212,7 +212,80 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     brief:
       "Speech to text. Converting spoken audio into written words in real time. In a workshop the hard part is not the words but the noise, the accents, and the jargon a general model has never heard.",
   },
+  caseSet: {
+    id: "caseSet",
+    term: "case set",
+    brief:
+      "The situations a system is tested against, chosen in advance, each with a known correct answer. Writing it is the moment a team has to agree on what a bad output actually is.",
+  },
+  harness: {
+    id: "harness",
+    term: "harness",
+    brief:
+      "The whole examination: the case set, the graders, the pass mark and the report. It runs the test end to end and returns a verdict a pipeline can act on.",
+  },
+  protocol: {
+    id: "protocol",
+    term: "protocol",
+    brief:
+      "The rules around the measurement. What to measure, on what data, above what threshold it is unacceptable, who decides, and when it blocks a release. A document, not code.",
+  },
+  openLoop: {
+    id: "openLoop",
+    term: "open loop",
+    brief:
+      "You measure, a human reads the result, they may act on it. The measurement changes nothing by itself, so quality depends on someone remembering to look.",
+  },
+  closedLoop: {
+    id: "closedLoop",
+    term: "closed loop",
+    brief:
+      "The measurement is wired back into the system and changes it without a human step. A merge is blocked, a release pulled, a failure turned into a new test case.",
+  },
+  mape: {
+    id: "mape",
+    term: "MAPE",
+    brief:
+      "Mean absolute percentage error. The average gap between a forecast and what actually happened, expressed as a percentage, which makes errors comparable across covers, revenue, or volumes.",
+  },
+  drift: {
+    id: "drift",
+    term: "drift",
+    brief:
+      "The inputs a system sees in production slowly stop looking like the ones it was tested on. Nothing breaks visibly; accuracy just decays until someone measures it.",
+  },
+  canary: {
+    id: "canary",
+    term: "canary",
+    brief:
+      "A repeated identical run used to prove a measurement is stable before it is allowed to block anything. If the same input scores differently twice, the score is a draw, not a measurement.",
+  },
+  counterfactual: {
+    id: "counterfactual",
+    term: "counterfactual",
+    brief:
+      "What would have happened had the system been followed instead of overridden. When a human escalates, that outcome is never observed, so the signal needed to learn disappears.",
+  },
+  ciGate: {
+    id: "ciGate",
+    term: "CI gate",
+    brief:
+      "An automated check in the build pipeline that can stop a change from being merged. Advisory while it only reports, blocking once a failing score actually holds the release.",
+  },
+  precisionAtK: {
+    id: "precisionAtK",
+    term: "precision at k",
+    brief:
+      "Of the top k results a retrieval step returns, how many are genuinely relevant. Precision at five below 0.7 means two of the five passages handed to the model were noise.",
+  },
+  ontology: {
+    id: "ontology",
+    term: "ontology",
+    brief:
+      "An explicit map of the concepts in a domain and how they relate. It lets a system know that two differently worded items are the same thing, which plain text similarity cannot.",
+  },
 };
+
 
 
 export function getEntry(id: string): GlossaryEntry | undefined {
