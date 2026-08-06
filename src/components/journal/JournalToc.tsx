@@ -9,9 +9,10 @@ interface JournalTocProps {
   items: TocItem[];
   label?: string;
   variant?: "mobile" | "desktop";
+  meta?: string;
 }
 
-export const JournalToc = ({ items, label = "Contents", variant = "desktop" }: JournalTocProps) => {
+export const JournalToc = ({ items, label = "Contents", variant = "desktop", meta }: JournalTocProps) => {
   const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);
   const [open, setOpen] = useState(false);
 
@@ -83,7 +84,10 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop" }: J
           aria-controls="journal-toc-mobile"
           className="w-full flex items-center justify-between gap-4 px-4 py-3 text-left"
         >
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{label}</span>
+          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+            {label}
+            {meta && <span className="text-on-surface-variant"> · {meta}</span>}
+          </span>
           <span aria-hidden="true" className="text-on-surface-variant text-xs">
             {open ? "−" : "+"}
           </span>
@@ -97,7 +101,10 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop" }: J
 
   return (
     <nav aria-label={label} className="hidden lg:block sticky top-32 max-h-[70vh] overflow-y-auto pr-2">
-      <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">{label}</div>
+      <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+        {label}
+        {meta && <span className="text-on-surface-variant"> · {meta}</span>}
+      </div>
       {list}
     </nav>
   );

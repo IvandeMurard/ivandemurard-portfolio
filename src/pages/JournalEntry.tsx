@@ -10,6 +10,8 @@ import { ReadingProgress } from "@/components/journal/ReadingProgress";
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
 import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
+import { ThreeArmsDiagram } from "@/components/journal/ThreeArmsDiagram";
+import { VocabStrip } from "@/components/journal/VocabStrip";
 
 const slugifyHeading = (text: string) =>
   text
@@ -287,6 +289,10 @@ const Block = ({
           ))}
         </dl>
       );
+    case "arms":
+      return <ThreeArmsDiagram label={block.label} />;
+    case "vocab":
+      return <VocabStrip items={block.items} label={block.label} />;
     default:
       return null;
   }
@@ -406,7 +412,14 @@ const JournalEntry = () => {
           <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
             {entry.excerpt}
           </p>
-          {tocItems.length > 1 && <JournalToc items={tocItems} label={tocLabel} variant="mobile" />}
+          {tocItems.length > 1 && (
+            <JournalToc
+              items={tocItems}
+              label={tocLabel}
+              variant="mobile"
+              meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+            />
+          )}
           <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
             {entry.body.map((block, i) => (
               <Reveal key={i}>
@@ -446,7 +459,11 @@ const JournalEntry = () => {
         </article>
         {tocItems.length > 1 && (
           <aside className="hidden lg:block">
-            <JournalToc items={tocItems} label={tocLabel} />
+            <JournalToc
+              items={tocItems}
+              label={tocLabel}
+              meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+            />
           </aside>
         )}
         </div>

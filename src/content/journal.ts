@@ -8,7 +8,9 @@ export type JournalBlock =
   | { kind: "defs"; items: { term: string; def: string }[] }
   | { kind: "pyramid"; layers: { level: string; name: string; note?: string; base?: boolean }[] }
   | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
-  | { kind: "lines"; items: { q: string; a: string }[] };
+  | { kind: "lines"; items: { q: string; a: string }[] }
+  | { kind: "arms"; label?: string }
+  | { kind: "vocab"; label?: string; items: { id: string; label: string }[] };
 
 export type JournalEntry = {
   slug: string;
@@ -103,6 +105,18 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "The common confusion: a grader is not an alert. A grader judges, an alert tells someone. Whether anyone finds out is the loop's job, not the grader's. Same criterion, two moments, two mechanisms.",
       },
+      {
+        kind: "vocab",
+        label: "Vocabulary, in one line each",
+        items: [
+          { id: "caseSet", label: "Case set" },
+          { id: "grader", label: "Grader" },
+          { id: "harness", label: "Harness" },
+          { id: "protocol", label: "Protocol" },
+          { id: "openLoop", label: "Open loop" },
+          { id: "closedLoop", label: "Closed loop" },
+        ],
+      },
       { kind: "h2", text: "2. Three arms, and what each product can afford" },
       {
         kind: "p",
@@ -118,6 +132,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
           ["C — Outcome, downstream", "After the fact, long loop", "Was the output acted on, and did it produce value"],
         ],
       },
+      { kind: "arms", label: "When each arm fires along a release" },
       {
         kind: "p",
         text: "You do not test a parachute against a case set; you measure it in flight. Provided arm B is held to the same standard: every layer emits a measurable signal with a typed reason.",
