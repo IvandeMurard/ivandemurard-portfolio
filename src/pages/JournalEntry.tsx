@@ -412,7 +412,14 @@ const JournalEntry = () => {
           <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
             {entry.excerpt}
           </p>
-          {tocItems.length > 1 && <JournalToc items={tocItems} label={tocLabel} variant="mobile" />}
+          {tocItems.length > 1 && (
+            <JournalToc
+              items={tocItems}
+              label={tocLabel}
+              variant="mobile"
+              meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+            />
+          )}
           <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
             {entry.body.map((block, i) => (
               <Reveal key={i}>
@@ -452,7 +459,11 @@ const JournalEntry = () => {
         </article>
         {tocItems.length > 1 && (
           <aside className="hidden lg:block">
-            <JournalToc items={tocItems} label={tocLabel} />
+            <JournalToc
+              items={tocItems}
+              label={tocLabel}
+              meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+            />
           </aside>
         )}
         </div>
