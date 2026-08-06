@@ -289,6 +289,10 @@ const Block = ({
           ))}
         </dl>
       );
+    case "arms":
+      return <ThreeArmsDiagram label={block.label} />;
+    case "vocab":
+      return <VocabStrip items={block.items} label={block.label} />;
     default:
       return null;
   }

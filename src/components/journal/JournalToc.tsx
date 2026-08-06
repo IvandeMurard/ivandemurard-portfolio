@@ -9,9 +9,10 @@ interface JournalTocProps {
   items: TocItem[];
   label?: string;
   variant?: "mobile" | "desktop";
+  meta?: string;
 }
 
-export const JournalToc = ({ items, label = "Contents", variant = "desktop" }: JournalTocProps) => {
+export const JournalToc = ({ items, label = "Contents", variant = "desktop", meta }: JournalTocProps) => {
   const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);
   const [open, setOpen] = useState(false);
 
