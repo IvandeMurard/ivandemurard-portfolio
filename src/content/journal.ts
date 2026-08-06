@@ -8,7 +8,9 @@ export type JournalBlock =
   | { kind: "defs"; items: { term: string; def: string }[] }
   | { kind: "pyramid"; layers: { level: string; name: string; note?: string; base?: boolean }[] }
   | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
-  | { kind: "lines"; items: { q: string; a: string }[] };
+  | { kind: "lines"; items: { q: string; a: string }[] }
+  | { kind: "arms"; label?: string }
+  | { kind: "vocab"; label?: string; items: { id: string; label: string }[] };
 
 export type JournalEntry = {
   slug: string;

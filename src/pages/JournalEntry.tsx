@@ -10,6 +10,8 @@ import { ReadingProgress } from "@/components/journal/ReadingProgress";
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
 import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
+import { ThreeArmsDiagram } from "@/components/journal/ThreeArmsDiagram";
+import { VocabStrip } from "@/components/journal/VocabStrip";
 
 const slugifyHeading = (text: string) =>
   text
