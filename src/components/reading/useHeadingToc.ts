@@ -27,7 +27,11 @@ export const useHeadingToc = (
     const next: TocItem[] = [];
     root.querySelectorAll<HTMLElement>(selector).forEach((el) => {
       if (el.dataset.tocSkip === "true") return;
-      const text = (el.textContent ?? "").trim();
+      // Anchors and other affordances inside the heading are furniture, not
+      // title, so the label is read from the heading's own text nodes.
+      const clone = el.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll("a, button, [aria-hidden='true']").forEach((n) => n.remove());
+      const text = (clone.textContent ?? "").trim();
       if (!text) return;
       let id = el.id;
       if (!id) {
