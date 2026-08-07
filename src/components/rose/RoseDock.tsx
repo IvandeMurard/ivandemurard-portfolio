@@ -4,7 +4,8 @@ import { DefaultChatTransport } from "ai";
 import type { UIMessage } from "ai";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
-import { INTENT_CHIPS } from "./roseConfig";
+import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
+import { useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
 import roseMark from "@/assets/rose-mark.png";
 
