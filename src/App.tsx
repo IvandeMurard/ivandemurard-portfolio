@@ -9,6 +9,7 @@ import Sonor from "./pages/Sonor.tsx";
 import Atherix from "./pages/Atherix.tsx";
 import Tacet from "./pages/Tacet.tsx";
 import Lore from "./pages/Lore.tsx";
+import Anima from "./pages/Anima.tsx";
 import Architecture from "./pages/Architecture.tsx";
 import Atrium from "./pages/Atrium.tsx";
 import Contact from "./pages/Contact.tsx";
