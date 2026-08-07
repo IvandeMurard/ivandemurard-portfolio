@@ -397,7 +397,7 @@ const Sonor = () => {
               {STATS.map((s) => (
                 <div
                   key={s.k}
-                  className="lift-card p-6 md:p-8 border border-on-primary/10 data-[mood=dusk]:border-outline-variant space-y-4"
+                  className="lift-card p-6 md:p-8 border border-outline-variant space-y-4"
                   data-mood={mood}
                 >
                   <span className="text-4xl font-headline italic block">{s.v}</span>
