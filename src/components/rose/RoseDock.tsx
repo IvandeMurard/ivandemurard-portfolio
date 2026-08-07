@@ -43,6 +43,8 @@ export const RoseDock = () => {
     "product" | "technical" | "culture" | "exploring" | null
   >(null);
   const [inputValue, setInputValue] = useState("");
+  const [hovered, setHovered] = useState(false);
+  const [focusWithin, setFocusWithin] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
   const sessionId = useMemo(() => getSessionId(), []);
