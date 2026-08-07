@@ -86,8 +86,8 @@ export const RoseDock = () => {
     void sendMessage({ text: trimmed });
   };
 
-  const onChip = (chip: (typeof INTENT_CHIPS)[number]) => {
-    setDetectedIntent(chip.intent);
+  const onChip = (chip: RosePrompt) => {
+    if (chip.intent) setDetectedIntent(chip.intent);
     submit(chip.message);
   };
 
