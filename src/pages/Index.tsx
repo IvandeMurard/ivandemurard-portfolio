@@ -176,7 +176,7 @@ const Index = () => {
           A few markers along the way.
         </p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:divide-x md:divide-outline-variant/20">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:divide-x md:divide-outline-variant">
         {MILESTONES.map((m, i) => (
           <div
             key={`${m.value}-${m.label}`}
@@ -184,7 +184,7 @@ const Index = () => {
             style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
             className={[
               "px-2 md:px-8 text-center",
-              i >= 4 ? "md:border-t md:border-outline-variant/15 md:pt-12" : "",
+              i >= 4 ? "md:border-t md:border-outline-variant md:pt-12" : "",
             ].join(" ")}
           >
             <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
@@ -256,7 +256,7 @@ const Index = () => {
             key={p.slug}
             to={`/${p.slug}`}
             onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
-            className="lift-card group block p-4 rounded-xl border border-outline-variant/15 bg-surface-container-low/40 hover:border-outline-variant/40"
+            className="lift-card group block p-4 rounded-xl border border-outline-variant bg-surface-container-low/40 hover:border-outline-variant"
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
           >
@@ -312,7 +312,7 @@ const Index = () => {
             key={title}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
+            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
           >
             <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
@@ -347,7 +347,7 @@ const Index = () => {
             key={title}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
+            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
           >
             <span className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary block mb-6">{n}</span>
             <PillarIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />

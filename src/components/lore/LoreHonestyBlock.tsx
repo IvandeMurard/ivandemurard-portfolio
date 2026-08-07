@@ -11,7 +11,7 @@ const LIMITS = [
  * No alert colour, no warning banner.
  */
 export const LoreHonestyBlock = () => (
-  <div data-reveal-child className="border-t border-b border-outline-variant/30 py-10">
+  <div data-reveal-child className="border-t border-b border-outline-variant py-10">
     <p className="font-headline italic text-primary text-2xl md:text-3xl leading-tight">
       This is a prototype, not production software.
     </p>

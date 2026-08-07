@@ -167,7 +167,7 @@ const ActSection = ({ act }: { act: Act }) => {
           className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-6"
         >
           <span className="text-primary/70">{act.index}</span>
-          <span className="text-outline-variant/60 mx-2">/</span>
+          <span className="text-outline-variant mx-2">/</span>
           <span>{String(ACTS.length).padStart(2, "0")}</span>
         </span>
         <h2
@@ -304,7 +304,7 @@ const Journeys = () => {
                   ))}
                 </ol>
                 <div className="mt-10 flex items-center gap-3 text-on-surface-variant/70 font-label uppercase tracking-[0.25em] text-[10px]">
-                  <span className="block h-px w-12 bg-outline-variant/60" />
+                  <span className="block h-px w-12 bg-outline-variant" />
                   Scroll to enter
                 </div>
               </nav>

@@ -33,7 +33,7 @@ export const AtriumHeader = () => {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-surface/70 glass-nav transition-all duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-gradient-to-b after:from-outline-variant/15 after:to-transparent after:pointer-events-none">
+      <nav className="fixed top-0 w-full z-50 bg-surface/70 glass-nav transition-all duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-gradient-to-b after:from-outline-variant after:to-transparent after:pointer-events-none">
         <div className="flex justify-between items-center px-6 md:px-12 py-6 md:py-8 w-full max-w-screen-2xl mx-auto relative">
           <TransitionLink
             to="/"
@@ -85,7 +85,7 @@ export const AtriumHeader = () => {
           <div className="hidden md:flex items-center space-x-5 lg:space-x-6">
             <MoodToggle />
             <AmbienceControl />
-            <span className="hidden lg:inline-block h-4 w-px bg-outline-variant/40" aria-hidden="true" />
+            <span className="hidden lg:inline-block h-4 w-px bg-outline-variant" aria-hidden="true" />
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (
               <a
                 key={label}
@@ -151,7 +151,7 @@ export const AtriumHeader = () => {
               </TransitionLink>
             );
           })}
-          <div className="h-px w-16 bg-outline-variant/30 my-4" />
+          <div className="h-px w-16 bg-outline-variant my-4" />
           <div className="flex flex-wrap justify-center gap-6">
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (
               <a

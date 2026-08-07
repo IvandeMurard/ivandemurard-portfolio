@@ -25,7 +25,7 @@ const TIERS: { tier: string; threshold: string; note?: string; covers: string; w
  * and order, never through a severity colour ramp.
  */
 export const LoreTierTable = () => (
-  <div data-reveal-child className="rounded-2xl border border-outline-variant/25 bg-surface-container-low overflow-hidden">
+  <div data-reveal-child className="rounded-2xl border border-outline-variant bg-surface-container-low overflow-hidden">
     <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Acceptance tiers table">
       <table className="w-full min-w-[40rem] border-collapse text-left">
         <caption className="sr-only">Acceptance tiers, thresholds and what each tier covers</caption>

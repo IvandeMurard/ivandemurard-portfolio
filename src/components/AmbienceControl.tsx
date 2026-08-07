@@ -36,7 +36,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
       }}
       className={[
         "group relative inline-flex items-center justify-center rounded-md",
-        "border border-outline-variant/40",
+        "border border-outline-variant",
         "bg-surface-container/60 backdrop-blur-sm",
         "transition-[background,border-color,transform,color] duration-300",
         "hover:border-secondary/50 hover:bg-surface-container hover:scale-[1.04]",

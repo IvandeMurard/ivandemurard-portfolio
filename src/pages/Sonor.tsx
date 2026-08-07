@@ -173,7 +173,7 @@ const Sonor = () => {
               <Term id="openData">open-data</Term> <Term id="saas">SaaS</Term> platform to transform invisible pollution into actionable insights for more silent,
               sustainable, and livable cities.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-8 border-t border-outline-variant/30">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-8 border-t border-outline-variant">
               {META.map((m, i) => (
                 <div key={m.label} data-reveal-child style={{ ["--reveal-delay" as string]: `${440 + i * 60}ms` }}>
                   <h4 className="font-label uppercase tracking-widest text-[10px] text-secondary mb-2">{m.label}</h4>
@@ -186,7 +186,7 @@ const Sonor = () => {
                 href="https://sonor.dorik.io/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition-colors border-b border-outline-variant/40 hover:border-primary/60 pb-0.5"
+                className="inline-flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition-colors border-b border-outline-variant hover:border-primary/60 pb-0.5"
               >
                 <span>Original project site (2020)</span>
                 <Icon name="arrow_outward" className="text-sm" />
@@ -245,7 +245,7 @@ const Sonor = () => {
           <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">
             Our first 2020 prototype
           </h2>
-          <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant/30">
+          <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant">
             <iframe
               title="Sonor 2020 prototype"
               src={FIGMA_PROTOTYPE_URL}
@@ -288,7 +288,7 @@ const Sonor = () => {
                   src={sonorCartographie}
                   alt="Sonor Cartographie dashboard, real-time acoustic mapping"
                   loading="lazy"
-                  className="w-full h-auto rounded border border-outline-variant/20 shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
+                  className="w-full h-auto rounded border border-outline-variant shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
                 />
               </button>
               </div>
@@ -327,7 +327,7 @@ const Sonor = () => {
                     src={sonorRecommandations}
                     alt="Sonor Recommandations interface, prioritized action plans for planners"
                     loading="lazy"
-                    className="w-full h-auto rounded border border-outline-variant/20 shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
+                    className="w-full h-auto rounded border border-outline-variant shadow-sm cursor-zoom-in transition-transform duration-500 hover:scale-[1.01]"
                   />
                 </button>
               </div>
@@ -397,7 +397,7 @@ const Sonor = () => {
               {STATS.map((s) => (
                 <div
                   key={s.k}
-                  className="lift-card p-6 md:p-8 border border-on-primary/10 data-[mood=dusk]:border-outline-variant/30 space-y-4"
+                  className="lift-card p-6 md:p-8 border border-on-primary/10 data-[mood=dusk]:border-outline-variant space-y-4"
                   data-mood={mood}
                 >
                   <span className="text-4xl font-headline italic block">{s.v}</span>
@@ -416,7 +416,7 @@ const Sonor = () => {
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Explore the Platform</h2>
           </div>
           <div className="max-w-4xl mx-auto space-y-12">
-            <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant/30">
+            <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant">
               <iframe
                 title="Sonor walkthrough"
                 allowFullScreen
@@ -448,7 +448,7 @@ const Sonor = () => {
             {QUOTES.map((q) => (
               <div
                 key={q.n}
-                className="p-10 border border-outline-variant/20 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow"
+                className="p-10 border border-outline-variant rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow"
               >
                 <Icon name="format_quote" className="text-4xl text-primary/20 mb-6 block" />
                 <p className="font-headline text-lg text-on-surface-variant leading-relaxed mb-8 italic">"{q.q}"</p>
@@ -463,7 +463,7 @@ const Sonor = () => {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant/20 scroll-mt-24">
+      <section id="faq" className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant scroll-mt-24">
         <div className="px-6 md:px-12 max-w-3xl mx-auto space-y-12 md:space-y-16">
           <h2 className="text-3xl md:text-4xl font-headline italic text-primary text-center">
             Frequently Asked Questions
@@ -472,7 +472,7 @@ const Sonor = () => {
             {FAQ.map((f, i) => (
               <div
                 key={f.q}
-                className={i < FAQ.length - 1 ? "border-b border-outline-variant/30 pb-8" : ""}
+                className={i < FAQ.length - 1 ? "border-b border-outline-variant pb-8" : ""}
               >
                 <h4 className="text-xl font-bold text-primary mb-4">{f.q}</h4>
                 <p className="text-on-surface-variant leading-relaxed">{f.a}</p>
@@ -483,7 +483,7 @@ const Sonor = () => {
       </section>
 
       {/* Acknowledgments */}
-      <section className="py-16 md:py-28 bg-surface border-t border-outline-variant/20">
+      <section className="py-16 md:py-28 bg-surface border-t border-outline-variant">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">Acknowledgments</h2>
           <p className="text-xl md:text-2xl font-headline text-on-surface-variant leading-relaxed mb-12 md:mb-20 max-w-3xl mx-auto">
@@ -514,7 +514,7 @@ const Sonor = () => {
       </section>
 
       {/* Go Further */}
-      <section className="py-16 md:py-28 bg-surface-container-lowest border-t border-outline-variant/10">
+      <section className="py-16 md:py-28 bg-surface-container-lowest border-t border-outline-variant">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
             <p className="font-label uppercase tracking-[0.3em] text-xs text-secondary mb-4">
@@ -529,7 +529,7 @@ const Sonor = () => {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col bg-surface border border-outline-variant/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-outline-variant/60"
+                className="group flex flex-col bg-surface border border-outline-variant rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-outline-variant"
               >
                 <div className="h-16 mb-8 flex items-center">
                   <SafeImage
@@ -573,7 +573,7 @@ const Sonor = () => {
     </div>
 
     <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
-      <DialogContent className="max-w-[95vw] md:max-w-6xl p-2 md:p-4 bg-surface-container border-outline-variant/30">
+      <DialogContent className="max-w-[95vw] md:max-w-6xl p-2 md:p-4 bg-surface-container border-outline-variant">
         {lightbox && (
           <SafeImage
             src={lightbox.src}

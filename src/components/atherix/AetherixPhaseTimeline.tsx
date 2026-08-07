@@ -33,7 +33,7 @@ export const AetherixPhaseTimeline = () => (
             className={`flex-1 min-w-[180px] rounded-2xl border p-5 flex flex-col gap-3 ${
               emphasized
                 ? "border-secondary/60 bg-surface-container-high"
-                : "border-outline-variant/25 bg-surface-container-low"
+                : "border-outline-variant bg-surface-container-low"
             } ${p.state === "planned" ? "opacity-80" : ""}`}
           >
             <div className="flex items-center gap-2">

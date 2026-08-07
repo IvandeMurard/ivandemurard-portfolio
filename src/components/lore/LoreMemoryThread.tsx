@@ -10,7 +10,7 @@ export const LoreMemoryThread = () => (
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <div
       data-reveal-child
-      className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8"
+      className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8"
     >
       <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Hospitality</span>
       <h3 className="font-headline italic text-2xl text-primary mt-3 leading-tight">A manager resigns.</h3>
@@ -29,7 +29,7 @@ export const LoreMemoryThread = () => (
     <div
       data-reveal-child
       style={{ ["--reveal-delay" as string]: "140ms" }}
-      className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8"
+      className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8"
     >
       <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Aviation maintenance</span>
       <h3 className="font-headline italic text-2xl text-primary mt-3 leading-tight">A technician retires.</h3>

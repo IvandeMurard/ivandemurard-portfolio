@@ -129,7 +129,7 @@ export const MoodToggle = ({
         }}
         className={[
           "group relative inline-flex items-center rounded-full",
-          "border border-outline-variant/40",
+          "border border-outline-variant",
           trackBg,
           "backdrop-blur-sm",
           "shadow-[inset_0_1px_2px_hsl(var(--primary)/0.14),inset_0_-1px_1px_hsl(var(--surface-container-lowest)/0.6)]",
@@ -184,7 +184,7 @@ export const MoodToggle = ({
             "absolute top-full mt-3 right-0",
             "px-3 py-1.5 rounded-md",
             "bg-surface-container/95 backdrop-blur-md",
-            "border border-outline-variant/40",
+            "border border-outline-variant",
             "shadow-[0_8px_24px_hsl(var(--primary)/0.18)]",
             "text-xs italic font-headline text-on-surface whitespace-nowrap",
             "animate-in fade-in slide-in-from-top-1 duration-700",
@@ -193,7 +193,7 @@ export const MoodToggle = ({
           Switch from afternoon to evening light
           <span
             aria-hidden="true"
-            className="absolute -top-1 right-6 h-2 w-2 rotate-45 bg-surface-container border-l border-t border-outline-variant/40"
+            className="absolute -top-1 right-6 h-2 w-2 rotate-45 bg-surface-container border-l border-t border-outline-variant"
           />
         </div>
       )}

@@ -74,7 +74,7 @@ export const SectionRail = ({ sections = [] }: SectionRailProps) => {
                 <span
                   className={[
                     "font-headline italic text-xs tracking-wide transition-all duration-500",
-                    "px-3 py-1 rounded-full bg-surface/70 backdrop-blur-sm border border-outline-variant/30",
+                    "px-3 py-1 rounded-full bg-surface/70 backdrop-blur-sm border border-outline-variant",
                     active
                       ? "opacity-100 text-secondary"
                       : "opacity-0 -translate-x-1 text-on-surface-variant group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100",
@@ -87,7 +87,7 @@ export const SectionRail = ({ sections = [] }: SectionRailProps) => {
                     "block rounded-full transition-all duration-500",
                     active
                       ? "w-2.5 h-2.5 bg-secondary shadow-[0_0_12px_hsl(var(--secondary)/0.5)]"
-                      : "w-1.5 h-1.5 bg-outline-variant/60 group-hover:bg-secondary/70",
+                      : "w-1.5 h-1.5 bg-outline-variant group-hover:bg-secondary/70",
                   ].join(" ")}
                 />
               </button>

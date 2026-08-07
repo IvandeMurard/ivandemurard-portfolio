@@ -97,7 +97,7 @@ const figureClass =
  * focus or tap, because two of the three are estimates and one is a target.
  */
 export const LoreStatBand = () => (
-  <div className="border-t border-b border-outline-variant/30 py-10">
+  <div className="border-t border-b border-outline-variant py-10">
     <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 list-none p-0 m-0">
       <li data-reveal-child>
         <SourceNote

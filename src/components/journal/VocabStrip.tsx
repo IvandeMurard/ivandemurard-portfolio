@@ -7,12 +7,12 @@ type Chip = { id: string; label: string };
  * glossary definition used inline in the prose.
  */
 export const VocabStrip = ({ items, label = "Vocabulary" }: { items: Chip[]; label?: string }) => (
-  <div className="rounded-sm border border-outline-variant/30 bg-surface-container-lowest px-5 py-4">
+  <div className="rounded-sm border border-outline-variant bg-surface-container-lowest px-5 py-4">
     <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-3">{label}</div>
     <ul className="flex flex-wrap gap-x-3 gap-y-2 list-none p-0 m-0">
       {items.map((item) => (
         <li key={item.id}>
-          <span className="inline-flex rounded-sm border border-outline-variant/40 bg-surface-container-low px-3 py-1 text-sm font-body text-on-surface-variant">
+          <span className="inline-flex rounded-sm border border-outline-variant bg-surface-container-low px-3 py-1 text-sm font-body text-on-surface-variant">
             <Term id={item.id}>{item.label}</Term>
           </span>
         </li>

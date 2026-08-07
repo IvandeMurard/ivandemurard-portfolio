@@ -256,7 +256,7 @@ const Tacet = () => (
 
       {/* 3. Solution illustration */}
       <Reveal as="section" id="solution" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16 scroll-mt-24">
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20" style={{ viewTransitionName: "case-hero-tacet" }}>
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant" style={{ viewTransitionName: "case-hero-tacet" }}>
           <img
             src={acousticTwinImg}
             alt="Isometric environmental twin visualisation, concentric waves over a wireframe city"
@@ -328,7 +328,7 @@ const Tacet = () => (
             From proxy signals to MCP rules, the headless flow that turns context into decisions.
           </p>
         </div>
-        <div className="rounded-2xl border border-outline-variant/20 overflow-hidden">
+        <div className="rounded-2xl border border-outline-variant overflow-hidden">
           <TacetPipelineDiagram />
         </div>
       </Reveal>
@@ -351,7 +351,7 @@ const Tacet = () => (
               key={p.letter}
               data-reveal-child
               style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }}
-              className="lift-card p-8 md:p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
+              className="lift-card p-8 md:p-10 bg-surface-container-low border border-outline-variant rounded-2xl hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="font-label text-[10px] text-secondary tracking-[0.25em]">PILLAR {p.letter}</span>
@@ -380,7 +380,7 @@ const Tacet = () => (
         </div>
         <div className="grid md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto">
           {IMPACT.map((it) => (
-            <div key={it.title} className="p-8 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+            <div key={it.title} className="p-8 bg-surface-container-low border border-outline-variant rounded-2xl">
               <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/70">
                 <Icon name={it.icon} className="text-sm" />
               </div>
@@ -406,14 +406,14 @@ const Tacet = () => (
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+          <div className="p-10 bg-surface-container-low border border-outline-variant rounded-2xl">
             <Icon name="hub" className="text-secondary text-2xl mb-6" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">Aetherix, internal context</h3>
             <p className="text-on-surface-variant leading-relaxed">
               Anticipates operational needs, F&B demand and staffing, based on occupancy and historical trends.
             </p>
           </div>
-          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+          <div className="p-10 bg-surface-container-low border border-outline-variant rounded-2xl">
             <Icon name="public" className="text-secondary text-2xl mb-6" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">Tacet, external context</h3>
             <p className="text-on-surface-variant leading-relaxed">

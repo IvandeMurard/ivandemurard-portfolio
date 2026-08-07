@@ -51,7 +51,7 @@ export const SectionDivider = ({
           }`}
         >
           {index && <span className="text-primary/70">{index}</span>}
-          {index && label && <span className="text-outline-variant/60 mx-2">/</span>}
+          {index && label && <span className="text-outline-variant mx-2">/</span>}
           {label && <span>{label}</span>}
         </span>
       )}

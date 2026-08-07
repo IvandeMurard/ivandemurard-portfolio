@@ -47,8 +47,8 @@ const NodeCard = ({
       emphasized
         ? "border-2 border-secondary/60 bg-surface-container-high"
         : dashed
-        ? "border border-dashed border-outline-variant/50 bg-surface-container-low"
-        : "border border-outline-variant/30 bg-surface-container-low"
+        ? "border border-dashed border-outline-variant bg-surface-container-low"
+        : "border border-outline-variant bg-surface-container-low"
     }`}
   >
     <p className="font-headline italic text-primary text-base md:text-lg leading-tight">{title}</p>
@@ -70,7 +70,7 @@ const Arrow = () => (
 export const AetherixMeshDiagram = () => (
   <div className="flex flex-col gap-10">
     {/* Diagram */}
-    <div className="bg-surface-container-lowest border border-outline-variant/25 rounded-2xl p-6 md:p-10">
+    <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 md:p-10">
       {/* Desktop: horizontal */}
       <div className="hidden lg:flex items-center justify-center gap-6">
         <div className="flex flex-col gap-3">
@@ -92,7 +92,7 @@ export const AetherixMeshDiagram = () => (
           </div>
         </div>
         <Arrow />
-        <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant/30 bg-surface-container-low">
+        <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant bg-surface-container-low">
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
             <p className="font-headline italic text-primary text-base leading-tight">Manager</p>
@@ -119,7 +119,7 @@ export const AetherixMeshDiagram = () => (
         <NodeCard title="Aetherix" sub="F&B execution" emphasized />
         <NodeCard title="HiveMemory" sub="Anonymized peers, side input" dashed />
         <Icon name="arrow_downward" className="text-outline text-xl" />
-        <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant/30 bg-surface-container-low">
+        <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant bg-surface-container-low">
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
             <p className="font-headline italic text-primary text-base leading-tight">Manager</p>
@@ -136,10 +136,10 @@ export const AetherixMeshDiagram = () => (
     </div>
 
     {/* Bounded contexts table */}
-    <div className="overflow-x-auto rounded-2xl border border-outline-variant/25 bg-surface-container-lowest">
+    <div className="overflow-x-auto rounded-2xl border border-outline-variant bg-surface-container-lowest">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-outline-variant/25 text-left">
+          <tr className="border-b border-outline-variant text-left">
             <th className="px-5 py-3 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
               Node
             </th>
@@ -155,7 +155,7 @@ export const AetherixMeshDiagram = () => (
           {NODES.map((n) => (
             <tr
               key={n.name}
-              className="border-b border-outline-variant/20 last:border-b-0 align-top"
+              className="border-b border-outline-variant last:border-b-0 align-top"
             >
               <td className="px-5 py-4 whitespace-nowrap">
                 <span className="font-headline italic text-primary text-base">

@@ -134,7 +134,7 @@ const Lore = () => (
 
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-10">
+        <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant py-10">
           <h2 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-8">Project Info</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {PROJECT_INFO.map((info) => (
@@ -350,7 +350,7 @@ const Lore = () => (
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "260ms" }}
-            className="mt-10 border-t border-outline-variant/30 pt-8"
+            className="mt-10 border-t border-outline-variant pt-8"
           >
             <h3 className="font-headline italic text-2xl text-primary leading-tight">The refusal contract.</h3>
             <p className="mt-4 text-on-surface-variant leading-relaxed">
@@ -365,7 +365,7 @@ const Lore = () => (
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "380ms" }}
-            className="mt-8 border-t border-outline-variant/30 pt-8"
+            className="mt-8 border-t border-outline-variant pt-8"
           >
             <h3 className="font-headline italic text-2xl text-primary leading-tight">
               The closing sentence is enforced in code, not in the prompt.
@@ -420,7 +420,7 @@ const Lore = () => (
           <Link
             data-reveal-child
             to="/journal/harnesses-graders-closed-loops"
-            className="mt-8 flex items-start gap-4 px-6 py-5 rounded-2xl border border-outline-variant/40 bg-surface-container-low hover:bg-surface-container transition-colors"
+            className="mt-8 flex items-start gap-4 px-6 py-5 rounded-2xl border border-outline-variant bg-surface-container-low hover:bg-surface-container transition-colors"
           >
             <Icon name="arrow_forward" className="text-secondary text-base mt-1" />
             <span className="text-primary">
@@ -519,13 +519,13 @@ const Lore = () => (
           </h2>
           <div
             data-reveal-child
-            className="rounded-2xl border border-outline-variant/25 bg-surface-container-low overflow-hidden"
+            className="rounded-2xl border border-outline-variant bg-surface-container-low overflow-hidden"
           >
             <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Stack and links table">
               <table className="w-full min-w-[32rem] border-collapse text-left">
                 <caption className="sr-only">Lore technical stack by layer and technology</caption>
                 <thead>
-                  <tr className="border-b border-outline-variant/30">
+                  <tr className="border-b border-outline-variant">
                     <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
                       Layer
                     </th>
@@ -536,7 +536,7 @@ const Lore = () => (
                 </thead>
                 <tbody>
                   {STACK.map((s) => (
-                    <tr key={s.layer} className="border-b border-outline-variant/20 last:border-0 align-top">
+                    <tr key={s.layer} className="border-b border-outline-variant last:border-0 align-top">
                       <td className="px-6 py-4 text-on-surface-variant">{s.layer}</td>
                       <td className="px-6 py-4 text-on-surface">
                         {s.layer === "Voice in" ? (
@@ -566,14 +566,14 @@ const Lore = () => (
             </a>
             <Link
               to="/aetherix"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="arrow_forward" className="text-base" />
               Read Aetherix
             </Link>
             <Link
               to="/journal/harnesses-graders-closed-loops"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="rule" className="text-base" />
               Evaluation protocol
@@ -582,7 +582,7 @@ const Lore = () => (
               href={SOCIAL_LINKS.schedule}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="event" className="text-base" />
               Contact

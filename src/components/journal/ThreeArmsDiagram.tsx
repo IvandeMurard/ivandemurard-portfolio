@@ -19,7 +19,7 @@ const MARKERS = ["Commit", "Merge", "Release", "Weeks later"];
  * as accessible text.
  */
 export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: string }) => (
-  <figure aria-hidden="true" className="rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-5 md:p-6 not-italic">
+  <figure aria-hidden="true" className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5 md:p-6 not-italic">
     <figcaption className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-5">
       {label}
     </figcaption>
@@ -29,7 +29,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
           <div className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
             {arm.key}
           </div>
-          <div className="relative h-9 rounded-sm bg-surface-container-low border border-outline-variant/25">
+          <div className="relative h-9 rounded-sm bg-surface-container-low border border-outline-variant">
             <div
               style={{ left: `${arm.span[0]}%`, width: `${arm.span[1] - arm.span[0]}%` }}
               className="absolute inset-y-0 rounded-sm bg-surface-container-high border border-secondary/40 flex items-center px-3"

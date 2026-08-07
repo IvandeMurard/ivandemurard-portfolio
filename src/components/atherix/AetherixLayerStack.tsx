@@ -56,9 +56,9 @@ const LAYERS: Layer[] = [
 ];
 
 const toneClasses: Record<Layer["tone"], string> = {
-  interface: "bg-surface-container-lowest border-outline-variant/30",
+  interface: "bg-surface-container-lowest border-outline-variant",
   brain: "bg-surface-container-low border-secondary-fixed-dim/40",
-  foundation: "bg-surface-container border-outline-variant/40",
+  foundation: "bg-surface-container border-outline-variant",
 };
 
 export const AetherixLayerStack = () => {
@@ -127,7 +127,7 @@ export const AetherixLayerStack = () => {
                       {layer.surfaces.map((s) => (
                         <div
                           key={s.label}
-                          className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant/40 bg-surface/70"
+                          className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant bg-surface/70"
                         >
                           <Icon name={s.icon} className="text-outline text-sm" />
                           <span className="text-[11px] uppercase tracking-widest text-secondary">{s.label}</span>

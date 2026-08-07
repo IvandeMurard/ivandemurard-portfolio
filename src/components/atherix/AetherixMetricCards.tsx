@@ -21,7 +21,7 @@ export const AetherixMetricCards = () => (
     {METRICS.map((m) => (
       <div
         key={m.label}
-        className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-3"
+        className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8 flex flex-col gap-3"
       >
         <p className="font-headline italic text-4xl md:text-5xl text-primary leading-none">{m.value}</p>
         <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">{m.label}</p>

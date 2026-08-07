@@ -104,7 +104,7 @@ const Column = ({
             : "border-outline-variant bg-surface-container"
         } shadow-sm backdrop-blur-sm`}
       >
-        <div className="w-8 h-8 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shrink-0">
+        <div className="w-8 h-8 rounded-full border border-outline-variant bg-surface flex items-center justify-center shrink-0">
           <Icon name={it.icon} className="text-outline text-base" />
         </div>
         <div className="min-w-0">
