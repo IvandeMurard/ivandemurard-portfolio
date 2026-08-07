@@ -450,7 +450,7 @@ const Sonor = () => {
                 key={q.n}
                 className="p-10 border border-outline-variant rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow"
               >
-                <Icon name="format_quote" className="text-4xl text-primary/20 mb-6 block" />
+                <Icon name="format_quote" className="text-4xl text-primary mb-6 block opacity-40" />
                 <p className="font-headline text-lg text-on-surface-variant leading-relaxed mb-8 italic">"{q.q}"</p>
                 <div>
                   <p className="font-bold text-primary">{q.n}</p>

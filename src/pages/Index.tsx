@@ -113,7 +113,7 @@ const Index = () => {
           >
             Welcome,
             <br />
-            <span className="text-on-primary-container opacity-90 hero-line-2">It's great to see you!</span>
+            <span className="text-primary-container hero-line-2">It's great to see you!</span>
           </h1>
         </div>
         <p
