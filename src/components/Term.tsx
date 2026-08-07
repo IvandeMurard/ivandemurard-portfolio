@@ -22,6 +22,7 @@ export const Term = ({ id, children, className }: TermProps) => {
   const openTimer = useRef<number | null>(null);
   const closeTimer = useRef<number | null>(null);
   const headingId = useId();
+  const panelId = `${headingId}-panel`;
 
   const clearTimers = () => {
     if (openTimer.current) {
@@ -58,6 +59,7 @@ export const Term = ({ id, children, className }: TermProps) => {
         <button
           type="button"
           aria-describedby={open ? headingId : undefined}
+          aria-controls={open ? panelId : undefined}
           aria-expanded={open}
           onMouseEnter={scheduleOpen}
           onMouseLeave={scheduleClose}
@@ -73,6 +75,7 @@ export const Term = ({ id, children, className }: TermProps) => {
         </button>
       </PopoverTrigger>
       <PopoverContent
+        id={panelId}
         side="top"
         align="start"
         sideOffset={8}

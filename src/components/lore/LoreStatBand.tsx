@@ -14,6 +14,7 @@ const SourceNote = ({ title, children, note }: { title: string; children: ReactN
   const openTimer = useRef<number | null>(null);
   const closeTimer = useRef<number | null>(null);
   const headingId = useId();
+  const panelId = `${headingId}-panel`;
 
   const clearTimers = () => {
     if (openTimer.current) {
@@ -44,6 +45,7 @@ const SourceNote = ({ title, children, note }: { title: string; children: ReactN
         <button
           type="button"
           aria-describedby={open ? headingId : undefined}
+          aria-controls={open ? panelId : undefined}
           aria-expanded={open}
           onMouseEnter={scheduleOpen}
           onMouseLeave={scheduleClose}
@@ -58,6 +60,7 @@ const SourceNote = ({ title, children, note }: { title: string; children: ReactN
         </button>
       </PopoverTrigger>
       <PopoverContent
+        id={panelId}
         side="top"
         align="start"
         sideOffset={8}
