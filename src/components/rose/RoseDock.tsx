@@ -85,6 +85,19 @@ export const RoseDock = () => {
     submit(chip.message);
   };
 
+  // Ready prompts elsewhere on the site (Field Notes) open the dock pre-filled.
+  useEffect(() => {
+    const onAsk = (event: Event) => {
+      const text = (event as CustomEvent<{ text?: string }>).detail?.text;
+      if (!text) return;
+      setOpen(true);
+      submit(text);
+    };
+    window.addEventListener("rose:ask", onAsk as EventListener);
+    return () => window.removeEventListener("rose:ask", onAsk as EventListener);
+  });
+
+
   // Compact dock (bottom-centered). Shown always; opens the panel on interaction.
   return (
     <>
