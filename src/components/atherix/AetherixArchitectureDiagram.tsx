@@ -76,9 +76,9 @@ export const AetherixArchitectureDiagram = () => {
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "440ms" }}
-            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim/60 rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
+            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
           >
-            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center shrink-0">
               <Icon name="hub" className="text-outline text-lg" />
             </div>
             <div className="min-w-0 flex-1">
@@ -114,7 +114,7 @@ export const AetherixArchitectureDiagram = () => {
               style={{ ["--reveal-delay" as string]: `${560 + i * 80}ms` }}
               className="flex items-center gap-3 px-4 py-3 border border-outline-variant rounded-xl bg-surface/80 backdrop-blur-sm"
             >
-              <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center">
                 <Icon name={d.icon} className="text-outline text-lg" />
               </div>
               <span className="font-headline italic text-primary text-base md:text-lg">{d.title}</span>
@@ -147,7 +147,7 @@ const Column = ({
         style={{ ["--reveal-delay" as string]: `${delay + i * 70}ms` }}
         className={`flex items-start gap-3 px-3 py-3 rounded-lg border ${
           accent
-            ? "border-secondary-fixed-dim/50 bg-surface-container-low/70"
+            ? "border-secondary bg-surface-container-low/70"
             : "border-outline-variant bg-surface/60"
         } backdrop-blur-sm`}
       >

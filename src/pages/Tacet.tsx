@@ -202,7 +202,7 @@ const Tacet = () => (
                     href={info.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-body text-sm text-on-surface inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary hover:text-primary transition-colors"
+                    className="font-body text-sm text-on-surface inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary hover:text-primary transition-colors"
                   >
                     {info.value}
                     <Icon name="open_in_new" className="text-xs" />
@@ -399,7 +399,7 @@ const Tacet = () => (
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Tacet and Aetherix</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
             Tacet exposes its rules and reasoning through <Term id="mcp">MCP</Term>.{" "}
-            <Link to="/aetherix" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
+            <Link to="/aetherix" className="text-secondary border-b border-secondary hover:border-secondary transition-colors">
               Aetherix
             </Link>
             {" "}consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
@@ -465,7 +465,7 @@ const Tacet = () => (
               href="https://tacet.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-secondary border-b border-secondary/30 pb-1 hover:border-secondary transition-colors"
+              className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
               <span className="font-label text-xs uppercase tracking-widest mr-3">
                 Original B2C dashboard, visual reference
@@ -476,7 +476,7 @@ const Tacet = () => (
               href="https://github.com/IvandeMurard/tacet-app"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-secondary border-b border-secondary/30 pb-1 hover:border-secondary transition-colors"
+              className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
               <span className="font-label text-xs uppercase tracking-widest mr-3">
                 View source on GitHub
@@ -511,7 +511,7 @@ const Tacet = () => (
             Interested in proactive intelligence for hotel operations?
           </h2>
           <a href="mailto:ivandemurard@gmail.com" className="inline-flex items-center group">
-            <span className="font-headline text-2xl md:text-3xl italic text-secondary border-b border-secondary/20 group-hover:border-secondary transition-all duration-500 pb-1">
+            <span className="font-headline text-2xl md:text-3xl italic text-secondary border-b border-secondary group-hover:border-secondary transition-all duration-500 pb-1">
               Let's discuss.
             </span>
             <Icon

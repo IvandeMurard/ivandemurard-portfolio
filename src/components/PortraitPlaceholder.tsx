@@ -28,7 +28,7 @@ export const PortraitPlaceholder = ({
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full gold-halo opacity-60"
       />
       {/* Inner gold frame */}
-      <div className="absolute inset-3 border border-secondary-fixed-dim/40 pointer-events-none" />
+      <div className="absolute inset-3 border border-secondary pointer-events-none" />
       {/* Caption */}
       <div className="absolute bottom-6 left-6 right-6 flex flex-col gap-1">
         <span className="font-headline italic text-secondary text-lg leading-tight">

@@ -53,7 +53,7 @@ export const AetherixHiveStanzas = () => (
       <div
         data-reveal-child
         style={{ ["--reveal-delay" as string]: "400ms" }}
-        className="border-l-2 border-secondary-fixed-dim/60 pl-6 md:pl-10 max-w-3xl mx-auto"
+        className="border-l-2 border-secondary pl-6 md:pl-10 max-w-3xl mx-auto"
       >
         <p className="font-headline italic text-2xl md:text-3xl text-primary leading-snug">
           A boutique hotel can now anticipate a surge in specific guest needs, or right-size F&amp;B inventory, by

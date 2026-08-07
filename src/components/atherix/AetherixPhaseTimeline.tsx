@@ -32,7 +32,7 @@ export const AetherixPhaseTimeline = () => (
             key={p.n}
             className={`flex-1 min-w-[180px] rounded-2xl border p-5 flex flex-col gap-3 ${
               emphasized
-                ? "border-secondary/60 bg-surface-container-high"
+                ? "border-secondary bg-surface-container-high"
                 : "border-outline-variant bg-surface-container-low"
             } ${p.state === "planned" ? "opacity-80" : ""}`}
           >

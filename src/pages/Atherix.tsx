@@ -352,7 +352,7 @@ const Atherix = () => (
                     rel="noopener noreferrer"
                     title={info.hint}
                     aria-label={info.hint ? `${info.value}, ${info.hint}` : undefined}
-                    className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary transition-colors"
+                    className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
                   >
                     {info.value}
                     {info.hint && <Icon name="lock" className="text-xs text-secondary" />}
@@ -611,7 +611,7 @@ const Atherix = () => (
             <p className="mt-4 text-on-surface-variant leading-relaxed">
               <Link
                 to="/lore"
-                className="text-primary border-b border-secondary/40 pb-0.5 hover:opacity-70 transition-opacity"
+                className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
               >
                 Lore
               </Link>
@@ -627,7 +627,7 @@ const Atherix = () => (
             written up in a field note:{" "}
             <Link
               to="/journal/harnesses-graders-closed-loops"
-              className="text-primary border-b border-secondary/40 pb-0.5 hover:opacity-70 transition-opacity"
+              className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
             >
               Harnais, graders, boucles fermées
             </Link>{" "}

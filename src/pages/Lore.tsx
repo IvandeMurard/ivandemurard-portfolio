@@ -146,7 +146,7 @@ const Lore = () => (
                     target="_blank"
                     rel="noopener noreferrer"
                     title={info.hint}
-                    className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary transition-colors"
+                    className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
                   >
                     {info.value}
                     <Icon name="open_in_new" className="text-xs" />
@@ -499,7 +499,7 @@ const Lore = () => (
                 href="https://github.com/IvandeMurard/Lore/blob/main/AUTHORS.md"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary transition-colors"
+                className="text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
               >
                 AUTHORS.md
                 <Icon name="open_in_new" className="text-xs" />

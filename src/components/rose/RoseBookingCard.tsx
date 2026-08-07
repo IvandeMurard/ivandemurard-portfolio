@@ -94,7 +94,7 @@ export const RoseBookingCard = (props: RoseBookingCardProps) => {
       target="_blank"
       rel="noopener noreferrer"
       onClick={onClick}
-      className="group my-3 flex items-center justify-between gap-4 rounded-2xl border border-secondary/30 bg-secondary/5 px-5 py-4 transition-colors hover:border-secondary/60 hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+      className="group my-3 flex items-center justify-between gap-4 rounded-2xl border border-secondary bg-secondary/5 px-5 py-4 transition-colors hover:border-secondary hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
       aria-label="Book a 30 minute call with Ivan on cal.com (opens in a new tab)"
     >
       <div className="flex flex-col">

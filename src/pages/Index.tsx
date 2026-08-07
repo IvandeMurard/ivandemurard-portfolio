@@ -245,7 +245,7 @@ const Index = () => {
         </div>
         <Link
           to="/journeys"
-          className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary border-b border-secondary/20 pb-2 hover:tracking-[0.25em] transition-all"
+          className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary border-b border-secondary pb-2 hover:tracking-[0.25em] transition-all"
         >
           Explore all stories
         </Link>
@@ -312,7 +312,7 @@ const Index = () => {
             key={title}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
+            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
           >
             <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
@@ -347,7 +347,7 @@ const Index = () => {
             key={title}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary/30 hover:bg-surface-container-lowest"
+            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
           >
             <span className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary block mb-6">{n}</span>
             <PillarIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />

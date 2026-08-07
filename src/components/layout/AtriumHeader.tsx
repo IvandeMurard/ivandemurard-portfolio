@@ -71,7 +71,7 @@ export const AtriumHeader = () => {
                   className={[
                     "font-headline italic tracking-wide text-sm transition-colors duration-500",
                     active
-                      ? "text-secondary border-b border-secondary/60 pb-1 [text-shadow:0_0_18px_hsl(var(--secondary)/0.25)]"
+                      ? "text-secondary border-b border-secondary pb-1 [text-shadow:0_0_18px_hsl(var(--secondary)/0.25)]"
                       : "text-on-surface-variant hover:text-primary",
                   ].join(" ")}
                 >
@@ -143,7 +143,7 @@ export const AtriumHeader = () => {
                 className={[
                   "font-headline italic text-3xl transition-colors",
                   active
-                    ? "text-secondary border-b border-secondary/60 pb-1 [text-shadow:0_0_24px_hsl(var(--secondary)/0.3)]"
+                    ? "text-secondary border-b border-secondary pb-1 [text-shadow:0_0_24px_hsl(var(--secondary)/0.3)]"
                     : "text-primary",
                 ].join(" ")}
               >

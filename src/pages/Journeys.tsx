@@ -167,7 +167,7 @@ const ActSection = ({ act }: { act: Act }) => {
           className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-6"
         >
           <span className="text-primary/70">{act.index}</span>
-          <span className="text-outline mx-2">/</span>
+          <span className="text-on-surface-variant mx-2">/</span>
           <span>{String(ACTS.length).padStart(2, "0")}</span>
         </span>
         <h2

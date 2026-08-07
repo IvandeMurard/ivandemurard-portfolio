@@ -112,7 +112,7 @@ const Contact = () => {
                 aria-hidden="true"
                 className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
               />
-              <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-xl bg-surface-container border border-outline-variant group-hover:border-secondary/40 group-hover:scale-105 transition-all duration-500">
+              <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-xl bg-surface-container border border-outline-variant group-hover:border-secondary group-hover:scale-105 transition-all duration-500">
                 <Icon name={c.icon} className="text-secondary text-2xl" />
               </div>
               <div className="relative z-10">

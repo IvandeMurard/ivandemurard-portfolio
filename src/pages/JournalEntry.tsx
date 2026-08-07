@@ -128,7 +128,7 @@ const Block = ({
       );
     case "quote":
       return (
-        <blockquote className="border-l border-secondary/40 pl-6 font-headline italic text-xl md:text-2xl text-primary leading-relaxed">
+        <blockquote className="border-l border-secondary pl-6 font-headline italic text-xl md:text-2xl text-primary leading-relaxed">
           {t(block.text)}
         </blockquote>
       );
@@ -228,7 +228,7 @@ const Block = ({
                 style={{ ["--pw" as string]: `${width}%` }}
                 className={`w-full md:w-[var(--pw)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
                   layer.base
-                    ? "bg-surface-container-high border border-secondary/40"
+                    ? "bg-surface-container-high border border-secondary"
                     : "bg-surface-container-low border border-outline-variant"
                 }`}
               >
@@ -265,7 +265,7 @@ const Block = ({
               <p key={i} className="font-body font-light text-base">
                 <Link
                   to={item.to}
-                  className="text-primary border-b border-secondary/30 pb-0.5 hover:opacity-70 transition-opacity"
+                  className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
                 >
                   {item.project}
                 </Link>{" "}
@@ -360,7 +360,7 @@ const JournalEntry = () => {
           </p>
           <Link
             to="/journal"
-            className="font-headline italic text-secondary border-b border-secondary/30 pb-1 hover:opacity-70 transition-opacity"
+            className="font-headline italic text-secondary border-b border-secondary pb-1 hover:opacity-70 transition-opacity"
           >
             Back to Field Notes
           </Link>
@@ -437,7 +437,7 @@ const JournalEntry = () => {
                   <li key={i}>
                     <Link
                       to={r.to}
-                      className="font-headline italic text-primary border-b border-secondary/30 pb-0.5 hover:opacity-70 transition-opacity"
+                      className="font-headline italic text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
                     >
                       {r.label}
                     </Link>
@@ -450,7 +450,7 @@ const JournalEntry = () => {
           <div className="mt-24 pt-12 border-t border-outline-variant flex items-center justify-between">
             <Link
               to="/journal"
-              className="font-headline italic text-secondary border-b border-secondary/30 pb-1 hover:opacity-70 transition-opacity inline-flex items-center gap-2"
+              className="font-headline italic text-secondary border-b border-secondary pb-1 hover:opacity-70 transition-opacity inline-flex items-center gap-2"
             >
               <Icon name="arrow_back" className="text-sm" />
               All Field Notes

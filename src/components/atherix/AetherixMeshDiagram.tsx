@@ -45,7 +45,7 @@ const NodeCard = ({
   <div
     className={`relative rounded-2xl px-5 py-4 text-center min-w-[140px] ${
       emphasized
-        ? "border-2 border-secondary/60 bg-surface-container-high"
+        ? "border-2 border-secondary bg-surface-container-high"
         : dashed
         ? "border border-dashed border-outline-variant bg-surface-container-low"
         : "border border-outline-variant bg-surface-container-low"

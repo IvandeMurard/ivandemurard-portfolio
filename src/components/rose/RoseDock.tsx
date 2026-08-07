@@ -239,7 +239,7 @@ export const RoseDock = () => {
                   key={chip.intent}
                   onClick={() => onChip(chip)}
                   disabled={isLoading}
-                  className="rounded-full border border-outline-variant bg-surface-container px-3.5 py-1.5 text-xs text-on-surface transition-colors hover:border-secondary/50 hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50"
+                  className="rounded-full border border-outline-variant bg-surface-container px-3.5 py-1.5 text-xs text-on-surface transition-colors hover:border-secondary hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50"
                 >
                   {chip.label}
                 </button>

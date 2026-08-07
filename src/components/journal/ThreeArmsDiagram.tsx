@@ -32,7 +32,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
           <div className="relative h-9 rounded-sm bg-surface-container-low border border-outline-variant">
             <div
               style={{ left: `${arm.span[0]}%`, width: `${arm.span[1] - arm.span[0]}%` }}
-              className="absolute inset-y-0 rounded-sm bg-surface-container-high border border-secondary/40 flex items-center px-3"
+              className="absolute inset-y-0 rounded-sm bg-surface-container-high border border-secondary flex items-center px-3"
             >
               <span className="font-headline italic text-sm text-primary truncate">{arm.name}</span>
             </div>

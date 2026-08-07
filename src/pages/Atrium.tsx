@@ -87,7 +87,7 @@ const Atrium = () => (
                 className="h-full w-full object-cover"
                 loading="eager"
               />
-              <div className="absolute inset-3 border border-secondary-fixed-dim/30 pointer-events-none" />
+              <div className="absolute inset-3 border border-secondary pointer-events-none" />
             </div>
           </div>
         </div>

@@ -57,7 +57,7 @@ const LAYERS: Layer[] = [
 
 const toneClasses: Record<Layer["tone"], string> = {
   interface: "bg-surface-container-lowest border-outline-variant",
-  brain: "bg-surface-container-low border-secondary-fixed-dim/40",
+  brain: "bg-surface-container-low border-secondary",
   foundation: "bg-surface-container border-outline-variant",
 };
 
