@@ -140,7 +140,11 @@
     --on-background: 38 30% 92%;
 
     --outline: 38 8% 45%;
-    --outline-variant: 38 10% 25%;
+    --outline-variant: 38 10% 32%;
+
+    /* Text selection: dark ink on lamplight */
+    --selection-bg: 39 90% 74%;
+    --selection-fg: 38 45% 12%;
 
     --inverse-surface: 38 30% 92%;
     --inverse-on-surface: 32 14% 14%;
