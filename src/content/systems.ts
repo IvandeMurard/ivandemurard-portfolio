@@ -80,6 +80,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
   {
     slug: "anima",
     name: "Anima",
+    to: "/anima",
     what:
       "The guest node. A four-layer temporal memory of a guest relationship, so a returning guest does not have to repeat themselves.",
     who: "The nodes that need to know who is arriving.",

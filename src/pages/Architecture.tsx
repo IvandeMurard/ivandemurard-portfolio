@@ -529,8 +529,11 @@ const Architecture = () => {
                     is a working prototype with its own case study and a public repository.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
-                    Anima is a prototype shipped at a hackathon on synthetic data, with production gated
-                    behind a data-protection assessment. It has no page of its own yet.
+                    <Link to="/anima" className={linkCls}>
+                      Anima
+                    </Link>{" "}
+                    is a prototype shipped at a hackathon on synthetic data, with production gated
+                    behind a data-protection assessment.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
                     The orchestrator is a stub. It does not yet deserve a page.
