@@ -12,6 +12,13 @@ import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
 import { ThreeArmsDiagram } from "@/components/journal/ThreeArmsDiagram";
 import { VocabStrip } from "@/components/journal/VocabStrip";
+import { SectionKey } from "@/components/journal/SectionKey";
+import { SystemAnchors } from "@/components/journal/SystemAnchors";
+import { CanaryTimeline } from "@/components/journal/CanaryTimeline";
+import { CardGrid } from "@/components/journal/CardGrid";
+import { AskRose } from "@/components/journal/AskRose";
+import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
+import { ShareRow } from "@/components/journal/ShareRow";
 
 const slugifyHeading = (text: string) =>
   text
@@ -84,6 +91,14 @@ const blockStrings = (block: JournalBlock): string[] => {
       return block.items.map((i) => i.text);
     case "lines":
       return block.items.flatMap((i) => [i.q, i.a]);
+    case "key":
+      return [block.oneLine, block.concrete ?? ""];
+    case "anchors":
+      return block.items.flatMap((i) => [i.what, i.who, i.feedback]);
+    case "timeline":
+      return block.steps.flatMap((s) => [s.label, s.note ?? ""]);
+    case "cards":
+      return block.items.map((i) => i.body);
     default:
       return [];
   }
@@ -213,47 +228,8 @@ const Block = ({
           ))}
         </dl>
       );
-    case "pyramid": {
-      const total = block.layers.length;
-      return (
-        <ol
-          aria-label="Layered model, from top layer to foundation"
-          className="flex flex-col items-center gap-2 list-none p-0 m-0"
-        >
-          {block.layers.map((layer, i) => {
-            const width = 55 + ((i + 1) / total) * 45;
-            return (
-              <li
-                key={i}
-                style={{ ["--pw" as string]: `${width}%` }}
-                className={`w-full md:w-[var(--pw)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
-                  layer.base
-                    ? "bg-surface-container-high border border-secondary"
-                    : "bg-surface-container-low border border-outline-variant"
-                }`}
-              >
-                <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
-                  {layer.level}
-                  {layer.base && <span className="sr-only"> (foundation)</span>}
-                </div>
-                <div
-                  className={`font-headline italic text-lg ${
-                    layer.base ? "text-primary" : "text-on-surface-variant"
-                  }`}
-                >
-                  {layer.name}
-                </div>
-                {layer.note && (
-                  <div className="font-body font-light text-xs text-on-surface-variant mt-1">
-                    {t(layer.note)}
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      );
-    }
+    case "pyramid":
+      return <PyramidDiagram layers={block.layers} renderNote={(text) => t(text)} />;
     case "deployed":
       return (
         <div className="border-t border-outline-variant pt-5">
@@ -293,6 +269,24 @@ const Block = ({
       return <ThreeArmsDiagram label={block.label} />;
     case "vocab":
       return <VocabStrip items={block.items} label={block.label} />;
+    case "key":
+      return (
+        <SectionKey
+          sigil={block.sigil}
+          icon={block.icon}
+          minutes={block.minutes}
+          oneLine={block.oneLine}
+          concrete={block.concrete}
+        />
+      );
+    case "anchors":
+      return <SystemAnchors items={block.items} label={block.label} />;
+    case "timeline":
+      return <CanaryTimeline steps={block.steps} label={block.label} />;
+    case "cards":
+      return <CardGrid items={block.items} label={block.label} />;
+    case "askRose":
+      return <AskRose prompts={block.prompts} label={block.label} note={block.note} />;
     default:
       return null;
   }
@@ -385,6 +379,7 @@ const JournalEntry = () => {
           dateModified: entry.date,
           author: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           articleSection: entry.category,
+          ...(entry.license ? { license: entry.license.url } : {}),
           url: `https://ivandemurard.com/journal/${entry.slug}`,
         }}
       />
@@ -446,6 +441,15 @@ const JournalEntry = () => {
               </ul>
             </div>
           )}
+
+          <ShareRow
+            title={entry.title}
+            excerpt={entry.excerpt}
+            mirror={entry.mirror}
+            license={entry.license}
+          />
+
+
 
           <div className="mt-24 pt-12 border-t border-outline-variant flex items-center justify-between">
             <Link
