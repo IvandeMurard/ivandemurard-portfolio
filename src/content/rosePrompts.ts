@@ -22,25 +22,48 @@ const BOOK_CALL: RosePrompt = {
 
 const DEFAULT_PROMPTS: RosePrompt[] = [
   {
-    label: "Product expertise",
-    message: "I want to understand Ivan's product craft.",
+    label: "What Ivan builds",
+    message:
+      "In plain language: what does Ivan build, and for whom?",
     intent: "product",
   },
   {
-    label: "Technical profile",
-    message: "I want to evaluate Ivan's technical profile.",
+    label: "What is live today",
+    message:
+      "Across Ivan's projects, what is actually shipped and used, and what is still prototype?",
     intent: "technical",
   },
   {
-    label: "Culture fit",
-    message: "I want to see if we would work well together.",
-    intent: "culture",
+    label: "Where to start",
+    message: "I have five minutes. Which page should I read first, and why?",
+    intent: "exploring",
   },
   BOOK_CALL,
 ];
 
 /** Exact path, or prefix when the entry ends with "/". */
 const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
+  {
+    match: "/atrium",
+    prompts: [
+      {
+        label: "The short version",
+        message: "Give me the short version of Ivan's background and what he is working on now.",
+        intent: "product",
+      },
+      {
+        label: "How he works",
+        message: "How does Ivan work with a team: what does he take on, and what does he leave to others?",
+        intent: "culture",
+      },
+      {
+        label: "What is live today",
+        message: "Across Ivan's projects, what is actually shipped and used, and what is still prototype?",
+        intent: "technical",
+      },
+      BOOK_CALL,
+    ],
+  },
   {
     match: "/aetherix",
     prompts: [
