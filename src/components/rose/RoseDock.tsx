@@ -49,6 +49,8 @@ export const RoseDock = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
   const sessionId = useMemo(() => getSessionId(), []);
+  const { pathname } = useLocation();
+  const prompts = useMemo(() => getRosePrompts(pathname), [pathname]);
 
   const transport = useMemo(
     () =>
