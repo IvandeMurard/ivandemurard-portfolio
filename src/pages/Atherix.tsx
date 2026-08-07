@@ -266,7 +266,7 @@ const Atherix = () => (
               >
                 <div className="flex items-center gap-3">
                   <Icon name={p.icon} className="text-secondary text-3xl" />
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant font-label uppercase tracking-[0.18em] text-[9px] text-secondary">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
                     {p.tag}
                   </span>
                 </div>
@@ -362,7 +362,7 @@ const Atherix = () => (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
                 )}
                 {info.hint && (
-                  <p className="mt-1 text-[10px] text-on-surface-variant/70 italic">{info.hint}</p>
+                  <p className="mt-1 text-[10px] text-on-surface-variant italic">{info.hint}</p>
                 )}
               </div>
             ))}

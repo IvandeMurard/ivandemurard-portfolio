@@ -69,7 +69,7 @@ export const TacetPipelineDiagram = () => {
                 Consumed by RMS, PMS and orchestration agents
               </p>
             </div>
-            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary/80 shrink-0">
+            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">
               MCP
             </span>
           </div>

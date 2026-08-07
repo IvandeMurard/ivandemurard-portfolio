@@ -42,7 +42,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
     </div>
     <div className="mt-4 grid grid-cols-[3.5rem_1fr] gap-3">
       <div />
-      <div className="flex justify-between font-label uppercase tracking-[0.14em] text-[9px] text-on-surface-variant">
+      <div className="flex justify-between font-label uppercase tracking-[0.14em] text-[10px] text-on-surface-variant">
         {MARKERS.map((m) => (
           <span key={m}>{m}</span>
         ))}

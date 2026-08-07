@@ -254,7 +254,7 @@ const Sonor = () => {
               className="absolute inset-0 w-full h-full"
             />
           </div>
-          <p className="font-headline italic text-on-surface-variant/80 text-lg md:text-xl leading-relaxed mt-10 max-w-3xl mx-auto">
+          <p className="font-headline italic text-on-surface-variant text-lg md:text-xl leading-relaxed mt-10 max-w-3xl mx-auto">
             By making noise visible and data truly actionable (through real-time multi-source mapping,
             prioritized action plans, citizen engagement, and impact measurement), we could equip municipalities
             and urban planners with the tools to anticipate, act, and protect the most fragile resource of a city:

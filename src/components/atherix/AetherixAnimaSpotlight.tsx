@@ -40,7 +40,7 @@ export const AetherixAnimaSpotlight = () => (
           key={layer.name}
           className="border border-outline-variant rounded-xl bg-surface-container-low p-5 flex flex-col gap-2"
         >
-          <span className="font-label uppercase tracking-[0.2em] text-[9px] text-secondary tabular-nums">
+          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums">
             Layer 0{i + 1}
           </span>
           <p className="font-headline italic text-primary text-xl leading-tight">{layer.name}</p>

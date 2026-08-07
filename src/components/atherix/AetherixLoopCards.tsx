@@ -50,13 +50,13 @@ export const AetherixLoopCards = () => (
         <p className="text-on-surface-variant text-sm leading-relaxed">{step.body}</p>
         <div className="mt-2 pt-4 border-t border-outline-variant flex flex-col gap-2 text-xs">
           <p className="text-on-surface-variant">
-            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant/80 mr-2">
+            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant mr-2">
               Day 7
             </span>
             {step.day7}
           </p>
           <p className="text-on-surface">
-            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary mr-2">
+            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mr-2">
               Day 90
             </span>
             {step.day90}

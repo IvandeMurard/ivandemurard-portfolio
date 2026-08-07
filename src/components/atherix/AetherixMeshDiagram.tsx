@@ -53,7 +53,7 @@ const NodeCard = ({
   >
     <p className="font-headline italic text-primary text-base md:text-lg leading-tight">{title}</p>
     {sub && (
-      <p className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary mt-1">{sub}</p>
+      <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">{sub}</p>
     )}
     {emphasized && (
       <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px] whitespace-nowrap">
@@ -96,7 +96,7 @@ export const AetherixMeshDiagram = () => (
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
             <p className="font-headline italic text-primary text-base leading-tight">Manager</p>
-            <p className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary mt-1">
+            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">
               WhatsApp
             </p>
           </div>
@@ -123,14 +123,14 @@ export const AetherixMeshDiagram = () => (
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
             <p className="font-headline italic text-primary text-base leading-tight">Manager</p>
-            <p className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary mt-1">
+            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">
               WhatsApp
             </p>
           </div>
         </div>
       </div>
 
-      <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant text-center mt-8">
+      <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant text-center mt-8">
         Aetherix executes. It does not orchestrate.
       </p>
     </div>

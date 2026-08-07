@@ -119,7 +119,7 @@ const Index = () => {
         <p
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "360ms" }}
-          className="mt-12 text-lg md:text-xl text-on-surface/85 max-w-2xl mx-auto leading-relaxed font-normal"
+          className="mt-12 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
         >
           I'm Ivan, a product builder with 5 years across start-ups, scale-ups and large groups, and 2 years co-founding a SaaS. I design from operational experience, ship with AI, and keep the human at the center.
         </p>
@@ -149,7 +149,7 @@ const Index = () => {
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "780ms" }}
           aria-hidden="true"
-          className="mt-20 md:mt-24 flex flex-col items-center gap-2 text-on-surface-variant/70"
+          className="mt-20 md:mt-24 flex flex-col items-center gap-2 text-on-surface-variant"
         >
           <span className="font-label uppercase tracking-[0.3em] text-[10px]">Scroll</span>
           <Icon name="keyboard_arrow_down" className="text-base animate-bounce" />

@@ -17,7 +17,7 @@ export const AetherixDailyReceipt = () => (
         <p className="font-headline italic text-primary text-sm leading-tight">Aetherix</p>
         <p className="text-[10px] uppercase tracking-widest text-on-surface-variant">today · 18:42</p>
       </div>
-      <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary">Daily Receipt</span>
+      <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">Daily Receipt</span>
     </div>
 
     {/* Receipt body */}

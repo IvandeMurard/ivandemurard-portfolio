@@ -34,7 +34,7 @@ export const PortraitPlaceholder = ({
         <span className="font-headline italic text-secondary text-lg leading-tight">
           {caption}
         </span>
-        <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant/70">
+        <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
           A real photo will live here.
         </span>
       </div>

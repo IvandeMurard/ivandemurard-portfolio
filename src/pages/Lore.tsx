@@ -154,7 +154,7 @@ const Lore = () => (
                 ) : (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
                 )}
-                {info.hint && <p className="mt-1 text-[10px] text-on-surface-variant/70 italic">{info.hint}</p>}
+                {info.hint && <p className="mt-1 text-[10px] text-on-surface-variant italic">{info.hint}</p>}
               </div>
             ))}
           </div>
