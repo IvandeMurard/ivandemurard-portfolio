@@ -881,3 +881,45 @@
     transform: scaleX(1);
   }
 }
+
+/* Print and PDF export: keep the article, drop the site chrome. */
+@media print {
+  :root {
+    --background: 0 0% 100%;
+  }
+  header,
+  footer,
+  nav[aria-label="Site"],
+  .print\:hidden {
+    display: none !important;
+  }
+  aside {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  article {
+    max-width: 100% !important;
+  }
+  article * {
+    color: #111 !important;
+    background: transparent !important;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    word-break: break-all;
+  }
+  h2,
+  h3 {
+    break-after: avoid-page;
+  }
+  figure,
+  table,
+  blockquote,
+  li {
+    break-inside: avoid;
+  }
+}

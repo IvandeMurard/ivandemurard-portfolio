@@ -157,6 +157,520 @@ var get_about_default = defineTool3({
 // src/lib/mcp/tools/list-journal.ts
 import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
 
+// src/content/journalHarnesses.ts
+var HARNESSES_ENTRY = {
+  slug: "harnesses-graders-closed-loops",
+  title: "Harnesses, graders, closed loops",
+  subtitle: "A working vocabulary for evaluating AI systems, and the two products where it runs.",
+  date: "2026-07-31",
+  category: "Evaluation",
+  lang: "en",
+  readingMinutes: 14,
+  mirror: "/harnesses-graders-closed-loops.md",
+  license: {
+    label: "CC BY 4.0",
+    url: "https://creativecommons.org/licenses/by/4.0/",
+    note: "Reuse and adapt with attribution to Ivan de Murard."
+  },
+  related: [
+    { label: "Lore", to: "/lore" },
+    { label: "Aetherix", to: "/aetherix" }
+  ],
+  excerpt: "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
+  body: [
+    {
+      kind: "p",
+      text: "Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision."
+    },
+    {
+      kind: "p",
+      text: "Every section stands on its own: a key card at the top gives the claim in one line and one concrete case. Read the whole thing, or land on section 9 and take only that."
+    },
+    {
+      kind: "anchors",
+      label: "The two systems referenced here",
+      items: [
+        {
+          project: "Aetherix",
+          to: "/aetherix",
+          what: "An F&B execution agent for boutique hotels. One message a day: tomorrow's covers, a staffing grid, the reasoning attached.",
+          who: "The hotel manager, in WhatsApp, one tap to accept, modify or reject.",
+          feedback: "Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself."
+        },
+        {
+          project: "Lore",
+          to: "/lore",
+          what: "A voice mentor for aviation maintenance. It answers from the procedure, cites it, and refuses when the procedure does not cover the case.",
+          who: "The technician on the hangar floor, hands busy, at two in the morning.",
+          feedback: "Reality barely answers. Outcomes are slow, sparse, and censored: escalate, and the counterfactual disappears."
+        }
+      ]
+    },
+    {
+      kind: "p",
+      text: "The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so."
+    },
+    { kind: "h2", text: "1. The vocabulary, through the driving test" },
+    {
+      kind: "key",
+      sigil: "SEC. 1",
+      icon: "menu_book",
+      minutes: 2,
+      oneLine: "A grader judges one criterion, a harness runs the exam, a protocol says what passing means.",
+      concrete: "Lore has 9 graders, one harness, and one protocol document that decides when CI goes red."
+    },
+    {
+      kind: "p",
+      text: "A driving test contains every piece of the machinery. It is worth one pass to fix the words, and the rest of this piece will not need it again."
+    },
+    {
+      kind: "defs",
+      items: [
+        { term: "Case set", def: "The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset." },
+        { term: "Grader", def: `One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.` },
+        { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict." },
+        { term: "Protocol", def: "The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code." },
+        { term: "Open loop", def: "You measure, a human reads it, they may act. The measurement changes nothing by itself." },
+        { term: "Closed loop", def: "The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case." }
+      ]
+    },
+    {
+      kind: "quote",
+      text: "A protocol without a harness is an intention. A harness without a protocol is a number with no decision attached."
+    },
+    {
+      kind: "p",
+      text: "The common confusion: a grader is not an alert. A grader judges, an alert tells someone. Whether anyone finds out is the loop's job, not the grader's."
+    },
+    {
+      kind: "vocab",
+      label: "Vocabulary, in one line each",
+      items: [
+        { id: "caseSet", label: "Case set", type: "Artefact" },
+        { id: "grader", label: "Grader", type: "Code" },
+        { id: "harness", label: "Harness", type: "Pipeline" },
+        { id: "protocol", label: "Protocol", type: "Document" },
+        { id: "openLoop", label: "Open loop", type: "Posture" },
+        { id: "closedLoop", label: "Closed loop", type: "Mechanism" }
+      ]
+    },
+    { kind: "h2", text: "2. Three arms, and what each product can afford" },
+    {
+      kind: "key",
+      sigil: "SEC. 2",
+      icon: "linear_scale",
+      minutes: 2,
+      oneLine: "Offline, runtime and outcome evaluation prove three different things, and no one of them substitutes for another.",
+      concrete: "Aetherix runs arms A and B and half of C. Lore runs arm A only."
+    },
+    {
+      kind: "p",
+      text: "A pre-merge gate proves quality on frozen scenarios. It says nothing about behaviour in production. The three arms share one severity vocabulary, so that FAIL means the same thing everywhere."
+    },
+    {
+      kind: "table",
+      caption: "The three arms of evaluation",
+      head: ["Arm", "When", "What it proves"],
+      rows: [
+        ["A \u2014 Offline, dev-time", "Before the merge", "No regression on the case set: stratified accuracy, category coverage"],
+        ["B \u2014 Runtime, online", "In production, continuously", "Guardrails and anomaly detection on real traffic: error rates, output bounds, abstention, drift, latency"],
+        ["C \u2014 Outcome, downstream", "After the fact, long loop", "Was the output acted on, and did it produce value"]
+      ]
+    },
+    { kind: "arms", label: "When each arm fires along a release" },
+    {
+      kind: "p",
+      text: "You do not test a parachute against a case set; you measure it in flight. Provided arm B is held to the same standard: every layer emits a measurable signal with a typed reason."
+    },
+    { kind: "h3", text: "What each product actually has" },
+    {
+      kind: "table",
+      caption: "Learning loops available in each product",
+      head: ["", "Aetherix", "Lore"],
+      rows: [
+        ["Human loop", "One tap on WhatsApp: accept, modify, reject", "The intervention log, not yet exploited"],
+        ["Automatic comparison", "Yes. Forecast error computes itself and is the level-1 product KPI", "None"],
+        ["Ground truth", "Declared by the manager. Reading it from the point of sale is phase 4 and has its own architecture decision on file", "None, and the signal is censored: escalate, and the counterfactual disappears"]
+      ]
+    },
+    {
+      kind: "p",
+      text: 'Aetherix runs one and a half loops, not two. The comparison is autonomous, accuracy is computed without anyone deciding to compute it, and thresholds gate on it. The truth it compares against is still declared by a human. "Closed loop on a declared truth" is an engineering statement; "dual autonomous loop" is a brochure statement.'
+    },
+    {
+      kind: "quote",
+      text: "When you cannot learn from outcomes, you have to over-invest upstream. That is why Lore's evaluation harness weighs close to a third of its codebase: not gratuitous rigour, but the price of a missing outcome loop."
+    },
+    {
+      kind: "deployed",
+      items: [
+        { project: "Aetherix", to: "/aetherix", text: "Arm A as a CI gate, arm B with its own architecture decision on runtime guardrails, and every tool call emitted as a structured event, auditable and billable." },
+        { project: "Lore", to: "/lore", text: "Arm A only, offline and live. No runtime." }
+      ]
+    },
+    { kind: "h2", text: '3. "Working" against "Reliable", five dimensions' },
+    {
+      kind: "key",
+      sigil: "SEC. 3",
+      icon: "verified",
+      minutes: 1,
+      oneLine: "Working is proven on a test set. Reliable is proven in production, on five named dimensions.",
+      concrete: "Lore meets one of the five, is partial on two, and absent on two. Both absences belong to arm B."
+    },
+    { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. \u2014 Qonto" },
+    {
+      kind: "table",
+      caption: "Five reliability dimensions, and where Lore stands",
+      head: ["Dimension", "The question", "Lore"],
+      rows: [
+        ["Edge behaviour", "Tested outside the distribution, not just the happy path?", "partial \u2014 four cases on band boundaries"],
+        ["Graceful degradation", "When the agent does not know, does it say so, or improvise? Is refusal coded as a contract?", "met \u2014 eight-rule refusal contract, dedicated grader, tier 1"],
+        ["Observability", "Is there a dashboard of what the model does in production, not just uptime?", "absent"],
+        ["Reproducibility", "Does the same input produce the same output tomorrow?", "partial \u2014 temperature 0 and frozen baselines, but the canary has been invalidated"],
+        ["Distribution shift", "Is there an alert if the input distribution drifts?", "absent"]
+      ]
+    },
+    {
+      kind: "p",
+      text: "Two absents out of five, and both belong to arm B. Not a coincidence: it is the most expensive arm, and the only one whose absence stays invisible until production."
+    },
+    { kind: "h2", text: "4. The reliability pyramid" },
+    {
+      kind: "key",
+      sigil: "SEC. 4",
+      icon: "stairs",
+      minutes: 2,
+      oneLine: "Each evaluation layer assumes the one below it, and the base is a blocking prerequisite.",
+      concrete: "Select a layer in the figure to see what it measures, which product has it, and what signal it emits."
+    },
+    {
+      kind: "p",
+      text: "Without a case set and without failure definitions, nothing above the base can be measured."
+    },
+    {
+      kind: "pyramid",
+      layers: [
+        { level: "Layer 5", name: "Trust KPI ablation", note: "Does removing a feature move the trust KPI", detail: "Turn one component off and measure the effect on the product KPI. Neither product runs this yet.", product: "Neither, planned on Aetherix", signal: "KPI delta per ablation" },
+        { level: "Layer 4", name: "Memory recall relevance", note: "precision at five", detail: "Of the passages handed to the model, how many were genuinely relevant. Below 0.7 precision at five, two of the five were noise.", product: "Aetherix defines it. Lore's is the open hole.", signal: "retrieval score per call" },
+        { level: "Layer 3", name: "Inbound feedback parser", note: "intent accuracy", detail: "The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data.", product: "Aetherix", signal: "parsed intent plus confidence" },
+        { level: "Layer 2", name: "LLM reasoning quality", note: "what the graders cover", detail: "Does the answer follow the procedure, cite it, refuse when it must. This is the layer the nine Lore graders occupy.", product: "Both", signal: "grader verdict plus typed reason" },
+        { level: "Layer 1", name: "Forecast accuracy", note: "MAPE", detail: "Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.", product: "Aetherix", signal: "MAPE per service" },
+        { level: "Base", name: "Case set and failure definitions", note: "blocking prerequisite", base: true, detail: "Representative cases with known answers, and a written definition of what counts as a bad output. Everything above is unmeasurable without it.", product: "Both", signal: "versioned case set" }
+      ]
+    },
+    {
+      kind: "deployed",
+      items: [
+        { project: "Aetherix", to: "/aetherix", text: "The pyramid comes from its reliability plan. Every layer has a numeric failure definition." },
+        { project: "Lore", to: "/lore", text: "The base exists. Layer 2 is what the nine graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated." }
+      ]
+    },
+    { kind: "h2", text: "5. Evaluation as a contract" },
+    {
+      kind: "key",
+      sigil: "SEC. 5",
+      icon: "handshake",
+      minutes: 2,
+      oneLine: "The case set is written before the model code, as a specification with a sanction attached.",
+      concrete: "Lore's documentation claimed procedure primacy was enforced. It was a sentence in a prompt, until code held it."
+    },
+    {
+      kind: "quote",
+      text: "Not after the bug. Before the first line of model code, answer this: how will we know it works?"
+    },
+    {
+      kind: "list",
+      items: [
+        "Case set first. Representative examples, edges included, before any code.",
+        "Define failure. What is a bad output, and above what threshold is it unacceptable?",
+        "The evaluation set is a specification, not a test added afterwards.",
+        'Once the output is seen by a customer, the bar is ship-or-fail, not "it informs a decision".'
+      ]
+    },
+    {
+      kind: "p",
+      text: "The idea is not mine. I took it from Qonto's engineering, which frames it as a contract rather than a best practice. That shift is what makes it operative: a contract has a counterparty and a sanction."
+    },
+    {
+      kind: "p",
+      text: `A concrete case. Lore's documentation described procedure primacy as "structurally enforced", when it was a sentence in two prompts, which is a request. Three attempts to strengthen the request failed, one of them dropping the safety tier by nearly four points. The guarantee now lives in code that checks the answer against the computable rule after generation, sends one targeted correction quoting the manual, checks again, and falls back to a deterministic verdict. A claim about code has to be held by code.`
+    },
+    {
+      kind: "deployed",
+      items: [
+        { project: "Aetherix", to: "/aetherix", text: 'A traced architecture decision, "evaluation by design", not a team convention. Versioned case sets, merge blocked without a green pipeline.' },
+        { project: "Lore", to: "/lore", text: "The case set existed before the refusal contract, and it is what made the defects visible." }
+      ]
+    },
+    { kind: "h2", text: "6. Acceptance criteria, the part everyone skips" },
+    {
+      kind: "key",
+      sigil: "SEC. 6",
+      icon: "gavel",
+      minutes: 2,
+      oneLine: "A pass rate with no threshold attached is a number, not a decision.",
+      concrete: "A Lore run scored 52 out of 53 and was declared a failure: the single miss sat in the safety tier."
+    },
+    {
+      kind: "p",
+      text: "A missing closing sentence and an invented vibration threshold are both failures; only one of them can ground the wrong aircraft. So severity is tiered, and each tier carries its own budget."
+    },
+    {
+      kind: "table",
+      caption: "Severity tiers and their thresholds",
+      head: ["Tier", "Threshold", "What it covers"],
+      rows: [
+        ["1 \u2014 safety", "100%", "No budget. Invented figures, a refusal followed by a guess, contradicting the procedure, manufactured consensus."],
+        ["2 \u2014 trust", "95%", "Named attribution, procedure cited first. Usable when degraded, but it erodes the reason to trust the system."],
+        ["3 \u2014 form", "90%", "Wording and closing discipline. A miss misleads nobody about a limit."]
+      ]
+    },
+    {
+      kind: "table",
+      caption: "Verdicts and exit codes",
+      head: ["Code", "Verdict", "Meaning"],
+      rows: [
+        ["0", "PASS", "Every tier at 100%"],
+        ["1", "FAIL", "A tier below its threshold"],
+        ["2", "ERROR", "The harness crashed. No measurement was taken"],
+        ["3", "WARN", 'Thresholds met but a tier is not clean. Not a synonym for "fine"']
+      ]
+    },
+    {
+      kind: "p",
+      text: "This is where the driving test earns its keep. You can collect minor faults and still pass. One major fault and you walk home, whatever the rest of the sheet says."
+    },
+    {
+      kind: "p",
+      text: 'Separating ERROR from FAIL is not fussiness. The runner emitted only 0 and 1, so a crash exited as FAIL. "No measurement was taken" and "the measurement came back bad" call for opposite actions, and a CI that conflates them reads a crash as a quality signal.'
+    },
+    { kind: "h3", text: "The two rules that make the difference" },
+    {
+      kind: "list",
+      items: [
+        "Relative regression, not just an absolute floor. A drop of more than three points against the frozen baseline is a failure even when the tier stays above its threshold. Severity follows what broke, otherwise a 0.6-point wording flap would turn the build red.",
+        "Determinism is a prerequisite. Acceptance criteria against a moving measurement mean nothing. Which is the subject of the next section."
+      ]
+    },
+    { kind: "h2", text: "7. The canary, and why it was invalidated" },
+    {
+      kind: "key",
+      sigil: "SEC. 7",
+      icon: "monitoring",
+      minutes: 2,
+      oneLine: "Before a threshold may block a merge, prove the measurement holds still. Then expect enforcement to move it again.",
+      concrete: "Four identical Lore runs froze the baselines. A later correction step reintroduced variance, so the rule was narrowed rather than dropped."
+    },
+    {
+      kind: "timeline",
+      label: "Lore harness scores, live runs",
+      steps: [
+        { value: "38 / 36", label: "Two runs, same 53 cases", note: "Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement." },
+        { value: "36 \u2192 53", label: "Temperature 0, defects fixed", note: "Progression 36, 48, 48, 52, then 53 out of 53." },
+        { value: "4\xD7", label: "Four consecutive runs, no variance", note: "Baselines frozen only after that. The protocol required 0.00 points of variance before a threshold could block." },
+        { value: "61 / 62", label: "After enforcement, 64 cases", note: "Structural enforcement adds a conditional second model call on corrected answers: two chances to diverge. Disjoint failure sets." },
+        { value: "0.6 pt", label: "Canary rerun, three runs", note: "Tier 1 at 100% in all three. All observed variance sits in tier 3, well inside the three-point budget.", accent: true }
+      ]
+    },
+    {
+      kind: "p",
+      text: "Temperature 0 makes a request reproducible in practice, not deterministic by construction: the provider remains free to vary. Four identical runs were empirical evidence, not a guarantee. Enforcement then raised the mean and raised the variance. Both are true, and the trade is worth making: a corrected answer beats a fluent wrong one."
+    },
+    {
+      kind: "p",
+      text: "Hence the rule corrected rather than quietly dropped: 0.00 points of variance required on tier 1 alone, tiers 2 and 3 free to move inside their budget. The safety tier is guarded by code and does not move; the form tier depends on phrasing and always will."
+    },
+    {
+      kind: "quote",
+      text: "Demanding 0.00 across every tier sets a bar that cannot be met, and a gate that cannot be met is a gate people learn to ignore."
+    },
+    {
+      kind: "deployed",
+      items: [
+        { project: "Aetherix", to: "/aetherix", text: "The origin. The failure-thresholds file and the coverage script, exit-code contract included. Its gate moved from advisory to blocking only after the same canary, and environment drift was named as the real culprit rather than the model." },
+        { project: "Lore", to: "/lore", text: "The reimplementation, with frozen baselines committed and a CI gate that blocks on FAIL. The live target no longer starts on its own: it needs a label on the pull request or a manual trigger. A full run is about seventy model calls for a quarter of a euro, and CI must not be able to spend on its own initiative." }
+      ]
+    },
+    { kind: "h2", text: "8. Adversarial review, who grades the grader" },
+    {
+      kind: "key",
+      sigil: "SEC. 8",
+      icon: "shield",
+      minutes: 2,
+      oneLine: "A grader written by the prompt's author inherits its blind spots, so some cases must be authored against the system rather than for it.",
+      concrete: "Half of Lore's first 17 failures were graders that were too strict. Three later cases were graders too weak to fail a real defect."
+    },
+    {
+      kind: "cards",
+      label: "Four adversarial angles",
+      items: [
+        {
+          icon: "psychology_alt",
+          title: "Author bias",
+          body: "The person who wrote the prompt writes the grader, and both share the same idea of a good answer. The fix is cases written by someone trying to break the system, plus a periodic read of passing answers, not just failing ones."
+        },
+        {
+          icon: "shield",
+          title: "Injection through retrieved content",
+          body: "Anything the system retrieves can carry text shaped like an instruction. Rose, the agent on this site, wraps every case study mirror in explicit delimiters and is told those blocks are reference material, never instructions. That rule is itself a testable case."
+        },
+        {
+          icon: "groups",
+          title: "Manufactured authority",
+          body: '"Other technicians familiar with this airframe likely agree." From a single note. Inventing agreement fabricates the authority the reader weighs the advice by, which is why it sits in tier 1 alongside invented figures.'
+        },
+        {
+          icon: "warning",
+          title: "Confident wrongness",
+          body: "The dangerous output is not the refusal, it is the fluent answer with the wrong threshold in it. Adversarial cases target the seam: exact band boundaries, a second expert contradicting the first, social pressure to grant permission."
+        }
+      ]
+    },
+    {
+      kind: "quote",
+      text: "A regression suite proves that graders reject bad answers. It never proves they accept good ones phrased differently from how their author phrased them. That takes a real run."
+    },
+    {
+      kind: "p",
+      text: "What is not done yet, named as a gap: there is no scheduled red-team pass, no adversarial corpus maintained separately from the case set, and no second author on the graders. On Lore the adversarial work has been opportunistic, triggered by reading real runs. That is better than nothing and worse than a protocol."
+    },
+    { kind: "h2", text: "9. Confidence, three things people conflate" },
+    {
+      kind: "key",
+      sigil: "SEC. 9",
+      icon: "percent",
+      minutes: 1,
+      oneLine: "A model writing its own confidence is generating a token, not measuring anything.",
+      concrete: "A hard-coded 0.7 sat in Lore's capture fallback, the branch that runs when confidence is lowest. Removed."
+    },
+    {
+      kind: "defs",
+      items: [
+        { term: "Self-declared", def: "The model writing a confidence of 0.85. That is a generated token, not a measurement: it produces the plausible number for the context, like the rest of the sentence." },
+        { term: "By corroboration", def: "How many independent sources, how recent, how consistent. Reliable because counted, not guessed." },
+        { term: "Calibration", def: "When the system says 80%, is it right 80% of the time? The only strict sense. It requires outcome data, therefore arm C." }
+      ]
+    },
+    {
+      kind: "quote",
+      text: "A wrong number in a safety product is worse than no number, because the downstream code and the humans will believe it. Absence is honest; 0.7 is a lie with a decimal place."
+    },
+    { kind: "h2", text: "10. Human in the loop: by design or by default" },
+    {
+      kind: "key",
+      sigil: "SEC. 10",
+      icon: "how_to_reg",
+      minutes: 1,
+      oneLine: "Keeping a human is fine. Leaving the human as the only mechanism, without capturing their decision, is not.",
+      concrete: "In Aetherix every accept, modify or reject is an event. In aviation the technician remains the certifying agent, by law."
+    },
+    {
+      kind: "table",
+      caption: "Human in the loop, by design against by default",
+      head: ["", "By design", "By default"],
+      rows: [
+        ["Status", "A decision node: defined inputs, defined decision, recorded output", "Nobody automated the step, so someone has to remember"],
+        ["Trace", "The approval becomes data, every rejection an evaluation case", "No trace, no learning"],
+        ["Under load", "Holds", "Breaks"]
+      ]
+    },
+    {
+      kind: "p",
+      text: "Closing the measurement loop, blocking a merge, alerting on drift, feeding failures back into the case set, is a purely architectural decision. Closing the authority loop, letting the system act without a human, is a business and regulatory decision."
+    },
+    { kind: "h2", text: "11. Signals, ontology, priors" },
+    {
+      kind: "key",
+      sigil: "SEC. 11",
+      icon: "sensors",
+      minutes: 1,
+      oneLine: "You do not monitor what does not speak, and you cannot separate what the system cannot name.",
+      concrete: "Asked about an aircraft with no history, Lore answered with another aircraft's record. Separation was documentation, not code."
+    },
+    {
+      kind: "defs",
+      items: [
+        { term: "Signals", def: "Typed emissions at every layer: refusal reason, retrieval score, abstention event, latency. Without signals, arm B is structurally impossible." },
+        { term: "Ontology", def: 'The shared vocabulary that makes "the same situation" computable. Without it, the distinction between two aircraft is only words in a prompt.' },
+        { term: "Priors", def: 'What the system believes before seeing evidence. "I have seen it four times in eight years" is a prior. In prose it is an anecdote; as a weight it is a prior.' },
+        { term: "Similarity", def: "Retrieval plus ontology. This is layer 4 of the pyramid, and it is most often unevaluated." }
+      ]
+    },
+    {
+      kind: "deployed",
+      items: [
+        { project: "Aetherix", to: "/aetherix", text: "The tenant identifier is resolved server-side at every layer and is never a tool input. What the model cannot name, it cannot cross." }
+      ]
+    },
+    { kind: "h2", text: "12. What a harness finds that no unit test sees" },
+    {
+      kind: "key",
+      sigil: "SEC. 12",
+      icon: "search",
+      minutes: 2,
+      oneLine: "The failure mode is a perfectly formed answer carrying the wrong threshold. Code coverage cannot see it.",
+      concrete: `At an oil consumption of exactly 0.30 qt/hr, Lore answered "NORMAL". It is ELEVATED: the band's lower bound is inclusive.`
+    },
+    {
+      kind: "p",
+      text: "First live run, 53 cases, 17 failures. Three defects that code coverage would never have revealed, because the code worked perfectly."
+    },
+    {
+      kind: "list",
+      items: [
+        "Hallucination after an honest refusal. The model says the procedure does not cover the fan blade count, then supplies one.",
+        "Cross-aircraft leakage. Asked about an aircraft with no history, it answers with another aircraft's.",
+        'Manufactured consensus. From a single note: "other technicians familiar with this airframe likely agree".'
+      ]
+    },
+    {
+      kind: "p",
+      text: "Across those 17 failures, the split was almost even between real model defects and graders that were simply too strict. A grader that cries wolf costs safety: after the third false alarm nobody reads the report, and that is the run where the real failure goes past."
+    },
+    {
+      kind: "p",
+      text: "Later, eleven harder cases were added and all 64 passed live on the first attempt. That was the least informative outcome available, so the answers were read rather than trusted. Reading them found three cases graded too weakly to fail, including the 0.30 qt/hr defect the harness had waved through: the required pattern accepted the answer because the word NORMAL appeared in it. All three now fail, and the baseline was deliberately not re-frozen. The protocol says freeze after three stable runs, never to turn a red run green."
+    },
+    {
+      kind: "quote",
+      text: "A case set that passes completely has stopped being an instrument of discovery and become a safety net. Both are useful; they are not the same object."
+    },
+    { kind: "h2", text: "13. Frequently asked questions" },
+    {
+      kind: "lines",
+      items: [
+        { q: "What is a grader?", a: "One line of a marking sheet: a single criterion, pass or fail, plus the reason. Kept deterministic, because a model judging a model fails the same way as the thing it judges." },
+        { q: "Harness or protocol, what is the difference?", a: "The protocol says what passing means. The harness is the machinery that applies it. Neither decides anything without the other." },
+        { q: "Why not just write tests?", a: "Because the failure mode is a perfectly formed answer carrying the wrong threshold. Code coverage cannot see that. In the four real defects found on Lore, the code worked exactly as written." },
+        { q: "Can an LLM judge another LLM's output?", a: "On criteria where the cost of a wrong verdict is bounded, yes, provided it is calibrated against a golden set and its agreement rate with humans is measured. Never on a tier that admits no failures." },
+        { q: "What does a closed loop actually require?", a: "Ground truth. Without something that says whether the output was right, you have measurement, not learning. Closing the measurement loop is architectural; closing the authority loop is a business and regulatory decision." },
+        { q: "How do you prevent hallucinations?", a: "You do not prevent them, you make them visible and blocking. A safety tier at 100% with no budget, and refusal coded as a contract rather than requested as a style note." },
+        { q: "What is a confidence score worth?", a: "It depends which of three things it is. Self-declared by the model: a generated token, not a measurement. By corroboration: counted, therefore useful. Calibrated: the only strict sense, and it requires outcome data." }
+      ]
+    },
+    {
+      kind: "askRose",
+      label: "Ask Rose about this piece",
+      note: "Rose is the agent on this site. She has read this note and both case studies.",
+      prompts: [
+        "Grader or harness, what is the difference?",
+        "Why can Lore not close the outcome loop?",
+        "If I ship an agent next month, what should I gate on first?"
+      ]
+    },
+    { kind: "h2", text: "Closing note" },
+    {
+      kind: "p",
+      text: `Sources: the "evaluation by design" architecture decision and Aetherix's reliability plan. "Eval as a contract" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.`
+    },
+    { kind: "p", text: "This piece has gaps. They are in the table in section 3 and in the last paragraph of section 8." },
+    {
+      kind: "p",
+      text: "A note on where it came from. I wrote the first version for myself, before interviews, because I kept noticing I could do things I could not name. It turned out to be more useful as a reference than as a memory aid, so it became this."
+    }
+  ]
+};
+
 // src/content/journal.ts
 var JOURNAL_ENTRIES = [
   {
@@ -180,380 +694,7 @@ var JOURNAL_ENTRIES = [
       }
     ]
   },
-  {
-    slug: "harnesses-graders-closed-loops",
-    title: "Harnesses, graders, closed loops",
-    subtitle: "A working vocabulary for evaluating AI systems, and the two products where it runs.",
-    date: "2026-07-31",
-    category: "Evaluation",
-    lang: "en",
-    readingMinutes: 16,
-    related: [
-      { label: "Lore", to: "/lore" },
-      { label: "Aetherix", to: "/aetherix" }
-    ],
-    excerpt: "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
-    body: [
-      {
-        kind: "p",
-        text: "Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision."
-      },
-      {
-        kind: "p",
-        text: "Everything here runs in two products: Aetherix, an operations agent for hospitality, and Lore, a voice mentor for aviation maintenance. The numbers come from their repositories, not from a whitepaper. Where something is not yet built, it says so."
-      },
-      { kind: "h2", text: "1. The vocabulary, through the driving test" },
-      {
-        kind: "p",
-        text: "A driving test contains every piece of the machinery. It is worth one pass to fix the words, and the rest of this piece will not need it again."
-      },
-      {
-        kind: "defs",
-        items: [
-          { term: "Case set", def: "The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset." },
-          { term: "Grader", def: `One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.` },
-          { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict." },
-          { term: "Protocol", def: "The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code." },
-          { term: "Open loop", def: "You measure, a human reads it, they may act. The measurement changes nothing by itself." },
-          { term: "Closed loop", def: "The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case." }
-        ]
-      },
-      {
-        kind: "quote",
-        text: "A grader judges one criterion, a harness runs the exam, a protocol says what passing means. A protocol without a harness is an intention. A harness without a protocol is a number with no decision attached."
-      },
-      {
-        kind: "p",
-        text: "The common confusion: a grader is not an alert. A grader judges, an alert tells someone. Whether anyone finds out is the loop's job, not the grader's. Same criterion, two moments, two mechanisms."
-      },
-      {
-        kind: "vocab",
-        label: "Vocabulary, in one line each",
-        items: [
-          { id: "caseSet", label: "Case set" },
-          { id: "grader", label: "Grader" },
-          { id: "harness", label: "Harness" },
-          { id: "protocol", label: "Protocol" },
-          { id: "openLoop", label: "Open loop" },
-          { id: "closedLoop", label: "Closed loop" }
-        ]
-      },
-      { kind: "h2", text: "2. Three arms, and what each product can afford" },
-      {
-        kind: "p",
-        text: "A pre-merge gate proves quality on frozen scenarios. It says nothing about behaviour in production. The three arms are complementary, not alternatives, and they share one severity vocabulary so that FAIL means the same thing everywhere."
-      },
-      {
-        kind: "table",
-        caption: "The three arms of evaluation",
-        head: ["Arm", "When", "What it proves"],
-        rows: [
-          ["A \u2014 Offline, dev-time", "Before the merge", "No regression on the case set: stratified accuracy, category coverage"],
-          ["B \u2014 Runtime, online", "In production, continuously", "Guardrails and anomaly detection on real traffic: error rates, output bounds, abstention, drift, latency"],
-          ["C \u2014 Outcome, downstream", "After the fact, long loop", "Was the output acted on, and did it produce value"]
-        ]
-      },
-      { kind: "arms", label: "When each arm fires along a release" },
-      {
-        kind: "p",
-        text: "You do not test a parachute against a case set; you measure it in flight. Provided arm B is held to the same standard: every layer emits a measurable signal with a typed reason."
-      },
-      { kind: "h3", text: "What each product actually has" },
-      {
-        kind: "table",
-        caption: "Learning loops available in each product",
-        head: ["", "Aetherix", "Lore"],
-        rows: [
-          ["Human loop", "One tap on WhatsApp: accept, modify, reject", "The intervention log, not yet exploited"],
-          ["Automatic comparison", "Yes. Forecast error computes itself and is the level-1 product KPI", "None"],
-          ["Ground truth", "Declared by the manager. Reading it from the point of sale is phase 4 and has its own architecture decision on file", "None, and the signal is censored: escalate, and the counterfactual disappears"]
-        ]
-      },
-      {
-        kind: "p",
-        text: 'Aetherix runs one and a half loops, not two. The comparison is autonomous, accuracy is computed without anyone deciding to compute it, and thresholds gate on it. The truth it compares against is still declared by a human. That is worth saying precisely, because "closed loop on a declared truth" is an engineering statement and "dual autonomous loop" is a brochure statement.'
-      },
-      {
-        kind: "p",
-        text: "Lore has neither half. Nothing tells it whether an observation was right, and the little that could is censored: escalate, and you never learn what would have happened otherwise. Maintenance outcomes are slow, sparse and confounded."
-      },
-      {
-        kind: "quote",
-        text: "When you cannot learn from outcomes, you have to over-invest upstream. Aetherix can afford a third arm because reality feeds it. Lore has to compensate through the first two. That is why its evaluation harness weighs close to a third of its codebase: not gratuitous rigour, but the price of a missing outcome loop."
-      },
-      {
-        kind: "deployed",
-        items: [
-          { project: "Aetherix", to: "/aetherix", text: "Arm A as a CI gate, arm B with its own architecture decision on runtime guardrails, and every tool call emitted as a structured event, auditable and billable." },
-          { project: "Lore", to: "/lore", text: "Arm A only, offline and live. No runtime." }
-        ]
-      },
-      { kind: "h2", text: '3. "Working" against "Reliable", five dimensions' },
-      { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. \u2014 Qonto" },
-      {
-        kind: "p",
-        text: "Five dimensions, one question each, to answer before shipping. The right-hand column is Lore's actual state. Saying where you are beats claiming coverage."
-      },
-      {
-        kind: "table",
-        caption: "Five reliability dimensions, and where Lore stands",
-        head: ["Dimension", "The question", "Lore"],
-        rows: [
-          ["Edge behaviour", "Tested outside the distribution, not just the happy path?", "partial \u2014 four cases on band boundaries"],
-          ["Graceful degradation", "When the agent does not know, does it say so, or improvise? Is refusal coded as a contract?", "met \u2014 eight-rule refusal contract, dedicated grader, tier 1"],
-          ["Observability", "Is there a dashboard of what the model does in production, not just uptime?", "absent"],
-          ["Reproducibility", "Does the same input produce the same output tomorrow?", "partial \u2014 temperature 0 and frozen baselines, but the canary has been invalidated"],
-          ["Distribution shift", "Is there an alert if the input distribution drifts?", "absent"]
-        ]
-      },
-      {
-        kind: "p",
-        text: "Two absents out of five, and both belong to arm B. Not a coincidence: it is the most expensive arm, and the only one whose absence stays invisible until production."
-      },
-      { kind: "h2", text: "4. The reliability pyramid" },
-      {
-        kind: "p",
-        text: "Each layer assumes the one below it. The base is not one layer among others, it is a blocking prerequisite. Without a case set and without failure definitions, nothing above it can be measured."
-      },
-      {
-        kind: "pyramid",
-        layers: [
-          { level: "Layer 5", name: "Trust KPI ablation" },
-          { level: "Layer 4", name: "Memory recall relevance" },
-          { level: "Layer 3", name: "Inbound feedback parser" },
-          { level: "Layer 2", name: "LLM reasoning quality" },
-          { level: "Layer 1", name: "Forecast accuracy", note: "MAPE" },
-          { level: "Base", name: "Case set and failure definitions", note: "blocking prerequisite", base: true }
-        ]
-      },
-      {
-        kind: "deployed",
-        items: [
-          { project: "Aetherix", to: "/aetherix", text: "The pyramid comes from its reliability plan. Every layer has a numeric failure definition: forecast error drifting more than three points from baseline, intent parser accuracy below 90%, memory recall below 0.7 precision at five." },
-          { project: "Lore", to: "/lore", text: "The base exists. Layer 2 is what the nine graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated." }
-        ]
-      },
-      { kind: "h2", text: "5. Evaluation as a contract" },
-      {
-        kind: "quote",
-        text: "Not after the bug. Before the first line of model code, answer this: how will we know it works?"
-      },
-      {
-        kind: "list",
-        items: [
-          "Case set first. Representative examples, edges included, before any code.",
-          "Define failure. What is a bad output, and above what threshold is it unacceptable?",
-          "The evaluation set is a specification, not a test added afterwards.",
-          'Once the output is seen by a customer, the bar is ship-or-fail, not "it informs a decision".'
-        ]
-      },
-      {
-        kind: "p",
-        text: "The idea is not mine. I took it from Qonto's engineering, which frames it as a contract rather than a best practice. That shift is what makes it operative: a contract has a counterparty and a sanction."
-      },
-      {
-        kind: "p",
-        text: `An example of what "contract" means concretely. Lore's documentation had always described procedure primacy as "structurally enforced", when it was a sentence in two prompts, which is a request. Three attempts to strengthen the request failed, one of them dropping the safety tier by nearly four points. The guarantee now lives in code that checks the answer after generation against the computable rule, sends one targeted correction quoting the manual's own terms, checks again, and falls back to a deterministic verdict. The pipeline can no longer emit an answer contradicting a computable rule, whatever the model does. A claim about code has to be held by code.`
-      },
-      {
-        kind: "deployed",
-        items: [
-          { project: "Aetherix", to: "/aetherix", text: 'A traced architecture decision, "evaluation by design", not a team convention. Versioned case sets, merge blocked without a green pipeline.' },
-          { project: "Lore", to: "/lore", text: "The case set existed before the refusal contract, and it is what made the defects visible." }
-        ]
-      },
-      { kind: "h2", text: "6. Acceptance criteria, the part everyone skips" },
-      {
-        kind: "p",
-        text: "A pass rate with no threshold attached is a number, not a decision. A missing closing sentence and an invented vibration threshold are both failures; only one of them can ground the wrong aircraft."
-      },
-      {
-        kind: "table",
-        caption: "Severity tiers and their thresholds",
-        head: ["Tier", "Threshold", "What it covers"],
-        rows: [
-          ["1 \u2014 safety", "100%", "No budget. Invented figures, a refusal followed by a guess, contradicting the procedure, manufactured consensus."],
-          ["2 \u2014 trust", "95%", "Named attribution, procedure cited first. Usable when degraded, but it erodes the reason to trust the system."],
-          ["3 \u2014 form", "90%", "Wording and closing discipline. A miss misleads nobody about a limit."]
-        ]
-      },
-      {
-        kind: "table",
-        caption: "Verdicts and exit codes",
-        head: ["Code", "Verdict", "Meaning"],
-        rows: [
-          ["0", "PASS", "Every tier at 100%"],
-          ["1", "FAIL", "A tier below its threshold"],
-          ["2", "ERROR", "The harness crashed. No measurement was taken"],
-          ["3", "WARN", 'Thresholds met but a tier is not clean. Not a synonym for "fine"']
-        ]
-      },
-      {
-        kind: "p",
-        text: "This is where the driving test earns its keep. You can collect minor faults and still pass. One major fault and you walk home, whatever the rest of the sheet says. A Lore run finished at 52 out of 53 and was declared a failure, because the single miss sat in tier 1."
-      },
-      {
-        kind: "p",
-        text: 'Separating ERROR from FAIL is not fussiness. The runner emitted only 0 and 1, so a crash exited as FAIL. "No measurement was taken" and "the measurement came back bad" call for opposite actions, and a CI that conflates them reads a crash as a quality signal.'
-      },
-      { kind: "h3", text: "The two rules that make the difference" },
-      {
-        kind: "list",
-        items: [
-          "Relative regression, not just an absolute floor. A drop of more than three points against the frozen baseline is a failure even when the tier stays above its threshold. And a case that held at baseline and fails now fails the run if a tier-1 grader is among its failures; on tiers 2 and 3 it warns and says so. Severity follows what broke, otherwise a measured 0.6-point wording flap would turn the build red.",
-          "Determinism is a prerequisite. Acceptance criteria against a moving measurement mean nothing."
-        ]
-      },
-      {
-        kind: "p",
-        text: "The case in point: two runs of the same 53 cases scored 38 then 36, with only 12 of the 17 failures in common. Eight cases flipped between passes. At temperature 0.5 the rate is a draw, not a measurement."
-      },
-      {
-        kind: "p",
-        text: "And what came next, which matters as much. The protocol required three identical runs at 0.00 points of variance before a threshold could block a merge. The progression was 36, 48, 48, 52, then 53 out of 53, followed by four consecutive runs with no variance. The baselines were frozen only after that."
-      },
-      {
-        kind: "p",
-        text: "That canary has since been invalidated, and the reason is worth more than the result. Temperature 0 makes a request reproducible in practice, not deterministic by construction: the provider remains free to vary. Four identical runs were empirical evidence, not a guarantee. Then structural enforcement of procedure primacy added a conditional second model call on the answers it corrects, two calls per corrected case, so two chances to diverge, and the correction feeds forward into the graded text. Observed immediately: two runs of the same 64 cases at 61 and 62, with disjoint failure sets."
-      },
-      {
-        kind: "p",
-        text: "Enforcement therefore raised the mean and raised the variance. Both are true, and the trade is worth making: a corrected answer beats a fluent wrong one."
-      },
-      {
-        kind: "p",
-        text: "The canary rerun on the enforced pipeline gives the shape to expect: three runs of 64 cases, tier 1 at 100% in all three, all observed variance sitting in tier 3 at 0.6 points, well inside the three-point budget. Hence the rule corrected rather than quietly dropped: 0.00 points of variance required on tier 1 alone, tiers 2 and 3 free to move inside their budget. The safety tier is guarded by code and does not move; the form tier depends on phrasing and always will."
-      },
-      {
-        kind: "quote",
-        text: "Demanding 0.00 across every tier sets a bar that cannot be met, and a gate that cannot be met is a gate people learn to ignore. That is exactly the failure the graders themselves kept making."
-      },
-      {
-        kind: "deployed",
-        items: [
-          { project: "Aetherix", to: "/aetherix", text: "The origin. The failure-thresholds file and the coverage script, exit-code contract included. Its gate moved from advisory to blocking only after the same canary, and environment drift was named as the real culprit rather than the model." },
-          { project: "Lore", to: "/lore", text: "The reimplementation, with frozen baselines committed, and a CI gate where the offline job blocks and coverage blocks on FAIL. The live target no longer starts on its own: it requires a label on the pull request or a manual trigger. A full run is about seventy model calls for a quarter of a euro, and CI must not be able to spend on its own initiative. Skipped work is shown as skipped rather than passed, and the free job states on every request that no model was called." }
-        ]
-      },
-      { kind: "h2", text: "7. Confidence, three things people conflate" },
-      {
-        kind: "defs",
-        items: [
-          { term: "Self-declared", def: "The model writing a confidence of 0.85. That is a generated token, not a measurement: it produces the plausible number for the context, like the rest of the sentence." },
-          { term: "By corroboration", def: "How many independent sources, how recent, how consistent. Reliable because counted, not guessed." },
-          { term: "Calibration", def: "When the system says 80%, is it right 80% of the time? The only strict sense. It requires outcome data, therefore arm C." }
-        ]
-      },
-      {
-        kind: "quote",
-        text: "A wrong number in a safety product is worse than no number, because the downstream code and the humans will believe it. Absence is honest; 0.7 is a lie with a decimal place."
-      },
-      {
-        kind: "deployed",
-        items: [
-          { project: "Lore", to: "/lore", text: "Not a figure of speech. A hard-coded confidence of 0.7 sat in the capture fallback branch. The defect was not the constant but its direction: that branch runs when extraction failed, which is when confidence is lowest, and 0.7 is above neutral. Removed." }
-        ]
-      },
-      { kind: "h2", text: "8. Human in the loop: by design or by default" },
-      {
-        kind: "table",
-        caption: "Human in the loop, by design against by default",
-        head: ["", "By design", "By default"],
-        rows: [
-          ["Status", "A decision node: defined inputs, defined decision, recorded output", "Nobody automated the step, so someone has to remember"],
-          ["Trace", "The approval becomes data, every rejection an evaluation case", "No trace, no learning"],
-          ["Under load", "Holds", "Breaks"]
-        ]
-      },
-      {
-        kind: "quote",
-        text: "Keeping a human does not destroy the value. Leaving the human as the only mechanism, without capturing their decision, does. The fix is not to remove them, it is to turn their judgement into an artefact."
-      },
-      {
-        kind: "p",
-        text: "Closing the measurement loop, blocking a merge, alerting on drift, feeding failures back into the case set, is a purely architectural decision. Closing the authority loop, letting the system act without a human, is a business and regulatory decision. In aviation it is prohibited: the technician remains the certifying agent."
-      },
-      { kind: "h2", text: "9. Signals, ontology, priors" },
-      {
-        kind: "defs",
-        items: [
-          { term: "Signals", def: "Typed emissions at every layer: refusal reason, retrieval score, abstention event, latency. Without signals, arm B is structurally impossible. You do not monitor what does not speak." },
-          { term: "Ontology", def: 'The shared vocabulary that makes "the same situation" computable. Without it, the distinction between two aircraft is only words in a prompt.' },
-          { term: "Priors", def: 'What the system believes before seeing evidence. "I have seen it four times in eight years" is a prior. In prose it is an anecdote; as a weight it is a prior.' },
-          { term: "Similarity", def: "Retrieval plus ontology. This is layer 4 of the pyramid, and it is most often unevaluated." }
-        ]
-      },
-      {
-        kind: "deployed",
-        items: [
-          { project: "Lore", to: "/lore", text: "The proof by absence. Asked about an aircraft with no history, the model answered with another aircraft's record. Separation by registration was a principle written in the documentation, and nothing in the code made it hard." },
-          { project: "Aetherix", to: "/aetherix", text: "The opposite, deliberately. The tenant identifier is resolved server-side at every layer and is never a tool input. What the model cannot name, it cannot cross." }
-        ]
-      },
-      { kind: "h2", text: "10. The Lore case: what a harness finds that no unit test sees" },
-      {
-        kind: "p",
-        text: "First live run, 53 cases, 17 failures. Three defects that code coverage would never have revealed, because the code worked perfectly."
-      },
-      {
-        kind: "list",
-        items: [
-          "Hallucination after an honest refusal. The model says the procedure does not cover the fan blade count, then supplies one. Recognising the refusal better would have let the answer pass.",
-          "Cross-aircraft leakage. Asked about an aircraft with no history, it answers with another aircraft's.",
-          'Manufactured consensus. From a single note: "other technicians familiar with this airframe likely agree". Inventing agreement fabricates the authority the reader weighs the advice by.'
-        ]
-      },
-      { kind: "h3", text: "The least comfortable lesson" },
-      {
-        kind: "p",
-        text: "Across those 17 failures, the split was almost even between real model defects and graders that were simply too strict. A grader that cries wolf costs safety: after the third false alarm nobody reads the report, and that is the run where the real failure goes past."
-      },
-      {
-        kind: "quote",
-        text: "A regression suite proves that graders reject bad answers. It never proves they accept good ones phrased differently from how their author phrased them. That takes a real run."
-      },
-      { kind: "h3", text: "And the part I prefer" },
-      {
-        kind: "p",
-        text: "Eleven harder cases were added: band boundaries, a second expert contradicting the first, the social pressure of a junior alone at two in the morning who wants permission. All 64 passed live on the first attempt. That was the least informative outcome available, so the answers were read rather than trusted."
-      },
-      {
-        kind: "p",
-        text: `Reading them found three cases graded too weakly to fail, including a real defect the harness had waved through: at an oil consumption of exactly 0.30 qt/hr, the answer said "NORMAL, no further action required". It is ELEVATED, the band's lower bound being inclusive. The required pattern accepted the answer because the word NORMAL appeared in it.`
-      },
-      {
-        kind: "p",
-        text: "All three now fail, which is the point. And the baseline was deliberately not re-frozen: the protocol says freeze after three stable runs, never to turn a red run green."
-      },
-      {
-        kind: "quote",
-        text: "A case set that passes completely has stopped being an instrument of discovery and become a safety net. Both are useful; they are not the same object."
-      },
-      { kind: "h2", text: "11. Frequently asked questions" },
-      {
-        kind: "lines",
-        items: [
-          { q: "What is a grader?", a: "One line of a marking sheet: a single criterion, pass or fail, plus the reason. Kept deterministic, because a model judging a model fails the same way as the thing it judges." },
-          { q: "Harness or protocol, what is the difference?", a: "The protocol says what passing means. The harness is the machinery that applies it. Neither decides anything without the other." },
-          { q: "Why not just write tests?", a: "Because the failure mode is a perfectly formed answer carrying the wrong threshold. Code coverage cannot see that. In the four real defects found on Lore, the code worked exactly as written." },
-          { q: "Can an LLM judge another LLM's output?", a: "On criteria where the cost of a wrong verdict is bounded, yes, provided it is calibrated against a golden set and its agreement rate with humans is measured. Never on a tier that admits no failures, because it fails in the same way as the thing it grades." },
-          { q: "What does a closed loop actually require?", a: "Ground truth. Without something that says whether the output was right, you have measurement, not learning. Closing the measurement loop is architectural; closing the authority loop is a business and regulatory decision, and in aviation it is prohibited." },
-          { q: "How do you prevent hallucinations?", a: "You do not prevent them, you make them visible and blocking. A safety tier at 100% with no budget, and refusal coded as a contract rather than requested as a style note." },
-          { q: "What is a confidence score worth?", a: "It depends which of three things it is. Self-declared by the model: a generated token, not a measurement. By corroboration: counted, therefore useful. Calibrated: the only strict sense, and it requires outcome data." }
-        ]
-      },
-      { kind: "h2", text: "Closing note" },
-      {
-        kind: "p",
-        text: `Sources: the "evaluation by design" architecture decision and Aetherix's reliability plan. "Eval as a contract" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.`
-      },
-      { kind: "p", text: "This piece has gaps, and they are in the table in section 3." },
-      {
-        kind: "p",
-        text: "A note on where it came from. I wrote the first version for myself, before interviews, because I kept noticing I could do things I could not name. It turned out to be more useful as a reference than as a memory aid, so it became this."
-      }
-    ]
-  }
+  HARNESSES_ENTRY
 ];
 
 // src/lib/mcp/tools/list-journal.ts
