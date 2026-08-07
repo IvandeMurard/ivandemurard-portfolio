@@ -4,7 +4,8 @@ import { DefaultChatTransport } from "ai";
 import type { UIMessage } from "ai";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
-import { INTENT_CHIPS } from "./roseConfig";
+import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
+import { useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
 import roseMark from "@/assets/rose-mark.png";
 
@@ -48,6 +49,8 @@ export const RoseDock = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
   const sessionId = useMemo(() => getSessionId(), []);
+  const { pathname } = useLocation();
+  const prompts = useMemo(() => getRosePrompts(pathname), [pathname]);
 
   const transport = useMemo(
     () =>
@@ -86,8 +89,8 @@ export const RoseDock = () => {
     void sendMessage({ text: trimmed });
   };
 
-  const onChip = (chip: (typeof INTENT_CHIPS)[number]) => {
-    setDetectedIntent(chip.intent);
+  const onChip = (chip: RosePrompt) => {
+    if (chip.intent) setDetectedIntent(chip.intent);
     submit(chip.message);
   };
 
@@ -260,11 +263,12 @@ export const RoseDock = () => {
                 open ? "pb-3" : "pt-4 pb-3",
               )}
             >
-              {INTENT_CHIPS.slice(0, open ? 4 : 3).map((chip) => (
+              {prompts.slice(0, open ? 4 : 3).map((chip) => (
                 <button
-                  key={chip.intent}
+                  key={chip.label}
                   onClick={() => onChip(chip)}
                   disabled={isLoading}
+                  aria-label={chip.ariaLabel ?? chip.label}
                   className={cn(
                     "rounded-full border px-3.5 py-1.5 text-xs text-on-surface transition-all duration-300 motion-reduce:transition-none hover:border-secondary hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50",
                     active
