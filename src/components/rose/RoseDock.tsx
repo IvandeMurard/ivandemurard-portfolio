@@ -261,11 +261,12 @@ export const RoseDock = () => {
                 open ? "pb-3" : "pt-4 pb-3",
               )}
             >
-              {INTENT_CHIPS.slice(0, open ? 4 : 3).map((chip) => (
+              {prompts.slice(0, open ? 4 : 3).map((chip) => (
                 <button
-                  key={chip.intent}
+                  key={chip.label}
                   onClick={() => onChip(chip)}
                   disabled={isLoading}
+                  aria-label={chip.ariaLabel ?? chip.label}
                   className={cn(
                     "rounded-full border px-3.5 py-1.5 text-xs text-on-surface transition-all duration-300 motion-reduce:transition-none hover:border-secondary hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50",
                     active
