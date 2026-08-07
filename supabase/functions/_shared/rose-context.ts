@@ -57,7 +57,13 @@ Contact channels: email ivandemurard@gmail.com, cal.com booking https://cal.com/
 // Kept for backwards compatibility. New code should call getRoseSystemPrompt().
 export const ROSE_SYSTEM_PROMPT = ROSE_BASE_PROMPT;
 
-const CASE_STUDY_SLUGS = ["sonor", "aetherix", "tacet"] as const;
+const CASE_STUDY_SLUGS = [
+  "sonor",
+  "aetherix",
+  "tacet",
+  "lore",
+  "harnesses-graders-closed-loops",
+] as const;
 type Slug = (typeof CASE_STUDY_SLUGS)[number];
 
 const CASE_STUDY_URL = (slug: Slug) =>
