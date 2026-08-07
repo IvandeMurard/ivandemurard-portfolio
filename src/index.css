@@ -883,7 +883,16 @@
   }
 }
 
+/* Light mode: thin strokes wash out on cream. Give body copy a touch more ink. */
+:root:not([data-mood="dusk"]) .font-light {
+  font-weight: 400;
+}
+:root:not([data-mood="dusk"]) .font-body {
+  letter-spacing: 0.005em;
+}
+
 /* Print and PDF export: keep the article, drop the site chrome. */
+
 @media print {
   :root {
     --background: 0 0% 100%;
