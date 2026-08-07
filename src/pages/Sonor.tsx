@@ -4,6 +4,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
@@ -204,6 +205,8 @@ const Sonor = () => {
           </div>
         </div>
       </Reveal>
+
+      <CaseAnchors current="sonor" />
 
       {/* The Curiosity */}
       <section id="curiosity" className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">

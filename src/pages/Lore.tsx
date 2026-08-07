@@ -2,6 +2,7 @@
 // If you change facts here, also update public/lore.md.
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
@@ -131,6 +132,8 @@ const Lore = () => (
       </Reveal>
 
 
+
+      <CaseAnchors current="lore" />
 
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">

@@ -2,6 +2,7 @@
 // If you change facts here, also update public/tacet.md and public/llms-full.txt.
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
@@ -184,6 +185,8 @@ const Tacet = () => (
           <div className="halo-drift w-full h-full bg-gradient-to-tr from-primary/20 via-primary-container/10 to-transparent rounded-full blur-3xl" />
         </div>
       </Reveal>
+
+      <CaseAnchors current="tacet" />
 
       {/* Project Info */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
