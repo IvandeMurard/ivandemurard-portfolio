@@ -37,6 +37,7 @@ const App = () => (
               <Route path="/atherix" element={<Navigate to="/aetherix" replace />} />
               <Route path="/tacet" element={<Tacet />} />
               <Route path="/lore" element={<Lore />} />
+              <Route path="/anima" element={<Anima />} />
               <Route path="/architecture" element={<Architecture />} />
               <Route path="/atrium" element={<Atrium />} />
               <Route path="/contact" element={<Contact />} />
