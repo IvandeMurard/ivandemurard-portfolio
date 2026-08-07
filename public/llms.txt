@@ -1,6 +1,6 @@
 # Ivan de Murard
 
-> I build agentic AI systems for operations, and I publish what they cannot do yet. Product builder based in Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor (B2G SaaS). Designs from operational experience, ships with AI, keeps the human at the center. Focus areas: agentic AI, boutique hotel operations, service design, SaaS, open data.
+> I build agentic AI systems to continually improve operations, knowledge, and experience. Product builder based in Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor (B2G SaaS). Designs from operational experience, ships with AI, keeps the human at the center. Focus areas: agentic AI, boutique hotel operations, service design, SaaS, open data.
 
 - Site: https://ivandemurard.com
 - LinkedIn: https://www.linkedin.com/in/ivandemurard/

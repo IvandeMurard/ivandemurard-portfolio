@@ -123,10 +123,7 @@ const Index = () => {
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="headline-ink relative z-10 font-headline text-4xl md:text-6xl text-primary leading-[1.15] italic perspective-text"
           >
-            I build agentic AI systems for operations,{" "}
-            <span className="text-primary-container hero-line-2">
-              and I publish what they cannot do yet.
-            </span>
+            I build agentic AI systems to continually improve operations, knowledge, and experience.
           </h1>
         </div>
         <p
