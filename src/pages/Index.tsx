@@ -131,7 +131,7 @@ const Index = () => {
           style={{ ["--reveal-delay" as string]: "360ms" }}
           className="mt-10 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
         >
-          Product builder, Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding a SaaS. Currently: a network of specialised agents for hotel operations, and a voice mentor for aviation maintenance.
+          Product builder, Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding a SaaS. Currently building an architecture of specialised agents for hotel operations.
         </p>
         {/* Proof strip, the Milestones numeral treatment promoted above the fold */}
         <div
