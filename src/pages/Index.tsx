@@ -86,7 +86,7 @@ const Index = () => {
   <SiteLayout>
 
     <Seo
-      title="Ivan de Murard, Product Builder in Paris"
+      title="Ivan de Murard, product builder, agentic AI for operations"
       rawTitle
       description="Product builder in Paris. 5 years across start-ups, scale-ups and large groups, plus 2 years co-founding a SaaS. Designs from ops, ships with AI."
       path="/"
