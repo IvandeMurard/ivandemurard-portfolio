@@ -123,8 +123,15 @@ export const RoseDock = () => {
         )}
       >
         <div
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onFocusCapture={() => setFocusWithin(true)}
+          onBlurCapture={() => setFocusWithin(false)}
           className={cn(
-            "pointer-events-auto flex flex-col overflow-hidden rounded-3xl border border-outline-variant bg-surface-container-lowest/95 shadow-2xl shadow-black/10 backdrop-blur-md transition-all duration-300",
+            "pointer-events-auto flex flex-col overflow-hidden rounded-3xl border backdrop-blur-md transition-all duration-300 motion-reduce:transition-none",
+            active
+              ? "border-outline-variant bg-surface-container-lowest/95 shadow-2xl shadow-black/10"
+              : "border-outline-variant/40 bg-surface-container-lowest/35 shadow-lg shadow-black/5",
             open ? "max-h-[min(600px,80vh)]" : "max-h-[220px]",
           )}
         >
