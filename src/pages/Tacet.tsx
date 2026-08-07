@@ -263,9 +263,9 @@ const Tacet = () => (
             className="w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-primary/10 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary/80 mb-2">
+            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary mb-2">
               Environmental twin, isometric view
             </p>
             <p className="font-headline italic text-on-primary text-xl md:text-2xl max-w-md leading-snug">
@@ -307,7 +307,7 @@ const Tacet = () => (
 
         {/* Example workflow pull-quote */}
         <div className="max-w-3xl mx-auto bg-primary text-on-primary rounded-2xl p-8 md:p-12 relative overflow-hidden">
-          <span className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary/70 mb-4 block">
+          <span className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary mb-4 block">
             Example workflow
           </span>
           <p className="font-headline italic text-xl md:text-2xl leading-relaxed">
