@@ -199,8 +199,8 @@
     font-feature-settings: "ss01", "kern";
   }
   ::selection {
-    background: hsl(var(--secondary-fixed));
-    color: hsl(var(--on-secondary-container));
+    background: hsl(var(--selection-bg));
+    color: hsl(var(--selection-fg));
   }
 }
 
