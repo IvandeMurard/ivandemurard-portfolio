@@ -22,7 +22,7 @@ export const AetherixTrustFrames = () => (
         style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
         className="flex flex-col gap-3"
       >
-        <div className="aspect-video rounded-2xl bg-surface-container-low border border-outline-variant/25 flex items-center justify-center">
+        <div className="aspect-video rounded-2xl bg-surface-container-low border border-outline-variant flex items-center justify-center">
           <span className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant">
             {f.hint}
           </span>

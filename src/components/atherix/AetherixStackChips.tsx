@@ -14,7 +14,7 @@ export const AetherixStackChips = () => (
     {CHIPS.map((c) => (
       <li
         key={c}
-        className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/25 text-xs text-on-surface"
+        className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant text-xs text-on-surface"
       >
         {c}
       </li>

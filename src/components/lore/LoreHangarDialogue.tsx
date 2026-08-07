@@ -19,13 +19,13 @@ const EXCHANGE: { speaker: "Thomas" | "Lore"; text: string }[] = [
  * speech set in the serif face, separated by hairlines.
  */
 export const LoreHangarDialogue = () => (
-  <div className="border-t border-outline-variant/30">
+  <div className="border-t border-outline-variant">
     {EXCHANGE.map((line, i) => (
       <div
         key={i}
         data-reveal-child
         style={{ ["--reveal-delay" as string]: `${180 + i * 120}ms` }}
-        className="grid grid-cols-1 md:grid-cols-[9rem_1fr] gap-2 md:gap-8 border-b border-outline-variant/30 py-6 md:py-8"
+        className="grid grid-cols-1 md:grid-cols-[9rem_1fr] gap-2 md:gap-8 border-b border-outline-variant py-6 md:py-8"
       >
         <span
           className={`font-label uppercase tracking-[0.25em] text-[10px] pt-2 ${

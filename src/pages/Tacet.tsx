@@ -187,7 +187,7 @@ const Tacet = () => (
 
       {/* Project Info */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
-        <div className="grid md:grid-cols-5 gap-8 py-12 border-y border-surface-variant">
+        <div className="grid md:grid-cols-5 gap-8 py-12 border-y border-outline-variant">
           <div className="md:col-span-1">
             <h4 className="font-label text-xs uppercase tracking-[0.2em] text-secondary mb-2">Project Info</h4>
           </div>
@@ -202,7 +202,7 @@ const Tacet = () => (
                     href={info.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-body text-sm text-on-surface inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary hover:text-primary transition-colors"
+                    className="font-body text-sm text-on-surface inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary hover:text-primary transition-colors"
                   >
                     {info.value}
                     <Icon name="open_in_new" className="text-xs" />
@@ -256,16 +256,16 @@ const Tacet = () => (
 
       {/* 3. Solution illustration */}
       <Reveal as="section" id="solution" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16 scroll-mt-24">
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant/20" style={{ viewTransitionName: "case-hero-tacet" }}>
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-outline-variant" style={{ viewTransitionName: "case-hero-tacet" }}>
           <img
             src={acousticTwinImg}
             alt="Isometric environmental twin visualisation, concentric waves over a wireframe city"
             className="w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-primary/10 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary/80 mb-2">
+            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary mb-2">
               Environmental twin, isometric view
             </p>
             <p className="font-headline italic text-on-primary text-xl md:text-2xl max-w-md leading-snug">
@@ -296,7 +296,7 @@ const Tacet = () => (
               className="lift-card p-8 bg-surface-container-low rounded-lg hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
               <span className="font-label text-[10px] text-secondary mb-8 block tracking-widest">{s.n}</span>
-              <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/70">
+              <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary">
                 <Icon name={s.icon} className="text-sm" />
               </div>
               <h5 className="font-headline text-2xl italic mb-4 text-primary">{s.title}</h5>
@@ -307,7 +307,7 @@ const Tacet = () => (
 
         {/* Example workflow pull-quote */}
         <div className="max-w-3xl mx-auto bg-primary text-on-primary rounded-2xl p-8 md:p-12 relative overflow-hidden">
-          <span className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary/70 mb-4 block">
+          <span className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary mb-4 block">
             Example workflow
           </span>
           <p className="font-headline italic text-xl md:text-2xl leading-relaxed">
@@ -328,7 +328,7 @@ const Tacet = () => (
             From proxy signals to MCP rules, the headless flow that turns context into decisions.
           </p>
         </div>
-        <div className="rounded-2xl border border-outline-variant/20 overflow-hidden">
+        <div className="rounded-2xl border border-outline-variant overflow-hidden">
           <TacetPipelineDiagram />
         </div>
       </Reveal>
@@ -351,11 +351,11 @@ const Tacet = () => (
               key={p.letter}
               data-reveal-child
               style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }}
-              className="lift-card p-8 md:p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
+              className="lift-card p-8 md:p-10 bg-surface-container-low border border-outline-variant rounded-2xl hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="font-label text-[10px] text-secondary tracking-[0.25em]">PILLAR {p.letter}</span>
-                <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 flex items-center justify-center text-primary/70">
+                <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 flex items-center justify-center text-primary">
                   <Icon name={p.icon} className="text-sm" />
                 </div>
               </div>
@@ -380,8 +380,8 @@ const Tacet = () => (
         </div>
         <div className="grid md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto">
           {IMPACT.map((it) => (
-            <div key={it.title} className="p-8 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
-              <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/70">
+            <div key={it.title} className="p-8 bg-surface-container-low border border-outline-variant rounded-2xl">
+              <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary">
                 <Icon name={it.icon} className="text-sm" />
               </div>
               <h3 className="font-headline italic text-2xl text-primary mb-4 leading-snug">{it.title}</h3>
@@ -399,21 +399,21 @@ const Tacet = () => (
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Tacet and Aetherix</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
             Tacet exposes its rules and reasoning through <Term id="mcp">MCP</Term>.{" "}
-            <Link to="/aetherix" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">
+            <Link to="/aetherix" className="text-secondary border-b border-secondary hover:border-secondary transition-colors">
               Aetherix
             </Link>
             {" "}consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+          <div className="p-10 bg-surface-container-low border border-outline-variant rounded-2xl">
             <Icon name="hub" className="text-secondary text-2xl mb-6" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">Aetherix, internal context</h3>
             <p className="text-on-surface-variant leading-relaxed">
               Anticipates operational needs, F&B demand and staffing, based on occupancy and historical trends.
             </p>
           </div>
-          <div className="p-10 bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+          <div className="p-10 bg-surface-container-low border border-outline-variant rounded-2xl">
             <Icon name="public" className="text-secondary text-2xl mb-6" />
             <h3 className="font-headline italic text-2xl text-primary mb-4">Tacet, external context</h3>
             <p className="text-on-surface-variant leading-relaxed">
@@ -465,7 +465,7 @@ const Tacet = () => (
               href="https://tacet.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-secondary border-b border-secondary/30 pb-1 hover:border-secondary transition-colors"
+              className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
               <span className="font-label text-xs uppercase tracking-widest mr-3">
                 Original B2C dashboard, visual reference
@@ -476,7 +476,7 @@ const Tacet = () => (
               href="https://github.com/IvandeMurard/tacet-app"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-secondary border-b border-secondary/30 pb-1 hover:border-secondary transition-colors"
+              className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
               <span className="font-label text-xs uppercase tracking-widest mr-3">
                 View source on GitHub
@@ -496,7 +496,7 @@ const Tacet = () => (
         </h3>
         <div className="space-y-8">
           {FAQ.map((f) => (
-            <div key={f.q} className="border-b border-surface-variant pb-8">
+            <div key={f.q} className="border-b border-outline-variant pb-8">
               <h4 className="font-body text-lg text-primary mb-4">{f.q}</h4>
               <p className="text-on-surface-variant leading-relaxed">{f.a}</p>
             </div>
@@ -505,13 +505,13 @@ const Tacet = () => (
       </section>
 
       {/* Closing CTA */}
-      <section id="contact" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-surface-container-high scroll-mt-24">
+      <section id="contact" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-outline-variant scroll-mt-24">
         <div className="max-w-4xl">
           <h2 className="font-headline text-4xl md:text-7xl italic text-primary mb-12 leading-tight">
             Interested in proactive intelligence for hotel operations?
           </h2>
           <a href="mailto:ivandemurard@gmail.com" className="inline-flex items-center group">
-            <span className="font-headline text-2xl md:text-3xl italic text-secondary border-b border-secondary/20 group-hover:border-secondary transition-all duration-500 pb-1">
+            <span className="font-headline text-2xl md:text-3xl italic text-secondary border-b border-secondary group-hover:border-secondary transition-all duration-500 pb-1">
               Let's discuss.
             </span>
             <Icon

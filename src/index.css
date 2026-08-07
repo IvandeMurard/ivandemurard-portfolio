@@ -50,8 +50,12 @@
     --on-background: 90 4% 11%;
 
     /* Outline */
-    --outline: 233 6% 49%;                    /* #767683 */
-    --outline-variant: 240 14% 80%;           /* #c6c5d4 */
+    --outline: 233 8% 40%;                    /* darkened for AA on cream */
+    --outline-variant: 235 11% 54%;           /* borders reach 3:1 on cream */
+
+    /* Text selection */
+    --selection-bg: 39 96% 78%;
+    --selection-fg: 38 45% 12%;
 
     /* Error */
     --error: 0 75% 42%;
@@ -136,7 +140,11 @@
     --on-background: 38 30% 92%;
 
     --outline: 38 8% 45%;
-    --outline-variant: 38 10% 25%;
+    --outline-variant: 38 12% 48%;
+
+    /* Text selection: dark ink on lamplight */
+    --selection-bg: 39 90% 74%;
+    --selection-fg: 38 45% 12%;
 
     --inverse-surface: 38 30% 92%;
     --inverse-on-surface: 32 14% 14%;
@@ -191,8 +199,8 @@
     font-feature-settings: "ss01", "kern";
   }
   ::selection {
-    background: hsl(var(--secondary-fixed));
-    color: hsl(var(--on-secondary-container));
+    background: hsl(var(--selection-bg));
+    color: hsl(var(--selection-fg));
   }
 }
 

@@ -36,10 +36,10 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
       }}
       className={[
         "group relative inline-flex items-center justify-center rounded-md",
-        "border border-outline-variant/40",
+        "border border-outline-variant",
         "bg-surface-container/60 backdrop-blur-sm",
         "transition-[background,border-color,transform,color] duration-300",
-        "hover:border-secondary/50 hover:bg-surface-container hover:scale-[1.04]",
+        "hover:border-secondary hover:bg-surface-container hover:scale-[1.04]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
         muted ? "text-on-surface-variant" : "text-secondary",
         dim.box,

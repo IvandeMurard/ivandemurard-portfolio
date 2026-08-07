@@ -32,21 +32,21 @@ export const AetherixPhaseTimeline = () => (
             key={p.n}
             className={`flex-1 min-w-[180px] rounded-2xl border p-5 flex flex-col gap-3 ${
               emphasized
-                ? "border-secondary/60 bg-surface-container-high"
-                : "border-outline-variant/25 bg-surface-container-low"
+                ? "border-secondary bg-surface-container-high"
+                : "border-outline-variant bg-surface-container-low"
             } ${p.state === "planned" ? "opacity-80" : ""}`}
           >
             <div className="flex items-center gap-2">
               <Icon
                 name={ICON[p.state]}
-                className={emphasized ? "text-secondary text-lg" : "text-outline text-lg"}
+                className={emphasized ? "text-secondary text-lg" : "text-on-surface-variant text-lg"}
               />
               <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{p.n}</span>
             </div>
             <p className="font-headline italic text-primary text-lg leading-tight">{p.label}</p>
             {p.sub && <p className="text-xs text-on-surface-variant leading-relaxed">{p.sub}</p>}
             {emphasized && (
-              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary mt-auto">
+              <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-auto">
                 Current
               </span>
             )}

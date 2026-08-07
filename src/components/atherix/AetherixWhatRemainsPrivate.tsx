@@ -9,7 +9,7 @@ const EVIDENCE = [
 ];
 
 export const AetherixWhatRemainsPrivate = () => (
-  <div className="bg-surface-container-lowest border border-outline-variant/25 rounded-2xl p-6 md:p-8">
+  <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 md:p-8">
     <div className="flex items-center gap-3">
       <Icon name="shield_lock" className="text-secondary text-xl" />
       <h3 className="font-headline italic text-2xl text-primary leading-tight">What remains private</h3>
@@ -23,7 +23,7 @@ export const AetherixWhatRemainsPrivate = () => (
       {EVIDENCE.map((e) => (
         <li
           key={e}
-          className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 font-label uppercase tracking-[0.18em] text-[10px] text-secondary"
+          className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant font-label uppercase tracking-[0.18em] text-[10px] text-secondary"
         >
           {e}
         </li>

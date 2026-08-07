@@ -12,7 +12,7 @@ const ICON_LINKS = [
 export const Footer = () => {
   const track = useTrackClick();
   return (
-    <footer className="w-full py-10 bg-surface-container-low border-t border-outline-variant/10">
+    <footer className="w-full py-10 bg-surface-container-low border-t border-outline-variant">
       <div className="flex flex-col md:flex-row justify-between items-center px-6 md:px-12 gap-8 w-full max-w-screen-2xl mx-auto">
         <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
           © {new Date().getFullYear()} Ivan de Murard · Curated with Care

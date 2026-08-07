@@ -47,7 +47,7 @@ export const LoreThreeModes = () => (
           key={m.title}
           data-reveal-child
           style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
-          className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+          className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8 flex flex-col gap-4"
         >
           <Icon name={m.icon} className="text-secondary text-3xl" />
           <div>

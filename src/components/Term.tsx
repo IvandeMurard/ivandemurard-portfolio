@@ -64,7 +64,7 @@ export const Term = ({ id, children, className }: TermProps) => {
           onFocus={scheduleOpen}
           onBlur={scheduleClose}
           className={cn(
-            "inline align-baseline border-b border-dotted border-secondary/60 hover:border-secondary focus-visible:border-secondary cursor-help text-inherit p-0 m-0 bg-transparent transition-colors",
+            "inline align-baseline border-b border-dotted border-secondary hover:border-secondary focus-visible:border-secondary cursor-help text-inherit p-0 m-0 bg-transparent transition-colors",
             "focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary/40 focus-visible:rounded-sm",
             className,
           )}

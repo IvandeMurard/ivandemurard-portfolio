@@ -105,13 +105,13 @@ export const RoseDock = () => {
       >
         <div
           className={cn(
-            "pointer-events-auto flex flex-col overflow-hidden rounded-3xl border border-outline-variant/25 bg-surface-container-lowest/95 shadow-2xl shadow-black/10 backdrop-blur-md transition-all duration-300",
+            "pointer-events-auto flex flex-col overflow-hidden rounded-3xl border border-outline-variant bg-surface-container-lowest/95 shadow-2xl shadow-black/10 backdrop-blur-md transition-all duration-300",
             open ? "max-h-[min(600px,80vh)]" : "max-h-[220px]",
           )}
         >
           {/* Header — only when expanded */}
           {open ? (
-            <div className="flex items-center justify-between border-b border-outline-variant/15 px-5 py-3">
+            <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
               <div className="flex items-center gap-2.5">
                 <img
                   src={roseMark}
@@ -239,7 +239,7 @@ export const RoseDock = () => {
                   key={chip.intent}
                   onClick={() => onChip(chip)}
                   disabled={isLoading}
-                  className="rounded-full border border-outline-variant/30 bg-surface-container px-3.5 py-1.5 text-xs text-on-surface transition-colors hover:border-secondary/50 hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50"
+                  className="rounded-full border border-outline-variant bg-surface-container px-3.5 py-1.5 text-xs text-on-surface transition-colors hover:border-secondary hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50"
                 >
                   {chip.label}
                 </button>
@@ -254,7 +254,7 @@ export const RoseDock = () => {
               submit(inputValue);
             }}
             className={cn(
-              "flex items-center gap-2 border-outline-variant/15 px-3 py-3",
+              "flex items-center gap-2 border-outline-variant px-3 py-3",
               open ? "border-t" : "",
             )}
           >

@@ -262,11 +262,11 @@ const Atherix = () => (
                 key={p.title}
                 data-reveal-child
                 style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
-                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+                className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8 flex flex-col gap-4"
               >
                 <div className="flex items-center gap-3">
                   <Icon name={p.icon} className="text-secondary text-3xl" />
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant/40 font-label uppercase tracking-[0.18em] text-[9px] text-secondary">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-outline-variant font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
                     {p.tag}
                   </span>
                 </div>
@@ -294,7 +294,7 @@ const Atherix = () => (
                 key={t.title}
                 data-reveal-child
                 style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
-                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+                className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8 flex flex-col gap-4"
               >
                 <Icon name={t.icon} className="text-secondary text-3xl" />
                 <h3 className="font-headline italic text-2xl text-primary leading-tight">{t.title}.</h3>
@@ -324,7 +324,7 @@ const Atherix = () => (
             {VISION_NODES.map((n) => (
               <li
                 key={n.name}
-                className="flex flex-wrap items-baseline gap-x-3 gap-y-2 border-b border-outline-variant/25 pb-4 last:border-b-0"
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-2 border-b border-outline-variant pb-4 last:border-b-0"
               >
                 <span className="font-headline italic text-primary text-xl">{n.name}</span>
                 <span className="text-on-surface-variant flex-1 min-w-[12rem]">{n.role}</span>
@@ -339,7 +339,7 @@ const Atherix = () => (
 
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant/30 py-10">
+        <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant py-10">
           <h3 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-8">Project Info</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {PROJECT_INFO.map((info) => (
@@ -352,7 +352,7 @@ const Atherix = () => (
                     rel="noopener noreferrer"
                     title={info.hint}
                     aria-label={info.hint ? `${info.value}, ${info.hint}` : undefined}
-                    className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary/30 hover:border-secondary transition-colors"
+                    className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
                   >
                     {info.value}
                     {info.hint && <Icon name="lock" className="text-xs text-secondary" />}
@@ -362,7 +362,7 @@ const Atherix = () => (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
                 )}
                 {info.hint && (
-                  <p className="mt-1 text-[10px] text-on-surface-variant/70 italic">{info.hint}</p>
+                  <p className="mt-1 text-[10px] text-on-surface-variant italic">{info.hint}</p>
                 )}
               </div>
             ))}
@@ -542,7 +542,7 @@ const Atherix = () => (
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "360ms" }}
-            className="rounded-2xl overflow-hidden border border-outline-variant/20 bg-surface mb-10"
+            className="rounded-2xl overflow-hidden border border-outline-variant bg-surface mb-10"
           >
             <div className="min-h-[520px]">
               <AetherixArchitectureDiagram />
@@ -571,7 +571,7 @@ const Atherix = () => (
                 key={t.title}
                 data-reveal-child
                 style={{ ["--reveal-delay" as string]: `${200 + i * 120}ms` }}
-                className="bg-surface-container-low border border-outline-variant/25 rounded-2xl p-6 md:p-8 flex flex-col gap-4"
+                className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8 flex flex-col gap-4"
               >
                 <Icon name={t.icon} className="text-secondary text-3xl" />
                 <h3 className="font-headline italic text-2xl text-primary leading-tight">{t.title}</h3>
@@ -611,7 +611,7 @@ const Atherix = () => (
             <p className="mt-4 text-on-surface-variant leading-relaxed">
               <Link
                 to="/lore"
-                className="text-primary border-b border-secondary/40 pb-0.5 hover:opacity-70 transition-opacity"
+                className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
               >
                 Lore
               </Link>
@@ -627,7 +627,7 @@ const Atherix = () => (
             written up in a field note:{" "}
             <Link
               to="/journal/harnesses-graders-closed-loops"
-              className="text-primary border-b border-secondary/40 pb-0.5 hover:opacity-70 transition-opacity"
+              className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
             >
               Harnais, graders, boucles fermées
             </Link>{" "}
@@ -735,7 +735,7 @@ const Atherix = () => (
               href={SOCIAL_LINKS.schedule}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="event" className="text-base" />
               Book a call
@@ -745,14 +745,14 @@ const Atherix = () => (
               target="_blank"
               rel="noopener noreferrer"
               title="Public meta-repo for the Hospitality Agentic Mesh"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="hub" className="text-base" />
               Mesh repo
             </a>
             <Link
               to="/tacet"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant/40 text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="arrow_forward" className="text-base" />
               Read Tacet

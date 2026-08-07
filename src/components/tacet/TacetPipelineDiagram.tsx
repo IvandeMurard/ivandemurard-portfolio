@@ -56,10 +56,10 @@ export const TacetPipelineDiagram = () => {
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "440ms" }}
-            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim rounded-xl bg-surface-container-high shadow-sm backdrop-blur-sm max-w-sm w-full"
+            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary rounded-xl bg-surface-container-high shadow-sm backdrop-blur-sm max-w-sm w-full"
           >
-            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim flex items-center justify-center shrink-0">
-              <Icon name="hub" className="text-outline text-lg" />
+            <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center shrink-0">
+              <Icon name="hub" className="text-on-surface-variant text-lg" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-headline italic text-primary text-base md:text-lg leading-tight">
@@ -69,7 +69,7 @@ export const TacetPipelineDiagram = () => {
                 Consumed by RMS, PMS and orchestration agents
               </p>
             </div>
-            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary/80 shrink-0">
+            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">
               MCP
             </span>
           </div>
@@ -100,12 +100,12 @@ const Column = ({
         style={{ ["--reveal-delay" as string]: `${delay + i * 70}ms` }}
         className={`flex items-start gap-3 px-3 py-3 rounded-lg border ${
           accent
-            ? "border-secondary-fixed-dim bg-surface-container-high"
+            ? "border-secondary bg-surface-container-high"
             : "border-outline-variant bg-surface-container"
         } shadow-sm backdrop-blur-sm`}
       >
-        <div className="w-8 h-8 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shrink-0">
-          <Icon name={it.icon} className="text-outline text-base" />
+        <div className="w-8 h-8 rounded-full border border-outline-variant bg-surface flex items-center justify-center shrink-0">
+          <Icon name={it.icon} className="text-on-surface-variant text-base" />
         </div>
         <div className="min-w-0">
           <p className="font-headline italic text-primary text-sm md:text-base leading-tight truncate">{it.title}</p>

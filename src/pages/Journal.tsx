@@ -39,7 +39,7 @@ const Journal = () => (
             {ENTRIES.length} {ENTRIES.length === 1 ? "piece" : "pieces"}
           </span>
         </div>
-        <ul className="divide-y divide-outline-variant/20 border-t border-outline-variant/20">
+        <ul className="divide-y divide-outline-variant border-t border-outline-variant">
           {ENTRIES.map((e) => (
             <li key={e.slug}>
               <Link
@@ -75,7 +75,7 @@ const Journal = () => (
       {/* Reading list */}
       {READING_LIST.length > 0 && (
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-32 md:pb-48">
-        <div className="border-t border-outline-variant/20 pt-16 md:pt-24">
+        <div className="border-t border-outline-variant pt-16 md:pt-24">
           <div className="flex items-end justify-between mb-12 md:mb-16 gap-8">
             <div className="max-w-xl">
               <h2 className="font-headline text-3xl md:text-4xl italic text-primary mb-4">Reading list</h2>
@@ -91,7 +91,7 @@ const Journal = () => (
                 href={r.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block p-8 md:p-10 bg-surface-container-low border border-outline-variant/15 rounded-lg hover:border-outline-variant/40 transition-all duration-500 group"
+                className="block p-8 md:p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-outline-variant transition-all duration-500 group"
               >
                 <div className="flex items-center justify-between mb-6">
                   <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{r.source}</span>

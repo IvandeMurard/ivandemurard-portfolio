@@ -63,7 +63,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
               className={`block py-1 text-sm leading-snug transition-colors duration-300 border-l pl-3 ${
                 active
                   ? "border-secondary text-primary"
-                  : "border-outline-variant/40 text-on-surface-variant hover:text-primary hover:border-outline"
+                  : "border-outline-variant text-on-surface-variant hover:text-primary hover:border-outline"
               }`}
             >
               {item.text}
@@ -76,7 +76,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
 
   if (variant === "mobile") {
     return (
-      <nav aria-label={label} className="lg:hidden mb-10 rounded-sm border border-outline-variant/25">
+      <nav aria-label={label} className="lg:hidden mb-10 rounded-sm border border-outline-variant">
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}

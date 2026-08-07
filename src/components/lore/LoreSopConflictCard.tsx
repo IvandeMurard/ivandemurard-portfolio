@@ -34,7 +34,7 @@ const ROWS: { expert: ReactNode; manual: ReactNode; lore: ReactNode }[] = [
 export const LoreSopConflictCard = () => (
   <div
     data-reveal-child
-    className="rounded-2xl border border-outline-variant/25 bg-surface-container-low overflow-hidden"
+    className="rounded-2xl border border-outline-variant bg-surface-container-low overflow-hidden"
   >
     <div
       className="overflow-x-auto"
@@ -72,7 +72,7 @@ export const LoreSopConflictCard = () => (
         </tbody>
       </table>
     </div>
-    <p className="px-6 py-6 border-t border-outline-variant/30 font-headline italic text-primary text-lg md:text-xl leading-snug">
+    <p className="px-6 py-6 border-t border-outline-variant font-headline italic text-primary text-lg md:text-xl leading-snug">
       The manual sets the limit. The senior tells you what you are looking at. Lore is the only place both arrive in
       the same answer, in that order.
     </p>

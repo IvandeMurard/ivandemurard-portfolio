@@ -106,13 +106,13 @@ const Contact = () => {
                 track({ label: c.label, href: c.href, kind: c.kind });
               }}
               aria-label={`${c.label}: ${c.desc}${c.external ? " (opens in a new tab)" : ""}`}
-              className={`group relative overflow-hidden bg-surface-container-lowest p-8 md:p-12 rounded-xl border border-outline-variant/15 hover:border-outline-variant/50 md:hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 flex flex-col gap-6 ring-1 ${c.ring} focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background`}
+              className={`group relative overflow-hidden bg-surface-container-lowest p-8 md:p-12 rounded-xl border border-outline-variant hover:border-outline-variant md:hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 flex flex-col gap-6 ring-1 ${c.ring} focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background`}
             >
               <div
                 aria-hidden="true"
                 className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
               />
-              <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-xl bg-surface-container border border-outline-variant/30 group-hover:border-secondary/40 group-hover:scale-105 transition-all duration-500">
+              <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-xl bg-surface-container border border-outline-variant group-hover:border-secondary group-hover:scale-105 transition-all duration-500">
                 <Icon name={c.icon} className="text-secondary text-2xl" />
               </div>
               <div className="relative z-10">

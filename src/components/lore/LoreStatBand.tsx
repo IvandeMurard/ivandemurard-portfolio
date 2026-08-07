@@ -97,7 +97,7 @@ const figureClass =
  * focus or tap, because two of the three are estimates and one is a target.
  */
 export const LoreStatBand = () => (
-  <div className="border-t border-b border-outline-variant/30 py-10">
+  <div className="border-t border-b border-outline-variant py-10">
     <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 list-none p-0 m-0">
       <li data-reveal-child>
         <SourceNote
@@ -109,7 +109,7 @@ export const LoreStatBand = () => (
             <span className="text-secondary not-italic font-body text-xl mx-2 align-middle">to</span>
             <CountUp value={6800} separator />
           </span>
-          <span className="mt-3 block text-sm text-on-surface-variant leading-relaxed border-b border-dotted border-secondary/60 pb-1">
+          <span className="mt-3 block text-sm text-on-surface-variant leading-relaxed border-b border-dotted border-secondary pb-1">
             New mechanic certificates issued in 2024, against annual retirements over the decade.
           </span>
         </SourceNote>
@@ -122,7 +122,7 @@ export const LoreStatBand = () => (
           <span className={figureClass}>
             <CountUp value={35} suffix="%" />
           </span>
-          <span className="mt-3 block text-sm text-on-surface-variant leading-relaxed border-b border-dotted border-secondary/60 pb-1">
+          <span className="mt-3 block text-sm text-on-surface-variant leading-relaxed border-b border-dotted border-secondary pb-1">
             Share of the maintenance workforce over 55.
           </span>
         </SourceNote>
@@ -135,7 +135,7 @@ export const LoreStatBand = () => (
           <span className={figureClass}>
             <CountUp value={30} prefix="−" suffix="%" />
           </span>
-          <span className="mt-3 block text-sm text-on-surface-variant leading-relaxed border-b border-dotted border-secondary/60 pb-1">
+          <span className="mt-3 block text-sm text-on-surface-variant leading-relaxed border-b border-dotted border-secondary pb-1">
             Target on time-to-autonomy for a junior on an engine type.
           </span>
         </SourceNote>

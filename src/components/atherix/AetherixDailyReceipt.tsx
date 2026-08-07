@@ -7,9 +7,9 @@ Driver       local conference check-ins + clear weather
 Last week    forecast 79 · actual 81 · MAPE 2.5%`;
 
 export const AetherixDailyReceipt = () => (
-  <div className="max-w-2xl mx-auto bg-surface-container-high border border-outline-variant/25 rounded-2xl overflow-hidden shadow-sm">
+  <div className="max-w-2xl mx-auto bg-surface-container-high border border-outline-variant rounded-2xl overflow-hidden shadow-sm">
     {/* Header */}
-    <div className="flex items-center gap-3 px-5 py-4 border-b border-outline-variant/25 bg-surface-container">
+    <div className="flex items-center gap-3 px-5 py-4 border-b border-outline-variant bg-surface-container">
       <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
         <Icon name="chat" className="text-secondary text-lg" />
       </div>
@@ -17,7 +17,7 @@ export const AetherixDailyReceipt = () => (
         <p className="font-headline italic text-primary text-sm leading-tight">Aetherix</p>
         <p className="text-[10px] uppercase tracking-widest text-on-surface-variant">today · 18:42</p>
       </div>
-      <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary">Daily Receipt</span>
+      <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">Daily Receipt</span>
     </div>
 
     {/* Receipt body */}
@@ -29,19 +29,19 @@ export const AetherixDailyReceipt = () => (
     <div className="px-5 pb-5 md:px-7 md:pb-6 flex flex-wrap gap-2">
       <button
         type="button"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-xs text-on-surface hover:bg-surface transition-colors"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-xs text-on-surface hover:bg-surface transition-colors"
       >
         ✅ accept
       </button>
       <button
         type="button"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-xs text-on-surface hover:bg-surface transition-colors"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-xs text-on-surface hover:bg-surface transition-colors"
       >
         ✏️ modify
       </button>
       <button
         type="button"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-xs text-on-surface hover:bg-surface transition-colors"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-xs text-on-surface hover:bg-surface transition-colors"
       >
         ❌ reject
       </button>

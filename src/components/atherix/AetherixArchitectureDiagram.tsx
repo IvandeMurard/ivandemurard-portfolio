@@ -51,11 +51,11 @@ export const AetherixArchitectureDiagram = () => {
         <div className="grid grid-cols-3 gap-4 md:gap-6 items-stretch">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant">Internal context</span>
+              <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant">Internal context</span>
               <Column items={internalContext} delay={0} />
             </div>
             <div className="flex flex-col gap-2">
-              <span className="font-label uppercase tracking-[0.18em] text-[9px] text-on-surface-variant">External context</span>
+              <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant">External context</span>
               <Column items={externalContext} delay={80} />
             </div>
           </div>
@@ -76,16 +76,16 @@ export const AetherixArchitectureDiagram = () => {
           <div
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "440ms" }}
-            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary-fixed-dim/60 rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
+            className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
           >
-            <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center shrink-0">
-              <Icon name="hub" className="text-outline text-lg" />
+            <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center shrink-0">
+              <Icon name="hub" className="text-on-surface-variant text-lg" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-headline italic text-primary text-base md:text-lg leading-tight">MCP Server v0</p>
               <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">Three atomic tools, multi-tenant</p>
             </div>
-            <span className="font-label uppercase tracking-[0.18em] text-[9px] text-secondary shrink-0">Live · Fly.io Paris</span>
+            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">Live · Fly.io Paris</span>
           </div>
         </div>
 
@@ -112,17 +112,17 @@ export const AetherixArchitectureDiagram = () => {
               key={d.title}
               data-reveal-child
               style={{ ["--reveal-delay" as string]: `${560 + i * 80}ms` }}
-              className="flex items-center gap-3 px-4 py-3 border border-outline-variant/30 rounded-xl bg-surface/80 backdrop-blur-sm"
+              className="flex items-center gap-3 px-4 py-3 border border-outline-variant rounded-xl bg-surface/80 backdrop-blur-sm"
             >
-              <div className="w-9 h-9 rounded-full border border-secondary-fixed-dim/50 flex items-center justify-center">
-                <Icon name={d.icon} className="text-outline text-lg" />
+              <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center">
+                <Icon name={d.icon} className="text-on-surface-variant text-lg" />
               </div>
               <span className="font-headline italic text-primary text-base md:text-lg">{d.title}</span>
             </div>
           ))}
         </div>
 
-        <p className="font-label uppercase tracking-[0.25em] text-[9px] text-on-surface-variant text-center pt-2">
+        <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant text-center pt-2">
           Numerical · Semantic · Cognitive · Reasoning · Action
         </p>
       </div>
@@ -147,12 +147,12 @@ const Column = ({
         style={{ ["--reveal-delay" as string]: `${delay + i * 70}ms` }}
         className={`flex items-start gap-3 px-3 py-3 rounded-lg border ${
           accent
-            ? "border-secondary-fixed-dim/50 bg-surface-container-low/70"
-            : "border-outline-variant/25 bg-surface/60"
+            ? "border-secondary bg-surface-container-low/70"
+            : "border-outline-variant bg-surface/60"
         } backdrop-blur-sm`}
       >
-        <div className="w-8 h-8 rounded-full border border-outline-variant/40 bg-surface flex items-center justify-center shrink-0">
-          <Icon name={it.icon} className="text-outline text-base" />
+        <div className="w-8 h-8 rounded-full border border-outline-variant bg-surface flex items-center justify-center shrink-0">
+          <Icon name={it.icon} className="text-on-surface-variant text-base" />
         </div>
         <div className="min-w-0">
           <p className="font-headline italic text-primary text-sm md:text-base leading-tight truncate">{it.title}</p>

@@ -128,7 +128,7 @@ const Block = ({
       );
     case "quote":
       return (
-        <blockquote className="border-l border-secondary/40 pl-6 font-headline italic text-xl md:text-2xl text-primary leading-relaxed">
+        <blockquote className="border-l border-secondary pl-6 font-headline italic text-xl md:text-2xl text-primary leading-relaxed">
           {t(block.text)}
         </blockquote>
       );
@@ -151,7 +151,7 @@ const Block = ({
           tabIndex={0}
           role="region"
           aria-label="Code sample"
-          className="overflow-x-auto rounded-sm border border-outline-variant/30 bg-surface-container-low"
+          className="overflow-x-auto rounded-sm border border-outline-variant bg-surface-container-low"
         >
           <pre className="p-4 md:p-6 text-sm leading-relaxed">
             <code className="font-mono text-on-surface-variant">{block.text}</code>
@@ -164,7 +164,7 @@ const Block = ({
           tabIndex={0}
           role="region"
           aria-label={block.caption ?? labels.dataTable}
-          className="overflow-x-auto rounded-sm border border-outline-variant/30"
+          className="overflow-x-auto rounded-sm border border-outline-variant"
         >
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
             <caption className="sr-only">{block.caption ?? block.head.join(", ")}</caption>
@@ -204,7 +204,7 @@ const Block = ({
       return (
         <dl className="space-y-6">
           {block.items.map((item, i) => (
-            <div key={i} className="border-l border-outline-variant/40 pl-5">
+            <div key={i} className="border-l border-outline-variant pl-5">
               <dt className="font-label uppercase tracking-[0.16em] text-[11px] text-primary mb-1">
                 {item.term}
               </dt>
@@ -228,8 +228,8 @@ const Block = ({
                 style={{ ["--pw" as string]: `${width}%` }}
                 className={`w-full md:w-[var(--pw)] rounded-sm px-4 py-3 text-center transition-[width] duration-500 ease-hospitable ${
                   layer.base
-                    ? "bg-surface-container-high border border-secondary/40"
-                    : "bg-surface-container-low border border-outline-variant/30"
+                    ? "bg-surface-container-high border border-secondary"
+                    : "bg-surface-container-low border border-outline-variant"
                 }`}
               >
                 <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
@@ -256,7 +256,7 @@ const Block = ({
     }
     case "deployed":
       return (
-        <div className="border-t border-outline-variant/40 pt-5">
+        <div className="border-t border-outline-variant pt-5">
           <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
             {labels.deployed}
           </div>
@@ -265,7 +265,7 @@ const Block = ({
               <p key={i} className="font-body font-light text-base">
                 <Link
                   to={item.to}
-                  className="text-primary border-b border-secondary/30 pb-0.5 hover:opacity-70 transition-opacity"
+                  className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
                 >
                   {item.project}
                 </Link>{" "}
@@ -281,7 +281,7 @@ const Block = ({
           {block.items.map((item, i) => (
             <div
               key={i}
-              className="rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-5"
+              className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5"
             >
               <dt className="font-headline italic text-lg text-primary mb-2">{item.q}</dt>
               <dd className="font-body font-light text-sm text-on-surface-variant">{t(item.a)}</dd>
@@ -360,7 +360,7 @@ const JournalEntry = () => {
           </p>
           <Link
             to="/journal"
-            className="font-headline italic text-secondary border-b border-secondary/30 pb-1 hover:opacity-70 transition-opacity"
+            className="font-headline italic text-secondary border-b border-secondary pb-1 hover:opacity-70 transition-opacity"
           >
             Back to Field Notes
           </Link>
@@ -428,7 +428,7 @@ const JournalEntry = () => {
             ))}
           </div>
           {entry.related && entry.related.length > 0 && (
-            <div className="mt-20 pt-10 border-t border-outline-variant/20">
+            <div className="mt-20 pt-10 border-t border-outline-variant">
               <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
                 {labels.related}
               </div>
@@ -437,7 +437,7 @@ const JournalEntry = () => {
                   <li key={i}>
                     <Link
                       to={r.to}
-                      className="font-headline italic text-primary border-b border-secondary/30 pb-0.5 hover:opacity-70 transition-opacity"
+                      className="font-headline italic text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
                     >
                       {r.label}
                     </Link>
@@ -447,10 +447,10 @@ const JournalEntry = () => {
             </div>
           )}
 
-          <div className="mt-24 pt-12 border-t border-outline-variant/20 flex items-center justify-between">
+          <div className="mt-24 pt-12 border-t border-outline-variant flex items-center justify-between">
             <Link
               to="/journal"
-              className="font-headline italic text-secondary border-b border-secondary/30 pb-1 hover:opacity-70 transition-opacity inline-flex items-center gap-2"
+              className="font-headline italic text-secondary border-b border-secondary pb-1 hover:opacity-70 transition-opacity inline-flex items-center gap-2"
             >
               <Icon name="arrow_back" className="text-sm" />
               All Field Notes

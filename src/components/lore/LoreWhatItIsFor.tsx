@@ -57,7 +57,7 @@ export const LoreWhatItIsFor = () => (
         </p>
       </div>
 
-      <div className="mt-8 max-w-3xl rounded-2xl border border-outline-variant/25 bg-surface-container-low p-6 md:p-8">
+      <div className="mt-8 max-w-3xl rounded-2xl border border-outline-variant bg-surface-container-low p-6 md:p-8">
         <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The honest state</span>
         <div className="mt-4 space-y-4 text-on-surface-variant leading-relaxed">
           <p>
@@ -100,7 +100,7 @@ export const LoreWhatItIsFor = () => (
           That portability is not a projection.{" "}
           <Link
             to="/aetherix"
-            className="text-primary border-b border-secondary/40 hover:border-secondary transition-colors"
+            className="text-primary border-b border-secondary hover:border-secondary transition-colors"
           >
             Aetherix
           </Link>{" "}
@@ -111,7 +111,7 @@ export const LoreWhatItIsFor = () => (
       </div>
       <Link
         to="/aetherix"
-        className="mt-6 inline-flex items-center gap-2 text-sm text-primary border-b border-secondary/40 hover:border-secondary transition-colors"
+        className="mt-6 inline-flex items-center gap-2 text-sm text-primary border-b border-secondary hover:border-secondary transition-colors"
       >
         Read the Aetherix case study
         <Icon name="arrow_forward" className="text-base" />

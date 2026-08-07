@@ -5,7 +5,7 @@ export const LoreHeroBadges = () => (
     {BADGES.map((b) => (
       <li
         key={b}
-        className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 font-label uppercase tracking-[0.2em] text-[10px] text-secondary"
+        className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant font-label uppercase tracking-[0.2em] text-[10px] text-secondary"
       >
         {b}
       </li>
