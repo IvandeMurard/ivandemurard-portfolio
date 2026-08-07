@@ -2,6 +2,7 @@ import sonorImg from "@/assets/case-sonor.png";
 import aetherixImg from "@/assets/case-aetherix.png";
 import tacetImg from "@/assets/case-tacet.png";
 import loreImg from "@/assets/case-lore.png";
+import animaImg from "@/assets/case-anima.png";
 
 export const SOCIAL_LINKS = {
   email: "mailto:ivandemurard@gmail.com",
@@ -60,6 +61,14 @@ export const PROJECTS = {
     tagline: "Voice AI mentor for aviation maintenance. Captures what a retiring technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure.",
     label: "AI Agent · Aviation Maintenance · 2026",
     image: loreImg,
+    cta: "The Full Narrative",
+  },
+  anima: {
+    slug: "anima",
+    name: "Anima",
+    tagline: "The guest node. A hotel's memory of a relationship, built with forgetting in it: four memory layers with different lifetimes, claims that decay, and a scope gate that makes total recall impossible.",
+    label: "AI Agent · Guest Cognition · 2026",
+    image: animaImg,
     cta: "The Full Narrative",
   },
 } as const;

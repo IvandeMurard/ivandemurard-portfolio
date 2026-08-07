@@ -39,12 +39,20 @@ var STUDIES = [
     tagline: "Voice AI mentor for aviation maintenance. Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure. Graded by a 64-case evaluation harness with pure-function graders and a hard safety tier.",
     url: "https://ivandemurard.com/lore",
     markdown_path: "/lore.md"
+  },
+  {
+    slug: "anima",
+    name: "Anima",
+    label: "AI Agent \xB7 Guest Cognition \xB7 2026",
+    tagline: "The guest node of the Hospitality Agentic Mesh. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic proof of concept, production gated behind a data-protection assessment.",
+    url: "https://ivandemurard.com/anima",
+    markdown_path: "/anima.md"
   }
 ];
 var list_case_studies_default = defineTool({
   name: "list_case_studies",
   title: "List case studies",
-  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
@@ -61,14 +69,15 @@ var SLUGS = {
   sonor: "/sonor.md",
   aetherix: "/aetherix.md",
   tacet: "/tacet.md",
-  lore: "/lore.md"
+  lore: "/lore.md",
+  anima: "/anima.md"
 };
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore'. Content covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima'. Content covers vision, architecture, stack and outcomes.",
   inputSchema: {
-    slug: z.enum(["sonor", "aetherix", "tacet", "lore"]).describe("Case study slug: sonor, aetherix, tacet, or lore.")
+    slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima"]).describe("Case study slug: sonor, aetherix, tacet, lore, or anima.")
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
   handler: async ({ slug }) => {
