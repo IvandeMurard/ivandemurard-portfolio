@@ -102,7 +102,7 @@ const Index = () => {
       ]}
     />
     {/* Hero */}
-    <Reveal as="header" className="relative min-h-screen flex items-center justify-center pt-24 px-6 md:px-8 overflow-hidden">
+    <Reveal as="header" className="relative min-h-screen flex items-center justify-center pt-28 md:pt-32 px-6 md:px-8 overflow-hidden">
       <div className="relative z-10 max-w-5xl w-full text-center">
         <span
           data-reveal-child
