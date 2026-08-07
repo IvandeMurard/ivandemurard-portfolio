@@ -67,6 +67,10 @@ export const RoseDock = () => {
 
   const isLoading = status === "submitted" || status === "streaming";
 
+  // Resting state = glass veil; any engagement restores the full surface.
+  const active =
+    open || hovered || focusWithin || isLoading || inputValue.trim().length > 0;
+
   // Focus expanded textarea when opening.
   useEffect(() => {
     if (open) {
