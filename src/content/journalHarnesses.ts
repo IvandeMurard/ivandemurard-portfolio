@@ -131,7 +131,14 @@ export const HARNESSES_ENTRY: JournalEntry = {
         ["C — Outcome, downstream", "After the fact, long loop", "Was the output acted on, and did it produce value"],
       ],
     },
-    { kind: "arms", label: "When each arm fires along a release" },
+    {
+      kind: "arms",
+      label: "When each arm fires along a release",
+      link: {
+        to: "/architecture",
+        text: "The systems these arms are applied to: the Hospitality Agentic Mesh",
+      },
+    },
     {
       kind: "p",
       text: "You do not test a parachute against a case set; you measure it in flight. Provided arm B is held to the same standard: every layer emits a measurable signal with a typed reason.",

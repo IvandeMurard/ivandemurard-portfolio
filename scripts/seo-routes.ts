@@ -168,6 +168,26 @@ export const SEO_ROUTES: SeoRoute[] = [
     },
   },
   {
+    path: "/architecture",
+    title: "The Hospitality Agentic Mesh, an Architecture Note · Ivan de Murard",
+    description:
+      "Specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub. This note says which is which.",
+    type: "article",
+    changefreq: "monthly",
+    priority: "0.9",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: "The Hospitality Agentic Mesh",
+      url: `${BASE_URL}/architecture`,
+      inLanguage: "en",
+      about: ["Agentic AI", "Model Context Protocol", "Hospitality Operations", "Software Architecture"],
+      author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
+      codeRepository: "https://github.com/IvandeMurard/hospitality-agentic-mesh",
+      relatedLink: [`${BASE_URL}/aetherix`, `${BASE_URL}/tacet`, `${BASE_URL}/lore`],
+    },
+  },
+  {
     path: "/journal",
     title: "Field Notes by Ivan de Murard · Ivan de Murard",
     description:

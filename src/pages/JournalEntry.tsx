@@ -5,8 +5,10 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
-import { JournalToc, type TocItem } from "@/components/journal/JournalToc";
-import { ReadingProgress } from "@/components/journal/ReadingProgress";
+import { JournalToc, type TocItem } from "@/components/reading/JournalToc";
+import { ReadingProgress } from "@/components/reading/ReadingProgress";
+import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
+
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
 import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
@@ -51,25 +53,8 @@ const LABELS: Record<Lang, { locale: string; readTime: (m: number) => string; de
 const formatDate = (iso: string, locale: string) =>
   new Date(iso).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
 
-const HeadingAnchor = ({ id, text }: { id: string; text: string }) => (
-  <a
-    href={`#${id}`}
-    aria-label={`Link to section: ${text}`}
-    onClick={(e) => {
-      e.preventDefault();
-      const url = `${window.location.origin}${window.location.pathname}#${id}`;
-      window.history.replaceState(null, "", `#${id}`);
-      navigator.clipboard?.writeText(url).catch(() => undefined);
-      document.getElementById(id)?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-        block: "start",
-      });
-    }}
-    className="ml-2 align-middle inline-flex items-center text-secondary opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus:opacity-100 transition-opacity duration-300"
-  >
-    <Icon name="link" aria-hidden="true" className="text-base not-italic" />
-  </a>
-);
+
+
 
 const blockStrings = (block: JournalBlock): string[] => {
   switch (block.kind) {
@@ -266,7 +251,21 @@ const Block = ({
         </dl>
       );
     case "arms":
-      return <ThreeArmsDiagram label={block.label} />;
+      return (
+        <>
+          <ThreeArmsDiagram label={block.label} />
+          {block.link && (
+            <p className="font-body mt-4">
+              <Link
+                to={block.link.to}
+                className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+              >
+                {block.link.text}
+              </Link>
+            </p>
+          )}
+        </>
+      );
     case "vocab":
       return <VocabStrip items={block.items} label={block.label} />;
     case "key":

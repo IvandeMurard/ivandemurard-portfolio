@@ -22,7 +22,7 @@ export type JournalBlock =
   | { kind: "pyramid"; layers: PyramidLayer[] }
   | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
   | { kind: "lines"; items: { q: string; a: string }[] }
-  | { kind: "arms"; label?: string }
+  | { kind: "arms"; label?: string; link?: { to: string; text: string } }
   | { kind: "vocab"; label?: string; items: { id: string; label: string; type?: string }[] }
   | {
       kind: "key";
