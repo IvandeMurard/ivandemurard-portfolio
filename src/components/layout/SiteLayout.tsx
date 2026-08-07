@@ -23,9 +23,10 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
   }, [pathname]);
 
   useEffect(() => {
+    // Only a fallback: pages that render <Seo> own their own title.
     if (title) document.title = `${title} · Ivan de Murard`;
-    else document.title = "Ivan de Murard, Product Builder";
   }, [title]);
+
 
   return (
     <div className="relative min-h-screen flex flex-col bg-surface text-on-surface">
