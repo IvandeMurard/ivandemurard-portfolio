@@ -2,6 +2,8 @@
 
 ## Identity
 
+Homepage statement: "I build agentic AI systems for operations, and I publish what they cannot do yet." Currently: a network of specialised agents for hotel operations, and a voice mentor for aviation maintenance.
+
 Ivan de Murard is a product builder based in Paris, France. He has five years of product management experience across start-ups, scale-ups and large groups, plus two years as co-founder and product lead of Sonor, a B2G SaaS for urban noise mapping. He designs from operational experience, ships with AI, and keeps the human at the center.
 
 Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/discussion-and-introduction. LinkedIn: https://www.linkedin.com/in/ivandemurard/. GitHub: https://github.com/IvandeMurard.

@@ -40,7 +40,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   atherix: {
-    slug: "atherix",
+    slug: "aetherix",
     name: "Aetherix",
     tagline: "Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.",
     label: "AI Agent • Boutique Hotel Operations • 2026",

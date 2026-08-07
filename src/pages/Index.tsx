@@ -69,12 +69,24 @@ const MILESTONES: Milestone[] = [
   { kind: "text", value: "Paris", label: "Based" },
 ];
 
+// Proof strip above the fold. Same numeral treatment as Milestones.
+type Proof =
+  | { kind: "count"; value: number; prefix?: string; suffix?: string; display?: never; label: string }
+  | { kind: "text"; display: string; label: string };
+
+const PROOF: Proof[] = [
+  { kind: "count", value: 500, suffix: "+", label: "users on an internal SaaS rolled out across 100 care homes" },
+  { kind: "text", display: "€1.9M", label: "receivables tracked and 40% recovered through a decision tool" },
+  { kind: "count", value: 22, label: "European public-sector clients onboarded, zero churn" },
+];
+
 const Index = () => {
   const track = useTrackClick();
   return (
-  <SiteLayout title="The Atrium">
+  <SiteLayout>
+
     <Seo
-      title="Ivan de Murard, Product Builder in Paris"
+      title="Ivan de Murard, product builder, agentic AI for operations"
       rawTitle
       description="Product builder in Paris. 5 years across start-ups, scale-ups and large groups, plus 2 years co-founding a SaaS. Designs from ops, ships with AI."
       path="/"
@@ -96,7 +108,7 @@ const Index = () => {
           data-reveal-child
           className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10"
         >
-          Ivan de Murard
+          Welcome, it's good to see you.
         </span>
         <div className="relative">
           {/* Animated gold halo, perfect circle concentrated behind the headline + subtitle */}
@@ -109,24 +121,47 @@ const Index = () => {
           <h1
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="headline-ink relative z-10 font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic perspective-text"
+            className="headline-ink relative z-10 font-headline text-4xl md:text-6xl text-primary leading-[1.15] italic perspective-text"
           >
-            Welcome,
-            <br />
-            <span className="text-primary-container hero-line-2">It's great to see you!</span>
+            I build agentic AI systems for operations,{" "}
+            <span className="text-primary-container hero-line-2">
+              and I publish what they cannot do yet.
+            </span>
           </h1>
         </div>
         <p
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "360ms" }}
-          className="mt-12 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
+          className="mt-10 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
         >
-          I'm Ivan, a product builder with 5 years across start-ups, scale-ups and large groups, and 2 years co-founding a SaaS. I design from operational experience, ship with AI, and keep the human at the center.
+          Product builder, Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding a SaaS. Currently: a network of specialised agents for hotel operations, and a voice mentor for aviation maintenance.
         </p>
+        {/* Proof strip, the Milestones numeral treatment promoted above the fold */}
+        <div
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "450ms" }}
+          className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 max-w-3xl mx-auto sm:divide-x sm:divide-outline-variant"
+        >
+          {PROOF.map((p) => (
+            <div key={p.label} className="px-2 sm:px-6 text-center">
+              <p className="font-headline italic text-3xl md:text-4xl text-primary mb-3">
+                {p.kind === "count" ? (
+                  <CountUp value={p.value} suffix={p.suffix ?? ""} prefix={p.prefix ?? ""} />
+                ) : (
+                  p.display
+                )}
+              </p>
+              <span className="underline-grow mx-auto mb-4 w-10" />
+              <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
+                {p.label}
+              </p>
+            </div>
+          ))}
+        </div>
         <div
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "540ms" }}
-          className="mt-16 flex flex-col md:flex-row items-center justify-center gap-8"
+          className="mt-14 flex flex-col md:flex-row items-center justify-center gap-8"
         >
           <Link
             to="/journeys"
@@ -149,13 +184,14 @@ const Index = () => {
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "780ms" }}
           aria-hidden="true"
-          className="mt-20 md:mt-24 flex flex-col items-center gap-2 text-on-surface-variant"
+          className="mt-16 md:mt-20 flex flex-col items-center gap-2 text-on-surface-variant"
         >
           <span className="font-label uppercase tracking-[0.3em] text-[10px]">Scroll</span>
           <Icon name="keyboard_arrow_down" className="text-base animate-bounce" />
         </div>
       </div>
     </Reveal>
+
 
     <SectionDivider index="01" label="Milestones" />
 
