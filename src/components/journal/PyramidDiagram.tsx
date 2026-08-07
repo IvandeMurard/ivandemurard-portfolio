@@ -63,6 +63,7 @@ export const PyramidDiagram = ({
               {interactive ? (
                 <button
                   type="button"
+                  aria-controls="pyramid-detail"
                   aria-expanded={isActive}
                   onClick={() => setActive(isActive ? null : i)}
                   onMouseEnter={() => setActive(i)}
@@ -80,6 +81,7 @@ export const PyramidDiagram = ({
       </ol>
       {detailed && (
         <div
+          id="pyramid-detail"
           aria-live="polite"
           className="mt-4 rounded-sm border border-outline-variant bg-surface-container-lowest p-5 min-h-[6.5rem]"
         >

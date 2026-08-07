@@ -67,6 +67,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
               </div>
               <button
                 type="button"
+                aria-controls="three-arms-detail"
                 aria-expanded={isActive}
                 aria-label={`Arm ${arm.key}, ${arm.name}, ${arm.when}`}
                 onClick={() => setActive(isActive ? null : i)}
@@ -98,6 +99,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
         </div>
       </div>
       <div
+        id="three-arms-detail"
         aria-live="polite"
         className="mt-5 rounded-sm border border-outline-variant bg-surface-container-low p-4 min-h-[6rem]"
       >
