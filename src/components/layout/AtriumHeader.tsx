@@ -113,6 +113,7 @@ export const AtriumHeader = () => {
                 setOpen((v) => !v);
               }}
               aria-label="Toggle menu"
+              aria-controls="site-mobile-menu"
               aria-expanded={open}
               className="text-primary hover:opacity-80 transition-opacity duration-500 active:scale-95"
             >
@@ -124,6 +125,7 @@ export const AtriumHeader = () => {
 
       {/* Mobile overlay */}
       <div
+        id="site-mobile-menu"
         className={[
           "fixed inset-0 z-40 bg-surface/95 glass-nav md:hidden transition-opacity duration-500",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",

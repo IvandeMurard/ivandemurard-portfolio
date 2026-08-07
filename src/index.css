@@ -30,11 +30,11 @@
     --on-primary-container: 215 36% 63%;      /* #8199c0 */
 
     /* Secondary: tarnished gold */
-    --secondary: 38 42% 31%;                  /* #715b2e */
+    --secondary: 38 48% 25%;                  /* #5e4a1f, darker for small caps */
     --secondary-fixed: 39 96% 82%;            /* #fddfa6 */
     --secondary-fixed-dim: 39 56% 71%;        /* #dfc38d */
     --on-secondary: 0 0% 100%;
-    --on-secondary-container: 38 41% 33%;     /* #776134 */
+    --on-secondary-container: 38 41% 28%;
 
     /* Tertiary */
     --tertiary: 50 17% 9%;                    /* #1d1b15 */
@@ -44,14 +44,15 @@
     --on-tertiary-fixed-variant: 49 9% 27%;   /* #49473f */
 
     /* On-surface text */
-    --on-surface: 90 4% 11%;                  /* #1b1c19 */
-    --on-surface-variant: 230 7% 30%;         /* #454652 */
+    --on-surface: 90 4% 9%;
+    --on-surface-variant: 230 9% 22%;         /* #333542, stronger body ink */
     --background: 42 41% 97%;
     --on-background: 90 4% 11%;
 
     /* Outline */
-    --outline: 233 8% 40%;                    /* darkened for AA on cream */
-    --outline-variant: 235 11% 54%;           /* borders reach 3:1 on cream */
+    --outline: 233 10% 34%;                   /* AA on cream */
+    --outline-variant: 235 12% 46%;           /* borders well past 3:1 */
+
 
     /* Text selection */
     --selection-bg: 39 96% 78%;
@@ -882,7 +883,16 @@
   }
 }
 
+/* Light mode: thin strokes wash out on cream. Give body copy a touch more ink. */
+:root:not([data-mood="dusk"]) .font-light {
+  font-weight: 400;
+}
+:root:not([data-mood="dusk"]) .font-body {
+  letter-spacing: 0.005em;
+}
+
 /* Print and PDF export: keep the article, drop the site chrome. */
+
 @media print {
   :root {
     --background: 0 0% 100%;

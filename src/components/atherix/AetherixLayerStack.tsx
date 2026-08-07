@@ -85,6 +85,7 @@ export const AetherixLayerStack = () => {
                 onBlur={() => setActive(null)}
                 data-reveal-child
                 style={{ ["--reveal-delay" as string]: `${i * 120}ms` }}
+                aria-controls={`aetherix-layer-surfaces-${i}`}
                 aria-expanded={isActive}
                 className={`group relative w-full text-left border rounded-2xl px-6 md:px-10 py-6 md:py-8 backdrop-blur-md shadow-sm transition-all duration-500 ease-out ${toneClasses[layer.tone]} ${
                   isActive ? "-translate-y-1 shadow-lg" : "hover:-translate-y-0.5"
@@ -118,6 +119,7 @@ export const AetherixLayerStack = () => {
 
                     {/* Surfaces, revealed on hover */}
                     <div
+                      id={`aetherix-layer-surfaces-${i}`}
                       className={`grid grid-flow-col auto-cols-max gap-3 md:gap-5 mt-5 transition-all duration-500 ease-out ${
                         isActive
                           ? "opacity-100 translate-y-0 max-h-24"
