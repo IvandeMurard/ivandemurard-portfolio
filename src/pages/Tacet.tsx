@@ -187,7 +187,7 @@ const Tacet = () => (
 
       {/* Project Info */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
-        <div className="grid md:grid-cols-5 gap-8 py-12 border-y border-surface-variant">
+        <div className="grid md:grid-cols-5 gap-8 py-12 border-y border-outline-variant">
           <div className="md:col-span-1">
             <h4 className="font-label text-xs uppercase tracking-[0.2em] text-secondary mb-2">Project Info</h4>
           </div>
@@ -496,7 +496,7 @@ const Tacet = () => (
         </h3>
         <div className="space-y-8">
           {FAQ.map((f) => (
-            <div key={f.q} className="border-b border-surface-variant pb-8">
+            <div key={f.q} className="border-b border-outline-variant pb-8">
               <h4 className="font-body text-lg text-primary mb-4">{f.q}</h4>
               <p className="text-on-surface-variant leading-relaxed">{f.a}</p>
             </div>
@@ -505,7 +505,7 @@ const Tacet = () => (
       </section>
 
       {/* Closing CTA */}
-      <section id="contact" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-surface-container-high scroll-mt-24">
+      <section id="contact" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-32 md:py-48 border-t border-outline-variant scroll-mt-24">
         <div className="max-w-4xl">
           <h2 className="font-headline text-4xl md:text-7xl italic text-primary mb-12 leading-tight">
             Interested in proactive intelligence for hotel operations?
