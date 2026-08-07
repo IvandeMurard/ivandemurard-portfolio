@@ -79,7 +79,7 @@ export const AetherixArchitectureDiagram = () => {
             className="relative flex items-center gap-3 px-5 py-3 border border-dashed border-secondary rounded-xl bg-surface-container-low/70 backdrop-blur-sm max-w-sm w-full"
           >
             <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center shrink-0">
-              <Icon name="hub" className="text-outline text-lg" />
+              <Icon name="hub" className="text-on-surface-variant text-lg" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-headline italic text-primary text-base md:text-lg leading-tight">MCP Server v0</p>
@@ -115,7 +115,7 @@ export const AetherixArchitectureDiagram = () => {
               className="flex items-center gap-3 px-4 py-3 border border-outline-variant rounded-xl bg-surface/80 backdrop-blur-sm"
             >
               <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center">
-                <Icon name={d.icon} className="text-outline text-lg" />
+                <Icon name={d.icon} className="text-on-surface-variant text-lg" />
               </div>
               <span className="font-headline italic text-primary text-base md:text-lg">{d.title}</span>
             </div>
@@ -152,7 +152,7 @@ const Column = ({
         } backdrop-blur-sm`}
       >
         <div className="w-8 h-8 rounded-full border border-outline-variant bg-surface flex items-center justify-center shrink-0">
-          <Icon name={it.icon} className="text-outline text-base" />
+          <Icon name={it.icon} className="text-on-surface-variant text-base" />
         </div>
         <div className="min-w-0">
           <p className="font-headline italic text-primary text-sm md:text-base leading-tight truncate">{it.title}</p>

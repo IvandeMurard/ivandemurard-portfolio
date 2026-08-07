@@ -39,7 +39,7 @@ export const AetherixPhaseTimeline = () => (
             <div className="flex items-center gap-2">
               <Icon
                 name={ICON[p.state]}
-                className={emphasized ? "text-secondary text-lg" : "text-outline text-lg"}
+                className={emphasized ? "text-secondary text-lg" : "text-on-surface-variant text-lg"}
               />
               <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{p.n}</span>
             </div>

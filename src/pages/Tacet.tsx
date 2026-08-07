@@ -296,7 +296,7 @@ const Tacet = () => (
               className="lift-card p-8 bg-surface-container-low rounded-lg hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
               <span className="font-label text-[10px] text-secondary mb-8 block tracking-widest">{s.n}</span>
-              <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/70">
+              <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary">
                 <Icon name={s.icon} className="text-sm" />
               </div>
               <h5 className="font-headline text-2xl italic mb-4 text-primary">{s.title}</h5>
@@ -355,7 +355,7 @@ const Tacet = () => (
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="font-label text-[10px] text-secondary tracking-[0.25em]">PILLAR {p.letter}</span>
-                <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 flex items-center justify-center text-primary/70">
+                <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 flex items-center justify-center text-primary">
                   <Icon name={p.icon} className="text-sm" />
                 </div>
               </div>
@@ -381,7 +381,7 @@ const Tacet = () => (
         <div className="grid md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto">
           {IMPACT.map((it) => (
             <div key={it.title} className="p-8 bg-surface-container-low border border-outline-variant rounded-2xl">
-              <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary/70">
+              <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary">
                 <Icon name={it.icon} className="text-sm" />
               </div>
               <h3 className="font-headline italic text-2xl text-primary mb-4 leading-snug">{it.title}</h3>

@@ -64,7 +64,7 @@ const NodeCard = ({
 );
 
 const Arrow = () => (
-  <Icon name="arrow_forward" className="text-outline text-xl shrink-0" />
+  <Icon name="arrow_forward" className="text-on-surface-variant text-xl shrink-0" />
 );
 
 export const AetherixMeshDiagram = () => (
@@ -87,7 +87,7 @@ export const AetherixMeshDiagram = () => (
         <div className="flex flex-col items-center gap-4">
           <NodeCard title="Aetherix" sub="F&B execution" emphasized />
           <div className="flex flex-col items-center gap-1">
-            <Icon name="more_vert" className="text-outline text-sm" />
+            <Icon name="more_vert" className="text-on-surface-variant text-sm" />
             <NodeCard title="HiveMemory" sub="Anonymized peers" dashed />
           </div>
         </div>
@@ -115,10 +115,10 @@ export const AetherixMeshDiagram = () => (
             Synthetic PoC
           </span>
         </div>
-        <Icon name="arrow_downward" className="text-outline text-xl" />
+        <Icon name="arrow_downward" className="text-on-surface-variant text-xl" />
         <NodeCard title="Aetherix" sub="F&B execution" emphasized />
         <NodeCard title="HiveMemory" sub="Anonymized peers, side input" dashed />
-        <Icon name="arrow_downward" className="text-outline text-xl" />
+        <Icon name="arrow_downward" className="text-on-surface-variant text-xl" />
         <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant bg-surface-container-low">
           <Icon name="chat" className="text-secondary text-lg" />
           <div>

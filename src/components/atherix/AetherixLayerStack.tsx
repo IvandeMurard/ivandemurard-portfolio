@@ -129,7 +129,7 @@ export const AetherixLayerStack = () => {
                           key={s.label}
                           className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant bg-surface/70"
                         >
-                          <Icon name={s.icon} className="text-outline text-sm" />
+                          <Icon name={s.icon} className="text-on-surface-variant text-sm" />
                           <span className="text-[11px] uppercase tracking-widest text-secondary">{s.label}</span>
                         </div>
                       ))}

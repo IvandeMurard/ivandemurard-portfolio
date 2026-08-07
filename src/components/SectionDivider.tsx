@@ -50,7 +50,7 @@ export const SectionDivider = ({
             variant === "center" ? "text-center" : "text-left"
           }`}
         >
-          {index && <span className="text-primary/70">{index}</span>}
+          {index && <span className="text-primary">{index}</span>}
           {index && label && <span className="text-on-surface-variant mx-2">/</span>}
           {label && <span>{label}</span>}
         </span>
