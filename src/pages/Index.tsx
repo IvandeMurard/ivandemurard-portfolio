@@ -69,10 +69,22 @@ const MILESTONES: Milestone[] = [
   { kind: "text", value: "Paris", label: "Based" },
 ];
 
+// Proof strip above the fold. Same numeral treatment as Milestones.
+type Proof =
+  | { kind: "count"; value: number; prefix?: string; suffix?: string; display?: never; label: string }
+  | { kind: "text"; display: string; label: string };
+
+const PROOF: Proof[] = [
+  { kind: "count", value: 500, suffix: "+", label: "users on an internal SaaS rolled out across 100 care homes" },
+  { kind: "text", display: "€1.9M", label: "receivables tracked and 40% recovered through a decision tool" },
+  { kind: "count", value: 22, label: "European public-sector clients onboarded, zero churn" },
+];
+
 const Index = () => {
   const track = useTrackClick();
   return (
-  <SiteLayout title="The Atrium">
+  <SiteLayout>
+
     <Seo
       title="Ivan de Murard, Product Builder in Paris"
       rawTitle
