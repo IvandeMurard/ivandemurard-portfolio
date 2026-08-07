@@ -50,8 +50,12 @@
     --on-background: 90 4% 11%;
 
     /* Outline */
-    --outline: 233 6% 49%;                    /* #767683 */
-    --outline-variant: 240 14% 80%;           /* #c6c5d4 */
+    --outline: 233 8% 40%;                    /* darkened for AA on cream */
+    --outline-variant: 235 10% 58%;           /* borders reach 3:1 on cream */
+
+    /* Text selection */
+    --selection-bg: 39 96% 78%;
+    --selection-fg: 38 45% 12%;
 
     /* Error */
     --error: 0 75% 42%;
