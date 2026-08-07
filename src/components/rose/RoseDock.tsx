@@ -43,6 +43,8 @@ export const RoseDock = () => {
     "product" | "technical" | "culture" | "exploring" | null
   >(null);
   const [inputValue, setInputValue] = useState("");
+  const [hovered, setHovered] = useState(false);
+  const [focusWithin, setFocusWithin] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
   const sessionId = useMemo(() => getSessionId(), []);
@@ -64,6 +66,10 @@ export const RoseDock = () => {
   });
 
   const isLoading = status === "submitted" || status === "streaming";
+
+  // Resting state = glass veil; any engagement restores the full surface.
+  const active =
+    open || hovered || focusWithin || isLoading || inputValue.trim().length > 0;
 
   // Focus expanded textarea when opening.
   useEffect(() => {
@@ -117,8 +123,15 @@ export const RoseDock = () => {
         )}
       >
         <div
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onFocusCapture={() => setFocusWithin(true)}
+          onBlurCapture={() => setFocusWithin(false)}
           className={cn(
-            "pointer-events-auto flex flex-col overflow-hidden rounded-3xl border border-outline-variant bg-surface-container-lowest/95 shadow-2xl shadow-black/10 backdrop-blur-md transition-all duration-300",
+            "pointer-events-auto flex flex-col overflow-hidden rounded-3xl border backdrop-blur-md transition-all duration-300 motion-reduce:transition-none",
+            active
+              ? "border-outline-variant bg-surface-container-lowest/95 shadow-2xl shadow-black/10"
+              : "border-outline-variant/40 bg-surface-container-lowest/35 shadow-lg shadow-black/5",
             open ? "max-h-[min(600px,80vh)]" : "max-h-[220px]",
           )}
         >
@@ -252,7 +265,12 @@ export const RoseDock = () => {
                   key={chip.intent}
                   onClick={() => onChip(chip)}
                   disabled={isLoading}
-                  className="rounded-full border border-outline-variant bg-surface-container px-3.5 py-1.5 text-xs text-on-surface transition-colors hover:border-secondary hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50"
+                  className={cn(
+                    "rounded-full border px-3.5 py-1.5 text-xs text-on-surface transition-all duration-300 motion-reduce:transition-none hover:border-secondary hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50",
+                    active
+                      ? "border-outline-variant bg-surface-container"
+                      : "border-outline-variant/40 bg-surface-container/40",
+                  )}
                 >
                   {chip.label}
                 </button>

@@ -12,6 +12,7 @@ Quand Rose n'est ni survolée, ni focalisée, ni ouverte, le dock devient un sim
 - Sur mobile et sur pointeurs tactiles, pas d'état estompé permanent gênant: le dock reste lisible au repos avec un voile plus léger, et l'ouverture reste déclenchée par le focus du champ.
 - Respect de `prefers-reduced-motion`: pas d'animation, seulement le changement d'état.
 - Le placeholder et le libellé restent lisibles: on n'abaisse pas l'opacité du texte en dessous du seuil de contraste AA. L'estompage porte sur le fond, la bordure et l'ombre, pas sur la couleur du texte.
+- Conserver (mais en adapter l'afichage) les triggers, questions contextuelles, invitant à l'échange. 
 
 ## Détails techniques
 
