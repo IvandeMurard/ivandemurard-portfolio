@@ -37,6 +37,14 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     status: "Prototype, synthetic data, harness in CI.",
   },
   {
+    slug: "anima",
+    name: "Anima",
+    to: "/anima",
+    what: "Guest node: a four-layer temporal memory of a guest relationship, with decay and a scope gate built in.",
+    who: "The nodes that need to know who is arriving.",
+    status: "Synthetic proof of concept, production gated behind a data-protection assessment.",
+  },
+  {
     slug: "sonor",
     name: "Sonor",
     to: "/sonor",
@@ -72,6 +80,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
   {
     slug: "anima",
     name: "Anima",
+    to: "/anima",
     what:
       "The guest node. A four-layer temporal memory of a guest relationship, so a returning guest does not have to repeat themselves.",
     who: "The nodes that need to know who is arriving.",

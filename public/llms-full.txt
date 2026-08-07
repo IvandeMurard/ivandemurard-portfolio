@@ -66,6 +66,22 @@ Thesis. Aetherix exists because hotels lose critical knowledge when a manager le
 
 Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard (thread per aircraft and per technician), OpenAI TTS, Next.js 14, TypeScript, Tailwind, Vercel.
 
+## Anima
+
+URL: https://ivandemurard.com/anima. The guest node of the Hospitality Agentic Mesh, and the node that is not allowed to simply accumulate. It is a memory product with a deliberate limit, not a personalisation product.
+
+Lineage. Digital twins started with assets, and hospitality mostly stopped there (predictive maintenance, refurbishment simulation, energy). The interesting extension is toward people: research on human-centered digital twins in hospitality (https://pmc.ncbi.nlm.nih.gov/articles/PMC13078991/) models the employee, and its design rule is that such a system supports human judgement rather than replacing it. That paper is a study of adoption intent across 141 hotel employees, not a deployed system. Anima applies the same shift to the guest relationship, and the two are not symmetrical: an employee can be told they are modelled, consulted and can refuse; a guest cannot meaningfully consent to being modelled during a two-night stay. The older version of this was the concierge who never had to ask twice, a twin with a bus factor of one, which is the same loss Lore addresses for technical expertise.
+
+Four memory layers with different lifetimes. Working: the current stay, expires at check-out. Episodic: this stay and a short tail, weeks. Semantic: durable preferences stated or repeatedly confirmed, long with decay. Segment: anonymised patterns, aggregate and never individual. Temporal separation is the design: a guest ordering a decaf at 11pm before an early flight should be used tonight and never become a permanent belief.
+
+Confidence. Nothing is stored as a fact. Every claim carries a weight, a source and an age, and weights fall unless renewed. A preference from 2019 nobody has confirmed does not outvote something said last week. A system that reports a confidence it did not measure is worse than one that reports none.
+
+Ethics in the data model. Edmondo Grassi (The Remains of the Stay: Memory, Identity, and the Afterlife of the Guest, Hotel Yearbook 2026 Technology Edition) notes that the stay no longer ends at check-out, it merely changes form, and asks whether remembering is an act of care or an exercise of power. The answer here is decay on every claim, layers that expire by design, inference marked as inference, and a scope gate that makes total recall impossible rather than discouraged.
+
+Boundaries. Any consumer declares which layer it queries; there is no call returning everything known about a person. Anima answers who a guest is right now and never what to do about it: that belongs to the orchestrator, with a human validating. Guest experience is not a node, it is a cross-cutting signal, which is why guest.* lives in the shared contract.
+
+Status. Synthetic proof of concept. Four-layer memory implemented, working MCP server, evaluated on a synthetic cohort. Never run on a real guest, and it will not until a formal data-protection assessment is complete. Shipped as a prototype at an Anthropic hackathon, June 2026. Production is phase 4.
+
 ## Track record
 
 - 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Rolled out an internal SaaS to 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.

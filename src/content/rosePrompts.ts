@@ -66,6 +66,30 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     ],
   },
   {
+    match: "/anima",
+    prompts: [
+      {
+        label: "The four layers",
+        message:
+          "On the Anima case study: what are the four memory layers, and why do they expire differently?",
+        intent: "technical",
+      },
+      {
+        label: "Why it is not switched on",
+        message:
+          "On the Anima case study: why is production gated behind a data-protection assessment?",
+        intent: "product",
+      },
+      {
+        label: "Not personalisation",
+        message:
+          "On the Anima case study: how is this different from a personalisation engine?",
+        intent: "product",
+      },
+      BOOK_CALL,
+    ],
+  },
+  {
     match: "/tacet",
     prompts: [
       {
@@ -265,14 +289,14 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
         intent: "product",
       },
       {
-        label: "Compare the four",
+        label: "Compare them",
         message:
-          "Compare Aetherix, Tacet, Lore and Sonor in one line each, with their current status.",
+          "Compare Aetherix, Tacet, Lore, Anima and Sonor in one line each, with their current status.",
         intent: "exploring",
       },
       {
         label: "What is shipped",
-        message: "Which of these four systems is actually shipped and used?",
+        message: "Which of these systems is actually shipped and used?",
         intent: "technical",
       },
       BOOK_CALL,

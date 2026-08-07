@@ -37,13 +37,22 @@ const STUDIES = [
     url: "https://ivandemurard.com/lore",
     markdown_path: "/lore.md",
   },
+  {
+    slug: "anima",
+    name: "Anima",
+    label: "AI Agent · Guest Cognition · 2026",
+    tagline:
+      "The guest node of the Hospitality Agentic Mesh. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic proof of concept, production gated behind a data-protection assessment.",
+    url: "https://ivandemurard.com/anima",
+    markdown_path: "/anima.md",
+  },
 ];
 
 export default defineTool({
   name: "list_case_studies",
   title: "List case studies",
   description:
-    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({

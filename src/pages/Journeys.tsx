@@ -62,6 +62,15 @@ const ACTS: Act[] = [
     tint: { h: 28, s: 55, l: 40, a: 0.18 },
     flip: true,
   },
+  {
+    index: "05",
+    slug: "anima",
+    name: PROJECTS.anima.name,
+    body: "The guest node of the mesh, and the one that is not allowed to simply accumulate. Four memory layers with different lifetimes, claims that carry a weight and a source and decay unless renewed, and a scope gate that makes asking for a whole person impossible. Built, evaluated on synthetic data, and deliberately not switched on.",
+    image: PROJECTS.anima.image,
+    cta: "Read the Constraint",
+    tint: { h: 200, s: 40, l: 30, a: 0.18 },
+  },
 ];
 
 /** Split a word into per-letter spans for the ink reveal. */
@@ -227,7 +236,7 @@ const Journeys = () => {
     <SiteLayout title="Stories">
       <Seo
         title="Case Studies, Selected Work by Ivan de Murard"
-        description="Case studies: Aetherix (agentic AI for boutique hotels), Sonor (urban noise SaaS), Tacet (acoustic twin). Product and AI work shipped 0 to 1."
+        description="Case studies: Aetherix (F&B agent for boutique hotels), Sonor (urban noise SaaS), Tacet (environmental twin), Lore (voice AI for aviation maintenance), Anima (guest node). Product and AI work shipped 0 to 1."
         path="/journeys"
         jsonLd={{
           "@context": "https://schema.org",
@@ -239,6 +248,7 @@ const Journeys = () => {
             { "@type": "CreativeWork", name: "Sonor", url: "https://ivandemurard.com/sonor" },
             { "@type": "CreativeWork", name: "Tacet", url: "https://ivandemurard.com/tacet" },
             { "@type": "CreativeWork", name: "Lore", url: "https://ivandemurard.com/lore" },
+            { "@type": "CreativeWork", name: "Anima", url: "https://ivandemurard.com/anima" },
           ],
         }}
       />

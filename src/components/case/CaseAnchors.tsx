@@ -24,7 +24,7 @@ export const CaseAnchors = ({
   current,
   label = "Where this sits",
   entries = SYSTEM_ANCHORS,
-  columns = 4,
+  columns,
   more,
 }: Props) => (
   <section aria-label={label} className="px-6 md:px-12 mb-12 md:mb-16">
@@ -33,7 +33,7 @@ export const CaseAnchors = ({
       <ul
         className={cn(
           "grid gap-4 md:grid-cols-2",
-          columns === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4",
+          (columns ?? (entries.length >= 5 ? 5 : 4)) === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4",
         )}
       >
         {entries.map((item) => {
