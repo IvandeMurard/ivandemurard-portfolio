@@ -51,8 +51,19 @@ export const SectionDivider = ({
           }`}
         >
           {index && <span className="text-primary">{index}</span>}
-          {index && label && <span className="text-on-surface-variant mx-2">/</span>}
-          {label && <span>{label}</span>}
+          {/* Separator is generated in CSS: decorative, so it stays out of the
+              accessibility tree, and coloured with `outline` rather than a
+              body-text token. */}
+          {label && (
+            <span
+              className={
+                index ? "before:content-['/'] before:mx-2 before:text-outline" : undefined
+              }
+            >
+              {label}
+            </span>
+          )}
+
         </span>
       )}
     </div>

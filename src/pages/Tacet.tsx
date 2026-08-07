@@ -186,7 +186,7 @@ const Tacet = () => (
         </div>
       </Reveal>
 
-      <CaseAnchors current="tacet" />
+      <CaseAnchors current="tacet" more={{ to: "/architecture", text: "How these systems fit together: the architecture note" }} />
 
       {/* Project Info */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">

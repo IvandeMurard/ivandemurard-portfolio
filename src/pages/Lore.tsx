@@ -133,7 +133,7 @@ const Lore = () => (
 
 
 
-      <CaseAnchors current="lore" />
+      <CaseAnchors current="lore" more={{ to: "/architecture", text: "How these systems fit together: the architecture note" }} />
 
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">

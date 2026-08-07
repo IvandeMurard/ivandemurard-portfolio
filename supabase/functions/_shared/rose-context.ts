@@ -63,6 +63,7 @@ const CASE_STUDY_SLUGS = [
   "tacet",
   "lore",
   "harnesses-graders-closed-loops",
+  "architecture",
 ] as const;
 type Slug = (typeof CASE_STUDY_SLUGS)[number];
 

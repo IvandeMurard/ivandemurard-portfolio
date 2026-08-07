@@ -90,6 +90,30 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     ],
   },
   {
+    match: "/architecture",
+    prompts: [
+      {
+        label: "What is actually built",
+        message:
+          "On the architecture note: which nodes of the mesh are built today, and which are still design or stub?",
+        intent: "exploring",
+      },
+      {
+        label: "Why several agents",
+        message:
+          "On the architecture note: why split this into separate agents instead of one model doing everything?",
+        intent: "technical",
+      },
+      {
+        label: "Tenancy and privacy",
+        message:
+          "On the architecture note: how does the mesh stop one property's data reaching another?",
+        intent: "technical",
+      },
+      BOOK_CALL,
+    ],
+  },
+  {
     match: "/lore",
     prompts: [
       {

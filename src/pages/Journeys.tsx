@@ -167,8 +167,10 @@ const ActSection = ({ act }: { act: Act }) => {
           className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-6"
         >
           <span className="text-primary">{act.index}</span>
-          <span className="text-on-surface-variant mx-2">/</span>
-          <span>{String(ACTS.length).padStart(2, "0")}</span>
+          <span className="before:content-['/'] before:mx-2 before:text-outline">
+            {String(ACTS.length).padStart(2, "0")}
+          </span>
+
         </span>
         <h2
           id={headingId}
@@ -274,6 +276,18 @@ const Journeys = () => {
                   className="text-on-surface-variant font-light leading-relaxed max-w-md text-base md:text-lg"
                 >
                   A curated collection of projects where technology quietly becomes an act of care.
+                </p>
+                <p
+                  data-reveal-child
+                  style={{ ["--reveal-delay" as string]: "500ms" }}
+                  className="text-on-surface-variant font-body leading-relaxed max-w-md text-base mt-5"
+                >
+                  <Link
+                    to="/architecture"
+                    className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+                  >
+                    How three of these fit together: the architecture note
+                  </Link>
                 </p>
               </div>
 
