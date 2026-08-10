@@ -1,6 +1,6 @@
 # Field note legibility, plus Rose as a qualifying agent
 
-Two independent workstreams. The field note stops asserting things about Aetherix and Lore that the reader cannot project onto their own system. Rose stops explaining and starts qualifying.
+Two independent workstreams. The field note stops asserting things about Aetherix and Lore that the reader cannot project onto their own system. Rose still answers the question with something useful, but prioritises qualifying over explaining.
 
 ## Part 1: The field note
 
