@@ -1,6 +1,7 @@
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { CaseHoverPreview } from "@/components/CaseHoverPreview";
-import { Compass, Cpu, HeartHandshake } from "lucide-react";
+import { SafeImage } from "@/components/SafeImage";
+import { Compass, Cpu, HeartHandshake, BookOpen, Gauge, GitBranch } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -8,7 +9,9 @@ import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
 import { SectionDivider } from "@/components/SectionDivider";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
+import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
+
 
 const PILLARS = [
   {
