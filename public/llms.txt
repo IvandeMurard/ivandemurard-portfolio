@@ -21,7 +21,7 @@
 ## Field Notes
 
 - [Journal index](https://ivandemurard.com/journal)
-- [Harnesses, graders, closed loops](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (2026-07-31): A working vocabulary for evaluating AI systems (case set, grader, harness, protocol, open and closed loops), and the two products where it runs, Aetherix and Lore.
+- [Harnesses, graders, closed loops](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (2026-07-31): A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Tested on Aetherix and Lore.
 - [A hard call on Aetherix's agent boundaries](https://ivandemurard.com/journal/agent-boundaries-aetherix) (2026-04-20)
 
 ## Track record

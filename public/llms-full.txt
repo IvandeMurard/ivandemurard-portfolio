@@ -103,7 +103,7 @@ Status. Synthetic proof of concept. Four-layer memory implemented, working MCP s
 
 Index: https://ivandemurard.com/journal.
 
-- Harnesses, graders, closed loops (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for evaluating AI systems: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Runs in two products, Aetherix and Lore.
+- Harnesses, graders, closed loops (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
 - A hard call on Aetherix's agent boundaries (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. On where to draw the line between forecasting and acting, and why splitting Prophet from Claude shaped the rest of the architecture.
 
 ## Frequently asked questions
