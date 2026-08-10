@@ -170,7 +170,7 @@ import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
 var HARNESSES_ENTRY = {
   slug: "harnesses-graders-closed-loops",
   title: "Harnesses, graders, closed loops",
-  subtitle: "A working vocabulary for evaluating AI systems, and the two products where it runs.",
+  subtitle: "A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
   date: "2026-07-31",
   category: "Evaluation",
   lang: "en",

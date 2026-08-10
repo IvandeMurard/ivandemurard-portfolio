@@ -1,6 +1,6 @@
 # Harnesses, graders, closed loops
 
-_A working vocabulary for evaluating AI systems, and the two products where it runs._
+_A working vocabulary for building evaluation into AI products from day one, tested on two real systems._
 
 Published 2026-07-31 · Evaluation · 14 min read
 
