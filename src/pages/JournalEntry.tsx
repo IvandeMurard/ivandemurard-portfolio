@@ -85,6 +85,9 @@ const blockStrings = (block: JournalBlock): string[] => {
       return block.steps.flatMap((s) => [s.label, s.note ?? ""]);
     case "cards":
       return block.items.map((i) => i.body);
+    case "matrix":
+      return block.rows.flatMap((r) => r.cells.flatMap((c) => [c.instance, c.cost ?? ""]));
+
     default:
       return [];
   }
