@@ -81,17 +81,34 @@ export const RoseDock = () => {
     }
   }, [open]);
 
-  const submit = (text: string) => {
+  /**
+   * Every turn carries the page being read. A chip additionally travels as an
+   * opening hypothesis (its intent), so Rose can qualify instead of explaining.
+   */
+  const submit = (text: string, suggested?: RosePrompt) => {
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
     if (!open) setOpen(true);
     setInputValue("");
-    void sendMessage({ text: trimmed });
+    void sendMessage(
+      { text: trimmed },
+      {
+        body: {
+          page: {
+            path: pathname,
+            title: typeof document !== "undefined" ? document.title : "",
+          },
+          ...(suggested
+            ? { suggested: { label: suggested.label, intent: suggested.intent ?? null } }
+            : {}),
+        },
+      },
+    );
   };
 
   const onChip = (chip: RosePrompt) => {
     if (chip.intent) setDetectedIntent(chip.intent);
-    submit(chip.message);
+    submit(chip.message, chip);
   };
 
   // Ready prompts elsewhere on the site (Field Notes) open the dock pre-filled.
