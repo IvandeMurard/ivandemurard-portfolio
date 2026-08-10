@@ -22,19 +22,19 @@ const BOOK_CALL: RosePrompt = {
 
 const DEFAULT_PROMPTS: RosePrompt[] = [
   {
-    label: "What Ivan builds",
+    label: "What does Ivan build?",
     message:
       "In plain language: what does Ivan build, and for whom?",
     intent: "product",
   },
   {
-    label: "What is live today",
+    label: "What is live today?",
     message:
       "Across Ivan's projects, what is actually shipped and used, and what is still prototype?",
     intent: "technical",
   },
   {
-    label: "Where to start",
+    label: "Where should I start?",
     message: "I have five minutes. Which page should I read first, and why?",
     intent: "exploring",
   },
@@ -44,20 +44,42 @@ const DEFAULT_PROMPTS: RosePrompt[] = [
 /** Exact path, or prefix when the entry ends with "/". */
 const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
   {
+    match: "/",
+    prompts: [
+      {
+        label: "What does Ivan build?",
+        message: "In plain language: what does Ivan build, and for whom?",
+        intent: "product",
+      },
+      {
+        label: "What is live today?",
+        message:
+          "Across Ivan's projects (Aetherix, Tacet, Anima, Lore, Sonor, Paris Compass), what is actually shipped and used, and what is still prototype?",
+        intent: "technical",
+      },
+      {
+        label: "Where should I start?",
+        message: "I have five minutes. Which case study or field note should I read first, and why?",
+        intent: "exploring",
+      },
+      BOOK_CALL,
+    ],
+  },
+  {
     match: "/atrium",
     prompts: [
       {
-        label: "The short version",
+        label: "What is the short version?",
         message: "Give me the short version of Ivan's background and what he is working on now.",
         intent: "product",
       },
       {
-        label: "How he works",
+        label: "How does he work?",
         message: "How does Ivan work with a team: what does he take on, and what does he leave to others?",
         intent: "culture",
       },
       {
-        label: "What is live today",
+        label: "What is live today?",
         message: "Across Ivan's projects, what is actually shipped and used, and what is still prototype?",
         intent: "technical",
       },
@@ -68,19 +90,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/aetherix",
     prompts: [
       {
-        label: "What it actually does",
+        label: "What does it actually do?",
         message:
           "On the Aetherix case study: what does the product actually do today, and what is still a prototype?",
         intent: "product",
       },
       {
-        label: "Why WhatsApp",
+        label: "Why WhatsApp?",
         message:
           "On the Aetherix case study: why one WhatsApp message a day instead of a dashboard?",
         intent: "product",
       },
       {
-        label: "How the mesh fits",
+        label: "How does the mesh fit?",
         message:
           "On the Aetherix case study: how do Aetherix, Tacet, Anima and the orchestrator fit together?",
         intent: "technical",
@@ -92,19 +114,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/anima",
     prompts: [
       {
-        label: "The four layers",
+        label: "What are the four layers?",
         message:
           "On the Anima case study: what are the four memory layers, and why do they expire differently?",
         intent: "technical",
       },
       {
-        label: "Why it is not switched on",
+        label: "Why is it not switched on?",
         message:
           "On the Anima case study: why is production gated behind a data-protection assessment?",
         intent: "product",
       },
       {
-        label: "Not personalisation",
+        label: "Why not personalisation?",
         message:
           "On the Anima case study: how is this different from a personalisation engine?",
         intent: "product",
@@ -116,19 +138,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/tacet",
     prompts: [
       {
-        label: "Why headless",
+        label: "Why headless?",
         message:
           "On the Tacet case study: why is Tacet headless and consumed by agents rather than humans?",
         intent: "product",
       },
       {
-        label: "Which signals",
+        label: "Which signals feed it?",
         message:
           "On the Tacet case study: which environmental signals feed the twin, and how do they become yield rules?",
         intent: "technical",
       },
       {
-        label: "How far it got",
+        label: "How far did it get?",
         message:
           "On the Tacet case study: what is built, what is still prototype, and what was never validated?",
         intent: "exploring",
@@ -140,19 +162,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/architecture",
     prompts: [
       {
-        label: "What is actually built",
+        label: "What is actually built?",
         message:
           "On the architecture note: which nodes of the mesh are built today, and which are still design or stub?",
         intent: "exploring",
       },
       {
-        label: "Why several agents",
+        label: "Why several agents?",
         message:
           "On the architecture note: why split this into separate agents instead of one model doing everything?",
         intent: "technical",
       },
       {
-        label: "Tenancy and privacy",
+        label: "How is tenancy kept apart?",
         message:
           "On the architecture note: how does the mesh stop one property's data reaching another?",
         intent: "technical",
@@ -164,19 +186,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/lore",
     prompts: [
       {
-        label: "Real or synthetic",
+        label: "Real or synthetic?",
         message:
           "On the Lore case study: what is real in this project and what runs on synthetic data?",
         intent: "technical",
       },
       {
-        label: "Why voice",
+        label: "Why voice?",
         message:
           "On the Lore case study: why voice capture rather than a form for a retiring technician?",
         intent: "product",
       },
       {
-        label: "How the harness gates a release",
+        label: "How does the harness gate a release?",
         message:
           "On the Lore case study: how does the evaluation harness block a release in CI?",
         intent: "technical",
@@ -188,19 +210,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/sonor",
     prompts: [
       {
-        label: "What Sonor shipped",
+        label: "What did Sonor ship?",
         message:
           "On the Sonor case study: what did Sonor actually ship for cities between 2020 and 2022?",
         intent: "product",
       },
       {
-        label: "Why it closed",
+        label: "Why did it close?",
         message:
           "On the Sonor case study: why did the company close, and what did Ivan take from it?",
         intent: "culture",
       },
       {
-        label: "What carried over",
+        label: "What carried over?",
         message:
           "On the Sonor case study: what from Sonor carries into the current hospitality work?",
         intent: "exploring",
@@ -212,19 +234,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/journal/harnesses-graders-closed-loops",
     prompts: [
       {
-        label: "A grader in one sentence",
+        label: "What is a grader?",
         message:
           "In the field note Harnesses, graders, closed loops: explain what a grader is in one sentence, with an example.",
         intent: "technical",
       },
       {
-        label: "Apply it to my team",
+        label: "How do I apply this?",
         message:
           "In the field note Harnesses, graders, closed loops: how would I apply this to a team shipping its first LLM feature?",
         intent: "product",
       },
       {
-        label: "Where it runs in Lore",
+        label: "Where does it run in Lore?",
         message:
           "In the field note Harnesses, graders, closed loops: how does this vocabulary show up concretely in Lore?",
         intent: "technical",
@@ -236,19 +258,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/journal/agent-boundaries-aetherix",
     prompts: [
       {
-        label: "The call that was made",
+        label: "What was the hard call?",
         message:
           "In the field note on Aetherix's agent boundaries: what was the hard call, and what was given up?",
         intent: "product",
       },
       {
-        label: "Where the agent stops",
+        label: "Where does the agent stop?",
         message:
           "In the field note on Aetherix's agent boundaries: where does the agent stop and the human decide?",
         intent: "technical",
       },
       {
-        label: "Would you redo it",
+        label: "Would he redo it?",
         message:
           "In the field note on Aetherix's agent boundaries: would Ivan make the same call again today?",
         intent: "culture",
@@ -260,18 +282,18 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/journal/",
     prompts: [
       {
-        label: "Summarise this note",
+        label: "Can you summarise this note?",
         message: "Summarise the field note I am reading in five lines.",
         intent: "exploring",
       },
       {
-        label: "Explain a term",
+        label: "What does this term mean?",
         message:
           "Explain the key technical term in the field note I am reading, in plain language.",
         intent: "technical",
       },
       {
-        label: "Where it runs",
+        label: "Where does it run?",
         message:
           "Which of Ivan's projects puts the ideas of this field note into practice?",
         intent: "product",
@@ -283,18 +305,18 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/journal",
     prompts: [
       {
-        label: "Where to start",
+        label: "Where should I start?",
         message: "Which field note should I read first, and why?",
         intent: "exploring",
       },
       {
-        label: "What these notes argue",
+        label: "What do these notes argue?",
         message:
           "What is the common thread across Ivan's field notes?",
         intent: "product",
       },
       {
-        label: "Notes or case studies",
+        label: "Notes or case studies?",
         message:
           "What is the difference between the field notes and the case studies on this site?",
         intent: "exploring",
@@ -306,19 +328,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     match: "/journeys",
     prompts: [
       {
-        label: "Which case study fits me",
+        label: "Which case study fits me?",
         message:
           "I am hiring for a product role in hospitality tech. Which case study should I read first?",
         intent: "product",
       },
       {
-        label: "Compare them",
+        label: "How do they compare?",
         message:
           "Compare Aetherix, Tacet, Lore, Anima and Sonor in one line each, with their current status.",
         intent: "exploring",
       },
       {
-        label: "What is shipped",
+        label: "What is shipped?",
         message: "Which of these systems is actually shipped and used?",
         intent: "technical",
       },

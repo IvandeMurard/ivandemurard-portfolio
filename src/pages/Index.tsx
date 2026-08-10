@@ -348,7 +348,7 @@ const Index = () => {
           Read all notes
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl">
         {LATEST_NOTES.map(({ entry, Icon: NoteIcon }, i) => (
           <Link
             key={entry.slug}
@@ -356,9 +356,9 @@ const Index = () => {
             onClick={() => track({ label: entry.title, href: `/journal/${entry.slug}`, kind: "nav" })}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card group p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
+            className="lift-card group p-8 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
           >
-            <NoteIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
+            <NoteIcon size={24} strokeWidth={1.25} className="text-secondary mb-6" />
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-4">
               {entry.category}
               <span className="before:content-['/'] before:mx-2 before:text-outline">
