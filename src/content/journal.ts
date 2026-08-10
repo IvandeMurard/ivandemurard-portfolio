@@ -1,4 +1,6 @@
 import { HARNESSES_ENTRY } from "./journalHarnesses";
+import type { MatrixRow } from "@/components/journal/CoverageMatrix";
+
 
 export type JournalCategory = "Product" | "Operations" | "Agentic AI" | "Field" | "Evaluation";
 
