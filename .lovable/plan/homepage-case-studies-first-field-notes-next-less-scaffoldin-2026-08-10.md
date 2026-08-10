@@ -29,7 +29,7 @@ Replace the long sentence with a title line:
 
 The section stays but the sentence is replaced, and the two vertical rules around it are removed:
 
-"Five years reading operations from the inside, in care homes, telecom finance and city halls. I now build the agents that carry what those teams know: covers and staffing for a hotel, a retiring technician's judgement, a guest relationship that is allowed to forget."
+"Five years reading operations from the inside, in care homes, telecom finance and city halls. I now build the agents that carry what those teams know: covers and staffing for a hotel, a retiring technician's judgement, a guest relationship."
 
 ## 4. Field Notes section
 
