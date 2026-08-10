@@ -3,6 +3,8 @@ import aetherixImg from "@/assets/case-aetherix.png";
 import tacetImg from "@/assets/case-tacet.png";
 import loreImg from "@/assets/case-lore.png";
 import animaImg from "@/assets/case-anima.png";
+import parisCompassImg from "@/assets/case-paris-compass.jpg";
+
 
 export const SOCIAL_LINKS = {
   email: "mailto:ivandemurard@gmail.com",
