@@ -290,6 +290,8 @@ const Block = ({
       return <CardGrid items={block.items} label={block.label} />;
     case "askRose":
       return <AskRose prompts={block.prompts} label={block.label} note={block.note} />;
+    case "matrix":
+      return <CoverageMatrix label={block.label} columns={block.columns} rows={block.rows} />;
     default:
       return null;
   }
