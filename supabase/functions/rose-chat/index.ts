@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
     );
   }
 
-  let body: { messages?: UIMessage[] };
+  let body: { messages?: UIMessage[]; page?: { path?: string; title?: string } | null; suggested?: { label?: string; intent?: string | null } | null };
   try {
     body = await req.json();
   } catch {
@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
   const model = gateway("google/gemini-3-flash-preview");
 
   try {
-    const system = await getRoseSystemPrompt();
+    const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested });
     const result = streamText({
       model,
       system,
