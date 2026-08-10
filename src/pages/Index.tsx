@@ -1,6 +1,7 @@
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { CaseHoverPreview } from "@/components/CaseHoverPreview";
-import { Compass, Cpu, HeartHandshake } from "lucide-react";
+import { SafeImage } from "@/components/SafeImage";
+import { Compass, Cpu, HeartHandshake, BookOpen, Gauge, GitBranch } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -8,7 +9,9 @@ import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
 import { SectionDivider } from "@/components/SectionDivider";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
+import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
+
 
 const PILLARS = [
   {
@@ -80,6 +83,15 @@ const PROOF: Proof[] = [
   { kind: "count", value: 22, label: "European public-sector clients onboarded, zero churn" },
 ];
 
+// Latest Field Notes, newest first. Icons, not covers: a lighter register than case studies.
+const NOTE_ICONS = [Gauge, BookOpen, GitBranch];
+const LATEST_NOTES = [...JOURNAL_ENTRIES]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3)
+  .map((entry, i) => ({ entry, Icon: NOTE_ICONS[i % NOTE_ICONS.length] }));
+
+
+
 const Index = () => {
   const track = useTrackClick();
   return (
@@ -121,10 +133,12 @@ const Index = () => {
           <h1
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="headline-ink relative z-10 font-headline text-4xl md:text-6xl text-primary leading-[1.15] italic perspective-text"
+            className="headline-ink relative z-10 font-headline text-5xl md:text-7xl text-primary leading-[1.1] italic perspective-text"
           >
-            I build agentic AI systems to continually improve operations, knowledge, and experience.
+            Product builder.
+            <span className="block text-primary-container">Agentic AI systems for operations.</span>
           </h1>
+
         </div>
         <p
           data-reveal-child
@@ -137,7 +151,7 @@ const Index = () => {
         <div
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "450ms" }}
-          className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 max-w-3xl mx-auto sm:divide-x sm:divide-outline-variant"
+          className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 max-w-3xl mx-auto"
         >
           {PROOF.map((p) => (
             <div key={p.label} className="px-2 sm:px-6 text-center">
@@ -190,72 +204,21 @@ const Index = () => {
     </Reveal>
 
 
-    <SectionDivider index="01" label="Milestones" />
-
-    {/* Milestones, proof bar */}
-    <Reveal as="section" className="py-16 md:py-20 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-16 md:mb-20">
-        <h2
-          data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
-        >
-          Milestones
-        </h2>
-        <p
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "120ms" }}
-          className="text-on-surface-variant font-light leading-relaxed"
-        >
-          A few markers along the way.
-        </p>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:divide-x md:divide-outline-variant">
-        {MILESTONES.map((m, i) => (
-          <div
-            key={`${m.value}-${m.label}`}
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
-            className={[
-              "px-2 md:px-8 text-center",
-              i >= 4 ? "md:border-t md:border-outline-variant md:pt-12" : "",
-            ].join(" ")}
-          >
-            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
-              {m.kind === "count" ? (
-                <CountUp value={m.value} suffix={m.suffix ?? ""} />
-              ) : (
-                m.value
-              )}
-            </p>
-            <span
-              className="underline-grow mx-auto mb-4 w-10"
-              style={{ ["--reveal-delay" as string]: `${360 + i * 70}ms` }}
-            />
-            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
-              {m.label}
-            </p>
-          </div>
-        ))}
-      </div>
-    </Reveal>
-
-    <SectionDivider spacing="tight" />
-
     {/* Signature line, a quiet breath */}
     <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8">
       <div className="max-w-4xl mx-auto text-center">
-        <div className="w-px h-16 bg-primary/20 mx-auto mb-12" />
         <p
           data-reveal-child
           className="headline-ink font-headline italic text-2xl md:text-4xl text-primary leading-snug"
         >
-          I combine my operational experience, with a taste for service design and hands-on product bulding to create lasting business value.
+          Five years reading operations from the inside, in care homes, telecom finance and city halls. I now build the
+          agents that carry what those teams know: covers and staffing for a hotel, a retiring technician's judgement, a
+          guest relationship.
         </p>
-        <div className="w-px h-16 bg-primary/20 mx-auto mt-12" />
       </div>
     </Reveal>
 
-    <SectionDivider index="02" label="Case Studies" />
+    <SectionDivider index="01" label="Case Studies" />
 
     {/* Case Studies */}
     <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
@@ -284,37 +247,126 @@ const Index = () => {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {Object.values(PROJECTS).map((p, i) => (
+        {Object.values(PROJECTS).map((p, i) => {
+          const isExternal = "external" in p && p.external;
+          const inner = (
+            <>
+              <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
+                {isExternal ? (
+                  <SafeImage
+                    src={p.image}
+                    alt={`${p.name} project preview`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <CaseHoverPreview
+                    slug={p.slug}
+                    image={p.image}
+                    alt={`${p.name} project preview`}
+                    className="w-full h-full"
+                  />
+                )}
+                <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none" />
+              </div>
+              <div className="mt-8 px-2 pb-2 flex justify-between items-start gap-4">
+                <div>
+                  <h3 className="font-headline text-3xl italic text-primary">{p.name}</h3>
+                  <p className="text-on-surface-variant font-light leading-relaxed mt-4">{p.tagline}</p>
+                  <p className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-4">
+                    {p.label}
+                  </p>
+                </div>
+                {isExternal ? (
+                  <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary shrink-0">
+                    External
+                  </span>
+                ) : (
+                  <Icon
+                    name="arrow_outward"
+                    className="text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all"
+                  />
+                )}
+              </div>
+            </>
+          );
+          const cardClass =
+            "lift-card group block p-4 rounded-xl border border-outline-variant bg-surface-container-low/40 hover:border-outline-variant";
+          return isExternal ? (
+            <a
+              key={p.slug}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track({ label: p.name, href: p.href, kind: "project" })}
+              className={cardClass}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+            >
+              {inner}
+            </a>
+          ) : (
+            <Link
+              key={p.slug}
+              to={`/${p.slug}`}
+              onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
+              className={cardClass}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+            >
+              {inner}
+            </Link>
+          );
+        })}
+      </div>
+    </Reveal>
+
+    <SectionDivider index="02" label="Field Notes" />
+
+    {/* Field Notes, a lighter register: icons, no covers */}
+    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 gap-8">
+        <div className="max-w-xl">
+          <h2
+            data-reveal-child
+            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+          >
+            Field Notes
+          </h2>
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "120ms" }}
+            className="text-on-surface-variant font-light leading-relaxed"
+          >
+            What I learn while building, written to be used.
+          </p>
+        </div>
+        <Link
+          to="/journal"
+          className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary border-b border-secondary pb-2 hover:tracking-[0.25em] transition-all"
+        >
+          Read all notes
+        </Link>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        {LATEST_NOTES.map(({ entry, Icon: NoteIcon }, i) => (
           <Link
-            key={p.slug}
-            to={`/${p.slug}`}
-            onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
-            className="lift-card group block p-4 rounded-xl border border-outline-variant bg-surface-container-low/40 hover:border-outline-variant"
+            key={entry.slug}
+            to={`/journal/${entry.slug}`}
+            onClick={() => track({ label: entry.title, href: `/journal/${entry.slug}`, kind: "nav" })}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+            className="lift-card group p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
           >
-            <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
-              <CaseHoverPreview
-                slug={p.slug}
-                image={p.image}
-                alt={`${p.name} project preview`}
-                className="w-full h-full"
-              />
-              <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none" />
-            </div>
-            <div className="mt-8 px-2 pb-2 flex justify-between items-start">
-              <div>
-                <h3 className="font-headline text-3xl italic text-primary">{p.name}</h3>
-                <p className="text-on-surface-variant font-light leading-relaxed mt-4">{p.tagline}</p>
-                <p className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-4">
-                  {p.label}
-                </p>
-              </div>
-              <Icon
-                name="arrow_outward"
-                className="text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all"
-              />
-            </div>
+            <NoteIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
+            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-4">
+              {entry.category}
+              <span className="before:content-['/'] before:mx-2 before:text-outline">
+                {new Date(entry.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
+              </span>
+            </span>
+            <h3 className="font-headline italic text-2xl text-primary mb-4">{entry.title}</h3>
+            <p className="text-on-surface-variant font-light leading-relaxed">{entry.excerpt}</p>
           </Link>
         ))}
       </div>
@@ -391,7 +443,52 @@ const Index = () => {
       </div>
     </Reveal>
 
-    <SectionDivider spacing="tight" />
+    <SectionDivider index="05" label="Milestones" />
+
+    {/* Milestones, proof bar */}
+    <Reveal as="section" className="py-16 md:py-20 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-16 md:mb-20">
+        <h2
+          data-reveal-child
+          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+        >
+          Milestones
+        </h2>
+        <p
+          data-reveal-child
+          style={{ ["--reveal-delay" as string]: "120ms" }}
+          className="text-on-surface-variant font-light leading-relaxed"
+        >
+          A few markers along the way.
+        </p>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12">
+        {MILESTONES.map((m, i) => (
+          <div
+            key={`${m.value}-${m.label}`}
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
+            className="px-2 md:px-8 text-center"
+          >
+            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
+              {m.kind === "count" ? (
+                <CountUp value={m.value} suffix={m.suffix ?? ""} />
+              ) : (
+                m.value
+              )}
+            </p>
+            <span
+              className="underline-grow mx-auto mb-4 w-10"
+              style={{ ["--reveal-delay" as string]: `${360 + i * 70}ms` }}
+            />
+            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
+              {m.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </Reveal>
+
 
     {/* Thank you for your visit, a cool blue bookend on the warm dusk page-light */}
     <Reveal as="section" className="relative py-16 md:py-24 px-6 md:px-8 max-w-5xl mx-auto text-center">

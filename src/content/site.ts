@@ -3,6 +3,8 @@ import aetherixImg from "@/assets/case-aetherix.png";
 import tacetImg from "@/assets/case-tacet.png";
 import loreImg from "@/assets/case-lore.png";
 import animaImg from "@/assets/case-anima.png";
+import parisCompassImg from "@/assets/case-paris-compass.jpg";
+
 
 export const SOCIAL_LINKS = {
   email: "mailto:ivandemurard@gmail.com",
@@ -71,7 +73,19 @@ export const PROJECTS = {
     image: animaImg,
     cta: "The Full Narrative",
   },
+  parisCompass: {
+    slug: "paris-compass",
+    name: "Paris Compass",
+    tagline: "Contextual search for commercial space in Paris. Puts an address back into its environment: walkability, transport, retail, schools, healthcare, parks, noise, air quality and risks, all from public open data.",
+    label: "Open data · Commercial real estate, Paris · 2026",
+    image: parisCompassImg,
+    cta: "See the live app",
+    external: true,
+    href: "https://paris-compass.lovable.app",
+    repo: "https://github.com/IvandeMurard/paris-compass",
+  },
 } as const;
+
 
 // Roles drawn from the CV, used by the About page Track record section.
 export type TrackRecordEntry = {
