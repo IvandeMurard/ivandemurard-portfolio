@@ -351,13 +351,14 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
 
 export const getRosePrompts = (pathname: string): RosePrompt[] => {
   const path = pathname.replace(/\/+$/, "") || "/";
-  for (const entry of ROSE_PROMPTS) {
-    if (entry.match.endsWith("/")) {
-      if (path.startsWith(entry.match)) return entry.prompts;
-    } else if (path === entry.match) {
-      return entry.prompts;
-    }
-  }
+  // Exact matches win over prefix matches, whatever the declaration order.
+  const exact = ROSE_PROMPTS.find((entry) => entry.match === path);
+  if (exact) return exact.prompts;
+  // "/" is only ever an exact match: it would otherwise prefix every route.
+  const prefix = ROSE_PROMPTS.filter(
+    (entry) => entry.match !== "/" && entry.match.endsWith("/") && path.startsWith(entry.match),
+  ).sort((a, b) => b.match.length - a.match.length)[0];
+  if (prefix) return prefix.prompts;
   return DEFAULT_PROMPTS;
 };
 
