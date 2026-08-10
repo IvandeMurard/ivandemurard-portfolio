@@ -103,7 +103,7 @@ Status. Synthetic proof of concept. Four-layer memory implemented, working MCP s
 
 Index: https://ivandemurard.com/journal.
 
-- Harnesses, graders, closed loops (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for evaluating AI systems: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Runs in two products, Aetherix and Lore.
+- Harnesses, graders, closed loops (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
 - A hard call on Aetherix's agent boundaries (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. On where to draw the line between forecasting and acting, and why splitting Prophet from Claude shaped the rest of the architecture.
 
 ## Frequently asked questions
@@ -112,10 +112,10 @@ Q: Who is Ivan de Murard?
 A: A Paris-based product builder with five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor. He focuses on product management, service design, and agentic AI for operations.
 
 Q: What is Aetherix?
-A: An agentic AI framework for boutique hotel operations that anticipates staffing and F&B needs, reducing waste and freeing teams for guest care.
+A: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Used by other agents via MCP or by a hotel / F&B manager with WhatsApp. Currently pilot testing in the hospitality agentic mesh.
 
 Q: What is Lore?
-A: A voice AI mentor for aviation maintenance that captures a retiring technician's undocumented knowledge and returns it to juniors by voice, always after the governing procedure. Prototype, built at a Speechmatics hackathon in early 2026.
+A: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Used by a junior technician on the shop floor, hands busy. Prototype, built at a Speechmatics hackathon in early 2026.
 
 Q: How can I reach him?
 A: Email ivandemurard@gmail.com or book a call at https://cal.com/ivandemurard/discussion-and-introduction.

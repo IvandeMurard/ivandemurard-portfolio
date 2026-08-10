@@ -16,8 +16,8 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     slug: "atherix",
     name: "Aetherix",
     to: "/aetherix",
-    what: "F&B execution agent: tomorrow's covers, a staffing grid that fits, waste flagged, one WhatsApp message a day.",
-    who: "Boutique hotel F&B and operations managers.",
+    what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
+    who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
     status: "Built, pilot testing.",
   },
   {
@@ -32,8 +32,8 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     slug: "lore",
     name: "Lore",
     to: "/lore",
-    what: "Voice mentor that captures what a retiring technician never wrote down and returns it on the shop floor.",
-    who: "Junior aviation maintenance technicians.",
+    what: "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask.",
+    who: "A junior technician on the shop floor, hands busy.",
     status: "Prototype, synthetic data, harness in CI.",
   },
   {
@@ -64,8 +64,8 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     slug: "atherix",
     name: "Aetherix",
     to: "/aetherix",
-    what: "The F&B node. Tomorrow's covers, a staffing grid, waste risk.",
-    who: "Boutique hotel F&B and operations managers.",
+    what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
+    who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
     status: "Built, on staging, zero real users.",
   },
   {
@@ -98,8 +98,8 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     name: "Lore",
     to: "/lore",
     what:
-      "Not part of this mesh. The same architecture in aviation maintenance, where a licensed technician signs the release.",
-    who: "Junior aviation maintenance technicians.",
+      "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Not part of this mesh; the same pattern in aviation maintenance, where a licensed technician signs the release.",
+    who: "A junior technician on the shop floor, hands busy.",
     status: "Here as evidence the pattern holds outside hospitality.",
   },
 ];

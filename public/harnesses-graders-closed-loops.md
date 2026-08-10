@@ -1,6 +1,6 @@
 # Harnesses, graders, closed loops
 
-_A working vocabulary for evaluating AI systems, and the two products where it runs._
+_A working vocabulary for building evaluation into AI products from day one, tested on two real systems._
 
 Published 2026-07-31 · Evaluation · 14 min read
 
@@ -16,8 +16,8 @@ Most teams building with language models can describe what their system does. Fa
 
 Every section stands on its own: a key card at the top gives the claim in one line and one concrete case. Read the whole thing, or land on section 9 and take only that.
 
-- **Aetherix**: An F&B execution agent for boutique hotels. One message a day: tomorrow's covers, a staffing grid, the reasoning attached. Users: The hotel manager, in WhatsApp, one tap to accept, modify or reject. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
-- **Lore**: A voice mentor for aviation maintenance. It answers from the procedure, cites it, and refuses when the procedure does not cover the case. Users: The technician on the hangar floor, hands busy, at two in the morning. Feedback: Reality barely answers. Outcomes are slow, sparse, and censored: escalate, and the counterfactual disappears.
+- **Aetherix**: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Users: Other agents via MCP, or a hotel / F&B manager with WhatsApp. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
+- **Lore**: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed.
 
 The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so.
 
