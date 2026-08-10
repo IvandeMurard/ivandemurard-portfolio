@@ -151,7 +151,7 @@ const Index = () => {
         <div
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "450ms" }}
-          className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 max-w-3xl mx-auto sm:divide-x sm:divide-outline-variant"
+          className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 max-w-3xl mx-auto"
         >
           {PROOF.map((p) => (
             <div key={p.label} className="px-2 sm:px-6 text-center">
