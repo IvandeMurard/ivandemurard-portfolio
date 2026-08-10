@@ -115,7 +115,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
       minutes: 2,
       oneLine:
         "Offline, runtime and outcome evaluation prove three different things, and no one of them substitutes for another.",
-      concrete: "Aetherix runs arms A and B and half of C. Lore runs arm A only.",
+      concrete: "The matrix below shows which arm each product covers, and what each gap costs.",
     },
     {
       kind: "p",
@@ -143,43 +143,73 @@ export const HARNESSES_ENTRY: JournalEntry = {
       kind: "p",
       text: "You do not test a parachute against a case set; you measure it in flight. Provided arm B is held to the same standard: every layer emits a measurable signal with a typed reason.",
     },
-    { kind: "h3", text: "What each product actually has" },
+    { kind: "h3", text: "What each product covers, and what each gap costs" },
     {
-      kind: "table",
-      caption: "Learning loops available in each product",
-      head: ["", "Aetherix", "Lore"],
+      kind: "matrix",
+      label: "Arm coverage, and the price of each absence",
+      columns: ["Aetherix", "Lore"],
       rows: [
-        ["Human loop", "One tap on WhatsApp: accept, modify, reject", "The intervention log, not yet exploited"],
-        ["Automatic comparison", "Yes. Forecast error computes itself and is the level-1 product KPI", "None"],
-        ["Ground truth", "Declared by the manager. Reading it from the point of sale is phase 4 and has its own architecture decision on file", "None, and the signal is censored: escalate, and the counterfactual disappears"],
+        {
+          arm: "A — Offline",
+          when: "Before the merge",
+          cells: [
+            { state: "covered", instance: "Versioned case sets, CI gate, merge blocked on red." },
+            { state: "covered", instance: "Nine graders across three severity tiers, run offline and live." },
+          ],
+        },
+        {
+          arm: "B — Runtime",
+          when: "In production, continuously",
+          cells: [
+            {
+              state: "partial",
+              instance: "Guardrails specified in an architecture decision, tool calls emitted as structured events.",
+              cost: "Until they run, drift is only visible in the next offline run, one release late.",
+            },
+            {
+              state: "absent",
+              instance: "No production observability at all.",
+              cost: "A wrong answer in a hangar is seen by the technician and by nobody else.",
+            },
+          ],
+        },
+        {
+          arm: "C — Outcome",
+          when: "After the fact, long loop",
+          cells: [
+            {
+              state: "partial",
+              instance: "Forecast error computes itself against covers and gates thresholds. The truth is declared by the manager.",
+              cost: "The loop closes on a declared number, so a manager's bad count is learned as if it were fact.",
+            },
+            {
+              state: "absent",
+              instance: "The SOP is a reference, not a return: procedures are ground truth at authoring time, but the signed work record never comes back.",
+              cost: "And a junior who escalates removes the counterfactual, so the one case worth learning from is the one that disappears.",
+            },
+          ],
+        },
       ],
     },
     {
       kind: "p",
-      text: "Aetherix runs one and a half loops, not two. The comparison is autonomous, accuracy is computed without anyone deciding to compute it, and thresholds gate on it. The truth it compares against is still declared by a human. \"Closed loop on a declared truth\" is an engineering statement; \"dual autonomous loop\" is a brochure statement.",
+      text: "Aetherix runs one and a half loops, not two. \"Closed loop on a declared truth\" is an engineering statement; \"dual autonomous loop\" is a brochure statement.",
     },
     {
       kind: "quote",
       text: "When you cannot learn from outcomes, you have to over-invest upstream. That is why Lore's evaluation harness weighs close to a third of its codebase: not gratuitous rigour, but the price of a missing outcome loop.",
     },
-    {
-      kind: "deployed",
-      items: [
-        { project: "Aetherix", to: "/aetherix", text: "Arm A as a CI gate, arm B with its own architecture decision on runtime guardrails, and every tool call emitted as a structured event, auditable and billable." },
-        { project: "Lore", to: "/lore", text: "Arm A only, offline and live. No runtime." },
-      ],
-    },
 
     { kind: "h2", text: "3. \"Working\" against \"Reliable\", five dimensions" },
+    { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. — Qonto" },
     {
       kind: "key",
       sigil: "SEC. 3",
       icon: "verified",
       minutes: 1,
-      oneLine: "Working is proven on a test set. Reliable is proven in production, on five named dimensions.",
-      concrete: "Lore meets one of the five, is partial on two, and absent on two. Both absences belong to arm B.",
+      oneLine: "Five named dimensions separate a demo from a system you can leave running.",
+      concrete: "Lore meets one of the five, is partial on two, absent on two.",
     },
-    { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. — Qonto" },
     {
       kind: "table",
       caption: "Five reliability dimensions, and where Lore stands",
@@ -188,14 +218,19 @@ export const HARNESSES_ENTRY: JournalEntry = {
         ["Edge behaviour", "Tested outside the distribution, not just the happy path?", "partial — four cases on band boundaries"],
         ["Graceful degradation", "When the agent does not know, does it say so, or improvise? Is refusal coded as a contract?", "met — eight-rule refusal contract, dedicated grader, tier 1"],
         ["Observability", "Is there a dashboard of what the model does in production, not just uptime?", "absent"],
-        ["Reproducibility", "Does the same input produce the same output tomorrow?", "partial — temperature 0 and frozen baselines, but the canary has been invalidated"],
+        ["Reproducibility", "Does the same input produce the same output tomorrow?", "partial — temperature 0 and frozen baselines, but the canary (the repeated identical run) has been invalidated"],
         ["Distribution shift", "Is there an alert if the input distribution drifts?", "absent"],
       ],
     },
     {
       kind: "p",
+      text: "Reproducibility is measured with a canary: the same input replayed on purpose, to prove the score is a measurement and not a draw. Section 7 is what happened when Lore's stopped agreeing with itself.",
+    },
+    {
+      kind: "p",
       text: "Two absents out of five, and both belong to arm B. Not a coincidence: it is the most expensive arm, and the only one whose absence stays invisible until production.",
     },
+
 
     { kind: "h2", text: "4. The reliability pyramid" },
     {
