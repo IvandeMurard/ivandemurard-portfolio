@@ -351,7 +351,7 @@ const Index = () => {
           <Link
             key={entry.slug}
             to={`/journal/${entry.slug}`}
-            onClick={() => track({ label: entry.title, href: `/journal/${entry.slug}`, kind: "journal" })}
+            onClick={() => track({ label: entry.title, href: `/journal/${entry.slug}`, kind: "nav" })}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
             className="lift-card group p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
