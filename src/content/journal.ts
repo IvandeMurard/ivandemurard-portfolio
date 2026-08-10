@@ -1,4 +1,6 @@
 import { HARNESSES_ENTRY } from "./journalHarnesses";
+import type { MatrixRow } from "@/components/journal/CoverageMatrix";
+
 
 export type JournalCategory = "Product" | "Operations" | "Agentic AI" | "Field" | "Evaluation";
 
@@ -43,7 +45,9 @@ export type JournalBlock =
       steps: { value: string; label: string; note?: string; accent?: boolean }[];
     }
   | { kind: "cards"; label?: string; items: { icon: string; title: string; body: string }[] }
-  | { kind: "askRose"; label?: string; note?: string; prompts: string[] };
+  | { kind: "askRose"; label?: string; note?: string; prompts: string[] }
+  | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] };
+
 
 export type JournalEntry = {
   slug: string;

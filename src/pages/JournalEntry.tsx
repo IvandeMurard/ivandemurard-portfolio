@@ -21,6 +21,7 @@ import { CardGrid } from "@/components/journal/CardGrid";
 import { AskRose } from "@/components/journal/AskRose";
 import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
 import { ShareRow } from "@/components/journal/ShareRow";
+import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
 
 const slugifyHeading = (text: string) =>
   text
@@ -84,6 +85,9 @@ const blockStrings = (block: JournalBlock): string[] => {
       return block.steps.flatMap((s) => [s.label, s.note ?? ""]);
     case "cards":
       return block.items.map((i) => i.body);
+    case "matrix":
+      return block.rows.flatMap((r) => r.cells.flatMap((c) => [c.instance, c.cost ?? ""]));
+
     default:
       return [];
   }
@@ -286,6 +290,8 @@ const Block = ({
       return <CardGrid items={block.items} label={block.label} />;
     case "askRose":
       return <AskRose prompts={block.prompts} label={block.label} note={block.note} />;
+    case "matrix":
+      return <CoverageMatrix label={block.label} columns={block.columns} rows={block.rows} />;
     default:
       return null;
   }
