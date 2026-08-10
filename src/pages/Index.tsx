@@ -133,10 +133,12 @@ const Index = () => {
           <h1
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="headline-ink relative z-10 font-headline text-4xl md:text-6xl text-primary leading-[1.15] italic perspective-text"
+            className="headline-ink relative z-10 font-headline text-5xl md:text-7xl text-primary leading-[1.1] italic perspective-text"
           >
-            I build agentic AI systems to continually improve operations, knowledge, and experience.
+            Product builder.
+            <span className="block text-primary-container">Agentic AI systems for operations.</span>
           </h1>
+
         </div>
         <p
           data-reveal-child
