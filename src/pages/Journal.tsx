@@ -27,7 +27,7 @@ const Journal = () => (
           Notes from the field.
         </h1>
         <p className="text-lg md:text-xl text-on-surface-variant max-w-3xl leading-relaxed font-light">
-          Opinion on hard product decisions in hospitality tech.
+          Inspiration and learned experience while building, shared to be used.
         </p>
       </section>
 
