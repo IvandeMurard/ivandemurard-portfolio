@@ -18,7 +18,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/aetherix",
     what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built, pilot testing.",
+    status: "Built, shadow mode, no signed pilot yet.",
   },
   {
     slug: "tacet",
