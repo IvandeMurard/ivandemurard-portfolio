@@ -1,8 +1,8 @@
 # Anima
 
-> The guest node. A hotel's memory of a relationship, built with forgetting in it.
+> Memory that makes every guest a regular.
 
-A regular is someone who does not have to explain themselves twice. Anima is an attempt to make that possible without building surveillance.
+A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.
 
 Status: synthetic proof of concept. Production gated behind a data-protection assessment.
 URL: https://ivandemurard.com/anima
