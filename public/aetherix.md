@@ -2,7 +2,7 @@
 
 The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B node of the Hospitality Agentic Mesh.
 
-Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. None of the three is a measured result: the forecast runs in shadow mode, the other two are hypotheses a pilot would test.
+Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
 Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
 
@@ -53,7 +53,7 @@ Sandbox data, real mechanics, deterministic reruns.
 
 ## What it does
 
-Three promises, one message a day: tomorrow's covers (shadow mode), staffing that fits (pilot hypothesis), less waste (target outcome). None of the three is a measured result yet. Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
+Three promises, one message a day: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome). Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
 
 ## The Daily Receipt
 
