@@ -70,7 +70,7 @@ Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard (thread per aircraft
 
 ## Anima
 
-URL: https://ivandemurard.com/anima. The guest node of the Hospitality Agentic Mesh, and the node that is not allowed to simply accumulate. It is a memory product with a deliberate limit, not a personalisation product.
+URL: https://ivandemurard.com/anima. Memory that makes every guest a regular: a guest memory node that anticipates needs, learns from every stay, and improves operations without watching. It is the node that is not allowed to simply accumulate, a memory product with a deliberate limit, not a personalisation product.
 
 Lineage. Digital twins started with assets, and hospitality mostly stopped there (predictive maintenance, refurbishment simulation, energy). The interesting extension is toward people: research on human-centered digital twins in hospitality (https://pmc.ncbi.nlm.nih.gov/articles/PMC13078991/) models the employee, and its design rule is that such a system supports human judgement rather than replacing it. That paper is a study of adoption intent across 141 hotel employees, not a deployed system. Anima applies the same shift to the guest relationship, and the two are not symmetrical: an employee can be told they are modelled, consulted and can refuse; a guest cannot meaningfully consent to being modelled during a two-night stay. The older version of this was the concierge who never had to ask twice, a twin with a bus factor of one, which is the same loss Lore addresses for technical expertise.
 
