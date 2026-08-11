@@ -1,8 +1,8 @@
 const METRICS = [
   {
-    value: "Shadow mode",
-    label: "Phase 3 · pilot preparation",
-    caveat: "Staging live on Fly.io (Paris). Apaleo OAuth and MCP read operational. No design partner signed, no decision sent to a real manager, no live MAPE yet.",
+    value: "Phase 3",
+    label: "Pilot design partner in recruitment",
+    caveat: "Go-live targeted end of September. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read operational.",
   },
   {
     value: "−3% to −8%",
