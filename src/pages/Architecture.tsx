@@ -72,7 +72,7 @@ const Section = ({
 const NODE_ROWS: { node: string; status: string; owns: string; not: string }[] = [
   {
     node: "Aetherix",
-    status: "Built, pilot starting",
+    status: "Built and instrumented · pilot partner in recruitment",
     owns: "F&B execution: covers forecast, staffing grid, waste risk, per-property memory",
     not: "Orchestration, pricing, guest-facing anything",
   },
@@ -336,7 +336,7 @@ const Architecture = () => {
                 number="03"
                 title="The nodes"
                 keyLine="Four nodes, each with one domain, and a status a reader can check before reading anything else."
-                concrete="Aetherix is built and entering a pilot. The orchestrator is a stub that routes nothing yet."
+                concrete="Aetherix is built and instrumented, with a pilot partner in recruitment. The orchestrator is a stub that routes nothing yet."
               >
                 <Table
                   caption="The four nodes of the mesh, with status, what each owns and what it does not own"
@@ -406,15 +406,21 @@ const Architecture = () => {
                   </div>
                   <div>
                     <h3 className="font-headline italic text-primary text-xl mb-2">
-                      A fifth node costs nothing to add
+                      A fifth node is an addition, not a redesign
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">
-                      The signal contract that governs exchanges is namespaced, and reserves room for
-                      domains no node currently occupies, staff and institutional knowledge among them.
-                      Extensibility here is not an intention stated after the fact; it is written into
-                      the contract that every node already obeys.
+                      The contract that governs exchanges between nodes was designed to admit staff
+                      knowledge: what the people who work in a property know, which no node captures
+                      today. The pattern comes from my other project,{" "}
+                      <Link to="/lore" className={linkCls}>
+                        Lore
+                      </Link>
+                      . The fifth node is Peritia, the trade node: a house's know-how, held by the house
+                      rather than by whoever is on shift. Not started. The contract admits it, and Lore is
+                      the working proof of the pattern in another industry.
                     </p>
                   </div>
+
                 </div>
               </Section>
 
@@ -520,7 +526,7 @@ const Architecture = () => {
                     <Link to="/aetherix" className={linkCls}>
                       Aetherix
                     </Link>{" "}
-                    is built and entering a pilot, on staging, with zero real users so far.
+                    is built and instrumented, on staging, with a pilot partner in recruitment.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
                     <Link to="/tacet" className={linkCls}>
