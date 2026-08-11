@@ -88,7 +88,7 @@ Status. Synthetic proof of concept. Four-layer memory implemented, working MCP s
 
 URL: https://paris-compass.lovable.app. Repository: https://github.com/IvandeMurard/paris-compass.
 
-Context is the product. Paris Compass turns an address into its neighbourhood — walkability, transport, retail, schools, air quality, risk scores and the business story of the place within a 400–800 m radius, all from public open data.
+Find commercial spaces from their context, built for humans and agents. Compass puts venues back into their neighbourhood: business history, turnover signals, noise, amenities and risk scores, all from public open data. Search by need, not by reference.
 
 ## Track record
 
