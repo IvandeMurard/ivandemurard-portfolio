@@ -40,9 +40,17 @@ const PROJECT_INFO: {
   },
   {
     label: "Status",
-    value: "Phase 3 · Pilot preparation · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational · Forecast running in shadow mode, no design partner signed yet",
+    value: "Phase 3 · Pilot design partner in recruitment. Go-live targeted end of September. · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational",
     wide: true,
   },
+];
+
+const ALREADY_DOES = [
+  "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
+  "Flagged a corrupted POS export rather than training on it.",
+  "Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.",
+  "Stores every recommendation next to what actually happened, with the manager's override recorded beside it.",
+  "Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.",
 ];
 
 const PROBLEM_PAINS = [
@@ -56,8 +64,8 @@ const PROMISES = [
   {
     icon: "restaurant",
     title: "Tomorrow's covers",
-    tag: "Shadow mode",
-    body: "Anticipates how many breakfasts, lunches, dinners to expect, with a confidence score and the drivers behind it. It runs end to end, but no output reaches a real manager yet.",
+    tag: "Running daily",
+    body: "Running daily against real data. Operator delivery begins with the pilot. Anticipates how many breakfasts, lunches, dinners to expect, with a confidence score and the drivers behind it.",
   },
   {
     icon: "group_add",
@@ -114,7 +122,7 @@ const FAQ = [
   },
   {
     q: "How do I pilot Aetherix?",
-    a: "Book a call. Phase 3 is open to a first design partner running Apaleo, none is signed yet. Pricing is outcome-based, we win when you win. First real-world measurements start when a pilot begins.",
+    a: "Book a call. Phase 3 is open to a first design partner running Apaleo. Pilot design partner in recruitment. Go-live targeted end of September. Pricing is outcome-based, we win when you win. Real-world measurement begins with the pilot.",
   },
 ];
 
@@ -244,7 +252,34 @@ const Atherix = () => (
       {/* WHAT IT DOES */}
       <Reveal as="section" id="what-it-does" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
+          <div className="mb-12 md:mb-16">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              What it already does.
+            </h2>
+            <ul
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "160ms" }}
+              className="mt-6 max-w-3xl space-y-3"
+            >
+              {ALREADY_DOES.map((line) => (
+                <li key={line} className="flex gap-3 text-on-surface-variant leading-relaxed">
+                  <span aria-hidden="true" className="text-secondary select-none">
+                    —
+                  </span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "280ms" }}
+              className="mt-5 font-label uppercase tracking-[0.18em] text-[10px] text-secondary"
+            >
+              Sandbox data, real mechanics, deterministic reruns.
+            </p>
+          </div>
           <div className="max-w-2xl mb-10">
+
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
               Three promises, one message a day.
             </h2>
@@ -666,9 +701,8 @@ const Atherix = () => (
             className="mt-6 text-xs text-on-surface-variant max-w-3xl"
           >
             Calibration baseline (synthetic backtest, not published as a headline): <Term id="mape">MAPE</Term> 15.09%
-            on J+1 covers, 22% gate PASS. The forecast runs in shadow mode: no decision reaches a real manager today.
-            Real-world measurement begins when a design partner signs. Labor and waste targets are projections to be
-            validated then.
+            on J+1 covers, 22% gate PASS. Real-world measurement begins with the pilot. Labor and waste targets are
+            projections to be validated then.
           </p>
         </div>
       </Reveal>

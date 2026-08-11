@@ -6,7 +6,12 @@ const PHASES: { n: string; label: string; state: State; sub?: string }[] = [
   { n: "Phase 0", label: "Validation", state: "done" },
   { n: "Phase 1", label: "Observability", state: "done" },
   { n: "Phase 2", label: "Receipts", state: "done" },
-  { n: "Phase 3", label: "Pilot preparation", state: "current", sub: "Shadow mode, no design partner signed yet" },
+  {
+    n: "Phase 3",
+    label: "Pilot",
+    state: "current",
+    sub: "Pilot design partner in recruitment. Go-live targeted end of September.",
+  },
   {
     n: "Phase 4",
     label: "Scale",

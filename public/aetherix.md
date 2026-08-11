@@ -2,7 +2,7 @@
 
 The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B node of the Hospitality Agentic Mesh.
 
-Three promises, with honesty labels: Tomorrow's covers (Shadow mode) anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it; it runs end to end, but no output reaches a real manager yet. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. None of the three is a measured result: the forecast runs in shadow mode, the other two are hypotheses a pilot would test.
+Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
 Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
 
@@ -16,7 +16,7 @@ Contrast with Lore: Lore, in aviation maintenance, shares this architecture and 
 - Role: Product Builder & AI Agent Designer (solo)
 - Duration: 2026, ongoing (validation phase)
 - Team: Solo architect & builder
-- Status: Phase 3 · Pilot preparation. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live. Forecast running in shadow mode, no design partner signed yet.
+- Status: Phase 3 · Pilot design partner in recruitment. Go-live targeted end of September. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live.
 - Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris). MCP-native.
 
 ## The loop that learns
@@ -41,9 +41,19 @@ Combined with the inherent complexity of F&B operations (multiple outlets, mixed
 
 The underlying bottleneck is not data, it is synthesis: combining internal context (occupancy, capture rates, POS history) with external signals (weather, local events) into a recommendation calibrated to this property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it where managers already are. Glue, not replacement.
 
+## What it already does
+
+- States its drivers the evening before, then reports its own miss the next morning, in plain language.
+- Flagged a corrupted POS export rather than training on it.
+- Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.
+- Stores every recommendation next to what actually happened, with the manager's override recorded beside it.
+- Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.
+
+Sandbox data, real mechanics, deterministic reruns.
+
 ## What it does
 
-Three promises, one message a day: tomorrow's covers (shadow mode), staffing that fits (pilot hypothesis), less waste (target outcome). None of the three is a measured result yet. Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
+Three promises, one message a day: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome). Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
 
 ## The Daily Receipt
 
@@ -64,7 +74,7 @@ Aetherix is one node in a network of specialized, MCP-native agents. Each node o
 
 | Node | Role | Status |
 |---|---|---|
-| Aetherix | F&B execution: forecast, staffing, memory, receipts | Live (staging) |
+| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and instrumented, pilot partner in recruitment |
 | Tacet | Sensory: weather, noise, open data, risk | Phase 3 |
 | Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
 | Anima | Guest Cognition Layer | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
@@ -89,11 +99,11 @@ MCP Server v0 is live on Fly.io (Paris), three atomic tools, multi-tenant.
 
 ## Where we are, honestly
 
-- Phase 3 · Pilot preparation. Forecast in shadow mode, no decision reaches a real manager today. No design partner signed yet, so real-world measurement has not started.
+- Phase 3 · Pilot design partner in recruitment. Go-live targeted end of September. Real-world measurement begins with the pilot.
 - Target labor cost variance: −3% to −8% over 90 days on a live property. Target, not measured yet.
 - Security gates: 14/14 passing.
 
-Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 covers, 22% gate PASS. Real-world MAPE begins when a pilot starts.
+Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 covers, 22% gate PASS. Real-world measurement begins with the pilot.
 
 ## What remains private
 
@@ -104,7 +114,7 @@ The project includes proprietary research on cross-domain operational context an
 - Phase 0 Validation, done
 - Phase 1 Observability, done
 - Phase 2 Receipts, done
-- Phase 3 Pilot preparation, current
+- Phase 3 Pilot, current
 - Phase 4 Scale (Mews, POS, Federated HiveMemory, Context Graph, Anima), planned
 - Phase 5 Vision (Revenue Orchestrator), planned
 

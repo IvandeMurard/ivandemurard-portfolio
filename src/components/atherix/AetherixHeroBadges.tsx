@@ -1,5 +1,5 @@
 const BADGES = [
-  "Phase 3 · Shadow Mode",
+  "Phase 3 · Pilot partner in recruitment, go-live September",
   "Staging Live",
   "MCP-Native",
   "Claude Sonnet",
