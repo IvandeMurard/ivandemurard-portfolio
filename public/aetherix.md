@@ -2,7 +2,7 @@
 
 The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B node of the Hospitality Agentic Mesh.
 
-Three promises, with honesty labels: Tomorrow's covers (Shipped, in pilot) anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Two of the three are pilot hypotheses, not measured results.
+Three promises, with honesty labels: Tomorrow's covers (Shadow mode) anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it; it runs end to end, but no output reaches a real manager yet. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. None of the three is a measured result: the forecast runs in shadow mode, the other two are hypotheses a pilot would test.
 
 Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
 
@@ -16,7 +16,7 @@ Contrast with Lore: Lore, in aviation maintenance, shares this architecture and 
 - Role: Product Builder & AI Agent Designer (solo)
 - Duration: 2026, ongoing (validation phase)
 - Team: Solo architect & builder
-- Status: Phase 3 · Pilot. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live. Design partner pilot starting.
+- Status: Phase 3 · Pilot preparation. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live. Forecast running in shadow mode, no design partner signed yet.
 - Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris). MCP-native.
 
 ## The loop that learns
@@ -43,7 +43,7 @@ The underlying bottleneck is not data, it is synthesis: combining internal conte
 
 ## What it does
 
-Three promises, one message a day: tomorrow's covers (shipped, in pilot), staffing that fits (pilot hypothesis), less waste (target outcome). Two of the three are not measured results yet. Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
+Three promises, one message a day: tomorrow's covers (shadow mode), staffing that fits (pilot hypothesis), less waste (target outcome). None of the three is a measured result yet. Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
 
 ## The Daily Receipt
 
@@ -89,11 +89,11 @@ MCP Server v0 is live on Fly.io (Paris), three atomic tools, multi-tenant.
 
 ## Where we are, honestly
 
-- Phase 3 · Pilot. Design partner starting. Real-world measurement begins now.
+- Phase 3 · Pilot preparation. Forecast in shadow mode, no decision reaches a real manager today. No design partner signed yet, so real-world measurement has not started.
 - Target labor cost variance: −3% to −8% over 90 days on a live property. Target, not measured yet.
 - Security gates: 14/14 passing.
 
-Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 covers, 22% gate PASS. Real-world MAPE begins with the pilot.
+Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 covers, 22% gate PASS. Real-world MAPE begins when a pilot starts.
 
 ## What remains private
 
@@ -104,7 +104,7 @@ The project includes proprietary research on cross-domain operational context an
 - Phase 0 Validation, done
 - Phase 1 Observability, done
 - Phase 2 Receipts, done
-- Phase 3 Pilot, current
+- Phase 3 Pilot preparation, current
 - Phase 4 Scale (Mews, POS, Federated HiveMemory, Context Graph, Anima), planned
 - Phase 5 Vision (Revenue Orchestrator), planned
 

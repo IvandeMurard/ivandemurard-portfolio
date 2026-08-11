@@ -40,7 +40,7 @@ const PROJECT_INFO: {
   },
   {
     label: "Status",
-    value: "Phase 3 · Pilot · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational · Design partner pilot starting",
+    value: "Phase 3 · Pilot preparation · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational · Forecast running in shadow mode, no design partner signed yet",
     wide: true,
   },
 ];
@@ -56,8 +56,8 @@ const PROMISES = [
   {
     icon: "restaurant",
     title: "Tomorrow's covers",
-    tag: "Shipped, in pilot",
-    body: "Anticipates how many breakfasts, lunches, dinners to expect, with a confidence score and the drivers behind it.",
+    tag: "Shadow mode",
+    body: "Anticipates how many breakfasts, lunches, dinners to expect, with a confidence score and the drivers behind it. It runs end to end, but no output reaches a real manager yet.",
   },
   {
     icon: "group_add",
@@ -114,7 +114,7 @@ const FAQ = [
   },
   {
     q: "How do I pilot Aetherix?",
-    a: "Book a call. Phase 3 is open to one design partner running Apaleo. Pricing is outcome-based, we win when you win. First real-world measurements start with the pilot.",
+    a: "Book a call. Phase 3 is open to a first design partner running Apaleo, none is signed yet. Pricing is outcome-based, we win when you win. First real-world measurements start when a pilot begins.",
   },
 ];
 
@@ -666,8 +666,9 @@ const Atherix = () => (
             className="mt-6 text-xs text-on-surface-variant max-w-3xl"
           >
             Calibration baseline (synthetic backtest, not published as a headline): <Term id="mape">MAPE</Term> 15.09%
-            on J+1 covers, 22% gate PASS. Real-world measurement begins with the Phase 3 design partner. Labor and
-            waste targets are projections to be validated in the pilot.
+            on J+1 covers, 22% gate PASS. The forecast runs in shadow mode: no decision reaches a real manager today.
+            Real-world measurement begins when a design partner signs. Labor and waste targets are projections to be
+            validated then.
           </p>
         </div>
       </Reveal>
