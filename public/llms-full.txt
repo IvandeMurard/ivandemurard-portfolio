@@ -84,6 +84,12 @@ Boundaries. Any consumer declares which layer it queries; there is no call retur
 
 Status. Synthetic proof of concept. Four-layer memory implemented, working MCP server, evaluated on a synthetic cohort. Never run on a real guest, and it will not until a formal data-protection assessment is complete. Shipped as a prototype at an Anthropic hackathon, June 2026. Production is phase 4.
 
+## Paris Compass
+
+URL: https://paris-compass.lovable.app. Repository: https://github.com/IvandeMurard/paris-compass.
+
+Context is the product. Paris Compass turns an address into its neighbourhood — walkability, transport, retail, schools, air quality, risk scores and the business story of the place within a 400–800 m radius, all from public open data.
+
 ## Track record
 
 - 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Rolled out an internal SaaS to 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.
