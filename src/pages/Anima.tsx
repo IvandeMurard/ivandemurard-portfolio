@@ -149,7 +149,7 @@ const Anima = () => {
     <SiteLayout title="Anima">
       <Seo
         title="Anima, the Guest Node of the Hospitality Agentic Mesh"
-        description="A hotel's memory of a relationship, built with forgetting in it. Four memory layers with different lifetimes, confidence that decays, and a scope gate that makes total recall impossible."
+        description="Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching."
         path="/anima"
         type="article"
         jsonLd={[
@@ -157,7 +157,7 @@ const Anima = () => {
             "@context": "https://schema.org",
             "@type": "CreativeWork",
             name: "Anima",
-            headline: "Anima: the guest node, a memory built with forgetting in it",
+            headline: "Anima: memory that makes every guest a regular",
             url: "https://ivandemurard.com/anima",
             inLanguage: "en",
             about: [
@@ -200,15 +200,15 @@ const Anima = () => {
               style={{ ["--reveal-delay" as string]: "200ms" }}
               className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
-              The guest node. A hotel's memory of a relationship, built with forgetting in it.
+              Memory that makes every guest a regular.
             </p>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "280ms" }}
               className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed mb-8"
             >
-              A regular is someone who does not have to explain themselves twice. Anima is an attempt
-              to make that possible without building surveillance.
+              A guest memory node that anticipates needs, learns from every stay, and improves
+              operations without watching.
             </p>
             <span
               data-reveal-child
@@ -484,7 +484,7 @@ const Anima = () => {
                 <div className="max-w-3xl">
                   <ShareRow
                     title="Anima, the guest node"
-                    excerpt="A hotel's memory of a relationship, built with forgetting in it. Four memory layers with different lifetimes, confidence that decays, and a scope gate that makes total recall impossible."
+                    excerpt="Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching."
                     mirror="/anima.md"
                   />
                   <p className="mt-5 font-body font-light text-sm text-on-surface-variant">

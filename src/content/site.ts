@@ -68,7 +68,7 @@ export const PROJECTS = {
   anima: {
     slug: "anima",
     name: "Anima",
-    tagline: "The guest node. A hotel's memory of a relationship, built with forgetting in it: four memory layers with different lifetimes, claims that decay, and a scope gate that makes total recall impossible.",
+    tagline: "Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.",
     label: "AI Agent · Guest Cognition · 2026",
     image: animaImg,
     cta: "The Full Narrative",

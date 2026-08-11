@@ -40,7 +40,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     slug: "anima",
     name: "Anima",
     to: "/anima",
-    what: "Guest node: a four-layer temporal memory of a guest relationship, with decay and a scope gate built in.",
+    what: "Guest node: memory that makes every guest a regular, anticipating needs and learning from every stay without watching.",
     who: "The nodes that need to know who is arriving.",
     status: "Synthetic proof of concept, production gated behind a data-protection assessment.",
   },
@@ -82,7 +82,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     name: "Anima",
     to: "/anima",
     what:
-      "The guest node. A four-layer temporal memory of a guest relationship, so a returning guest does not have to repeat themselves.",
+      "The guest node. Memory that makes every guest a regular: it anticipates needs and learns from every stay, without watching.",
     who: "The nodes that need to know who is arriving.",
     status: "Synthetic proof of concept, production gated behind a data-protection assessment.",
   },
