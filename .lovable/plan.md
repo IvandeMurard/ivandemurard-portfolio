@@ -6,7 +6,7 @@ Scope: copy only. One file in the source tree, two mirrors in the LLM corpus.
 
 Lead with the unifying promise, then one concrete differentiator. Keep it to two sentences so the card stays scannable.
 
-> Context is the product. Paris Compass turns an address into its neighbourhood — walkability, transport, retail, schools, air quality and risk scores within a 400–800 m radius, all from public open data.
+> Context is the product. Paris Compass turns an address into its neighbourhood — walkability, transport, retail, schools, air quality, risk scores and the business story of the place within a 400–800 m radius, all from public open data.
 
 ## 2. Files to update
 
