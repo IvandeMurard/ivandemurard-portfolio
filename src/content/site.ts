@@ -76,7 +76,7 @@ export const PROJECTS = {
   parisCompass: {
     slug: "paris-compass",
     name: "Paris Compass",
-    tagline: "Contextual search for commercial space in Paris. Puts an address back into its environment: walkability, transport, retail, schools, healthcare, parks, noise, air quality and risks, all from public open data.",
+    tagline: "Context is the product. Paris Compass turns an address into its neighbourhood — walkability, transport, retail, schools, air quality, risk scores and the business story of the place within a 400–800 m radius, all from public open data.",
     label: "Open data · Commercial real estate, Paris · 2026",
     image: parisCompassImg,
     cta: "See the live app",
