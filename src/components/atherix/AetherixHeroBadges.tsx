@@ -1,5 +1,5 @@
 const BADGES = [
-  "Phase 3 · Pilot",
+  "Phase 3 · Shadow Mode",
   "Staging Live",
   "MCP-Native",
   "Claude Sonnet",
