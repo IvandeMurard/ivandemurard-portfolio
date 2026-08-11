@@ -45,6 +45,14 @@ const PROJECT_INFO: {
   },
 ];
 
+const ALREADY_DOES = [
+  "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
+  "Flagged a corrupted POS export rather than training on it.",
+  "Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.",
+  "Stores every recommendation next to what actually happened, with the manager's override recorded beside it.",
+  "Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.",
+];
+
 const PROBLEM_PAINS = [
   "Persistent over or under-staffing",
   "Avoidable food waste",
@@ -244,7 +252,34 @@ const Atherix = () => (
       {/* WHAT IT DOES */}
       <Reveal as="section" id="what-it-does" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
+          <div className="mb-12 md:mb-16">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+              What it already does.
+            </h2>
+            <ul
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "160ms" }}
+              className="mt-6 max-w-3xl space-y-3"
+            >
+              {ALREADY_DOES.map((line) => (
+                <li key={line} className="flex gap-3 text-on-surface-variant leading-relaxed">
+                  <span aria-hidden="true" className="text-secondary select-none">
+                    —
+                  </span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "280ms" }}
+              className="mt-5 font-label uppercase tracking-[0.18em] text-[10px] text-secondary"
+            >
+              Sandbox data, real mechanics, deterministic reruns.
+            </p>
+          </div>
           <div className="max-w-2xl mb-10">
+
             <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
               Three promises, one message a day.
             </h2>
