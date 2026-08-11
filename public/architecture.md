@@ -8,7 +8,7 @@ Public meta-repository: https://github.com/IvandeMurard/hospitality-agentic-mesh
 
 ## Where this sits
 
-- **Aetherix** (built, pilot starting, zero real users). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
+- **Aetherix** (built and instrumented, pilot partner in recruitment). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
 - **Tacet** (prototype, public repository). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (synthetic proof of concept, production gated behind a data-protection assessment). The guest node: a four-layer temporal memory of a guest relationship. No page of its own.
 - **Orchestrator** (design, a stub exists). The supervisory node: routes between the others and holds the decision.
@@ -48,7 +48,7 @@ alone.
 
 | Node | Status | Owns | Does not own |
 | --- | --- | --- | --- |
-| Aetherix | Built, pilot starting | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
+| Aetherix | Built and instrumented, pilot partner in recruitment | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
 | Tacet | Prototype | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Design, prototype shipped | Guest cognition: temporal memory, confidence-weighted claims | Acting on what it knows. Production is DPIA-gated |
 | Orchestrator | Stub | Supervisory routing and business rules across nodes | Domain logic. It routes, it does not compute |
@@ -66,8 +66,11 @@ Aetherix executes. It does not orchestrate.
    established by the server at every layer. What a model cannot name, it cannot cross.
 4. **Memory is local first, federated second, and never raw.** Each property learns from its own
    history; cross-property learning moves only as anonymised aggregates.
-5. **A fifth node costs nothing to add.** The signal contract is namespaced and reserves room for
-   domains no node currently occupies, staff and institutional knowledge among them.
+5. **A fifth node is an addition, not a redesign.** The contract that governs exchanges between
+   nodes was designed to admit staff knowledge: what the people who work in a property know, which
+   no node captures today. The pattern comes from my other project, Lore. The fifth node is Peritia,
+   the trade node: a house's know-how, held by the house rather than by whoever is on shift. Not
+   started. The contract admits it, and Lore is the working proof of the pattern in another industry.
 
 ## 5. What each node is allowed to learn
 
@@ -107,7 +110,7 @@ to a component and to a person.
 
 ## 8. Where it stands
 
-- Aetherix: built, entering a pilot, on staging, zero real users so far.
+- Aetherix: built and instrumented, on staging, pilot partner in recruitment.
 - Tacet: working prototype, own case study, public repository.
 - Anima: prototype shipped at a hackathon on synthetic data, production gated behind a
   data-protection assessment, no page of its own yet.
