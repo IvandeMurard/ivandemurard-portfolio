@@ -1,7 +1,7 @@
 // One-line definitions of the shipped systems, used by the case study anchors
 // block so a visitor landing directly on /lore knows what the rest is.
 export type SystemAnchor = {
-  slug: "sonor" | "atherix" | "tacet" | "lore" | "anima" | "orchestrator";
+  slug: "sonor" | "atherix" | "tacet" | "lore" | "anima" | "peritia" | "orchestrator";
   name: string;
   /** Omitted for systems with no page of their own. Rendered unlinked. */
   to?: string;
