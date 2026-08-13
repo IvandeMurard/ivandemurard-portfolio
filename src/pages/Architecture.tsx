@@ -89,9 +89,15 @@ const NODE_ROWS: { node: string; status: string; owns: string; not: string }[] =
     not: "Acting on what it knows. Production is DPIA-gated",
   },
   {
+    node: "Peritia",
+    status: "Not started",
+    owns: "House knowledge: what the people who work in a property know and never wrote down",
+    not: "Everything. It is a named slot in the contract, and no code",
+  },
+  {
     node: "Orchestrator",
     status: "Stub",
-    owns: "Supervisory routing and business rules across nodes",
+    owns: "Supervisory routing and business rules across agents",
     not: "Domain logic. It routes, it does not compute",
   },
 ];
@@ -185,7 +191,7 @@ const Architecture = () => {
     <SiteLayout title="The Hospitality Agentic Mesh">
       <Seo
         title="The Hospitality Agentic Mesh, an Architecture Note"
-        description="Specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub. This note says which is which."
+        description="Five specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub, one is not started. This note says which is which."
         path="/architecture"
         type="article"
         jsonLd={[
@@ -194,7 +200,7 @@ const Architecture = () => {
             "@type": "TechArticle",
             headline: "The Hospitality Agentic Mesh",
             description:
-              "Architecture note on a mesh of specialised hospitality agents: Aetherix, Tacet, Anima and an orchestrator, each with one bounded context, communicating only through MCP.",
+              "Architecture note on a mesh of five specialised hospitality agents: Aetherix, Tacet, Anima, Peritia and an orchestrator, each with one bounded context, communicating only through MCP.",
             url: "https://ivandemurard.com/architecture",
             inLanguage: "en",
             author: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
@@ -227,15 +233,15 @@ const Architecture = () => {
               style={{ ["--reveal-delay" as string]: "200ms" }}
               className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
-              Specialised agents, each owning one bounded context, talking only through MCP.
+              Five specialised agents, each owning one bounded context, talking only through MCP.
             </p>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "280ms" }}
               className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed"
             >
-              One of them is built, one is a prototype, one is a design, one is a stub. This page says
-              which is which.
+              One is built, one is a prototype, one is a design, one is a stub, one is not started. This
+              page says which is which.
             </p>
           </div>
         </Reveal>
