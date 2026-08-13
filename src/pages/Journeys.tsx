@@ -13,65 +13,91 @@ import { SafeImage } from "@/components/SafeImage";
 type Tint = { h: number; s: number; l: number; a: number };
 
 type Act = {
-  index: string;
+  group: "mesh" | "standalone";
+  kicker: string;
   slug: string;
   name: string;
   body: string;
+  /** Extra line placing the act relative to the mesh. */
+  note?: string;
   image: string;
   cta: string;
   tint: Tint;
   flip?: boolean;
 };
 
+/** The five agents of the mesh, in the order they exist. */
+const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
+  { name: "Aetherix", role: "F&B execution", status: "Built and instrumented", to: "/aetherix" },
+  { name: "Tacet", role: "Environmental signal", status: "Prototype", to: "/tacet" },
+  { name: "Anima", role: "Guest cognition", status: "Synthetic proof of concept", to: "/anima" },
+  { name: "Peritia", role: "House knowledge", status: "Not started" },
+  { name: "Orchestrator", role: "Supervisory routing", status: "Stub" },
+];
+
 const ACTS: Act[] = [
   {
-    index: "01",
-    slug: "sonor",
-    name: PROJECTS.sonor.name,
-    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I built a SaaS platform that turns open data into actionable acoustic intelligence for cities. Used by municipalities to protect citizen health, drive sustainability policies, and increase territorial attractiveness.",
-    image: PROJECTS.sonor.image,
-    cta: "Explore the Narrative",
-    tint: { h: 215, s: 65, l: 38, a: 0.18 },
-  },
-  {
-    index: "02",
+    group: "mesh",
+    kicker: "The Hospitality Mesh",
     slug: "aetherix",
     name: PROJECTS.atherix.name,
     body: "An agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees the human team to focus on exceptional guest experiences.",
+    note: "The food and beverage agent of the mesh.",
     image: PROJECTS.atherix.image,
     cta: "Trace the Path",
     tint: { h: 38, s: 70, l: 55, a: 0.16 },
     flip: true,
   },
   {
-    index: "03",
+    group: "mesh",
+    kicker: "The Hospitality Mesh",
     slug: "tacet",
     name: PROJECTS.tacet.name,
     body: "The Synthetic Acoustic Twin. A headless intelligence layer for hotels: a physics-based, software-only acoustic model that predicts how construction, traffic, weather and events affect guest rooms, then pushes JSON alerts to RMS and PMS for proactive yield management.",
+    note: "The environmental agent of the mesh.",
     image: PROJECTS.tacet.image,
     cta: "Begin the Ascent",
     tint: { h: 230, s: 45, l: 22, a: 0.22 },
   },
   {
-    index: "04",
-    slug: "lore",
-    name: PROJECTS.lore.name,
-    body: "A living memory for a trade that is handed down out loud. Lore captures what a retiring aviation technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure, graded by a harness that treats safety as a tier with no budget.",
-    image: PROJECTS.lore.image,
-    cta: "Follow the Thread",
-    tint: { h: 28, s: 55, l: 40, a: 0.18 },
-    flip: true,
-  },
-  {
-    index: "05",
+    group: "mesh",
+    kicker: "The Hospitality Mesh",
     slug: "anima",
     name: PROJECTS.anima.name,
-    body: "The guest node of the mesh, and the one that is not allowed to simply accumulate. Four memory layers with different lifetimes, claims that carry a weight and a source and decay unless renewed, and a scope gate that makes asking for a whole person impossible. Built, evaluated on synthetic data, and deliberately not switched on.",
+    body: "The guest agent of the mesh, and the one that is not allowed to simply accumulate. Four memory layers with different lifetimes, claims that carry a weight and a source and decay unless renewed, and a scope gate that makes asking for a whole person impossible. Built, evaluated on synthetic data, and deliberately not switched on.",
+    note: "The guest agent of the mesh.",
     image: PROJECTS.anima.image,
     cta: "Read the Constraint",
     tint: { h: 200, s: 40, l: 30, a: 0.18 },
+    flip: true,
+  },
+  {
+    group: "standalone",
+    kicker: "Standalone system",
+    slug: "lore",
+    name: PROJECTS.lore.name,
+    body: "A living memory for a trade that is handed down out loud. Lore captures what a retiring aviation technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure, graded by a harness that treats safety as a tier with no budget.",
+    note: "Outside the mesh: the same architecture in aviation maintenance, where a licensed technician signs the release.",
+    image: PROJECTS.lore.image,
+    cta: "Follow the Thread",
+    tint: { h: 28, s: 55, l: 40, a: 0.18 },
+  },
+  {
+    group: "standalone",
+    kicker: "Standalone system",
+    slug: "sonor",
+    name: PROJECTS.sonor.name,
+    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I built a SaaS platform that turns open data into actionable acoustic intelligence for cities. Used by municipalities to protect citizen health, drive sustainability policies, and increase territorial attractiveness.",
+    note: "Outside the mesh: a B2G SaaS, two years, before any of this.",
+    image: PROJECTS.sonor.image,
+    cta: "Explore the Narrative",
+    tint: { h: 215, s: 65, l: 38, a: 0.18 },
+    flip: true,
   },
 ];
+
+const MESH_ACTS = ACTS.filter((a) => a.group === "mesh");
+const STANDALONE_ACTS = ACTS.filter((a) => a.group === "standalone");
 
 /** Split a word into per-letter spans for the ink reveal. */
 const SplitWord = ({ text }: { text: string }) => (
