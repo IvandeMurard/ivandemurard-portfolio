@@ -288,7 +288,7 @@ const Architecture = () => {
                 id="one-scene-four-signals"
                 number="02"
                 title="One scene, four signals"
-                keyLine="Guest experience is not a fifth node, because the same twenty minutes belong to four domains at once."
+                keyLine="Guest experience is not an agent of its own, because the same twenty minutes belong to four domains at once."
                 concrete="Check-in: occupancy, a transit strike outside, a returning guest's last request, and who is on the desk."
               >
                 <div className="rounded-sm border border-outline bg-surface-container-low p-5 mb-8 max-w-3xl">
@@ -316,10 +316,10 @@ const Architecture = () => {
                   actually sells. A fast, cold arrival is an excellent process and a bad welcome.
                 </P>
                 <Pull>
-                  This is why guest experience is not a fifth node. It is a layer that crosses the
+                  This is why guest experience is not an agent of its own. It is a layer that crosses the
                   others, because the same twenty minutes are simultaneously an occupancy fact, an
-                  external-context fact, a memory fact and a staffing fact. A node that owned "guest
-                  experience" would have to own all four, and a node that owns everything is not a
+                  external-context fact, a memory fact and a staffing fact. An agent that owned "guest
+                  experience" would have to own all four, and an agent that owns everything is not a
                   bounded context.
                 </Pull>
                 <P>
@@ -340,13 +340,13 @@ const Architecture = () => {
               <Section
                 id="the-nodes"
                 number="03"
-                title="The nodes"
-                keyLine="Four nodes, each with one domain, and a status a reader can check before reading anything else."
-                concrete="Aetherix is built and instrumented, with a pilot partner in recruitment. The orchestrator is a stub that routes nothing yet."
+                title="The five agents"
+                keyLine="Five agents, each with one domain, and a status a reader can check before reading anything else."
+                concrete="Aetherix is built and instrumented, with a pilot partner in recruitment. Peritia is a named slot with no code."
               >
                 <Table
-                  caption="The four nodes of the mesh, with status, what each owns and what it does not own"
-                  head={["Node", "Status", "Owns", "Does not own"]}
+                  caption="The five agents of the mesh, with status, what each owns and what it does not own"
+                  head={["Agent", "Status", "Owns", "Does not own"]}
                   rows={NODE_ROWS.map((r) => [r.node, r.status, r.owns, r.not])}
                 />
                 <div className="mb-8">
