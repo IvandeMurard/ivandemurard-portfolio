@@ -214,10 +214,19 @@ const ActSection = ({ act }: { act: Act }) => {
         <p
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "300ms" }}
-          className="text-on-surface-variant leading-relaxed max-w-md mb-8 md:text-lg"
+          className="text-on-surface-variant leading-relaxed max-w-md mb-6 md:text-lg"
         >
           {act.body}
         </p>
+        {act.note && (
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "380ms" }}
+            className="text-on-surface-variant/90 font-body text-sm leading-relaxed max-w-md mb-8 border-l border-outline-variant pl-4"
+          >
+            {act.note}
+          </p>
+        )}
         <span
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "440ms" }}
