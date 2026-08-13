@@ -37,8 +37,8 @@ arrival is an excellent process and a bad welcome.
 
 This is why guest experience is not an agent of its own. It is a layer that crosses the others, because the
 same twenty minutes are simultaneously an occupancy fact, an external-context fact, a memory fact
-and a staffing fact. A node that owned "guest experience" would have to own all four, and a node
-that owns everything is not a bounded context.
+and a staffing fact. An agent that owned "guest experience" would have to own all four, and an
+agent that owns everything is not a bounded context.
 
 Time to key can be predicted. Whether someone felt welcomed cannot. The gap between what is
 measurable and what matters is a property of the problem. The same holds harder at check-out, which
