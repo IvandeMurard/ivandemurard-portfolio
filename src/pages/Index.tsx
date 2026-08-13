@@ -92,6 +92,115 @@ const LATEST_NOTES = [...JOURNAL_ENTRIES]
 
 
 
+type Project = (typeof PROJECTS)[keyof typeof PROJECTS];
+
+const ProjectGroup = ({
+  kicker,
+  kickerHref,
+  projects,
+  track,
+}: {
+  kicker: string;
+  kickerHref?: string;
+  projects: Project[];
+  track: ReturnType<typeof useTrackClick>;
+}) => {
+  const kickerEl = (
+    <span className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary border-b border-secondary pb-2">
+      {kicker}
+    </span>
+  );
+  return (
+    <div>
+      <div className="mb-10 md:mb-14">
+        {kickerHref ? (
+          <Link
+            to={kickerHref}
+            className="inline-block hover:tracking-[0.25em] transition-all"
+          >
+            {kickerEl}
+          </Link>
+        ) : (
+          kickerEl
+        )}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        {projects.map((p, i) => {
+          const isExternal = "external" in p && p.external;
+          const inner = (
+            <>
+              <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
+                {isExternal ? (
+                  <SafeImage
+                    src={p.image}
+                    alt={`${p.name} project preview`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <CaseHoverPreview
+                    slug={p.slug}
+                    image={p.image}
+                    alt={`${p.name} project preview`}
+                    className="w-full h-full"
+                  />
+                )}
+                <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none" />
+              </div>
+              <div className="mt-8 px-2 pb-2 flex justify-between items-start gap-4">
+                <div>
+                  <h3 className="font-headline text-3xl italic text-primary">{p.name}</h3>
+                  <p className="text-on-surface-variant font-light leading-relaxed mt-4">{p.tagline}</p>
+                  <p className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-4">
+                    {p.label}
+                  </p>
+                </div>
+                {isExternal ? (
+                  <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary shrink-0">
+                    External
+                  </span>
+                ) : (
+                  <Icon
+                    name="arrow_outward"
+                    className="text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all"
+                  />
+                )}
+              </div>
+            </>
+          );
+          const cardClass =
+            "lift-card group block p-4 rounded-xl border border-outline-variant bg-surface-container-low/40 hover:border-outline-variant";
+          return isExternal ? (
+            <a
+              key={p.slug}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track({ label: p.name, href: p.href, kind: "project" })}
+              className={cardClass}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+            >
+              {inner}
+            </a>
+          ) : (
+            <Link
+              key={p.slug}
+              to={`/${p.slug}`}
+              onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
+              className={cardClass}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
+            >
+              {inner}
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 const Index = () => {
   const track = useTrackClick();
   return (
