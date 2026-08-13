@@ -524,7 +524,7 @@ const Architecture = () => {
                 id="where-it-stands"
                 number="08"
                 title="Where it stands"
-                keyLine="Four nodes, four different degrees of existence, stated plainly and linked to the evidence."
+                keyLine="Five agents, five different degrees of existence, stated plainly and linked to the evidence."
                 concrete="Anima shipped as a hackathon prototype on synthetic data; production waits on a data-protection assessment."
               >
                 <ul className="space-y-4 max-w-3xl list-none p-0 m-0 mb-8">
@@ -546,6 +546,9 @@ const Architecture = () => {
                     </Link>{" "}
                     is a prototype shipped at a hackathon on synthetic data, with production gated
                     behind a data-protection assessment.
+                  </li>
+                  <li className="font-body text-on-surface-variant leading-relaxed">
+                    Peritia is named in the contract and not started. No code, no page.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
                     The orchestrator is a stub. It does not yet deserve a page.
