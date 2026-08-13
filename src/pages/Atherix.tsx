@@ -358,7 +358,7 @@ const Atherix = () => (
 
       <SectionDivider label="The vision" index="03" />
 
-      {/* VISION — four nodes */}
+      {/* VISION — five agents */}
       <Reveal as="section" id="vision" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-3xl mx-auto">
           <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
@@ -369,7 +369,7 @@ const Atherix = () => (
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
           >
-            Four nodes, honest status.
+            Five agents, honest status.
           </h2>
           <ul data-reveal-child style={{ ["--reveal-delay" as string]: "240ms" }} className="mt-8 space-y-4">
             {VISION_NODES.map((n) => (
