@@ -318,46 +318,87 @@ const Journeys = () => {
                 >
                   A curated collection of projects where technology quietly becomes an act of care.
                 </p>
-                <p
+                <div
                   data-reveal-child
                   style={{ ["--reveal-delay" as string]: "500ms" }}
-                  className="text-on-surface-variant font-body leading-relaxed max-w-md text-base mt-5"
+                  className="mt-8 max-w-md border-t border-outline-variant pt-6"
                 >
+                  <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary block mb-2">
+                    The Hospitality Mesh
+                  </span>
+                  <p className="text-on-surface-variant font-body text-sm leading-relaxed mb-4">
+                    Five specialised agents, one architecture. Three of them have a page.
+                  </p>
+                  <ul className="space-y-2 mb-4">
+                    {MESH_AGENTS.map((a) => (
+                      <li key={a.name} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
+                        {a.to ? (
+                          <Link
+                            to={a.to}
+                            className="font-headline italic text-primary text-base border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+                          >
+                            {a.name}
+                          </Link>
+                        ) : (
+                          <span className="font-headline italic text-on-surface-variant text-base">{a.name}</span>
+                        )}
+                        <span className="text-on-surface-variant">{a.role}</span>
+                        <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                          {a.status}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                   <Link
                     to="/architecture"
-                    className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+                    className="text-primary font-body text-sm border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
                   >
-                    How three of these fit together: the architecture note
+                    How they fit together: the architecture note
                   </Link>
-                </p>
+                </div>
               </div>
 
-              {/* Middle: numbered, hoverable summary */}
+              {/* Middle: grouped, hoverable summary */}
               <nav
                 aria-label="Case studies index"
                 className="md:col-span-3"
                 onMouseLeave={() => setHoveredSlug(ACTS[0].slug)}
               >
-                <ol className="flex flex-col gap-3 md:gap-5">
-                  {ACTS.map((act, i) => (
-                    <li key={act.slug} data-reveal-child style={{ ["--reveal-delay" as string]: `${500 + i * 120}ms` }}>
-                      <a
-                        href={`#act-${act.slug}`}
-                        onClick={scrollToAct(act.slug)}
-                        onMouseEnter={() => setHoveredSlug(act.slug)}
-                        onFocus={() => setHoveredSlug(act.slug)}
-                        className="journey-summary-link group"
-                      >
-                        <span className="font-label uppercase tracking-[0.25em] text-[10px] text-on-tertiary-fixed-variant w-8 shrink-0">
-                          {act.index}
-                        </span>
-                        <span className="journey-summary-name font-headline italic text-primary text-3xl md:text-5xl leading-none">
-                          {act.name}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
+                {[
+                  { title: "The Hospitality Mesh", acts: MESH_ACTS },
+                  { title: "Standalone systems", acts: STANDALONE_ACTS },
+                ].map((group, gi) => (
+                  <div key={group.title} className={gi > 0 ? "mt-10" : ""}>
+                    <h2
+                      data-reveal-child
+                      style={{ ["--reveal-delay" as string]: `${480 + gi * 80}ms` }}
+                      className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-4"
+                    >
+                      {group.title}
+                    </h2>
+                    <ul className="flex flex-col gap-3 md:gap-4 list-none p-0 m-0">
+                      {group.acts.map((act, i) => (
+                        <li
+                          key={act.slug}
+                          data-reveal-child
+                          style={{ ["--reveal-delay" as string]: `${540 + (gi * 3 + i) * 100}ms` }}
+                        >
+                          <a
+                            href={`#act-${act.slug}`}
+                            onClick={scrollToAct(act.slug)}
+                            onMouseEnter={() => setHoveredSlug(act.slug)}
+                            onFocus={() => setHoveredSlug(act.slug)}
+                            className="journey-summary-link group"
+                          >
+                            <span className="journey-summary-name font-headline italic text-primary text-3xl md:text-5xl leading-none">
+                              {act.name}
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
                 <div className="mt-10 flex items-center gap-3 text-on-surface-variant font-label uppercase tracking-[0.25em] text-[10px]">
                   <span className="block h-px w-12 bg-outline-variant" />
                   Scroll to enter
