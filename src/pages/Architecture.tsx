@@ -89,9 +89,15 @@ const NODE_ROWS: { node: string; status: string; owns: string; not: string }[] =
     not: "Acting on what it knows. Production is DPIA-gated",
   },
   {
+    node: "Peritia",
+    status: "Not started",
+    owns: "House knowledge: what the people who work in a property know and never wrote down",
+    not: "Everything. It is a named slot in the contract, and no code",
+  },
+  {
     node: "Orchestrator",
     status: "Stub",
-    owns: "Supervisory routing and business rules across nodes",
+    owns: "Supervisory routing and business rules across agents",
     not: "Domain logic. It routes, it does not compute",
   },
 ];
@@ -185,7 +191,7 @@ const Architecture = () => {
     <SiteLayout title="The Hospitality Agentic Mesh">
       <Seo
         title="The Hospitality Agentic Mesh, an Architecture Note"
-        description="Specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub. This note says which is which."
+        description="Five specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub, one is not started. This note says which is which."
         path="/architecture"
         type="article"
         jsonLd={[
@@ -194,7 +200,7 @@ const Architecture = () => {
             "@type": "TechArticle",
             headline: "The Hospitality Agentic Mesh",
             description:
-              "Architecture note on a mesh of specialised hospitality agents: Aetherix, Tacet, Anima and an orchestrator, each with one bounded context, communicating only through MCP.",
+              "Architecture note on a mesh of five specialised hospitality agents: Aetherix, Tacet, Anima, Peritia and an orchestrator, each with one bounded context, communicating only through MCP.",
             url: "https://ivandemurard.com/architecture",
             inLanguage: "en",
             author: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
@@ -227,15 +233,15 @@ const Architecture = () => {
               style={{ ["--reveal-delay" as string]: "200ms" }}
               className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
-              Specialised agents, each owning one bounded context, talking only through MCP.
+              Five specialised agents, each owning one bounded context, talking only through MCP.
             </p>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "280ms" }}
               className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed"
             >
-              One of them is built, one is a prototype, one is a design, one is a stub. This page says
-              which is which.
+              One is built, one is a prototype, one is a design, one is a stub, one is not started. This
+              page says which is which.
             </p>
           </div>
         </Reveal>
@@ -282,7 +288,7 @@ const Architecture = () => {
                 id="one-scene-four-signals"
                 number="02"
                 title="One scene, four signals"
-                keyLine="Guest experience is not a fifth node, because the same twenty minutes belong to four domains at once."
+                keyLine="Guest experience is not an agent of its own, because the same twenty minutes belong to four domains at once."
                 concrete="Check-in: occupancy, a transit strike outside, a returning guest's last request, and who is on the desk."
               >
                 <div className="rounded-sm border border-outline bg-surface-container-low p-5 mb-8 max-w-3xl">
@@ -310,10 +316,10 @@ const Architecture = () => {
                   actually sells. A fast, cold arrival is an excellent process and a bad welcome.
                 </P>
                 <Pull>
-                  This is why guest experience is not a fifth node. It is a layer that crosses the
+                  This is why guest experience is not an agent of its own. It is a layer that crosses the
                   others, because the same twenty minutes are simultaneously an occupancy fact, an
-                  external-context fact, a memory fact and a staffing fact. A node that owned "guest
-                  experience" would have to own all four, and a node that owns everything is not a
+                  external-context fact, a memory fact and a staffing fact. An agent that owned "guest
+                  experience" would have to own all four, and an agent that owns everything is not a
                   bounded context.
                 </Pull>
                 <P>
@@ -334,13 +340,13 @@ const Architecture = () => {
               <Section
                 id="the-nodes"
                 number="03"
-                title="The nodes"
-                keyLine="Four nodes, each with one domain, and a status a reader can check before reading anything else."
-                concrete="Aetherix is built and instrumented, with a pilot partner in recruitment. The orchestrator is a stub that routes nothing yet."
+                title="The five agents"
+                keyLine="Five agents, each with one domain, and a status a reader can check before reading anything else."
+                concrete="Aetherix is built and instrumented, with a pilot partner in recruitment. Peritia is a named slot with no code."
               >
                 <Table
-                  caption="The four nodes of the mesh, with status, what each owns and what it does not own"
-                  head={["Node", "Status", "Owns", "Does not own"]}
+                  caption="The five agents of the mesh, with status, what each owns and what it does not own"
+                  head={["Agent", "Status", "Owns", "Does not own"]}
                   rows={NODE_ROWS.map((r) => [r.node, r.status, r.owns, r.not])}
                 />
                 <div className="mb-8">
@@ -406,20 +412,21 @@ const Architecture = () => {
                   </div>
                   <div>
                     <h3 className="font-headline italic text-primary text-xl mb-2">
-                      A fifth node is an addition, not a redesign
+                      A fifth agent is an addition, not a redesign
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">
-                      The contract that governs exchanges between nodes was designed to admit staff
-                      knowledge: what the people who work in a property know, which no node captures
-                      today. The pattern comes from my other project,{" "}
+                      The contract that governs exchanges between agents was designed to admit staff
+                      knowledge: what the people who work in a property know, which nothing captures
+                      today. That agent is named Peritia, the trade agent: a house's know-how, held by
+                      the house rather than by whoever is on shift. Not started, and no code. The pattern
+                      comes from my other project,{" "}
                       <Link to="/lore" className={linkCls}>
                         Lore
                       </Link>
-                      . The fifth node is Peritia, the trade node: a house's know-how, held by the house
-                      rather than by whoever is on shift. Not started. The contract admits it, and Lore is
-                      the working proof of the pattern in another industry.
+                      , the working proof of it in another industry.
                     </p>
                   </div>
+
 
                 </div>
               </Section>
@@ -502,11 +509,10 @@ const Architecture = () => {
                   where Aetherix can lean on measured outcomes instead.
                 </P>
                 <P>
-                  Lore stays outside the mesh. Folding it in would make this a hospitality product with
-                  four nodes; leaving it out makes it an architecture that holds in a second industry
-                  under a stricter regime. A staff-knowledge node inside the mesh is a reasonable thing
-                  to build later, and the contract has room for it. It would be a different node, not
-                  this one.
+                  Lore stays outside the mesh. Folding it in would make this one hospitality product more;
+                  leaving it out makes it an architecture that holds in a second industry under a stricter
+                  regime. The staff-knowledge agent inside the mesh is Peritia, not started, and the
+                  contract has room for it. It would be a different agent, not this one.
                 </P>
                 <Pull>
                   The mesh is not a hospitality pattern. It is what you build when a decision has to stay
@@ -518,7 +524,7 @@ const Architecture = () => {
                 id="where-it-stands"
                 number="08"
                 title="Where it stands"
-                keyLine="Four nodes, four different degrees of existence, stated plainly and linked to the evidence."
+                keyLine="Five agents, five different degrees of existence, stated plainly and linked to the evidence."
                 concrete="Anima shipped as a hackathon prototype on synthetic data; production waits on a data-protection assessment."
               >
                 <ul className="space-y-4 max-w-3xl list-none p-0 m-0 mb-8">
@@ -540,6 +546,9 @@ const Architecture = () => {
                     </Link>{" "}
                     is a prototype shipped at a hackathon on synthetic data, with production gated
                     behind a data-protection assessment.
+                  </li>
+                  <li className="font-body text-on-surface-variant leading-relaxed">
+                    Peritia is named in the contract and not started. No code, no page.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
                     The orchestrator is a stub. It does not yet deserve a page.

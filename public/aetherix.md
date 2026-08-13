@@ -1,12 +1,12 @@
 # Aetherix
 
-The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B node of the Hospitality Agentic Mesh.
+The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B agent of the Hospitality Agentic Mesh, a five-agent architecture: https://ivandemurard.com/architecture
 
 Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
 Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
 
-Vision, four nodes with honest status: Aetherix, the F&B agent (forecast, staffing, memory) — Built. Tacet, the environmental-signal node — Prototype. Anima, the Guest Cognition agent — Design. Orchestrator, the supervisory agent — Stub.
+Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Prototype. Anima, the Guest Cognition agent, Design. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
 
 Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
 
@@ -70,14 +70,15 @@ One tap. That reply is the signal Aetherix learns from.
 
 ## The Mesh, bounded context by design
 
-Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP. Aetherix executes F&B. It does not orchestrate.
+Aetherix is one of five specialized, MCP-native agents. Each agent owns a strict bounded context and communicates only through MCP. Aetherix executes F&B. It does not orchestrate.
 
-| Node | Role | Status |
+| Agent | Role | Status |
 |---|---|---|
 | Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and instrumented, pilot partner in recruitment |
-| Tacet | Sensory: weather, noise, open data, risk | Phase 3 |
-| Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
+| Tacet | Sensory: weather, noise, open data, risk | Prototype |
 | Anima | Guest Cognition Layer | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
+| Peritia | House knowledge: what the people who work in a property know | Named in the contract, not started |
+| Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
 
 Meta-repo (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
 

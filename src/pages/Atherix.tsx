@@ -114,7 +114,7 @@ const FAQ = [
   },
   {
     q: "How is Aetherix part of a Mesh?",
-    a: "A network of specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (sensory), Orchestrator (supervisory routing, Phase 3 stub), Anima (guest cognition, shipped as PoC). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
+    a: "Five specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (environmental signal), Anima (guest cognition, synthetic PoC), Peritia (house knowledge, not started), Orchestrator (supervisory routing, Phase 3 stub). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
   },
   {
     q: "How is multi-tenant security handled?",
@@ -146,8 +146,9 @@ const THESIS = [
 
 const VISION_NODES = [
   { name: "Aetherix", role: "The F&B agent: forecast, staffing, memory.", status: "Built" },
-  { name: "Tacet", role: "The environmental-signal node.", status: "Prototype" },
+  { name: "Tacet", role: "The environmental-signal agent.", status: "Prototype" },
   { name: "Anima", role: "The Guest Cognition agent.", status: "Design" },
+  { name: "Peritia", role: "The trade agent: house knowledge, what the people who work here know.", status: "Not started" },
   { name: "Orchestrator", role: "The supervisory agent.", status: "Stub" },
 ];
 
@@ -235,6 +236,20 @@ const Atherix = () => (
               Tomorrow's covers, a staffing grid that fits, and less waste. One message a day, in WhatsApp, with the
               reasoning attached.
             </p>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "340ms" }}
+              className="text-on-surface-variant font-body text-base max-w-2xl leading-relaxed mt-4"
+            >
+              Aetherix is the food and beverage agent of a five-agent mesh.{" "}
+              <Link
+                to="/architecture"
+                className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+              >
+                The architecture
+              </Link>
+            </p>
+
 
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "580ms" }}>
               <AetherixHeroBadges />
@@ -343,7 +358,7 @@ const Atherix = () => (
 
       <SectionDivider label="The vision" index="03" />
 
-      {/* VISION — four nodes */}
+      {/* VISION — five agents */}
       <Reveal as="section" id="vision" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-3xl mx-auto">
           <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
@@ -354,7 +369,7 @@ const Atherix = () => (
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
           >
-            Four nodes, honest status.
+            Five agents, honest status.
           </h2>
           <ul data-reveal-child style={{ ["--reveal-delay" as string]: "240ms" }} className="mt-8 space-y-4">
             {VISION_NODES.map((n) => (

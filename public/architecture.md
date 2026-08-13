@@ -1,7 +1,7 @@
 # The Hospitality Agentic Mesh
 
-Architecture note. Specialised agents, each owning one bounded context, talking only through MCP.
-One is built, one is a prototype, one is a design, one is a stub. This page says which is which.
+Architecture note. Five specialised agents, each owning one bounded context, talking only through MCP.
+One is built, one is a prototype, one is a design, one is a stub, one is not started. This page says which is which.
 
 Canonical page: https://ivandemurard.com/architecture
 Public meta-repository: https://github.com/IvandeMurard/hospitality-agentic-mesh
@@ -11,7 +11,8 @@ Public meta-repository: https://github.com/IvandeMurard/hospitality-agentic-mesh
 - **Aetherix** (built and instrumented, pilot partner in recruitment). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
 - **Tacet** (prototype, public repository). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (synthetic proof of concept, production gated behind a data-protection assessment). The guest node: a four-layer temporal memory of a guest relationship. No page of its own.
-- **Orchestrator** (design, a stub exists). The supervisory node: routes between the others and holds the decision.
+- **Peritia** (not started). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
+- **Orchestrator** (design, a stub exists). The supervisory agent: routes between the others and holds the decision.
 - **Lore** (outside the mesh). The same architecture in aviation maintenance, where a licensed technician signs the release. https://ivandemurard.com/lore
 
 ## 1. Why a mesh and not one agent
@@ -34,24 +35,25 @@ into the shift.
 Model it as a process and you optimise the metric a process offers: time to key. A fast, cold
 arrival is an excellent process and a bad welcome.
 
-This is why guest experience is not a fifth node. It is a layer that crosses the others, because the
+This is why guest experience is not an agent of its own. It is a layer that crosses the others, because the
 same twenty minutes are simultaneously an occupancy fact, an external-context fact, a memory fact
-and a staffing fact. A node that owned "guest experience" would have to own all four, and a node
-that owns everything is not a bounded context.
+and a staffing fact. An agent that owned "guest experience" would have to own all four, and an
+agent that owns everything is not a bounded context.
 
 Time to key can be predicted. Whether someone felt welcomed cannot. The gap between what is
 measurable and what matters is a property of the problem. The same holds harder at check-out, which
 carries the payment and weighs more in memory, and is the moment most often optimised for speed
 alone.
 
-## 3. The nodes
+## 3. The five agents
 
-| Node | Status | Owns | Does not own |
+| Agent | Status | Owns | Does not own |
 | --- | --- | --- | --- |
 | Aetherix | Built and instrumented, pilot partner in recruitment | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
 | Tacet | Prototype | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Design, prototype shipped | Guest cognition: temporal memory, confidence-weighted claims | Acting on what it knows. Production is DPIA-gated |
-| Orchestrator | Stub | Supervisory routing and business rules across nodes | Domain logic. It routes, it does not compute |
+| Peritia | Not started | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
+| Orchestrator | Stub | Supervisory routing and business rules across agents | Domain logic. It routes, it does not compute |
 
 Aetherix executes. It does not orchestrate.
 
@@ -66,11 +68,11 @@ Aetherix executes. It does not orchestrate.
    established by the server at every layer. What a model cannot name, it cannot cross.
 4. **Memory is local first, federated second, and never raw.** Each property learns from its own
    history; cross-property learning moves only as anonymised aggregates.
-5. **A fifth node is an addition, not a redesign.** The contract that governs exchanges between
-   nodes was designed to admit staff knowledge: what the people who work in a property know, which
-   no node captures today. The pattern comes from my other project, Lore. The fifth node is Peritia,
-   the trade node: a house's know-how, held by the house rather than by whoever is on shift. Not
-   started. The contract admits it, and Lore is the working proof of the pattern in another industry.
+5. **A fifth agent is an addition, not a redesign.** The contract that governs exchanges between
+   agents was designed to admit staff knowledge: what the people who work in a property know, which
+   nothing captures today. That agent is named Peritia, the trade agent: a house's know-how, held by
+   the house rather than by whoever is on shift. Not started, and no code. The pattern comes from my
+   other project, Lore, the working proof of it in another industry.
 
 ## 5. What each node is allowed to learn
 
@@ -102,8 +104,8 @@ technician who signs the release. What it does not have is the loop: nothing tel
 captured observation was right, and the moment a technician escalates, the counterfactual
 disappears. That absence is why its evaluation harness weighs close to a third of its codebase.
 
-Lore stays outside the mesh. A staff-knowledge node inside the mesh is a reasonable thing to build
-later, and the contract has room for it. It would be a different node.
+Lore stays outside the mesh. The staff-knowledge agent inside the mesh is Peritia, not started, and
+the contract has room for it. It would be a different agent.
 
 The mesh is not a hospitality pattern. It is what you build when a decision has to stay attributable
 to a component and to a person.
@@ -114,6 +116,7 @@ to a component and to a person.
 - Tacet: working prototype, own case study, public repository.
 - Anima: prototype shipped at a hackathon on synthetic data, production gated behind a
   data-protection assessment, no page of its own yet.
+- Peritia: named in the contract and not started. No code, no page.
 - Orchestrator: a stub. It does not yet deserve a page.
 - Lore: outside the mesh, as evidence the pattern holds elsewhere.
 

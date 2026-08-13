@@ -13,65 +13,91 @@ import { SafeImage } from "@/components/SafeImage";
 type Tint = { h: number; s: number; l: number; a: number };
 
 type Act = {
-  index: string;
+  group: "mesh" | "standalone";
+  kicker: string;
   slug: string;
   name: string;
   body: string;
+  /** Extra line placing the act relative to the mesh. */
+  note?: string;
   image: string;
   cta: string;
   tint: Tint;
   flip?: boolean;
 };
 
+/** The five agents of the mesh, in the order they exist. */
+const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
+  { name: "Aetherix", role: "F&B execution", status: "Built and instrumented", to: "/aetherix" },
+  { name: "Tacet", role: "Environmental signal", status: "Prototype", to: "/tacet" },
+  { name: "Anima", role: "Guest cognition", status: "Synthetic proof of concept", to: "/anima" },
+  { name: "Peritia", role: "House knowledge", status: "Not started" },
+  { name: "Orchestrator", role: "Supervisory routing", status: "Stub" },
+];
+
 const ACTS: Act[] = [
   {
-    index: "01",
-    slug: "sonor",
-    name: PROJECTS.sonor.name,
-    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I built a SaaS platform that turns open data into actionable acoustic intelligence for cities. Used by municipalities to protect citizen health, drive sustainability policies, and increase territorial attractiveness.",
-    image: PROJECTS.sonor.image,
-    cta: "Explore the Narrative",
-    tint: { h: 215, s: 65, l: 38, a: 0.18 },
-  },
-  {
-    index: "02",
+    group: "mesh",
+    kicker: "The Hospitality Mesh",
     slug: "aetherix",
     name: PROJECTS.atherix.name,
     body: "An agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees the human team to focus on exceptional guest experiences.",
+    note: "The food and beverage agent of the mesh.",
     image: PROJECTS.atherix.image,
     cta: "Trace the Path",
     tint: { h: 38, s: 70, l: 55, a: 0.16 },
     flip: true,
   },
   {
-    index: "03",
+    group: "mesh",
+    kicker: "The Hospitality Mesh",
     slug: "tacet",
     name: PROJECTS.tacet.name,
     body: "The Synthetic Acoustic Twin. A headless intelligence layer for hotels: a physics-based, software-only acoustic model that predicts how construction, traffic, weather and events affect guest rooms, then pushes JSON alerts to RMS and PMS for proactive yield management.",
+    note: "The environmental agent of the mesh.",
     image: PROJECTS.tacet.image,
     cta: "Begin the Ascent",
     tint: { h: 230, s: 45, l: 22, a: 0.22 },
   },
   {
-    index: "04",
-    slug: "lore",
-    name: PROJECTS.lore.name,
-    body: "A living memory for a trade that is handed down out loud. Lore captures what a retiring aviation technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure, graded by a harness that treats safety as a tier with no budget.",
-    image: PROJECTS.lore.image,
-    cta: "Follow the Thread",
-    tint: { h: 28, s: 55, l: 40, a: 0.18 },
-    flip: true,
-  },
-  {
-    index: "05",
+    group: "mesh",
+    kicker: "The Hospitality Mesh",
     slug: "anima",
     name: PROJECTS.anima.name,
-    body: "The guest node of the mesh, and the one that is not allowed to simply accumulate. Four memory layers with different lifetimes, claims that carry a weight and a source and decay unless renewed, and a scope gate that makes asking for a whole person impossible. Built, evaluated on synthetic data, and deliberately not switched on.",
+    body: "The guest agent of the mesh, and the one that is not allowed to simply accumulate. Four memory layers with different lifetimes, claims that carry a weight and a source and decay unless renewed, and a scope gate that makes asking for a whole person impossible. Built, evaluated on synthetic data, and deliberately not switched on.",
+    note: "The guest agent of the mesh.",
     image: PROJECTS.anima.image,
     cta: "Read the Constraint",
     tint: { h: 200, s: 40, l: 30, a: 0.18 },
+    flip: true,
+  },
+  {
+    group: "standalone",
+    kicker: "Standalone system",
+    slug: "lore",
+    name: PROJECTS.lore.name,
+    body: "A living memory for a trade that is handed down out loud. Lore captures what a retiring aviation technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure, graded by a harness that treats safety as a tier with no budget.",
+    note: "Outside the mesh: the same architecture in aviation maintenance, where a licensed technician signs the release.",
+    image: PROJECTS.lore.image,
+    cta: "Follow the Thread",
+    tint: { h: 28, s: 55, l: 40, a: 0.18 },
+  },
+  {
+    group: "standalone",
+    kicker: "Standalone system",
+    slug: "sonor",
+    name: PROJECTS.sonor.name,
+    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I built a SaaS platform that turns open data into actionable acoustic intelligence for cities. Used by municipalities to protect citizen health, drive sustainability policies, and increase territorial attractiveness.",
+    note: "Outside the mesh: a B2G SaaS, two years, before any of this.",
+    image: PROJECTS.sonor.image,
+    cta: "Explore the Narrative",
+    tint: { h: 215, s: 65, l: 38, a: 0.18 },
+    flip: true,
   },
 ];
+
+const MESH_ACTS = ACTS.filter((a) => a.group === "mesh");
+const STANDALONE_ACTS = ACTS.filter((a) => a.group === "standalone");
 
 /** Split a word into per-letter spans for the ink reveal. */
 const SplitWord = ({ text }: { text: string }) => (
@@ -175,11 +201,7 @@ const ActSection = ({ act }: { act: Act }) => {
           data-reveal-child
           className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-6"
         >
-          <span className="text-primary">{act.index}</span>
-          <span className="before:content-['/'] before:mx-2 before:text-outline">
-            {String(ACTS.length).padStart(2, "0")}
-          </span>
-
+          {act.kicker}
         </span>
         <h2
           id={headingId}
@@ -192,10 +214,19 @@ const ActSection = ({ act }: { act: Act }) => {
         <p
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "300ms" }}
-          className="text-on-surface-variant leading-relaxed max-w-md mb-8 md:text-lg"
+          className="text-on-surface-variant leading-relaxed max-w-md mb-6 md:text-lg"
         >
           {act.body}
         </p>
+        {act.note && (
+          <p
+            data-reveal-child
+            style={{ ["--reveal-delay" as string]: "380ms" }}
+            className="text-on-surface-variant/90 font-body text-sm leading-relaxed max-w-md mb-8 border-l border-outline-variant pl-4"
+          >
+            {act.note}
+          </p>
+        )}
         <span
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "440ms" }}
@@ -236,7 +267,7 @@ const Journeys = () => {
     <SiteLayout title="Stories">
       <Seo
         title="Case Studies, Selected Work by Ivan de Murard"
-        description="Case studies: Aetherix (F&B agent for boutique hotels), Sonor (urban noise SaaS), Tacet (environmental twin), Lore (voice AI for aviation maintenance), Anima (guest node). Product and AI work shipped 0 to 1."
+        description="The Hospitality Mesh: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone systems: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1."
         path="/journeys"
         jsonLd={{
           "@context": "https://schema.org",
@@ -287,46 +318,87 @@ const Journeys = () => {
                 >
                   A curated collection of projects where technology quietly becomes an act of care.
                 </p>
-                <p
+                <div
                   data-reveal-child
                   style={{ ["--reveal-delay" as string]: "500ms" }}
-                  className="text-on-surface-variant font-body leading-relaxed max-w-md text-base mt-5"
+                  className="mt-8 max-w-md border-t border-outline-variant pt-6"
                 >
+                  <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary block mb-2">
+                    The Hospitality Mesh
+                  </span>
+                  <p className="text-on-surface-variant font-body text-sm leading-relaxed mb-4">
+                    Five specialised agents, one architecture. Three of them have a page.
+                  </p>
+                  <ul className="space-y-2 mb-4">
+                    {MESH_AGENTS.map((a) => (
+                      <li key={a.name} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
+                        {a.to ? (
+                          <Link
+                            to={a.to}
+                            className="font-headline italic text-primary text-base border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+                          >
+                            {a.name}
+                          </Link>
+                        ) : (
+                          <span className="font-headline italic text-on-surface-variant text-base">{a.name}</span>
+                        )}
+                        <span className="text-on-surface-variant">{a.role}</span>
+                        <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                          {a.status}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                   <Link
                     to="/architecture"
-                    className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+                    className="text-primary font-body text-sm border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
                   >
-                    How three of these fit together: the architecture note
+                    How they fit together: the architecture note
                   </Link>
-                </p>
+                </div>
               </div>
 
-              {/* Middle: numbered, hoverable summary */}
+              {/* Middle: grouped, hoverable summary */}
               <nav
                 aria-label="Case studies index"
                 className="md:col-span-3"
                 onMouseLeave={() => setHoveredSlug(ACTS[0].slug)}
               >
-                <ol className="flex flex-col gap-3 md:gap-5">
-                  {ACTS.map((act, i) => (
-                    <li key={act.slug} data-reveal-child style={{ ["--reveal-delay" as string]: `${500 + i * 120}ms` }}>
-                      <a
-                        href={`#act-${act.slug}`}
-                        onClick={scrollToAct(act.slug)}
-                        onMouseEnter={() => setHoveredSlug(act.slug)}
-                        onFocus={() => setHoveredSlug(act.slug)}
-                        className="journey-summary-link group"
-                      >
-                        <span className="font-label uppercase tracking-[0.25em] text-[10px] text-on-tertiary-fixed-variant w-8 shrink-0">
-                          {act.index}
-                        </span>
-                        <span className="journey-summary-name font-headline italic text-primary text-3xl md:text-5xl leading-none">
-                          {act.name}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
+                {[
+                  { title: "The Hospitality Mesh", acts: MESH_ACTS },
+                  { title: "Standalone systems", acts: STANDALONE_ACTS },
+                ].map((group, gi) => (
+                  <div key={group.title} className={gi > 0 ? "mt-10" : ""}>
+                    <h2
+                      data-reveal-child
+                      style={{ ["--reveal-delay" as string]: `${480 + gi * 80}ms` }}
+                      className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-4"
+                    >
+                      {group.title}
+                    </h2>
+                    <ul className="flex flex-col gap-3 md:gap-4 list-none p-0 m-0">
+                      {group.acts.map((act, i) => (
+                        <li
+                          key={act.slug}
+                          data-reveal-child
+                          style={{ ["--reveal-delay" as string]: `${540 + (gi * 3 + i) * 100}ms` }}
+                        >
+                          <a
+                            href={`#act-${act.slug}`}
+                            onClick={scrollToAct(act.slug)}
+                            onMouseEnter={() => setHoveredSlug(act.slug)}
+                            onFocus={() => setHoveredSlug(act.slug)}
+                            className="journey-summary-link group"
+                          >
+                            <span className="journey-summary-name font-headline italic text-primary text-3xl md:text-5xl leading-none">
+                              {act.name}
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
                 <div className="mt-10 flex items-center gap-3 text-on-surface-variant font-label uppercase tracking-[0.25em] text-[10px]">
                   <span className="block h-px w-12 bg-outline-variant" />
                   Scroll to enter
@@ -363,8 +435,32 @@ const Journeys = () => {
         </Reveal>
 
 
-        {/* Three acts */}
-        {ACTS.map((act) => (
+        {/* Group one: the mesh */}
+        {MESH_ACTS.map((act) => (
+          <ActSection key={act.slug} act={act} />
+        ))}
+
+        {/* Group two: standalone systems */}
+        <Reveal as="section" className="px-6 md:px-12 py-16 md:py-24">
+          <div className="max-w-screen-2xl mx-auto border-t border-outline-variant pt-8">
+            <h2
+              data-reveal-child
+              className="font-headline italic text-primary text-3xl md:text-5xl leading-tight mb-4"
+            >
+              Standalone systems
+            </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "160ms" }}
+              className="text-on-surface-variant font-body leading-relaxed max-w-2xl"
+            >
+              Not part of the mesh. Lore is the same architecture under a stricter regime, in aviation
+              maintenance. Sonor is the two-year B2G product that came before all of it.
+            </p>
+          </div>
+        </Reveal>
+
+        {STANDALONE_ACTS.map((act) => (
           <ActSection key={act.slug} act={act} />
         ))}
 
