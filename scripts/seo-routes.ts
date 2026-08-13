@@ -64,7 +64,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     path: "/journeys",
     title: "Case Studies, Selected Work by Ivan de Murard · Ivan de Murard",
     description:
-      "Case studies: Aetherix (F&B agent for boutique hotels), Sonor (urban noise SaaS), Tacet (environmental twin), Lore (voice AI for aviation maintenance), Anima (guest node). Product and AI work shipped 0 to 1.",
+      "The Hospitality Mesh: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone systems: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1.",
     type: "website",
     changefreq: "monthly",
     priority: "0.9",
@@ -84,9 +84,9 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/aetherix",
-    title: "Aetherix, F&B Execution Node of the Hospitality Agentic Mesh · Ivan de Murard",
+    title: "Aetherix, the F&B execution agent for boutique hotels · Ivan de Murard",
     description:
-      "Aetherix is the F&B Execution Node of the Hospitality Agentic Mesh. Anticipates staffing and F&B needs, cuts food waste and costs. MCP-native, callable by any agent.",
+      "Tomorrow's covers, a staffing grid that fits, and less waste, in one WhatsApp message a day with the reasoning attached. The F&B agent of a five-agent mesh. Pilot partner in recruitment.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",
@@ -193,7 +193,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     path: "/architecture",
     title: "The Hospitality Agentic Mesh, an Architecture Note · Ivan de Murard",
     description:
-      "Specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub. This note says which is which.",
+      "Five specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub, one is not started. This note says which is which.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",
