@@ -70,14 +70,15 @@ One tap. That reply is the signal Aetherix learns from.
 
 ## The Mesh, bounded context by design
 
-Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP. Aetherix executes F&B. It does not orchestrate.
+Aetherix is one of five specialized, MCP-native agents. Each agent owns a strict bounded context and communicates only through MCP. Aetherix executes F&B. It does not orchestrate.
 
-| Node | Role | Status |
+| Agent | Role | Status |
 |---|---|---|
 | Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and instrumented, pilot partner in recruitment |
-| Tacet | Sensory: weather, noise, open data, risk | Phase 3 |
-| Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
+| Tacet | Sensory: weather, noise, open data, risk | Prototype |
 | Anima | Guest Cognition Layer | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
+| Peritia | House knowledge: what the people who work in a property know | Named in the contract, not started |
+| Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
 
 Meta-repo (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
 
