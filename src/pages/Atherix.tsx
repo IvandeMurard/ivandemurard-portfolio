@@ -236,6 +236,20 @@ const Atherix = () => (
               Tomorrow's covers, a staffing grid that fits, and less waste. One message a day, in WhatsApp, with the
               reasoning attached.
             </p>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "340ms" }}
+              className="text-on-surface-variant font-body text-base max-w-2xl leading-relaxed mt-4"
+            >
+              Aetherix is the food and beverage agent of a five-agent mesh.{" "}
+              <Link
+                to="/architecture"
+                className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+              >
+                The architecture
+              </Link>
+            </p>
+
 
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "580ms" }}>
               <AetherixHeroBadges />
