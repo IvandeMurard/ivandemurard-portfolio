@@ -435,8 +435,32 @@ const Journeys = () => {
         </Reveal>
 
 
-        {/* Three acts */}
-        {ACTS.map((act) => (
+        {/* Group one: the mesh */}
+        {MESH_ACTS.map((act) => (
+          <ActSection key={act.slug} act={act} />
+        ))}
+
+        {/* Group two: standalone systems */}
+        <Reveal as="section" className="px-6 md:px-12 py-16 md:py-24">
+          <div className="max-w-screen-2xl mx-auto border-t border-outline-variant pt-8">
+            <h2
+              data-reveal-child
+              className="font-headline italic text-primary text-3xl md:text-5xl leading-tight mb-4"
+            >
+              Standalone systems
+            </h2>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "160ms" }}
+              className="text-on-surface-variant font-body leading-relaxed max-w-2xl"
+            >
+              Not part of the mesh. Lore is the same architecture under a stricter regime, in aviation
+              maintenance. Sonor is the two-year B2G product that came before all of it.
+            </p>
+          </div>
+        </Reveal>
+
+        {STANDALONE_ACTS.map((act) => (
           <ActSection key={act.slug} act={act} />
         ))}
 
