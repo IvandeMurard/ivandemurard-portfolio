@@ -201,11 +201,7 @@ const ActSection = ({ act }: { act: Act }) => {
           data-reveal-child
           className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary mb-6"
         >
-          <span className="text-primary">{act.index}</span>
-          <span className="before:content-['/'] before:mx-2 before:text-outline">
-            {String(ACTS.length).padStart(2, "0")}
-          </span>
-
+          {act.kicker}
         </span>
         <h2
           id={headingId}
