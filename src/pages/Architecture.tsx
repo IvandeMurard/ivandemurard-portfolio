@@ -412,20 +412,21 @@ const Architecture = () => {
                   </div>
                   <div>
                     <h3 className="font-headline italic text-primary text-xl mb-2">
-                      A fifth node is an addition, not a redesign
+                      A fifth agent is an addition, not a redesign
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">
-                      The contract that governs exchanges between nodes was designed to admit staff
-                      knowledge: what the people who work in a property know, which no node captures
-                      today. The pattern comes from my other project,{" "}
+                      The contract that governs exchanges between agents was designed to admit staff
+                      knowledge: what the people who work in a property know, which nothing captures
+                      today. That agent is named Peritia, the trade agent: a house's know-how, held by
+                      the house rather than by whoever is on shift. Not started, and no code. The pattern
+                      comes from my other project,{" "}
                       <Link to="/lore" className={linkCls}>
                         Lore
                       </Link>
-                      . The fifth node is Peritia, the trade node: a house's know-how, held by the house
-                      rather than by whoever is on shift. Not started. The contract admits it, and Lore is
-                      the working proof of the pattern in another industry.
+                      , the working proof of it in another industry.
                     </p>
                   </div>
+
 
                 </div>
               </Section>
