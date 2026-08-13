@@ -114,7 +114,7 @@ const FAQ = [
   },
   {
     q: "How is Aetherix part of a Mesh?",
-    a: "A network of specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (sensory), Orchestrator (supervisory routing, Phase 3 stub), Anima (guest cognition, shipped as PoC). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
+    a: "Five specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (environmental signal), Anima (guest cognition, synthetic PoC), Peritia (house knowledge, not started), Orchestrator (supervisory routing, Phase 3 stub). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
   },
   {
     q: "How is multi-tenant security handled?",
@@ -146,8 +146,9 @@ const THESIS = [
 
 const VISION_NODES = [
   { name: "Aetherix", role: "The F&B agent: forecast, staffing, memory.", status: "Built" },
-  { name: "Tacet", role: "The environmental-signal node.", status: "Prototype" },
+  { name: "Tacet", role: "The environmental-signal agent.", status: "Prototype" },
   { name: "Anima", role: "The Guest Cognition agent.", status: "Design" },
+  { name: "Peritia", role: "The trade agent: house knowledge, what the people who work here know.", status: "Not started" },
   { name: "Orchestrator", role: "The supervisory agent.", status: "Stub" },
 ];
 
