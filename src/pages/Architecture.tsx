@@ -509,11 +509,10 @@ const Architecture = () => {
                   where Aetherix can lean on measured outcomes instead.
                 </P>
                 <P>
-                  Lore stays outside the mesh. Folding it in would make this a hospitality product with
-                  four nodes; leaving it out makes it an architecture that holds in a second industry
-                  under a stricter regime. A staff-knowledge node inside the mesh is a reasonable thing
-                  to build later, and the contract has room for it. It would be a different node, not
-                  this one.
+                  Lore stays outside the mesh. Folding it in would make this one hospitality product more;
+                  leaving it out makes it an architecture that holds in a second industry under a stricter
+                  regime. The staff-knowledge agent inside the mesh is Peritia, not started, and the
+                  contract has room for it. It would be a different agent, not this one.
                 </P>
                 <Pull>
                   The mesh is not a hospitality pattern. It is what you build when a decision has to stay
