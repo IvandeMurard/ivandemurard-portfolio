@@ -87,9 +87,16 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     status: "Synthetic proof of concept, production gated behind a data-protection assessment.",
   },
   {
+    slug: "peritia",
+    name: "Peritia",
+    what: "The trade agent. A house's know-how, held by the house rather than by whoever is on shift.",
+    who: "The people who work in a property, and the agents that need what they know.",
+    status: "Named in the contract, not started.",
+  },
+  {
     slug: "orchestrator",
     name: "Orchestrator",
-    what: "The supervisory node. Routes between the others and holds the decision.",
+    what: "The supervisory agent. Routes between the others and holds the decision.",
     who: "The mesh itself.",
     status: "Design; a stub exists.",
   },
