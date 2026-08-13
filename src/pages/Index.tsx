@@ -235,8 +235,8 @@ const Index = () => {
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="text-on-surface-variant font-light leading-relaxed"
           >
-            A small selection of recent projects and collaborations, driven by curiosity and a passion for hands-on
-            crafting.
+            Two categories: agents built inside a shared architecture, and standalone systems that came before or sit
+            outside it.
           </p>
         </div>
         <Link
@@ -246,79 +246,21 @@ const Index = () => {
           Explore all stories
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {Object.values(PROJECTS).map((p, i) => {
-          const isExternal = "external" in p && p.external;
-          const inner = (
-            <>
-              <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
-                {isExternal ? (
-                  <SafeImage
-                    src={p.image}
-                    alt={`${p.name} project preview`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <CaseHoverPreview
-                    slug={p.slug}
-                    image={p.image}
-                    alt={`${p.name} project preview`}
-                    className="w-full h-full"
-                  />
-                )}
-                <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none" />
-              </div>
-              <div className="mt-8 px-2 pb-2 flex justify-between items-start gap-4">
-                <div>
-                  <h3 className="font-headline text-3xl italic text-primary">{p.name}</h3>
-                  <p className="text-on-surface-variant font-light leading-relaxed mt-4">{p.tagline}</p>
-                  <p className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-4">
-                    {p.label}
-                  </p>
-                </div>
-                {isExternal ? (
-                  <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary shrink-0">
-                    External
-                  </span>
-                ) : (
-                  <Icon
-                    name="arrow_outward"
-                    className="text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all"
-                  />
-                )}
-              </div>
-            </>
-          );
-          const cardClass =
-            "lift-card group block p-4 rounded-xl border border-outline-variant bg-surface-container-low/40 hover:border-outline-variant";
-          return isExternal ? (
-            <a
-              key={p.slug}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => track({ label: p.name, href: p.href, kind: "project" })}
-              className={cardClass}
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            >
-              {inner}
-            </a>
-          ) : (
-            <Link
-              key={p.slug}
-              to={`/${p.slug}`}
-              onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
-              className={cardClass}
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            >
-              {inner}
-            </Link>
-          );
-        })}
-      </div>
+
+      <ProjectGroup
+        kicker="The Hospitality Mesh"
+        kickerHref="/architecture"
+        projects={[PROJECTS.atherix, PROJECTS.tacet, PROJECTS.anima]}
+        track={track}
+      />
+
+      <div className="my-16 md:my-24 border-t border-outline-variant" aria-hidden="true" />
+
+      <ProjectGroup
+        kicker="Standalone systems"
+        projects={[PROJECTS.sonor, PROJECTS.lore, PROJECTS.parisCompass]}
+        track={track}
+      />
     </Reveal>
 
     <SectionDivider index="02" label="Field Notes" />
