@@ -54,7 +54,7 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
       {
         label: "What is live today?",
         message:
-          "Across Ivan's projects (Aetherix, Tacet, Anima, Lore, Sonor, Paris Compass), what is actually shipped and used, and what is still prototype?",
+          "Across Ivan's work (Aetherix, Tacet and Anima in the Hospitality Mesh; Lore, Sonor and Paris Compass as standalone projects), what is actually shipped and used, and what is still prototype?",
         intent: "technical",
       },
       {

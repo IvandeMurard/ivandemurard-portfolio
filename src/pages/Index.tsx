@@ -344,7 +344,7 @@ const Index = () => {
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="text-on-surface-variant font-light leading-relaxed"
           >
-            Two categories: agents built inside a shared architecture, and standalone systems that came before or sit
+            Two categories: agents built inside a shared architecture, and standalone projects that came before or sit
             outside it.
           </p>
         </div>
@@ -366,7 +366,7 @@ const Index = () => {
       <div className="my-16 md:my-24 border-t border-outline-variant" aria-hidden="true" />
 
       <ProjectGroup
-        kicker="Standalone systems"
+        kicker="Standalone projects"
         projects={[PROJECTS.sonor, PROJECTS.lore, PROJECTS.parisCompass]}
         track={track}
       />
