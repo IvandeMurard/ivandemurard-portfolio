@@ -73,7 +73,7 @@ const ACTS: Act[] = [
   },
   {
     group: "standalone",
-    kicker: "Standalone system",
+    kicker: "Standalone project",
     slug: "lore",
     name: PROJECTS.lore.name,
     body: "A living memory for a trade that is handed down out loud. Lore captures what a retiring aviation technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure, graded by a harness that treats safety as a tier with no budget.",
@@ -84,7 +84,7 @@ const ACTS: Act[] = [
   },
   {
     group: "standalone",
-    kicker: "Standalone system",
+    kicker: "Standalone project",
     slug: "sonor",
     name: PROJECTS.sonor.name,
     body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I built a SaaS platform that turns open data into actionable acoustic intelligence for cities. Used by municipalities to protect citizen health, drive sustainability policies, and increase territorial attractiveness.",
@@ -267,7 +267,7 @@ const Journeys = () => {
     <SiteLayout title="Stories">
       <Seo
         title="Case Studies, Selected Work by Ivan de Murard"
-        description="The Hospitality Mesh: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone systems: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1."
+        description="The Hospitality Mesh: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone projects: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1."
         path="/journeys"
         jsonLd={{
           "@context": "https://schema.org",
@@ -366,7 +366,7 @@ const Journeys = () => {
               >
                 {[
                   { title: "The Hospitality Mesh", acts: MESH_ACTS },
-                  { title: "Standalone systems", acts: STANDALONE_ACTS },
+                  { title: "Standalone projects", acts: STANDALONE_ACTS },
                 ].map((group, gi) => (
                   <div key={group.title} className={gi > 0 ? "mt-10" : ""}>
                     <h2
@@ -440,14 +440,14 @@ const Journeys = () => {
           <ActSection key={act.slug} act={act} />
         ))}
 
-        {/* Group two: standalone systems */}
+        {/* Group two: standalone projects */}
         <Reveal as="section" className="px-6 md:px-12 py-16 md:py-24">
           <div className="max-w-screen-2xl mx-auto border-t border-outline-variant pt-8">
             <h2
               data-reveal-child
               className="font-headline italic text-primary text-3xl md:text-5xl leading-tight mb-4"
             >
-              Standalone systems
+              Standalone projects
             </h2>
             <p
               data-reveal-child
