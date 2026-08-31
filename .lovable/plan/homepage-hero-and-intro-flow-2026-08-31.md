@@ -12,10 +12,8 @@ Scope: `src/pages/Index.tsx` only. No changes to design tokens, SEO routes, or o
 
 - Delete the existing paragraph directly under the headline (lines 252-258): "Product builder, Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding a SaaS. Currently building an architecture of specialised agents for hotel operations."
 - In its place, add a single paragraph with this exact copy:
-
-  > Product builder, Paris. Five years inside operations - founder → scale-up → large groups → builder.
+  > Product builder. Five years inside operations - founder → scale-up → large groups → builder.  
   > Now I build agentic systems from 0 to 1. Vision → architecture → evaluation → continuous and autonomous improvement.
-
 - Render it as one block, two sentences, directly under the headline, before the proof strip.
 
 ## 3. Remove the signature section
