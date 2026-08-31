@@ -223,14 +223,8 @@ const Index = () => {
       ]}
     />
     {/* Hero */}
-    <Reveal as="header" className="relative min-h-screen flex items-center justify-center pt-28 md:pt-32 px-6 md:px-8 overflow-hidden">
+    <Reveal as="header" className="relative flex items-center justify-center pt-28 md:pt-32 pb-16 md:pb-24 px-6 md:px-8 overflow-hidden">
       <div className="relative z-10 max-w-5xl w-full text-center">
-        <span
-          data-reveal-child
-          className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10"
-        >
-          Welcome, it's good to see you.
-        </span>
         <div className="relative">
           {/* Animated gold halo, perfect circle concentrated behind the headline + subtitle */}
           <div
@@ -254,7 +248,9 @@ const Index = () => {
           style={{ ["--reveal-delay" as string]: "360ms" }}
           className="mt-10 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
         >
-          Product builder, Paris. Five years across start-ups, scale-ups and large groups, plus two years co-founding a SaaS. Currently building an architecture of specialised agents for hotel operations.
+          Product builder. Five years inside operations - founder → scale-up → large groups → builder.
+          <br />
+          Now I build agentic systems from 0 to 1. Vision → architecture → evaluation → continuous and autonomous improvement.
         </p>
         {/* Proof strip, the Milestones numeral treatment promoted above the fold */}
         <div
@@ -312,20 +308,6 @@ const Index = () => {
       </div>
     </Reveal>
 
-
-    {/* Signature line, a quiet breath */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8">
-      <div className="max-w-4xl mx-auto text-center">
-        <p
-          data-reveal-child
-          className="headline-ink font-headline italic text-2xl md:text-4xl text-primary leading-snug"
-        >
-          Five years reading operations from the inside, in care homes, telecom finance and city halls. I now build the
-          agents that carry what those teams know: covers and staffing for a hotel, a retiring technician's judgement, a
-          guest relationship.
-        </p>
-      </div>
-    </Reveal>
 
     <SectionDivider index="01" label="Case Studies" />
 
