@@ -248,9 +248,11 @@ const Index = () => {
           style={{ ["--reveal-delay" as string]: "360ms" }}
           className="mt-10 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
         >
-          Product builder. Five years inside operations - founder → scale-up → large groups → builder.
+          Product builder. Five years inside operations -
           <br />
-          Now I build agentic systems from 0 to 1. Vision → architecture → evaluation → continuous and autonomous improvement.
+          Founder → scale-up → large groups → builder.
+          <br />
+          Vision → architecture → evaluation → continuous and autonomous improvement.
         </p>
         {/* Proof strip, the Milestones numeral treatment promoted above the fold */}
         <div
