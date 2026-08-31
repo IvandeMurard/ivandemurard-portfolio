@@ -223,7 +223,7 @@ const Index = () => {
       ]}
     />
     {/* Hero */}
-    <Reveal as="header" className="relative flex items-center justify-center pt-28 md:pt-32 pb-16 md:pb-24 px-6 md:px-8 overflow-hidden">
+    <Reveal as="header" className="relative flex items-center justify-center pt-28 md:pt-32 pb-10 md:pb-14 px-6 md:px-8 overflow-hidden">
       <div className="relative z-10 max-w-5xl w-full text-center">
         <div className="relative">
           {/* Animated gold halo, perfect circle concentrated behind the headline + subtitle */}
@@ -297,21 +297,11 @@ const Index = () => {
             <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
-        {/* Scroll cue */}
-        <div
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "780ms" }}
-          aria-hidden="true"
-          className="mt-16 md:mt-20 flex flex-col items-center gap-2 text-on-surface-variant"
-        >
-          <span className="font-label uppercase tracking-[0.3em] text-[10px]">Scroll</span>
-          <Icon name="keyboard_arrow_down" className="text-base animate-bounce" />
-        </div>
       </div>
     </Reveal>
 
 
-    <SectionDivider index="01" label="Case Studies" />
+    <SectionDivider index="01" label="Case Studies" spacing="tight" />
 
     {/* Case Studies */}
     <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
