@@ -24,7 +24,7 @@ export const AetherixAnimaSpotlight = () => (
         </p>
       </div>
       <a
-        href="https://github.com/IvandeMurard/hospitality-agentic-mesh"
+        href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors shrink-0"

@@ -4,13 +4,13 @@ Architecture note. Five specialised agents, each owning one bounded context, tal
 One is built, one is a prototype, one is a design, one is a stub, one is not started. This page says which is which.
 
 Canonical page: https://ivandemurard.com/architecture
-Public meta-repository: https://github.com/IvandeMurard/hospitality-agentic-mesh
+Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 
 ## Where this sits
 
 - **Aetherix** (built and instrumented, pilot partner in recruitment). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
-- **Tacet** (prototype, public repository). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
-- **Anima** (synthetic proof of concept, production gated behind a data-protection assessment). The guest node: a four-layer temporal memory of a guest relationship. No page of its own.
+- **Tacet** (built: live data ingestion pipeline, MCP server v0 live on Fly.io). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
+- **Anima** (Synthetic PoC, production gated behind a data-protection assessment). The guest node: a four-layer temporal memory of a guest relationship. No page of its own.
 - **Peritia** (not started). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
 - **Orchestrator** (design, a stub exists). The supervisory agent: routes between the others and holds the decision.
 - **Lore** (outside the mesh). The same architecture in aviation maintenance, where a licensed technician signs the release. https://ivandemurard.com/lore
@@ -50,8 +50,8 @@ alone.
 | Agent | Status | Owns | Does not own |
 | --- | --- | --- | --- |
 | Aetherix | Built and instrumented, pilot partner in recruitment | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
-| Tacet | Prototype | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
-| Anima | Design, prototype shipped | Guest cognition: temporal memory, confidence-weighted claims | Acting on what it knows. Production is DPIA-gated |
+| Tacet | Built: live data ingestion, MCP server v0 live | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
+| Anima | Synthetic PoC | Guest cognition: temporal memory, confidence-weighted claims | Acting on what it knows. Production is DPIA-gated |
 | Peritia | Not started | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
 | Orchestrator | Stub | Supervisory routing and business rules across agents | Domain logic. It routes, it does not compute |
 

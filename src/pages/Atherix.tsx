@@ -35,7 +35,7 @@ const PROJECT_INFO: {
   {
     label: "Repository",
     value: "GitHub Repository",
-    href: "https://github.com/IvandeMurard/hospitality-agentic-mesh",
+    href: "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture",
     hint: "Public meta-repo for the Hospitality Agentic Mesh",
   },
   {
@@ -146,8 +146,8 @@ const THESIS = [
 
 const VISION_NODES = [
   { name: "Aetherix", role: "The F&B agent: forecast, staffing, memory.", status: "Built" },
-  { name: "Tacet", role: "The environmental-signal agent.", status: "Prototype" },
-  { name: "Anima", role: "The Guest Cognition agent.", status: "Design" },
+  { name: "Tacet", role: "The environmental-signal agent.", status: "Built" },
+  { name: "Anima", role: "The Guest Cognition agent.", status: "Synthetic PoC" },
   { name: "Peritia", role: "The trade agent: house knowledge, what the people who work here know.", status: "Not started" },
   { name: "Orchestrator", role: "The supervisory agent.", status: "Stub" },
 ];
@@ -189,7 +189,7 @@ const Atherix = () => (
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           dateCreated: "2026-01-01",
           dateModified: "2026-06-22",
-          codeRepository: "https://github.com/IvandeMurard/hospitality-agentic-mesh",
+          codeRepository: "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture",
           relatedLink: ["https://ivandemurard.com/tacet"],
         },
         {
@@ -776,7 +776,7 @@ const Atherix = () => (
             className="mt-10 flex flex-wrap gap-4 justify-center"
           >
             <a
-              href="https://github.com/IvandeMurard/hospitality-agentic-mesh"
+              href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
@@ -794,7 +794,7 @@ const Atherix = () => (
               Book a call
             </a>
             <a
-              href="https://github.com/IvandeMurard/hospitality-agentic-mesh"
+              href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture"
               target="_blank"
               rel="noopener noreferrer"
               title="Public meta-repo for the Hospitality Agentic Mesh"

@@ -16,7 +16,7 @@ import { AskRose } from "@/components/journal/AskRose";
 import { ShareRow } from "@/components/journal/ShareRow";
 import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
 
-const REPO = "https://github.com/IvandeMurard/hospitality-agentic-mesh";
+const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
 
 const linkCls =
   "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
@@ -78,13 +78,13 @@ const NODE_ROWS: { node: string; status: string; owns: string; not: string }[] =
   },
   {
     node: "Tacet",
-    status: "Prototype",
+    status: "Built: live data ingestion, MCP server v0 live",
     owns: "External signal: weather, street, events, ray-traced acoustic impact, yield rules",
     not: "Deciding anything. It publishes rules for approval",
   },
   {
     node: "Anima",
-    status: "Design, prototype shipped",
+    status: "Synthetic PoC, production DPIA-gated",
     owns: "Guest cognition: temporal memory of a guest relationship, confidence-weighted claims",
     not: "Acting on what it knows. Production is DPIA-gated",
   },
@@ -563,7 +563,7 @@ const Architecture = () => {
                 <P>
                   Public meta-repository:{" "}
                   <a href={REPO} target="_blank" rel="noopener noreferrer" className={linkCls}>
-                    github.com/IvandeMurard/hospitality-agentic-mesh
+                    github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
                   </a>
                   .
                 </P>

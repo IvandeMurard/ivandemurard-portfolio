@@ -4,7 +4,7 @@
 
 A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.
 
-Status: synthetic proof of concept. Production gated behind a data-protection assessment.
+Status: Synthetic PoC. Production gated behind a data-protection assessment.
 URL: https://ivandemurard.com/anima
 
 ## 1. The questions it exists to answer

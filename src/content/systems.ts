@@ -26,7 +26,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/tacet",
     what: "Headless environmental twin: street, weather and crowd signals turned into yield rules, exposed via MCP.",
     who: "RMS, PMS and orchestration agents, not humans.",
-    status: "Prototype.",
+    status: "Built: live data ingestion pipeline, MCP server v0 live on Fly.io.",
   },
   {
     slug: "lore",
@@ -42,7 +42,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/anima",
     what: "Guest node: memory that makes every guest a regular, anticipating needs and learning from every stay without watching.",
     who: "The nodes that need to know who is arriving.",
-    status: "Synthetic proof of concept, production gated behind a data-protection assessment.",
+    status: "Synthetic PoC, production gated behind a data-protection assessment.",
   },
   {
     slug: "sonor",
@@ -84,7 +84,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     what:
       "The guest node. Memory that makes every guest a regular: it anticipates needs and learns from every stay, without watching.",
     who: "The nodes that need to know who is arriving.",
-    status: "Synthetic proof of concept, production gated behind a data-protection assessment.",
+    status: "Synthetic PoC, production gated behind a data-protection assessment.",
   },
   {
     slug: "peritia",
