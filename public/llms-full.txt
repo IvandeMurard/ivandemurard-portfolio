@@ -92,7 +92,7 @@ Find commercial spaces from their context, built for humans and agents. Compass 
 
 ## Track record
 
-- 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Rolled out an internal SaaS to 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.
+- 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Delivered the MVP; rollout planned for 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.
 - 2023 to 2024, Product Manager, Data & Operations, ALTEN for Bouygues Telecom. Built a data-driven dashboard to track and recover 1.9M EUR of receivables. 40% recovered, adopted by ops teams.
 - 2022 to 2023, Customer Success Manager, Public Sector SaaS, Opendatasoft. Owned 22 European city and metropolitan clients from onboarding to production. 2 launches, zero churn.
 - 2020 to 2022, Co-founder & Product Manager, Sonor. 0 to 1 B2G SaaS for urban noise mapping, backed by Matrice and Banque des Territoires.
@@ -101,7 +101,6 @@ Find commercial spaces from their context, built for humans and agents. Compass 
 
 - Aetherix: contextual intelligence layer for boutique hotel operations.
 - Tacet: headless Environmental Twin for hotels, exposed via an MCP server.
-- Kissa: digital twin of a record collection.
 - Lore: voice AI mentor for senior technicians, 24h hackathon win.
 - Field Notes: writing on product, evaluation, and AI systems design.
 

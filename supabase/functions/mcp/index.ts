@@ -121,7 +121,7 @@ var ABOUT = {
       range: "2024-2025",
       role: "Product Manager, SaaS",
       company: "FORTIL for DomusVi",
-      outcome: "Rolled out an internal SaaS to 500+ users across 100 care homes. Full lifecycle: discovery, POC (Airtable, Make), specs, IT mapping, field training."
+      outcome: "Delivered the MVP; rollout planned for 500+ users across 100 care homes. Full lifecycle: discovery, POC (Airtable, Make), specs, IT mapping, field training."
     },
     {
       range: "2023-2024",
@@ -142,7 +142,7 @@ var ABOUT = {
       outcome: "0 to 1 B2G SaaS for urban noise mapping (open data). Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped."
     }
   ],
-  current_builds: ["Aetherix", "Tacet", "Kissa", "Lore"],
+  current_builds: ["Aetherix", "Tacet", "Lore"],
   links: {
     email: "ivandemurard@gmail.com",
     schedule: "https://cal.com/ivandemurard/discussion-and-introduction",

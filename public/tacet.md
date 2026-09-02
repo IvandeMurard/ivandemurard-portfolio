@@ -2,6 +2,8 @@
 
 A headless Environmental Twin for the hospitality sector. Tacet turns street, weather and crowd signals into yield rules and Chain of Thought payloads, exposed via an MCP server that any RMS, PMS or orchestration agent can consume.
 
+Status: Built - live data ingestion pipeline, MCP server v0 live on Fly.io.
+
 - URL: https://ivandemurard.com/tacet
 - Role: Product Builder, Architect of an environmental intelligence layer
 - Duration: 2026, ongoing (V3, MCP server and Dual Memory)

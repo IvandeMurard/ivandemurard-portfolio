@@ -6,7 +6,7 @@ Three promises, with honesty labels: Tomorrow's covers runs daily against real d
 
 Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
 
-Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Prototype. Anima, the Guest Cognition agent, Design. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
+Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built. Anima, the Guest Cognition agent, Synthetic PoC. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
 
 Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
 
@@ -75,12 +75,12 @@ Aetherix is one of five specialized, MCP-native agents. Each agent owns a strict
 | Agent | Role | Status |
 |---|---|---|
 | Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and instrumented, pilot partner in recruitment |
-| Tacet | Sensory: weather, noise, open data, risk | Prototype |
+| Tacet | Sensory: weather, noise, open data, risk | Built |
 | Anima | Guest Cognition Layer | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
 | Peritia | House knowledge: what the people who work in a property know | Named in the contract, not started |
 | Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
 
-Meta-repo (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
+Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 
 ## Aetherix ↔ Tacet, MCP handshake
 
@@ -121,7 +121,7 @@ The project includes proprietary research on cross-domain operational context an
 
 ## Anima, sister node
 
-Guest Cognition Layer, a synthetic proof of concept built at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
+Guest Cognition Layer, a Synthetic PoC built at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
 
 ## Role and model
 
@@ -129,6 +129,6 @@ Solo architect and builder. Product Builder and AI Agent Designer. 2026, ongoing
 
 ## Links
 
-- Mesh (public): https://github.com/IvandeMurard/hospitality-agentic-mesh
+- Mesh (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 - Contact: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/discussion-and-introduction
