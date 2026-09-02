@@ -101,7 +101,7 @@ export const TRACK_RECORD: TrackRecordEntry[] = [
     role: "Product Manager, SaaS",
     company: "FORTIL for DomusVi",
     outcome:
-      "Rolled out an internal SaaS to 500+ users across 100 care homes. Led the full lifecycle, from discovery and POC (Airtable, Make) to specs, IT mapping and field training.",
+      "Delivered the MVP; rollout planned for 500+ users across 100 care homes. Led the full lifecycle, from discovery and POC (Airtable, Make) to specs, IT mapping and field training.",
   },
   {
     range: "2023 to 2024",
@@ -151,14 +151,6 @@ export const NOW_PROJECTS: NowEntry[] = [
     href: "/tacet",
     external: false,
     meta: "Case study",
-  },
-  {
-    name: "Kissa",
-    blurb:
-      "Digital twin of a record collection. Scan, contextualise and curate, built for selectors and listening culture.",
-    href: "https://github.com/IvandeMurard/kissa-project-mvp-B2C",
-    external: true,
-    meta: "GitHub",
   },
   {
     name: "Lore",
