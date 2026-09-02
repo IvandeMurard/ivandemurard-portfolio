@@ -44,7 +44,7 @@ var STUDIES = [
     slug: "anima",
     name: "Anima",
     label: "AI Agent \xB7 Guest Cognition \xB7 2026",
-    tagline: "The guest node of the Hospitality Agentic Mesh. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic proof of concept, production gated behind a data-protection assessment.",
+    tagline: "The guest node of the Hospitality Agentic Mesh. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC, production gated behind a data-protection assessment.",
     url: "https://ivandemurard.com/anima",
     markdown_path: "/anima.md"
   }
