@@ -67,7 +67,7 @@ Track record:
 - 2022 to 2023, Customer Success Manager, Public Sector SaaS, Opendatasoft: owned 22 European city and metropolitan clients from onboarding to production. 2 launches, zero churn.
 - 2020 to 2022, Co-founder and Product Manager, Sonor: 0 to 1 B2G SaaS for urban noise mapping (open data). Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped.
 
-Current builds: Aetherix (F&B execution agent for boutique hotels, part of a Hospitality Agentic Mesh), Tacet (headless environmental twin exposed via an MCP server), Lore.
+Current builds: Aetherix (F&B execution agent for boutique hotels, part of a Hospitality Agentic Mesh), Tacet (headless environmental twin exposed via an MCP server), Lore, Paris Compass (live app and public repo, ships a published MCP server on npm).
 
 Case studies on the site: Sonor (/sonor), Aetherix (/aetherix), Tacet (/tacet), Lore (/lore), Anima (/anima). Field note on evaluation: /journal/harnesses-graders-closed-loops. Point visitors there when relevant.
 

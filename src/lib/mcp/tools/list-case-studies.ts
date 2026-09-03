@@ -15,7 +15,7 @@ const STUDIES = [
     name: "Aetherix",
     label: "AI Agent · Boutique Hotel Operations · 2026",
     tagline:
-      "Persistent operational cognition for hospitality. F&B execution node of the Hospitality Agentic Mesh. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on guest experience.",
+      "Persistent operational cognition for hospitality. F&B execution node of the Hospitality Agentic Mesh. Forecasts tomorrow's covers daily against real data; staffing fit (pilot hypothesis) and less waste (target outcome) are what the pilot will test, not measured results.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md",
   },

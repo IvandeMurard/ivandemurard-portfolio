@@ -35,7 +35,7 @@ const ABOUT = {
         "0 to 1 B2G SaaS for urban noise mapping (open data). Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped.",
     },
   ],
-  current_builds: ["Aetherix", "Tacet", "Lore"],
+  current_builds: ["Aetherix", "Tacet", "Lore", "Paris Compass"],
   links: {
     email: "ivandemurard@gmail.com",
     schedule: "https://cal.com/ivandemurard/discussion-and-introduction",
