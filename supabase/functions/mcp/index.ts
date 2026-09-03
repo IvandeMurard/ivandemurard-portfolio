@@ -20,7 +20,7 @@ var STUDIES = [
     slug: "aetherix",
     name: "Aetherix",
     label: "AI Agent \xB7 Boutique Hotel Operations \xB7 2026",
-    tagline: "Persistent operational cognition for hospitality. F&B execution node of the Hospitality Agentic Mesh. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on guest experience.",
+    tagline: "Persistent operational cognition for hospitality. F&B execution node of the Hospitality Agentic Mesh. Forecasts tomorrow's covers daily against real data; staffing fit (pilot hypothesis) and less waste (target outcome) are what the pilot will test, not measured results.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md"
   },
@@ -142,7 +142,7 @@ var ABOUT = {
       outcome: "0 to 1 B2G SaaS for urban noise mapping (open data). Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped."
     }
   ],
-  current_builds: ["Aetherix", "Tacet", "Lore"],
+  current_builds: ["Aetherix", "Tacet", "Lore", "Paris Compass"],
   links: {
     email: "ivandemurard@gmail.com",
     schedule: "https://cal.com/ivandemurard/discussion-and-introduction",

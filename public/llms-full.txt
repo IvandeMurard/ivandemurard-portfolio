@@ -102,6 +102,7 @@ Find commercial spaces from their context, built for humans and agents. Compass 
 - Aetherix: contextual intelligence layer for boutique hotel operations.
 - Tacet: headless Environmental Twin for hotels, exposed via an MCP server.
 - Lore: voice AI mentor for senior technicians, 24h hackathon win.
+- Paris Compass: find commercial spaces from their context, live app and public repo, ships a published MCP server on npm.
 - Field Notes: writing on product, evaluation, and AI systems design.
 
 ## Field Notes
