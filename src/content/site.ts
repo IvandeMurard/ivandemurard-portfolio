@@ -161,6 +161,15 @@ export const NOW_PROJECTS: NowEntry[] = [
     meta: "Case study",
   },
   {
+    name: "Paris Compass",
+    blurb:
+      "Find commercial spaces from their context. Business history, turnover signals, noise, amenities and risk scores from public open data, for humans and agents.",
+    href: "https://paris-compass.lovable.app",
+    external: true,
+    meta: "Live app",
+  },
+  {
+
     name: "Field Notes",
     blurb:
       "Where I write what I learn while building, in product, evaluation, and AI systems design.",
