@@ -169,7 +169,6 @@ export const NOW_PROJECTS: NowEntry[] = [
     meta: "Live app",
   },
   {
-
     name: "Field Notes",
     blurb:
       "Where I write what I learn while building, in product, evaluation, and AI systems design.",
