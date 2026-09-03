@@ -44,7 +44,7 @@ export const PROJECTS = {
   atherix: {
     slug: "aetherix",
     name: "Aetherix",
-    tagline: "Agentic AI framework for boutique hotel operations. Anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees teams to focus on exceptional guest experiences.",
+    tagline: "F&B execution agent for boutique hotel operations. Forecasts tomorrow's covers daily against real data; staffing fit (pilot hypothesis) and less waste (target outcome) are what the pilot will test, not measured results.",
     label: "AI Agent • Boutique Hotel Operations • 2026",
     image: aetherixImg,
     cta: "Read the Vision",
@@ -68,7 +68,7 @@ export const PROJECTS = {
   anima: {
     slug: "anima",
     name: "Anima",
-    tagline: "Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.",
+    tagline: "Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching. Synthetic PoC: never run on a real guest, production gated behind a data-protection assessment.",
     label: "AI Agent · Guest Cognition · 2026",
     image: animaImg,
     cta: "The Full Narrative",
@@ -139,7 +139,7 @@ export const NOW_PROJECTS: NowEntry[] = [
   {
     name: "Aetherix",
     blurb:
-      "Contextual intelligence layer for boutique hotel operations. Anticipates staffing and F&B needs, frees teams for guest care.",
+      "F&B execution agent for boutique hotel operations. Forecasts covers daily against real data; staffing and waste outcomes are pilot hypotheses, not measured results.",
     href: "/aetherix",
     external: false,
     meta: "Case study",
