@@ -1,7 +1,7 @@
 # The Hospitality Agentic Mesh
 
 Architecture note. Five specialised agents, each owning one bounded context, talking only through MCP.
-One is built, one is a prototype, one is a design, one is a stub, one is not started. This page says which is which.
+Two are Built, one is a Synthetic PoC, two are Design. This page says which is which, using one shared status vocabulary: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/llms.txt
 
 Canonical page: https://ivandemurard.com/architecture
 Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
@@ -11,8 +11,8 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 - **Aetherix** (built and instrumented, pilot partner in recruitment). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
 - **Tacet** (built: live data ingestion pipeline, MCP server v0 live on Fly.io). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC, production gated behind a data-protection assessment). The guest node: a four-layer temporal memory of a guest relationship. No page of its own.
-- **Peritia** (not started). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
-- **Orchestrator** (design, a stub exists). The supervisory agent: routes between the others and holds the decision.
+- **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
+- **Orchestrator** (Design, a proto-stub exists). The supervisory agent: routes between the others and holds the decision.
 - **Lore** (outside the mesh). The same architecture in aviation maintenance, where a licensed technician signs the release. https://ivandemurard.com/lore
 
 ## 1. Why a mesh and not one agent
@@ -52,8 +52,8 @@ alone.
 | Aetherix | Built and instrumented, pilot partner in recruitment | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
 | Tacet | Built: live data ingestion, MCP server v0 live | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Synthetic PoC | Guest cognition: temporal memory, confidence-weighted claims | Acting on what it knows. Production is DPIA-gated |
-| Peritia | Not started | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
-| Orchestrator | Stub | Supervisory routing and business rules across agents | Domain logic. It routes, it does not compute |
+| Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
+| Orchestrator | Design | Supervisory routing and business rules across agents | Domain logic. It routes, it does not compute |
 
 Aetherix executes. It does not orchestrate.
 
@@ -113,11 +113,11 @@ to a component and to a person.
 ## 8. Where it stands
 
 - Aetherix: built and instrumented, on staging, pilot partner in recruitment.
-- Tacet: working prototype, own case study, public repository.
-- Anima: prototype shipped at a hackathon on synthetic data, production gated behind a
-  data-protection assessment, no page of its own yet.
-- Peritia: named in the contract and not started. No code, no page.
-- Orchestrator: a stub. It does not yet deserve a page.
+- Tacet: Built. Live data ingestion pipeline, MCP server v0 on Fly.io, own case study, public repository.
+- Anima: Synthetic PoC. Shipped at a hackathon on synthetic data, production gated behind a
+  data-protection assessment. Case study: https://ivandemurard.com/anima
+- Peritia: Design. Named in the contract, domain and contracts specified, no code, no page.
+- Orchestrator: Design. A proto-stub exists. It does not yet deserve a page.
 - Lore: outside the mesh, as evidence the pattern holds elsewhere.
 
 Contact: ivandemurard@gmail.com, https://cal.com/ivandemurard/discussion-and-introduction
