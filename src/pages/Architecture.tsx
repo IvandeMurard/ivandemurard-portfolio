@@ -90,13 +90,13 @@ const NODE_ROWS: { node: string; status: string; owns: string; not: string }[] =
   },
   {
     node: "Peritia",
-    status: "Not started",
+    status: "Design",
     owns: "House knowledge: what the people who work in a property know and never wrote down",
     not: "Everything. It is a named slot in the contract, and no code",
   },
   {
     node: "Orchestrator",
-    status: "Stub",
+    status: "Design",
     owns: "Supervisory routing and business rules across agents",
     not: "Domain logic. It routes, it does not compute",
   },
@@ -191,7 +191,7 @@ const Architecture = () => {
     <SiteLayout title="The Hospitality Agentic Mesh">
       <Seo
         title="The Hospitality Agentic Mesh, an Architecture Note"
-        description="Five specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub, one is not started. This note says which is which."
+        description="Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design. This note says which is which, using one shared status vocabulary."
         path="/architecture"
         type="article"
         jsonLd={[
@@ -240,8 +240,17 @@ const Architecture = () => {
               style={{ ["--reveal-delay" as string]: "280ms" }}
               className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed"
             >
-              One is built, one is a prototype, one is a design, one is a stub, one is not started. This
-              page says which is which.
+              Two are Built, one is a Synthetic PoC, two are Design. This page says which is which,
+              using one shared status vocabulary:{" "}
+              <a
+                href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/llms.txt"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkCls}
+              >
+                the canonical status enum
+              </a>
+              .
             </p>
           </div>
         </Reveal>
@@ -538,20 +547,22 @@ const Architecture = () => {
                     <Link to="/tacet" className={linkCls}>
                       Tacet
                     </Link>{" "}
-                    is a working prototype with its own case study and a public repository.
+                    is Built. Live data ingestion pipeline, MCP server v0 on Fly.io, own case study,
+                    public repository.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
                     <Link to="/anima" className={linkCls}>
                       Anima
                     </Link>{" "}
-                    is a prototype shipped at a hackathon on synthetic data, with production gated
+                    is a Synthetic PoC. Shipped at a hackathon on synthetic data, production gated
                     behind a data-protection assessment.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
-                    Peritia is named in the contract and not started. No code, no page.
+                    Peritia is Design. Named in the contract, domain and contracts specified, no code,
+                    no page.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
-                    The orchestrator is a stub. It does not yet deserve a page.
+                    Orchestrator is Design. A proto-stub exists. It does not yet deserve a page.
                   </li>
                   <li className="font-body text-on-surface-variant leading-relaxed">
                     <Link to="/lore" className={linkCls}>
@@ -586,7 +597,7 @@ const Architecture = () => {
                 <div className="max-w-3xl">
                   <ShareRow
                     title="The Hospitality Agentic Mesh"
-                    excerpt="Specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub."
+                    excerpt="Specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design."
                     mirror="/architecture.md"
                   />
                 </div>
