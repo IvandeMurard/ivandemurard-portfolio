@@ -29,10 +29,10 @@ type Act = {
 /** The five agents of the mesh, in the order they exist. */
 const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
   { name: "Aetherix", role: "F&B execution", status: "Built and instrumented", to: "/aetherix" },
-  { name: "Tacet", role: "Environmental signal", status: "Prototype", to: "/tacet" },
-  { name: "Anima", role: "Guest cognition", status: "Synthetic proof of concept", to: "/anima" },
-  { name: "Peritia", role: "House knowledge", status: "Not started" },
-  { name: "Orchestrator", role: "Supervisory routing", status: "Stub" },
+  { name: "Tacet", role: "Environmental signal", status: "Built", to: "/tacet" },
+  { name: "Anima", role: "Guest cognition", status: "Synthetic PoC", to: "/anima" },
+  { name: "Peritia", role: "House knowledge", status: "Design" },
+  { name: "Orchestrator", role: "Supervisory routing", status: "Design" },
 ];
 
 const ACTS: Act[] = [
@@ -434,6 +434,34 @@ const Journeys = () => {
           </div>
         </Reveal>
 
+
+        {/* Start here: the architecture note, a lead-in above the cases */}
+        <Reveal as="section" aria-labelledby="start-here" className="px-6 md:px-12 py-12 md:py-16">
+          <div className="max-w-screen-2xl mx-auto border-y border-outline-variant py-8 md:py-10">
+            <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary block mb-3">
+              Start here
+            </span>
+            <h2
+              id="start-here"
+              className="font-headline italic text-primary text-2xl md:text-4xl leading-tight mb-4 max-w-3xl"
+            >
+              Start here: the Hospitality Agentic Mesh
+            </h2>
+            <p className="text-on-surface-variant font-body leading-relaxed max-w-2xl mb-6">
+              Five specialised agents, one bounded context each, talking only through MCP. Which one is
+              built, which one is design, and why the boundaries are enforced by the protocol rather than
+              by discipline.
+            </p>
+            <Link
+              to="/architecture"
+              onClick={() => track({ label: "Architecture note", href: "/architecture", kind: "project" })}
+              className="group/cta inline-flex items-center gap-2 text-primary font-body text-sm border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+            >
+              Read the architecture note
+              <Icon name="arrow_forward" className="text-sm group-hover/cta:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </Reveal>
 
         {/* Group one: the mesh */}
         {MESH_ACTS.map((act) => (
