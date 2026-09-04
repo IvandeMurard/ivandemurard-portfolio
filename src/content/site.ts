@@ -20,6 +20,7 @@ export type NavItem = { label: string; to: string };
 
 export const PRIMARY_NAV: NavItem[] = [
   { label: "Case Studies", to: "/journeys" },
+  { label: "Architecture", to: "/architecture" },
   { label: "About", to: "/atrium" },
   { label: "Field Notes", to: "/journal" },
   { label: "Contact", to: "/contact" },
