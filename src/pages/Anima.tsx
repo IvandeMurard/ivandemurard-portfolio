@@ -465,6 +465,13 @@ const Anima = () => {
                   contract rather than behind this one service.
                 </P>
                 <P>
+                  Part of the Hospitality Agentic Mesh:{" "}
+                  <Link to="/architecture" className={linkCls}>
+                    the architecture note
+                  </Link>{" "}
+                  explains how the five agents divide the work.
+                </P>
+                <P>
                   <Link to="/architecture" className={linkCls}>
                     The architecture note
                   </Link>{" "}

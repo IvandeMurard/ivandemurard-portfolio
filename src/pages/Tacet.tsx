@@ -407,6 +407,13 @@ const Tacet = () => (
             </Link>
             {" "}consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
           </p>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-4">
+            Part of the Hospitality Agentic Mesh:{" "}
+            <Link to="/architecture" className="text-secondary border-b border-secondary hover:border-secondary transition-colors">
+              the architecture note
+            </Link>
+            {" "}explains how the five agents divide the work.
+          </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
           <div className="p-10 bg-surface-container-low border border-outline-variant rounded-2xl">

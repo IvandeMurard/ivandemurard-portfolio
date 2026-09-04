@@ -193,7 +193,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     path: "/architecture",
     title: "The Hospitality Agentic Mesh, an Architecture Note · Ivan de Murard",
     description:
-      "Five specialised agents, each owning one bounded context, talking only through MCP. One is built, one is a prototype, one is a design, one is a stub, one is not started. This note says which is which.",
+      "Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design. This note says which is which, using one shared status vocabulary.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",
