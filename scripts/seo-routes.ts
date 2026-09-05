@@ -220,16 +220,16 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/journal/agent-boundaries-aetherix",
-    title: "A hard call on Aetherix's agent boundaries · Ivan de Murard",
+    title: "A wrong forecast is absorbed. A wrong action reaches a guest. · Ivan de Murard",
     description:
-      "Where to draw the line between a forecasting model and an acting agent, and why splitting Prophet from Claude was the decision that shaped the rest of the architecture.",
+      "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     type: "article",
     changefreq: "monthly",
     priority: "0.6",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "A hard call on Aetherix's agent boundaries",
+      headline: "A wrong forecast is absorbed. A wrong action reaches a guest.",
       datePublished: "2026-04-20",
       dateModified: "2026-04-20",
       author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },

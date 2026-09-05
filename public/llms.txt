@@ -32,7 +32,7 @@ Every component status uses exactly one of these five labels. "Built" means the 
 
 - [Journal index](https://ivandemurard.com/journal)
 - [Evaluating LLM agents: how would you know it had stopped working?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (2026-07-31): A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Tested on Aetherix and Lore.
-- [A hard call on Aetherix's agent boundaries](https://ivandemurard.com/journal/agent-boundaries-aetherix) (2026-04-20)
+- [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) (2026-04-20): Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
 ## Track record
 

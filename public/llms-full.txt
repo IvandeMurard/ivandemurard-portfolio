@@ -110,7 +110,7 @@ Find commercial spaces from their context, built for humans and agents. Compass 
 Index: https://ivandemurard.com/journal.
 
 - Evaluating LLM agents: how would you know it had stopped working? (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
-- A hard call on Aetherix's agent boundaries (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. On where to draw the line between forecasting and acting, and why splitting Prophet from Claude shaped the rest of the architecture.
+- A wrong forecast is absorbed. A wrong action reaches a guest. (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
 ## Frequently asked questions
 
