@@ -284,6 +284,18 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     brief:
       "An explicit map of the concepts in a domain and how they relate. It lets a system know that two differently worded items are the same thing, which plain text similarity cannot.",
   },
+  prophet: {
+    id: "prophet",
+    term: "Prophet",
+    brief:
+      "An open-source statistical forecasting library, originally from Meta, built for time series with strong seasonality: weekday patterns, holidays, local events. It returns a number and an uncertainty range. It does not reason, phrase, or decide.",
+  },
+  llm: {
+    id: "llm",
+    term: "LLM",
+    brief:
+      "Large language model. Strong at reasoning over context and phrasing a recommendation, weak at producing a calibrated number, and it will produce a plausible one anyway if asked.",
+  },
 };
 
 
