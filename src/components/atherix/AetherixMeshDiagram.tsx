@@ -19,7 +19,7 @@ const NODES = [
     emoji: "🎛️",
     name: "Orchestrator",
     role: "Supervisory: MCP routing, business rules. Design, proto-stub in Phase 3, dedicated repo in Phase 4.",
-    status: "Phase 3, Design",
+    status: "Phase 3, stub",
     statusTone: "phase" as const,
   },
   {
