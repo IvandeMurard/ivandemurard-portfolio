@@ -101,7 +101,7 @@ The failure mode here is not a crash. It is a syntactically perfect answer that 
 
 One run scored 52 out of 53 and was declared a failure, because the single miss was in tier 1.
 
-The full protocol, how the 9 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Harnesses, graders, closed loops": https://ivandemurard.com/journal/harnesses-graders-closed-loops
+The full protocol, how the 9 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Evaluating LLM agents: how would you know it had stopped working?": https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 ## What it is for
 

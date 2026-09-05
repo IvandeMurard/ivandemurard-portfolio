@@ -8,6 +8,13 @@
 export type TermMark = { phrase: string; id: string };
 
 export const JOURNAL_TERMS: Record<string, TermMark[]> = {
+  "agent-boundaries-aetherix": [
+    { phrase: "Prophet", id: "prophet" },
+    { phrase: "Claude", id: "llm" },
+    { phrase: "F&B", id: "fnb" },
+    { phrase: "MAPE", id: "mape" },
+    { phrase: "drift", id: "drift" },
+  ],
   "harnesses-graders-closed-loops": [
     { phrase: "golden dataset", id: "goldenDataset" },
     { phrase: "harness", id: "harness" },

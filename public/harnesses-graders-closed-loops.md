@@ -1,4 +1,4 @@
-# Harnesses, graders, closed loops
+# Evaluating LLM agents: how would you know it had stopped working?
 
 _A working vocabulary for building evaluation into AI products from day one, tested on two real systems._
 
@@ -11,6 +11,8 @@ Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Reuse and ada
 ---
 
 What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.
+
+Every section stands on its own. Read it through, or land on section 9 and take only that.
 
 Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.
 

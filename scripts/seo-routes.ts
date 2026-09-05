@@ -220,16 +220,16 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/journal/agent-boundaries-aetherix",
-    title: "A hard call on Aetherix's agent boundaries · Ivan de Murard",
+    title: "A wrong forecast is absorbed. A wrong action reaches a guest. · Ivan de Murard",
     description:
-      "Where to draw the line between a forecasting model and an acting agent, and why splitting Prophet from Claude was the decision that shaped the rest of the architecture.",
+      "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     type: "article",
     changefreq: "monthly",
     priority: "0.6",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "A hard call on Aetherix's agent boundaries",
+      headline: "A wrong forecast is absorbed. A wrong action reaches a guest.",
       datePublished: "2026-04-20",
       dateModified: "2026-04-20",
       author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
@@ -239,7 +239,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/journal/harnesses-graders-closed-loops",
-    title: "Harnesses, graders, closed loops · Ivan de Murard",
+    title: "Evaluating LLM agents: how would you know it had stopped working? · Ivan de Murard",
     description:
       "A working vocabulary for evaluating AI systems: graders, harnesses, protocols, closed loops, and the two products where it runs, Aetherix and Lore.",
     type: "article",
@@ -249,7 +249,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       {
         "@context": "https://schema.org",
         "@type": "Article",
-        headline: "Harnesses, graders, closed loops",
+        headline: "Evaluating LLM agents: how would you know it had stopped working?",
         description:
           "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release.",
         inLanguage: "en",

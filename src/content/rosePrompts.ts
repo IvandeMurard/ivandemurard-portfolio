@@ -236,19 +236,19 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
       {
         label: "What is a grader?",
         message:
-          "In the field note Harnesses, graders, closed loops: explain what a grader is in one sentence, with an example.",
+          "In the field note Evaluating LLM agents: how would you know it had stopped working?: explain what a grader is in one sentence, with an example.",
         intent: "technical",
       },
       {
         label: "How do I apply this?",
         message:
-          "In the field note Harnesses, graders, closed loops: how would I apply this to a team shipping its first LLM feature?",
+          "In the field note Evaluating LLM agents: how would you know it had stopped working?: how would I apply this to a team shipping its first LLM feature?",
         intent: "product",
       },
       {
         label: "Where does it run in Lore?",
         message:
-          "In the field note Harnesses, graders, closed loops: how does this vocabulary show up concretely in Lore?",
+          "In the field note Evaluating LLM agents: how would you know it had stopped working?: how does this vocabulary show up concretely in Lore?",
         intent: "technical",
       },
       BOOK_CALL,
