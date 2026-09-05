@@ -1,7 +1,7 @@
 import type { JournalEntry } from "./journal";
 
 /**
- * "Harnesses, graders, closed loops".
+ * "Evaluating LLM agents: how would you know it had stopped working?".
  *
  * Reference piece. Each section is written to be readable on its own: a key
  * card states the claim in one line and names one concrete instance, so a
@@ -9,7 +9,7 @@ import type { JournalEntry } from "./journal";
  */
 export const HARNESSES_ENTRY: JournalEntry = {
   slug: "harnesses-graders-closed-loops",
-  title: "Harnesses, graders, closed loops",
+  title: "Evaluating LLM agents: how would you know it had stopped working?",
   subtitle: "A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
   date: "2026-07-31",
   category: "Evaluation",
@@ -28,6 +28,10 @@ export const HARNESSES_ENTRY: JournalEntry = {
   excerpt:
     "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
   body: [
+    {
+      kind: "p",
+      text: "Every section stands on its own. Read it through, or land on section 9 and take only that.",
+    },
     {
       kind: "p",
       text: "Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.",

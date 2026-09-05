@@ -582,7 +582,7 @@ const Architecture = () => {
                   One last pointer, since these two pieces answer different halves of one question. The
                   field note{" "}
                   <Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>
-                    Harnesses, graders, closed loops
+                    Evaluating LLM agents: how would you know it had stopped working?
                   </Link>{" "}
                   explains how a system earns the right to ship. This page explains what the systems are.
                   Read that one next if the statuses above raised the question of how they are checked.

@@ -239,7 +239,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/journal/harnesses-graders-closed-loops",
-    title: "Harnesses, graders, closed loops · Ivan de Murard",
+    title: "Evaluating LLM agents: how would you know it had stopped working? · Ivan de Murard",
     description:
       "A working vocabulary for evaluating AI systems: graders, harnesses, protocols, closed loops, and the two products where it runs, Aetherix and Lore.",
     type: "article",
@@ -249,7 +249,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       {
         "@context": "https://schema.org",
         "@type": "Article",
-        headline: "Harnesses, graders, closed loops",
+        headline: "Evaluating LLM agents: how would you know it had stopped working?",
         description:
           "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release.",
         inLanguage: "en",
