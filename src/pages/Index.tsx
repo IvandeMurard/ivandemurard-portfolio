@@ -254,20 +254,18 @@ const Index = () => {
           <br />
           Vision → architecture → evaluation → continuous and autonomous improvement.
         </p>
-        {/* Proof strip, the Milestones numeral treatment promoted above the fold */}
+        {/* Proof strip. Fixed figures, no numeric tween: these are evidence, not decoration. */}
         <div
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "450ms" }}
-          className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 max-w-3xl mx-auto"
+          className="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-6 max-w-3xl mx-auto"
         >
           {PROOF.map((p) => (
             <div key={p.label} className="px-2 sm:px-6 text-center">
               <p className="font-headline italic text-3xl md:text-4xl text-primary mb-3">
-                {p.kind === "count" ? (
-                  <CountUp value={p.value} suffix={p.suffix ?? ""} prefix={p.prefix ?? ""} />
-                ) : (
-                  p.display
-                )}
+                {p.kind === "count"
+                  ? `${p.prefix ?? ""}${p.value}${p.suffix ?? ""}`
+                  : p.display}
               </p>
               <span className="underline-grow mx-auto mb-4 w-10" />
               <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
@@ -279,7 +277,7 @@ const Index = () => {
         <div
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "540ms" }}
-          className="mt-14 flex flex-col md:flex-row items-center justify-center gap-8"
+          className="mt-10 md:mt-14 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8"
         >
           <Link
             to="/journeys"
@@ -296,7 +294,18 @@ const Index = () => {
             About
             <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
           </Link>
+          <a
+            href={SOCIAL_LINKS.schedule}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "nav" })}
+            className="text-secondary font-medium tracking-wide hover:underline decoration-secondary/30 underline-offset-8 transition-all duration-500 flex items-center gap-2 group"
+          >
+            Book a call
+            <Icon name="arrow_outward" className="text-sm group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
+
       </div>
     </Reveal>
 
