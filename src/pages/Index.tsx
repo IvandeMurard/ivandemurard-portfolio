@@ -6,7 +6,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
-import { CountUp } from "@/components/CountUp";
+
 import { SectionDivider } from "@/components/SectionDivider";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
@@ -32,7 +32,7 @@ const CONVICTIONS = [
 ];
 
 
-// Proof strip above the fold. Same numeral treatment as Milestones.
+// Proof strip above the fold. Fixed figures, sourced in the labels.
 type Proof =
   | { kind: "count"; value: number; prefix?: string; suffix?: string; display?: never; label: string }
   | { kind: "text"; display: string; label: string };
