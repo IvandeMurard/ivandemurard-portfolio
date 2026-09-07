@@ -353,8 +353,8 @@ const Index = () => {
     <SectionDivider index="02" label="Field Notes" />
 
     {/* Field Notes, a lighter register: icons, no covers */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 gap-8">
+    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-20 gap-6 md:gap-8">
         <div className="max-w-xl">
           <h2
             data-reveal-child
@@ -403,12 +403,12 @@ const Index = () => {
 
     <SectionDivider index="03" label="Approach" />
 
-    {/* My approach, convictions */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-16 md:mb-20">
+    {/* My approach: convictions and the method that follows from them */}
+    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-10 md:mb-20">
         <h2
           data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6"
         >
           My approach
         </h2>
@@ -417,106 +417,41 @@ const Index = () => {
           style={{ ["--reveal-delay" as string]: "120ms" }}
           className="text-on-surface-variant font-light leading-relaxed"
         >
-          Three convictions that shape every product I build.
+          Three convictions that shape every product I build, and the method that follows from them.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
         {CONVICTIONS.map(({ Icon: ConvIcon, title, body }, i) => (
           <div
             key={title}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
+            className="lift-card p-7 md:p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
           >
-            <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
+            <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-6 md:mb-8" />
+            <h3 className="font-headline italic text-2xl text-primary mb-3 md:mb-4">{title}</h3>
             <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
           </div>
         ))}
       </div>
+      <p
+        data-reveal-child
+        style={{ ["--reveal-delay" as string]: "320ms" }}
+        className="mt-8 md:mt-12 text-on-surface-variant font-light leading-relaxed max-w-2xl"
+      >
+        In practice: read the ground first, turn that reading into shipped product decisions, and pick the lightest
+        mechanism that solves the job, with the human always in the loop.{" "}
+        <Link
+          to="/atrium"
+          className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+        >
+          The track record behind it
+        </Link>
+        .
+      </p>
     </Reveal>
 
-    <SectionDivider index="04" label="Method" />
 
-    {/* How I work, three pillars */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-16 md:mb-20">
-        <h2
-          data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
-        >
-          How I work
-        </h2>
-        <p
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "120ms" }}
-          className="text-on-surface-variant font-light leading-relaxed"
-        >
-          And how those convictions translate into a working method.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-        {PILLARS.map(({ n, Icon: PillarIcon, title, body }, i) => (
-          <div
-            key={title}
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
-          >
-            <span className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary block mb-6">{n}</span>
-            <PillarIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
-            <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
-          </div>
-        ))}
-      </div>
-    </Reveal>
-
-    <SectionDivider index="05" label="Milestones" />
-
-    {/* Milestones, proof bar */}
-    <Reveal as="section" className="py-16 md:py-20 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-16 md:mb-20">
-        <h2
-          data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
-        >
-          Milestones
-        </h2>
-        <p
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "120ms" }}
-          className="text-on-surface-variant font-light leading-relaxed"
-        >
-          A few markers along the way.
-        </p>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12">
-        {MILESTONES.map((m, i) => (
-          <div
-            key={`${m.value}-${m.label}`}
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
-            className="px-2 md:px-8 text-center"
-          >
-            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
-              {m.kind === "count" ? (
-                <CountUp value={m.value} suffix={m.suffix ?? ""} />
-              ) : (
-                m.value
-              )}
-            </p>
-            <span
-              className="underline-grow mx-auto mb-4 w-10"
-              style={{ ["--reveal-delay" as string]: `${360 + i * 70}ms` }}
-            />
-            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
-              {m.label}
-            </p>
-          </div>
-        ))}
-      </div>
-    </Reveal>
 
 
     {/* Thank you for your visit, a cool blue bookend on the warm dusk page-light */}
