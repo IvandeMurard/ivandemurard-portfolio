@@ -313,12 +313,12 @@ const Index = () => {
     <SectionDivider index="01" label="Case Studies" spacing="tight" />
 
     {/* Case Studies */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
+    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-24 gap-6 md:gap-8">
         <div className="max-w-xl">
           <h2
             data-reveal-child
-            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6"
           >
             Case Studies
           </h2>
@@ -327,8 +327,11 @@ const Index = () => {
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="text-on-surface-variant font-light leading-relaxed"
           >
-            Two categories: agents built inside a shared architecture, and standalone projects that came before or sit
-            outside it.
+            Three to start with: the flagship agent of the{" "}
+            <Link to="/architecture" className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity">
+              Hospitality Agentic Mesh
+            </Link>
+            , a voice mentor for aviation maintenance, and the SaaS I co-founded. The rest sit on the case studies page.
           </p>
         </div>
         <Link
@@ -340,20 +343,12 @@ const Index = () => {
       </div>
 
       <ProjectGroup
-        kicker="The Hospitality Mesh"
-        kickerHref="/architecture"
-        projects={[PROJECTS.atherix, PROJECTS.tacet, PROJECTS.anima]}
-        track={track}
-      />
-
-      <div className="my-16 md:my-24 border-t border-outline-variant" aria-hidden="true" />
-
-      <ProjectGroup
-        kicker="Standalone projects"
-        projects={[PROJECTS.sonor, PROJECTS.lore, PROJECTS.parisCompass]}
+        kicker="Selected work"
+        projects={[PROJECTS.atherix, PROJECTS.lore, PROJECTS.sonor]}
         track={track}
       />
     </Reveal>
+
 
     <SectionDivider index="02" label="Field Notes" />
 
