@@ -13,27 +13,6 @@ import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 
 
-const PILLARS = [
-  {
-    n: "01",
-    Icon: Compass,
-    title: "Reading the ground",
-    body: "Field-level fluency in operations (boutique hotels, F&B, design partners, open-data ecosystems). I learn an environment before I design for it.",
-  },
-  {
-    n: "02",
-    Icon: Cpu,
-    title: "From insight to product decisions",
-    body: "I turn that reading into shipped products. Aetherix is the proof: a real operating layer for boutique hotels, not a slideware concept.",
-  },
-  {
-    n: "03",
-    Icon: HeartHandshake,
-    title: "Right tool for the problem",
-    body: "Sometimes a workflow, sometimes a checklist, sometimes an agentic system. I pick the lightest mechanism that solves the job, with the human always in the loop.",
-  },
-];
-
 const CONVICTIONS = [
   {
     Icon: HeartHandshake,
@@ -52,25 +31,6 @@ const CONVICTIONS = [
   },
 ];
 
-// Numeric milestones get a count-up. Textual ones (MCP, Field, Paris) stay static.
-type Milestone =
-  | { kind: "count"; value: number; suffix?: string; label: string }
-  | { kind: "text"; value: string; label: string };
-
-const MILESTONES: Milestone[] = [
-  { kind: "count", value: 5, suffix: " yrs", label: "Product Management experience" },
-  { kind: "count", value: 10, suffix: "+", label: "Products launched (DomusVi, Bouygues Telecom, Opendatasoft, …)" },
-  { kind: "count", value: 2, suffix: " yrs", label: "Co-founder & Product Lead, Sonor" },
-  {
-    kind: "count",
-    value: 4,
-    label: "Sizes of companies explored (entrepreneur, start-up, scale-up, large group)",
-  },
-  { kind: "text", value: "MCP", label: "Agentic architecture (Aetherix)" },
-  { kind: "text", value: "Field", label: "Hotel & F&B design partners" },
-  { kind: "count", value: 2, label: "Hackathons won" },
-  { kind: "text", value: "Paris", label: "Based" },
-];
 
 // Proof strip above the fold. Same numeral treatment as Milestones.
 type Proof =
