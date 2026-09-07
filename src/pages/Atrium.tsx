@@ -5,7 +5,28 @@ import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SectionDivider } from "@/components/SectionDivider";
+import { CountUp } from "@/components/CountUp";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
+
+// Numeric milestones get a count-up. Textual ones stay static.
+type Milestone =
+  | { kind: "count"; value: number; suffix?: string; label: string }
+  | { kind: "text"; value: string; label: string };
+
+const MILESTONES: Milestone[] = [
+  { kind: "count", value: 5, suffix: " yrs", label: "Product Management experience" },
+  { kind: "count", value: 10, suffix: "+", label: "Products launched (DomusVi, Bouygues Telecom, Opendatasoft, …)" },
+  { kind: "count", value: 2, suffix: " yrs", label: "Co-founder & Product Lead, Sonor" },
+  {
+    kind: "count",
+    value: 4,
+    label: "Sizes of companies explored (entrepreneur, start-up, scale-up, large group)",
+  },
+  { kind: "text", value: "MCP", label: "Agentic architecture (Aetherix)" },
+  { kind: "text", value: "Field", label: "Hotel & F&B design partners" },
+  { kind: "count", value: 2, label: "Hackathons won" },
+  { kind: "text", value: "Paris", label: "Based" },
+];
 import portraitIvan from "@/assets/portrait-ivan.png";
 
 const PRINCIPLES = [
@@ -170,7 +191,43 @@ const Atrium = () => (
         </div>
       </Reveal>
 
+      <SectionDivider label="Milestones" />
+
+      {/* Milestones, moved here from the homepage: a track record belongs with the track record. */}
+      <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
+        <div className="max-w-2xl mb-10 md:mb-16">
+          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6">
+            Milestones
+          </h2>
+          <p className="text-on-surface-variant font-light leading-relaxed">
+            A few markers along the way.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-12">
+          {MILESTONES.map((m, i) => (
+            <div
+              key={`${m.value}-${m.label}`}
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
+              className="px-2 md:px-8 text-center"
+            >
+              <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
+                {m.kind === "count" ? <CountUp value={m.value} suffix={m.suffix ?? ""} /> : m.value}
+              </p>
+              <span
+                className="underline-grow mx-auto mb-4 w-10"
+                style={{ ["--reveal-delay" as string]: `${360 + i * 70}ms` }}
+              />
+              <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
+                {m.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+
       <SectionDivider label="Now" />
+
 
       {/* Now */}
       <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">

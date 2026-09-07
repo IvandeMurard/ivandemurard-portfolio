@@ -6,33 +6,12 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
-import { CountUp } from "@/components/CountUp";
+
 import { SectionDivider } from "@/components/SectionDivider";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 
-
-const PILLARS = [
-  {
-    n: "01",
-    Icon: Compass,
-    title: "Reading the ground",
-    body: "Field-level fluency in operations (boutique hotels, F&B, design partners, open-data ecosystems). I learn an environment before I design for it.",
-  },
-  {
-    n: "02",
-    Icon: Cpu,
-    title: "From insight to product decisions",
-    body: "I turn that reading into shipped products. Aetherix is the proof: a real operating layer for boutique hotels, not a slideware concept.",
-  },
-  {
-    n: "03",
-    Icon: HeartHandshake,
-    title: "Right tool for the problem",
-    body: "Sometimes a workflow, sometimes a checklist, sometimes an agentic system. I pick the lightest mechanism that solves the job, with the human always in the loop.",
-  },
-];
 
 const CONVICTIONS = [
   {
@@ -52,27 +31,8 @@ const CONVICTIONS = [
   },
 ];
 
-// Numeric milestones get a count-up. Textual ones (MCP, Field, Paris) stay static.
-type Milestone =
-  | { kind: "count"; value: number; suffix?: string; label: string }
-  | { kind: "text"; value: string; label: string };
 
-const MILESTONES: Milestone[] = [
-  { kind: "count", value: 5, suffix: " yrs", label: "Product Management experience" },
-  { kind: "count", value: 10, suffix: "+", label: "Products launched (DomusVi, Bouygues Telecom, Opendatasoft, …)" },
-  { kind: "count", value: 2, suffix: " yrs", label: "Co-founder & Product Lead, Sonor" },
-  {
-    kind: "count",
-    value: 4,
-    label: "Sizes of companies explored (entrepreneur, start-up, scale-up, large group)",
-  },
-  { kind: "text", value: "MCP", label: "Agentic architecture (Aetherix)" },
-  { kind: "text", value: "Field", label: "Hotel & F&B design partners" },
-  { kind: "count", value: 2, label: "Hackathons won" },
-  { kind: "text", value: "Paris", label: "Based" },
-];
-
-// Proof strip above the fold. Same numeral treatment as Milestones.
+// Proof strip above the fold. Fixed figures, sourced in the labels.
 type Proof =
   | { kind: "count"; value: number; prefix?: string; suffix?: string; display?: never; label: string }
   | { kind: "text"; display: string; label: string };
@@ -254,20 +214,18 @@ const Index = () => {
           <br />
           Vision → architecture → evaluation → continuous and autonomous improvement.
         </p>
-        {/* Proof strip, the Milestones numeral treatment promoted above the fold */}
+        {/* Proof strip. Fixed figures, no numeric tween: these are evidence, not decoration. */}
         <div
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "450ms" }}
-          className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 max-w-3xl mx-auto"
+          className="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-6 max-w-3xl mx-auto"
         >
           {PROOF.map((p) => (
             <div key={p.label} className="px-2 sm:px-6 text-center">
               <p className="font-headline italic text-3xl md:text-4xl text-primary mb-3">
-                {p.kind === "count" ? (
-                  <CountUp value={p.value} suffix={p.suffix ?? ""} prefix={p.prefix ?? ""} />
-                ) : (
-                  p.display
-                )}
+                {p.kind === "count"
+                  ? `${p.prefix ?? ""}${p.value}${p.suffix ?? ""}`
+                  : p.display}
               </p>
               <span className="underline-grow mx-auto mb-4 w-10" />
               <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
@@ -279,7 +237,7 @@ const Index = () => {
         <div
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "540ms" }}
-          className="mt-14 flex flex-col md:flex-row items-center justify-center gap-8"
+          className="mt-10 md:mt-14 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8"
         >
           <Link
             to="/journeys"
@@ -296,7 +254,18 @@ const Index = () => {
             About
             <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
           </Link>
+          <a
+            href={SOCIAL_LINKS.schedule}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "nav" })}
+            className="text-secondary font-medium tracking-wide hover:underline decoration-secondary/30 underline-offset-8 transition-all duration-500 flex items-center gap-2 group"
+          >
+            Book a call
+            <Icon name="arrow_outward" className="text-sm group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
+
       </div>
     </Reveal>
 
@@ -304,12 +273,12 @@ const Index = () => {
     <SectionDivider index="01" label="Case Studies" spacing="tight" />
 
     {/* Case Studies */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
+    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-24 gap-6 md:gap-8">
         <div className="max-w-xl">
           <h2
             data-reveal-child
-            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6"
           >
             Case Studies
           </h2>
@@ -318,8 +287,11 @@ const Index = () => {
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="text-on-surface-variant font-light leading-relaxed"
           >
-            Two categories: agents built inside a shared architecture, and standalone projects that came before or sit
-            outside it.
+            Three to start with: the flagship agent of the{" "}
+            <Link to="/architecture" className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity">
+              Hospitality Agentic Mesh
+            </Link>
+            , a voice mentor for aviation maintenance, and the SaaS I co-founded. The rest sit on the case studies page.
           </p>
         </div>
         <Link
@@ -331,26 +303,18 @@ const Index = () => {
       </div>
 
       <ProjectGroup
-        kicker="The Hospitality Mesh"
-        kickerHref="/architecture"
-        projects={[PROJECTS.atherix, PROJECTS.tacet, PROJECTS.anima]}
-        track={track}
-      />
-
-      <div className="my-16 md:my-24 border-t border-outline-variant" aria-hidden="true" />
-
-      <ProjectGroup
-        kicker="Standalone projects"
-        projects={[PROJECTS.sonor, PROJECTS.lore, PROJECTS.parisCompass]}
+        kicker="Selected work"
+        projects={[PROJECTS.atherix, PROJECTS.lore, PROJECTS.sonor]}
         track={track}
       />
     </Reveal>
 
+
     <SectionDivider index="02" label="Field Notes" />
 
     {/* Field Notes, a lighter register: icons, no covers */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 gap-8">
+    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-20 gap-6 md:gap-8">
         <div className="max-w-xl">
           <h2
             data-reveal-child
@@ -399,12 +363,12 @@ const Index = () => {
 
     <SectionDivider index="03" label="Approach" />
 
-    {/* My approach, convictions */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-16 md:mb-20">
+    {/* My approach: convictions and the method that follows from them */}
+    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div className="max-w-2xl mb-10 md:mb-20">
         <h2
           data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
+          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6"
         >
           My approach
         </h2>
@@ -413,106 +377,41 @@ const Index = () => {
           style={{ ["--reveal-delay" as string]: "120ms" }}
           className="text-on-surface-variant font-light leading-relaxed"
         >
-          Three convictions that shape every product I build.
+          Three convictions that shape every product I build, and the method that follows from them.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
         {CONVICTIONS.map(({ Icon: ConvIcon, title, body }, i) => (
           <div
             key={title}
             data-reveal-child
             style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
+            className="lift-card p-7 md:p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
           >
-            <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
+            <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-6 md:mb-8" />
+            <h3 className="font-headline italic text-2xl text-primary mb-3 md:mb-4">{title}</h3>
             <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
           </div>
         ))}
       </div>
+      <p
+        data-reveal-child
+        style={{ ["--reveal-delay" as string]: "320ms" }}
+        className="mt-8 md:mt-12 text-on-surface-variant font-light leading-relaxed max-w-2xl"
+      >
+        In practice: read the ground first, turn that reading into shipped product decisions, and pick the lightest
+        mechanism that solves the job, with the human always in the loop.{" "}
+        <Link
+          to="/atrium"
+          className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+        >
+          The track record behind it
+        </Link>
+        .
+      </p>
     </Reveal>
 
-    <SectionDivider index="04" label="Method" />
 
-    {/* How I work, three pillars */}
-    <Reveal as="section" className="py-16 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-16 md:mb-20">
-        <h2
-          data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
-        >
-          How I work
-        </h2>
-        <p
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "120ms" }}
-          className="text-on-surface-variant font-light leading-relaxed"
-        >
-          And how those convictions translate into a working method.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-        {PILLARS.map(({ n, Icon: PillarIcon, title, body }, i) => (
-          <div
-            key={title}
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
-          >
-            <span className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary block mb-6">{n}</span>
-            <PillarIcon size={28} strokeWidth={1.25} className="text-secondary mb-8" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">{title}</h3>
-            <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
-          </div>
-        ))}
-      </div>
-    </Reveal>
-
-    <SectionDivider index="05" label="Milestones" />
-
-    {/* Milestones, proof bar */}
-    <Reveal as="section" className="py-16 md:py-20 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-16 md:mb-20">
-        <h2
-          data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
-        >
-          Milestones
-        </h2>
-        <p
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "120ms" }}
-          className="text-on-surface-variant font-light leading-relaxed"
-        >
-          A few markers along the way.
-        </p>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12">
-        {MILESTONES.map((m, i) => (
-          <div
-            key={`${m.value}-${m.label}`}
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
-            className="px-2 md:px-8 text-center"
-          >
-            <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
-              {m.kind === "count" ? (
-                <CountUp value={m.value} suffix={m.suffix ?? ""} />
-              ) : (
-                m.value
-              )}
-            </p>
-            <span
-              className="underline-grow mx-auto mb-4 w-10"
-              style={{ ["--reveal-delay" as string]: `${360 + i * 70}ms` }}
-            />
-            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
-              {m.label}
-            </p>
-          </div>
-        ))}
-      </div>
-    </Reveal>
 
 
     {/* Thank you for your visit, a cool blue bookend on the warm dusk page-light */}

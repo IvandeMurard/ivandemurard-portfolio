@@ -9,6 +9,7 @@ At 375 x 667 (iPhone SE, the smallest common phone) the whole Case Studies block
 Cause: sections fade in when 15% of them is on screen. The Case Studies block is 4,460px tall on a phone, so 15% is 669px, and the usable viewport after the built-in 10% margin is about 600px. The threshold can never be met, so the fade-in never fires. Every other section is short enough to pass.
 
 Fix, in `src/hooks/useReveal.ts`:
+
 - Trigger on first contact (threshold 0) with the existing bottom margin, instead of a percentage of the element. A tall section then behaves like a short one.
 - Add a safety net: if the observer has not fired within 1.5s, or if the element is already taller than the viewport, reveal it anyway. Content must never be able to stay invisible.
 
@@ -19,6 +20,7 @@ This single change also removes the class of bug Grok saw as "page quasi vide ap
 Not floating marketing: the numerals count up from 0 on entry. A screenshot taken mid-animation shows "66+" instead of "500+", "3" instead of "22". An automated reader, or anyone on a slow scroll, sees a different number every visit. For a credibility strip, that is a self-inflicted wound.
 
 Fix: keep the animation only where it is decorative, kill it where it is evidence.
+
 - Hero proof strip (500+, 22): render the final value immediately, no count-up. Optionally a short fade, no numeric tween.
 - Milestones section: keep the count-up (small numbers: 5, 10, 2, 4, reading them mid-tween is harmless).
 - Sourcing: append the origin to each proof label so the number is attributable (DomusVi, Bouygues Telecom, Opendatasoft). Labels already name them, they just need to be unambiguous per figure.
@@ -59,7 +61,7 @@ Fix: a resting state of a single input row plus the mark, about 76px, with the c
 
 ## 5. The Lovable badge
 
-That is a publishing setting, not code. I can turn it off for the published site. Confirm and it is done in the same pass.
+That is a publishing setting, not code. I can turn it off for the published site. Confirm and it is done in the same pass. I confirm, you can turn it off. 
 
 ## Technical notes
 
