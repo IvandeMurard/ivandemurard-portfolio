@@ -272,8 +272,8 @@ export const RoseDock = () => {
             </div>
           ) : null}
 
-          {/* Chips row — always visible (both states) */}
-          {(!open || messages.length === 0) ? (
+          {/* Chips row — expanded, or when the resting dock is engaged */}
+          {(open ? messages.length === 0 : active) ? (
             <div
               className={cn(
                 "flex flex-wrap gap-2 px-5",
