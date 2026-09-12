@@ -16,11 +16,11 @@ export type PyramidLayer = {
 };
 
 export type JournalBlock =
-  | { kind: "p" | "h2" | "h3" | "quote"; text: string }
+  | { kind: "p" | "h2" | "h3" | "quote"; text: string; aliases?: string[] }
   | { kind: "list"; items: string[] }
   | { kind: "code"; lang?: string; text: string }
   | { kind: "table"; head: string[]; rows: string[][]; caption?: string }
-  | { kind: "defs"; items: { term: string; def: string }[] }
+  | { kind: "defs"; items: { term: string; def: string; note?: string }[] }
   | { kind: "pyramid"; layers: PyramidLayer[] }
   | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
   | { kind: "lines"; items: { q: string; a: string }[] }
@@ -62,6 +62,8 @@ export type JournalEntry = {
   mirror?: string;
   license?: { label: string; url: string; note?: string };
   related?: { label: string; to: string }[];
+  tldr?: string;
+  updates?: { date: string; summary: string; reason: string }[];
   body: JournalBlock[];
 };
 
