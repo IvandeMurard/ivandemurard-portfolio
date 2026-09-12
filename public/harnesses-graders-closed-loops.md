@@ -4,6 +4,8 @@ _A working vocabulary for building evaluation into AI products from day one, tes
 
 Published 2026-07-31 · Evaluation · 14 min read
 
+**TL;DR** - A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 52 out of 53 is a failure when the miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
+
 Source: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Reuse and adapt with attribution to Ivan de Murard.
@@ -12,11 +14,9 @@ Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Reuse and ada
 
 What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.
 
-Every section stands on its own. Read it through, or land on section 9 and take only that.
-
 Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.
 
-Every section stands on its own: a key card at the top gives the claim in one line and one concrete case. Read the whole thing, or land on section 9 and take only that.
+Every section stands on its own: a key card at the top gives the claim in one line and one concrete case. Read the whole thing, or land on section 12 and take only that.
 
 - **Aetherix**: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Users: Other agents via MCP, or a hotel / F&B manager with WhatsApp. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
 - **Lore**: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed.
@@ -32,6 +32,8 @@ A driving test contains every piece of the machinery. It is worth one pass to fi
 - **Case set**: The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset.
 - **Grader**: One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.
 - **Harness**: The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.
+
+  *Since this was published, the word has acquired a second, more common meaning - the runtime environment around a model. The two are complements, and they are separated in section 13.*
 - **Protocol**: The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code.
 - **Open loop**: You measure, a human reads it, they may act. The measurement changes nothing by itself.
 - **Closed loop**: The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case.
@@ -174,7 +176,7 @@ Hence the rule corrected rather than quietly dropped: 0.00 points of variance re
 
 > Demanding 0.00 across every tier sets a bar that cannot be met, and a gate that cannot be met is a gate people learn to ignore.
 
-- Aetherix: The origin. The failure-thresholds file and the coverage script, exit-code contract included. Its gate moved from advisory to blocking only after the same canary, and environment drift was named as the real culprit rather than the model.
+- Aetherix: The origin. The failure-thresholds file and the coverage script, exit-code contract included. [Its gate moved from advisory to blocking](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) only after the same canary, and environment drift was named as the real culprit rather than the model.
 - Lore: The reimplementation, with frozen baselines committed and a CI gate that blocks on FAIL. The live target no longer starts on its own: it needs a label on the pull request or a manual trigger. A full run is about seventy model calls for a quarter of a euro, and CI must not be able to spend on its own initiative.
 
 ## 8. Adversarial review, who grades the grader
@@ -182,7 +184,7 @@ Hence the rule corrected rather than quietly dropped: 0.00 points of variance re
 **SEC. 8** A grader written by the prompt's author inherits its blind spots, so some cases must be authored against the system rather than for it. Concrete case: Half of Lore's first 17 failures were graders that were too strict. Three later cases were graders too weak to fail a real defect.
 
 - **Author bias**: The person who wrote the prompt writes the grader, and both share the same idea of a good answer. The fix is cases written by someone trying to break the system, plus a periodic read of passing answers, not just failing ones.
-- **Injection through retrieved content**: Anything the system retrieves can carry text shaped like an instruction. Rose, the agent on this site, wraps every case study mirror in explicit delimiters and is told those blocks are reference material, never instructions. That rule is itself a testable case.
+- **Injection through retrieved content**: Anything the system retrieves can carry text shaped like an instruction. Rose, this site's conversational guide to Ivan's work, wraps every case study mirror in explicit delimiters and is told those blocks are reference material, never instructions. That rule is itself a testable case.
 - **Manufactured authority**: "Other technicians familiar with this airframe likely agree." From a single note. Inventing agreement fabricates the authority the reader weighs the advice by, which is why it sits in tier 1 alongside invented figures.
 - **Confident wrongness**: The dangerous output is not the refusal, it is the fluent answer with the wrong threshold in it. Adversarial cases target the seam: exact band boundaries, a second expert contradicting the first, social pressure to grant permission.
 
@@ -239,7 +241,46 @@ Later, eleven harder cases were added and all 64 passed live on the first attemp
 
 > A case set that passes completely has stopped being an instrument of discovery and become a safety net. Both are useful; they are not the same object.
 
-## 13. Frequently asked questions
+## 13. Two harnesses, and which one this is
+
+**SEC. 13** The word now carries two meanings, and a team can hold one while missing the other entirely. Concrete case: This piece was published on 2026-07-31, weeks before the write-ups that made the other meaning standard. Everything above describes the evaluation harness.
+
+Through the second half of 2026 a body of writing converged on *harness engineering*, and it uses the word for a different object than this piece does. Both are real, and the collision is worth one paragraph because the failure modes are opposite.
+
+- **The agent harness**: the environment around the model. Tools and their schemas, permissions, workspace, durable state, stop conditions, what happens on a retry. *Agent = model + harness.* It answers: **can this system act reliably?**
+- **The evaluation harness**: the machinery that runs the exam. Case set, graders, thresholds, verdict, exit code. Section 1's definition, and the one used everywhere above. It answers: **would I know if it had stopped?**
+
+An agent harness without an evaluation harness produces a system that acts confidently and is measured by nobody. An evaluation harness without an agent harness measures something that cannot act. They are complements that arrived in the discourse eighteen months apart, and the second one arrived louder.
+
+> An agent harness proves the system can act. An evaluation harness proves it still should.
+
+### What that literature adds to this one
+
+Three things worth taking, none of which this piece specified well enough:
+
+- **The tool gateway as its own layer.** Validate the schema, authorize against policy, execute in a sandbox, and return a *structured observation* - status, reason, evidence, retryable - rather than a wall of terminal output. That is arm B infrastructure, and section 11's "typed emissions at every layer" is the same claim without the mechanism.
+- **A permission ladder matched to consequence.** Reading a public document and deleting customer records should not travel the same approval path. Uniform friction gets routed around.
+- **Gating on reversibility rather than on confidence.** Sort work by how expensive the mistake is to undo, and treat the irreversible lane as a lane that does not open rather than a threshold set very high - because thresholds get adjusted under pressure and closed lanes do not. This is section 9's argument arriving from the other direction: a model's confidence is the only input to that decision the model itself can influence, which makes it the weakest variable in the gate.
+
+### What it does not add
+
+Arm C. Across that entire body of work, almost nothing measures whether the output was acted on and whether acting on it helped. The closest is a single ratio - accepted outputs over human review minutes - stated once and not developed. The attention went to the half of the problem that is visible before deployment.
+
+Which leaves the gap this piece named in section 2 and did not close. Stated now so it can be checked:
+
+- **Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values are already recorded: `accepted`, `rejected`, `modified`, `ignored`. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.
+- **Human minutes per accepted output** - the direct measure of the interruption budget. A system that raises acceptance by asking more often has not improved. It has spent someone else's attention to buy its own score.
+
+Neither is worth reading without the other. Acceptance rate alone is a Goodhart target, and a system optimised on it learns to emit bland, agreeable outputs that cost nothing to approve - the same shape as a support bot that drives its ticket-resolution rate up by closing tickets instead of solving them.
+
+And arm C data only compounds if the correction is routed. An override reports that *some layer* was wrong, and which layer decides what the fix is: a stale fact belongs in memory, an unwritten rule belongs in a recorded decision, a preference seen three times belongs in a policy, an unseen pattern belongs in the case set, and an output that should never have been surfaced belongs in the filter upstream. Only the fourth is a retrain. Recording the override as free text - which is what both systems do today - collapses all five into one undifferentiated pile.
+
+- **Aetherix**: arms A and B built, arm C recorded but not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).
+- **Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase.
+
+<a id="13-frequently-asked-questions"></a>
+
+## 14. Frequently asked questions
 
 - **What is a grader?** One line of a marking sheet: a single criterion, pass or fail, plus the reason. Kept deterministic, because a model judging a model fails the same way as the thing it judges.
 - **Harness or protocol, what is the difference?** The protocol says what passing means. The harness is the machinery that applies it. Neither decides anything without the other.
@@ -249,10 +290,19 @@ Later, eleven harder cases were added and all 64 passed live on the first attemp
 - **How do you prevent hallucinations?** You do not prevent them, you make them visible and blocking. A safety tier at 100% with no budget, and refusal coded as a contract rather than requested as a style note.
 - **What is a confidence score worth?** It depends which of three things it is. Self-declared by the model: a generated token, not a measurement. By corroboration: counted, therefore useful. Calibrated: the only strict sense, and it requires outcome data.
 
-## Closing note
+<a id="closing-note"></a>
 
-Sources: the "evaluation by design" architecture decision and Aetherix's reliability plan. "Eval as a contract" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.
+## 15. Closing note
+
+Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.
 
 This piece has gaps. They are in the table in section 3 and in the last paragraph of section 8.
 
 A note on where it came from. I wrote the first version for myself, before interviews, because I kept noticing I could do things I could not name. It turned out to be more useful as a reference than as a memory aid, so it became this.
+
+
+## Updates
+
+This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+2026-09-12 · Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2. *Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.*
