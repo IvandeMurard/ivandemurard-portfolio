@@ -10,6 +10,7 @@
 - Rose fetches the published Markdown with a five-minute cache and preserves explicit reference-material delimiters. Each fetched document is currently truncated at 20,000 characters, which risks excluding the new section and update log.
 
 ## 1. Article changes
+- Additional authorized exception in section 1: immediately after the Harness definition ("The whole examination…"), add only this italic line, without expanding it or altering the surrounding bullet list: *Since this was published, the word has acquired a second, more common meaning - the runtime environment around a model. The two are complements, and they are separated in section 13.* Synchronize this addition across the same representations below and include it among the permitted differences in verification.
 - Keep the exact title, subtitle, publication date (2026-07-31), licence, and all unrequested prose intact.
 - Add the supplied TL;DR immediately below the subtitle, before the excerpt and introduction, reusing `SectionKey` rather than introducing a new visual treatment.
 - Insert the supplied “13. Two harnesses, and which one this is” with the existing SEC. 13 key-card format, paragraphs, lists, subheadings and quote.
