@@ -12,7 +12,17 @@ export const createTermTaker = (marks: TermMark[]) => {
   const pending = [...marks];
 
   const render = (text: string, depth = 0): ReactNode => {
-    if (!text || !pending.length || depth > 12) return text;
+    if (!text || depth > 12) return text;
+    const inline = /\[([^\]]+)\]\((https:\/\/[^\s)]+)\)|\*\*([^*]+)\*\*|\*([^*]+)\*|`([^`]+)`/.exec(text);
+    if (inline) {
+      const before = render(text.slice(0, inline.index), depth + 1);
+      const content = inline[1] ? <a href={inline[2]} className="text-primary underline decoration-secondary underline-offset-4">{render(inline[1], depth + 1)}</a>
+        : inline[3] ? <strong>{render(inline[3], depth + 1)}</strong>
+        : inline[4] ? <em>{render(inline[4], depth + 1)}</em>
+        : <code>{inline[5]}</code>;
+      return <>{before}{content}{render(text.slice(inline.index + inline[0].length), depth + 1)}</>;
+    }
+    if (!pending.length) return text;
 
     let best: { index: number; length: number; mark: TermMark } | null = null;
     for (const mark of pending) {

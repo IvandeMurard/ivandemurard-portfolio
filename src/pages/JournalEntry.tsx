@@ -1,3 +1,4 @@
+import { ArticleUpdates } from "@/components/journal/ArticleUpdates";
 import { useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
@@ -115,6 +116,7 @@ const Block = ({
           tabIndex={-1}
           className="group scroll-mt-32 font-headline italic text-2xl md:text-3xl text-primary pt-8"
         >
+          {block.aliases?.map((alias) => <span key={alias} id={alias} className="block scroll-mt-32" />)}
           {block.text}
           {headingId && <HeadingAnchor id={headingId} text={block.text} />}
         </h2>
@@ -212,7 +214,7 @@ const Block = ({
               <dt className="font-label uppercase tracking-[0.16em] text-[11px] text-primary mb-1">
                 {item.term}
               </dt>
-              <dd className="font-body font-light text-base text-on-surface-variant">{t(item.def)}</dd>
+              <dd className="font-body font-light text-base text-on-surface-variant">{t(item.def)}{item.note && <em className="block mt-2">{item.note}</em>}</dd>
             </div>
           ))}
         </dl>
@@ -375,13 +377,14 @@ const JournalEntry = () => {
         description={entry.excerpt}
         path={`/journal/${entry.slug}`}
         type="article"
+        markdown={entry.mirror}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Article",
           headline: entry.title,
           description: entry.excerpt,
           datePublished: entry.date,
-          dateModified: entry.date,
+          dateModified: entry.updates?.map((u) => u.date).sort().at(-1) ?? entry.date,
           author: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           articleSection: entry.category,
           ...(entry.license ? { license: entry.license.url } : {}),
@@ -409,6 +412,7 @@ const JournalEntry = () => {
           {entry.subtitle && (
             <p className="font-body font-light text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
           )}
+          {entry.tldr && <div className="mb-10"><SectionKey sigil="TL;DR" icon="summarize" oneLine={entry.tldr} /></div>}
           <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
             {entry.excerpt}
           </p>
@@ -446,6 +450,8 @@ const JournalEntry = () => {
               </ul>
             </div>
           )}
+
+          <ArticleUpdates updates={entry.updates} />
 
           <ShareRow
             title={entry.title}

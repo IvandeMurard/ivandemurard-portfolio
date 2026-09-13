@@ -15,6 +15,7 @@ type SeoProps = {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   /** If true, title is used verbatim (no " · Ivan de Murard" suffix). */
   rawTitle?: boolean;
+  markdown?: string;
   /** If true, emits <meta name="robots" content="noindex, follow">. */
   noIndex?: boolean;
 };
@@ -49,6 +50,7 @@ export const Seo = ({
   type = "website",
   jsonLd,
   rawTitle,
+  markdown,
   noIndex,
 }: SeoProps) => {
   const { pathname } = useLocation();
@@ -57,6 +59,13 @@ export const Seo = ({
   const fullTitle = rawTitle ? title : `${title} · Ivan de Murard`;
 
   useEffect(() => {
+    const alternate = document.createElement("link");
+    if (markdown) {
+      alternate.rel = "alternate";
+      alternate.type = "text/markdown";
+      alternate.href = new URL(markdown, SITE_URL).href;
+      document.head.appendChild(alternate);
+    }
     document.title = fullTitle;
     upsertMeta('meta[name="description"]', "name", "description", description);
     upsertLink("canonical", canonical);
@@ -93,10 +102,11 @@ export const Seo = ({
     }
 
     return () => {
+      alternate.remove();
       const s = document.getElementById(SCRIPT_ID);
       if (s) s.remove();
     };
-  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex]);
+  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex, markdown]);
 
   return null;
 };
