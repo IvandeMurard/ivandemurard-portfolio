@@ -254,7 +254,7 @@ export const SEO_ROUTES: SeoRoute[] = [
           "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release.",
         inLanguage: "en",
         datePublished: "2026-07-31",
-        dateModified: "2026-08-02",
+        dateModified: "2026-09-12",
         author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
         articleSection: "Evaluation",
         url: `${BASE_URL}/journal/harnesses-graders-closed-loops`,
