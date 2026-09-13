@@ -104,7 +104,8 @@ async function fetchOne(slug: Slug): Promise<void> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const text = await res.text();
     // Guard against pathological sizes.
-    const trimmed = text.length > 20_000 ? text.slice(0, 20_000) : text;
+    const limit = slug === "harnesses-graders-closed-loops" ? 60_000 : 20_000;
+    const trimmed = text.length > limit ? text.slice(0, limit) : text;
     cache.set(slug, { content: trimmed, fetchedAt: Date.now() });
   } catch (err) {
     console.warn(`[rose-context] fetch ${slug} failed`, err);
