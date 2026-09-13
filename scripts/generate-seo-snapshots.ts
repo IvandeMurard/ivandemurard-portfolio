@@ -46,6 +46,9 @@ function buildHead(route: SeoRoute): string {
     `<meta name="twitter:description" content="${escapeAttr(desc)}" />`,
     `<meta name="twitter:image" content="${DEFAULT_OG_IMAGE}" />`,
   ];
+  if (route.path === "/journal/harnesses-graders-closed-loops") {
+    lines.push(`<link rel="alternate" type="text/markdown" href="${BASE_URL}/harnesses-graders-closed-loops.md" />`);
+  }
   // Reference canonical to silence unused-var lints; the value is intentionally not emitted.
   void canonical;
 
