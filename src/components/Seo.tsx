@@ -71,13 +71,20 @@ export const Seo = ({
   const finalPath = path ?? pathname;
   const canonical = `${SITE_URL}${finalPath === "/" ? "" : finalPath}`;
   const fullTitle = rawTitle ? title : `${title} · Ivan de Murard`;
+  // Route-shaped .md URL wins over a hand-passed one, so the announced variant
+  // always matches what the build emits.
+  const markdownHref = MARKDOWN_ROUTES.includes(finalPath)
+    ? `${SITE_URL}${finalPath}.md`
+    : markdown
+      ? new URL(markdown, SITE_URL).href
+      : undefined;
 
   useEffect(() => {
     const alternate = document.createElement("link");
-    if (markdown) {
+    if (markdownHref) {
       alternate.rel = "alternate";
       alternate.type = "text/markdown";
-      alternate.href = new URL(markdown, SITE_URL).href;
+      alternate.href = markdownHref;
       document.head.appendChild(alternate);
     }
     document.title = fullTitle;
@@ -120,7 +127,7 @@ export const Seo = ({
       const s = document.getElementById(SCRIPT_ID);
       if (s) s.remove();
     };
-  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex, markdown]);
+  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex, markdownHref]);
 
   return null;
 };
