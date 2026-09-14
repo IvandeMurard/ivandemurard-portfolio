@@ -19,7 +19,23 @@ export interface SeoRoute {
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /**
+   * File name of the hand-authored markdown mirror in public/ for this route.
+   * When set, the build emits dist<path>.md with the same bytes and the head
+   * announces it with <link rel="alternate" type="text/markdown">.
+   */
+  markdown?: string;
 }
+
+/** Absolute URL of the markdown variant of a route, derived from its path. */
+export const markdownUrlFor = (route: SeoRoute): string | undefined =>
+  route.markdown ? `${BASE_URL}${route.path}.md` : undefined;
+
+/** Path -> markdown URL, for every route that has a mirror. */
+export const markdownRouteMap = (): Record<string, string> =>
+  Object.fromEntries(
+    SEO_ROUTES.filter((r) => r.markdown).map((r) => [r.path, `${BASE_URL}${r.path}.md`]),
+  );
 
 const personJsonLd = {
   "@context": "https://schema.org",
