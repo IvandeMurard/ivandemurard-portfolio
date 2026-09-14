@@ -4,6 +4,20 @@ import { useLocation } from "react-router-dom";
 const SITE_URL = "https://ivandemurard.com";
 const DEFAULT_OG = `${SITE_URL}/og/ivan-default.jpg`;
 
+/**
+ * Routes that have a markdown representation served at <path>.md.
+ * Kept in sync with scripts/seo-routes.ts (route.markdown), which emits the files.
+ */
+const MARKDOWN_ROUTES: readonly string[] = [
+  "/aetherix",
+  "/sonor",
+  "/tacet",
+  "/lore",
+  "/anima",
+  "/architecture",
+  "/journal/harnesses-graders-closed-loops",
+];
+
 type SeoProps = {
   title: string;
   description: string;
