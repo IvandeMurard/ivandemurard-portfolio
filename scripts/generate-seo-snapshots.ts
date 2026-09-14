@@ -5,7 +5,15 @@
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import { resolve, join } from "path";
-import { BASE_URL, DEFAULT_OG_IMAGE, SITE_NAME, TWITTER_HANDLE, SEO_ROUTES, type SeoRoute } from "./seo-routes";
+import {
+  BASE_URL,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  TWITTER_HANDLE,
+  SEO_ROUTES,
+  markdownUrlFor,
+  type SeoRoute,
+} from "./seo-routes";
 
 const DIST = resolve("dist");
 const INDEX = join(DIST, "index.html");
