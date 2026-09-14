@@ -5,7 +5,15 @@
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import { resolve, join } from "path";
-import { BASE_URL, DEFAULT_OG_IMAGE, SITE_NAME, TWITTER_HANDLE, SEO_ROUTES, type SeoRoute } from "./seo-routes";
+import {
+  BASE_URL,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  TWITTER_HANDLE,
+  SEO_ROUTES,
+  markdownUrlFor,
+  type SeoRoute,
+} from "./seo-routes";
 
 const DIST = resolve("dist");
 const INDEX = join(DIST, "index.html");
@@ -26,19 +34,16 @@ function buildHead(route: SeoRoute): string {
   const title = route.title;
   const desc = route.description;
   const type = route.type ?? "website";
-  // NOTE: Lovable hosting serves dist/index.html for every unknown route via SPA fallback,
-  // so the per-route subfolder snapshots are never read by crawlers. To avoid baking a
-  // root canonical and root og:url into the HTML served for /atrium, /journeys, /aetherix,
-  // /sonor, /tacet, /journal, /contact, we omit canonical and og:url from the static head
-  // entirely. The runtime <Seo> component (src/components/Seo.tsx) sets the correct
-  // per-route canonical and og:url after JS hydration (Googlebot renders JS).
+  const mdUrl = markdownUrlFor(route);
   const lines: string[] = [
     `<title>${escapeAttr(title)}</title>`,
     `<meta name="description" content="${escapeAttr(desc)}" />`,
+    `<link rel="canonical" href="${canonical}" />`,
     `<meta property="og:type" content="${type}" />`,
     `<meta property="og:site_name" content="${SITE_NAME}" />`,
     `<meta property="og:title" content="${escapeAttr(title)}" />`,
     `<meta property="og:description" content="${escapeAttr(desc)}" />`,
+    `<meta property="og:url" content="${canonical}" />`,
     `<meta property="og:image" content="${DEFAULT_OG_IMAGE}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:creator" content="${TWITTER_HANDLE}" />`,
@@ -46,11 +51,9 @@ function buildHead(route: SeoRoute): string {
     `<meta name="twitter:description" content="${escapeAttr(desc)}" />`,
     `<meta name="twitter:image" content="${DEFAULT_OG_IMAGE}" />`,
   ];
-  if (route.path === "/journal/harnesses-graders-closed-loops") {
-    lines.push(`<link rel="alternate" type="text/markdown" href="${BASE_URL}/harnesses-graders-closed-loops.md" />`);
+  if (mdUrl) {
+    lines.push(`<link rel="alternate" type="text/markdown" href="${mdUrl}" />`);
   }
-  // Reference canonical to silence unused-var lints; the value is intentionally not emitted.
-  void canonical;
 
   if (route.jsonLd) {
     const payload = Array.isArray(route.jsonLd) ? route.jsonLd : [route.jsonLd];
@@ -67,6 +70,7 @@ function transform(html: string, route: SeoRoute): string {
   out = out.replace(/\n?\s*<title>[\s\S]*?<\/title>/i, "");
   out = out.replace(/\n?\s*<meta\s+name=["']description["'][^>]*>/gi, "");
   out = out.replace(/\n?\s*<link\s+rel=["']canonical["'][^>]*>/gi, "");
+  out = out.replace(/\n?\s*<link\s+rel=["']alternate["'][^>]*type=["']text\/markdown["'][^>]*>/gi, "");
   out = out.replace(/\n?\s*<meta\s+property=["']og:[^"']+["'][^>]*>/gi, "");
   out = out.replace(/\n?\s*<meta\s+name=["']twitter:[^"']+["'][^>]*>/gi, "");
 

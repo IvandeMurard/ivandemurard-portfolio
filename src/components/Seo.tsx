@@ -4,6 +4,20 @@ import { useLocation } from "react-router-dom";
 const SITE_URL = "https://ivandemurard.com";
 const DEFAULT_OG = `${SITE_URL}/og/ivan-default.jpg`;
 
+/**
+ * Routes that have a markdown representation served at <path>.md.
+ * Kept in sync with scripts/seo-routes.ts (route.markdown), which emits the files.
+ */
+const MARKDOWN_ROUTES: readonly string[] = [
+  "/aetherix",
+  "/sonor",
+  "/tacet",
+  "/lore",
+  "/anima",
+  "/architecture",
+  "/journal/harnesses-graders-closed-loops",
+];
+
 type SeoProps = {
   title: string;
   description: string;
@@ -57,13 +71,20 @@ export const Seo = ({
   const finalPath = path ?? pathname;
   const canonical = `${SITE_URL}${finalPath === "/" ? "" : finalPath}`;
   const fullTitle = rawTitle ? title : `${title} · Ivan de Murard`;
+  // Route-shaped .md URL wins over a hand-passed one, so the announced variant
+  // always matches what the build emits.
+  const markdownHref = MARKDOWN_ROUTES.includes(finalPath)
+    ? `${SITE_URL}${finalPath}.md`
+    : markdown
+      ? new URL(markdown, SITE_URL).href
+      : undefined;
 
   useEffect(() => {
     const alternate = document.createElement("link");
-    if (markdown) {
+    if (markdownHref) {
       alternate.rel = "alternate";
       alternate.type = "text/markdown";
-      alternate.href = new URL(markdown, SITE_URL).href;
+      alternate.href = markdownHref;
       document.head.appendChild(alternate);
     }
     document.title = fullTitle;
@@ -106,7 +127,7 @@ export const Seo = ({
       const s = document.getElementById(SCRIPT_ID);
       if (s) s.remove();
     };
-  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex, markdown]);
+  }, [fullTitle, description, canonical, image, type, jsonLd, noIndex, markdownHref]);
 
   return null;
 };
