@@ -100,6 +100,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/aetherix",
+    markdown: "aetherix.md",
     title: "Aetherix, the F&B execution agent for boutique hotels · Ivan de Murard",
     description:
       "Tomorrow's covers, a staffing grid that fits, and less waste, in one WhatsApp message a day with the reasoning attached. The F&B agent of a five-agent mesh. Pilot partner in recruitment.",
@@ -121,6 +122,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/sonor",
+    markdown: "sonor.md",
     title: "Sonor, Urban Noise Intelligence for Cities · Ivan de Murard",
     description:
       "B2G SaaS turning open data into urban noise maps for municipalities. Co-founder and Product Lead, 2020 to 2022.",
@@ -139,6 +141,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/tacet",
+    markdown: "tacet.md",
     title: "Tacet, Environmental Twin for Hospitality · Ivan de Murard",
     description:
       "Headless MCP server that turns street, weather and crowd signals into yield rules and Chain of Thought payloads for RMS, PMS and orchestration agents.",
@@ -165,6 +168,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/lore",
+    markdown: "lore.md",
     title: "Lore, Voice AI Mentor for Aviation Maintenance · Ivan de Murard",
     description:
       "The knowledge retiring technicians carry isn't in any manual. Lore captures a senior's oral expertise by voice and returns it to a junior on the shop floor, never contradicting the procedure.",
@@ -186,6 +190,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/anima",
+    markdown: "anima.md",
     title: "Anima, the Guest Node of the Hospitality Agentic Mesh · Ivan de Murard",
     description:
       "Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.",
@@ -207,6 +212,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/architecture",
+    markdown: "architecture.md",
     title: "The Hospitality Agentic Mesh, an Architecture Note · Ivan de Murard",
     description:
       "Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design. This note says which is which, using one shared status vocabulary.",
@@ -255,6 +261,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/journal/harnesses-graders-closed-loops",
+    markdown: "harnesses-graders-closed-loops.md",
     title: "Evaluating LLM agents: how would you know it had stopped working? · Ivan de Murard",
     description:
       "A working vocabulary for evaluating AI systems: graders, harnesses, protocols, closed loops, and the two products where it runs, Aetherix and Lore.",
