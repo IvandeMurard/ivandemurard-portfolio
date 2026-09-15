@@ -52,15 +52,19 @@ check_route() {
     fail "GET $path (Accept: text/markdown) -> $negcode, wrong content-type"
   fi
 
-  # 3. drift check: the .md body must be present inside the negotiated body.
-  # Byte equality is impossible here: the negotiated variant is produced by the
-  # hosting layer from the rendered page and carries site chrome.
-  local probe
-  probe="$(grep -m1 -E '^[A-Za-z].{60,}' "$tmp/md" | head -c 60)"
-  if [ -n "$probe" ] && grep -qF "$probe" "$tmp/neg"; then
-    pass "the .md body and the negotiated body agree"
+  # 3. drift check: the .md variant and the negotiated variant must still be
+  # describing the same document. Byte equality is impossible here: the
+  # negotiated variant is produced by the hosting layer from the rendered page
+  # and carries site chrome, so we match several fragments of the .md body.
+  local matched=0 probe
+  while read -r probe; do
+    [ -z "$probe" ] && continue
+    if grep -qF "$probe" "$tmp/neg"; then matched=$((matched + 1)); fi
+  done < <(grep -E '^[A-Za-z].{80,}' "$tmp/md" | head -8 | cut -c1-40)
+  if [ "$matched" -ge 2 ]; then
+    pass "the .md body and the negotiated body agree ($matched/8 fragments)"
   else
-    fail "the .md variant and the negotiated variant have drifted"
+    fail "the .md variant and the negotiated variant have drifted ($matched/8 fragments)"
   fi
 
   # 4. ?format=md must never be 2xx HTML
