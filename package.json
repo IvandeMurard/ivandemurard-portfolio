@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "bunx tsx scripts/generate-sitemap.ts",
     "dev": "vite",
-    "prebuild": "bunx tsx scripts/generate-sitemap.ts && bunx tsx scripts/generate-llms-full.ts",
+    "prebuild": "bun scripts/generate-journal-mirror.ts && bunx tsx scripts/generate-sitemap.ts && bunx tsx scripts/generate-llms-full.ts",
     "build": "vite build",
     "postbuild": "bunx tsx scripts/generate-seo-snapshots.ts && bunx tsx scripts/generate-markdown-routes.ts",
     "check:machine": "bash scripts/check-machine-readability.sh",

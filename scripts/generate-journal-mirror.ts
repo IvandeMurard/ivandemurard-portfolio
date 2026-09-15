@@ -25,6 +25,6 @@ const lines = [
   "",
 ];
 
-const out = lines.join("\n").replace(/\n{3,}/g, "\n\n");
+const out = lines.join("\n\n").replace(/\n{3,}/g, "\n\n");
 writeFileSync(resolve(`public/${SLUG}.md`), out);
 console.log(`[journal-mirror] wrote public/${SLUG}.md, ${Buffer.byteLength(out)} bytes`);

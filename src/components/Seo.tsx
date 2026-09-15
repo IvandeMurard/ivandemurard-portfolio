@@ -15,6 +15,7 @@ const MARKDOWN_ROUTES: readonly string[] = [
   "/lore",
   "/anima",
   "/architecture",
+  "/journal/agent-boundaries-aetherix",
   "/journal/harnesses-graders-closed-loops",
 ];
 
