@@ -242,6 +242,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   },
   {
     path: "/journal/agent-boundaries-aetherix",
+    markdown: "agent-boundaries-aetherix.md",
     title: "A wrong forecast is absorbed. A wrong action reaches a guest. · Ivan de Murard",
     description:
       "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
