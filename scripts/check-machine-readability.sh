@@ -94,6 +94,21 @@ check_route() {
   else
     fail "HTML head has no canonical"
   fi
+
+  # 6. the HTML served to a non-JS client carries the real page, not an empty
+  # shell. Catches a silent regression of the build-time pre-render step.
+  local size
+  size="$(wc -c < "$tmp/html" | tr -d ' ')"
+  if [ "$size" -ge 20000 ]; then
+    pass "HTML is $size bytes (pre-rendered, floor 20000)"
+  else
+    fail "HTML is only $size bytes, the pre-rendered body is missing"
+  fi
+  if grep -q '<h1' "$tmp/html"; then
+    pass "HTML contains its own first heading"
+  else
+    fail "HTML contains no <h1>, the pre-rendered body is missing"
+  fi
 }
 
 printf 'Machine readability checks against %s\n' "$BASE"
