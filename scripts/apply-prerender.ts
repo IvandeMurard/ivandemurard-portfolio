@@ -37,8 +37,8 @@ for (const route of SEO_ROUTES) {
   const markup = readFileSync(body, "utf8");
   const html = readFileSync(target, "utf8");
   const next = html.replace(
-    /(<div id="root">)([\s\S]*?)(<\/div>)(?=\s*<script)/i,
-    (_m, open: string, _inner: string, close: string) => `${open}${markup}${close}`,
+    /<div id="root">\s*<\/div>/i,
+    () => `<div id="root">${markup}</div>`,
   );
   if (next === html) {
     console.warn(`[apply-prerender] no #root container found in ${target}`);
