@@ -63,6 +63,12 @@ export type JournalEntry = {
   license?: { label: string; url: string; note?: string };
   related?: { label: string; to: string }[];
   tldr?: string;
+  /** Qualification card at the top: who it is for, what it gives, what it is tested on. */
+  glance?: { audience: string; promise: string; proof: string };
+  /** Three or four short decisions the piece changes, read in twenty seconds. */
+  takeaways?: string[];
+  /** One line that carries the argument, set apart under the takeaways. */
+  takeawayPunch?: string;
   updates?: { date: string; summary: string; reason: string }[];
   body: JournalBlock[];
 };
