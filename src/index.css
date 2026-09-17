@@ -890,6 +890,10 @@
 :root:not([data-mood="dusk"]) .font-body {
   letter-spacing: 0.005em;
 }
+/* Small caps labels at 10-11px lose their footing on cream at weight 400. */
+:root:not([data-mood="dusk"]) .font-label {
+  font-weight: 500;
+}
 
 /* Print and PDF export: keep the article, drop the site chrome. */
 

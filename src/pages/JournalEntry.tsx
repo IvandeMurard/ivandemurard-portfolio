@@ -23,6 +23,8 @@ import { AskRose } from "@/components/journal/AskRose";
 import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
 import { ShareRow } from "@/components/journal/ShareRow";
 import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
+import { EntryOpening } from "@/components/journal/EntryOpening";
+import { FailureFunnel } from "@/components/journal/FailureFunnel";
 
 const slugifyHeading = (text: string) =>
   text
@@ -410,12 +412,28 @@ const JournalEntry = () => {
             {entry.title}
           </h1>
           {entry.subtitle && (
-            <p className="font-body font-light text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
+            <p className="font-body text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
           )}
-          {entry.tldr && <div className="mb-10"><SectionKey sigil="TL;DR" icon="summarize" oneLine={entry.tldr} /></div>}
-          <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
-            {entry.excerpt}
-          </p>
+          {entry.glance || entry.takeaways?.length ? (
+            <EntryOpening
+              glance={entry.glance}
+              takeaways={entry.takeaways}
+              punch={entry.takeawayPunch}
+            />
+          ) : null}
+          {entry.funnel && <FailureFunnel label={entry.funnel.label} options={entry.funnel.options} />}
+          {!entry.glance && !entry.takeaways?.length ? (
+            <>
+              {entry.tldr && (
+                <div className="mb-10">
+                  <SectionKey sigil="TL;DR" icon="summarize" oneLine={entry.tldr} />
+                </div>
+              )}
+              <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
+                {entry.excerpt}
+              </p>
+            </>
+          ) : null}
           {tocItems.length > 1 && (
             <JournalToc
               items={tocItems}
