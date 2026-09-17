@@ -28,6 +28,22 @@ export const HARNESSES_ENTRY: JournalEntry = {
   excerpt:
     "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
   tldr: "A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 52 out of 53 is a failure when the miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.",
+  glance: {
+    audience:
+      "You are shipping an LLM agent that recommends, decides, or acts, and the usual unit tests say nothing about the ways it actually fails.",
+    promise:
+      "The working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release.",
+    proof:
+      "Two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped.",
+  },
+  takeaways: [
+    "Separate the three jobs: a grader judges one criterion, a harness runs the exam, a protocol decides what passing means.",
+    "Run three arms, not one: offline before the merge, runtime in production, outcome after the fact. None substitutes for another.",
+    "Tier your acceptance criteria and give each tier a budget, so a safety miss cannot be averaged away.",
+    "Prove the measurement holds still before a threshold may block a merge, then expect enforcement to move it again.",
+  ],
+  takeawayPunch:
+    "52 out of 53 is not a pass when the one miss sits in the safety tier.",
   updates: [{"date": "2026-09-12", "summary": "Added section 13, \"Two harnesses, and which one this is\", plus the arm C metric the piece named as missing in section 2.", "reason": "Through August and September 2026 a body of writing redefined \"harness\" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half."}],
   body: [
     {
