@@ -410,12 +410,26 @@ const JournalEntry = () => {
             {entry.title}
           </h1>
           {entry.subtitle && (
-            <p className="font-body font-light text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
+            <p className="font-body text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
           )}
-          {entry.tldr && <div className="mb-10"><SectionKey sigil="TL;DR" icon="summarize" oneLine={entry.tldr} /></div>}
-          <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
-            {entry.excerpt}
-          </p>
+          {entry.glance || entry.takeaways?.length ? (
+            <EntryOpening
+              glance={entry.glance}
+              takeaways={entry.takeaways}
+              punch={entry.takeawayPunch}
+            />
+          ) : (
+            <>
+              {entry.tldr && (
+                <div className="mb-10">
+                  <SectionKey sigil="TL;DR" icon="summarize" oneLine={entry.tldr} />
+                </div>
+              )}
+              <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
+                {entry.excerpt}
+              </p>
+            </>
+          )}
           {tocItems.length > 1 && (
             <JournalToc
               items={tocItems}
