@@ -69,6 +69,19 @@ export type JournalEntry = {
   takeaways?: string[];
   /** One line that carries the argument, set apart under the takeaways. */
   takeawayPunch?: string;
+  /** Entry funnel: pick the failure moment, get the arm and the section to start from. */
+  funnel?: {
+    label?: string;
+    options: {
+      key: string;
+      label: string;
+      when: string;
+      proves: string;
+      misses: string;
+      to: string;
+      toLabel: string;
+    }[];
+  };
   updates?: { date: string; summary: string; reason: string }[];
   body: JournalBlock[];
 };
