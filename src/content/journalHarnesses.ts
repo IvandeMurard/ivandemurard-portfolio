@@ -51,10 +51,6 @@ export const HARNESSES_ENTRY: JournalEntry = {
       text: "Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.",
     },
     {
-      kind: "p",
-      text: "Every section stands on its own: a key card at the top gives the claim in one line and one concrete case. Read the whole thing, or land on section 12 and take only that.",
-    },
-    {
       kind: "anchors",
       label: "The two systems referenced here",
       items: [
