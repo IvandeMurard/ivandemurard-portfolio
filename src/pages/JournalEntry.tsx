@@ -23,6 +23,7 @@ import { AskRose } from "@/components/journal/AskRose";
 import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
 import { ShareRow } from "@/components/journal/ShareRow";
 import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
+import { EntryOpening } from "@/components/journal/EntryOpening";
 
 const slugifyHeading = (text: string) =>
   text
