@@ -24,6 +24,7 @@ import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
 import { ShareRow } from "@/components/journal/ShareRow";
 import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
 import { EntryOpening } from "@/components/journal/EntryOpening";
+import { FailureFunnel } from "@/components/journal/FailureFunnel";
 
 const slugifyHeading = (text: string) =>
   text
@@ -432,7 +433,7 @@ const JournalEntry = () => {
                 {entry.excerpt}
               </p>
             </>
-          )}
+          ) : null}
           {tocItems.length > 1 && (
             <JournalToc
               items={tocItems}
