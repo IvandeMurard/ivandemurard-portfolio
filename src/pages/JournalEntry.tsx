@@ -419,7 +419,9 @@ const JournalEntry = () => {
               takeaways={entry.takeaways}
               punch={entry.takeawayPunch}
             />
-          ) : (
+          ) : null}
+          {entry.funnel && <FailureFunnel label={entry.funnel.label} options={entry.funnel.options} />}
+          {!entry.glance && !entry.takeaways?.length ? (
             <>
               {entry.tldr && (
                 <div className="mb-10">
