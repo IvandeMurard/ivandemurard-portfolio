@@ -44,6 +44,44 @@ export const HARNESSES_ENTRY: JournalEntry = {
   ],
   takeawayPunch:
     "52 out of 53 is not a pass when the one miss sits in the safety tier.",
+  funnel: {
+    label: "Where would your failure show up?",
+    options: [
+      {
+        key: "offline",
+        label: "Before release",
+        when: "A change ships and quality quietly drops",
+        proves:
+          "Arm A, offline. A frozen case set, graded criterion by criterion, run on every change: regressions are caught before the merge.",
+        misses:
+          "Everything the case set never imagined, and everything that only happens on real traffic.",
+        to: "6-acceptance-criteria-the-part-everyone-skips",
+        toLabel: "Start at section 6, acceptance criteria",
+      },
+      {
+        key: "runtime",
+        label: "In production",
+        when: "It drifts, hallucinates, or acts out of scope live",
+        proves:
+          "Arm B, runtime. Guardrails and anomaly detection on real traffic: error rates, output bounds, abstention, drift, latency.",
+        misses:
+          "Whether the output was any good in the end. Live signals tell you the system behaved, not that it helped.",
+        to: "7-the-canary-and-why-it-was-invalidated",
+        toLabel: "Start at section 7, the canary",
+      },
+      {
+        key: "outcome",
+        label: "After real use",
+        when: "It looked fine and still produced no value",
+        proves:
+          "Arm C, outcome. Was the output acted on, and did reality confirm it: forecast error against realised covers, procedure against signed work record.",
+        misses:
+          "Speed. The loop closes in weeks, so it cannot guard a release on its own.",
+        to: "2-three-arms-and-what-each-product-can-afford",
+        toLabel: "Start at section 2, the three arms",
+      },
+    ],
+  },
   updates: [{"date": "2026-09-12", "summary": "Added section 13, \"Two harnesses, and which one this is\", plus the arm C metric the piece named as missing in section 2.", "reason": "Through August and September 2026 a body of writing redefined \"harness\" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half."}],
   body: [
     {
