@@ -59,7 +59,7 @@ export const ShareRow = ({ title, excerpt, mirror, license }: ShareRowProps) => 
         </button>
       </div>
       {license && (
-        <p className="mt-5 font-body font-light text-sm text-on-surface-variant">
+        <p className="mt-5 font-body font-normal text-sm text-on-surface-variant">
           Published under{" "}
           <a
             href={license.url}

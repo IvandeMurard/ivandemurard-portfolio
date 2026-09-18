@@ -314,7 +314,7 @@ const Journeys = () => {
                 <p
                   data-reveal-child
                   style={{ ["--reveal-delay" as string]: "420ms" }}
-                  className="text-on-surface-variant font-light leading-relaxed max-w-md text-base md:text-lg"
+                  className="text-on-surface-variant font-normal leading-relaxed max-w-md text-base md:text-lg"
                 >
                   A curated collection of projects where technology quietly becomes an act of care.
                 </p>

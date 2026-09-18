@@ -10,6 +10,7 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS } from "@/content/site";
 import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchitectureDiagram";
 import { AetherixHeroBadges } from "@/components/atherix/AetherixHeroBadges";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
 import { AetherixMetricCards } from "@/components/atherix/AetherixMetricCards";
 import { AetherixDailyReceipt } from "@/components/atherix/AetherixDailyReceipt";
@@ -249,6 +250,10 @@ const Atherix = () => (
                 The architecture
               </Link>
             </p>
+
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="mt-8">
+              <EntryActions title="Aetherix" markdownPath="/aetherix.md" variant="case" />
+            </div>
 
 
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "580ms" }}>

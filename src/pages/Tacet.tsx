@@ -10,6 +10,7 @@ import { TacetPipelineDiagram } from "@/components/tacet/TacetPipelineDiagram";
 import { SectionDivider } from "@/components/SectionDivider";
 import acousticTwinImg from "@/assets/tacet-acoustic-twin.jpg";
 import { Term } from "@/components/Term";
+import { EntryActions } from "@/components/journal/EntryActions";
 
 const PROJECT_INFO = [
   { label: "Rôle", value: "Product Builder, Architect of an environmental intelligence layer" },
@@ -180,6 +181,9 @@ const Tacet = () => (
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "380ms" }} className="font-headline text-2xl md:text-3xl text-on-surface-variant max-w-2xl italic leading-relaxed">
             A <Term id="headless">headless</Term> <Term id="environmentalTwin">environmental twin</Term> that turns street, weather and crowd signals into yield rules your RMS can act on, exposed via <Term id="mcp">MCP</Term>.
           </p>
+          <div data-reveal-child style={{ ["--reveal-delay" as string]: "460ms" }} className="mt-10">
+            <EntryActions title="Tacet" markdownPath="/tacet.md" variant="case" />
+          </div>
         </div>
         <div className="absolute -right-24 top-1/2 -translate-y-1/2 w-full md:w-3/4 h-[600px] md:h-[800px] opacity-80 pointer-events-none">
           <div className="halo-drift w-full h-full bg-gradient-to-tr from-primary/20 via-primary-container/10 to-transparent rounded-full blur-3xl" />

@@ -13,6 +13,7 @@ import { useHeadingToc } from "@/components/reading/useHeadingToc";
 import { SectionKey } from "@/components/journal/SectionKey";
 import { AskRose } from "@/components/journal/AskRose";
 import { ShareRow } from "@/components/journal/ShareRow";
+import { EntryActions } from "@/components/journal/EntryActions";
 
 const linkCls =
   "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
@@ -217,6 +218,9 @@ const Anima = () => {
             >
               Synthetic proof of concept · production gated behind a data-protection assessment
             </span>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="mt-8">
+              <EntryActions title="Anima" markdownPath="/anima.md" variant="case" />
+            </div>
           </div>
         </Reveal>
 
@@ -393,7 +397,7 @@ const Anima = () => {
                   inference, and a scope gate that makes "give me everything about this guest" an
                   impossible request rather than a discouraged one.
                 </P>
-                <p className="font-body font-light text-sm text-on-surface-variant max-w-3xl border-t border-outline-variant pt-4">
+                <p className="font-body font-normal text-sm text-on-surface-variant max-w-3xl border-t border-outline-variant pt-4">
                   Edmondo Grassi, <em>The Remains of the Stay: Memory, Identity, and the Afterlife of the
                   Guest</em>, Hotel Yearbook 2026 Technology Edition.
                 </p>
@@ -494,7 +498,7 @@ const Anima = () => {
                     excerpt="Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching."
                     mirror="/anima.md"
                   />
-                  <p className="mt-5 font-body font-light text-sm text-on-surface-variant">
+                  <p className="mt-5 font-body font-normal text-sm text-on-surface-variant">
                     © Ivan de Murard. All rights reserved.
                   </p>
                 </div>

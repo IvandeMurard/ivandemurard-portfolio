@@ -3,8 +3,15 @@ import { Icon } from "@/components/ui/Icon";
 
 type EntryActionsProps = {
   title: string;
-  /** Path of the markdown representation, route shaped: /journal/<slug>.md */
+  /** Path of the markdown representation, route shaped: /journal/<slug>.md or /aetherix.md */
   markdownPath?: string;
+  /**
+   * Reading contract. Field notes teach, so they offer the raw markdown openly.
+   * Case studies attest: the mirror stays for agents, not offered as a download.
+   */
+  variant?: "note" | "case";
+  /** What a model should be asked to do with the text. */
+  ask?: string;
 };
 
 const BTN =
@@ -16,7 +23,7 @@ const BTN =
  * The machine actions come first: the markdown representation is the
  * canonical thing an agent should read, not the rendered page.
  */
-export const EntryActions = ({ title, markdownPath }: EntryActionsProps) => {
+export const EntryActions = ({ title, markdownPath, variant = "note", ask }: EntryActionsProps) => {
   const [copied, setCopied] = useState<"context" | "link" | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
   const shareRef = useRef<HTMLDivElement | null>(null);
@@ -25,9 +32,14 @@ export const EntryActions = ({ title, markdownPath }: EntryActionsProps) => {
   const pageUrl = typeof window !== "undefined" ? window.location.href : origin;
   const mdUrl = markdownPath ? `${origin}${markdownPath}` : undefined;
 
+  const defaultAsk =
+    variant === "case"
+      ? "summarise the problem, the architecture and what was actually shipped, then tell me what is transferable to my own system."
+      : "summarise the working vocabulary and the decisions it asks me to make, then help me apply it to my own system.";
+
   const prompt = mdUrl
-    ? `Read ${mdUrl} (full article, markdown) and summarise how it defines graders, harnesses and evaluation protocols. Then help me apply it to my own system.\n\nSource: ${title} by Ivan de Murard, ${pageUrl}`
-    : `Read ${pageUrl} and summarise "${title}", then help me apply it to my own system.`;
+    ? `Read ${mdUrl} (full text, markdown) and ${ask ?? defaultAsk}\n\nSource: ${title} by Ivan de Murard, ${pageUrl}`
+    : `Read ${pageUrl} and ${ask ?? defaultAsk}\n\nSource: ${title} by Ivan de Murard.`;
 
   useEffect(() => {
     if (!shareOpen) return;
@@ -90,7 +102,7 @@ export const EntryActions = ({ title, markdownPath }: EntryActionsProps) => {
           <Icon name={copied === "context" ? "check" : "content_copy"} className="text-[16px] leading-none" />
           {copied === "context" ? "Context copied" : "Copy LLM context"}
         </button>
-        {markdownPath && (
+        {markdownPath && variant === "note" && (
           <a className={BTN} href={markdownPath} target="_blank" rel="noopener noreferrer">
             <Icon name="description" className="text-[16px] leading-none" />
             Raw markdown

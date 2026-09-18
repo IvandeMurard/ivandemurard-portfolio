@@ -11,6 +11,7 @@ import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
 import { Term } from "@/components/Term";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { useMood } from "@/components/MoodProvider";
 import sonorCartographie from "@/assets/sonor-cartographie.png";
 import sonorRecommandations from "@/assets/sonor-recommandations.png";
@@ -192,6 +193,9 @@ const Sonor = () => {
                 <span>Original project site (2020)</span>
                 <Icon name="arrow_outward" className="text-sm" />
               </a>
+            </div>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "860ms" }} className="mt-8">
+              <EntryActions title="Sonor" markdownPath="/sonor.md" variant="case" />
             </div>
           </div>
           <div className="lg:col-span-5 flex justify-end">

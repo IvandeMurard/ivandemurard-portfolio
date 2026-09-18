@@ -88,7 +88,7 @@ const Contact = () => {
           Shall <br />
           we meet again?
         </h1>
-        <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-light relative z-10">
+        <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-normal relative z-10">
           Let's discuss how to create business value and meaningful human experiences for your operations or users.
         </p>
       </section>
@@ -117,7 +117,7 @@ const Contact = () => {
               </div>
               <div className="relative z-10">
                 <h3 className="font-headline italic text-3xl md:text-4xl text-primary mb-3">{c.label}</h3>
-                <p className="text-on-surface-variant font-light leading-relaxed">{c.desc}</p>
+                <p className="text-on-surface-variant font-normal leading-relaxed">{c.desc}</p>
               </div>
               <span className="relative z-10 inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[11px] text-secondary mt-auto">
                 {c.cta}

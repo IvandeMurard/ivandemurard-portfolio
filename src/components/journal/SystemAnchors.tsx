@@ -48,7 +48,7 @@ export const SystemAnchors = ({
                   <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
                     {row.label}
                   </dt>
-                  <dd className="font-body font-light text-sm text-on-surface-variant">{item[row.key]}</dd>
+                  <dd className="font-body font-normal text-sm text-on-surface-variant">{item[row.key]}</dd>
                 </div>
               </div>
             ))}

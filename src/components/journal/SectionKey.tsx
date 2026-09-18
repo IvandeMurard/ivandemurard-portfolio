@@ -30,7 +30,7 @@ export const SectionKey = ({
     </div>
     <p className="font-headline italic text-lg md:text-xl text-primary leading-snug">{oneLine}</p>
     {concrete && (
-      <p className="mt-3 font-body font-light text-sm text-on-surface-variant">
+      <p className="mt-3 font-body font-normal text-sm text-on-surface-variant">
         <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mr-2">
           In practice
         </span>

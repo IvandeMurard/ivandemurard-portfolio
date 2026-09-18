@@ -163,7 +163,7 @@ const Atrium = () => (
           <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
             Last Experiences
           </h2>
-          <p className="text-on-surface-variant font-light leading-relaxed">
+          <p className="text-on-surface-variant font-normal leading-relaxed">
             Four roles, four sizes of company, one constant: data-driven SaaS that lands in
             operations.
           </p>
@@ -185,7 +185,7 @@ const Atrium = () => (
               <p className="font-label uppercase tracking-[0.18em] text-[11px] text-on-surface-variant mb-6">
                 {entry.company}
               </p>
-              <p className="text-on-surface-variant font-light leading-relaxed">{entry.outcome}</p>
+              <p className="text-on-surface-variant font-normal leading-relaxed">{entry.outcome}</p>
             </article>
           ))}
         </div>
@@ -199,7 +199,7 @@ const Atrium = () => (
           <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6">
             Milestones
           </h2>
-          <p className="text-on-surface-variant font-light leading-relaxed">
+          <p className="text-on-surface-variant font-normal leading-relaxed">
             A few markers along the way.
           </p>
         </div>
@@ -238,7 +238,7 @@ const Atrium = () => (
           <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
             What I'm building
           </h2>
-          <p className="text-on-surface-variant font-light leading-relaxed">
+          <p className="text-on-surface-variant font-normal leading-relaxed">
             A handful of live builds, in hospitality operations, civic life, evaluation, music, and
             industrial knowledge. I work in public, with the source open whenever I can.
           </p>
@@ -258,7 +258,7 @@ const Atrium = () => (
                 className="atrium-card group p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-outline-variant transition-all duration-500 flex flex-col"
               >
                 <h3 className="font-headline italic text-2xl text-primary mb-4">{p.name}</h3>
-                <p className="text-on-surface-variant font-light leading-relaxed mb-8 flex-1">
+                <p className="text-on-surface-variant font-normal leading-relaxed mb-8 flex-1">
                   {p.blurb}
                 </p>
                 <span className="inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
@@ -315,7 +315,7 @@ const Atrium = () => (
           <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
             How I work
           </h2>
-          <p className="text-on-surface-variant font-light leading-relaxed">
+          <p className="text-on-surface-variant font-normal leading-relaxed">
             A loop, not a waterfall. Four moves I keep returning to, on every project.
           </p>
         </div>
@@ -331,7 +331,7 @@ const Atrium = () => (
                 {m.n}
               </span>
               <h3 className="font-headline italic text-xl text-primary mb-4">{m.title}</h3>
-              <p className="text-on-surface-variant font-light leading-relaxed text-[15px]">
+              <p className="text-on-surface-variant font-normal leading-relaxed text-[15px]">
                 {m.body}
               </p>
             </div>
@@ -350,7 +350,7 @@ const Atrium = () => (
           <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
             Ready to build the future?
           </h2>
-          <p className="text-on-surface font-light mb-12 max-w-xl mx-auto leading-relaxed">
+          <p className="text-on-surface font-normal mb-12 max-w-xl mx-auto leading-relaxed">
             Hiring leads, design partners, fellow builders, all welcome. Pick the door that suits
             you.
           </p>

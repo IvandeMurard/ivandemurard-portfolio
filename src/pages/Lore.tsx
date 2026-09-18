@@ -10,6 +10,7 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS } from "@/content/site";
 import { Term } from "@/components/Term";
 import { LoreHeroBadges } from "@/components/lore/LoreHeroBadges";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { LoreThreeModes } from "@/components/lore/LoreThreeModes";
 import { LoreHangarDialogue } from "@/components/lore/LoreHangarDialogue";
 import { LoreMemoryThread } from "@/components/lore/LoreMemoryThread";
@@ -115,6 +116,9 @@ const Lore = () => (
             </p>
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "380ms" }}>
               <LoreHeroBadges />
+            </div>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "440ms" }} className="mt-8">
+              <EntryActions title="Lore" markdownPath="/lore.md" variant="case" />
             </div>
           </div>
           <div className="hidden lg:flex flex-none items-center gap-4 text-secondary italic font-headline text-2xl pb-4">

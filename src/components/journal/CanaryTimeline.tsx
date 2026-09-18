@@ -29,7 +29,7 @@ export const CanaryTimeline = ({ steps, label }: { steps: Step[]; label?: string
               {step.label}
             </div>
             {step.note && (
-              <p className="font-body font-light text-sm text-on-surface-variant mt-2">{step.note}</p>
+              <p className="font-body font-normal text-sm text-on-surface-variant mt-2">{step.note}</p>
             )}
           </div>
         </li>

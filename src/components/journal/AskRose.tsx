@@ -26,7 +26,7 @@ export const AskRose = ({
         <Icon name="forum" className="text-secondary text-[20px] leading-none" />
         <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{label}</span>
       </div>
-      {note && <p className="font-body font-light text-sm text-on-surface-variant mb-4">{note}</p>}
+      {note && <p className="font-body font-normal text-sm text-on-surface-variant mb-4">{note}</p>}
       <ul className="flex flex-col gap-2 list-none p-0 m-0">
         {prompts.map((prompt) => (
           <li key={prompt}>

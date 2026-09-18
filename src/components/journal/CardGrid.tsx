@@ -20,7 +20,7 @@ export const CardGrid = ({ items, label }: { items: Card[]; label?: string }) =>
         >
           <Icon name={card.icon} className="text-secondary text-[22px] leading-none" />
           <h4 className="font-headline italic text-lg text-primary mt-3 mb-2">{card.title}</h4>
-          <p className="font-body font-light text-sm text-on-surface-variant">{createTermTaker([])(card.body)}</p>
+          <p className="font-body font-normal text-sm text-on-surface-variant">{createTermTaker([])(card.body)}</p>
         </div>
       ))}
     </div>
