@@ -108,8 +108,8 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
             <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mb-2">
               Arm {current.key} · {current.name} · {current.when}
             </div>
-            <p className="font-body font-light text-sm text-on-surface-variant">{current.proves}</p>
-            <p className="font-body font-light text-sm text-on-surface-variant mt-2">
+            <p className="font-body font-normal text-sm text-on-surface-variant">{current.proves}</p>
+            <p className="font-body font-normal text-sm text-on-surface-variant mt-2">
               <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mr-2">
                 {current.products}
               </span>
@@ -117,7 +117,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
             </p>
           </>
         ) : (
-          <p className="flex items-center gap-2 font-body font-light text-sm text-on-surface-variant">
+          <p className="flex items-center gap-2 font-body font-normal text-sm text-on-surface-variant">
             <Icon name="touch_app" className="text-secondary text-[18px] leading-none" />
             Select an arm to see what it proves and where it runs.
           </p>

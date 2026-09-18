@@ -197,7 +197,7 @@ const Block = ({
                     <td
                       key={ci}
                       className={`px-4 py-3 align-top font-body ${
-                        ci === 0 ? "text-primary font-medium" : "text-on-surface-variant font-light"
+                        ci === 0 ? "text-primary font-medium" : "text-on-surface-variant font-normal"
                       }`}
                     >
                       {t(cell)}
@@ -217,7 +217,7 @@ const Block = ({
               <dt className="font-label uppercase tracking-[0.16em] text-[11px] text-primary mb-1">
                 {item.term}
               </dt>
-              <dd className="font-body font-light text-base text-on-surface-variant">{t(item.def)}{item.note && <em className="block mt-2">{item.note}</em>}</dd>
+              <dd className="font-body font-normal text-base text-on-surface-variant">{t(item.def)}{item.note && <em className="block mt-2">{item.note}</em>}</dd>
             </div>
           ))}
         </dl>
@@ -232,7 +232,7 @@ const Block = ({
           </div>
           <div className="space-y-3">
             {block.items.map((item, i) => (
-              <p key={i} className="font-body font-light text-base">
+              <p key={i} className="font-body font-normal text-base">
                 <Link
                   to={item.to}
                   className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
@@ -254,7 +254,7 @@ const Block = ({
               className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5"
             >
               <dt className="font-headline italic text-lg text-primary mb-2">{item.q}</dt>
-              <dd className="font-body font-light text-sm text-on-surface-variant">{t(item.a)}</dd>
+              <dd className="font-body font-normal text-sm text-on-surface-variant">{t(item.a)}</dd>
             </div>
           ))}
         </dl>
@@ -359,7 +359,7 @@ const JournalEntry = () => {
             Field Notes
           </span>
           <h1 className="font-headline text-4xl md:text-6xl italic text-primary mb-8">Entry not found.</h1>
-          <p className="text-on-surface-variant font-light mb-12">
+          <p className="text-on-surface-variant font-normal mb-12">
             That note may have been moved, renamed, or is still in draft.
           </p>
           <Link
@@ -444,7 +444,7 @@ const JournalEntry = () => {
               meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
             />
           )}
-          <div className="space-y-8 text-lg text-on-surface-variant font-light leading-relaxed">
+          <div className="space-y-8 text-lg text-on-surface-variant font-normal leading-relaxed">
             {entry.body.map((block, i) => (
               <Reveal key={i}>
                 <Block block={block} labels={labels} headingId={headingIds[i]} marks={blockMarks[i]} />

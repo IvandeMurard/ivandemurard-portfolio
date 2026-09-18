@@ -110,7 +110,7 @@ const ProjectGroup = ({
               <div className="mt-8 px-2 pb-2 flex justify-between items-start gap-4">
                 <div>
                   <h3 className="font-headline text-3xl italic text-primary">{p.name}</h3>
-                  <p className="text-on-surface-variant font-light leading-relaxed mt-4">{p.tagline}</p>
+                  <p className="text-on-surface-variant font-normal leading-relaxed mt-4">{p.tagline}</p>
                   <p className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-4">
                     {p.label}
                   </p>
@@ -285,7 +285,7 @@ const Index = () => {
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="text-on-surface-variant font-light leading-relaxed"
+            className="text-on-surface-variant font-normal leading-relaxed"
           >
             Three to start with: the flagship agent of the{" "}
             <Link to="/architecture" className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity">
@@ -325,7 +325,7 @@ const Index = () => {
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="text-on-surface-variant font-light leading-relaxed"
+            className="text-on-surface-variant font-normal leading-relaxed"
           >
             What I learn while building, written to be used.
           </p>
@@ -355,7 +355,7 @@ const Index = () => {
               </span>
             </span>
             <h3 className="font-headline italic text-2xl text-primary mb-4">{entry.title}</h3>
-            <p className="text-on-surface-variant font-light leading-relaxed">{entry.excerpt}</p>
+            <p className="text-on-surface-variant font-normal leading-relaxed">{entry.excerpt}</p>
           </Link>
         ))}
       </div>
@@ -375,7 +375,7 @@ const Index = () => {
         <p
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "120ms" }}
-          className="text-on-surface-variant font-light leading-relaxed"
+          className="text-on-surface-variant font-normal leading-relaxed"
         >
           Three convictions that shape every product I build, and the method that follows from them.
         </p>
@@ -390,14 +390,14 @@ const Index = () => {
           >
             <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-6 md:mb-8" />
             <h3 className="font-headline italic text-2xl text-primary mb-3 md:mb-4">{title}</h3>
-            <p className="text-on-surface-variant font-light leading-relaxed">{body}</p>
+            <p className="text-on-surface-variant font-normal leading-relaxed">{body}</p>
           </div>
         ))}
       </div>
       <p
         data-reveal-child
         style={{ ["--reveal-delay" as string]: "320ms" }}
-        className="mt-8 md:mt-12 text-on-surface-variant font-light leading-relaxed max-w-2xl"
+        className="mt-8 md:mt-12 text-on-surface-variant font-normal leading-relaxed max-w-2xl"
       >
         In practice: read the ground first, turn that reading into shipped product decisions, and pick the lightest
         mechanism that solves the job, with the human always in the loop.{" "}
@@ -428,7 +428,7 @@ const Index = () => {
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
           Thank you for your visit
         </h2>
-        <p className="text-on-surface font-light mb-12 max-w-lg mx-auto relative z-10">
+        <p className="text-on-surface font-normal mb-12 max-w-lg mx-auto relative z-10">
           Contact. Let's discuss how to create business value and meaningful human experiences for your
           operations or users.
         </p>

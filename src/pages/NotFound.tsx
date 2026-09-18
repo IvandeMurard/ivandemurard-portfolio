@@ -23,7 +23,7 @@ const NotFound = () => {
             This room <br />
             is empty.
           </h1>
-          <p className="text-on-surface-variant font-light leading-relaxed mb-12">
+          <p className="text-on-surface-variant font-normal leading-relaxed mb-12">
             The page you were looking for is not here. Let's walk back to the entrance together.
           </p>
           <Link

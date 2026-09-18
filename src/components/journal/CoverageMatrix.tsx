@@ -32,7 +32,7 @@ const Cell = ({ cell }: { cell: MatrixCell }) => (
     </div>
     <p className="font-body text-sm text-on-surface mt-1.5">{cell.instance}</p>
     {cell.cost && (
-      <p className="font-body font-light text-sm text-on-surface-variant mt-1">{cell.cost}</p>
+      <p className="font-body font-normal text-sm text-on-surface-variant mt-1">{cell.cost}</p>
     )}
   </div>
 );
@@ -71,7 +71,7 @@ export const CoverageMatrix = ({
         <div key={row.arm} className="contents">
           <div className="pt-1">
             <div className="font-headline italic text-lg text-primary leading-tight">{row.arm}</div>
-            <div className="font-body font-light text-xs text-on-surface-variant mt-1">{row.when}</div>
+            <div className="font-body font-normal text-xs text-on-surface-variant mt-1">{row.when}</div>
           </div>
           {row.cells.map((cell, i) => (
             <div key={i} className="pt-1">
@@ -86,7 +86,7 @@ export const CoverageMatrix = ({
       {rows.map((row) => (
         <div key={row.arm}>
           <div className="font-headline italic text-lg text-primary leading-tight">{row.arm}</div>
-          <div className="font-body font-light text-xs text-on-surface-variant mt-1 mb-3">{row.when}</div>
+          <div className="font-body font-normal text-xs text-on-surface-variant mt-1 mb-3">{row.when}</div>
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
             {row.cells.map((cell, i) => (
               <div key={i} className="rounded-sm border border-outline-variant bg-surface-container-low p-4">

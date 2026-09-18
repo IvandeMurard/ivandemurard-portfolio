@@ -43,7 +43,7 @@ export const PyramidDiagram = ({
                 {layer.name}
               </div>
               {layer.note && (
-                <div className="font-body font-light text-xs text-on-surface-variant mt-1">
+                <div className="font-body font-normal text-xs text-on-surface-variant mt-1">
                   {renderNote ? renderNote(layer.note) : layer.note}
                 </div>
               )}
@@ -90,14 +90,14 @@ export const PyramidDiagram = ({
               <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mb-2">
                 {current.level} · {current.name}
               </div>
-              <p className="font-body font-light text-sm text-on-surface-variant">{current.detail}</p>
+              <p className="font-body font-normal text-sm text-on-surface-variant">{current.detail}</p>
               <dl className="mt-3 grid gap-2 sm:grid-cols-2">
                 {current.product && (
                   <div>
                     <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
                       Where it runs
                     </dt>
-                    <dd className="font-body font-light text-sm text-on-surface-variant">
+                    <dd className="font-body font-normal text-sm text-on-surface-variant">
                       {current.product}
                     </dd>
                   </div>
@@ -107,7 +107,7 @@ export const PyramidDiagram = ({
                     <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
                       Signal emitted
                     </dt>
-                    <dd className="font-body font-light text-sm text-on-surface-variant">
+                    <dd className="font-body font-normal text-sm text-on-surface-variant">
                       {current.signal}
                     </dd>
                   </div>
@@ -115,7 +115,7 @@ export const PyramidDiagram = ({
               </dl>
             </>
           ) : (
-            <p className="flex items-center gap-2 font-body font-light text-sm text-on-surface-variant">
+            <p className="flex items-center gap-2 font-body font-normal text-sm text-on-surface-variant">
               <Icon name="touch_app" className="text-secondary text-[18px] leading-none" />
               Select a layer to see what it measures and what it emits.
             </p>
