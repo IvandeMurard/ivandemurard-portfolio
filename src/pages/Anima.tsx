@@ -13,6 +13,7 @@ import { useHeadingToc } from "@/components/reading/useHeadingToc";
 import { SectionKey } from "@/components/journal/SectionKey";
 import { AskRose } from "@/components/journal/AskRose";
 import { ShareRow } from "@/components/journal/ShareRow";
+import { EntryActions } from "@/components/journal/EntryActions";
 
 const linkCls =
   "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
