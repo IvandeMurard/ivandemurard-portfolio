@@ -11,6 +11,7 @@ import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
 import { Term } from "@/components/Term";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { useMood } from "@/components/MoodProvider";
 import sonorCartographie from "@/assets/sonor-cartographie.png";
 import sonorRecommandations from "@/assets/sonor-recommandations.png";
