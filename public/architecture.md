@@ -121,3 +121,9 @@ to a component and to a person.
 - Lore: outside the mesh, as evidence the pattern holds elsewhere.
 
 Contact: ivandemurard@gmail.com, https://cal.com/ivandemurard/discussion-and-introduction
+
+## Query this mesh from your agent
+
+The five agents talk over MCP. So does this site: a public, read-only MCP server exposes the case studies, the field notes and the bio as tools.
+
+claude mcp add ivandemurard --transport http https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp

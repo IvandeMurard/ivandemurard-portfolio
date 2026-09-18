@@ -521,6 +521,7 @@ var HARNESSES_ENTRY = {
         ["3", "WARN", 'Thresholds met but a tier is not clean. Not a synonym for "fine"']
       ]
     },
+    { kind: "console", preset: "harness" },
     {
       kind: "p",
       text: "This is where the driving test earns its keep. You can collect minor faults and still pass. One major fault and you walk home, whatever the rest of the sheet says."
@@ -768,6 +769,11 @@ var HARNESSES_ENTRY = {
     {
       kind: "p",
       text: "A note on where it came from. I wrote the first version for myself, before interviews, because I kept noticing I could do things I could not name. It turned out to be more useful as a reference than as a memory aid, so it became this."
+    },
+    {
+      kind: "mcp",
+      label: "Read this with your own agent",
+      note: "This note, both case studies and the bio are exposed as read-only tools. An agent can fetch the full text without scraping the page."
     }
   ]
 };

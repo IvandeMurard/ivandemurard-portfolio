@@ -66,8 +66,14 @@ export default {
         "on-surface-variant": "hsl(var(--on-surface-variant))",
         "on-background": "hsl(var(--on-background))",
 
+        error: "hsl(var(--error))",
+        "on-error": "hsl(var(--on-error))",
+        "error-container": "hsl(var(--error-container))",
+        "on-error-container": "hsl(var(--on-error-container))",
+
         outline: "hsl(var(--outline))",
         "outline-variant": "hsl(var(--outline-variant))",
+
 
         "inverse-surface": "hsl(var(--inverse-surface))",
         "inverse-on-surface": "hsl(var(--inverse-on-surface))",

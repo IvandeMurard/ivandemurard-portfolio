@@ -821,6 +821,12 @@ to a component and to a person.
 
 Contact: ivandemurard@gmail.com, https://cal.com/ivandemurard/discussion-and-introduction
 
+## Query this mesh from your agent
+
+The five agents talk over MCP. So does this site: a public, read-only MCP server exposes the case studies, the field notes and the bio as tools.
+
+claude mcp add ivandemurard --transport http https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
+
 --- END DOCUMENT: architecture ---
 
 --- BEGIN DOCUMENT: journal/agent-boundaries-aetherix ---
@@ -1197,6 +1203,12 @@ A note on where it came from. I wrote the first version for myself, before inter
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
 
 2026-09-12 · Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2. *Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.*
+
+## Read this with your own agent
+
+This site runs a public, read-only MCP server. The case studies, this note and the bio are exposed as tools (list_case_studies, get_case_study, list_journal, get_journal_entry, get_about), so an agent can fetch the full text without scraping the page.
+
+claude mcp add ivandemurard --transport http https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
 
 --- END DOCUMENT: journal/harnesses-graders-closed-loops ---
 
