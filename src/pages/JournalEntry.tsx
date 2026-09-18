@@ -22,6 +22,7 @@ import { CardGrid } from "@/components/journal/CardGrid";
 import { AskRose } from "@/components/journal/AskRose";
 import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
 import { ShareRow } from "@/components/journal/ShareRow";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
 import { EntryOpening } from "@/components/journal/EntryOpening";
 import { FailureFunnel } from "@/components/journal/FailureFunnel";
