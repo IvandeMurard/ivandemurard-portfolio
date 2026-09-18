@@ -18,17 +18,6 @@ Most teams building with language models can describe what their system does. Fa
 
 **Read this if** you are shipping an LLM agent that recommends, decides, or acts, and the usual unit tests say nothing about the ways it actually fails. **What it gives you**: the working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release. **Tested on** two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped.
 
-What you will decide differently:
-
-- Separate the three jobs: a grader judges one criterion, a harness runs the exam, a protocol decides what passing means.
-- Run three arms, not one: offline before the merge, runtime in production, outcome after the fact. None substitutes for another.
-- Tier your acceptance criteria and give each tier a budget, so a safety miss cannot be averaged away.
-- Prove the measurement holds still before a threshold may block a merge, then expect enforcement to move it again.
-
-52 out of 53 is not a pass when the one miss sits in the safety tier.
-
-Every section stands on its own: a key card at the top gives the claim in one line and one concrete case. Read the whole thing, or land on section 12 and take only that.
-
 - **Aetherix**: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Users: Other agents via MCP, or a hotel / F&B manager with WhatsApp. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
 - **Lore**: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed.
 
