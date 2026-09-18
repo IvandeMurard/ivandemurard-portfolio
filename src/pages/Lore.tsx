@@ -16,6 +16,8 @@ import { LoreHangarDialogue } from "@/components/lore/LoreHangarDialogue";
 import { LoreMemoryThread } from "@/components/lore/LoreMemoryThread";
 import { LoreSopConflictCard } from "@/components/lore/LoreSopConflictCard";
 import { LoreTierTable } from "@/components/lore/LoreTierTable";
+import { LoreEvalConsole } from "@/components/lore/LoreEvalConsole";
+
 import { LoreHonestyBlock } from "@/components/lore/LoreHonestyBlock";
 import { LoreStatBand } from "@/components/lore/LoreStatBand";
 import { LoreWhatItIsFor } from "@/components/lore/LoreWhatItIsFor";
@@ -417,6 +419,10 @@ const Lore = () => (
             </p>
           </div>
           <LoreTierTable />
+          <div data-reveal-child className="mt-8 md:mt-10">
+            <LoreEvalConsole />
+          </div>
+
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "320ms" }}

@@ -15,6 +15,8 @@ import { SectionKey } from "@/components/journal/SectionKey";
 import { AskRose } from "@/components/journal/AskRose";
 import { ShareRow } from "@/components/journal/ShareRow";
 import { EntryActions } from "@/components/journal/EntryActions";
+import { McpEndpoint } from "@/components/McpEndpoint";
+
 import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
 
 const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
@@ -261,6 +263,13 @@ const Architecture = () => {
                 ask="explain how the five agents divide responsibility, what talks to what over MCP, and which parts are built versus designed."
               />
             </div>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="mt-8">
+              <McpEndpoint
+                label="Query this mesh from your agent"
+                note="The five agents talk over MCP. So does this page: the case studies and field notes behind it are exposed as read-only tools."
+              />
+            </div>
+
           </div>
         </Reveal>
 

@@ -26,6 +26,9 @@ import { EntryActions } from "@/components/journal/EntryActions";
 import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
 import { EntryOpening } from "@/components/journal/EntryOpening";
 import { FailureFunnel } from "@/components/journal/FailureFunnel";
+import { HarnessConsole } from "@/components/journal/HarnessConsole";
+import { McpEndpoint } from "@/components/McpEndpoint";
+
 
 const slugifyHeading = (text: string) =>
   text
@@ -295,8 +298,13 @@ const Block = ({
       return <CardGrid items={block.items} label={block.label} />;
     case "askRose":
       return <AskRose prompts={block.prompts} label={block.label} note={block.note} />;
+    case "console":
+      return <HarnessConsole label={block.label} />;
+    case "mcp":
+      return <McpEndpoint label={block.label} note={block.note} />;
     case "matrix":
       return <CoverageMatrix label={block.label} columns={block.columns} rows={block.rows} />;
+
     default:
       return null;
   }

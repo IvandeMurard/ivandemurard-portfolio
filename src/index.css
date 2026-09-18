@@ -106,6 +106,10 @@
     Triggered by [data-mood="dusk"] on <html> via MoodProvider.
   */
   [data-mood="dusk"] {
+    /* Error, lifted so a failed case stays legible on the dark room */
+    --error: 4 78% 68%;
+    --on-error: 0 40% 12%;
+
     --surface: 32 14% 11%;                    /* warm taupe room */
     --surface-bright: 32 14% 14%;
     --surface-dim: 32 14% 8%;

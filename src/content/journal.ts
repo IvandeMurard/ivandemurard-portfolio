@@ -46,7 +46,10 @@ export type JournalBlock =
     }
   | { kind: "cards"; label?: string; items: { icon: string; title: string; body: string }[] }
   | { kind: "askRose"; label?: string; note?: string; prompts: string[] }
+  | { kind: "console"; preset: "harness"; label?: string }
+  | { kind: "mcp"; label?: string; note?: string }
   | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] };
+
 
 
 export type JournalEntry = {

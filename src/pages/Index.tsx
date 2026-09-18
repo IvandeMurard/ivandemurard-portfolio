@@ -8,6 +8,8 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 
 import { SectionDivider } from "@/components/SectionDivider";
+import { McpEndpoint } from "@/components/McpEndpoint";
+
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
@@ -410,6 +412,15 @@ const Index = () => {
         .
       </p>
     </Reveal>
+
+    {/* This site as a tool surface: the same work, served to an agent */}
+    <Reveal as="section" className="py-6 md:py-10 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div data-reveal-child className="max-w-3xl">
+        <McpEndpoint compact />
+      </div>
+    </Reveal>
+
+
 
 
 

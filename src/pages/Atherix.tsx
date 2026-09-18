@@ -14,6 +14,8 @@ import { EntryActions } from "@/components/journal/EntryActions";
 import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
 import { AetherixMetricCards } from "@/components/atherix/AetherixMetricCards";
 import { AetherixDailyReceipt } from "@/components/atherix/AetherixDailyReceipt";
+import { AetherixForecastConsole } from "@/components/atherix/AetherixForecastConsole";
+
 import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimeline";
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { AetherixLoopCards } from "@/components/atherix/AetherixLoopCards";
@@ -544,6 +546,10 @@ const Atherix = () => (
           <div data-reveal-child>
             <AetherixDailyReceipt />
           </div>
+          <div data-reveal-child className="mt-8 md:mt-12">
+            <AetherixForecastConsole />
+          </div>
+
         </div>
       </Reveal>
 
