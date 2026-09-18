@@ -217,6 +217,9 @@ const Anima = () => {
             >
               Synthetic proof of concept · production gated behind a data-protection assessment
             </span>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="mt-8">
+              <EntryActions title="Anima" markdownPath="/anima.md" variant="case" />
+            </div>
           </div>
         </Reveal>
 
