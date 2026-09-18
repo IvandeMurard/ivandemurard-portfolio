@@ -15,6 +15,9 @@ interface JournalTocProps {
 export const JournalToc = ({ items, label = "Contents", variant = "desktop", meta }: JournalTocProps) => {
   const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);
   const [open, setOpen] = useState(false);
+  // The sidebar list stays out of the way until the reader has actually
+  // started reading: it accompanies the article, it does not open it.
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     if (!items.length) return;
@@ -36,6 +39,14 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
     return () => observer.disconnect();
   }, [items]);
 
+  useEffect(() => {
+    if (variant !== "desktop") return;
+    const onScroll = () => setRevealed(window.scrollY > 420);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [variant]);
+
   if (!items.length) return null;
 
   const go = (id: string) => {
@@ -48,7 +59,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
   };
 
   const list = (
-    <ol className="space-y-2 list-none p-0 m-0">
+    <ol className="space-y-1 list-none p-0 m-0">
       {items.map((item) => {
         const active = item.id === activeId;
         return (
@@ -60,10 +71,10 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
                 e.preventDefault();
                 go(item.id);
               }}
-              className={`block py-1 text-sm leading-snug transition-colors duration-300 border-l pl-3 ${
+              className={`block py-1.5 pl-3 pr-2 text-sm leading-snug rounded-r-sm transition-colors duration-300 border-l-2 ${
                 active
-                  ? "border-secondary text-primary"
-                  : "border-outline-variant text-on-surface-variant hover:text-primary hover:border-outline"
+                  ? "border-secondary bg-secondary/10 text-primary font-medium"
+                  : "border-outline-variant text-on-surface-variant hover:text-primary hover:border-outline hover:bg-surface-container-low"
               }`}
             >
               {item.text}
@@ -76,7 +87,10 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
 
   if (variant === "mobile") {
     return (
-      <nav aria-label={label} className="lg:hidden mb-10 rounded-sm border border-outline-variant">
+      <nav
+        aria-label={label}
+        className="lg:hidden mb-10 rounded-sm border border-outline bg-surface-container-low"
+      >
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -84,15 +98,34 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
           aria-controls="journal-toc-mobile"
           className="w-full flex items-center justify-between gap-4 px-4 py-3 text-left"
         >
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
-            {label}
-            {meta && <span className="text-on-surface-variant"> · {meta}</span>}
+          <span className="flex items-center gap-2 min-w-0">
+            <span
+              aria-hidden="true"
+              className="material-symbols-outlined text-secondary text-[18px] leading-none"
+            >
+              list
+            </span>
+            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary truncate">
+              {label}
+              <span className="text-on-surface-variant"> · {items.length} sections</span>
+              {meta && <span className="text-on-surface-variant"> · {meta}</span>}
+            </span>
           </span>
-          <span aria-hidden="true" className="text-on-surface-variant text-xs">
-            {open ? "−" : "+"}
+          <span className="flex items-center gap-1 shrink-0">
+            <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+              {open ? "Hide" : "Show"}
+            </span>
+            <span
+              aria-hidden="true"
+              className={`material-symbols-outlined text-on-surface-variant text-[18px] leading-none transition-transform duration-300 ${
+                open ? "rotate-180" : ""
+              }`}
+            >
+              expand_more
+            </span>
           </span>
         </button>
-        <div id="journal-toc-mobile" hidden={!open} className="px-4 pb-4">
+        <div id="journal-toc-mobile" hidden={!open} className="px-3 pb-4 pt-1">
           {list}
         </div>
       </nav>
@@ -100,7 +133,13 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
   }
 
   return (
-    <nav aria-label={label} className="hidden lg:block sticky top-32 max-h-[70vh] overflow-y-auto pr-2">
+    <nav
+      aria-label={label}
+      aria-hidden={!revealed}
+      className={`hidden lg:block sticky top-32 max-h-[70vh] overflow-y-auto pr-2 transition-opacity duration-500 motion-reduce:transition-none ${
+        revealed ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
       <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
         {label}
         {meta && <span className="text-on-surface-variant"> · {meta}</span>}
