@@ -10,6 +10,7 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS } from "@/content/site";
 import { Term } from "@/components/Term";
 import { LoreHeroBadges } from "@/components/lore/LoreHeroBadges";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { LoreThreeModes } from "@/components/lore/LoreThreeModes";
 import { LoreHangarDialogue } from "@/components/lore/LoreHangarDialogue";
 import { LoreMemoryThread } from "@/components/lore/LoreMemoryThread";
