@@ -981,6 +981,10 @@ var get_journal_entry_default = defineTool5({
       entry.subtitle ?? "",
       `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
       entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
+      entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
+      entry.takeaways?.length ? `What you will decide differently:
+${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
+      entry.takeawayPunch ?? "",
       entry.excerpt,
       bodyText,
       entry.updates?.length ? `## Updates

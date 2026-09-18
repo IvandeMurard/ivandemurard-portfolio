@@ -84,6 +84,13 @@ export default defineTool({
       entry.subtitle ?? "",
       `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${entry.readingMinutes} min read` : ""}`,
       entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
+      entry.glance
+        ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}`
+        : "",
+      entry.takeaways?.length
+        ? `What you will decide differently:\n${entry.takeaways.map((t) => `- ${t}`).join("\n")}`
+        : "",
+      entry.takeawayPunch ?? "",
       entry.excerpt,
       bodyText,
       entry.updates?.length ? `## Updates\n\nThis piece is revised when something it claims stops being true. Each revision says what changed and why.\n\n${entry.updates.map(u => `${u.date} · ${u.summary} ${u.reason}`).join("\n")}` : "",
