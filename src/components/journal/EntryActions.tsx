@@ -102,7 +102,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
           <Icon name={copied === "context" ? "check" : "content_copy"} className="text-[16px] leading-none" />
           {copied === "context" ? "Context copied" : "Copy LLM context"}
         </button>
-        {markdownPath && (
+        {markdownPath && variant === "note" && (
           <a className={BTN} href={markdownPath} target="_blank" rel="noopener noreferrer">
             <Icon name="description" className="text-[16px] leading-none" />
             Raw markdown
