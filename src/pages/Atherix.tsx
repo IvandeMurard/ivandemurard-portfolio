@@ -250,6 +250,10 @@ const Atherix = () => (
               </Link>
             </p>
 
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="mt-8">
+              <EntryActions title="Aetherix" markdownPath="/aetherix.md" variant="case" />
+            </div>
+
 
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "580ms" }}>
               <AetherixHeroBadges />
