@@ -10,6 +10,7 @@ import { TacetPipelineDiagram } from "@/components/tacet/TacetPipelineDiagram";
 import { SectionDivider } from "@/components/SectionDivider";
 import acousticTwinImg from "@/assets/tacet-acoustic-twin.jpg";
 import { Term } from "@/components/Term";
+import { EntryActions } from "@/components/journal/EntryActions";
 
 const PROJECT_INFO = [
   { label: "Rôle", value: "Product Builder, Architect of an environmental intelligence layer" },
