@@ -22,6 +22,7 @@ import { CardGrid } from "@/components/journal/CardGrid";
 import { AskRose } from "@/components/journal/AskRose";
 import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
 import { ShareRow } from "@/components/journal/ShareRow";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
 import { EntryOpening } from "@/components/journal/EntryOpening";
 import { FailureFunnel } from "@/components/journal/FailureFunnel";
@@ -412,8 +413,9 @@ const JournalEntry = () => {
             {entry.title}
           </h1>
           {entry.subtitle && (
-            <p className="font-body text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
+            <p className="font-body text-lg text-on-surface-variant mb-8">{entry.subtitle}</p>
           )}
+          <EntryActions title={entry.title} markdownPath={`/journal/${entry.slug}.md`} />
           {entry.glance || entry.takeaways?.length ? (
             <EntryOpening
               glance={entry.glance}
