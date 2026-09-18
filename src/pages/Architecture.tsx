@@ -14,6 +14,7 @@ import { useHeadingToc } from "@/components/reading/useHeadingToc";
 import { SectionKey } from "@/components/journal/SectionKey";
 import { AskRose } from "@/components/journal/AskRose";
 import { ShareRow } from "@/components/journal/ShareRow";
+import { EntryActions } from "@/components/journal/EntryActions";
 import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
 
 const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
