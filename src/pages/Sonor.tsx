@@ -193,6 +193,9 @@ const Sonor = () => {
                 <Icon name="arrow_outward" className="text-sm" />
               </a>
             </div>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "860ms" }} className="mt-8">
+              <EntryActions title="Sonor" markdownPath="/sonor.md" variant="case" />
+            </div>
           </div>
           <div className="lg:col-span-5 flex justify-end">
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "200ms", viewTransitionName: "case-hero-sonor" }} className="w-full aspect-[4/5] bg-surface-container-high overflow-hidden relative group">
