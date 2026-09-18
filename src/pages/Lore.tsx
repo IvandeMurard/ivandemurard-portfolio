@@ -116,6 +116,9 @@ const Lore = () => (
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "380ms" }}>
               <LoreHeroBadges />
             </div>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "440ms" }} className="mt-8">
+              <EntryActions title="Lore" markdownPath="/lore.md" variant="case" />
+            </div>
           </div>
           <div className="hidden lg:flex flex-none items-center gap-4 text-secondary italic font-headline text-2xl pb-4">
             <span>Scroll to Explore</span>
