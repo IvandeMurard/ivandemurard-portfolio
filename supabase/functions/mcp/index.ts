@@ -192,13 +192,6 @@ var HARNESSES_ENTRY = {
     promise: "The working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release.",
     proof: "Two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped."
   },
-  takeaways: [
-    "Separate the three jobs: a grader judges one criterion, a harness runs the exam, a protocol decides what passing means.",
-    "Run three arms, not one: offline before the merge, runtime in production, outcome after the fact. None substitutes for another.",
-    "Tier your acceptance criteria and give each tier a budget, so a safety miss cannot be averaged away.",
-    "Prove the measurement holds still before a threshold may block a merge, then expect enforcement to move it again."
-  ],
-  takeawayPunch: "52 out of 53 is not a pass when the one miss sits in the safety tier.",
   funnel: {
     label: "Where would your failure show up?",
     options: [

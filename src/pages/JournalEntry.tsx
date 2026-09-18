@@ -412,8 +412,9 @@ const JournalEntry = () => {
             {entry.title}
           </h1>
           {entry.subtitle && (
-            <p className="font-body text-lg text-on-surface-variant mb-10">{entry.subtitle}</p>
+            <p className="font-body text-lg text-on-surface-variant mb-8">{entry.subtitle}</p>
           )}
+          <EntryActions title={entry.title} markdownPath={`/journal/${entry.slug}.md`} />
           {entry.glance || entry.takeaways?.length ? (
             <EntryOpening
               glance={entry.glance}
