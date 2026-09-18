@@ -252,6 +252,14 @@ const Architecture = () => {
               </a>
               .
             </p>
+            <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }} className="mt-8">
+              <EntryActions
+                title="The Hospitality Agentic Mesh"
+                markdownPath="/architecture.md"
+                variant="note"
+                ask="explain how the five agents divide responsibility, what talks to what over MCP, and which parts are built versus designed."
+              />
+            </div>
           </div>
         </Reveal>
 
