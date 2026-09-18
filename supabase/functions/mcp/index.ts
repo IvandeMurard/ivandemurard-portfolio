@@ -981,6 +981,10 @@ var get_journal_entry_default = defineTool5({
       entry.subtitle ?? "",
       `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
       entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
+      entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
+      entry.takeaways?.length ? `What you will decide differently:
+${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
+      entry.takeawayPunch ?? "",
       entry.excerpt,
       bodyText,
       entry.updates?.length ? `## Updates
@@ -1004,6 +1008,9 @@ ${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")
         related: entry.related ?? [],
         url,
         tldr: entry.tldr ?? null,
+        glance: entry.glance ?? null,
+        takeaways: entry.takeaways ?? [],
+        takeaway_punch: entry.takeawayPunch ?? null,
         updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : null,
         body: entry.body,
