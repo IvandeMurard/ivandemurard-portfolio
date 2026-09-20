@@ -8,7 +8,7 @@ const COMMAND = `claude mcp add ivandemurard --transport http ${ENDPOINT}`;
 const TOOLS = [
   "list_case_studies",
   "get_case_study",
-  "list_journal",
+  "list_journal_entries",
   "get_journal_entry",
   "get_about",
 ];
