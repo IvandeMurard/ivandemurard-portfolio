@@ -413,10 +413,10 @@ const Index = () => {
       </p>
     </Reveal>
 
-    {/* This site as a tool surface: the same work, served to an agent */}
-    <Reveal as="section" className="py-6 md:py-10 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div data-reveal-child className="max-w-3xl">
-        <McpEndpoint compact />
+    {/* A machine-readable proof point, kept secondary to the work itself. */}
+    <Reveal as="section" className="py-8 md:py-14 px-6 md:px-8 max-w-screen-2xl mx-auto">
+      <div data-reveal-child>
+        <McpEndpoint label="Built for people. Available to their agents." compact />
       </div>
     </Reveal>
 
