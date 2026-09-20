@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Calendar, Linkedin, Github, Copy, Check, ChevronDown } from "lucide-react";
+import { Mail, Calendar, Linkedin, Github, Copy, Check } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
@@ -16,16 +16,16 @@ const ICON_LINKS = [
 
 export const Footer = () => {
   const track = useTrackClick();
-  const [mcpOpen, setMcpOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
 
   const copyMcpCommand = async () => {
     try {
       await navigator.clipboard.writeText(MCP_COMMAND);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
+      setCopyStatus("copied");
+      window.setTimeout(() => setCopyStatus("idle"), 2000);
     } catch {
-      /* The command remains selectable when clipboard access is unavailable. */
+      setCopyStatus("failed");
+      window.setTimeout(() => setCopyStatus("idle"), 2500);
     }
   };
 
@@ -36,31 +36,30 @@ export const Footer = () => {
           <Button
             type="button"
             variant="ghost"
-            onClick={() => setMcpOpen((current) => !current)}
-            aria-expanded={mcpOpen}
-            aria-controls="footer-mcp-command"
-            className="h-auto w-full justify-between rounded-sm px-0 py-2 text-left hover:bg-transparent"
+            onClick={copyMcpCommand}
+            aria-label="Copy the MCP command for five public read-only portfolio tools"
+            className="h-auto w-full flex-col items-start gap-3 rounded-sm px-0 py-2 text-left hover:bg-transparent sm:flex-row sm:items-center sm:justify-between"
           >
             <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <span className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">MCP</span>
               <span className="font-body text-sm font-normal text-on-surface-variant">5 public read-only tools for agents</span>
             </span>
             <span className="inline-flex shrink-0 items-center gap-2 font-label text-[10px] uppercase tracking-[0.16em] text-primary">
-              {mcpOpen ? "Hide command" : "Show command"}
-              <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform duration-300 ${mcpOpen ? "rotate-180" : ""}`} />
+              {copyStatus === "copied" ? <Check aria-hidden="true" className="h-4 w-4" /> : <Copy aria-hidden="true" className="h-4 w-4" />}
+              {copyStatus === "copied"
+                ? "MCP command copied"
+                : copyStatus === "failed"
+                  ? "Copy unavailable"
+                  : "Copy MCP command"}
             </span>
           </Button>
-          {mcpOpen && (
-            <div id="footer-mcp-command" className="mt-4 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
-              <code className="min-w-0 break-all border-l-2 border-secondary bg-surface-container-lowest px-4 py-3 font-mono text-[11px] leading-relaxed text-on-surface">
-                {MCP_COMMAND}
-              </code>
-              <Button type="button" variant="outline" onClick={copyMcpCommand} className="rounded-sm font-label text-[10px] uppercase tracking-[0.16em]">
-                {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-                {copied ? "Command copied" : "Copy MCP command"}
-              </Button>
-            </div>
-          )}
+          <span className="sr-only" role="status" aria-live="polite">
+            {copyStatus === "copied"
+              ? "MCP command copied to clipboard."
+              : copyStatus === "failed"
+                ? "The MCP command could not be copied."
+                : ""}
+          </span>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
