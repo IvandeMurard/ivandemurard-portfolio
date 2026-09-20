@@ -38,7 +38,7 @@ export const Footer = () => {
             variant="ghost"
             onClick={copyMcpCommand}
             aria-label="Copy the MCP command for five public read-only portfolio tools"
-            className="h-auto w-full justify-between rounded-sm px-0 py-2 text-left hover:bg-transparent"
+            className="h-auto w-full flex-col items-start gap-3 rounded-sm px-0 py-2 text-left hover:bg-transparent sm:flex-row sm:items-center sm:justify-between"
           >
             <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <span className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">MCP</span>
