@@ -265,8 +265,8 @@ const Architecture = () => {
             </div>
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="mt-8">
               <McpEndpoint
-                label="Query this mesh from your agent"
-                note="The five agents talk over MCP. So does this page: the case studies and field notes behind it are exposed as read-only tools."
+                label="Inspect the work from your own agent"
+                note="Five public, read-only tools expose the architecture, its case studies and the Field Notes behind it as structured source material."
               />
             </div>
 
