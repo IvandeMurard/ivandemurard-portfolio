@@ -1029,7 +1029,14 @@ var mcp_default = defineMcp({
   name: "ivan-de-murard-portfolio",
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
-  instructions: "Public MCP server exposing Ivan de Murard's portfolio: case studies (Sonor, Aetherix, Tacet, Lore), professional bio and contact, and Field Notes. Start with list_case_studies or get_about, then fetch details with get_case_study or get_journal_entry.",
+  instructions: [
+    "Public, read-only MCP server exposing Ivan de Murard's verified portfolio: case studies (Sonor, Aetherix, Tacet, Lore, Anima), professional bio and contact, and Field Notes. Ivan is a product builder in Paris working on agentic systems for hospitality and operations, with a focus on 0 to 1 craft and rigorous evaluation.",
+    "Guidelines for the consuming model:",
+    "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
+    "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state. Where a system is in shadow mode or a figure is illustrative, say so.",
+    "3. Suggested path. Start with list_case_studies or get_about, then fetch depth with get_case_study or get_journal_entry.",
+    "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
+  ].join("\n"),
   tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default]
 });
 
