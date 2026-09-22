@@ -17,7 +17,8 @@ import { ShareRow } from "@/components/journal/ShareRow";
 import { EntryActions } from "@/components/journal/EntryActions";
 import { McpEndpoint } from "@/components/McpEndpoint";
 
-import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
+import { MeshBlueprint } from "@/components/architecture/MeshBlueprint";
+import { MESH_NODES } from "@/content/meshNodes";
 
 const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
 
@@ -72,38 +73,8 @@ const Section = ({
   </Reveal>
 );
 
-const NODE_ROWS: { node: string; status: string; owns: string; not: string }[] = [
-  {
-    node: "Aetherix",
-    status: "Built and instrumented · pilot partner in recruitment",
-    owns: "F&B execution: covers forecast, staffing grid, waste risk, per-property memory",
-    not: "Orchestration, pricing, guest-facing anything",
-  },
-  {
-    node: "Tacet",
-    status: "Built: live data ingestion, MCP server v0 live",
-    owns: "External signal: weather, street, events, ray-traced acoustic impact, yield rules",
-    not: "Deciding anything. It publishes rules for approval",
-  },
-  {
-    node: "Anima",
-    status: "Synthetic PoC, production DPIA-gated",
-    owns: "Guest cognition: temporal memory of a guest relationship, confidence-weighted claims",
-    not: "Acting on what it knows. Production is DPIA-gated",
-  },
-  {
-    node: "Peritia",
-    status: "Design",
-    owns: "House knowledge: what the people who work in a property know and never wrote down",
-    not: "Everything. It is a named slot in the contract, and no code",
-  },
-  {
-    node: "Orchestrator",
-    status: "Design",
-    owns: "Supervisory routing and business rules across agents",
-    not: "Domain logic. It routes, it does not compute",
-  },
-];
+const NODE_ROWS = MESH_NODES;
+
 
 const LEARNING_ROWS: { node: string; feedback: string; consequence: string }[] = [
   {
@@ -376,9 +347,8 @@ const Architecture = () => {
                   head={["Agent", "Status", "Owns", "Does not own"]}
                   rows={NODE_ROWS.map((r) => [r.node, r.status, r.owns, r.not])}
                 />
-                <div className="mb-8">
-                  <AetherixMeshDiagram />
-                </div>
+                <MeshBlueprint />
+
                 <p className="font-headline italic text-primary text-xl md:text-2xl max-w-3xl">
                   Aetherix executes. It does not orchestrate.
                 </p>
