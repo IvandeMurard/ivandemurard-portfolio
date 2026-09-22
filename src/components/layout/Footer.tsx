@@ -61,6 +61,20 @@ export const Footer = () => {
                 : ""}
           </span>
         </div>
+        <div className="group flex flex-col items-center gap-3 pb-7 mb-7 border-b border-outline-variant text-center sm:flex-row sm:items-center sm:gap-4 sm:text-left">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-6 w-6 shrink-0 text-outline-variant transition-colors duration-500 group-hover:text-secondary"
+          >
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1" />
+            <circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" strokeWidth="1" />
+            <path d="M12 0.5 V5.5 M12 18.5 V23.5 M0.5 12 H5.5 M18.5 12 H23.5" stroke="currentColor" strokeWidth="1" />
+          </svg>
+          <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
+            Paris · 0→1 craft · Verifiable via MCP and markdown mirrors
+          </p>
+        </div>
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
             © {new Date().getFullYear()} Ivan de Murard · Curated with Care
