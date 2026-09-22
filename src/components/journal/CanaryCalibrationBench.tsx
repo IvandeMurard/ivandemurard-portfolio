@@ -157,10 +157,10 @@ export const CanaryCalibrationBench = ({
             strokeDasharray="2 4"
           />
         ))}
-        <text x={20} y={BASE + 4} className="fill-on-surface-variant" fontSize={9}>
+        <text x={20} y={BASE + 4} className="fill-on-surface-variant" fontSize={11}>
           0
         </text>
-        <text x={14} y={TOP + 4} className="fill-on-surface-variant" fontSize={9}>
+        <text x={14} y={TOP + 4} className="fill-on-surface-variant" fontSize={11}>
           {mode.total}
         </text>
 
@@ -186,12 +186,12 @@ export const CanaryCalibrationBench = ({
                 y={y - 8}
                 textAnchor="middle"
                 className="fill-primary"
-                fontSize={12}
+                fontSize={15}
                 opacity={local}
               >
                 {Math.round(score * local)}/{mode.total}
               </text>
-              <text x={x} y={BASE + 16} textAnchor="middle" className="fill-on-surface-variant" fontSize={9}>
+              <text x={x} y={BASE + 16} textAnchor="middle" className="fill-on-surface-variant" fontSize={11}>
                 RUN {i + 1}
               </text>
             </g>
@@ -209,11 +209,11 @@ export const CanaryCalibrationBench = ({
           style={{ transition: "opacity 400ms ease-out" }}
         />
         <text
-          x={W - 20}
-          y={crest(Math.max(...mode.runs)) - 10}
+          x={W - 10}
+          y={BASE + 16}
           textAnchor="end"
           className={mode.armed ? "fill-primary" : "fill-error"}
-          fontSize={10}
+          fontSize={12}
           opacity={settled ? 1 : 0}
           style={{ transition: "opacity 400ms ease-out" }}
         >
