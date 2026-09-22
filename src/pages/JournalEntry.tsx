@@ -18,6 +18,7 @@ import { VocabStrip } from "@/components/journal/VocabStrip";
 import { SectionKey } from "@/components/journal/SectionKey";
 import { SystemAnchors } from "@/components/journal/SystemAnchors";
 import { CanaryTimeline } from "@/components/journal/CanaryTimeline";
+import { CanaryCalibrationBench } from "@/components/journal/CanaryCalibrationBench";
 import { CardGrid } from "@/components/journal/CardGrid";
 import { AskRose } from "@/components/journal/AskRose";
 import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
@@ -294,6 +295,8 @@ const Block = ({
       return <SystemAnchors items={block.items} label={block.label} />;
     case "timeline":
       return <CanaryTimeline steps={block.steps} label={block.label} />;
+    case "bench":
+      return <CanaryCalibrationBench label={block.label} />;
     case "cards":
       return <CardGrid items={block.items} label={block.label} />;
     case "askRose":
