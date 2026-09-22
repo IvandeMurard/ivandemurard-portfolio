@@ -101,7 +101,7 @@ Deno.serve(async (req) => {
     const result = streamText({
       model,
       system,
-      messages: convertToModelMessages(messages),
+      messages: convertToModelMessages(safeMessages),
       stopWhen: stepCountIs(5),
       tools: {
         propose_booking: tool({
