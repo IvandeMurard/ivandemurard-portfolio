@@ -347,9 +347,8 @@ const Architecture = () => {
                   head={["Agent", "Status", "Owns", "Does not own"]}
                   rows={NODE_ROWS.map((r) => [r.node, r.status, r.owns, r.not])}
                 />
-                <div className="mb-8">
-                  <AetherixMeshDiagram />
-                </div>
+                <MeshBlueprint />
+
                 <p className="font-headline italic text-primary text-xl md:text-2xl max-w-3xl">
                   Aetherix executes. It does not orchestrate.
                 </p>
