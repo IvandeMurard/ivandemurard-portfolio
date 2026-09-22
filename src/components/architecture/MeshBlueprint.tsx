@@ -149,7 +149,16 @@ export const MeshBlueprint = () => {
                   if (e.key === "Escape") setActive(null);
                 }}
               >
+                {/* Hit area */}
+                <rect
+                  x={hitX}
+                  y={hitY}
+                  width={hitW}
+                  height={hitH}
+                  fill="transparent"
+                />
                 {/* Spoke */}
+
                 <line
                   x1={rim.x}
                   y1={rim.y}
