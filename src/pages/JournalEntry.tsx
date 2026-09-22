@@ -294,6 +294,8 @@ const Block = ({
       return <SystemAnchors items={block.items} label={block.label} />;
     case "timeline":
       return <CanaryTimeline steps={block.steps} label={block.label} />;
+    case "bench":
+      return <CanaryCalibrationBench label={block.label} />;
     case "cards":
       return <CardGrid items={block.items} label={block.label} />;
     case "askRose":
