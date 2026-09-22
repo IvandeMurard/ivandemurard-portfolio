@@ -1061,6 +1061,11 @@ Separating ERROR from FAIL is not fussiness. The runner emitted only 0 and 1, so
 
 **SEC. 7** Before a threshold may block a merge, prove the measurement holds still. Then expect enforcement to move it again. Concrete case: Four identical Lore runs froze the baselines. A later correction step reintroduced variance, so the rule was narrowed rather than dropped.
 
+The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on.
+
+Fig. 7.1, instrument stability test: at temperature 0 the same input replayed three times returns 53/53, 53/53, 53/53, spread 0.00 points, and the gate is armed as blocking. At temperature 0.5 the same suite returns 38, 36 and 42 out of 53, spread 6.00 points, and the gate is refused: a threshold set there would block or pass on the draw, not on the work.
+
+
 - 38 / 36 Two runs, same 53 cases: Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement.
 - 36 → 53 Temperature 0, defects fixed: Progression 36, 48, 48, 52, then 53 out of 53.
 - 4× Four consecutive runs, no variance: Baselines frozen only after that. The protocol required 0.00 points of variance before a threshold could block.
