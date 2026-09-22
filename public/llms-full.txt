@@ -754,7 +754,10 @@ alone.
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
 | Orchestrator | Design | Supervisory routing and business rules across agents | Domain logic. It routes, it does not compute |
 
+Fig. 3.1, on the web page, wires the same five agents to the shared persistence core: a solid spoke for what is built, a dashed spoke for what is designed and not written. Selecting an agent shows what it owns and what it does not own, with the same wording as the table above.
+
 Aetherix executes. It does not orchestrate.
+
 
 ## 4. Five rules that hold it together
 
