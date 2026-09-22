@@ -119,6 +119,14 @@ export const MeshBlueprint = () => {
             const anchor = left ? "end" : right ? "start" : "middle";
             const tx = left ? p.x - 14 : right ? p.x + 14 : p.x;
             const ty = anchor === "middle" ? (p.y < g.cy ? p.y - 22 : p.y + 30) : p.y - 2;
+            // Transparent hit area over the mark and its label.
+            const charW = (isMobile ? 13 : 15) * 0.62;
+            const hitW = Math.max(n.node.length, STATE_LABEL[n.state].length) * charW + 34;
+            const hitH = 46;
+            const hitX =
+              anchor === "end" ? tx + 8 - hitW : anchor === "start" ? p.x - 12 : tx - hitW / 2;
+            const hitY = anchor === "middle" ? (p.y < g.cy ? p.y - 40 : p.y - 8) : p.y - 20;
+
 
             return (
               <g
