@@ -114,8 +114,8 @@ export const MeshBlueprint = () => {
             const rim = rimPoint(g, p.x, p.y);
             const isLit = lit === n.node;
             const isActive = active === n.node;
-            const left = p.x < g.cx - 8;
-            const right = p.x > g.cx + 8;
+            const left = !isMobile && p.x < g.cx - 8;
+            const right = !isMobile && p.x > g.cx + 8;
             const anchor = left ? "end" : right ? "start" : "middle";
             const tx = left ? p.x - 14 : right ? p.x + 14 : p.x;
             const ty = anchor === "middle" ? (p.y < g.cy ? p.y - 22 : p.y + 30) : p.y - 2;
@@ -126,6 +126,7 @@ export const MeshBlueprint = () => {
             const hitX =
               anchor === "end" ? tx + 8 - hitW : anchor === "start" ? p.x - 12 : tx - hitW / 2;
             const hitY = anchor === "middle" ? (p.y < g.cy ? p.y - 40 : p.y - 8) : p.y - 20;
+
 
 
             return (
