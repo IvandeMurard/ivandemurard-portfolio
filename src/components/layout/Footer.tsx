@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Mail, Calendar, Linkedin, Github, Copy, Check } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
+import { PressMark } from "./PressMark";
 
 const MCP_ENDPOINT = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp";
 const MCP_COMMAND = `claude mcp add ivandemurard --transport http ${MCP_ENDPOINT}`;
