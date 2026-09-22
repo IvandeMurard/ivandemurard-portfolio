@@ -38,7 +38,7 @@ export const Footer = () => {
       <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12">
         {showColophon && (
           <div className="group mx-auto max-w-xl pb-10 mb-8 border-b border-outline-variant text-center md:pb-14 md:mb-10">
-            <PressMark className="mx-auto h-24 w-auto text-outline transition-colors duration-700 group-hover:text-secondary md:h-28" />
+            <PressMark className="mx-auto h-32 w-auto text-outline transition-colors duration-700 group-hover:text-secondary md:h-40" />
             <p className="mt-6 font-label text-[10px] uppercase tracking-[0.24em] text-secondary">
               Colophon
             </p>
