@@ -10,7 +10,7 @@ import { MESH_NODES, type MeshNode } from "@/content/meshNodes";
  */
 
 const DESKTOP = { w: 900, h: 440, cx: 450, cy: 220, rx: 320, ry: 150, core: 66 };
-const MOBILE = { w: 360, h: 600, cx: 180, cy: 300, rx: 108, ry: 224, core: 54 };
+const MOBILE = { w: 360, h: 540, cx: 180, cy: 280, rx: 108, ry: 212, core: 54 };
 
 const ANGLES = [-90, -18, 54, 126, 198];
 
