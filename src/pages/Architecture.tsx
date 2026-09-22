@@ -17,7 +17,8 @@ import { ShareRow } from "@/components/journal/ShareRow";
 import { EntryActions } from "@/components/journal/EntryActions";
 import { McpEndpoint } from "@/components/McpEndpoint";
 
-import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
+import { MeshBlueprint } from "@/components/architecture/MeshBlueprint";
+import { MESH_NODES } from "@/content/meshNodes";
 
 const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
 
