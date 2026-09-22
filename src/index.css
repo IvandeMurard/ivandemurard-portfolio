@@ -941,3 +941,26 @@
     break-inside: avoid;
   }
 }
+
+/* Fig. 3.1 mesh blueprint: pulse travelling along a spoke toward the core. */
+@keyframes mesh-pulse-travel {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: -0.16;
+  }
+}
+
+.mesh-blueprint .mesh-pulse {
+  animation: mesh-pulse-travel 1.15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh-blueprint .mesh-pulse {
+    animation: none;
+    stroke-dashoffset: 0;
+    stroke-dasharray: none;
+    opacity: 0.5;
+  }
+}
