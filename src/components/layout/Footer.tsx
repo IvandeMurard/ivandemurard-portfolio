@@ -58,9 +58,32 @@ export const Footer = () => {
           </div>
         )}
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-            © {new Date().getFullYear()} Ivan de Murard · Curated with Care
-          </p>
+          <div className="flex flex-col items-center gap-3 md:items-start">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={copyMcpCommand}
+              aria-label="Copy the MCP command for the public read-only portfolio tools"
+              className="h-auto gap-2 rounded-sm px-0 py-1 font-label text-[10px] uppercase tracking-[0.16em] text-primary hover:bg-transparent hover:text-secondary"
+            >
+              {copyStatus === "copied" ? <Check aria-hidden="true" className="h-4 w-4" /> : <Copy aria-hidden="true" className="h-4 w-4" />}
+              {copyStatus === "copied"
+                ? "MCP command copied"
+                : copyStatus === "failed"
+                  ? "Copy unavailable"
+                  : "MCP available · Copy command"}
+            </Button>
+            <span className="sr-only" role="status" aria-live="polite">
+              {copyStatus === "copied"
+                ? "MCP command copied to clipboard."
+                : copyStatus === "failed"
+                  ? "The MCP command could not be copied."
+                  : ""}
+            </span>
+            <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
+              © {new Date().getFullYear()} Ivan de Murard · Curated with Care
+            </p>
+          </div>
           <div className="flex items-center gap-8">
             {ICON_LINKS.map(({ label, href, Icon, external, kind }) => (
               <a
