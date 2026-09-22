@@ -208,20 +208,20 @@ export const CanaryCalibrationBench = ({
           opacity={settled ? 1 : 0}
           style={{ transition: "opacity 400ms ease-out" }}
         />
-        <text
-          x={W - 10}
-          y={BASE + 16}
-          textAnchor="end"
-          className={mode.armed ? "fill-primary" : "fill-error"}
-          fontSize={12}
-          opacity={settled ? 1 : 0}
-          style={{ transition: "opacity 400ms ease-out" }}
-        >
-          variance {spread === 0 ? "0.00" : spread.toFixed(2)} pt
-        </text>
       </svg>
 
-      <p className="font-body font-normal text-sm text-on-surface-variant mt-4">{mode.reading}</p>
+      <div className="flex flex-wrap items-baseline justify-between gap-2 mt-4 pt-3 border-t border-outline-variant">
+        <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+          Spread across three replays
+        </span>
+        <span
+          className={`font-headline italic text-lg ${mode.armed ? "text-primary" : "text-error"}`}
+          aria-live="polite"
+        >
+          {settled ? `${spread === 0 ? "0.00" : spread.toFixed(2)} pt` : "measuring"}
+        </span>
+      </div>
+      <p className="font-body font-normal text-sm text-on-surface-variant mt-3">{mode.reading}</p>
     </figure>
   );
 };
