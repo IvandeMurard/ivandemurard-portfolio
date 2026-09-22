@@ -57,6 +57,42 @@ Deno.serve(async (req) => {
     });
   }
 
+  // The caller may only supply user and assistant turns, made of plain text parts.
+  // System instructions and tool results stay server-owned.
+  const MessagesSchema = z
+    .array(
+      z.object({
+        id: z.string().max(128).optional(),
+        role: z.enum(["user", "assistant"]),
+        parts: z
+          .array(
+            z.object({
+              type: z.literal("text"),
+              text: z.string().max(4000),
+            }),
+          )
+          .max(20),
+      }),
+    )
+    .min(1)
+    .max(40);
+
+  const parsedMessages = MessagesSchema.safeParse(messages);
+  if (!parsedMessages.success) {
+    return new Response(JSON.stringify({ error: "invalid messages" }), {
+      status: 400,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+  const safeMessages = parsedMessages.data as unknown as UIMessage[];
+  if (safeMessages[safeMessages.length - 1].role !== "user") {
+    return new Response(JSON.stringify({ error: "last message must be from the user" }), {
+      status: 400,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+
   const gateway = createLovableAiGatewayProvider(key);
   const model = gateway("google/gemini-3-flash-preview");
 
@@ -65,7 +101,7 @@ Deno.serve(async (req) => {
     const result = streamText({
       model,
       system,
-      messages: convertToModelMessages(messages),
+      messages: convertToModelMessages(safeMessages),
       stopWhen: stepCountIs(5),
       tools: {
         propose_booking: tool({

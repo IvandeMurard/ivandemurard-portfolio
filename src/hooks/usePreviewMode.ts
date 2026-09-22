@@ -14,6 +14,9 @@ export const usePreviewMode = () => {
     document.documentElement.dataset.preview = "1";
 
     const onMessage = (event: MessageEvent) => {
+      // Only the same-origin parent drives this teaser; ignore every other sender.
+      if (event.origin !== window.location.origin) return;
+      if (event.source !== window.parent) return;
       const data = event.data;
       if (!data || typeof data !== "object") return;
       if (data.type === "preview-scroll" && typeof data.y === "number") {
