@@ -410,6 +410,11 @@ export const HARNESSES_ENTRY: JournalEntry = {
       concrete: "Four identical Lore runs froze the baselines. A later correction step reintroduced variance, so the rule was narrowed rather than dropped.",
     },
     {
+      kind: "p",
+      text: "The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on.",
+    },
+    { kind: "bench", label: "Fig. 7.1 · Instrument stability test" },
+    {
       kind: "timeline",
       label: "Lore harness scores, live runs",
       steps: [
