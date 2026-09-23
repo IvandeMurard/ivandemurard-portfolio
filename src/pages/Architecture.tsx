@@ -477,6 +477,7 @@ const Architecture = () => {
                   the operational side rather than from the vocabulary. Nothing was found, which is a
                   finding, not a trophy.
                 </P>
+                <P>Anima included: a guest memory, not a twin.</P>
               </Section>
 
               <Section
