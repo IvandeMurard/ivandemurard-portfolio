@@ -376,6 +376,11 @@ const Architecture = () => {
                       without its neighbours knowing. Tacet's rules reach Aetherix as a tool response
                       with a timestamp and a source, not as a shared table.
                     </p>
+                    <p className="mt-3 border-l-2 border-outline-variant pl-4 font-body text-sm text-on-surface-variant leading-relaxed">
+                      Until the orchestrator is built (Design), Tacet's output reaches Aetherix
+                      directly: the one documented exception, non-personal, read-only, logged. Target:
+                      every exchange goes through the orchestrator.
+                    </p>
                   </div>
                   <div>
                     <h3 className="font-headline italic text-primary text-xl mb-2">

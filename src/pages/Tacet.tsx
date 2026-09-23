@@ -453,6 +453,15 @@ const Tacet = () => (
             <br /><br />
             Over time, Tacet becomes the environmental layer of an agentic OS for hospitality: each property reads its surroundings with its own context, and responds faster because of it. A Quiet Certification standard is a likely side-effect, not the goal.
           </p>
+          <div className="mt-8 mx-auto max-w-2xl border border-outline-variant bg-surface-container-lowest p-5 text-left">
+            <span className="inline-flex items-center border border-outline px-2 py-0.5 font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant">
+              Design
+            </span>
+            <p className="mt-3 font-body text-sm text-on-surface-variant leading-relaxed">
+              Signals on the routes into the property (rail lines, stations, airports), keyed by place
+              and time, never by person.
+            </p>
+          </div>
         </div>
       </section>
 
