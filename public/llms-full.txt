@@ -24,7 +24,7 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/discussio
 
 URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture.
 
-Aetherix, the F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Three promises with honesty labels: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome); staffing and waste are hypotheses a pilot would test, not measured results. What it already does: states its drivers the evening before then reports its own miss the next morning in plain language; flagged a corrupted POS export rather than training on it; named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration; stores every recommendation next to what actually happened with the manager's override recorded beside it; blocks its own merges on evaluation exit codes, every guardrail trip carrying a machine-readable reason. Sandbox data, real mechanics, deterministic reruns. Thesis: understand like a human (contextual reasoning grounded in each property's history), measure like a machine (every recommendation stored next to its real outcome), learn like a network (per-property memory today, federated priors next). Vision, five agents with honest status: Aetherix the F&B agent (Built), Tacet the environmental-signal agent (Built), Anima the guest memory node (Synthetic PoC), Peritia the trade agent for house knowledge (Design), Orchestrator the supervisory agent (Design). Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Cycle: Memory, Prediction, Action, Learning. Delivered on WhatsApp. MCP-native, callable by any other agent in the stack. Status: Phase 3. Pilot design partner in recruitment, go-live targeted end of September. Apaleo OAuth and MCP read access operational. Contrast with Lore: Lore shares this architecture and cannot close the same loop, nothing there tells the system whether an observation was right; Aetherix has an outcome to compare against.
+Aetherix, the F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Three promises with honesty labels: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome); staffing and waste are hypotheses a pilot would test, not measured results. What it already does: states its drivers the evening before then reports its own miss the next morning in plain language; flagged a corrupted POS export rather than training on it; named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration; stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason, a role, not a named person; blocks its own merges on evaluation exit codes, every guardrail trip carrying a machine-readable reason. Sandbox data, real mechanics, deterministic reruns. Thesis: understand like a human (contextual reasoning grounded in each property's history), measure like a machine (every recommendation stored next to its real outcome), learn like a network (per-property memory today, federated priors next, federated priors: Research). Vision, five agents with honest status: Aetherix the F&B agent (Built), Tacet the environmental-signal agent (Built, maintenance mode since July 2026), Anima the guest memory node (Synthetic PoC), Peritia the trade agent for house knowledge (Design), Orchestrator the supervisory agent (Design, proto-stub). Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Cycle: Memory, Prediction, Action, Learning. Delivered on WhatsApp. MCP-native, callable by any other agent in the stack. Status: Phase 3. Pilot design partner in recruitment, go-live targeted end of September. Apaleo OAuth and MCP read access operational. Contrast with Lore: Lore shares this architecture and cannot close the same loop, nothing there tells the system whether an observation was right; Aetherix has an outcome to compare against.
 
 The loop that learns. Every day the same loop deposits one more grain of calibrated experience into the property's operational memory. Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing, waste risk with drivers. Action lands as one WhatsApp message with one-tap accept, modify or reject. Learning records every reply as feedback; the pilot tests whether it improves future recommendations. Day 7 is cold-start, honest confidence, leans on generic cross-property context patterns and the first week of local signals. Day 90 is the expected, not measured, state: drivers become property-specific, calibrated by enough Tuesdays, events and overrides to fit this exact place. Caveat: a true federated cohort prior (HiveMemory) is research, Phase 4 and beyond, anonymized aggregates only, no cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
 
@@ -70,7 +70,7 @@ Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard (thread per aircraft
 
 ## Anima
 
-URL: https://ivandemurard.com/anima. Memory that makes every guest a regular: a guest memory node that anticipates needs, learns from every stay, and improves operations without watching. It is the node that is not allowed to simply accumulate, a memory product with a deliberate limit, not a personalisation product.
+URL: https://ivandemurard.com/anima. Memory that means no guest has to ask twice. A guest memory node: keeps what a guest said and what happened, so nobody asks twice, without watching. It is the node that is not allowed to simply accumulate, a memory product with a deliberate limit, not a personalisation product.
 
 Positioning. Anima is a guest memory node, not a twin. An employee can be told they are modelled, consulted and can refuse; a guest cannot meaningfully consent to being modelled during a two-night stay. The older version of this was the concierge who never had to ask twice, a guest memory running on one person's recall, with a bus factor of one, which is the same loss Lore addresses for technical expertise.
 
@@ -139,9 +139,9 @@ The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid 
 
 Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
-Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
+Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next (federated priors: Research), to give independents the power of a hive.
 
-Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
+Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built, maintenance mode since July 2026. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Design. Orchestrator, the supervisory agent, Design, proto-stub.
 
 Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
 
@@ -181,7 +181,7 @@ The underlying bottleneck is not data, it is synthesis: combining internal conte
 - States its drivers the evening before, then reports its own miss the next morning, in plain language.
 - Flagged a corrupted POS export rather than training on it.
 - Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.
-- Stores every recommendation next to what actually happened, with the manager's override recorded beside it.
+- Stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason: a role, not a named person.
 - Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.
 
 Sandbox data, real mechanics, deterministic reruns.
@@ -210,16 +210,16 @@ Aetherix is one of five specialized, MCP-native agents. Each agent owns a strict
 | Agent | Role | Status |
 |---|---|---|
 | Aetherix | F&B execution: forecast, staffing, memory, receipts | Built, 0 real users, forecast in shadow mode, pilot partner in recruitment |
-| Tacet | Sensory: weather, noise, open data, risk | Built |
+| Tacet | Sensory: weather, noise, open data, risk | Built, maintenance mode since July 2026 |
 | Anima | Guest memory node | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
-| Peritia | House knowledge: what the people who work in a property know | Named in the contract, not started |
-| Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
+| Peritia | House knowledge: what the people who work in a property know | Design |
+| Orchestrator | Supervisory: MCP routing, business rules. Proto-stub in Phase 3, dedicated repo in Phase 4 | Design, proto-stub |
 
 Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 
 ## Aetherix ↔ Tacet, MCP handshake
 
-Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). An Orchestrator calls both. Together they form one predictive twin for the property.
+Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches Aetherix directly: the one documented exception, non-personal, read-only, logged. Together they form one predictive twin for the property.
 
 ## Architecture
 
@@ -387,6 +387,8 @@ Together they let teams control costs, reduce waste and protect the experience g
 ## 6. Horizon
 
 Widen the catalogue of signals (mobility, air quality, cultural events), invite more orchestration agents on the MCP layer, and let the dual memory get sharper at each property. Over time, Tacet becomes the environmental layer of an agentic OS for hospitality: each property reads its surroundings with its own context, and responds faster because of it. A Quiet Certification standard is a likely side-effect, not the goal.
+
+[Design] Signals on the routes into the property (rail lines, stations, airports), keyed by place and time, never by person.
 
 ## Technical Stack
 
@@ -623,7 +625,7 @@ Fig. 2.1, the road and the gate on it, three steps:
 
 | Step | State | What it holds |
 |---|---|---|
-| Now | Built | Synthetic proof of concept: four memory layers, MCP server, evaluated on a synthetic cohort |
+| Now | Synthetic PoC | Synthetic proof of concept: four memory layers, MCP server, evaluated on a synthetic cohort |
 | Gate | Design | Data-protection assessment, before the first real guest datum, not before the build. No real guest until it clears |
 | Phase 4 | Design | Production: real guests, real stays, only on the far side of the gate |
 
@@ -637,11 +639,11 @@ Fig. 3.1, one stay and what is held at each point:
 
 | Phase | Held | Layer |
 |---|---|---|
-| Before arrival [Design] | Booking data; situational context (a delayed train, a local event, the weather); no external data about the person, no profiling | No memory yet: nothing personal is held before the guest is in the house |
+| Before arrival [Design] | Booking data; situational context (a delayed train, a local event, the weather); Tacet gives disruption by line and place, Anima links it to the booking, Tacet holds no personal data; no external data about the person, no profiling | Booking data only: nothing beyond the reservation, no profile |
 | During the stay | Requests, interactions, operational events | Working memory, expires at check-out |
 | After check-out | Episodic tail, weeks; semantic only if stated or repeatedly confirmed | Episodic, then semantic: weeks, then long with decay |
 
-Marker on the stay [Design]: health data stays in the stay. An allergy is GDPR art. 9 data, used on explicit consent for a concrete service, never kept or inferred.
+Marker on the stay [Design]: health data stays in the stay. An allergy is GDPR art. 9 data, used on explicit consent for a concrete service, never inferred. Keeping it for a future stay needs its own, separate consent.
 
 Segment layer: anonymised patterns across the whole house, never an individual.
 
@@ -681,7 +683,7 @@ Fig. 6.1, the scope gate, one layer per call:
 - Caller: the orchestrator declares one layer, for one purpose.
 - Request that passes: semantic layer, room assignment. Scoped, logged, answerable.
 - Anima answers: who this guest is right now. Nothing more.
-- Request that does not pass: "everything about this guest". Blocked by protocol, 403. There is no call that returns a whole person. It is a structural choice, not a policy one.
+- Request that does not pass: "everything about this guest". Blocked by protocol. There is no call that returns a whole person. It is a structural choice, not a policy one.
 - After the answer: a human validates what the orchestrator proposes. Anima never decides.
 
 A boundary that depends on people asking politely is not a boundary.
@@ -772,7 +774,9 @@ Aetherix executes. It does not orchestrate.
    and the arbitration stops being reviewable.
 2. **MCP is the only doorway.** Nodes do not import each other. Every exchange is a tool call, so
    every exchange is loggable, auditable and priceable, and a node can be replaced without its
-   neighbours knowing.
+   neighbours knowing. Until the orchestrator is built (Design), Tacet's output reaches Aetherix
+   directly: the one documented exception, non-personal, read-only, logged. Target: every exchange
+   goes through the orchestrator.
 3. **Tenancy is resolved server-side, never passed as an argument.** The property identifier is
    established by the server at every layer. What a model cannot name, it cannot cross.
 4. **Memory is local first, federated second, and never raw.** Each property learns from its own
