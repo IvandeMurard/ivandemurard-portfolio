@@ -117,7 +117,7 @@ const FAQ = [
   },
   {
     q: "How is Aetherix part of a multi-agent architecture?",
-    a: "Five specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (environmental signal), Anima (guest memory, synthetic PoC), Peritia (house knowledge, Design), Orchestrator (supervisory routing, Design). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
+    a: "Five specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (environmental signal), Anima (guest memory, synthetic PoC), Peritia (house knowledge, Design), Orchestrator (supervisory routing, Design, proto-stub). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
   },
   {
     q: "How is multi-tenant security handled?",
