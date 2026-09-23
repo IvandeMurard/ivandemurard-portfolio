@@ -47,9 +47,9 @@ export const MESH_NODES: MeshNode[] = [
   },
   {
     node: "Orchestrator",
-    status: "Design",
+    status: "Design · stateless router, no memory",
     owns: "Supervisory routing and business rules across agents",
-    not: "Domain logic. It routes, it does not compute",
+    not: "Domain logic and memory. It routes, it does not compute and it stores nothing",
     state: "design",
   },
 ];
