@@ -26,7 +26,7 @@ Fig. 2.1, the road and the gate on it, three steps:
 
 | Step | State | What it holds |
 |---|---|---|
-| Now | Built | Synthetic proof of concept: four memory layers, MCP server, evaluated on a synthetic cohort |
+| Now | Synthetic PoC | Synthetic proof of concept: four memory layers, MCP server, evaluated on a synthetic cohort |
 | Gate | Design | Data-protection assessment, before the first real guest datum, not before the build. No real guest until it clears |
 | Phase 4 | Design | Production: real guests, real stays, only on the far side of the gate |
 
@@ -40,11 +40,11 @@ Fig. 3.1, one stay and what is held at each point:
 
 | Phase | Held | Layer |
 |---|---|---|
-| Before arrival [Design] | Booking data; situational context (a delayed train, a local event, the weather); no external data about the person, no profiling | No memory yet: nothing personal is held before the guest is in the house |
+| Before arrival [Design] | Booking data; situational context (a delayed train, a local event, the weather); Tacet gives disruption by line and place, Anima links it to the booking, Tacet holds no personal data; no external data about the person, no profiling | Booking data only: nothing beyond the reservation, no profile |
 | During the stay | Requests, interactions, operational events | Working memory, expires at check-out |
 | After check-out | Episodic tail, weeks; semantic only if stated or repeatedly confirmed | Episodic, then semantic: weeks, then long with decay |
 
-Marker on the stay [Design]: health data stays in the stay. An allergy is GDPR art. 9 data, used on explicit consent for a concrete service, never kept or inferred.
+Marker on the stay [Design]: health data stays in the stay. An allergy is GDPR art. 9 data, used on explicit consent for a concrete service, never inferred. Keeping it for a future stay needs its own, separate consent.
 
 Segment layer: anonymised patterns across the whole house, never an individual.
 
@@ -84,7 +84,7 @@ Fig. 6.1, the scope gate, one layer per call:
 - Caller: the orchestrator declares one layer, for one purpose.
 - Request that passes: semantic layer, room assignment. Scoped, logged, answerable.
 - Anima answers: who this guest is right now. Nothing more.
-- Request that does not pass: "everything about this guest". Blocked by protocol, 403. There is no call that returns a whole person. It is a structural choice, not a policy one.
+- Request that does not pass: "everything about this guest". Blocked by protocol. There is no call that returns a whole person. It is a structural choice, not a policy one.
 - After the answer: a human validates what the orchestrator proposes. Anima never decides.
 
 A boundary that depends on people asking politely is not a boundary.

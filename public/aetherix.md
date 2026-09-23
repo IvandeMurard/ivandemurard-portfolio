@@ -4,9 +4,9 @@ The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid 
 
 Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
-Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
+Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next (federated priors: Research), to give independents the power of a hive.
 
-Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
+Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built, maintenance mode since July 2026. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Design. Orchestrator, the supervisory agent, Design, proto-stub.
 
 Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
 
@@ -46,7 +46,7 @@ The underlying bottleneck is not data, it is synthesis: combining internal conte
 - States its drivers the evening before, then reports its own miss the next morning, in plain language.
 - Flagged a corrupted POS export rather than training on it.
 - Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.
-- Stores every recommendation next to what actually happened, with the manager's override recorded beside it.
+- Stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason: a role, not a named person.
 - Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.
 
 Sandbox data, real mechanics, deterministic reruns.
@@ -75,16 +75,16 @@ Aetherix is one of five specialized, MCP-native agents. Each agent owns a strict
 | Agent | Role | Status |
 |---|---|---|
 | Aetherix | F&B execution: forecast, staffing, memory, receipts | Built, 0 real users, forecast in shadow mode, pilot partner in recruitment |
-| Tacet | Sensory: weather, noise, open data, risk | Built |
+| Tacet | Sensory: weather, noise, open data, risk | Built, maintenance mode since July 2026 |
 | Anima | Guest memory node | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
-| Peritia | House knowledge: what the people who work in a property know | Named in the contract, not started |
-| Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
+| Peritia | House knowledge: what the people who work in a property know | Design |
+| Orchestrator | Supervisory: MCP routing, business rules. Proto-stub in Phase 3, dedicated repo in Phase 4 | Design, proto-stub |
 
 Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 
 ## Aetherix ↔ Tacet, MCP handshake
 
-Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). An Orchestrator calls both. Together they form one predictive twin for the property.
+Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches Aetherix directly: the one documented exception, non-personal, read-only, logged. Together they form one predictive twin for the property.
 
 ## Architecture
 

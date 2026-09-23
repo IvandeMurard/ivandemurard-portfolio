@@ -193,7 +193,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "anima.md",
     title: "Anima, the Guest Memory Node of the Hospitality Multi-Agent Architecture · Ivan de Murard",
     description:
-      "Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.",
+      "Memory that means no guest has to ask twice. A guest memory node: keeps what a guest said and what happened, so nobody asks twice, without watching.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",
@@ -201,7 +201,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       "@context": "https://schema.org",
       "@type": "CreativeWork",
       name: "Anima",
-      headline: "Anima: memory that makes every guest a regular",
+      headline: "Anima: memory that means no guest has to ask twice",
       url: `${BASE_URL}/anima`,
       inLanguage: "en",
       about: ["Guest Memory", "Data Protection", "Agentic AI", "Hospitality Operations"],

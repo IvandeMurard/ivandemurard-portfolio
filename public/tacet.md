@@ -60,6 +60,8 @@ Together they let teams control costs, reduce waste and protect the experience g
 
 Widen the catalogue of signals (mobility, air quality, cultural events), invite more orchestration agents on the MCP layer, and let the dual memory get sharper at each property. Over time, Tacet becomes the environmental layer of an agentic OS for hospitality: each property reads its surroundings with its own context, and responds faster because of it. A Quiet Certification standard is a likely side-effect, not the goal.
 
+[Design] Signals on the routes into the property (rail lines, stations, airports), keyed by place and time, never by person.
+
 ## Technical Stack
 
 - **Agentic Protocol:** Anthropic MCP (Model Context Protocol) SDK
