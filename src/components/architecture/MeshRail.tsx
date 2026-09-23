@@ -80,15 +80,6 @@ export const MeshRail = () => (
         </ol>
       </div>
 
-      <p className="font-body text-sm text-on-surface-variant mt-4">
-        <Link
-          to="/lore"
-          className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
-        >
-          Lore
-        </Link>{" "}
-        sits outside this mesh: the same pattern in aviation maintenance, as a standalone project.
-      </p>
     </div>
   </section>
 );

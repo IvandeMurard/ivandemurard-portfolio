@@ -5,19 +5,21 @@ import { MESH_NODES, type MeshNode } from "@/content/meshNodes";
 
 /**
  * FIG. 3.1 — The mesh, as wired.
- * Hairline engraving of the five agents around the persistence core.
- * Facts come from MESH_NODES so the figure and the table cannot diverge.
+ * Hairline engraving: the four domain agents orbit the supervisory orchestrator,
+ * which routes and holds no state of its own.
+ * Facts come from MESH_NODES so the figure and the page cannot diverge.
  */
 
-const DESKTOP = { w: 900, h: 440, cx: 450, cy: 220, rx: 320, ry: 150, core: 66 };
-const MOBILE = { w: 360, h: 540, cx: 180, cy: 280, rx: 108, ry: 212, core: 54 };
+const DESKTOP = { w: 900, h: 440, cx: 450, cy: 220, rx: 320, ry: 150, core: 74 };
+const MOBILE = { w: 360, h: 560, cx: 180, cy: 290, rx: 112, ry: 222, core: 62 };
 
-const ANGLES = [-90, -18, 54, 126, 198];
+const ORCHESTRATOR = "Orchestrator";
+const SPECIALISTS = MESH_NODES.filter((n) => n.node !== ORCHESTRATOR);
+const CORE_NODE = MESH_NODES.find((n) => n.node === ORCHESTRATOR) as MeshNode;
 
-const point = (
-  g: typeof DESKTOP,
-  index: number,
-): { x: number; y: number } => {
+const ANGLES = [-90, 0, 90, 180];
+
+const point = (g: typeof DESKTOP, index: number): { x: number; y: number } => {
   const a = (ANGLES[index] * Math.PI) / 180;
   return { x: g.cx + g.rx * Math.cos(a), y: g.cy + g.ry * Math.sin(a) };
 };
@@ -94,6 +96,10 @@ export const MeshBlueprint = () => {
 
   const selected = MESH_NODES.find((n) => n.node === active) ?? null;
   const lit = hovered ?? active;
+  const coreLit = lit === ORCHESTRATOR;
+  const coreActive = active === ORCHESTRATOR;
+
+  const toggle = (name: string) => setActive((cur) => (cur === name ? null : name));
 
   return (
     <figure className="mb-8 rounded-sm border border-outline-variant bg-surface-container-lowest">
@@ -111,7 +117,7 @@ export const MeshBlueprint = () => {
           viewBox={`0 0 ${g.w} ${g.h}`}
           className="w-full h-auto mesh-blueprint"
           role="group"
-          aria-label="The five agents of the mesh, each wired to the shared persistence core"
+          aria-label="Four domain agents wired to a central supervisory orchestrator that holds no memory"
         >
           {/* Plate: register marks, the contract ring and its graduations */}
           <CornerMarks g={g} />
@@ -155,8 +161,8 @@ export const MeshBlueprint = () => {
           </g>
           <Graduations g={g} />
           <text
-            x={orbit(g, 90, 1.13).x}
-            y={orbit(g, 90, 1.13).y}
+            x={orbit(g, 42, 1.1).x}
+            y={orbit(g, 42, 1.1).y}
             textAnchor="middle"
             className="fill-on-surface-variant"
             style={{ fontSize: isMobile ? 7 : 8, letterSpacing: "0.22em", opacity: 0.85 }}
@@ -164,55 +170,108 @@ export const MeshBlueprint = () => {
             MCP SURFACE
           </text>
 
-          {/* Core */}
-          <g aria-hidden="true">
+          {/* Spokes, drawn under the marks */}
+          {SPECIALISTS.map((n, i) => {
+            const p = point(g, i);
+            const rim = rimPoint(g, p.x, p.y);
+            const isLit = lit === n.node;
+            return (
+              <g key={`spoke-${n.node}`} aria-hidden="true">
+                <line
+                  x1={rim.x}
+                  y1={rim.y}
+                  x2={p.x}
+                  y2={p.y}
+                  strokeWidth={isLit ? 1.4 : 1}
+                  strokeDasharray={n.state === "built" ? undefined : "4 5"}
+                  className={isLit ? "stroke-secondary" : "stroke-outline-variant"}
+                />
+                {isLit && (
+                  <line
+                    x1={p.x}
+                    y1={p.y}
+                    x2={rim.x}
+                    y2={rim.y}
+                    pathLength={1}
+                    strokeWidth={1.6}
+                    strokeDasharray="0.16 1"
+                    className="stroke-secondary mesh-pulse"
+                  />
+                )}
+              </g>
+            );
+          })}
+
+          {/* Core: the orchestrator, stateless */}
+          <g
+            role="button"
+            tabIndex={0}
+            aria-pressed={coreActive}
+            aria-label="Orchestrator, Design, stateless router with no memory. Show details."
+            className="cursor-pointer focus:outline-none [&:focus-visible_.mesh-core]:stroke-secondary"
+            onMouseEnter={() => setHovered(ORCHESTRATOR)}
+            onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered(ORCHESTRATOR)}
+            onBlur={() => setHovered(null)}
+            onClick={() => toggle(ORCHESTRATOR)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggle(ORCHESTRATOR);
+              }
+              if (e.key === "Escape") setActive(null);
+            }}
+          >
+            <circle cx={g.cx} cy={g.cy} r={g.core} fill="transparent" />
             <circle
               cx={g.cx}
               cy={g.cy}
               r={g.core}
-              className="fill-none stroke-outline-variant"
-              strokeWidth={1}
+              strokeWidth={coreLit ? 1.4 : 1}
+              strokeDasharray="5 4"
+              className={`mesh-core fill-surface ${
+                coreLit ? "stroke-secondary" : "stroke-outline"
+              }`}
             />
             <circle
               cx={g.cx}
               cy={g.cy}
-              r={g.core - 7}
+              r={g.core - 8}
               className="fill-none stroke-outline-variant"
-              strokeWidth={1}
-              strokeDasharray="2 5"
+              strokeWidth={0.5}
+              opacity={0.6}
             />
             <text
               x={g.cx}
-              y={g.cy - 4}
+              y={g.cy - 6}
               textAnchor="middle"
               className="fill-primary"
-              style={{ fontSize: isMobile ? 12 : 13, fontStyle: "italic" }}
+              style={{ fontSize: isMobile ? 13 : 15, fontStyle: "italic" }}
             >
-              Persistence
+              Orchestrator
             </text>
             <text
               x={g.cx}
-              y={g.cy + 12}
+              y={g.cy + 9}
               textAnchor="middle"
-              className="fill-secondary"
-              style={{ fontSize: isMobile ? 8 : 9, letterSpacing: "0.16em" }}
+              className={coreLit ? "fill-secondary" : "fill-on-surface-variant"}
+              style={{ fontSize: isMobile ? 7.5 : 9, letterSpacing: "0.16em" }}
             >
-              POSTGRES
+              STATELESS ROUTER
             </text>
             <text
               x={g.cx}
-              y={g.cy + 24}
+              y={g.cy + 22}
               textAnchor="middle"
               className="fill-secondary"
-              style={{ fontSize: isMobile ? 8 : 9, letterSpacing: "0.16em" }}
+              style={{ fontSize: isMobile ? 7.5 : 9, letterSpacing: "0.16em" }}
             >
-              SHARED MEMORY
+              NO MEMORY
             </text>
           </g>
 
-          {MESH_NODES.map((n, i) => {
+          {SPECIALISTS.map((n, i) => {
             const p = point(g, i);
-            const rim = rimPoint(g, p.x, p.y);
             const isLit = lit === n.node;
             const isActive = active === n.node;
             const left = !isMobile && p.x < g.cx - 8;
@@ -228,8 +287,6 @@ export const MeshBlueprint = () => {
               anchor === "end" ? tx + 8 - hitW : anchor === "start" ? p.x - 12 : tx - hitW / 2;
             const hitY = anchor === "middle" ? (p.y < g.cy ? p.y - 40 : p.y - 8) : p.y - 20;
 
-
-
             return (
               <g
                 key={n.node}
@@ -242,48 +299,16 @@ export const MeshBlueprint = () => {
                 onMouseLeave={() => setHovered(null)}
                 onFocus={() => setHovered(n.node)}
                 onBlur={() => setHovered(null)}
-                onClick={() => setActive(isActive ? null : n.node)}
+                onClick={() => toggle(n.node)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    setActive(isActive ? null : n.node);
+                    toggle(n.node);
                   }
                   if (e.key === "Escape") setActive(null);
                 }}
               >
-                {/* Hit area */}
-                <rect
-                  x={hitX}
-                  y={hitY}
-                  width={hitW}
-                  height={hitH}
-                  fill="transparent"
-                />
-                {/* Spoke */}
-
-                <line
-                  x1={rim.x}
-                  y1={rim.y}
-                  x2={p.x}
-                  y2={p.y}
-                  strokeWidth={isLit ? 1.4 : 1}
-                  strokeDasharray={n.state === "built" ? undefined : "4 5"}
-                  className={isLit ? "stroke-secondary" : "stroke-outline-variant"}
-                />
-                {/* Pulse travelling to the core */}
-                {isLit && (
-                  <line
-                    x1={p.x}
-                    y1={p.y}
-                    x2={rim.x}
-                    y2={rim.y}
-                    pathLength={1}
-                    strokeWidth={1.6}
-                    strokeDasharray="0.16 1"
-                    className="stroke-secondary mesh-pulse"
-                  />
-                )}
-                {/* Node mark */}
+                <rect x={hitX} y={hitY} width={hitW} height={hitH} fill="transparent" />
                 <circle
                   cx={p.x}
                   cy={p.y}
@@ -296,7 +321,6 @@ export const MeshBlueprint = () => {
                 {n.state !== "design" && (
                   <circle cx={p.x} cy={p.y} r={2} className="fill-secondary" />
                 )}
-                {/* Label */}
                 <text
                   x={tx}
                   y={ty}
@@ -355,8 +379,9 @@ export const MeshBlueprint = () => {
           </div>
         ) : (
           <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-            Every agent talks to the core, never to another agent. Select one to read what it owns
-            and what it does not.
+            Four domain agents, one supervisory router at the centre. {CORE_NODE.node} holds no
+            memory of its own: state stays with the agent that owns it, and no agent talks to
+            another. Select a mark to read what it owns and what it does not.
           </p>
         )}
       </div>

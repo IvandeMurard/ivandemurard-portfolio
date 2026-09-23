@@ -16,7 +16,6 @@ import { EntryActions } from "@/components/journal/EntryActions";
 import { McpEndpoint } from "@/components/McpEndpoint";
 
 import { MeshBlueprint } from "@/components/architecture/MeshBlueprint";
-import { MESH_NODES } from "@/content/meshNodes";
 import { MeshRail } from "@/components/architecture/MeshRail";
 
 const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
@@ -72,7 +71,6 @@ const Section = ({
   </Reveal>
 );
 
-const NODE_ROWS = MESH_NODES;
 
 
 const LEARNING_ROWS: { node: string; feedback: string; consequence: string }[] = [
@@ -153,7 +151,7 @@ const ROSE_PROMPTS = [
   "On the architecture note: which nodes of the mesh are actually built today?",
   "On the architecture note: why split this into separate agents instead of one model?",
   "On the architecture note: how is tenancy kept from leaking between properties?",
-  "On the architecture note: what does Lore have to do with the hospitality mesh?",
+  "On the architecture note: what does the orchestrator do, and why does it hold no memory?",
 ];
 
 const Architecture = () => {
@@ -298,39 +296,39 @@ const Architecture = () => {
                   </p>
                 </div>
                 <P>
-                  Check-in looks like a process. It is schedulable, measurable, and obviously
-                  optimisable, which is exactly why it is the wrong thing to treat as one.
+                  Check-in looks like a process, and optimising it as one gives you the metric a
+                  process offers: time to key. A fast, cold arrival is an excellent process and a bad
+                  welcome.
                 </P>
-                <P>
-                  Four signals meet in that one moment. How full the house is tonight. What is happening
-                  outside, since a transit strike means every arrival lands in the same twenty minutes.
-                  Whether this guest has stayed before and what they had to ask for last time. And who is
-                  on the desk, how loaded they are, how far into the shift.
-                </P>
-                <P>
-                  Model it as a process and you will optimise the metric a process offers: time to key.
-                  That number is measurable to the second, and it runs against the thing the property
-                  actually sells. A fast, cold arrival is an excellent process and a bad welcome.
-                </P>
+                <ul className="max-w-3xl mb-6 border-t border-outline-variant">
+                  {[
+                    ["Tacet", "What is happening outside: a transit strike lands every arrival in the same twenty minutes."],
+                    ["Aetherix", "How full the house is tonight, and what that does to the service that follows."],
+                    ["Anima", "Whether this guest has stayed before, and what they had to ask for last time."],
+                    ["Peritia", "Who is on the desk, how loaded they are, how far into the shift."],
+                  ].map(([name, line]) => (
+                    <li
+                      key={name}
+                      className="flex flex-col sm:flex-row sm:gap-6 border-b border-outline-variant py-3"
+                    >
+                      <span className="font-headline italic text-primary text-lg sm:w-32 shrink-0">
+                        {name}
+                      </span>
+                      <span className="font-body text-sm text-on-surface-variant leading-relaxed">
+                        {line}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
                 <Pull>
-                  This is why guest experience is not an agent of its own. It is a layer that crosses the
-                  others, because the same twenty minutes are simultaneously an occupancy fact, an
-                  external-context fact, a memory fact and a staffing fact. An agent that owned "guest
-                  experience" would have to own all four, and an agent that owns everything is not a
+                  This is why guest experience is not an agent of its own. An agent that owned it
+                  would have to own all four domains, and an agent that owns everything is not a
                   bounded context.
                 </Pull>
                 <P>
-                  It is also where the limit of any model of this kind shows. Time to key can be
-                  predicted from occupancy and staffing with reasonable confidence. Whether someone felt
-                  welcomed cannot. The gap between what is measurable and what matters is not a gap in
-                  the data; it is a property of the problem, and a system that forgets that will optimise
-                  confidently in the wrong direction.
-                </P>
-                <P>
-                  The same holds harder at the other end. Departure carries the payment, and the end of
-                  an experience weighs more than its middle in what people remember, which makes
-                  check-out the moment most worth protecting and the one most often optimised for speed
-                  alone.
+                  Time to key can be predicted. Whether someone felt welcomed cannot. That gap is a
+                  property of the problem, not of the data, and it holds harder at check-out, which
+                  carries the payment and weighs most in memory.
                 </P>
               </Section>
 
@@ -338,14 +336,9 @@ const Architecture = () => {
                 id="the-nodes"
                 number="03"
                 title="The five agents"
-                keyLine="Five agents, each with one domain, and a status a reader can check before reading anything else."
-                concrete="Aetherix is built and instrumented, with a pilot partner in recruitment. Peritia is a named slot with no code."
+                keyLine="Four domain agents around one supervisory router, which holds no memory of its own."
+                concrete="Select a mark on the figure to read what that agent owns, and what it is not allowed to own."
               >
-                <Table
-                  caption="The five agents of the mesh, with status, what each owns and what it does not own"
-                  head={["Agent", "Status", "Owns", "Does not own"]}
-                  rows={NODE_ROWS.map((r) => [r.node, r.status, r.owns, r.not])}
-                />
                 <MeshBlueprint />
 
                 <p className="font-headline italic text-primary text-xl md:text-2xl max-w-3xl">
@@ -414,12 +407,7 @@ const Architecture = () => {
                       The contract that governs exchanges between agents was designed to admit staff
                       knowledge: what the people who work in a property know, which nothing captures
                       today. That agent is named Peritia, the trade agent: a house's know-how, held by
-                      the house rather than by whoever is on shift. Not started, and no code. The pattern
-                      comes from my other project,{" "}
-                      <Link to="/lore" className={linkCls}>
-                        Lore
-                      </Link>
-                      , the working proof of it in another industry.
+                      the house rather than by whoever is on shift. Not started, and no code.
                     </p>
                   </div>
 
@@ -484,41 +472,8 @@ const Architecture = () => {
               </Section>
 
               <Section
-                id="outside-hospitality"
-                number="07"
-                title="The same architecture outside hospitality"
-                keyLine="The pattern holds in aviation maintenance, under a stricter regime and without a feedback loop."
-                concrete="Lore's evaluation harness weighs close to a third of its codebase, because no outcome ever comes back to it."
-              >
-                <P>
-                  <Link to="/lore" className={linkCls}>
-                    Lore
-                  </Link>{" "}
-                  is this architecture in aviation maintenance, under a stricter regime. It captures oral
-                  expertise, retrieves it behind the governing procedure, and hands the decision to a
-                  licensed technician who signs the release.
-                </P>
-                <P>
-                  What it does not have is the loop. Nothing tells it whether a captured observation was
-                  right, and the moment a technician escalates, the counterfactual disappears. That
-                  single absence is why its evaluation harness weighs close to a third of its codebase,
-                  where Aetherix can lean on measured outcomes instead.
-                </P>
-                <P>
-                  Lore stays outside the mesh. Folding it in would make this one hospitality product more;
-                  leaving it out makes it an architecture that holds in a second industry under a stricter
-                  regime. The staff-knowledge agent inside the mesh is Peritia, not started, and the
-                  contract has room for it. It would be a different agent, not this one.
-                </P>
-                <Pull>
-                  The mesh is not a hospitality pattern. It is what you build when a decision has to stay
-                  attributable to a component and to a person.
-                </Pull>
-              </Section>
-
-              <Section
                 id="where-it-stands"
-                number="08"
+                number="07"
                 title="Verification and pointers"
                 keyLine="The statuses above are the claim. Here is where to check them."
                 concrete="The meta-repository holds the contracts; the field note explains how a node earns the right to ship."

@@ -711,8 +711,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 - **Tacet** (built: live data ingestion pipeline, MCP server v0 live on Fly.io). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC, production gated behind a data-protection assessment). The guest node: a four-layer temporal memory of a guest relationship. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
-- **Orchestrator** (Design, a proto-stub exists). The supervisory agent: routes between the others and holds the decision.
-- **Lore** (outside the mesh). The same architecture in aviation maintenance, where a licensed technician signs the release. https://ivandemurard.com/lore
+- **Orchestrator** (Design, a proto-stub exists). The supervisory agent: a stateless router with no memory of its own. It routes between the others and holds the decision.
 
 ## 1. Why a mesh and not one agent
 
@@ -726,23 +725,21 @@ boundaries are enforced by the protocol rather than by discipline.
 
 Illustration, not a capability: nothing in this system performs check-in today.
 
-Four signals meet in one arrival. How full the house is tonight. What is happening outside, since a
-transit strike means every arrival lands in the same twenty minutes. Whether this guest has stayed
-before and what they had to ask for last time. And who is on the desk, how loaded they are, how far
-into the shift.
+Check-in looks like a process, and optimising it as one gives you the metric a process offers: time
+to key. A fast, cold arrival is an excellent process and a bad welcome. Four signals meet in one
+arrival, and each belongs to a different agent:
 
-Model it as a process and you optimise the metric a process offers: time to key. A fast, cold
-arrival is an excellent process and a bad welcome.
+- Tacet: what is happening outside, since a transit strike lands every arrival in the same twenty minutes.
+- Aetherix: how full the house is tonight, and what that does to the service that follows.
+- Anima: whether this guest has stayed before, and what they had to ask for last time.
+- Peritia: who is on the desk, how loaded they are, how far into the shift.
 
-This is why guest experience is not an agent of its own. It is a layer that crosses the others, because the
-same twenty minutes are simultaneously an occupancy fact, an external-context fact, a memory fact
-and a staffing fact. An agent that owned "guest experience" would have to own all four, and an
-agent that owns everything is not a bounded context.
+This is why guest experience is not an agent of its own. An agent that owned it would have to own
+all four domains, and an agent that owns everything is not a bounded context.
 
-Time to key can be predicted. Whether someone felt welcomed cannot. The gap between what is
-measurable and what matters is a property of the problem. The same holds harder at check-out, which
-carries the payment and weighs more in memory, and is the moment most often optimised for speed
-alone.
+Time to key can be predicted. Whether someone felt welcomed cannot. That gap is a property of the
+problem, not of the data, and it holds harder at check-out, which carries the payment and weighs
+most in memory.
 
 ## 3. The five agents
 
@@ -752,9 +749,9 @@ alone.
 | Tacet | Built: live data ingestion, MCP server v0 live | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Synthetic PoC | Guest cognition: temporal memory, confidence-weighted claims | Acting on what it knows. Production is DPIA-gated |
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
-| Orchestrator | Design | Supervisory routing and business rules across agents | Domain logic. It routes, it does not compute |
+| Orchestrator | Design, stateless router, no memory | Supervisory routing and business rules across agents | Domain logic and memory. It routes, it does not compute and it stores nothing |
 
-Fig. 3.1, on the web page, wires the same five agents to the shared persistence core: a solid spoke for what is built, a dashed spoke for what is designed and not written. Selecting an agent shows what it owns and what it does not own, with the same wording as the table above.
+Fig. 3.1, on the web page, wires the four domain agents to the orchestrator at the centre: a solid spoke for what is built, a dashed spoke for what is designed and not written. The orchestrator holds no memory of its own; state stays with the agent that owns it, and no agent talks to another. Selecting a mark shows what that agent owns and what it does not own, with the same wording as the table above.
 
 Aetherix executes. It does not orchestrate.
 
@@ -773,8 +770,7 @@ Aetherix executes. It does not orchestrate.
 5. **A fifth agent is an addition, not a redesign.** The contract that governs exchanges between
    agents was designed to admit staff knowledge: what the people who work in a property know, which
    nothing captures today. That agent is named Peritia, the trade agent: a house's know-how, held by
-   the house rather than by whoever is on shift. Not started, and no code. The pattern comes from my
-   other project, Lore, the working proof of it in another industry.
+   the house rather than by whoever is on shift. Not started, and no code.
 
 ## 5. What each node is allowed to learn
 
@@ -798,21 +794,7 @@ simulates the impact of an operational decision before it is taken, a staffing c
 a service adjustment, returns nothing. The sector models its assets and not its arbitrations. This
 mesh is not marketed as a twin and does not simulate scenarios today.
 
-## 7. The same architecture outside hospitality
-
-Lore is this architecture in aviation maintenance, under a stricter regime. It captures oral
-expertise, retrieves it behind the governing procedure, and hands the decision to a licensed
-technician who signs the release. What it does not have is the loop: nothing tells it whether a
-captured observation was right, and the moment a technician escalates, the counterfactual
-disappears. That absence is why its evaluation harness weighs close to a third of its codebase.
-
-Lore stays outside the mesh. The staff-knowledge agent inside the mesh is Peritia, not started, and
-the contract has room for it. It would be a different agent.
-
-The mesh is not a hospitality pattern. It is what you build when a decision has to stay attributable
-to a component and to a person.
-
-## 8. Verification and pointers
+## 7. Verification and pointers
 
 The statuses above are the claim. Here is where to check them.
 
