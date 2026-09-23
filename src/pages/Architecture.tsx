@@ -398,6 +398,14 @@ const Architecture = () => {
                       such as how a rainy Tuesday in the same district moves breakfast covers, without
                       its own covers, guests or prices leaving the building.
                     </p>
+                    <p className="mt-3 flex flex-wrap items-baseline gap-2">
+                      <span className="inline-flex items-center rounded-sm border border-dashed border-outline px-2 py-0.5 font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                        Research
+                      </span>
+                      <span className="font-body text-sm text-on-surface-variant leading-relaxed">
+                        Federation: Research, no substrate yet. Local memory is as described.
+                      </span>
+                    </p>
                   </div>
                   <div>
                     <h3 className="font-headline italic text-primary text-xl mb-2">
