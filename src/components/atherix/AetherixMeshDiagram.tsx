@@ -12,14 +12,21 @@ const NODES = [
     emoji: "🌦️",
     name: "Tacet",
     role: "Sensory: weather, noise, open data → risk",
-    status: "Phase 3",
+    status: "Built · maintenance mode since July 2026",
+    statusTone: "phase" as const,
+  },
+  {
+    emoji: "🧭",
+    name: "Peritia",
+    role: "House knowledge: what the people who work in a property know",
+    status: "Design",
     statusTone: "phase" as const,
   },
   {
     emoji: "🎛️",
     name: "Orchestrator",
-    role: "Supervisory: MCP routing, business rules. Design, proto-stub in Phase 3, dedicated repo in Phase 4.",
-    status: "Phase 3, stub",
+    role: "Supervisory: MCP routing, business rules. Proto-stub in Phase 3, dedicated repo in Phase 4.",
+    status: "Design · proto-stub",
     statusTone: "phase" as const,
   },
   {
@@ -132,6 +139,10 @@ export const AetherixMeshDiagram = () => (
 
       <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant text-center mt-8">
         Aetherix executes. It does not orchestrate.
+      </p>
+      <p className="mt-4 mx-auto max-w-2xl text-center font-body text-sm text-on-surface-variant leading-relaxed">
+        Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches
+        Aetherix directly: the one documented exception, non-personal, read-only, logged.
       </p>
     </div>
 
