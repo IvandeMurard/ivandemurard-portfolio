@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { ClaudeGlyph, OpenAIGlyph } from "@/components/ui/BrandGlyph";
 
 type EntryActionsProps = {
   title: string;
