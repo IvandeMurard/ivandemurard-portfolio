@@ -38,7 +38,7 @@ const Decay = ({ value }: { value: number }) => (
       <div className="h-full bg-secondary" style={{ width: `${Math.round(value * 100)}%` }} />
     </div>
     <span className="mt-1 block font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant tabular-nums">
-      Confidence {value.toFixed(2)}
+      Confidence {value.toFixed(2)} · illustrative
     </span>
   </div>
 );
@@ -47,8 +47,8 @@ const Decay = ({ value }: { value: number }) => (
 export const AnimaClaimCard = () => (
   <AnimaFigure
     label="Fig. 4.1 · One preference, three claims"
-    note='Claim: "prefers a high floor"'
-    caption="The same sentence, held three different ways. Nothing is stored as a fact."
+    note='Claim: "prefers a high floor" · Illustrative values'
+    caption="Illustrative values, nothing here is measured. The same sentence, held three different ways. Nothing is stored as a fact."
   >
     <ol className="m-0 list-none p-0 grid grid-cols-1 sm:grid-cols-3 gap-px bg-outline-variant border border-outline-variant">
       {CLAIMS.map((c) => (

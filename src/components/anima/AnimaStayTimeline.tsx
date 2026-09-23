@@ -15,10 +15,11 @@ const COLUMNS: Column[] = [
     holds: [
       "Booking data",
       "Situational context: a delayed train, a local event, the weather",
+      "Tacet gives disruption by line and place; Anima links it to the booking. Tacet holds no personal data.",
       "No external data about the person, no profiling",
     ],
     layer: "No memory yet",
-    layerLine: "Nothing personal is held before the guest is in the house",
+    layerLine: "Booking data only: nothing beyond the reservation, no profile.",
   },
   {
     phase: "During the stay",
@@ -82,8 +83,8 @@ export const AnimaStayTimeline = () => (
         Marker on the stay <DesignTag />
       </span>
       <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-        Health data stays in the stay: an allergy is GDPR art. 9 data, used on explicit consent for a
-        concrete service, never kept or inferred.
+        Health data stays in the stay. An allergy is GDPR art. 9 data, used on explicit consent for a
+        concrete service, never inferred. Keeping it for a future stay needs its own, separate consent.
       </p>
     </div>
 

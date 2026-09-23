@@ -58,7 +58,7 @@ export const AnimaGateDiagram = () => (
           Request that does not pass
         </span>
         <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
-          Blocked by protocol · 403
+          Blocked by protocol
         </span>
       </div>
       <p className="mt-2 font-headline italic text-primary text-lg leading-tight line-through decoration-outline">
