@@ -291,7 +291,7 @@ const Index = () => {
           >
             Three to start with: the flagship agent of the{" "}
             <Link to="/architecture" className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity">
-              Hospitality Agentic Mesh
+              Hospitality Multi-Agent Architecture
             </Link>
             , a voice mentor for aviation maintenance, and the SaaS I co-founded. The rest sit on the case studies page.
           </p>

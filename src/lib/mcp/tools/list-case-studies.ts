@@ -15,7 +15,7 @@ const STUDIES = [
     name: "Aetherix",
     label: "AI Agent · Boutique Hotel Operations · 2026",
     tagline:
-      "Persistent operational cognition for hospitality. F&B execution node of the Hospitality Agentic Mesh. Forecasts tomorrow's covers daily against real data; staffing fit (pilot hypothesis) and less waste (target outcome) are what the pilot will test, not measured results.",
+      "Persistent operational cognition for hospitality. F&B execution node of the Hospitality Multi-Agent Architecture. Forecasts tomorrow's covers daily against real data; staffing fit (pilot hypothesis) and less waste (target outcome) are what the pilot will test, not measured results.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md",
   },
@@ -40,9 +40,9 @@ const STUDIES = [
   {
     slug: "anima",
     name: "Anima",
-    label: "AI Agent · Guest Cognition · 2026",
+    label: "AI Agent · Guest Memory · 2026",
     tagline:
-      "The guest node of the Hospitality Agentic Mesh. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC, production gated behind a data-protection assessment.",
+      "The guest memory node of the Hospitality Multi-Agent Architecture. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC, production gated behind a data-protection assessment.",
     url: "https://ivandemurard.com/anima",
     markdown_path: "/anima.md",
   },

@@ -180,7 +180,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
       label: "When each arm fires along a release",
       link: {
         to: "/architecture",
-        text: "The systems these arms are applied to: the Hospitality Agentic Mesh",
+        text: "The systems these arms are applied to: the Hospitality Multi-Agent Architecture",
       },
     },
     {
