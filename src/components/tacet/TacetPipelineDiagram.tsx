@@ -14,7 +14,7 @@ export const TacetPipelineDiagram = () => {
   ];
   const engine = [
     { icon: "polyline", title: "Ray-tracing Physics Engine", sub: "3D line of sight, shielding" },
-    { icon: "memory", title: "Dual Memory store", sub: "Idiosyncratic + Hive Mind" },
+    { icon: "memory", title: "Dual Memory store", sub: "Idiosyncratic + Hive Mind (Research)" },
   ];
   const ops = [
     { icon: "trending_up", title: "Revenue Management", sub: "Yield rules, HITL approval" },

@@ -110,7 +110,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     id: "dualMemory",
     term: "dual memory",
     brief:
-      "A stateful store with two layers. Idiosyncratic memory learns each hotel's quirks at a GPS coordinate. Hive Mind aggregates rejection rates across the network to recalibrate baseline sensitivity.",
+      "A stateful store with two layers. Idiosyncratic memory learns each hotel's quirks at a GPS coordinate. Hive Mind (Research: no network to aggregate yet) would recalibrate baseline sensitivity across the network.",
   },
   chainOfThought: {
     id: "chainOfThought",

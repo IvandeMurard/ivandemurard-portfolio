@@ -49,7 +49,7 @@ const HOW = [
     n: "03",
     icon: "hub",
     title: "Expose",
-    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or an orchestration agent like Aetherix.",
+    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or the orchestrator (Design).",
   },
 ];
 
@@ -64,7 +64,7 @@ const PILLARS = [
     letter: "B",
     icon: "memory",
     title: "Dual Memory",
-    body: "Idiosyncratic memory learns each property's quirks: a hotel that rejects \"traffic noise\" alerts probably has triple-glazed windows, so Tacet applies a persistent shielding bonus at that GPS point. Hive Mind aggregates rejection rates across the network to recalibrate baseline sensitivity.",
+    body: "Idiosyncratic memory learns each property's quirks: a hotel that rejects \"traffic noise\" alerts probably has triple-glazed windows, so Tacet applies a persistent shielding bonus at that GPS point. Hive Mind (Research: no network to aggregate yet) would recalibrate baseline sensitivity across the network.",
   },
   {
     letter: "C",
@@ -113,7 +113,7 @@ const FAQ = [
   },
   {
     q: "How does Tacet relate to Aetherix?",
-    a: "Aetherix reads the internal context (occupancy, F&B, staffing). Tacet reads the external context (street, weather, events) and exposes it through MCP. Together they form one predictive twin of the property.",
+    a: "Aetherix reads the internal context (occupancy, F&B, staffing). Tacet reads the external context (street, weather, events) and exposes it through MCP. Until the orchestrator is built (Design), this exchange is direct: the one documented exception, non-personal, read-only, logged.",
   },
 ];
 
@@ -409,7 +409,11 @@ const Tacet = () => (
             <Link to="/aetherix" className="text-secondary border-b border-secondary hover:border-secondary transition-colors">
               Aetherix
             </Link>
-            {" "}consumes them as one more tool in the multi-agent architecture, forming a complete predictive twin of the property.
+            {" "}consumes them as one more tool in the multi-agent architecture.
+          </p>
+          <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-4">
+            Until the orchestrator is built (Design), this exchange is direct: the one documented exception,
+            non-personal, read-only, logged.
           </p>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-4">
             Part of the Hospitality Multi-Agent Architecture:{" "}

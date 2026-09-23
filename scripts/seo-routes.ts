@@ -158,7 +158,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       url: `${BASE_URL}/tacet`,
       featureList: [
         "3D ray-tracing physics engine",
-        "Dual memory (idiosyncratic and hive mind)",
+        "Dual memory (idiosyncratic and Hive Mind, Research: no network to aggregate yet)",
         "Human-in-the-loop price modifier rules",
         "Chain of Thought JSON payloads",
         "MCP server for RMS, PMS and orchestration agents",

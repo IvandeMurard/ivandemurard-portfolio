@@ -63,6 +63,8 @@ Working memory should use the decaf tonight, so the bar does not ask twice. Sema
 
 Fig. 4.1, one preference ("prefers a high floor") held three ways:
 
+Illustrative values, nothing here is measured.
+
 | Regime | Source | Confidence | Age | Reading |
 |---|---|---|---|---|
 | Stated once | Said to a receptionist, one stay | 0.52 | 14 months | Held, and it has faded since nothing renewed it |
