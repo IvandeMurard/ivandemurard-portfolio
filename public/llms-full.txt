@@ -374,7 +374,7 @@ Example workflow:
 Embedded in an agentic OS, properties shift from reactive to proactive yield and operational management.
 
 - **Yield protection.** Pricing noisy inventory ahead of time prevents costly post-stay refunds and protects the average daily rate of the rest of the building.
-- **Operational excellence.** When Tacet detects an impending heatwave plus transport strike, the orchestration layer adjusts F&B supply and staffing buffers before the day starts, preventing food waste and labour inefficiencies.
+- **Operational excellence.** When a heatwave overlaps with a transport strike, the orchestrator (Design) proposes F&B supply and staffing buffers before the day starts, for a manager to approve.
 - **Sustainability.** Less energy waste through proactive HVAC optimisation, measurable improvement in guest well-being through proactive mitigation of urban noise pollution.
 
 ## 5. Synergy with Aetherix

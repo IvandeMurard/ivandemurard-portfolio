@@ -89,7 +89,7 @@ const IMPACT = [
   {
     icon: "restaurant",
     title: "Operational excellence",
-    body: "When a heatwave overlaps with a transport strike, the orchestration layer adjusts F&B prep and staffing buffers before the day starts.",
+    body: "When a heatwave overlaps with a transport strike, the orchestrator (Design) proposes F&B supply and staffing buffers before the day starts, for a manager to approve.",
   },
   {
     icon: "eco",
