@@ -155,8 +155,8 @@ export const MeshBlueprint = () => {
           </g>
           <Graduations g={g} />
           <text
-            x={orbit(g, 18, 0.9).x}
-            y={orbit(g, 18, 0.9).y}
+            x={orbit(g, 90, 1.13).x}
+            y={orbit(g, 90, 1.13).y}
             textAnchor="middle"
             className="fill-on-surface-variant"
             style={{ fontSize: isMobile ? 7 : 8, letterSpacing: "0.22em", opacity: 0.85 }}
