@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { ClaudeGlyph, OpenAIGlyph } from "@/components/ui/BrandGlyph";
 
 type EntryActionsProps = {
   title: string;
@@ -91,11 +92,11 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
           Read with
         </span>
         <a className={BTN} href={`https://chatgpt.com/?q=${q}`} target="_blank" rel="noopener noreferrer">
-          <Icon name="smart_toy" className="text-[16px] leading-none" />
+          <OpenAIGlyph className="h-[14px] w-[14px] shrink-0" />
           ChatGPT
         </a>
         <a className={BTN} href={`https://claude.ai/new?q=${q}`} target="_blank" rel="noopener noreferrer">
-          <Icon name="smart_toy" className="text-[16px] leading-none" />
+          <ClaudeGlyph className="h-[14px] w-[14px] shrink-0" />
           Claude
         </a>
         <button type="button" className={BTN} onClick={() => copy(prompt, "context")}>
