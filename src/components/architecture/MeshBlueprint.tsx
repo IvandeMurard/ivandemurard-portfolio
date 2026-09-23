@@ -36,6 +36,56 @@ const STATE_LABEL: Record<MeshNode["state"], string> = {
   design: "Design",
 };
 
+/** A point on the orbit ellipse, scaled inward by k. */
+const orbit = (g: typeof DESKTOP, deg: number, k = 1) => {
+  const a = (deg * Math.PI) / 180;
+  return { x: g.cx + g.rx * k * Math.cos(a), y: g.cy + g.ry * k * Math.sin(a) };
+};
+
+/** Engraved graduation marks around the contract ring. */
+const Graduations = ({ g }: { g: typeof DESKTOP }) => (
+  <g aria-hidden="true" className="stroke-outline-variant">
+    {Array.from({ length: 60 }, (_, i) => i * 6).map((deg) => {
+      const long = deg % 30 === 0;
+      const a = orbit(g, deg, 1);
+      const b = orbit(g, deg, long ? 0.945 : 0.968);
+      return (
+        <line
+          key={deg}
+          x1={a.x}
+          y1={a.y}
+          x2={b.x}
+          y2={b.y}
+          strokeWidth={long ? 0.9 : 0.5}
+          opacity={long ? 0.85 : 0.5}
+        />
+      );
+    })}
+  </g>
+);
+
+/** Corner register marks, as on a printer's plate. */
+const CornerMarks = ({ g }: { g: typeof DESKTOP }) => {
+  const m = 10;
+  const l = 12;
+  const corners = [
+    [m, m, 1, 1],
+    [g.w - m, m, -1, 1],
+    [m, g.h - m, 1, -1],
+    [g.w - m, g.h - m, -1, -1],
+  ] as const;
+  return (
+    <g aria-hidden="true" className="stroke-outline-variant" strokeWidth={0.8} opacity={0.7}>
+      {corners.map(([x, y, sx, sy], i) => (
+        <g key={i}>
+          <line x1={x} y1={y} x2={x + sx * l} y2={y} />
+          <line x1={x} y1={y} x2={x} y2={y + sy * l} />
+        </g>
+      ))}
+    </g>
+  );
+};
+
 export const MeshBlueprint = () => {
   const isMobile = useIsMobile();
   const g = isMobile ? MOBILE : DESKTOP;
