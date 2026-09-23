@@ -113,6 +113,57 @@ export const MeshBlueprint = () => {
           role="group"
           aria-label="The five agents of the mesh, each wired to the shared persistence core"
         >
+          {/* Plate: register marks, the contract ring and its graduations */}
+          <CornerMarks g={g} />
+          <g aria-hidden="true">
+            <ellipse
+              cx={g.cx}
+              cy={g.cy}
+              rx={g.rx}
+              ry={g.ry}
+              className="fill-none stroke-outline-variant"
+              strokeWidth={0.9}
+              strokeDasharray="1 6"
+            />
+            <ellipse
+              cx={g.cx}
+              cy={g.cy}
+              rx={g.rx * 0.66}
+              ry={g.ry * 0.66}
+              className="fill-none stroke-outline-variant"
+              strokeWidth={0.5}
+              opacity={0.55}
+            />
+            <line
+              x1={g.cx - g.rx}
+              y1={g.cy}
+              x2={g.cx + g.rx}
+              y2={g.cy}
+              className="stroke-outline-variant"
+              strokeWidth={0.4}
+              opacity={0.35}
+            />
+            <line
+              x1={g.cx}
+              y1={g.cy - g.ry}
+              x2={g.cx}
+              y2={g.cy + g.ry}
+              className="stroke-outline-variant"
+              strokeWidth={0.4}
+              opacity={0.35}
+            />
+          </g>
+          <Graduations g={g} />
+          <text
+            x={orbit(g, 18, 0.9).x}
+            y={orbit(g, 18, 0.9).y}
+            textAnchor="middle"
+            className="fill-on-surface-variant"
+            style={{ fontSize: isMobile ? 7 : 8, letterSpacing: "0.22em", opacity: 0.85 }}
+          >
+            MCP SURFACE
+          </text>
+
           {/* Core */}
           <g aria-hidden="true">
             <circle
