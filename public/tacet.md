@@ -2,7 +2,7 @@
 
 A headless Environmental Twin for the hospitality sector. Tacet turns street, weather and crowd signals into yield rules and Chain of Thought payloads, exposed via an MCP server that any RMS, PMS or orchestration agent can consume.
 
-Status: Built - live data ingestion pipeline, MCP server v0 live on Fly.io.
+Status: Built - maintenance mode since July 2026.
 
 - URL: https://ivandemurard.com/tacet
 - Role: Product Builder, Architect of an environmental intelligence layer
@@ -17,7 +17,7 @@ Revenue Management Systems and Property Management Systems run on historical boo
 
 ## 2. The Solution: An Environmental Twin
 
-Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer of a broader hospitality agentic mesh.
+Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer of the Hospitality Multi-Agent Architecture.
 
 Rather than overwhelming staff with another dashboard of raw data, Tacet mathematically calculates the real-world impact of external events. It exposes this intelligence via an MCP (Model Context Protocol) server so that operational agents like Aetherix can adjust F&B and staffing, while Tacet pushes actionable yield rules directly to the RMS (Atomize, Duetto and similar) for human approval.
 
@@ -49,7 +49,7 @@ Embedded in an agentic OS, properties shift from reactive to proactive yield and
 
 ## 5. Synergy with Aetherix
 
-Tacet exposes its rules and reasoning through MCP. [Aetherix](https://ivandemurard.com/aetherix) consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
+Tacet exposes its rules and reasoning through MCP. [Aetherix](https://ivandemurard.com/aetherix) consumes them as one more tool in the multi-agent architecture, forming a complete predictive twin of the property.
 
 - **Aetherix (internal context):** anticipates operational needs, F&B demand and staffing based on occupancy and historical trends.
 - **Tacet (external context):** reads street, weather and event signals, ray-traces their impact, publishes yield rules on MCP.

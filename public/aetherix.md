@@ -1,12 +1,12 @@
 # Aetherix
 
-The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B agent of the Hospitality Agentic Mesh, a five-agent architecture: https://ivandemurard.com/architecture
+The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B agent of the Hospitality Multi-Agent Architecture, a five-agent architecture: https://ivandemurard.com/architecture
 
 Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
 Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
 
-Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built. Anima, the Guest Cognition agent, Synthetic PoC. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
+Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
 
 Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
 
@@ -16,7 +16,7 @@ Contrast with Lore: Lore, in aviation maintenance, shares this architecture and 
 - Role: Product Builder & AI Agent Designer (solo)
 - Duration: 2026, ongoing (validation phase)
 - Team: Solo architect & builder
-- Status: Phase 3 · Pilot design partner in recruitment. Go-live targeted end of September. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live.
+- Status: Built, 0 real users, forecast in shadow mode, pilot partner in recruitment. Apaleo OAuth and MCP read access operational.
 - Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris). MCP-native.
 
 ## The loop that learns
@@ -68,15 +68,15 @@ Reply  ✅ accept   ✏️ modify   ❌ reject
 
 One tap. That reply is the signal Aetherix learns from.
 
-## The Mesh, bounded context by design
+## The architecture, bounded context by design
 
 Aetherix is one of five specialized, MCP-native agents. Each agent owns a strict bounded context and communicates only through MCP. Aetherix executes F&B. It does not orchestrate.
 
 | Agent | Role | Status |
 |---|---|---|
-| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and instrumented, pilot partner in recruitment |
+| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built, 0 real users, forecast in shadow mode, pilot partner in recruitment |
 | Tacet | Sensory: weather, noise, open data, risk | Built |
-| Anima | Guest Cognition Layer | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
+| Anima | Guest memory node | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
 | Peritia | House knowledge: what the people who work in a property know | Named in the contract, not started |
 | Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
 
@@ -90,7 +90,7 @@ Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external c
 
 Push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning (Gemini/GPT fallback) → WhatsApp or Email.
 
-MCP Server v0 is live on Fly.io (Paris), three atomic tools, multi-tenant.
+MCP server, three atomic tools, multi-tenant.
 
 ## Built to be trusted
 
@@ -121,7 +121,7 @@ The project includes proprietary research on cross-domain operational context an
 
 ## Anima, sister node
 
-Guest Cognition Layer, a Synthetic PoC built at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
+Guest memory node, a Synthetic PoC built at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
 
 ## Role and model
 
@@ -129,6 +129,6 @@ Solo architect and builder. Product Builder and AI Agent Designer. 2026, ongoing
 
 ## Links
 
-- Mesh (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
+- Architecture (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 - Contact: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/discussion-and-introduction
