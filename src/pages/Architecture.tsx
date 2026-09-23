@@ -520,45 +520,10 @@ const Architecture = () => {
               <Section
                 id="where-it-stands"
                 number="08"
-                title="Where it stands"
-                keyLine="Five agents, five different degrees of existence, stated plainly and linked to the evidence."
-                concrete="Anima shipped as a hackathon prototype on synthetic data; production waits on a data-protection assessment."
+                title="Verification and pointers"
+                keyLine="The statuses above are the claim. Here is where to check them."
+                concrete="The meta-repository holds the contracts; the field note explains how a node earns the right to ship."
               >
-                <ul className="space-y-4 max-w-3xl list-none p-0 m-0 mb-8">
-                  <li className="font-body text-on-surface-variant leading-relaxed">
-                    <Link to="/aetherix" className={linkCls}>
-                      Aetherix
-                    </Link>{" "}
-                    is built and instrumented, on staging, with a pilot partner in recruitment.
-                  </li>
-                  <li className="font-body text-on-surface-variant leading-relaxed">
-                    <Link to="/tacet" className={linkCls}>
-                      Tacet
-                    </Link>{" "}
-                    is Built. Live data ingestion pipeline, MCP server v0 on Fly.io, own case study,
-                    public repository.
-                  </li>
-                  <li className="font-body text-on-surface-variant leading-relaxed">
-                    <Link to="/anima" className={linkCls}>
-                      Anima
-                    </Link>{" "}
-                    is a Synthetic PoC. Shipped at a hackathon on synthetic data, production gated
-                    behind a data-protection assessment.
-                  </li>
-                  <li className="font-body text-on-surface-variant leading-relaxed">
-                    Peritia is Design. Named in the contract, domain and contracts specified, no code,
-                    no page.
-                  </li>
-                  <li className="font-body text-on-surface-variant leading-relaxed">
-                    Orchestrator is Design. A proto-stub exists. It does not yet deserve a page.
-                  </li>
-                  <li className="font-body text-on-surface-variant leading-relaxed">
-                    <Link to="/lore" className={linkCls}>
-                      Lore
-                    </Link>{" "}
-                    sits outside the mesh, as evidence the pattern holds elsewhere.
-                  </li>
-                </ul>
                 <P>
                   Public meta-repository:{" "}
                   <a href={REPO} target="_blank" rel="noopener noreferrer" className={linkCls}>
@@ -567,13 +532,12 @@ const Architecture = () => {
                   .
                 </P>
                 <P>
-                  One last pointer, since these two pieces answer different halves of one question. The
-                  field note{" "}
+                  The field note{" "}
                   <Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>
                     Evaluating LLM agents: how would you know it had stopped working?
                   </Link>{" "}
-                  explains how a system earns the right to ship. This page explains what the systems are.
-                  Read that one next if the statuses above raised the question of how they are checked.
+                  explains how a system earns the right to ship. This page explains what the systems
+                  are. Read that one next if the statuses raised the question of how they are checked.
                 </P>
                 <div className="max-w-3xl mt-10">
                   <AskRose
