@@ -14,6 +14,10 @@ import { SectionKey } from "@/components/journal/SectionKey";
 import { AskRose } from "@/components/journal/AskRose";
 import { ShareRow } from "@/components/journal/ShareRow";
 import { EntryActions } from "@/components/journal/EntryActions";
+import { AnimaRoadmapStrip } from "@/components/anima/AnimaRoadmapStrip";
+import { AnimaStayTimeline } from "@/components/anima/AnimaStayTimeline";
+import { AnimaClaimCard } from "@/components/anima/AnimaClaimCard";
+import { AnimaGateDiagram } from "@/components/anima/AnimaGateDiagram";
 
 const linkCls =
   "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
@@ -149,8 +153,8 @@ const Anima = () => {
   return (
     <SiteLayout title="Anima">
       <Seo
-        title="Anima, the Guest Node of the Hospitality Agentic Mesh"
-        description="Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching."
+        title="Anima, the Guest Memory Node of the Hospitality Multi-Agent Architecture"
+        description="Memory that means no guest has to ask twice. A guest memory node that keeps what a guest said and what happened, so nobody asks twice, without watching."
         path="/anima"
         type="article"
         jsonLd={[
@@ -158,12 +162,11 @@ const Anima = () => {
             "@context": "https://schema.org",
             "@type": "CreativeWork",
             name: "Anima",
-            headline: "Anima: memory that makes every guest a regular",
+            headline: "Anima: memory that means no guest has to ask twice",
             url: "https://ivandemurard.com/anima",
             inLanguage: "en",
             about: [
-              "Guest Cognition",
-              "Digital Twin",
+              "Guest Memory",
               "Data Protection",
               "Agentic AI",
               "Hospitality Operations",
@@ -201,15 +204,14 @@ const Anima = () => {
               style={{ ["--reveal-delay" as string]: "200ms" }}
               className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
-              Memory that makes every guest a regular.
+              Memory that means no guest has to ask twice.
             </p>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "280ms" }}
               className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed mb-8"
             >
-              A guest memory node that anticipates needs, learns from every stay, and improves
-              operations without watching.
+              Keeps what a guest said and what happened, so nobody asks twice, without watching.
             </p>
             <span
               data-reveal-child
