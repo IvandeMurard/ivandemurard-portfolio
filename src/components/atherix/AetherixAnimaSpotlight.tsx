@@ -1,10 +1,17 @@
 import { Icon } from "@/components/ui/Icon";
 
+/** Layer texts mirror LAYER_ROWS in src/pages/Anima.tsx word for word. */
 const LAYERS = [
-  { name: "Working", body: "Live session context, discarded when the conversation ends." },
-  { name: "Episodic", body: "Distinct guest interactions, timestamped, retrievable." },
-  { name: "Semantic", body: "Stable facts about a guest, confidence-weighted." },
-  { name: "Segment", body: "Anonymized patterns across similar guest profiles." },
+  { name: "Working", body: "The current stay, in progress. Expires at check-out." },
+  { name: "Episodic", body: "This stay and a short tail after it. Weeks." },
+  {
+    name: "Semantic",
+    body: "Durable preferences, stated or repeatedly confirmed. Long, with decay.",
+  },
+  {
+    name: "Segment",
+    body: "Anonymised patterns, what guests like this tend to need. Aggregate, never individual.",
+  },
 ];
 
 export const AetherixAnimaSpotlight = () => (
@@ -12,7 +19,7 @@ export const AetherixAnimaSpotlight = () => (
     <div className="flex flex-col lg:flex-row lg:items-end gap-8 lg:gap-16 mb-10">
       <div className="flex-1">
         <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
-          Sister node · Guest Cognition
+          Sister node · Guest Memory
         </span>
         <h2 className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight">
           Anima. Guest memory, four layers deep.
@@ -30,7 +37,7 @@ export const AetherixAnimaSpotlight = () => (
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors shrink-0"
       >
         <Icon name="hub" className="text-base" />
-        Explore the Mesh
+        Explore the architecture
       </a>
     </div>
 

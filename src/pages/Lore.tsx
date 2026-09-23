@@ -525,7 +525,7 @@ const Lore = () => (
       <Reveal as="section" className="px-6 md:px-12 mb-8 md:mb-10">
         <div className="max-w-4xl mx-auto">
           <p className="font-body text-on-surface-variant leading-relaxed">
-            Lore sits outside the Hospitality Agentic Mesh, but shares its architecture:{" "}
+            Lore sits outside the Hospitality Multi-Agent Architecture, but shares its architecture:{" "}
             <Link
               to="/architecture"
               className="text-primary border-b border-secondary hover:opacity-70 transition-opacity"

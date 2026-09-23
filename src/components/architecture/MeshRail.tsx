@@ -3,7 +3,7 @@ import { MESH_ANCHORS } from "@/content/systems";
 import { MESH_NODES, type MeshNodeState } from "@/content/meshNodes";
 
 /**
- * Orientation rail for /architecture: the five nodes of the mesh, read as an
+ * Orientation rail for /architecture: the five nodes of the architecture, read as an
  * engraver's survey strip rather than as cards. Statuses come from MESH_NODES
  * so the rail, the table and Fig. 3.1 cannot diverge.
  */
@@ -32,7 +32,7 @@ const Pip = ({ state }: { state: MeshNodeState }) => (
 );
 
 export const MeshRail = () => (
-  <section aria-label="The five nodes of the mesh" className="px-6 md:px-12 mb-12 md:mb-16">
+  <section aria-label="The five nodes of the architecture" className="px-6 md:px-12 mb-12 md:mb-16">
     <div className="max-w-screen-2xl mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-4">
         <h2 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">

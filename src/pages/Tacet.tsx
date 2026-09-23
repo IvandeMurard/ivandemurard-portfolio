@@ -409,10 +409,10 @@ const Tacet = () => (
             <Link to="/aetherix" className="text-secondary border-b border-secondary hover:border-secondary transition-colors">
               Aetherix
             </Link>
-            {" "}consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
+            {" "}consumes them as one more tool in the multi-agent architecture, forming a complete predictive twin of the property.
           </p>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-4">
-            Part of the Hospitality Agentic Mesh:{" "}
+            Part of the Hospitality Multi-Agent Architecture:{" "}
             <Link to="/architecture" className="text-secondary border-b border-secondary hover:border-secondary transition-colors">
               the architecture note
             </Link>

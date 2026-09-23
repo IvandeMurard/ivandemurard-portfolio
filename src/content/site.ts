@@ -70,7 +70,7 @@ export const PROJECTS = {
     slug: "anima",
     name: "Anima",
     tagline: "Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching. Synthetic PoC: never run on a real guest, production gated behind a data-protection assessment.",
-    label: "AI Agent · Guest Cognition · 2026",
+    label: "AI Agent · Guest Memory · 2026",
     image: animaImg,
     cta: "The Full Narrative",
   },

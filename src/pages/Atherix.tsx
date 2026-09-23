@@ -39,11 +39,11 @@ const PROJECT_INFO: {
     label: "Repository",
     value: "GitHub Repository",
     href: "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture",
-    hint: "Public meta-repo for the Hospitality Agentic Mesh",
+    hint: "Public meta-repo for the Hospitality Multi-Agent Architecture",
   },
   {
     label: "Status",
-    value: "Phase 3 · Pilot design partner in recruitment. Go-live targeted end of September. · Staging live on Fly.io (Paris) · Apaleo OAuth + MCP read operational",
+    value: "Built · 0 real users · forecast in shadow mode · pilot partner in recruitment · Apaleo OAuth + MCP read operational",
     wide: true,
   },
 ];
@@ -105,7 +105,7 @@ const TRUST = [
 const FAQ = [
   {
     q: "What is Aetherix in one sentence?",
-    a: "The F&B execution agent for boutique hotels: tomorrow's covers, a staffing grid that fits and less waste, in one WhatsApp message a day with the reasoning attached, as one node of the Hospitality Agentic Mesh.",
+    a: "The F&B execution agent for boutique hotels: tomorrow's covers, a staffing grid that fits and less waste, in one WhatsApp message a day with the reasoning attached, as one node of the Hospitality Multi-Agent Architecture.",
   },
   {
     q: "Why memory, not just forecasting?",
@@ -116,8 +116,8 @@ const FAQ = [
     a: "Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing and waste risk. Action lands as one WhatsApp message with one-tap accept, modify, or reject. Learning turns that reply into a fresh grain of memory. The day-90 receipt is sharper than the day-7 one.",
   },
   {
-    q: "How is Aetherix part of a Mesh?",
-    a: "Five specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (environmental signal), Anima (guest cognition, synthetic PoC), Peritia (house knowledge, Design), Orchestrator (supervisory routing, Design). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
+    q: "How is Aetherix part of a multi-agent architecture?",
+    a: "Five specialized MCP-native agents, each with a strict bounded context: Aetherix (F&B execution), Tacet (environmental signal), Anima (guest memory, synthetic PoC), Peritia (house knowledge, Design), Orchestrator (supervisory routing, Design). No shared code, no monolith to displace. Aetherix executes, it does not orchestrate.",
   },
   {
     q: "How is multi-tenant security handled?",
@@ -150,7 +150,7 @@ const THESIS = [
 const VISION_NODES = [
   { name: "Aetherix", role: "The F&B agent: forecast, staffing, memory.", status: "Built" },
   { name: "Tacet", role: "The environmental-signal agent.", status: "Built" },
-  { name: "Anima", role: "The Guest Cognition agent.", status: "Synthetic PoC" },
+  { name: "Anima", role: "The guest memory node.", status: "Synthetic PoC" },
   { name: "Peritia", role: "The trade agent: house knowledge, what the people who work here know.", status: "Design" },
   { name: "Orchestrator", role: "The supervisory agent.", status: "Design" },
 ];
@@ -184,7 +184,7 @@ const Atherix = () => (
           name: "Aetherix",
           headline: "Aetherix, the F&B execution agent for boutique hotels",
           description:
-            "Aetherix is the F&B execution agent for boutique hotels. It forecasts tomorrow's covers, proposes a staffing grid that fits and flags waste risk, in one WhatsApp message a day with the reasoning attached. Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Aetherix is the F&B node of the Hospitality Agentic Mesh.",
+            "Aetherix is the F&B execution agent for boutique hotels. It forecasts tomorrow's covers, proposes a staffing grid that fits and flags waste risk, in one WhatsApp message a day with the reasoning attached. Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Aetherix is the F&B node of the Hospitality Multi-Agent Architecture.",
           url: "https://ivandemurard.com/aetherix",
           about: ["Operational Memory", "Organizational Intelligence", "Agentic AI", "Hospitality Operations", "F&B Forecasting", "MCP"],
           keywords:
@@ -244,7 +244,7 @@ const Atherix = () => (
               style={{ ["--reveal-delay" as string]: "340ms" }}
               className="text-on-surface-variant font-body text-base max-w-2xl leading-relaxed mt-4"
             >
-              Aetherix is the food and beverage agent of a five-agent mesh.{" "}
+              Aetherix is the food and beverage agent of a five-agent architecture.{" "}
               <Link
                 to="/architecture"
                 className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
@@ -369,7 +369,7 @@ const Atherix = () => (
       <Reveal as="section" id="vision" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-3xl mx-auto">
           <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
-            The Hospitality Agentic Mesh
+            Hospitality Multi-Agent Architecture
           </span>
           <h2
             data-reveal-child
@@ -560,7 +560,7 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-3xl mb-10">
             <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
-              The Mesh, bounded context by design
+              The architecture, bounded context by design
             </span>
             <h2
               data-reveal-child
@@ -793,7 +793,7 @@ const Atherix = () => (
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
             >
               <Icon name="hub" className="text-base" />
-              Explore the Mesh
+              Explore the architecture
             </a>
             <a
               href={SOCIAL_LINKS.schedule}
@@ -808,11 +808,11 @@ const Atherix = () => (
               href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture"
               target="_blank"
               rel="noopener noreferrer"
-              title="Public meta-repo for the Hospitality Agentic Mesh"
+              title="Public meta-repo for the Hospitality Multi-Agent Architecture"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="hub" className="text-base" />
-              Mesh repo
+              Architecture repo
             </a>
             <Link
               to="/tacet"

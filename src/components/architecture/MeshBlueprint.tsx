@@ -4,7 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { MESH_NODES, type MeshNode } from "@/content/meshNodes";
 
 /**
- * FIG. 3.1 — The mesh, as wired.
+ * FIG. 3.1 — The architecture, as wired.
  * Hairline engraving: the four domain agents orbit the supervisory orchestrator,
  * which routes and holds no state of its own.
  * Facts come from MESH_NODES so the figure and the page cannot diverge.
@@ -105,7 +105,7 @@ export const MeshBlueprint = () => {
     <figure className="mb-8 rounded-sm border border-outline-variant bg-surface-container-lowest">
       <figcaption className="flex items-center justify-between gap-4 border-b border-outline-variant px-4 py-3">
         <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
-          Fig. 3.1 · The mesh, as wired
+          Fig. 3.1 · The architecture, as wired
         </span>
         <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
           Solid: built · Dashed: designed

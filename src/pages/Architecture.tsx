@@ -148,7 +148,7 @@ const Table = ({
 );
 
 const ROSE_PROMPTS = [
-  "On the architecture note: which nodes of the mesh are actually built today?",
+  "On the architecture note: which nodes are actually built today?",
   "On the architecture note: why split this into separate agents instead of one model?",
   "On the architecture note: how is tenancy kept from leaking between properties?",
   "On the architecture note: what does the orchestrator do, and why does it hold no memory?",
@@ -159,9 +159,9 @@ const Architecture = () => {
   const toc = useHeadingToc(articleRef);
 
   return (
-    <SiteLayout title="The Hospitality Agentic Mesh">
+    <SiteLayout title="Hospitality Multi-Agent Architecture">
       <Seo
-        title="The Hospitality Agentic Mesh, an Architecture Note"
+        title="Hospitality Multi-Agent Architecture, an Architecture Note"
         description="Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design. This note says which is which, using one shared status vocabulary."
         path="/architecture"
         type="article"
@@ -169,9 +169,9 @@ const Architecture = () => {
           {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            headline: "The Hospitality Agentic Mesh",
+            headline: "Hospitality Multi-Agent Architecture",
             description:
-              "Architecture note on a mesh of five specialised hospitality agents: Aetherix, Tacet, Anima, Peritia and an orchestrator, each with one bounded context, communicating only through MCP.",
+              "Architecture note on five specialised hospitality agents: Aetherix, Tacet, Anima, Peritia and an orchestrator, each with one bounded context, communicating only through MCP.",
             url: "https://ivandemurard.com/architecture",
             inLanguage: "en",
             author: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
@@ -197,7 +197,7 @@ const Architecture = () => {
               style={{ ["--reveal-delay" as string]: "120ms" }}
               className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-primary italic leading-[0.98] tracking-tight mb-6"
             >
-              The Hospitality Agentic Mesh
+              Hospitality Multi-Agent Architecture
             </h1>
             <p
               data-reveal-child
@@ -225,7 +225,7 @@ const Architecture = () => {
             </p>
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }} className="mt-8">
               <EntryActions
-                title="The Hospitality Agentic Mesh"
+                title="Hospitality Multi-Agent Architecture"
                 markdownPath="/architecture.md"
                 variant="note"
                 ask="explain how the five agents divide responsibility, what talks to what over MCP, and which parts are built versus designed."
@@ -253,9 +253,9 @@ const Architecture = () => {
           <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_14rem] gap-12">
             <article ref={articleRef} className="min-w-0 -mx-6 md:-mx-12">
               <Section
-                id="why-a-mesh"
+                id="why-one-agent-is-not-enough"
                 number="01"
-                title="Why a mesh and not one agent"
+                title="Why several agents and not one"
                 keyLine="One model that predicts, decides and acts fails in two different ways at once, so the capabilities are split into nodes."
                 concrete="A wrong forecast is absorbed by a buffer. A wrong action reaches a guest, a shift roster, or an aircraft."
               >
@@ -304,7 +304,7 @@ const Architecture = () => {
                   {[
                     ["Tacet", "What is happening outside: a transit strike lands every arrival in the same twenty minutes."],
                     ["Aetherix", "How full the house is tonight, and what that does to the service that follows."],
-                    ["Anima", "Whether this guest has stayed before, and what they had to ask for last time."],
+                    ["Anima", "Whether this guest has stayed before and what they asked for last time. For a first stay: nothing to recall, and it says so."],
                     ["Peritia", "Who is on the desk, how loaded they are, how far into the shift."],
                   ].map(([name, line]) => (
                     <li
@@ -398,6 +398,14 @@ const Architecture = () => {
                       such as how a rainy Tuesday in the same district moves breakfast covers, without
                       its own covers, guests or prices leaving the building.
                     </p>
+                    <p className="mt-3 flex flex-wrap items-baseline gap-2">
+                      <span className="inline-flex items-center rounded-sm border border-dashed border-outline px-2 py-0.5 font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                        Research
+                      </span>
+                      <span className="font-body text-sm text-on-surface-variant leading-relaxed">
+                        Federation: Research, no substrate yet. Local memory is as described.
+                      </span>
+                    </p>
                   </div>
                   <div>
                     <h3 className="font-headline italic text-primary text-xl mb-2">
@@ -464,11 +472,12 @@ const Architecture = () => {
                   nothing. The sector models its assets and not its arbitrations.
                 </P>
                 <P>
-                  This mesh is not marketed as a twin and does not simulate scenarios today. But cohort
+                  This architecture is not marketed as a twin and does not simulate scenarios today. But cohort
                   matching and the learning engine both point at that gap, and they arrived there from
                   the operational side rather than from the vocabulary. Nothing was found, which is a
                   finding, not a trophy.
                 </P>
+                <P>Anima included: a guest memory, not a twin.</P>
               </Section>
 
               <Section
@@ -502,7 +511,7 @@ const Architecture = () => {
                 </div>
                 <div className="max-w-3xl">
                   <ShareRow
-                    title="The Hospitality Agentic Mesh"
+                    title="Hospitality Multi-Agent Architecture"
                     excerpt="Specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design."
                     mirror="/architecture.md"
                   />

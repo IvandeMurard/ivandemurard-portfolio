@@ -80,7 +80,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     path: "/journeys",
     title: "Case Studies, Selected Work by Ivan de Murard · Ivan de Murard",
     description:
-      "The Hospitality Mesh: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone systems: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1.",
+      "The Hospitality Multi-Agent Architecture: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone systems: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1.",
     type: "website",
     changefreq: "monthly",
     priority: "0.9",
@@ -103,7 +103,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "aetherix.md",
     title: "Aetherix, the F&B execution agent for boutique hotels · Ivan de Murard",
     description:
-      "Tomorrow's covers, a staffing grid that fits, and less waste, in one WhatsApp message a day with the reasoning attached. The F&B agent of a five-agent mesh. Pilot partner in recruitment.",
+      "Tomorrow's covers, a staffing grid that fits, and less waste, in one WhatsApp message a day with the reasoning attached. The F&B agent of a five-agent architecture. Pilot partner in recruitment.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",
@@ -111,7 +111,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       "@context": "https://schema.org",
       "@type": "CreativeWork",
       name: "Aetherix",
-      headline: "Aetherix: F&B Execution Node of the Hospitality Agentic Mesh",
+      headline: "Aetherix: F&B Execution Node of the Hospitality Multi-Agent Architecture",
       url: `${BASE_URL}/aetherix`,
       about: ["Agentic AI", "Hospitality Operations", "Model Context Protocol", "Boutique Hotels"],
       creator: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
@@ -191,7 +191,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   {
     path: "/anima",
     markdown: "anima.md",
-    title: "Anima, the Guest Node of the Hospitality Agentic Mesh · Ivan de Murard",
+    title: "Anima, the Guest Memory Node of the Hospitality Multi-Agent Architecture · Ivan de Murard",
     description:
       "Memory that makes every guest a regular. A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.",
     type: "article",
@@ -204,7 +204,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       headline: "Anima: memory that makes every guest a regular",
       url: `${BASE_URL}/anima`,
       inLanguage: "en",
-      about: ["Guest Cognition", "Digital Twin", "Data Protection", "Agentic AI", "Hospitality Operations"],
+      about: ["Guest Memory", "Data Protection", "Agentic AI", "Hospitality Operations"],
       creator: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
       dateCreated: "2026-06-01",
       relatedLink: [`${BASE_URL}/architecture`, `${BASE_URL}/aetherix`],
@@ -213,7 +213,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   {
     path: "/architecture",
     markdown: "architecture.md",
-    title: "The Hospitality Agentic Mesh, an Architecture Note · Ivan de Murard",
+    title: "Hospitality Multi-Agent Architecture, an Architecture Note · Ivan de Murard",
     description:
       "Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design. This note says which is which, using one shared status vocabulary.",
     type: "article",
@@ -222,7 +222,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "TechArticle",
-      headline: "The Hospitality Agentic Mesh",
+      headline: "Hospitality Multi-Agent Architecture",
       url: `${BASE_URL}/architecture`,
       inLanguage: "en",
       about: ["Agentic AI", "Model Context Protocol", "Hospitality Operations", "Software Architecture"],

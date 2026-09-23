@@ -54,7 +54,7 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
       {
         label: "What is live today?",
         message:
-          "Across Ivan's work (Aetherix, Tacet and Anima in the Hospitality Mesh; Lore, Sonor and Paris Compass as standalone projects), what is actually shipped and used, and what is still prototype?",
+          "Across Ivan's work (Aetherix, Tacet and Anima in the Hospitality Multi-Agent Architecture; Lore, Sonor and Paris Compass as standalone projects), what is actually shipped and used, and what is still prototype?",
         intent: "technical",
       },
       {
@@ -102,7 +102,7 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
         intent: "product",
       },
       {
-        label: "How does the mesh fit?",
+        label: "How does the architecture fit?",
         message:
           "On the Aetherix case study: how do Aetherix, Tacet, Anima and the orchestrator fit together?",
         intent: "technical",
@@ -164,7 +164,7 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
       {
         label: "What is actually built?",
         message:
-          "On the architecture note: which nodes of the mesh are built today, and which are still design or stub?",
+          "On the architecture note: which nodes are built today, and which are still design or stub?",
         intent: "exploring",
       },
       {
@@ -176,7 +176,7 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
       {
         label: "How is tenancy kept apart?",
         message:
-          "On the architecture note: how does the mesh stop one property's data reaching another?",
+          "On the architecture note: how does the architecture stop one property's data reaching another?",
         intent: "technical",
       },
       BOOK_CALL,

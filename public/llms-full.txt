@@ -24,15 +24,15 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/discussio
 
 URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture.
 
-Aetherix, the F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Three promises with honesty labels: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome); staffing and waste are hypotheses a pilot would test, not measured results. What it already does: states its drivers the evening before then reports its own miss the next morning in plain language; flagged a corrupted POS export rather than training on it; named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration; stores every recommendation next to what actually happened with the manager's override recorded beside it; blocks its own merges on evaluation exit codes, every guardrail trip carrying a machine-readable reason. Sandbox data, real mechanics, deterministic reruns. Thesis: understand like a human (contextual reasoning grounded in each property's history), measure like a machine (every recommendation stored next to its real outcome), learn like a network (per-property memory today, federated priors next). Vision, five agents with honest status: Aetherix the F&B agent (Built), Tacet the environmental-signal agent (Built), Anima the Guest Cognition agent (Synthetic PoC), Peritia the trade agent for house knowledge (Design), Orchestrator the supervisory agent (Design). Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Cycle: Memory, Prediction, Action, Learning. Delivered on WhatsApp. MCP-native, callable by any other agent in the stack. Status: Phase 3. Pilot design partner in recruitment, go-live targeted end of September. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live. Contrast with Lore: Lore shares this architecture and cannot close the same loop, nothing there tells the system whether an observation was right; Aetherix has an outcome to compare against.
+Aetherix, the F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Three promises with honesty labels: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome); staffing and waste are hypotheses a pilot would test, not measured results. What it already does: states its drivers the evening before then reports its own miss the next morning in plain language; flagged a corrupted POS export rather than training on it; named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration; stores every recommendation next to what actually happened with the manager's override recorded beside it; blocks its own merges on evaluation exit codes, every guardrail trip carrying a machine-readable reason. Sandbox data, real mechanics, deterministic reruns. Thesis: understand like a human (contextual reasoning grounded in each property's history), measure like a machine (every recommendation stored next to its real outcome), learn like a network (per-property memory today, federated priors next). Vision, five agents with honest status: Aetherix the F&B agent (Built), Tacet the environmental-signal agent (Built), Anima the guest memory node (Synthetic PoC), Peritia the trade agent for house knowledge (Design), Orchestrator the supervisory agent (Design). Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Cycle: Memory, Prediction, Action, Learning. Delivered on WhatsApp. MCP-native, callable by any other agent in the stack. Status: Phase 3. Pilot design partner in recruitment, go-live targeted end of September. Apaleo OAuth and MCP read access operational. Contrast with Lore: Lore shares this architecture and cannot close the same loop, nothing there tells the system whether an observation was right; Aetherix has an outcome to compare against.
 
 The loop that learns. Every day the same loop deposits one more grain of calibrated experience into the property's operational memory. Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing, waste risk with drivers. Action lands as one WhatsApp message with one-tap accept, modify or reject. Learning records every reply as feedback; the pilot tests whether it improves future recommendations. Day 7 is cold-start, honest confidence, leans on generic cross-property context patterns and the first week of local signals. Day 90 is the expected, not measured, state: drivers become property-specific, calibrated by enough Tuesdays, events and overrides to fit this exact place. Caveat: a true federated cohort prior (HiveMemory) is research, Phase 4 and beyond, anonymized aggregates only, no cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
 
 Problem. In hospitality, the people who know how the property really runs carry that knowledge in their heads. When a manager leaves, the property starts again from scratch. Combined with the inherent complexity of F&B operations (multiple outlets, mixed guest segments, volatile demand, labor shortages), this creates chronic inefficiencies. The underlying bottleneck is not data, it is synthesis: combining internal context (occupancy, capture rates, POS history) with external signals (weather, local events) into a recommendation calibrated to this property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it where managers already are. Glue, not replacement.
 
-The Mesh. Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP. Nodes: Aetherix (F&B execution: forecast, staffing, memory, receipts, Live staging), Tacet (Sensory: weather, noise, open data, risk, Phase 3), Orchestrator (Supervisory: MCP routing, business rules, Phase 3 stub, dedicated repo Phase 4), Anima (Guest Cognition Layer, synthetic PoC at the Anthropic hackathon Jun 2026, production DPIA-gated). Aetherix ↔ Tacet: Aetherix owns internal context, Tacet owns external context, the Orchestrator calls both. Together they form one predictive twin.
+The architecture. Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP. Nodes: Aetherix (F&B execution: forecast, staffing, memory, receipts, Live staging), Tacet (Sensory: weather, noise, open data, risk, Phase 3), Orchestrator (Supervisory: MCP routing, business rules, Phase 3 stub, dedicated repo Phase 4), Anima (guest memory node, synthetic PoC at the Anthropic hackathon Jun 2026, production DPIA-gated). Aetherix ↔ Tacet: Aetherix owns internal context, Tacet owns external context, the Orchestrator calls both. Together they form one predictive twin.
 
-Architecture, push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning (Gemini/GPT fallback) → WhatsApp or Email. MCP Server v0 live on Fly.io (Paris), three atomic tools, multi-tenant. Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris).
+Architecture, push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning (Gemini/GPT fallback) → WhatsApp or Email. MCP server, three atomic tools, multi-tenant. Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris).
 
 Built to be trusted. Evaluation as a contract (Qonto-inspired): versioned golden datasets, hard CI gate. Observability and metering: every MCP tool call is one structured event, auditable, queryable, priceable. Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.
 
@@ -42,7 +42,7 @@ Where we are, honestly. Phase 3 · Pilot design partner in recruitment, go-live 
 
 Roadmap. Phase 0 Validation done · Phase 1 Observability done · Phase 2 Receipts done · Phase 3 Pilot current · Phase 4 Scale planned (Mews, POS, Federated HiveMemory, Context Graph, Anima) · Phase 5 Vision planned (Revenue Orchestrator).
 
-Anima, sister node. Guest Cognition Layer PoC shipped at Anthropic hackathon Jun 2026. 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
+Anima, sister node. Guest memory node PoC shipped at Anthropic hackathon Jun 2026. 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
 
 Role and model. Solo architect and builder. Pricing: Results-as-a-Service, outcome-based.
 
@@ -72,7 +72,7 @@ Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard (thread per aircraft
 
 URL: https://ivandemurard.com/anima. Memory that makes every guest a regular: a guest memory node that anticipates needs, learns from every stay, and improves operations without watching. It is the node that is not allowed to simply accumulate, a memory product with a deliberate limit, not a personalisation product.
 
-Lineage. Digital twins started with assets, and hospitality mostly stopped there (predictive maintenance, refurbishment simulation, energy). The interesting extension is toward people: research on human-centered digital twins in hospitality (https://pmc.ncbi.nlm.nih.gov/articles/PMC13078991/) models the employee, and its design rule is that such a system supports human judgement rather than replacing it. That paper is a study of adoption intent across 141 hotel employees, not a deployed system. Anima applies the same shift to the guest relationship, and the two are not symmetrical: an employee can be told they are modelled, consulted and can refuse; a guest cannot meaningfully consent to being modelled during a two-night stay. The older version of this was the concierge who never had to ask twice, a twin with a bus factor of one, which is the same loss Lore addresses for technical expertise.
+Positioning. Anima is a guest memory node, not a twin. An employee can be told they are modelled, consulted and can refuse; a guest cannot meaningfully consent to being modelled during a two-night stay. The older version of this was the concierge who never had to ask twice, a guest memory running on one person's recall, with a bus factor of one, which is the same loss Lore addresses for technical expertise.
 
 Four memory layers with different lifetimes. Working: the current stay, expires at check-out. Episodic: this stay and a short tail, weeks. Semantic: durable preferences stated or repeatedly confirmed, long with decay. Segment: anonymised patterns, aggregate and never individual. Temporal separation is the design: a guest ordering a decaf at 11pm before an early flight should be used tonight and never become a permanent belief.
 
@@ -118,7 +118,7 @@ Q: Who is Ivan de Murard?
 A: A Paris-based product builder with five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor. He focuses on product management, service design, and agentic AI for operations.
 
 Q: What is Aetherix?
-A: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Used by other agents via MCP or by a hotel / F&B manager with WhatsApp. Built and instrumented inside the hospitality agentic mesh, pilot partner in recruitment.
+A: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Used by other agents via MCP or by a hotel / F&B manager with WhatsApp. Built, 0 real users, forecast in shadow mode, pilot partner in recruitment, inside the Hospitality Multi-Agent Architecture.
 
 Q: What is Lore?
 A: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Used by a junior technician on the shop floor, hands busy. Prototype, built at a Speechmatics hackathon in early 2026.
@@ -135,13 +135,13 @@ Markdown: https://ivandemurard.com/aetherix.md
 
 # Aetherix
 
-The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B agent of the Hospitality Agentic Mesh, a five-agent architecture: https://ivandemurard.com/architecture
+The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Aetherix is the F&B agent of the Hospitality Multi-Agent Architecture, a five-agent architecture: https://ivandemurard.com/architecture
 
 Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
 Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next, to give independents the power of a hive.
 
-Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built. Anima, the Guest Cognition agent, Synthetic PoC. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
+Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Not started. Orchestrator, the supervisory agent, Stub.
 
 Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
 
@@ -151,7 +151,7 @@ Contrast with Lore: Lore, in aviation maintenance, shares this architecture and 
 - Role: Product Builder & AI Agent Designer (solo)
 - Duration: 2026, ongoing (validation phase)
 - Team: Solo architect & builder
-- Status: Phase 3 · Pilot design partner in recruitment. Go-live targeted end of September. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read access operational. MCP Server v0 is live.
+- Status: Built, 0 real users, forecast in shadow mode, pilot partner in recruitment. Apaleo OAuth and MCP read access operational.
 - Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris). MCP-native.
 
 ## The loop that learns
@@ -203,15 +203,15 @@ Reply  ✅ accept   ✏️ modify   ❌ reject
 
 One tap. That reply is the signal Aetherix learns from.
 
-## The Mesh, bounded context by design
+## The architecture, bounded context by design
 
 Aetherix is one of five specialized, MCP-native agents. Each agent owns a strict bounded context and communicates only through MCP. Aetherix executes F&B. It does not orchestrate.
 
 | Agent | Role | Status |
 |---|---|---|
-| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and instrumented, pilot partner in recruitment |
+| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built, 0 real users, forecast in shadow mode, pilot partner in recruitment |
 | Tacet | Sensory: weather, noise, open data, risk | Built |
-| Anima | Guest Cognition Layer | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
+| Anima | Guest memory node | Synthetic PoC, hackathon prototype (Jun 2026); production DPIA-gated |
 | Peritia | House knowledge: what the people who work in a property know | Named in the contract, not started |
 | Orchestrator | Supervisory: MCP routing, business rules. Stub in Phase 3, dedicated repo in Phase 4 | Phase 3, stub |
 
@@ -225,7 +225,7 @@ Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external c
 
 Push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning (Gemini/GPT fallback) → WhatsApp or Email.
 
-MCP Server v0 is live on Fly.io (Paris), three atomic tools, multi-tenant.
+MCP server, three atomic tools, multi-tenant.
 
 ## Built to be trusted
 
@@ -256,7 +256,7 @@ The project includes proprietary research on cross-domain operational context an
 
 ## Anima, sister node
 
-Guest Cognition Layer, a Synthetic PoC built at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
+Guest memory node, a Synthetic PoC built at the Anthropic hackathon (Jun 2026): a 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
 
 ## Role and model
 
@@ -264,7 +264,7 @@ Solo architect and builder. Product Builder and AI Agent Designer. 2026, ongoing
 
 ## Links
 
-- Mesh (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
+- Architecture (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 - Contact: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/discussion-and-introduction
 
@@ -330,7 +330,7 @@ Markdown: https://ivandemurard.com/tacet.md
 
 A headless Environmental Twin for the hospitality sector. Tacet turns street, weather and crowd signals into yield rules and Chain of Thought payloads, exposed via an MCP server that any RMS, PMS or orchestration agent can consume.
 
-Status: Built - live data ingestion pipeline, MCP server v0 live on Fly.io.
+Status: Built - maintenance mode since July 2026.
 
 - URL: https://ivandemurard.com/tacet
 - Role: Product Builder, Architect of an environmental intelligence layer
@@ -345,7 +345,7 @@ Revenue Management Systems and Property Management Systems run on historical boo
 
 ## 2. The Solution: An Environmental Twin
 
-Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer of a broader hospitality agentic mesh.
+Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer of the Hospitality Multi-Agent Architecture.
 
 Rather than overwhelming staff with another dashboard of raw data, Tacet mathematically calculates the real-world impact of external events. It exposes this intelligence via an MCP (Model Context Protocol) server so that operational agents like Aetherix can adjust F&B and staffing, while Tacet pushes actionable yield rules directly to the RMS (Atomize, Duetto and similar) for human approval.
 
@@ -377,7 +377,7 @@ Embedded in an agentic OS, properties shift from reactive to proactive yield and
 
 ## 5. Synergy with Aetherix
 
-Tacet exposes its rules and reasoning through MCP. [Aetherix](https://ivandemurard.com/aetherix) consumes them as one more tool in its agentic mesh, forming a complete predictive twin of the property.
+Tacet exposes its rules and reasoning through MCP. [Aetherix](https://ivandemurard.com/aetherix) consumes them as one more tool in the multi-agent architecture, forming a complete predictive twin of the property.
 
 - **Aetherix (internal context):** anticipates operational needs, F&B demand and staffing based on occupancy and historical trends.
 - **Tacet (external context):** reads street, weather and event signals, ray-traces their impact, publishes yield rules on MCP.
@@ -591,15 +591,15 @@ AUTHORS.md: https://github.com/IvandeMurard/Lore/blob/main/AUTHORS.md
 --- END DOCUMENT: lore ---
 
 --- BEGIN DOCUMENT: anima ---
-# Anima, the Guest Node of the Hospitality Agentic Mesh
+# Anima, the Guest Memory Node of the Hospitality Multi-Agent Architecture
 URL: https://ivandemurard.com/anima
 Markdown: https://ivandemurard.com/anima.md
 
 # Anima
 
-> Memory that makes every guest a regular.
+> Memory that means no guest has to ask twice.
 
-A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.
+Keeps what a guest said and what happened, so nobody asks twice, without watching.
 
 Status: Synthetic PoC. Production gated behind a data-protection assessment.
 URL: https://ivandemurard.com/anima
@@ -615,23 +615,37 @@ Four questions a general manager can ask out loud and nobody in the building can
 
 In practice: a guest asked for a quiet room on three consecutive stays, and had to ask again on the fourth.
 
-The fourth question separates this from a customer database. A property that cannot tell what a guest said from what a system inferred has already lost the argument it will eventually have to win, with the guest or with a regulator.
+The fourth one separates this from a customer database. A property that cannot tell what a guest said from what a system inferred has already lost the argument it will eventually have with the guest, or with a regulator.
 
-## 2. The lineage: from modelling buildings to modelling relationships
+## 2. Where it stands, and what the gate is for
 
-Digital twins started with assets. A building, a chiller, an engine: model the thing, simulate it, act before it fails. Hospitality adopted that version and largely stopped there, with predictive maintenance, refurbishment run in software before the work starts, and energy optimisation.
+Fig. 2.1, the road and the gate on it, three steps:
 
-The interesting extension is toward people. Research on human-centered digital twins in hospitality (https://pmc.ncbi.nlm.nih.gov/articles/PMC13078991/) models the *employee*, their behaviour, performance and context, and its central design rule is worth borrowing exactly: such a system exists to support human judgement, not to replace it. Read it for what it is, a study of adoption intent across 141 hotel employees, not a deployed system.
+| Step | State | What it holds |
+|---|---|---|
+| Now | Built | Synthetic proof of concept: four memory layers, MCP server, evaluated on a synthetic cohort |
+| Gate | Design | Data-protection assessment, before the first real guest datum, not before the build. No real guest until it clears |
+| Phase 4 | Design | Production: real guests, real stays, only on the far side of the gate |
 
-Anima applies that same shift on the other side of the desk, to the guest relationship. The vocabulary is tempting, since calling it a guest cognition twin makes the positioning write itself, but the two are not symmetrical, and the asymmetry is the whole design problem.
+**An employee can be told they are being modelled. A guest cannot meaningfully consent to being modelled during a two-night stay.**
 
-An employee can be told they are being modelled. They can be consulted, they can refuse, and their representation is part of their working conditions. **A guest cannot meaningfully consent to being modelled during a two-night stay.** They came to sleep somewhere. Whatever is built about them has to be defensible without their participation, which is a far harder constraint than the employee case and one the research does not have to solve.
+The older version of this was the concierge who never had to ask twice: a guest memory running on one person's recall, with a bus factor of one. So Anima is a guest memory, not a twin.
 
-There is an older version of this. The concierge who knew that Mr Fontaine takes the corner table and never asks twice was a human-centered twin running on one person's memory, and it had a bus factor of one. It left when they left. That is the same loss Lore (/lore) addresses for technical expertise, one industry over. Anima is the attempt to make being a regular a property of the house rather than of one employee's recall, without the house turning into an apparatus that watches.
+## 3. One stay, four memory layers
 
-In practice: the concierge retires, and every regular becomes a stranger again on the same Monday.
+Fig. 3.1, one stay and what is held at each point:
 
-## 3. What it is: four memory layers with different lifetimes
+| Phase | Held | Layer |
+|---|---|---|
+| Before arrival [Design] | Booking data; situational context (a delayed train, a local event, the weather); no external data about the person, no profiling | No memory yet: nothing personal is held before the guest is in the house |
+| During the stay | Requests, interactions, operational events | Working memory, expires at check-out |
+| After check-out | Episodic tail, weeks; semantic only if stated or repeatedly confirmed | Episodic, then semantic: weeks, then long with decay |
+
+Marker on the stay [Design]: health data stays in the stay. An allergy is GDPR art. 9 data, used on explicit consent for a concrete service, never kept or inferred.
+
+Segment layer: anonymised patterns across the whole house, never an individual.
+
+A first-time guest is not recognised, but can still be anticipated.
 
 | Layer | Holds | Lifetime |
 |---|---|---|
@@ -640,51 +654,47 @@ In practice: the concierge retires, and every regular becomes a stranger again o
 | Semantic | Durable preferences, stated or repeatedly confirmed | Long, with decay |
 | Segment | Anonymised patterns, what guests like this tend to need | Aggregate, never individual |
 
-Temporal separation is the whole design. Most guest-AI failures come from treating everything as permanent: a one-off request during a difficult stay becomes a permanent label, and nobody can say why the system believes it.
-
-In practice: a guest orders a decaf at 11pm because they have an early flight. Working memory should use it tonight. Semantic memory should never conclude they drink decaf.
+Working memory should use the decaf tonight, so the bar does not ask twice. Semantic memory should never conclude the guest drinks decaf.
 
 ## 4. Claims carry confidence, and confidence decays
 
-Nothing in Anima is stored as a fact. Everything is a claim with a weight, a source and an age. "Prefers a high floor" told to a receptionist once is not the same object as the same preference confirmed across four stays, and neither is the same as one inferred from behaviour.
+Fig. 4.1, one preference ("prefers a high floor") held three ways:
 
-Weights fall over time unless something renews them. A preference from 2019 that nobody has confirmed since should not outvote something said last week.
+| Regime | Source | Confidence | Age | Reading |
+|---|---|---|---|---|
+| Stated once | Said to a receptionist, one stay | 0.52 | 14 months | Held, and it has faded since nothing renewed it |
+| Confirmed ×4 | Requested again on four stays | 0.91 | Last renewed 3 weeks ago | Corroboration is counted, not claimed |
+| Inferred | Derived from booking behaviour | 0.34 | 2 months | Marked as inferred, and it never outvotes something said |
 
-The honesty rule from the rest of this work applies: a system that reports a confidence it did not measure is worse than one that reports none. See /journal/harnesses-graders-closed-loops, section on confidence.
+Weights fall over time unless something renews them. A system that reports a confidence it did not measure is worse than one that reports none. See /journal/harnesses-graders-closed-loops, section on confidence.
 
 ## 5. Remembering is not neutral
 
-Edmondo Grassi, writing in the Hotel Yearbook, puts it directly: the stay no longer ends at check-out, it merely changes form. The guest leaves the building and their record migrates into infrastructure that remembers with perfect precision.
-
-This was always a craft of memory. The concierge who anticipates, the maître d'hôtel who recalls a wine. But human memory came with forgetting and forgiveness built in. What replaces it knows neither. The asymmetry is new: the system remembers the guest better than the guest remembers themselves.
-
-His question is the right one, and it is not rhetorical: **whether to remember is an act of care or an exercise of power.**
-
-The answer cannot be a values statement. It has to be in the data model, or it is decoration. Decay on every claim, layers that expire by design, inference marked as inference, and a scope gate that makes "give me everything about this guest" an impossible request rather than a discouraged one.
+**Whether to remember is an act of care or an exercise of power.**
 
 Source: Edmondo Grassi, *The Remains of the Stay: Memory, Identity, and the Afterlife of the Guest*, Hotel Yearbook 2026 Technology Edition.
 
 ## 6. Scope-gated, and it never decides
 
-Any consumer must declare which layer it is querying. There is no call that returns everything known about a person, which is a structural choice rather than a policy one: a boundary that depends on people asking politely is not a boundary.
+Fig. 6.1, the scope gate, one layer per call:
 
-Anima answers one question only, which is who this guest is right now. What to do about it belongs to the orchestrator, with a human validating. Same separation between perception and decision the F&B node enforces, for the same reason: a component that both perceives and acts arbitrates privately, and the arbitration stops being reviewable.
+- Caller: the orchestrator declares one layer, for one purpose.
+- Request that passes: semantic layer, room assignment. Scoped, logged, answerable.
+- Anima answers: who this guest is right now. Nothing more.
+- Request that does not pass: "everything about this guest". Blocked by protocol, 403. There is no call that returns a whole person. It is a structural choice, not a policy one.
+- After the answer: a human validates what the orchestrator proposes. Anima never decides.
 
-In practice: the orchestrator asks for semantic-layer preferences relevant to a room assignment. It does not, and cannot, ask for the guest's full history.
+A boundary that depends on people asking politely is not a boundary.
 
-## 7. Where it stands, honestly
+Anima answers one question, which is who this guest is right now. What to do about it belongs to the orchestrator, with a human validating, the same separation between perception and decision the F&B node (/aetherix) enforces.
 
-Synthetic proof of concept. Four-layer memory implemented, working MCP server, evaluated on a synthetic cohort. **It has never run on a real guest and it will not until a formal data-protection assessment is complete.**
+## 7. Where it sits in the architecture
 
-That gate is not compliance theatre or a schedule risk. Inferred state about a person is sensitive personal data, and a guest cognition system a hotel cannot lawfully deploy is worth nothing however good the architecture is. Built first, cleared later is the wrong order here, and it is the order that produces systems nobody can switch on.
+One of four domain nodes, five agents with the orchestrator.
 
-Shipped as a prototype at an Anthropic hackathon in June 2026. Production is phase 4.
+What Anima knows reaches other nodes only through the orchestrator, one layer at a time. Guest experience itself is not a node, which is why `guest.*` lives in the shared contract rather than behind this one service.
 
-## 8. Where it sits in the mesh
-
-Anima is one node among four. It owns the guest relationship and nothing else: no pricing, no orchestration, no action. Guest experience itself is not a node, it is a signal that crosses every part of the mesh, which is why `guest.*` lives in the shared contract rather than behind this one service.
-
-The whole picture: /architecture. The node that consumes what Anima knows: /aetherix.
+The whole picture: /architecture.
 
 ---
 
@@ -693,11 +703,11 @@ The whole picture: /architecture. The node that consumes what Anima knows: /aeth
 --- END DOCUMENT: anima ---
 
 --- BEGIN DOCUMENT: architecture ---
-# The Hospitality Agentic Mesh, an Architecture Note
+# Hospitality Multi-Agent Architecture, an Architecture Note
 URL: https://ivandemurard.com/architecture
 Markdown: https://ivandemurard.com/architecture.md
 
-# The Hospitality Agentic Mesh
+# Hospitality Multi-Agent Architecture
 
 Architecture note. Five specialised agents, each owning one bounded context, talking only through MCP.
 Two are Built, one is a Synthetic PoC, two are Design. This page says which is which, using one shared status vocabulary: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/llms.txt
@@ -707,13 +717,13 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 
 ## Where this sits
 
-- **Aetherix** (built and instrumented, pilot partner in recruitment). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
-- **Tacet** (built: live data ingestion pipeline, MCP server v0 live on Fly.io). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
-- **Anima** (Synthetic PoC, production gated behind a data-protection assessment). The guest node: a four-layer temporal memory of a guest relationship. https://ivandemurard.com/anima
+- **Aetherix** (Built, 0 real users, forecast in shadow mode, pilot partner in recruitment). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
+- **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
+- **Anima** (Synthetic PoC, production gated behind a data-protection assessment). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
 - **Orchestrator** (Design, a proto-stub exists). The supervisory agent: a stateless router with no memory of its own. It routes between the others and holds the decision.
 
-## 1. Why a mesh and not one agent
+## 1. Why several agents and not one
 
 The tempting shape is one large model that predicts, decides and acts. It collapses in practice,
 because forecasting and acting have different failure modes, different feedback loops and different
@@ -731,7 +741,7 @@ arrival, and each belongs to a different agent:
 
 - Tacet: what is happening outside, since a transit strike lands every arrival in the same twenty minutes.
 - Aetherix: how full the house is tonight, and what that does to the service that follows.
-- Anima: whether this guest has stayed before, and what they had to ask for last time.
+- Anima: whether this guest has stayed before and what they asked for last time. For a first stay: nothing to recall, and it says so.
 - Peritia: who is on the desk, how loaded they are, how far into the shift.
 
 This is why guest experience is not an agent of its own. An agent that owned it would have to own
@@ -745,9 +755,9 @@ most in memory.
 
 | Agent | Status | Owns | Does not own |
 | --- | --- | --- | --- |
-| Aetherix | Built and instrumented, pilot partner in recruitment | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
-| Tacet | Built: live data ingestion, MCP server v0 live | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
-| Anima | Synthetic PoC | Guest cognition: temporal memory, confidence-weighted claims | Acting on what it knows. Production is DPIA-gated |
+| Aetherix | Built, 0 real users, forecast in shadow mode, pilot partner in recruitment | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
+| Tacet | Built, maintenance mode since July 2026 | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
+| Anima | Synthetic PoC, production DPIA-gated | Guest memory: what a guest said and what happened, four layers, each claim with source, confidence and age | Acting on it, or returning a whole person: every query declares one layer |
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
 | Orchestrator | Design, stateless router, no memory | Supervisory routing and business rules across agents | Domain logic and memory. It routes, it does not compute and it stores nothing |
 
@@ -766,7 +776,8 @@ Aetherix executes. It does not orchestrate.
 3. **Tenancy is resolved server-side, never passed as an argument.** The property identifier is
    established by the server at every layer. What a model cannot name, it cannot cross.
 4. **Memory is local first, federated second, and never raw.** Each property learns from its own
-   history; cross-property learning moves only as anonymised aggregates.
+   history; cross-property learning moves only as anonymised aggregates. Local memory is as
+   described. Federation: Research, no substrate yet.
 5. **A fifth agent is an addition, not a redesign.** The contract that governs exchanges between
    agents was designed to admit staff knowledge: what the people who work in a property know, which
    nothing captures today. That agent is named Peritia, the trade agent: a house's know-how, held by
@@ -792,7 +803,8 @@ at Amazon, decades of aerospace and automotive use. In hospitality they model th
 predictive maintenance, refurbishment simulation, energy optimisation. Searching for one that
 simulates the impact of an operational decision before it is taken, a staffing change, an F&B order,
 a service adjustment, returns nothing. The sector models its assets and not its arbitrations. This
-mesh is not marketed as a twin and does not simulate scenarios today.
+architecture is not marketed as a twin and does not simulate scenarios today. Anima included: a
+guest memory, not a twin.
 
 ## 7. Verification and pointers
 
@@ -806,7 +818,7 @@ https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 Contact: ivandemurard@gmail.com, https://cal.com/ivandemurard/discussion-and-introduction
 
-## Query this mesh from your agent
+## Query this architecture from your agent
 
 The five agents talk over MCP. So does this site: a public, read-only MCP server exposes the case studies, the field notes and the bio as tools.
 

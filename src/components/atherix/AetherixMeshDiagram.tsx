@@ -25,7 +25,7 @@ const NODES = [
   {
     emoji: "🧡",
     name: "Anima",
-    role: "Guest Cognition Layer",
+    role: "Guest memory node",
     status: "Synthetic PoC, hackathon prototype; production DPIA-gated",
     statusTone: "shipped" as const,
   },
@@ -77,7 +77,7 @@ export const AetherixMeshDiagram = () => (
           <NodeCard title="Tacet" sub="Sensory" />
           <NodeCard title="Orchestrator" sub="Supervisory" />
           <div className="flex flex-col items-center gap-1">
-            <NodeCard title="Anima" sub="Guest Cognition" />
+            <NodeCard title="Anima" sub="Guest memory" />
             <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px]">
               Synthetic PoC
             </span>
@@ -110,7 +110,7 @@ export const AetherixMeshDiagram = () => (
           <NodeCard title="Orchestrator" sub="Supervisory" />
         </div>
         <div className="w-full flex flex-col items-center gap-1">
-          <NodeCard title="Anima" sub="Guest Cognition" />
+          <NodeCard title="Anima" sub="Guest memory" />
           <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px]">
             Synthetic PoC
           </span>
