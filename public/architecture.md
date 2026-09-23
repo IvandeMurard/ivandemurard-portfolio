@@ -63,7 +63,9 @@ Aetherix executes. It does not orchestrate.
    and the arbitration stops being reviewable.
 2. **MCP is the only doorway.** Nodes do not import each other. Every exchange is a tool call, so
    every exchange is loggable, auditable and priceable, and a node can be replaced without its
-   neighbours knowing.
+   neighbours knowing. Until the orchestrator is built (Design), Tacet's output reaches Aetherix
+   directly: the one documented exception, non-personal, read-only, logged. Target: every exchange
+   goes through the orchestrator.
 3. **Tenancy is resolved server-side, never passed as an argument.** The property identifier is
    established by the server at every layer. What a model cannot name, it cannot cross.
 4. **Memory is local first, federated second, and never raw.** Each property learns from its own

@@ -70,7 +70,7 @@ Stack: Speechmatics real-time STT, OpenAI GPT-4o, Backboard (thread per aircraft
 
 ## Anima
 
-URL: https://ivandemurard.com/anima. Memory that makes every guest a regular: a guest memory node that anticipates needs, learns from every stay, and improves operations without watching. It is the node that is not allowed to simply accumulate, a memory product with a deliberate limit, not a personalisation product.
+URL: https://ivandemurard.com/anima. Memory that means no guest has to ask twice. A guest memory node: keeps what a guest said and what happened, so nobody asks twice, without watching. It is the node that is not allowed to simply accumulate, a memory product with a deliberate limit, not a personalisation product.
 
 Positioning. Anima is a guest memory node, not a twin. An employee can be told they are modelled, consulted and can refuse; a guest cannot meaningfully consent to being modelled during a two-night stay. The older version of this was the concierge who never had to ask twice, a guest memory running on one person's recall, with a bus factor of one, which is the same loss Lore addresses for technical expertise.
 
