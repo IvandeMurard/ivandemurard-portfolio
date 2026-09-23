@@ -55,10 +55,10 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
 ];
 
 /**
- * The five nodes of the mesh, as presented on /architecture. Peritia and the
- * Orchestrator have no case study of their own, so this is the only place
+ * The five nodes of the architecture, as presented on /architecture. Peritia and
+ * the Orchestrator have no case study of their own, so this is the only place
  * they are introduced. Lore is deliberately absent: it is a standalone
- * aviation project, not a node of this mesh.
+ * aviation project, not a node of this architecture.
  */
 export const MESH_ANCHORS: SystemAnchor[] = [
   {
@@ -67,7 +67,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     to: "/aetherix",
     what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built and instrumented, on staging, pilot partner in recruitment.",
+    status: "Built, 0 real users, forecast in shadow mode, pilot partner in recruitment.",
   },
   {
     slug: "tacet",
@@ -76,14 +76,14 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     what:
       "The environmental node. Turns street, weather and event signals into structured risk the other nodes can act on.",
     who: "Other agents, through MCP, not humans.",
-    status: "Built, public repository.",
+    status: "Built, maintenance mode since July 2026.",
   },
   {
     slug: "anima",
     name: "Anima",
     to: "/anima",
     what:
-      "The guest node. Memory that makes every guest a regular: it anticipates needs and learns from every stay, without watching.",
+      "The guest memory node. It keeps what a guest said and what happened, so nobody has to ask twice, without watching.",
     who: "The nodes that need to know who is arriving.",
     status: "Synthetic PoC, production gated behind a data-protection assessment.",
   },
@@ -98,7 +98,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     slug: "orchestrator",
     name: "Orchestrator",
     what: "The supervisory agent. Routes between the others and holds the decision.",
-    who: "The mesh itself.",
+    who: "The architecture itself.",
     status: "Design. A proto-stub exists.",
   },
 ];
