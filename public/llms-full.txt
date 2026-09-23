@@ -812,15 +812,15 @@ the contract has room for it. It would be a different agent.
 The mesh is not a hospitality pattern. It is what you build when a decision has to stay attributable
 to a component and to a person.
 
-## 8. Where it stands
+## 8. Verification and pointers
 
-- Aetherix: built and instrumented, on staging, pilot partner in recruitment.
-- Tacet: Built. Live data ingestion pipeline, MCP server v0 on Fly.io, own case study, public repository.
-- Anima: Synthetic PoC. Shipped at a hackathon on synthetic data, production gated behind a
-  data-protection assessment. Case study: https://ivandemurard.com/anima
-- Peritia: Design. Named in the contract, domain and contracts specified, no code, no page.
-- Orchestrator: Design. A proto-stub exists. It does not yet deserve a page.
-- Lore: outside the mesh, as evidence the pattern holds elsewhere.
+The statuses above are the claim. Here is where to check them.
+
+Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
+
+The field note "Evaluating LLM agents: how would you know it had stopped working?" explains how a
+system earns the right to ship. This page explains what the systems are.
+https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 Contact: ivandemurard@gmail.com, https://cal.com/ivandemurard/discussion-and-introduction
 
