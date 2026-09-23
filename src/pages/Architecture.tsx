@@ -5,8 +5,6 @@ import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Reveal } from "@/components/Reveal";
-import { CaseAnchors } from "@/components/case/CaseAnchors";
-import { MESH_ANCHORS } from "@/content/systems";
 import { JournalToc } from "@/components/reading/JournalToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
@@ -19,6 +17,7 @@ import { McpEndpoint } from "@/components/McpEndpoint";
 
 import { MeshBlueprint } from "@/components/architecture/MeshBlueprint";
 import { MESH_NODES } from "@/content/meshNodes";
+import { MeshRail } from "@/components/architecture/MeshRail";
 
 const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
 
@@ -244,7 +243,7 @@ const Architecture = () => {
           </div>
         </Reveal>
 
-        <CaseAnchors entries={MESH_ANCHORS} columns={5} />
+        <MeshRail />
 
         <div className="px-6 md:px-12">
           <div className="max-w-screen-2xl mx-auto">
