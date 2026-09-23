@@ -52,7 +52,7 @@ const ALREADY_DOES = [
   "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
   "Flagged a corrupted POS export rather than training on it.",
   "Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.",
-  "Stores every recommendation next to what actually happened, with the manager's override recorded beside it.",
+  "Stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason: a role, not a named person.",
   "Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.",
 ];
 
@@ -143,16 +143,16 @@ const THESIS = [
   {
     icon: "hive",
     title: "Learn, like a network",
-    body: "Per-property memory today, federated priors next, to give independents the power of a hive.",
+    body: "Per-property memory today, federated priors next (federated priors: Research), to give independents the power of a hive.",
   },
 ];
 
 const VISION_NODES = [
   { name: "Aetherix", role: "The F&B agent: forecast, staffing, memory.", status: "Built" },
-  { name: "Tacet", role: "The environmental-signal agent.", status: "Built" },
+  { name: "Tacet", role: "The environmental-signal agent.", status: "Built · maintenance mode since July 2026" },
   { name: "Anima", role: "The guest memory node.", status: "Synthetic PoC" },
   { name: "Peritia", role: "The trade agent: house knowledge, what the people who work here know.", status: "Design" },
-  { name: "Orchestrator", role: "The supervisory agent.", status: "Design" },
+  { name: "Orchestrator", role: "The supervisory agent.", status: "Design · proto-stub" },
 ];
 
 const ATHERIX_SECTIONS = [
@@ -575,8 +575,9 @@ const Atherix = () => (
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
               Aetherix is one node in a network of specialized, <Term id="mcp">MCP</Term>-native agents. Each node owns
-              a strict bounded context and communicates only through MCP, no shared code, no monolith to displace. An
-              Orchestrator decides when to call it.
+              a strict bounded context and communicates only through MCP, no shared code, no monolith to displace.
+              Target: the Orchestrator (Design) decides when to call it. Until it is built, Tacet's output reaches
+              Aetherix directly: the one documented exception, non-personal, read-only, logged.
             </p>
           </div>
           <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }} className="mb-14">
