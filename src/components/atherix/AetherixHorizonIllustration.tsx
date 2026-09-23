@@ -9,7 +9,7 @@ export const AetherixHorizonIllustration = () => (
       viewBox="0 0 800 400"
       className="absolute inset-0 w-full h-full"
       role="img"
-      aria-label="The Hive Vision: three phases of a shared anticipation mesh"
+      aria-label="The Hive Vision: three phases of a shared anticipation network"
     >
       {/* Horizon line */}
       <line

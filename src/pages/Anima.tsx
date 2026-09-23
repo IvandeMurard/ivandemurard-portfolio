@@ -347,7 +347,7 @@ const Anima = () => {
               </Section>
 
               <Section
-                id="in-the-mesh"
+                id="in-the-architecture"
                 number="07"
                 title="Where it sits in the architecture"
                 keyLine="One of four domain nodes, five agents with the orchestrator."
