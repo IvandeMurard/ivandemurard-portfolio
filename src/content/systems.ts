@@ -55,9 +55,10 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
 ];
 
 /**
- * The five nodes of the mesh, as presented on /architecture. Anima and the
+ * The five nodes of the mesh, as presented on /architecture. Peritia and the
  * Orchestrator have no case study of their own, so this is the only place
- * they are introduced.
+ * they are introduced. Lore is deliberately absent: it is a standalone
+ * aviation project, not a node of this mesh.
  */
 export const MESH_ANCHORS: SystemAnchor[] = [
   {
@@ -99,14 +100,5 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     what: "The supervisory agent. Routes between the others and holds the decision.",
     who: "The mesh itself.",
     status: "Design. A proto-stub exists.",
-  },
-  {
-    slug: "lore",
-    name: "Lore",
-    to: "/lore",
-    what:
-      "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Not part of this mesh; the same pattern in aviation maintenance, where a licensed technician signs the release.",
-    who: "A junior technician on the shop floor, hands busy.",
-    status: "Here as evidence the pattern holds outside hospitality.",
   },
 ];
