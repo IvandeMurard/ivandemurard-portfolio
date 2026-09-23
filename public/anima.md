@@ -1,8 +1,8 @@
 # Anima
 
-> Memory that makes every guest a regular.
+> Memory that means no guest has to ask twice.
 
-A guest memory node that anticipates needs, learns from every stay, and improves operations without watching.
+Keeps what a guest said and what happened, so nobody asks twice, without watching.
 
 Status: Synthetic PoC. Production gated behind a data-protection assessment.
 URL: https://ivandemurard.com/anima
@@ -18,23 +18,37 @@ Four questions a general manager can ask out loud and nobody in the building can
 
 In practice: a guest asked for a quiet room on three consecutive stays, and had to ask again on the fourth.
 
-The fourth question separates this from a customer database. A property that cannot tell what a guest said from what a system inferred has already lost the argument it will eventually have to win, with the guest or with a regulator.
+The fourth one separates this from a customer database. A property that cannot tell what a guest said from what a system inferred has already lost the argument it will eventually have with the guest, or with a regulator.
 
-## 2. The lineage: from modelling buildings to modelling relationships
+## 2. Where it stands, and what the gate is for
 
-Digital twins started with assets. A building, a chiller, an engine: model the thing, simulate it, act before it fails. Hospitality adopted that version and largely stopped there, with predictive maintenance, refurbishment run in software before the work starts, and energy optimisation.
+Fig. 2.1, the road and the gate on it, three steps:
 
-The interesting extension is toward people. Research on human-centered digital twins in hospitality (https://pmc.ncbi.nlm.nih.gov/articles/PMC13078991/) models the *employee*, their behaviour, performance and context, and its central design rule is worth borrowing exactly: such a system exists to support human judgement, not to replace it. Read it for what it is, a study of adoption intent across 141 hotel employees, not a deployed system.
+| Step | State | What it holds |
+|---|---|---|
+| Now | Built | Synthetic proof of concept: four memory layers, MCP server, evaluated on a synthetic cohort |
+| Gate | Design | Data-protection assessment, before the first real guest datum, not before the build. No real guest until it clears |
+| Phase 4 | Design | Production: real guests, real stays, only on the far side of the gate |
 
-Anima applies that same shift on the other side of the desk, to the guest relationship. The vocabulary is tempting, since calling it a guest cognition twin makes the positioning write itself, but the two are not symmetrical, and the asymmetry is the whole design problem.
+**An employee can be told they are being modelled. A guest cannot meaningfully consent to being modelled during a two-night stay.**
 
-An employee can be told they are being modelled. They can be consulted, they can refuse, and their representation is part of their working conditions. **A guest cannot meaningfully consent to being modelled during a two-night stay.** They came to sleep somewhere. Whatever is built about them has to be defensible without their participation, which is a far harder constraint than the employee case and one the research does not have to solve.
+The older version of this was the concierge who never had to ask twice: a guest memory running on one person's recall, with a bus factor of one. So Anima is a guest memory, not a twin.
 
-There is an older version of this. The concierge who knew that Mr Fontaine takes the corner table and never asks twice was a human-centered twin running on one person's memory, and it had a bus factor of one. It left when they left. That is the same loss Lore (/lore) addresses for technical expertise, one industry over. Anima is the attempt to make being a regular a property of the house rather than of one employee's recall, without the house turning into an apparatus that watches.
+## 3. One stay, four memory layers
 
-In practice: the concierge retires, and every regular becomes a stranger again on the same Monday.
+Fig. 3.1, one stay and what is held at each point:
 
-## 3. What it is: four memory layers with different lifetimes
+| Phase | Held | Layer |
+|---|---|---|
+| Before arrival [Design] | Booking data; situational context (a delayed train, a local event, the weather); no external data about the person, no profiling | No memory yet: nothing personal is held before the guest is in the house |
+| During the stay | Requests, interactions, operational events | Working memory, expires at check-out |
+| After check-out | Episodic tail, weeks; semantic only if stated or repeatedly confirmed | Episodic, then semantic: weeks, then long with decay |
+
+Marker on the stay [Design]: health data stays in the stay. An allergy is GDPR art. 9 data, used on explicit consent for a concrete service, never kept or inferred.
+
+Segment layer: anonymised patterns across the whole house, never an individual.
+
+A first-time guest is not recognised, but can still be anticipated.
 
 | Layer | Holds | Lifetime |
 |---|---|---|
@@ -43,51 +57,47 @@ In practice: the concierge retires, and every regular becomes a stranger again o
 | Semantic | Durable preferences, stated or repeatedly confirmed | Long, with decay |
 | Segment | Anonymised patterns, what guests like this tend to need | Aggregate, never individual |
 
-Temporal separation is the whole design. Most guest-AI failures come from treating everything as permanent: a one-off request during a difficult stay becomes a permanent label, and nobody can say why the system believes it.
-
-In practice: a guest orders a decaf at 11pm because they have an early flight. Working memory should use it tonight. Semantic memory should never conclude they drink decaf.
+Working memory should use the decaf tonight, so the bar does not ask twice. Semantic memory should never conclude the guest drinks decaf.
 
 ## 4. Claims carry confidence, and confidence decays
 
-Nothing in Anima is stored as a fact. Everything is a claim with a weight, a source and an age. "Prefers a high floor" told to a receptionist once is not the same object as the same preference confirmed across four stays, and neither is the same as one inferred from behaviour.
+Fig. 4.1, one preference ("prefers a high floor") held three ways:
 
-Weights fall over time unless something renews them. A preference from 2019 that nobody has confirmed since should not outvote something said last week.
+| Regime | Source | Confidence | Age | Reading |
+|---|---|---|---|---|
+| Stated once | Said to a receptionist, one stay | 0.52 | 14 months | Held, and it has faded since nothing renewed it |
+| Confirmed ×4 | Requested again on four stays | 0.91 | Last renewed 3 weeks ago | Corroboration is counted, not claimed |
+| Inferred | Derived from booking behaviour | 0.34 | 2 months | Marked as inferred, and it never outvotes something said |
 
-The honesty rule from the rest of this work applies: a system that reports a confidence it did not measure is worse than one that reports none. See /journal/harnesses-graders-closed-loops, section on confidence.
+Weights fall over time unless something renews them. A system that reports a confidence it did not measure is worse than one that reports none. See /journal/harnesses-graders-closed-loops, section on confidence.
 
 ## 5. Remembering is not neutral
 
-Edmondo Grassi, writing in the Hotel Yearbook, puts it directly: the stay no longer ends at check-out, it merely changes form. The guest leaves the building and their record migrates into infrastructure that remembers with perfect precision.
-
-This was always a craft of memory. The concierge who anticipates, the maître d'hôtel who recalls a wine. But human memory came with forgetting and forgiveness built in. What replaces it knows neither. The asymmetry is new: the system remembers the guest better than the guest remembers themselves.
-
-His question is the right one, and it is not rhetorical: **whether to remember is an act of care or an exercise of power.**
-
-The answer cannot be a values statement. It has to be in the data model, or it is decoration. Decay on every claim, layers that expire by design, inference marked as inference, and a scope gate that makes "give me everything about this guest" an impossible request rather than a discouraged one.
+**Whether to remember is an act of care or an exercise of power.**
 
 Source: Edmondo Grassi, *The Remains of the Stay: Memory, Identity, and the Afterlife of the Guest*, Hotel Yearbook 2026 Technology Edition.
 
 ## 6. Scope-gated, and it never decides
 
-Any consumer must declare which layer it is querying. There is no call that returns everything known about a person, which is a structural choice rather than a policy one: a boundary that depends on people asking politely is not a boundary.
+Fig. 6.1, the scope gate, one layer per call:
 
-Anima answers one question only, which is who this guest is right now. What to do about it belongs to the orchestrator, with a human validating. Same separation between perception and decision the F&B node enforces, for the same reason: a component that both perceives and acts arbitrates privately, and the arbitration stops being reviewable.
+- Caller: the orchestrator declares one layer, for one purpose.
+- Request that passes: semantic layer, room assignment. Scoped, logged, answerable.
+- Anima answers: who this guest is right now. Nothing more.
+- Request that does not pass: "everything about this guest". Blocked by protocol, 403. There is no call that returns a whole person. It is a structural choice, not a policy one.
+- After the answer: a human validates what the orchestrator proposes. Anima never decides.
 
-In practice: the orchestrator asks for semantic-layer preferences relevant to a room assignment. It does not, and cannot, ask for the guest's full history.
+A boundary that depends on people asking politely is not a boundary.
 
-## 7. Where it stands, honestly
+Anima answers one question, which is who this guest is right now. What to do about it belongs to the orchestrator, with a human validating, the same separation between perception and decision the F&B node (/aetherix) enforces.
 
-Synthetic proof of concept. Four-layer memory implemented, working MCP server, evaluated on a synthetic cohort. **It has never run on a real guest and it will not until a formal data-protection assessment is complete.**
+## 7. Where it sits in the architecture
 
-That gate is not compliance theatre or a schedule risk. Inferred state about a person is sensitive personal data, and a guest cognition system a hotel cannot lawfully deploy is worth nothing however good the architecture is. Built first, cleared later is the wrong order here, and it is the order that produces systems nobody can switch on.
+One of four domain nodes, five agents with the orchestrator.
 
-Shipped as a prototype at an Anthropic hackathon in June 2026. Production is phase 4.
+What Anima knows reaches other nodes only through the orchestrator, one layer at a time. Guest experience itself is not a node, which is why `guest.*` lives in the shared contract rather than behind this one service.
 
-## 8. Where it sits in the mesh
-
-Anima is one node among four. It owns the guest relationship and nothing else: no pricing, no orchestration, no action. Guest experience itself is not a node, it is a signal that crosses every part of the mesh, which is why `guest.*` lives in the shared contract rather than behind this one service.
-
-The whole picture: /architecture. The node that consumes what Anima knows: /aetherix.
+The whole picture: /architecture.
 
 ---
 
