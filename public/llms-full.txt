@@ -17,20 +17,20 @@ Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/discussio
 ## How he works
 
 1. Reading the ground. Field-level fluency in operations: boutique hotels, F&B, design partners, open-data ecosystems. He learns an environment before he designs for it.
-2. From insight to product decisions. Aetherix is the proof: a real operating layer for boutique hotels, not a slideware concept.
+2. From insight to product decisions. Aetherix is the proof: built, running on staging, pilot about to start, not a slideware concept.
 3. Right tool for the problem. Sometimes a workflow, sometimes a checklist, sometimes an agentic system. The lightest mechanism that solves the job, with the human in the loop.
 
 ## Aetherix
 
 URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture.
 
-Aetherix, the F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Three promises with honesty labels: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome); staffing and waste are hypotheses a pilot would test, not measured results. What it already does: states its drivers the evening before then reports its own miss the next morning in plain language; flagged a corrupted POS export rather than training on it; named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration; stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason, a role, not a named person; blocks its own merges on evaluation exit codes, every guardrail trip carrying a machine-readable reason. Sandbox data, real mechanics, deterministic reruns. Thesis: understand like a human (contextual reasoning grounded in each property's history), measure like a machine (every recommendation stored next to its real outcome), learn like a network (per-property memory today, federated priors next, federated priors: Research). Vision, five agents with honest status: Aetherix the F&B agent (Built), Tacet the environmental-signal agent (Built, maintenance mode since July 2026), Anima the guest memory node (Synthetic PoC), Peritia the trade agent for house knowledge (Design), Orchestrator the supervisory agent (Design, proto-stub). Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Cycle: Memory, Prediction, Action, Learning. Delivered on WhatsApp. MCP-native, callable by any other agent in the stack. Status: Phase 3. Pilot design partner in recruitment, go-live targeted end of September. Apaleo OAuth and MCP read access operational. Contrast with Lore: Lore shares this architecture and cannot close the same loop, nothing there tells the system whether an observation was right; Aetherix has an outcome to compare against.
+Aetherix, the F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid that fits, and less waste: one message a day, in WhatsApp, with the reasoning attached. Three promises with honesty labels: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome); staffing and waste are hypotheses a pilot would test, not measured results. What it already does: states its drivers the evening before then reports its own miss the next morning in plain language; flagged a corrupted POS export rather than training on it; named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration; stores every recommendation next to what actually happened, with the manager's override recorded beside it; blocks its own merges on evaluation exit codes, every guardrail trip carrying a machine-readable reason. Target (Design): overrides recorded with the responder's role and reason, not a named person. Sandbox data, real mechanics, deterministic reruns. Thesis: understand like a human (contextual reasoning grounded in each property's history), measure like a machine (every recommendation stored next to its real outcome), learn like a network (per-property memory today, federated priors: Research). Vision, five agents with honest status: Aetherix the F&B agent (Built), Tacet the environmental-signal agent (Built, maintenance mode since July 2026), Anima the guest memory node (Synthetic PoC), Peritia the trade agent for house knowledge (Design), Orchestrator the supervisory agent (Design, proto-stub). Operational memory is the mechanism that makes the forecast specific to one property, not the offer. Cycle: Memory, Prediction, Action, Learning. Delivered on WhatsApp. MCP-native, callable by any other agent in the stack. Status: Phase 3. Pilot design partner in recruitment, go-live targeted end of September. Apaleo OAuth and MCP read access operational. Contrast with Lore: Lore shares this architecture and cannot close the same loop, nothing there tells the system whether an observation was right; Aetherix has an outcome to compare against.
 
-The loop that learns. Every day the same loop deposits one more grain of calibrated experience into the property's operational memory. Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing, waste risk with drivers. Action lands as one WhatsApp message with one-tap accept, modify or reject. Learning records every reply as feedback; the pilot tests whether it improves future recommendations. Day 7 is cold-start, honest confidence, leans on generic cross-property context patterns and the first week of local signals. Day 90 is the expected, not measured, state: drivers become property-specific, calibrated by enough Tuesdays, events and overrides to fit this exact place. Caveat: a true federated cohort prior (HiveMemory) is research, Phase 4 and beyond, anonymized aggregates only, no cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
+The loop that records outcomes. Every day the same loop adds one more record: recommendation, manager reply, measured outcome. Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing, waste risk with drivers. Action lands as one WhatsApp message with one-tap accept, modify or reject. Learning records every reply as feedback; the pilot tests whether it improves future recommendations. Day 7 is cold-start, honest confidence, leans on generic cross-property context patterns and the first week of local signals. Day 90 is the expected, not measured, state: drivers become property-specific, calibrated by enough Tuesdays, events and overrides to fit this exact place. Caveat: a true federated cohort prior (HiveMemory) is research, Phase 4 and beyond, anonymized aggregates only, no cross-tenant raw data, ever. Measured gains begin with the live pilot, not the synthetic baseline.
 
 Problem. In hospitality, the people who know how the property really runs carry that knowledge in their heads. When a manager leaves, the property starts again from scratch. Combined with the inherent complexity of F&B operations (multiple outlets, mixed guest segments, volatile demand, labor shortages), this creates chronic inefficiencies. The underlying bottleneck is not data, it is synthesis: combining internal context (occupancy, capture rates, POS history) with external signals (weather, local events) into a recommendation calibrated to this property. Aetherix builds that synthesis automatically, learns from manager feedback, and delivers it where managers already are. Glue, not replacement.
 
-The architecture. Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP. Nodes: Aetherix (F&B execution: forecast, staffing, memory, receipts, Live staging), Tacet (Sensory: weather, noise, open data, risk, Phase 3), Orchestrator (Supervisory: MCP routing, business rules, Phase 3 stub, dedicated repo Phase 4), Anima (guest memory node, synthetic PoC at the Anthropic hackathon Jun 2026, production DPIA-gated). Aetherix ↔ Tacet: Aetherix owns internal context, Tacet owns external context, the Orchestrator calls both. Together they form one predictive twin.
+The architecture. Aetherix is one node in a network of specialized, MCP-native agents. Each node owns a strict bounded context and communicates only through MCP. Nodes: Aetherix (F&B execution: forecast, staffing, memory, receipts, Live staging), Tacet (Sensory: weather, noise, open data, risk, Built · maintenance mode since July 2026), Orchestrator (Supervisory: MCP routing, business rules, Design · proto-stub), Anima (guest memory node, synthetic PoC at the Anthropic hackathon Jun 2026, production DPIA-gated). Aetherix ↔ Tacet: Aetherix owns internal context, Tacet owns external context. Target: the Orchestrator calls both; direct until it is built.
 
 Architecture, push-first pipeline. Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning (Gemini/GPT fallback) → WhatsApp or Email. MCP server, three atomic tools, multi-tenant. Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris).
 
@@ -52,7 +52,7 @@ URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-found
 
 ## Tacet
 
-URL: https://ivandemurard.com/tacet. Tacet is a headless Environmental Twin for hospitality (B2B, 2026, V3). It began as a Bruitparif-powered Score Sérénité dashboard for Parisians, then pivoted to a physics-based, software-only model of the property and its surroundings, exposed via an MCP (Model Context Protocol) server. Four architectural pillars: (A) a 3D ray-tracing physics engine built on shapely and osmnx that computes line of sight and building shielding to cut false positives; (B) a dual memory store with idiosyncratic learning per GPS coordinate plus a Hive Mind that recalibrates baseline sensitivity across the network; (C) a human-in-the-loop guardrail that never changes prices on its own but formulates Price Modifier Rules (for example minus 15% on street-facing suites between June 12 and 14) for Revenue Manager approval; (D) conversational explainability through a mathematical Chain of Thought embedded in every JSON payload (base noise, distance attenuation, ray-tracing penalty, final impact). Stack: Python 3.12, FastAPI, Anthropic MCP SDK, SQLAlchemy, OSMnx, Shapely, GeoPandas, OAuth2, Mews Open API, Apaleo API, RMS webhooks. Designed to work in tandem with Aetherix: Aetherix consumes Tacet rules via MCP, providing internal context (occupancy, F&B, staffing) while Tacet provides external context (street, weather, events). Together they form one predictive twin. ESG impact: yield protection through pre-emptive pricing of noisy inventory, operational excellence through F&B and staffing buffers ahead of weather or social disruption, sustainability through proactive HVAC optimisation and noise mitigation. Source: https://github.com/IvandeMurard/tacet-app/blob/main/CASE_STUDY_V3.md.
+URL: https://ivandemurard.com/tacet. Tacet is a headless Environmental Twin for hospitality (B2B, 2026, V3). It began as a Bruitparif-powered Score Sérénité dashboard for Parisians, then pivoted to a physics-based, software-only model of the property and its surroundings, exposed via an MCP (Model Context Protocol) server. Four architectural pillars: (A) a 3D ray-tracing physics engine built on shapely and osmnx that computes line of sight and building shielding to cut false positives; (B) a dual memory store with idiosyncratic learning per GPS coordinate plus a Hive Mind (Research: no network to aggregate yet) that would recalibrate baseline sensitivity across the network; (C) a human-in-the-loop guardrail that never changes prices on its own but formulates Price Modifier Rules (for example minus 15% on street-facing suites between June 12 and 14) for Revenue Manager approval; (D) conversational explainability through a mathematical Chain of Thought embedded in every JSON payload (base noise, distance attenuation, ray-tracing penalty, final impact). Stack: Python 3.12, FastAPI, Anthropic MCP SDK, SQLAlchemy, OSMnx, Shapely, GeoPandas, OAuth2, Mews Open API, Apaleo API, RMS webhooks. Designed to work in tandem with Aetherix: Aetherix consumes Tacet rules via MCP, providing internal context (occupancy, F&B, staffing) while Tacet provides external context (street, weather, events). Until the orchestrator is built (Design), this exchange is direct: the one documented exception, non-personal, read-only, logged. ESG impact: yield protection through pre-emptive pricing of noisy inventory, operational excellence through F&B and staffing buffers ahead of weather or social disruption, sustainability through proactive HVAC optimisation and noise mitigation. Source: https://github.com/IvandeMurard/tacet-app/blob/main/CASE_STUDY_V3.md.
 
 ## Lore
 
@@ -139,7 +139,7 @@ The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid 
 
 Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
-Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next (federated priors: Research), to give independents the power of a hive.
+Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors: Research, to give independents the power of a hive.
 
 Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built, maintenance mode since July 2026. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Design. Orchestrator, the supervisory agent, Design, proto-stub.
 
@@ -154,9 +154,9 @@ Contrast with Lore: Lore, in aviation maintenance, shares this architecture and 
 - Status: Built, 0 real users, forecast in shadow mode, pilot partner in recruitment. Apaleo OAuth and MCP read access operational.
 - Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris). MCP-native.
 
-## The loop that learns
+## The loop that records outcomes
 
-Every day, the same loop deposits one more grain of calibrated experience into the property's operational memory.
+Every day, the same loop adds one more record: recommendation, manager reply, measured outcome.
 
 - Memory. Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin. A true federated cohort prior (HiveMemory) is research, Phase 4+.
 - Prediction. A calibrated forecast for tomorrow: covers, staffing, waste risk, with the drivers behind it.
@@ -181,10 +181,12 @@ The underlying bottleneck is not data, it is synthesis: combining internal conte
 - States its drivers the evening before, then reports its own miss the next morning, in plain language.
 - Flagged a corrupted POS export rather than training on it.
 - Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.
-- Stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason: a role, not a named person.
+- Stores every recommendation next to what actually happened, with the manager's override recorded beside it.
 - Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.
 
 Sandbox data, real mechanics, deterministic reruns.
+
+Target (Design): overrides recorded with the responder's role and reason, not a named person.
 
 ## What it does
 
@@ -219,7 +221,7 @@ Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Arch
 
 ## Aetherix ↔ Tacet, MCP handshake
 
-Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches Aetherix directly: the one documented exception, non-personal, read-only, logged. Together they form one predictive twin for the property.
+Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches Aetherix directly: the one documented exception, non-personal, read-only, logged.
 
 ## Architecture
 
@@ -349,7 +351,7 @@ Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer
 
 Rather than overwhelming staff with another dashboard of raw data, Tacet mathematically calculates the real-world impact of external events. It exposes this intelligence via an MCP (Model Context Protocol) server so that operational agents like Aetherix can adjust F&B and staffing, while Tacet pushes actionable yield rules directly to the RMS (Atomize, Duetto and similar) for human approval.
 
-Three steps: Sense (proxy signals), Reason (ray-tracing physics + dual memory), Expose (MCP server with yield rules and Chain of Thought).
+Three steps: Sense (proxy signals), Reason (ray-tracing physics + dual memory), Expose (MCP server with yield rules and Chain of Thought for the RMS, the PMS, or the orchestrator (Design)).
 
 Example workflow:
 
@@ -359,13 +361,13 @@ Example workflow:
 
 **A. Spatial Physics Engine (Acoustic Ray-Tracing).** Using shapely and osmnx, Tacet draws 3D lines of sight between a disruptive event (jackhammer, stadium crowd, traffic spike) and the property. It cross-references the path against urban building polygons. When a building blocks the source, Tacet applies a dynamic shielding penalty. False positives drop, alert fatigue disappears.
 
-**B. Dual Memory System (Idiosyncratic + Hive Mind).** A predictive engine must learn from its mistakes.
+**B. Dual Memory System (Idiosyncratic + Hive Mind, Research: no network to aggregate yet).** A predictive engine must learn from its mistakes.
 - Idiosyncratic memory: if a hotel manager repeatedly rejects an automated alert for "traffic noise", Tacet learns the building likely has triple-glazed windows and applies a persistent shielding bonus at that GPS coordinate.
-- Hive Mind: a statistical aggregation engine analyses rejection rates across the global network to recalibrate baseline sensitivity for the entire ecosystem.
+- Hive Mind (Research: no network to aggregate yet): a statistical aggregation engine would analyse rejection rates across the global network to recalibrate baseline sensitivity for the entire ecosystem.
 
 **C. Human-in-the-Loop Guardrail.** Tacet never executes autonomous, destructive actions like changing a price blindly. It formulates a precise Price Modifier Rule (for example, minus 15% on street-facing suites between June 12 and 14) and pushes it to the RMS for human approval. Accountability stays with the team.
 
-**D. Conversational Explainability.** To guarantee transparency without a GUI, Tacet embeds a mathematical Chain of Thought in every JSON response. An orchestration agent like Aetherix parses it and explains the calculation (base noise, distance attenuation, ray-tracing penalty, final impact) to the Revenue Manager in natural language.
+**D. Conversational Explainability.** To guarantee transparency without a GUI, Tacet embeds a mathematical Chain of Thought in every JSON response. The orchestrator (Design) parses it and explains the calculation (base noise, distance attenuation, ray-tracing penalty, final impact) to the Revenue Manager in natural language.
 
 ## 4. Impact and ESG Alignment
 
@@ -377,7 +379,7 @@ Embedded in an agentic OS, properties shift from reactive to proactive yield and
 
 ## 5. Synergy with Aetherix
 
-Tacet exposes its rules and reasoning through MCP. [Aetherix](https://ivandemurard.com/aetherix) consumes them as one more tool in the multi-agent architecture, forming a complete predictive twin of the property.
+Tacet exposes its rules and reasoning through MCP. [Aetherix](https://ivandemurard.com/aetherix) consumes them as one more tool in the multi-agent architecture. Until the orchestrator is built (Design), this exchange is direct: the one documented exception, non-personal, read-only, logged.
 
 - **Aetherix (internal context):** anticipates operational needs, F&B demand and staffing based on occupancy and historical trends.
 - **Tacet (external context):** reads street, weather and event signals, ray-traces their impact, publishes yield rules on MCP.
@@ -661,6 +663,8 @@ Working memory should use the decaf tonight, so the bar does not ask twice. Sema
 ## 4. Claims carry confidence, and confidence decays
 
 Fig. 4.1, one preference ("prefers a high floor") held three ways:
+
+Illustrative values, nothing here is measured.
 
 | Regime | Source | Confidence | Age | Reading |
 |---|---|---|---|---|

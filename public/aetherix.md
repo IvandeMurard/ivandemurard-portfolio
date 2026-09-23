@@ -4,7 +4,7 @@ The F&B execution agent for boutique hotels. Tomorrow's covers, a staffing grid 
 
 Three promises, with honesty labels: Tomorrow's covers runs daily against real data; operator delivery begins with the pilot. It anticipates how many breakfasts, lunches and dinners to expect, with a confidence score and the drivers behind it. Staffing that fits (Pilot hypothesis) proposes a shift grid based on occupancy, capture-rate history and local context; the manager approves, adjusts or overrides. Less waste (Target outcome) spots over-ordering risk before purchase, with the historical signals that triggered the flag. Staffing and waste are hypotheses a pilot would test, not measured results.
 
-Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors next (federated priors: Research), to give independents the power of a hive.
+Thesis. Understand, like a human: contextual reasoning grounded in each property's history. Measure, like a machine: every recommendation is stored next to its real outcome, so the system knows what it said and what happened. Learn, like a network: per-property memory today, federated priors: Research, to give independents the power of a hive.
 
 Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built, maintenance mode since July 2026. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Design. Orchestrator, the supervisory agent, Design, proto-stub.
 
@@ -19,9 +19,9 @@ Contrast with Lore: Lore, in aviation maintenance, shares this architecture and 
 - Status: Built, 0 real users, forecast in shadow mode, pilot partner in recruitment. Apaleo OAuth and MCP read access operational.
 - Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris). MCP-native.
 
-## The loop that learns
+## The loop that records outcomes
 
-Every day, the same loop deposits one more grain of calibrated experience into the property's operational memory.
+Every day, the same loop adds one more record: recommendation, manager reply, measured outcome.
 
 - Memory. Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin. A true federated cohort prior (HiveMemory) is research, Phase 4+.
 - Prediction. A calibrated forecast for tomorrow: covers, staffing, waste risk, with the drivers behind it.
@@ -46,10 +46,12 @@ The underlying bottleneck is not data, it is synthesis: combining internal conte
 - States its drivers the evening before, then reports its own miss the next morning, in plain language.
 - Flagged a corrupted POS export rather than training on it.
 - Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.
-- Stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason: a role, not a named person.
+- Stores every recommendation next to what actually happened, with the manager's override recorded beside it.
 - Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.
 
 Sandbox data, real mechanics, deterministic reruns.
+
+Target (Design): overrides recorded with the responder's role and reason, not a named person.
 
 ## What it does
 
@@ -84,7 +86,7 @@ Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Arch
 
 ## Aetherix ↔ Tacet, MCP handshake
 
-Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches Aetherix directly: the one documented exception, non-personal, read-only, logged. Together they form one predictive twin for the property.
+Aetherix owns internal context (occupancy, F&B, staffing). Tacet owns external context (noise, weather, events). Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches Aetherix directly: the one documented exception, non-personal, read-only, logged.
 
 ## Architecture
 

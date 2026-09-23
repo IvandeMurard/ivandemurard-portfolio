@@ -52,7 +52,7 @@ const ALREADY_DOES = [
   "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
   "Flagged a corrupted POS export rather than training on it.",
   "Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.",
-  "Stores every recommendation next to what actually happened, with the override recorded with the responder's role and reason: a role, not a named person.",
+  "Stores every recommendation next to what actually happened, with the manager's override recorded beside it.",
   "Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.",
 ];
 
@@ -143,7 +143,7 @@ const THESIS = [
   {
     icon: "hive",
     title: "Learn, like a network",
-    body: "Per-property memory today, federated priors next (federated priors: Research), to give independents the power of a hive.",
+    body: "Per-property memory today, federated priors: Research, to give independents the power of a hive.",
   },
 ];
 
@@ -298,6 +298,13 @@ const Atherix = () => (
               className="mt-5 font-label uppercase tracking-[0.18em] text-[10px] text-secondary"
             >
               Sandbox data, real mechanics, deterministic reruns.
+            </p>
+            <p
+              data-reveal-child
+              style={{ ["--reveal-delay" as string]: "320ms" }}
+              className="mt-4 border-l-2 border-outline-variant pl-4 text-sm text-on-surface-variant leading-relaxed"
+            >
+              Target (Design): overrides recorded with the responder's role and reason, not a named person.
             </p>
           </div>
           <div className="max-w-2xl mb-10">
@@ -489,7 +496,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <SectionDivider label="How the memory compounds" index="05" />
+      <SectionDivider label="The loop that records outcomes" index="05" />
 
       {/* MEMORY COMPOUNDS */}
       <Reveal as="section" id="memory" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
@@ -511,9 +518,8 @@ const Atherix = () => (
               className="mt-6 text-on-surface-variant leading-relaxed"
             >
               Memory is not the offer, it is the mechanism that makes the forecast specific to one property rather
-              than generic. Every day, Aetherix runs the same loop. Each turn deposits one more grain of calibrated
-              experience into the property's operational memory, which is why the day-90 recommendation is sharper
-              than the day-7 one.
+              than generic. Every day, Aetherix runs the same loop and adds one more record: recommendation, manager
+              reply, measured outcome. This is why the day-90 recommendation is expected to be sharper than the day-7 one.
             </p>
           </div>
           <AetherixLoopCards />
