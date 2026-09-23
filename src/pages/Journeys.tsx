@@ -28,9 +28,9 @@ type Act = {
 
 /** The five agents of the mesh, in the order they exist. */
 const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
-  { name: "Aetherix", role: "F&B execution", status: "Built and instrumented", to: "/aetherix" },
+  { name: "Aetherix", role: "F&B execution", status: "Built, shadow mode", to: "/aetherix" },
   { name: "Tacet", role: "Environmental signal", status: "Built", to: "/tacet" },
-  { name: "Anima", role: "Guest cognition", status: "Synthetic PoC", to: "/anima" },
+  { name: "Anima", role: "Guest memory", status: "Synthetic PoC", to: "/anima" },
   { name: "Peritia", role: "House knowledge", status: "Design" },
   { name: "Orchestrator", role: "Supervisory routing", status: "Design" },
 ];
@@ -38,11 +38,11 @@ const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[]
 const ACTS: Act[] = [
   {
     group: "mesh",
-    kicker: "The Hospitality Mesh",
+    kicker: "The Hospitality Multi-Agent Architecture",
     slug: "aetherix",
     name: PROJECTS.atherix.name,
     body: "An agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees the human team to focus on exceptional guest experiences.",
-    note: "The food and beverage agent of the mesh.",
+    note: "The food and beverage agent of the architecture.",
     image: PROJECTS.atherix.image,
     cta: "Trace the Path",
     tint: { h: 38, s: 70, l: 55, a: 0.16 },
@@ -50,22 +50,22 @@ const ACTS: Act[] = [
   },
   {
     group: "mesh",
-    kicker: "The Hospitality Mesh",
+    kicker: "The Hospitality Multi-Agent Architecture",
     slug: "tacet",
     name: PROJECTS.tacet.name,
     body: "The Synthetic Acoustic Twin. A headless intelligence layer for hotels: a physics-based, software-only acoustic model that predicts how construction, traffic, weather and events affect guest rooms, then pushes JSON alerts to RMS and PMS for proactive yield management.",
-    note: "The environmental agent of the mesh.",
+    note: "The environmental agent of the architecture.",
     image: PROJECTS.tacet.image,
     cta: "Begin the Ascent",
     tint: { h: 230, s: 45, l: 22, a: 0.22 },
   },
   {
     group: "mesh",
-    kicker: "The Hospitality Mesh",
+    kicker: "The Hospitality Multi-Agent Architecture",
     slug: "anima",
     name: PROJECTS.anima.name,
-    body: "The guest agent of the mesh, and the one that is not allowed to simply accumulate. Four memory layers with different lifetimes, claims that carry a weight and a source and decay unless renewed, and a scope gate that makes asking for a whole person impossible. Built, evaluated on synthetic data, and deliberately not switched on.",
-    note: "The guest agent of the mesh.",
+    body: "The guest memory node, and the one that is not allowed to simply accumulate. Four memory layers with different lifetimes, claims that carry a weight and a source and decay unless renewed, and a scope gate that makes asking for a whole person impossible. Built, evaluated on synthetic data, and deliberately not switched on.",
+    note: "The guest memory node.",
     image: PROJECTS.anima.image,
     cta: "Read the Constraint",
     tint: { h: 200, s: 40, l: 30, a: 0.18 },
@@ -77,7 +77,7 @@ const ACTS: Act[] = [
     slug: "lore",
     name: PROJECTS.lore.name,
     body: "A living memory for a trade that is handed down out loud. Lore captures what a retiring aviation technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure, graded by a harness that treats safety as a tier with no budget.",
-    note: "Outside the mesh: the same architecture in aviation maintenance, where a licensed technician signs the release.",
+    note: "Outside: the same architecture in aviation maintenance, where a licensed technician signs the release.",
     image: PROJECTS.lore.image,
     cta: "Follow the Thread",
     tint: { h: 28, s: 55, l: 40, a: 0.18 },
@@ -88,7 +88,7 @@ const ACTS: Act[] = [
     slug: "sonor",
     name: PROJECTS.sonor.name,
     body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I built a SaaS platform that turns open data into actionable acoustic intelligence for cities. Used by municipalities to protect citizen health, drive sustainability policies, and increase territorial attractiveness.",
-    note: "Outside the mesh: a B2G SaaS, two years, before any of this.",
+    note: "Outside: a B2G SaaS, two years, before any of this.",
     image: PROJECTS.sonor.image,
     cta: "Explore the Narrative",
     tint: { h: 215, s: 65, l: 38, a: 0.18 },
@@ -267,7 +267,7 @@ const Journeys = () => {
     <SiteLayout title="Stories">
       <Seo
         title="Case Studies, Selected Work by Ivan de Murard"
-        description="The Hospitality Mesh: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone projects: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1."
+        description="The Hospitality Multi-Agent Architecture: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone projects: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1."
         path="/journeys"
         jsonLd={{
           "@context": "https://schema.org",
@@ -324,7 +324,7 @@ const Journeys = () => {
                   className="mt-8 max-w-md border-t border-outline-variant pt-6"
                 >
                   <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary block mb-2">
-                    The Hospitality Mesh
+                    The Hospitality Multi-Agent Architecture
                   </span>
                   <p className="text-on-surface-variant font-body text-sm leading-relaxed mb-4">
                     Five specialised agents, one architecture. Three of them have a page.
@@ -365,7 +365,7 @@ const Journeys = () => {
                 onMouseLeave={() => setHoveredSlug(ACTS[0].slug)}
               >
                 {[
-                  { title: "The Hospitality Mesh", acts: MESH_ACTS },
+                  { title: "The Hospitality Multi-Agent Architecture", acts: MESH_ACTS },
                   { title: "Standalone projects", acts: STANDALONE_ACTS },
                 ].map((group, gi) => (
                   <div key={group.title} className={gi > 0 ? "mt-10" : ""}>
@@ -445,7 +445,7 @@ const Journeys = () => {
               id="start-here"
               className="font-headline italic text-primary text-2xl md:text-4xl leading-tight mb-4 max-w-3xl"
             >
-              Start here: the Hospitality Agentic Mesh
+              Start here: the Hospitality Multi-Agent Architecture
             </h2>
             <p className="text-on-surface-variant font-body leading-relaxed max-w-2xl mb-6">
               Five specialised agents, one bounded context each, talking only through MCP. Which one is
@@ -482,7 +482,7 @@ const Journeys = () => {
               style={{ ["--reveal-delay" as string]: "160ms" }}
               className="text-on-surface-variant font-body leading-relaxed max-w-2xl"
             >
-              Not part of the mesh. Lore is the same architecture under a stricter regime, in aviation
+              Not part of this architecture. Lore is the same architecture under a stricter regime, in aviation
               maintenance. Sonor is the two-year B2G product that came before all of it.
             </p>
           </div>

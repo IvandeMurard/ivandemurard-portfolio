@@ -82,10 +82,10 @@ export const AetherixArchitectureDiagram = () => {
               <Icon name="hub" className="text-on-surface-variant text-lg" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-headline italic text-primary text-base md:text-lg leading-tight">MCP Server v0</p>
+              <p className="font-headline italic text-primary text-base md:text-lg leading-tight">MCP server</p>
               <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">Three atomic tools, multi-tenant</p>
             </div>
-            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">Live · Fly.io Paris</span>
+            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">Three atomic tools</span>
           </div>
         </div>
 

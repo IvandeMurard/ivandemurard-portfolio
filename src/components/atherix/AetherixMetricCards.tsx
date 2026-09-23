@@ -2,7 +2,7 @@ const METRICS = [
   {
     value: "Phase 3",
     label: "Pilot design partner in recruitment",
-    caveat: "Go-live targeted end of September. Staging live on Fly.io (Paris). Apaleo OAuth and MCP read operational.",
+    caveat: "0 real users. Forecast in shadow mode. Apaleo OAuth and MCP read operational.",
   },
   {
     value: "−3% to −8%",

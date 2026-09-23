@@ -1,5 +1,5 @@
-// Source of truth for the five mesh agents.
-// Used by the section 03 table and by the Mesh Blueprint figure on /architecture.
+// Source of truth for the five agents of the Hospitality Multi-Agent Architecture.
+// Used by the orientation rail and by the Fig. 3.1 blueprint on /architecture.
 // If you change facts here, also update public/architecture.md.
 
 export type MeshNodeState = "built" | "poc" | "design";
