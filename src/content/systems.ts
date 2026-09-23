@@ -18,7 +18,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/aetherix",
     what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built and instrumented, pilot partner in recruitment.",
+    status: "Built, 0 real users, forecast in shadow mode, pilot partner in recruitment.",
   },
   {
     slug: "tacet",
@@ -26,7 +26,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/tacet",
     what: "Headless environmental twin: street, weather and crowd signals turned into yield rules, exposed via MCP.",
     who: "RMS, PMS and orchestration agents, not humans.",
-    status: "Built: live data ingestion pipeline, MCP server v0 live on Fly.io.",
+    status: "Built, maintenance mode since July 2026.",
   },
   {
     slug: "lore",
@@ -40,7 +40,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     slug: "anima",
     name: "Anima",
     to: "/anima",
-    what: "Guest node: memory that makes every guest a regular, anticipating needs and learning from every stay without watching.",
+    what: "Guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice, without watching.",
     who: "The nodes that need to know who is arriving.",
     status: "Synthetic PoC, production gated behind a data-protection assessment.",
   },

@@ -16,7 +16,7 @@ export interface MeshNode {
 export const MESH_NODES: MeshNode[] = [
   {
     node: "Aetherix",
-    status: "Built and instrumented · pilot partner in recruitment",
+    status: "Built · 0 real users · forecast in shadow mode · pilot partner in recruitment",
     owns: "F&B execution: covers forecast, staffing grid, waste risk, per-property memory",
     not: "Orchestration, pricing, guest-facing anything",
     state: "built",
@@ -24,7 +24,7 @@ export const MESH_NODES: MeshNode[] = [
   },
   {
     node: "Tacet",
-    status: "Built: live data ingestion, MCP server v0 live",
+    status: "Built · maintenance mode since July 2026",
     owns: "External signal: weather, street, events, ray-traced acoustic impact, yield rules",
     not: "Deciding anything. It publishes rules for approval",
     state: "built",
@@ -33,8 +33,8 @@ export const MESH_NODES: MeshNode[] = [
   {
     node: "Anima",
     status: "Synthetic PoC, production DPIA-gated",
-    owns: "Guest cognition: temporal memory of a guest relationship, confidence-weighted claims",
-    not: "Acting on what it knows. Production is DPIA-gated",
+    owns: "Guest memory: what a guest said and what happened, four layers, each claim with source, confidence and age",
+    not: "Acting on it, or returning a whole person: every query declares one layer",
     state: "poc",
     to: "/anima",
   },
