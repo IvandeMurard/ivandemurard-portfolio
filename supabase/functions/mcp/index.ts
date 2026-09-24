@@ -248,7 +248,7 @@ var HARNESSES_ENTRY = {
       }
     ]
   },
-  updates: [{ "date": "2026-09-24", "summary": 'Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, and corrected layer 3 of the pyramid.', "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
+  updates: [{ "date": "2026-09-24", "summary": `Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes.`, "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
   body: [
     {
       kind: "p",
@@ -367,7 +367,7 @@ var HARNESSES_ENTRY = {
           arm: "A \u2014 Offline",
           when: "Before the merge",
           cells: [
-            { state: "covered", instance: "Versioned case sets, CI gate, merge blocked on red." },
+            { state: "partial", instance: "Versioned case sets, CI gate, merge blocked on red. The forecast is gated on a synthetic series, the reply parser on a stand-in.", cost: "The gate proves the pipeline did not regress, not that the models are right on real traffic." },
             { state: "covered", instance: "Ten graders across three severity tiers, run offline and live." }
           ]
         },
@@ -463,7 +463,7 @@ var HARNESSES_ENTRY = {
         { level: "Layer 4", name: "Memory recall relevance", note: "precision at five", detail: "Of the passages handed to the model, how many were genuinely relevant. Below 0.7 precision at five, two of the five were noise.", product: "Aetherix defines it. Lore's is the open hole.", signal: "retrieval score per call" },
         { level: "Layer 3", name: "Inbound feedback parser", note: "intent accuracy", detail: "The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data.", product: "Aetherix defines it. The model itself is not yet measured: the CI run grades a rule-based stand-in.", signal: "parsed intent plus confidence" },
         { level: "Layer 2", name: "LLM reasoning quality", note: "what the graders cover", detail: "Does the answer follow the procedure, cite it, refuse when it must. This is the layer the ten Lore graders occupy.", product: "Both", signal: "grader verdict plus typed reason" },
-        { level: "Layer 1", name: "Forecast accuracy", note: "MAPE", detail: "Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.", product: "Aetherix", signal: "MAPE per service" },
+        { level: "Layer 1", name: "Forecast accuracy", note: "MAPE", detail: "Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.", product: "Aetherix. In CI on a synthetic series; against realised covers from the pilot on.", signal: "MAPE per service" },
         { level: "Base", name: "Case set and failure definitions", note: "blocking prerequisite", base: true, detail: "Representative cases with known answers, and a written definition of what counts as a bad output. Everything above is unmeasurable without it.", product: "Both", signal: "versioned case set" }
       ]
     },
@@ -678,7 +678,7 @@ var HARNESSES_ENTRY = {
       icon: "how_to_reg",
       minutes: 1,
       oneLine: "Keeping a human is fine. Leaving the human as the only mechanism, without capturing their decision, is not.",
-      concrete: "In Aetherix every accept, modify or reject is an event. In aviation the technician remains the certifying agent, by law."
+      concrete: "In Aetherix an exact accept or reject, or a corrected figure, is recorded as an event; free text is not yet mapped. In aviation the technician remains the certifying agent, by law."
     },
     {
       kind: "table",
@@ -815,10 +815,10 @@ var HARNESSES_ENTRY = {
     { "kind": "h3", "text": "What it does not add" },
     { "kind": "p", "text": "Arm C. Across that entire body of work, almost nothing measures whether the output was acted on and whether acting on it helped. The closest is a single ratio - accepted outputs over human review minutes - stated once and not developed. The attention went to the half of the problem that is visible before deployment." },
     { "kind": "p", "text": "Which leaves the gap this piece named in section 2 and did not close. Stated now so it can be checked:" },
-    { "kind": "list", "items": ["**Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values are already recorded: `accepted`, `rejected`, `modified`, `ignored`. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.", "**Human minutes per accepted output** - the direct measure of the interruption budget. A system that raises acceptance by asking more often has not improved. It has spent someone else's attention to buy its own score."] },
+    { "kind": "list", "items": ['**Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values exist in the schema - `accepted`, `rejected`, `modified`, `ignored` - but today only an exact "accept" or "reject" records the first two: a free-text refusal is stored as `modified`, and a bare "ok" records nothing. Measuring acceptance starts with fixing that capture. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.', "**Human minutes per accepted output** - the direct measure of the interruption budget. A system that raises acceptance by asking more often has not improved. It has spent someone else's attention to buy its own score."] },
     { "kind": "p", "text": "Neither is worth reading without the other. Acceptance rate alone is a Goodhart target, and a system optimised on it learns to emit bland, agreeable outputs that cost nothing to approve - the same shape as a support bot that drives its ticket-resolution rate up by closing tickets instead of solving them." },
     { "kind": "p", "text": "And arm C data only compounds if the correction is routed. An override reports that *some layer* was wrong, and which layer decides what the fix is: a stale fact belongs in memory, an unwritten rule belongs in a recorded decision, a preference seen three times belongs in a policy, an unseen pattern belongs in the case set, and an output that should never have been surfaced belongs in the filter upstream. Only the fourth is a retrain. Recording the override as free text - which is what both systems do today - collapses all five into one undifferentiated pile." },
-    { "kind": "list", "items": ["**Aetherix**: arms A and B built, arm C recorded but not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).", "**Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase."] },
+    { "kind": "list", "items": ["**Aetherix**: arm A built, with the forecast gated on synthetic data and the reply parser on a stand-in; arm B partial; arm C partly recorded (keyword replies only) and not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).", "**Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase."] },
     { kind: "h2", text: "14. Frequently asked questions", aliases: ["13-frequently-asked-questions"] },
     {
       kind: "lines",
@@ -867,6 +867,13 @@ var JOURNAL_ENTRIES = [
     title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
     subtitle: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
+    updates: [
+      {
+        date: "2026-09-24",
+        summary: "Corrected what the note said about recorded replies, the CI forecast baseline and the drift example.",
+        reason: 'An audit of the Aetherix repository found that only an exact "accept" or "reject", or a corrected figure, records a decision; that the forecast baseline in CI is computed on a synthetic series, not on realised covers; and that the corrupted export and the regime shift come from a simulated 30-day scenario. The note had said more than that.'
+      }
+    ],
     category: "Agentic AI",
     excerpt: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     body: [
@@ -911,21 +918,21 @@ var JOURNAL_ENTRIES = [
       },
       {
         kind: "p",
-        text: "The manager taps accept, modify or reject. That tap is not politeness. It is the recorded output of a decision node."
+        text: "The manager replies accept, reject, or the right figure. That reply is not politeness. It is the recorded output of a decision node."
       },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
         kind: "p",
-        text: "The forecast becomes measurable on its own terms: MAPE against realised covers, compared to a frozen baseline, in CI, blocking a merge. That number means something precisely because the component producing it does one thing."
+        text: "The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing."
       },
       {
         kind: "p",
-        text: "And the action becomes accountable. Every accept, modify or reject is an event with the recommendation stored beside it. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace."
+        text: "And the action becomes accountable. Every recorded accept, reject or correction is an event with the recommendation stored beside it. Today that means an exact accept or reject, or a figure: a free-text reply is not yet mapped to a decision, a gap an audit found in September 2026. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace."
       },
       {
         kind: "p",
-        text: "The seam is also what lets the system be honest about itself. It flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check."
+        text: "The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check."
       },
       { kind: "h2", text: "What it cost" },
       {

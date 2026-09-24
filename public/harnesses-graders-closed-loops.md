@@ -82,7 +82,7 @@ You do not test a parachute against a case set; you measure it in flight. Provid
 
 |  | Aetherix | Lore |
 | --- | --- | --- |
-| Human loop | One tap on WhatsApp: accept, modify, reject | The intervention log, not yet exploited |
+| Human loop | A WhatsApp reply: an exact accept or reject, or a corrected figure, is recorded; free text is not yet mapped | The intervention log, not yet exploited |
 | Automatic comparison | Yes. Forecast error computes itself and is the level-1 product KPI | None |
 | Ground truth | Declared by the manager. Reading it from the point of sale is phase 4 and has its own architecture decision on file | None, and the signal is censored: escalate, and the counterfactual disappears |
 
@@ -119,7 +119,7 @@ Without a case set and without failure definitions, nothing above the base can b
 - Layer 4: Memory recall relevance (precision at five) Of the passages handed to the model, how many were genuinely relevant. Below 0.7 precision at five, two of the five were noise.
 - Layer 3: Inbound feedback parser (intent accuracy) The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data. Aetherix defines it. The model itself is not yet measured: the CI run grades a rule-based stand-in.
 - Layer 2: LLM reasoning quality (what the graders cover) Does the answer follow the procedure, cite it, refuse when it must. This is the layer the ten Lore graders occupy.
-- Layer 1: Forecast accuracy (MAPE) Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.
+- Layer 1: Forecast accuracy (MAPE) Forecast error against realised covers. Drifting more than three points from baseline is a defined failure. Aetherix: in CI on a synthetic series; against realised covers from the pilot on.
 - Base: Case set and failure definitions (blocking prerequisite) Representative cases with known answers, and a written definition of what counts as a bad output. Everything above is unmeasurable without it.
 
 - Aetherix: The pyramid comes from its reliability plan. Every layer has a numeric failure definition.
@@ -231,7 +231,7 @@ What is not done yet, named as a gap: there is no scheduled red-team pass, no ad
 
 ## 10. Human in the loop: by design or by default
 
-**SEC. 10** Keeping a human is fine. Leaving the human as the only mechanism, without capturing their decision, is not. Concrete case: In Aetherix every accept, modify or reject is an event. In aviation the technician remains the certifying agent, by law.
+**SEC. 10** Keeping a human is fine. Leaving the human as the only mechanism, without capturing their decision, is not. Concrete case: In Aetherix an exact accept or reject, or a corrected figure, is recorded as an event; free text is not yet mapped. In aviation the technician remains the certifying agent, by law.
 
 |  | By design | By default |
 | --- | --- | --- |
@@ -325,14 +325,14 @@ Arm C. Across that entire body of work, almost nothing measures whether the outp
 
 Which leaves the gap this piece named in section 2 and did not close. Stated now so it can be checked:
 
-- **Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values are already recorded: `accepted`, `rejected`, `modified`, `ignored`. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.
+- **Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values exist in the schema - `accepted`, `rejected`, `modified`, `ignored` - but today only an exact "accept" or "reject" records the first two: a free-text refusal is stored as `modified`, and a bare "ok" records nothing. Measuring acceptance starts with fixing that capture. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.
 - **Human minutes per accepted output** - the direct measure of the interruption budget. A system that raises acceptance by asking more often has not improved. It has spent someone else's attention to buy its own score.
 
 Neither is worth reading without the other. Acceptance rate alone is a Goodhart target, and a system optimised on it learns to emit bland, agreeable outputs that cost nothing to approve - the same shape as a support bot that drives its ticket-resolution rate up by closing tickets instead of solving them.
 
 And arm C data only compounds if the correction is routed. An override reports that *some layer* was wrong, and which layer decides what the fix is: a stale fact belongs in memory, an unwritten rule belongs in a recorded decision, a preference seen three times belongs in a policy, an unseen pattern belongs in the case set, and an output that should never have been surfaced belongs in the filter upstream. Only the fourth is a retrain. Recording the override as free text - which is what both systems do today - collapses all five into one undifferentiated pile.
 
-- **Aetherix**: arms A and B built, arm C recorded but not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).
+- **Aetherix**: arm A built, with the forecast gated on synthetic data and the reply parser on a stand-in; arm B partial; arm C partly recorded (keyword replies only) and not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).
 - **Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase.
 
 <a id="13-frequently-asked-questions"></a>
@@ -362,7 +362,7 @@ A note on where it came from. I wrote the first version for myself, before inter
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
 
-2026-09-24 · Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, and corrected layer 3 of the pyramid. *Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so.*
+2026-09-24 · Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes. *Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.*
 
 2026-09-12 · Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2. *Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.*
 
