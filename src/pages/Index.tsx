@@ -437,11 +437,18 @@ const Index = () => {
       </div>
       <div className="farewell-card relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-2xl overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
         <div className="absolute inset-0 bg-primary-fixed-dim/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        {/* Blind-stamped press mark, laid into the card like a watermark in laid paper */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+        >
+          <PressMark className="h-[78%] w-auto text-primary opacity-[0.07] [filter:drop-shadow(0_1px_0_hsl(var(--surface-bright)/0.5))] stroke-[0.7]" />
+        </div>
         <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
           Thank you for your visit
         </h2>
         <p className="text-on-surface font-normal mb-12 max-w-lg mx-auto relative z-10">
-          Contact. Let's discuss how to create business value and meaningful human experiences for your
+          Let's discuss how to create business value and meaningful human experiences for your
           operations or users.
         </p>
         <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 relative z-10">
