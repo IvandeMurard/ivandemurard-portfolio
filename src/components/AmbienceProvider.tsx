@@ -6,7 +6,7 @@ import { useMood } from "./MoodProvider";
  *
  * Plays a soundtrack bound to the day/dusk mood toggle:
  *  - day  → /audio/day.mp3   (smooth Brazilian downtempo register)
- *  - dusk → /audio/dusk.mp3  (uptempo UK new-jazz / soul register)
+ *  - dusk → /audio/dusk.mp3  (instrumental hip hop, Odetta "ATCQ Tribute")
  *
  * Playback rules:
  *  - Off by default. First play requires a user gesture (browser policy + tasteful default).
