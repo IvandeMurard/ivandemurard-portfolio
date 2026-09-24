@@ -2,7 +2,7 @@
 
 _A working vocabulary for building evaluation into AI products from day one, tested on two real systems._
 
-Published 2026-07-31 · Evaluation · 14 min read
+Published 2026-07-31 · Evaluation · 17 min read
 
 **TL;DR** - A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
 
@@ -106,7 +106,7 @@ Without a case set and without failure definitions, nothing above the base can b
 
 - Layer 5: Trust KPI ablation (Does removing a feature move the trust KPI) Turn one component off and measure the effect on the product KPI. Neither product runs this yet.
 - Layer 4: Memory recall relevance (precision at five) Of the passages handed to the model, how many were genuinely relevant. Below 0.7 precision at five, two of the five were noise.
-- Layer 3: Inbound feedback parser (intent accuracy) The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data.
+- Layer 3: Inbound feedback parser (intent accuracy) The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data. Aetherix defines it. The model itself is not yet measured: the CI run grades a rule-based stand-in.
 - Layer 2: LLM reasoning quality (what the graders cover) Does the answer follow the procedure, cite it, refuse when it must. This is the layer the ten Lore graders occupy.
 - Layer 1: Forecast accuracy (MAPE) Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.
 - Base: Case set and failure definitions (blocking prerequisite) Representative cases with known answers, and a written definition of what counts as a bad output. Everything above is unmeasurable without it.
@@ -192,6 +192,19 @@ Hence the rule corrected rather than quietly dropped: 0.00 points of variance re
 - **Confident wrongness**: The dangerous output is not the refusal, it is the fluent answer with the wrong threshold in it. Adversarial cases target the seam: exact band boundaries, a second expert contradicting the first, social pressure to grant permission.
 
 > A regression suite proves that graders reject bad answers. It never proves they accept good ones phrased differently from how their author phrased them. That takes a real run.
+
+Reproduce it. The regression target hands the graders nineteen answers known to be wrong, most of them verbatim model outputs, and checks that each is rejected with its reason. PASS means the bad answer was caught. It runs offline, needs no API key, and costs nothing.
+
+```bash
+git clone https://github.com/IvandeMurard/Lore && cd Lore/frontend
+npm ci && npx tsx evals/runner.ts --target regression
+
+PASS  abstain-05       caught by abstention: refused, then volunteered figures anyway: 36
+PASS  attribution-06   caught by no-fabricated-consensus: claims agreement beyond the 1 source(s) retrieved: "Other technicians familiar with this airframe likely agree"
+PASS  learner-01       caught by learner-address: addresses the learner as Marc: "Marc,"
+...
+  19/19 known failures caught
+```
 
 What is not done yet, named as a gap: there is no scheduled red-team pass, no adversarial corpus maintained separately from the case set, and no second author on the graders. On Lore the adversarial work has been opportunistic, triggered by reading real runs. That is better than nothing and worse than a protocol.
 
@@ -338,7 +351,7 @@ A note on where it came from. I wrote the first version for myself, before inter
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
 
-2026-09-24 · Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, and replaced the 52-out-of-53 example. *Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests.*
+2026-09-24 · Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, and corrected layer 3 of the pyramid. *Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so.*
 
 2026-09-12 · Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2. *Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.*
 
