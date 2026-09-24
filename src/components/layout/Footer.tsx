@@ -20,7 +20,7 @@ export const Footer = () => {
   const track = useTrackClick();
   const { pathname } = useLocation();
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
-  const showColophon = !pathname.startsWith("/contact");
+  const showColophon = pathname !== "/" && !pathname.startsWith("/contact");
 
   const copyMcpCommand = async () => {
     try {
@@ -39,15 +39,12 @@ export const Footer = () => {
         {showColophon && (
           <div className="group mx-auto max-w-xl pb-10 mb-8 border-b border-outline-variant text-center md:pb-14 md:mb-10">
             <PressMark className="mx-auto h-32 w-auto text-outline transition-colors duration-700 group-hover:text-secondary md:h-40" />
-            <p className="mt-6 font-label text-[10px] uppercase tracking-[0.24em] text-secondary">
-              Colophon
-            </p>
-            <p className="mt-4 font-display text-xl italic text-on-surface md:text-2xl">
+            <p className="mt-6 font-display text-xl italic text-on-surface md:text-2xl">
               Thank you for your time.
             </p>
             <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
               In a crowded field, sustained attention is the rarest courtesy. I hope this work
-              offered both rigour and quiet clarity.
+              offered both enlightenment and quiet clarity.
             </p>
             <p className="mt-5 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
               Conceived and crafted in Paris · Built 0→1 · Verified through open specifications
