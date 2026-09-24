@@ -26,7 +26,7 @@ import { ShareRow } from "@/components/journal/ShareRow";
 import { EntryActions } from "@/components/journal/EntryActions";
 import { CoverageMatrix } from "@/components/journal/CoverageMatrix";
 import { EntryOpening } from "@/components/journal/EntryOpening";
-import { FailureFunnel } from "@/components/journal/FailureFunnel";
+import { SelfDiagnostic } from "@/components/journal/SelfDiagnostic";
 import { HarnessConsole } from "@/components/journal/HarnessConsole";
 import { McpEndpoint } from "@/components/McpEndpoint";
 
@@ -446,7 +446,15 @@ const JournalEntry = () => {
               punch={entry.takeawayPunch}
             />
           ) : null}
-          {entry.funnel && <FailureFunnel label={entry.funnel.label} options={entry.funnel.options} />}
+          {entry.diagnostic && (
+            <SelfDiagnostic
+              label={entry.diagnostic.label}
+              intro={entry.diagnostic.intro}
+              caveat={entry.diagnostic.caveat}
+              allYes={entry.diagnostic.allYes}
+              questions={entry.diagnostic.questions}
+            />
+          )}
           {!entry.glance && !entry.takeaways?.length ? (
             <>
               {entry.tldr && (

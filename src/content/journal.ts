@@ -15,6 +15,18 @@ export type PyramidLayer = {
   signal?: string;
 };
 
+/** One self-diagnostic question, answered yes / partly / no by the reader. */
+export type DiagnosticQuestion = {
+  key: string;
+  arm: "A" | "B" | "C";
+  ask: string;
+  /** What a "no" costs, shown when this is the first gap in dependency order. */
+  gap: string;
+  /** Heading id to jump to. */
+  to: string;
+  toLabel: string;
+};
+
 /** One version of the harness grading the same recorded answer. */
 export type StepperStep = {
   tab: string;
@@ -94,18 +106,13 @@ export type JournalEntry = {
   takeaways?: string[];
   /** One line that carries the argument, set apart under the takeaways. */
   takeawayPunch?: string;
-  /** Entry funnel: pick the failure moment, get the arm and the section to start from. */
-  funnel?: {
-    label?: string;
-    options: {
-      key: string;
-      label: string;
-      when: string;
-      proves: string;
-      misses: string;
-      to: string;
-      toLabel: string;
-    }[];
+  /** Self-diagnostic: six questions in dependency order, the reader's own three-arm reading, and where to start. */
+  diagnostic?: {
+    label: string;
+    intro: string;
+    caveat: string;
+    allYes: string;
+    questions: DiagnosticQuestion[];
   };
   updates?: { date: string; summary: string; reason: string }[];
   body: JournalBlock[];

@@ -36,39 +36,57 @@ export const HARNESSES_ENTRY: JournalEntry = {
     proof:
       "Two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped.",
   },
-  funnel: {
-    label: "Where would your failure show up?",
-    options: [
+  diagnostic: {
+    label: "Check your own system",
+    intro: "Six questions about the system you ship, in the order the layers depend on each other. The first gap is where to start.",
+    caveat: "Self-declared, like the confidence score in section 9: it says where to look first, not whether it holds. Nothing you select leaves this page.",
+    allYes: "Six yeses. The next question is section 8's: who wrote the graders, and has anyone tried to break them?",
+    questions: [
       {
-        key: "offline",
-        label: "Before release",
-        when: "A change ships and quality quietly drops",
-        proves:
-          "Arm A, offline. A frozen case set, graded criterion by criterion, run on every change: regressions are caught before the merge.",
-        misses:
-          "Everything the case set never imagined, and everything that only happens on real traffic.",
+        key: "caseSet",
+        arm: "A",
+        ask: "Is there a set of cases with known correct answers, edge cases included, written down before or with the model code?",
+        gap: "Without a case set and a written definition of failure, nothing above it can be measured. Section 4 calls it a blocking prerequisite.",
+        to: "5-evaluation-as-a-contract",
+        toLabel: "Start at section 5, evaluation as a contract",
+      },
+      {
+        key: "tiers",
+        arm: "A",
+        ask: "Does each kind of failure have its own threshold, and can a breach of the worst kind block a release on its own, whatever the pass rate?",
+        gap: "A pass rate with no threshold attached is a number, not a decision. 61 out of 64 can be a failure.",
         to: "6-acceptance-criteria-the-part-everyone-skips",
         toLabel: "Start at section 6, acceptance criteria",
       },
       {
-        key: "runtime",
-        label: "In production",
-        when: "It drifts, hallucinates, or acts out of scope live",
-        proves:
-          "Arm B, runtime. Guardrails and anomaly detection on real traffic: error rates, output bounds, abstention, drift, latency.",
-        misses:
-          "Whether the output was any good in the end. Live signals tell you the system behaved, not that it helped.",
+        key: "stable",
+        arm: "A",
+        ask: "Have the same inputs been replayed several times, with the same score, before any threshold was allowed to block?",
+        gap: "Until the instrument holds still, a threshold blocks or passes on the draw, not on the work.",
         to: "7-the-canary-and-why-it-was-invalidated",
         toLabel: "Start at section 7, the canary",
       },
       {
+        key: "realModel",
+        arm: "A",
+        ask: "Is every quality number you report produced by what actually ships: the real model on the real path, not a stand-in, a mock, or a target copied from a document?",
+        gap: "A stand-in written against the same cases passes by construction. The gate is green on something nobody uses.",
+        to: "12-what-a-harness-finds-that-no-unit-test-sees",
+        toLabel: "Start at section 12, what a harness finds",
+      },
+      {
+        key: "signals",
+        arm: "B",
+        ask: "In production, does each layer emit a typed signal (refusal reason, retrieval score, latency) that can raise an alert before a user notices?",
+        gap: "Without signals, drift shows up one release late, or when someone complains.",
+        to: "11-signals-ontology-priors",
+        toLabel: "Start at section 11, signals",
+      },
+      {
         key: "outcome",
-        label: "After real use",
-        when: "It looked fine and still produced no value",
-        proves:
-          "Arm C, outcome. Was the output acted on, and did reality confirm it: forecast error against realised covers, procedure against signed work record.",
-        misses:
-          "Speed. The loop closes in weeks, so it cannot guard a release on its own.",
+        arm: "C",
+        ask: "Do you learn whether each output was acted on and whether reality proved it right, with overrides recorded as data rather than free text?",
+        gap: "Without outcomes you measure but never learn, and no confidence score can be calibrated.",
         to: "2-three-arms-and-what-each-product-can-afford",
         toLabel: "Start at section 2, the three arms",
       },

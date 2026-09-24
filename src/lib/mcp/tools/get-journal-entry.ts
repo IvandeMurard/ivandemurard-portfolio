@@ -104,6 +104,11 @@ export default defineTool({
         ? `What you will decide differently:\n${entry.takeaways.map((t) => `- ${t}`).join("\n")}`
         : "",
       entry.takeawayPunch ?? "",
+      entry.diagnostic
+        ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}\n${entry.diagnostic.questions
+            .map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN}/journal/${entry.slug}#${q.to}`)
+            .join("\n")}\n${entry.diagnostic.caveat}`
+        : "",
       entry.excerpt,
       bodyText,
       entry.updates?.length ? `## Updates\n\nThis piece is revised when something it claims stops being true. Each revision says what changed and why.\n\n${entry.updates.map(u => `${u.date} · ${u.summary} ${u.reason}`).join("\n")}` : "",
@@ -129,6 +134,7 @@ export default defineTool({
         glance: entry.glance ?? null,
         takeaways: entry.takeaways ?? [],
         takeaway_punch: entry.takeawayPunch ?? null,
+        diagnostic: entry.diagnostic ?? null,
         updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN}${entry.mirror}` : null,
         body: entry.body,

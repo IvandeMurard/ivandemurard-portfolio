@@ -18,6 +18,17 @@ Most teams building with language models can describe what their system does. Fa
 
 **Read this if** you are shipping an LLM agent that recommends, decides, or acts, and the usual unit tests say nothing about the ways it actually fails. **What it gives you**: the working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release. **Tested on** two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped.
 
+**Check your own system.** Six questions about the system you ship, in the order the layers depend on each other. The first gap is where to start. Answer yes, partly or no; the first "no" in this order is where to start, then the first "partly".
+
+1. *Arm A.* Is there a set of cases with known correct answers, edge cases included, written down before or with the model code? If not: Without a case set and a written definition of failure, nothing above it can be measured. Section 4 calls it a blocking prerequisite. See section 5.
+2. *Arm A.* Does each kind of failure have its own threshold, and can a breach of the worst kind block a release on its own, whatever the pass rate? If not: A pass rate with no threshold attached is a number, not a decision. 61 out of 64 can be a failure. See section 6.
+3. *Arm A.* Have the same inputs been replayed several times, with the same score, before any threshold was allowed to block? If not: Until the instrument holds still, a threshold blocks or passes on the draw, not on the work. See section 7.
+4. *Arm A.* Is every quality number you report produced by what actually ships: the real model on the real path, not a stand-in, a mock, or a target copied from a document? If not: A stand-in written against the same cases passes by construction. The gate is green on something nobody uses. See section 12.
+5. *Arm B.* In production, does each layer emit a typed signal (refusal reason, retrieval score, latency) that can raise an alert before a user notices? If not: Without signals, drift shows up one release late, or when someone complains. See section 11.
+6. *Arm C.* Do you learn whether each output was acted on and whether reality proved it right, with overrides recorded as data rather than free text? If not: Without outcomes you measure but never learn, and no confidence score can be calibrated. See section 2.
+
+*Self-declared, like the confidence score in section 9: it says where to look first, not whether it holds.*
+
 - **Aetherix**: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Users: Other agents via MCP, or a hotel / F&B manager with WhatsApp. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
 - **Lore**: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed.
 
