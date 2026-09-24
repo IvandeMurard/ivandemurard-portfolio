@@ -91,13 +91,13 @@ The closing sentence is enforced in code, not in the prompt. Every maintenance a
 
 The failure mode here is not a crash. It is a syntactically perfect answer that gives a technician the wrong threshold. Test coverage cannot see that, so the answers get graded instead of the code.
 
-64 cases across 12 categories. 9 graders, every one a pure function, because a grader that needs a model to decide cannot gate a safety property: it fails the same way as the thing it grades. The tiers are not an inventory of what goes wrong. They are the standing conditions under which an answer, and later the record of how it was used, can be trusted.
+64 cases across 12 categories. 10 graders, every one a pure function, because a grader that needs a model to decide cannot gate a safety property: it fails the same way as the thing it grades. The tiers are not an inventory of what goes wrong. They are the standing conditions under which an answer, and later the record of how it was used, can be trusted.
 
-Fig. 7.1, Compliance spectrogram. Nine numbered bands represent the deterministic graders, grouped by acceptance tier: safety at 100% with no budget, trust at 95%, and form at 90%. The bands are numbered rather than given invented names. A form variance can remain visible inside its budget; one safety miss closes the gate.
+Fig. 7.1, Compliance spectrogram. Ten numbered bands represent the deterministic graders, grouped by acceptance tier: safety at 100% with no budget, trust at 95%, and form at 90%. The bands are numbered rather than given invented names. A form variance can remain visible inside its budget; one safety miss closes the gate.
 
-One run scored 52 out of 53 and was declared a failure, because the single miss was in tier 1.
+One live run scored 61 out of 64, 95 percent, and was declared a failure, because two of its three misses were in tier 1.
 
-The full protocol, how the 9 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Evaluating LLM agents: how would you know it had stopped working?": https://ivandemurard.com/journal/harnesses-graders-closed-loops
+The full protocol, how the 10 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Evaluating LLM agents: how would you know it had stopped working?": https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 ## What it is for
 

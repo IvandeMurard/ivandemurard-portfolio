@@ -7,11 +7,12 @@ const BANDS = [
   { id: "G-02", tier: "Safety", tone: "gate" },
   { id: "G-03", tier: "Safety", tone: "gate" },
   { id: "G-04", tier: "Safety", tone: "gate" },
-  { id: "G-05", tier: "Trust", tone: "trust" },
+  { id: "G-05", tier: "Safety", tone: "gate" },
   { id: "G-06", tier: "Trust", tone: "trust" },
-  { id: "G-07", tier: "Form", tone: "form" },
+  { id: "G-07", tier: "Trust", tone: "trust" },
   { id: "G-08", tier: "Form", tone: "form" },
   { id: "G-09", tier: "Form", tone: "form" },
+  { id: "G-10", tier: "Form", tone: "form" },
 ] as const;
 
 const reducedMotion = () =>
@@ -128,13 +129,13 @@ export const LoreComplianceSpectrogram = () => {
               {running ? "Scanning" : done ? "Scan again" : "Scan suite"}
             </Button>
             <span aria-live="polite" className="font-mono text-[10px] uppercase text-on-surface-variant">
-              {done ? "Gate open · form variance retained" : running ? `Reading ${BANDS[Math.min(step, BANDS.length - 1)]?.id ?? "G-01"}` : "9 deterministic graders · instrument at rest"}
+              {done ? "Gate open · form variance retained" : running ? `Reading ${BANDS[Math.min(step, BANDS.length - 1)]?.id ?? "G-01"}` : "10 deterministic graders · instrument at rest"}
             </span>
           </div>
         </div>
       </div>
       <figcaption className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
-        The bands show the hierarchy, not nine invented names. A 52/53 run still failed when its single miss landed in Safety.
+        The bands show the hierarchy, not ten invented names. A 61/64 run still failed when two of its misses landed in Safety.
       </figcaption>
     </figure>
   );

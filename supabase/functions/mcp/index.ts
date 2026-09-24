@@ -186,7 +186,7 @@ var HARNESSES_ENTRY = {
     { label: "Aetherix", to: "/aetherix" }
   ],
   excerpt: "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
-  tldr: "A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 52 out of 53 is a failure when the miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.",
+  tldr: "A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.",
   glance: {
     audience: "You are shipping an LLM agent that recommends, decides, or acts, and the usual unit tests say nothing about the ways it actually fails.",
     promise: "The working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release.",
@@ -224,7 +224,7 @@ var HARNESSES_ENTRY = {
       }
     ]
   },
-  updates: [{ "date": "2026-09-24", "summary": 'Corrected the dating in section 13, added "Where the two meet: the verify step", and replaced figure 7.1 with figure 12.1.', "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
+  updates: [{ "date": "2026-09-24", "summary": 'Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, and replaced the 52-out-of-53 example.', "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
   body: [
     {
       kind: "p",
@@ -261,7 +261,7 @@ var HARNESSES_ENTRY = {
       icon: "menu_book",
       minutes: 2,
       oneLine: "A grader judges one criterion, a harness runs the exam, a protocol says what passing means.",
-      concrete: "Lore has 9 graders, one harness, and one protocol document that decides when CI goes red."
+      concrete: "Lore has 10 graders, one harness, and one protocol document that decides when CI goes red."
     },
     {
       kind: "p",
@@ -344,7 +344,7 @@ var HARNESSES_ENTRY = {
           when: "Before the merge",
           cells: [
             { state: "covered", instance: "Versioned case sets, CI gate, merge blocked on red." },
-            { state: "covered", instance: "Nine graders across three severity tiers, run offline and live." }
+            { state: "covered", instance: "Ten graders across three severity tiers, run offline and live." }
           ]
         },
         {
@@ -438,7 +438,7 @@ var HARNESSES_ENTRY = {
         { level: "Layer 5", name: "Trust KPI ablation", note: "Does removing a feature move the trust KPI", detail: "Turn one component off and measure the effect on the product KPI. Neither product runs this yet.", product: "Neither, planned on Aetherix", signal: "KPI delta per ablation" },
         { level: "Layer 4", name: "Memory recall relevance", note: "precision at five", detail: "Of the passages handed to the model, how many were genuinely relevant. Below 0.7 precision at five, two of the five were noise.", product: "Aetherix defines it. Lore's is the open hole.", signal: "retrieval score per call" },
         { level: "Layer 3", name: "Inbound feedback parser", note: "intent accuracy", detail: "The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data.", product: "Aetherix", signal: "parsed intent plus confidence" },
-        { level: "Layer 2", name: "LLM reasoning quality", note: "what the graders cover", detail: "Does the answer follow the procedure, cite it, refuse when it must. This is the layer the nine Lore graders occupy.", product: "Both", signal: "grader verdict plus typed reason" },
+        { level: "Layer 2", name: "LLM reasoning quality", note: "what the graders cover", detail: "Does the answer follow the procedure, cite it, refuse when it must. This is the layer the ten Lore graders occupy.", product: "Both", signal: "grader verdict plus typed reason" },
         { level: "Layer 1", name: "Forecast accuracy", note: "MAPE", detail: "Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.", product: "Aetherix", signal: "MAPE per service" },
         { level: "Base", name: "Case set and failure definitions", note: "blocking prerequisite", base: true, detail: "Representative cases with known answers, and a written definition of what counts as a bad output. Everything above is unmeasurable without it.", product: "Both", signal: "versioned case set" }
       ]
@@ -447,7 +447,7 @@ var HARNESSES_ENTRY = {
       kind: "deployed",
       items: [
         { project: "Aetherix", to: "/aetherix", text: "The pyramid comes from its reliability plan. Every layer has a numeric failure definition." },
-        { project: "Lore", to: "/lore", text: "The base exists. Layer 2 is what the nine graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated." }
+        { project: "Lore", to: "/lore", text: "The base exists. Layer 2 is what the ten graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated." }
       ]
     },
     { kind: "h2", text: "5. Evaluation as a contract" },
@@ -494,7 +494,7 @@ var HARNESSES_ENTRY = {
       icon: "gavel",
       minutes: 2,
       oneLine: "A pass rate with no threshold attached is a number, not a decision.",
-      concrete: "A Lore run scored 52 out of 53 and was declared a failure: the single miss sat in the safety tier."
+      concrete: "A live Lore run scored 61 out of 64, 95 percent, and was declared a failure: two of its three misses sat in the safety tier."
     },
     {
       kind: "p",
@@ -819,7 +819,7 @@ var HARNESSES_ENTRY = {
     { kind: "h2", text: "15. Closing note", aliases: ["closing-note"] },
     {
       kind: "p",
-      text: `Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.`
+      text: `Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 10 graders, 21 reference answers, 19 regressions, 90 tests.`
     },
     { kind: "p", text: "This piece has gaps. They are in the table in section 3 and in the last paragraph of section 8." },
     {
