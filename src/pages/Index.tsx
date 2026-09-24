@@ -211,11 +211,11 @@ const Index = () => {
           style={{ ["--reveal-delay" as string]: "360ms" }}
           className="mt-10 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
         >
-          Product builder. Five years inside operations -
+          Product builder. Five years inside operations.
           <br />
           Founder → scale-up → large groups → builder.
           <br />
-          Vision → architecture → evaluation → continuous and autonomous improvement.
+          Vision → continuous discovery → architecture → 0→1 build → evaluation → closed loops.
         </p>
         {/* Proof strip. Fixed figures, no numeric tween: these are evidence, not decoration. */}
         <div
