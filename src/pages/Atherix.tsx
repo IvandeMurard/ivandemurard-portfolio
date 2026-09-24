@@ -12,7 +12,7 @@ import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchit
 import { AetherixHeroBadges } from "@/components/atherix/AetherixHeroBadges";
 import { EntryActions } from "@/components/journal/EntryActions";
 import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
-import { AetherixMetricCards } from "@/components/atherix/AetherixMetricCards";
+import { AetherixAnticipationVernier } from "@/components/atherix/AetherixAnticipationVernier";
 import { AetherixDailyReceipt } from "@/components/atherix/AetherixDailyReceipt";
 import { AetherixForecastConsole } from "@/components/atherix/AetherixForecastConsole";
 
@@ -726,17 +726,8 @@ const Atherix = () => (
             </p>
           </div>
           <div data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }}>
-            <AetherixMetricCards />
+            <AetherixAnticipationVernier />
           </div>
-          <p
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "440ms" }}
-            className="mt-6 text-xs text-on-surface-variant max-w-3xl"
-          >
-            Calibration baseline (synthetic backtest, not published as a headline): <Term id="mape">MAPE</Term> 15.09%
-            on J+1 covers, 22% gate PASS. Real-world measurement begins with the pilot. Labor and waste targets are
-            projections to be validated then.
-          </p>
         </div>
       </Reveal>
 

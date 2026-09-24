@@ -108,6 +108,8 @@ MCP server, three atomic tools, multi-tenant.
 
 Calibration baseline (synthetic backtest, not a headline): MAPE 15.09% on J+1 covers, 22% gate PASS. Real-world measurement begins with the pilot.
 
+Fig. 9.1, Anticipation vernier. The instrument aligns the synthetic MAPE baseline of 15.09% against the 22% gate, then opens the lock at PASS. It also carries the current evidence labels: synthetic backtest, 0 real users, 14/14 security gates passing. This is not a live accuracy claim.
+
 ## What remains private
 
 The project includes proprietary research on cross-domain operational context and cold-start learning. Public materials focus on the engineering evidence: evaluation gates, traceability, safety guardrails, privacy boundaries, and outcome measurement.
