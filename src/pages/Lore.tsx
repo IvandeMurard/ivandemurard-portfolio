@@ -15,7 +15,7 @@ import { LoreThreeModes } from "@/components/lore/LoreThreeModes";
 import { LoreHangarDialogue } from "@/components/lore/LoreHangarDialogue";
 import { LoreMemoryThread } from "@/components/lore/LoreMemoryThread";
 import { LoreSopConflictCard } from "@/components/lore/LoreSopConflictCard";
-import { LoreTierTable } from "@/components/lore/LoreTierTable";
+import { LoreComplianceSpectrogram } from "@/components/lore/LoreComplianceSpectrogram";
 import { LoreEvalConsole } from "@/components/lore/LoreEvalConsole";
 
 import { LoreHonestyBlock } from "@/components/lore/LoreHonestyBlock";
@@ -418,7 +418,7 @@ const Lore = () => (
               conditions under which an answer, and later the record of how it was used, can be trusted.
             </p>
           </div>
-          <LoreTierTable />
+          <LoreComplianceSpectrogram />
           <div data-reveal-child className="mt-8 md:mt-10">
             <LoreEvalConsole />
           </div>

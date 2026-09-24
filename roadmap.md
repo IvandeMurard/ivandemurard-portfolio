@@ -11,3 +11,9 @@
 - [x] Fill the built files automatically, head tags still generated.
 - [x] Extend the machine-readability check with size and heading assertions.
 - [ ] Re-run `npm run prerender` after any content change, then publish.
+
+# Editorial instruments
+- [x] Replace Aetherix performance cards with the anticipation vernier.
+- [x] Replace Lore acceptance table with the compliance spectrogram.
+- [x] Synchronize Markdown, LLM corpus and pre-rendered pages.
+- [x] Verify both instruments on desktop and mobile, day and dusk.
