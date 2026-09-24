@@ -487,6 +487,9 @@ const Index = () => {
             GitHub
           </a>
         </div>
+        <p className="relative z-10 mt-12 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
+          Conceived and crafted in Paris · Built 0→1 · Verified through open specifications
+        </p>
       </div>
     </Reveal>
   </SiteLayout>
