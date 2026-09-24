@@ -213,9 +213,17 @@ const Index = () => {
         >
           Product builder. Five years inside operations.
           <br />
-          Founder → scale-up → large groups → builder.
+          {/* Career trajectory keeps the arrow: it is a movement through time. */}
+          Founder <span className="text-outline/60">→</span> scale-up{" "}
+          <span className="text-outline/60">→</span> large groups{" "}
+          <span className="text-outline/60">→</span> builder.
           <br />
-          Vision → continuous discovery → architecture → 0→1 build → evaluation → closed loops.
+          {/* Method reads as an ordered list, not a flow: hairline middots keep the words first. */}
+          Vision <span className="text-outline/60">·</span> continuous discovery{" "}
+          <span className="text-outline/60">·</span> architecture{" "}
+          <span className="text-outline/60">·</span> 0→1 build{" "}
+          <span className="text-outline/60">·</span> evaluation{" "}
+          <span className="text-outline/60">·</span> closed loops.
         </p>
         {/* Proof strip. Fixed figures, no numeric tween: these are evidence, not decoration. */}
         <div
