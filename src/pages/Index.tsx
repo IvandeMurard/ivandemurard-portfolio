@@ -9,6 +9,7 @@ import { Reveal } from "@/components/Reveal";
 
 import { SectionDivider } from "@/components/SectionDivider";
 import { McpEndpoint } from "@/components/McpEndpoint";
+import { PressMark } from "@/components/layout/PressMark";
 
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
