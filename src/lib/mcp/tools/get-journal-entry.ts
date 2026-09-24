@@ -48,6 +48,19 @@ export function renderBlock(block: JournalBlock): string {
       return block.items.map(i => i.label).join(", ");
     case "askRose":
       return [block.label, block.note, ...block.prompts].filter(Boolean).join("\n");
+    case "stepper":
+      return [
+        block.label ? `**${block.label}**` : "",
+        `Technician: ${block.question} (${block.rule})`,
+        `Model answer, verbatim: "${block.answer}"`,
+        ...block.steps.map(
+          (st, i) =>
+            `Step ${i + 1}, ${st.tab}: ${st.verdict}. ${st.checks.map((c) => `${c.grader}: ${c.result}`).join("; ")}.${st.answer ? ` What ships: "${st.answer}"` : ""} ${st.reading}`
+        ),
+        block.note ?? "",
+      ]
+        .filter(Boolean)
+        .join("\n");
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n");
   }

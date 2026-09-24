@@ -15,6 +15,18 @@ export type PyramidLayer = {
   signal?: string;
 };
 
+/** One version of the harness grading the same recorded answer. */
+export type StepperStep = {
+  tab: string;
+  /** "false-pass": the harness passed a defect. "fail": it caught it. "held": code guarantees the outcome. */
+  tone: "false-pass" | "fail" | "held";
+  verdict: string;
+  checks: { grader: string; result: string }[];
+  reading: string;
+  /** What ships instead of the recorded answer, when this step changes it. */
+  answer?: string;
+};
+
 export type JournalBlock =
   | { kind: "p" | "h2" | "h3" | "quote"; text: string; aliases?: string[] }
   | { kind: "list"; items: string[] }
@@ -47,7 +59,16 @@ export type JournalBlock =
   | { kind: "cards"; label?: string; items: { icon: string; title: string; body: string }[] }
   | { kind: "askRose"; label?: string; note?: string; prompts: string[] }
   | { kind: "console"; preset: "harness"; label?: string }
-  | { kind: "bench"; label?: string }
+  | {
+      kind: "stepper";
+      label?: string;
+      question: string;
+      rule: string;
+      answer: string;
+      steps: StepperStep[];
+      reveal: { pass: string; fail: string };
+      note?: string;
+    }
   | { kind: "mcp"; label?: string; note?: string }
   | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] };
 

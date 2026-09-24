@@ -74,7 +74,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
       },
     ],
   },
-  updates: [{"date": "2026-09-12", "summary": "Added section 13, \"Two harnesses, and which one this is\", plus the arm C metric the piece named as missing in section 2.", "reason": "Through August and September 2026 a body of writing redefined \"harness\" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half."}],
+  updates: [{"date": "2026-09-24", "summary": "Corrected the dating in section 13, added \"Where the two meet: the verify step\", and replaced figure 7.1 with figure 12.1.", "reason": "Section 13 and the update below said the agent sense of \"harness\" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders."}, {"date": "2026-09-12", "summary": "Added section 13, \"Two harnesses, and which one this is\", plus the arm C metric the piece named as missing in section 2.", "reason": "Through August and September 2026 a body of writing redefined \"harness\" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half."}],
   body: [
     {
       kind: "p",
@@ -124,7 +124,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
       items: [
         { term: "Case set", def: "The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset." },
         { term: "Grader", def: "One line of the examiner's marking sheet. \"Did they check the mirror?\" Yes or no, plus the reason. One criterion, nothing more." },
-        { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.", note: "Since this was published, the word has acquired a second, more common meaning - the runtime environment around a model. The two are complements, and they are separated in section 13." },
+        { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.", note: "The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13." },
         { term: "Protocol", def: "The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code." },
         { term: "Open loop", def: "You measure, a human reads it, they may act. The measurement changes nothing by itself." },
         { term: "Closed loop", def: "The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case." },
@@ -413,7 +413,6 @@ export const HARNESSES_ENTRY: JournalEntry = {
       kind: "p",
       text: "The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on.",
     },
-    { kind: "bench", label: "Fig. 7.1 · Instrument stability test" },
     {
       kind: "timeline",
       label: "Lore harness scores, live runs",
@@ -591,16 +590,69 @@ export const HARNESSES_ENTRY: JournalEntry = {
       text: "Later, eleven harder cases were added and all 64 passed live on the first attempt. That was the least informative outcome available, so the answers were read rather than trusted. Reading them found three cases graded too weakly to fail, including the 0.30 qt/hr defect the harness had waved through: the required pattern accepted the answer because the word NORMAL appeared in it. All three now fail, and the baseline was deliberately not re-frozen. The protocol says freeze after three stable runs, never to turn a red run green.",
     },
     {
+      kind: "stepper",
+      label: "Fig. 12.1 · One answer, three harnesses",
+      question: "Oil sitting exactly at 0.30 qt/hr on F-GKXA. NORMAL or ELEVATED?",
+      rule: "AMM 72-53-00: NORMAL below 0.30 qt/hr, ELEVATED from 0.30 to 0.50 qt/hr.",
+      answer:
+        "According to the SOP, an oil consumption rate of exactly 0.30 US quarts per flight hour is considered NORMAL. You should record this in the trend log, but no further action is required unless there's a sudden increase of more than 0.10 qt/hr from the established baseline. Is there anything else you need help with regarding oil system servicing? Always verify the AMM procedure before intervening.",
+      reveal: {
+        fail: "Right: exactly 0.30 is ELEVATED. The first harness said PASS.",
+        pass: "The first harness agreed with you. Both were wrong: exactly 0.30 is ELEVATED.",
+      },
+      steps: [
+        {
+          tab: "The grader is too weak",
+          tone: "false-pass",
+          verdict: "64 / 64 · PASS · exit 0",
+          checks: [
+            { grader: "required-content", result: "required pattern present: the word NORMAL satisfied it" },
+          ],
+          reading: "A tier-1 defect, and a green run. The answer was read, not the report.",
+        },
+        {
+          tab: "The graders fail it",
+          tone: "fail",
+          verdict: "FAIL · exit 1",
+          checks: [
+            { grader: "no-sop-contradiction", result: "matched forbidden patterns: \"considered NORMAL\", \"no further action is required\"" },
+            { grader: "band-classification", result: "0.3 qt/hr is ELEVATED per AMM 72-53-00 (0.30 - 0.50 qt/hr), but the response asserts NORMAL" },
+          ],
+          reading: "Same model, same answer. Only the graders changed, and the run turned red. The baseline was not re-frozen to make it green again.",
+        },
+        {
+          tab: "Code holds the rule",
+          tone: "held",
+          verdict: "Cannot contradict the band table",
+          checks: [
+            { grader: "enforceSopPrimacy", result: "contradiction found after generation, one targeted correction quoting the manual, checked again" },
+            { grader: "fallback", result: "if the correction still contradicts, the manual's own verdict ships instead" },
+          ],
+          answer: "Per AMM 72-53-00, 0.3 qt/hr oil consumption is ELEVATED (band: 0.30 - 0.50 qt/hr). Increase monitoring to every flight. Check for leaks.",
+          reading: "The guarantee moved from the prompt to the code. The price is a second model call on corrected answers, which is the variance section 7 measured.",
+        },
+      ],
+      note: "Lore case boundary-03. Model answer verbatim (GPT-4o); grader lines and the fallback verdict are the outputs of Lore's own code. Later runs got this exact question right and gave way on a softer one, \"is that a problem?\", which is why the rule is enforced after generation rather than tested for once.",
+    },
+    {
       kind: "quote",
       text: "A case set that passes completely has stopped being an instrument of discovery and become a safety net. Both are useful; they are not the same object.",
     },
 
     {"kind": "h2", "text": "13. Two harnesses, and which one this is"},
-    {"kind": "key", "sigil": "SEC. 13", "icon": "compare_arrows", "oneLine": "The word now carries two meanings, and a team can hold one while missing the other entirely.", "concrete": "This piece was published on 2026-07-31, weeks before the write-ups that made the other meaning standard. Everything above describes the evaluation harness."},
-    {"kind": "p", "text": "Through the second half of 2026 a body of writing converged on *harness engineering*, and it uses the word for a different object than this piece does. Both are real, and the collision is worth one paragraph because the failure modes are opposite."},
+    {"kind": "key", "sigil": "SEC. 13", "icon": "compare_arrows", "oneLine": "The word now carries two meanings, and a team can hold one while missing the other entirely.", "concrete": "The agent sense was already the common one when this piece was published on 2026-07-31. Everything above uses the older, evaluation sense."},
+    {"kind": "p", "text": "During 2026 a body of writing converged on *harness engineering*, and it uses the word for a different object than this piece does. The evaluation sense is the older one, inherited from machine-learning test suites; the agent sense had become the common one before this piece was written. Both are real, and the collision is worth one paragraph because the failure modes are opposite."},
     {"kind": "list", "items": ["**The agent harness**: the environment around the model. Tools and their schemas, permissions, workspace, durable state, stop conditions, what happens on a retry. *Agent = model + harness.* It answers: **can this system act reliably?**", "**The evaluation harness**: the machinery that runs the exam. Case set, graders, thresholds, verdict, exit code. Section 1's definition, and the one used everywhere above. It answers: **would I know if it had stopped?**"]},
-    {"kind": "p", "text": "An agent harness without an evaluation harness produces a system that acts confidently and is measured by nobody. An evaluation harness without an agent harness measures something that cannot act. They are complements that arrived in the discourse eighteen months apart, and the second one arrived louder."},
+    {"kind": "p", "text": "An agent harness without an evaluation harness produces a system that acts confidently and is measured by nobody. An evaluation harness without an agent harness measures something that cannot act. They are complements, and the newer one is the louder."},
     {"kind": "quote", "text": "An agent harness proves the system can act. An evaluation harness proves it still should."},
+    {"kind": "h3", "text": "Where the two meet: the verify step"},
+    {"kind": "p", "text": "The clearest demonstration of the other meaning is Tejas Kumar's talk at IBM, [Harnesses in AI: A Deep Dive](https://www.youtube.com/watch?v=C_GG5g38vLU), from May 2026. He names the collision himself: in machine learning a harness is \"a glorified test suite\"; in AI engineering it is \"everything around the model that gives it grounding in reality\". And his motivation is this piece's title question, asked from the other side. The model you rent is a black box: the provider \"could serve you Sonnet even though it says Opus. You would never know.\" Section 7's canary is how you would."},
+    {"kind": "p", "text": "His demo takes GPT-3.5 Turbo and one prompt that never changes - upvote the top story on Hacker News - and grows a harness around it in three diffs. The bare agent reaches a login page, does nothing, and reports success. A verify step that reads the trace of tool calls turns that into an honest failure. A login handler that fills in the credentials from code, never from the prompt, turns it into a success. It lies, it fails honestly, it is held by code: the same three steps as the 0.30 qt/hr case in figure 12.1."},
+    {"kind": "p", "text": "The verify step is where the two meanings stop being separate objects. Kumar's example for a coding agent is \"run lint, run tests\". His `verify_successful_upvote` is a deterministic grader with typed failure reasons, run inside the agent loop. An agent harness's verify step is an evaluation harness called at runtime on a single episode: arm B, held to the discipline of arm A."},
+    {"kind": "p", "text": "Three limits, named because they are the ones this piece exists to name:"},
+    {"kind": "list", "items": ["**One run is a draw.** Each version of the harness ran once, and the success came on the sixth iteration, with the guardrail set to stop the run beyond six. Section 7 exists because a single run cannot tell a fix from a good draw. The talk's word is reliability; the evidence is one run.", "**The verify step reads the trace, not the world.** It checks that an upvote click was logged as successful, which is the tool's claim about itself. The final check was Kumar opening Hacker News and removing the vote by hand. On a binary task whose outcome sits in the page, that is cheap. On Lore, whose outcome never comes back (section 2), there is no page to open.", "**The verify was written by the person who had just watched the agent fail**, and it covers the two failure modes he saw. That is section 8's author bias in its purest form."]},
+    {"kind": "p", "text": "Kumar closes on a wish for 2027: agents that generate their own harness before doing the work, guardrails and verification included. On evaluation grounds, that is the direction to resist. A harness the agent writes for itself includes the verify step that grades it. Section 8 asks who grades the grader; here the grader would be written by the one being graded."},
+    {"kind": "quote", "text": "An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet."},
     {"kind": "h3", "text": "What that literature adds to this one"},
     {"kind": "p", "text": "Three things worth taking, none of which this piece specified well enough:"},
     {"kind": "list", "items": ["**The tool gateway as its own layer.** Validate the schema, authorize against policy, execute in a sandbox, and return a *structured observation* - status, reason, evidence, retryable - rather than a wall of terminal output. That is arm B infrastructure, and section 11's \"typed emissions at every layer\" is the same claim without the mechanism.", "**A permission ladder matched to consequence.** Reading a public document and deleting customer records should not travel the same approval path. Uniform friction gets routed around.", "**Gating on reversibility rather than on confidence.** Sort work by how expensive the mistake is to undo, and treat the irreversible lane as a lane that does not open rather than a threshold set very high - because thresholds get adjusted under pressure and closed lanes do not. This is section 9's argument arriving from the other direction: a model's confidence is the only input to that decision the model itself can influence, which makes it the weakest variable in the gate."]},
@@ -638,7 +690,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
     { kind: "h2", text: "15. Closing note", aliases: ["closing-note"] },
     {
       kind: "p",
-      text: "Sources: the \"evaluation by design\" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. \"Eval as a contract\" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.",
+      text: "Sources: the \"evaluation by design\" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. \"Eval as a contract\" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.",
     },
     { kind: "p", text: "This piece has gaps. They are in the table in section 3 and in the last paragraph of section 8." },
     {

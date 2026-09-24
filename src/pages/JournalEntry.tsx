@@ -18,7 +18,7 @@ import { VocabStrip } from "@/components/journal/VocabStrip";
 import { SectionKey } from "@/components/journal/SectionKey";
 import { SystemAnchors } from "@/components/journal/SystemAnchors";
 import { CanaryTimeline } from "@/components/journal/CanaryTimeline";
-import { CanaryCalibrationBench } from "@/components/journal/CanaryCalibrationBench";
+import { GraderStepper } from "@/components/journal/GraderStepper";
 import { CardGrid } from "@/components/journal/CardGrid";
 import { AskRose } from "@/components/journal/AskRose";
 import { PyramidDiagram } from "@/components/journal/PyramidDiagram";
@@ -95,6 +95,8 @@ const blockStrings = (block: JournalBlock): string[] => {
       return block.items.map((i) => i.body);
     case "matrix":
       return block.rows.flatMap((r) => r.cells.flatMap((c) => [c.instance, c.cost ?? ""]));
+    case "stepper":
+      return [block.question, ...block.steps.map((s) => s.reading)];
 
     default:
       return [];
@@ -295,8 +297,18 @@ const Block = ({
       return <SystemAnchors items={block.items} label={block.label} />;
     case "timeline":
       return <CanaryTimeline steps={block.steps} label={block.label} />;
-    case "bench":
-      return <CanaryCalibrationBench label={block.label} />;
+    case "stepper":
+      return (
+        <GraderStepper
+          label={block.label}
+          question={block.question}
+          rule={block.rule}
+          answer={block.answer}
+          steps={block.steps}
+          reveal={block.reveal}
+          note={block.note}
+        />
+      );
     case "cards":
       return <CardGrid items={block.items} label={block.label} />;
     case "askRose":
