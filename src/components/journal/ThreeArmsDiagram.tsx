@@ -19,7 +19,7 @@ const ARMS: Arm[] = [
     span: [0, 34],
     proves: "No regression on the case set: stratified accuracy, category coverage.",
     products: "Aetherix and Lore",
-    example: "Lore: 64 frozen cases, 9 graders, merge blocked when tier 1 drops below 100%.",
+    example: "Lore: 64 frozen cases, 10 graders, merge blocked when tier 1 drops below 100%.",
   },
   {
     key: "B",

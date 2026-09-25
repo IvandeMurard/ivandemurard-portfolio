@@ -8,7 +8,7 @@ Thesis. Understand, like a human: contextual reasoning grounded in each property
 
 Vision, five agents with honest status: Aetherix, the F&B agent (forecast, staffing, memory), Built. Tacet, the environmental-signal agent, Built, maintenance mode since July 2026. Anima, the guest memory node, Synthetic PoC. Peritia, the trade agent (house knowledge), Design. Orchestrator, the supervisory agent, Design, proto-stub.
 
-Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (one tap on WhatsApp), Learning (every reply is recorded as feedback; the pilot tests whether it improves future recommendations).
+Operational memory is not the offer, it is the mechanism that makes the forecast specific to one property rather than generic. Cycle: Memory (recall what worked here), Prediction (calibrated for tomorrow), Action (a reply on WhatsApp), Learning (an exact accept or reject, or a corrected figure, is recorded as feedback; free-text replies are not yet mapped; the pilot tests whether feedback improves future recommendations).
 
 Contrast with Lore: Lore, in aviation maintenance, shares this architecture and cannot close the same loop. Nothing there tells the system whether an observation was right, and the moment a technician escalates the counterfactual disappears. Aetherix has an outcome to compare against; that difference decides how much each product is allowed to learn on its own.
 
@@ -25,8 +25,8 @@ Every day, the same loop adds one more record: recommendation, manager reply, me
 
 - Memory. Recall what worked here, on similar days, in similar contexts. Local history first, plus generic cross-property context patterns while local history is thin. A true federated cohort prior (HiveMemory) is research, Phase 4+.
 - Prediction. A calibrated forecast for tomorrow: covers, staffing, waste risk, with the drivers behind it.
-- Action. One message on WhatsApp. Accept, modify, or reject in one tap. No new dashboard to learn.
-- Learning. Every reply is a signal. The day-90 receipt is sharper than the day-7 one.
+- Action. One message on WhatsApp. Reply accept, reject, or the right figure. No new dashboard to learn.
+- Learning. Every recorded reply is a signal; free-text replies are not yet mapped. The pilot tests whether the day-90 receipt is sharper than the day-7 one.
 
 Day 7: cold-start. Confidence is honest. Recommendations lean on generic context patterns and the first week of local signals.
 Day 90 (expected, not measured): drivers become property-specific, calibrated by enough Tuesdays, events and overrides to fit this exact place. This is the hypothesis the pilot tests.
@@ -55,7 +55,7 @@ Target (Design): overrides recorded with the responder's role and reason, not a 
 
 ## What it does
 
-Three promises, one message a day: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome). Every recommendation lands in WhatsApp with one tap to accept, modify, or reject.
+Three promises, one message a day: tomorrow's covers (running daily against real data, operator delivery begins with the pilot), staffing that fits (pilot hypothesis), less waste (target outcome). Every recommendation lands in WhatsApp; the manager replies accept, reject, or the right figure.
 
 ## The Daily Receipt
 
@@ -65,10 +65,10 @@ Breakfast    84 covers   ·  confidence 88%        (illustrative)
              Staff: 4 FOH  (you ran 3 last Tue → 1 understaffing flag)
 Driver       local conference check-ins + clear weather
 Last week    forecast 79 · actual 81 · MAPE 2.5%
-Reply  ✅ accept   ✏️ modify   ❌ reject
+Reply  accept · reject · or the right figure
 ```
 
-One tap. That reply is the signal Aetherix learns from.
+One reply. That reply is the signal Aetherix learns from.
 
 ## The architecture, bounded context by design
 

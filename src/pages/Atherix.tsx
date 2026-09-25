@@ -109,11 +109,11 @@ const FAQ = [
   },
   {
     q: "Why memory, not just forecasting?",
-    a: "Forecasting is commoditized. The moat is compounding local experience: which Tuesdays spike here, how a conference reshapes breakfast here, how to staff a rainy Sunday here. Aetherix captures that context, learns from every reply, and makes it available at the exact moment a decision is due.",
+    a: "Forecasting is commoditized. The moat is compounding local experience: which Tuesdays spike here, how a conference reshapes breakfast here, how to staff a rainy Sunday here. Aetherix captures that context, learns from the replies it records, and makes it available at the exact moment a decision is due.",
   },
   {
     q: "How does the closed loop work?",
-    a: "Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing and waste risk. Action lands as one WhatsApp message with one-tap accept, modify, or reject. Learning turns that reply into a fresh grain of memory. The day-90 receipt is sharper than the day-7 one.",
+    a: "Memory recalls what worked here. Prediction proposes tomorrow's covers, staffing and waste risk. Action lands as one WhatsApp message; the manager replies accept, reject, or the right figure. Learning turns that reply into a fresh grain of memory. Free-text replies are not yet mapped to a decision. The pilot tests whether the day-90 receipt is sharper than the day-7 one.",
   },
   {
     q: "How is Aetherix part of a multi-agent architecture?",

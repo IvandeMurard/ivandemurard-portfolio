@@ -428,7 +428,7 @@ const Lore = () => (
             style={{ ["--reveal-delay" as string]: "320ms" }}
             className="mt-10 font-headline italic text-primary text-xl md:text-2xl leading-snug max-w-3xl"
           >
-            One run scored 52 out of 53 and was declared a failure, because the single miss was in tier 1.
+            One live run scored 61 out of 64, 95 percent, and was declared a failure, because two of its three misses were in tier 1.
           </p>
           <Link
             data-reveal-child
@@ -444,7 +444,7 @@ const Lore = () => (
                 Harnais, graders, boucles fermées
               </span>
               <span className="block mt-2 text-sm text-on-surface-variant leading-relaxed">
-                The full protocol: how the 9 graders were written, why every one is deterministic, and how the
+                The full protocol: how the 10 graders were written, why every one is deterministic, and how the
                 acceptance tiers came out of runs that failed.
               </span>
             </span>

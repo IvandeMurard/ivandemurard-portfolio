@@ -2,9 +2,9 @@
 
 _A working vocabulary for building evaluation into AI products from day one, tested on two real systems._
 
-Published 2026-07-31 · Evaluation · 14 min read
+Published 2026-07-31 · Evaluation · 17 min read
 
-**TL;DR** - A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 52 out of 53 is a failure when the miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
+**TL;DR** - A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
 
 Source: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
@@ -18,6 +18,17 @@ Most teams building with language models can describe what their system does. Fa
 
 **Read this if** you are shipping an LLM agent that recommends, decides, or acts, and the usual unit tests say nothing about the ways it actually fails. **What it gives you**: the working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release. **Tested on** two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped.
 
+**Check your own system.** Six questions about the system you ship, in the order the layers depend on each other. The first gap is where to start. Answer yes, partly or no; the first "no" in this order is where to start, then the first "partly".
+
+1. *Arm A.* Is there a set of cases with known correct answers, edge cases included, written down before or with the model code? If not: Without a case set and a written definition of failure, nothing above it can be measured. Section 4 calls it a blocking prerequisite. See section 5.
+2. *Arm A.* Does each kind of failure have its own threshold, and can a breach of the worst kind block a release on its own, whatever the pass rate? If not: A pass rate with no threshold attached is a number, not a decision. 61 out of 64 can be a failure. See section 6.
+3. *Arm A.* Have the same inputs been replayed several times, with the same score, before any threshold was allowed to block? If not: Until the instrument holds still, a threshold blocks or passes on the draw, not on the work. See section 7.
+4. *Arm A.* Is every quality number you report produced by what actually ships: the real model on the real path, not a stand-in, a mock, or a target copied from a document? If not: A stand-in written against the same cases passes by construction. The gate is green on something nobody uses. See section 12.
+5. *Arm B.* In production, does each layer emit a typed signal (refusal reason, retrieval score, latency) that can raise an alert before a user notices? If not: Without signals, drift shows up one release late, or when someone complains. See section 11.
+6. *Arm C.* Do you learn whether each output was acted on and whether reality proved it right, with overrides recorded as data rather than free text? If not: Without outcomes you measure but never learn, and no confidence score can be calibrated. See section 2.
+
+*Self-declared, like the confidence score in section 9: it says where to look first, not whether it holds.*
+
 - **Aetherix**: A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Users: Other agents via MCP, or a hotel / F&B manager with WhatsApp. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
 - **Lore**: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed.
 
@@ -25,7 +36,7 @@ The numbers below come from those two repositories, not from a whitepaper. Where
 
 ## 1. The vocabulary, through the driving test
 
-**SEC. 1** A grader judges one criterion, a harness runs the exam, a protocol says what passing means. Concrete case: Lore has 9 graders, one harness, and one protocol document that decides when CI goes red.
+**SEC. 1** A grader judges one criterion, a harness runs the exam, a protocol says what passing means. Concrete case: Lore has 10 graders, one harness, and one protocol document that decides when CI goes red.
 
 A driving test contains every piece of the machinery. It is worth one pass to fix the words, and the rest of this piece will not need it again.
 
@@ -33,7 +44,7 @@ A driving test contains every piece of the machinery. It is worth one pass to fi
 - **Grader**: One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.
 - **Harness**: The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.
 
-  *Since this was published, the word has acquired a second, more common meaning - the runtime environment around a model. The two are complements, and they are separated in section 13.*
+  *The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13.*
 - **Protocol**: The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code.
 - **Open loop**: You measure, a human reads it, they may act. The measurement changes nothing by itself.
 - **Closed loop**: The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case.
@@ -71,7 +82,7 @@ You do not test a parachute against a case set; you measure it in flight. Provid
 
 |  | Aetherix | Lore |
 | --- | --- | --- |
-| Human loop | One tap on WhatsApp: accept, modify, reject | The intervention log, not yet exploited |
+| Human loop | A WhatsApp reply: an exact accept or reject, or a corrected figure, is recorded; free text is not yet mapped | The intervention log, not yet exploited |
 | Automatic comparison | Yes. Forecast error computes itself and is the level-1 product KPI | None |
 | Ground truth | Declared by the manager. Reading it from the point of sale is phase 4 and has its own architecture decision on file | None, and the signal is censored: escalate, and the counterfactual disappears |
 
@@ -106,13 +117,13 @@ Without a case set and without failure definitions, nothing above the base can b
 
 - Layer 5: Trust KPI ablation (Does removing a feature move the trust KPI) Turn one component off and measure the effect on the product KPI. Neither product runs this yet.
 - Layer 4: Memory recall relevance (precision at five) Of the passages handed to the model, how many were genuinely relevant. Below 0.7 precision at five, two of the five were noise.
-- Layer 3: Inbound feedback parser (intent accuracy) The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data.
-- Layer 2: LLM reasoning quality (what the graders cover) Does the answer follow the procedure, cite it, refuse when it must. This is the layer the nine Lore graders occupy.
-- Layer 1: Forecast accuracy (MAPE) Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.
+- Layer 3: Inbound feedback parser (intent accuracy) The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data. Aetherix defines it. The model itself is not yet measured: the CI run grades a rule-based stand-in.
+- Layer 2: LLM reasoning quality (what the graders cover) Does the answer follow the procedure, cite it, refuse when it must. This is the layer the ten Lore graders occupy.
+- Layer 1: Forecast accuracy (MAPE) Forecast error against realised covers. Drifting more than three points from baseline is a defined failure. Aetherix: in CI on a synthetic series; against realised covers from the pilot on.
 - Base: Case set and failure definitions (blocking prerequisite) Representative cases with known answers, and a written definition of what counts as a bad output. Everything above is unmeasurable without it.
 
 - Aetherix: The pyramid comes from its reliability plan. Every layer has a numeric failure definition.
-- Lore: The base exists. Layer 2 is what the nine graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated.
+- Lore: The base exists. Layer 2 is what the ten graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated.
 
 ## 5. Evaluation as a contract
 
@@ -134,7 +145,7 @@ A concrete case. Lore's documentation described procedure primacy as "structural
 
 ## 6. Acceptance criteria, the part everyone skips
 
-**SEC. 6** A pass rate with no threshold attached is a number, not a decision. Concrete case: A Lore run scored 52 out of 53 and was declared a failure: the single miss sat in the safety tier.
+**SEC. 6** A pass rate with no threshold attached is a number, not a decision. Concrete case: A live Lore run scored 61 out of 64, 95 percent, and was declared a failure: two of its three misses sat in the safety tier.
 
 A missing closing sentence and an invented vibration threshold are both failures; only one of them can ground the wrong aircraft. So severity is tiered, and each tier carries its own budget.
 
@@ -166,8 +177,6 @@ Separating ERROR from FAIL is not fussiness. The runner emitted only 0 and 1, so
 
 The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on.
 
-Fig. 7.1, instrument stability test: at temperature 0 the same input replayed three times returns 53/53, 53/53, 53/53, spread 0.00 points, and the gate is armed as blocking. At temperature 0.5 the same suite returns 38, 36 and 42 out of 53, spread 6.00 points, and the gate is refused: a threshold set there would block or pass on the draw, not on the work.
-
 
 - 38 / 36 Two runs, same 53 cases: Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement.
 - 36 → 53 Temperature 0, defects fixed: Progression 36, 48, 48, 52, then 53 out of 53.
@@ -195,6 +204,19 @@ Hence the rule corrected rather than quietly dropped: 0.00 points of variance re
 
 > A regression suite proves that graders reject bad answers. It never proves they accept good ones phrased differently from how their author phrased them. That takes a real run.
 
+Reproduce it. The regression target hands the graders nineteen answers known to be wrong, most of them verbatim model outputs, and checks that each is rejected with its reason. PASS means the bad answer was caught. It runs offline, needs no API key, and costs nothing.
+
+```bash
+git clone https://github.com/IvandeMurard/Lore && cd Lore/frontend
+npm ci && npx tsx evals/runner.ts --target regression
+
+PASS  abstain-05       caught by abstention: refused, then volunteered figures anyway: 36
+PASS  attribution-06   caught by no-fabricated-consensus: claims agreement beyond the 1 source(s) retrieved: "Other technicians familiar with this airframe likely agree"
+PASS  learner-01       caught by learner-address: addresses the learner as Marc: "Marc,"
+...
+  19/19 known failures caught
+```
+
 What is not done yet, named as a gap: there is no scheduled red-team pass, no adversarial corpus maintained separately from the case set, and no second author on the graders. On Lore the adversarial work has been opportunistic, triggered by reading real runs. That is better than nothing and worse than a protocol.
 
 ## 9. Confidence, three things people conflate
@@ -209,7 +231,7 @@ What is not done yet, named as a gap: there is no scheduled red-team pass, no ad
 
 ## 10. Human in the loop: by design or by default
 
-**SEC. 10** Keeping a human is fine. Leaving the human as the only mechanism, without capturing their decision, is not. Concrete case: In Aetherix every accept, modify or reject is an event. In aviation the technician remains the certifying agent, by law.
+**SEC. 10** Keeping a human is fine. Leaving the human as the only mechanism, without capturing their decision, is not. Concrete case: In Aetherix an exact accept or reject, or a corrected figure, is recorded as an event; free text is not yet mapped. In aviation the technician remains the certifying agent, by law.
 
 |  | By design | By default |
 | --- | --- | --- |
@@ -244,20 +266,50 @@ Across those 17 failures, the split was almost even between real model defects a
 
 Later, eleven harder cases were added and all 64 passed live on the first attempt. That was the least informative outcome available, so the answers were read rather than trusted. Reading them found three cases graded too weakly to fail, including the 0.30 qt/hr defect the harness had waved through: the required pattern accepted the answer because the word NORMAL appeared in it. All three now fail, and the baseline was deliberately not re-frozen. The protocol says freeze after three stable runs, never to turn a red run green.
 
+**Fig. 12.1 · One answer, three harnesses.** Lore case boundary-03.
+
+Technician: "Oil sitting exactly at 0.30 qt/hr on F-GKXA. NORMAL or ELEVATED?" AMM 72-53-00: NORMAL below 0.30 qt/hr, ELEVATED from 0.30 to 0.50 qt/hr.
+
+Model answer, verbatim (GPT-4o): "According to the SOP, an oil consumption rate of exactly 0.30 US quarts per flight hour is considered NORMAL. You should record this in the trend log, but no further action is required unless there's a sudden increase of more than 0.10 qt/hr from the established baseline. Is there anything else you need help with regarding oil system servicing? Always verify the AMM procedure before intervening."
+
+1. **The grader is too weak** - 64 / 64, PASS, exit 0. `required-content`: required pattern present, the word NORMAL satisfied it. A tier-1 defect, and a green run. The answer was read, not the report.
+2. **The graders fail it** - FAIL, exit 1. `no-sop-contradiction`: matched forbidden patterns "considered NORMAL", "no further action is required". `band-classification`: 0.3 qt/hr is ELEVATED per AMM 72-53-00 (0.30 - 0.50 qt/hr), but the response asserts NORMAL. Same model, same answer. Only the graders changed, and the run turned red. The baseline was not re-frozen to make it green again.
+3. **Code holds the rule** - cannot contradict the band table. `enforceSopPrimacy` finds the contradiction after generation, sends one targeted correction quoting the manual, and checks again; if the correction still contradicts, the manual's own verdict ships instead: "Per AMM 72-53-00, 0.3 qt/hr oil consumption is ELEVATED (band: 0.30 - 0.50 qt/hr). Increase monitoring to every flight. Check for leaks." The price is a second model call on corrected answers, which is the variance section 7 measured.
+
+Grader lines and the fallback verdict are the outputs of Lore's own code. Later runs got this exact question right and gave way on a softer one, "is that a problem?", which is why the rule is enforced after generation rather than tested for once.
+
 > A case set that passes completely has stopped being an instrument of discovery and become a safety net. Both are useful; they are not the same object.
 
 ## 13. Two harnesses, and which one this is
 
-**SEC. 13** The word now carries two meanings, and a team can hold one while missing the other entirely. Concrete case: This piece was published on 2026-07-31, weeks before the write-ups that made the other meaning standard. Everything above describes the evaluation harness.
+**SEC. 13** The word now carries two meanings, and a team can hold one while missing the other entirely. Concrete case: The agent sense was already the common one when this piece was published on 2026-07-31. Everything above uses the older, evaluation sense.
 
-Through the second half of 2026 a body of writing converged on *harness engineering*, and it uses the word for a different object than this piece does. Both are real, and the collision is worth one paragraph because the failure modes are opposite.
+During 2026 a body of writing converged on *harness engineering*, and it uses the word for a different object than this piece does. The evaluation sense is the older one, inherited from machine-learning test suites; the agent sense had become the common one before this piece was written. Both are real, and the collision is worth one paragraph because the failure modes are opposite.
 
 - **The agent harness**: the environment around the model. Tools and their schemas, permissions, workspace, durable state, stop conditions, what happens on a retry. *Agent = model + harness.* It answers: **can this system act reliably?**
 - **The evaluation harness**: the machinery that runs the exam. Case set, graders, thresholds, verdict, exit code. Section 1's definition, and the one used everywhere above. It answers: **would I know if it had stopped?**
 
-An agent harness without an evaluation harness produces a system that acts confidently and is measured by nobody. An evaluation harness without an agent harness measures something that cannot act. They are complements that arrived in the discourse eighteen months apart, and the second one arrived louder.
+An agent harness without an evaluation harness produces a system that acts confidently and is measured by nobody. An evaluation harness without an agent harness measures something that cannot act. They are complements, and the newer one is the louder.
 
 > An agent harness proves the system can act. An evaluation harness proves it still should.
+
+### Where the two meet: the verify step
+
+The clearest demonstration of the other meaning is Tejas Kumar's talk at IBM, [Harnesses in AI: A Deep Dive](https://www.youtube.com/watch?v=C_GG5g38vLU), from May 2026. He names the collision himself: in machine learning a harness is "a glorified test suite"; in AI engineering it is "everything around the model that gives it grounding in reality". And his motivation is this piece's title question, asked from the other side. The model you rent is a black box: the provider "could serve you Sonnet even though it says Opus. You would never know." Section 7's canary is how you would.
+
+His demo takes GPT-3.5 Turbo and one prompt that never changes - upvote the top story on Hacker News - and grows a harness around it in three diffs. The bare agent reaches a login page, does nothing, and reports success. A verify step that reads the trace of tool calls turns that into an honest failure. A login handler that fills in the credentials from code, never from the prompt, turns it into a success. It lies, it fails honestly, it is held by code: the same three steps as the 0.30 qt/hr case in figure 12.1.
+
+The verify step is where the two meanings stop being separate objects. Kumar's example for a coding agent is "run lint, run tests". His `verify_successful_upvote` is a deterministic grader with typed failure reasons, run inside the agent loop. An agent harness's verify step is an evaluation harness called at runtime on a single episode: arm B, held to the discipline of arm A.
+
+Three limits, named because they are the ones this piece exists to name:
+
+- **One run is a draw.** Each version of the harness ran once, and the success came on the sixth iteration, with the guardrail set to stop the run beyond six. Section 7 exists because a single run cannot tell a fix from a good draw. The talk's word is reliability; the evidence is one run.
+- **The verify step reads the trace, not the world.** It checks that an upvote click was logged as successful, which is the tool's claim about itself. The final check was Kumar opening Hacker News and removing the vote by hand. On a binary task whose outcome sits in the page, that is cheap. On Lore, whose outcome never comes back (section 2), there is no page to open.
+- **The verify was written by the person who had just watched the agent fail**, and it covers the two failure modes he saw. That is section 8's author bias in its purest form.
+
+Kumar closes on a wish for 2027: agents that generate their own harness before doing the work, guardrails and verification included. On evaluation grounds, that is the direction to resist. A harness the agent writes for itself includes the verify step that grades it. Section 8 asks who grades the grader; here the grader would be written by the one being graded.
+
+> An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet.
 
 ### What that literature adds to this one
 
@@ -273,14 +325,14 @@ Arm C. Across that entire body of work, almost nothing measures whether the outp
 
 Which leaves the gap this piece named in section 2 and did not close. Stated now so it can be checked:
 
-- **Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values are already recorded: `accepted`, `rejected`, `modified`, `ignored`. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.
+- **Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values exist in the schema - `accepted`, `rejected`, `modified`, `ignored` - but today only an exact "accept" or "reject" records the first two: a free-text refusal is stored as `modified`, and a bare "ok" records nothing. Measuring acceptance starts with fixing that capture. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.
 - **Human minutes per accepted output** - the direct measure of the interruption budget. A system that raises acceptance by asking more often has not improved. It has spent someone else's attention to buy its own score.
 
 Neither is worth reading without the other. Acceptance rate alone is a Goodhart target, and a system optimised on it learns to emit bland, agreeable outputs that cost nothing to approve - the same shape as a support bot that drives its ticket-resolution rate up by closing tickets instead of solving them.
 
 And arm C data only compounds if the correction is routed. An override reports that *some layer* was wrong, and which layer decides what the fix is: a stale fact belongs in memory, an unwritten rule belongs in a recorded decision, a preference seen three times belongs in a policy, an unseen pattern belongs in the case set, and an output that should never have been surfaced belongs in the filter upstream. Only the fourth is a retrain. Recording the override as free text - which is what both systems do today - collapses all five into one undifferentiated pile.
 
-- **Aetherix**: arms A and B built, arm C recorded but not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).
+- **Aetherix**: arm A built, with the forecast gated on synthetic data and the reply parser on a stand-in; arm B partial; arm C partly recorded (keyword replies only) and not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).
 - **Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase.
 
 <a id="13-frequently-asked-questions"></a>
@@ -299,7 +351,7 @@ And arm C data only compounds if the correction is routed. An override reports t
 
 ## 15. Closing note
 
-Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.
+Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 10 graders, 21 reference answers, 19 regressions, 90 tests.
 
 This piece has gaps. They are in the table in section 3 and in the last paragraph of section 8.
 
@@ -309,6 +361,8 @@ A note on where it came from. I wrote the first version for myself, before inter
 ## Updates
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+2026-09-24 · Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes. *Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.*
 
 2026-09-12 · Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2. *Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.*
 

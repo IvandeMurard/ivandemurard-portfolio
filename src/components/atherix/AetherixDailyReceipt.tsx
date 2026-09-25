@@ -37,7 +37,7 @@ export const AetherixDailyReceipt = () => (
         type="button"
         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-xs text-on-surface hover:bg-surface transition-colors"
       >
-        ✏️ modify
+        ✏️ the right figure
       </button>
       <button
         type="button"
@@ -48,7 +48,7 @@ export const AetherixDailyReceipt = () => (
     </div>
 
     <p className="px-5 pb-5 md:px-7 md:pb-6 text-xs text-on-surface-variant italic">
-      One tap. That reply is the signal Aetherix learns from. The day-90 receipt is sharper than the day-7 one.
+      One reply: accept, reject, or the right figure. That reply is the signal Aetherix learns from. The pilot tests whether the day-90 receipt is sharper than the day-7 one.
     </p>
   </div>
 );

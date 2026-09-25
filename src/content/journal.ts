@@ -15,6 +15,30 @@ export type PyramidLayer = {
   signal?: string;
 };
 
+/** One self-diagnostic question, answered yes / partly / no by the reader. */
+export type DiagnosticQuestion = {
+  key: string;
+  arm: "A" | "B" | "C";
+  ask: string;
+  /** What a "no" costs, shown when this is the first gap in dependency order. */
+  gap: string;
+  /** Heading id to jump to. */
+  to: string;
+  toLabel: string;
+};
+
+/** One version of the harness grading the same recorded answer. */
+export type StepperStep = {
+  tab: string;
+  /** "false-pass": the harness passed a defect. "fail": it caught it. "held": code guarantees the outcome. */
+  tone: "false-pass" | "fail" | "held";
+  verdict: string;
+  checks: { grader: string; result: string }[];
+  reading: string;
+  /** What ships instead of the recorded answer, when this step changes it. */
+  answer?: string;
+};
+
 export type JournalBlock =
   | { kind: "p" | "h2" | "h3" | "quote"; text: string; aliases?: string[] }
   | { kind: "list"; items: string[] }
@@ -47,7 +71,16 @@ export type JournalBlock =
   | { kind: "cards"; label?: string; items: { icon: string; title: string; body: string }[] }
   | { kind: "askRose"; label?: string; note?: string; prompts: string[] }
   | { kind: "console"; preset: "harness"; label?: string }
-  | { kind: "bench"; label?: string }
+  | {
+      kind: "stepper";
+      label?: string;
+      question: string;
+      rule: string;
+      answer: string;
+      steps: StepperStep[];
+      reveal: { pass: string; fail: string };
+      note?: string;
+    }
   | { kind: "mcp"; label?: string; note?: string }
   | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] };
 
@@ -73,18 +106,13 @@ export type JournalEntry = {
   takeaways?: string[];
   /** One line that carries the argument, set apart under the takeaways. */
   takeawayPunch?: string;
-  /** Entry funnel: pick the failure moment, get the arm and the section to start from. */
-  funnel?: {
-    label?: string;
-    options: {
-      key: string;
-      label: string;
-      when: string;
-      proves: string;
-      misses: string;
-      to: string;
-      toLabel: string;
-    }[];
+  /** Self-diagnostic: six questions in dependency order, the reader's own three-arm reading, and where to start. */
+  diagnostic?: {
+    label: string;
+    intro: string;
+    caveat: string;
+    allYes: string;
+    questions: DiagnosticQuestion[];
   };
   updates?: { date: string; summary: string; reason: string }[];
   body: JournalBlock[];
@@ -108,6 +136,13 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
     subtitle:
       "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
+    updates: [
+      {
+        date: "2026-09-24",
+        summary: "Corrected what the note said about recorded replies, the CI forecast baseline and the drift example.",
+        reason: "An audit of the Aetherix repository found that only an exact \"accept\" or \"reject\", or a corrected figure, records a decision; that the forecast baseline in CI is computed on a synthetic series, not on realised covers; and that the corrupted export and the regime shift come from a simulated 30-day scenario. The note had said more than that.",
+      },
+    ],
     category: "Agentic AI",
     excerpt:
       "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
@@ -153,21 +188,21 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       },
       {
         kind: "p",
-        text: "The manager taps accept, modify or reject. That tap is not politeness. It is the recorded output of a decision node.",
+        text: "The manager replies accept, reject, or the right figure. That reply is not politeness. It is the recorded output of a decision node.",
       },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
         kind: "p",
-        text: "The forecast becomes measurable on its own terms: MAPE against realised covers, compared to a frozen baseline, in CI, blocking a merge. That number means something precisely because the component producing it does one thing.",
+        text: "The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing.",
       },
       {
         kind: "p",
-        text: "And the action becomes accountable. Every accept, modify or reject is an event with the recommendation stored beside it. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace.",
+        text: "And the action becomes accountable. Every recorded accept, reject or correction is an event with the recommendation stored beside it. Today that means an exact accept or reject, or a figure: a free-text reply is not yet mapped to a decision, a gap an audit found in September 2026. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace.",
       },
       {
         kind: "p",
-        text: "The seam is also what lets the system be honest about itself. It flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check.",
+        text: "The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check.",
       },
       { kind: "h2", text: "What it cost" },
       {

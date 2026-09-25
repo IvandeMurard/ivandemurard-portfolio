@@ -28,17 +28,17 @@ Prophet reads the environment: occupancy, F&B demand, staffing pressure. It prod
 
 Claude orchestrates the response. It takes that read, plus memory of what worked at this property, and composes one message a day. It never predicts. When it is uncertain it says so.
 
-The manager taps accept, modify or reject. That tap is not politeness. It is the recorded output of a decision node.
+The manager replies accept, reject, or the right figure. That reply is not politeness. It is the recorded output of a decision node.
 
 ## What the split buys
 
 Two things I could not have had otherwise.
 
-The forecast becomes measurable on its own terms: MAPE against realised covers, compared to a frozen baseline, in CI, blocking a merge. That number means something precisely because the component producing it does one thing.
+The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing.
 
-And the action becomes accountable. Every accept, modify or reject is an event with the recommendation stored beside it. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace.
+And the action becomes accountable. Every recorded accept, reject or correction is an event with the recommendation stored beside it. Today that means an exact accept or reject, or a figure: a free-text reply is not yet mapped to a decision, a gap an audit found in September 2026. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace.
 
-The seam is also what lets the system be honest about itself. It flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check.
+The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check.
 
 ## What it cost
 

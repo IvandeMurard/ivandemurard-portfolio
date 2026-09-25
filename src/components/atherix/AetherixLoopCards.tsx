@@ -18,15 +18,15 @@ const LOOP = [
   {
     icon: "send",
     title: "Action",
-    body: "One message on WhatsApp. Accept, modify, or reject in one tap. No new dashboard to learn.",
+    body: "One message on WhatsApp. Reply accept, reject, or the right figure. No new dashboard to learn.",
     day7: "The receipt is verbose, spells out every assumption.",
-    day90: "Intended: compact. The manager reads a paragraph, taps once.",
+    day90: "Intended: compact. The manager reads a paragraph, replies in a word.",
   },
   {
     icon: "autorenew",
     title: "Learning",
-    body: "Every reply is recorded as feedback; the pilot tests whether it improves future recommendations.",
-    day7: "Every accept, modify, reject deposits one grain of memory.",
+    body: "An exact accept or reject, or a corrected figure, is recorded as feedback; free-text replies are not yet mapped. The pilot tests whether feedback improves future recommendations.",
+    day7: "Every recorded accept, reject or correction deposits one grain of memory.",
     day90: "Hypothesis under test: the system reflects how this property behaves, not just how hotels behave.",
   },
 ];

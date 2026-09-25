@@ -174,7 +174,7 @@ var HARNESSES_ENTRY = {
   date: "2026-07-31",
   category: "Evaluation",
   lang: "en",
-  readingMinutes: 14,
+  readingMinutes: 17,
   mirror: "/harnesses-graders-closed-loops.md",
   license: {
     label: "CC BY 4.0",
@@ -186,45 +186,69 @@ var HARNESSES_ENTRY = {
     { label: "Aetherix", to: "/aetherix" }
   ],
   excerpt: "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
-  tldr: "A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 52 out of 53 is a failure when the miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.",
+  tldr: "A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.",
   glance: {
     audience: "You are shipping an LLM agent that recommends, decides, or acts, and the usual unit tests say nothing about the ways it actually fails.",
     promise: "The working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release.",
     proof: "Two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped."
   },
-  funnel: {
-    label: "Where would your failure show up?",
-    options: [
+  diagnostic: {
+    label: "Check your own system",
+    intro: "Six questions about the system you ship, in the order the layers depend on each other. The first gap is where to start.",
+    caveat: "Self-declared, like the confidence score in section 9: it says where to look first, not whether it holds. Nothing you select leaves this page.",
+    allYes: "Six yeses. The next question is section 8's: who wrote the graders, and has anyone tried to break them?",
+    questions: [
       {
-        key: "offline",
-        label: "Before release",
-        when: "A change ships and quality quietly drops",
-        proves: "Arm A, offline. A frozen case set, graded criterion by criterion, run on every change: regressions are caught before the merge.",
-        misses: "Everything the case set never imagined, and everything that only happens on real traffic.",
+        key: "caseSet",
+        arm: "A",
+        ask: "Is there a set of cases with known correct answers, edge cases included, written down before or with the model code?",
+        gap: "Without a case set and a written definition of failure, nothing above it can be measured. Section 4 calls it a blocking prerequisite.",
+        to: "5-evaluation-as-a-contract",
+        toLabel: "Start at section 5, evaluation as a contract"
+      },
+      {
+        key: "tiers",
+        arm: "A",
+        ask: "Does each kind of failure have its own threshold, and can a breach of the worst kind block a release on its own, whatever the pass rate?",
+        gap: "A pass rate with no threshold attached is a number, not a decision. 61 out of 64 can be a failure.",
         to: "6-acceptance-criteria-the-part-everyone-skips",
         toLabel: "Start at section 6, acceptance criteria"
       },
       {
-        key: "runtime",
-        label: "In production",
-        when: "It drifts, hallucinates, or acts out of scope live",
-        proves: "Arm B, runtime. Guardrails and anomaly detection on real traffic: error rates, output bounds, abstention, drift, latency.",
-        misses: "Whether the output was any good in the end. Live signals tell you the system behaved, not that it helped.",
+        key: "stable",
+        arm: "A",
+        ask: "Have the same inputs been replayed several times, with the same score, before any threshold was allowed to block?",
+        gap: "Until the instrument holds still, a threshold blocks or passes on the draw, not on the work.",
         to: "7-the-canary-and-why-it-was-invalidated",
         toLabel: "Start at section 7, the canary"
       },
       {
+        key: "realModel",
+        arm: "A",
+        ask: "Is every quality number you report produced by what actually ships: the real model on the real path, not a stand-in, a mock, or a target copied from a document?",
+        gap: "A stand-in written against the same cases passes by construction. The gate is green on something nobody uses.",
+        to: "12-what-a-harness-finds-that-no-unit-test-sees",
+        toLabel: "Start at section 12, what a harness finds"
+      },
+      {
+        key: "signals",
+        arm: "B",
+        ask: "In production, does each layer emit a typed signal (refusal reason, retrieval score, latency) that can raise an alert before a user notices?",
+        gap: "Without signals, drift shows up one release late, or when someone complains.",
+        to: "11-signals-ontology-priors",
+        toLabel: "Start at section 11, signals"
+      },
+      {
         key: "outcome",
-        label: "After real use",
-        when: "It looked fine and still produced no value",
-        proves: "Arm C, outcome. Was the output acted on, and did reality confirm it: forecast error against realised covers, procedure against signed work record.",
-        misses: "Speed. The loop closes in weeks, so it cannot guard a release on its own.",
+        arm: "C",
+        ask: "Do you learn whether each output was acted on and whether reality proved it right, with overrides recorded as data rather than free text?",
+        gap: "Without outcomes you measure but never learn, and no confidence score can be calibrated.",
         to: "2-three-arms-and-what-each-product-can-afford",
         toLabel: "Start at section 2, the three arms"
       }
     ]
   },
-  updates: [{ "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
+  updates: [{ "date": "2026-09-24", "summary": `Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes.`, "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
   body: [
     {
       kind: "p",
@@ -261,7 +285,7 @@ var HARNESSES_ENTRY = {
       icon: "menu_book",
       minutes: 2,
       oneLine: "A grader judges one criterion, a harness runs the exam, a protocol says what passing means.",
-      concrete: "Lore has 9 graders, one harness, and one protocol document that decides when CI goes red."
+      concrete: "Lore has 10 graders, one harness, and one protocol document that decides when CI goes red."
     },
     {
       kind: "p",
@@ -272,7 +296,7 @@ var HARNESSES_ENTRY = {
       items: [
         { term: "Case set", def: "The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset." },
         { term: "Grader", def: `One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.` },
-        { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.", note: "Since this was published, the word has acquired a second, more common meaning - the runtime environment around a model. The two are complements, and they are separated in section 13." },
+        { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.", note: "The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13." },
         { term: "Protocol", def: "The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code." },
         { term: "Open loop", def: "You measure, a human reads it, they may act. The measurement changes nothing by itself." },
         { term: "Closed loop", def: "The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case." }
@@ -343,8 +367,8 @@ var HARNESSES_ENTRY = {
           arm: "A \u2014 Offline",
           when: "Before the merge",
           cells: [
-            { state: "covered", instance: "Versioned case sets, CI gate, merge blocked on red." },
-            { state: "covered", instance: "Nine graders across three severity tiers, run offline and live." }
+            { state: "partial", instance: "Versioned case sets, CI gate, merge blocked on red. The forecast is gated on a synthetic series, the reply parser on a stand-in.", cost: "The gate proves the pipeline did not regress, not that the models are right on real traffic." },
+            { state: "covered", instance: "Ten graders across three severity tiers, run offline and live." }
           ]
         },
         {
@@ -437,9 +461,9 @@ var HARNESSES_ENTRY = {
       layers: [
         { level: "Layer 5", name: "Trust KPI ablation", note: "Does removing a feature move the trust KPI", detail: "Turn one component off and measure the effect on the product KPI. Neither product runs this yet.", product: "Neither, planned on Aetherix", signal: "KPI delta per ablation" },
         { level: "Layer 4", name: "Memory recall relevance", note: "precision at five", detail: "Of the passages handed to the model, how many were genuinely relevant. Below 0.7 precision at five, two of the five were noise.", product: "Aetherix defines it. Lore's is the open hole.", signal: "retrieval score per call" },
-        { level: "Layer 3", name: "Inbound feedback parser", note: "intent accuracy", detail: "The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data.", product: "Aetherix", signal: "parsed intent plus confidence" },
-        { level: "Layer 2", name: "LLM reasoning quality", note: "what the graders cover", detail: "Does the answer follow the procedure, cite it, refuse when it must. This is the layer the nine Lore graders occupy.", product: "Both", signal: "grader verdict plus typed reason" },
-        { level: "Layer 1", name: "Forecast accuracy", note: "MAPE", detail: "Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.", product: "Aetherix", signal: "MAPE per service" },
+        { level: "Layer 3", name: "Inbound feedback parser", note: "intent accuracy", detail: "The manager's free-text reply is parsed into accept, modify, reject. Below 90% accuracy the human loop silently corrupts the data.", product: "Aetherix defines it. The model itself is not yet measured: the CI run grades a rule-based stand-in.", signal: "parsed intent plus confidence" },
+        { level: "Layer 2", name: "LLM reasoning quality", note: "what the graders cover", detail: "Does the answer follow the procedure, cite it, refuse when it must. This is the layer the ten Lore graders occupy.", product: "Both", signal: "grader verdict plus typed reason" },
+        { level: "Layer 1", name: "Forecast accuracy", note: "MAPE", detail: "Forecast error against realised covers. Drifting more than three points from baseline is a defined failure.", product: "Aetherix. In CI on a synthetic series; against realised covers from the pilot on.", signal: "MAPE per service" },
         { level: "Base", name: "Case set and failure definitions", note: "blocking prerequisite", base: true, detail: "Representative cases with known answers, and a written definition of what counts as a bad output. Everything above is unmeasurable without it.", product: "Both", signal: "versioned case set" }
       ]
     },
@@ -447,7 +471,7 @@ var HARNESSES_ENTRY = {
       kind: "deployed",
       items: [
         { project: "Aetherix", to: "/aetherix", text: "The pyramid comes from its reliability plan. Every layer has a numeric failure definition." },
-        { project: "Lore", to: "/lore", text: "The base exists. Layer 2 is what the nine graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated." }
+        { project: "Lore", to: "/lore", text: "The base exists. Layer 2 is what the ten graders cover. Layer 4 is the open hole: the memory engine's similarity is neither observed nor evaluated." }
       ]
     },
     { kind: "h2", text: "5. Evaluation as a contract" },
@@ -494,7 +518,7 @@ var HARNESSES_ENTRY = {
       icon: "gavel",
       minutes: 2,
       oneLine: "A pass rate with no threshold attached is a number, not a decision.",
-      concrete: "A Lore run scored 52 out of 53 and was declared a failure: the single miss sat in the safety tier."
+      concrete: "A live Lore run scored 61 out of 64, 95 percent, and was declared a failure: two of its three misses sat in the safety tier."
     },
     {
       kind: "p",
@@ -551,7 +575,6 @@ var HARNESSES_ENTRY = {
       kind: "p",
       text: "The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on."
     },
-    { kind: "bench", label: "Fig. 7.1 \xB7 Instrument stability test" },
     {
       kind: "timeline",
       label: "Lore harness scores, live runs",
@@ -621,6 +644,8 @@ var HARNESSES_ENTRY = {
       kind: "quote",
       text: "A regression suite proves that graders reject bad answers. It never proves they accept good ones phrased differently from how their author phrased them. That takes a real run."
     },
+    { kind: "p", text: "Reproduce it. The regression target hands the graders nineteen answers known to be wrong, most of them verbatim model outputs, and checks that each is rejected with its reason. PASS means the bad answer was caught. It runs offline, needs no API key, and costs nothing." },
+    { kind: "code", lang: "bash", text: 'git clone https://github.com/IvandeMurard/Lore && cd Lore/frontend\nnpm ci && npx tsx evals/runner.ts --target regression\n\nPASS  abstain-05       caught by abstention: refused, then volunteered figures anyway: 36\nPASS  attribution-06   caught by no-fabricated-consensus: claims agreement beyond the 1 source(s) retrieved: "Other technicians familiar with this airframe likely agree"\nPASS  learner-01       caught by learner-address: addresses the learner as Marc: "Marc,"\n...\n  19/19 known failures caught' },
     {
       kind: "p",
       text: "What is not done yet, named as a gap: there is no scheduled red-team pass, no adversarial corpus maintained separately from the case set, and no second author on the graders. On Lore the adversarial work has been opportunistic, triggered by reading real runs. That is better than nothing and worse than a protocol."
@@ -653,7 +678,7 @@ var HARNESSES_ENTRY = {
       icon: "how_to_reg",
       minutes: 1,
       oneLine: "Keeping a human is fine. Leaving the human as the only mechanism, without capturing their decision, is not.",
-      concrete: "In Aetherix every accept, modify or reject is an event. In aviation the technician remains the certifying agent, by law."
+      concrete: "In Aetherix an exact accept or reject, or a corrected figure, is recorded as an event; free text is not yet mapped. In aviation the technician remains the certifying agent, by law."
     },
     {
       kind: "table",
@@ -723,25 +748,77 @@ var HARNESSES_ENTRY = {
       text: "Later, eleven harder cases were added and all 64 passed live on the first attempt. That was the least informative outcome available, so the answers were read rather than trusted. Reading them found three cases graded too weakly to fail, including the 0.30 qt/hr defect the harness had waved through: the required pattern accepted the answer because the word NORMAL appeared in it. All three now fail, and the baseline was deliberately not re-frozen. The protocol says freeze after three stable runs, never to turn a red run green."
     },
     {
+      kind: "stepper",
+      label: "Fig. 12.1 \xB7 One answer, three harnesses",
+      question: "Oil sitting exactly at 0.30 qt/hr on F-GKXA. NORMAL or ELEVATED?",
+      rule: "AMM 72-53-00: NORMAL below 0.30 qt/hr, ELEVATED from 0.30 to 0.50 qt/hr.",
+      answer: "According to the SOP, an oil consumption rate of exactly 0.30 US quarts per flight hour is considered NORMAL. You should record this in the trend log, but no further action is required unless there's a sudden increase of more than 0.10 qt/hr from the established baseline. Is there anything else you need help with regarding oil system servicing? Always verify the AMM procedure before intervening.",
+      reveal: {
+        fail: "Right: exactly 0.30 is ELEVATED. The first harness said PASS.",
+        pass: "The first harness agreed with you. Both were wrong: exactly 0.30 is ELEVATED."
+      },
+      steps: [
+        {
+          tab: "The grader is too weak",
+          tone: "false-pass",
+          verdict: "64 / 64 \xB7 PASS \xB7 exit 0",
+          checks: [
+            { grader: "required-content", result: "required pattern present: the word NORMAL satisfied it" }
+          ],
+          reading: "A tier-1 defect, and a green run. The answer was read, not the report."
+        },
+        {
+          tab: "The graders fail it",
+          tone: "fail",
+          verdict: "FAIL \xB7 exit 1",
+          checks: [
+            { grader: "no-sop-contradiction", result: 'matched forbidden patterns: "considered NORMAL", "no further action is required"' },
+            { grader: "band-classification", result: "0.3 qt/hr is ELEVATED per AMM 72-53-00 (0.30 - 0.50 qt/hr), but the response asserts NORMAL" }
+          ],
+          reading: "Same model, same answer. Only the graders changed, and the run turned red. The baseline was not re-frozen to make it green again."
+        },
+        {
+          tab: "Code holds the rule",
+          tone: "held",
+          verdict: "Cannot contradict the band table",
+          checks: [
+            { grader: "enforceSopPrimacy", result: "contradiction found after generation, one targeted correction quoting the manual, checked again" },
+            { grader: "fallback", result: "if the correction still contradicts, the manual's own verdict ships instead" }
+          ],
+          answer: "Per AMM 72-53-00, 0.3 qt/hr oil consumption is ELEVATED (band: 0.30 - 0.50 qt/hr). Increase monitoring to every flight. Check for leaks.",
+          reading: "The guarantee moved from the prompt to the code. The price is a second model call on corrected answers, which is the variance section 7 measured."
+        }
+      ],
+      note: `Lore case boundary-03. Model answer verbatim (GPT-4o); grader lines and the fallback verdict are the outputs of Lore's own code. Later runs got this exact question right and gave way on a softer one, "is that a problem?", which is why the rule is enforced after generation rather than tested for once.`
+    },
+    {
       kind: "quote",
       text: "A case set that passes completely has stopped being an instrument of discovery and become a safety net. Both are useful; they are not the same object."
     },
     { "kind": "h2", "text": "13. Two harnesses, and which one this is" },
-    { "kind": "key", "sigil": "SEC. 13", "icon": "compare_arrows", "oneLine": "The word now carries two meanings, and a team can hold one while missing the other entirely.", "concrete": "This piece was published on 2026-07-31, weeks before the write-ups that made the other meaning standard. Everything above describes the evaluation harness." },
-    { "kind": "p", "text": "Through the second half of 2026 a body of writing converged on *harness engineering*, and it uses the word for a different object than this piece does. Both are real, and the collision is worth one paragraph because the failure modes are opposite." },
+    { "kind": "key", "sigil": "SEC. 13", "icon": "compare_arrows", "oneLine": "The word now carries two meanings, and a team can hold one while missing the other entirely.", "concrete": "The agent sense was already the common one when this piece was published on 2026-07-31. Everything above uses the older, evaluation sense." },
+    { "kind": "p", "text": "During 2026 a body of writing converged on *harness engineering*, and it uses the word for a different object than this piece does. The evaluation sense is the older one, inherited from machine-learning test suites; the agent sense had become the common one before this piece was written. Both are real, and the collision is worth one paragraph because the failure modes are opposite." },
     { "kind": "list", "items": ["**The agent harness**: the environment around the model. Tools and their schemas, permissions, workspace, durable state, stop conditions, what happens on a retry. *Agent = model + harness.* It answers: **can this system act reliably?**", "**The evaluation harness**: the machinery that runs the exam. Case set, graders, thresholds, verdict, exit code. Section 1's definition, and the one used everywhere above. It answers: **would I know if it had stopped?**"] },
-    { "kind": "p", "text": "An agent harness without an evaluation harness produces a system that acts confidently and is measured by nobody. An evaluation harness without an agent harness measures something that cannot act. They are complements that arrived in the discourse eighteen months apart, and the second one arrived louder." },
+    { "kind": "p", "text": "An agent harness without an evaluation harness produces a system that acts confidently and is measured by nobody. An evaluation harness without an agent harness measures something that cannot act. They are complements, and the newer one is the louder." },
     { "kind": "quote", "text": "An agent harness proves the system can act. An evaluation harness proves it still should." },
+    { "kind": "h3", "text": "Where the two meet: the verify step" },
+    { "kind": "p", "text": `The clearest demonstration of the other meaning is Tejas Kumar's talk at IBM, [Harnesses in AI: A Deep Dive](https://www.youtube.com/watch?v=C_GG5g38vLU), from May 2026. He names the collision himself: in machine learning a harness is "a glorified test suite"; in AI engineering it is "everything around the model that gives it grounding in reality". And his motivation is this piece's title question, asked from the other side. The model you rent is a black box: the provider "could serve you Sonnet even though it says Opus. You would never know." Section 7's canary is how you would.` },
+    { "kind": "p", "text": "His demo takes GPT-3.5 Turbo and one prompt that never changes - upvote the top story on Hacker News - and grows a harness around it in three diffs. The bare agent reaches a login page, does nothing, and reports success. A verify step that reads the trace of tool calls turns that into an honest failure. A login handler that fills in the credentials from code, never from the prompt, turns it into a success. It lies, it fails honestly, it is held by code: the same three steps as the 0.30 qt/hr case in figure 12.1." },
+    { "kind": "p", "text": "The verify step is where the two meanings stop being separate objects. Kumar's example for a coding agent is \"run lint, run tests\". His `verify_successful_upvote` is a deterministic grader with typed failure reasons, run inside the agent loop. An agent harness's verify step is an evaluation harness called at runtime on a single episode: arm B, held to the discipline of arm A." },
+    { "kind": "p", "text": "Three limits, named because they are the ones this piece exists to name:" },
+    { "kind": "list", "items": ["**One run is a draw.** Each version of the harness ran once, and the success came on the sixth iteration, with the guardrail set to stop the run beyond six. Section 7 exists because a single run cannot tell a fix from a good draw. The talk's word is reliability; the evidence is one run.", "**The verify step reads the trace, not the world.** It checks that an upvote click was logged as successful, which is the tool's claim about itself. The final check was Kumar opening Hacker News and removing the vote by hand. On a binary task whose outcome sits in the page, that is cheap. On Lore, whose outcome never comes back (section 2), there is no page to open.", "**The verify was written by the person who had just watched the agent fail**, and it covers the two failure modes he saw. That is section 8's author bias in its purest form."] },
+    { "kind": "p", "text": "Kumar closes on a wish for 2027: agents that generate their own harness before doing the work, guardrails and verification included. On evaluation grounds, that is the direction to resist. A harness the agent writes for itself includes the verify step that grades it. Section 8 asks who grades the grader; here the grader would be written by the one being graded." },
+    { "kind": "quote", "text": "An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet." },
     { "kind": "h3", "text": "What that literature adds to this one" },
     { "kind": "p", "text": "Three things worth taking, none of which this piece specified well enough:" },
     { "kind": "list", "items": [`**The tool gateway as its own layer.** Validate the schema, authorize against policy, execute in a sandbox, and return a *structured observation* - status, reason, evidence, retryable - rather than a wall of terminal output. That is arm B infrastructure, and section 11's "typed emissions at every layer" is the same claim without the mechanism.`, "**A permission ladder matched to consequence.** Reading a public document and deleting customer records should not travel the same approval path. Uniform friction gets routed around.", "**Gating on reversibility rather than on confidence.** Sort work by how expensive the mistake is to undo, and treat the irreversible lane as a lane that does not open rather than a threshold set very high - because thresholds get adjusted under pressure and closed lanes do not. This is section 9's argument arriving from the other direction: a model's confidence is the only input to that decision the model itself can influence, which makes it the weakest variable in the gate."] },
     { "kind": "h3", "text": "What it does not add" },
     { "kind": "p", "text": "Arm C. Across that entire body of work, almost nothing measures whether the output was acted on and whether acting on it helped. The closest is a single ratio - accepted outputs over human review minutes - stated once and not developed. The attention went to the half of the problem that is visible before deployment." },
     { "kind": "p", "text": "Which leaves the gap this piece named in section 2 and did not close. Stated now so it can be checked:" },
-    { "kind": "list", "items": ["**Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values are already recorded: `accepted`, `rejected`, `modified`, `ignored`. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.", "**Human minutes per accepted output** - the direct measure of the interruption budget. A system that raises acceptance by asking more often has not improved. It has spent someone else's attention to buy its own score."] },
+    { "kind": "list", "items": ['**Acceptance rate** - accepted or modified outputs over outputs delivered. In Aetherix the four values exist in the schema - `accepted`, `rejected`, `modified`, `ignored` - but today only an exact "accept" or "reject" records the first two: a free-text refusal is stored as `modified`, and a bare "ok" records nothing. Measuring acceptance starts with fixing that capture. `rejected` is the most informative of the four, because it is a human engaging and disagreeing. `ignored` is the one to watch hardest: it is a human routing around the system, and a system can raise its acceptance rate indefinitely by being ignored more selectively.', "**Human minutes per accepted output** - the direct measure of the interruption budget. A system that raises acceptance by asking more often has not improved. It has spent someone else's attention to buy its own score."] },
     { "kind": "p", "text": "Neither is worth reading without the other. Acceptance rate alone is a Goodhart target, and a system optimised on it learns to emit bland, agreeable outputs that cost nothing to approve - the same shape as a support bot that drives its ticket-resolution rate up by closing tickets instead of solving them." },
     { "kind": "p", "text": "And arm C data only compounds if the correction is routed. An override reports that *some layer* was wrong, and which layer decides what the fix is: a stale fact belongs in memory, an unwritten rule belongs in a recorded decision, a preference seen three times belongs in a policy, an unseen pattern belongs in the case set, and an output that should never have been surfaced belongs in the filter upstream. Only the fourth is a retrain. Recording the override as free text - which is what both systems do today - collapses all five into one undifferentiated pile." },
-    { "kind": "list", "items": ["**Aetherix**: arms A and B built, arm C recorded but not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).", "**Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase."] },
+    { "kind": "list", "items": ["**Aetherix**: arm A built, with the forecast gated on synthetic data and the reply parser on a stand-in; arm B partial; arm C partly recorded (keyword replies only) and not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).", "**Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase."] },
     { kind: "h2", text: "14. Frequently asked questions", aliases: ["13-frequently-asked-questions"] },
     {
       kind: "lines",
@@ -768,7 +845,7 @@ var HARNESSES_ENTRY = {
     { kind: "h2", text: "15. Closing note", aliases: ["closing-note"] },
     {
       kind: "p",
-      text: `Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. Figures and examples come from Lore's harness: 64 cases across 12 categories, 9 graders, 21 reference answers, 17 regressions, 61 tests.`
+      text: `Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 10 graders, 21 reference answers, 19 regressions, 90 tests.`
     },
     { kind: "p", text: "This piece has gaps. They are in the table in section 3 and in the last paragraph of section 8." },
     {
@@ -790,6 +867,13 @@ var JOURNAL_ENTRIES = [
     title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
     subtitle: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
+    updates: [
+      {
+        date: "2026-09-24",
+        summary: "Corrected what the note said about recorded replies, the CI forecast baseline and the drift example.",
+        reason: 'An audit of the Aetherix repository found that only an exact "accept" or "reject", or a corrected figure, records a decision; that the forecast baseline in CI is computed on a synthetic series, not on realised covers; and that the corrupted export and the regime shift come from a simulated 30-day scenario. The note had said more than that.'
+      }
+    ],
     category: "Agentic AI",
     excerpt: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     body: [
@@ -834,21 +918,21 @@ var JOURNAL_ENTRIES = [
       },
       {
         kind: "p",
-        text: "The manager taps accept, modify or reject. That tap is not politeness. It is the recorded output of a decision node."
+        text: "The manager replies accept, reject, or the right figure. That reply is not politeness. It is the recorded output of a decision node."
       },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
         kind: "p",
-        text: "The forecast becomes measurable on its own terms: MAPE against realised covers, compared to a frozen baseline, in CI, blocking a merge. That number means something precisely because the component producing it does one thing."
+        text: "The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing."
       },
       {
         kind: "p",
-        text: "And the action becomes accountable. Every accept, modify or reject is an event with the recommendation stored beside it. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace."
+        text: "And the action becomes accountable. Every recorded accept, reject or correction is an event with the recommendation stored beside it. Today that means an exact accept or reject, or a figure: a free-text reply is not yet mapped to a decision, a gap an audit found in September 2026. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace."
       },
       {
         kind: "p",
-        text: "The seam is also what lets the system be honest about itself. It flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check."
+        text: "The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check."
       },
       { kind: "h2", text: "What it cost" },
       {
@@ -952,6 +1036,16 @@ A: ${i.a}`).join("\n\n");
       return block.items.map((i) => i.label).join(", ");
     case "askRose":
       return [block.label, block.note, ...block.prompts].filter(Boolean).join("\n");
+    case "stepper":
+      return [
+        block.label ? `**${block.label}**` : "",
+        `Technician: ${block.question} (${block.rule})`,
+        `Model answer, verbatim: "${block.answer}"`,
+        ...block.steps.map(
+          (st, i) => `Step ${i + 1}, ${st.tab}: ${st.verdict}. ${st.checks.map((c) => `${c.grader}: ${c.result}`).join("; ")}.${st.answer ? ` What ships: "${st.answer}"` : ""} ${st.reading}`
+        ),
+        block.note ?? ""
+      ].filter(Boolean).join("\n");
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n");
   }
@@ -989,6 +1083,9 @@ var get_journal_entry_default = defineTool5({
       entry.takeaways?.length ? `What you will decide differently:
 ${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
       entry.takeawayPunch ?? "",
+      entry.diagnostic ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}
+${entry.diagnostic.questions.map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN3}/journal/${entry.slug}#${q.to}`).join("\n")}
+${entry.diagnostic.caveat}` : "",
       entry.excerpt,
       bodyText,
       entry.updates?.length ? `## Updates
@@ -1015,6 +1112,7 @@ ${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")
         glance: entry.glance ?? null,
         takeaways: entry.takeaways ?? [],
         takeaway_punch: entry.takeawayPunch ?? null,
+        diagnostic: entry.diagnostic ?? null,
         updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : null,
         body: entry.body,
