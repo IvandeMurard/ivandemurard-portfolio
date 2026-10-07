@@ -113,8 +113,12 @@ const SectionHeading = ({ id, title }: { id: string; title: string }) => (
   <h2 id={id} className={titleCls}>{title}</h2>
 );
 
-const Atherix = () => (
-  <SiteLayout title="Aetherix, the F&B agent for boutique hotels" sections={SECTIONS}>
+const Atherix = () => {
+  const articleRef = useRef<HTMLElement>(null);
+  const toc = useHeadingToc(articleRef);
+  return (
+  <SiteLayout title="Aetherix, the F&B agent for boutique hotels">
+    <ReadingProgress targetRef={articleRef} />
     <Seo
       title="Aetherix, the F&B agent for boutique hotels"
       description={DESCRIPTION}
@@ -147,32 +151,28 @@ const Atherix = () => (
     <div className="pt-32">
       <Reveal as="header" className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16 lg:items-end">
-          <div className="min-w-0 lg:col-span-7">
           <div data-reveal-child className="mb-10 md:mb-12">
             <span className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-5 block">Case study · Hospitality Multi-Agent Architecture</span>
             <h1 className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-primary italic leading-[0.98] mb-5">Aetherix</h1>
             <p className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight">The F&amp;B agent for boutique hotels.</p>
           </div>
-          <p data-reveal-child className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed">One message a day in WhatsApp. The manager replies. The outcome is recorded next to it.</p>
-          </div>
-          <div className="min-w-0 lg:col-span-5">
+          <p data-reveal-child className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed mb-10 md:mb-12">One message a day in WhatsApp. The manager replies. The outcome is recorded next to it.</p>
           <dl data-reveal-child className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
             <dt className="text-secondary">Type</dt><dd>AI agent · Boutique hotel operations · 2026</dd>
             <dt className="text-secondary">Role</dt><dd>Product Builder and AI Agent Designer, solo</dd>
             <dt className="text-secondary">Status</dt><dd>Built. Running on sandbox and public data. No hotel connected yet.</dd>
           </dl>
-          <div data-reveal-child className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link to="/architecture" className={linkCls}>The architecture</Link>
             <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}>GitHub</a>
             <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Book a call</a>
           </div>
-          </div>
-          </div>
           <div data-reveal-child className="mt-12 md:mt-14"><EntryActions title="Aetherix" markdownPath="/aetherix.md" variant="case" /></div>
         </div>
       </Reveal>
-
+      <div className="px-6 md:px-12">
+      <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_14rem] gap-12">
+      <article ref={articleRef} className="min-w-0 -mx-6 md:-mx-12">
       <SectionDivider label="In one minute" index="01" />
       <Reveal as="section" id="in-one-minute" className={sectionCls}>
         <div className="max-w-screen-2xl mx-auto">
@@ -285,9 +285,7 @@ const Atherix = () => (
           <AetherixDisclosure title="The numbers"><p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.</p></AetherixDisclosure>
           </div>
           <div className="min-w-0">
-          <h3 className={subheadCls}>Roadmap</h3>
-          <AetherixPhaseTimeline />
-          <h3 className={`${subheadCls} mt-10`}>Product vision</h3>
+          <h3 className={subheadCls}>Product vision</h3>
           <p className="max-w-3xl text-on-surface-variant leading-relaxed">Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through HiveMemory, a layer of shared anonymised patterns, and get the reach of a group without joining one.</p>
           <span className="mt-5 inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Research, not built</span>
           </div>
@@ -321,7 +319,7 @@ const Atherix = () => (
         </div>
       </Reveal>
 
-      <CaseAnchors current="atherix" more={{ to: "/architecture", text: "How these systems fit together: the architecture note" }} />
+      <CaseAnchors current="atherix" entries={AETHERIX_ANCHORS} columns={4} more={{ to: "/architecture", text: "How these systems fit together: the architecture note" }} />
 
       <SectionDivider label="Talk about a pilot" index="08" />
       <Reveal as="section" id="talk-about-a-pilot" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
@@ -335,8 +333,13 @@ const Atherix = () => (
           </div>
         </div>
       </Reveal>
+      </article>
+      <div className="hidden lg:block"><JournalToc items={toc} /></div>
+      </div>
+      </div>
     </div>
   </SiteLayout>
-);
+  );
+};
 
 export default Atherix;
