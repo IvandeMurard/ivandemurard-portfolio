@@ -45,7 +45,7 @@ export const PROJECTS = {
   atherix: {
     slug: "aetherix",
     name: "Aetherix",
-    tagline: "F&B execution agent for boutique hotel operations. Forecasts tomorrow's covers daily against real data; staffing fit (pilot hypothesis) and less waste (target outcome) are what the pilot will test, not measured results.",
+    tagline: "The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it.",
     label: "AI Agent • Boutique Hotel Operations • 2026",
     image: aetherixImg,
     cta: "Read the Vision",

@@ -5,7 +5,7 @@ const NODES = [
     emoji: "🍽️",
     name: "Aetherix",
     role: "F&B execution: forecast, staffing, memory, receipts",
-    status: "Live (staging)",
+    status: "Built. Running on sandbox and public data. No hotel connected yet.",
     statusTone: "live" as const,
   },
   {
@@ -91,13 +91,7 @@ export const AetherixMeshDiagram = () => (
           </div>
         </div>
         <Arrow />
-        <div className="flex flex-col items-center gap-4">
-          <NodeCard title="Aetherix" sub="F&B execution" emphasized />
-          <div className="flex flex-col items-center gap-1">
-            <Icon name="more_vert" className="text-on-surface-variant text-sm" />
-            <NodeCard title="HiveMemory" sub="Anonymized peers" dashed />
-          </div>
-        </div>
+        <NodeCard title="Aetherix" sub="F&B execution" emphasized />
         <Arrow />
         <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant bg-surface-container-low">
           <Icon name="chat" className="text-secondary text-lg" />
@@ -124,7 +118,6 @@ export const AetherixMeshDiagram = () => (
         </div>
         <Icon name="arrow_downward" className="text-on-surface-variant text-xl" />
         <NodeCard title="Aetherix" sub="F&B execution" emphasized />
-        <NodeCard title="HiveMemory" sub="Anonymized peers, side input" dashed />
         <Icon name="arrow_downward" className="text-on-surface-variant text-xl" />
         <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant bg-surface-container-low">
           <Icon name="chat" className="text-secondary text-lg" />
@@ -137,13 +130,6 @@ export const AetherixMeshDiagram = () => (
         </div>
       </div>
 
-      <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant text-center mt-8">
-        Aetherix executes. It does not orchestrate.
-      </p>
-      <p className="mt-4 mx-auto max-w-2xl text-center font-body text-sm text-on-surface-variant leading-relaxed">
-        Target: the Orchestrator (Design) calls both. Until it is built, Tacet's output reaches
-        Aetherix directly: the one documented exception, non-personal, read-only, logged.
-      </p>
     </div>
 
     {/* Bounded contexts table */}

@@ -16,7 +16,7 @@ export interface MeshNode {
 export const MESH_NODES: MeshNode[] = [
   {
     node: "Aetherix",
-    status: "Built · 0 real users · forecast in shadow mode · pilot partner in recruitment",
+    status: "Built. Running on sandbox and public data. No hotel connected yet.",
     owns: "F&B execution: covers forecast, staffing grid, waste risk, per-property memory",
     not: "Orchestration, pricing, guest-facing anything",
     state: "built",

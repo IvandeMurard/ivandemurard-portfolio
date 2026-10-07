@@ -16,9 +16,9 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     slug: "atherix",
     name: "Aetherix",
     to: "/aetherix",
-    what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
+    what: "The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built, 0 real users, forecast in shadow mode, pilot partner in recruitment.",
+    status: "Built. Running on sandbox and public data. No hotel connected yet.",
   },
   {
     slug: "tacet",
@@ -79,9 +79,9 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     slug: "atherix",
     name: "Aetherix",
     to: "/aetherix",
-    what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
+    what: "The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built, 0 real users, forecast in shadow mode, pilot partner in recruitment.",
+    status: "Built. Running on sandbox and public data. No hotel connected yet.",
   },
   {
     slug: "tacet",
