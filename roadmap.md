@@ -25,6 +25,6 @@
 - [x] Do not publish or deploy (explicitly deferred by the user).
 
 # Compass corrections
-- [ ] Simplify header, remove architecture navigation, and group Product strategy with preserved anchors and prose.
-- [ ] Align Markdown, LLM, MCP and Rose references with standalone positioning.
-- [ ] Verify preview on desktop/mobile and refresh Compass pre-render, without publishing or deploying.
+- [x] Simplify header, remove architecture navigation, and group Product strategy with preserved anchors and prose.
+- [x] Align Markdown, LLM, MCP and Rose references with standalone positioning.
+- [x] Verify preview on desktop/mobile and refresh Compass pre-render, without publishing or deploying.
