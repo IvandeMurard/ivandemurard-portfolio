@@ -28,9 +28,9 @@ Every component status uses exactly one of these five labels. "Built" means the 
 - [Sonor](https://ivandemurard.com/sonor) (markdown: https://ivandemurard.com/sonor.md): Two-year journey as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to map urban noise and drive sustainability policy.
 - [Tacet](https://ivandemurard.com/tacet) (markdown: https://ivandemurard.com/tacet.md): Headless Environmental Twin for hospitality, exposed via an MCP server. A 3D ray-tracing physics engine plus a dual memory store (idiosyncratic and Hive Mind, Research: no network to aggregate yet) turns street, weather and crowd signals into human-approved yield rules and Chain of Thought payloads for RMS, PMS and the orchestrator (Design).
 
-## Field Notes
-
 Compass belongs under Standalone projects. It is not a node, agent or part of the Hospitality Multi-Agent Architecture. Its six sections are One address, three questions; Product strategy (The problem, The bet, What it refuses, Against what exists); Where AI sits; One core, two readers; How sure is it?; Where it stands.
+
+## Field Notes
 
 - [Journal index](https://ivandemurard.com/journal)
 - [Evaluating LLM agents: how would you know it had stopped working?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (markdown: https://ivandemurard.com/journal/harnesses-graders-closed-loops.md) (2026-07-31): A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Tested on Aetherix and Lore.

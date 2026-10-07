@@ -86,6 +86,12 @@ const Compass = () => {
                       <h2 id={section.id} tabIndex={-1} className="group font-headline italic text-primary text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32">{section.title}<HeadingAnchor id={section.id} text={section.title} /></h2>
                       {section.status && <p className="mb-8"><span className={chipCls}>{section.status}</span></p>}
                       {section.blocks.map((block, index) => <Block key={index} block={block} title={section.title} />)}
+                      {section.subsections?.map((subsection) => (
+                        <section key={subsection.id} aria-labelledby={subsection.id} className="mt-10 md:mt-12">
+                          <h3 id={subsection.id} tabIndex={-1} className="group font-headline italic text-primary text-2xl md:text-3xl leading-tight mb-5 scroll-mt-32">{subsection.title}<HeadingAnchor id={subsection.id} text={subsection.title} /></h3>
+                          {subsection.blocks.map((block, index) => <Block key={index} block={block} title={subsection.title} />)}
+                        </section>
+                      ))}
                       {i === COMPASS_SECTIONS.length - 1 && <div className="max-w-3xl mt-10">
                         <ShareRow
                           title="Compass, address-level context for commercial premises in Paris"
