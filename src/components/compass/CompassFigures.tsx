@@ -1,15 +1,41 @@
 import { AnimaFigure as CaseFigure } from "@/components/anima/AnimaFigure";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { COMPASS_CONFIDENCE, COMPASS_TIMELINE, type CompassConfidence as Confidence } from "@/content/compass";
+
+const badgeTone: Record<Confidence, string> = {
+  Established: "border-secondary bg-secondary/10 text-primary",
+  Corroborated: "border-outline bg-primary/5 text-primary",
+  Probable: "border-outline-variant bg-surface-container-low text-on-surface-variant",
+  Undetermined: "border-dashed border-outline text-secondary",
+};
+
+const ConfidenceBadge = ({ confidence }: { confidence: Confidence }) => (
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span tabIndex={0} className={`inline-flex cursor-help rounded-sm border px-2 py-1 font-label text-[9px] uppercase tracking-[0.16em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${badgeTone[confidence]}`}>
+        {confidence}
+      </span>
+    </TooltipTrigger>
+    <TooltipContent side="top" className="max-w-xs font-body leading-relaxed">
+      {COMPASS_CONFIDENCE[confidence]}
+    </TooltipContent>
+  </Tooltip>
+);
 
 export const CompassTimeline = ({ caption }: { caption: string }) => (
   <CaseFigure label="Fig. 1.1" caption={caption}>
-    <ol className="grid grid-cols-3 list-none p-0 m-0">
-      {[["2017", "Florist"], ["2020", "Florist"], ["2023", "No longer a shop"]].map(([year, label]) => (
-        <li key={year} className="min-w-0">
-          <p className="font-headline italic text-xl md:text-2xl text-primary mb-4">{year}</p>
-          <div className="relative h-px bg-outline-variant mb-5" aria-hidden="true">
-            <span className="absolute left-0 -top-1 h-2.5 w-2.5 rounded-full border border-secondary bg-surface-container-lowest" />
+    <ol className="relative list-none p-0 m-0 before:absolute before:bottom-3 before:left-[5.2rem] before:top-3 before:w-px before:bg-outline-variant md:before:left-[7.2rem]">
+      {COMPASS_TIMELINE.map((item) => (
+        <li key={`${item.date}-${item.event}`} className={`relative grid grid-cols-[4.25rem_minmax(0,1fr)] gap-5 py-3 md:grid-cols-[6rem_minmax(0,1fr)] md:gap-7 ${item.withheld ? "opacity-75" : ""}`}>
+          <time className="pt-1 text-right font-label text-[10px] uppercase tracking-[0.12em] text-secondary">{item.date}</time>
+          <span aria-hidden="true" className={`absolute left-[4.9rem] top-[1.15rem] h-2.5 w-2.5 rounded-full border bg-surface-container-lowest md:left-[6.9rem] ${item.withheld ? "border-dashed border-outline" : "border-secondary"}`} />
+          <div className={`min-w-0 rounded-sm border px-3 py-3 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-4 ${item.withheld ? "border-dashed border-outline-variant bg-surface-container-low" : "border-outline-variant"}`}>
+            <div className="min-w-0">
+              <p className="font-body text-sm leading-relaxed text-primary">{item.event}</p>
+              {item.amount && <p className="mt-1 font-headline text-lg italic text-primary">{item.amount}</p>}
+            </div>
+            <div className="mt-3 md:mt-0"><ConfidenceBadge confidence={item.confidence} /></div>
           </div>
-          <p className="font-body text-sm text-on-surface-variant leading-relaxed pr-3">{label}</p>
         </li>
       ))}
     </ol>

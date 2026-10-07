@@ -28,3 +28,9 @@
 - [x] Simplify header, remove architecture navigation, and group Product strategy with preserved anchors and prose.
 - [x] Align Markdown, LLM, MCP and Rose references with standalone positioning.
 - [x] Verify preview on desktop/mobile and refresh Compass pre-render, without publishing or deploying.
+
+# Compass real-address revision
+- [x] Replace Sec. 01 with the verified 10 rue Mandar timeline, confidence legend, surroundings and comparison.
+- [x] Add the real agent-response excerpt to Sec. 04 while keeping it shorter than Sec. 01.
+- [x] Remove all prohibited 2017/2020-derived claims and synchronize Markdown, LLM, MCP and Rose references.
+- [x] Verify tooltips, anchors, themes, mobile layout and pre-render without publishing or deploying.

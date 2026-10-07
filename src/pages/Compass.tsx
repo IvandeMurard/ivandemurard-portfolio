@@ -11,7 +11,7 @@ import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { useHeadingToc } from "@/components/reading/useHeadingToc";
 import { CompassCommand } from "@/components/compass/CompassCommand";
 import { CompassConfidence, CompassReaders, CompassTimeline } from "@/components/compass/CompassFigures";
-import { COMPASS, COMPASS_SECTIONS, type CompassBlock } from "@/content/compass";
+import { COMPASS, COMPASS_CONFIDENCE, COMPASS_SECTIONS, type CompassBlock } from "@/content/compass";
 
 const linkCls = "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
 const chipCls = "inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant";
@@ -19,10 +19,24 @@ const chipCls = "inline-block rounded-sm border border-outline bg-surface-contai
 const Block = ({ block, title }: { block: CompassBlock; title: string }) => {
   if (block.kind === "paragraph") return <p className="font-body font-normal text-on-surface-variant leading-relaxed text-base md:text-lg mb-5 max-w-3xl">{block.bold ? <strong className="font-semibold text-primary">{block.text}</strong> : block.text}</p>;
   if (block.kind === "list") return <ul className="list-disc pl-5 space-y-4 mb-8 max-w-3xl font-body font-normal text-on-surface-variant leading-relaxed text-base md:text-lg">{block.items.map((text) => <li key={text}>{text}</li>)}</ul>;
-  if (block.kind === "code") return <div className="mb-8">
+  if (block.kind === "code") return <div className="mb-8 max-w-3xl">
     {block.label && <p className="mb-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary">{block.label}</p>}
-    <CompassCommand />
+    {block.content ? (
+      <>
+        <pre className="overflow-x-auto rounded-sm border border-outline-variant bg-surface-container-lowest p-4 font-mono text-xs leading-relaxed text-primary"><code>{block.content}</code></pre>
+        {block.caption && <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">{block.caption}</p>}
+      </>
+    ) : <CompassCommand />}
   </div>;
+  if (block.kind === "confidenceLegend") return (
+    <dl id="confidence-legend" className="mb-8 max-w-3xl scroll-mt-32 border-y border-outline-variant py-2">
+      {Object.entries(COMPASS_CONFIDENCE).map(([label, definition]) => <div key={label} className="grid gap-1 border-b border-outline-variant py-3 last:border-b-0 md:grid-cols-[8rem_minmax(0,1fr)] md:gap-4">
+        <dt className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">{label}</dt>
+        <dd className="font-body text-sm leading-relaxed text-on-surface-variant">{definition}</dd>
+      </div>)}
+    </dl>
+  );
+  if (block.kind === "link") return <p className="mb-5 max-w-3xl font-body text-sm"><a href={block.href} className={linkCls}>{block.text}</a></p>;
   if (block.kind === "figure") {
     const Figure = block.figure === "timeline" ? CompassTimeline : block.figure === "readers" ? CompassReaders : CompassConfidence;
     return <Figure caption={block.caption} />;

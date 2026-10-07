@@ -13,26 +13,90 @@ export const COMPASS = {
   schedule: "https://cal.com/ivandemurard/discussion-and-introduction",
 } as const;
 
+export const COMPASS_CONFIDENCE = {
+  Established: "The source names this premise directly, and the record is attached.",
+  Corroborated: "Two independent public sources place the business here; neither names the premise.",
+  Probable: "The fact is documented, but tying it to this premise is inferred.",
+  Undetermined: "The source is silent, and says so.",
+} as const;
+
+export type CompassConfidence = keyof typeof COMPASS_CONFIDENCE;
+
+export const COMPASS_TIMELINE: Array<{ date: string; event: string; amount?: string; confidence: CompassConfidence; withheld?: boolean }> = [
+  { date: "2017", event: "Census · Withheld, licence not cleared", confidence: "Undetermined", withheld: true },
+  { date: "Aug 2017", event: "Goodwill sold", amount: "€100,000", confidence: "Probable" },
+  { date: "Mar 2019", event: "Goodwill sold", amount: "€95,000", confidence: "Probable" },
+  { date: "Jul 2019", event: "Goodwill sold", amount: "€450,000", confidence: "Probable" },
+  { date: "2020", event: "Census · Withheld, licence not cleared", confidence: "Undetermined", withheld: true },
+  { date: "Aug 2021", event: "Goodwill sold", amount: "€87,500", confidence: "Probable" },
+  { date: "2023", event: "Census · Asian restaurant", confidence: "Established" },
+  { date: "Oct 2023", event: "Goodwill sold", amount: "€175,000", confidence: "Probable" },
+  { date: "Jun 2024", event: "Goodwill sold", amount: "€120,000", confidence: "Probable" },
+];
+
+export const COMPASS_AGENT_EXCERPT = `{
+  "occurred_on": "2021-08-05",
+  "source": "BODACC cession",
+  "source_licence": "Licence Ouverte",
+  "kind": "sale",
+  "amount_eur": 87500,
+  "evidence": "Fonds acquis par achat au prix stipulé de 87500,00 euros.",
+  "confidence": "probable",
+  "confidence_reason": "2 locaux partagent cette adresse : lequel est concerné n'est pas publié"
+}`;
+
 export type CompassBlock =
   | { kind: "paragraph"; text: string; bold?: boolean }
   | { kind: "list"; items: string[] }
   | { kind: "table"; head: string[]; rows: string[][]; monospaceFirstColumn?: boolean }
-  | { kind: "code"; label?: string }
+  | { kind: "code"; label?: string; content?: string; language?: "json" | "sh"; caption?: string }
+  | { kind: "confidenceLegend" }
+  | { kind: "link"; text: string; href: string }
   | { kind: "figure"; figure: "timeline" | "readers" | "confidence"; caption: string; description: string };
 
 export type CompassSection = { title: string; id: string; status?: string; blocks: CompassBlock[]; subsections?: CompassSection[] };
 
 export const COMPASS_SECTIONS: CompassSection[] = [
   {
-    title: "One address, three questions", id: "one-address-three-questions",
+    title: "One address, read in context", id: "one-address-three-questions",
     blocks: [
-      { kind: "paragraph", text: "You are standing in front of an empty shopfront. The agent says the street is lively." },
-      { kind: "list", items: [
-        "What was here? A florist in 2017, a florist in 2020, gone by 2023.",
-        "Is the street dying or churning? Rue d'Argout turned over half its shops in three years, and refilled its three empty units.",
-        "What did people pay? The median Paris goodwill sells between 160,000 and 170,000 €. A café goes for 220,000 €, a clothing shop for 86,000 €.",
-      ] },
-      { kind: "figure", figure: "timeline", caption: "One address across three censuses. Illustrative.", description: '2017: Florist → 2020: Florist → 2023: No longer a shop.' },
+      { kind: "paragraph", bold: true, text: "10 rue Mandar, Paris 2e. What public data says about it, exactly as the Compass server returned it on 7 October 2026." },
+    ],
+    subsections: [
+      {
+        title: "The address", id: "the-address",
+        blocks: [
+          { kind: "paragraph", bold: true, text: "Six goodwill sales in seven years." },
+          { kind: "figure", figure: "timeline", caption: "10 rue Mandar, Paris 2e. Sources: APUR BDCom 2023 (ODbL), BODACC (Licence Ouverte). Retrieved 7 October 2026.", description: "Nine dated records from 2017 to 2024, including two deliberately withheld census rows, six goodwill sales, and the established 2023 census record." },
+          { kind: "paragraph", text: "Why Probable: two shopfronts share this street number, and the legal notice does not say which one was sold." },
+          { kind: "paragraph", text: "Three insolvency notices also carry this address. They give a company's registered office, not the shop, and are flagged as such." },
+          { kind: "confidenceLegend" },
+          { kind: "paragraph", text: "Compass also measures how many businesses of a given trade are still trading six years later, neighbourhood by neighbourhood. Those figures rest on the 2017 census and stay withheld until its licence is cleared." },
+        ],
+      },
+      {
+        title: "The surroundings", id: "the-surroundings",
+        blocks: [
+          { kind: "paragraph", bold: true, text: "Dense commercial fabric, sustained passing trade, strong rail access, many shops and services within walking distance." },
+          { kind: "paragraph", text: "The server's own one-sentence reading of the 800 m around the address, translated from French." },
+        ],
+      },
+      {
+        title: "Against another address", id: "against-another-address",
+        blocks: [
+          { kind: "paragraph", bold: true, text: "Context only means something by comparison." },
+          { kind: "table", head: ["Axis (score out of 100)", "10 rue Mandar, 2e", "A residential point, 20e"], rows: [
+            ["Commercial density", "95", "82"],
+            ["Shops and services within walking distance", "64", "22"],
+            ["Food shops", "61", "22"],
+            ["Rail access", "60", "70"],
+            ["Passing trade (estimate)", "83", "78"],
+            ["Road noise exposure (modelled)", "51", "100"],
+          ] },
+          { kind: "paragraph", bold: true, text: "On road noise, the residential point comes out twice as exposed: 100 against 51. This is a model built from the major roads within 500 m, not a measurement." },
+          { kind: "paragraph", text: "Six other axes (schools, healthcare, groceries, parks, transit, walkability) reach the ceiling at both points, as they do across much of central Paris. The server excludes them from the comparison instead of presenting them as a difference." },
+        ],
+      },
     ],
   },
   {
@@ -51,10 +115,11 @@ export const COMPASS_SECTIONS: CompassSection[] = [
     blocks: [
       { kind: "paragraph", text: "The answer is already public, in pieces nobody joins at the address:" },
       { kind: "list", items: [
-        "three door-to-door censuses of every Paris shopfront (APUR, 2017, 2020, 2023);",
+        "the licensed 2023 door-to-door census of every Paris shopfront (APUR);",
         "legal notices of goodwill sales and insolvencies (BODACC);",
         "the business register (INSEE Sirene).",
       ] },
+      { kind: "paragraph", text: "Earlier census records stay withheld until their licence is cleared." },
       { kind: "paragraph", text: "Compass joins them: 85,418 units, each figure with its source, licence and date." },
     ],
   },
@@ -93,15 +158,16 @@ export const COMPASS_SECTIONS: CompassSection[] = [
       { kind: "paragraph", bold: true, text: "One scoring core. A person reads it on a map, an AI agent queries it directly." },
       { kind: "figure", figure: "readers", caption: "The same core serves both.", description: "Public sources (APUR BDCom, BODACC, INSEE Sirene) → One scoring core → Map, for a person / MCP server, for an agent." },
       { kind: "table", head: ["Tool", "What it answers"], monospaceFirstColumn: true, rows: [
-        ["trace_premise", "What traded at this address, year by year"],
+        ["trace_premise", "What happened at this address, year by year"],
         ["find_premises", "Which shopfronts sit near this point"],
         ["score_location", "How this location scores, axis by axis"],
         ["compare_locations", "How two locations differ"],
         ["explain_score", "Why one score is what it is"],
         ["list_sources", "Which datasets, licences and dates are behind it"],
       ] },
+      { kind: "code", label: "What an agent receives", content: COMPASS_AGENT_EXCERPT, language: "json", caption: "One row of trace_premise for 10 rue Mandar, excerpt. Same fact, same source, same confidence level as in the timeline above." },
       { kind: "paragraph", text: "An agent gets no shortcut: same figures, same sources, same confidence levels as the person." },
-      { kind: "code", label: "Try it" },
+      { kind: "code", label: "Try it", language: "sh" },
     ],
   },
   {
@@ -109,6 +175,7 @@ export const COMPASS_SECTIONS: CompassSection[] = [
     blocks: [
       { kind: "paragraph", text: "Every figure is checked against automatic rules before it ships, every day." },
       { kind: "paragraph", text: 'Each one carries one of four confidence levels. About half the corpus is certain. A third stays "probable", because public sources name an address and several shopfronts often share it. The product says so on screen.' },
+      { kind: "link", text: "Read the four confidence definitions in Sec. 01.", href: "#confidence-legend" },
       { kind: "figure", figure: "confidence", caption: "Confidence levels across the corpus, measured 6 October 2026.", description: "Established 51% · Corroborated 6% · Probable 37% · Undetermined 6%." },
     ],
   },
