@@ -36,6 +36,6 @@
 - [x] Verify tooltips, anchors, themes, mobile layout and pre-render without publishing or deploying.
 
 # Aetherix evidence-led rewrite
-- [ ] Rebuild `/aetherix` as the approved eight-section case study and keep the forecast console source for later reuse.
-- [ ] Synchronize the approved Aetherix tagline, status, SEO, Markdown, LLM, MCP, architecture references and Rose guardrail.
-- [ ] Regenerate derived outputs and verify the page, disclosures, terms, links and forbidden-phrase audit without publishing or deploying.
+- [x] Rebuild `/aetherix` as the approved eight-section case study and keep the forecast console source for later reuse.
+- [x] Synchronize the approved Aetherix tagline, status, SEO, Markdown, LLM, MCP, architecture references and Rose guardrail.
+- [x] Regenerate derived outputs and verify the page, disclosures, terms, links and forbidden-phrase audit without publishing or deploying.
