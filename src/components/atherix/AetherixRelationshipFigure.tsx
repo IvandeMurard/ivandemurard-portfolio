@@ -1,8 +1,8 @@
 const relations = [
-  { position: "md:col-start-2", title: "PMS (Apaleo)", line: "data, read-only · listing", direction: "in" },
-  { position: "md:col-start-3 md:row-start-2", title: "F&B manager", line: "daily message", direction: "out" },
-  { position: "md:col-start-2 md:row-start-3", title: "F&B manager", line: "reply", direction: "in" },
-  { position: "md:col-start-1 md:row-start-2", title: "Hotel management", line: "contract", direction: "in" },
+  { position: "md:col-start-2", title: "PMS (Apaleo) → Aetherix", line: "data, read-only · listing" },
+  { position: "md:col-start-3 md:row-start-2", title: "Aetherix → F&B manager", line: "daily message" },
+  { position: "md:col-start-2 md:row-start-3", title: "F&B manager → Aetherix", line: "reply" },
+  { position: "md:col-start-1 md:row-start-2", title: "Hotel management → Aetherix", line: "contract" },
 ];
 
 export const AetherixRelationshipFigure = () => (
@@ -15,7 +15,7 @@ export const AetherixRelationshipFigure = () => (
         <div key={`${relation.title}-${relation.line}`} className={`flex min-h-24 flex-col justify-center rounded-sm border border-outline-variant bg-surface-container-low p-4 ${relation.position}`}>
           <span className="font-headline text-lg italic text-primary">{relation.title}</span>
           <span className="mt-2 font-label text-[10px] uppercase tracking-[0.16em] text-secondary">
-            {relation.direction === "in" ? `${relation.line} → Aetherix` : `Aetherix → ${relation.line}`}
+            {relation.line}
           </span>
         </div>
       ))}
