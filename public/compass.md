@@ -1,18 +1,18 @@
 # Compass
 
+Case study · Standalone project
+
 Every address has a story. Compass reads it before you sign.
 
 Open data turned into traceable, address-level context for commercial location decisions in Paris.
 
-Data product · Commercial premises · Paris · 2026
+Type: Data product · Commercial premises · Paris · 2026
 
 Role: Product and data design, built by directing AI coding agents.
 
 Status: Corpus and MCP server live. Web demo on a frozen sample (17th arrondissement).
 
-[Open the demo](https://paris-compass.lovable.app) · [GitHub](https://github.com/IvandeMurard/paris-compass)
-
-`npx -y paris-compass-mcp`
+[Open the demo](https://paris-compass.lovable.app) · [GitHub](https://github.com/IvandeMurard/paris-compass) · [Live MCP](https://www.npmjs.com/package/paris-compass-mcp)
 
 ## 1. One address, three questions
 
@@ -28,13 +28,17 @@ You are standing in front of an empty shopfront. The agent says the street is li
 
 One address across three censuses. Illustrative.
 
-## 2. The problem
+## 2. Product strategy
+
+**Join public data at the address, and refuse what cannot be verified.**
+
+### The problem
 
 An entrepreneur chooses a shopfront on one visit, a hunch about passing trade, and what the landlord says. Listings describe the unit: floor area, rent, photos. Nothing describes the street.
 
 More than 2,000 goodwill sales are published with their price in Paris every year. Each one is a decision made with that little.
 
-## 3. The bet
+### The bet
 
 The answer is already public, in pieces nobody joins at the address:
 
@@ -44,7 +48,7 @@ The answer is already public, in pieces nobody joins at the address:
 
 Compass joins them: 85,418 units, each figure with its source, licence and date.
 
-## 4. What it refuses
+### What it refuses
 
 | Refused | What that buys |
 | --- | --- |
@@ -53,7 +57,7 @@ Compass joins them: 85,418 units, each figure with its source, licence and date.
 | Brokers as users | Depth for one person studying one address. Brokers get the API. |
 | Any figure without a cited public source | A claim the reader can re-derive, including against Compass. |
 
-## 5. Against what exists
+### Against what exists
 
 | Existing tool | What it answers | What it leaves out |
 | --- | --- | --- |
@@ -63,7 +67,7 @@ Compass joins them: 85,418 units, each figure with its source, licence and date.
 
 Compass sits upstream of the listing: a business that has ceased trading or entered insolvency is public months before any advert.
 
-## 6. Where AI sits
+## 3. Where AI sits
 
 Design, planned for Q4 2026.
 
@@ -71,7 +75,7 @@ AI stays out of the scoring core, which is deterministic and replayable. It work
 
 Ruled out: a generated rent or revenue, a probability of success, a score "explained by AI".
 
-## 7. One core, two readers
+## 4. One core, two readers
 
 The same figures reach a person on the map and an agent over MCP.
 
@@ -81,25 +85,25 @@ npx -y paris-compass-mcp
 
 Six tools, read-only, published on npm and the MCP registry.
 
-### Fig. 7.1
+### Fig. 4.1
 
 Public sources (APUR BDCom, BODACC, INSEE Sirene) → One scoring core → Map, for a person / MCP server, for an agent.
 
 One core, two readers.
 
-## 8. How sure is it?
+## 5. How sure is it?
 
 Every figure is checked against automatic rules before it ships, every day.
 
 Each one carries one of four confidence levels. About half the corpus is certain. A third stays "probable", because public sources name an address and several shopfronts often share it. The product says so on screen.
 
-### Fig. 8.1
+### Fig. 5.1
 
 Established 51% · Corroborated 6% · Probable 37% · Undetermined 6%.
 
 Confidence levels across the corpus, measured 6 October 2026.
 
-## 9. Where it stands
+## 6. Where it stands
 
 | Component | State |
 | --- | --- |

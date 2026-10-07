@@ -1,5 +1,7 @@
 export const COMPASS = {
   name: "Compass",
+  classification: "Standalone project",
+  mcp: "https://www.npmjs.com/package/paris-compass-mcp",
   headline: "Every address has a story. Compass reads it before you sign.",
   subhead: "Open data turned into traceable, address-level context for commercial location decisions in Paris.",
   label: "Data product · Commercial premises · Paris · 2026",
@@ -12,13 +14,13 @@ export const COMPASS = {
 } as const;
 
 export type CompassBlock =
-  | { kind: "paragraph"; text: string }
+  | { kind: "paragraph"; text: string; bold?: boolean }
   | { kind: "list"; items: string[] }
   | { kind: "table"; head: string[]; rows: string[][] }
   | { kind: "code" }
   | { kind: "figure"; figure: "timeline" | "readers" | "confidence"; caption: string; description: string };
 
-export type CompassSection = { title: string; id: string; status?: string; blocks: CompassBlock[] };
+export type CompassSection = { title: string; id: string; status?: string; blocks: CompassBlock[]; subsections?: CompassSection[] };
 
 export const COMPASS_SECTIONS: CompassSection[] = [
   {
@@ -33,6 +35,10 @@ export const COMPASS_SECTIONS: CompassSection[] = [
       { kind: "figure", figure: "timeline", caption: "One address across three censuses. Illustrative.", description: '2017: Florist → 2020: Florist → 2023: No longer a shop.' },
     ],
   },
+  {
+    title: "Product strategy", id: "product-strategy",
+    blocks: [{ kind: "paragraph", bold: true, text: "Join public data at the address, and refuse what cannot be verified." }],
+    subsections: [
   {
     title: "The problem", id: "the-problem",
     blocks: [
@@ -70,6 +76,8 @@ export const COMPASS_SECTIONS: CompassSection[] = [
         ["Broker platforms", "Many locations, compared in bulk", "One address, read in depth by the person who will sign"],
       ] },
       { kind: "paragraph", text: "Compass sits upstream of the listing: a business that has ceased trading or entered insolvency is public months before any advert." },
+    ],
+  },
     ],
   },
   {

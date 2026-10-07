@@ -39,6 +39,7 @@ export default defineTool({
         content: [{ type: "text", text: markdown }],
         structuredContent: {
           slug,
+          ...(slug === "compass" ? { group: "Standalone projects" } : {}),
           source_url: url,
           canonical_url: `${SITE_ORIGIN}/${slug === "aetherix" ? "aetherix" : slug}`,
           markdown,
