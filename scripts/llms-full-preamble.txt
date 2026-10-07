@@ -84,11 +84,11 @@ Boundaries. Any consumer declares which layer it queries; there is no call retur
 
 Status. Synthetic PoC. Four-layer memory implemented, working MCP server, evaluated on a synthetic cohort. Never run on a real guest, and it will not until a formal data-protection assessment is complete. Shipped as a prototype at an Anthropic hackathon, June 2026. Production is phase 4.
 
-## Paris Compass
+## Compass
 
-URL: https://paris-compass.lovable.app. Repository: https://github.com/IvandeMurard/paris-compass.
+URL: https://ivandemurard.com/compass. Live app: https://paris-compass.lovable.app. Repository: https://github.com/IvandeMurard/paris-compass. MCP server: npx -y paris-compass-mcp, published on npm and the MCP registry.
 
-Find commercial spaces from their context, built for humans and agents. Compass puts venues back into their neighbourhood: business history, turnover signals, noise, amenities and risk scores, all from public open data. Search by need, not by reference.
+Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. The answer is already public, in pieces nobody joins at the address: three door-to-door censuses of every Paris shopfront (APUR, 2017, 2020, 2023), legal notices of goodwill sales and insolvencies (BODACC), and the business register (INSEE Sirene). Compass joins them: 85,418 units, each figure with its source, licence and date. It refuses a single score out of 100, a rent estimate, brokers as users, and any figure without a cited public source. The same figures reach a person on the map and an agent over MCP (six tools, read-only). AI stays out of the deterministic scoring core; it works above it, reading legal notices and matching sales to shopfronts (Design, planned for Q4 2026). Status: Corpus and evaluation live, MCP server published, web demo on a frozen sample (17th arrondissement), demo on the live corpus in progress.
 
 ## Track record
 
@@ -102,7 +102,7 @@ Find commercial spaces from their context, built for humans and agents. Compass 
 - Aetherix: contextual intelligence layer for boutique hotel operations.
 - Tacet: headless Environmental Twin for hotels, exposed via an MCP server.
 - Lore: voice AI mentor for senior technicians, 24h hackathon win.
-- Paris Compass: find commercial spaces from their context, live app and public repo, ships a published MCP server on npm.
+- Compass: reads commercial premises in Paris from public open data, case study on this site, live demo on a frozen sample, ships a published MCP server on npm.
 - Field Notes: writing on product, evaluation, and AI systems design.
 
 ## Field Notes
