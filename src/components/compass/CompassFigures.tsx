@@ -9,10 +9,10 @@ const badgeTone: Record<Confidence, string> = {
   Undetermined: "border-dashed border-outline text-secondary",
 };
 
-const ConfidenceBadge = ({ confidence }: { confidence: Confidence }) => (
-  <Tooltip>
+export const ConfidenceBadge = ({ confidence }: { confidence: Confidence }) => (
+  <Tooltip delayDuration={80}>
     <TooltipTrigger asChild>
-      <span tabIndex={0} className={`inline-flex cursor-help rounded-sm border px-2 py-1 font-label text-[9px] uppercase tracking-[0.16em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${badgeTone[confidence]}`}>
+      <span tabIndex={0} className={`inline-flex cursor-help rounded-sm border underline decoration-dotted decoration-1 underline-offset-[3px] px-2 py-1 font-label text-[9px] uppercase tracking-[0.16em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${badgeTone[confidence]}`}>
         {confidence}
       </span>
     </TooltipTrigger>

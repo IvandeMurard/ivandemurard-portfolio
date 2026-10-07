@@ -9,6 +9,7 @@ import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
 import { JournalToc } from "@/components/reading/JournalToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { useHeadingToc } from "@/components/reading/useHeadingToc";
+import { CompassDossier } from "@/components/compass/CompassDossier";
 import { CompassCommand } from "@/components/compass/CompassCommand";
 import { CompassConfidence, CompassReaders, CompassTimeline } from "@/components/compass/CompassFigures";
 import { COMPASS, COMPASS_CONFIDENCE, COMPASS_SECTIONS, type CompassBlock } from "@/content/compass";
@@ -103,7 +104,7 @@ const Compass = () => {
                       <h2 id={section.id} tabIndex={-1} className="group font-headline italic text-primary text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32">{section.title}<HeadingAnchor id={section.id} text={section.title} /></h2>
                       {section.status && <p className="mb-8"><span className={chipCls}>{section.status}</span></p>}
                       {section.blocks.map((block, index) => <Block key={index} block={block} title={section.title} />)}
-                      {section.subsections?.map((subsection) => (
+                      {section.id === "one-address-three-questions" ? <CompassDossier section={section} /> : section.subsections?.map((subsection) => (
                         <section key={subsection.id} aria-labelledby={subsection.id} className="mt-10 md:mt-12">
                           <h3 id={subsection.id} tabIndex={-1} className="group font-headline italic text-primary text-2xl md:text-3xl leading-tight mb-5 scroll-mt-32">{subsection.title}<HeadingAnchor id={subsection.id} text={subsection.title} /></h3>
                           {subsection.blocks.map((block, index) => <Block key={index} block={block} title={subsection.title} />)}
