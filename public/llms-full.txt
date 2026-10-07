@@ -86,6 +86,9 @@ Status. Synthetic PoC. Four-layer memory implemented, working MCP server, evalua
 
 ## Compass
 
+Standalone projects: Compass is a standalone data product, not a node, agent or part of the Hospitality Multi-Agent Architecture.
+Six top-level sections: One address, three questions; Product strategy (The problem, The bet, What it refuses, Against what exists); Where AI sits; One core, two readers; How sure is it?; Where it stands.
+
 URL: https://ivandemurard.com/compass. Live app: https://paris-compass.lovable.app. Repository: https://github.com/IvandeMurard/paris-compass. MCP server: npx -y paris-compass-mcp, published on npm and the MCP registry.
 
 Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. The answer is already public, in pieces nobody joins at the address: three door-to-door censuses of every Paris shopfront (APUR, 2017, 2020, 2023), legal notices of goodwill sales and insolvencies (BODACC), and the business register (INSEE Sirene). Compass joins them: 85,418 units, each figure with its source, licence and date. It refuses a single score out of 100, a rent estimate, brokers as users, and any figure without a cited public source. The same figures reach a person on the map and an agent over MCP (six tools, read-only). AI stays out of the deterministic scoring core; it works above it, reading legal notices and matching sales to shopfronts (Design, planned for Q4 2026). Status: Corpus and evaluation live, MCP server published, web demo on a frozen sample (17th arrondissement), demo on the live corpus in progress.
