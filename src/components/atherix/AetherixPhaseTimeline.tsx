@@ -10,7 +10,7 @@ const PHASES: { n: string; label: string; state: State; sub?: string }[] = [
     n: "Phase 3",
     label: "Pilot",
     state: "current",
-    sub: "Pilot design partner in recruitment. Go-live targeted end of September.",
+    sub: "Pilot design partner in recruitment. No go-live date set.",
   },
   {
     n: "Phase 4",
