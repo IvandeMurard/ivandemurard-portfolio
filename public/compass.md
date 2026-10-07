@@ -75,17 +75,30 @@ AI stays out of the scoring core, which is deterministic and replayable. It work
 
 Ruled out: a generated rent or revenue, a probability of success, a score "explained by AI".
 
-## 4. One core, two readers
+## 4. Built for people and AI agents
 
-The same figures reach a person on the map and an agent over MCP.
+Agent-ready · MCP server published · six tools · read-only
+
+**One scoring core. A person reads it on a map, an AI agent queries it directly.**
 
 ### Fig. 4.1
 
 Public sources (APUR BDCom, BODACC, INSEE Sirene) → One scoring core → Map, for a person / MCP server, for an agent.
 
-One core, two readers.
+The same core serves both.
 
-Six tools, read-only, published on npm and the MCP registry.
+| Tool | What it answers |
+| --- | --- |
+| `trace_premise` | What traded at this address, year by year |
+| `find_premises` | Which shopfronts sit near this point |
+| `score_location` | How this location scores, axis by axis |
+| `compare_locations` | How two locations differ |
+| `explain_score` | Why one score is what it is |
+| `list_sources` | Which datasets, licences and dates are behind it |
+
+An agent gets no shortcut: same figures, same sources, same confidence levels as the person.
+
+**Try it**
 
 ```sh
 npx -y paris-compass-mcp
