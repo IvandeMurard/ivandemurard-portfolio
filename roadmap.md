@@ -23,3 +23,8 @@
 - [x] Wire Compass into home, case index, case navigation, Markdown, SEO and portfolio MCP sources.
 - [x] Synchronize the Markdown mirror, regenerate the LLM corpus and affected pre-rendered pages, and verify the reading flow.
 - [x] Do not publish or deploy (explicitly deferred by the user).
+
+# Compass corrections
+- [ ] Simplify header, remove architecture navigation, and group Product strategy with preserved anchors and prose.
+- [ ] Align Markdown, LLM, MCP and Rose references with standalone positioning.
+- [ ] Verify preview on desktop/mobile and refresh Compass pre-render, without publishing or deploying.

@@ -17,7 +17,7 @@ export const CompassTimeline = ({ caption }: { caption: string }) => (
 );
 
 export const CompassReaders = ({ caption }: { caption: string }) => (
-  <CaseFigure label="Fig. 7.1" caption={caption}>
+  <CaseFigure label="Fig. 4.1" caption={caption}>
     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-4 font-body text-sm text-on-surface-variant leading-relaxed">
       <p className="border-l border-secondary pl-4">Public sources (APUR BDCom, BODACC, INSEE Sirene)</p>
       <span aria-hidden="true" className="text-secondary text-center"><span className="md:hidden">↓</span><span className="hidden md:inline">→</span></span>
@@ -31,7 +31,7 @@ export const CompassReaders = ({ caption }: { caption: string }) => (
 );
 
 export const CompassConfidence = ({ caption }: { caption: string }) => (
-  <CaseFigure label="Fig. 8.1" caption={caption}>
+  <CaseFigure label="Fig. 5.1" caption={caption}>
     <div className="grid grid-cols-[51fr_6fr_37fr_6fr] h-10 border border-outline-variant" role="img" aria-label="Established 51%, Corroborated 6%, Probable 37%, Undetermined 6%">
       <span className="bg-secondary/30 border-r border-outline" />
       <span className="bg-primary/20 border-r border-outline" />
