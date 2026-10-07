@@ -19,7 +19,7 @@
 - [x] Verify both instruments on desktop and mobile, day and dusk.
 
 # Compass case study
-- [ ] Add the approved nine-section page and three static figures using the existing case-study style.
-- [ ] Wire Compass into home, case index, case navigation, Markdown, SEO and portfolio MCP sources.
-- [ ] Synchronize the Markdown mirror, regenerate the LLM corpus and affected pre-rendered pages, and verify the reading flow.
-- [ ] Do not publish or deploy (explicitly deferred by the user).
+- [x] Add the approved nine-section page and three static figures using the existing case-study style.
+- [x] Wire Compass into home, case index, case navigation, Markdown, SEO and portfolio MCP sources.
+- [x] Synchronize the Markdown mirror, regenerate the LLM corpus and affected pre-rendered pages, and verify the reading flow.
+- [x] Do not publish or deploy (explicitly deferred by the user).
