@@ -86,9 +86,11 @@ More than 2,000 goodwill sales are published with their price in Paris every yea
 
 The answer is already public, in pieces nobody joins at the address:
 
-- three door-to-door censuses of every Paris shopfront (APUR, 2017, 2020, 2023);
+- the licensed 2023 door-to-door census of every Paris shopfront (APUR);
 - legal notices of goodwill sales and insolvencies (BODACC);
 - the business register (INSEE Sirene).
+
+Earlier census records stay withheld until their licence is cleared.
 
 Compass joins them: 85,418 units, each figure with its source, licence and date.
 
