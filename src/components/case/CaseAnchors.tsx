@@ -9,7 +9,7 @@ type Props = {
   /** Override the set of systems shown. Defaults to the four case studies. */
   entries?: SystemAnchor[];
   /** Grid columns at the large breakpoint. */
-  columns?: 4 | 5;
+  columns?: 3 | 4 | 5;
   /** Trailing pointer to the architecture note. */
   more?: { to: string; text: string };
 };
@@ -33,7 +33,11 @@ export const CaseAnchors = ({
       <ul
         className={cn(
           "grid gap-4 md:grid-cols-2",
-          (columns ?? (entries.length >= 5 ? 5 : 4)) === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4",
+          columns === 3
+            ? "lg:grid-cols-3"
+            : (columns ?? (entries.length >= 5 ? 5 : 4)) === 5
+              ? "lg:grid-cols-5"
+              : "lg:grid-cols-4",
         )}
       >
         {entries.map((item) => {

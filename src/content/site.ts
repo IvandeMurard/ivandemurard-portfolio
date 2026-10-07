@@ -74,16 +74,13 @@ export const PROJECTS = {
     image: animaImg,
     cta: "The Full Narrative",
   },
-  parisCompass: {
-    slug: "paris-compass",
-    name: "Paris Compass",
-    tagline: "Find commercial spaces from their context, built for humans and agents. Compass puts venues back into their neighbourhood: business history, turnover signals, noise, amenities and risk scores, all from public open data. Search by need, not by reference.",
-    label: "Open data · Commercial real estate, Paris · 2026",
+  compass: {
+    slug: "compass",
+    name: "Compass",
+    tagline: "Every address has a story. Compass reads it before you sign.",
+    label: "Data product · Commercial premises · Paris · 2026",
     image: parisCompassImg,
-    cta: "See the live app",
-    external: true,
-    href: "https://paris-compass.lovable.app",
-    repo: "https://github.com/IvandeMurard/paris-compass",
+    cta: "Read the case study",
   },
 } as const;
 
