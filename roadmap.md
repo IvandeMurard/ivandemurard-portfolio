@@ -30,7 +30,7 @@
 - [x] Verify preview on desktop/mobile and refresh Compass pre-render, without publishing or deploying.
 
 # Compass real-address revision
-- [ ] Replace Sec. 01 with the verified 10 rue Mandar timeline, confidence legend, surroundings and comparison.
-- [ ] Add the real agent-response excerpt to Sec. 04 while keeping it shorter than Sec. 01.
-- [ ] Remove all prohibited 2017/2020-derived claims and synchronize Markdown, LLM, MCP and Rose references.
-- [ ] Verify tooltips, anchors, themes, mobile layout and pre-render without publishing or deploying.
+- [x] Replace Sec. 01 with the verified 10 rue Mandar timeline, confidence legend, surroundings and comparison.
+- [x] Add the real agent-response excerpt to Sec. 04 while keeping it shorter than Sec. 01.
+- [x] Remove all prohibited 2017/2020-derived claims and synchronize Markdown, LLM, MCP and Rose references.
+- [x] Verify tooltips, anchors, themes, mobile layout and pre-render without publishing or deploying.
