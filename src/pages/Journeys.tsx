@@ -94,6 +94,16 @@ const ACTS: Act[] = [
     tint: { h: 215, s: 65, l: 38, a: 0.18 },
     flip: true,
   },
+  {
+    group: "standalone",
+    kicker: "Standalone project",
+    slug: "compass",
+    name: PROJECTS.compass.name,
+    body: "Every address has a story. Compass reads it before you sign: open data turned into traceable, address-level context for commercial location decisions in Paris.",
+    image: PROJECTS.compass.image,
+    cta: "Read the case study",
+    tint: { h: 160, s: 40, l: 35, a: 0.16 },
+  },
 ];
 
 const MESH_ACTS = ACTS.filter((a) => a.group === "mesh");
@@ -267,7 +277,7 @@ const Journeys = () => {
     <SiteLayout title="Stories">
       <Seo
         title="Case Studies, Selected Work by Ivan de Murard"
-        description="The Hospitality Multi-Agent Architecture: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone projects: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1."
+        description="The Hospitality Multi-Agent Architecture: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone projects: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS), Compass (Paris commercial premises from open data). Product and AI work shipped 0 to 1."
         path="/journeys"
         jsonLd={{
           "@context": "https://schema.org",
@@ -280,6 +290,7 @@ const Journeys = () => {
             { "@type": "CreativeWork", name: "Tacet", url: "https://ivandemurard.com/tacet" },
             { "@type": "CreativeWork", name: "Lore", url: "https://ivandemurard.com/lore" },
             { "@type": "CreativeWork", name: "Anima", url: "https://ivandemurard.com/anima" },
+            { "@type": "CreativeWork", name: "Compass", url: "https://ivandemurard.com/compass" },
           ],
         }}
       />
@@ -483,7 +494,8 @@ const Journeys = () => {
               className="text-on-surface-variant font-body leading-relaxed max-w-2xl"
             >
               Not part of this architecture. Lore is the same architecture under a stricter regime, in aviation
-              maintenance. Sonor is the two-year B2G product that came before all of it.
+              maintenance. Sonor is the two-year B2G product that came before all of it. Compass reads commercial
+              premises in Paris from public open data.
             </p>
           </div>
         </Reveal>
