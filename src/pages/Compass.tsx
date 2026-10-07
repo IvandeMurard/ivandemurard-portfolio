@@ -59,18 +59,18 @@ const Compass = () => {
               <p className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight">{COMPASS.headline}</p>
             </div>
             <div data-reveal-child className="mb-10 md:mb-12">
-              <p className="text-on-surface-variant font-body font-normal text-lg max-w-2xl leading-relaxed mb-5">{COMPASS.subhead}</p>
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                <a href={COMPASS.demo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>Open the demo</a>
-                <a href={COMPASS.repo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>GitHub</a>
-                <a href={COMPASS.mcp} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>Live MCP</a>
-              </div>
+              <p className="text-on-surface-variant font-body font-normal text-lg max-w-2xl leading-relaxed">{COMPASS.subhead}</p>
             </div>
             <dl data-reveal-child className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 max-w-3xl font-body font-normal text-sm leading-relaxed text-on-surface-variant">
               <dt className="text-secondary">Type</dt><dd>{COMPASS.label}</dd>
               <dt className="text-secondary">Role</dt><dd>{COMPASS.role}</dd>
               <dt className="text-secondary">Status</dt><dd>{COMPASS.status}</dd>
             </dl>
+            <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href={COMPASS.demo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>Open the demo</a>
+              <a href={COMPASS.repo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>GitHub</a>
+              <a href={COMPASS.mcp} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>Live MCP</a>
+            </div>
             <div data-reveal-child className="mt-12 md:mt-14"><EntryActions title="Compass" markdownPath="/compass.md" variant="case" /></div>
           </div>
         </Reveal>
