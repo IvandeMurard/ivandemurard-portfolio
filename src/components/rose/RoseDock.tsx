@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
-import roseMark from "@/assets/rose-mark.png";
 
 const SESSION_KEY = "rose_session";
 
@@ -310,15 +309,23 @@ export const RoseDock = () => {
               open ? "border-t" : "",
             )}
           >
-            <div className="flex items-center pl-2">
-              <img
-                src={roseMark}
-                alt=""
-                width={22}
-                height={22}
-                loading="lazy"
-                className={cn("h-5 w-5 dark:invert", open && "hidden")}
-              />
+            <div className={cn("flex items-center pl-2", open && "hidden")}>
+              <svg
+                viewBox="0 0 40 40"
+                aria-hidden="true"
+                focusable="false"
+                className="h-6 w-6 text-secondary"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="20" cy="20" r="17" />
+                <circle cx="20" cy="20" r="5.5" strokeWidth="0.8" />
+                <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" />
+                <path d="M8 8l6 6M32 8l-6 6M8 32l6-6M32 32l-6-6" strokeWidth="0.6" />
+              </svg>
             </div>
             {open ? (
               <textarea
