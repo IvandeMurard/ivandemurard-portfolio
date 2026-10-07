@@ -49,6 +49,7 @@ const STUDIES = [
   {
     slug: "compass",
     name: "Compass",
+    group: "Standalone projects",
     label: "Data product · Commercial premises · Paris · 2026",
     tagline:
       "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris: three APUR shopfront censuses, BODACC legal notices and the INSEE Sirene register joined into one corpus of 85,418 units, each figure with its source, licence and date.",

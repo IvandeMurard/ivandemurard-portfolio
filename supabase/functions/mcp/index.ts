@@ -51,6 +51,7 @@ var STUDIES = [
   {
     slug: "compass",
     name: "Compass",
+    group: "Standalone projects",
     label: "Data product \xB7 Commercial premises \xB7 Paris \xB7 2026",
     tagline: "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris: three APUR shopfront censuses, BODACC legal notices and the INSEE Sirene register joined into one corpus of 85,418 units, each figure with its source, licence and date.",
     url: "https://ivandemurard.com/compass",
@@ -105,6 +106,7 @@ var get_case_study_default = defineTool2({
         content: [{ type: "text", text: markdown }],
         structuredContent: {
           slug,
+          ...slug === "compass" ? { group: "Standalone projects" } : {},
           source_url: url,
           canonical_url: `${SITE_ORIGIN}/${slug === "aetherix" ? "aetherix" : slug}`,
           markdown
@@ -1141,6 +1143,7 @@ var mcp_default = defineMcp({
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state. Where a system is in shadow mode or a figure is illustrative, say so.",
+    "Compass is a standalone data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Its narrative has six top-level sections, with The problem, The bet, What it refuses and Against what exists nested under Product strategy.",
     "3. Suggested path. Start with list_case_studies or get_about, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),
