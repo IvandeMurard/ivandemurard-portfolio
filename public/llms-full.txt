@@ -30,7 +30,7 @@ Roadmap. Phase 0 Validation done · Phase 1 Observability done · Phase 2 Receip
 
 Anima, sister node. Guest memory node PoC shipped at Anthropic hackathon Jun 2026. 4-layer temporal memory (working, episodic, semantic, segment) with confidence-weighted claims. Production is Phase 4, DPIA-gated.
 
-Role and model. Solo architect and builder. Pricing: Results-as-a-Service, outcome-based.
+Role. Solo architect and builder.
 
 ## Sonor
 
