@@ -1,7 +1,7 @@
 // One-line definitions of the shipped systems, used by the case study anchors
 // block so a visitor landing directly on /lore knows what the rest is.
 export type SystemAnchor = {
-  slug: "sonor" | "atherix" | "tacet" | "lore" | "anima" | "compass" | "peritia" | "orchestrator";
+  slug: "sonor" | "atherix" | "tacet" | "lore" | "anima" | "compass" | "peritia" | "orchestrator" | "architecture";
   name: string;
   /** Omitted for systems with no page of their own. Rendered unlinked. */
   to?: string;
@@ -115,4 +115,17 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     who: "The architecture itself.",
     status: "Design. A proto-stub exists.",
   },
+];
+
+/** "Where this sits" on /aetherix: the architecture and the nodes it works with. */
+export const AETHERIX_ANCHORS: SystemAnchor[] = [
+  {
+    slug: "architecture",
+    name: "Architecture",
+    to: "/architecture",
+    what: "Hospitality Multi-Agent Architecture: an orchestrator and domain agents, connected through MCP.",
+    who: "The reader who wants the whole picture.",
+    status: "Design, with built nodes.",
+  },
+  ...MESH_ANCHORS.filter((a) => ["atherix", "anima", "tacet"].includes(a.slug)),
 ];
