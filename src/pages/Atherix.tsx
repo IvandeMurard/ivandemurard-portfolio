@@ -1,3 +1,8 @@
+import { useRef } from "react";
+import { JournalToc } from "@/components/reading/JournalToc";
+import { useHeadingToc } from "@/components/reading/useHeadingToc";
+import { ReadingProgress } from "@/components/reading/ReadingProgress";
+import { AETHERIX_ANCHORS } from "@/content/systems";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { CaseAnchors } from "@/components/case/CaseAnchors";
