@@ -214,8 +214,10 @@ const Atherix = () => (
           <SectionHeading id="product-strategy-heading" title="Product strategy" />
           <p className={leadCls}>Understand a property the way its manager does, and measure every recommendation against what happened.</p>
           <p className="mb-6 max-w-3xl text-on-surface-variant">Five decisions follow from that.</p>
-          <div className={`${tableWrapCls} mb-10`}><table className="w-full border-collapse"><thead><tr className="border-b border-outline"><th className={thCls}>#</th><th className={thCls}>Decision</th><th className={thCls}>Why</th></tr></thead><tbody>{DECISIONS.map(([n, decision, why]) => <tr key={n} className="border-b border-outline-variant last:border-b-0"><td className={tdCls}>{n}</td><th scope="row" className={`${tdCls} font-semibold text-primary text-left`}>{decision}</th><td className={tdCls}>{why}</td></tr>)}</tbody></table></div>
-          <AetherixRelationshipFigure />
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="min-w-0 lg:col-span-7"><div className={tableWrapCls}><table className="w-full border-collapse"><thead><tr className="border-b border-outline"><th className={thCls}>#</th><th className={thCls}>Decision</th><th className={thCls}>Why</th></tr></thead><tbody>{DECISIONS.map(([n, decision, why]) => <tr key={n} className="border-b border-outline-variant last:border-b-0"><td className={tdCls}>{n}</td><th scope="row" className={`${tdCls} font-semibold text-primary text-left`}>{decision}</th><td className={tdCls}>{why}</td></tr>)}</tbody></table></div></div>
+          <div className="min-w-0 lg:col-span-5"><AetherixRelationshipFigure /></div>
+          </div>
           <h3 className={`${subheadCls} mt-10`}>Unproven</h3>
           <ul className="max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">
             <li>No hotel or PMS has validated this route yet.</li>
