@@ -28,7 +28,7 @@ type Act = {
 
 /** The five agents of the mesh, in the order they exist. */
 const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
-  { name: "Aetherix", role: "F&B execution", status: "Built, shadow mode", to: "/aetherix" },
+  { name: "Aetherix", role: "F&B execution", status: "Built. Running on sandbox and public data. No hotel connected yet.", to: "/aetherix" },
   { name: "Tacet", role: "Environmental signal", status: "Built", to: "/tacet" },
   { name: "Anima", role: "Guest memory", status: "Synthetic PoC", to: "/anima" },
   { name: "Peritia", role: "House knowledge", status: "Design" },
@@ -41,7 +41,7 @@ const ACTS: Act[] = [
     kicker: "The Hospitality Multi-Agent Architecture",
     slug: "aetherix",
     name: PROJECTS.atherix.name,
-    body: "An agentic AI framework for boutique hotel operations. It anticipates staffing and F&B needs in real time, reduces food waste and operational costs, and frees the human team to focus on exceptional guest experiences.",
+    body: "The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet.",
     note: "The food and beverage agent of the architecture.",
     image: PROJECTS.atherix.image,
     cta: "Trace the Path",

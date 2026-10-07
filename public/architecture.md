@@ -8,7 +8,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 
 ## Where this sits
 
-- **Aetherix** (Built, 0 real users, forecast in shadow mode, pilot partner in recruitment). The F&B node: tomorrow's covers, a staffing grid, waste risk. https://ivandemurard.com/aetherix
+- **Aetherix** (Built. Running on sandbox and public data. No hotel connected yet.). The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply. https://ivandemurard.com/aetherix
 - **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC, production gated behind a data-protection assessment). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
@@ -46,7 +46,7 @@ most in memory.
 
 | Agent | Status | Owns | Does not own |
 | --- | --- | --- | --- |
-| Aetherix | Built, 0 real users, forecast in shadow mode, pilot partner in recruitment | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
+| Aetherix | Built. Running on sandbox and public data. No hotel connected yet. | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
 | Tacet | Built, maintenance mode since July 2026 | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Synthetic PoC, production DPIA-gated | Guest memory: what a guest said and what happened, four layers, each claim with source, confidence and age | Acting on it, or returning a whole person: every query declares one layer |
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |

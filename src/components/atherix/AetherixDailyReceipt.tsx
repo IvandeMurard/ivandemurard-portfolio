@@ -1,10 +1,9 @@
 import { Icon } from "@/components/ui/Icon";
 
-const RECEIPT = `Breakfast    84 covers   ·  confidence 88%        (illustrative)
+const RECEIPT = `Breakfast    84 covers
              72 rooms booked + 12 typical Tue walk-ins
-             Staff: 4 FOH  (you ran 3 last Tue → 1 understaffing flag)
-Driver       local conference check-ins + clear weather
-Last week    forecast 79 · actual 81 · MAPE 2.5%`;
+             Staff: 4 front of house (you ran 3 last Tue)
+Driver       local conference check-ins + clear weather`;
 
 export const AetherixDailyReceipt = () => (
   <div className="max-w-2xl mx-auto bg-surface-container-high border border-outline-variant rounded-2xl overflow-hidden shadow-sm">
@@ -48,7 +47,7 @@ export const AetherixDailyReceipt = () => (
     </div>
 
     <p className="px-5 pb-5 md:px-7 md:pb-6 text-xs text-on-surface-variant italic">
-      One reply: accept, reject, or the right figure. That reply is the signal Aetherix learns from. The pilot tests whether the day-90 receipt is sharper than the day-7 one.
+      Mock-up of the message format. The figures are invented for illustration.
     </p>
   </div>
 );

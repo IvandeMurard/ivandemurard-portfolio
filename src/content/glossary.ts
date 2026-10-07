@@ -41,8 +41,12 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   pms: {
     id: "pms",
     term: "PMS",
-    brief:
-      "Property Management System. The hotel's system of record for reservations, room status, check-in and check-out, billing, and guest history. Anything that acts on operations needs a clean path to the PMS.",
+    brief: "Property management system: the hotel's booking and operations software",
+  },
+  covers: {
+    id: "covers",
+    term: "covers",
+    brief: "meals served",
   },
   rms: {
     id: "rms",
