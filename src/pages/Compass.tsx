@@ -19,7 +19,10 @@ const chipCls = "inline-block rounded-sm border border-outline bg-surface-contai
 const Block = ({ block, title }: { block: CompassBlock; title: string }) => {
   if (block.kind === "paragraph") return <p className="font-body font-normal text-on-surface-variant leading-relaxed text-base md:text-lg mb-5 max-w-3xl">{block.bold ? <strong className="font-semibold text-primary">{block.text}</strong> : block.text}</p>;
   if (block.kind === "list") return <ul className="list-disc pl-5 space-y-4 mb-8 max-w-3xl font-body font-normal text-on-surface-variant leading-relaxed text-base md:text-lg">{block.items.map((text) => <li key={text}>{text}</li>)}</ul>;
-  if (block.kind === "code") return <div className="mb-8"><CompassCommand /></div>;
+  if (block.kind === "code") return <div className="mb-8">
+    {block.label && <p className="mb-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary">{block.label}</p>}
+    <CompassCommand />
+  </div>;
   if (block.kind === "figure") {
     const Figure = block.figure === "timeline" ? CompassTimeline : block.figure === "readers" ? CompassReaders : CompassConfidence;
     return <Figure caption={block.caption} />;
@@ -30,7 +33,7 @@ const Block = ({ block, title }: { block: CompassBlock; title: string }) => {
         <caption className="sr-only">{title}</caption>
         <thead><tr className="border-b border-outline">{block.head.map((h) => <th key={h} scope="col" className="px-4 py-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary">{h}</th>)}</tr></thead>
         <tbody>{block.rows.map((row) => <tr key={row[0]} className="border-b border-outline-variant last:border-b-0 align-top">
-          <th scope="row" className="px-4 py-4 font-headline italic text-primary text-base">{row[0]}</th>
+          <th scope="row" className={`px-4 py-4 text-primary text-base ${block.monospaceFirstColumn ? "font-mono not-italic text-sm" : "font-headline italic"}`}>{row[0]}</th>
           {row.slice(1).map((cell, i) => <td key={i} className="px-4 py-4 font-body font-normal text-sm text-on-surface-variant leading-relaxed">{cell}</td>)}
         </tr>)}</tbody>
       </table>

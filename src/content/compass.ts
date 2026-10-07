@@ -16,8 +16,8 @@ export const COMPASS = {
 export type CompassBlock =
   | { kind: "paragraph"; text: string; bold?: boolean }
   | { kind: "list"; items: string[] }
-  | { kind: "table"; head: string[]; rows: string[][] }
-  | { kind: "code" }
+  | { kind: "table"; head: string[]; rows: string[][]; monospaceFirstColumn?: boolean }
+  | { kind: "code"; label?: string }
   | { kind: "figure"; figure: "timeline" | "readers" | "confidence"; caption: string; description: string };
 
 export type CompassSection = { title: string; id: string; status?: string; blocks: CompassBlock[]; subsections?: CompassSection[] };
@@ -88,12 +88,20 @@ export const COMPASS_SECTIONS: CompassSection[] = [
     ],
   },
   {
-    title: "One core, two readers", id: "one-core-two-readers",
+    title: "Built for people and AI agents", id: "one-core-two-readers", status: "Agent-ready · MCP server published · six tools · read-only",
     blocks: [
-      { kind: "paragraph", text: "The same figures reach a person on the map and an agent over MCP." },
-      { kind: "figure", figure: "readers", caption: "One core, two readers.", description: "Public sources (APUR BDCom, BODACC, INSEE Sirene) → One scoring core → Map, for a person / MCP server, for an agent." },
-      { kind: "paragraph", text: "Six tools, read-only, published on npm and the MCP registry." },
-      { kind: "code" },
+      { kind: "paragraph", bold: true, text: "One scoring core. A person reads it on a map, an AI agent queries it directly." },
+      { kind: "figure", figure: "readers", caption: "The same core serves both.", description: "Public sources (APUR BDCom, BODACC, INSEE Sirene) → One scoring core → Map, for a person / MCP server, for an agent." },
+      { kind: "table", head: ["Tool", "What it answers"], monospaceFirstColumn: true, rows: [
+        ["trace_premise", "What traded at this address, year by year"],
+        ["find_premises", "Which shopfronts sit near this point"],
+        ["score_location", "How this location scores, axis by axis"],
+        ["compare_locations", "How two locations differ"],
+        ["explain_score", "Why one score is what it is"],
+        ["list_sources", "Which datasets, licences and dates are behind it"],
+      ] },
+      { kind: "paragraph", text: "An agent gets no shortcut: same figures, same sources, same confidence levels as the person." },
+      { kind: "code", label: "Try it" },
     ],
   },
   {

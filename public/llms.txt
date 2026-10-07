@@ -28,7 +28,7 @@ Every component status uses exactly one of these five labels. "Built" means the 
 - [Sonor](https://ivandemurard.com/sonor) (markdown: https://ivandemurard.com/sonor.md): Two-year journey as Co-founder & Product Lead. Turned open data into a B2G SaaS used by municipalities to map urban noise and drive sustainability policy.
 - [Tacet](https://ivandemurard.com/tacet) (markdown: https://ivandemurard.com/tacet.md): Headless Environmental Twin for hospitality, exposed via an MCP server. A 3D ray-tracing physics engine plus a dual memory store (idiosyncratic and Hive Mind, Research: no network to aggregate yet) turns street, weather and crowd signals into human-approved yield rules and Chain of Thought payloads for RMS, PMS and the orchestrator (Design).
 
-Compass belongs under Standalone projects. It is not a node, agent or part of the Hospitality Multi-Agent Architecture. Its six sections are One address, three questions; Product strategy (The problem, The bet, What it refuses, Against what exists); Where AI sits; One core, two readers; How sure is it?; Where it stands.
+Compass belongs under Standalone projects. It is not a node, agent or part of the Hospitality Multi-Agent Architecture. It is agent-ready, not AI-powered: its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map. Its six sections are One address, three questions; Product strategy (The problem, The bet, What it refuses, Against what exists); Where AI sits; Built for people and AI agents; How sure is it?; Where it stands.
 
 ## Field Notes
 
