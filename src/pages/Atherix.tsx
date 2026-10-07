@@ -147,21 +147,27 @@ const Atherix = () => (
     <div className="pt-32">
       <Reveal as="header" className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16 lg:items-end">
+          <div className="min-w-0 lg:col-span-7">
           <div data-reveal-child className="mb-10 md:mb-12">
             <span className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-5 block">Case study · Hospitality Multi-Agent Architecture</span>
             <h1 className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-primary italic leading-[0.98] mb-5">Aetherix</h1>
             <p className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight">The F&amp;B agent for boutique hotels.</p>
           </div>
-          <p data-reveal-child className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed mb-10 md:mb-12">One message a day in WhatsApp. The manager replies. The outcome is recorded next to it.</p>
+          <p data-reveal-child className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed">One message a day in WhatsApp. The manager replies. The outcome is recorded next to it.</p>
+          </div>
+          <div className="min-w-0 lg:col-span-5">
           <dl data-reveal-child className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
             <dt className="text-secondary">Type</dt><dd>AI agent · Boutique hotel operations · 2026</dd>
             <dt className="text-secondary">Role</dt><dd>Product Builder and AI Agent Designer, solo</dd>
             <dt className="text-secondary">Status</dt><dd>Built. Running on sandbox and public data. No hotel connected yet.</dd>
           </dl>
-          <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div data-reveal-child className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link to="/architecture" className={linkCls}>The architecture</Link>
             <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}>GitHub</a>
             <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Book a call</a>
+          </div>
+          </div>
           </div>
           <div data-reveal-child className="mt-12 md:mt-14"><EntryActions title="Aetherix" markdownPath="/aetherix.md" variant="case" /></div>
         </div>
@@ -189,10 +195,16 @@ const Atherix = () => (
       <Reveal as="section" id="the-problem" className={sectionCls}>
         <div className="max-w-screen-2xl mx-auto">
           <SectionHeading id="the-problem-heading" title="The problem" />
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="min-w-0 lg:col-span-6">
           <p className={leadCls}>What a hotel knows about its own service lives in a manager's head, and leaves with them.</p>
-          <p className="mb-4 text-on-surface-variant">The result, day to day:</p>
-          <ul className="mb-8 max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">{PROBLEM_PAINS.map((item) => <li key={item}>{item}</li>)}</ul>
           <p className="max-w-3xl text-on-surface-variant leading-relaxed">The bottleneck is not data, it is synthesis: combining occupancy and sales history with weather and local events into one recommendation for this property.</p>
+          </div>
+          <div className="min-w-0 lg:col-span-6">
+          <p className="mb-4 text-on-surface-variant">The result, day to day:</p>
+          <ul className="max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">{PROBLEM_PAINS.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+          </div>
         </div>
       </Reveal>
 
@@ -202,8 +214,10 @@ const Atherix = () => (
           <SectionHeading id="product-strategy-heading" title="Product strategy" />
           <p className={leadCls}>Understand a property the way its manager does, and measure every recommendation against what happened.</p>
           <p className="mb-6 max-w-3xl text-on-surface-variant">Five decisions follow from that.</p>
-          <div className={`${tableWrapCls} mb-10`}><table className="w-full border-collapse"><thead><tr className="border-b border-outline"><th className={thCls}>#</th><th className={thCls}>Decision</th><th className={thCls}>Why</th></tr></thead><tbody>{DECISIONS.map(([n, decision, why]) => <tr key={n} className="border-b border-outline-variant last:border-b-0"><td className={tdCls}>{n}</td><th scope="row" className={`${tdCls} font-semibold text-primary text-left`}>{decision}</th><td className={tdCls}>{why}</td></tr>)}</tbody></table></div>
-          <AetherixRelationshipFigure />
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="min-w-0 lg:col-span-7"><div className={tableWrapCls}><table className="w-full border-collapse"><thead><tr className="border-b border-outline"><th className={thCls}>#</th><th className={thCls}>Decision</th><th className={thCls}>Why</th></tr></thead><tbody>{DECISIONS.map(([n, decision, why]) => <tr key={n} className="border-b border-outline-variant last:border-b-0"><td className={tdCls}>{n}</td><th scope="row" className={`${tdCls} font-semibold text-primary text-left`}>{decision}</th><td className={tdCls}>{why}</td></tr>)}</tbody></table></div></div>
+          <div className="min-w-0 lg:col-span-5"><AetherixRelationshipFigure /></div>
+          </div>
           <h3 className={`${subheadCls} mt-10`}>Unproven</h3>
           <ul className="max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">
             <li>No hotel or PMS has validated this route yet.</li>
@@ -218,11 +232,17 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <SectionHeading id="how-it-works-heading" title="How it works" />
           <p className={leadCls}>Every day adds one record: what was recommended, what the manager said, what happened.</p>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="min-w-0 lg:col-span-7">
           <h3 className={subheadCls}>The daily loop</h3>
           <AetherixLoopCards />
-          <p className="my-8 max-w-3xl text-sm text-on-surface-variant">Free-text replies are not used yet. Whether the agent gets sharper over time is what a pilot would test.</p>
+          <p className="mt-8 max-w-3xl text-sm text-on-surface-variant">Free-text replies are not used yet. Whether the agent gets sharper over time is what a pilot would test.</p>
+          </div>
+          <div className="min-w-0 lg:col-span-5">
           <h3 className={subheadCls}>What the manager receives</h3>
           <AetherixDailyReceipt />
+          </div>
+          </div>
         </div>
       </Reveal>
 
@@ -231,15 +251,21 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <SectionHeading id="what-it-does-today-heading" title="What it does today" />
           <p className={leadCls}>One output runs daily. Two are hypotheses a pilot would test.</p>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
+          <div className="min-w-0">
           <h3 className={subheadCls}>Already working</h3>
           <ul className="max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">{ALREADY_DOES.map((item) => <li key={item}>{item}</li>)}</ul>
-          <p className="my-8 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Sandbox data, real mechanics, deterministic reruns.</p>
+          <p className="mt-8 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Sandbox data, real mechanics, deterministic reruns.</p>
+          </div>
+          <div className="min-w-0">
           <h3 className={subheadCls}>Three outputs</h3>
           <div className={tableWrapCls}><table className="w-full border-collapse"><thead><tr className="border-b border-outline"><th className={thCls}>Output</th><th className={thCls}>State</th></tr></thead><tbody>{[
             ["Tomorrow's covers, with confidence and reasons", "Running daily on sandbox data"],
             ["Staffing that fits, approved or overridden by the manager", "Pilot hypothesis"],
             ["Less waste, by flagging over-ordering before purchase", "Target outcome"],
           ].map(([output, state]) => <tr key={output} className="border-b border-outline-variant last:border-b-0"><th scope="row" className={`${tdCls} font-semibold text-primary text-left`}>{output}</th><td className={tdCls}>{state}</td></tr>)}</tbody></table></div>
+          </div>
+          </div>
         </div>
       </Reveal>
 
@@ -248,18 +274,24 @@ const Atherix = () => (
         <div className="max-w-screen-2xl mx-auto">
           <SectionHeading id="where-it-stands-heading" title="Where it stands" />
           <p className={leadCls}>The loop is built and testable. The forecast is not yet proven on hotels.</p>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
+          <div className="min-w-0">
           <div className={`${tableWrapCls} mb-8`}><table className="w-full border-collapse"><tbody>{[
             ["Hotels connected", "None. No pilot partner signed, no go-live date"],
             ["Forecast test", "Public data, 30 restaurants. Beats a simple \"same weekday last week\" guess on average. Matches it on a typical day. Slightly behind it for next-day forecasts, the horizon the product uses"],
             ["Limit of that test", "Restaurants, not hotels. No occupancy data, the signal the product relies on"],
             ["What is solid today", "The loop: recommendation, reply, outcome, and the checks that guard them"],
-          ].map(([label, value]) => <tr key={label} className="border-b border-outline-variant last:border-b-0"><th scope="row" className={`${thCls} w-52`}>{label}</th><td className={tdCls}>{value}</td></tr>)}</tbody></table></div>
+          ].map(([label, value]) => <tr key={label} className="border-b border-outline-variant last:border-b-0"><th scope="row" className={`${thCls} w-40`}>{label}</th><td className={tdCls}>{value}</td></tr>)}</tbody></table></div>
           <AetherixDisclosure title="The numbers"><p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.</p></AetherixDisclosure>
-          <h3 className={`${subheadCls} mt-10`}>Roadmap</h3>
+          </div>
+          <div className="min-w-0">
+          <h3 className={subheadCls}>Roadmap</h3>
           <AetherixPhaseTimeline />
           <h3 className={`${subheadCls} mt-10`}>Product vision</h3>
           <p className="max-w-3xl text-on-surface-variant leading-relaxed">Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through HiveMemory, a layer of shared anonymised patterns, and get the reach of a group without joining one.</p>
           <span className="mt-5 inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Research, not built</span>
+          </div>
+          </div>
         </div>
       </Reveal>
 

@@ -20,7 +20,7 @@ export const AetherixDailyReceipt = () => (
     </div>
 
     {/* Receipt body */}
-    <pre className="px-5 py-6 md:px-7 md:py-7 font-mono text-xs md:text-sm text-on-surface leading-relaxed whitespace-pre-wrap overflow-x-auto">
+    <pre className="px-5 py-6 md:px-7 md:py-7 font-mono text-xs xl:text-sm text-on-surface leading-relaxed whitespace-pre-wrap overflow-x-auto">
 {RECEIPT}
     </pre>
 
