@@ -136,10 +136,10 @@ const ProjectGroup = ({
           return isExternal ? (
             <a
               key={p.slug}
-              href={"href" in p ? p.href : undefined}
+              href={"href" in p ? (p.href as string) : undefined}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => track({ label: p.name, href: "href" in p ? p.href : `/${p.slug}`, kind: "project" })}
+              onClick={() => track({ label: p.name, href: "href" in p ? (p.href as string) : `/${p.slug}`, kind: "project" })}
               className={cardClass}
               data-reveal-child
               style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
