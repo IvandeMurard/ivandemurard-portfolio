@@ -795,17 +795,17 @@ Ruled out: a generated rent or revenue, a probability of success, a score "expla
 
 The same figures reach a person on the map and an agent over MCP.
 
-```sh
-npx -y paris-compass-mcp
-```
-
-Six tools, read-only, published on npm and the MCP registry.
-
 ### Fig. 4.1
 
 Public sources (APUR BDCom, BODACC, INSEE Sirene) → One scoring core → Map, for a person / MCP server, for an agent.
 
 One core, two readers.
+
+Six tools, read-only, published on npm and the MCP registry.
+
+```sh
+npx -y paris-compass-mcp
+```
 
 ## 5. How sure is it?
 
