@@ -91,9 +91,9 @@ export const COMPASS_SECTIONS: CompassSection[] = [
     title: "One core, two readers", id: "one-core-two-readers",
     blocks: [
       { kind: "paragraph", text: "The same figures reach a person on the map and an agent over MCP." },
-      { kind: "code" },
-      { kind: "paragraph", text: "Six tools, read-only, published on npm and the MCP registry." },
       { kind: "figure", figure: "readers", caption: "One core, two readers.", description: "Public sources (APUR BDCom, BODACC, INSEE Sirene) → One scoring core → Map, for a person / MCP server, for an agent." },
+      { kind: "paragraph", text: "Six tools, read-only, published on npm and the MCP registry." },
+      { kind: "code" },
     ],
   },
   {
