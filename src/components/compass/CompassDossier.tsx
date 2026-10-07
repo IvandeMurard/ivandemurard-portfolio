@@ -110,7 +110,6 @@ export const CompassDossier = ({ section }: { section: CompassSection }) => {
         </div>
       </div>
       <figcaption className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">{timelineFig?.caption}</figcaption>
-      {addrNotes.length > 2 && null}
     </figure>
   );
 };
