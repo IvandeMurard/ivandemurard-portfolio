@@ -14,7 +14,7 @@ export default defineMcp({
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state. Where a system is in shadow mode or a figure is illustrative, say so.",
-    "Compass is a standalone data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Its narrative has six top-level sections, with The problem, The bet, What it refuses and Against what exists nested under Product strategy.",
+    "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative has six top-level sections, with The problem, The bet, What it refuses and Against what exists nested under Product strategy, followed by Where AI sits and Built for people and AI agents.",
     "3. Suggested path. Start with list_case_studies or get_about, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about.",
   ].join("\n"),
