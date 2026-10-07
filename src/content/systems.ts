@@ -1,7 +1,7 @@
 // One-line definitions of the shipped systems, used by the case study anchors
 // block so a visitor landing directly on /lore knows what the rest is.
 export type SystemAnchor = {
-  slug: "sonor" | "atherix" | "tacet" | "lore" | "anima" | "peritia" | "orchestrator";
+  slug: "sonor" | "atherix" | "tacet" | "lore" | "anima" | "compass" | "peritia" | "orchestrator";
   name: string;
   /** Omitted for systems with no page of their own. Rendered unlinked. */
   to?: string;
@@ -53,6 +53,20 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     status: "Shipped 2020 to 2022, company closed.",
   },
 ];
+
+/**
+ * Compass, standalone: not a node of the hospitality architecture. Used as an
+ * entries override on /compass only, so its own card is marked there without
+ * adding Compass to the "Where this sits" block of the other case studies.
+ */
+export const COMPASS_ANCHOR: SystemAnchor = {
+  slug: "compass",
+  name: "Compass",
+  to: "/compass",
+  what: "Address-level context for commercial location decisions in Paris, joined from public open data and served to a person on a map and to agents over MCP.",
+  who: "A person studying one address, or an agent over MCP.",
+  status: "Corpus and MCP server live; web demo on a frozen sample (17th arrondissement).",
+};
 
 /**
  * The five nodes of the architecture, as presented on /architecture. Peritia and

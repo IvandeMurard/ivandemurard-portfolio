@@ -46,13 +46,22 @@ const STUDIES = [
     url: "https://ivandemurard.com/anima",
     markdown_path: "/anima.md",
   },
+  {
+    slug: "compass",
+    name: "Compass",
+    label: "Data product · Commercial premises · Paris · 2026",
+    tagline:
+      "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris: three APUR shopfront censuses, BODACC legal notices and the INSEE Sirene register joined into one corpus of 85,418 units, each figure with its source, licence and date.",
+    url: "https://ivandemurard.com/compass",
+    markdown_path: "/compass.md",
+  },
 ];
 
 export default defineTool({
   name: "list_case_studies",
   title: "List case studies",
   description:
-    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({

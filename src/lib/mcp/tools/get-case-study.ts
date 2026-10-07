@@ -9,17 +9,18 @@ const SLUGS = {
   tacet: "/tacet.md",
   lore: "/lore.md",
   anima: "/anima.md",
+  compass: "/compass.md",
 } as const;
 
 export default defineTool({
   name: "get_case_study",
   title: "Get case study",
   description:
-    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima'. Content covers vision, architecture, stack and outcomes.",
+    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. Content covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z
-      .enum(["sonor", "aetherix", "tacet", "lore", "anima"])
-      .describe("Case study slug: sonor, aetherix, tacet, lore, or anima."),
+      .enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"])
+      .describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass."),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
   handler: async ({ slug }) => {

@@ -87,7 +87,7 @@ const ProjectGroup = ({
           kickerEl
         )}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12">
         {projects.map((p, i) => {
           const isExternal = "external" in p && p.external;
           const inner = (
@@ -298,11 +298,11 @@ const Index = () => {
             style={{ ["--reveal-delay" as string]: "120ms" }}
             className="text-on-surface-variant font-normal leading-relaxed"
           >
-            Three to start with: the flagship agent of the{" "}
+            Four to start with: the flagship agent of the{" "}
             <Link to="/architecture" className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity">
               Hospitality Multi-Agent Architecture
             </Link>
-            , a voice mentor for aviation maintenance, and the SaaS I co-founded. The rest sit on the case studies page.
+            , a voice mentor for aviation maintenance, Compass, and the SaaS I co-founded. The rest sit on the case studies page.
           </p>
         </div>
         <Link
@@ -315,7 +315,7 @@ const Index = () => {
 
       <ProjectGroup
         kicker="Selected work"
-        projects={[PROJECTS.atherix, PROJECTS.lore, PROJECTS.sonor]}
+        projects={[PROJECTS.atherix, PROJECTS.lore, PROJECTS.sonor, PROJECTS.compass]}
         track={track}
       />
     </Reveal>

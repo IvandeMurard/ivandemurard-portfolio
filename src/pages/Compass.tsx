@@ -5,12 +5,14 @@ import { Reveal } from "@/components/Reveal";
 import { SectionDivider } from "@/components/SectionDivider";
 import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { EntryActions } from "@/components/journal/EntryActions";
+import { ShareRow } from "@/components/journal/ShareRow";
 import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
 import { JournalToc } from "@/components/reading/JournalToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { useHeadingToc } from "@/components/reading/useHeadingToc";
 import { CompassCommand } from "@/components/compass/CompassCommand";
 import { CompassConfidence, CompassReaders, CompassTimeline } from "@/components/compass/CompassFigures";
+import { COMPASS_ANCHOR, SYSTEM_ANCHORS } from "@/content/systems";
 import { COMPASS, COMPASS_SECTIONS, type CompassBlock } from "@/content/compass";
 
 const linkCls = "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
@@ -68,7 +70,7 @@ const Compass = () => {
             <div data-reveal-child className="mt-8"><EntryActions title="Compass" markdownPath="/compass.md" variant="case" /></div>
           </div>
         </Reveal>
-        <CaseAnchors current="compass" />
+        <CaseAnchors current="compass" entries={[COMPASS_ANCHOR, ...SYSTEM_ANCHORS]} columns={3} />
         <div className="px-6 md:px-12">
           <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_14rem] gap-12">
             <article ref={articleRef} className="min-w-0 -mx-6 md:-mx-12">
@@ -82,7 +84,12 @@ const Compass = () => {
                       {section.status && <p className="mb-8"><span className={chipCls}>{section.status}</span></p>}
                       {section.blocks.map((block, index) => <Block key={index} block={block} title={section.title} />)}
                       {i === COMPASS_SECTIONS.length - 1 && <div className="max-w-3xl mt-10">
-                        <a href={COMPASS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Schedule a conversation</a>
+                        <ShareRow
+                          title="Compass, address-level context for commercial premises in Paris"
+                          excerpt="Every address has a story. Compass reads it before you sign: open data turned into traceable, address-level context for commercial location decisions in Paris."
+                          mirror="/compass.md"
+                        />
+                        <p className="mt-8"><a href={COMPASS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Schedule a conversation</a></p>
                         <p className="mt-5 font-body font-normal text-sm text-on-surface-variant">© Ivan de Murard. All rights reserved.</p>
                       </div>}
                     </div>

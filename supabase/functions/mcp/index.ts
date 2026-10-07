@@ -47,12 +47,20 @@ var STUDIES = [
     tagline: "The guest memory node of the Hospitality Multi-Agent Architecture. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC, production gated behind a data-protection assessment.",
     url: "https://ivandemurard.com/anima",
     markdown_path: "/anima.md"
+  },
+  {
+    slug: "compass",
+    name: "Compass",
+    label: "Data product \xB7 Commercial premises \xB7 Paris \xB7 2026",
+    tagline: "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris: three APUR shopfront censuses, BODACC legal notices and the INSEE Sirene register joined into one corpus of 85,418 units, each figure with its source, licence and date.",
+    url: "https://ivandemurard.com/compass",
+    markdown_path: "/compass.md"
   }
 ];
 var list_case_studies_default = defineTool({
   name: "list_case_studies",
   title: "List case studies",
-  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
@@ -70,14 +78,15 @@ var SLUGS = {
   aetherix: "/aetherix.md",
   tacet: "/tacet.md",
   lore: "/lore.md",
-  anima: "/anima.md"
+  anima: "/anima.md",
+  compass: "/compass.md"
 };
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima'. Content covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. Content covers vision, architecture, stack and outcomes.",
   inputSchema: {
-    slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima"]).describe("Case study slug: sonor, aetherix, tacet, lore, or anima.")
+    slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass.")
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
   handler: async ({ slug }) => {
@@ -1128,7 +1137,7 @@ var mcp_default = defineMcp({
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
   instructions: [
-    "Public, read-only MCP server exposing Ivan de Murard's verified portfolio: case studies (Sonor, Aetherix, Tacet, Lore, Anima), professional bio and contact, and Field Notes. Ivan is a product builder in Paris working on agentic systems for hospitality and operations, with a focus on 0 to 1 craft and rigorous evaluation.",
+    "Public, read-only MCP server exposing Ivan de Murard's verified portfolio: case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass), professional bio and contact, and Field Notes. Ivan is a product builder in Paris working on agentic systems for hospitality and operations, with a focus on 0 to 1 craft and rigorous evaluation.",
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state. Where a system is in shadow mode or a figure is illustrative, say so.",
