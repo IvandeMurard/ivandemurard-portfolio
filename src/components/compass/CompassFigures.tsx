@@ -46,8 +46,5 @@ export const CompassConfidence = ({ caption }: { caption: string }) => (
         </div>
       ))}
     </dl>
-    <div aria-hidden="true" className="grid grid-cols-[51fr_6fr_37fr_6fr] text-center font-label text-[10px] text-primary -mt-[8.5rem] md:-mt-[5.5rem] mb-[7rem] md:mb-[4rem] pointer-events-none">
-      <span>01</span><span>02</span><span>03</span><span>04</span>
-    </div>
   </CaseFigure>
 );
