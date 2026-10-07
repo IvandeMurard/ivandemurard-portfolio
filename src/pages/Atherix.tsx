@@ -290,6 +290,8 @@ const Atherix = () => {
           <span className="mt-5 inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Research, not built</span>
           </div>
           </div>
+          <h3 className={`${subheadCls} mt-12`}>Roadmap</h3>
+          <AetherixPhaseTimeline />
         </div>
       </Reveal>
 

@@ -29,7 +29,7 @@ export const CaseAnchors = ({
 }: Props) => (
   <section aria-label={label} className="px-6 md:px-12 mb-12 md:mb-16">
     <div className="max-w-screen-2xl mx-auto">
-      <h2 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6">{label}</h2>
+      <h2 data-toc-skip="true" className="font-headline italic text-3xl md:text-4xl text-primary leading-tight mb-8">{label}</h2>
       <ul
         className={cn(
           "grid gap-4 md:grid-cols-2",

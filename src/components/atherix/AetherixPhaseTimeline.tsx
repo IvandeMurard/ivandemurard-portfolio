@@ -29,13 +29,13 @@ const ICON: Record<State, string> = {
 
 export const AetherixPhaseTimeline = () => (
   <div className="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
-    <ol className="flex gap-4 md:gap-3 min-w-max md:min-w-0 md:grid md:grid-cols-6">
+    <ol className="flex gap-4 md:gap-3 min-w-max md:min-w-0 md:grid md:grid-cols-3 2xl:grid-cols-6">
       {PHASES.map((p) => {
         const emphasized = p.state === "current";
         return (
           <li
             key={p.n}
-            className={`flex-1 min-w-[180px] rounded-2xl border p-5 flex flex-col gap-3 ${
+            className={`flex-1 min-w-[180px] md:min-w-0 rounded-2xl border p-5 flex flex-col gap-3 ${
               emphasized
                 ? "border-secondary bg-surface-container-high"
                 : "border-outline-variant bg-surface-container-low"
