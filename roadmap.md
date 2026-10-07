@@ -34,3 +34,8 @@
 - [x] Add the real agent-response excerpt to Sec. 04 while keeping it shorter than Sec. 01.
 - [x] Remove all prohibited 2017/2020-derived claims and synchronize Markdown, LLM, MCP and Rose references.
 - [x] Verify tooltips, anchors, themes, mobile layout and pre-render without publishing or deploying.
+
+# Aetherix evidence-led rewrite
+- [ ] Rebuild `/aetherix` as the approved eight-section case study and keep the forecast console source for later reuse.
+- [ ] Synchronize the approved Aetherix tagline, status, SEO, Markdown, LLM, MCP, architecture references and Rose guardrail.
+- [ ] Regenerate derived outputs and verify the page, disclosures, terms, links and forbidden-phrase audit without publishing or deploying.
