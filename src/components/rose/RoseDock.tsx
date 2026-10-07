@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
+import roseMark from "@/assets/rose-mark.png";
 
 const SESSION_KEY = "rose_session";
 
