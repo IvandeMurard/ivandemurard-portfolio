@@ -1,4 +1,5 @@
 import { defineTool } from "@lovable.dev/mcp-js";
+import { CV } from "../../../content/cv";
 
 const ABOUT = {
   name: "Ivan de Murard",
@@ -36,6 +37,18 @@ const ABOUT = {
     },
   ],
   current_builds: ["Aetherix", "Tacet", "Lore", "Paris Compass"],
+  cv: {
+    page: "https://ivandemurard.com/cv",
+    pdf: "https://ivandemurard.com/Ivan_de_Murard_CV.pdf",
+    markdown: "https://ivandemurard.com/Ivan_de_Murard_CV.md",
+    title: CV.title,
+    location: CV.location,
+    summary: CV.summary,
+    founder_and_builder: CV.founder,
+    product_and_customer_roles: CV.product,
+    skills: CV.skills,
+    education: CV.education,
+  },
   links: {
     email: "ivandemurard@gmail.com",
     schedule: "https://cal.com/ivandemurard/discussion-and-introduction",
@@ -49,7 +62,7 @@ export default defineTool({
   name: "get_about",
   title: "Get about & contact",
   description:
-    "Return Ivan de Murard's professional bio: focus, track record, current builds and contact links (email, schedule, LinkedIn, GitHub, X).",
+    "Return Ivan de Murard's professional bio and CV: focus, full experience, skills, education, current builds and contact links (email, schedule, LinkedIn, GitHub, X).",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({

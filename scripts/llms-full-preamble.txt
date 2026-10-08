@@ -8,6 +8,8 @@ Ivan de Murard is a product builder based in Paris, France. He has five years of
 
 Contact: ivandemurard@gmail.com. Booking: https://cal.com/ivandemurard/discussion-and-introduction. LinkedIn: https://www.linkedin.com/in/ivandemurard/. GitHub: https://github.com/IvandeMurard.
 
+CV: https://ivandemurard.com/cv. PDF: https://ivandemurard.com/Ivan_de_Murard_CV.pdf. Markdown: https://ivandemurard.com/Ivan_de_Murard_CV.md.
+
 ## Convictions
 
 1. Human interactions first. Technology should give time back to people, not pull them deeper into screens. The best automation is the one that lets a host be more present.

@@ -14,6 +14,7 @@ import Compass from "./pages/Compass.tsx";
 import Architecture from "./pages/Architecture.tsx";
 import Atrium from "./pages/Atrium.tsx";
 import Contact from "./pages/Contact.tsx";
+import Cv from "./pages/Cv.tsx";
 import Journal from "./pages/Journal.tsx";
 import JournalEntry from "./pages/JournalEntry.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/architecture" element={<Architecture />} />
               <Route path="/atrium" element={<Atrium />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/cv" element={<Cv />} />
               <Route path="/journal" element={<Journal />} />
               <Route
                 path="/journal/harnais-graders-boucles-fermees"
