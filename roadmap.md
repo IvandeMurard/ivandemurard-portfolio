@@ -39,3 +39,7 @@
 - [x] Rebuild `/aetherix` as the approved eight-section case study and keep the forecast console source for later reuse.
 - [x] Synchronize the approved Aetherix tagline, status, SEO, Markdown, LLM, MCP, architecture references and Rose guardrail.
 - [x] Regenerate derived outputs and verify the page, disclosures, terms, links and forbidden-phrase audit without publishing or deploying.
+
+# Field Note provenance
+- [x] Add the exact provenance paragraph and 2026-10-08 update without changing existing text or reading time.
+- [x] Synchronize and verify Markdown, corpus, MCP source response and saved article body, preview only.

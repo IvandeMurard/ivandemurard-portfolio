@@ -34,6 +34,8 @@ Most teams building with language models can describe what their system does. Fa
 
 The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so.
 
+**Provenance.** The case set, graders and live numbers below are Lore's, because its repository is public and its runs can be replayed. Most of the surrounding machinery was built first in Aetherix, whose repository is private: the exit-code contract, the diff against a frozen baseline, the path-triggered gate with a hash cache, and per-layer thresholds. [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) documents it. Aetherix's own measurements run on a synthetic series and a stand-in parser, as section 2 states.
+
 ## 1. The vocabulary, through the driving test
 
 **SEC. 1** A grader judges one criterion, a harness runs the exam, a protocol says what passing means. Concrete case: Lore has 10 graders, one harness, and one protocol document that decides when CI goes red.
@@ -361,6 +363,8 @@ A note on where it came from. I wrote the first version for myself, before inter
 ## Updates
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+2026-10-08 · Added a provenance note: which mechanisms come from Aetherix and which from Lore. *The piece's numbers are Lore's, but most of the gate machinery was built first in Aetherix, whose repository is private. A reader could take Lore for the more rigorous system and Aetherix for a footnote, so the note says where each mechanism comes from and what can be checked publicly.*
 
 2026-09-24 · Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes. *Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.*
 
