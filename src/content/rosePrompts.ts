@@ -87,6 +87,27 @@ const ROSE_PROMPTS: Array<{ match: string; prompts: RosePrompt[] }> = [
     ],
   },
   {
+    match: "/cv",
+    prompts: [
+      {
+        label: "Summarise Ivan's experience",
+        message: "Summarise Ivan's experience and the kinds of product roles he has held.",
+        intent: "product",
+      },
+      {
+        label: "Which skills are strongest?",
+        message: "From Ivan's CV, which skills are strongest for a 0 to 1 product role?",
+        intent: "technical",
+      },
+      {
+        label: "What has he shipped?",
+        message: "From Ivan's CV and case studies, what has he personally taken from discovery to delivery?",
+        intent: "exploring",
+      },
+      BOOK_CALL,
+    ],
+  },
+  {
     match: "/aetherix",
     prompts: [
       {

@@ -8,6 +8,9 @@
 - X: https://x.com/IvanMurard
 - Email: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/discussion-and-introduction
+- CV: https://ivandemurard.com/cv
+- CV PDF: https://ivandemurard.com/Ivan_de_Murard_CV.pdf
+- CV Markdown: https://ivandemurard.com/Ivan_de_Murard_CV.md
 
 ## Status vocabulary
 
@@ -38,6 +41,8 @@ Compass belongs under Standalone projects. It is not a node, agent or part of th
 
 ## Track record
 
+The complete CV, including Founder & Builder, Product & Customer Roles, Skills and Education, is available at https://ivandemurard.com/cv and as Markdown at https://ivandemurard.com/Ivan_de_Murard_CV.md.
+
 - 2024 to 2025, Product Manager at FORTIL for DomusVi: delivered the MVP; rollout planned for 500+ users across 100 care homes.
 - 2023 to 2024, Product Manager at ALTEN for Bouygues Telecom: data-driven dashboard recovered 40% of 1.9M EUR receivables.
 - 2022 to 2023, Customer Success Manager at Opendatasoft: 22 European city and metropolitan clients, 2 launches, zero churn.
@@ -57,3 +62,4 @@ Every document below is served as markdown at its own URL, identical in content 
 - [Tacet](https://ivandemurard.com/tacet.md)
 - [A wrong forecast is absorbed](https://ivandemurard.com/journal/agent-boundaries-aetherix.md)
 - [Evaluating LLM agents](https://ivandemurard.com/journal/harnesses-graders-closed-loops.md)
+- [Ivan de Murard CV](https://ivandemurard.com/Ivan_de_Murard_CV.md)

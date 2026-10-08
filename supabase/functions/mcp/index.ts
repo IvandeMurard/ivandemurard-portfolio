@@ -123,6 +123,92 @@ var get_case_study_default = defineTool2({
 
 // src/lib/mcp/tools/get-about.ts
 import { defineTool as defineTool3 } from "npm:@lovable.dev/mcp-js@0.24.0";
+
+// src/content/cv.ts
+var CV = {
+  name: "Ivan de Murard",
+  title: "AI Product Builder",
+  location: "Paris (open to relocation)",
+  email: "ivandemurard@gmail.com",
+  website: "ivandemurard.com",
+  github: "github.com/IvandeMurard",
+  summary: "Product builder with 5 years in B2B SaaS: co-founded a SaaS company, led product inside large organisations, and now builds AI-native products from 0 to 1 by directing AI coding agents. I work across tech and non-tech teams, and I'm drawn to problems where the product still has to be made.",
+  founder: [
+    {
+      title: "Product Builder, Hospitality agentic architecture",
+      dates: "Nov 2025 \u2013 present",
+      context: "Agentic systems for independent hotels: intelligence pushed into the tools staff already use, not another dashboard.",
+      bullets: [
+        "Aetherix (F&B agent): one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; no hotel connected yet.",
+        "Anima (guest memory): keeps what guests said apart from what was inferred, and forgets what was never confirmed. Synthetic proof of concept with four memory layers and an MCP server; real guest data gated behind a data-protection assessment.",
+        "Evaluation by design: forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive median baseline, with mixed results reported as they are; 12 public ADRs.",
+        "Architecture: 5 agents around a central orchestrator, multi-tenant, with GDPR constraints designed in from the start."
+      ]
+    },
+    {
+      title: "Product Builder, Compass",
+      dates: "2026 \u2013 present",
+      context: "Address-level context for commercial location decisions in Paris, built on open data.",
+      bullets: [
+        "Product and data design, built by directing AI coding agents. A person and an AI agent see the same figures, sources and confidence levels.",
+        "Published MCP server (npm paris-compass-mcp, listed in the MCP registry)."
+      ]
+    },
+    {
+      title: "Co-founder & Product Manager, Sonor",
+      dates: "2020 \u2013 2022",
+      context: "B2G SaaS helping local governments reduce noise pollution with open data.",
+      bullets: [
+        "Took the product from problem discovery to a working MVP and engaged local governments in a sales process, in a team of 4 including a developer and a data scientist.",
+        "Raised 20 000 \u20AC in grants; incubated at Matrice (Banque des Territoires)."
+      ]
+    }
+  ],
+  product: [
+    {
+      title: "Consultant Product Manager, DomusVi",
+      dates: "2024 \u2013 2025",
+      context: "France's 2nd-largest private nursing-home group (Plan\xE8te Grise 2026), highly regulated.",
+      bullets: [
+        "Owned discovery, specs and a no-code POC (Airtable, Make) to consolidate 10+ legacy tools onto one SaaS platform across 3 business lines.",
+        "Aligned 7 C-level stakeholders and coordinated IT, business teams, legal, marketing and an external SaaS vendor.",
+        "Ran deployment and training: 500+ users live across 100+ facilities."
+      ]
+    },
+    {
+      title: "Consultant Product Manager, Objenious (Bouygues Telecom IoT)",
+      dates: "2023 \u2013 2024",
+      context: "France's first B2B IoT operator.",
+      bullets: [
+        "Owned a data-driven tool to recover 1,9M \u20AC in unpaid invoices across a mixed European B2B customer base.",
+        "Coordinated IT, finance, sales and legal from build through adoption. 40% of the targeted debt recovered; tool adopted into standard process."
+      ]
+    },
+    {
+      title: "Customer Success Manager, Opendatasoft (now Huwise)",
+      dates: "2022 \u2013 2023",
+      context: "SaaS platform for public open-data publishing.",
+      bullets: [
+        "Owned the full customer lifecycle for 22 European cities and metro areas; zero churn.",
+        "Fed customer feedback into product and partnered with sales on upsell."
+      ]
+    }
+  ],
+  skills: [
+    { label: "AI & agentic systems", text: "multi-agent architecture, MCP, RAG, orchestration, evaluation by design, human-in-the-loop." },
+    { label: "Build & ship", text: "Claude Code, FastAPI, PostgreSQL, REST APIs, OAuth2, n8n, Make, Docker, Fly.io." },
+    { label: "Discovery & delivery", text: "0-to-1 discovery (OST), workflow mapping, adoption metrics, Shape Up, Kanban." },
+    { label: "Cross-functional leadership", text: "stakeholder alignment up to C-level, change management, training across technical and non-technical teams." },
+    { label: "Field", text: "front-of-house experience in restaurants (waiter, bartender, barista)." },
+    { label: "Languages", text: "English fluent (TOEIC 980/990), French native." }
+  ],
+  education: [
+    "Service Design, Interaction Design Foundation \xB7 2020",
+    "MSc Management & Entrepreneurship, Agro, IHEDREA \xB7 2012 \u2013 2017"
+  ]
+};
+
+// src/lib/mcp/tools/get-about.ts
 var ABOUT = {
   name: "Ivan de Murard",
   site: "https://ivandemurard.com",
@@ -154,6 +240,18 @@ var ABOUT = {
     }
   ],
   current_builds: ["Aetherix", "Tacet", "Lore", "Paris Compass"],
+  cv: {
+    page: "https://ivandemurard.com/cv",
+    pdf: "https://ivandemurard.com/Ivan_de_Murard_CV.pdf",
+    markdown: "https://ivandemurard.com/Ivan_de_Murard_CV.md",
+    title: CV.title,
+    location: CV.location,
+    summary: CV.summary,
+    founder_and_builder: CV.founder,
+    product_and_customer_roles: CV.product,
+    skills: CV.skills,
+    education: CV.education
+  },
   links: {
     email: "ivandemurard@gmail.com",
     schedule: "https://cal.com/ivandemurard/discussion-and-introduction",
@@ -165,7 +263,7 @@ var ABOUT = {
 var get_about_default = defineTool3({
   name: "get_about",
   title: "Get about & contact",
-  description: "Return Ivan de Murard's professional bio: focus, track record, current builds and contact links (email, schedule, LinkedIn, GitHub, X).",
+  description: "Return Ivan de Murard's professional bio and CV: focus, full experience, skills, education, current builds and contact links (email, schedule, LinkedIn, GitHub, X).",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
@@ -1143,13 +1241,13 @@ var mcp_default = defineMcp({
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
   instructions: [
-    "Public, read-only MCP server exposing Ivan de Murard's verified portfolio: case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass), professional bio and contact, and Field Notes. Ivan is a product builder in Paris working on agentic systems for hospitality and operations, with a focus on 0 to 1 craft and rigorous evaluation.",
+    "Public, read-only MCP server exposing Ivan de Murard's verified portfolio: case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass), full CV, professional bio and contact, and Field Notes. Ivan is a product builder in Paris working on agentic systems for hospitality and operations, with a focus on 0 to 1 craft and rigorous evaluation.",
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state.",
     "Aetherix: The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet.",
     "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative begins with One address, read in context, then Product strategy, Where AI sits, Built for people and AI agents, How sure is it?, and Where it stands. Earlier census records and any figures derived from them remain withheld until their licence is cleared.",
-    "3. Suggested path. Start with list_case_studies or get_about, then fetch depth with get_case_study or get_journal_entry.",
+    "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),
   tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default]

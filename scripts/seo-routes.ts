@@ -77,6 +77,17 @@ export const SEO_ROUTES: SeoRoute[] = [
     priority: "0.8",
   },
   {
+    path: "/cv",
+    markdown: "Ivan_de_Murard_CV.md",
+    title: "CV, Ivan de Murard, AI Product Builder · Ivan de Murard",
+    description:
+      "Ivan de Murard's CV: founder and builder experience, product and customer roles, skills, and education.",
+    type: "profile",
+    changefreq: "monthly",
+    priority: "0.8",
+    jsonLd: personJsonLd,
+  },
+  {
     path: "/journeys",
     title: "Case Studies, Selected Work by Ivan de Murard · Ivan de Murard",
     description:
