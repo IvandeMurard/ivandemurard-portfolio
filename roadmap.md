@@ -43,3 +43,8 @@
 # Field Note provenance
 - [x] Add the exact provenance paragraph and 2026-10-08 update without changing existing text or reading time.
 - [x] Synchronize and verify Markdown, corpus, MCP source response and saved article body, preview only.
+
+# Shareable CV page
+- [ ] Build `/cv` from the supplied CV, with root-level PDF and Markdown downloads and no phone number.
+- [ ] Add CV navigation, project links, SEO, `llms.txt`, MCP profile context and Rose reference coverage.
+- [ ] Regenerate derived outputs and verify the page in preview without publishing.
