@@ -73,6 +73,9 @@ export default {
 
         outline: "hsl(var(--outline))",
         "outline-variant": "hsl(var(--outline-variant))",
+        "signal-go": "hsl(var(--signal-go))",
+        "signal-warn": "hsl(var(--signal-warn))",
+        "signal-stop": "hsl(var(--signal-stop))",
 
 
         "inverse-surface": "hsl(var(--inverse-surface))",
