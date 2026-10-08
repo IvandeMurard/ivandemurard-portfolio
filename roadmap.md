@@ -42,4 +42,4 @@
 
 # Field Note provenance
 - [x] Add the exact provenance paragraph and 2026-10-08 update without changing existing text or reading time.
-- [ ] Synchronize and verify Markdown, corpus, MCP source response and saved article body, preview only.
+- [x] Synchronize and verify Markdown, corpus, MCP source response and saved article body, preview only.
