@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { Mail, Calendar, Linkedin, Github, Copy, Check } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
@@ -75,7 +76,10 @@ export const Footer = () => {
                   : ""}
             </span>
             <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-              © {new Date().getFullYear()} Ivan de Murard · Curated with Care
+              © {new Date().getFullYear()} Ivan de Murard · Curated with Care ·{" "}
+              <Link to="/cv" className="hover:text-primary transition-colors">
+                Curriculum Vitae
+              </Link>
             </p>
           </div>
           <div className="flex items-center gap-8">
