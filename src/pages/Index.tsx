@@ -476,6 +476,13 @@ const Index = () => {
           >
             Book a Call
           </a>
+          <Link
+            to="/cv"
+            aria-label="Ivan's CV"
+            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
+          >
+            CV
+          </Link>
           <a
             href={SOCIAL_LINKS.linkedin}
             target="_blank"

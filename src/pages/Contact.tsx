@@ -1,4 +1,5 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { SOCIAL_LINKS } from "@/content/site";
@@ -129,6 +130,15 @@ const Contact = () => {
             </a>
           ))}
         </div>
+        <p className="mt-12 text-center text-on-surface-variant font-normal leading-relaxed">
+          Looking for a structured timeline of roles and skills?{" "}
+          <Link
+            to="/cv"
+            className="text-secondary border-b border-secondary/40 pb-0.5 hover:border-secondary transition-colors"
+          >
+            Read the CV
+          </Link>
+        </p>
       </section>
 
       <section className="mt-32 md:mt-48 px-6 md:px-12 max-w-3xl mx-auto text-center">

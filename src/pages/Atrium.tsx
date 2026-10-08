@@ -374,15 +374,13 @@ const Atrium = () => (
               <Icon name="mail" className="text-sm" />
               Email
             </a>
-            <a
-              href={SOCIAL_LINKS.cv}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/cv"
               className="text-secondary font-medium tracking-wide hover:underline decoration-secondary/30 underline-offset-8 transition-all duration-500 inline-flex items-center gap-2 group"
             >
-              <Icon name="download" className="text-sm" />
-              Download CV
-            </a>
+              View the CV
+              <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
           <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 pt-8 border-t border-primary/10">
             <a
