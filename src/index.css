@@ -52,6 +52,9 @@
     /* Outline */
     --outline: 233 10% 34%;                   /* AA on cream */
     --outline-variant: 235 12% 46%;           /* borders well past 3:1 */
+    --signal-go: 148 65% 33%;
+    --signal-warn: 37 100% 39%;
+    --signal-stop: 4 65% 47%;
 
 
     /* Text selection */
@@ -146,6 +149,9 @@
 
     --outline: 38 8% 45%;
     --outline-variant: 38 12% 48%;
+    --signal-go: 148 59% 57%;
+    --signal-warn: 37 87% 62%;
+    --signal-stop: 4 85% 65%;
 
     /* Text selection: dark ink on lamplight */
     --selection-bg: 39 90% 74%;
