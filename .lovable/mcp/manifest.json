@@ -64,7 +64,7 @@
       {
         "name": "get_about",
         "title": "Get about & contact",
-        "description": "Return Ivan de Murard's professional bio: focus, track record, current builds and contact links (email, schedule, LinkedIn, GitHub, X).",
+        "description": "Return Ivan de Murard's professional bio and CV: focus, full experience, skills, education, current builds and contact links (email, schedule, LinkedIn, GitHub, X).",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
