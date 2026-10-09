@@ -29,6 +29,12 @@ import { EntryOpening } from "@/components/journal/EntryOpening";
 import { SelfDiagnostic } from "@/components/journal/SelfDiagnostic";
 import { HarnessConsole } from "@/components/journal/HarnessConsole";
 import { McpEndpoint } from "@/components/McpEndpoint";
+import { RecommendationLine } from "@/components/journal/RecommendationLine";
+import { SignalLamp } from "@/components/journal/SignalLamp";
+import { firstSentence } from "@/content/readingTime";
+import type { Signal } from "@/content/recoLine";
+
+const VERDICT_SIGNAL: Record<string, Signal> = { PASS: "go", WARN: "warn", FAIL: "stop", ERROR: "dark" };
 
 
 const slugifyHeading = (text: string) =>
@@ -97,6 +103,10 @@ const blockStrings = (block: JournalBlock): string[] => {
       return block.rows.flatMap((r) => r.cells.flatMap((c) => [c.instance, c.cost ?? ""]));
     case "stepper":
       return [block.question, ...block.steps.map((s) => s.reading)];
+    case "fold":
+      return block.blocks.flatMap(blockStrings);
+    case "recoLine":
+      return [block.caption];
 
     default:
       return [];
@@ -206,7 +216,22 @@ const Block = ({
                         ci === 0 ? "text-primary font-medium" : "text-on-surface-variant font-normal"
                       }`}
                     >
-                      {t(cell)}
+                      {ci === block.lampCol && VERDICT_SIGNAL[cell] ? (
+                        <span className="inline-flex items-center gap-2">
+                          <SignalLamp state={VERDICT_SIGNAL[cell]} hideWord />
+                          {t(cell)}
+                        </span>
+                      ) : ci === block.foldCol && firstSentence(cell) !== cell ? (
+                        <details className="group">
+                          <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                            {t(firstSentence(cell))}{" "}
+                            <span className="font-label text-[11px] uppercase tracking-[0.12em] text-primary group-open:hidden">Read more</span>
+                          </summary>
+                          {t(cell.slice(firstSentence(cell).length).trim())}
+                        </details>
+                      ) : (
+                        t(cell)
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -311,6 +336,28 @@ const Block = ({
       );
     case "cards":
       return <CardGrid items={block.items} label={block.label} />;
+    case "fold":
+      return (
+        <details className="rounded-sm border border-outline-variant px-4 py-3">
+          <summary className="cursor-pointer font-label text-[11px] uppercase tracking-[0.14em] text-primary">{block.summary}</summary>
+          <div className="mt-4 space-y-6">
+            {block.blocks.map((b, i) => <Block key={i} block={b} labels={labels} marks={marks} />)}
+          </div>
+        </details>
+      );
+    case "recoLine":
+      return (
+        <>
+          <RecommendationLine id={block.id} initialLayer={block.layer} caption={block.caption} />
+          {block.link && (
+            <p className="font-body mt-4">
+              <Link to={block.link.to} className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity">
+                {block.link.text}
+              </Link>
+            </p>
+          )}
+        </>
+      );
     case "askRose":
       return <AskRose prompts={block.prompts} label={block.label} note={block.note} />;
     case "console":

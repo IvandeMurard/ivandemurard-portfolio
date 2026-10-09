@@ -43,7 +43,15 @@ export type JournalBlock =
   | { kind: "p" | "h2" | "h3" | "quote"; text: string; aliases?: string[] }
   | { kind: "list"; items: string[] }
   | { kind: "code"; lang?: string; text: string }
-  | { kind: "table"; head: string[]; rows: string[][]; caption?: string }
+  | {
+      kind: "table"; head: string[]; rows: string[][]; caption?: string;
+      /** Column whose verdict word (PASS, WARN, FAIL, ERROR) gets a signal lamp. */
+      lampCol?: number;
+      /** Column collapsed after its first sentence on screen; full text kept in mirrors. */
+      foldCol?: number;
+    }
+  | { kind: "fold"; summary: string; blocks: JournalBlock[] }
+  | { kind: "recoLine"; id: string; layer: "checks" | "truth"; caption: string; link?: { to: string; text: string } }
   | { kind: "defs"; items: { term: string; def: string; note?: string }[] }
   | { kind: "pyramid"; layers: PyramidLayer[] }
   | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
