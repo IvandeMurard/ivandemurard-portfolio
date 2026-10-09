@@ -4,7 +4,7 @@ import { SignalLamp } from "./SignalLamp";
 import { RECO_LINES, lampOf, recoLineMarkdown, viewOf, type Layer, type LineId } from "@/content/recoLine";
 
 /** FIG: recommendation line. Station strip, board readout, line/layer switches, autoplay. Keys only while focused. */
-export const RecommendationLine = ({ id = "fig-reco-line", initialLayer = "checks" as Layer, figLabel = "Fig 1" }) => {
+export const RecommendationLine = ({ id = "fig-reco-line", initialLayer = "checks" as Layer, figLabel = "Fig 1", caption }: { id?: string; initialLayer?: Layer; figLabel?: string; caption?: string }) => {
   const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   const [line, setLine] = useState<LineId>("aetherix");
   const [layer, setLayer] = useState<Layer>(initialLayer);
@@ -84,6 +84,7 @@ export const RecommendationLine = ({ id = "fig-reco-line", initialLayer = "check
         </div>
       </div>
       <figcaption className="border-t border-outline-variant px-4 py-3 font-body text-sm leading-relaxed text-on-surface-variant">
+        {caption && <span className="mb-2 block text-on-surface">{caption}</span>}
         Lamps: green top GO (covered), amber middle WARN (partial), red bottom STOP (failing), none lit DARK (no information, treated as stop). In the Truth layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.
         <details className="mt-3">
           <summary className="cursor-pointer text-on-surface">What an agent and Rose read</summary>
