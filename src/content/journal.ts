@@ -1,4 +1,5 @@
 import { HARNESSES_ENTRY } from "./journalHarnesses";
+import { TRUTH_ENTRY } from "./journalTruth";
 import type { MatrixRow } from "@/components/journal/CoverageMatrix";
 
 
@@ -233,6 +234,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
     ],
   },
   HARNESSES_ENTRY,
+  TRUTH_ENTRY,
 ];
 
 
