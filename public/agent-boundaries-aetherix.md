@@ -1,8 +1,8 @@
 # A wrong forecast is absorbed. A wrong action reaches a guest.
 
-Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
+_Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it._
 
-Published 2026-04-20. Source: https://ivandemurard.com/journal/agent-boundaries-aetherix
+Published 2026-04-20 · Agentic AI. Source: https://ivandemurard.com/journal/agent-boundaries-aetherix
 
 When you build an operations layer for boutique hotels, the temptation is to let one large model do everything: predict, decide, act. It looks elegant on a slide. One component, one prompt, one place to improve.
 
