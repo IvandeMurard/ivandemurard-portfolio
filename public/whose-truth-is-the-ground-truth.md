@@ -2,7 +2,7 @@
 
 An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.
 
-Product · 2026-10-08 · 6 min read
+Product · 2026-10-11 · 6 min read
 
 **Read this if** you own an AI product that recommends, decides or acts. **What it gives you**: name the truth each step returns, who holds it, when, how it can be gamed, and what it is worth. **Tested on**: two products, one that gets a fact back the next day, one that never does. Gaps stated.
 

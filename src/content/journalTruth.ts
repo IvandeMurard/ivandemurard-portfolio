@@ -7,7 +7,7 @@ export const TRUTH_ENTRY: JournalEntry = {
   title: "Whose truth is the ground truth?",
   subtitle:
     "An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.",
-  date: "2026-10-08",
+  date: "2026-10-11",
   category: "Product",
   lang: "en",
   readingMinutes: 6,
