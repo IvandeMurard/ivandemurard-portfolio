@@ -78,7 +78,7 @@ async def capture():
         for path in paths:
             url = f"http://127.0.0.1:{PORT}{path}"
             try:
-                await page.goto(url, wait_until="networkidle", timeout=45000)
+                await page.goto(url, wait_until="load", timeout=45000)
                 # Nudge every lazy-revealed section into its final state.
                 await page.evaluate(
                     "async () => {"
