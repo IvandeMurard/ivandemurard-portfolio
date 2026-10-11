@@ -2,7 +2,9 @@
 
 Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
-Published 2026-04-20. Source: https://ivandemurard.com/journal/agent-boundaries-aetherix
+Agentic AI · 2026-04-20
+
+Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
 When you build an operations layer for boutique hotels, the temptation is to let one large model do everything: predict, decide, act. It looks elegant on a slide. One component, one prompt, one place to improve.
 
@@ -52,3 +54,10 @@ The guarantee. In a single-model design, "never act on a low-confidence forecast
 
 A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it.
 
+## Updates
+
+This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+2026-09-24 · Corrected what the note said about recorded replies, the CI forecast baseline and the drift example. An audit of the Aetherix repository found that only an exact "accept" or "reject", or a corrected figure, records a decision; that the forecast baseline in CI is computed on a synthetic series, not on realised covers; and that the corrupted export and the regime shift come from a simulated 30-day scenario. The note had said more than that.
+
+Source: https://ivandemurard.com/journal/agent-boundaries-aetherix

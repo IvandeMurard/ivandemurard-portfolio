@@ -1,6 +1,7 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { JOURNAL_ENTRIES, type JournalBlock } from "../../../content/journal";
+import { JOURNAL_ENTRIES, type JournalBlock, type JournalEntry } from "../../../content/journal";
+import { recoLineMarkdown } from "../../../content/recoLine";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -61,9 +62,46 @@ export function renderBlock(block: JournalBlock): string {
       ]
         .filter(Boolean)
         .join("\n");
+    case "fold":
+      return [`**${block.summary}**`, ...block.blocks.map(renderBlock)].filter(Boolean).join("\n\n");
+    case "recoLine":
+      return [`**Figure.** ${block.caption}`, recoLineMarkdown(block.layer), block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n\n");
+    case "console":
+    case "mcp":
+      return "";
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n");
   }
+}
+
+export function renderEntryMarkdown(entry: JournalEntry): string {
+    const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+    const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
+    return [
+      `# ${entry.title}`,
+      entry.subtitle ?? "",
+      `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${entry.readingMinutes} min read` : ""}`,
+      entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
+      entry.glance
+        ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}`
+        : "",
+      entry.takeaways?.length
+        ? `What you will decide differently:\n${entry.takeaways.map((t) => `- ${t}`).join("\n")}`
+        : "",
+      entry.takeawayPunch ?? "",
+      entry.diagnostic
+        ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}\n${entry.diagnostic.questions
+            .map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN}/journal/${entry.slug}#${q.to}`)
+            .join("\n")}\n${entry.diagnostic.caveat}`
+        : "",
+      entry.excerpt,
+      bodyText,
+      entry.updates?.length ? `## Updates\n\nThis piece is revised when something it claims stops being true. Each revision says what changed and why.\n\n${entry.updates.map(u => `${u.date} · ${u.summary} ${u.reason}`).join("\n")}` : "",
+      entry.license ? `Licence: ${entry.license.label} (${entry.license.url}). ${entry.license.note ?? ""}` : "",
+      `Source: ${url}`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");;
 }
 
 export default defineTool({
@@ -90,33 +128,8 @@ export default defineTool({
       };
     }
 
-    const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
     const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
-    const text = [
-      `# ${entry.title}`,
-      entry.subtitle ?? "",
-      `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${entry.readingMinutes} min read` : ""}`,
-      entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
-      entry.glance
-        ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}`
-        : "",
-      entry.takeaways?.length
-        ? `What you will decide differently:\n${entry.takeaways.map((t) => `- ${t}`).join("\n")}`
-        : "",
-      entry.takeawayPunch ?? "",
-      entry.diagnostic
-        ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}\n${entry.diagnostic.questions
-            .map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN}/journal/${entry.slug}#${q.to}`)
-            .join("\n")}\n${entry.diagnostic.caveat}`
-        : "",
-      entry.excerpt,
-      bodyText,
-      entry.updates?.length ? `## Updates\n\nThis piece is revised when something it claims stops being true. Each revision says what changed and why.\n\n${entry.updates.map(u => `${u.date} · ${u.summary} ${u.reason}`).join("\n")}` : "",
-      entry.license ? `Licence: ${entry.license.label} (${entry.license.url}). ${entry.license.note ?? ""}` : "",
-      `Source: ${url}`,
-    ]
-      .filter(Boolean)
-      .join("\n\n");
+    const text = renderEntryMarkdown(entry);
 
     return {
       content: [{ type: "text" as const, text }],
@@ -138,7 +151,7 @@ export default defineTool({
         updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN}${entry.mirror}` : null,
         body: entry.body,
-        body_text: bodyText,
+        body_text: entry.body.map(renderBlock).filter(Boolean).join("\n\n"),
       },
     };
   },

@@ -1010,6 +1010,7 @@ var TRUTH_ENTRY = {
   category: "Product",
   lang: "en",
   readingMinutes: 6,
+  mirror: "/whose-truth-is-the-ground-truth.md",
   license: { label: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
   related: [
     { label: "Aetherix", to: "/aetherix" },
@@ -1310,6 +1311,45 @@ var list_journal_default = defineTool4({
 // src/lib/mcp/tools/get-journal-entry.ts
 import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z2 } from "npm:zod@^3.25.76";
+
+// src/content/recoLine.ts
+var SIGNAL_WORD = { go: "GO", warn: "WARN", stop: "STOP", dark: "DARK" };
+var RECO_LINES = {
+  aetherix: {
+    label: "Aetherix",
+    stations: [
+      { name: "Before release", checks: ["warn", "Arm A \xB7 eval gate", "synthetic data, stand-in parser"], truth: ["Documented", "known answers in the case set", "before release"] },
+      { name: "Recommendation sent", checks: ["warn", "Arm B \xB7 runtime guardrails", "typed reason on every trip"], truth: ["None yet", "a forecast is a claim", "not a truth"] },
+      { name: "Manager replies", checks: ["warn", "Decision captured", "model quality not measured"], truth: ["Declared", "the manager\u2019s reply", "same day"] },
+      { name: "Next day", checks: ["warn", "Arm C \xB7 outcome", "against a declared count"], truth: ["Observed", "real covers", "next day"] },
+      { name: "Other staffing", ghost: true, checks: ["dark", "No signal", "never observed"], truth: ["Counterfactual", "another plan\u2019s outcome", "never"] }
+    ],
+    rose: { checks: "Why does a dark signal mean stop?", truth: "Why is a manager\u2019s reply not the truth?" }
+  },
+  lore: {
+    label: "Lore",
+    stations: [
+      { name: "Before release", checks: ["go", "Arm A \xB7 10 graders", "3 tiers, 64 cases"], truth: ["Documented", "the procedure (AMM)", "wins any conflict"] },
+      { name: "Answer given", checks: ["dark", "Arm B \xB7 absent", "no production signals"], truth: ["Enforced", "checked against the band table", "at answer time"] },
+      { name: "Technician acts", checks: ["dark", "Not captured", "-"], truth: ["Not captured", "what the technician did", "-"] },
+      { name: "Work signed", ghost: true, checks: ["dark", "Arm C \xB7 absent", "record never returns"], truth: ["Realized", "the signed work record", "never returns"] }
+    ],
+    rose: { checks: "Why is Lore checked only before release?", truth: "Who decides that the procedure wins?" }
+  }
+};
+var viewOf = (s, layer) => layer === "checks" ? [SIGNAL_WORD[s.checks[0]], s.checks[1], s.checks[2]] : s.truth;
+var recoLineMarkdown = (layer) => {
+  const head = layer === "checks" ? "FIG | What checks a recommendation, station by station\n\n| Line | Station | Signal | Check | Detail |\n|---|---|---|---|---|\n" : "FIG | What comes back at each station, who holds it, and when\n\n| Line | Station | Kind of truth | What it is | When |\n|---|---|---|---|---|\n";
+  const rows = [];
+  for (const k of ["aetherix", "lore"])
+    for (const q of RECO_LINES[k].stations) {
+      const d = viewOf(q, layer);
+      rows.push(`| ${RECO_LINES[k].label} | ${q.name}${q.ghost ? " (never reached)" : ""} | ${d[0]} | ${d[1]} | ${d[2]} |`);
+    }
+  return head + rows.join("\n") + (layer === "checks" ? "\n\nSignals: GO covered, WARN partial, STOP failing, DARK no information (treated as stop)." : "\n\nLamps in this layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.");
+};
+
+// src/lib/mcp/tools/get-journal-entry.ts
 var SITE_ORIGIN3 = "https://ivandemurard.com";
 function renderBlock(block) {
   switch (block.kind) {
@@ -1367,9 +1407,43 @@ A: ${i.a}`).join("\n\n");
         ),
         block.note ?? ""
       ].filter(Boolean).join("\n");
+    case "fold":
+      return [`**${block.summary}**`, ...block.blocks.map(renderBlock)].filter(Boolean).join("\n\n");
+    case "recoLine":
+      return [`**Figure.** ${block.caption}`, recoLineMarkdown(block.layer), block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n\n");
+    case "console":
+    case "mcp":
+      return "";
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n");
   }
+}
+function renderEntryMarkdown(entry) {
+  const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+  const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
+  return [
+    `# ${entry.title}`,
+    entry.subtitle ?? "",
+    `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
+    entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
+    entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
+    entry.takeaways?.length ? `What you will decide differently:
+${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
+    entry.takeawayPunch ?? "",
+    entry.diagnostic ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}
+${entry.diagnostic.questions.map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN3}/journal/${entry.slug}#${q.to}`).join("\n")}
+${entry.diagnostic.caveat}` : "",
+    entry.excerpt,
+    bodyText,
+    entry.updates?.length ? `## Updates
+
+This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")}` : "",
+    entry.license ? `Licence: ${entry.license.label} (${entry.license.url}). ${entry.license.note ?? ""}` : "",
+    `Source: ${url}`
+  ].filter(Boolean).join("\n\n");
+  ;
 }
 var get_journal_entry_default = defineTool5({
   name: "get_journal_entry",
@@ -1393,30 +1467,8 @@ var get_journal_entry_default = defineTool5({
         isError: true
       };
     }
-    const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
     const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
-    const text = [
-      `# ${entry.title}`,
-      entry.subtitle ?? "",
-      `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
-      entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
-      entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
-      entry.takeaways?.length ? `What you will decide differently:
-${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
-      entry.takeawayPunch ?? "",
-      entry.diagnostic ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}
-${entry.diagnostic.questions.map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN3}/journal/${entry.slug}#${q.to}`).join("\n")}
-${entry.diagnostic.caveat}` : "",
-      entry.excerpt,
-      bodyText,
-      entry.updates?.length ? `## Updates
-
-This piece is revised when something it claims stops being true. Each revision says what changed and why.
-
-${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")}` : "",
-      entry.license ? `Licence: ${entry.license.label} (${entry.license.url}). ${entry.license.note ?? ""}` : "",
-      `Source: ${url}`
-    ].filter(Boolean).join("\n\n");
+    const text = renderEntryMarkdown(entry);
     return {
       content: [{ type: "text", text }],
       structuredContent: {
@@ -1437,7 +1489,7 @@ ${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")
         updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : null,
         body: entry.body,
-        body_text: bodyText
+        body_text: entry.body.map(renderBlock).filter(Boolean).join("\n\n")
       }
     };
   }
