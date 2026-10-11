@@ -46,11 +46,12 @@ const PROOF: Proof[] = [
   { kind: "count", value: 22, label: "European public-sector clients onboarded, zero churn" },
 ];
 
-// Latest Field Notes, newest first. Icons, not covers: a lighter register than case studies.
+// Latest three Field Notes, shown oldest left, newest right. Icons, not covers.
 const NOTE_ICONS = [Gauge, BookOpen, GitBranch];
 const LATEST_NOTES = [...JOURNAL_ENTRIES]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 3)
+  .reverse()
   .map((entry, i) => ({ entry, Icon: NOTE_ICONS[i % NOTE_ICONS.length] }));
 
 
