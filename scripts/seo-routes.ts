@@ -297,6 +297,28 @@ export const SEO_ROUTES: SeoRoute[] = [
     },
   },
   {
+    path: "/journal/whose-truth-is-the-ground-truth",
+    markdown: "whose-truth-is-the-ground-truth.md",
+    title: "Whose truth is the ground truth? · Ivan de Murard",
+    description:
+      "An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.",
+    type: "article",
+    changefreq: "monthly",
+    priority: "0.7",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Whose truth is the ground truth?",
+        inLanguage: "en",
+        datePublished: "2026-10-08",
+        author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
+        articleSection: "Product",
+        url: `${BASE_URL}/journal/whose-truth-is-the-ground-truth`,
+      },
+    ],
+  },
+  {
     path: "/journal/harnesses-graders-closed-loops",
     markdown: "harnesses-graders-closed-loops.md",
     title: "Evaluating LLM agents: how would you know it had stopped working? · Ivan de Murard",
@@ -314,7 +336,7 @@ export const SEO_ROUTES: SeoRoute[] = [
           "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release.",
         inLanguage: "en",
         datePublished: "2026-07-31",
-        dateModified: "2026-10-08",
+        dateModified: "2026-10-11",
         author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
         articleSection: "Evaluation",
         url: `${BASE_URL}/journal/harnesses-graders-closed-loops`,

@@ -1418,7 +1418,7 @@ A: ${i.a}`).join("\n\n");
   }
 }
 function renderEntryMarkdown(entry) {
-  const bodyText2 = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+  const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
   const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
   return [
     `# ${entry.title}`,
@@ -1433,7 +1433,7 @@ ${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
 ${entry.diagnostic.questions.map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN3}/journal/${entry.slug}#${q.to}`).join("\n")}
 ${entry.diagnostic.caveat}` : "",
     entry.excerpt,
-    bodyText2,
+    bodyText,
     entry.updates?.length ? `## Updates
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
@@ -1488,7 +1488,7 @@ var get_journal_entry_default = defineTool5({
         updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : null,
         body: entry.body,
-        body_text: bodyText
+        body_text: entry.body.map(renderBlock).filter(Boolean).join("\n\n")
       }
     };
   }

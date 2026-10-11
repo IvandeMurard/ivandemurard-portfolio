@@ -151,7 +151,7 @@ export default defineTool({
         updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN}${entry.mirror}` : null,
         body: entry.body,
-        body_text: bodyText,
+        body_text: entry.body.map(renderBlock).filter(Boolean).join("\n\n"),
       },
     };
   },
