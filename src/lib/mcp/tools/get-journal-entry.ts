@@ -1,6 +1,7 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { JOURNAL_ENTRIES, type JournalBlock } from "../../../content/journal";
+import { JOURNAL_ENTRIES, type JournalBlock, type JournalEntry } from "../../../content/journal";
+import { recoLineMarkdown } from "../../../content/recoLine";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 

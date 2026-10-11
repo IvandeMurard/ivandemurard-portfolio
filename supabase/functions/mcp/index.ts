@@ -1310,6 +1310,45 @@ var list_journal_default = defineTool4({
 // src/lib/mcp/tools/get-journal-entry.ts
 import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z2 } from "npm:zod@^3.25.76";
+
+// src/content/recoLine.ts
+var SIGNAL_WORD = { go: "GO", warn: "WARN", stop: "STOP", dark: "DARK" };
+var RECO_LINES = {
+  aetherix: {
+    label: "Aetherix",
+    stations: [
+      { name: "Before release", checks: ["warn", "Arm A \xB7 eval gate", "synthetic data, stand-in parser"], truth: ["Documented", "known answers in the case set", "before release"] },
+      { name: "Recommendation sent", checks: ["warn", "Arm B \xB7 runtime guardrails", "typed reason on every trip"], truth: ["None yet", "a forecast is a claim", "not a truth"] },
+      { name: "Manager replies", checks: ["warn", "Decision captured", "model quality not measured"], truth: ["Declared", "the manager\u2019s reply", "same day"] },
+      { name: "Next day", checks: ["warn", "Arm C \xB7 outcome", "against a declared count"], truth: ["Observed", "real covers", "next day"] },
+      { name: "Other staffing", ghost: true, checks: ["dark", "No signal", "never observed"], truth: ["Counterfactual", "another plan\u2019s outcome", "never"] }
+    ],
+    rose: { checks: "Why does a dark signal mean stop?", truth: "Why is a manager\u2019s reply not the truth?" }
+  },
+  lore: {
+    label: "Lore",
+    stations: [
+      { name: "Before release", checks: ["go", "Arm A \xB7 10 graders", "3 tiers, 64 cases"], truth: ["Documented", "the procedure (AMM)", "wins any conflict"] },
+      { name: "Answer given", checks: ["dark", "Arm B \xB7 absent", "no production signals"], truth: ["Enforced", "checked against the band table", "at answer time"] },
+      { name: "Technician acts", checks: ["dark", "Not captured", "-"], truth: ["Not captured", "what the technician did", "-"] },
+      { name: "Work signed", ghost: true, checks: ["dark", "Arm C \xB7 absent", "record never returns"], truth: ["Realized", "the signed work record", "never returns"] }
+    ],
+    rose: { checks: "Why is Lore checked only before release?", truth: "Who decides that the procedure wins?" }
+  }
+};
+var viewOf = (s, layer) => layer === "checks" ? [SIGNAL_WORD[s.checks[0]], s.checks[1], s.checks[2]] : s.truth;
+var recoLineMarkdown = (layer) => {
+  const head = layer === "checks" ? "FIG | What checks a recommendation, station by station\n\n| Line | Station | Signal | Check | Detail |\n|---|---|---|---|---|\n" : "FIG | What comes back at each station, who holds it, and when\n\n| Line | Station | Kind of truth | What it is | When |\n|---|---|---|---|---|\n";
+  const rows = [];
+  for (const k of ["aetherix", "lore"])
+    for (const q of RECO_LINES[k].stations) {
+      const d = viewOf(q, layer);
+      rows.push(`| ${RECO_LINES[k].label} | ${q.name}${q.ghost ? " (never reached)" : ""} | ${d[0]} | ${d[1]} | ${d[2]} |`);
+    }
+  return head + rows.join("\n") + (layer === "checks" ? "\n\nSignals: GO covered, WARN partial, STOP failing, DARK no information (treated as stop)." : "\n\nLamps in this layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.");
+};
+
+// src/lib/mcp/tools/get-journal-entry.ts
 var SITE_ORIGIN3 = "https://ivandemurard.com";
 function renderBlock(block) {
   switch (block.kind) {

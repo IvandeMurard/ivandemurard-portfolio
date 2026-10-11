@@ -1,8 +1,38 @@
 # Whose truth is the ground truth?
 
-_An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives._
+An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.
 
-Published 2026-10-08 · Product. Source: https://ivandemurard.com/journal/whose-truth-is-the-ground-truth
+Product · 2026-10-08 · 6 min read
+
+**Read this if** you own an AI product that recommends, decides or acts. **What it gives you**: name the truth each step returns, who holds it, when, how it can be gamed, and what it is worth. **Tested on**: two products, one that gets a fact back the next day, one that never does. Gaps stated.
+
+What you will decide differently:
+- **"Truth" is plural.** Documented, declared, observed, counterfactual: each has an owner, a delay and a way to fool you.
+- **A recommendation is a claim.** Nobody knows it was right when it is sent.
+- **A "yes" is not a "right".** Optimise acceptance and the product learns to say what is easy to approve.
+- **Some truth never comes back.** The plan not taken. The signed record in a hangar.
+- **Truth is an asset.** Inside, it is memory that does not leave with the manager. Outside, it is the only basis for pricing on results.
+- **Write the verdict before the data.** Aetherix's thresholds are public and frozen. None of its four tests has run yet.
+
+A forecast is a claim. A manager's "yes" is a preference. Real covers are a fact, the next day. The plan you did not choose is never seen. Which of these your product learns from decides what it becomes, and what it is worth.
+
+**Figure.** One recommendation travels through four stations; at each, a different truth comes back, or none.
+
+FIG | What comes back at each station, who holds it, and when
+
+| Line | Station | Kind of truth | What it is | When |
+|---|---|---|---|---|
+| Aetherix | Before release | Documented | known answers in the case set | before release |
+| Aetherix | Recommendation sent | None yet | a forecast is a claim | not a truth |
+| Aetherix | Manager replies | Declared | the manager’s reply | same day |
+| Aetherix | Next day | Observed | real covers | next day |
+| Aetherix | Other staffing (never reached) | Counterfactual | another plan’s outcome | never |
+| Lore | Before release | Documented | the procedure (AMM) | wins any conflict |
+| Lore | Answer given | Enforced | checked against the band table | at answer time |
+| Lore | Technician acts | Not captured | what the technician did | - |
+| Lore | Work signed (never reached) | Realized | the signed work record | never returns |
+
+Lamps in this layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.
 
 | Line | Station | Kind of truth | What it is | When |
 | --- | --- | --- | --- | --- |
@@ -137,3 +167,6 @@ It can prove its method today. It can only sell results once outcomes are measur
 - [Aetherix](/aetherix)
 - [Lore](/lore)
 
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 
+
+Source: https://ivandemurard.com/journal/whose-truth-is-the-ground-truth

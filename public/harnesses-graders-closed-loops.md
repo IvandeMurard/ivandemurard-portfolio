@@ -1,10 +1,23 @@
 # Evaluating LLM agents: how would you know it had stopped working?
 
-_A working vocabulary for building evaluation into AI products from day one, tested on two real systems._
+A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
-Published 2026-07-31 · Evaluation. Source: https://ivandemurard.com/journal/harnesses-graders-closed-loops
+Evaluation · 2026-07-31 · 17 min read
 
-**TL;DR** A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
+**TL;DR** - A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
+
+**Read this if** You are shipping an LLM agent that recommends, decides, or acts, and the usual unit tests say nothing about the ways it actually fails. **What it gives you**: The working vocabulary (grader, harness, protocol), the three arms of evaluation, and acceptance criteria you can defend the day a threshold blocks someone's release. **Tested on**: Two systems in build: Aetherix, F&B execution for hotels, and Lore, a voice mentor for aviation maintenance. Gaps named, not skipped.
+
+**Check your own system.** Six questions about the system you ship, in the order the layers depend on each other. The first gap is where to start.
+1. (Arm A) Is there a set of cases with known correct answers, edge cases included, written down before or with the model code? If not: Without a case set and a written definition of failure, nothing above it can be measured. Section 4 calls it a blocking prerequisite. See https://ivandemurard.com/journal/harnesses-graders-closed-loops#5-evaluation-as-a-contract
+2. (Arm A) Does each kind of failure have its own threshold, and can a breach of the worst kind block a release on its own, whatever the pass rate? If not: A pass rate with no threshold attached is a number, not a decision. 61 out of 64 can be a failure. See https://ivandemurard.com/journal/harnesses-graders-closed-loops#6-acceptance-criteria-the-part-everyone-skips
+3. (Arm A) Have the same inputs been replayed several times, with the same score, before any threshold was allowed to block? If not: Until the instrument holds still, a threshold blocks or passes on the draw, not on the work. See https://ivandemurard.com/journal/harnesses-graders-closed-loops#7-the-canary-and-why-it-was-invalidated
+4. (Arm A) Is every quality number you report produced by what actually ships: the real model on the real path, not a stand-in, a mock, or a target copied from a document? If not: A stand-in written against the same cases passes by construction. The gate is green on something nobody uses. See https://ivandemurard.com/journal/harnesses-graders-closed-loops#12-what-a-harness-finds-that-no-unit-test-sees
+5. (Arm B) In production, does each layer emit a typed signal (refusal reason, retrieval score, latency) that can raise an alert before a user notices? If not: Without signals, drift shows up one release late, or when someone complains. See https://ivandemurard.com/journal/harnesses-graders-closed-loops#11-signals-ontology-priors
+6. (Arm C) Do you learn whether each output was acted on and whether reality proved it right, with overrides recorded as data rather than free text? If not: Without outcomes you measure but never learn, and no confidence score can be calibrated. See https://ivandemurard.com/journal/harnesses-graders-closed-loops#2-three-arms-and-what-each-product-can-afford
+Self-declared, like the confidence score in section 9: it says where to look first, not whether it holds. Nothing you select leaves this page.
+
+What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.
 
 Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.
 
@@ -46,6 +59,26 @@ A pre-merge gate proves quality on frozen scenarios. It says nothing about behav
 | A — Offline, dev-time | Before the merge | No regression on the case set: stratified accuracy, category coverage |
 | B — Runtime, online | In production, continuously | Guardrails and anomaly detection on real traffic: error rates, output bounds, abstention, drift, latency |
 | C — Outcome, downstream | After the fact, long loop | Was the output acted on, and did it produce value |
+
+**Figure.** What checks one recommendation, station by station. A dark signal is not a pass.
+
+FIG | What checks a recommendation, station by station
+
+| Line | Station | Signal | Check | Detail |
+|---|---|---|---|---|
+| Aetherix | Before release | WARN | Arm A · eval gate | synthetic data, stand-in parser |
+| Aetherix | Recommendation sent | WARN | Arm B · runtime guardrails | typed reason on every trip |
+| Aetherix | Manager replies | WARN | Decision captured | model quality not measured |
+| Aetherix | Next day | WARN | Arm C · outcome | against a declared count |
+| Aetherix | Other staffing (never reached) | DARK | No signal | never observed |
+| Lore | Before release | GO | Arm A · 10 graders | 3 tiers, 64 cases |
+| Lore | Answer given | DARK | Arm B · absent | no production signals |
+| Lore | Technician acts | DARK | Not captured | - |
+| Lore | Work signed (never reached) | DARK | Arm C · absent | record never returns |
+
+Signals: GO covered, WARN partial, STOP failing, DARK no information (treated as stop).
+
+The systems these arms are applied to: the Hospitality Multi-Agent Architecture: https://ivandemurard.com/architecture
 
 You do not test a parachute against a case set; you measure it in flight. Provided arm B is held to the same standard: every layer emits a measurable signal with a typed reason.
 
@@ -263,6 +296,30 @@ An agent harness without an evaluation harness produces a system that acts confi
 
 The clearest demonstration of the other meaning is Tejas Kumar's talk at IBM, [Harnesses in AI: A Deep Dive](https://www.youtube.com/watch?v=C_GG5g38vLU), from May 2026. He names the collision himself: in machine learning a harness is "a glorified test suite"; in AI engineering it is "everything around the model that gives it grounding in reality". And his motivation is this piece's title question, asked from the other side. The model you rent is a black box: the provider "could serve you Sonnet even though it says Opus. You would never know." Section 7's canary is how you would.
 
+**Read the full discussion of the talk**
+
+His demo takes GPT-3.5 Turbo and one prompt that never changes - upvote the top story on Hacker News - and grows a harness around it in three diffs. The bare agent reaches a login page, does nothing, and reports success. A verify step that reads the trace of tool calls turns that into an honest failure. A login handler that fills in the credentials from code, never from the prompt, turns it into a success. It lies, it fails honestly, it is held by code: the same three steps as the 0.30 qt/hr case in figure 12.1.
+
+The verify step is where the two meanings stop being separate objects. Kumar's example for a coding agent is "run lint, run tests". His `verify_successful_upvote` is a deterministic grader with typed failure reasons, run inside the agent loop. An agent harness's verify step is an evaluation harness called at runtime on a single episode: arm B, held to the discipline of arm A.
+
+Three limits, named because they are the ones this piece exists to name:
+
+- **One run is a draw.** Each version of the harness ran once, and the success came on the sixth iteration, with the guardrail set to stop the run beyond six. Section 7 exists because a single run cannot tell a fix from a good draw. The talk's word is reliability; the evidence is one run.
+- **The verify step reads the trace, not the world.** It checks that an upvote click was logged as successful, which is the tool's claim about itself. The final check was Kumar opening Hacker News and removing the vote by hand. On a binary task whose outcome sits in the page, that is cheap. On Lore, whose outcome never comes back (section 2), there is no page to open.
+- **The verify was written by the person who had just watched the agent fail**, and it covers the two failure modes he saw. That is section 8's author bias in its purest form.
+
+Kumar closes on a wish for 2027: agents that generate their own harness before doing the work, guardrails and verification included. On evaluation grounds, that is the direction to resist. A harness the agent writes for itself includes the verify step that grades it. Section 8 asks who grades the grader; here the grader would be written by the one being graded.
+
+> An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet.
+
+### What that literature adds to this one
+
+Three things worth taking, none of which this piece specified well enough:
+
+- **The tool gateway as its own layer.** Validate the schema, authorize against policy, execute in a sandbox, and return a *structured observation* - status, reason, evidence, retryable - rather than a wall of terminal output. That is arm B infrastructure, and section 11's "typed emissions at every layer" is the same claim without the mechanism.
+- **A permission ladder matched to consequence.** Reading a public document and deleting customer records should not travel the same approval path. Uniform friction gets routed around.
+- **Gating on reversibility rather than on confidence.** Sort work by how expensive the mistake is to undo, and treat the irreversible lane as a lane that does not open rather than a threshold set very high - because thresholds get adjusted under pressure and closed lanes do not. This is section 9's argument arriving from the other direction: a model's confidence is the only input to that decision the model itself can influence, which makes it the weakest variable in the gate.
+
 ### What it does not add
 
 Arm C. Across that entire body of work, almost nothing measures whether the output was acted on and whether acting on it helped. The closest is a single ratio - accepted outputs over human review minutes - stated once and not developed. The attention went to the half of the problem that is visible before deployment.
@@ -316,3 +373,15 @@ This piece has gaps. They are in the table in section 3 and in the last paragrap
 
 A note on where it came from. I wrote the first version for myself, before interviews, because I kept noticing I could do things I could not name. It turned out to be more useful as a reference than as a memory aid, so it became this.
 
+## Updates
+
+This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+2026-10-09 · Replaced the three-arms figure with an interactive recommendation line, added the site's signal vocabulary to the verdict table, folded long passages behind 'Read more' without removing them, and corrected two sentences about decision capture. The piece was long to read on screen. Nothing is removed: the full text stays in the Markdown version. The capture sentences described a state fixed in September 2026.
+2026-10-08 · Added a provenance note: which mechanisms come from Aetherix and which from Lore. The piece's numbers are Lore's, but most of the gate machinery was built first in Aetherix, whose repository is private. A reader could take Lore for the more rigorous system and Aetherix for a footnote, so the note says where each mechanism comes from and what can be checked publicly.
+2026-09-24 · Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes. Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.
+2026-09-12 · Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2. Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.
+
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Reuse and adapt with attribution to Ivan de Murard.
+
+Source: https://ivandemurard.com/journal/harnesses-graders-closed-loops
