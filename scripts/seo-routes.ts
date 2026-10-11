@@ -311,7 +311,7 @@ export const SEO_ROUTES: SeoRoute[] = [
         "@type": "Article",
         headline: "Whose truth is the ground truth?",
         inLanguage: "en",
-        datePublished: "2026-10-08",
+        datePublished: "2026-10-11",
         author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
         articleSection: "Product",
         url: `${BASE_URL}/journal/whose-truth-is-the-ground-truth`,
