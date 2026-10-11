@@ -1367,9 +1367,43 @@ A: ${i.a}`).join("\n\n");
         ),
         block.note ?? ""
       ].filter(Boolean).join("\n");
+    case "fold":
+      return [`**${block.summary}**`, ...block.blocks.map(renderBlock)].filter(Boolean).join("\n\n");
+    case "recoLine":
+      return [`**Figure.** ${block.caption}`, recoLineMarkdown(block.layer), block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n\n");
+    case "console":
+    case "mcp":
+      return "";
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n");
   }
+}
+function renderEntryMarkdown(entry) {
+  const bodyText2 = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+  const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
+  return [
+    `# ${entry.title}`,
+    entry.subtitle ?? "",
+    `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
+    entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
+    entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
+    entry.takeaways?.length ? `What you will decide differently:
+${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
+    entry.takeawayPunch ?? "",
+    entry.diagnostic ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}
+${entry.diagnostic.questions.map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN3}/journal/${entry.slug}#${q.to}`).join("\n")}
+${entry.diagnostic.caveat}` : "",
+    entry.excerpt,
+    bodyText2,
+    entry.updates?.length ? `## Updates
+
+This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")}` : "",
+    entry.license ? `Licence: ${entry.license.label} (${entry.license.url}). ${entry.license.note ?? ""}` : "",
+    `Source: ${url}`
+  ].filter(Boolean).join("\n\n");
+  ;
 }
 var get_journal_entry_default = defineTool5({
   name: "get_journal_entry",
@@ -1393,30 +1427,8 @@ var get_journal_entry_default = defineTool5({
         isError: true
       };
     }
-    const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
     const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
-    const text = [
-      `# ${entry.title}`,
-      entry.subtitle ?? "",
-      `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
-      entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
-      entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
-      entry.takeaways?.length ? `What you will decide differently:
-${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
-      entry.takeawayPunch ?? "",
-      entry.diagnostic ? `**${entry.diagnostic.label}.** ${entry.diagnostic.intro}
-${entry.diagnostic.questions.map((q, i) => `${i + 1}. (Arm ${q.arm}) ${q.ask} If not: ${q.gap} See ${SITE_ORIGIN3}/journal/${entry.slug}#${q.to}`).join("\n")}
-${entry.diagnostic.caveat}` : "",
-      entry.excerpt,
-      bodyText,
-      entry.updates?.length ? `## Updates
-
-This piece is revised when something it claims stops being true. Each revision says what changed and why.
-
-${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")}` : "",
-      entry.license ? `Licence: ${entry.license.label} (${entry.license.url}). ${entry.license.note ?? ""}` : "",
-      `Source: ${url}`
-    ].filter(Boolean).join("\n\n");
+    const text = renderEntryMarkdown(entry);
     return {
       content: [{ type: "text", text }],
       structuredContent: {
