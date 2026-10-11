@@ -1010,6 +1010,7 @@ var TRUTH_ENTRY = {
   category: "Product",
   lang: "en",
   readingMinutes: 6,
+  mirror: "/whose-truth-is-the-ground-truth.md",
   license: { label: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
   related: [
     { label: "Aetherix", to: "/aetherix" },
