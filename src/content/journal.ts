@@ -147,6 +147,11 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
     date: "2026-04-20",
     updates: [
       {
+        date: "2026-10-12",
+        summary: "Corrected the drift example.",
+        reason: "The 'three consecutive misses' alert was narration in the demo script, not a production mechanism, and the post-shift error was reduced, not fully recovered.",
+      },
+      {
         date: "2026-09-24",
         summary: "Corrected what the note said about recorded replies, the CI forecast baseline and the drift example.",
         reason: "An audit of the Aetherix repository found that only an exact \"accept\" or \"reject\", or a corrected figure, records a decision; that the forecast baseline in CI is computed on a synthetic series, not on realised covers; and that the corrupted export and the regime shift come from a simulated 30-day scenario. The note had said more than that.",
@@ -211,7 +216,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       },
       {
         kind: "p",
-        text: "The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check.",
+        text: "The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it rejected an implausible point-of-sale figure, injected as a test, rather than training on it. After a simulated 25% jump in demand, weekly recalibration cut its forecast error from 15.9% to 12.3%. Neither is possible when one component owns the whole path, because there is no seam at which to check.",
       },
       { kind: "h2", text: "What it cost" },
       {
