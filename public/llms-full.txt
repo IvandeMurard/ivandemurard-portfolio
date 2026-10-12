@@ -1215,7 +1215,7 @@ The forecast becomes measurable on its own terms: MAPE compared to a frozen base
 
 And the action becomes accountable. Every recorded accept, reject or correction is an event with the recommendation stored beside it. Today that means an exact accept or reject, or a figure: a free-text reply is not yet mapped to a decision, a gap an audit found in September 2026. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace.
 
-The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it flagged a corrupted point-of-sale export rather than training on it. It named its own drift after three consecutive misses and recovered from a 25% regime shift through weekly recalibration. Neither is possible when one component owns the whole path, because there is no seam at which to check.
+The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it rejected an implausible point-of-sale figure, injected as a test, rather than training on it. After a simulated 25% jump in demand, weekly recalibration cut its forecast error from 15.9% to 12.3%. Neither is possible when one component owns the whole path, because there is no seam at which to check.
 
 ## What it cost
 
@@ -1233,6 +1233,7 @@ A claim about behaviour has to be held by something other than a prompt. The bou
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
 
+2026-10-12 · Corrected the drift example. The 'three consecutive misses' alert was narration in the demo script, not a production mechanism, and the post-shift error was reduced, not fully recovered.
 2026-09-24 · Corrected what the note said about recorded replies, the CI forecast baseline and the drift example. An audit of the Aetherix repository found that only an exact "accept" or "reject", or a corrected figure, records a decision; that the forecast baseline in CI is computed on a synthetic series, not on realised covers; and that the corrupted export and the regime shift come from a simulated 30-day scenario. The note had said more than that.
 
 Source: https://ivandemurard.com/journal/agent-boundaries-aetherix
