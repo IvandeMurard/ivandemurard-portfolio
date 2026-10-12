@@ -48,7 +48,11 @@ class Handler(SimpleHTTPRequestHandler):
 
     def send_head(self):
         p = self.translate_path(self.path)
-        if not os.path.exists(p) and "." not in os.path.basename(p):
+        is_asset = "." in os.path.basename(p)
+        # A route can share its name with a folder of served files (e.g. /cv and
+        # public/cv/). Such a folder has no index.html, so treat it as a client route.
+        shadows_route = os.path.isdir(p) and not os.path.exists(os.path.join(p, "index.html"))
+        if (not os.path.exists(p) or shadows_route) and not is_asset:
             self.path = "/index.html"
         return super().send_head()
 

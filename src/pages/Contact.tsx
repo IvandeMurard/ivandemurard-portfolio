@@ -2,6 +2,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
+import { Github, Linkedin, type LucideIcon } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick, type ClickKind } from "@/hooks/useTrackClick";
@@ -11,7 +12,8 @@ const CHANNELS: Array<{
   desc: string;
   cta: string;
   href: string;
-  icon: string;
+  icon?: string;
+  Logo?: LucideIcon;
   external: boolean;
   accent: string;
   ring: string;
@@ -44,7 +46,7 @@ const CHANNELS: Array<{
     desc: "Follow my professional journey.",
     cta: "Visit profile",
     href: SOCIAL_LINKS.linkedin,
-    icon: "share",
+    Logo: Linkedin,
     external: true,
     accent: "from-tertiary/15 via-tertiary/5 to-transparent",
     ring: "ring-tertiary/25",
@@ -55,7 +57,7 @@ const CHANNELS: Array<{
     desc: "Explore the open-source work.",
     cta: "Browse repos",
     href: SOCIAL_LINKS.github,
-    icon: "code",
+    Logo: Github,
     external: true,
     accent: "from-secondary-fixed-dim/20 via-secondary/5 to-transparent",
     ring: "ring-secondary/25",
@@ -114,7 +116,11 @@ const Contact = () => {
                 className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
               />
               <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-xl bg-surface-container border border-outline-variant group-hover:border-secondary group-hover:scale-105 transition-all duration-500">
-                <Icon name={c.icon} className="text-secondary text-2xl" />
+                {c.Logo ? (
+                  <c.Logo size={26} strokeWidth={1.5} className="text-secondary" aria-hidden="true" />
+                ) : (
+                  <Icon name={c.icon ?? ""} className="text-secondary text-2xl" />
+                )}
               </div>
               <div className="relative z-10">
                 <h3 className="font-headline italic text-3xl md:text-4xl text-primary mb-3">{c.label}</h3>
