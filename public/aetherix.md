@@ -87,8 +87,9 @@ Mock-up of the message format. The figures are invented for illustration.
 ### Already working
 
 - States its drivers the evening before, then reports its own miss the next morning, in plain language.
-- Flagged a corrupted POS export rather than training on it.
-- Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.
+- Rejected an implausible POS figure (900 covers, injected as a test) instead of learning from it.
+- When recent data diverges sharply from history, says so in the message and asks the manager to double-check, instead of sending a confident number.
+- After a simulated 25% jump in demand, weekly recalibration cut the forecast error from 15.9% to 12.3%.
 - Stores every recommendation next to what actually happened, with the manager's override recorded beside it.
 - Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.
 
@@ -122,7 +123,7 @@ Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, determi
 - Phase 0: Validation, done
 - Phase 1: Observability, done
 - Phase 2: Receipts, done
-- Phase 3: Pilot, current. Pilot design partner in recruitment. No go-live date set.
+- Phase 3: Pilot, current. Recruiting pilot partner.
 - Phase 4: Scale, planned. Mews · POS · Federated HiveMemory · Context Graph · Anima
 - Phase 5: Vision, planned. Revenue Orchestrator
 
@@ -132,7 +133,17 @@ Today each hotel learns from its own history. The longer-term idea is that indep
 
 Status: Research, not built.
 
-## Sec. 07 · Under the hood
+## Sec. 07 · How it's built
+
+**Not vibe-coded. Specified, reviewed and tested before anything ships.**
+
+- **Spec before code, with the BMAD method.** Every feature follows the path of a real product team: product requirements, architecture, epics, then one written story per change. Each step is run by a dedicated AI role: analyst, product manager, architect, scrum master, developer, QA. Code comes last.
+- **I direct the agents; I own the result.** AI agents build from those stories, inside the decisions I set for them (34 so far). I review what they deliver and decide what ships.
+- **Nothing merges without passing its tests.** A fixed set of real-world scenarios checks every change. If quality drops, the change is blocked automatically.
+- **A weekly self-audit.** Every Monday, an agent checks that what the project claims still matches what it does, and proposes corrections for me to approve.
+- **Honest about what is unfinished.** Every component is labelled Built, Synthetic PoC, Design or Research. No demo dressed up as a product.
+
+## Sec. 08 · Under the hood
 
 **For the technical reader: how it is built, and how it is kept honest.**
 
@@ -170,7 +181,7 @@ Lore, in aviation maintenance, shares this architecture and cannot close the sam
 
 Field Note: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
-## Sec. 08 · Talk about a pilot
+## Sec. 09 · Talk about a pilot
 
 Solo builder. Open to a first pilot hotel running Apaleo, and to product conversations.
 

@@ -28,10 +28,19 @@ const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp 
 
 const ALREADY_DOES = [
   "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
-  "Flagged a corrupted POS export rather than training on it.",
-  "Named its own drift after three consecutive misses, and recovered from a 25% regime shift through weekly recalibration.",
+  "Rejected an implausible POS figure (900 covers, injected as a test) instead of learning from it.",
+  "When recent data diverges sharply from history, says so in the message and asks the manager to double-check, instead of sending a confident number.",
+  "After a simulated 25% jump in demand, weekly recalibration cut the forecast error from 15.9% to 12.3%.",
   "Stores every recommendation next to what actually happened, with the manager's override recorded beside it.",
   "Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.",
+];
+
+const HOW_BUILT = [
+  ["Spec before code, with the BMAD method.", "Every feature follows the path of a real product team: product requirements, architecture, epics, then one written story per change. Each step is run by a dedicated AI role: analyst, product manager, architect, scrum master, developer, QA. Code comes last."],
+  ["I direct the agents; I own the result.", "AI agents build from those stories, inside the decisions I set for them (34 so far). I review what they deliver and decide what ships."],
+  ["Nothing merges without passing its tests.", "A fixed set of real-world scenarios checks every change. If quality drops, the change is blocked automatically."],
+  ["A weekly self-audit.", "Every Monday, an agent checks that what the project claims still matches what it does, and proposes corrections for me to approve."],
+  ["Honest about what is unfinished.", "Every component is labelled Built, Synthetic PoC, Design or Research. No demo dressed up as a product."],
 ];
 
 const PROBLEM_PAINS = [
@@ -101,6 +110,7 @@ const SECTIONS = [
   { id: "how-it-works", label: "How it works" },
   { id: "what-it-does-today", label: "What it does today" },
   { id: "where-it-stands", label: "Where it stands" },
+  { id: "how-its-built", label: "How it's built" },
   { id: "under-the-hood", label: "Under the hood" },
   { id: "talk-about-a-pilot", label: "Talk about a pilot" },
 ];
@@ -300,7 +310,16 @@ const Atherix = () => {
         </div>
       </Reveal>
 
-      <SectionDivider label="Under the hood" index="07" />
+      <SectionDivider label="How it's built" index="07" />
+      <Reveal as="section" id="how-its-built" className={sectionCls}>
+        <div className="max-w-screen-2xl mx-auto">
+          <SectionHeading id="how-its-built-heading" title="How it's built" />
+          <p className={leadCls}>Not vibe-coded. Specified, reviewed and tested before anything ships.</p>
+          <ul className="max-w-3xl list-disc space-y-4 pl-5 text-on-surface-variant leading-relaxed marker:text-secondary">{HOW_BUILT.map(([label, body]) => <li key={label}><strong className="font-semibold text-primary">{label}</strong> {body}</li>)}</ul>
+        </div>
+      </Reveal>
+
+      <SectionDivider label="Under the hood" index="08" />
       <Reveal as="section" id="under-the-hood" className={sectionCls}>
         <div className="max-w-screen-2xl mx-auto">
           <SectionHeading id="under-the-hood-heading" title="Under the hood" />
@@ -328,7 +347,7 @@ const Atherix = () => {
 
       <CaseAnchors current="atherix" entries={AETHERIX_ANCHORS} columns={4} more={{ to: "/architecture", text: "How these systems fit together: the architecture note" }} />
 
-      <SectionDivider label="Talk about a pilot" index="08" />
+      <SectionDivider label="Talk about a pilot" index="09" />
       <Reveal as="section" id="talk-about-a-pilot" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
         <div className="max-w-3xl mx-auto text-center">
           <SectionHeading id="talk-about-a-pilot-heading" title="Talk about a pilot" />
