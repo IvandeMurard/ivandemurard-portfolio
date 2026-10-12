@@ -2,6 +2,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
+import { Github, Linkedin } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick, type ClickKind } from "@/hooks/useTrackClick";
