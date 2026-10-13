@@ -1,6 +1,6 @@
 import { Icon } from "@/components/ui/Icon";
 
-const RECEIPT = `Breakfast    84 covers
+export const RECEIPT = `Breakfast    84 covers
              72 rooms booked + 12 typical Tue walk-ins
              Staff: 4 front of house (you ran 3 last Tue)
 Driver       local conference check-ins + clear weather`;

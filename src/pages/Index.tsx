@@ -1,514 +1,241 @@
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
-import { CaseHoverPreview } from "@/components/CaseHoverPreview";
-import { SafeImage } from "@/components/SafeImage";
-import { Compass, Cpu, HeartHandshake, BookOpen, Gauge, GitBranch } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
-import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
-
-import { SectionDivider } from "@/components/SectionDivider";
 import { McpEndpoint } from "@/components/McpEndpoint";
-import { PressMark } from "@/components/layout/PressMark";
-
+import { SignalLamp } from "@/components/journal/SignalLamp";
+import { RECEIPT } from "@/components/atherix/AetherixDailyReceipt";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 
+// The register: one row per project, statuses from the single source in site.ts.
+const REGISTER = [PROJECTS.atherix, PROJECTS.lore, PROJECTS.anima, PROJECTS.compass, PROJECTS.sonor];
 
-const CONVICTIONS = [
+// Track record, static values (evidence, not decoration).
+const TRACK = [
+  { value: "500+", label: "users on an internal SaaS rolled out across 100 care homes" },
+  { value: "€1.9M", label: "receivables tracked and 40% recovered through a decision tool" },
+  { value: "22", label: "European public-sector clients onboarded, zero churn" },
+];
+
+// Latest three Field Notes, oldest first.
+const LATEST_NOTES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3).reverse();
+
+// Real proof fragments, taken from the case studies only.
+const ALSO = [
   {
-    Icon: HeartHandshake,
-    title: "Human interactions first",
-    body: "Technology should give time back to people, not pull them deeper into screens. The best automation is the one that lets a host be more present.",
+    p: PROJECTS.lore,
+    fragment: "Evaluation harness · 64 cases · pure-function graders · hard safety tier",
+    line: "Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure.",
   },
   {
-    Icon: Compass,
-    title: "Real business value",
-    body: "Reducing operational costs, freeing capacity, sharpening decisions. Every product I ship has to move a number that matters to the business.",
-  },
-  {
-    Icon: Cpu,
-    title: "Full-stack 0→1 craft",
-    body: "From insight to shipped product, bridging digital interfaces and physical operations, so the experience holds together end to end.",
+    p: PROJECTS.compass,
+    fragment: "APUR shopfront censuses (3, 2 pending licence) · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date",
+    line: PROJECTS.compass.tagline,
   },
 ];
 
-
-// Proof strip above the fold. Fixed figures, sourced in the labels.
-type Proof =
-  | { kind: "count"; value: number; prefix?: string; suffix?: string; display?: never; label: string }
-  | { kind: "text"; display: string; label: string };
-
-const PROOF: Proof[] = [
-  { kind: "count", value: 500, suffix: "+", label: "users on an internal SaaS rolled out across 100 care homes" },
-  { kind: "text", display: "€1.9M", label: "receivables tracked and 40% recovered through a decision tool" },
-  { kind: "count", value: 22, label: "European public-sector clients onboarded, zero churn" },
-];
-
-// Latest three Field Notes, shown oldest left, newest right. Icons, not covers.
-const NOTE_ICONS = [Gauge, BookOpen, GitBranch];
-const LATEST_NOTES = [...JOURNAL_ENTRIES]
-  .sort((a, b) => b.date.localeCompare(a.date))
-  .slice(0, 3)
-  .reverse()
-  .map((entry, i) => ({ entry, Icon: NOTE_ICONS[i % NOTE_ICONS.length] }));
-
-
-
-type Project = (typeof PROJECTS)[keyof typeof PROJECTS];
-
-const ProjectGroup = ({
-  kicker,
-  kickerHref,
-  projects,
-  track,
-}: {
-  kicker: string;
-  kickerHref?: string;
-  projects: Project[];
-  track: ReturnType<typeof useTrackClick>;
-}) => {
-  const kickerEl = (
-    <span className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary border-b border-secondary pb-2">
-      {kicker}
-    </span>
-  );
-  return (
-    <div>
-      <div className="mb-10 md:mb-14">
-        {kickerHref ? (
-          <Link
-            to={kickerHref}
-            className="inline-block hover:tracking-[0.25em] transition-all"
-          >
-            {kickerEl}
-          </Link>
-        ) : (
-          kickerEl
-        )}
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12">
-        {projects.map((p, i) => {
-          const isExternal = "external" in p && p.external;
-          const inner = (
-            <>
-              <div className="aspect-[4/3] overflow-hidden bg-surface-container-high rounded-lg relative">
-                {isExternal ? (
-                  <SafeImage
-                    src={p.image}
-                    alt={`${p.name} project preview`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <CaseHoverPreview
-                    slug={p.slug}
-                    image={p.image}
-                    alt={`${p.name} project preview`}
-                    className="w-full h-full"
-                  />
-                )}
-                <div className="absolute inset-0 bg-primary/5 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none" />
-              </div>
-              <div className="mt-8 px-2 pb-2 flex justify-between items-start gap-4">
-                <div>
-                  <h3 className="font-headline text-3xl italic text-primary">{p.name}</h3>
-                  <p className="text-on-surface-variant font-normal leading-relaxed mt-4">{p.tagline}</p>
-                  <p className="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mt-4">
-                    {p.label}
-                  </p>
-                </div>
-                {isExternal ? (
-                  <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary shrink-0">
-                    External
-                  </span>
-                ) : (
-                  <Icon
-                    name="arrow_outward"
-                    className="text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all"
-                  />
-                )}
-              </div>
-            </>
-          );
-          const cardClass =
-            "lift-card group block p-4 rounded-xl border border-outline-variant bg-surface-container-low/40 hover:border-outline-variant";
-          return isExternal ? (
-            <a
-              key={p.slug}
-              href={"href" in p ? (p.href as string) : undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => track({ label: p.name, href: "href" in p ? (p.href as string) : `/${p.slug}`, kind: "project" })}
-              className={cardClass}
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            >
-              {inner}
-            </a>
-          ) : (
-            <Link
-              key={p.slug}
-              to={`/${p.slug}`}
-              onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
-              className={cardClass}
-              data-reveal-child
-              style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            >
-              {inner}
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+const kicker = "font-mono uppercase tracking-[0.12em] text-[11px]";
+const rule = "border-t border-primary";
+const hair = "border-t border-outline-variant";
 
 const Index = () => {
   const track = useTrackClick();
   return (
-  <SiteLayout>
+    <SiteLayout>
+      <Seo
+        title="Ivan de Murard, product builder, agentic AI for operations"
+        rawTitle
+        description="Product builder in Paris. Agentic systems for operations, each shipped with its evaluation, its limits stated, and a person who decides."
+        path="/"
+        jsonLd={[personJsonLd, { "@context": "https://schema.org", "@type": "WebSite", name: "Ivan de Murard", url: SITE.url, inLanguage: "en" }]}
+      />
 
-    <Seo
-      title="Ivan de Murard, product builder, agentic AI for operations"
-      rawTitle
-      description="Product builder in Paris. 5 years across start-ups, scale-ups and large groups, plus 2 years co-founding a SaaS. Designs from ops, ships with AI."
-      path="/"
-      jsonLd={[
-        personJsonLd,
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "Ivan de Murard",
-          url: SITE.url,
-          inLanguage: "en",
-        },
-      ]}
-    />
-    {/* Hero */}
-    <Reveal as="header" className="relative flex items-center justify-center pt-28 md:pt-32 pb-10 md:pb-14 px-6 md:px-8 overflow-hidden">
-      <div className="relative z-10 max-w-5xl w-full text-center">
-        <div className="relative">
-          {/* Animated gold halo, perfect circle concentrated behind the headline + subtitle */}
-          <div
-            aria-hidden="true"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%] w-[620px] h-[400px] max-w-[96vw] max-h-[62vw] pointer-events-none z-0"
-          >
-            <div className="w-full h-full rounded-full gold-halo gold-halo-pulse" />
+      {/* Hero: statement left, register right */}
+      <Reveal as="header" className="pt-32 md:pt-40 pb-16 md:pb-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-end">
+          <div className="lg:col-span-7" data-reveal-child>
+            <p className={`${kicker} text-secondary mb-8`}>Main courante, the duty log · Product builder · Paris</p>
+            <h1 className="font-headline font-normal text-primary text-[clamp(52px,6.6vw,100px)] leading-[0.98] tracking-[-0.025em]">
+              A wrong forecast is absorbed. A wrong action <em className="accent-ink">reaches a guest.</em>
+            </h1>
+            <p className="mt-10 text-[19px] leading-relaxed text-on-surface max-w-2xl">
+              I build agentic systems for operations that know the difference, from hotel kitchens to aircraft hangars, and I measure it. Each one ships with its evaluation, its limits stated, and a person who decides.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-8">
+              <a href="#work" className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
+                Open the register
+              </a>
+              <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
+                onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "nav" })}
+                className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors">
+                Book a call
+              </a>
+            </div>
           </div>
-          <h1
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="headline-ink relative z-10 font-headline text-5xl md:text-7xl text-primary leading-[1.1] italic perspective-text"
-          >
-            Product builder.
-            <span className="block text-primary-container">Agentic AI systems for operations.</span>
-          </h1>
 
+          <div className="lg:col-span-5" data-reveal-child style={{ ["--reveal-delay" as string]: "160ms" }}>
+            <div className={`${rule} flex justify-between pt-3 pb-3 ${kicker} text-on-surface-variant`}>
+              <span>Register · as of today</span><span>Status</span>
+            </div>
+            <ol>
+              {REGISTER.map((p, i) => (
+                <li key={p.slug} className={hair}>
+                  <Link to={`/${p.slug}`} onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
+                    className="group grid grid-cols-[2rem_1fr_auto] gap-x-4 items-baseline py-4 hover:bg-surface-container-low transition-colors">
+                    <span className={`${kicker} text-on-surface-variant`}>{String(i + 1).padStart(2, "0")}</span>
+                    <span>
+                      <span className="block font-headline text-[28px] leading-tight text-primary group-hover:text-secondary transition-colors">{p.name}</span>
+                      <span className="block mt-1 text-[13.5px] leading-snug text-on-surface-variant">{p.status.note}</span>
+                    </span>
+                    <SignalLamp state={p.status.signal} label={p.status.word} className="self-center" />
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
-        <p
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "360ms" }}
-          className="mt-10 text-lg md:text-xl text-on-surface max-w-2xl mx-auto leading-relaxed font-normal"
-        >
-          Product builder. Five years inside operations.
-          <br />
-          {/* Career trajectory keeps the arrow: it is a movement through time. */}
-          Founder <span className="text-outline/60">→</span> scale-up{" "}
-          <span className="text-outline/60">→</span> large groups{" "}
-          <span className="text-outline/60">→</span> builder.
-          <br />
-          {/* Method reads as an ordered list, not a flow: hairline middots keep the words first. */}
-          Vision <span className="text-outline/60">·</span> continuous discovery{" "}
-          <span className="text-outline/60">·</span> architecture{" "}
-          <span className="text-outline/60">·</span> 0→1 build{" "}
-          <span className="text-outline/60">·</span> evaluation{" "}
-          <span className="text-outline/60">·</span> closed loops.
-        </p>
-        {/* Proof strip. Fixed figures, no numeric tween: these are evidence, not decoration. */}
-        <div
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "450ms" }}
-          className="mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-6 max-w-3xl mx-auto"
-        >
-          {PROOF.map((p) => (
-            <div key={p.label} className="px-2 sm:px-6 text-center">
-              <p className="font-headline italic text-3xl md:text-4xl text-primary mb-3">
-                {p.kind === "count"
-                  ? `${p.prefix ?? ""}${p.value}${p.suffix ?? ""}`
-                  : p.display}
+      </Reveal>
+
+      {/* 01 · Flagship */}
+      <section id="work" className="bg-surface-container-low scroll-mt-24">
+        <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
+          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>01 · Flagship · Hospitality Multi-Agent Architecture</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end" data-reveal-child>
+            <div className="lg:col-span-7">
+              <h2 className="font-headline font-light text-primary text-[clamp(72px,10vw,152px)] leading-[0.9] tracking-[-0.03em]">Aetherix</h2>
+              <p className={`${kicker} normal-case tracking-normal text-[13px] text-on-surface-variant mt-5 max-w-xl`}>
+                Why this one first: it is the whole loop, end to end. A forecast, a human decision, and the outcome measured against both.
               </p>
-              <span className="underline-grow mx-auto mb-4 w-10" />
-              <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
-                {p.label}
-              </p>
+            </div>
+            <p className="lg:col-span-5 text-[20px] leading-relaxed text-on-surface">{PROJECTS.atherix.tagline}</p>
+          </div>
+
+          <div className={`${rule} mt-14 grid grid-cols-1 md:grid-cols-3`} data-reveal-child>
+            <div className="py-8 md:pr-8">
+              <p className={`${kicker} text-on-surface-variant mb-5`}>i · Forecast · Mon 18:42</p>
+              <pre className="font-mono text-[12.5px] leading-relaxed text-on-surface whitespace-pre-wrap">{RECEIPT}</pre>
+            </div>
+            <div className="py-8 md:px-8 border-t md:border-t-0 md:border-l border-outline-variant">
+              <p className={`${kicker} text-on-surface-variant mb-5`}>ii · Decision</p>
+              <p className="text-on-surface leading-relaxed">The agent proposes. The manager answers in one tap, and the answer is kept.</p>
+              <div className="mt-6 flex flex-wrap gap-2" aria-label="Reply options, illustration">
+                <span className={`${kicker} px-3 py-1.5 rounded-full border border-signal-go text-on-surface`}>Accept</span>
+                <span className={`${kicker} px-3 py-1.5 rounded-full border border-signal-warn text-on-surface`}>The right figure</span>
+                <span className={`${kicker} px-3 py-1.5 rounded-full border border-signal-stop text-on-surface`}>Reject</span>
+              </div>
+            </div>
+            <div className="py-8 md:pl-8 border-t md:border-t-0 md:border-l border-outline-variant">
+              <p className={`${kicker} text-on-surface-variant mb-5`}>iii · Outcome</p>
+              <div className="border border-dashed border-outline rounded-md p-4 font-mono text-[12.5px] leading-relaxed text-on-surface-variant">
+                <p>Real covers [ recorded tomorrow ]</p>
+                <p>Delta [ forecast vs real ]</p>
+              </div>
+              <p className="mt-5 text-on-surface-variant leading-relaxed">Written next to the forecast and the decision. The plan not chosen is never seen, so it is never claimed.</p>
+            </div>
+          </div>
+
+          <div className={`${hair} pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4`}>
+            <p className={`${kicker} normal-case tracking-normal text-[12px] text-on-surface-variant`}>
+              Format mock-up. Figures illustrative. Status: built, sandbox and public data, no hotel connected yet.
+            </p>
+            <Link to="/aetherix" className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors self-start">Read the case</Link>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* 01b · Also in the register */}
+      <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
+        <p className={`${kicker} text-secondary mb-8`} data-reveal-child>01b · Also in the register</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+          {ALSO.map(({ p, fragment, line }, i) => (
+            <article key={p.slug} className={`${rule} pt-6 flex flex-col`} data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
+              <div className="flex items-baseline justify-between gap-4">
+                <h3 className="font-headline font-normal text-primary text-[44px] leading-none">{p.name}</h3>
+                <SignalLamp state={p.status.signal} label={p.status.word} />
+              </div>
+              <p className="mt-6 font-mono text-[12.5px] leading-relaxed text-on-surface bg-surface-container-low border-l-2 border-secondary px-4 py-3">{fragment}</p>
+              <p className="mt-6 text-on-surface-variant leading-relaxed flex-1">{line}</p>
+              <Link to={`/${p.slug}`} onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
+                className="mt-6 text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors self-start">Read the case</Link>
+            </article>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* 02 · Field Notes, a typographic index */}
+      <section className="border-t border-outline-variant">
+        <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12" data-reveal-child>
+            <div>
+              <p className={`${kicker} text-secondary mb-6`}>02 · Field Notes</p>
+              <h2 className="font-headline font-normal text-primary text-[clamp(32px,3.6vw,44px)] leading-tight max-w-3xl">
+                The decisions behind the products. <em className="accent-ink">Written so you can steal them.</em>
+              </h2>
+            </div>
+            <Link to="/journal" className={`${kicker} text-secondary border-b border-secondary pb-1 self-start md:self-end`}>All notes</Link>
+          </div>
+          <ol className={rule}>
+            {LATEST_NOTES.map((e) => (
+              <li key={e.slug} className={`${hair} first:border-t-0`}>
+                <Link to={`/journal/${e.slug}`} onClick={() => track({ label: e.title, href: `/journal/${e.slug}`, kind: "nav" })}
+                  className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 md:py-10">
+                  <span className={`${kicker} text-on-surface-variant md:col-span-3`}>
+                    {e.category} · {new Date(e.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
+                  </span>
+                  <span className="md:col-span-9">
+                    <span className="block font-headline text-[clamp(28px,3vw,38px)] leading-tight text-primary group-hover:text-secondary transition-colors">{e.homeHook?.title ?? e.title}</span>
+                    <span className="block mt-3 text-[16.5px] leading-relaxed text-on-surface-variant max-w-3xl">{e.homeHook?.text ?? e.excerpt}</span>
+                    <span className={`${kicker} block mt-4 text-secondary`}>Read the note →</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      </section>
+
+      {/* 03 · Track record */}
+      <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
+        <p className={`${kicker} text-secondary mb-10`} data-reveal-child>03 · Before the agents · five years inside operations</p>
+        <div className={`${rule} grid grid-cols-1 md:grid-cols-3`} data-reveal-child>
+          {TRACK.map((t, i) => (
+            <div key={t.value} className={`py-10 md:px-8 ${i > 0 ? "border-t md:border-t-0 md:border-l border-outline-variant" : "md:pl-0"}`}>
+              <p className="font-headline font-light text-primary text-[clamp(64px,7.5vw,104px)] leading-none tracking-[-0.03em]">{t.value}</p>
+              <p className="mt-6 text-[15px] leading-relaxed text-on-surface-variant max-w-xs">{t.label}</p>
             </div>
           ))}
         </div>
-        <div
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "540ms" }}
-          className="mt-10 md:mt-14 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8"
-        >
-          <Link
-            to="/journeys"
-            onClick={() => track({ label: "Case Studies", href: "/journeys", kind: "nav" })}
-            className="bg-primary text-on-primary px-10 py-5 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-all duration-500 ambient-shadow"
-          >
-            Case Studies
-          </Link>
-          <Link
-            to="/atrium"
-            onClick={() => track({ label: "About", href: "/atrium", kind: "nav" })}
-            className="text-secondary font-medium tracking-wide hover:underline decoration-secondary/30 underline-offset-8 transition-all duration-500 flex items-center gap-2 group"
-          >
-            About
-            <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <a
-            href={SOCIAL_LINKS.schedule}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "nav" })}
-            className="text-secondary font-medium tracking-wide hover:underline decoration-secondary/30 underline-offset-8 transition-all duration-500 flex items-center gap-2 group"
-          >
-            Book a call
-            <Icon name="arrow_outward" className="text-sm group-hover:translate-x-1 transition-transform" />
-          </a>
-        </div>
+      </Reveal>
 
-      </div>
-    </Reveal>
-
-
-    <SectionDivider index="01" label="Case Studies" spacing="tight" />
-
-    {/* Case Studies */}
-    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-24 gap-6 md:gap-8">
-        <div className="max-w-xl">
-          <h2
-            data-reveal-child
-            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6"
-          >
-            Case Studies
+      {/* 04 · Contact */}
+      <section className="bg-surface-container-low">
+        <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
+          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
+          <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
+            Agents that hold up on a Monday morning. <em className="accent-ink">I build them, and I prove it.</em>
           </h2>
-          <p
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="text-on-surface-variant font-normal leading-relaxed"
-          >
-            Four to start with: the flagship agent of the{" "}
-            <Link to="/architecture" className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity">
-              Hospitality Multi-Agent Architecture
-            </Link>
-            , a voice mentor for aviation maintenance, Compass, and the SaaS I co-founded. The rest sit on the case studies page.
+          <p className="mt-8 text-[18px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
+            Open to AI Product Manager and Product Builder roles. Thirty minutes is enough to know whether we should work together.
           </p>
-        </div>
-        <Link
-          to="/journeys"
-          className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary border-b border-secondary pb-2 hover:tracking-[0.25em] transition-all"
-        >
-          Explore all stories
-        </Link>
-      </div>
-
-      <ProjectGroup
-        kicker="Selected work"
-        projects={[PROJECTS.atherix, PROJECTS.lore, PROJECTS.sonor, PROJECTS.compass]}
-        track={track}
-      />
-    </Reveal>
-
-
-    <SectionDivider index="02" label="Field Notes" />
-
-    {/* Field Notes, a lighter register: icons, no covers */}
-    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-20 gap-6 md:gap-8">
-        <div className="max-w-xl">
-          <h2
-            data-reveal-child
-            className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6"
-          >
-            Field Notes
-          </h2>
-          <p
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="text-on-surface-variant font-normal leading-relaxed"
-          >
-            What I learn while building, written to be used.
-          </p>
-        </div>
-        <Link
-          to="/journal"
-          className="font-label uppercase tracking-[0.2em] text-[11px] text-secondary border-b border-secondary pb-2 hover:tracking-[0.25em] transition-all"
-        >
-          Read all notes
-        </Link>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl">
-        {LATEST_NOTES.map(({ entry, Icon: NoteIcon }, i) => (
-          <Link
-            key={entry.slug}
-            to={`/journal/${entry.slug}`}
-            onClick={() => track({ label: entry.title, href: `/journal/${entry.slug}`, kind: "nav" })}
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card group p-8 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
-          >
-            <NoteIcon size={24} strokeWidth={1.25} className="text-secondary mb-6" />
-            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-4">
-              {entry.category}
-              <span className="before:content-['/'] before:mx-2 before:text-outline">
-                {new Date(entry.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
-              </span>
-            </span>
-            <h3 className="font-headline italic text-2xl text-primary mb-4">{entry.title}</h3>
-            <p className="text-on-surface-variant font-normal leading-relaxed">{entry.excerpt}</p>
-          </Link>
-        ))}
-      </div>
-    </Reveal>
-
-    <SectionDivider index="03" label="Approach" />
-
-    {/* My approach: convictions and the method that follows from them */}
-    <Reveal as="section" className="py-10 md:py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div className="max-w-2xl mb-10 md:mb-20">
-        <h2
-          data-reveal-child
-          className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6"
-        >
-          My approach
-        </h2>
-        <p
-          data-reveal-child
-          style={{ ["--reveal-delay" as string]: "120ms" }}
-          className="text-on-surface-variant font-normal leading-relaxed"
-        >
-          Three convictions that shape every product I build, and the method that follows from them.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
-        {CONVICTIONS.map(({ Icon: ConvIcon, title, body }, i) => (
-          <div
-            key={title}
-            data-reveal-child
-            style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
-            className="lift-card p-7 md:p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-secondary hover:bg-surface-container-lowest"
-          >
-            <ConvIcon size={28} strokeWidth={1.25} className="text-secondary mb-6 md:mb-8" />
-            <h3 className="font-headline italic text-2xl text-primary mb-3 md:mb-4">{title}</h3>
-            <p className="text-on-surface-variant font-normal leading-relaxed">{body}</p>
+          <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>
+            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
+              onClick={() => track({ label: "Book 30 minutes", href: SOCIAL_LINKS.schedule, kind: "contact" })}
+              className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
+              Book 30 minutes
+            </a>
+            <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors break-all">
+              {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
+            </a>
           </div>
-        ))}
-      </div>
-      <p
-        data-reveal-child
-        style={{ ["--reveal-delay" as string]: "320ms" }}
-        className="mt-8 md:mt-12 text-on-surface-variant font-normal leading-relaxed max-w-2xl"
-      >
-        In practice: read the ground first, turn that reading into shipped product decisions, and pick the lightest
-        mechanism that solves the job, with the human always in the loop.{" "}
-        <Link
-          to="/atrium"
-          className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
-        >
-          The track record behind it
-        </Link>
-        .
-      </p>
-    </Reveal>
+        </Reveal>
+      </section>
 
-    {/* A machine-readable proof point, kept secondary to the work itself. */}
-    <Reveal as="section" className="py-8 md:py-14 px-6 md:px-8 max-w-screen-2xl mx-auto">
-      <div data-reveal-child>
-        <McpEndpoint label="Built for people. Available to their agents." compact />
-      </div>
-    </Reveal>
-
-
-
-
-
-
-    {/* Thank you for your visit, a cool blue bookend on the warm dusk page-light */}
-    <Reveal as="section" className="relative py-16 md:py-24 px-6 md:px-8 max-w-5xl mx-auto text-center">
-      {/* Faint drifting halo behind the farewell card */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
-      >
-        <div className="halo-drift w-[80%] h-[80%] rounded-full bg-gradient-to-br from-primary-fixed/40 via-secondary-fixed/20 to-transparent blur-3xl opacity-60" />
-      </div>
-      <div className="farewell-card relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-24 rounded-2xl overflow-hidden group ambient-shadow ring-1 ring-primary-fixed-dim/40">
-        <div className="absolute inset-0 bg-primary-fixed-dim/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-        {/* Blind-stamped press mark, laid into the card like a watermark in laid paper */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
-        >
-          <PressMark className="h-[78%] w-auto text-primary opacity-[0.07] [filter:drop-shadow(0_1px_0_hsl(var(--surface-bright)/0.5))] stroke-[0.7]" />
-        </div>
-        <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-8 relative z-10">
-          Thank you for your visit
-        </h2>
-        <p className="text-on-surface font-normal mb-12 max-w-lg mx-auto relative z-10">
-          Let's discuss how to create business value and meaningful human experiences for your
-          operations or users.
-        </p>
-        <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 relative z-10">
-          <a
-            href={SOCIAL_LINKS.email}
-            aria-label="Email Ivan"
-            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
-          >
-            Email
-          </a>
-          <a
-            href={SOCIAL_LINKS.schedule}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Book a call with Ivan"
-            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
-          >
-            Book a Call
-          </a>
-          <Link
-            to="/cv"
-            aria-label="Ivan's CV"
-            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
-          >
-            CV
-          </Link>
-          <a
-            href={SOCIAL_LINKS.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Ivan on LinkedIn"
-            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={SOCIAL_LINKS.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Ivan on GitHub"
-            className="text-primary font-medium border-b border-primary/60 pb-1 font-headline italic tracking-wide hover:text-primary hover:border-primary transition-colors rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
-          >
-            GitHub
-          </a>
-        </div>
-        <p className="relative z-10 mt-12 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
-          Conceived and crafted in Paris · Built 0→1 · Verified through open specifications
-        </p>
-      </div>
-    </Reveal>
-  </SiteLayout>
+      <Reveal as="section" className="py-10 md:py-14 px-6 md:px-10 max-w-screen-2xl mx-auto">
+        <div data-reveal-child><McpEndpoint label="Built for people. Available to their agents." compact /></div>
+      </Reveal>
+    </SiteLayout>
   );
 };
 
