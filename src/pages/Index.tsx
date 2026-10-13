@@ -61,16 +61,13 @@ const Index = () => {
               Five years getting products adopted. <em className="accent-ink">Now I build the AI agents.</em>
             </h1>
             <p className="mt-6 text-[18px] md:text-[20px] leading-[1.6] text-on-surface max-w-[540px]">
-              AI Product Manager in Paris.
+              AI Product Manager and former SaaS co-founder in Paris.
             </p>
-            <div className="mt-7 max-w-[540px]">
-              <p className={`${hair} pt-4 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant`}>
-                500+ users on 100+ sites and 7 C-level executives aligned at DomusVi.
-              </p>
-              <p className={`${hair} mt-4 pt-4 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant`}>
-                €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.
-              </p>
-            </div>
+            <ul className={`${hair} mt-7 pt-4 max-w-[540px] space-y-2 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant`}>
+              <li>Co-founded <Link to="/sonor" className="text-on-surface border-b border-outline-variant hover:border-secondary">Sonor</Link>: 0→1 urban noise SaaS, Matrice and Banque des Territoires grants, MVP shipped.</li>
+              <li>500+ users on 100+ sites and 7 C-level executives aligned at DomusVi.</li>
+              <li>€1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.</li>
+            </ul>
             <p className="mt-7 text-[17px] md:text-[19px] leading-[1.65] text-on-surface max-w-[540px]">
               Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a closed-loop.
             </p>
