@@ -141,8 +141,8 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
     const dusk = duskRef.current;
     if (!day || !dusk) return;
 
-    const active = mood === "day" ? day : dusk;
-    const inactive = mood === "day" ? dusk : day;
+    const active = dusk; // one soundtrack for both moods
+    const inactive = day;
 
     const run = async () => {
       if (muted) {
