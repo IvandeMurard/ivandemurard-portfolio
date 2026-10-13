@@ -8,6 +8,30 @@ import { MoodToggle } from "@/components/MoodToggle";
 import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
+import { useMood } from "@/components/MoodProvider";
+
+/** Live Paris time, the register's clock. */
+const ParisClock = () => {
+  const { mood } = useMood();
+  const fmt = () => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", hour: "2-digit", minute: "2-digit" }).format(new Date());
+  const [t, setT] = useState(fmt);
+  useEffect(() => { const id = window.setInterval(() => setT(fmt()), 15000); return () => window.clearInterval(id); }, []);
+  return (
+    <span className="font-mono text-[11px] tracking-[0.04em] text-on-surface-variant tabular-nums whitespace-nowrap" aria-label={`Paris time ${t}, ${mood} mode`}>
+      Paris {t} · {mood === "dusk" ? "Dusk" : "Day"}
+    </span>
+  );
+};
+
+const AskRosePill = ({ compact = false }: { compact?: boolean }) => (
+  <button
+    type="button"
+    onClick={() => window.dispatchEvent(new Event("rose:open"))}
+    className={`font-mono uppercase tracking-[0.1em] text-[11px] text-primary border border-outline rounded-full ${compact ? "px-3 py-1" : "px-4 py-1.5"} hover:border-secondary hover:text-secondary transition-colors whitespace-nowrap`}
+  >
+    Ask Rose
+  </button>
+);
 
 const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "contact" | "social" }[] = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, kind: "contact" },
@@ -33,11 +57,11 @@ export const AtriumHeader = () => {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-surface/70 glass-nav transition-all duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-gradient-to-b after:from-outline-variant after:to-transparent after:pointer-events-none">
-        <div className="flex justify-between items-center px-6 md:px-12 py-6 md:py-8 w-full max-w-screen-2xl mx-auto relative">
+      <nav className="fixed top-0 w-full z-50 bg-surface/95 glass-nav transition-all duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-gradient-to-b after:from-outline-variant after:to-transparent after:pointer-events-none">
+        <div className="flex justify-between items-center gap-6 px-6 md:px-10 py-5 md:py-6 w-full max-w-screen-2xl mx-auto relative">
           <TransitionLink
             to="/"
-            className="group relative inline-flex items-baseline text-xl md:text-2xl font-headline italic text-primary tracking-wide"
+            className="group relative inline-flex shrink-0 items-baseline text-xl md:text-2xl font-headline italic text-primary tracking-wide"
           >
             <span className="transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-secondary">
               Ivan de Murard
@@ -57,7 +81,7 @@ export const AtriumHeader = () => {
           </TransitionLink>
 
           {/* Center primary nav */}
-          <div className="hidden lg:flex items-center space-x-12 absolute left-1/2 -translate-x-1/2">
+          <div className="hidden lg:flex flex-1 justify-center items-center gap-6 xl:gap-10">
             {[
               ...(location.pathname !== "/" ? [{ label: "Home", to: "/" }] : []),
               ...PRIMARY_NAV,
@@ -82,10 +106,12 @@ export const AtriumHeader = () => {
           </div>
 
           {/* Right utility links */}
-          <div className="hidden md:flex items-center space-x-5 lg:space-x-6">
+          <div className="hidden md:flex shrink-0 items-center gap-4">
+            <ParisClock />
+            <AskRosePill />
             <MoodToggle />
             <AmbienceControl />
-            <span className="hidden lg:inline-block h-4 w-px bg-outline-variant" aria-hidden="true" />
+            <span className="hidden 2xl:inline-block h-4 w-px bg-outline-variant" aria-hidden="true" />
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (
               <a
                 key={label}
@@ -95,7 +121,7 @@ export const AtriumHeader = () => {
                 aria-label={label}
                 title={label}
                 onClick={() => track({ label, href, kind })}
-                className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110"
+                className="hidden 2xl:inline-flex text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110"
               >
                 <LucideIcon size={18} strokeWidth={1.5} />
               </a>
@@ -104,6 +130,7 @@ export const AtriumHeader = () => {
 
           {/* Mobile right cluster: toggle + hamburger */}
           <div className="md:hidden flex items-center gap-2">
+            <AskRosePill compact />
             <MoodToggle size="sm" />
             <AmbienceControl size="sm" />
             <button

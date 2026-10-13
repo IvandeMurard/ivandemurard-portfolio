@@ -36,6 +36,7 @@ export const UTILITY_NAV: { label: string; href: string }[] = [
 
 export const PROJECTS = {
   sonor: {
+    status: { signal: "go", word: "Closed", note: "Urban noise SaaS, co-founded and led as product, 2020-2022." },
     slug: "sonor",
     name: "Sonor",
     tagline: "Two-year journey as Co-founder & Product Lead. Turned open data into a SaaS platform used by municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness.",
@@ -44,6 +45,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   atherix: {
+    status: { signal: "warn", word: "Sandbox", note: "F&B agent for boutique hotels. Built, running on sandbox and public data, no hotel connected yet." },
     slug: "aetherix",
     name: "Aetherix",
     tagline: "The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it.",
@@ -60,6 +62,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   lore: {
+    status: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
     slug: "lore",
     name: "Lore",
     tagline: "Voice AI mentor for aviation maintenance. Captures what a retiring technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure.",
@@ -68,6 +71,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   anima: {
+    status: { signal: "stop", word: "Gated", note: "Guest memory node. Synthetic PoC, production gated behind a data-protection assessment." },
     slug: "anima",
     name: "Anima",
     tagline: "Memory that means no guest has to ask twice. A guest memory node: keeps what a guest said and what happened, so nobody asks twice, without watching. Synthetic PoC: never run on a real guest, production gated behind a data-protection assessment.",
@@ -76,6 +80,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   compass: {
+    status: { signal: "warn", word: "Partial", note: "Address-level context for Paris premises. 85,418 units traced to source, earlier census records withheld until licensed." },
     slug: "compass",
     name: "Compass",
     tagline: "Every address has a story. Compass reads it before you sign.",
