@@ -54,7 +54,7 @@ const Index = () => {
 
       {/* Hero: statement left, register right */}
       <Reveal as="header" className="pt-24 md:pt-24 pb-16 md:pb-20 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-start">
           <div className="lg:col-span-7" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>Product Builder · Paris</p>
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] xl:text-[58px] leading-[1.04] tracking-normal">
