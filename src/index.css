@@ -484,7 +484,7 @@
   /* Italic headline ink-in: clip-path wipes left to right while fading in. */
   /* One italic accent phrase per heading. Day: primary-container ink; Dusk: primary. */
   .accent-ink { font-style: italic; color: hsl(var(--primary-container)); }
-  .dark .accent-ink { color: hsl(var(--primary)); }
+  [data-mood="dusk"] .accent-ink { color: hsl(var(--primary)); }
 
   .headline-ink {
     opacity: 0;
