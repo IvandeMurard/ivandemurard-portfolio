@@ -29,7 +29,7 @@ Replies: Accept · The right figure · Reject.
 ## 02 · Selected projects
 
 ### Sonor (DARK · Stopped)
-Urban noise SaaS, co-founded and led as product, 2020-2022.
+Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022.
 
 
 ### Lore (GO · Evaluated)

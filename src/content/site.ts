@@ -36,7 +36,7 @@ export const UTILITY_NAV: { label: string; href: string }[] = [
 
 export const PROJECTS = {
   sonor: {
-    status: { signal: "dark", word: "Stopped", note: "Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022.", href: "/sonor#what-id-change" },
+    status: { signal: "dark", word: "Stopped", note: "Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022."},
     slug: "sonor",
     name: "Sonor",
     tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.",
