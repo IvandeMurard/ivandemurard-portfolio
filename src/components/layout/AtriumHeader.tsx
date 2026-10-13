@@ -114,7 +114,7 @@ export const AtriumHeader = () => {
           </div>
 
           {/* Right utility links */}
-          <div className="hidden md:flex shrink-0 items-center gap-4">
+          <div className="hidden lg:flex shrink-0 items-center gap-4">
             <ParisClock />
             <AskRosePill />
             <MoodToggle />
@@ -137,7 +137,7 @@ export const AtriumHeader = () => {
           </div>
 
           {/* Mobile right cluster: toggle + hamburger */}
-          <div className="md:hidden flex items-center gap-1">
+          <div className="lg:hidden flex items-center gap-1">
             <AskRosePill compact />
             <MoodToggle size="sm" />
             <AmbienceControl size="sm" />
@@ -162,7 +162,7 @@ export const AtriumHeader = () => {
       <div
         id="site-mobile-menu"
         className={[
-          "fixed inset-0 z-40 bg-surface/95 glass-nav md:hidden transition-opacity duration-500",
+          "fixed inset-0 z-40 bg-surface/95 glass-nav lg:hidden transition-opacity duration-500",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
         ].join(" ")}
       >
