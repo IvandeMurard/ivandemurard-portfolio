@@ -9,14 +9,12 @@ import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
 
-// The register: one row per project, statuses from the single source in site.ts.
-const REGISTER = [PROJECTS.atherix, PROJECTS.lore, PROJECTS.anima, PROJECTS.compass, PROJECTS.sonor];
-
 // Latest three Field Notes, oldest first.
 const LATEST_NOTES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3).reverse();
 
-// Real proof fragments, taken from the case studies only.
-const ALSO = [
+// Selected projects (Sonor first). Fragments only where sourced from the case studies; otherwise the status note.
+const SELECTED = [
+  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: PROJECTS.sonor.tagline },
   {
     p: PROJECTS.lore,
     fragment: "Evaluation harness · 64 cases · pure-function graders · hard safety tier",
@@ -27,6 +25,7 @@ const ALSO = [
     fragment: "APUR BDCom shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date",
     line: PROJECTS.compass.tagline,
   },
+  { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: PROJECTS.anima.tagline },
 ];
 
 const kicker = "font-mono uppercase tracking-[0.12em] text-[11px]";
@@ -47,8 +46,8 @@ const Index = () => {
 
       {/* Hero: statement left, register right */}
       <Reveal as="header" className="pt-24 md:pt-24 pb-16 md:pb-20 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-end">
-          <div className="lg:col-span-7" data-reveal-child>
+        <div>
+          <div className="max-w-[760px]" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
               Five years getting products adopted. <em className="italic text-secondary">Now building systems operations can trust.</em>
@@ -74,27 +73,6 @@ const Index = () => {
                 Book a call
               </a>
             </div>
-          </div>
-
-          <div className="lg:col-span-5" data-reveal-child style={{ ["--reveal-delay" as string]: "160ms" }}>
-            <div className={`${rule} flex justify-between pt-3 pb-3 ${kicker} text-on-surface-variant`}>
-              <span>Selected projects</span><span>Status</span>
-            </div>
-            <ol>
-              {REGISTER.map((p, i) => (
-                <li key={p.slug} className={hair}>
-                  <Link to={`/${p.slug}`} onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
-                    className="group grid grid-cols-[2rem_1fr_auto] gap-x-4 items-baseline py-3 hover:bg-surface-container-low transition-colors">
-                    <span className={`${kicker} text-on-surface-variant`}>{String(i + 1).padStart(2, "0")}</span>
-                    <span>
-                      <span className="block font-headline text-[28px] leading-tight text-primary group-hover:text-secondary transition-colors">{p.name}</span>
-                      <span className="block mt-1 text-[13px] leading-snug text-on-surface-variant">{p.status.note}</span>
-                    </span>
-                    <SignalLamp state={p.status.signal} label={p.status.word} className="self-center" />
-                  </Link>
-                </li>
-              ))}
-            </ol>
           </div>
         </div>
       </Reveal>
@@ -133,11 +111,11 @@ Why     conference check-ins, clear weather`}</p>
         </Reveal>
       </section>
 
-      {/* 01b · Also in the register */}
+      {/* 02 · Selected projects */}
       <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <p className={`${kicker} text-secondary mb-8`} data-reveal-child>01b · More projects</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {ALSO.map(({ p, fragment, line }, i) => (
+        <p className={`${kicker} text-secondary mb-8`} data-reveal-child>02 · Selected projects</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
+          {SELECTED.map(({ p, fragment, line }, i) => (
             <article key={p.slug} className={`${rule} pt-6 flex flex-col`} data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
               <div className="flex items-baseline justify-between gap-4">
                 <h3 className="font-headline font-normal text-primary text-[44px] leading-none">{p.name}</h3>
@@ -152,14 +130,14 @@ Why     conference check-ins, clear weather`}</p>
         </div>
       </Reveal>
 
-      {/* 02 · Field Notes, a typographic index */}
+      {/* 03 · Field Notes, a typographic index */}
       <section className="border-t border-outline-variant">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12" data-reveal-child>
             <div>
-              <p className={`${kicker} text-secondary mb-6`}>02 · Field Notes</p>
+              <p className={`${kicker} text-secondary mb-6`}>03 · Field Notes</p>
               <h2 className="font-headline font-normal text-primary text-[clamp(32px,3.6vw,44px)] leading-tight max-w-3xl">
-                The decisions behind the products. <em className="accent-ink">Written so you can steal them.</em>
+                The decisions behind the products. <em className="accent-ink">Written to be reused.</em>
               </h2>
             </div>
             <Link to="/journal" className={`${kicker} text-secondary border-b border-secondary pb-1 self-start md:self-end`}>All notes</Link>
@@ -184,10 +162,10 @@ Why     conference check-ins, clear weather`}</p>
         </Reveal>
       </section>
 
-      {/* 03 · Contact */}
+      {/* 04 · Contact */}
       <section className="bg-surface-container-low">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
-          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>03 · Contact</p>
+          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
             Agents that hold up on a Monday morning. <em className="accent-ink">I build them, and I prove it.</em>
           </h2>
@@ -196,9 +174,9 @@ Why     conference check-ins, clear weather`}</p>
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>
             <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
-              onClick={() => track({ label: "Book 30 minutes", href: SOCIAL_LINKS.schedule, kind: "contact" })}
+              onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "contact" })}
               className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
-              Book 30 minutes
+              Book a call
             </a>
             <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors break-all">
               {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
