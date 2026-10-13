@@ -73,6 +73,7 @@ Focus: Product builder working on agentic AI systems for boutique hotels and ope
 
 Homepage introduction (verbatim): "Five years getting products adopted. Now building systems operations can trust. AI Product Manager & Builder · Paris. Co-founded Sonor: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened. Results published, mixed ones included."
 Homepage Aetherix teaser: built and testable, not yet proven in a hotel. The sample manager message shown there is a format mock-up with illustrative figures, never real results.
+Homepage structure: 01 Aetherix (flagship), 02 Selected projects (Sonor, Lore, Compass, Anima, each with its status lamp), 03 Field Notes ("The decisions behind the products. Written to be reused."), 04 Contact with a "Book a call" button (cal.com).
 
 Track record:
 - 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi: delivered the MVP; rollout planned for 500+ users across 100 care homes. Full lifecycle: discovery, POC (Airtable, Make), specs, IT mapping, field training.
