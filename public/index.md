@@ -4,7 +4,7 @@ Product Builder · Paris
 
 ## Five years getting products adopted. Now I build the AI agents.
 
-AI Product Manager in Paris. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides. Results published, mixed ones included.
+AI Product Manager and former SaaS co-founder in Paris. Co-founded Sonor: 0→1 urban noise SaaS, Matrice and Banque des Territoires grants, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a closed-loop. Results published, mixed ones included.
 
 ## Selected projects
 
