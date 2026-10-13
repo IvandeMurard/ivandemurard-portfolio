@@ -56,9 +56,9 @@ const personJsonLd = {
 export const SEO_ROUTES: SeoRoute[] = [
   {
     path: "/",
-    title: "Ivan de Murard, product builder, agentic AI for operations",
+    title: "Ivan de Murard, AI Product Manager & Builder, Paris",
     description:
-      "Product builder in Paris. 5 years across start-ups, scale-ups and large groups, plus 2 years co-founding a SaaS. Designs from ops, ships with AI.",
+      "AI Product Manager & Builder in Paris. Five years getting B2B products adopted; now AI agents built as closed loops, every recommendation checked against what really happened.",
     type: "website",
     changefreq: "weekly",
     priority: "1.0",
