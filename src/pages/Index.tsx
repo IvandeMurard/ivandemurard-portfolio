@@ -60,10 +60,24 @@ const Index = () => {
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] xl:text-[58px] leading-[1.04] tracking-normal">
               Five years getting products adopted. <em className="accent-ink">Now I build the AI agents.</em>
             </h1>
-            <p className="mt-4 text-[17px] md:text-[19px] leading-relaxed text-on-surface max-w-[600px]">
-              Product manager in Paris. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides. Results published, mixed ones included.
+            <p className="mt-6 text-[18px] md:text-[20px] leading-[1.6] text-on-surface max-w-[540px]">
+              Product manager in Paris.
             </p>
-            <div className="mt-5 flex flex-wrap items-center gap-8">
+            <div className="mt-7 max-w-[540px]">
+              <p className={`${hair} pt-4 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant`}>
+                500+ users on 100+ sites and 7 C-level executives aligned at DomusVi.
+              </p>
+              <p className={`${hair} mt-4 pt-4 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant`}>
+                €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.
+              </p>
+            </div>
+            <p className="mt-7 text-[17px] md:text-[19px] leading-[1.65] text-on-surface max-w-[540px]">
+              Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides.
+            </p>
+            <p className="mt-4 font-mono uppercase tracking-[0.12em] text-[11px] text-on-surface-variant">
+              Results published, mixed ones included.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-8">
               <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
                 <a href="#work">Explore the projects</a>
               </Button>
