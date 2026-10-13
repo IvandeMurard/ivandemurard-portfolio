@@ -4,7 +4,6 @@ import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Reveal } from "@/components/Reveal";
 import { McpEndpoint } from "@/components/McpEndpoint";
 import { SignalLamp } from "@/components/journal/SignalLamp";
-import { RECEIPT } from "@/components/atherix/AetherixDailyReceipt";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
@@ -54,15 +53,15 @@ const Index = () => {
       />
 
       {/* Hero: statement left, register right */}
-      <Reveal as="header" className="pt-28 md:pt-32 pb-16 md:pb-20 px-6 md:px-10 max-w-screen-2xl mx-auto">
+      <Reveal as="header" className="pt-24 md:pt-28 pb-16 md:pb-20 px-6 md:px-10 max-w-screen-2xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-end">
           <div className="lg:col-span-7" data-reveal-child>
-            <p className={`${kicker} text-secondary mb-6`}>Product Builder · Paris</p>
-            <h1 className="font-headline font-normal text-primary text-[48px] md:text-[64px] xl:text-[72px] leading-[1.02] tracking-normal">
-              A wrong forecast is absorbed. A wrong action <em className="accent-ink">reaches a guest.</em>
+            <p className={`${kicker} text-secondary mb-5`}>Product Builder · Paris</p>
+            <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] xl:text-[62px] leading-[1.04] tracking-normal">
+              Five years getting products adopted. <em className="accent-ink">Now I build the AI agents.</em>
             </h1>
-            <p className="mt-6 text-[19px] leading-relaxed text-on-surface max-w-2xl">
-              I build agentic systems for operations that know the difference, from hotel kitchens to aircraft hangars, and I measure it. Each one ships with its evaluation, its limits stated, and a person who decides.
+            <p className="mt-5 text-[17px] md:text-[19px] leading-relaxed text-on-surface max-w-[600px]">
+              Product manager in Paris. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides. Results published, mixed ones included.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-8">
               <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
@@ -99,49 +98,36 @@ const Index = () => {
         </div>
       </Reveal>
 
-      {/* 01 · Flagship */}
+      {/* 01 · Flagship teaser */}
       <section id="work" className="bg-surface-container-low scroll-mt-24">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>01 · Flagship · Hospitality Multi-Agent Architecture</p>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-end" data-reveal-child>
-            <div className="lg:col-span-7">
-              <h2 className="font-headline font-light text-primary text-[clamp(72px,10vw,152px)] leading-[0.9] tracking-[-0.03em]">Aetherix</h2>
-              <p className={`${kicker} normal-case tracking-normal text-[13px] text-on-surface-variant mt-5 max-w-xl`}>
-                Why this one first: it is the whole loop, end to end. A forecast, a human decision, and the outcome measured against both.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 lg:items-center">
+            <div data-reveal-child>
+              <p className={`${kicker} text-secondary mb-8`}>01 · Flagship</p>
+              <h2 className="font-headline font-light text-primary text-[clamp(72px,9vw,136px)] leading-[0.9] tracking-[-0.04em]">Aetherix</h2>
+              <p className="mt-8 text-[21px] leading-relaxed text-on-surface max-w-[520px]">{PROJECTS.atherix.tagline}</p>
+              <Link to="/aetherix#what-it-does-today" onClick={() => track({ label: "Aetherix teaser", href: "/aetherix", kind: "project" })}
+                className="mt-10 inline-flex items-center min-h-[48px] px-6 border border-on-surface rounded-md text-on-surface font-medium hover:bg-on-surface hover:text-surface transition-colors">
+                How it decides, and when it refuses →
+              </Link>
+              <p className="mt-5 font-mono text-[11.5px] text-signal-warn">Built and testable. Not yet proven in a hotel.</p>
             </div>
-            <p className="lg:col-span-5 text-[20px] leading-relaxed text-on-surface">{PROJECTS.atherix.tagline}</p>
-          </div>
-
-          <div className={`${rule} mt-14 grid grid-cols-1 md:grid-cols-3`} data-reveal-child>
-            <div className="py-8 md:pr-8">
-              <p className={`${kicker} text-on-surface-variant mb-5`}>i · Forecast · Mon 18:42</p>
-              <pre className="font-mono text-[11.5px] md:text-[12.5px] leading-relaxed text-on-surface whitespace-pre overflow-x-auto">{RECEIPT}</pre>
-            </div>
-            <div className="py-8 md:px-8 border-t md:border-t-0 md:border-l border-outline-variant">
-              <p className={`${kicker} text-on-surface-variant mb-5`}>ii · Decision</p>
-              <p className="text-on-surface leading-relaxed">The agent proposes. The manager answers in one tap, and the answer is kept.</p>
-              <div className="mt-6 flex flex-wrap gap-2" aria-label="Reply options, illustration">
-                <span className={`${kicker} px-3 py-1.5 rounded-full border border-signal-go text-on-surface`}>Accept</span>
-                <span className={`${kicker} px-3 py-1.5 rounded-full border border-signal-warn text-on-surface`}>The right figure</span>
-                <span className={`${kicker} px-3 py-1.5 rounded-full border border-signal-stop text-on-surface`}>Reject</span>
+            <div className="w-full max-w-[460px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
+              <div className="bg-surface border border-outline-variant shadow-lg p-5 rounded-[18px_18px_18px_4px]">
+                <div className="flex justify-between font-mono text-[11px] text-on-surface-variant mb-3"><span>Aetherix</span><span>Mon 18:42</span></div>
+                <p className="font-mono text-[13.5px] leading-[1.75] whitespace-pre-wrap text-on-surface">{`Breakfast tomorrow   84 covers
+  72 rooms booked + 12 typical walk-ins
+Staff   4 front of house
+  (you ran 3 last Tuesday)
+Why     conference check-ins, clear weather`}</p>
               </div>
-            </div>
-            <div className="py-8 md:pl-8 border-t md:border-t-0 md:border-l border-outline-variant">
-              <p className={`${kicker} text-on-surface-variant mb-5`}>iii · Outcome</p>
-              <div className="border border-dashed border-outline rounded-md p-4 font-mono text-[12.5px] leading-relaxed text-on-surface-variant">
-                <p>Real covers [ recorded tomorrow ]</p>
-                <p>Delta [ forecast vs real ]</p>
+              <div className="mt-4 flex flex-wrap justify-end gap-2" aria-hidden="true">
+                <span className="font-mono text-[12.5px] px-3 py-1.5 rounded-full border border-signal-go text-on-surface">Accept</span>
+                <span className="font-mono text-[12.5px] px-3 py-1.5 rounded-full border border-signal-warn text-on-surface">The right figure</span>
+                <span className="font-mono text-[12.5px] px-3 py-1.5 rounded-full border border-signal-stop text-on-surface">Reject</span>
               </div>
-              <p className="mt-5 text-on-surface-variant leading-relaxed">Written next to the forecast and the decision. The plan not chosen is never seen, so it is never claimed.</p>
+              <p className="mt-3 text-right font-mono text-[11px] text-on-surface-variant">Format mock-up. Figures illustrative.</p>
             </div>
-          </div>
-
-          <div className={`${hair} pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4`}>
-            <p className={`${kicker} normal-case tracking-normal text-[12px] text-on-surface-variant`}>
-              Format mock-up. Figures illustrative. Status: built, sandbox and public data, no hotel connected yet.
-            </p>
-            <Link to="/aetherix" className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors self-start">Read the case</Link>
           </div>
         </Reveal>
       </section>
