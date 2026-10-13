@@ -18,11 +18,9 @@ export const MoodToggle = ({
   size?: "sm" | "md";
   label?: string;
 }) => {
-  const { mood, toggle, setPreview } = useMood();
+  const { mood, toggle } = useMood();
   const haptic = useHaptic();
-  const isTouch = useIsTouch();
   const isDusk = mood === "dusk";
-  const other: "day" | "dusk" = isDusk ? "day" : "dusk";
 
   const dims =
     size === "sm"
@@ -105,26 +103,9 @@ export const MoodToggle = ({
         aria-checked={isDusk}
         aria-label={`Ambience: switch to ${isDusk ? "day" : "dusk"} light`}
         title={`Ambience: ${isDusk ? "Dusk" : "Day"}`}
-        onMouseEnter={() => {
-          if (isTouch) return;
-          setPreview(other);
-        }}
-        onMouseLeave={() => {
-          if (isTouch) return;
-          setPreview(null);
-        }}
-        onFocus={() => {
-          if (isTouch) return;
-          setPreview(other);
-        }}
-        onBlur={() => {
-          if (isTouch) return;
-          setPreview(null);
-        }}
         onClick={() => {
           dismissTip();
           haptic("toggle");
-          setPreview(null);
           toggle();
         }}
         className={[

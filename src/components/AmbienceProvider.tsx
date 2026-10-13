@@ -30,7 +30,8 @@ const AmbienceContext = createContext<AmbienceContextValue | undefined>(undefine
 const STORAGE_KEY = "ambience-muted";
 const FADE_MS = 800;
 const TARGET_VOLUME = 0.55;
-const DAY_SRC = "/audio/day.mp3";
+// Day mode uses the same track as dusk (single soundtrack).
+const DAY_SRC = "/audio/dusk.mp3";
 const DUSK_SRC = "/audio/dusk.mp3";
 
 const readInitialMuted = (): boolean => {
@@ -140,8 +141,8 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
     const dusk = duskRef.current;
     if (!day || !dusk) return;
 
-    const active = mood === "day" ? day : dusk;
-    const inactive = mood === "day" ? dusk : day;
+    const active = dusk; // one soundtrack for both moods
+    const inactive = day;
 
     const run = async () => {
       if (muted) {
