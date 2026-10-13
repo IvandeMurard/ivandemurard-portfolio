@@ -58,7 +58,7 @@ const Index = () => {
           <div className="lg:col-span-7" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>Product Builder · Paris</p>
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] xl:text-[58px] leading-[1.04] tracking-normal">
-              Five years getting products adopted. <em className="accent-ink">Now I build the AI agents.</em>
+              Five years getting products adopted. <em className="italic text-secondary">Now building systems operations can trust.</em>
             </h1>
             <p className="mt-6 text-[18px] md:text-[20px] leading-[1.6] text-on-surface max-w-[540px]">
               AI Product Manager and former SaaS co-founder in Paris.
