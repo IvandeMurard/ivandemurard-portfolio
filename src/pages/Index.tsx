@@ -72,7 +72,7 @@ const Index = () => {
               </p>
             </div>
             <p className="mt-7 text-[17px] md:text-[19px] leading-[1.65] text-on-surface max-w-[540px]">
-              Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides.
+              Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a closed-loop.
             </p>
             <p className="mt-4 font-mono uppercase tracking-[0.12em] text-[11px] text-on-surface-variant">
               Results published, mixed ones included.
