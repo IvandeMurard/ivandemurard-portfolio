@@ -71,6 +71,9 @@ Short bio about Ivan de Murard:
 
 Focus: Product builder working on agentic AI systems for boutique hotels and operations. Full-stack 0 to 1 craft, business value, human interactions.
 
+Homepage introduction (verbatim): "Five years getting products adopted. Now I build the AI agents. Product manager in Paris. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides. Results published, mixed ones included."
+Homepage Aetherix teaser: built and testable, not yet proven in a hotel. The sample manager message shown there is a format mock-up with illustrative figures, never real results.
+
 Track record:
 - 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi: delivered the MVP; rollout planned for 500+ users across 100 care homes. Full lifecycle: discovery, POC (Airtable, Make), specs, IT mapping, field training.
 - 2023 to 2024, Product Manager, Data and Operations, ALTEN for Bouygues Telecom: built a data-driven dashboard to track and recover 1.9M EUR of receivables. 40% recovered, adopted by ops teams.

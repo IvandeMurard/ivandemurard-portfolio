@@ -2,9 +2,9 @@
 
 Product Builder · Paris
 
-## A wrong forecast is absorbed. A wrong action reaches a guest.
+## Five years getting products adopted. Now I build the AI agents.
 
-I build agentic systems for operations that know the difference, from hotel kitchens to aircraft hangars, and I measure it. Each one ships with its evaluation, its limits stated, and a person who decides.
+Product manager in Paris. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides. Results published, mixed ones included.
 
 ## Selected projects
 
@@ -18,15 +18,23 @@ I build agentic systems for operations that know the difference, from hotel kitc
 
 ## 01 · Flagship: Aetherix
 
-Why this one first: it is the whole loop, end to end. A forecast, a human decision, and the outcome measured against both.
-
 The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it.
 
-- i · Forecast: one daily message with the covers figure and its drivers.
-- ii · Decision: the agent proposes. The manager answers in one tap (Accept, The right figure, Reject), and the answer is kept.
-- iii · Outcome: real covers, recorded tomorrow, and the delta against the forecast. Written next to the forecast and the decision. The plan not chosen is never seen, so it is never claimed.
+[How it decides, and when it refuses](https://ivandemurard.com/aetherix#what-it-does-today)
 
-Format mock-up. Figures illustrative. Status: built, sandbox and public data, no hotel connected yet.
+Built and testable. Not yet proven in a hotel.
+
+The message the manager receives (format mock-up, figures illustrative):
+
+```
+Breakfast tomorrow   84 covers
+  72 rooms booked + 12 typical walk-ins
+Staff   4 front of house
+  (you ran 3 last Tuesday)
+Why     conference check-ins, clear weather
+```
+
+Replies: Accept · The right figure · Reject.
 
 ## 01b · More projects
 
