@@ -60,10 +60,10 @@ const Index = () => {
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] xl:text-[58px] leading-[1.04] tracking-normal">
               Five years getting products adopted. <em className="accent-ink">Now I build the AI agents.</em>
             </h1>
-            <p className="mt-5 text-[17px] md:text-[19px] leading-relaxed text-on-surface max-w-[600px]">
+            <p className="mt-4 text-[17px] md:text-[19px] leading-relaxed text-on-surface max-w-[600px]">
               Product manager in Paris. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a person who decides. Results published, mixed ones included.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-8">
+            <div className="mt-5 flex flex-wrap items-center gap-8">
               <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
                 <a href="#work">Explore the projects</a>
               </Button>
