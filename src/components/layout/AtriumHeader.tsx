@@ -13,13 +13,12 @@ import { Button } from "@/components/ui/button";
 
 /** Live Paris time, the register's clock. */
 const ParisClock = () => {
-  const { mood } = useMood();
   const fmt = () => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", hour: "2-digit", minute: "2-digit" }).format(new Date());
   const [t, setT] = useState(fmt);
   useEffect(() => { const id = window.setInterval(() => setT(fmt()), 15000); return () => window.clearInterval(id); }, []);
   return (
-    <span className="font-mono text-[11px] tracking-[0.04em] text-on-surface-variant tabular-nums whitespace-nowrap" aria-label={`Paris time ${t}, ${mood} mode`}>
-      Paris {t} · {mood === "dusk" ? "Dusk" : "Day"}
+    <span className="font-mono text-[11px] tracking-[0.04em] text-on-surface-variant tabular-nums whitespace-nowrap" aria-label={`Paris time ${t}`}>
+      Paris {t}
     </span>
   );
 };

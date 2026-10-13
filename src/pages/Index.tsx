@@ -111,11 +111,11 @@ Why     conference check-ins, clear weather`}</p>
         </Reveal>
       </section>
 
-      {/* 01b · Also in the register */}
+      {/* 02 · Selected projects */}
       <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <p className={`${kicker} text-secondary mb-8`} data-reveal-child>01b · More projects</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {ALSO.map(({ p, fragment, line }, i) => (
+        <p className={`${kicker} text-secondary mb-8`} data-reveal-child>02 · Selected projects</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
+          {SELECTED.map(({ p, fragment, line }, i) => (
             <article key={p.slug} className={`${rule} pt-6 flex flex-col`} data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
               <div className="flex items-baseline justify-between gap-4">
                 <h3 className="font-headline font-normal text-primary text-[44px] leading-none">{p.name}</h3>
@@ -130,14 +130,14 @@ Why     conference check-ins, clear weather`}</p>
         </div>
       </Reveal>
 
-      {/* 02 · Field Notes, a typographic index */}
+      {/* 03 · Field Notes, a typographic index */}
       <section className="border-t border-outline-variant">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12" data-reveal-child>
             <div>
-              <p className={`${kicker} text-secondary mb-6`}>02 · Field Notes</p>
+              <p className={`${kicker} text-secondary mb-6`}>03 · Field Notes</p>
               <h2 className="font-headline font-normal text-primary text-[clamp(32px,3.6vw,44px)] leading-tight max-w-3xl">
-                The decisions behind the products. <em className="accent-ink">Written so you can steal them.</em>
+                The decisions behind the products. <em className="accent-ink">Written to be reused.</em>
               </h2>
             </div>
             <Link to="/journal" className={`${kicker} text-secondary border-b border-secondary pb-1 self-start md:self-end`}>All notes</Link>
@@ -162,10 +162,10 @@ Why     conference check-ins, clear weather`}</p>
         </Reveal>
       </section>
 
-      {/* 03 · Contact */}
+      {/* 04 · Contact */}
       <section className="bg-surface-container-low">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
-          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>03 · Contact</p>
+          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
             Agents that hold up on a Monday morning. <em className="accent-ink">I build them, and I prove it.</em>
           </h2>
@@ -174,9 +174,9 @@ Why     conference check-ins, clear weather`}</p>
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>
             <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
-              onClick={() => track({ label: "Book 30 minutes", href: SOCIAL_LINKS.schedule, kind: "contact" })}
+              onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "contact" })}
               className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
-              Book 30 minutes
+              Book a call
             </a>
             <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors break-all">
               {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
