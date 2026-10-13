@@ -17,6 +17,7 @@ export default {
         label: ['"Manrope"', "sans-serif"],
         serif: ['"Newsreader"', "serif"],
         sans: ['"Manrope"', "sans-serif"],
+        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
       },
       colors: {
         // Material-style semantic tokens (from Stitch prototypes)
