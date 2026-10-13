@@ -51,3 +51,7 @@
 
 # Recommendation line and truth Field Note
 - [ ] Execute the approved four-stage plan after the CV priority task: shared signal vocabulary and figure, reference note, new Field Note, then derived outputs.
+
+# Homepage clarity
+- [x] Restore the compass rose in Ask Rose, simplify project labels and bring the main CTA into view.
+- [ ] Refresh derived content and verify the preview without publishing.

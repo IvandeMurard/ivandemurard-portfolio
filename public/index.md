@@ -1,12 +1,12 @@
 # Ivan de Murard, product builder
 
-Main courante, the duty log · Product builder · Paris
+Product Builder · Paris
 
 ## A wrong forecast is absorbed. A wrong action reaches a guest.
 
 I build agentic systems for operations that know the difference, from hotel kitchens to aircraft hangars, and I measure it. Each one ships with its evaluation, its limits stated, and a person who decides.
 
-## Register · as of today
+## Selected projects
 
 | # | Project | Note | Status |
 |---|---|---|---|
@@ -28,7 +28,7 @@ The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's 
 
 Format mock-up. Figures illustrative. Status: built, sandbox and public data, no hotel connected yet.
 
-## 01b · Also in the register
+## 01b · More projects
 
 ### Lore (GO · Evaluated)
 Evaluation harness · 64 cases · pure-function graders · hard safety tier.

@@ -8,6 +8,7 @@ import { RECEIPT } from "@/components/atherix/AetherixDailyReceipt";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
+import { Button } from "@/components/ui/button";
 
 // The register: one row per project, statuses from the single source in site.ts.
 const REGISTER = [PROJECTS.atherix, PROJECTS.lore, PROJECTS.anima, PROJECTS.compass, PROJECTS.sonor];
@@ -53,20 +54,20 @@ const Index = () => {
       />
 
       {/* Hero: statement left, register right */}
-      <Reveal as="header" className="pt-32 md:pt-40 pb-16 md:pb-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
+      <Reveal as="header" className="pt-28 md:pt-32 pb-16 md:pb-20 px-6 md:px-10 max-w-screen-2xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-end">
           <div className="lg:col-span-7" data-reveal-child>
-            <p className={`${kicker} text-secondary mb-8`}>Main courante, the duty log · Product builder · Paris</p>
-            <h1 className="font-headline font-normal text-primary text-[clamp(52px,6.6vw,100px)] leading-[0.98] tracking-[-0.025em]">
+            <p className={`${kicker} text-secondary mb-6`}>Product Builder · Paris</p>
+            <h1 className="font-headline font-normal text-primary text-[48px] md:text-[64px] xl:text-[72px] leading-[1.02] tracking-normal">
               A wrong forecast is absorbed. A wrong action <em className="accent-ink">reaches a guest.</em>
             </h1>
-            <p className="mt-10 text-[19px] leading-relaxed text-on-surface max-w-2xl">
+            <p className="mt-6 text-[19px] leading-relaxed text-on-surface max-w-2xl">
               I build agentic systems for operations that know the difference, from hotel kitchens to aircraft hangars, and I measure it. Each one ships with its evaluation, its limits stated, and a person who decides.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-8">
-              <a href="#work" className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
-                Open the register
-              </a>
+            <div className="mt-6 flex flex-wrap items-center gap-8">
+              <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
+                <a href="#work">Explore the projects</a>
+              </Button>
               <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
                 onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "nav" })}
                 className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors">
@@ -77,7 +78,7 @@ const Index = () => {
 
           <div className="lg:col-span-5" data-reveal-child style={{ ["--reveal-delay" as string]: "160ms" }}>
             <div className={`${rule} flex justify-between pt-3 pb-3 ${kicker} text-on-surface-variant`}>
-              <span>Register · as of today</span><span>Status</span>
+              <span>Selected projects</span><span>Status</span>
             </div>
             <ol>
               {REGISTER.map((p, i) => (
@@ -147,7 +148,7 @@ const Index = () => {
 
       {/* 01b · Also in the register */}
       <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <p className={`${kicker} text-secondary mb-8`} data-reveal-child>01b · Also in the register</p>
+        <p className={`${kicker} text-secondary mb-8`} data-reveal-child>01b · More projects</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {ALSO.map(({ p, fragment, line }, i) => (
             <article key={p.slug} className={`${rule} pt-6 flex flex-col`} data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
