@@ -8,7 +8,6 @@ import { MoodToggle } from "@/components/MoodToggle";
 import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
-import { useMood } from "@/components/MoodProvider";
 import { Button } from "@/components/ui/button";
 
 /** Live Paris time, the register's clock. */
