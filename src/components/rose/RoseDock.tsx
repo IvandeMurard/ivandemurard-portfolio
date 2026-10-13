@@ -119,9 +119,17 @@ export const RoseDock = () => {
       setOpen(true);
       submit(text);
     };
+    const onOpen = () => setOpen(true);
     window.addEventListener("rose:ask", onAsk as EventListener);
-    return () => window.removeEventListener("rose:ask", onAsk as EventListener);
+    window.addEventListener("rose:open", onOpen);
+    return () => {
+      window.removeEventListener("rose:ask", onAsk as EventListener);
+      window.removeEventListener("rose:open", onOpen);
+    };
   });
+
+  // On the homepage Rose lives in the header pill; the dock appears only once opened.
+  if (pathname === "/" && !open) return null;
 
 
   // Compact dock (bottom-centered). Shown always; opens the panel on interaction.
