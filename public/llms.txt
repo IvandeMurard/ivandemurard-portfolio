@@ -53,6 +53,7 @@ The complete CV, including Founder & Builder, Product & Customer Roles, Skills a
 
 Every document below is served as markdown at its own URL, identical in content to the page.
 
+- [Homepage register](https://ivandemurard.com/index.md): current status of each project (Aetherix WARN Sandbox, Lore GO Evaluated, Anima STOP Gated, Compass WARN Partial, Sonor GO Closed)
 - [Aetherix](https://ivandemurard.com/aetherix.md)
 - [Anima](https://ivandemurard.com/anima.md)
 - [Architecture](https://ivandemurard.com/architecture.md)
