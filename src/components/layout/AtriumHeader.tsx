@@ -9,6 +9,7 @@ import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { useMood } from "@/components/MoodProvider";
+import { Button } from "@/components/ui/button";
 
 /** Live Paris time, the register's clock. */
 const ParisClock = () => {
@@ -24,13 +25,20 @@ const ParisClock = () => {
 };
 
 const AskRosePill = ({ compact = false }: { compact?: boolean }) => (
-  <button
+  <Button
+    variant="ghost"
     type="button"
     onClick={() => window.dispatchEvent(new Event("rose:open"))}
-    className={`font-mono uppercase tracking-[0.1em] text-[11px] text-primary border border-outline rounded-full ${compact ? "px-3 py-1" : "px-4 py-1.5"} hover:border-secondary hover:text-secondary transition-colors whitespace-nowrap`}
+    className={`h-auto font-mono font-normal uppercase tracking-[0.1em] text-[11px] text-primary border border-outline rounded-full ${compact ? "gap-1 px-2 py-1" : "px-4 py-1.5"} hover:bg-transparent hover:border-secondary hover:text-secondary transition-colors whitespace-nowrap`}
   >
+    <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="20" r="17" />
+      <circle cx="20" cy="20" r="5.5" strokeWidth="0.8" />
+      <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" />
+      <path d="M8 8l6 6M32 8l-6 6M8 32l6-6M32 32l-6-6" strokeWidth="0.6" />
+    </svg>
     Ask Rose
-  </button>
+  </Button>
 );
 
 const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "contact" | "social" }[] = [
@@ -58,10 +66,10 @@ export const AtriumHeader = () => {
   return (
     <>
       <nav className="fixed top-0 w-full z-50 bg-surface/95 glass-nav transition-all duration-500 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-gradient-to-b after:from-outline-variant after:to-transparent after:pointer-events-none">
-        <div className="flex justify-between items-center gap-6 px-6 md:px-10 py-5 md:py-6 w-full max-w-screen-2xl mx-auto relative">
+        <div className="flex justify-between items-center gap-2 md:gap-6 px-4 md:px-10 py-5 md:py-6 w-full max-w-screen-2xl mx-auto relative">
           <TransitionLink
             to="/"
-            className="group relative inline-flex shrink-0 items-baseline text-xl md:text-2xl font-headline italic text-primary tracking-wide"
+            className="group relative inline-flex shrink-0 items-baseline text-lg md:text-2xl font-headline italic text-primary tracking-wide"
           >
             <span className="transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-secondary">
               Ivan de Murard
@@ -129,7 +137,7 @@ export const AtriumHeader = () => {
           </div>
 
           {/* Mobile right cluster: toggle + hamburger */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-1">
             <AskRosePill compact />
             <MoodToggle size="sm" />
             <AmbienceControl size="sm" />
