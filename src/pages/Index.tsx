@@ -115,7 +115,7 @@ const Index = () => {
           <div className={`${rule} mt-14 grid grid-cols-1 md:grid-cols-3`} data-reveal-child>
             <div className="py-8 md:pr-8">
               <p className={`${kicker} text-on-surface-variant mb-5`}>i · Forecast · Mon 18:42</p>
-              <pre className="font-mono text-[12.5px] leading-relaxed text-on-surface whitespace-pre-wrap">{RECEIPT}</pre>
+              <pre className="font-mono text-[11.5px] md:text-[12.5px] leading-relaxed text-on-surface whitespace-pre overflow-x-auto">{RECEIPT}</pre>
             </div>
             <div className="py-8 md:px-8 border-t md:border-t-0 md:border-l border-outline-variant">
               <p className={`${kicker} text-on-surface-variant mb-5`}>ii · Decision</p>
