@@ -50,15 +50,15 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-end">
           <div className="lg:col-span-7" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
-            <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] xl:text-[58px] leading-[1.04] tracking-normal">
+            <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
               Five years getting products adopted. <em className="italic text-secondary">Now building systems operations can trust.</em>
             </h1>
-            <ul className="mt-6 max-w-[540px] space-y-2 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant">
+            <ul className="mt-6 max-w-[600px] space-y-1.5 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant">
               <li>Co-founded <Link to="/sonor" className="text-on-surface border-b border-outline-variant hover:border-secondary">Sonor</Link>: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped.</li>
               <li>500+ users on 100+ sites and 7 C-level executives aligned at DomusVi.</li>
               <li>€1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.</li>
             </ul>
-            <p className="mt-6 text-[17px] md:text-[19px] leading-[1.65] text-on-surface max-w-[540px]">
+            <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
               Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened.
             </p>
             <p className="mt-4 font-mono uppercase tracking-[0.12em] text-[11px] text-on-surface-variant">
