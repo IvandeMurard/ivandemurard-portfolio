@@ -61,7 +61,7 @@ const Index = () => {
               Five years getting products adopted. <em className="accent-ink">Now I build the AI agents.</em>
             </h1>
             <p className="mt-6 text-[18px] md:text-[20px] leading-[1.6] text-on-surface max-w-[540px]">
-              Product manager in Paris.
+              AI Product Manager in Paris.
             </p>
             <div className="mt-7 max-w-[540px]">
               <p className={`${hair} pt-4 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant`}>
