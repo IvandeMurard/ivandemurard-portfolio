@@ -1,6 +1,6 @@
 # Ivan de Murard
 
-> Five years getting products adopted. Now building systems operations can trust. AI Product Manager and former SaaS co-founder in Paris. Co-founded Sonor: 0→1 urban noise SaaS, Matrice and Banque des Territoires grants, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a closed-loop. Results published, mixed ones included. Focus areas: agentic AI, boutique hotel operations, service design, SaaS, open data.
+> Five years getting products adopted. Now building systems operations can trust. AI Product Manager & Builder · Paris. Co-founded Sonor: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened. Results published, mixed ones included. Focus areas: agentic AI, boutique hotel operations, service design, SaaS, open data.
 
 - Site: https://ivandemurard.com
 - LinkedIn: https://www.linkedin.com/in/ivandemurard/

@@ -1,10 +1,10 @@
-# Ivan de Murard, product builder
+# Ivan de Murard, AI Product Manager & Builder, Paris
 
-Product Builder · Paris
+AI Product Manager & Builder · Paris
 
 ## Five years getting products adopted. Now building systems operations can trust.
 
-AI Product Manager and former SaaS co-founder in Paris. Co-founded Sonor: 0→1 urban noise SaaS, Matrice and Banque des Territoires grants, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a closed-loop. Results published, mixed ones included.
+Co-founded Sonor: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened. Results published, mixed ones included.
 
 ## Selected projects
 
@@ -43,7 +43,7 @@ Evaluation harness · 64 cases · pure-function graders · hard safety tier.
 Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure.
 
 ### Compass (WARN · Partial)
-APUR shopfront censuses (3, 2 pending licence) · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
+APUR BDCom shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
 Every address has a story. Compass reads it before you sign.
 
 ## 02 · Field Notes
@@ -54,13 +54,7 @@ The decisions behind the products. Written so you can steal them. [All notes](ht
 - [Harnesses, graders and closed loops](https://ivandemurard.com/journal/harnesses-graders-closed-loops) Agents rarely fail loudly. They drift, quietly, until a customer notices. How to find out first: graders, harnesses, and the gaps I have not closed yet.
 - [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) Your agent learns from something: a forecast, a manager's yes, or what really happened the next morning. Pick the wrong one and you build a very confident yes-man.
 
-## 03 · Before the agents · five years inside operations
-
-- 500+: users on an internal SaaS rolled out across 100 care homes
-- €1.9M: receivables tracked and 40% recovered through a decision tool
-- 22: European public-sector clients onboarded, zero churn
-
-## 04 · Contact
+## 03 · Contact
 
 Agents that hold up on a Monday morning. I build them, and I prove it.
 

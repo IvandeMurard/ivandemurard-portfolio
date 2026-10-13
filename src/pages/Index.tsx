@@ -12,13 +12,6 @@ import { Button } from "@/components/ui/button";
 // The register: one row per project, statuses from the single source in site.ts.
 const REGISTER = [PROJECTS.atherix, PROJECTS.lore, PROJECTS.anima, PROJECTS.compass, PROJECTS.sonor];
 
-// Track record, static values (evidence, not decoration).
-const TRACK = [
-  { value: "500+", label: "users on an internal SaaS rolled out across 100 care homes" },
-  { value: "€1.9M", label: "receivables tracked and 40% recovered through a decision tool" },
-  { value: "22", label: "European public-sector clients onboarded, zero churn" },
-];
-
 // Latest three Field Notes, oldest first.
 const LATEST_NOTES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3).reverse();
 
@@ -31,7 +24,7 @@ const ALSO = [
   },
   {
     p: PROJECTS.compass,
-    fragment: "APUR shopfront censuses (3, 2 pending licence) · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date",
+    fragment: "APUR BDCom shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date",
     line: PROJECTS.compass.tagline,
   },
 ];
@@ -45,38 +38,35 @@ const Index = () => {
   return (
     <SiteLayout>
       <Seo
-        title="Ivan de Murard, product builder, agentic AI for operations"
+        title="Ivan de Murard, AI Product Manager & Builder, Paris"
         rawTitle
-        description="Product builder in Paris. Agentic systems for operations, each shipped with its evaluation, its limits stated, and a person who decides."
+        description="AI Product Manager & Builder in Paris. Five years getting B2B products adopted; now AI agents built as closed loops, every recommendation checked against what really happened."
         path="/"
         jsonLd={[personJsonLd, { "@context": "https://schema.org", "@type": "WebSite", name: "Ivan de Murard", url: SITE.url, inLanguage: "en" }]}
       />
 
       {/* Hero: statement left, register right */}
       <Reveal as="header" className="pt-24 md:pt-24 pb-16 md:pb-20 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 lg:items-end">
           <div className="lg:col-span-7" data-reveal-child>
-            <p className={`${kicker} text-secondary mb-5`}>Product Builder · Paris</p>
-            <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] xl:text-[58px] leading-[1.04] tracking-normal">
+            <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
+            <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
               Five years getting products adopted. <em className="italic text-secondary">Now building systems operations can trust.</em>
             </h1>
-            <p className="mt-6 text-[18px] md:text-[20px] leading-[1.6] text-on-surface max-w-[540px]">
-              AI Product Manager and former SaaS co-founder in Paris.
-            </p>
-            <ul className={`${hair} mt-7 pt-4 max-w-[540px] space-y-2 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant`}>
-              <li>Co-founded <Link to="/sonor" className="text-on-surface border-b border-outline-variant hover:border-secondary">Sonor</Link>: 0→1 urban noise SaaS, Matrice and Banque des Territoires grants, MVP shipped.</li>
+            <ul className="mt-6 max-w-[600px] space-y-1.5 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant">
+              <li>Co-founded <Link to="/sonor" className="text-on-surface border-b border-outline-variant hover:border-secondary">Sonor</Link>: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped.</li>
               <li>500+ users on 100+ sites and 7 C-level executives aligned at DomusVi.</li>
               <li>€1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.</li>
             </ul>
-            <p className="mt-7 text-[17px] md:text-[19px] leading-[1.65] text-on-surface max-w-[540px]">
-              Since November 2025 I design, build and evaluate AI agents, with RAG, multi-agent workflows and a closed-loop.
+            <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
+              Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened.
             </p>
             <p className="mt-4 font-mono uppercase tracking-[0.12em] text-[11px] text-on-surface-variant">
               Results published, mixed ones included.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-8">
+            <div className="mt-6 flex flex-wrap items-center gap-8">
               <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
-                <a href="#work">Explore the projects</a>
+                <a href="#work" data-cta="primary">Explore the projects</a>
               </Button>
               <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
                 onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "nav" })}
@@ -94,11 +84,11 @@ const Index = () => {
               {REGISTER.map((p, i) => (
                 <li key={p.slug} className={hair}>
                   <Link to={`/${p.slug}`} onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
-                    className="group grid grid-cols-[2rem_1fr_auto] gap-x-4 items-baseline py-4 hover:bg-surface-container-low transition-colors">
+                    className="group grid grid-cols-[2rem_1fr_auto] gap-x-4 items-baseline py-3 hover:bg-surface-container-low transition-colors">
                     <span className={`${kicker} text-on-surface-variant`}>{String(i + 1).padStart(2, "0")}</span>
                     <span>
                       <span className="block font-headline text-[28px] leading-tight text-primary group-hover:text-secondary transition-colors">{p.name}</span>
-                      <span className="block mt-1 text-[13.5px] leading-snug text-on-surface-variant">{p.status.note}</span>
+                      <span className="block mt-1 text-[13px] leading-snug text-on-surface-variant">{p.status.note}</span>
                     </span>
                     <SignalLamp state={p.status.signal} label={p.status.word} className="self-center" />
                   </Link>
@@ -153,7 +143,7 @@ Why     conference check-ins, clear weather`}</p>
                 <h3 className="font-headline font-normal text-primary text-[44px] leading-none">{p.name}</h3>
                 <SignalLamp state={p.status.signal} label={p.status.word} />
               </div>
-              <p className="mt-6 font-mono text-[12.5px] leading-relaxed text-on-surface bg-surface-container-low border-l-2 border-secondary px-4 py-3">{fragment}</p>
+              <p className={`${hair} mt-6 pt-3 font-mono text-[12.5px] leading-relaxed text-on-surface`}>{fragment}</p>
               <p className="mt-6 text-on-surface-variant leading-relaxed flex-1">{line}</p>
               <Link to={`/${p.slug}`} onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
                 className="mt-6 text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors self-start">Read the case</Link>
@@ -194,23 +184,10 @@ Why     conference check-ins, clear weather`}</p>
         </Reveal>
       </section>
 
-      {/* 03 · Track record */}
-      <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <p className={`${kicker} text-secondary mb-10`} data-reveal-child>03 · Before the agents · five years inside operations</p>
-        <div className={`${rule} grid grid-cols-1 md:grid-cols-3`} data-reveal-child>
-          {TRACK.map((t, i) => (
-            <div key={t.value} className={`py-10 md:px-8 ${i > 0 ? "border-t md:border-t-0 md:border-l border-outline-variant" : "md:pl-0"}`}>
-              <p className="font-headline font-light text-primary text-[clamp(64px,7.5vw,104px)] leading-none tracking-[-0.03em]">{t.value}</p>
-              <p className="mt-6 text-[15px] leading-relaxed text-on-surface-variant max-w-xs">{t.label}</p>
-            </div>
-          ))}
-        </div>
-      </Reveal>
-
-      {/* 04 · Contact */}
+      {/* 03 · Contact */}
       <section className="bg-surface-container-low">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
-          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
+          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>03 · Contact</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
             Agents that hold up on a Monday morning. <em className="accent-ink">I build them, and I prove it.</em>
           </h2>
