@@ -14,7 +14,7 @@ const LATEST_NOTES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.
 
 // Selected projects (Sonor first). Fragments only where sourced from the case studies; otherwise the status note.
 const SELECTED = [
-  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: PROJECTS.sonor.tagline },
+  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: PROJECTS.sonor.tagline, href: "/sonor#what-id-change" },
   {
     p: PROJECTS.lore,
     fragment: "Evaluation harness · 64 cases · pure-function graders · hard safety tier",
@@ -115,7 +115,7 @@ Why     conference check-ins, clear weather`}</p>
       <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
         <p className={`${kicker} text-secondary mb-8`} data-reveal-child>02 · Selected projects</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
-          {SELECTED.map(({ p, fragment, line }, i) => (
+          {SELECTED.map(({ p, fragment, line, href }: { p: (typeof SELECTED)[number]["p"]; fragment: string; line: string; href?: string }, i) => (
             <article key={p.slug} className={`${rule} pt-6 flex flex-col`} data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
               <div className="flex items-baseline justify-between gap-4">
                 <h3 className="font-headline font-normal text-primary text-[44px] leading-none">{p.name}</h3>
@@ -123,7 +123,7 @@ Why     conference check-ins, clear weather`}</p>
               </div>
               <p className={`${hair} mt-6 pt-3 font-mono text-[12.5px] leading-relaxed text-on-surface`}>{fragment}</p>
               <p className="mt-6 text-on-surface-variant leading-relaxed flex-1">{line}</p>
-              <Link to={`/${p.slug}`} onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
+              <Link to={href ?? `/${p.slug}`} onClick={() => track({ label: p.name, href: href ?? `/${p.slug}`, kind: "project" })}
                 className="mt-6 text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors self-start">Read the case</Link>
             </article>
           ))}

@@ -36,10 +36,10 @@ export const UTILITY_NAV: { label: string; href: string }[] = [
 
 export const PROJECTS = {
   sonor: {
-    status: { signal: "go", word: "Closed", note: "Urban noise SaaS, co-founded and led as product, 2020-2022." },
+    status: { signal: "dark", word: "Stopped", note: "Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022."},
     slug: "sonor",
     name: "Sonor",
-    tagline: "Two-year journey as Co-founder & Product Lead. Turned open data into a SaaS platform used by municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness.",
+    tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.",
     label: "SaaS • Urban Noise Insights • 2020 - 2022",
     image: sonorImg,
     cta: "The Full Narrative",

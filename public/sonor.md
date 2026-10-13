@@ -1,43 +1,34 @@
 # Sonor
 
-B2G SaaS that turned acoustic open data into a decision tool for European cities. Used by municipalities to protect acoustic health, drive sustainability policy, and increase territorial attractiveness.
+B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.
 
-- URL: https://ivandemurard.com/sonor
 - Role: Co-founder and Product Lead
-- Duration: 2 years, 2020 to 2022
-- Team: 4 co-founders plus 1 developer
-- Clients: Local governments
-- Industry: GovTech, Smart City
-- Context: Incubated at Matrice, backed by Banque des Territoires
-- Funding: 20K EUR in grants, MVP shipped
+- Duration: 2020 to 2022
+- Team: 4 co-founders, plus a developer and data scientist
+- Context: Incubated at Matrice (Banque des Territoires)
+- Funding: €20k in grants
+- Outcome: MVP shipped, commercial discussions with municipalities, no contract
 
 ## What it is
-Sonor is a SaaS platform that ingests open noise data and turns it into actionable cartography and recommendations for city teams. Urbanists, environmental health and mobility services use it to map exposure, prioritize interventions, and justify policy with evidence.
+A SaaS platform built to turn open noise data into cartography and recommendations for city teams: map exposure, prioritise interventions, justify policy with evidence.
 
-## Why it exists
-Noise is the second environmental cause of disease burden in Europe after air quality, yet most cities did not have a working interface on top of their own data. Sonor closed that gap, from raw open data to something a public sector team can act on in a meeting.
+## The vision: a loop between a city and its residents
+1. The platform gathers information: noise cartography, tracking of field surveys and regulation, alerts left by residents.
+2. Field surveys collect what residents experience.
+3. Findings are reported to the city.
+4. The city's actions are communicated back to residents.
 
-## How it works
-1. Aggregates open acoustic data and complementary sources (mobility, urban form).
-2. Generates per-street cartography and exposure layers.
-3. Surfaces ranked recommendations for interventions.
-4. Frames everything in the language of public sector decision-making, not signal processing.
+## What happened
+To ease adoption, we offered services around the platform. Each city asked for something different: a field feasibility study for a Paris district town hall, mediation and a field study for a town west of Paris, communication on actions taken for a metropolitan authority. We had commercial discussions; none became a contract.
 
-## Outcomes and signals
-- 0 to 1 product taken from concept to live SaaS used by European cities.
-- Backed by Matrice and Banque des Territoires.
-- 20K EUR in non-dilutive grants.
-- Two-year operational run with paying public sector customers.
+## Why it stopped
+No contract signed. When the grants and the incubation ended, so did Sonor.
 
-## Convictions
-- Public sector software is a hospitality discipline. The product has to meet civil servants where they are, not lecture them.
-- Data without an interface is not a service.
-- A B2G product lives or dies on the quality of its onboarding and the legibility of its recommendations.
+## What I'd change
+Stay on delivering the product. We drifted into a "neo-agency" answering every need a city expressed, so the loop lived in our team's time, not in the product. I believe one use case, delivered and repeated, would have had a better chance of a first contract. I cannot prove it.
+
+## What I applied next
+Aetherix starts with one job, F&B covers, because its result can be checked the next morning. And the loop lives in the product: the recommendation, the manager's reply and the outcome are recorded without anyone in between.
 
 ## Related work
-Tacet is the V3 continuation of that acoustic thesis, now a B2B environmental twin for boutique hotels that ray-traces street noise and pushes yield rules to the RMS for human approval.
-
-## Links
-- Case study: https://ivandemurard.com/sonor
-- Tacet (V3, hospitality environmental twin): https://ivandemurard.com/tacet
-- Contact: ivandemurard@gmail.com
+Tacet carries the acoustic thesis forward, as an environmental twin for boutique hotels.

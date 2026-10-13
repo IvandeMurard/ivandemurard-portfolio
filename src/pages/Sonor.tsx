@@ -4,6 +4,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { useState } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import type React from "react";
 import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
@@ -58,73 +59,56 @@ const FIGMA_PROTOTYPE_URL =
   );
 
 const META = [
-  { label: "Role", value: "Co-founder & Product Lead" },
-  { label: "Duration", value: "2 years (2020–2022)" },
-  { label: "Team", value: "4 co-founders + 1 dev" },
-  { label: "Client", value: "Local governments" },
-  { label: "Industry", value: "GovTech / Smart City" },
-  { label: "Context", value: "Incubated at Matrice" },
+  { label: "Role", value: "Co-founder and Product Lead" },
+  { label: "Duration", value: "2020 to 2022" },
+  { label: "Team", value: "4 co-founders, plus a developer and data scientist" },
+  { label: "Context", value: "Incubated at Matrice (Banque des Territoires)" },
+  { label: "Funding", value: "€20k in grants" },
+  { label: "Outcome", value: "MVP shipped, commercial discussions with municipalities, no contract" },
 ];
 
-const TIMELINE = [
-  { date: "Oct 2020", phase: "Hackathon" },
-  { date: "Phase 1", phase: "Discovery" },
-  { date: "Phase 2", phase: "Pivot B2G" },
-  { date: "Phase 3", phase: "Prototype" },
-  { date: "Phase 4", phase: "Go-to-market" },
-  { date: "End 2022", phase: "Conclusion" },
-];
-
-const STATS = [
-  { v: "20+", k: "Stakeholder Interviews" },
-  { v: "3+1", k: "Iterative Prototypes" },
-  { v: "8+", k: "Metropolises Met" },
-  { v: "€20k", k: "Grants Secured" },
-];
-
-const QUOTES = [
+const NARRATIVE: { id: string; title: string; body: React.ReactNode }[] = [
   {
-    q: "Sonor finally provides us with the objective data we need to prioritize interventions and justify urban planning choices to our constituents.",
-    n: "Pierre Ferrari",
-    r: "Smart City Director, City of Arras",
+    id: "what-happened",
+    title: "What happened",
+    body: "To ease adoption, we offered services around the platform. Each city asked for something different: a field feasibility study for a Paris district town hall, mediation and a field study for a town west of Paris, communication on actions taken for a metropolitan authority. We had commercial discussions; none became a contract.",
   },
   {
-    q: "Acoustic health is a major public health issue. Tools like this are essential to move from observation to action in dense urban environments.",
-    n: "C. de Clermont-Tonnerre",
-    r: "Paris City Councillor",
+    id: "why-it-stopped",
+    title: "Why it stopped",
+    body: "No contract signed. When the grants and the incubation ended, so did Sonor.",
   },
   {
-    q: "By bridging open data and citizen engagement, Sonor proposes a modern approach to tackling noise pollution at the territorial level.",
-    n: "Lauriane Rossi",
-    r: "Deputy, Pres. Nat. Noise Council",
-  },
-];
-
-const FAQ = [
-  {
-    q: "Why did you stop the project?",
-    a: "The B2G sales cycles proved too long for an early-stage startup without significant bridging capital. While the pilot phase was successful, the timeline to secure recurring municipal contracts misaligned with our runway requirements.",
+    id: "what-id-change",
+    title: "What I'd change",
+    body: "Stay on delivering the product. We drifted into a \"neo-agency\" answering every need a city expressed, so the loop lived in our team's time, not in the product. I believe one use case, delivered and repeated, would have had a better chance of a first contract. I cannot prove it.",
   },
   {
-    q: "How did you fund it?",
-    a: "We were supported by early grants (Bourse French Tech), incubation resources from Matrice, and a strategic prototype commission from Banque des Territoires, totaling approximately €20k in non-dilutive funding alongside sweat equity.",
+    id: "what-i-applied-next",
+    title: "What I applied next",
+    body: (
+      <>
+        <Link to="/aetherix" className="text-primary border-b border-outline-variant hover:border-primary">Aetherix</Link> starts with one job, F&B covers, because its result can be checked the next morning. And the loop lives in the product: the recommendation, the manager's reply and the outcome are recorded without anyone in between.
+      </>
+    ),
   },
   {
-    q: "What were the key technical challenges?",
-    a: "Normalizing heterogeneous open-data sources, estimating noise propagation in complex urban canyons without dense IoT sensor networks, and building performant map visualizations that remained responsive with hundreds of thousands of data points.",
+    id: "related-work",
+    title: "Related work",
+    body: (
+      <>
+        <Link to="/tacet" className="text-primary border-b border-outline-variant hover:border-primary">Tacet</Link> carries the acoustic thesis forward, as an environmental twin for boutique hotels.
+      </>
+    ),
   },
 ];
 
 const SONOR_SECTIONS = [
-  { id: "curiosity", label: "Curiosity" },
-  { id: "hypothesis", label: "Hypothesis" },
-  { id: "product", label: "Product" },
-  { id: "outcome", label: "Outcome" },
+  { id: "hypothesis", label: "Prototype" },
+  { id: "product", label: "What it is" },
+  ...NARRATIVE.map((n) => ({ id: n.id, label: n.title })),
   { id: "platform", label: "Platform" },
-  { id: "stakeholders", label: "Stakeholders" },
-  { id: "faq", label: "FAQ" },
 ];
-
 const Sonor = () => {
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
   const { mood } = useMood();
@@ -133,7 +117,7 @@ const Sonor = () => {
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS}>
     <Seo
       title="Sonor, Urban Noise Intelligence for Cities"
-      description="B2G SaaS turning open data into urban noise maps for municipalities. Co-founder and Product Lead, 2020 to 2022."
+      description="B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; stopped in 2022."
       path="/sonor"
       type="article"
       jsonLd={[
@@ -146,15 +130,6 @@ const Sonor = () => {
           about: ["Urban Noise", "Open Data", "Public Sector SaaS"],
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           dateCreated: "2020-01-01",
-        },
-        {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: FAQ.map((f) => ({
-            "@type": "Question",
-            name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
         },
       ]}
     />
@@ -171,9 +146,7 @@ const Sonor = () => {
               Urban Intelligence.
             </h1>
             <p data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-xl md:text-2xl font-body text-on-surface-variant max-w-xl leading-relaxed mb-16">
-              A two-year entrepreneurial journey as Co-founder & Product Lead into the heart of city noise. Building an{" "}
-              <Term id="openData">open-data</Term> <Term id="saas">SaaS</Term> platform to transform invisible pollution into actionable insights for more silent,
-              sustainable, and livable cities.
+              B2G <Term id="saas">SaaS</Term> that turned acoustic <Term id="openData">open data</Term> into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-8 border-t border-outline-variant">
               {META.map((m, i) => (
@@ -210,39 +183,6 @@ const Sonor = () => {
         </div>
       </Reveal>
 
-      <CaseAnchors current="sonor" />
-
-      {/* The Curiosity */}
-      <section id="curiosity" className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
-        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
-          <div className="flex flex-col md:flex-row gap-12 md:gap-20">
-            <div className="w-full md:w-1/3">
-              <h2 className="text-4xl font-headline italic text-primary md:sticky md:top-40">The Curiosity</h2>
-            </div>
-            <div className="w-full md:w-2/3 space-y-12">
-              <p className="text-3xl font-headline leading-snug text-on-surface mb-12">
-                How do we reclaim silence in a world that's getting louder? We started with a simple question: "Can
-                open-source data be the key to designing quieter, more livable cities?"
-              </p>
-              <div className="space-y-8">
-                <h4 className="font-label uppercase tracking-widest text-xs text-secondary">The Observation</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                  <p className="text-on-surface-variant leading-relaxed">
-                    Urban noise is the second largest source of urban nuisance in Europe. 25 million people are exposed
-                    to dangerous nighttime noise levels.
-                  </p>
-                  <p className="text-on-surface-variant leading-relaxed">
-                    It generates multiple deep disorders (chronic stress, cardiovascular diseases, cognitive impacts in
-                    children) and carries a heavy social cost (48 000 deaths/year in Europe). Yet noise remains largely
-                    invisible and under-addressed by public policies.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* The Hypothesis (Figma prototype) */}
       <section id="hypothesis" className="py-16 md:py-28 bg-surface scroll-mt-24">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
@@ -262,10 +202,7 @@ const Sonor = () => {
             />
           </div>
           <p className="font-headline italic text-on-surface-variant text-lg md:text-xl leading-relaxed mt-10 max-w-3xl mx-auto">
-            By making noise visible and data truly actionable (through real-time multi-source mapping,
-            prioritized action plans, citizen engagement, and impact measurement), we could equip municipalities
-            and urban planners with the tools to anticipate, act, and protect the most fragile resource of a city:
-            silence.
+            The vision: a loop between a city and its residents. The platform gathers information (noise cartography, tracking of field surveys and regulation, alerts left by residents), field surveys collect what residents experience, findings are reported to the city, and the city's actions are communicated back to residents.
           </p>
         </div>
       </section>
@@ -278,7 +215,7 @@ const Sonor = () => {
               The Product
             </span>
             <h2 className="text-4xl md:text-5xl font-headline italic text-primary">
-              From prototype to platform.
+              From prototype to MVP.
             </h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center mb-16 md:mb-28">
@@ -301,21 +238,17 @@ const Sonor = () => {
               </div>
             </div>
             <div className="order-1 lg:order-2 space-y-8">
-              <h3 className="text-4xl font-headline italic text-primary">Data Synthesis</h3>
+              <h3 className="text-4xl font-headline italic text-primary">What it is</h3>
               <p className="text-on-surface-variant leading-relaxed text-lg">
-                We designed and shipped a SaaS decision-support platform that aggregates and normalizes multiple open
-                data sources, delivering high-fidelity, real-time city-wide acoustic mapping and actionable
-                recommendations for urban planners.
+                A SaaS platform built to turn open noise data into cartography and recommendations for city teams: map exposure, prioritise interventions, justify policy with evidence.
               </p>
             </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="space-y-8">
-              <h3 className="text-4xl font-headline italic text-primary">Citizen Engagement & Urban Quietude</h3>
+              <h3 className="text-4xl font-headline italic text-primary">A loop between a city and its residents</h3>
               <p className="text-on-surface-variant leading-relaxed text-lg">
-                The platform puts residents at the center: citizens can report local issues and share testimonies
-                directly. Planners receive prioritized action plans and can measure real impact over time, turning data
-                into concrete public policies that protect acoustic health.
+                Residents leave alerts and field surveys collect what they experience. Findings are reported to the city, and the city's actions are communicated back to residents.
               </p>
             </div>
             <div>
@@ -342,77 +275,17 @@ const Sonor = () => {
           </div>
         </div>
       </section>
-
-      {/* Outcome, midnight (day) / deep surface (dusk) */}
-      <section
-        id="outcome"
-        className="bg-primary text-on-primary data-[mood=dusk]:bg-surface-container-lowest data-[mood=dusk]:text-on-surface py-16 md:py-28 scroll-mt-24"
-        data-mood={mood}
-      >
-        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto space-y-16 md:space-y-24">
-          {/* Full-width timeline */}
-          <div className="space-y-8">
-            <span className="font-label uppercase tracking-[0.25em] text-xs md:text-sm text-primary-fixed-dim block">
-              From Hypothesis to Reality
-            </span>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-8 md:gap-x-6">
-              {TIMELINE.map((t, i) => (
-                <div key={t.phase} className="relative flex flex-col space-y-3">
-                  <span className="font-label uppercase tracking-[0.2em] text-xs text-secondary-fixed">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-xs font-label tracking-wider text-primary-fixed-dim uppercase">
-                    {t.date}
-                  </span>
-                  <span className="text-lg md:text-xl font-headline italic leading-tight">
-                    {t.phase}
-                  </span>
-                  {i < TIMELINE.length - 1 && (
-                    <Icon
-                      name="arrow_forward"
-                      className="hidden lg:block absolute -right-3 top-0 text-primary-fixed-dim text-sm"
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Title + stats split */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
-            <div className="space-y-12">
-              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-primary-fixed-dim block">
-                Milestones & Results
-              </span>
-              <h2 className="text-5xl md:text-7xl font-headline italic leading-tight">
-                Quiet, Measured, <br />
-                Returned.
-              </h2>
-              <div className="space-y-6 text-on-primary-container data-[mood=dusk]:text-on-surface-variant text-lg max-w-lg" data-mood={mood}>
-                <p>
-                  Through partnerships with Banque des Territoires and Matrice, Sonor has become a vital tool for
-                  municipalities seeking to value acoustic health as a cornerstone of sustainability and territorial
-                  attractiveness.
-                </p>
-                <p>
-                  Beyond the data points, the project proved that a quieter city isn't just a quieter city, it is a
-                  more humane, human-centric sanctuary for everyone who calls it home.
-                </p>
+      {/* Narrative */}
+      <section className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
+        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto space-y-16 md:space-y-20">
+          {NARRATIVE.map((n) => (
+            <div key={n.id} id={n.id} className="flex flex-col md:flex-row gap-6 md:gap-20 scroll-mt-24">
+              <div className="w-full md:w-1/3">
+                <h2 className="text-3xl md:text-4xl font-headline italic text-primary">{n.title}</h2>
               </div>
+              <p className="w-full md:w-2/3 text-lg md:text-xl text-on-surface-variant leading-relaxed">{n.body}</p>
             </div>
-            <div className="grid grid-cols-2 gap-6 md:gap-8">
-              {STATS.map((s) => (
-                <div
-                  key={s.k}
-                  className="lift-card p-6 md:p-8 border border-outline-variant space-y-4"
-                  data-mood={mood}
-                >
-                  <span className="text-4xl font-headline italic block">{s.v}</span>
-                  <p className="text-sm font-label uppercase tracking-widest text-primary-fixed-dim">{s.k}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -438,53 +311,9 @@ const Sonor = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary text-on-primary font-headline italic text-lg rounded-full hover:bg-primary-container transition-colors shadow-lg"
               >
-                Discover Banque des Territoires Vision →
+                Banque des Territoires vision →
               </a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stakeholders */}
-      <section id="stakeholders" className="py-16 md:py-28 bg-surface scroll-mt-24">
-        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
-          <div className="text-center mb-12 md:mb-20">
-            <h2 className="text-4xl md:text-5xl font-headline italic text-primary">What Stakeholders Said</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {QUOTES.map((q) => (
-              <div
-                key={q.n}
-                className="p-10 border border-outline-variant rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow"
-              >
-                <Icon name="format_quote" className="text-4xl text-primary mb-6 block opacity-40" />
-                <p className="font-headline text-lg text-on-surface-variant leading-relaxed mb-8 italic">"{q.q}"</p>
-                <div>
-                  <p className="font-bold text-primary">{q.n}</p>
-                  <p className="text-sm text-secondary uppercase tracking-wider mt-1">{q.r}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section id="faq" className="py-16 md:py-28 bg-surface-container-low border-t border-outline-variant scroll-mt-24">
-        <div className="px-6 md:px-12 max-w-3xl mx-auto space-y-12 md:space-y-16">
-          <h2 className="text-3xl md:text-4xl font-headline italic text-primary text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-8 md:space-y-12">
-            {FAQ.map((f, i) => (
-              <div
-                key={f.q}
-                className={i < FAQ.length - 1 ? "border-b border-outline-variant pb-8" : ""}
-              >
-                <h4 className="text-xl font-bold text-primary mb-4">{f.q}</h4>
-                <p className="text-on-surface-variant leading-relaxed">{f.a}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

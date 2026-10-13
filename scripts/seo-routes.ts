@@ -138,7 +138,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "sonor.md",
     title: "Sonor, Urban Noise Intelligence for Cities · Ivan de Murard",
     description:
-      "B2G SaaS turning open data into urban noise maps for municipalities. Co-founder and Product Lead, 2020 to 2022.",
+      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; stopped in 2022.",
     type: "article",
     changefreq: "yearly",
     priority: "0.7",
