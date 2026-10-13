@@ -10,6 +10,7 @@ import { visibleMinutes } from "./readingTime";
  */
 export const HARNESSES_ENTRY: JournalEntry = {
   slug: "harnesses-graders-closed-loops",
+  homeHook: { text: "Agents rarely fail loudly. They drift, quietly, until a customer notices. How to find out first: graders, harnesses, and the gaps I have not closed yet." },
   title: "Evaluating LLM agents: how would you know it had stopped working?",
   subtitle: "A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
   date: "2026-07-31",

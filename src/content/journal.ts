@@ -143,6 +143,7 @@ export type ReadingItem = {
 export const JOURNAL_ENTRIES: JournalEntry[] = [
   {
     slug: "agent-boundaries-aetherix",
+    homeHook: { title: "Keep the forecaster and the actor apart.", text: "One model that predicts and acts looks elegant on a slide. Why I split Prophet and Claude in two, and everything that single choice decided next." },
     title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
     subtitle:
       "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",

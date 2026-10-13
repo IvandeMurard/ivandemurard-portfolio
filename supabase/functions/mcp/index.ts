@@ -314,6 +314,7 @@ var visibleMinutes = (body, wpm = 230) => {
 // src/content/journalHarnesses.ts
 var HARNESSES_ENTRY = {
   slug: "harnesses-graders-closed-loops",
+  homeHook: { text: "Agents rarely fail loudly. They drift, quietly, until a customer notices. How to find out first: graders, harnesses, and the gaps I have not closed yet." },
   title: "Evaluating LLM agents: how would you know it had stopped working?",
   subtitle: "A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
   date: "2026-07-31",
@@ -1004,6 +1005,7 @@ HARNESSES_ENTRY.readingMinutes = visibleMinutes(HARNESSES_ENTRY.body);
 var PROOF = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md";
 var TRUTH_ENTRY = {
   slug: "whose-truth-is-the-ground-truth",
+  homeHook: { text: "Your agent learns from something: a forecast, a manager's yes, or what really happened the next morning. Pick the wrong one and you build a very confident yes-man." },
   title: "Whose truth is the ground truth?",
   subtitle: "An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.",
   date: "2026-10-11",
@@ -1185,6 +1187,7 @@ var TRUTH_ENTRY = {
 var JOURNAL_ENTRIES = [
   {
     slug: "agent-boundaries-aetherix",
+    homeHook: { title: "Keep the forecaster and the actor apart.", text: "One model that predicts and acts looks elegant on a slide. Why I split Prophet and Claude in two, and everything that single choice decided next." },
     title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
     subtitle: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
