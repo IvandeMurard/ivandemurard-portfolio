@@ -103,6 +103,8 @@ export type JournalEntry = {
   lang?: "en" | "fr";
   category: JournalCategory;
   excerpt: string;
+  /** Homepage-only excerpt (and optional display title); the note itself is unchanged. */
+  homeHook?: { text: string; title?: string };
   readingMinutes?: number;
   /** Public path to the plain markdown mirror, offered as a download. */
   mirror?: string;
