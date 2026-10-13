@@ -28,7 +28,7 @@ Replies: Accept · The right figure · Reject.
 
 ## 02 · Selected projects
 
-### Sonor (GO · Closed)
+### Sonor (DARK · Stopped)
 Urban noise SaaS, co-founded and led as product, 2020-2022.
 
 

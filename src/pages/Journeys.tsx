@@ -87,7 +87,7 @@ const ACTS: Act[] = [
     kicker: "Standalone project",
     slug: "sonor",
     name: PROJECTS.sonor.name,
-    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I built a SaaS platform that turns open data into actionable acoustic intelligence for cities. Used by municipalities to protect citizen health, drive sustainability policies, and increase territorial attractiveness.",
+    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I took a B2G SaaS from discovery to MVP, turning acoustic open data into a decision tool for cities. No contract signed; the project stopped in 2022.",
     note: "Outside: a B2G SaaS, two years, before any of this.",
     image: PROJECTS.sonor.image,
     cta: "Explore the Narrative",

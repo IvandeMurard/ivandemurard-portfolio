@@ -6,7 +6,7 @@ const STUDIES = [
     name: "Sonor",
     label: "SaaS · Urban Noise Insights · 2020-2022",
     tagline:
-      "Two-year journey as Co-founder & Product Lead. Turned open data into a SaaS platform used by European municipalities to protect acoustic health, drive sustainability policies, and increase territorial attractiveness.",
+      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.",
     url: "https://ivandemurard.com/sonor",
     markdown_path: "/sonor.md",
   },
