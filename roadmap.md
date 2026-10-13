@@ -54,4 +54,4 @@
 
 # Homepage clarity
 - [x] Restore the compass rose in Ask Rose, simplify project labels and bring the main CTA into view.
-- [ ] Refresh derived content and verify the preview without publishing.
+- [x] Refresh derived content and verify the preview without publishing.
