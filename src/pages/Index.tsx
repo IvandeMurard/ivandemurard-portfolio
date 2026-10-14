@@ -184,9 +184,6 @@ Why     conference check-ins, clear weather`}</p>
           </div>
         </Reveal>
       </section>
-
-      <Reveal as="section" className="py-10 md:py-14 px-6 md:px-10 max-w-screen-2xl mx-auto">
-      </Reveal>
     </SiteLayout>
   );
 };
