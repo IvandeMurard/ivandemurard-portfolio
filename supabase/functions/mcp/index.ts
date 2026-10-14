@@ -7,7 +7,21 @@ import { defineMcp } from "npm:@lovable.dev/mcp-js@0.24.0";
 
 // src/lib/mcp/tools/list-case-studies.ts
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
-var STUDIES = [
+
+// src/content/statuses.ts
+var STATUSES = {
+  sonor: { signal: "dark", word: "Stopped", note: "Urban noise SaaS on open data, 0\u21921 to MVP. No contract signed, stopped in 2022." },
+  aetherix: { signal: "warn", word: "Sandbox", note: "F&B agent for boutique hotels. Built, running on sandbox and public data, no hotel connected yet." },
+  tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
+  lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
+  anima: { signal: "stop", word: "Gated", note: "Guest memory node. Synthetic PoC, production gated behind a data-protection assessment." },
+  compass: { signal: "warn", word: "Partial", note: "Address-level context for Paris premises. 85,418 units traced to source, earlier census records withheld until licensed." }
+};
+var statusLine = (slug) => `Status: ${STATUSES[slug].word} \xB7 ${STATUSES[slug].note}`;
+var COMPASS_SOURCES_LINE = "APUR BDCom 2023 shopfront census \xB7 BODACC legal notices \xB7 INSEE Sirene \xB7 85,418 units \xB7 every figure with its source, licence and date";
+
+// src/lib/mcp/tools/list-case-studies.ts
+var BASE = [
   {
     slug: "sonor",
     name: "Sonor",
@@ -53,15 +67,16 @@ var STUDIES = [
     name: "Compass",
     group: "Standalone projects",
     label: "Data product \xB7 Commercial premises \xB7 Paris \xB7 2026",
-    tagline: "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris: three APUR shopfront censuses, BODACC legal notices and the INSEE Sirene register joined into one corpus of 85,418 units, each figure with its source, licence and date.",
+    tagline: "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. " + COMPASS_SOURCES_LINE + ".",
     url: "https://ivandemurard.com/compass",
     markdown_path: "/compass.md"
   }
 ];
+var STUDIES = BASE.map((s) => ({ ...s, status: { ...STATUSES[s.slug] } }));
 var list_case_studies_default = defineTool({
   name: "list_case_studies",
   title: "List case studies",
-  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, label, tagline, status (signal go|warn|stop|dark, word, note) and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
@@ -85,7 +100,7 @@ var SLUGS = {
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. Content covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: Stopped \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass.")
   },
@@ -101,7 +116,9 @@ var get_case_study_default = defineTool2({
           isError: true
         };
       }
-      const markdown = await res.text();
+      const markdown = `${statusLine(slug)}
+
+${await res.text()}`;
       return {
         content: [{ type: "text", text: markdown }],
         structuredContent: {
@@ -1514,7 +1531,8 @@ var mcp_default = defineMcp({
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state.",
     "Aetherix: The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet.",
-    "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative begins with One address, read in context, then Product strategy, Where AI sits, Built for people and AI agents, How sure is it?, and Where it stands. Earlier census records and any figures derived from them remain withheld until their licence is cleared.",
+    "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative begins with One address, read in context, then Product strategy, Where AI sits, Built for people and AI agents, How sure is it?, and Where it stands. Its corpus: APUR BDCom 2023 shopfront census \xB7 BODACC legal notices \xB7 INSEE Sirene \xB7 85,418 units \xB7 every figure with its source, licence and date. Earlier census records and any figures derived from them remain withheld until their licence is cleared.",
+    "Every case study carries a status (Stopped, Sandbox, Maintenance, Evaluated, Gated, Partial). Quote it; never upgrade it.",
     "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),
