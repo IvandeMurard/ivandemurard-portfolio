@@ -92,7 +92,7 @@ The answer is already public, in pieces nobody joins at the address:
 
 Earlier census records stay withheld until their licence is cleared.
 
-Compass joins them: 85,418 units, each figure with its source, licence and date.
+Compass joins them: APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
 
 ### What it refuses
 
@@ -194,3 +194,5 @@ Confidence levels across the corpus, measured 6 October 2026.
 [Schedule a conversation](https://cal.com/ivandemurard/discussion-and-introduction)
 
 © Ivan de Murard. All rights reserved.
+
+Data attribution: Base de données des commerces et services de Paris (BDCom) 2023, © APUR, licensed under the Open Database License (ODbL 1.0). BODACC and INSEE Sirene: Licence Ouverte 2.0 (Etalab).

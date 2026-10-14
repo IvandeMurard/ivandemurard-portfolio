@@ -1,5 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
+import { statusLine } from "../../../content/statuses";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -16,7 +17,7 @@ export default defineTool({
   name: "get_case_study",
   title: "Get case study",
   description:
-    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. Content covers vision, architecture, stack and outcomes.",
+    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (e.g. "Status: Stopped · ..."); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z
       .enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"])
@@ -34,7 +35,7 @@ export default defineTool({
           isError: true,
         };
       }
-      const markdown = await res.text();
+      const markdown = `${statusLine(slug)}\n\n${await res.text()}`;
       return {
         content: [{ type: "text", text: markdown }],
         structuredContent: {

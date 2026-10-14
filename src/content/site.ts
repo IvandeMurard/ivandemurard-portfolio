@@ -4,6 +4,7 @@ import tacetImg from "@/assets/case-tacet.png";
 import loreImg from "@/assets/case-lore.png";
 import animaImg from "@/assets/case-anima.png";
 import parisCompassImg from "@/assets/case-paris-compass.jpg";
+import { STATUSES } from "./statuses";
 
 
 export const SOCIAL_LINKS = {
@@ -36,7 +37,7 @@ export const UTILITY_NAV: { label: string; href: string }[] = [
 
 export const PROJECTS = {
   sonor: {
-    status: { signal: "dark", word: "Stopped", note: "Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022."},
+    status: STATUSES.sonor,
     slug: "sonor",
     name: "Sonor",
     tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.",
@@ -45,7 +46,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   atherix: {
-    status: { signal: "warn", word: "Sandbox", note: "F&B agent for boutique hotels. Built, running on sandbox and public data, no hotel connected yet." },
+    status: STATUSES.aetherix,
     slug: "aetherix",
     name: "Aetherix",
     tagline: "The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it.",
@@ -54,6 +55,7 @@ export const PROJECTS = {
     cta: "Read the Vision",
   },
   tacet: {
+    status: STATUSES.tacet,
     slug: "tacet",
     name: "Tacet",
     tagline: "Synthetic Acoustic Twin for hospitality. A headless intelligence layer that predicts how the external environment affects revenue and guest experience, pushing JSON alerts to RMS and PMS.",
@@ -62,7 +64,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   lore: {
-    status: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
+    status: STATUSES.lore,
     slug: "lore",
     name: "Lore",
     tagline: "Voice AI mentor for aviation maintenance. Captures what a retiring technician knows and never wrote down, then gives it back to a junior on the shop floor by voice, always behind the procedure.",
@@ -71,7 +73,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   anima: {
-    status: { signal: "stop", word: "Gated", note: "Guest memory node. Synthetic PoC, production gated behind a data-protection assessment." },
+    status: STATUSES.anima,
     slug: "anima",
     name: "Anima",
     tagline: "Memory that means no guest has to ask twice. A guest memory node: keeps what a guest said and what happened, so nobody asks twice, without watching. Synthetic PoC: never run on a real guest, production gated behind a data-protection assessment.",
@@ -80,7 +82,7 @@ export const PROJECTS = {
     cta: "The Full Narrative",
   },
   compass: {
-    status: { signal: "warn", word: "Partial", note: "Address-level context for Paris premises. 85,418 units traced to source, earlier census records withheld until licensed." },
+    status: STATUSES.compass,
     slug: "compass",
     name: "Compass",
     tagline: "Every address has a story. Compass reads it before you sign.",
