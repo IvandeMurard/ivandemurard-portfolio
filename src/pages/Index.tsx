@@ -170,7 +170,8 @@ Why     conference check-ins, clear weather`}</p>
             Prototypes are fast. <em className="accent-ink">Getting operations to trust them is the job.</em>
           </h2>
           <p className="mt-8 text-[18px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
-            Open to AI Product Manager and Product Builder roles. Thirty minutes is enough to know whether we should work together.
+            Open to AI Product Manager and Product Builder roles.
+            Let's talk!
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>
             <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
