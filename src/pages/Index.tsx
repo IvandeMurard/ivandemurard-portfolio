@@ -169,11 +169,11 @@ Why     conference check-ins, clear weather`}</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
             Prototypes are fast. <em className="accent-ink">Getting operations to trust them is the job.</em>
           </h2>
-          <p className="mt-8 text-[18px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
-            Open to AI Product Manager and Product Builder roles.
-          </p>
-          <p className="mt-3 font-headline italic text-[24px] md:text-[28px] text-secondary" data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }}>
-            <span className="talk-flourish">Let's talk!</span>
+          <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
+            Open to AI Product Manager and Product Builder roles.{" "}
+            <span className="font-headline italic text-secondary whitespace-nowrap">
+              <span className="talk-flourish">Let's talk!</span>
+            </span>
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>
             <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
