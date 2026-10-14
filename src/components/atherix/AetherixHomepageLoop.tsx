@@ -79,7 +79,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         <Bubble who="Aetherix" time={`${d.date} · evening before`} visible={step >= 1}>
           <p className="font-mono text-[13px] leading-[1.7] whitespace-pre-wrap text-on-surface">{eveningText(d)}</p>
         </Bubble>
-        <Bubble who="Manager" time="reply" mine visible={step >= 2}>
+        <Bubble who="F&B Manager" time="reply" mine visible={step >= 2}>
           <div className="flex items-start justify-between gap-3">
             <p className="font-mono text-[13px] leading-[1.7] text-on-surface">{d.reply.text}</p>
             <SignalLamp state={d.reply.signal as "go" | "warn" | "stop"} label={d.reply.kind} />
