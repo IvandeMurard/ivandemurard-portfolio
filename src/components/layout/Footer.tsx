@@ -79,6 +79,9 @@ export const Footer = () => {
               © {new Date().getFullYear()} Ivan de Murard · Curated with Care ·{" "}
               <Link to="/cv" className="hover:text-primary transition-colors">
                 Curriculum Vitae
+              </Link>{" "}·{" "}
+              <Link to="/privacy" className="hover:text-primary transition-colors">
+                Privacy
               </Link>
             </p>
           </div>
