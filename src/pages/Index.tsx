@@ -4,6 +4,7 @@ import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Reveal } from "@/components/Reveal";
 import { COMPASS_SOURCES_LINE } from "@/content/statuses";
 import { SignalLamp } from "@/components/journal/SignalLamp";
+import { AetherixHomepageLoop } from "@/components/atherix/AetherixHomepageLoop";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
@@ -91,21 +92,8 @@ const Index = () => {
               </Link>
               <p className="mt-5 font-mono text-[11.5px] text-signal-warn">Built and testable. Not yet proven in a hotel.</p>
             </div>
-            <div className="w-full max-w-[460px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
-              <div className="bg-surface border border-outline-variant shadow-lg p-5 rounded-[18px_18px_18px_4px]">
-                <div className="flex justify-between font-mono text-[11px] text-on-surface-variant mb-3"><span>Aetherix</span><span>Mon 18:42</span></div>
-                <p className="font-mono text-[13.5px] leading-[1.75] whitespace-pre-wrap text-on-surface">{`Breakfast tomorrow   84 covers
-  72 rooms booked + 12 typical walk-ins
-Staff   4 front of house
-  (you ran 3 last Tuesday)
-Why     conference check-ins, clear weather`}</p>
-              </div>
-              <div className="mt-4 flex flex-wrap justify-end gap-2" aria-hidden="true">
-                <span className="font-mono text-[12.5px] px-3 py-1.5 rounded-full border border-signal-go text-on-surface">Accept</span>
-                <span className="font-mono text-[12.5px] px-3 py-1.5 rounded-full border border-signal-warn text-on-surface">The right figure</span>
-                <span className="font-mono text-[12.5px] px-3 py-1.5 rounded-full border border-signal-stop text-on-surface">Reject</span>
-              </div>
-              <p className="mt-3 text-right font-mono text-[11px] text-on-surface-variant">Format mock-up. Figures illustrative.</p>
+            <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
+              <AetherixHomepageLoop />
             </div>
           </div>
         </Reveal>

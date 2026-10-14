@@ -14,17 +14,26 @@ The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's 
 
 Built and testable. Not yet proven in a hotel.
 
-The message the manager receives (format mock-up, figures illustrative):
+Three days from a sandbox run (synthetic data, real services, seed 42, translated from the original run): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/tree/f01251d77b512dd97716eb01e461499a28e5e301/demo/closed-loop
 
-```
-Breakfast tomorrow   84 covers
-  72 rooms booked + 12 typical walk-ins
-Staff   4 front of house
-  (you ran 3 last Tuesday)
-Why     conference check-ins, clear weather
-```
+### Day 1 · Who's right?
 
-Replies: Accept · The right figure · Reject.
+- Evening: covers expected 101 (range 94–109, confidence 0.9). Staffing: 6 front of house · 3 kitchen. Hotel at 98% occupancy, strong pressure expected on the restaurant.
+- Manager (WARN): I'd say 79 covers instead.
+- Next morning (GO): Actual: 95 covers (forecast 101, within range).
+
+### Day 10 · It refuses
+
+- Evening: covers expected 85 (range 78–92, confidence 0.9). Staffing: 5 front of house · 2 kitchen.
+- Manager (GO): OK
+- Next morning (STOP): Yesterday's POS figure (900 covers) is implausible (implausible_feedback): discarded, it will not feed learning. Could you check the till export?
+- reason: implausible_feedback
+
+### Day 17 · It sees it coming
+
+- Evening: covers expected 82 (range 75–90, confidence 0.9). Staffing: 5 front of house · 2 kitchen.
+- Manager (GO): OK
+- Next morning (WARN): Actual: 92 covers (forecast 82, gap +11%). Third consecutive under-estimate: a regime change seems under way (new contract? recurring group?). The weekly recalibration will absorb it; ranges widened until then.
 
 ## 02 · Selected projects
 
