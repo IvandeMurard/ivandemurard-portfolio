@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
+import { CAL_URL } from "./roseConfig";
+import { logRoseEvent } from "./roseEvents";
 import roseMark from "@/assets/rose-mark.png";
 
 const SESSION_KEY = "rose_session";
@@ -34,9 +36,55 @@ const renderText = (m: UIMessage): string =>
         .join("")
     : "";
 
-interface RoseDockProps {
-  onClose?: () => void;
-}
+type ToolPart = { type: string; input?: Record<string, unknown> };
+const findTool = (m: UIMessage, name: string): ToolPart | undefined =>
+  Array.isArray(m.parts)
+    ? (m.parts as ToolPart[]).find((p) => typeof p.type === "string" && p.type === `tool-${name}`)
+    : undefined;
+
+type Section = { id: string; heading: string } | null;
+
+/** The h2[id] closest above the upper third of the viewport. */
+const useSectionInView = (pathname: string): React.MutableRefObject<Section> => {
+  const ref = useRef<Section>(null);
+  useEffect(() => {
+    ref.current = null;
+    const headings = Array.from(document.querySelectorAll<HTMLHeadingElement>("main h2[id]"));
+    if (!headings.length) return;
+    const visible = new Map<Element, boolean>();
+    const pick = () => {
+      const line = window.innerHeight / 3;
+      let current: HTMLHeadingElement | null = null;
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top <= line) current = h;
+      }
+      ref.current = current
+        ? { id: current.id, heading: (current.textContent ?? "").trim().slice(0, 120) }
+        : null;
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => visible.set(e.target, e.isIntersecting));
+      pick();
+    }, { rootMargin: "0px 0px -66% 0px" });
+    headings.forEach((h) => io.observe(h));
+    window.addEventListener("scroll", pick, { passive: true });
+    pick();
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", pick);
+    };
+  }, [pathname]);
+  return ref;
+};
+
+const CompassMark = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false" className={className} fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="20" cy="20" r="17" />
+    <circle cx="20" cy="20" r="5.5" strokeWidth="0.8" />
+    <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" />
+    <path d="M8 8l6 6M32 8l-6 6M8 32l6-6M32 32l-6-6" strokeWidth="0.6" />
+  </svg>
+);
 
 export const RoseDock = () => {
   const [open, setOpen] = useState(false);
@@ -44,52 +92,95 @@ export const RoseDock = () => {
     "product" | "technical" | "culture" | "exploring" | null
   >(null);
   const [inputValue, setInputValue] = useState("");
-  const [hovered, setHovered] = useState(false);
   const [focusWithin, setFocusWithin] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [pastHero, setPastHero] = useState(false);
+  const [lift, setLift] = useState(0);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
   const sessionId = useMemo(() => getSessionId(), []);
   const { pathname } = useLocation();
   const prompts = useMemo(() => getRosePrompts(pathname), [pathname]);
+  const sectionRef = useSectionInView(pathname);
+  const isHome = pathname === "/";
 
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
         api: `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rose-chat`,
-        headers: {
-          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-        },
+        headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
       }),
     [],
   );
 
-  const { messages, sendMessage, status, error } = useChat({
-    id: sessionId,
-    transport,
-  });
-
+  const { messages, sendMessage, status, error } = useChat({ id: sessionId, transport });
   const isLoading = status === "submitted" || status === "streaming";
 
-  // Resting state = glass veil; any engagement restores the full surface.
-  const active =
-    open || hovered || focusWithin || isLoading || inputValue.trim().length > 0;
+  const log = (kind: Parameters<typeof logRoseEvent>[0]["kind"], label?: string, usedChip = false) =>
+    logRoseEvent({
+      session_id: sessionId,
+      path: pathname,
+      section_id: sectionRef.current?.id ?? null,
+      kind,
+      label_or_question: label ?? null,
+      used_chip: usedChip,
+    });
 
-  // Focus expanded textarea when opening.
+  // Homepage: the dock waits until the hero call to action has scrolled away.
+  useEffect(() => {
+    if (!isHome) { setPastHero(true); return; }
+    setPastHero(false);
+    const cta = document.querySelector('[data-cta="primary"]');
+    if (!cta) { setPastHero(true); return; }
+    const io = new IntersectionObserver(([e]) => {
+      setPastHero(!e.isIntersecting && e.boundingClientRect.top < 0);
+    });
+    io.observe(cta);
+    return () => io.disconnect();
+  }, [isHome]);
+
+  // Lift above the footer so its links stay reachable.
+  useEffect(() => {
+    const onScroll = () => {
+      const footer = document.querySelector("footer");
+      if (!footer) return setLift(0);
+      const overlap = window.innerHeight - footer.getBoundingClientRect().top;
+      setLift(overlap > 0 ? overlap : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
+
   useEffect(() => {
     if (open) {
+      log("opened");
       requestAnimationFrame(() => expandedInputRef.current?.focus());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  /**
-   * Every turn carries the page being read. A chip additionally travels as an
-   * opening hypothesis (its intent), so Rose can qualify instead of explaining.
-   */
+  // One booking_proposed event per assistant message that renders the card.
+  const proposedSeen = useRef(new Set<string>());
+  useEffect(() => {
+    for (const m of messages) {
+      if (m.role !== "assistant" || proposedSeen.current.has(m.id)) continue;
+      if (findTool(m, "propose_booking")) {
+        proposedSeen.current.add(m.id);
+        log("booking_proposed");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
+
   const submit = (text: string, suggested?: RosePrompt) => {
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
     if (!open) setOpen(true);
     setInputValue("");
+    const section = sectionRef.current;
     void sendMessage(
       { text: trimmed },
       {
@@ -97,6 +188,7 @@ export const RoseDock = () => {
           page: {
             path: pathname,
             title: typeof document !== "undefined" ? document.title : "",
+            ...(section ? { section_id: section.id, section_heading: section.heading } : {}),
           },
           ...(suggested
             ? { suggested: { label: suggested.label, intent: suggested.intent ?? null } }
@@ -107,16 +199,33 @@ export const RoseDock = () => {
   };
 
   const onChip = (chip: RosePrompt) => {
+    if (chip.booking) {
+      log("booking_clicked", chip.label, true);
+      window.open(CAL_URL, "_blank", "noopener,noreferrer");
+      return;
+    }
     if (chip.intent) setDetectedIntent(chip.intent);
+    log("chip", chip.label, true);
     submit(chip.message, chip);
   };
 
-  // Ready prompts elsewhere on the site (Field Notes) open the dock pre-filled.
+  const onFollowup = (text: string) => {
+    log("followup", text, true);
+    submit(text);
+  };
+
+  const onFree = () => {
+    if (!inputValue.trim() || isLoading) return;
+    log("question", inputValue.trim(), false);
+    submit(inputValue);
+  };
+
   useEffect(() => {
     const onAsk = (event: Event) => {
       const text = (event as CustomEvent<{ text?: string }>).detail?.text;
       if (!text) return;
       setOpen(true);
+      log("question", text, true);
       submit(text);
     };
     const onOpen = () => setOpen(true);
@@ -128,60 +237,46 @@ export const RoseDock = () => {
     };
   });
 
-  // On the homepage Rose lives in the header pill; the dock appears only once opened.
-  if (pathname === "/" && !open) return null;
+  const hidden = !open && !pastHero;
+  const showChips = open ? messages.length === 0 : focusWithin;
+  const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
 
-
-  // Compact dock (bottom-centered). Shown always; opens the panel on interaction.
   return (
     <>
-      {/* Backdrop when expanded (mobile) */}
       {open ? (
         <button
           aria-label="Close Rose"
           onClick={() => setOpen(false)}
-          className="fixed inset-0 z-40 bg-scrim/30 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-40 bg-scrim/30 md:hidden"
         />
       ) : null}
 
       <div
+        aria-hidden={hidden || undefined}
+        style={{ transform: `translateY(${hidden ? "160%" : `-${lift}px`})` }}
         className={cn(
-          "fixed z-50 pointer-events-none",
-          "bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 md:bottom-6 md:w-[min(560px,calc(100vw-3rem))]",
+          "fixed z-50 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none",
+          "bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-ml-[min(280px,calc(50vw-1.5rem))] md:bottom-6 md:w-[min(560px,calc(100vw-3rem))]",
+          hidden ? "pointer-events-none opacity-0" : "opacity-100",
         )}
       >
         <div
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
           onFocusCapture={() => setFocusWithin(true)}
-          onBlurCapture={() => setFocusWithin(false)}
+          onBlurCapture={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node)) setFocusWithin(false);
+          }}
           className={cn(
-            "pointer-events-auto flex flex-col overflow-hidden rounded-3xl border backdrop-blur-md transition-all duration-300 motion-reduce:transition-none",
-            active
-              ? "border-outline-variant bg-surface-container-lowest/95 shadow-2xl shadow-black/10"
-              : "border-outline-variant/40 bg-surface-container-lowest/35 shadow-lg shadow-black/5",
-            open ? "max-h-[min(600px,80vh)]" : "max-h-[220px]",
+            "flex flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest",
+            open ? "max-h-[min(600px,80vh)] shadow-xl shadow-primary/10" : "shadow-md shadow-primary/5",
           )}
         >
-          {/* Header — only when expanded */}
           {open ? (
             <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
               <div className="flex items-center gap-2.5">
-                <img
-                  src={roseMark}
-                  alt=""
-                  width={28}
-                  height={28}
-                  loading="lazy"
-                  className="h-7 w-7 dark:invert"
-                />
+                <img src={roseMark} alt="" width={28} height={28} loading="lazy" className="h-7 w-7 dark:invert" />
                 <div className="flex flex-col">
-                  <span className="font-headline italic text-base text-primary leading-none">
-                    Rose
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">
-                    Ivan's site agent
-                  </span>
+                  <span className="font-headline italic text-base text-primary leading-none">Rose</span>
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Ivan's site agent</span>
                 </div>
               </div>
               <button
@@ -194,70 +289,53 @@ export const RoseDock = () => {
             </div>
           ) : null}
 
-          {/* Expanded transcript */}
           {open ? (
-            <div
-              className="flex-1 overflow-y-auto px-5 py-4"
-              role="log"
-              aria-live="polite"
-            >
+            <div className="flex-1 overflow-y-auto px-5 py-4" role="log" aria-live="polite">
               {messages.length === 0 && !isLoading ? (
-                <p className="text-sm text-on-surface-variant">
-                  Pick a topic below, or ask anything about Ivan's work.
-                </p>
+                <p className="text-sm text-on-surface-variant">Pick a topic below, or ask anything.</p>
               ) : null}
 
               <div className="flex flex-col gap-4">
                 {messages.map((m) => {
                   const text = renderText(m);
-                  const bookingPart = Array.isArray(m.parts)
-                    ? m.parts.find(
-                        (p) =>
-                          typeof p.type === "string" &&
-                          p.type.startsWith("tool-propose_booking"),
-                      )
-                    : undefined;
-
                   if (m.role === "user") {
                     return (
                       <div key={m.id} className="ml-auto max-w-[85%]">
-                        <div className="rounded-2xl bg-secondary/10 px-4 py-2.5 text-sm text-on-surface">
-                          {text}
-                        </div>
+                        <div className="rounded-2xl bg-secondary/10 px-4 py-2.5 text-sm text-on-surface">{text}</div>
                       </div>
                     );
                   }
-
-                  const bookingInput =
-                    bookingPart &&
-                    typeof (bookingPart as { input?: unknown }).input ===
-                      "object"
-                      ? ((bookingPart as { input: Record<string, unknown> })
-                          .input as { intent?: string; reason?: string })
-                      : undefined;
-
+                  const booking = findTool(m, "propose_booking")?.input as
+                    | { intent?: string; reason?: string }
+                    | undefined;
+                  const follow = findTool(m, "suggest_followups")?.input as { items?: unknown } | undefined;
+                  const items = Array.isArray(follow?.items)
+                    ? (follow!.items as unknown[]).filter((x): x is string => typeof x === "string").slice(0, 2)
+                    : [];
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
-                      {text ? (
-                        <div className="whitespace-pre-wrap text-sm text-on-surface">
-                          {text}
-                        </div>
-                      ) : null}
-                      {bookingInput ? (
+                      {text ? <div className="whitespace-pre-wrap text-sm text-on-surface">{text}</div> : null}
+                      {booking ? (
                         <RoseBookingCard
-                          intent={
-                            (bookingInput.intent as
-                              | "product"
-                              | "technical"
-                              | "culture"
-                              | "exploring"
-                              | undefined) ??
-                            detectedIntent
-                          }
-                          reason={bookingInput.reason ?? ""}
+                          intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}
+                          reason={booking.reason ?? ""}
                           messages={messages}
                           sessionId={sessionId}
                         />
+                      ) : null}
+                      {items.length && m.id === lastAssistantId && !isLoading ? (
+                        <div className="mt-3 flex flex-wrap gap-2" aria-label="Suggested follow-ups">
+                          {items.map((q) => (
+                            <button
+                              key={q}
+                              type="button"
+                              onClick={() => onFollowup(q)}
+                              className="rounded-full border border-outline-variant bg-surface-container px-3.5 py-1.5 text-xs text-on-surface transition-colors hover:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                            >
+                              {q}
+                            </button>
+                          ))}
+                        </div>
                       ) : null}
                     </div>
                   );
@@ -271,34 +349,26 @@ export const RoseDock = () => {
                   </div>
                 ) : null}
 
-                {error ? (
-                  <p className="text-xs text-destructive">
-                    Something went off. Try again in a moment.
-                  </p>
-                ) : null}
+                {error ? <p className="text-xs text-destructive">Something went off. Try again in a moment.</p> : null}
               </div>
             </div>
           ) : null}
 
-          {/* Chips row — expanded, or when the resting dock is engaged */}
-          {(open ? messages.length === 0 : active) ? (
-            <div
-              className={cn(
-                "flex flex-wrap gap-2 px-5",
-                open ? "pb-3" : "pt-4 pb-3",
-              )}
-            >
-              {prompts.slice(0, open ? 4 : 3).map((chip) => (
+          {showChips ? (
+            <div className={cn("flex flex-wrap gap-2 px-4", open ? "pb-3" : "pt-3")}>
+              {prompts.map((chip) => (
                 <button
                   key={chip.label}
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => onChip(chip)}
-                  disabled={isLoading}
-                  aria-label={chip.ariaLabel ?? chip.label}
+                  disabled={isLoading && !chip.booking}
+                  aria-label={chip.booking ? "Book a call (opens cal.com in a new tab)" : chip.ariaLabel ?? chip.label}
                   className={cn(
-                    "rounded-full border px-3.5 py-1.5 text-xs text-on-surface transition-all duration-300 motion-reduce:transition-none hover:border-secondary hover:bg-secondary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50",
-                    active
-                      ? "border-outline-variant bg-surface-container"
-                      : "border-outline-variant/40 bg-surface-container/40",
+                    "rounded-full border px-3.5 py-1.5 text-xs transition-colors hover:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50",
+                    chip.booking
+                      ? "border-secondary text-secondary bg-surface-container-lowest"
+                      : "border-outline-variant bg-surface-container text-on-surface",
                   )}
                 >
                   {chip.label}
@@ -307,35 +377,14 @@ export const RoseDock = () => {
             </div>
           ) : null}
 
-          {/* Composer */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              submit(inputValue);
+              onFree();
             }}
-            className={cn(
-              "flex items-center gap-2 border-outline-variant px-3 py-3",
-              open ? "border-t" : "",
-            )}
+            className={cn("flex items-center gap-2 px-3", open ? "border-t border-outline-variant py-3" : "h-[52px] md:h-[48px] py-0")}
           >
-            <div className={cn("flex items-center pl-2", open && "hidden")}>
-              <svg
-                viewBox="0 0 40 40"
-                aria-hidden="true"
-                focusable="false"
-                className="h-6 w-6 text-secondary"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="20" cy="20" r="17" />
-                <circle cx="20" cy="20" r="5.5" strokeWidth="0.8" />
-                <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" />
-                <path d="M8 8l6 6M32 8l-6 6M8 32l6-6M32 32l-6-6" strokeWidth="0.6" />
-              </svg>
-            </div>
+            {!open ? <CompassMark className="ml-1 h-6 w-6 shrink-0 text-secondary" /> : null}
             {open ? (
               <textarea
                 ref={expandedInputRef}
@@ -344,7 +393,7 @@ export const RoseDock = () => {
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
-                    submit(inputValue);
+                    onFree();
                   }
                 }}
                 placeholder="Ask Rose anything"
@@ -355,22 +404,24 @@ export const RoseDock = () => {
               />
             ) : (
               <input
-                ref={inputRef}
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onFocus={() => setOpen(true)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && inputValue.trim()) setOpen(true);
+                }}
                 placeholder="Ask Rose anything"
                 aria-label="Message Rose"
                 className="flex-1 bg-transparent px-2 py-1.5 text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none"
-                disabled={isLoading}
+                tabIndex={hidden ? -1 : 0}
               />
             )}
             <button
               type="submit"
               disabled={isLoading || !inputValue.trim()}
               aria-label="Send message to Rose"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-on-secondary transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest disabled:opacity-40"
+              tabIndex={hidden ? -1 : 0}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary text-on-secondary transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-40"
             >
               <Icon name="arrow_upward" className="text-lg" />
             </button>
