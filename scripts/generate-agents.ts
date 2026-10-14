@@ -9,7 +9,7 @@ import { AGENTS_DOC, renderAgentsMarkdown } from "../src/content/agents";
 import { statusLine } from "../src/content/statuses";
 
 const date = new Date().toISOString().slice(0, 10);
-const sonor = readFileSync(resolve("public/sonor.md"), "utf8");
+const sonor = readFileSync(resolve("public/sonor.md"), "utf8").replace(/\r\n/g, "\n");
 const response = `${statusLine("sonor")}\n\n${sonor}`;
 const excerpt = response.split("\n").slice(0, 5).join("\n");
 if (!excerpt.includes(AGENTS_DOC.highlight)) {
