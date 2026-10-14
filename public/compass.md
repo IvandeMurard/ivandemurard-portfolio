@@ -191,8 +191,8 @@ Confidence levels across the corpus, measured 6 October 2026.
 | Demo on the live corpus | In progress |
 | AI layer | Design |
 
+Data attribution: Base de données des commerces et services de Paris (BDCom) 2023, © APUR, licensed under the Open Database License (ODbL 1.0). BODACC and INSEE Sirene: Licence Ouverte 2.0 (Etalab).
+
 [Schedule a conversation](https://cal.com/ivandemurard/discussion-and-introduction)
 
 © Ivan de Murard. All rights reserved.
-
-Data attribution: Base de données des commerces et services de Paris (BDCom) 2023, © APUR, licensed under the Open Database License (ODbL 1.0). BODACC and INSEE Sirene: Licence Ouverte 2.0 (Etalab).
