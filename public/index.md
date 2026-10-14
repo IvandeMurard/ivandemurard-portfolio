@@ -26,7 +26,7 @@ Three days from a sandbox run (synthetic data, real services, seed 42, translate
 
 - Evening: covers expected 85 (range 78–92, confidence 0.9). Staffing: 5 front of house · 2 kitchen.
 - Manager (GO): OK
-- Next morning (STOP): Yesterday's POS figure (900 covers) is implausible (implausible_feedback): discarded, it will not feed learning. Could you check the till export?
+- Next morning (STOP): Yesterday's POS figure (850 covers) is implausible (implausible_feedback): discarded, it will not feed learning. Could you check the till export?
 - reason: implausible_feedback
 
 ### Day 17 · It sees it coming

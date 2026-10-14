@@ -58,8 +58,8 @@
       "morning": {
         "kind": "quarantine",
         "signal": "stop",
-        "text": "Yesterday's POS figure (900 covers) is implausible (implausible_feedback): discarded, it will not feed learning. Could you check the till export?",
-        "actual": 900.0,
+        "text": "Yesterday's POS figure (850 covers) is implausible (implausible_feedback): discarded, it will not feed learning. Could you check the till export?",
+        "actual": 850.0,
         "ape_pct": null
       }
     },

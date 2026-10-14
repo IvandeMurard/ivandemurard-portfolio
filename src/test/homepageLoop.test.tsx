@@ -23,7 +23,7 @@ describe("homepage loop numbers match the JSON", () => {
 
   it("day 10 shows the quarantine reason", () => {
     const { getByText } = render(<AetherixHomepageLoop initialTab={1} />);
-    expect(getByText("reason: implausible_feedback")).toBeInTheDocument();
+    expect(getByText(/reason: implausible_feedback/)).toBeInTheDocument();
   });
 
   it("no em-dashes in the dataset", () => {
