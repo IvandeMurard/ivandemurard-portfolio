@@ -1,0 +1,94 @@
+{
+  "provenance": {
+    "repo": "IvandeMurard/Hospitality-Multi-agent-Architecture",
+    "commit": "f01251d77b512dd97716eb01e461499a28e5e301",
+    "path": "demo/closed-loop/",
+    "seed": 42,
+    "data": "synthetic sandbox",
+    "services": "real PredictionEngine, StaffingService, feedback_guard",
+    "translated": true
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-01-01",
+      "evening": {
+        "predicted": 101,
+        "range": [
+          94,
+          109
+        ],
+        "confidence": 0.9,
+        "staffing": "6 front of house · 3 kitchen",
+        "context": "Hotel at 98% occupancy, strong pressure expected on the restaurant."
+      },
+      "reply": {
+        "kind": "modified",
+        "signal": "warn",
+        "text": "I'd say 79 covers instead.",
+        "counter": 79
+      },
+      "morning": {
+        "kind": "outcome",
+        "signal": "go",
+        "text": "Actual: 95 covers (forecast 101, within range).",
+        "actual": 95.0,
+        "ape_pct": 6.3
+      }
+    },
+    {
+      "day": 10,
+      "date": "2026-01-10",
+      "evening": {
+        "predicted": 85,
+        "range": [
+          78,
+          92
+        ],
+        "confidence": 0.9,
+        "staffing": "5 front of house · 2 kitchen",
+        "context": null
+      },
+      "reply": {
+        "kind": "accepted",
+        "signal": "go",
+        "text": "OK",
+        "counter": 85
+      },
+      "morning": {
+        "kind": "quarantine",
+        "signal": "stop",
+        "text": "Yesterday's POS figure (900 covers) is implausible (implausible_feedback): discarded, it will not feed learning. Could you check the till export?",
+        "actual": 900.0,
+        "ape_pct": null
+      }
+    },
+    {
+      "day": 17,
+      "date": "2026-01-17",
+      "evening": {
+        "predicted": 82,
+        "range": [
+          75,
+          90
+        ],
+        "confidence": 0.9,
+        "staffing": "5 front of house · 2 kitchen",
+        "context": null
+      },
+      "reply": {
+        "kind": "accepted",
+        "signal": "go",
+        "text": "OK",
+        "counter": 82
+      },
+      "morning": {
+        "kind": "drift",
+        "signal": "warn",
+        "text": "Actual: 92 covers (forecast 82, gap +11%). Third consecutive under-estimate: a regime change seems under way (new contract? recurring group?). The weekly recalibration will absorb it; ranges widened until then.",
+        "actual": 92.0,
+        "ape_pct": 10.9
+      }
+    }
+  ]
+}
