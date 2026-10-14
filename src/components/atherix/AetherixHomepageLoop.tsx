@@ -52,7 +52,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
           const sig = LOOP.days[i].morning.signal;
           const active = tab === i;
           return (
-            <button key={label} role="tab" type="button" aria-selected={active} onClick={() => setTab(i)}
+            <button key={label} role="tab" type="button" aria-selected={active} aria-label={label} onClick={() => setTab(i)}
               className={cn(
                 "group text-left px-3 py-2 rounded-[4px] border cursor-pointer transition-all duration-200",
                 "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-on-surface",

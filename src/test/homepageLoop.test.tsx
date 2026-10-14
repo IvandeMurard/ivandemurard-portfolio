@@ -8,8 +8,8 @@ const numbersIn = (s: string) => (s.match(/\d+(?:\.\d+)?/g) ?? []).map(Number);
 describe("homepage loop numbers match the JSON", () => {
   LOOP.days.forEach((d, i) => {
     it(`day ${d.day}`, () => {
-      const { container, getByText } = render(<AetherixHomepageLoop initialTab={0} />);
-      fireEvent.click(getByText(LOOP_TABS[i]));
+      const { container, getByText, getByRole } = render(<AetherixHomepageLoop initialTab={0} />);
+      fireEvent.click(getByRole("tab", { name: LOOP_TABS[i] }));
       const text = container.querySelector("[role=tabpanel]")!.textContent ?? "";
       const shown = numbersIn(text);
       const expected = [d.evening.predicted, ...d.evening.range, d.evening.confidence, d.reply.counter, d.morning.actual];
