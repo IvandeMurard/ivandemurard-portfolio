@@ -486,6 +486,36 @@
   .accent-ink { font-style: italic; color: hsl(var(--primary-container)); }
   [data-mood="dusk"] .accent-ink { color: hsl(var(--primary)); }
 
+  /* Inverted closing room (homepage Contact). Day: Picasso ink; Dusk: deepest taupe.
+     Tokens are re-scoped locally so children keep using semantic classes. */
+  .section-inverse {
+    background-color: hsl(215 100% 11%);
+    --primary: 42 41% 97%;
+    --primary-container: 39 96% 82%;
+    --on-primary: 215 100% 11%;
+    --secondary: 39 96% 82%;
+    --on-secondary: 38 45% 12%;
+    --on-surface: 42 30% 92%;
+    --on-surface-variant: 42 15% 78%;
+    --outline-variant: 42 15% 60%;
+  }
+  [data-mood="dusk"] .section-inverse .accent-ink { color: hsl(var(--secondary)); }
+  [data-mood="dusk"] .section-inverse { background-color: hsl(32 14% 7%); --primary-container: 39 80% 70%; --secondary: 39 80% 70%; }
+
+  /* "Let's talk!" flourish: gold underline draws after the line has risen. */
+  .talk-flourish { position: relative; display: inline-block; }
+  .talk-flourish::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1.5px;
+    background-color: hsl(var(--secondary) / 0.75);
+    transform-origin: left center; transform: scaleX(0);
+    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 650ms, background-color 300ms ease;
+  }
+  [data-revealed="true"] .talk-flourish::after { transform: scaleX(1); }
+  .talk-flourish:hover::after { background-color: hsl(var(--secondary)); }
+  @media (prefers-reduced-motion: reduce) {
+    .talk-flourish::after { transition: none; transform: scaleX(1); }
+  }
+
   .headline-ink {
     opacity: 0;
     -webkit-clip-path: inset(0 100% 0 0);
