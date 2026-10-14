@@ -45,14 +45,34 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
 
   return (
     <div className="w-full">
-      <div role="tablist" aria-label="Three days of the closed loop" className="flex flex-wrap gap-2 mb-5">
-        {LOOP_TABS.map((label, i) => (
-          <button key={label} role="tab" type="button" aria-selected={tab === i} onClick={() => setTab(i)}
-            className={cn("font-mono text-[11.5px] px-3 py-1.5 rounded-full border transition-colors",
-              tab === i ? "border-on-surface text-on-surface bg-surface" : "border-outline-variant text-on-surface-variant hover:text-on-surface")}>
-            {label}
-          </button>
-        ))}
+      <div role="tablist" aria-label="Three days of the closed loop"
+        className="grid grid-cols-3 gap-1 p-1 mb-5 rounded-md bg-surface-container border border-outline-variant">
+        {LOOP_TABS.map((label, i) => {
+          const [day, title] = label.split(" · ");
+          const sig = LOOP.days[i].morning.signal;
+          const active = tab === i;
+          return (
+            <button key={label} role="tab" type="button" aria-selected={active} onClick={() => setTab(i)}
+              className={cn(
+                "group text-left px-3 py-2 rounded-[4px] border cursor-pointer transition-all duration-200",
+                "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-on-surface",
+                active
+                  ? "bg-surface border-on-surface/60 shadow-sm"
+                  : "border-transparent hover:bg-surface/60 hover:border-outline-variant",
+              )}>
+              <span className="flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wider text-on-surface-variant">
+                <span aria-hidden className={cn("inline-block h-1.5 w-1.5 rounded-full",
+                  sig === "stop" ? "bg-signal-stop" : sig === "warn" ? "bg-signal-warn" : "bg-signal-go",
+                  !active && "opacity-60")} />
+                {day}
+              </span>
+              <span className={cn("block mt-0.5 text-[12.5px] leading-snug transition-colors",
+                active ? "text-on-surface" : "text-on-surface-variant group-hover:text-on-surface")}>
+                {title}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <div role="tabpanel" aria-label={LOOP_TABS[tab]} aria-live="polite" className="flex flex-col gap-3 min-h-[380px]">
