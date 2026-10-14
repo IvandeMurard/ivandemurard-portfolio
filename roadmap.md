@@ -55,3 +55,15 @@
 # Homepage clarity
 - [x] Restore the compass rose in Ask Rose, simplify project labels and bring the main CTA into view.
 - [x] Refresh derived content and verify the preview without publishing.
+
+# Rose context and logging
+- [ ] Route chips as visitor intents ending with "Book a call" (user-supplied list replaces model generation).
+- [ ] Follow-up chips via suggest_followups; section-in-view context sent each turn.
+- [ ] Anonymous event log (opened, chip, question, followup, booking proposed/clicked), PII masked, 90-day purge.
+- [ ] Privacy page paragraph; private /admin/rose view (admin role only, not in sitemap).
+
+# Rose and header cleanup
+- [ ] Remove header Ask Rose pill; one bottom dock site-wide, hidden on home until hero leaves view.
+- [ ] Solid compact resting dock, chips on engagement only, lifts above footer.
+- [ ] Merge Paris clock and Day/Dusk into one button; keep audio.
+- [ ] Screenshots 390/800/1280/1440, Day and Dusk.
