@@ -1,14 +1,10 @@
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
-import { Mail, Calendar, Linkedin, Github, Copy, Check } from "lucide-react";
+import { Mail, Calendar, Linkedin, Github } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
-import { Button } from "@/components/ui/button";
 import { PressMark } from "./PressMark";
 
-const MCP_ENDPOINT = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp";
-const MCP_COMMAND = `claude mcp add ivandemurard --transport http ${MCP_ENDPOINT}`;
 
 const ICON_LINKS = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, external: false, kind: "contact" as const },
@@ -20,19 +16,7 @@ const ICON_LINKS = [
 export const Footer = () => {
   const track = useTrackClick();
   const { pathname } = useLocation();
-  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const showColophon = pathname !== "/" && !pathname.startsWith("/contact");
-
-  const copyMcpCommand = async () => {
-    try {
-      await navigator.clipboard.writeText(MCP_COMMAND);
-      setCopyStatus("copied");
-      window.setTimeout(() => setCopyStatus("idle"), 2000);
-    } catch {
-      setCopyStatus("failed");
-      window.setTimeout(() => setCopyStatus("idle"), 2500);
-    }
-  };
 
   return (
     <footer className="w-full border-t border-outline-variant bg-surface-container-low py-8 md:py-10">
@@ -54,27 +38,12 @@ export const Footer = () => {
         )}
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col items-center gap-3 md:items-start">
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={copyMcpCommand}
-              aria-label="Copy the MCP command for the public read-only portfolio tools"
-              className="h-auto gap-2 rounded-sm px-0 py-1 font-label text-[10px] uppercase tracking-[0.16em] text-primary hover:bg-transparent hover:text-secondary"
+            <Link
+              to="/agents"
+              className="font-label text-[10px] uppercase tracking-[0.16em] text-primary hover:text-secondary transition-colors"
             >
-              {copyStatus === "copied" ? <Check aria-hidden="true" className="h-4 w-4" /> : <Copy aria-hidden="true" className="h-4 w-4" />}
-              {copyStatus === "copied"
-                ? "MCP command copied"
-                : copyStatus === "failed"
-                  ? "Copy unavailable"
-                  : "MCP available · Copy command"}
-            </Button>
-            <span className="sr-only" role="status" aria-live="polite">
-              {copyStatus === "copied"
-                ? "MCP command copied to clipboard."
-                : copyStatus === "failed"
-                  ? "The MCP command could not be copied."
-                  : ""}
-            </span>
+              For agents · MCP and Markdown
+            </Link>
             <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
               © {new Date().getFullYear()} Ivan de Murard · Curated with Care ·{" "}
               <Link to="/cv" className="hover:text-primary transition-colors">

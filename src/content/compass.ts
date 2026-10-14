@@ -120,7 +120,7 @@ export const COMPASS_SECTIONS: CompassSection[] = [
         "the business register (INSEE Sirene).",
       ] },
       { kind: "paragraph", text: "Earlier census records stay withheld until their licence is cleared." },
-      { kind: "paragraph", text: "Compass joins them: 85,418 units, each figure with its source, licence and date." },
+      { kind: "paragraph", text: "Compass joins them: APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date." },
     ],
   },
   {
@@ -187,6 +187,8 @@ export const COMPASS_SECTIONS: CompassSection[] = [
       ["Web demo", "Frozen sample, 17th arrondissement"],
       ["Demo on the live corpus", "In progress"],
       ["AI layer", "Design"],
-    ] }],
+    ] },
+      { kind: "paragraph", text: "Data attribution: Base de données des commerces et services de Paris (BDCom) 2023, © APUR, licensed under the Open Database License (ODbL 1.0). BODACC and INSEE Sirene: Licence Ouverte 2.0 (Etalab)." },
+    ],
   },
 ];

@@ -974,3 +974,18 @@
     opacity: 0.5;
   }
 }
+
+/* /agents raw document. Fixed palette by brief (Day/Dusk), muted >= 4.5:1. */
+.raw-doc { min-height: 100vh; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 15px; line-height: 1.7; background: var(--raw-bg); color: var(--raw-ink); }
+.raw-day { --raw-bg: #ffffff; --raw-ink: #111111; --raw-muted: #666666; }
+.raw-dusk { --raw-bg: #0e1117; --raw-ink: #ece6da; --raw-muted: #8f949f; }
+.raw-doc ::selection { background: var(--raw-ink); color: var(--raw-bg); }
+.raw-main { max-width: 78ch; padding: 56px 24px 96px; text-align: left; }
+.raw-doc h1, .raw-doc h2 { font-size: 15px; font-family: inherit; }
+.raw-muted { color: var(--raw-muted); }
+.raw-link { color: var(--raw-ink); text-decoration: underline; text-underline-offset: 3px; }
+.raw-link:hover, .raw-link:focus-visible { background: var(--raw-ink); color: var(--raw-bg); outline: none; }
+.raw-btn { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.raw-cmd { border-left: 2px solid var(--raw-ink); padding-left: 14px; margin-top: 4px; font-family: inherit; font-size: 15px; }
+.raw-mark { background: var(--raw-ink); color: var(--raw-bg); }
+.raw-skip { background: var(--raw-ink); color: var(--raw-bg); padding: 4px 8px; }

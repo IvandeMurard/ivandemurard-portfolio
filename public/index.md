@@ -37,7 +37,7 @@ Evaluation harness · 64 cases · pure-function graders · hard safety tier.
 Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure.
 
 ### Compass (WARN · Partial)
-APUR BDCom shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
+APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
 Every address has a story. Compass reads it before you sign.
 
 ### Anima (STOP · Gated)

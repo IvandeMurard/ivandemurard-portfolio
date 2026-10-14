@@ -6,11 +6,12 @@
   "scripts": {
     "predev": "bunx tsx scripts/generate-sitemap.ts",
     "dev": "vite",
-    "prebuild": "bun scripts/generate-journal-mirror.ts && bunx tsx scripts/generate-sitemap.ts && bunx tsx scripts/generate-llms-full.ts",
+    "prebuild": "bunx tsx scripts/generate-agents.ts && bun scripts/generate-journal-mirror.ts && bunx tsx scripts/generate-sitemap.ts && bunx tsx scripts/generate-llms-full.ts",
     "build": "vite build",
     "postbuild": "bunx tsx scripts/generate-seo-snapshots.ts && bunx tsx scripts/generate-markdown-routes.ts && bunx tsx scripts/apply-prerender.ts",
     "prerender": "python3 scripts/prerender-capture.py && bunx tsx scripts/apply-prerender.ts",
     "check:machine": "bash scripts/check-machine-readability.sh",
+    "preflight": "npm run build && ALLOW_KNOWN_FAILURES=1 bash scripts/check-machine-readability.sh ${PREFLIGHT_URL:-https://id-preview--7fa71c6e-b3ec-4073-8e9d-76d10dbbe78a.lovable.app}",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",

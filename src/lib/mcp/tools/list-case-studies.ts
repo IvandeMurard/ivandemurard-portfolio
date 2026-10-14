@@ -1,6 +1,7 @@
 import { defineTool } from "@lovable.dev/mcp-js";
+import { STATUSES, COMPASS_SOURCES_LINE } from "../../../content/statuses";
 
-const STUDIES = [
+const BASE = [
   {
     slug: "sonor",
     name: "Sonor",
@@ -52,17 +53,19 @@ const STUDIES = [
     group: "Standalone projects",
     label: "Data product · Commercial premises · Paris · 2026",
     tagline:
-      "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris: three APUR shopfront censuses, BODACC legal notices and the INSEE Sirene register joined into one corpus of 85,418 units, each figure with its source, licence and date.",
+      "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. " + COMPASS_SOURCES_LINE + ".",
     url: "https://ivandemurard.com/compass",
     markdown_path: "/compass.md",
   },
 ];
 
+const STUDIES = BASE.map((s) => ({ ...s, status: { ...STATUSES[s.slug as keyof typeof STATUSES] } }));
+
 export default defineTool({
   name: "list_case_studies",
   title: "List case studies",
   description:
-    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, tagline, label and URL. Use get_case_study to fetch the full narrative for one of them.",
+    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, label, tagline, status (signal go|warn|stop|dark, word, note) and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({

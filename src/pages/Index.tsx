@@ -2,7 +2,7 @@ import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
 import { Reveal } from "@/components/Reveal";
-import { McpEndpoint } from "@/components/McpEndpoint";
+import { COMPASS_SOURCES_LINE } from "@/content/statuses";
 import { SignalLamp } from "@/components/journal/SignalLamp";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
@@ -22,7 +22,7 @@ const SELECTED = [
   },
   {
     p: PROJECTS.compass,
-    fragment: "APUR BDCom shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date",
+    fragment: COMPASS_SOURCES_LINE,
     line: PROJECTS.compass.tagline,
   },
   { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: PROJECTS.anima.tagline },
@@ -184,10 +184,6 @@ Why     conference check-ins, clear weather`}</p>
           </div>
         </Reveal>
       </section>
-
-      <Reveal as="section" className="py-10 md:py-14 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <div data-reveal-child><McpEndpoint label="Built for people. Available to their agents." compact /></div>
-      </Reveal>
     </SiteLayout>
   );
 };

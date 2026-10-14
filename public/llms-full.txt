@@ -79,7 +79,7 @@ Six top-level sections: One address, read in context; Product strategy (The prob
 
 URL: https://ivandemurard.com/compass. Live app: https://paris-compass.lovable.app. Repository: https://github.com/IvandeMurard/paris-compass. MCP server: npx -y paris-compass-mcp, published on npm and the MCP registry.
 
-Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. Compass joins licensed APUR shopfront data, BODACC legal notices and the INSEE Sirene register: 85,418 units, each figure with its source, licence and date. Earlier census records and figures derived from them remain withheld until their licence is cleared. It refuses a single score out of 100, a rent estimate, brokers as users, and any figure without a cited public source. Compass is agent-ready: its published, read-only MCP server exposes six tools, and an AI agent gets the same figures, sources and confidence levels as a person sees on the map. AI stays out of the deterministic scoring core; it works above it, reading legal notices and matching sales to shopfronts (Design, planned for Q4 2026). Status: Corpus and evaluation live, MCP server published, web demo on a frozen sample (17th arrondissement), demo on the live corpus in progress.
+Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date. Earlier census records and figures derived from them remain withheld until their licence is cleared. It refuses a single score out of 100, a rent estimate, brokers as users, and any figure without a cited public source. Compass is agent-ready: its published, read-only MCP server exposes six tools, and an AI agent gets the same figures, sources and confidence levels as a person sees on the map. AI stays out of the deterministic scoring core; it works above it, reading legal notices and matching sales to shopfronts (Design, planned for Q4 2026). Status: Corpus and evaluation live, MCP server published, web demo on a frozen sample (17th arrondissement), demo on the live corpus in progress.
 
 ## Track record
 
@@ -928,7 +928,7 @@ The answer is already public, in pieces nobody joins at the address:
 
 Earlier census records stay withheld until their licence is cleared.
 
-Compass joins them: 85,418 units, each figure with its source, licence and date.
+Compass joins them: APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
 
 ### What it refuses
 
@@ -1027,11 +1027,80 @@ Confidence levels across the corpus, measured 6 October 2026.
 | Demo on the live corpus | In progress |
 | AI layer | Design |
 
+Data attribution: Base de données des commerces et services de Paris (BDCom) 2023, © APUR, licensed under the Open Database License (ODbL 1.0). BODACC and INSEE Sirene: Licence Ouverte 2.0 (Etalab).
+
 [Schedule a conversation](https://cal.com/ivandemurard/discussion-and-introduction)
 
 © Ivan de Murard. All rights reserved.
 
 --- END DOCUMENT: compass ---
+
+--- BEGIN DOCUMENT: agents ---
+# For agents: MCP server, Markdown mirrors and llms files
+URL: https://ivandemurard.com/agents
+Markdown: https://ivandemurard.com/agents.md
+
+# ivandemurard.com · for agents
+
+Public. Read-only. No key. Last updated 2026-10-14.
+
+> Every page on this site has a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
+
+## Connect
+
+Claude Code:
+
+```sh
+claude mcp add ivandemurard --transport http https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
+```
+
+Any MCP client, over HTTP:
+
+```sh
+https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
+```
+
+## Tools
+
+- list_case_studies · every case study: slug, label, tagline, status, URL
+- get_case_study · one case study in full, as Markdown
+- get_about · bio, CV and contact links
+- list_journal_entries · every Field Note: title, date, category, excerpt
+- get_journal_entry · one Field Note in full, as Markdown
+
+## Files
+
+- /llms.txt · short index of the site, for language models
+- /llms-full.txt · the whole site in one text file
+- /index.md · the homepage, statuses included
+- /<page>.md · the mirror of any page, e.g. /aetherix.md
+
+## Example
+
+Ask about a project that stopped. The answer says it stopped.
+
+```
+→ get_case_study { "slug": "sonor" }
+← Status: Stopped · Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022.
+  
+  # Sonor
+  
+  B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.
+```
+
+## Guarantees
+
+- Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.
+- Every project carries its status: Sandbox, Maintenance, Evaluated, Gated, Partial or Stopped.
+- Figures come with their source. Illustrative figures are labelled as such.
+- Read-only: an agent can read everything here, and change nothing.
+- Nothing an agent sends to the MCP server is stored.
+
+## Contact
+
+For a human conversation: [book 30 minutes](https://cal.com/ivandemurard/discussion-and-introduction) or [email](mailto:ivandemurard@gmail.com). The tool get_about returns the same links.
+
+--- END DOCUMENT: agents ---
 
 --- BEGIN DOCUMENT: architecture ---
 # Hospitality Multi-Agent Architecture, an Architecture Note

@@ -247,6 +247,16 @@ export const SEO_ROUTES: SeoRoute[] = [
     },
   },
   {
+    path: "/agents",
+    markdown: "agents.md",
+    title: "For agents: MCP server, Markdown mirrors and llms files · Ivan de Murard",
+    description:
+      "Public, read-only access for AI agents: a public MCP server, a Markdown mirror of every page and llms files, statuses and stated limits included.",
+    type: "website",
+    changefreq: "monthly",
+    priority: "0.6",
+  },
+  {
     path: "/architecture",
     markdown: "architecture.md",
     title: "Hospitality Multi-Agent Architecture, an Architecture Note · Ivan de Murard",
