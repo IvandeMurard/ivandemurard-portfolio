@@ -3,6 +3,7 @@ import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { supabase } from "@/integrations/supabase/client";
 import { CAL_URL } from "./roseConfig";
+import { logRoseEvent } from "./roseEvents";
 import type { UIMessage } from "ai";
 
 interface RoseBookingCardProps {
@@ -69,6 +70,12 @@ export const RoseBookingCard = (props: RoseBookingCardProps) => {
   const onClick = () => {
     haptic("tap");
     track({ label: "rose_booking", href: CAL_URL, kind: "contact" });
+    logRoseEvent({
+      session_id: props.sessionId,
+      path: typeof window !== "undefined" ? window.location.pathname : "/",
+      kind: "booking_clicked",
+      label_or_question: "Booking card",
+    });
     void notifyBooking(props);
     // Best-effort insert of the row is done inside notifyBooking.
     // Also log the click into link_clicks via useTrackClick above.
