@@ -4,40 +4,33 @@ import { TransitionLink } from "@/hooks/useViewTransition";
 import { Mail, Calendar, Linkedin, Github, type LucideIcon } from "lucide-react";
 import { PRIMARY_NAV, SOCIAL_LINKS } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
-import { MoodToggle } from "@/components/MoodToggle";
+import { useMood } from "@/components/MoodProvider";
 import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
 
-/** Live Paris time, the register's clock. */
-const ParisClock = () => {
+/** Live Paris time and the Day/Dusk ambience, one control. */
+const ClockMood = ({ compact = false }: { compact?: boolean }) => {
   const fmt = () => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", hour: "2-digit", minute: "2-digit" }).format(new Date());
   const [t, setT] = useState(fmt);
+  const { mood, toggle } = useMood();
+  const haptic = useHaptic();
+  const isDusk = mood === "dusk";
   useEffect(() => { const id = window.setInterval(() => setT(fmt()), 15000); return () => window.clearInterval(id); }, []);
   return (
-    <span className="font-mono text-[11px] tracking-[0.04em] text-on-surface-variant tabular-nums whitespace-nowrap" aria-label={`Paris time ${t}`}>
-      Paris {t}
-    </span>
+    <button
+      type="button"
+      aria-pressed={isDusk}
+      aria-label={isDusk ? "Switch to day" : "Switch to dusk"}
+      title={isDusk ? "Switch to day" : "Switch to dusk"}
+      onClick={() => { haptic("toggle"); toggle(); }}
+      className={`font-mono text-[11px] tracking-[0.04em] tabular-nums whitespace-nowrap text-on-surface-variant border border-outline-variant rounded-full ${compact ? "px-2.5 py-1" : "px-3 py-1.5"} hover:border-secondary hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary`}
+    >
+      {compact ? null : "Paris "}{t} · <span className="text-secondary">{isDusk ? "Dusk" : "Day"}</span>
+    </button>
   );
 };
-
-const AskRosePill = ({ compact = false }: { compact?: boolean }) => (
-  <Button
-    variant="ghost"
-    type="button"
-    onClick={() => window.dispatchEvent(new Event("rose:open"))}
-    className={`h-auto font-mono font-normal uppercase tracking-[0.1em] text-[11px] text-primary border border-outline rounded-full ${compact ? "gap-1 px-2 py-1" : "px-4 py-1.5"} hover:bg-transparent hover:border-secondary hover:text-secondary transition-colors whitespace-nowrap`}
-  >
-    <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="20" cy="20" r="17" />
-      <circle cx="20" cy="20" r="5.5" strokeWidth="0.8" />
-      <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" />
-      <path d="M8 8l6 6M32 8l-6 6M8 32l6-6M32 32l-6-6" strokeWidth="0.6" />
-    </svg>
-    Ask Rose
-  </Button>
-);
 
 const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "contact" | "social" }[] = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, kind: "contact" },
@@ -113,9 +106,7 @@ export const AtriumHeader = () => {
 
           {/* Right utility links */}
           <div className="hidden lg:flex shrink-0 items-center gap-4">
-            <ParisClock />
-            <AskRosePill />
-            <MoodToggle />
+            <ClockMood />
             <AmbienceControl />
             <span className="hidden 2xl:inline-block h-4 w-px bg-outline-variant" aria-hidden="true" />
             {UTILITY_ICON_NAV.map(({ label, href, Icon: LucideIcon, kind }) => (
@@ -136,8 +127,7 @@ export const AtriumHeader = () => {
 
           {/* Mobile right cluster: toggle + hamburger */}
           <div className="lg:hidden flex items-center gap-1">
-            <AskRosePill compact />
-            <MoodToggle size="sm" />
+            <ClockMood compact />
             <AmbienceControl size="sm" />
             <button
               type="button"

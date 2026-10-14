@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
     );
   }
 
-  let body: { messages?: UIMessage[]; page?: { path?: string; title?: string } | null; suggested?: { label?: string; intent?: string | null } | null };
+  let body: { messages?: UIMessage[]; page?: { path?: string; title?: string; section_id?: string; section_heading?: string } | null; suggested?: { label?: string; intent?: string | null } | null };
   try {
     body = await req.json();
   } catch {
@@ -117,6 +117,14 @@ Deno.serve(async (req) => {
                 "One short sentence, plain English, shown on the card as the call framing.",
               ),
           }),
+        }),
+        suggest_followups: tool({
+          description:
+            "Call once at the end of every answer. Two short follow-up questions in the visitor's voice (imperative, never 'Ivan' in the third person), each about content that exists on this site. Rendered as chips under the answer.",
+          inputSchema: z.object({
+            items: z.array(z.string().min(3).max(80)).length(2),
+          }),
+          execute: async () => ({ shown: true }),
         }),
       },
     });
