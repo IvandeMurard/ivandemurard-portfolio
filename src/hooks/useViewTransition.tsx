@@ -23,7 +23,9 @@ export function useViewTransitionNavigate() {
       const start = (document as Document & {
         startViewTransition?: (cb: () => void) => unknown;
       }).startViewTransition?.bind(document);
-      if (!start || reduce) {
+      const destination = typeof to === "string" ? to.split(/[?#]/)[0] : to.pathname;
+      const rawDocument = window.location.pathname === "/agents" || destination === "/agents";
+      if (!start || reduce || rawDocument) {
         navigate(to, options);
         return;
       }

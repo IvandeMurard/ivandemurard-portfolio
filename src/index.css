@@ -975,10 +975,9 @@
   }
 }
 
-/* /agents raw document. Fixed palette by brief (Day/Dusk), muted >= 4.5:1. */
-.raw-doc { min-height: 100vh; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 15px; line-height: 1.7; background: var(--raw-bg); color: var(--raw-ink); }
-.raw-day { --raw-bg: #ffffff; --raw-ink: #111111; --raw-muted: #666666; }
-.raw-dusk { --raw-bg: #0e1117; --raw-ink: #ece6da; --raw-muted: #8f949f; }
+/* /agents only: fixed Night palette, independent of the stored site mood. */
+.raw-doc { --raw-bg: #0e1117; --raw-ink: #ece6da; --raw-muted: #8f949f; min-height: 100vh; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 15px; line-height: 1.7; background: var(--raw-bg); color: var(--raw-ink); }
+.raw-doc, .raw-doc *, .raw-doc::before, .raw-doc::after, .raw-doc *::before, .raw-doc *::after { transition: none !important; }
 .raw-doc ::selection { background: var(--raw-ink); color: var(--raw-bg); }
 .raw-main { max-width: 78ch; padding: 56px 24px 96px; text-align: left; }
 .raw-doc h1, .raw-doc h2 { font-size: 15px; font-family: inherit; }

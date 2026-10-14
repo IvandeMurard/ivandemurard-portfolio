@@ -1,7 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Seo } from "@/components/Seo";
-import { useMood } from "@/components/MoodProvider";
 import { AGENTS_DOC } from "@/content/agents";
 import { AGENTS_BUILD_DATE, SONOR_EXCERPT } from "@/content/agents.generated";
 import { SOCIAL_LINKS } from "@/content/site";
@@ -41,12 +40,11 @@ const H2 = ({ children }: { children: ReactNode }) => (
 );
 
 const Agents = () => {
-  const { mood } = useMood();
   const [announce, setAnnounce] = useState("");
   const [before, after] = SONOR_EXCERPT.split(AGENTS_DOC.highlight);
 
   return (
-    <div className={`raw-doc ${mood === "dusk" ? "raw-dusk" : "raw-day"}`}>
+    <div className="raw-doc">
       <Seo
         title="For agents: MCP server, Markdown mirrors and llms files"
         description="Public, read-only access for AI agents: a public MCP server, a Markdown mirror of every page and llms files, statuses and stated limits included."
