@@ -53,7 +53,7 @@ The decisions behind the products. Written to be reused. [All notes](https://iva
 
 ## 04 · Contact
 
-Agents that hold up on a Monday morning. I build them, and I prove it.
+Prototypes are fast. Getting operations to trust them is the job.
 
 Open to AI Product Manager and Product Builder roles. Thirty minutes is enough to know whether we should work together.
 
