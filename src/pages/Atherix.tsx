@@ -28,7 +28,7 @@ const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp 
 
 const ALREADY_DOES = [
   "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
-  "Rejected an implausible POS figure (900 covers, injected as a test) instead of learning from it.",
+  "Rejected an implausible POS figure (850 covers, injected as a test) instead of learning from it.",
   "When recent data diverges sharply from history, says so in the message and asks the manager to double-check, instead of sending a confident number.",
   "After a simulated 25% jump in demand, weekly recalibration cut the forecast error from 15.9% to 12.3%.",
   "Stores every recommendation next to what actually happened, with the manager's override recorded beside it.",

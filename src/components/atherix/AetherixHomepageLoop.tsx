@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SignalLamp } from "@/components/journal/SignalLamp";
 import LOOP from "@/content/homepage-loop.json";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 type Day = (typeof LOOP.days)[number];
 
@@ -90,7 +91,20 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
           {d.morning.kind === "quarantine" ? (
             <div className="mt-2 flex items-center gap-3">
               <SignalLamp state="stop" hideWord />
-              <span className="font-mono text-[11px] text-signal-stop">reason: implausible_feedback</span>
+              <TooltipProvider delayDuration={150}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button type="button"
+                      className="font-mono text-[11px] text-signal-stop underline decoration-dotted underline-offset-2 cursor-help">
+                      reason: implausible_feedback <span aria-hidden>ⓘ</span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-[260px] font-mono text-[11px] leading-relaxed">
+                    <span className="block uppercase tracking-wider text-on-surface-variant mb-1">Outlier guard</span>
+                    {d.morning.actual} covers is far beyond what this restaurant can seat (forecast was {d.evening.predicted}). Quarantined before it can retrain the model.
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           ) : (
             <div className="mt-2"><SignalLamp state={d.morning.signal as "go" | "warn" | "stop"} label={d.morning.kind} /></div>
