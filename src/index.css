@@ -499,6 +499,7 @@
     --on-surface-variant: 42 15% 78%;
     --outline-variant: 42 15% 60%;
   }
+  [data-mood="dusk"] .section-inverse .accent-ink { color: hsl(var(--secondary)); }
   [data-mood="dusk"] .section-inverse { background-color: hsl(32 14% 7%); --primary-container: 39 80% 70%; --secondary: 39 80% 70%; }
 
   /* "Let's talk!" flourish: gold underline draws after the line has risen. */
