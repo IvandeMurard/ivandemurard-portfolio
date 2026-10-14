@@ -8,6 +8,7 @@
 - X: https://x.com/IvanMurard
 - Email: ivandemurard@gmail.com
 - Schedule: https://cal.com/ivandemurard/discussion-and-introduction
+- For agents (MCP server, mirrors, guarantees): https://ivandemurard.com/agents (markdown: https://ivandemurard.com/agents.md)
 - CV: https://ivandemurard.com/cv
 - CV PDF: https://ivandemurard.com/Ivan_de_Murard_CV.pdf
 - CV Markdown: https://ivandemurard.com/Ivan_de_Murard_CV.md
