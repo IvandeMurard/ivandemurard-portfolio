@@ -167,7 +167,7 @@ Why     conference check-ins, clear weather`}</p>
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
           <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
-            Agents that hold up on a Monday morning. <em className="accent-ink">I build them, and I prove it.</em>
+            Prototypes are fast. <em className="accent-ink">Getting operations to trust them is the job.</em>
           </h2>
           <p className="mt-8 text-[18px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
             Open to AI Product Manager and Product Builder roles. Thirty minutes is enough to know whether we should work together.
