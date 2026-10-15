@@ -23,6 +23,11 @@ type AmbienceContextValue = {
   available: boolean;
   /** Toggle mute. First call also acts as the user-gesture unlock. */
   toggleMute: () => void;
+  /** Playback rate, 1 = nominal. Pitch follows speed (no timestretch). */
+  pitch: number;
+  setPitch: (p: number) => void;
+  volume: number;
+  setVolume: (v: number) => void;
 };
 
 const AmbienceContext = createContext<AmbienceContextValue | undefined>(undefined);
@@ -30,6 +35,7 @@ const AmbienceContext = createContext<AmbienceContextValue | undefined>(undefine
 const STORAGE_KEY = "ambience-muted";
 const FADE_MS = 800;
 const TARGET_VOLUME = 0.55;
+export const PITCH_RANGE = 0.08;
 // Day mode uses the same track as dusk (single soundtrack).
 const DAY_SRC = "/audio/dusk.mp3";
 const DUSK_SRC = "/audio/dusk.mp3";
@@ -88,6 +94,9 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
   const { mood } = useMood();
   const [muted, setMuted] = useState<boolean>(() => readInitialMuted());
   const [available, setAvailable] = useState<boolean>(false);
+  const [pitch, setPitchState] = useState(1);
+  const [volume, setVolumeState] = useState(TARGET_VOLUME);
+  const volumeRef = useRef(TARGET_VOLUME);
 
   const dayRef = useRef<HTMLAudioElement | null>(null);
   const duskRef = useRef<HTMLAudioElement | null>(null);
@@ -164,7 +173,7 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
 
-      const fades: Promise<void>[] = [fadeVolume(active, TARGET_VOLUME, FADE_MS)];
+      const fades: Promise<void>[] = [fadeVolume(active, volumeRef.current, FADE_MS)];
       if (!inactive.paused) {
         fades.push(fadeVolume(inactive, 0, FADE_MS).then(() => inactive.pause()));
       }
@@ -174,12 +183,36 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
     run();
   }, [mood, muted, available]);
 
+  // Live volume while playing.
+  useEffect(() => {
+    volumeRef.current = volume;
+    const el = duskRef.current;
+    if (el && !muted && !el.paused) el.volume = volume;
+  }, [volume, muted]);
+
+  // Analog pitch: speed and key move together, like a real platter.
+  useEffect(() => {
+    [dayRef.current, duskRef.current].forEach((el) => {
+      if (!el) return;
+      const a = el as HTMLAudioElement & { mozPreservesPitch?: boolean; webkitPreservesPitch?: boolean };
+      a.preservesPitch = false;
+      a.mozPreservesPitch = false;
+      a.webkitPreservesPitch = false;
+      el.playbackRate = pitch;
+    });
+  }, [pitch, available]);
+
   const toggleMute = useCallback(() => {
     setMuted((m) => !m);
   }, []);
 
+  const setPitch = useCallback((p: number) => {
+    setPitchState(Math.max(1 - PITCH_RANGE, Math.min(1 + PITCH_RANGE, p)));
+  }, []);
+  const setVolume = useCallback((v: number) => setVolumeState(Math.max(0, Math.min(1, v))), []);
+
   return (
-    <AmbienceContext.Provider value={{ muted, available, toggleMute }}>
+    <AmbienceContext.Provider value={{ muted, available, toggleMute, pitch, setPitch, volume, setVolume }}>
       {children}
     </AmbienceContext.Provider>
   );
