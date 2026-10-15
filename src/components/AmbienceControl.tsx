@@ -1,84 +1,133 @@
-import { Volume2, VolumeX } from "lucide-react";
-import { useAmbience } from "./AmbienceProvider";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useAmbience, PITCH_RANGE } from "./AmbienceProvider";
 import { useHaptic } from "@/hooks/useHaptic";
+import { VinylDeck, VinylRecord } from "./VinylDeck";
 
 /**
- * AmbienceControl: a quiet, glass-style sound toggle.
- *
- * Inspired by silentsongs.com: a small pill that simply swaps between
- * two line icons (muted / playing). When active, an accent dot pulses
- * beside the icon, replacing any decorative motion. Sized to sit as
- * a calm sibling to the day/dusk switch in the header.
- *
- * Hides itself when audio files aren't available.
+ * AmbienceControl: a mini record in the header.
+ * Click the record to start/stop; the chevron opens an analog deck
+ * (platter, tonearm, pitch fader with quartz lock, volume).
  */
 export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
-  const { muted, available, toggleMute } = useAmbience();
+  const { muted, available, toggleMute, pitch, setPitch, volume, setVolume } = useAmbience();
   const haptic = useHaptic();
+  const [open, setOpen] = useState(false);
+  const wasZero = useRef(true);
+
+  const pct = Math.round((pitch - 1) * 1000) / 10;
+  useEffect(() => {
+    const zero = Math.abs(pct) < 0.05;
+    if (zero && !wasZero.current) haptic("select");
+    wasZero.current = zero;
+  }, [pct, haptic]);
 
   if (!available) return null;
+  const playing = !muted;
+  const disc = size === "sm" ? 20 : 22;
 
-  const dim =
-    size === "sm"
-      ? { box: "h-7 w-9", icon: 13 }
-      : { box: "h-7 w-10", icon: 14 };
+  const toggle = () => {
+    haptic("toggle");
+    toggleMute();
+  };
 
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={!muted}
-      aria-label={muted ? "Play ambience" : "Mute ambience"}
-      title={muted ? "Play ambience" : "Mute ambience"}
-      onClick={() => {
-        haptic("toggle");
-        toggleMute();
-      }}
-      className={[
-        "group relative inline-flex items-center justify-center rounded-md",
-        "border border-outline-variant",
-        "bg-surface-container/60 backdrop-blur-sm",
-        "transition-[background,border-color,transform,color] duration-300",
-        "hover:border-secondary hover:bg-surface-container hover:scale-[1.04]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
-        muted ? "text-on-surface-variant" : "text-secondary",
-        dim.box,
-      ].join(" ")}
-    >
-      {/* Stacked icons cross-fade between states */}
-      <span className="relative inline-flex items-center justify-center">
-        <Volume2
-          size={dim.icon}
-          strokeWidth={1.5}
-          aria-hidden="true"
-          className={[
-            "transition-all duration-200 ease-out",
-            muted ? "opacity-0 scale-90" : "opacity-100 scale-100",
-          ].join(" ")}
-        />
-        <VolumeX
-          size={dim.icon}
-          strokeWidth={1.5}
-          aria-hidden="true"
-          className={[
-            "absolute inset-0 m-auto transition-all duration-200 ease-out",
-            muted ? "opacity-100 scale-100" : "opacity-0 scale-90",
-          ].join(" ")}
-        />
-      </span>
+    <div className="inline-flex h-7 items-stretch rounded-md border border-outline-variant bg-surface-container/60 transition-colors duration-300 hover:border-secondary">
+      <button
+        type="button"
+        role="switch"
+        aria-checked={playing}
+        aria-label={playing ? "Stop the record" : "Play the record"}
+        title={playing ? "Stop the record" : "Play the record"}
+        onClick={toggle}
+        className="inline-flex items-center justify-center px-1.5 rounded-l-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+      >
+        <span className={["transition-opacity duration-300", playing ? "opacity-100" : "opacity-70"].join(" ")}>
+          <VinylRecord size={disc} playing={playing} pitch={pitch} />
+        </span>
+      </button>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            aria-label="Open turntable controls"
+            title="Turntable"
+            onClick={() => haptic("tap")}
+            className="inline-flex items-center justify-center pr-1.5 pl-0.5 rounded-r-md text-on-surface-variant hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+          >
+            <ChevronDown size={12} strokeWidth={1.5} className={["transition-transform duration-300", open ? "rotate-180" : ""].join(" ")} />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent align="end" sideOffset={10} className="w-[300px] p-4 bg-surface-container border-outline-variant">
+          <div className="mb-3 flex items-baseline justify-between">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
+              <p className="font-mono text-[10px] text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
+            </div>
+          </div>
 
-      {/* Active pulse dot, only visible when playing */}
-      <span
-        aria-hidden="true"
-        className={[
-          "ml-1 h-[3px] w-[3px] rounded-full bg-secondary",
-          "transition-opacity duration-300",
-          muted
-            ? "opacity-0"
-            : "opacity-90 [animation:ambience-pulse_2.4s_ease-in-out_infinite]",
-        ].join(" ")}
-      />
-    </button>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label={playing ? "Lift the needle" : "Drop the needle"}
+              className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+            >
+              <VinylDeck playing={playing} pitch={pitch} />
+            </button>
+
+            {/* Pitch fader, vertical, + at top like a Technics */}
+            <div className="flex flex-1 flex-col items-center justify-between py-1">
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">Pitch</span>
+              <input
+                type="range"
+                aria-label="Pitch"
+                min={-PITCH_RANGE * 100}
+                max={PITCH_RANGE * 100}
+                step={0.1}
+                value={-pct}
+                onChange={(e) => setPitch(1 - Number(e.target.value) / 100)}
+                className="h-[96px] w-4 cursor-ns-resize accent-[hsl(var(--secondary))] [writing-mode:vertical-lr]"
+              />
+              <span className="font-mono text-[10px] tabular-nums text-on-surface">
+                {pct > 0 ? "+" : ""}
+                {pct.toFixed(1)}%
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  haptic("select");
+                  setPitch(1);
+                }}
+                className="mt-1 inline-flex items-center gap-1 rounded-sm border border-outline-variant px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-on-surface-variant hover:border-secondary hover:text-secondary"
+                title="Quartz lock: back to 0%"
+              >
+                <span className={["h-[5px] w-[5px] rounded-full", Math.abs(pct) < 0.05 ? "bg-secondary" : "bg-outline-variant"].join(" ")} />
+                Quartz
+              </button>
+            </div>
+          </div>
+
+          <label className="mt-4 flex items-center gap-3">
+            <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-on-surface-variant w-12">Volume</span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={Math.round(volume * 100)}
+              onChange={(e) => setVolume(Number(e.target.value) / 100)}
+              className="flex-1 accent-[hsl(var(--secondary))]"
+            />
+            <span className="font-mono text-[10px] tabular-nums text-on-surface w-8 text-right">{Math.round(volume * 100)}</span>
+          </label>
+
+          <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">
+            33⅓ rpm · analog pitch, speed and key move together
+          </p>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 };
 

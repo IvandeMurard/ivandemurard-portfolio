@@ -689,6 +689,27 @@
   50%      { opacity: 1; }
 }
 
+/* Vinyl deck: physical materials, identical in both moods (a record is black). */
+:root {
+  --vinyl: 220 8% 7%;
+  --vinyl-groove: 220 6% 14%;
+  --vinyl-sheen: 40 30% 92%;
+  --metal-light: 40 8% 86%;
+  --metal-dark: 220 6% 42%;
+  --plinth-light: 30 10% 22%;
+  --plinth-dark: 30 12% 12%;
+}
+@keyframes vinyl-spin { to { transform: rotate(360deg); } }
+.vinyl-spin {
+  animation: vinyl-spin var(--spin, 1.8s) linear infinite;
+  animation-play-state: paused;
+  transform-origin: 50% 50%;
+}
+.vinyl-spin[data-playing="true"] { animation-play-state: running; }
+@media (prefers-reduced-motion: reduce) {
+  .vinyl-spin { animation-duration: 12s; }
+}
+
 /*
   Route transitions, View Transitions API.
   Quiet 8px-lift crossfade on the page body. Header, footer, and PageLight
