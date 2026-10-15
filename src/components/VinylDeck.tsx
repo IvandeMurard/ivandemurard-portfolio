@@ -56,6 +56,7 @@ export const VinylRecord = ({
             opacity={i % 5 === 4 ? 0.9 : 0.6}
           />
         ))}
+        {label && <circle cx="50" cy="50" r="17" fill="hsl(4 62% 42%)" />}
         {label && (
           <image
             href={cover.url}
