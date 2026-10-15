@@ -64,14 +64,23 @@ Deno.serve(async (req) => {
       z.object({
         id: z.string().max(128).optional(),
         role: z.enum(["user", "assistant"]),
-        parts: z
-          .array(
-            z.object({
-              type: z.literal("text"),
-              text: z.string().max(4000),
-            }),
-          )
-          .max(20),
+        // Earlier assistant turns also carry tool and step parts (suggest_followups,
+        // propose_booking, step-start). Drop them and keep only text, so tool output
+        // stays server-owned and multi-turn history validates.
+        parts: z.preprocess(
+          (v) =>
+            Array.isArray(v)
+              ? v.filter((p) => p && typeof p === "object" && (p as { type?: unknown }).type === "text")
+              : v,
+          z
+            .array(
+              z.object({
+                type: z.literal("text"),
+                text: z.string().max(4000),
+              }),
+            )
+            .max(20),
+        ),
       }),
     )
     .min(1)

@@ -349,7 +349,7 @@ export const RoseDock = () => {
                   </div>
                 ) : null}
 
-                {error ? <p className="text-xs text-destructive">Something went off. Try again in a moment.</p> : null}
+                {error ? <p className="text-xs text-destructive">Rose lost the thread for a moment. Please feel free to try again, or reach out to Ivan directly.</p> : null}
               </div>
             </div>
           ) : null}
