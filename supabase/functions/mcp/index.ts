@@ -156,7 +156,7 @@ var CV = {
       dates: "Nov 2025 \u2013 present",
       context: "Agentic systems for independent hotels: intelligence pushed into the tools staff already use, not another dashboard.",
       bullets: [
-        "Aetherix (F&B agent): one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; no hotel connected yet.",
+        "Aetherix (F&B agent): one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; staged for a 30-day pilot.",
         "Anima (guest memory): keeps what guests said apart from what was inferred, and forgets what was never confirmed. Synthetic proof of concept with four memory layers and an MCP server; real guest data gated behind a data-protection assessment.",
         "Evaluation by design: forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive median baseline, with mixed results reported as they are; 12 public ADRs.",
         "Architecture: 5 agents around a central orchestrator, multi-tenant, with GDPR constraints designed in from the start."

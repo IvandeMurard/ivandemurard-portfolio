@@ -36,7 +36,7 @@ Role. Solo architect and builder.
 
 ## Sonor
 
-URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-founder & Product Lead. B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, incubated at Matrice (Banque des Territoires), €20k in grants. No contract signed; the project stopped in 2022.
+URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-founder & Product Lead. B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, incubated at Matrice (Banque des Territoires), €20k in grants. Technical core validated; stopped in 2022 after discovery concluded no contract would clear.
 
 ## Tacet
 
