@@ -36,7 +36,7 @@ Role. Solo architect and builder.
 
 ## Sonor
 
-URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-founder & Product Lead. B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, incubated at Matrice (Banque des Territoires), €20k in grants. No contract signed; the project stopped in 2022.
+URL: https://ivandemurard.com/sonor. Two-year journey (2020 to 2022) as Co-founder & Product Lead. B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, incubated at Matrice (Banque des Territoires), €20k in grants. Technical core validated; stopped in 2022 after discovery concluded no contract would clear.
 
 ## Tacet
 
@@ -139,7 +139,7 @@ Product builder with 5 years in B2B SaaS: co-founded a SaaS company, led product
 
 *Agentic systems for independent hotels: intelligence pushed into the tools staff already use, not another dashboard.*
 
-- **[Aetherix](/aetherix) (F&B agent):** one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; no hotel connected yet.
+- **[Aetherix](/aetherix) (F&B agent):** one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; staged for a 30-day pilot.
 - **[Anima](/anima) (guest memory):** keeps what guests said apart from what was inferred, and forgets what was never confirmed. Synthetic proof of concept with four memory layers and an MCP server; real guest data gated behind a data-protection assessment.
 - **Evaluation by design:** forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive median baseline, with mixed results reported as they are; 12 public ADRs.
 - **Architecture:** 5 agents around a central orchestrator, multi-tenant, with GDPR constraints designed in from the start.
@@ -1042,7 +1042,7 @@ Markdown: https://ivandemurard.com/agents.md
 
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-10-14.
+Public. Read-only. No key. Last updated 2026-10-16.
 
 > Every page on this site has a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
@@ -1081,7 +1081,7 @@ Ask about a project that stopped. The answer says it stopped.
 
 ```
 → get_case_study { "slug": "sonor" }
-← Status: MVP Shipped · Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022.
+← Status: MVP Shipped · 0→1 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear.
   
   # Sonor
   
