@@ -4,15 +4,15 @@ AI Product Manager & Builder · Paris
 
 ## Five years getting products adopted. Now building systems operations can trust.
 
-Co-founded Sonor: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened. Results published, mixed ones included.
+Co-founded Sonor: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened. Trained in service design, I connect operations (front and back of house) with tech (front and back-end) and business. Results published, mixed ones included.
 
 ## 01 · Flagship: Aetherix
 
-The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it.
+The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift.
 
 [How it decides, and when it refuses](https://ivandemurard.com/aetherix#what-it-does-today)
 
-Built and testable. Not yet proven in a hotel.
+Built, tested on historical data, and staged for production. Ready for a 30-day pilot.
 
 Three days from a sandbox run (synthetic data, real services, seed 42, translated from the original run): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/tree/f01251d77b512dd97716eb01e461499a28e5e301/demo/closed-loop
 
@@ -37,8 +37,8 @@ Three days from a sandbox run (synthetic data, real services, seed 42, translate
 
 ## 02 · Selected projects
 
-### Sonor (DARK · Stopped)
-Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022.
+### Sonor (DARK · MVP Shipped)
+0→1 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear.
 
 
 ### Lore (GO · Evaluated)
@@ -49,8 +49,9 @@ Captures the tacit knowledge a retiring technician never wrote down and returns 
 APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
 Every address has a story. Compass reads it before you sign.
 
-### Anima (STOP · Gated)
-Guest memory node. Synthetic PoC, production gated behind a data-protection assessment.
+### Anima (STOP · Compliance Gated)
+Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears.
+Hotels have amnesia. What they know about a guest lives in one person's head or a diversity of files and tools, forcing guests to repeat themselves. But AI agents profiling people without their consent can't be the answer. Anima is a guest memory that keeps only what guests said, fuses it with live hotel context and adapts the stay as reality changes.
 
 ## 03 · Field Notes
 
