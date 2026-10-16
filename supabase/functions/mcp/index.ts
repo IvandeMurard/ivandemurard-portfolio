@@ -10,11 +10,11 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 
 // src/content/statuses.ts
 var STATUSES = {
-  sonor: { signal: "dark", word: "Stopped", note: "Urban noise SaaS on open data, 0\u21921 to MVP. No contract signed, stopped in 2022." },
-  aetherix: { signal: "warn", word: "Sandbox", note: "F&B agent for boutique hotels. Built, running on sandbox and public data, no hotel connected yet." },
+  sonor: { signal: "dark", word: "MVP Shipped", note: "0\u21921 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear." },
+  aetherix: { signal: "warn", word: "Pilot-ready", note: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
-  anima: { signal: "stop", word: "Gated", note: "Guest memory node. Synthetic PoC, production gated behind a data-protection assessment." },
+  anima: { signal: "stop", word: "Compliance Gated", note: "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears." },
   compass: { signal: "warn", word: "Partial", note: "Address-level context for Paris premises. 85,418 units traced to source, earlier census records withheld until licensed." }
 };
 var statusLine = (slug) => `Status: ${STATUSES[slug].word} \xB7 ${STATUSES[slug].note}`;

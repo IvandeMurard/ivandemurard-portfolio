@@ -83,7 +83,7 @@ const FAQ = [
   },
   {
     q: "Why a loop, not just a forecast?",
-    a: "On public data the forecast only matches a simple baseline at the next-day horizon, so the forecast is not the claim. What is built and testable is the loop: each recommendation is stored with the manager's reply and the real outcome, which is what lets the system be measured and corrected.",
+    a: "On public data the forecast only matches a simple baseline at the next-day horizon, so the forecast is not the claim: simple rules hold on ordinary days, and the value sits in the outliers (weather swings, sudden drops), where staffing and food waste cost most. What is built and testable is the loop: each recommendation is stored with the manager's reply and the real outcome, which is what lets the system be measured and corrected.",
   },
   {
     q: "How does the loop work?",

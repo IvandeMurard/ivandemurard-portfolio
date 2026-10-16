@@ -59,6 +59,7 @@ const Index = () => {
               <li>€1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.</li>
             </ul>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
+              Trained in service design, I connect operations (front and back of house) with tech (front and back-end) and business.{" "}
               Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened.
             </p>
             <p className="mt-4 font-mono uppercase tracking-[0.12em] text-[11px] text-on-surface-variant">
@@ -90,7 +91,7 @@ const Index = () => {
                 className="mt-10 inline-flex items-center min-h-[48px] px-6 border border-on-surface rounded-md text-on-surface font-medium hover:bg-on-surface hover:text-surface transition-colors">
                 How it decides, and when it refuses →
               </Link>
-              <p className="mt-5 font-mono text-[11.5px] text-signal-warn">Built and testable. Not yet proven in a hotel.</p>
+              <p className="mt-5 font-mono text-[11.5px] text-signal-warn">{PROJECTS.atherix.status.note}</p>
             </div>
             <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
               <AetherixHomepageLoop />
