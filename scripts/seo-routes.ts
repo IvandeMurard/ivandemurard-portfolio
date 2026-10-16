@@ -114,7 +114,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "aetherix.md",
     title: "Aetherix, the F&B execution agent for boutique hotels · Ivan de Murard",
     description:
-      "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and tested on sandbox and public data. No hotel connected yet.",
+      "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",
@@ -123,7 +123,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       "@type": "CreativeWork",
       name: "Aetherix",
       headline: "Aetherix, the F&B agent for boutique hotels",
-      description: "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and tested on sandbox and public data. No hotel connected yet.",
+      description: "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
       url: `${BASE_URL}/aetherix`,
       about: ["Agentic AI", "Hospitality Operations", "Model Context Protocol", "Boutique Hotels"],
       creator: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
@@ -138,7 +138,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "sonor.md",
     title: "Sonor, Urban Noise Intelligence for Cities · Ivan de Murard",
     description:
-      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; stopped in 2022.",
+      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.",
     type: "article",
     changefreq: "yearly",
     priority: "0.7",

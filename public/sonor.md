@@ -1,6 +1,6 @@
 # Sonor
 
-B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.
+B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.
 
 - Role: Co-founder and Product Lead
 - Duration: 2020 to 2022
@@ -22,7 +22,7 @@ A SaaS platform built to turn open noise data into cartography and recommendatio
 To ease adoption, we offered services around the platform. Each city asked for something different: a field feasibility study for a Paris district town hall, mediation and a field study for a town west of Paris, communication on actions taken for a metropolitan authority. We had commercial discussions; none became a contract.
 
 ## Why it stopped
-No contract signed. When the grants and the incubation ended, so did Sonor.
+Discovery concluded no contract would clear. When the grants and the incubation ended, we stopped Sonor.
 
 ## What I'd change
 Stay on delivering the product. We drifted into a "neo-agency" answering every need a city expressed, so the loop lived in our team's time, not in the product. I believe one use case, delivered and repeated, would have had a better chance of a first contract. I cannot prove it.

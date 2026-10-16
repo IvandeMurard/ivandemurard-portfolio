@@ -6,7 +6,7 @@ One message a day in WhatsApp. The manager replies. The outcome is recorded next
 
 - Type: AI agent · Boutique hotel operations · 2026
 - Role: Product Builder and AI Agent Designer, solo
-- Status: Built. Running on sandbox and public data. No hotel connected yet.
+- Status: Built, tested on historical data, and staged for production. Ready for a 30-day pilot.
 - The architecture: https://ivandemurard.com/architecture
 - GitHub: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 - Book a call: https://cal.com/ivandemurard/discussion-and-introduction
@@ -153,7 +153,7 @@ Aetherix is one of five agents. Each owns one job and talks to the others only t
 
 | Agent | Role | Status |
 | --- | --- | --- |
-| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built. Running on sandbox and public data. No hotel connected yet. |
+| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built, tested on historical data, and staged for production. Ready for a 30-day pilot. |
 | Tacet | Sensory: weather, noise, open data, risk | Built, maintenance mode since July 2026 |
 | Anima | Guest memory node | Synthetic PoC, production DPIA-gated |
 | Peritia | House knowledge | Design |

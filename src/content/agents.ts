@@ -26,10 +26,10 @@ export const AGENTS_DOC = {
   ],
   exampleIntro: "Ask about a project that stopped. The answer says it stopped.",
   exampleCall: '→ get_case_study { "slug": "sonor" }',
-  highlight: "No contract signed; the project stopped in 2022.",
+  highlight: "stopped in 2022 after discovery concluded no contract would clear.",
   guarantees: [
     "Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.",
-    "Every project carries its status: Sandbox, Maintenance, Evaluated, Gated, Partial or Stopped.",
+    "Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP Shipped.",
     "Figures come with their source. Illustrative figures are labelled as such.",
     "Read-only: an agent can read everything here, and change nothing.",
     "Nothing an agent sends to the MCP server is stored.",

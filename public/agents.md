@@ -1,6 +1,6 @@
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-10-14.
+Public. Read-only. No key. Last updated 2026-10-16.
 
 > Every page on this site has a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
@@ -39,17 +39,17 @@ Ask about a project that stopped. The answer says it stopped.
 
 ```
 → get_case_study { "slug": "sonor" }
-← Status: Stopped · Urban noise SaaS on open data, 0→1 to MVP. No contract signed, stopped in 2022.
+← Status: MVP Shipped · 0→1 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear.
   
   # Sonor
   
-  B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.
+  B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.
 ```
 
 ## Guarantees
 
 - Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.
-- Every project carries its status: Sandbox, Maintenance, Evaluated, Gated, Partial or Stopped.
+- Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP Shipped.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.
 - Nothing an agent sends to the MCP server is stored.

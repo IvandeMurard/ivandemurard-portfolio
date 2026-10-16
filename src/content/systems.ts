@@ -18,7 +18,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/aetherix",
     what: "The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built. Running on sandbox and public data. No hotel connected yet.",
+    status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
   },
   {
     slug: "tacet",
@@ -42,7 +42,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/anima",
     what: "Guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice, without watching.",
     who: "The nodes that need to know who is arriving.",
-    status: "Synthetic PoC, production gated behind a data-protection assessment.",
+    status: "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears.",
   },
   {
     slug: "sonor",
@@ -81,7 +81,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     to: "/aetherix",
     what: "The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built. Running on sandbox and public data. No hotel connected yet.",
+    status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
   },
   {
     slug: "tacet",
@@ -99,7 +99,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     what:
       "The guest memory node. It keeps what a guest said and what happened, so nobody has to ask twice, without watching.",
     who: "The nodes that need to know who is arriving.",
-    status: "Synthetic PoC, production gated behind a data-protection assessment.",
+    status: "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears.",
   },
   {
     slug: "peritia",

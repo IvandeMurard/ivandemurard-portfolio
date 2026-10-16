@@ -26,7 +26,7 @@ var BASE = [
     slug: "sonor",
     name: "Sonor",
     label: "SaaS \xB7 Urban Noise Insights \xB7 2020-2022",
-    tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.",
+    tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.",
     url: "https://ivandemurard.com/sonor",
     markdown_path: "/sonor.md"
   },
@@ -34,7 +34,7 @@ var BASE = [
     slug: "aetherix",
     name: "Aetherix",
     label: "AI Agent \xB7 Boutique Hotel Operations \xB7 2026",
-    tagline: "The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet.",
+    tagline: "The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md"
   },
@@ -58,7 +58,7 @@ var BASE = [
     slug: "anima",
     name: "Anima",
     label: "AI Agent \xB7 Guest Memory \xB7 2026",
-    tagline: "The guest memory node of the Hospitality Multi-Agent Architecture. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC, production gated behind a data-protection assessment.",
+    tagline: "The guest memory node of the Hospitality Multi-Agent Architecture. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears.",
     url: "https://ivandemurard.com/anima",
     markdown_path: "/anima.md"
   },
@@ -100,7 +100,7 @@ var SLUGS = {
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: Stopped \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: MVP Shipped \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass.")
   },
@@ -156,7 +156,7 @@ var CV = {
       dates: "Nov 2025 \u2013 present",
       context: "Agentic systems for independent hotels: intelligence pushed into the tools staff already use, not another dashboard.",
       bullets: [
-        "Aetherix (F&B agent): one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; no hotel connected yet.",
+        "Aetherix (F&B agent): one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; staged for a 30-day pilot.",
         "Anima (guest memory): keeps what guests said apart from what was inferred, and forgets what was never confirmed. Synthetic proof of concept with four memory layers and an MCP server; real guest data gated behind a data-protection assessment.",
         "Evaluation by design: forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive median baseline, with mixed results reported as they are; 12 public ADRs.",
         "Architecture: 5 agents around a central orchestrator, multi-tenant, with GDPR constraints designed in from the start."
@@ -1530,9 +1530,9 @@ var mcp_default = defineMcp({
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state.",
-    "Aetherix: The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet.",
+    "Aetherix: The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
     "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative begins with One address, read in context, then Product strategy, Where AI sits, Built for people and AI agents, How sure is it?, and Where it stands. Its corpus: APUR BDCom 2023 shopfront census \xB7 BODACC legal notices \xB7 INSEE Sirene \xB7 85,418 units \xB7 every figure with its source, licence and date. Earlier census records and any figures derived from them remain withheld until their licence is cleared.",
-    "Every case study carries a status (Stopped, Sandbox, Maintenance, Evaluated, Gated, Partial). Quote it; never upgrade it.",
+    "Every case study carries a status (MVP Shipped, Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial). Quote it; never upgrade it.",
     "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),

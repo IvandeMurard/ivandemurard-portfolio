@@ -40,7 +40,7 @@ export const PROJECTS = {
     status: STATUSES.sonor,
     slug: "sonor",
     name: "Sonor",
-    tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.",
+    tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.",
     label: "SaaS • Urban Noise Insights • 2020 - 2022",
     image: sonorImg,
     cta: "The Full Narrative",
