@@ -19,14 +19,14 @@ CV: https://ivandemurard.com/cv. PDF: https://ivandemurard.com/Ivan_de_Murard_CV
 ## How he works
 
 1. Reading the ground. Field-level fluency in operations: boutique hotels, F&B, design partners, open-data ecosystems. He learns an environment before he designs for it.
-2. From insight to product decisions. Aetherix is the proof: built and tested on sandbox and public data, with no hotel connected yet.
+2. From insight to product decisions. Aetherix is the proof: built, tested on historical data, and staged for a 30-day pilot.
 3. Right tool for the problem. Sometimes a workflow, sometimes a checklist, sometimes an agentic system. The lightest mechanism that solves the job, with the human in the loop.
 
 ## Aetherix
 
 URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture.
 
-Aetherix. The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet. Full narrative: https://ivandemurard.com/aetherix.md
+Aetherix. The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot. Full narrative: https://ivandemurard.com/aetherix.md
 
 Roadmap. Phase 0 Validation done · Phase 1 Observability done · Phase 2 Receipts done · Phase 3 Pilot current · Phase 4 Scale planned (Mews, POS, Federated HiveMemory, Context Graph, Anima) · Phase 5 Vision planned (Revenue Orchestrator).
 
@@ -109,7 +109,7 @@ Q: Who is Ivan de Murard?
 A: A Paris-based product builder with five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor. He focuses on product management, service design, and agentic AI for operations.
 
 Q: What is Aetherix?
-A: The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet.
+A: The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.
 
 Q: What is Lore?
 A: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Used by a junior technician on the shop floor, hands busy. Prototype, built at a Speechmatics hackathon in early 2026.

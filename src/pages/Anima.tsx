@@ -141,7 +141,7 @@ const OPENING_QUESTIONS = [
 
 const ROSE_PROMPTS = [
   "On the Anima case study: what are the four memory layers, and why do they expire differently?",
-  "On the Anima case study: why is production gated behind a data-protection assessment?",
+  "On the Anima case study: why is deployment frozen until the data-protection impact assessment (DPIA) clears?",
   "On the Anima case study: what stops a consumer from asking for everything known about a guest?",
   "On the Anima case study: how is this different from a personalisation engine?",
 ];
@@ -218,7 +218,7 @@ const Anima = () => {
               style={{ ["--reveal-delay" as string]: "360ms" }}
               className="inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant"
             >
-              Synthetic proof of concept · production gated behind a data-protection assessment
+              Synthetic proof of concept · deployment frozen until the data-protection impact assessment (DPIA) clears
             </span>
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "420ms" }} className="mt-8">
               <EntryActions title="Anima" markdownPath="/anima.md" variant="case" />

@@ -5,7 +5,7 @@ const NODES = [
     emoji: "🍽️",
     name: "Aetherix",
     role: "F&B execution: forecast, staffing, memory, receipts",
-    status: "Built. Running on sandbox and public data. No hotel connected yet.",
+    status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
     statusTone: "live" as const,
   },
   {

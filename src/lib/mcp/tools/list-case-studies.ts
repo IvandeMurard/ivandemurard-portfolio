@@ -7,7 +7,7 @@ const BASE = [
     name: "Sonor",
     label: "SaaS · Urban Noise Insights · 2020-2022",
     tagline:
-      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP. No contract signed; the project stopped in 2022.",
+      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.",
     url: "https://ivandemurard.com/sonor",
     markdown_path: "/sonor.md",
   },
@@ -16,7 +16,7 @@ const BASE = [
     name: "Aetherix",
     label: "AI Agent · Boutique Hotel Operations · 2026",
     tagline:
-      "The F&B agent for boutique hotels. One message a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built. Running on sandbox and public data. No hotel connected yet.",
+      "The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md",
   },
@@ -43,7 +43,7 @@ const BASE = [
     name: "Anima",
     label: "AI Agent · Guest Memory · 2026",
     tagline:
-      "The guest memory node of the Hospitality Multi-Agent Architecture. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC, production gated behind a data-protection assessment.",
+      "The guest memory node of the Hospitality Multi-Agent Architecture. A four-layer temporal memory of a guest relationship (working, episodic, semantic, segment), claims carrying weight, source and age with decay, and a scope gate that makes total recall impossible. Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears.",
     url: "https://ivandemurard.com/anima",
     markdown_path: "/anima.md",
   },
