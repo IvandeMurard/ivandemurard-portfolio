@@ -20,14 +20,23 @@ const reducedMotion = () =>
 const Bubble = ({ who, time, children, mine = false, visible }: { who: string; time: string; children: React.ReactNode; mine?: boolean; visible: boolean }) => (
   <div
     className={cn(
-      "border border-outline-variant p-4 transition-all duration-500 motion-reduce:transition-none",
-      mine ? "ml-10 bg-surface-container rounded-[18px_18px_4px_18px]" : "mr-6 bg-surface shadow-sm rounded-[18px_18px_18px_4px]",
+      "relative max-w-[88%] px-3 pt-1.5 pb-1 shadow-sm transition-all duration-500 motion-reduce:transition-none",
+      mine
+        ? "self-end bg-signal-go/15 rounded-[10px_0_10px_10px]"
+        : "self-start bg-surface rounded-[0_10px_10px_10px]",
       visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
     )}
     aria-hidden={!visible}
   >
-    <div className="flex justify-between font-mono text-[11px] text-on-surface-variant mb-2"><span>{who}</span><span>{time}</span></div>
+    <span aria-hidden className={cn("absolute top-0 h-0 w-0 border-t-[8px] border-t-current",
+      mine ? "-right-2 border-r-[8px] border-r-transparent text-signal-go/15" : "-left-2 border-l-[8px] border-l-transparent text-surface")} />
+    {!mine && <div className="text-[11.5px] font-medium text-signal-go mb-0.5">{who}</div>}
+    {mine && <span className="sr-only">{who}</span>}
     {children}
+    <div className="flex justify-end items-center gap-1 font-mono text-[10px] text-on-surface-variant mt-0.5">
+      <span>{time}</span>
+      {mine && <span aria-label="read" className="text-[11px] tracking-[-3px] pr-1 text-sky-500">✓✓</span>}
+    </div>
   </div>
 );
 
@@ -76,18 +85,27 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         })}
       </div>
 
-      <div role="tabpanel" aria-label={LOOP_TABS[tab]} aria-live="polite" className="flex flex-col gap-3 min-h-[380px]">
+      <div className="rounded-xl overflow-hidden border border-outline-variant bg-surface-container shadow-sm">
+      <div className="flex items-center gap-3 px-4 py-2.5 bg-surface border-b border-outline-variant">
+        <span aria-hidden className="grid place-items-center h-9 w-9 rounded-full bg-on-surface text-surface font-display text-[15px]">A</span>
+        <div className="flex-1 min-w-0">
+          <div className="text-[14px] font-medium text-on-surface leading-tight">Aetherix</div>
+          <div className="flex items-center gap-1.5 text-[11.5px] text-on-surface-variant"><span className="h-1.5 w-1.5 rounded-full bg-signal-go" />Business account · online</div>
+        </div>
+        <span aria-hidden className="text-on-surface-variant text-lg leading-none">⋮</span>
+      </div>
+      <div role="tabpanel" aria-label={LOOP_TABS[tab]} aria-live="polite" className="flex flex-col gap-2 min-h-[380px] px-4 py-4 bg-[radial-gradient(hsl(var(--outline-variant)/0.35)_1px,transparent_1px)] [background-size:14px_14px]">
         <Bubble who="Aetherix" time={`${d.date} · evening before`} visible={step >= 1}>
-          <p className="font-mono text-[13px] leading-[1.7] whitespace-pre-wrap text-on-surface">{eveningText(d)}</p>
+          <p className="text-[13.5px] leading-[1.55] whitespace-pre-wrap text-on-surface">{eveningText(d)}</p>
         </Bubble>
         <Bubble who="F&B Manager" time="reply" mine visible={step >= 2}>
           <div className="flex items-start justify-between gap-3">
-            <p className="font-mono text-[13px] leading-[1.7] text-on-surface">{d.reply.text}</p>
+            <p className="text-[13.5px] leading-[1.55] text-on-surface">{d.reply.text}</p>
             <SignalLamp state={d.reply.signal as "go" | "warn" | "stop"} label={d.reply.kind} />
           </div>
         </Bubble>
         <Bubble who="Aetherix" time="next morning" visible={step >= 3}>
-          <p className="font-mono text-[13px] leading-[1.7] text-on-surface">{d.morning.text}</p>
+          <p className="text-[13.5px] leading-[1.55] text-on-surface">{d.morning.text}</p>
           {d.morning.kind === "quarantine" ? (
             <div className="mt-2 flex items-center gap-3">
               <SignalLamp state="stop" hideWord />
@@ -110,6 +128,11 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
             <div className="mt-2"><SignalLamp state={d.morning.signal as "go" | "warn" | "stop"} label={d.morning.kind} /></div>
           )}
         </Bubble>
+      </div>
+      <div aria-hidden className="flex items-center gap-2 px-3 py-2 bg-surface border-t border-outline-variant">
+        <div className="flex-1 rounded-full bg-surface-container px-4 py-1.5 text-[12.5px] text-on-surface-variant">Message</div>
+        <span className="grid place-items-center h-8 w-8 rounded-full bg-signal-go text-surface text-[13px]">➤</span>
+      </div>
       </div>
 
       <div className="mt-4 flex items-start justify-between gap-4">
