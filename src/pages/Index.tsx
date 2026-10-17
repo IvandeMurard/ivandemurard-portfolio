@@ -59,11 +59,10 @@ const Index = () => {
               <li>€1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.</li>
             </ul>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
-              Trained in service design, I connect operations (front and back of house) with tech (front and back-end) and business.{" "}
-              Since November 2025 I design, build and evaluate AI agents with RAG and multi-agent workflows, built as closed loops: every recommendation checked against what really happened.
+              I connect operations (front and back of house) with tech (front and back-end) and business. Since November 2025 I design, build and evaluate AI multi-agent workflows, built as closed loops for continuous improvement.
             </p>
             <p className="mt-4 font-mono uppercase tracking-[0.12em] text-[11px] text-on-surface-variant">
-              Results published, mixed ones included.
+              {"\n"}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-8">
               <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
