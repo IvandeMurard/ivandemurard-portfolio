@@ -10,8 +10,9 @@ export const LOOP_TABS = ["Day 1 · Who's right?", "Day 10 · It refuses", "Day 
 export const LOOP_SOURCE_URL = `https://github.com/${LOOP.provenance.repo}/tree/${LOOP.provenance.commit}/demo/closed-loop`;
 
 export const eveningText = (d: Day) =>
-  `Covers expected: ${d.evening.predicted} (range ${d.evening.range[0]}–${d.evening.range[1]}, confidence ${d.evening.confidence})\nStaffing: ${d.evening.staffing}` +
-  (d.evening.context ? `\n${d.evening.context}` : "");
+  `Covers expected: ${d.evening.predicted}\n${d.evening.why}\n${d.evening.confidence_text}\nStaffing: ${d.evening.staffing.text}`;
+
+const signed = (n: number) => (n > 0 ? `+${n}` : `−${Math.abs(n)}`);
 
 const STEP_MS = 1100;
 const reducedMotion = () =>
@@ -97,29 +98,45 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
       <div role="tabpanel" aria-label={LOOP_TABS[tab]} aria-live="polite" className="flex flex-col gap-2 min-h-[380px] px-4 py-4 bg-[radial-gradient(hsl(var(--outline-variant)/0.35)_1px,transparent_1px)] [background-size:14px_14px]">
         <Bubble who="Aetherix" time={`${d.date} · evening before`} visible={step >= 1}>
           <p className="text-[13.5px] leading-[1.55] whitespace-pre-wrap text-on-surface">{eveningText(d)}</p>
+          <details className="mt-1.5 group/why">
+            <summary className="cursor-pointer list-none font-mono text-[11px] text-on-surface-variant underline decoration-dotted underline-offset-2 hover:text-on-surface">
+              Why {d.evening.predicted}? <span aria-hidden className="inline-block transition-transform group-open/why:rotate-90">›</span>
+            </summary>
+            <dl className="mt-2 font-mono text-[11.5px] text-on-surface">
+              <div className="flex justify-between gap-4 border-b border-outline-variant pb-1 mb-1"><dt>Usual level</dt><dd>{d.evening.baseline}</dd></div>
+              {d.evening.drivers.map((x) => (
+                <div key={x.label} className="flex justify-between gap-4"><dt className="text-on-surface-variant">{x.label}</dt><dd>{signed(x.covers)}</dd></div>
+              ))}
+              <div className="flex justify-between gap-4 border-t border-outline-variant pt-1 mt-1 font-medium"><dt>Forecast</dt><dd>{d.evening.predicted}</dd></div>
+            </dl>
+            <p className="mt-2 text-[11.5px] leading-relaxed text-on-surface-variant">{d.evening.confidence_detail}</p>
+            <p className="mt-1.5 text-[11.5px] leading-relaxed text-on-surface-variant">{d.evening.staffing.basis}</p>
+          </details>
         </Bubble>
         <Bubble who="F&B Manager" time="reply" mine visible={step >= 2}>
           <div className="flex items-start justify-between gap-3">
             <p className="text-[13.5px] leading-[1.55] text-on-surface">{d.reply.text}</p>
             <SignalLamp state={d.reply.signal as "go" | "warn" | "stop"} label={d.reply.kind} />
           </div>
+          {"basis" in d.reply && d.reply.basis && (
+            <p className="mt-1 text-[11.5px] leading-relaxed text-on-surface-variant">{d.reply.basis}</p>
+          )}
         </Bubble>
         <Bubble who="Aetherix" time="next morning" visible={step >= 3}>
           <p className="text-[13.5px] leading-[1.55] text-on-surface">{d.morning.text}</p>
           {d.morning.kind === "quarantine" ? (
             <div className="mt-2 flex items-center gap-3">
-              <SignalLamp state="stop" hideWord />
+              <SignalLamp state={d.morning.signal as "stop"} hideWord />
               <TooltipProvider delayDuration={150}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button type="button"
                       className="font-mono text-[11px] text-signal-stop underline decoration-dotted underline-offset-2 cursor-help">
-                      reason: implausible_feedback <span aria-hidden>ⓘ</span>
+                      Outlier guard <span aria-hidden>ⓘ</span>
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="top" className="max-w-[260px] font-mono text-[11px] leading-relaxed">
-                    <span className="block uppercase tracking-wider text-on-surface-variant mb-1">Outlier guard</span>
-                    {d.morning.actual} covers is far beyond what this restaurant can seat (forecast was {d.evening.predicted}). Quarantined before it can retrain the model.
+                    The figure exceeds what the restaurant can seat. It was set aside before it could reach learning.
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -138,7 +155,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
       <div className="mt-4 flex items-start justify-between gap-4">
         <a href={LOOP_SOURCE_URL} target="_blank" rel="noopener noreferrer"
           className="font-mono text-[11px] text-on-surface-variant underline underline-offset-2 hover:text-on-surface">
-          Sandbox run · synthetic data · real services · seed {LOOP.provenance.seed} · translated from the original run
+          Sandbox hotel · synthetic data · real services · seed {LOOP.provenance.seed}
         </a>
         <button type="button" onClick={() => setRun((r) => r + 1)}
           className="font-mono text-[11px] text-on-surface-variant border-b border-outline-variant hover:text-on-surface shrink-0">
