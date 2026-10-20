@@ -387,6 +387,10 @@ const Sonor = () => {
               </a>
             ))}
           </div>
+        </div>
+      </section>
+      <section className="section-inverse py-20 md:py-28">
+        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center">
             <Link
               to="/contact"

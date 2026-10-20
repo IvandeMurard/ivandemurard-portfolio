@@ -347,9 +347,13 @@ const Atherix = () => {
 
       <CaseAnchors current="atherix" entries={AETHERIX_ANCHORS} columns={4} more={{ to: "/architecture", text: "How these systems fit together: the architecture note" }} />
 
-      <SectionDivider label="Talk about a pilot" index="09" />
-      <Reveal as="section" id="talk-about-a-pilot" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
+      </article>
+      <div className="hidden lg:block"><JournalToc items={toc} /></div>
+      </div>
+      </div>
+      <Reveal as="section" id="talk-about-a-pilot" className="section-inverse px-6 md:px-12 py-24 md:py-32 scroll-mt-24">
         <div className="max-w-3xl mx-auto text-center">
+          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-4">09</span>
           <SectionHeading id="talk-about-a-pilot-heading" title="Talk about a pilot" />
           <p className="text-on-surface-variant leading-relaxed">Solo builder. Open to a first pilot hotel running Apaleo, and to product conversations.</p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
@@ -359,10 +363,6 @@ const Atherix = () => {
           </div>
         </div>
       </Reveal>
-      </article>
-      <div className="hidden lg:block"><JournalToc items={toc} /></div>
-      </div>
-      </div>
     </div>
   </SiteLayout>
   );

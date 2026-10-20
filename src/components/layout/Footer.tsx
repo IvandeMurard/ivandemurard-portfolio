@@ -16,7 +16,9 @@ const ICON_LINKS = [
 export const Footer = () => {
   const track = useTrackClick();
   const { pathname } = useLocation();
-  const showColophon = pathname !== "/" && !pathname.startsWith("/contact");
+  // Pages ending on an inverted closing room skip the colophon to avoid a second goodbye.
+  const CLOSING_ROOMS = ["/aetherix", "/tacet", "/sonor"];
+  const showColophon = pathname !== "/" && !pathname.startsWith("/contact") && !CLOSING_ROOMS.includes(pathname);
 
   return (
     <footer className="w-full border-t border-outline-variant bg-surface-container-low py-8 md:py-10">

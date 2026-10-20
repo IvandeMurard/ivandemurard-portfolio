@@ -384,7 +384,18 @@ export const RoseDock = () => {
             }}
             className={cn("flex items-center gap-2 px-3", open ? "border-t border-outline-variant py-3" : "h-[52px] md:h-[48px] py-0")}
           >
-            {!open ? <CompassMark className="ml-1 h-6 w-6 shrink-0 text-secondary" /> : null}
+            {!open && messages.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                aria-label="Reopen the conversation with Rose"
+                tabIndex={hidden ? -1 : 0}
+                className="ml-1 flex shrink-0 items-center gap-1.5 rounded-full border border-secondary px-2.5 py-1 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              >
+                <CompassMark className="h-4 w-4" />
+                Resume
+              </button>
+            ) : !open ? <CompassMark className="ml-1 h-6 w-6 shrink-0 text-secondary" /> : null}
             {open ? (
               <textarea
                 ref={expandedInputRef}
