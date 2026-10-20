@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 import { Download, FileText } from "lucide-react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
@@ -109,7 +110,8 @@ const Cv = () => (
         </ul>
       </section>
     </div>
-  </SiteLayout>
+    <ClosingContact room="cv" />
+    </SiteLayout>
 );
 
 export default Cv;

@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 // Source of truth for facts (dates, stack, metrics, status).
 // If you change facts here, also update public/sonor.md and public/llms-full.txt.
 import { SafeImage } from "@/components/SafeImage";
@@ -389,18 +390,7 @@ const Sonor = () => {
           </div>
         </div>
       </section>
-      <section className="section-inverse py-20 md:py-28">
-        <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
-          <div className="text-center">
-            <Link
-              to="/contact"
-              className="inline-block bg-primary text-on-primary px-10 py-4 rounded-xl font-label uppercase tracking-[0.2em] text-[11px] hover:bg-primary-container transition-all"
-            >
-              Begin a Conversation
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ClosingContact room="sonor" />
 
       <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">
         <a

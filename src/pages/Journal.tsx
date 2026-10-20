@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
@@ -120,7 +121,8 @@ const Journal = () => (
       </section>
       )}
     </div>
-  </SiteLayout>
+    <ClosingContact room="journal" />
+    </SiteLayout>
 );
 
 export default Journal;
