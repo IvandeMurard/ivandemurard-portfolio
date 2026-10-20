@@ -160,7 +160,7 @@ const Index = () => {
           <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
             Open to AI Product Manager and Product Builder roles.{" "}
             <span className="font-headline italic text-secondary whitespace-nowrap">
-              <span className="talk-flourish">Let's talk!</span>
+              <span className="talk-flourish">Let's talk! Book a call</span>
             </span>
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>

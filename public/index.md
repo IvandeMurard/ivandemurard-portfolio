@@ -64,7 +64,7 @@ The decisions behind the products. Written to be reused. [All notes](https://iva
 
 Prototypes are fast. Getting operations to trust them is the job.
 
-Open to AI Product Manager and Product Builder roles. Thirty minutes is enough to know whether we should work together.
+Open to AI Product Manager and Product Builder roles. Let's talk! Book a call
 
 - Book a call: https://cal.com/ivandemurard/discussion-and-introduction
 - Email: ivandemurard@gmail.com
