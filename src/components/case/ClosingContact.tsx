@@ -41,12 +41,12 @@ export const CLOSING_ROOMS: Record<string, Room> = {
   },
   architecture: {
     title: "Multi-agent systems that stay auditable",
-    body: "Four domain agents around a router with no memory, talking only through MCP. Let's discuss architecting agentic systems that operations can trust.",
+    body: "Four domain agents around an orchestrator with no memory, talking only through MCP. Let's discuss architecting agentic systems that operations can trust.",
     actions: [call, { label: "Meta-repository", href: "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture", icon: "code" }, aetherix],
   },
   cv: {
     title: "Discuss a role",
-    body: "Open to AI Product Manager and Product Builder roles. Let's talk!",
+    body: "Open to AI Product Manager and Product Builder roles. Let's talk! Book a call",
     actions: [call, email, { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, icon: "person" }],
   },
   journal: {
