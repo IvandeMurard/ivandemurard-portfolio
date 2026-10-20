@@ -3,6 +3,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
+import { COMPASS } from "@/content/compass";
 
 type Action = { label: string; href: string; icon: string; internal?: boolean };
 type Room = { title: string; body: string; actions: Action[] };
@@ -26,7 +27,7 @@ export const CLOSING_ROOMS: Record<string, Room> = {
   compass: {
     title: "Turn open data into location decisions",
     body: "Compass assembles public registries into traceable context for commercial premises. Building a data product, or weighing an address?",
-    actions: [call, { label: "Open the demo", href: "https://compass-paris.lovable.app", icon: "open_in_new" }, email],
+    actions: [call, { label: "Open the demo", href: COMPASS.demo, icon: "open_in_new" }, email],
   },
   lore: {
     title: "Guardrails for high-stakes domains",

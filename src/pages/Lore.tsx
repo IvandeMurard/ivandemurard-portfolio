@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 // Source of truth for facts (dates, stack, status).
 // If you change facts here, also update public/lore.md.
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
@@ -619,7 +620,8 @@ const Lore = () => (
         </div>
       </Reveal>
     </div>
-  </SiteLayout>
+    <ClosingContact room="lore" />
+    </SiteLayout>
 );
 
 export default Lore;

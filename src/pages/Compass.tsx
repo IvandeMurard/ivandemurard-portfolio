@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 import { useRef } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
@@ -128,6 +129,7 @@ const Compass = () => {
           </div>
         </div>
       </div>
+      <ClosingContact room="compass" />
     </SiteLayout>
   );
 };

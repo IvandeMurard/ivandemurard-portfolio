@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 // Source of truth for facts (dates, stack, metrics, status).
 // If you change facts here, also update public/tacet.md and public/llms-full.txt.
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
@@ -531,23 +532,7 @@ const Tacet = () => (
         </div>
       </section>
 
-      {/* Closing CTA */}
-      <section id="contact" className="section-inverse px-6 md:px-12 py-32 md:py-48 scroll-mt-24">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-headline text-4xl md:text-7xl italic text-primary mb-12 leading-tight">
-            Interested in proactive intelligence for hotel operations?
-          </h2>
-          <a href="mailto:ivandemurard@gmail.com" className="inline-flex items-center group">
-            <span className="font-headline text-2xl md:text-3xl italic text-secondary border-b border-secondary group-hover:border-secondary transition-all duration-500 pb-1">
-              Let's discuss.
-            </span>
-            <Icon
-              name="east"
-              className="ml-4 text-secondary group-hover:translate-x-2 transition-transform duration-500"
-            />
-          </a>
-        </div>
-      </section>
+      <ClosingContact room="tacet" />
 
       <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">
         <a

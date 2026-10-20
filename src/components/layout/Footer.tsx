@@ -17,7 +17,7 @@ export const Footer = () => {
   const track = useTrackClick();
   const { pathname } = useLocation();
   // Pages ending on an inverted closing room skip the colophon to avoid a second goodbye.
-  const CLOSING_ROOMS = ["/aetherix", "/tacet", "/sonor"];
+  const CLOSING_ROOMS = ["/aetherix", "/tacet", "/sonor", "/compass", "/lore", "/anima", "/architecture", "/cv", "/journal"];
   const showColophon = pathname !== "/" && !pathname.startsWith("/contact") && !CLOSING_ROOMS.includes(pathname);
 
   return (

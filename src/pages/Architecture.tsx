@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 // Source of truth for facts (statuses, boundaries, links).
 // If you change facts here, also update public/architecture.md.
 import { useRef, type ReactNode } from "react";
@@ -530,6 +531,7 @@ const Architecture = () => {
           </div>
         </div>
       </div>
+      <ClosingContact room="architecture" />
     </SiteLayout>
   );
 };

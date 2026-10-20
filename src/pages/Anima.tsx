@@ -1,3 +1,4 @@
+import { ClosingContact } from "@/components/case/ClosingContact";
 // Source of truth for facts (status, layers, gating). If you change facts here,
 // also update public/anima.md.
 import { useRef, type ReactNode } from "react";
@@ -392,6 +393,7 @@ const Anima = () => {
           </div>
         </div>
       </div>
+      <ClosingContact room="anima" />
     </SiteLayout>
   );
 };
