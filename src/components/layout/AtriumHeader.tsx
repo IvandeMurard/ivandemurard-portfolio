@@ -27,7 +27,7 @@ const ClockMood = ({ compact = false }: { compact?: boolean }) => {
       onClick={() => { haptic("toggle"); toggle(); }}
       className={`font-mono text-[11px] tracking-[0.04em] tabular-nums whitespace-nowrap text-on-surface-variant border border-outline-variant rounded-full ${compact ? "px-2.5 py-1" : "px-3 py-1.5"} hover:border-secondary hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary`}
     >
-      {compact ? null : "Paris "}{t} · <span className="text-secondary">{isDusk ? "Dusk" : "Day"}</span>
+      {compact ? null : "Paris "}{t} · <span className="text-secondary">{isDusk ? "Dusk mode" : "Day mode"}</span>
     </button>
   );
 };

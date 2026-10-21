@@ -16,7 +16,7 @@ export interface MeshNode {
 export const MESH_NODES: MeshNode[] = [
   {
     node: "Aetherix",
-    status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+    status: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     owns: "F&B execution: covers forecast, staffing grid, waste risk, per-property memory",
     not: "Orchestration, pricing, guest-facing anything",
     state: "built",

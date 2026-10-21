@@ -29,7 +29,7 @@ export const AGENTS_DOC = {
   highlight: "stopped in 2022 after discovery concluded no contract would clear.",
   guarantees: [
     "Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.",
-    "Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP Shipped.",
+    "Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.",
     "Figures come with their source. Illustrative figures are labelled as such.",
     "Read-only: an agent can read everything here, and change nothing.",
     "Nothing an agent sends to the MCP server is stored.",

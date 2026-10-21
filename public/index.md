@@ -8,11 +8,11 @@ Co-founded Sonor: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped. 500
 
 ## 01 · Flagship: Aetherix
 
-The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift.
+The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs.
 
 [How it decides, and when it refuses](https://ivandemurard.com/aetherix#what-it-does-today)
 
-Built, tested on historical data, and staged for production. Ready for a 30-day pilot.
+Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
 
 Three days from a sandbox hotel (synthetic data, real services, seed 42): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/tree/096509806333661409ab682b7d9e498ca7a67bcd/demo/closed-loop
 
@@ -36,8 +36,8 @@ Three days from a sandbox hotel (synthetic data, real services, seed 42): https:
 
 ## 02 · Selected projects
 
-### Sonor (DARK · MVP Shipped)
-0→1 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear.
+### Sonor (DARK · MVP shipped · stopped 2022)
+0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
 
 
 ### Lore (GO · Evaluated)

@@ -1,6 +1,6 @@
 # Sonor
 
-B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.
+B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear.
 
 - Role: Co-founder and Product Lead
 - Duration: 2020 to 2022

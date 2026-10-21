@@ -5,7 +5,7 @@ const NODES = [
     emoji: "🍽️",
     name: "Aetherix",
     role: "F&B execution: forecast, staffing, memory, receipts",
-    status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+    status: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     statusTone: "live" as const,
   },
   {

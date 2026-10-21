@@ -28,7 +28,7 @@ type Act = {
 
 /** The five agents of the mesh, in the order they exist. */
 const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
-  { name: "Aetherix", role: "F&B execution", status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.", to: "/aetherix" },
+  { name: "Aetherix", role: "F&B execution", status: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.", to: "/aetherix" },
   { name: "Tacet", role: "Environmental signal", status: "Built", to: "/tacet" },
   { name: "Anima", role: "Guest memory", status: "Synthetic PoC", to: "/anima" },
   { name: "Peritia", role: "House knowledge", status: "Design" },
@@ -41,7 +41,7 @@ const ACTS: Act[] = [
     kicker: "The Hospitality Multi-Agent Architecture",
     slug: "aetherix",
     name: PROJECTS.atherix.name,
-    body: "The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+    body: "The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     note: "The food and beverage agent of the architecture.",
     image: PROJECTS.atherix.image,
     cta: "Trace the Path",
@@ -87,7 +87,7 @@ const ACTS: Act[] = [
     kicker: "Standalone project",
     slug: "sonor",
     name: PROJECTS.sonor.name,
-    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I took a B2G SaaS from discovery to MVP, turning acoustic open data into a decision tool for cities. Technical core validated; stopped in 2022 after discovery concluded no contract would clear.",
+    body: "Reclaiming urban silence through data. As Co-founder and Product Lead, I took a B2G SaaS from discovery to MVP, turning acoustic open data into a decision tool for cities. Stopped in 2022 after discovery concluded no contract would clear.",
     note: "Outside: a B2G SaaS, two years, before any of this.",
     image: PROJECTS.sonor.image,
     cta: "Explore the Narrative",

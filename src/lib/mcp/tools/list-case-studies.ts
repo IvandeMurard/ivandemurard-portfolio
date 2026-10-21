@@ -7,7 +7,7 @@ const BASE = [
     name: "Sonor",
     label: "SaaS · Urban Noise Insights · 2020-2022",
     tagline:
-      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.",
+      "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear.",
     url: "https://ivandemurard.com/sonor",
     markdown_path: "/sonor.md",
   },
@@ -16,7 +16,7 @@ const BASE = [
     name: "Aetherix",
     label: "AI Agent · Boutique Hotel Operations · 2026",
     tagline:
-      "The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+      "The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md",
   },

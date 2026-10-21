@@ -39,17 +39,17 @@ Ask about a project that stopped. The answer says it stopped.
 
 ```
 → get_case_study { "slug": "sonor" }
-← Status: MVP Shipped · 0→1 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear.
+← Status: MVP Shipped · 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
   
   # Sonor
   
-  B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.
+  B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear.
 ```
 
 ## Guarantees
 
 - Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.
-- Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP Shipped.
+- Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.
 - Nothing an agent sends to the MCP server is stored.
