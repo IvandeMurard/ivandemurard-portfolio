@@ -9,10 +9,29 @@ type Day = (typeof LOOP.days)[number];
 export const LOOP_TABS = ["Day 1 · Who's right?", "Day 10 · It refuses", "Day 17 · It sees it coming"] as const;
 export const LOOP_SOURCE_URL = `https://github.com/${LOOP.provenance.repo}/tree/${LOOP.provenance.commit}/demo/closed-loop`;
 
-export const eveningText = (d: Day) =>
-  `Covers expected: ${d.evening.predicted}\n${d.evening.why}\n${d.evening.confidence_text}\nStaffing: ${d.evening.staffing.text}`;
-
 const signed = (n: number) => (n > 0 ? `+${n}` : `−${Math.abs(n)}`);
+
+/** Display label inside the one-liner: proper nouns keep their case, the rest reads as running text. */
+const inlineLabel = (label: string) =>
+  label === "Poor weather" ? "weather" : /^(Hotel|Season)\b/.test(label) ? label[0].toLowerCase() + label.slice(1) : label;
+
+/** Minimum |covers| for a driver to be named in the one-liner; the rest is summed. */
+export const WHY_THRESHOLD = 5;
+
+/** "Why N" one-liner, generated from the JSON drivers (never written by hand). */
+export const whyLine = (d: Day) => {
+  const named = d.evening.drivers.filter((x) => Math.abs(x.covers) >= WHY_THRESHOLD);
+  const rest = d.evening.drivers.filter((x) => Math.abs(x.covers) < WHY_THRESHOLD).reduce((a, x) => a + x.covers, 0);
+  const parts = named.map((x) => `${inlineLabel(x.label)} ${signed(x.covers)}`).join(", ");
+  const other = rest === 0 ? "" : `; other factors ${signed(rest)}`;
+  return `Why ${d.evening.predicted}: usual level ${d.evening.baseline}; ${parts}${other}.`;
+};
+
+/** Sum of the one-liner's terms, so a test can prove it lands on the forecast. */
+export const whyTotal = (d: Day) => d.evening.drivers.reduce((a, x) => a + x.covers, d.evening.baseline);
+
+export const eveningText = (d: Day) =>
+  `Covers expected: ${d.evening.predicted}\n${whyLine(d)}\n${d.evening.confidence_text}\nStaffing: ${d.evening.staffing.text}`;
 
 const STEP_MS = 1100;
 const reducedMotion = () =>
@@ -91,7 +110,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         <span aria-hidden className="grid place-items-center h-9 w-9 rounded-full bg-on-surface text-surface font-display text-[15px]">A</span>
         <div className="flex-1 min-w-0">
           <div className="text-[14px] font-medium text-on-surface leading-tight">Aetherix</div>
-          <div className="flex items-center gap-1.5 text-[11.5px] text-on-surface-variant"><span className="h-1.5 w-1.5 rounded-full bg-signal-go" />Business account · online</div>
+          <div className="flex items-center gap-1.5 text-[11.5px] text-on-surface-variant">Aetherix · WhatsApp · mock-up</div>
         </div>
         <span aria-hidden className="text-on-surface-variant text-lg leading-none">⋮</span>
       </div>
