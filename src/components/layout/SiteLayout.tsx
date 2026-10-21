@@ -27,8 +27,8 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
   }, [title]);
 
 
+  // Bottom safe zone reserves the Rose dock's height so it never sits over the last CTA or status line.
   return (
-    {/* Bottom safe zone reserves the Rose dock's height so it never sits over the last CTA or status line. */}
     <div className="relative min-h-screen flex flex-col bg-surface text-on-surface pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-28">
       <a
         href="#main-content"
