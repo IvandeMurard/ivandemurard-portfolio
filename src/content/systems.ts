@@ -18,7 +18,7 @@ export const SYSTEM_ANCHORS: SystemAnchor[] = [
     to: "/aetherix",
     what: "The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+    status: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
   },
   {
     slug: "tacet",
@@ -81,7 +81,7 @@ export const MESH_ANCHORS: SystemAnchor[] = [
     to: "/aetherix",
     what: "The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply.",
     who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-    status: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+    status: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
   },
   {
     slug: "tacet",

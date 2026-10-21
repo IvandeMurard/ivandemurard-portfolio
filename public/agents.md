@@ -39,11 +39,11 @@ Ask about a project that stopped. The answer says it stopped.
 
 ```
 → get_case_study { "slug": "sonor" }
-← Status: MVP Shipped · 0→1 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear.
+← Status: MVP Shipped · 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
   
   # Sonor
   
-  B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.
+  B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear.
 ```
 
 ## Guarantees

@@ -24,7 +24,7 @@ import { AetherixRelationshipFigure } from "@/components/atherix/AetherixRelatio
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { AetherixWhatRemainsPrivate } from "@/components/atherix/AetherixWhatRemainsPrivate";
 
-const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.";
+const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.";
 
 const ALREADY_DOES = [
   "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
@@ -175,7 +175,7 @@ const Atherix = () => {
           <dl data-reveal-child className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
             <dt className="text-secondary">Type</dt><dd>AI agent · Boutique hotel operations · 2026</dd>
             <dt className="text-secondary">Role</dt><dd>Product Builder and AI Agent Designer, solo</dd>
-            <dt className="text-secondary">Status</dt><dd>Built, tested on historical data, and staged for production. Ready for a 30-day pilot.</dd>
+            <dt className="text-secondary">Status</dt><dd>Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.</dd>
           </dl>
           <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link to="/architecture" className={linkCls}>The architecture</Link>

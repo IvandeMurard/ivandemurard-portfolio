@@ -10,8 +10,8 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 
 // src/content/statuses.ts
 var STATUSES = {
-  sonor: { signal: "dark", word: "MVP Shipped", note: "0\u21921 B2G SaaS. Validated the technical core, stopped in 2022 after discovery concluded no contract would clear." },
-  aetherix: { signal: "warn", word: "Pilot-ready", note: "Built, tested on historical data, and staged for production. Ready for a 30-day pilot." },
+  sonor: { signal: "dark", word: "MVP Shipped", note: "0\u21921 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022." },
+  aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
   anima: { signal: "stop", word: "Compliance Gated", note: "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears." },
@@ -26,7 +26,7 @@ var BASE = [
     slug: "sonor",
     name: "Sonor",
     label: "SaaS \xB7 Urban Noise Insights \xB7 2020-2022",
-    tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.",
+    tagline: "B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear.",
     url: "https://ivandemurard.com/sonor",
     markdown_path: "/sonor.md"
   },
@@ -34,7 +34,7 @@ var BASE = [
     slug: "aetherix",
     name: "Aetherix",
     label: "AI Agent \xB7 Boutique Hotel Operations \xB7 2026",
-    tagline: "The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+    tagline: "The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md"
   },
@@ -1530,7 +1530,7 @@ var mcp_default = defineMcp({
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state.",
-    "Aetherix: The F&B agent for boutique hotels, without another dashboard. One daily recommendation, one-tap manager feedback, audited against real covers so it learns from every shift. Built, tested on historical data, and staged for production. Ready for a 30-day pilot.",
+    "Aetherix: The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative begins with One address, read in context, then Product strategy, Where AI sits, Built for people and AI agents, How sure is it?, and Where it stands. Its corpus: APUR BDCom 2023 shopfront census \xB7 BODACC legal notices \xB7 INSEE Sirene \xB7 85,418 units \xB7 every figure with its source, licence and date. Earlier census records and any figures derived from them remain withheld until their licence is cleared.",
     "Every case study carries a status (MVP Shipped, Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial). Quote it; never upgrade it.",
     "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",

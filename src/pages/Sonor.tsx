@@ -118,7 +118,7 @@ const Sonor = () => {
   <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS}>
     <Seo
       title="Sonor, Urban Noise Intelligence for Cities"
-      description="B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear."
+      description="B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear."
       path="/sonor"
       type="article"
       jsonLd={[
@@ -147,7 +147,7 @@ const Sonor = () => {
               Urban Intelligence.
             </h1>
             <p data-reveal-child style={{ ["--reveal-delay" as string]: "320ms" }} className="text-xl md:text-2xl font-body text-on-surface-variant max-w-xl leading-relaxed mb-16">
-              B2G <Term id="saas">SaaS</Term> that turned acoustic <Term id="openData">open data</Term> into a decision tool for cities. Taken from discovery to MVP, technical core validated; stopped in 2022 after discovery concluded no contract would clear.
+              B2G <Term id="saas">SaaS</Term> that turned acoustic <Term id="openData">open data</Term> into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-8 border-t border-outline-variant">
               {META.map((m, i) => (
