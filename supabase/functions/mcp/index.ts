@@ -10,7 +10,7 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 
 // src/content/statuses.ts
 var STATUSES = {
-  sonor: { signal: "dark", word: "MVP Shipped", note: "0\u21921 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022." },
+  sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022." },
   aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
@@ -100,7 +100,7 @@ var SLUGS = {
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: MVP Shipped \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: Pilot-ready \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass.")
   },
@@ -1532,7 +1532,7 @@ var mcp_default = defineMcp({
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state.",
     "Aetherix: The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative begins with One address, read in context, then Product strategy, Where AI sits, Built for people and AI agents, How sure is it?, and Where it stands. Its corpus: APUR BDCom 2023 shopfront census \xB7 BODACC legal notices \xB7 INSEE Sirene \xB7 85,418 units \xB7 every figure with its source, licence and date. Earlier census records and any figures derived from them remain withheld until their licence is cleared.",
-    "Every case study carries a status (MVP Shipped, Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial). Quote it; never upgrade it.",
+    "Every case study carries a status (Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial, MVP shipped \xB7 stopped 2022). Quote it; never upgrade it.",
     "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),

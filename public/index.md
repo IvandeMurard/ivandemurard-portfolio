@@ -36,7 +36,7 @@ Three days from a sandbox hotel (synthetic data, real services, seed 42): https:
 
 ## 02 · Selected projects
 
-### Sonor (DARK · MVP Shipped)
+### Sonor (DARK · MVP shipped · stopped 2022)
 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
 
 
