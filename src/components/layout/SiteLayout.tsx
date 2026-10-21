@@ -4,7 +4,6 @@ import { AtriumHeader } from "./AtriumHeader";
 import { Footer } from "./Footer";
 import { SectionRail, type RailSection } from "./SectionRail";
 import { PageLight } from "@/components/PageLight";
-import { BrandCursor } from "@/components/BrandCursor";
 import { RoseDock } from "@/components/rose/RoseDock";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
 
@@ -29,7 +28,8 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
 
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-surface text-on-surface">
+    {/* Bottom safe zone reserves the Rose dock's height so it never sits over the last CTA or status line. */}
+    <div className="relative min-h-screen flex flex-col bg-surface text-on-surface pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-28">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-on-primary focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-secondary"
@@ -37,7 +37,6 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
         Skip to content
       </a>
       <PageLight />
-      <BrandCursor />
       <div className="relative z-50" style={{ viewTransitionName: "site-header" }}>
         <AtriumHeader />
       </div>
