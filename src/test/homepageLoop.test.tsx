@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
 import LOOP from "@/content/homepage-loop.json";
-import { AetherixHomepageLoop, LOOP_TABS } from "@/components/atherix/AetherixHomepageLoop";
+import { AetherixHomepageLoop, LOOP_TABS, whyLine, WHY_THRESHOLD } from "@/components/atherix/AetherixHomepageLoop";
 
 const numbersIn = (s: string) => (s.match(/\d+(?:\.\d+)?/g) ?? []).map(Number);
 
@@ -23,6 +23,23 @@ describe("homepage loop numbers match the JSON", () => {
     it(`day ${d.day}: baseline + drivers = predicted`, () => {
       const sum = d.evening.drivers.reduce((a, x) => a + x.covers, d.evening.baseline);
       expect(sum).toBe(d.evening.predicted);
+    });
+  });
+
+  it("day 1 why line reads exactly as approved", () => {
+    expect(whyLine(LOOP.days[0])).toBe("Why 101: usual level 87; hotel 98% full +9, New Year's Day +8, season +7, weather −6; other factors −4.");
+  });
+
+  LOOP.days.forEach((d) => {
+    it(`day ${d.day}: the terms shown in the why line add up to the forecast`, () => {
+      const line = whyLine(d);
+      const terms = [...line.matchAll(/([+−])(\d+)/g)].map(([, s, n]) => (s === "−" ? -1 : 1) * Number(n));
+      const baseline = Number(line.match(/usual level (\d+)/)![1]);
+      const shown = Number(line.match(/^Why (\d+):/)![1]);
+      expect(shown).toBe(d.evening.predicted);
+      expect(baseline + terms.reduce((a, b) => a + b, 0)).toBe(shown);
+      expect(line).not.toContain("-");
+      d.evening.drivers.filter((x) => Math.abs(x.covers) < WHY_THRESHOLD).forEach((x) => expect(line).not.toContain(x.label));
     });
   });
 
