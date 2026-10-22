@@ -1042,7 +1042,7 @@ Markdown: https://ivandemurard.com/agents.md
 
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-10-21.
+Public. Read-only. No key. Last updated 2026-10-22.
 
 > Every page on this site has a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
@@ -1081,7 +1081,7 @@ Ask about a project that stopped. The answer says it stopped.
 
 ```
 → get_case_study { "slug": "sonor" }
-← Status: MVP Shipped · 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
+← Status: MVP shipped · stopped 2022 · 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
   
   # Sonor
   
@@ -1091,7 +1091,7 @@ Ask about a project that stopped. The answer says it stopped.
 ## Guarantees
 
 - Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.
-- Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP Shipped.
+- Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.
 - Nothing an agent sends to the MCP server is stored.

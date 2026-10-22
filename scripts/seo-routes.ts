@@ -58,7 +58,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     path: "/",
     title: "Ivan de Murard, AI Product Manager & Builder, Paris",
     description:
-      "AI Product Manager & Builder in Paris. Five years getting B2B products adopted; now AI agents built as closed loops, every recommendation checked against what really happened.",
+      "AI Product Manager & Builder in Paris. I've worked the floor; now I build AI agents for the people who run it: one decision a day, a person who answers, the outcome recorded next to it.",
     type: "website",
     changefreq: "weekly",
     priority: "1.0",
