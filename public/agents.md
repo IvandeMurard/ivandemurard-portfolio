@@ -1,6 +1,6 @@
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-10-21.
+Public. Read-only. No key. Last updated 2026-10-22.
 
 > Every page on this site has a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
@@ -39,7 +39,7 @@ Ask about a project that stopped. The answer says it stopped.
 
 ```
 → get_case_study { "slug": "sonor" }
-← Status: MVP Shipped · 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
+← Status: MVP shipped · stopped 2022 · 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
   
   # Sonor
   
