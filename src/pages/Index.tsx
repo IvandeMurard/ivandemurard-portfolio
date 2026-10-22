@@ -9,24 +9,44 @@ import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
+const AI_PROMPT = "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used.";
+// Only tools with a documented prefill URL (q parameter).
+const AI_LINKS = [
+  { name: "ChatGPT", href: `https://chatgpt.com/?q=${encodeURIComponent(AI_PROMPT)}` },
+  { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${encodeURIComponent(AI_PROMPT)}` },
+];
+
+const Tip = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <Popover>
+    <PopoverTrigger asChild>
+      <button type="button" className="underline decoration-dotted underline-offset-2 cursor-help focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">{label}</button>
+    </PopoverTrigger>
+    <PopoverContent side="top" className="max-w-[300px] font-mono text-[11.5px] leading-relaxed">{children}</PopoverContent>
+  </Popover>
+);
+
+const AetherixStatus = () => (
+  <p className="font-mono text-[11.5px] leading-relaxed text-signal-warn">
+    Built and evaluated on historical data. <Tip label="Staged">Deployed on a pre-production server (Fly.io, Paris): the same setup a pilot hotel would get, before any real hotel data.</Tip> on Fly.io, connected to the{" "}
+    <Tip label="Apaleo sandbox">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline">apaleo.com ↗</a></Tip>. Ready for a 30-day pilot.
+  </p>
+);
 
 // Latest three Field Notes, oldest first.
 const LATEST_NOTES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3).reverse();
 
-// Selected projects (Sonor first). Fragments only where sourced from the case studies; otherwise the status note.
+// Selected projects (Lore, Anima, Compass, Sonor). Fragments only where sourced from the case studies; otherwise the status note.
 const SELECTED = [
-  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: PROJECTS.sonor.tagline, href: "/sonor#what-id-change" },
   {
     p: PROJECTS.lore,
     fragment: "Evaluation harness · 64 cases · pure-function graders · hard safety tier",
     line: "Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure.",
   },
-  {
-    p: PROJECTS.compass,
-    fragment: COMPASS_SOURCES_LINE,
-    line: PROJECTS.compass.tagline,
-  },
-  { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: PROJECTS.anima.tagline },
+  { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: "Hotels forget their guests: what they know sits in one person's head or in scattered tools. Anima keeps only what guests chose to share, and uses it to adapt the stay." },
+  { p: PROJECTS.compass, fragment: COMPASS_SOURCES_LINE, line: PROJECTS.compass.tagline },
+  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: "It taught me to ship one use case before ten, the rule Aetherix is built on.", href: "/sonor#what-id-change" },
 ];
 
 const kicker = "font-mono uppercase tracking-[0.12em] text-[11px]";
@@ -40,29 +60,27 @@ const Index = () => {
       <Seo
         title="Ivan de Murard, AI Product Manager & Builder, Paris"
         rawTitle
-        description="AI Product Manager & Builder in Paris. Five years getting B2B products adopted; now AI agents built as closed loops, every recommendation checked against what really happened."
+        description="AI Product Manager & Builder in Paris. I've worked the floor; now I build AI agents for the people who run it: one decision a day, a person who answers, the outcome recorded next to it."
         path="/"
         jsonLd={[personJsonLd, { "@context": "https://schema.org", "@type": "WebSite", name: "Ivan de Murard", url: SITE.url, inLanguage: "en" }]}
       />
 
       {/* Hero: statement left, register right */}
       <Reveal as="header" className="pt-24 md:pt-24 pb-16 md:pb-20 px-6 md:px-10 max-w-screen-2xl mx-auto">
-        <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] xl:grid-cols-[minmax(0,1fr)_480px] gap-12 lg:gap-16 lg:items-start">
           <div className="max-w-[760px]" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
-              Five years getting products adopted. <em className="italic text-secondary">Now building systems operations can trust.</em>
+              I've worked the floor. <em className="accent-ink">Now I build AI agents for the people who run it.</em>
             </h1>
+            <p className="mt-5 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant max-w-[600px]">Front of house at Les Grands Verres, La Grande Épicerie de Paris, Paris La Défense Arena, festivals and private events.</p>
             <ul className="mt-6 max-w-[600px] space-y-1.5 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant">
               <li>Co-founded <Link to="/sonor" className="text-on-surface border-b border-outline-variant hover:border-secondary">Sonor</Link>: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped.</li>
               <li>500+ users on 100+ sites and 7 C-level executives aligned at DomusVi.</li>
               <li>€1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.</li>
             </ul>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
-              I connect operations (front and back of house) with tech (front and back-end) and business. Since November 2025 I design, build and evaluate AI multi-agent workflows, built as closed loops for continuous improvement.
-            </p>
-            <p className="mt-4 font-mono uppercase tracking-[0.12em] text-[11px] text-on-surface-variant">
-              {"\n"}
+              Since November 2025 I design, build and evaluate AI agents that work the way a floor does: one decision a day, a person who answers, the outcome recorded next to it.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-8">
               <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
@@ -75,14 +93,17 @@ const Index = () => {
               </a>
             </div>
           </div>
+          <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
+            <AetherixHomepageLoop initialTab={0} />
+          </div>
         </div>
       </Reveal>
 
       {/* 01 · Flagship teaser */}
       <section id="work" className="bg-surface-container-low scroll-mt-24">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 lg:items-center">
-            <div data-reveal-child>
+          <div>
+            <div data-reveal-child className="max-w-[760px]">
               <p className={`${kicker} text-secondary mb-8`}>01 · Flagship</p>
               <h2 className="font-headline font-light text-primary text-[clamp(72px,9vw,136px)] leading-[0.9] tracking-[-0.04em]">Aetherix</h2>
               <p className="mt-8 text-[21px] leading-relaxed text-on-surface max-w-[520px]">{PROJECTS.atherix.tagline}</p>
@@ -90,10 +111,7 @@ const Index = () => {
                 className="mt-10 inline-flex items-center min-h-[48px] px-6 border border-on-surface rounded-md text-on-surface font-medium hover:bg-on-surface hover:text-surface transition-colors">
                 How it decides, and when it refuses →
               </Link>
-              <p className="mt-5 font-mono text-[11.5px] text-signal-warn">{PROJECTS.atherix.status.note}</p>
-            </div>
-            <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
-              <AetherixHomepageLoop />
+              <div className="mt-5"><AetherixStatus /></div>
             </div>
           </div>
         </Reveal>
@@ -158,10 +176,7 @@ const Index = () => {
             Prototypes are fast. <em className="accent-ink">Getting operations to trust them is the job.</em>
           </h2>
           <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
-            Open to AI Product Manager and Product Builder roles.{" "}
-            <span className="font-headline italic text-secondary whitespace-nowrap">
-              <span className="talk-flourish">Let's talk! Book a call</span>
-            </span>
+            Open to AI Product Manager and Product Builder roles.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>
             <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
@@ -173,6 +188,14 @@ const Index = () => {
               {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
             </a>
           </div>
+          <p className="mt-10 font-mono text-[12px] text-on-surface-variant" data-reveal-child>
+            Or ask your AI about me:{" "}
+            {AI_LINKS.map((l, i) => (
+              <span key={l.name}>{i > 0 && " · "}<a href={l.href} target="_blank" rel="noopener noreferrer"
+                onClick={() => track({ label: `Ask ${l.name}`, href: l.href, kind: "contact" })}
+                className="text-primary border-b border-primary/40 hover:border-primary">{l.name} ↗</a></span>
+            ))}
+          </p>
         </Reveal>
       </section>
     </SiteLayout>
