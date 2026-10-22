@@ -21,7 +21,8 @@ export const Footer = () => {
   const showColophon = pathname !== "/" && !pathname.startsWith("/contact") && !CLOSING_ROOMS.includes(pathname);
 
   return (
-    <footer className="w-full border-t border-outline-variant bg-surface-container-low py-8 md:py-10">
+    {/* Bottom padding is the Rose dock safe zone: the dock rests over empty footer space, never over a CTA. */}
+    <footer className="w-full border-t border-outline-variant bg-surface-container-low pt-8 md:pt-10 pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-32">
       <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12">
         {showColophon && (
           <div className="group mx-auto max-w-xl pb-10 mb-8 border-b border-outline-variant text-center md:pb-14 md:mb-10">
