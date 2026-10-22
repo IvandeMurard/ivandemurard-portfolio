@@ -20,8 +20,8 @@ export const Footer = () => {
   const CLOSING_ROOMS = ["/aetherix", "/tacet", "/sonor", "/compass", "/lore", "/anima", "/architecture", "/cv", "/journal"];
   const showColophon = pathname !== "/" && !pathname.startsWith("/contact") && !CLOSING_ROOMS.includes(pathname);
 
+  // Bottom padding is the Rose dock safe zone: at the end of the page the dock rests over empty footer space.
   return (
-    {/* Bottom padding is the Rose dock safe zone: the dock rests over empty footer space, never over a CTA. */}
     <footer className="w-full border-t border-outline-variant bg-surface-container-low pt-8 md:pt-10 pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-32">
       <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12">
         {showColophon && (
