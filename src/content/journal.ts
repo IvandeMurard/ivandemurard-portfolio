@@ -81,6 +81,8 @@ export type JournalBlock =
   | { kind: "askRose"; label?: string; note?: string; prompts: string[] }
   /** Restrained editorial aside: a small heading, one paragraph, one link. Used for cross-links and contextual contact. */
   | { kind: "callout"; title: string; text: string; link: { to: string; text: string } }
+  /** Practical application checklist + copyable agent brief; content in journalApply.ts. */
+  | { kind: "apply"; slug: string }
   | { kind: "console"; preset: "harness"; label?: string }
   | {
       kind: "stepper";
@@ -292,6 +294,8 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it.",
       },
+      { kind: "h2", text: "Apply this to your project" },
+      { kind: "apply", slug: "agent-boundaries-aetherix" },
       {
         kind: "callout",
         title: "Working on an AI system where a wrong action has real consequences?",

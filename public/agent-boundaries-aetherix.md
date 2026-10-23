@@ -109,6 +109,51 @@ The guarantee. In a single-model design, "never act on a low-confidence forecast
 
 A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it.
 
+## Apply this to your project
+
+**The decision.** Which decisions the system may take alone, which it may only recommend, and which require a named human's approval.
+
+**Inputs.**
+- An inventory of the decisions the application makes or recommends
+- Who is accountable for each one
+- What it costs to undo each one
+- The current prompts and the code paths that act on outputs
+
+**The artifact.** A decision register classified by impact, reversibility and required authority, with an approval point, a fallback and an audit record for each.
+
+**Verification.** For every rule marked "enforced", show the code location and a test that fails when the rule is violated. A rule that only exists in a prompt is not enforced.
+
+**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
+
+```text
+Apply a method to my own AI project. Method source: "A wrong forecast is absorbed. A wrong action reaches a guest." by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
+
+Method: Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.
+
+Task:
+- Inventory the decisions the application makes or recommends.
+- Classify each by impact, reversibility and required authority.
+- Locate the boundaries between prediction, recommendation and execution.
+- Distinguish constraints written as prompt instructions from constraints enforced in code.
+- Propose approval points, fallback behaviour and audit records where they are missing.
+
+Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):
+- An inventory of the decisions the application makes or recommends
+- Who is accountable for each one
+- What it costs to undo each one
+- The current prompts and the code paths that act on outputs
+
+Deliverables:
+- A decision register
+- A list of prompt-only rules that should move into code
+- An enforceable architecture improvement plan, with one test per boundary
+
+Verification: For every rule marked "enforced", show the code location and a test that fails when the rule is violated. A rule that only exists in a prompt is not enforced.
+
+Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").
+Do not bypass approvals and do not change production systems without my explicit authorisation.
+```
+
 **Working on an AI system where a wrong action has real consequences?**
 I work on AI product architecture, evaluation and human-agent collaboration, with a focus on measurable, bounded and accountable systems.
 [Discuss an AI product or architecture challenge](https://ivandemurard.com/contact)

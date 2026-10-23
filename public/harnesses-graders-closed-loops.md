@@ -375,6 +375,52 @@ Grader or harness, what is the difference?
 Why can Lore not close the outcome loop?
 If I ship an agent next month, what should I gate on first?
 
+## Apply this to your project
+
+**The decision.** Which failures must block a release, and which arm (offline, runtime or outcome) is responsible for catching each one.
+
+**Inputs.**
+- The agent's architecture and current tests
+- Known failures or incident history
+- Input and output contracts
+- The error budget you can tolerate per category
+
+**The artifact.** A coverage map of failure modes against the three arms, plus test cases, graders and pass/fail thresholds written before the first run.
+
+**Verification.** Seed one known regression and confirm the gate fails the release. Rerun and confirm the verdict is identical.
+
+**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
+
+```text
+Apply a method to my own AI project. Method source: "What is an LLM evaluation harness?" by Ivan de Murard, https://ivandemurard.com/harnesses-graders-closed-loops.md (markdown).
+
+Method: Evaluation by design: offline, runtime and outcome evaluation (arms A, B, C), deterministic graders, frozen acceptance criteria and a release gate.
+
+Task:
+- Inspect the agent architecture and the current tests, if I have shared them.
+- List the major failure modes.
+- Map existing evaluation coverage against them.
+- Separate offline, runtime and outcome evaluation.
+- Define test cases, grading methods and acceptance criteria for the uncovered failures.
+- Identify which of the project's claims can actually be verified, and which cannot yet.
+
+Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):
+- The agent's architecture and current tests
+- Known failures or incident history
+- Input and output contracts
+- The error budget you can tolerate per category
+
+Deliverables:
+- A coverage matrix (failure mode × arm)
+- Prioritised implementation tasks
+- Reproducible test cases with their graders and thresholds
+
+Verification: Seed one known regression and confirm the gate fails the release. Rerun and confirm the verdict is identical.
+
+Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").
+Do not bypass approvals and do not change production systems without my explicit authorisation.
+```
+
 ## 15. Closing note
 
 Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 10 graders, 21 reference answers, 19 regressions, 90 tests.

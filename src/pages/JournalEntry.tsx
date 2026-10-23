@@ -1,5 +1,6 @@
 import { AetherixServiceBlueprint } from "@/components/journal/AetherixServiceBlueprint";
 import { ArticleUpdates } from "@/components/journal/ArticleUpdates";
+import { ApplyMethod } from "@/components/journal/ApplyMethod";
 import { useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
@@ -160,6 +161,8 @@ const Block = ({
           {headingId && <HeadingAnchor id={headingId} text={block.text} />}
         </h3>
       );
+    case "apply":
+      return <ApplyMethod slug={block.slug} />;
     case "callout":
       return (
         <aside className="border-y border-outline-variant py-6">

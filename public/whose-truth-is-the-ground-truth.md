@@ -147,6 +147,49 @@ What can be certified before any outcome exists?
 - Settle who owns the outcome history before the first pilot.
 - Freeze pass and fail thresholds before the first result. Publish the fails.
 
+## Apply this to your project
+
+**The decision.** Which signals the product may learn from without a human, and which only show agreement.
+
+**Inputs.**
+- The feedback and learning loop as it runs today
+- Every signal that comes back, who owns it and when it arrives
+- How outcomes are recorded, including for rejected recommendations
+
+**The artifact.** A truth-signal map: each signal labelled documented, declared or observed, with its owner, its delay and the threshold it is judged against.
+
+**Verification.** Check on historical data whether approval rate and outcome correctness diverge. If outcomes are never recorded for rejected recommendations, name the missing counterfactual.
+
+**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
+
+```text
+Apply a method to my own AI project. Method source: "Whose truth is the ground truth?" by Ivan de Murard, https://ivandemurard.com/whose-truth-is-the-ground-truth.md (markdown).
+
+Method: Distinguishing documented, declared and observed truth in a feedback loop, and refusing to read approval as correctness.
+
+Task:
+- Map the application's feedback and learning loop.
+- Classify each signal as documented, declared or observed truth.
+- Determine who owns each signal and when it becomes available.
+- Identify missing counterfactuals and potential selection bias.
+- Check whether approval is anywhere treated as correctness.
+
+Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):
+- The feedback and learning loop as it runs today
+- Every signal that comes back, who owns it and when it arrives
+- How outcomes are recorded, including for rejected recommendations
+
+Deliverables:
+- A truth-signal map
+- A list of places where approval stands in for correctness
+- Measurable learning and evaluation improvements, each with a pass and a fail threshold
+
+Verification: Check on historical data whether approval rate and outcome correctness diverge. If outcomes are never recorded for rejected recommendations, name the missing counterfactual.
+
+Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").
+Do not bypass approvals and do not change production systems without my explicit authorisation.
+```
+
 ## 8. FAQ
 
 ### Isn't the user always right?
