@@ -23,8 +23,10 @@ export const HARNESSES_ENTRY: JournalEntry = {
     note: "Reuse and adapt with attribution to Ivan de Murard.",
   },
   related: [
-    { label: "Lore", to: "/lore" },
-    { label: "Aetherix", to: "/aetherix" },
+    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "Why Aetherix splits forecasting from action, so each failure gets its own check." },
+    { role: "method", label: "Whose truth is the ground truth?", to: "/journal/whose-truth-is-the-ground-truth", why: "Arm C in depth: which answer a product may learn from, and when it arrives." },
+    { role: "evidence", label: "Lore case study", to: "/lore", why: "The harness whose case set, graders and canary this note quotes." },
+    { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "Where the gate, baselines and thresholds were first built." },
   ],
   excerpt:
     "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
@@ -272,11 +274,17 @@ export const HARNESSES_ENTRY: JournalEntry = {
     },
     {
       kind: "p",
-      text: "Aetherix runs one and a half loops, not two. \"Closed loop on a declared truth\" is an engineering statement; \"dual autonomous loop\" is a brochure statement.",
+      text: "Aetherix runs one and a half loops, not two. \"Closed loop on a declared truth\" is an engineering statement; \"dual autonomous loop\" is a brochure statement. Why the declared truth is weaker than the observed one is argued in [the ground-truth note](/journal/whose-truth-is-the-ground-truth).",
     },
     {
       kind: "quote",
       text: "When you cannot learn from outcomes, you have to over-invest upstream. That is why Lore's evaluation harness weighs close to a third of its codebase: not gratuitous rigour, but the price of a missing outcome loop.",
+    },
+    {
+      kind: "callout",
+      title: "See the method applied to a real architecture",
+      text: "Aetherix separates forecasting from recommendation so each can be evaluated against the right evidence. Different failure modes need different controls: a wrong forecast is measured, a wrong action is blocked in code. Explore the architectural decision, its trade-offs and what remains to be validated.",
+      link: { to: "/journal/agent-boundaries-aetherix", text: "Explore the Aetherix architecture" },
     },
 
     { kind: "h2", text: "3. \"Working\" against \"Reliable\", five dimensions" },

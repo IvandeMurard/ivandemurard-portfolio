@@ -344,8 +344,10 @@ var HARNESSES_ENTRY = {
     note: "Reuse and adapt with attribution to Ivan de Murard."
   },
   related: [
-    { label: "Lore", to: "/lore" },
-    { label: "Aetherix", to: "/aetherix" }
+    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "Why Aetherix splits forecasting from action, so each failure gets its own check." },
+    { role: "method", label: "Whose truth is the ground truth?", to: "/journal/whose-truth-is-the-ground-truth", why: "Arm C in depth: which answer a product may learn from, and when it arrives." },
+    { role: "evidence", label: "Lore case study", to: "/lore", why: "The harness whose case set, graders and canary this note quotes." },
+    { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "Where the gate, baselines and thresholds were first built." }
   ],
   excerpt: "What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.",
   tldr: "A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.",
@@ -585,11 +587,17 @@ var HARNESSES_ENTRY = {
     },
     {
       kind: "p",
-      text: 'Aetherix runs one and a half loops, not two. "Closed loop on a declared truth" is an engineering statement; "dual autonomous loop" is a brochure statement.'
+      text: 'Aetherix runs one and a half loops, not two. "Closed loop on a declared truth" is an engineering statement; "dual autonomous loop" is a brochure statement. Why the declared truth is weaker than the observed one is argued in [the ground-truth note](/journal/whose-truth-is-the-ground-truth).'
     },
     {
       kind: "quote",
       text: "When you cannot learn from outcomes, you have to over-invest upstream. That is why Lore's evaluation harness weighs close to a third of its codebase: not gratuitous rigour, but the price of a missing outcome loop."
+    },
+    {
+      kind: "callout",
+      title: "See the method applied to a real architecture",
+      text: "Aetherix separates forecasting from recommendation so each can be evaluated against the right evidence. Different failure modes need different controls: a wrong forecast is measured, a wrong action is blocked in code. Explore the architectural decision, its trade-offs and what remains to be validated.",
+      link: { to: "/journal/agent-boundaries-aetherix", text: "Explore the Aetherix architecture" }
     },
     { kind: "h2", text: '3. "Working" against "Reliable", five dimensions' },
     { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. \u2014 Qonto" },
@@ -1042,9 +1050,10 @@ var TRUTH_ENTRY = {
   mirror: "/whose-truth-is-the-ground-truth.md",
   license: { label: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
   related: [
-    { label: "Aetherix", to: "/aetherix" },
-    { label: "Lore", to: "/lore" },
-    { label: "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents", to: "/journal/harnesses-graders-closed-loops" }
+    { role: "method", label: "What is an LLM evaluation harness?", to: "/journal/harnesses-graders-closed-loops", why: "How reliable reference data becomes an acceptance criterion a release can fail." },
+    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "The architecture that keeps the forecast's truth and the manager's reply apart." },
+    { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "A product that gets an observed truth back the next day, once a hotel is connected." },
+    { role: "evidence", label: "Lore case study", to: "/lore", why: "A product whose realised truth never returns, and how it compensates upstream." }
   ],
   excerpt: `A forecast is a claim. A manager's "yes" is a preference. Real covers are a fact, the next day. The plan you did not choose is never seen. Which of these your product learns from decides what it becomes, and what it is worth.`,
   glance: {
@@ -1189,7 +1198,8 @@ var TRUTH_ENTRY = {
     },
     { kind: "list", items: [
       "**A fail is published.** On the model or decision link it triggers a written pivot note within five working days.",
-      "**Honest scale:** the earlier public benchmark gap was 0.6 points. Not covered by the protocol; it would sit in the fail band."
+      "**Honest scale:** the earlier public benchmark gap was 0.6 points. Not covered by the protocol; it would sit in the fail band.",
+      "**Reference data sets the bar.** A threshold is only as meaningful as the truth it is measured against; how that becomes an acceptance criterion a release can fail is in [the evaluation note](/journal/harnesses-graders-closed-loops#6-acceptance-criteria-the-part-everyone-skips). The thresholds themselves are public in [PROOF_PROTOCOL.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md); a published protocol is a commitment, not a result."
     ] },
     { kind: "h2", text: "7. Checklist" },
     { kind: "list", items: [

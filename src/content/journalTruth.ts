@@ -15,9 +15,10 @@ export const TRUTH_ENTRY: JournalEntry = {
   mirror: "/whose-truth-is-the-ground-truth.md",
   license: { label: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
   related: [
-    { label: "Aetherix", to: "/aetherix" },
-    { label: "Lore", to: "/lore" },
-    { label: "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents", to: "/journal/harnesses-graders-closed-loops" },
+    { role: "method", label: "What is an LLM evaluation harness?", to: "/journal/harnesses-graders-closed-loops", why: "How reliable reference data becomes an acceptance criterion a release can fail." },
+    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "The architecture that keeps the forecast's truth and the manager's reply apart." },
+    { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "A product that gets an observed truth back the next day, once a hotel is connected." },
+    { role: "evidence", label: "Lore case study", to: "/lore", why: "A product whose realised truth never returns, and how it compensates upstream." },
   ],
   excerpt:
     "A forecast is a claim. A manager's \"yes\" is a preference. Real covers are a fact, the next day. The plan you did not choose is never seen. Which of these your product learns from decides what it becomes, and what it is worth.",
@@ -170,6 +171,7 @@ export const TRUTH_ENTRY: JournalEntry = {
     { kind: "list", items: [
       "**A fail is published.** On the model or decision link it triggers a written pivot note within five working days.",
       "**Honest scale:** the earlier public benchmark gap was 0.6 points. Not covered by the protocol; it would sit in the fail band.",
+      "**Reference data sets the bar.** A threshold is only as meaningful as the truth it is measured against; how that becomes an acceptance criterion a release can fail is in [the evaluation note](/journal/harnesses-graders-closed-loops#6-acceptance-criteria-the-part-everyone-skips). The thresholds themselves are public in [PROOF_PROTOCOL.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md); a published protocol is a commitment, not a result.",
     ] },
 
     { kind: "h2", text: "7. Checklist" },
