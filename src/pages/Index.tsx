@@ -82,7 +82,7 @@ const Index = () => {
       <Seo
         title="Ivan de Murard, AI Product Manager & Builder, Paris"
         rawTitle
-        description="AI Product Manager & Builder in Paris. I've worked the floor; now I build AI agents for the people who run it: one decision a day, a person who answers, the outcome recorded next to it."
+        description="AI Product Manager & Builder in Paris. Front-of-house, co-founder, product manager. Now I build AI workflows for operations, bridging operations, tech and real business value."
         path="/"
         jsonLd={[personJsonLd, { "@context": "https://schema.org", "@type": "WebSite", name: "Ivan de Murard", url: SITE.url, inLanguage: "en" }]}
       />
