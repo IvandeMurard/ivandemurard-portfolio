@@ -166,6 +166,11 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
     updates: [
       {
         date: "2026-10-23",
+        summary: "Linked the two companion notes and the public repository where the text makes a claim they explain or evidence.",
+        reason: "Readers arriving here had no path to how the boundary is tested, or to why approval and outcome are different signals.",
+      },
+      {
+        date: "2026-10-23",
         summary: "Added a reading card, a table separating the five jobs in the loop, and the scope of the public benchmark.",
         reason: "The note argued for one boundary but blended five things a reader needs to tell apart: forecasting, recommendation, enforcement in code, human approval and measured outcome. The benchmark sentence now says what it ran on (30 restaurants, Kaggle Recruit data) and that no manager decision has been delivered on the forecast yet, as the repository states.",
       },
