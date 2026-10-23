@@ -251,7 +251,7 @@ export const JOURNAL_KNOWLEDGE_QUESTIONS: {
   number: string; label: string; question: string; description: string; slug: string;
   cases: { label: string; to: string }[];
 }[] = [
-  { number: "01", label: "Evaluate", question: "How do you know an agent is working?", description: "Define what correct behavior means and how to test it.", slug: "harnesses-graders-closed-loops", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
+  { number: "01", label: "Evaluate", question: "How do you know an agent is working?", description: "Learn what correct behavior means and how to test it.", slug: "harnesses-graders-closed-loops", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
   { number: "02", label: "Set boundaries", question: "Where should an agent's responsibility end?", description: "Separate prediction, recommendation and authority.", slug: "agent-boundaries-aetherix", cases: [{ label: "Aetherix", to: "/aetherix" }] },
   { number: "03", label: "Learn", question: "Whose truth should an agent learn from?", description: "Distinguish approval, prediction and observed truth.", slug: "whose-truth-is-the-ground-truth", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
 ];
