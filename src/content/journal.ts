@@ -81,6 +81,8 @@ export type JournalBlock =
   | { kind: "askRose"; label?: string; note?: string; prompts: string[] }
   /** Restrained editorial aside: a small heading, one paragraph, one link. Used for cross-links and contextual contact. */
   | { kind: "callout"; title: string; text: string; link: { to: string; text: string } }
+  /** Practical application checklist + copyable agent brief; content in journalApply.ts. */
+  | { kind: "apply"; slug: string }
   | { kind: "console"; preset: "harness"; label?: string }
   | {
       kind: "stepper";

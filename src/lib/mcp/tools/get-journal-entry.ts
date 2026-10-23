@@ -3,6 +3,7 @@ import { z } from "zod";
 import { JOURNAL_ENTRIES, type JournalBlock, type JournalEntry } from "../../../content/journal";
 import { recoLineMarkdown } from "../../../content/recoLine";
 import { blueprintMarkdown } from "../../../content/serviceBlueprint";
+import { APPLY_GUIDES, applyMarkdown } from "../../../content/journalApply";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -76,6 +77,10 @@ export function renderBlock(block: JournalBlock): string {
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n");
     case "callout":
       return `**${block.title}**\n${block.text}\n[${block.link.text}](${SITE_ORIGIN}${block.link.to})`;
+    case "apply": {
+      const g = APPLY_GUIDES[block.slug];
+      return g ? applyMarkdown(g) : "";
+    }
   }
 }
 
