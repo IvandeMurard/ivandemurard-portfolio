@@ -211,17 +211,17 @@ const Index = () => {
               className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
               Book a call
             </a>
-            <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors break-all">
-              {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
+            <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">
+              Email Ivan
             </a>
-          </div>
-          <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-2 gap-y-2" data-reveal-child>
-            <span>Or ask your AI about me:</span>
             <a href={PERPLEXITY_HREF} target="_blank" rel="noopener noreferrer"
               onClick={() => track({ label: "Ask Perplexity", href: PERPLEXITY_HREF, kind: "contact" })}
-              className="text-primary border-b border-primary/40 hover:border-primary">Perplexity ↗</a>
-            <span aria-hidden>·</span>
+              className="text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">Ask your AI ↗</a>
+          </div>
+          <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2" data-reveal-child>
             <CopyPrompt />
+            <span aria-hidden>·</span>
+            <Link to="/contact" className="text-primary border-b border-primary/40 hover:border-primary">All ways to reach me →</Link>
           </p>
         </Reveal>
       </section>
