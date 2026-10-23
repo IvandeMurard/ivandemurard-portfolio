@@ -1293,6 +1293,18 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "The manager replies accept, reject, or the right figure. That reply is not politeness. It is the recorded output of a decision node."
       },
+      {
+        kind: "table",
+        caption: "Five jobs in one loop. Each has its own owner, its own check, and its own state of evidence today.",
+        head: ["Job", "Owner", "What it produces", "How it is checked", "Evidence today"],
+        rows: [
+          ["Statistical forecasting", "Prophet", "a number and an uncertainty range", "error against a frozen baseline", "synthetic series in CI; public benchmark"],
+          ["Recommendation", "Claude", "one message a day, uncertainty stated", "graders on the reply parser", "stand-in parser; model not yet measured"],
+          ["Deterministic enforcement", "code between the two", "a refusal to act on an implausible or low-confidence input", "a test that fails on violation", "exercised in a simulated 30-day scenario"],
+          ["Human approval", "the F&B manager", "accept, reject or the right figure", "recorded as an event", "sandbox data; free text not yet mapped"],
+          ["Measured outcome", "the till, next day", "real covers", "forecast error computes itself", "not yet: needs a connected hotel"]
+        ]
+      },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
@@ -1310,7 +1322,7 @@ var JOURNAL_ENTRIES = [
       { kind: "h2", text: "What it cost" },
       {
         kind: "p",
-        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a real public benchmark Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published."
+        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet."
       },
       {
         kind: "p",
