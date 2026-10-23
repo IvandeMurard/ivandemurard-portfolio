@@ -81,75 +81,52 @@ const Contact = () => {
         name: "Contact",
       }}
     />
-    <div className="pt-40 md:pt-48 pb-32">
-      <section className="px-6 md:px-12 max-w-4xl mx-auto text-center mb-20 md:mb-24 relative">
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 hilma-circle pointer-events-none" />
-        <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80 relative z-10">
-          Get in touch
-        </span>
-        <h1 className="font-headline text-5xl md:text-8xl text-primary leading-[1.1] italic relative z-10">
-          Shall <br />
-          we meet again?
+    <div className="pt-36 md:pt-44 pb-24">
+      <section className="px-6 md:px-12 max-w-4xl mx-auto">
+        <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block">Contact</span>
+        <h1 className="font-headline font-normal text-primary text-[clamp(40px,5vw,72px)] leading-[1.04] tracking-[-0.02em]">
+          Bridging operations, technology and real business value
         </h1>
-        <p className="mt-12 text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed font-normal relative z-10">
-          Let's discuss how to create business value and meaningful human experiences for your operations or users.
+        <p className="mt-5 font-headline italic accent-ink text-[clamp(24px,2.4vw,34px)] leading-snug">
+          Let's build the solution your team needs.
+        </p>
+        <p className="mt-8 text-lg md:text-xl text-on-surface leading-relaxed">
+          Open to AI Product Manager and Product Builder roles.
         </p>
       </section>
 
-      <section className="px-6 md:px-12 max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <section className="px-6 md:px-12 max-w-4xl mx-auto mt-14 md:mt-16">
+        <ul className="border-t border-outline-variant">
           {CHANNELS.map((c) => (
-            <a
-              key={c.label}
-              href={c.href}
-              target={c.external ? "_blank" : undefined}
-              rel={c.external ? "noopener noreferrer" : undefined}
-              onClick={() => {
-                haptic("tap");
-                track({ label: c.label, href: c.href, kind: c.kind });
-              }}
-              aria-label={`${c.label}: ${c.desc}${c.external ? " (opens in a new tab)" : ""}`}
-              className={`group relative overflow-hidden bg-surface-container-lowest p-8 md:p-12 rounded-xl border border-outline-variant hover:border-outline-variant md:hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 flex flex-col gap-6 ring-1 ${c.ring} focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background`}
-            >
-              <div
-                aria-hidden="true"
-                className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
-              />
-              <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-xl bg-surface-container border border-outline-variant group-hover:border-secondary group-hover:scale-105 transition-all duration-500">
+            <li key={c.label} className="border-b border-outline-variant">
+              <a
+                href={c.href}
+                target={c.external ? "_blank" : undefined}
+                rel={c.external ? "noopener noreferrer" : undefined}
+                onClick={() => { haptic("tap"); track({ label: c.label, href: c.href, kind: c.kind }); }}
+                aria-label={`${c.label}: ${c.desc}${c.external ? " (opens in a new tab)" : ""}`}
+                className="group grid grid-cols-[28px_1fr_auto] md:grid-cols-[28px_200px_1fr_auto] items-center gap-x-5 py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              >
                 {c.Logo ? (
-                  <c.Logo size={26} strokeWidth={1.5} className="text-secondary" aria-hidden="true" />
+                  <c.Logo size={20} strokeWidth={1.5} className="text-secondary" aria-hidden="true" />
                 ) : (
-                  <Icon name={c.icon ?? ""} className="text-secondary text-2xl" />
+                  <Icon name={c.icon ?? ""} className="text-secondary text-xl" />
                 )}
-              </div>
-              <div className="relative z-10">
-                <h3 className="font-headline italic text-3xl md:text-4xl text-primary mb-3">{c.label}</h3>
-                <p className="text-on-surface-variant font-normal leading-relaxed">{c.desc}</p>
-              </div>
-              <span className="relative z-10 inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[11px] text-secondary mt-auto">
-                {c.cta}
-                <Icon
-                  name={c.external ? "arrow_outward" : "arrow_forward"}
-                  className="text-sm group-hover:translate-x-1 transition-transform"
-                />
-              </span>
-            </a>
+                <span className="font-headline italic text-2xl md:text-3xl text-primary group-hover:text-secondary transition-colors">{c.label}</span>
+                <span className="hidden md:block text-on-surface-variant leading-relaxed">{c.desc}</span>
+                <Icon name={c.external ? "arrow_outward" : "arrow_forward"} className="text-secondary text-base group-hover:translate-x-1 transition-transform" />
+              </a>
+            </li>
           ))}
-        </div>
-        <p className="mt-12 text-center text-on-surface-variant font-normal leading-relaxed">
+        </ul>
+        <p className="mt-8 text-on-surface-variant leading-relaxed">
           Looking for a structured timeline of roles and skills?{" "}
-          <Link
-            to="/cv"
-            className="text-secondary border-b border-secondary/40 pb-0.5 hover:border-secondary transition-colors"
-          >
-            Read the CV
-          </Link>
+          <Link to="/cv" className="text-secondary border-b border-secondary/40 pb-0.5 hover:border-secondary transition-colors">Read the CV</Link>
         </p>
       </section>
 
-      <section className="mt-32 md:mt-48 px-6 md:px-12 max-w-3xl mx-auto text-center">
-        <div className="w-px h-24 bg-primary/20 mx-auto mb-12" />
-        <p className="font-headline italic text-2xl md:text-3xl text-primary leading-relaxed">
+      <section className="mt-16 md:mt-20 px-6 md:px-12 max-w-4xl mx-auto">
+        <p className="font-headline italic text-2xl md:text-3xl text-primary leading-relaxed border-l border-secondary/60 pl-6">
           "Every journey begins with a single conversation."
         </p>
       </section>
