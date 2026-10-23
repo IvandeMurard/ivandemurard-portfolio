@@ -26,7 +26,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
 
   if (!available) return null;
   const playing = !muted;
-  const disc = size === "sm" ? 26 : 28;
+  const disc = size === "sm" ? 30 : 33;
 
   const toggle = () => {
     haptic("toggle");
@@ -34,7 +34,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
   };
 
   return (
-    <div className="inline-flex h-8 items-stretch rounded-md border border-outline-variant bg-surface-container/60 shadow-[inset_0_1px_0_hsl(var(--metal-light)/0.12)] transition-colors duration-300 hover:border-secondary">
+    <div className="inline-flex h-9 items-center gap-0.5">
       <button
         type="button"
         role="switch"
@@ -42,7 +42,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
         aria-label={playing ? "Stop the record" : "Play the record"}
         title={playing ? "Stop the record" : "Play the record"}
         onClick={toggle}
-        className="inline-flex items-center justify-center px-1 rounded-l-md border-r border-outline-variant/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+        className="inline-flex items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
       >
         <span className={["transition-opacity duration-300", playing ? "opacity-100" : "opacity-70"].join(" ")}>
           <VinylRecord size={disc} playing={playing} pitch={pitch} />
@@ -55,7 +55,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
             aria-label="Open turntable controls"
             title="Turntable"
             onClick={() => haptic("tap")}
-            className="inline-flex items-center justify-center px-1 rounded-r-md text-on-surface-variant hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+            className="inline-flex h-8 items-center justify-center px-0.5 rounded text-on-surface-variant hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
           >
             <ChevronDown size={12} strokeWidth={1.5} className={["transition-transform duration-300", open ? "rotate-180" : ""].join(" ")} />
           </button>

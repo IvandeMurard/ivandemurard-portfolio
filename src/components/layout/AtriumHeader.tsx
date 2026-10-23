@@ -22,12 +22,25 @@ const ClockMood = ({ compact = false }: { compact?: boolean }) => {
     <button
       type="button"
       aria-pressed={isDusk}
-      aria-label={isDusk ? "Switch to day" : "Switch to dusk"}
-      title={isDusk ? "Switch to day" : "Switch to dusk"}
+      aria-label={isDusk ? `Paris ${t}, Dusk mode. Switch to Day mode` : `Paris ${t}, Day mode. Switch to Dusk mode`}
+      title={isDusk ? "Dusk mode · switch to Day mode" : "Day mode · switch to Dusk mode"}
       onClick={() => { haptic("toggle"); toggle(); }}
-      className={`font-mono text-[11px] tracking-[0.04em] tabular-nums whitespace-nowrap text-on-surface-variant border border-outline-variant rounded-full ${compact ? "px-2.5 py-1" : "px-3 py-1.5"} hover:border-secondary hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary`}
+      className={`inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.04em] tabular-nums whitespace-nowrap text-on-surface-variant border border-outline-variant rounded-full ${compact ? "px-2.5 py-1" : "px-3 py-1.5"} hover:border-secondary hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary`}
     >
-      {compact ? null : "Paris "}{t} · <span className="text-secondary">{isDusk ? "Dusk mode" : "Day mode"}</span>
+      <span aria-hidden>{compact ? null : "Paris "}{t}</span>
+      <svg aria-hidden width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" className="text-secondary">
+        {isDusk ? (
+          <>
+            <path d="M4 11a4 4 0 0 1 8 0" />
+            <path d="M1.5 11h13M8 4.5v1.5M3.4 6.4l1 1M12.6 6.4l-1 1M4.5 13.5h7" />
+          </>
+        ) : (
+          <>
+            <circle cx="8" cy="8" r="3" />
+            <path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1" />
+          </>
+        )}
+      </svg>
     </button>
   );
 };

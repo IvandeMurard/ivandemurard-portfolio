@@ -53,6 +53,9 @@ export const Footer = () => {
               <Link to="/cv" className="hover:text-primary transition-colors">
                 Curriculum Vitae
               </Link>{" "}·{" "}
+              <Link to="/architecture" className="hover:text-primary transition-colors">
+                Architecture
+              </Link>{" "}·{" "}
               <Link to="/privacy" className="hover:text-primary transition-colors">
                 Privacy
               </Link>

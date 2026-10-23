@@ -25,7 +25,11 @@ export const SectionRail = ({ sections = [] }: SectionRailProps) => {
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 600);
+    const onScroll = () => {
+      const f = document.querySelector("footer");
+      const nearFooter = f ? f.getBoundingClientRect().top < window.innerHeight - 40 : false;
+      setShowTop(window.scrollY > 600 && !nearFooter);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

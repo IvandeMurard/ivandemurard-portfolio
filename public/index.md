@@ -2,11 +2,9 @@
 
 AI Product Manager & Builder · Paris
 
-## I've worked the floor. Now I build AI agents for the people who run it.
+## Front-of-house, co-founder, product manager. Now I build AI solutions
 
-Front of house at Les Grands Verres, La Grande Épicerie de Paris, Paris La Défense Arena, festivals and private events.
-
-Co-founded Sonor: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped. 500+ users on 100+ sites and 7 C-level executives aligned at DomusVi, €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT. Since November 2025 I design, build and evaluate AI agents that work the way a floor does: one decision a day, a person who answers, the outcome recorded next to it.
+Since 2025, I design, build and evaluate AI workflows for operations, bridging operations, tech, and real business value.
 
 ## 01 · Flagship: Aetherix
 
@@ -64,7 +62,9 @@ The decisions behind the products. Written to be reused. [All notes](https://iva
 
 ## 04 · Contact
 
-I ship prototypes fast. Aligning tech, operations and business into services people actually use is where I come in.
+Bridging operations, technology and real business value
+
+Let's build the solution your team needs.
 
 Open to AI Product Manager and Product Builder roles.
 

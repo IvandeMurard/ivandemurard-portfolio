@@ -82,7 +82,7 @@ const Index = () => {
       <Seo
         title="Ivan de Murard, AI Product Manager & Builder, Paris"
         rawTitle
-        description="AI Product Manager & Builder in Paris. I've worked the floor; now I build AI agents for the people who run it: one decision a day, a person who answers, the outcome recorded next to it."
+        description="AI Product Manager & Builder in Paris. Front-of-house, co-founder, product manager. Now I build AI workflows for operations, bridging operations, tech and real business value."
         path="/"
         jsonLd={[personJsonLd, { "@context": "https://schema.org", "@type": "WebSite", name: "Ivan de Murard", url: SITE.url, inLanguage: "en" }]}
       />
@@ -93,16 +93,10 @@ const Index = () => {
           <div className="max-w-[760px]" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
-              I've worked the floor. <em className="accent-ink">Now I build AI agents for the people who run it.</em>
+              Front-of-house, co-founder, product manager.<br /> <em className="accent-ink">Now I build AI solutions</em>
             </h1>
-            <p className="mt-5 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant max-w-[600px]">Front of house at Les Grands Verres, La Grande Épicerie de Paris, Paris La Défense Arena, festivals and private events.</p>
-            <ul className="mt-6 max-w-[600px] space-y-1.5 text-[15px] md:text-[16px] leading-relaxed text-on-surface-variant">
-              <li>Co-founded <Link to="/sonor" className="text-on-surface border-b border-outline-variant hover:border-secondary">Sonor</Link>: 0→1 urban noise SaaS, incubated at Matrice, MVP shipped.</li>
-              <li>500+ users on 100+ sites and 7 C-level executives aligned at DomusVi.</li>
-              <li>€1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.</li>
-            </ul>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
-              Since November 2025 I design, build and evaluate AI agents that work the way a floor does: one decision a day, a person who answers, the outcome recorded next to it.
+              Since 2025, I design, build and evaluate AI workflows for operations, bridging operations, tech, and real business value.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-8">
               <Button asChild className="h-auto bg-primary text-on-primary px-8 py-4 rounded-md font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
@@ -202,9 +196,12 @@ const Index = () => {
       <section className="section-inverse">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
           <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
-          <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
-            I ship prototypes fast. <em className="accent-ink">Aligning tech, operations and business into services people actually use is where I come in.</em>
+          <h2 className="font-headline font-normal text-primary text-[clamp(40px,4.6vw,68px)] leading-[1.04] tracking-[-0.02em]" data-reveal-child>
+            Bridging operations, technology and real business value
           </h2>
+          <p className="mt-5 font-headline italic accent-ink text-[clamp(24px,2.4vw,34px)] leading-snug" data-reveal-child>
+            Let's build the solution your team needs.
+          </p>
           <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
             Open to AI Product Manager and Product Builder roles.
           </p>
@@ -214,17 +211,17 @@ const Index = () => {
               className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
               Book a call
             </a>
-            <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors break-all">
-              {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
+            <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">
+              Email Ivan
             </a>
-          </div>
-          <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-2 gap-y-2" data-reveal-child>
-            <span>Or ask your AI about me:</span>
             <a href={PERPLEXITY_HREF} target="_blank" rel="noopener noreferrer"
               onClick={() => track({ label: "Ask Perplexity", href: PERPLEXITY_HREF, kind: "contact" })}
-              className="text-primary border-b border-primary/40 hover:border-primary">Perplexity ↗</a>
-            <span aria-hidden>·</span>
+              className="text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">Ask your AI ↗</a>
+          </div>
+          <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2" data-reveal-child>
             <CopyPrompt />
+            <span aria-hidden>·</span>
+            <Link to="/contact" className="text-primary border-b border-primary/40 hover:border-primary">All ways to reach me →</Link>
           </p>
         </Reveal>
       </section>
