@@ -79,6 +79,8 @@ export type JournalBlock =
     }
   | { kind: "cards"; label?: string; items: { icon: string; title: string; body: string }[] }
   | { kind: "askRose"; label?: string; note?: string; prompts: string[] }
+  /** Restrained editorial aside: a small heading, one paragraph, one link. Used for cross-links and contextual contact. */
+  | { kind: "callout"; title: string; text: string; link: { to: string; text: string } }
   | { kind: "console"; preset: "harness"; label?: string }
   | {
       kind: "stepper";
@@ -109,7 +111,8 @@ export type JournalEntry = {
   /** Public path to the plain markdown mirror, offered as a download. */
   mirror?: string;
   license?: { label: string; url: string; note?: string };
-  related?: { label: string; to: string }[];
+  /** Continue exploring: role says what the reader gets (method, design decision, implementation evidence). */
+  related?: { label: string; to: string; role?: "method" | "decision" | "evidence"; why?: string }[];
   tldr?: string;
   /** Qualification card at the top: who it is for, what it gives, what it is tested on. */
   glance?: { audience: string; promise: string; proof: string };
