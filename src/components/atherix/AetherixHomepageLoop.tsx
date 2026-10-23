@@ -42,20 +42,20 @@ const Bubble = ({ who, time, children, mine = false, visible }: { who: string; t
     className={cn(
       "relative max-w-[88%] px-3 pt-1.5 pb-1 shadow-sm transition-all duration-500 motion-reduce:transition-none",
       mine
-        ? "self-end bg-signal-go/15 rounded-[10px_0_10px_10px]"
-        : "self-start bg-surface rounded-[0_10px_10px_10px]",
+        ? "self-end wa-out rounded-[8px_0_8px_8px]"
+        : "self-start wa-in rounded-[0_8px_8px_8px]",
       visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
     )}
     aria-hidden={!visible}
   >
     <span aria-hidden className={cn("absolute top-0 h-0 w-0 border-t-[8px] border-t-current",
-      mine ? "-right-2 border-r-[8px] border-r-transparent text-signal-go/15" : "-left-2 border-l-[8px] border-l-transparent text-surface")} />
-    {!mine && <div className="text-[11.5px] font-medium text-signal-go mb-0.5">{who}</div>}
+      mine ? "-right-2 border-r-[8px] border-r-transparent wa-tail-out" : "-left-2 border-l-[8px] border-l-transparent wa-tail-in")} />
+    {!mine && <div className="text-[12px] font-medium wa-name mb-0.5">{who}</div>}
     {mine && <span className="sr-only">{who}</span>}
     {children}
-    <div className="flex justify-end items-center gap-1 font-mono text-[10px] text-on-surface-variant mt-0.5">
+    <div className="flex justify-end items-center gap-1 text-[10.5px] wa-muted mt-0.5">
       <span>{time}</span>
-      {mine && <span aria-label="read" className="text-[11px] tracking-[-3px] pr-1 text-sky-500">✓✓</span>}
+      {mine && <span aria-label="read" className="text-[11px] tracking-[-3px] pr-1 wa-tick">✓✓</span>}
     </div>
   </div>
 );
@@ -105,18 +105,22 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         })}
       </div>
 
-      <div className="rounded-xl overflow-hidden border border-outline-variant bg-surface-container shadow-sm">
-      <div className="flex items-center gap-3 px-4 py-2.5 bg-surface border-b border-outline-variant">
-        <span aria-hidden className="grid place-items-center h-9 w-9 rounded-full bg-on-surface text-surface font-display text-[15px]">A</span>
+      <div className="wa rounded-xl overflow-hidden border border-outline-variant shadow-md">
+      <div className="wa-head flex items-center gap-3 px-3 py-2.5">
+        <span aria-hidden className="text-[18px] leading-none opacity-90">‹</span>
+        <span aria-hidden className="grid place-items-center h-9 w-9 rounded-full bg-[hsl(0_0%_100%/0.2)] font-display text-[15px]">A</span>
         <div className="flex-1 min-w-0">
-          <div className="text-[14px] font-medium text-on-surface leading-tight">Aetherix</div>
-          <div className="flex items-center gap-1.5 text-[11.5px] text-on-surface-variant">Aetherix · WhatsApp · mock-up</div>
+          <div className="text-[15px] font-medium leading-tight">Aetherix</div>
+          <div className="text-[11.5px] opacity-80">sandbox demo · online</div>
         </div>
-        <span aria-hidden className="text-on-surface-variant text-lg leading-none">⋮</span>
+        <svg aria-hidden width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="opacity-90"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg>
+        <svg aria-hidden width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="opacity-90"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+        <span aria-hidden className="text-lg leading-none opacity-90">⋮</span>
       </div>
-      <div role="tabpanel" aria-label={LOOP_TABS[tab]} aria-live="polite" className="flex flex-col gap-2 min-h-[380px] px-4 py-4 bg-[radial-gradient(hsl(var(--outline-variant)/0.35)_1px,transparent_1px)] [background-size:14px_14px]">
+      <div role="tabpanel" aria-label={LOOP_TABS[tab]} aria-live="polite" className="flex flex-col gap-2 min-h-[380px] px-4 py-4 wa-wall">
+        <span className="self-center mb-1 px-2.5 py-0.5 rounded-md text-[11px] wa-date shadow-sm">{d.date}</span>
         <Bubble who="Aetherix" time={`${d.date} · evening before`} visible={step >= 1}>
-          <p className="text-[13.5px] leading-[1.55] whitespace-pre-wrap text-on-surface">{eveningText(d)}</p>
+          <p className="text-[13.5px] leading-[1.55] whitespace-pre-wrap">{eveningText(d)}</p>
           <details className="mt-1.5 group/why">
             <summary className="cursor-pointer list-none font-mono text-[11px] text-on-surface-variant underline decoration-dotted underline-offset-2 hover:text-on-surface">
               Why {d.evening.predicted}? <span aria-hidden className="inline-block transition-transform group-open/why:rotate-90">›</span>
@@ -134,7 +138,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         </Bubble>
         <Bubble who="F&B Manager" time="reply" mine visible={step >= 2}>
           <div className="flex items-start justify-between gap-3">
-            <p className="text-[13.5px] leading-[1.55] text-on-surface">{d.reply.text}</p>
+            <p className="text-[13.5px] leading-[1.55]">{d.reply.text}</p>
             <SignalLamp state={d.reply.signal as "go" | "warn" | "stop"} label={d.reply.kind} />
           </div>
           {"basis" in d.reply && d.reply.basis && (
@@ -142,7 +146,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
           )}
         </Bubble>
         <Bubble who="Aetherix" time="next morning" visible={step >= 3}>
-          <p className="text-[13.5px] leading-[1.55] text-on-surface">{d.morning.text}</p>
+          <p className="text-[13.5px] leading-[1.55]">{d.morning.text}</p>
           {d.morning.kind === "quarantine" ? (
             <div className="mt-2 flex items-center gap-3">
               <SignalLamp state={d.morning.signal as "stop"} hideWord />
@@ -165,9 +169,11 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
           )}
         </Bubble>
       </div>
-      <div aria-hidden className="flex items-center gap-2 px-3 py-2 bg-surface border-t border-outline-variant">
-        <div className="flex-1 rounded-full bg-surface-container px-4 py-1.5 text-[12.5px] text-on-surface-variant">Message</div>
-        <span className="grid place-items-center h-8 w-8 rounded-full bg-signal-go text-surface text-[13px]">➤</span>
+      <div aria-hidden className="wa-bar flex items-center gap-2 px-2 py-2">
+        <div className="flex-1 flex items-center gap-2 rounded-full wa-field px-4 py-2 text-[13px]"><span>☺</span><span className="flex-1">Message</span><span>📎</span></div>
+        <span className="grid place-items-center h-9 w-9 rounded-full wa-send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3m5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V22h2v-3.1A7 7 0 0 0 19 12z"/></svg>
+        </span>
       </div>
       </div>
 

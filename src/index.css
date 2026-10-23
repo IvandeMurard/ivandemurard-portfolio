@@ -1041,3 +1041,21 @@
 .raw-cmd { border-left: 2px solid var(--raw-ink); padding-left: 14px; margin-top: 4px; font-family: inherit; font-size: 15px; }
 .raw-mark { background: var(--raw-ink); color: var(--raw-bg); }
 .raw-skip { background: var(--raw-ink); color: var(--raw-bg); padding: 4px 8px; }
+
+/* WhatsApp clone (Aetherix homepage demo), scoped palette */
+.wa { --wa-head: 168 100% 20%; --wa-head-fg: 0 0% 100%; --wa-wall: 37 33% 89%; --wa-dot: 37 20% 80%; --wa-in: 0 0% 100%; --wa-out: 107 72% 91%; --wa-fg: 200 13% 12%; --wa-muted: 200 6% 45%; --wa-name: 168 100% 26%; --wa-tick: 199 86% 59%; --wa-bar: 30 14% 94%; --wa-field: 0 0% 100%; --wa-send: 168 100% 33%; }
+[data-mood="dusk"] .wa { --wa-head: 200 21% 16%; --wa-head-fg: 200 10% 90%; --wa-wall: 202 31% 7%; --wa-dot: 202 20% 12%; --wa-in: 200 21% 17%; --wa-out: 167 100% 18%; --wa-fg: 200 10% 91%; --wa-muted: 200 8% 62%; --wa-name: 160 56% 55%; --wa-tick: 199 86% 62%; --wa-bar: 200 21% 13%; --wa-field: 200 21% 20%; --wa-send: 160 84% 39%; }
+.wa-head { background: hsl(var(--wa-head)); color: hsl(var(--wa-head-fg)); }
+.wa-wall { background-color: hsl(var(--wa-wall)); background-image: radial-gradient(hsl(var(--wa-dot)) 1px, transparent 1.2px); background-size: 16px 16px; }
+.wa-in { background: hsl(var(--wa-in)); color: hsl(var(--wa-fg)); }
+.wa-out { background: hsl(var(--wa-out)); color: hsl(var(--wa-fg)); }
+.wa-tail-in { color: hsl(var(--wa-in)); }
+.wa-tail-out { color: hsl(var(--wa-out)); }
+.wa-fg { color: hsl(var(--wa-fg)); }
+.wa-muted { color: hsl(var(--wa-muted)); }
+.wa-name { color: hsl(var(--wa-name)); }
+.wa-tick { color: hsl(var(--wa-tick)); }
+.wa-bar { background: hsl(var(--wa-bar)); }
+.wa-field { background: hsl(var(--wa-field)); color: hsl(var(--wa-muted)); }
+.wa-send { background: hsl(var(--wa-send)); color: hsl(0 0% 100%); }
+.wa-date { background: hsl(var(--wa-in)); color: hsl(var(--wa-muted)); }
