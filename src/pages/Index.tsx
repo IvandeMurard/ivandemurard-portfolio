@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Check, Copy } from "lucide-react";
+import portrait from "@/assets/Ivan_de_Murard.jpg.asset.json";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
@@ -12,26 +15,45 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const AI_PROMPT = "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used.";
-// Only tools with a documented prefill URL (q parameter).
-const AI_LINKS = [
-  { name: "ChatGPT", href: `https://chatgpt.com/?q=${encodeURIComponent(AI_PROMPT)}` },
-  { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${encodeURIComponent(AI_PROMPT)}` },
-];
+// Perplexity documents a prefill URL; ChatGPT and Claude block or ignore one, so the prompt is copied instead.
+const PERPLEXITY_HREF = `https://www.perplexity.ai/search?q=${encodeURIComponent(AI_PROMPT)}`;
 
-const Tip = ({ label, children }: { label: string; children: React.ReactNode }) => (
+const CopyPrompt = () => {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(AI_PROMPT);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard unavailable: leave the label unchanged */ }
+  };
+  return (
+    <button type="button" onClick={copy}
+      className="inline-flex items-center gap-1.5 text-primary border-b border-primary/40 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">
+      {copied ? <Check size={12} aria-hidden /> : <Copy size={12} aria-hidden />}
+      {copied ? "Copied!" : "Copy prompt for Claude or ChatGPT"}
+      <span className="sr-only" aria-live="polite">{copied ? "Prompt copied to clipboard" : ""}</span>
+    </button>
+  );
+};
+
+const Tip = ({ label, explain, children }: { label: string; explain: string; children: React.ReactNode }) => (
   <Popover>
     <PopoverTrigger asChild>
-      <button type="button" className="underline decoration-dotted underline-offset-2 cursor-help focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">{label}</button>
+      <button type="button" aria-label={`${label}: ${explain}`} className="underline decoration-dotted underline-offset-2 cursor-help text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">{label}</button>
     </PopoverTrigger>
     <PopoverContent side="top" className="max-w-[300px] font-mono text-[11.5px] leading-relaxed">{children}</PopoverContent>
   </Popover>
 );
 
 const AetherixStatus = () => (
-  <p className="font-mono text-[11.5px] leading-relaxed text-signal-warn">
-    Built and evaluated on historical data. <Tip label="Staged">Deployed on a pre-production server (Fly.io, Paris): the same setup a pilot hotel would get, before any real hotel data.</Tip> on Fly.io, connected to the{" "}
-    <Tip label="Apaleo sandbox">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline">apaleo.com ↗</a></Tip>. Ready for a 30-day pilot.
-  </p>
+  <div className="flex flex-col gap-2">
+    <SignalLamp state={PROJECTS.atherix.status.signal} label={PROJECTS.atherix.status.word} />
+    <p className="font-mono text-[12.5px] leading-relaxed text-on-surface-variant max-w-[560px]">
+      Built and evaluated on historical data. <Tip label="Staged" explain="what this means">Deployed on a pre-production server (Fly.io, Paris): the same setup a pilot hotel would get, before any real hotel data.</Tip> on Fly.io, connected to the{" "}
+      <Tip label="Apaleo sandbox" explain="what this means">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline">apaleo.com ↗</a></Tip>. Ready for a 30-day pilot.
+    </p>
+  </div>
 );
 
 // Latest three Field Notes, oldest first.
