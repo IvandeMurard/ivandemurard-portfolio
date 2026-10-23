@@ -1,4 +1,5 @@
 import { ClosingContact } from "@/components/case/ClosingContact";
+import { JournalKnowledgeMap } from "@/components/journal/JournalKnowledgeMap";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
@@ -32,10 +33,12 @@ const Journal = () => (
         </p>
       </section>
 
+      <JournalKnowledgeMap />
+
       {/* Entries */}
       <section className={`px-6 md:px-12 max-w-screen-2xl mx-auto ${READING_LIST.length > 0 ? "mb-32 md:mb-48" : "pb-32 md:pb-48"}`}>
         <div className="flex items-end justify-between mb-12 md:mb-16 gap-8">
-          <h2 className="font-headline text-3xl md:text-4xl italic text-primary">Entries</h2>
+          <h2 className="font-headline text-3xl md:text-4xl italic text-primary">All entries</h2>
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
             {ENTRIES.length} {ENTRIES.length === 1 ? "piece" : "pieces"}
           </span>
