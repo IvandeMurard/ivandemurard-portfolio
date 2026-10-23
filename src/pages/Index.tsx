@@ -203,7 +203,7 @@ const Index = () => {
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
           <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
-            Prototypes are fast. <em className="accent-ink">Getting operations to trust them is the job.</em>
+            I ship prototypes fast. <em className="accent-ink">Aligning tech, operations and business into services people actually use is where I come in.</em>
           </h2>
           <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
             Open to AI Product Manager and Product Builder roles.
@@ -218,13 +218,13 @@ const Index = () => {
               {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
             </a>
           </div>
-          <p className="mt-10 font-mono text-[12px] text-on-surface-variant" data-reveal-child>
-            Or ask your AI about me:{" "}
-            {AI_LINKS.map((l, i) => (
-              <span key={l.name}>{i > 0 && " · "}<a href={l.href} target="_blank" rel="noopener noreferrer"
-                onClick={() => track({ label: `Ask ${l.name}`, href: l.href, kind: "contact" })}
-                className="text-primary border-b border-primary/40 hover:border-primary">{l.name} ↗</a></span>
-            ))}
+          <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-2 gap-y-2" data-reveal-child>
+            <span>Or ask your AI about me:</span>
+            <a href={PERPLEXITY_HREF} target="_blank" rel="noopener noreferrer"
+              onClick={() => track({ label: "Ask Perplexity", href: PERPLEXITY_HREF, kind: "contact" })}
+              className="text-primary border-b border-primary/40 hover:border-primary">Perplexity ↗</a>
+            <span aria-hidden>·</span>
+            <CopyPrompt />
           </p>
         </Reveal>
       </section>

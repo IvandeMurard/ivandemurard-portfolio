@@ -42,9 +42,11 @@ export const Footer = () => {
           <div className="flex flex-col items-center gap-3 md:items-start">
             <Link
               to="/agents"
-              className="font-label text-[10px] uppercase tracking-[0.16em] text-primary hover:text-secondary transition-colors"
+              className="group inline-flex items-center gap-2 rounded-sm border border-outline-variant px-3 py-1.5 font-mono text-[11px] tracking-[0.04em] text-primary hover:border-secondary hover:text-secondary transition-colors"
             >
+              <span aria-hidden className="text-secondary">&gt;</span>
               For agents · MCP and Markdown
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
             <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
               © {new Date().getFullYear()} Ivan de Murard · Curated with Care ·{" "}
