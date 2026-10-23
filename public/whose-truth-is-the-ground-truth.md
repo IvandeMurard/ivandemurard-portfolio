@@ -86,7 +86,8 @@ Why can the forecast learn and the staffing not?
 **SEC. 3** The easiest number to collect is the easiest to game. Concrete case: Acceptance rate.
 
 - **The trap (Goodhart's law):** when a measure becomes a target, it stops measuring. A product optimised on acceptance learns to send recommendations that cost nothing to approve.
-- **From Aetherix's own data:** the forecast beats "the last four Tuesdays" by 0.6 points on the typical day. A product that simply repeated last Tuesday would be accepted often and teach nothing.
+- **An approval rate is agreement, not correctness.** A manager can accept a wrong forecast and reject a right one. Only the observed outcome says which.
+- **From Aetherix's public benchmark (30 restaurants, Kaggle Recruit data):** the forecast beats "the last four same weekdays" by 0.6 points on the typical day. A product that simply repeated last Tuesday would be accepted often and teach nothing.
 - **The counterweight:** read acceptance with **manager minutes per accepted recommendation**. Watch *ignored* hardest: an override engages, an ignore routes around.
 
 ## 4. The truth that never comes back
@@ -166,6 +167,12 @@ It can prove its method today. It can only sell results once outcomes are measur
 - [What is an LLM evaluation harness?](/journal/harnesses-graders-closed-loops) (this note expands its arm C)
 - [Aetherix](/aetherix)
 - [Lore](/lore)
+
+## Updates
+
+This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+2026-10-23 · Stated in section 3 that an approval rate measures agreement, not correctness, and said what the 0.6-point figure was measured on. The figure comes from a public benchmark of 30 restaurants, not from a hotel's own data; the note called it Aetherix's own data.
 
 Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 
 
