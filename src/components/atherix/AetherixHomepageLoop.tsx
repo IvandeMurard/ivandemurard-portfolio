@@ -170,7 +170,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         </Bubble>
       </div>
       <div aria-hidden className="wa-bar flex items-center gap-2 px-2 py-2">
-        <div className="flex-1 flex items-center gap-2 rounded-full wa-field px-4 py-2 text-[13px]"><span>☺</span><span className="flex-1">Message</span><span>📎</span></div>
+        <div className="flex-1 flex items-center gap-2 rounded-full wa-field px-4 py-2 text-[13px]"><span className="flex-1">Message</span><span className="text-[16px] leading-none">+</span></div>
         <span className="grid place-items-center h-9 w-9 rounded-full wa-send">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3m5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V22h2v-3.1A7 7 0 0 0 19 12z"/></svg>
         </span>
