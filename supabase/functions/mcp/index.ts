@@ -1250,6 +1250,11 @@ var JOURNAL_ENTRIES = [
     updates: [
       {
         date: "2026-10-23",
+        summary: "Added a service blueprint: one illustrative breakfast, from forecast to manager decision, service and feedback.",
+        reason: "The note explained the architecture but not what it means for the people running the service, nor where authority changes hands and which outcomes can actually be measured."
+      },
+      {
+        date: "2026-10-23",
         summary: "Linked the two companion notes and the public repository where the text makes a claim they explain or evidence.",
         reason: "Readers arriving here had no path to how the boundary is tested, or to why approval and outcome are different signals."
       },
@@ -1332,6 +1337,11 @@ var JOURNAL_ENTRIES = [
           ["Measured outcome", "the till, next day", "real covers", "forecast error computes itself", "not yet: needs a connected hotel"]
         ]
       },
+      {
+        kind: "p",
+        text: "A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it."
+      },
+      { kind: "blueprint" },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
@@ -1446,6 +1456,83 @@ var recoLineMarkdown = (layer) => {
   return head + rows.join("\n") + (layer === "checks" ? "\n\nSignals: GO covered, WARN partial, STOP failing, DARK no information (treated as stop)." : "\n\nLamps in this layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.");
 };
 
+// src/content/serviceBlueprint.ts
+var BLUEPRINT_STATUS_LABEL = {
+  built: "Built, sandbox data",
+  planned: "Planned",
+  illustrative: "Illustrative"
+};
+var BLUEPRINT = {
+  title: "Tomorrow's breakfast, from forecast to feedback",
+  scenario: "Illustrative scenario: a hotel F&B manager preparing tomorrow's breakfast service. No hotel is connected yet; no manager, guest outcome or metric here is observed.",
+  stages: [
+    {
+      id: "anticipate",
+      name: "Anticipate",
+      when: "The day before",
+      floor: { text: "The manager is drafting tomorrow's breakfast rota between two other tasks.", status: "illustrative" },
+      touchpoint: { text: "Nothing yet. The system works before it speaks.", status: "built" },
+      behind: { text: "Prophet forecasts covers from occupancy and history, with a range. Code refuses an implausible or low-confidence input.", status: "built" },
+      boundary: { text: "The forecast is a claim with an error bar. No authority: it decides nothing." }
+    },
+    {
+      id: "decide",
+      name: "Decide",
+      when: "Evening",
+      floor: { text: "The manager reads one message, weighs what the system cannot see (a sick waiter, a group check-in), and replies.", status: "illustrative" },
+      touchpoint: { text: "One WhatsApp message: expected covers, confidence, suggested staff. Reply accept, reject or the right figure.", status: "built" },
+      behind: { text: "Claude composes the message and never predicts. The reply is parsed and stored next to the recommendation.", status: "built" },
+      boundary: { text: "Authority passes to the manager. Their reply is declared feedback: a preference, not a fact." },
+      handoff: "Authority changes hands"
+    },
+    {
+      id: "operate",
+      name: "Operate",
+      when: "Breakfast service",
+      floor: { text: "The team serves breakfast on the plan the manager chose. Guests feel the staffing, right or wrong.", status: "illustrative" },
+      touchpoint: { text: "No screen. The decision now lives in the rota and on the floor.", status: "illustrative" },
+      behind: { text: "Nothing acts. The system does not change the rota or contact staff.", status: "built" },
+      boundary: { text: "The action reaches people here. It cannot be replayed: the plan not chosen is never seen." },
+      handoff: "The action reaches people"
+    },
+    {
+      id: "learn",
+      name: "Learn",
+      when: "After service",
+      floor: { text: "The manager glances at a short receipt: forecast against actual, and the gap.", status: "illustrative" },
+      touchpoint: { text: "Daily receipt: actual covers, forecast, delta, confidence.", status: "built" },
+      behind: { text: "Actual covers ingested from the till; forecast error computed; decision logged for audit. Live till ingestion needs a connected hotel.", status: "planned" },
+      boundary: { text: "Observed: the covers, so the forecast can be scored. Not observed: whether the staffing was right. That stays a judgement." }
+    }
+  ],
+  insight: "A prediction can be evaluated against a later observed number. A recommendation has operational consequences and does not automatically receive an equally definitive verdict.",
+  caption: "Read down a column for one moment of the service, across a row for one layer. The forecast gets a score the next day; the staffing decision gets the manager's word and a service that already happened.",
+  qualifications: [
+    "Built on sandbox and public data (Apaleo sandbox, synthetic series, Kaggle Recruit benchmark): forecast, guard in code, WhatsApp message, reply parser, daily receipt.",
+    "Planned: live ingestion of till data from a connected hotel, which is what would let forecast error be measured on real covers.",
+    "Unproven: that recorded replies improve recommendations, and that any staffing decision improved a real service. No manager has used it yet."
+  ]
+};
+function blueprintMarkdown() {
+  const cell = (c) => `${c.text}${c.status ? ` [${BLUEPRINT_STATUS_LABEL[c.status]}]` : ""}`;
+  return [
+    `**Figure. ${BLUEPRINT.title}.** ${BLUEPRINT.scenario}`,
+    ...BLUEPRINT.stages.map(
+      (s, i) => [
+        `**Stage ${i + 1}, ${s.name}** (${s.when})${s.handoff ? `. ${s.handoff}.` : ""}`,
+        `- On the floor: ${cell(s.floor)}`,
+        `- What the manager sees: ${cell(s.touchpoint)}`,
+        `- Behind the scenes: ${cell(s.behind)}`,
+        `- Authority and evidence: ${cell(s.boundary)}`
+      ].join("\n")
+    ),
+    `**Key distinction.** ${BLUEPRINT.insight}`,
+    BLUEPRINT.caption,
+    `Evidence status:
+${BLUEPRINT.qualifications.map((q) => `- ${q}`).join("\n")}`
+  ].join("\n\n");
+}
+
 // src/lib/mcp/tools/get-journal-entry.ts
 var SITE_ORIGIN3 = "https://ivandemurard.com";
 function renderBlock(block) {
@@ -1508,6 +1595,8 @@ A: ${i.a}`).join("\n\n");
       return [`**${block.summary}**`, ...block.blocks.map(renderBlock)].filter(Boolean).join("\n\n");
     case "recoLine":
       return [`**Figure.** ${block.caption}`, recoLineMarkdown(block.layer), block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n\n");
+    case "blueprint":
+      return blueprintMarkdown();
     case "console":
     case "mcp":
       return "";

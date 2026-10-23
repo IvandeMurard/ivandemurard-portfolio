@@ -1,3 +1,4 @@
+import { AetherixServiceBlueprint } from "@/components/journal/AetherixServiceBlueprint";
 import { ArticleUpdates } from "@/components/journal/ArticleUpdates";
 import { useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
@@ -356,6 +357,8 @@ const Block = ({
           note={block.note}
         />
       );
+    case "blueprint":
+      return <AetherixServiceBlueprint />;
     case "cards":
       return <CardGrid items={block.items} label={block.label} />;
     case "fold":

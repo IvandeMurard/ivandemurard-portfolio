@@ -93,6 +93,7 @@ export type JournalBlock =
       note?: string;
     }
   | { kind: "mcp"; label?: string; note?: string }
+  | { kind: "blueprint" }
   | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] };
 
 
@@ -164,6 +165,11 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
     ],
     takeawayPunch: "The boundary is where a claim about behaviour gets held by something other than a prompt.",
     updates: [
+      {
+        date: "2026-10-23",
+        summary: "Added a service blueprint: one illustrative breakfast, from forecast to manager decision, service and feedback.",
+        reason: "The note explained the architecture but not what it means for the people running the service, nor where authority changes hands and which outcomes can actually be measured.",
+      },
       {
         date: "2026-10-23",
         summary: "Linked the two companion notes and the public repository where the text makes a claim they explain or evidence.",
@@ -249,6 +255,11 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
           ["Measured outcome", "the till, next day", "real covers", "forecast error computes itself", "not yet: needs a connected hotel"],
         ],
       },
+      {
+        kind: "p",
+        text: "A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it.",
+      },
+      { kind: "blueprint" },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
