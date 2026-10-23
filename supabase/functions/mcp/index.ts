@@ -1218,7 +1218,24 @@ var JOURNAL_ENTRIES = [
     title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
     subtitle: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
+    glance: {
+      audience: "you are deciding how much one model should be allowed to do on its own.",
+      promise: "a rule for where to draw the line (the cost of an error, not the technology), and the trade-offs it brings.",
+      proof: "Aetherix, an F&B agent for hotels, built and tested on synthetic and public data. No hotel connected yet."
+    },
+    takeaways: [
+      "**Draw the line where the consequence changes.** A wrong forecast is absorbed; a wrong action reaches a guest.",
+      "**Five jobs, five owners.** Forecast, recommendation, enforcement, approval and outcome are separate, and each is checked differently.",
+      "**A rule in a prompt is a request.** A rule between components is code, and a violation is a failing test.",
+      "**The split has a price.** Two systems, one contract to maintain, and a forecast that is good, not magic."
+    ],
+    takeawayPunch: "The boundary is where a claim about behaviour gets held by something other than a prompt.",
     updates: [
+      {
+        date: "2026-10-23",
+        summary: "Added a reading card, a table separating the five jobs in the loop, and the scope of the public benchmark.",
+        reason: "The note argued for one boundary but blended five things a reader needs to tell apart: forecasting, recommendation, enforcement in code, human approval and measured outcome. The benchmark sentence now says what it ran on (30 restaurants, Kaggle Recruit data) and that no manager decision has been delivered on the forecast yet, as the repository states."
+      },
       {
         date: "2026-10-12",
         summary: "Corrected the drift example.",
