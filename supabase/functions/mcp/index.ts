@@ -410,7 +410,7 @@ var HARNESSES_ENTRY = {
       }
     ]
   },
-  updates: [{ "date": "2026-10-23", "summary": "Retitled the piece around the question it answers, and opened with a one-sentence definition of an LLM evaluation harness.", "reason": "Readers arrive asking what a harness is. The answer now comes first; the content is unchanged." }, { "date": "2026-10-09", "summary": "Replaced the three-arms figure with an interactive recommendation line, added the site's signal vocabulary to the verdict table, folded long passages behind 'Read more' without removing them, and corrected two sentences about decision capture.", "reason": "The piece was long to read on screen. Nothing is removed: the full text stays in the Markdown version. The capture sentences described a state fixed in September 2026." }, { "date": "2026-10-08", "summary": "Added a provenance note: which mechanisms come from Aetherix and which from Lore.", "reason": "The piece's numbers are Lore's, but most of the gate machinery was built first in Aetherix, whose repository is private. A reader could take Lore for the more rigorous system and Aetherix for a footnote, so the note says where each mechanism comes from and what can be checked publicly." }, { "date": "2026-09-24", "summary": `Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes.`, "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
+  updates: [{ "date": "2026-10-23", "summary": "Corrected the provenance note, which still called the Aetherix repository private, and added a short key to the four kinds of evidence the piece uses.", "reason": "The Aetherix repository is now public. The key separates measured runs, synthetic tests, guarantees held in code and proposed mechanisms, which the piece already distinguished section by section. The 2026-10-08 note below is kept: it describes the state at the time." }, { "date": "2026-10-23", "summary": "Retitled the piece around the question it answers, and opened with a one-sentence definition of an LLM evaluation harness.", "reason": "Readers arrive asking what a harness is. The answer now comes first; the content is unchanged." }, { "date": "2026-10-09", "summary": "Replaced the three-arms figure with an interactive recommendation line, added the site's signal vocabulary to the verdict table, folded long passages behind 'Read more' without removing them, and corrected two sentences about decision capture.", "reason": "The piece was long to read on screen. Nothing is removed: the full text stays in the Markdown version. The capture sentences described a state fixed in September 2026." }, { "date": "2026-10-08", "summary": "Added a provenance note: which mechanisms come from Aetherix and which from Lore.", "reason": "The piece's numbers are Lore's, but most of the gate machinery was built first in Aetherix, whose repository is private. A reader could take Lore for the more rigorous system and Aetherix for a footnote, so the note says where each mechanism comes from and what can be checked publicly." }, { "date": "2026-09-24", "summary": `Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes.`, "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
   body: [
     {
       kind: "p",
@@ -442,7 +442,17 @@ var HARNESSES_ENTRY = {
     },
     {
       kind: "p",
-      text: "**Provenance.** The case set, graders and live numbers below are Lore's, because its repository is public and its runs can be replayed. Most of the surrounding machinery was built first in Aetherix, whose repository is private: the exit-code contract, the diff against a frozen baseline, the path-triggered gate with a hash cache, and per-layer thresholds. [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) documents it. Aetherix's own measurements run on a synthetic series and a stand-in parser, as section 2 states."
+      text: "**Provenance.** The case set, graders and live numbers below are Lore's, because its runs are recorded and can be replayed. Most of the surrounding machinery was built first in [Aetherix](https://github.com/IvandeMurard/aetherix-hospitality-ai), whose repository is now public too: the exit-code contract, the diff against a frozen baseline, the path-triggered gate with a hash cache, and per-layer thresholds. [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) documents it. Aetherix's own measurements run on a synthetic series and a stand-in parser, as section 2 states."
+    },
+    {
+      kind: "list",
+      items: [
+        "**How to read the evidence here.** Four kinds of claim appear below, and they are not interchangeable.",
+        "**Measured**: a recorded run on the real model, such as Lore's 61 out of 64. It can be replayed.",
+        "**Synthetic test**: a mechanism exercised on fabricated data, such as Aetherix's forecast gate. It proves the machinery works, not that the product is right.",
+        "**Deterministic guarantee**: a rule held in code, which a test can break. It holds whatever the model says.",
+        "**Proposed**: designed and written down, not yet run, such as the arm C metrics. Named so it can be checked later."
+      ]
     },
     { kind: "h2", text: "1. The vocabulary, through the driving test" },
     {
@@ -1050,7 +1060,13 @@ var TRUTH_ENTRY = {
     "**Truth is an asset.** Inside, it is memory that does not leave with the manager. Outside, it is the only basis for pricing on results.",
     "**Write the verdict before the data.** Aetherix's thresholds are public and frozen. None of its four tests has run yet."
   ],
-  updates: [],
+  updates: [
+    {
+      date: "2026-10-23",
+      summary: "Stated in section 3 that an approval rate measures agreement, not correctness, and said what the 0.6-point figure was measured on.",
+      reason: "The figure comes from a public benchmark of 30 restaurants, not from a hotel's own data; the note called it Aetherix's own data."
+    }
+  ],
   body: [
     {
       kind: "recoLine",
@@ -1115,7 +1131,8 @@ var TRUTH_ENTRY = {
     { kind: "key", sigil: "SEC. 3", icon: "thumb_up", oneLine: "The easiest number to collect is the easiest to game.", concrete: "Acceptance rate." },
     { kind: "list", items: [
       "**The trap (Goodhart's law):** when a measure becomes a target, it stops measuring. A product optimised on acceptance learns to send recommendations that cost nothing to approve.",
-      `**From Aetherix's own data:** the forecast beats "the last four Tuesdays" by 0.6 points on the typical day. A product that simply repeated last Tuesday would be accepted often and teach nothing.`,
+      "**An approval rate is agreement, not correctness.** A manager can accept a wrong forecast and reject a right one. Only the observed outcome says which.",
+      `**From Aetherix's public benchmark (30 restaurants, Kaggle Recruit data):** the forecast beats "the last four same weekdays" by 0.6 points on the typical day. A product that simply repeated last Tuesday would be accepted often and teach nothing.`,
       "**The counterweight:** read acceptance with **manager minutes per accepted recommendation**. Watch *ignored* hardest: an override engages, an ignore routes around."
     ] },
     { kind: "h2", text: "4. The truth that never comes back" },
@@ -1208,7 +1225,24 @@ var JOURNAL_ENTRIES = [
     title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
     subtitle: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
+    glance: {
+      audience: "you are deciding how much one model should be allowed to do on its own.",
+      promise: "a rule for where to draw the line (the cost of an error, not the technology), and the trade-offs it brings.",
+      proof: "Aetherix, an F&B agent for hotels, built and tested on synthetic and public data. No hotel connected yet."
+    },
+    takeaways: [
+      "**Draw the line where the consequence changes.** A wrong forecast is absorbed; a wrong action reaches a guest.",
+      "**Five jobs, five owners.** Forecast, recommendation, enforcement, approval and outcome are separate, and each is checked differently.",
+      "**A rule in a prompt is a request.** A rule between components is code, and a violation is a failing test.",
+      "**The split has a price.** Two systems, one contract to maintain, and a forecast that is good, not magic."
+    ],
+    takeawayPunch: "The boundary is where a claim about behaviour gets held by something other than a prompt.",
     updates: [
+      {
+        date: "2026-10-23",
+        summary: "Added a reading card, a table separating the five jobs in the loop, and the scope of the public benchmark.",
+        reason: "The note argued for one boundary but blended five things a reader needs to tell apart: forecasting, recommendation, enforcement in code, human approval and measured outcome. The benchmark sentence now says what it ran on (30 restaurants, Kaggle Recruit data) and that no manager decision has been delivered on the forecast yet, as the repository states."
+      },
       {
         date: "2026-10-12",
         summary: "Corrected the drift example.",
@@ -1266,6 +1300,18 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "The manager replies accept, reject, or the right figure. That reply is not politeness. It is the recorded output of a decision node."
       },
+      {
+        kind: "table",
+        caption: "Five jobs in one loop. Each has its own owner, its own check, and its own state of evidence today.",
+        head: ["Job", "Owner", "What it produces", "How it is checked", "Evidence today"],
+        rows: [
+          ["Statistical forecasting", "Prophet", "a number and an uncertainty range", "error against a frozen baseline", "synthetic series in CI; public benchmark"],
+          ["Recommendation", "Claude", "one message a day, uncertainty stated", "graders on the reply parser", "stand-in parser; model not yet measured"],
+          ["Deterministic enforcement", "code between the two", "a refusal to act on an implausible or low-confidence input", "a test that fails on violation", "exercised in a simulated 30-day scenario"],
+          ["Human approval", "the F&B manager", "accept, reject or the right figure", "recorded as an event", "sandbox data; free text not yet mapped"],
+          ["Measured outcome", "the till, next day", "real covers", "forecast error computes itself", "not yet: needs a connected hotel"]
+        ]
+      },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
@@ -1283,7 +1329,7 @@ var JOURNAL_ENTRIES = [
       { kind: "h2", text: "What it cost" },
       {
         kind: "p",
-        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a real public benchmark Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published."
+        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet."
       },
       {
         kind: "p",

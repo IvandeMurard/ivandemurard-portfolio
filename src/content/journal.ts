@@ -148,7 +148,24 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
     subtitle:
       "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
+    glance: {
+      audience: "you are deciding how much one model should be allowed to do on its own.",
+      promise: "a rule for where to draw the line (the cost of an error, not the technology), and the trade-offs it brings.",
+      proof: "Aetherix, an F&B agent for hotels, built and tested on synthetic and public data. No hotel connected yet.",
+    },
+    takeaways: [
+      "**Draw the line where the consequence changes.** A wrong forecast is absorbed; a wrong action reaches a guest.",
+      "**Five jobs, five owners.** Forecast, recommendation, enforcement, approval and outcome are separate, and each is checked differently.",
+      "**A rule in a prompt is a request.** A rule between components is code, and a violation is a failing test.",
+      "**The split has a price.** Two systems, one contract to maintain, and a forecast that is good, not magic.",
+    ],
+    takeawayPunch: "The boundary is where a claim about behaviour gets held by something other than a prompt.",
     updates: [
+      {
+        date: "2026-10-23",
+        summary: "Added a reading card, a table separating the five jobs in the loop, and the scope of the public benchmark.",
+        reason: "The note argued for one boundary but blended five things a reader needs to tell apart: forecasting, recommendation, enforcement in code, human approval and measured outcome. The benchmark sentence now says what it ran on (30 restaurants, Kaggle Recruit data) and that no manager decision has been delivered on the forecast yet, as the repository states.",
+      },
       {
         date: "2026-10-12",
         summary: "Corrected the drift example.",
@@ -207,6 +224,18 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "The manager replies accept, reject, or the right figure. That reply is not politeness. It is the recorded output of a decision node.",
       },
+      {
+        kind: "table",
+        caption: "Five jobs in one loop. Each has its own owner, its own check, and its own state of evidence today.",
+        head: ["Job", "Owner", "What it produces", "How it is checked", "Evidence today"],
+        rows: [
+          ["Statistical forecasting", "Prophet", "a number and an uncertainty range", "error against a frozen baseline", "synthetic series in CI; public benchmark"],
+          ["Recommendation", "Claude", "one message a day, uncertainty stated", "graders on the reply parser", "stand-in parser; model not yet measured"],
+          ["Deterministic enforcement", "code between the two", "a refusal to act on an implausible or low-confidence input", "a test that fails on violation", "exercised in a simulated 30-day scenario"],
+          ["Human approval", "the F&B manager", "accept, reject or the right figure", "recorded as an event", "sandbox data; free text not yet mapped"],
+          ["Measured outcome", "the till, next day", "real covers", "forecast error computes itself", "not yet: needs a connected hotel"],
+        ],
+      },
       { kind: "h2", text: "What the split buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
@@ -224,7 +253,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       { kind: "h2", text: "What it cost" },
       {
         kind: "p",
-        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a real public benchmark Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published.",
+        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet.",
       },
       {
         kind: "p",
