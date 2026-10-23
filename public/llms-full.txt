@@ -1361,7 +1361,7 @@ A claim about behaviour has to be held by something other than a prompt. The bou
 **Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
 
 ```text
-Apply a method to my own AI project. Method source: "Five agents, one architecture" by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
+Apply a method to my own AI project. Method source: "A wrong forecast is absorbed. A wrong action reaches a guest." by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
 
 Method: Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.
 

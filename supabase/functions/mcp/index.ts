@@ -1562,7 +1562,7 @@ var APPLY_GUIDES = {
   },
   "agent-boundaries-aetherix": {
     slug: "agent-boundaries-aetherix",
-    title: "Five agents, one architecture",
+    title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
     method: "Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.",
     decision: "Which decisions the system may take alone, which it may only recommend, and which require a named human's approval.",
     inputs: ["An inventory of the decisions the application makes or recommends", "Who is accountable for each one", "What it costs to undo each one", "The current prompts and the code paths that act on outputs"],
