@@ -1513,10 +1513,19 @@ A: ${i.a}`).join("\n\n");
       return "";
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n");
+    case "callout":
+      return `**${block.title}**
+${block.text}
+[${block.link.text}](${SITE_ORIGIN3}${block.link.to})`;
   }
 }
+var RELATED_ROLE = { method: "Read the method", decision: "Understand the design decision", evidence: "Inspect implementation evidence" };
+var absolutize = (md) => md.replace(/\]\((\/[^\s)]*)\)/g, `](${SITE_ORIGIN3}$1)`);
 function renderEntryMarkdown(entry) {
-  const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+  const related = entry.related?.length ? `## Continue exploring
+
+${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN3}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}` : "";
+  const bodyText = absolutize([...entry.body.map(renderBlock), related].filter(Boolean).join("\n\n"));
   const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
   return [
     `# ${entry.title}`,
