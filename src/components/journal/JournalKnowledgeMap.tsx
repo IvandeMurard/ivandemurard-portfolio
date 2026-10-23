@@ -21,11 +21,14 @@ export const JournalKnowledgeMap = () => (
             </Link>
             <p className={`${label} text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2`}>
               <span>Applied in</span>
-              {q.cases.map((c) => (
-                <Link key={c.to} to={c.to} aria-label={`${c.label} case study`}
-                  className="min-h-[44px] inline-flex items-center text-primary hover:text-secondary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">
-                  {c.label}
-                </Link>
+              {q.cases.map((c, i) => (
+                <span key={c.to} className="inline-flex items-center gap-x-3">
+                  {i > 0 && <span aria-hidden="true" className="text-on-surface-variant">·</span>}
+                  <Link to={c.to} aria-label={`${c.label} case study`}
+                    className="min-h-[44px] inline-flex items-center text-primary border-b border-primary/40 hover:border-secondary hover:text-secondary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">
+                    {c.label}
+                  </Link>
+                </span>
               ))}
             </p>
           </li>
