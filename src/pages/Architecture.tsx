@@ -503,7 +503,7 @@ const Architecture = () => {
                 <P>
                   The field note{" "}
                   <Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>
-                    Evaluating LLM agents: how would you know it had stopped working?
+                    What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents
                   </Link>{" "}
                   explains how a system earns the right to ship. This page explains what the systems
                   are. Read that one next if the statuses raised the question of how they are checked.

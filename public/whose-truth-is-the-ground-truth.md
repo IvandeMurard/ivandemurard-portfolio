@@ -163,7 +163,7 @@ It can prove its method today. It can only sell results once outcomes are measur
 
 - [Proof protocol](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md)
 - [VISION.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/VISION.md)
-- [Evaluating LLM agents](/journal/harnesses-graders-closed-loops) (this note expands its arm C)
+- [What is an LLM evaluation harness?](/journal/harnesses-graders-closed-loops) (this note expands its arm C)
 - [Aetherix](/aetherix)
 - [Lore](/lore)
 

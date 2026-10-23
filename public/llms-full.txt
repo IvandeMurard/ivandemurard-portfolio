@@ -100,7 +100,7 @@ Every address has a story. Compass reads it before you sign. Open data turned in
 
 Index: https://ivandemurard.com/journal.
 
-- Evaluating LLM agents: how would you know it had stopped working? (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
+- What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
 - A wrong forecast is absorbed. A wrong action reaches a guest. (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
 ## Frequently asked questions
@@ -640,7 +640,7 @@ Fig. 7.1, Compliance spectrogram. Ten numbered bands represent the deterministic
 
 One live run scored 61 out of 64, 95 percent, and was declared a failure, because two of its three misses were in tier 1.
 
-The full protocol, how the 10 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Evaluating LLM agents: how would you know it had stopped working?": https://ivandemurard.com/journal/harnesses-graders-closed-loops
+The full protocol, how the 10 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents": https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 ## What it is for
 
@@ -1214,7 +1214,7 @@ The statuses above are the claim. Here is where to check them.
 
 Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 
-The field note "Evaluating LLM agents: how would you know it had stopped working?" explains how a
+The field note "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents" explains how a
 system earns the right to ship. This page explains what the systems are.
 https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
@@ -1470,7 +1470,7 @@ It can prove its method today. It can only sell results once outcomes are measur
 
 - [Proof protocol](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md)
 - [VISION.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/VISION.md)
-- [Evaluating LLM agents](/journal/harnesses-graders-closed-loops) (this note expands its arm C)
+- [What is an LLM evaluation harness?](/journal/harnesses-graders-closed-loops) (this note expands its arm C)
 - [Aetherix](/aetherix)
 - [Lore](/lore)
 
@@ -1481,11 +1481,11 @@ Source: https://ivandemurard.com/journal/whose-truth-is-the-ground-truth
 --- END DOCUMENT: journal/whose-truth-is-the-ground-truth ---
 
 --- BEGIN DOCUMENT: journal/harnesses-graders-closed-loops ---
-# Evaluating LLM agents: how would you know it had stopped working?
+# What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents
 URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 Markdown: https://ivandemurard.com/journal/harnesses-graders-closed-loops.md
 
-# Evaluating LLM agents: how would you know it had stopped working?
+# What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents
 
 A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
