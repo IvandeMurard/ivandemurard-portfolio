@@ -17,7 +17,7 @@ export const TRUTH_ENTRY: JournalEntry = {
   related: [
     { label: "Aetherix", to: "/aetherix" },
     { label: "Lore", to: "/lore" },
-    { label: "Evaluating LLM agents: how would you know it had stopped working?", to: "/journal/harnesses-graders-closed-loops" },
+    { label: "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents", to: "/journal/harnesses-graders-closed-loops" },
   ],
   excerpt:
     "A forecast is a claim. A manager's \"yes\" is a preference. Real covers are a fact, the next day. The plan you did not choose is never seen. Which of these your product learns from decides what it becomes, and what it is worth.",
@@ -186,7 +186,7 @@ export const TRUTH_ENTRY: JournalEntry = {
     { kind: "list", items: [
       `[Proof protocol](${PROOF})`,
       "[VISION.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/VISION.md)",
-      "[Evaluating LLM agents](/journal/harnesses-graders-closed-loops) (this note expands its arm C)",
+      "[What is an LLM evaluation harness?](/journal/harnesses-graders-closed-loops) (this note expands its arm C)",
       "[Aetherix](/aetherix)",
       "[Lore](/lore)",
     ] },

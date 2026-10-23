@@ -339,7 +339,7 @@ const Atherix = () => {
             <AetherixWhatRemainsPrivate />
             <div className="mt-8 max-w-3xl text-sm leading-relaxed text-on-surface-variant">
               <p><Link to="/lore" className={linkCls}>Lore</Link>, in aviation maintenance, shares this architecture and cannot close the same loop. Nothing there tells the system whether an observation was right, and the moment a technician escalates the counterfactual disappears. Aetherix has an outcome to compare against; that difference decides how much each product is allowed to learn on its own.</p>
-              <p className="mt-5">The evaluation vocabulary behind these gates, harnesses, graders, acceptance tiers and closed loops is in <Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>Evaluating LLM agents: how would you know it had stopped working?</Link></p>
+              <p className="mt-5">The evaluation vocabulary behind these gates, harnesses, graders, acceptance tiers and closed loops is in <Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents</Link></p>
             </div>
           </AetherixDisclosure>
         </div>

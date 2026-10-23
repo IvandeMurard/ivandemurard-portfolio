@@ -1,4 +1,4 @@
-# Evaluating LLM agents: how would you know it had stopped working?
+# What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents
 
 A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
@@ -19,7 +19,7 @@ Self-declared, like the confidence score in section 9: it says where to look fir
 
 What a grader is, what a harness is, what a protocol decides, and why the difference matters the first time a system is allowed to block a release. Built from two products, with the gaps named.
 
-Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.
+**An LLM evaluation harness is the machinery that runs a fixed set of test cases through your model, scores each answer with graders, and returns a verdict a release can depend on.** Think of a driving test: the route is the case set, each line of the examiner's sheet is a grader, the whole exam is the harness. Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.
 
 **Aetherix** (https://ivandemurard.com/aetherix): A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Users: Other agents via MCP, or a hotel / F&B manager with WhatsApp. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
 **Lore** (https://ivandemurard.com/lore): A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed.

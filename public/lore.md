@@ -97,7 +97,7 @@ Fig. 7.1, Compliance spectrogram. Ten numbered bands represent the deterministic
 
 One live run scored 61 out of 64, 95 percent, and was declared a failure, because two of its three misses were in tier 1.
 
-The full protocol, how the 10 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "Evaluating LLM agents: how would you know it had stopped working?": https://ivandemurard.com/journal/harnesses-graders-closed-loops
+The full protocol, how the 10 graders were written, why every one is deterministic, and how the acceptance tiers came out of runs that failed, is written up in "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents": https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 ## What it is for
 

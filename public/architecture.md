@@ -105,7 +105,7 @@ The statuses above are the claim. Here is where to check them.
 
 Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 
-The field note "Evaluating LLM agents: how would you know it had stopped working?" explains how a
+The field note "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents" explains how a
 system earns the right to ship. This page explains what the systems are.
 https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
