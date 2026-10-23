@@ -1285,6 +1285,43 @@ The manager replies accept, reject, or the right figure. That reply is not polit
 | Human approval | the F&B manager | accept, reject or the right figure | recorded as an event | sandbox data; free text not yet mapped |
 | Measured outcome | the till, next day | real covers | forecast error computes itself | not yet: needs a connected hotel |
 
+A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it.
+
+**Figure. Tomorrow's breakfast, from forecast to feedback.** Illustrative scenario: a hotel F&B manager preparing tomorrow's breakfast service. No hotel is connected yet; no manager, guest outcome or metric here is observed.
+
+**Stage 1, Anticipate** (The day before)
+- On the floor: The manager is drafting tomorrow's breakfast rota between two other tasks. [Illustrative]
+- What the manager sees: Nothing yet. The system works before it speaks. [Built, sandbox data]
+- Behind the scenes: Prophet forecasts covers from occupancy and history, with a range. Code refuses an implausible or low-confidence input. [Built, sandbox data]
+- Authority and evidence: The forecast is a claim with an error bar. No authority: it decides nothing.
+
+**Stage 2, Decide** (Evening). Authority changes hands.
+- On the floor: The manager reads one message, weighs what the system cannot see (a sick waiter, a group check-in), and replies. [Illustrative]
+- What the manager sees: One WhatsApp message: expected covers, confidence, suggested staff. Reply accept, reject or the right figure. [Built, sandbox data]
+- Behind the scenes: Claude composes the message and never predicts. The reply is parsed and stored next to the recommendation. [Built, sandbox data]
+- Authority and evidence: Authority passes to the manager. Their reply is declared feedback: a preference, not a fact.
+
+**Stage 3, Operate** (Breakfast service). The action reaches people.
+- On the floor: The team serves breakfast on the plan the manager chose. Guests feel the staffing, right or wrong. [Illustrative]
+- What the manager sees: No screen. The decision now lives in the rota and on the floor. [Illustrative]
+- Behind the scenes: Nothing acts. The system does not change the rota or contact staff. [Built, sandbox data]
+- Authority and evidence: The action reaches people here. It cannot be replayed: the plan not chosen is never seen.
+
+**Stage 4, Learn** (After service)
+- On the floor: The manager glances at a short receipt: forecast against actual, and the gap. [Illustrative]
+- What the manager sees: Daily receipt: actual covers, forecast, delta, confidence. [Built, sandbox data]
+- Behind the scenes: Actual covers ingested from the till; forecast error computed; decision logged for audit. Live till ingestion needs a connected hotel. [Planned]
+- Authority and evidence: Observed: the covers, so the forecast can be scored. Not observed: whether the staffing was right. That stays a judgement.
+
+**Key distinction.** A prediction can be evaluated against a later observed number. A recommendation has operational consequences and does not automatically receive an equally definitive verdict.
+
+Read down a column for one moment of the service, across a row for one layer. The forecast gets a score the next day; the staffing decision gets the manager's word and a service that already happened.
+
+Evidence status:
+- Built on sandbox and public data (Apaleo sandbox, synthetic series, Kaggle Recruit benchmark): forecast, guard in code, WhatsApp message, reply parser, daily receipt.
+- Planned: live ingestion of till data from a connected hotel, which is what would let forecast error be measured on real covers.
+- Unproven: that recorded replies improve recommendations, and that any staffing decision improved a real service. No manager has used it yet.
+
 ## What the split buys
 
 Two things I could not have had otherwise.
@@ -1321,6 +1358,7 @@ I work on AI product architecture, evaluation and human-agent collaboration, wit
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
 
+2026-10-23 · Added a service blueprint: one illustrative breakfast, from forecast to manager decision, service and feedback. The note explained the architecture but not what it means for the people running the service, nor where authority changes hands and which outcomes can actually be measured.
 2026-10-23 · Linked the two companion notes and the public repository where the text makes a claim they explain or evidence. Readers arriving here had no path to how the boundary is tested, or to why approval and outcome are different signals.
 2026-10-23 · Added a reading card, a table separating the five jobs in the loop, and the scope of the public benchmark. The note argued for one boundary but blended five things a reader needs to tell apart: forecasting, recommendation, enforcement in code, human approval and measured outcome. The benchmark sentence now says what it ran on (30 restaurants, Kaggle Recruit data) and that no manager decision has been delivered on the forecast yet, as the repository states.
 2026-10-12 · Corrected the drift example. The 'three consecutive misses' alert was narration in the demo script, not a production mechanism, and the post-shift error was reduced, not fully recovered.
