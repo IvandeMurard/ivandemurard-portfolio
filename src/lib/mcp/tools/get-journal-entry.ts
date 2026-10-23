@@ -71,11 +71,21 @@ export function renderBlock(block: JournalBlock): string {
       return "";
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n");
+    case "callout":
+      return `**${block.title}**\n${block.text}\n[${block.link.text}](${SITE_ORIGIN}${block.link.to})`;
   }
 }
 
+const RELATED_ROLE = { method: "Read the method", decision: "Understand the design decision", evidence: "Inspect implementation evidence" } as const;
+
+/** Internal Markdown links become canonical public URLs so agents can follow them. */
+const absolutize = (md: string) => md.replace(/\]\((\/[^\s)]*)\)/g, `](${SITE_ORIGIN}$1)`);
+
 export function renderEntryMarkdown(entry: JournalEntry): string {
-    const bodyText = entry.body.map(renderBlock).filter(Boolean).join("\n\n");
+    const related = entry.related?.length
+      ? `## Continue exploring\n\n${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}`
+      : "";
+    const bodyText = absolutize([...entry.body.map(renderBlock), related].filter(Boolean).join("\n\n"));
     const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
     return [
       `# ${entry.title}`,

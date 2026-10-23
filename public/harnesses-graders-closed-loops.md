@@ -95,9 +95,13 @@ A — Offline (Before the merge): partial: Versioned case sets, CI gate, merge b
 B — Runtime (In production, continuously): partial: Guardrails specified in an architecture decision, tool calls emitted as structured events. (Until they run, drift is only visible in the next offline run, one release late.) | absent: No production observability at all. (A wrong answer in a hangar is seen by the technician and by nobody else.)
 C — Outcome (After the fact, long loop): partial: Forecast error computes itself against covers and gates thresholds. The truth is declared by the manager. (The loop closes on a declared number, so a manager's bad count is learned as if it were fact.) | absent: The SOP is a reference, not a return: procedures are ground truth at authoring time, but the signed work record never comes back. (And a junior who escalates removes the counterfactual, so the one case worth learning from is the one that disappears.)
 
-Aetherix runs one and a half loops, not two. "Closed loop on a declared truth" is an engineering statement; "dual autonomous loop" is a brochure statement.
+Aetherix runs one and a half loops, not two. "Closed loop on a declared truth" is an engineering statement; "dual autonomous loop" is a brochure statement. Why the declared truth is weaker than the observed one is argued in [the ground-truth note](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth).
 
 > When you cannot learn from outcomes, you have to over-invest upstream. That is why Lore's evaluation harness weighs close to a third of its codebase: not gratuitous rigour, but the price of a missing outcome loop.
+
+**See the method applied to a real architecture**
+Aetherix separates forecasting from recommendation so each can be evaluated against the right evidence. Different failure modes need different controls: a wrong forecast is measured, a wrong action is blocked in code. Explore the architectural decision, its trade-offs and what remains to be validated.
+[Explore the Aetherix architecture](https://ivandemurard.com/journal/agent-boundaries-aetherix)
 
 ## 3. "Working" against "Reliable", five dimensions
 
@@ -378,6 +382,13 @@ Sources: the "evaluation by design" architecture decision and [Aetherix](https:/
 This piece has gaps. They are in the table in section 3 and in the last paragraph of section 8.
 
 A note on where it came from. I wrote the first version for myself, before interviews, because I kept noticing I could do things I could not name. It turned out to be more useful as a reference than as a memory aid, so it became this.
+
+## Continue exploring
+
+- Understand the design decision: [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) - Why Aetherix splits forecasting from action, so each failure gets its own check.
+- Read the method: [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) - Arm C in depth: which answer a product may learn from, and when it arrives.
+- Inspect implementation evidence: [Lore case study](https://ivandemurard.com/lore) - The harness whose case set, graders and canary this note quotes.
+- Inspect implementation evidence: [Aetherix case study](https://ivandemurard.com/aetherix) - Where the gate, baselines and thresholds were first built.
 
 ## Updates
 

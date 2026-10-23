@@ -36,6 +36,12 @@ import type { Signal } from "@/content/recoLine";
 
 const VERDICT_SIGNAL: Record<string, Signal> = { PASS: "go", WARN: "warn", FAIL: "stop", ERROR: "dark" };
 
+const RELATED_ROLE = {
+  method: "Read the method",
+  decision: "Understand the design decision",
+  evidence: "Inspect implementation evidence",
+} as const;
+
 
 const slugifyHeading = (text: string) =>
   text
@@ -107,6 +113,8 @@ const blockStrings = (block: JournalBlock): string[] => {
       return block.blocks.flatMap(blockStrings);
     case "recoLine":
       return [block.caption];
+    case "callout":
+      return [block.text];
 
     default:
       return [];
@@ -150,6 +158,20 @@ const Block = ({
           {block.text}
           {headingId && <HeadingAnchor id={headingId} text={block.text} />}
         </h3>
+      );
+    case "callout":
+      return (
+        <aside className="border-y border-outline-variant py-6">
+          <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-3">{block.title}</p>
+          <p className="font-body text-base">{t(block.text)}</p>
+          <Link
+            to={block.link.to}
+            className="mt-4 inline-flex items-center gap-2 font-headline italic text-primary border-b border-secondary/60 pb-0.5 hover:text-secondary hover:border-secondary transition-colors"
+          >
+            {block.link.text}
+            <Icon name="arrow_forward" className="text-sm" />
+          </Link>
+        </aside>
       );
     case "quote":
       return (
@@ -530,23 +552,29 @@ const JournalEntry = () => {
             ))}
           </div>
           {entry.related && entry.related.length > 0 && (
-            <div className="mt-20 pt-10 border-t border-outline-variant">
-              <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
-                {labels.related}
-              </div>
-              <ul className="space-y-2">
+            <nav aria-labelledby="continue-exploring" className="mt-20 pt-10 border-t border-outline-variant">
+              <h2 id="continue-exploring" className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6">
+                {lang === "fr" ? labels.related : "Continue exploring"}
+              </h2>
+              <ul className="space-y-5">
                 {entry.related.map((r, i) => (
                   <li key={i}>
+                    {r.role && (
+                      <span className="block font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant mb-1">
+                        {RELATED_ROLE[r.role]}
+                      </span>
+                    )}
                     <Link
                       to={r.to}
-                      className="font-headline italic text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+                      className="font-headline italic text-lg text-primary border-b border-secondary/60 pb-0.5 hover:text-secondary hover:border-secondary transition-colors"
                     >
                       {r.label}
                     </Link>
+                    {r.why && <p className="mt-1 text-base text-on-surface-variant font-normal">{r.why}</p>}
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           )}
 
           <ArticleUpdates updates={entry.updates} />

@@ -32,7 +32,7 @@ That is the argument for the boundary, and it is not really about Prophet or Cla
 
 Give one component both jobs and it arbitrates between them privately. That is the cost, and it is not a performance cost. A node that owns two domains stops being reviewable: when the recommendation is wrong you cannot tell whether the read of the situation was wrong, or the response to a correct read was wrong. There is one output and one prompt, and the trace tells you nothing you did not already know.
 
-Forecasting and acting also want different feedback. Forecast error computes itself: tomorrow's covers are known the day after, so the number arrives whether or not anyone asks for it. Whether a recommendation should have been made at all is a judgement, and the only thing that returns it is a human. One loop is arithmetic, the other is an opinion. A single component blends them and you lose the ability to measure either.
+Forecasting and acting also want different feedback. Forecast error computes itself: tomorrow's covers are known the day after, so the number arrives whether or not anyone asks for it. Whether a recommendation should have been made at all is a judgement, and the only thing that returns it is a human. One loop is arithmetic, the other is an opinion. A single component blends them and you lose the ability to measure either. Why a manager's approval and the next day's covers are different signals, and which one a system may learn from, is [the ground-truth note](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth).
 
 ## Where the line landed
 
@@ -54,7 +54,7 @@ The manager replies accept, reject, or the right figure. That reply is not polit
 
 Two things I could not have had otherwise.
 
-The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing.
+The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing. The gate and its baseline can be inspected in [the public Aetherix repository](https://github.com/IvandeMurard/aetherix-hospitality-ai); the code shows the check exists, not that it works on a real hotel.
 
 And the action becomes accountable. Every recorded accept, reject or correction is an event with the recommendation stored beside it. Today that means an exact accept or reject, or a figure: a free-text reply is not yet mapped to a decision, a gap an audit found in September 2026. A rejection is not lost feedback, it is a new evaluation case. Human in the loop by design rather than by default, and the difference is whether the decision leaves a trace.
 
@@ -68,14 +68,25 @@ And a limit I have to keep restating. The comparison runs on its own, but the tr
 
 ## What I would have lost
 
-The guarantee. In a single-model design, "never act on a low-confidence forecast" is a sentence in a prompt, which is a request. Requests are not enforced, they are usually honoured. With the boundary in place the rule lives between the components, in code, where it can be checked and where a violation is a failing test rather than a disappointing output.
+The guarantee. In a single-model design, "never act on a low-confidence forecast" is a sentence in a prompt, which is a request. Requests are not enforced, they are usually honoured. With the boundary in place the rule lives between the components, in code, where it can be checked and where a violation is a failing test rather than a disappointing output. How such a test is written, graded and allowed to block a release is the subject of [the evaluation note](https://ivandemurard.com/journal/harnesses-graders-closed-loops).
 
 A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it.
+
+**Working on an AI system where a wrong action has real consequences?**
+I work on AI product architecture, evaluation and human-agent collaboration, with a focus on measurable, bounded and accountable systems.
+[Discuss an AI product or architecture challenge](https://ivandemurard.com/contact)
+
+## Continue exploring
+
+- Read the method: [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) - How a boundary held in code is tested, graded and allowed to block a release.
+- Read the method: [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) - Why the manager's reply and the next day's covers are different feedback.
+- Inspect implementation evidence: [Aetherix case study](https://ivandemurard.com/aetherix) - The system this decision shaped, its status and what is still to be validated.
 
 ## Updates
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
 
+2026-10-23 · Linked the two companion notes and the public repository where the text makes a claim they explain or evidence. Readers arriving here had no path to how the boundary is tested, or to why approval and outcome are different signals.
 2026-10-23 · Added a reading card, a table separating the five jobs in the loop, and the scope of the public benchmark. The note argued for one boundary but blended five things a reader needs to tell apart: forecasting, recommendation, enforcement in code, human approval and measured outcome. The benchmark sentence now says what it ran on (30 restaurants, Kaggle Recruit data) and that no manager decision has been delivered on the forecast yet, as the repository states.
 2026-10-12 · Corrected the drift example. The 'three consecutive misses' alert was narration in the demo script, not a production mechanism, and the post-shift error was reduced, not fully recovered.
 2026-09-24 · Corrected what the note said about recorded replies, the CI forecast baseline and the drift example. An audit of the Aetherix repository found that only an exact "accept" or "reject", or a corrected figure, records a decision; that the forecast baseline in CI is computed on a synthetic series, not on realised covers; and that the corrupted export and the regime shift come from a simulated 30-day scenario. The note had said more than that.
