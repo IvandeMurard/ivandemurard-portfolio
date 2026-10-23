@@ -137,6 +137,7 @@ What can be certified before any outcome exists?
 
 - **A fail is published.** On the model or decision link it triggers a written pivot note within five working days.
 - **Honest scale:** the earlier public benchmark gap was 0.6 points. Not covered by the protocol; it would sit in the fail band.
+- **Reference data sets the bar.** A threshold is only as meaningful as the truth it is measured against; how that becomes an acceptance criterion a release can fail is in [the evaluation note](https://ivandemurard.com/journal/harnesses-graders-closed-loops#6-acceptance-criteria-the-part-everyone-skips). The thresholds themselves are public in [PROOF_PROTOCOL.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md); a published protocol is a commitment, not a result.
 
 ## 7. Checklist
 
@@ -164,9 +165,16 @@ It can prove its method today. It can only sell results once outcomes are measur
 
 - [Proof protocol](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md)
 - [VISION.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/VISION.md)
-- [What is an LLM evaluation harness?](/journal/harnesses-graders-closed-loops) (this note expands its arm C)
-- [Aetherix](/aetherix)
-- [Lore](/lore)
+- [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (this note expands its arm C)
+- [Aetherix](https://ivandemurard.com/aetherix)
+- [Lore](https://ivandemurard.com/lore)
+
+## Continue exploring
+
+- Read the method: [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) - How reliable reference data becomes an acceptance criterion a release can fail.
+- Understand the design decision: [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) - The architecture that keeps the forecast's truth and the manager's reply apart.
+- Inspect implementation evidence: [Aetherix case study](https://ivandemurard.com/aetherix) - A product that gets an observed truth back the next day, once a hotel is connected.
+- Inspect implementation evidence: [Lore case study](https://ivandemurard.com/lore) - A product whose realised truth never returns, and how it compensates upstream.
 
 ## Updates
 
