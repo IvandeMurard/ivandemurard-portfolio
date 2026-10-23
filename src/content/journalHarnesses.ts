@@ -721,6 +721,8 @@ export const HARNESSES_ENTRY: JournalEntry = {
       ],
     },
 
+    { kind: "h2", text: "Apply this to your project" },
+    { kind: "apply", slug: "harnesses-graders-closed-loops" },
     { kind: "h2", text: "15. Closing note", aliases: ["closing-note"] },
     {
       kind: "p",

@@ -294,6 +294,8 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it.",
       },
+      { kind: "h2", text: "Apply this to your project" },
+      { kind: "apply", slug: "agent-boundaries-aetherix" },
       {
         kind: "callout",
         title: "Working on an AI system where a wrong action has real consequences?",

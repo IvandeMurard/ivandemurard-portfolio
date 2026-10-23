@@ -1344,6 +1344,51 @@ The guarantee. In a single-model design, "never act on a low-confidence forecast
 
 A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it.
 
+## Apply this to your project
+
+**The decision.** Which decisions the system may take alone, which it may only recommend, and which require a named human's approval.
+
+**Inputs.**
+- An inventory of the decisions the application makes or recommends
+- Who is accountable for each one
+- What it costs to undo each one
+- The current prompts and the code paths that act on outputs
+
+**The artifact.** A decision register classified by impact, reversibility and required authority, with an approval point, a fallback and an audit record for each.
+
+**Verification.** For every rule marked "enforced", show the code location and a test that fails when the rule is violated. A rule that only exists in a prompt is not enforced.
+
+**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
+
+```text
+Apply a method to my own AI project. Method source: "Five agents, one architecture" by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
+
+Method: Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.
+
+Task:
+- Inventory the decisions the application makes or recommends.
+- Classify each by impact, reversibility and required authority.
+- Locate the boundaries between prediction, recommendation and execution.
+- Distinguish constraints written as prompt instructions from constraints enforced in code.
+- Propose approval points, fallback behaviour and audit records where they are missing.
+
+Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):
+- An inventory of the decisions the application makes or recommends
+- Who is accountable for each one
+- What it costs to undo each one
+- The current prompts and the code paths that act on outputs
+
+Deliverables:
+- A decision register
+- A list of prompt-only rules that should move into code
+- An enforceable architecture improvement plan, with one test per boundary
+
+Verification: For every rule marked "enforced", show the code location and a test that fails when the rule is violated. A rule that only exists in a prompt is not enforced.
+
+Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").
+Do not bypass approvals and do not change production systems without my explicit authorisation.
+```
+
 **Working on an AI system where a wrong action has real consequences?**
 I work on AI product architecture, evaluation and human-agent collaboration, with a focus on measurable, bounded and accountable systems.
 [Discuss an AI product or architecture challenge](https://ivandemurard.com/contact)
@@ -1521,6 +1566,49 @@ What can be certified before any outcome exists?
 - Never read acceptance alone.
 - Settle who owns the outcome history before the first pilot.
 - Freeze pass and fail thresholds before the first result. Publish the fails.
+
+## Apply this to your project
+
+**The decision.** Which signals the product may learn from without a human, and which only show agreement.
+
+**Inputs.**
+- The feedback and learning loop as it runs today
+- Every signal that comes back, who owns it and when it arrives
+- How outcomes are recorded, including for rejected recommendations
+
+**The artifact.** A truth-signal map: each signal labelled documented, declared or observed, with its owner, its delay and the threshold it is judged against.
+
+**Verification.** Check on historical data whether approval rate and outcome correctness diverge. If outcomes are never recorded for rejected recommendations, name the missing counterfactual.
+
+**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
+
+```text
+Apply a method to my own AI project. Method source: "Whose truth is the ground truth?" by Ivan de Murard, https://ivandemurard.com/whose-truth-is-the-ground-truth.md (markdown).
+
+Method: Distinguishing documented, declared and observed truth in a feedback loop, and refusing to read approval as correctness.
+
+Task:
+- Map the application's feedback and learning loop.
+- Classify each signal as documented, declared or observed truth.
+- Determine who owns each signal and when it becomes available.
+- Identify missing counterfactuals and potential selection bias.
+- Check whether approval is anywhere treated as correctness.
+
+Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):
+- The feedback and learning loop as it runs today
+- Every signal that comes back, who owns it and when it arrives
+- How outcomes are recorded, including for rejected recommendations
+
+Deliverables:
+- A truth-signal map
+- A list of places where approval stands in for correctness
+- Measurable learning and evaluation improvements, each with a pass and a fail threshold
+
+Verification: Check on historical data whether approval rate and outcome correctness diverge. If outcomes are never recorded for rejected recommendations, name the missing counterfactual.
+
+Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").
+Do not bypass approvals and do not change production systems without my explicit authorisation.
+```
 
 ## 8. FAQ
 
@@ -1944,6 +2032,52 @@ Rose is the agent on this site. She has read this note and both case studies.
 Grader or harness, what is the difference?
 Why can Lore not close the outcome loop?
 If I ship an agent next month, what should I gate on first?
+
+## Apply this to your project
+
+**The decision.** Which failures must block a release, and which arm (offline, runtime or outcome) is responsible for catching each one.
+
+**Inputs.**
+- The agent's architecture and current tests
+- Known failures or incident history
+- Input and output contracts
+- The error budget you can tolerate per category
+
+**The artifact.** A coverage map of failure modes against the three arms, plus test cases, graders and pass/fail thresholds written before the first run.
+
+**Verification.** Seed one known regression and confirm the gate fails the release. Rerun and confirm the verdict is identical.
+
+**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
+
+```text
+Apply a method to my own AI project. Method source: "What is an LLM evaluation harness?" by Ivan de Murard, https://ivandemurard.com/harnesses-graders-closed-loops.md (markdown).
+
+Method: Evaluation by design: offline, runtime and outcome evaluation (arms A, B, C), deterministic graders, frozen acceptance criteria and a release gate.
+
+Task:
+- Inspect the agent architecture and the current tests, if I have shared them.
+- List the major failure modes.
+- Map existing evaluation coverage against them.
+- Separate offline, runtime and outcome evaluation.
+- Define test cases, grading methods and acceptance criteria for the uncovered failures.
+- Identify which of the project's claims can actually be verified, and which cannot yet.
+
+Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):
+- The agent's architecture and current tests
+- Known failures or incident history
+- Input and output contracts
+- The error budget you can tolerate per category
+
+Deliverables:
+- A coverage matrix (failure mode × arm)
+- Prioritised implementation tasks
+- Reproducible test cases with their graders and thresholds
+
+Verification: Seed one known regression and confirm the gate fails the release. Rerun and confirm the verdict is identical.
+
+Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").
+Do not bypass approvals and do not change production systems without my explicit authorisation.
+```
 
 ## 15. Closing note
 

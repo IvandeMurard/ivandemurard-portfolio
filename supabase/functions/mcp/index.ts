@@ -1017,6 +1017,8 @@ var HARNESSES_ENTRY = {
         "If I ship an agent next month, what should I gate on first?"
       ]
     },
+    { kind: "h2", text: "Apply this to your project" },
+    { kind: "apply", slug: "harnesses-graders-closed-loops" },
     { kind: "h2", text: "15. Closing note", aliases: ["closing-note"] },
     {
       kind: "p",
@@ -1209,6 +1211,8 @@ var TRUTH_ENTRY = {
       "Settle who owns the outcome history before the first pilot.",
       "Freeze pass and fail thresholds before the first result. Publish the fails."
     ] },
+    { kind: "h2", text: "Apply this to your project" },
+    { kind: "apply", slug: "whose-truth-is-the-ground-truth" },
     { kind: "h2", text: "8. FAQ" },
     { kind: "h3", text: "Isn't the user always right?" },
     { kind: "p", text: "About what they want, yes. Whether the product was correct is answered later, by something else." },
@@ -1374,6 +1378,8 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it."
       },
+      { kind: "h2", text: "Apply this to your project" },
+      { kind: "apply", slug: "agent-boundaries-aetherix" },
       {
         kind: "callout",
         title: "Working on an AI system where a wrong action has real consequences?",
