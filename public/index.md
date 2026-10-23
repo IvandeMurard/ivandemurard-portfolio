@@ -64,10 +64,10 @@ The decisions behind the products. Written to be reused. [All notes](https://iva
 
 ## 04 · Contact
 
-Prototypes are fast. Getting operations to trust them is the job.
+I ship prototypes fast. Aligning tech, operations and business into services people actually use is where I come in.
 
 Open to AI Product Manager and Product Builder roles.
 
 - Book a call: https://cal.com/ivandemurard/discussion-and-introduction
 - Email: ivandemurard@gmail.com
-- Or ask your AI about me: ChatGPT (https://chatgpt.com/?q=...), Perplexity (https://www.perplexity.ai/search?q=...), prefilled with: "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used."
+- Or ask your AI about me: Perplexity (https://www.perplexity.ai/search?q=...), prefilled with: "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used." A "Copy prompt for Claude or ChatGPT" button copies the same prompt.

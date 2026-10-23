@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Check, Copy } from "lucide-react";
+import portrait from "@/assets/Ivan_de_Murard.jpg.asset.json";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo, personJsonLd, SITE } from "@/components/Seo";
@@ -12,26 +15,45 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const AI_PROMPT = "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used.";
-// Only tools with a documented prefill URL (q parameter).
-const AI_LINKS = [
-  { name: "ChatGPT", href: `https://chatgpt.com/?q=${encodeURIComponent(AI_PROMPT)}` },
-  { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${encodeURIComponent(AI_PROMPT)}` },
-];
+// Perplexity documents a prefill URL; ChatGPT and Claude block or ignore one, so the prompt is copied instead.
+const PERPLEXITY_HREF = `https://www.perplexity.ai/search?q=${encodeURIComponent(AI_PROMPT)}`;
 
-const Tip = ({ label, children }: { label: string; children: React.ReactNode }) => (
+const CopyPrompt = () => {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(AI_PROMPT);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard unavailable: leave the label unchanged */ }
+  };
+  return (
+    <button type="button" onClick={copy}
+      className="inline-flex items-center gap-1.5 text-primary border-b border-primary/40 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">
+      {copied ? <Check size={12} aria-hidden /> : <Copy size={12} aria-hidden />}
+      {copied ? "Copied!" : "Copy prompt for Claude or ChatGPT"}
+      <span className="sr-only" aria-live="polite">{copied ? "Prompt copied to clipboard" : ""}</span>
+    </button>
+  );
+};
+
+const Tip = ({ label, explain, children }: { label: string; explain: string; children: React.ReactNode }) => (
   <Popover>
     <PopoverTrigger asChild>
-      <button type="button" className="underline decoration-dotted underline-offset-2 cursor-help focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">{label}</button>
+      <button type="button" aria-label={`${label}: ${explain}`} className="underline decoration-dotted underline-offset-2 cursor-help text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">{label}</button>
     </PopoverTrigger>
     <PopoverContent side="top" className="max-w-[300px] font-mono text-[11.5px] leading-relaxed">{children}</PopoverContent>
   </Popover>
 );
 
 const AetherixStatus = () => (
-  <p className="font-mono text-[11.5px] leading-relaxed text-signal-warn">
-    Built and evaluated on historical data. <Tip label="Staged">Deployed on a pre-production server (Fly.io, Paris): the same setup a pilot hotel would get, before any real hotel data.</Tip> on Fly.io, connected to the{" "}
-    <Tip label="Apaleo sandbox">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline">apaleo.com ↗</a></Tip>. Ready for a 30-day pilot.
-  </p>
+  <div className="flex flex-col gap-2">
+    <SignalLamp state={PROJECTS.atherix.status.signal} label={PROJECTS.atherix.status.word} />
+    <p className="font-mono text-[12.5px] leading-relaxed text-on-surface-variant max-w-[560px]">
+      Built and evaluated on historical data. <Tip label="Staged" explain="what this means">Deployed on a pre-production server (Fly.io, Paris): the same setup a pilot hotel would get, before any real hotel data.</Tip> on Fly.io, connected to the{" "}
+      <Tip label="Apaleo sandbox" explain="what this means">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline">apaleo.com ↗</a></Tip>. Ready for a 30-day pilot.
+    </p>
+  </div>
 );
 
 // Latest three Field Notes, oldest first.
@@ -93,16 +115,21 @@ const Index = () => {
               </a>
             </div>
           </div>
-          <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
-            <AetherixHomepageLoop initialTab={0} />
-          </div>
+          <figure className="w-full max-w-[360px] lg:max-w-none lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
+            <div className="relative aspect-square overflow-hidden ring-1 ring-outline-variant">
+              <img src={portrait.url} alt="Ivan de Murard, portrait" width={532} height={532}
+                className="h-full w-full object-cover grayscale" loading="eager" fetchPriority="high" />
+              <div aria-hidden className="absolute inset-3 border border-secondary/60 pointer-events-none" />
+            </div>
+            <figcaption className={`${hair} mt-3 pt-2 font-mono text-[11.5px] text-on-surface-variant`}>Ivan de Murard · Paris</figcaption>
+          </figure>
         </div>
       </Reveal>
 
       {/* 01 · Flagship teaser */}
       <section id="work" className="bg-surface-container-low scroll-mt-24">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-          <div>
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] xl:grid-cols-[minmax(0,1fr)_480px] gap-12 lg:gap-16 lg:items-start">
             <div data-reveal-child className="max-w-[760px]">
               <p className={`${kicker} text-secondary mb-8`}>01 · Flagship</p>
               <h2 className="font-headline font-light text-primary text-[clamp(72px,9vw,136px)] leading-[0.9] tracking-[-0.04em]">Aetherix</h2>
@@ -111,7 +138,10 @@ const Index = () => {
                 className="mt-10 inline-flex items-center min-h-[48px] px-6 border border-on-surface rounded-md text-on-surface font-medium hover:bg-on-surface hover:text-surface transition-colors">
                 How it decides, and when it refuses →
               </Link>
-              <div className="mt-5"><AetherixStatus /></div>
+              <div className="mt-6"><AetherixStatus /></div>
+            </div>
+            <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
+              <AetherixHomepageLoop initialTab={0} />
             </div>
           </div>
         </Reveal>
@@ -173,7 +203,7 @@ const Index = () => {
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
           <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(48px,5.6vw,84px)] leading-[1.02] tracking-[-0.02em]" data-reveal-child>
-            Prototypes are fast. <em className="accent-ink">Getting operations to trust them is the job.</em>
+            I ship prototypes fast. <em className="accent-ink">Aligning tech, operations and business into services people actually use is where I come in.</em>
           </h2>
           <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
             Open to AI Product Manager and Product Builder roles.
@@ -188,13 +218,13 @@ const Index = () => {
               {SOCIAL_LINKS.email.replace(/^mailto:/, "")}
             </a>
           </div>
-          <p className="mt-10 font-mono text-[12px] text-on-surface-variant" data-reveal-child>
-            Or ask your AI about me:{" "}
-            {AI_LINKS.map((l, i) => (
-              <span key={l.name}>{i > 0 && " · "}<a href={l.href} target="_blank" rel="noopener noreferrer"
-                onClick={() => track({ label: `Ask ${l.name}`, href: l.href, kind: "contact" })}
-                className="text-primary border-b border-primary/40 hover:border-primary">{l.name} ↗</a></span>
-            ))}
+          <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-2 gap-y-2" data-reveal-child>
+            <span>Or ask your AI about me:</span>
+            <a href={PERPLEXITY_HREF} target="_blank" rel="noopener noreferrer"
+              onClick={() => track({ label: "Ask Perplexity", href: PERPLEXITY_HREF, kind: "contact" })}
+              className="text-primary border-b border-primary/40 hover:border-primary">Perplexity ↗</a>
+            <span aria-hidden>·</span>
+            <CopyPrompt />
           </p>
         </Reveal>
       </section>
