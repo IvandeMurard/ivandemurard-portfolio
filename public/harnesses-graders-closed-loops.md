@@ -1,6 +1,6 @@
 # What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents
 
-An LLM evaluation harness is the machinery that runs a test suite against your model and returns a pass or fail verdict. A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
+A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
 Evaluation · 2026-07-31 · 18 min read
 

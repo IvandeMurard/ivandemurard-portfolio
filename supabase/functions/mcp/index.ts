@@ -333,7 +333,7 @@ var HARNESSES_ENTRY = {
   slug: "harnesses-graders-closed-loops",
   homeHook: { text: "Agents rarely fail loudly. They drift, quietly, until a customer notices. How to find out first: graders, harnesses, and the gaps I have not closed yet." },
   title: "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents",
-  subtitle: "An LLM evaluation harness is the machinery that runs a test suite against your model and returns a pass or fail verdict. A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
+  subtitle: "A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
   date: "2026-07-31",
   category: "Evaluation",
   lang: "en",
