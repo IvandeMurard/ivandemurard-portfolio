@@ -8,3 +8,4 @@
 - The CV content is centralized in `src/content/cv.ts`; keep the human page, downloadable Markdown, MCP profile and Rose reference factually aligned so experience claims have one maintained source.- /agents is a raw-document page outside SiteLayout; its copy lives in src/content/agents.ts and its Sonor excerpt plus /agents.md are generated in prebuild by scripts/generate-agents.ts, so the example always matches the real MCP output.
 - Project statuses live in src/content/statuses.ts (asset-free), shared by site.ts and the MCP tools, so pages and agents quote the same status.
 - The raw agents page owns its local palette and bypasses route view transitions; this isolates its appearance without mutating the persisted site mood.
+- Article AI reading actions copy prompts with canonical public URLs, not provider prefill links or preview URLs, so external readers receive accessible sources.

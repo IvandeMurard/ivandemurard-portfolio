@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { ClaudeGlyph, OpenAIGlyph } from "@/components/ui/BrandGlyph";
+import { Button } from "@/components/ui/button";
 
 type EntryActionsProps = {
   title: string;
@@ -27,10 +27,11 @@ const BTN =
 export const EntryActions = ({ title, markdownPath, variant = "note", ask }: EntryActionsProps) => {
   const [copied, setCopied] = useState<"context" | "link" | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const shareRef = useRef<HTMLDivElement | null>(null);
 
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://ivandemurard.com";
-  const pageUrl = typeof window !== "undefined" ? window.location.href : origin;
+  const origin = "https://ivandemurard.com";
+  const pageUrl = typeof window !== "undefined" ? `${origin}${window.location.pathname}` : origin;
   const mdUrl = markdownPath ? `${origin}${markdownPath}` : undefined;
 
   const defaultAsk =
@@ -59,14 +60,15 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
   const copy = async (text: string, kind: "context" | "link") => {
     try {
       await navigator.clipboard.writeText(text);
+      setCopyFailed(false);
       setCopied(kind);
       window.setTimeout(() => setCopied(null), 2000);
     } catch {
       setCopied(null);
+      if (kind === "context") setCopyFailed(true);
     }
   };
 
-  const q = encodeURIComponent(prompt);
   const shareText = encodeURIComponent(title);
   const shareUrl = encodeURIComponent(pageUrl);
 
@@ -89,20 +91,12 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
     <div className="mb-10 not-italic print:hidden">
       <div className="flex flex-wrap items-center gap-2">
         <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mr-1">
-          Read with
+          Read with AI
         </span>
-        <a className={BTN} href={`https://chatgpt.com/?q=${q}`} target="_blank" rel="noopener noreferrer">
-          <OpenAIGlyph className="h-[14px] w-[14px] shrink-0" />
-          ChatGPT
-        </a>
-        <a className={BTN} href={`https://claude.ai/new?q=${q}`} target="_blank" rel="noopener noreferrer">
-          <ClaudeGlyph className="h-[14px] w-[14px] shrink-0" />
-          Claude
-        </a>
-        <button type="button" className={BTN} onClick={() => copy(prompt, "context")}>
+        <Button type="button" variant="ghost" className={`${BTN} h-auto whitespace-normal text-left`} onClick={() => copy(prompt, "context")}>
           <Icon name={copied === "context" ? "check" : "content_copy"} className="text-[16px] leading-none" />
-          {copied === "context" ? "Context copied" : "Copy LLM context"}
-        </button>
+          {copied === "context" ? "Prompt copied" : "Copy prompt for Claude or ChatGPT"}
+        </Button>
         {markdownPath && variant === "note" && (
           <a className={BTN} href={markdownPath} target="_blank" rel="noopener noreferrer">
             <Icon name="description" className="text-[16px] leading-none" />
@@ -153,6 +147,12 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
           )}
         </div>
       </div>
+      {copyFailed && (
+        <div className="mt-3">
+          <label htmlFor="ai-reading-prompt" className="font-body text-sm text-on-surface-variant">Copy this prompt</label>
+          <textarea id="ai-reading-prompt" readOnly value={prompt} onFocus={(event) => event.currentTarget.select()} className="mt-2 block min-h-28 w-full rounded-sm border border-outline-variant bg-surface-container-lowest p-3 font-body text-sm text-on-surface" />
+        </div>
+      )}
       <p aria-live="polite" className="sr-only">
         {copied === "link" ? "Link copied" : copied === "context" ? "Context copied" : ""}
       </p>
