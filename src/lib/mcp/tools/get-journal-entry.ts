@@ -2,6 +2,7 @@ import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
 import { JOURNAL_ENTRIES, type JournalBlock, type JournalEntry } from "../../../content/journal";
 import { recoLineMarkdown } from "../../../content/recoLine";
+import { blueprintMarkdown } from "../../../content/serviceBlueprint";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -66,6 +67,8 @@ export function renderBlock(block: JournalBlock): string {
       return [`**${block.summary}**`, ...block.blocks.map(renderBlock)].filter(Boolean).join("\n\n");
     case "recoLine":
       return [`**Figure.** ${block.caption}`, recoLineMarkdown(block.layer), block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n\n");
+    case "blueprint":
+      return blueprintMarkdown();
     case "console":
     case "mcp":
       return "";
