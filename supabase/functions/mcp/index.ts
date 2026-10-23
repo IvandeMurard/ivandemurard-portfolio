@@ -1255,6 +1255,11 @@ var JOURNAL_ENTRIES = [
       }
     ],
     category: "Agentic AI",
+    related: [
+      { role: "method", label: "What is an LLM evaluation harness?", to: "/journal/harnesses-graders-closed-loops", why: "How a boundary held in code is tested, graded and allowed to block a release." },
+      { role: "method", label: "Whose truth is the ground truth?", to: "/journal/whose-truth-is-the-ground-truth", why: "Why the manager's reply and the next day's covers are different feedback." },
+      { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "The system this decision shaped, its status and what is still to be validated." }
+    ],
     excerpt: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     body: [
       {
@@ -1285,7 +1290,7 @@ var JOURNAL_ENTRIES = [
       },
       {
         kind: "p",
-        text: "Forecasting and acting also want different feedback. Forecast error computes itself: tomorrow's covers are known the day after, so the number arrives whether or not anyone asks for it. Whether a recommendation should have been made at all is a judgement, and the only thing that returns it is a human. One loop is arithmetic, the other is an opinion. A single component blends them and you lose the ability to measure either."
+        text: "Forecasting and acting also want different feedback. Forecast error computes itself: tomorrow's covers are known the day after, so the number arrives whether or not anyone asks for it. Whether a recommendation should have been made at all is a judgement, and the only thing that returns it is a human. One loop is arithmetic, the other is an opinion. A single component blends them and you lose the ability to measure either. Why a manager's approval and the next day's covers are different signals, and which one a system may learn from, is [the ground-truth note](/journal/whose-truth-is-the-ground-truth)."
       },
       { kind: "h2", text: "Where the line landed" },
       {
@@ -1316,7 +1321,7 @@ var JOURNAL_ENTRIES = [
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
         kind: "p",
-        text: "The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing."
+        text: "The forecast becomes measurable on its own terms: MAPE compared to a frozen baseline, in CI, blocking a merge. Today that series is synthetic; against realised covers, it starts with the pilot. That number means something precisely because the component producing it does one thing. The gate and its baseline can be inspected in [the public Aetherix repository](https://github.com/IvandeMurard/aetherix-hospitality-ai); the code shows the check exists, not that it works on a real hotel."
       },
       {
         kind: "p",
@@ -1338,11 +1343,17 @@ var JOURNAL_ENTRIES = [
       { kind: "h2", text: "What I would have lost" },
       {
         kind: "p",
-        text: 'The guarantee. In a single-model design, "never act on a low-confidence forecast" is a sentence in a prompt, which is a request. Requests are not enforced, they are usually honoured. With the boundary in place the rule lives between the components, in code, where it can be checked and where a violation is a failing test rather than a disappointing output.'
+        text: 'The guarantee. In a single-model design, "never act on a low-confidence forecast" is a sentence in a prompt, which is a request. Requests are not enforced, they are usually honoured. With the boundary in place the rule lives between the components, in code, where it can be checked and where a violation is a failing test rather than a disappointing output. How such a test is written, graded and allowed to block a release is the subject of [the evaluation note](/journal/harnesses-graders-closed-loops).'
       },
       {
         kind: "p",
         text: "A claim about behaviour has to be held by something other than a prompt. The boundary is where I put it."
+      },
+      {
+        kind: "callout",
+        title: "Working on an AI system where a wrong action has real consequences?",
+        text: "I work on AI product architecture, evaluation and human-agent collaboration, with a focus on measurable, bounded and accountable systems.",
+        link: { to: "/contact", text: "Discuss an AI product or architecture challenge" }
       }
     ]
   },
