@@ -115,16 +115,21 @@ const Index = () => {
               </a>
             </div>
           </div>
-          <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
-            <AetherixHomepageLoop initialTab={0} />
-          </div>
+          <figure className="w-full max-w-[360px] lg:max-w-none lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
+            <div className="relative aspect-square overflow-hidden ring-1 ring-outline-variant">
+              <img src={portrait.url} alt="Ivan de Murard, portrait" width={532} height={532}
+                className="h-full w-full object-cover grayscale" loading="eager" fetchPriority="high" />
+              <div aria-hidden className="absolute inset-3 border border-secondary/60 pointer-events-none" />
+            </div>
+            <figcaption className={`${hair} mt-3 pt-2 font-mono text-[11.5px] text-on-surface-variant`}>Ivan de Murard · Paris</figcaption>
+          </figure>
         </div>
       </Reveal>
 
       {/* 01 · Flagship teaser */}
       <section id="work" className="bg-surface-container-low scroll-mt-24">
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
-          <div>
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] xl:grid-cols-[minmax(0,1fr)_480px] gap-12 lg:gap-16 lg:items-start">
             <div data-reveal-child className="max-w-[760px]">
               <p className={`${kicker} text-secondary mb-8`}>01 · Flagship</p>
               <h2 className="font-headline font-light text-primary text-[clamp(72px,9vw,136px)] leading-[0.9] tracking-[-0.04em]">Aetherix</h2>
@@ -133,7 +138,10 @@ const Index = () => {
                 className="mt-10 inline-flex items-center min-h-[48px] px-6 border border-on-surface rounded-md text-on-surface font-medium hover:bg-on-surface hover:text-surface transition-colors">
                 How it decides, and when it refuses →
               </Link>
-              <div className="mt-5"><AetherixStatus /></div>
+              <div className="mt-6"><AetherixStatus /></div>
+            </div>
+            <div className="w-full max-w-[480px] lg:justify-self-end" data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
+              <AetherixHomepageLoop initialTab={0} />
             </div>
           </div>
         </Reveal>
