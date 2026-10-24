@@ -380,9 +380,84 @@ const ConceptB = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
+/* ---------------- Concept C: Narrative prototype (Scenes A, B, C) ---------------- */
+const ConceptC = ({ reduced }: { reduced: boolean }) => {
+  const [august, setAugust] = useState(false);
+  return (
+    <>
+      {/* Scene A */}
+      <section aria-labelledby="scene-a" className="border-b border-outline-variant">
+        <div className="mx-auto flex min-h-[80vh] max-w-5xl flex-col justify-center px-6 py-20">
+          <p className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary">Case study · Rose · Chapter 1, The Idea</p>
+          <div className="mt-8 flex flex-col gap-10 md:flex-row md:items-center">
+            <h1 id="scene-a" className="font-headline text-[clamp(3rem,8vw,7rem)] font-light leading-[0.92] tracking-tight text-primary">
+              A portfolio <span className="italic text-secondary">you can question.</span>
+            </h1>
+            <CompassRose heading={0} reduced={reduced} className="h-32 w-32 shrink-0 text-secondary md:h-48 md:w-48" />
+          </div>
+          <p className="mt-10 max-w-xl font-body text-base text-on-surface md:text-lg">
+            Every visitor arrives with the same unspoken question: what has Ivan actually built? On 21 July 2026, Rose shipped to answer it. Or so the brief said.
+          </p>
+        </div>
+      </section>
+
+      {/* Scene B */}
+      <section aria-labelledby="scene-b" className="border-b border-outline-variant bg-surface-container-low">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-2">
+          <div>
+            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Chapter 2 · The Contradiction</p>
+            <h2 id="scene-b" className="mt-4 font-headline text-4xl text-primary md:text-5xl">The original assumption</h2>
+            <p className="mt-6 font-body text-base text-on-surface">
+              The July prompt asked Rose to decide, in two or three exchanges, whether a visitor should book 30 minutes. Four chips asked who you were before showing you anything.
+            </p>
+            <p className="mt-4 font-headline text-xl italic text-secondary">A conversation is not necessarily a lead.</p>
+            <p className="mt-6 font-label text-[10px] text-on-surface-variant">Source: original prompt and config, commit 51245fc. Conversation below is a reconstruction, not a real visitor.</p>
+          </div>
+          <figure className="rounded-sm border border-outline-variant bg-surface p-5">
+            <figcaption className="mb-4 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Dock, July 2026 (reconstructed)</figcaption>
+            <ul className="flex flex-wrap gap-2">
+              {ORIGINAL_CHIPS.map((c) => <li key={c} className="rounded-full border border-outline-variant px-3 py-1.5 font-label text-xs text-on-surface-variant">{c}</li>)}
+            </ul>
+            <div className="mt-6 space-y-3 font-body text-sm">
+              <p className="ml-auto w-fit max-w-[85%] rounded-sm bg-surface-container-low px-3 py-2 text-on-surface">What has Ivan actually built?</p>
+              <p className="max-w-[85%] text-on-surface">Ivan builds agentic products end to end. Are you hiring for a product role?</p>
+              <div className="max-w-[85%] rounded-sm border border-secondary px-3 py-2">
+                <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Book 30 minutes with Ivan</p>
+                <p className="mt-1 text-on-surface-variant">Offered after one question.</p>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      {/* Scene C */}
+      <section aria-labelledby="scene-c">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-[auto_1fr] md:items-center">
+          <CompassRose heading={august ? 80 : 0} reduced={reduced} className="mx-auto h-40 w-40 text-secondary md:h-64 md:w-64" />
+          <div>
+            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Chapter 3 · The Shift</p>
+            <h2 id="scene-c" className="mt-4 font-headline text-4xl text-primary md:text-5xl">The change of direction</h2>
+            <p className="mt-6 font-body text-base text-on-surface">
+              On 7 August the fixed intents gave way to three questions written for each page. Three days later Rose received the page itself as context. The visitor's question stayed the same; Rose stopped asking who they were.
+            </p>
+            <div className="mt-8"><ChipMorph reduced={reduced} /></div>
+            <button type="button" onClick={() => setAugust((v) => !v)} aria-pressed={august}
+              className="mt-4 font-label text-xs uppercase tracking-[0.2em] text-secondary underline underline-offset-4">
+              {august ? "Return the needle to July" : "Turn the needle to August"}
+            </button>
+            <div className="mt-8"><RoseQuestion text="What has Ivan actually built?" className="text-lg" /></div>
+            <p className="mt-3 font-body text-sm text-on-surface-variant">Asks today's Rose, on this page, the same question.</p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
 const RoseDesignLab = () => {
   const [params, setParams] = useSearchParams();
-  const concept = params.get("concept") === "b" ? "b" : "a";
+  const raw = params.get("concept");
+  const concept = raw === "b" || raw === "narrative" ? raw : "a";
   const reduced = useReducedMotion();
   return (
     <SiteLayout>
@@ -391,15 +466,15 @@ const RoseDesignLab = () => {
       <div className="mt-20 border-b border-outline-variant bg-surface-container-low">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
           <span className="uppercase tracking-[0.2em] text-on-surface-variant">Design lab · unlinked prototype · not published</span>
-          <div role="tablist" aria-label="Concept" className="inline-flex rounded-full border border-outline-variant p-0.5">
-            {[["a", "A · Narrative split"], ["b", "B · Evolving orientation"]].map(([k, l]) => (
+          <div role="tablist" aria-label="Concept" className="inline-flex flex-wrap rounded-full border border-outline-variant p-0.5">
+            {[["a", "A · Narrative split"], ["b", "B · Evolving orientation"], ["narrative", "C · Narrative prototype"]].map(([k, l]) => (
               <button key={k} role="tab" aria-selected={concept === k} type="button" onClick={() => { setParams({ concept: k }); window.scrollTo(0, 0); }}
                 className={cn("rounded-full px-3 py-1", concept === k ? "bg-primary text-on-primary" : "text-on-surface-variant hover:text-primary")}>{l}</button>
             ))}
           </div>
         </div>
       </div>
-      {concept === "a" ? <ConceptA reduced={reduced} /> : <ConceptB reduced={reduced} />}
+      {concept === "a" ? <ConceptA reduced={reduced} /> : concept === "b" ? <ConceptB reduced={reduced} /> : <ConceptC reduced={reduced} />}
       <aside className="mx-auto max-w-3xl px-6 pb-24 font-body text-sm text-on-surface-variant">
         Prototype note: the Ask Rose links open the real Rose dock. Rose does not yet have her own history in her references, so answers about it may be partial; that knowledge is future work. "Design reading" lines are interpretation, not user research. <Link to="/" className="underline">Back to the site</Link>
       </aside>
