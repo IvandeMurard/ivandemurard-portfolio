@@ -9,3 +9,4 @@
 - Project statuses live in src/content/statuses.ts (asset-free), shared by site.ts and the MCP tools, so pages and agents quote the same status.
 - The raw agents page owns its local palette and bypasses route view transitions; this isolates its appearance without mutating the persisted site mood.
 - Article AI reading actions copy prompts with canonical public URLs, not provider prefill links or preview URLs, so external readers receive accessible sources.
+- Rose loads Field Notes on demand (current article or one named in the question) via selectNotes in rose-context.ts, from published /journal/<slug>.md; keeps the prompt bounded and missing notes are flagged, not invented.

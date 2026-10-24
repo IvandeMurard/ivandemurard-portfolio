@@ -36,10 +36,13 @@ Compass belongs under Standalone projects. It is not a node, agent or part of th
 
 ## Field Notes
 
-- [Journal index](https://ivandemurard.com/journal)
-- [What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (markdown: https://ivandemurard.com/journal/harnesses-graders-closed-loops.md) (2026-07-31): A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Tested on Aetherix and Lore.
-- [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) (markdown: https://ivandemurard.com/journal/agent-boundaries-aetherix.md) (2026-04-20): Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
-- [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) (markdown: https://ivandemurard.com/journal/whose-truth-is-the-ground-truth.md) (2026-10-11): An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.
+Field Notes teach transferable methods; case studies and public repositories document the implementation evidence. Three complementary questions, readable in any order. Index: https://ivandemurard.com/journal (no Markdown mirror; use the list below or the list_journal_entries MCP tool).
+
+- 01 Evaluate: how do you know an agent is working? [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (markdown: https://ivandemurard.com/journal/harnesses-graders-closed-loops.md). Learn what correct behaviour means and how to test it: graders, harnesses, protocols and acceptance criteria that can block a release. Evidence: https://ivandemurard.com/aetherix, https://ivandemurard.com/lore.
+- 02 Set boundaries: where should an agent's responsibility end? [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) (markdown: https://ivandemurard.com/journal/agent-boundaries-aetherix.md). Separate prediction, recommendation and human authority, with a service blueprint of one breakfast service. Evidence: https://ivandemurard.com/aetherix, https://github.com/IvandeMurard/aetherix-hospitality-ai.
+- 03 Learn: whose truth should an agent learn from? [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) (markdown: https://ivandemurard.com/journal/whose-truth-is-the-ground-truth.md). Distinguish approval, prediction and observed truth; Lore's signed work record never returns to it. Evidence: https://ivandemurard.com/aetherix, https://ivandemurard.com/lore.
+
+Each note ends with "Apply this to your project": a checklist and a copyable brief for the reader's own agent. Legacy root mirrors (e.g. https://ivandemurard.com/harnesses-graders-closed-loops.md) still resolve; the /journal/<slug>.md form is preferred.
 
 ## Track record
 
@@ -53,7 +56,7 @@ The complete CV, including Founder & Builder, Product & Customer Roles, Skills a
 
 ## Markdown representations
 
-Every document below is served as markdown at its own URL, identical in content to the page.
+Every document below is served as markdown at its own URL, generated from the same content files as the page.
 
 - [Homepage](https://ivandemurard.com/index.md): hero, Aetherix flagship, Selected projects with the current status of each project (Aetherix WARN Sandbox, Lore GO Evaluated, Anima STOP Gated, Compass WARN Partial, Sonor DARK Stopped)
 - [Aetherix](https://ivandemurard.com/aetherix.md)

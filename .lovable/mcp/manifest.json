@@ -80,7 +80,7 @@
       {
         "name": "list_journal_entries",
         "title": "List Field Notes",
-        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry with a slug from this list to read the full body.",
+        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. Use get_journal_entry with a slug from this list to read the full body.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
