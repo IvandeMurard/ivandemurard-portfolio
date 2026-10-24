@@ -7,6 +7,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Reveal } from "@/components/Reveal";
 import { CaseAnchors } from "@/components/case/CaseAnchors";
+import { AETHERIX_ANCHORS } from "@/content/systems";
 import { JournalToc } from "@/components/reading/JournalToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
@@ -227,7 +228,7 @@ const Anima = () => {
           </div>
         </Reveal>
 
-        <CaseAnchors current="anima" more={{ to: "/architecture", text: "How the nodes fit together: the architecture note" }} />
+        <CaseAnchors current="anima" entries={AETHERIX_ANCHORS} columns={4} more={{ to: "/architecture", text: "How the nodes fit together: the architecture note" }} />
 
         <div className="px-6 md:px-12">
           <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_14rem] gap-12">
