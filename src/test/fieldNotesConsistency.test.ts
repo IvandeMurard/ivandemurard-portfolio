@@ -47,8 +47,8 @@ describe("Rose starters per route", () => {
     ["/journal/harnesses-graders-closed-loops", "What should block an agent release?"],
     ["/journal/agent-boundaries-aetherix", "Where should human approval sit?"],
     ["/journal/whose-truth-is-the-ground-truth", "Why isn't approval ground truth?"],
-    ["/aetherix", "How does it decide?"],
-    ["/lore", "How does it work?"],
+    ["/aetherix", "What has actually been built?"],
+    ["/lore", "What does the voice mentor actually do?"],
   ])("%s", (path, first) => {
     expect(labels(path)[0]).toBe(first);
     expect(labels(path).at(-1)).toBe("Book a call");
