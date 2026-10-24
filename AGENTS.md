@@ -1,4 +1,5 @@
 # Project rules
+- Rose design-lab historical comparisons use one local period state for compass, starters and explanation, so visual evidence cannot contradict the selected period; the lab stays outside public content generation.
 - Rose product measurement stays in the existing private admin page, with server-authorized full-window aggregates and tab-local request lifecycle callbacks, so remounts never count restored conversations as new outcomes. Never join general click sessions to Rose sessions.
 
 - Compass uses the existing case-study reading furniture and semantic tokens; its approved narrative is centralized in `src/content/compass.ts` so the page and Markdown mirror stay aligned.
