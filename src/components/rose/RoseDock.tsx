@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
 import { RoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
-import { bookingSafeAnswer } from "./roseAnswer";
+import { bookingSafeAnswer, normalizeRoseText } from "./roseAnswer";
 import { logRoseEvent } from "./roseEvents";
 import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
@@ -354,7 +354,7 @@ export const RoseDock = () => {
                     ? (follow?.items as unknown[]).filter((x): x is string => typeof x === "string" && x.trim().length > 2)
                     : [];
                   // Fallback: page starters the visitor has not asked yet, never booking.
-                  const items = (modelItems.length ? modelItems : booking ? [] : fallbackFollowups).slice(0, 2);
+                  const items = (modelItems.length ? modelItems : booking ? [] : fallbackFollowups).slice(0, 2).map(normalizeRoseText);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
                       {text ? <RoseMarkdown text={bookingSafeAnswer(text, !!booking)} streaming={isLoading && m.id === lastAssistantId}

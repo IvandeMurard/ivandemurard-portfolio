@@ -2,6 +2,7 @@ import { createContext, useContext, type ComponentProps, type ReactNode } from "
 import { Link } from "react-router-dom";
 import { Streamdown } from "streamdown";
 import { referencePath } from "./roseMeasurement";
+import { normalizeRoseText, roseCvHref } from "./roseAnswer";
 
 const ReferenceClick = createContext<((path: string) => void) | undefined>(undefined);
 
@@ -51,6 +52,7 @@ const linkCls = "text-primary underline decoration-primary/40 underline-offset-2
 const RoseLink = ({ href, children }: ComponentProps<"a">) => {
   const onReference = useContext(ReferenceClick);
   if (!href || !SAFE_HREF.test(href)) return <span>{children}</span>;
+  href = roseCvHref(href);
   const target = referencePath(href);
   const onClick = () => { if (target) onReference?.(target); };
   if (href.startsWith("/")) return <Link to={href} onClick={onClick} className={linkCls}>{children}</Link>;
@@ -88,7 +90,7 @@ export const RoseMarkdown = ({ text, streaming = false, onReferenceClick }: { te
     mode={streaming ? "streaming" : "static"}
     className="text-sm text-on-surface"
   >
-    {linkifyProjects(text)}
+    {linkifyProjects(normalizeRoseText(text))}
   </Streamdown>
   </ReferenceClick.Provider>
 );
