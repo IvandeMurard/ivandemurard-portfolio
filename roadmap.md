@@ -1,3 +1,8 @@
+# Rose prototype C refinement
+- [ ] Refine the three-scene narrative and synchronize historical interaction, keeping A and B unchanged.
+- [ ] Verify both themes, desktop/mobile, keyboard, reduced motion and a controlled Rose handoff without production events.
+- [ ] Stop for review without publishing or building remaining chapters.
+
 # Rose P5
 - [x] Verify final CV-link, recruiter sandbox and generated punctuation corrections: 83 tests and controlled browser replay pass; conflicting rollout references and inconsistent sandbox caveats still block acceptance, no publication.
 - [x] Refine answer-first guidance and enforce a single booking destination.
