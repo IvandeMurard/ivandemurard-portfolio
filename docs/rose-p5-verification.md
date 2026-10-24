@@ -1,5 +1,34 @@
 # Rose P5 quality gate, 24 October 2026
 
+## Final targeted round, 16:15 UTC
+
+**Still not accepted for release.** The latest fifteen current-source model samples fix the recruiter CV destination and include a sandbox caveat, but the recruiter answer falsely says the DomusVi MVP was rolled out to 100+ facilities. The source only supports an MVP delivered with rollout planned. A working link does not establish factual accuracy.
+
+Changes in this round:
+- `supabase/functions/_shared/rose-context.ts`: require `/cv` in recruiter answers, reserve actual PDF/Markdown destinations for requested downloads, explicitly extend sandbox scope to recruiter summaries.
+- `src/components/rose/roseAnswer.ts`: shared generated-prose punctuation normalization preserving code and destinations; redirect nonexistent `/cv.md` links to `/cv`.
+- `src/components/rose/roseMarkdown.tsx`, `RoseDock.tsx`, `RoseBookingCard.tsx`: apply the shared safeguards to answer prose, follow-ups and card reasons, not visitor messages or stored transcripts.
+- `src/test/roseAnswer.test.ts`: three new regressions for punctuation, protected technical material and CV route correction.
+- `AGENTS.md`, `roadmap.md`, this report: record the shared rendering rule, completion and continuing release boundary.
+
+Verification:
+- PASS: 83/83 tests across 11 files; targeted five-file run 32/32. Preview health reports build OK.
+- PASS: controlled browser replay at 1280x1800 shows the injected `/cv.md` destination corrected to `/cv` and an injected em-dash replaced in prose; one booking card, no calendar duplicate, no page errors. Screenshots inspected. Browser requests were guarded against application writes, and no booking was clicked.
+- PASS in this sample: Sonor team is five, four co-founders plus one developer/data scientist; no paying city customer; no invented follow-up name. Only the two explicit booking requests call `propose_booking`; declined contact remains respected in the three-turn chain.
+- FAIL: recruiter invents completed DomusVi rollout. The boundaries answer describes an agent and manager activity without sandbox scope in the same sentences. The truth answer calls sandbox covers “real covers”, an ambiguous claim. Sonor's transfer-to-Aetherix sentence omits sandbox scope.
+- FAIL: five ordinary samples exceed the 110-word instruction (Lore 125, evaluation 147, multi-1 135, multi-2 127; the count includes four, not five). No truncation was applied. The ambiguous-explorer answer still asks a qualification question; its usefulness is debatable rather than a privacy failure.
+- NOT TESTED: repeated model reliability, deployed prompt equality and final live release journey. No function deployment or publication occurred. Source-prompt evaluation and replay do not prove public Rose uses the new rules.
+
+Reproducible commands:
+```text
+bunx vitest run src/test/roseAnswer.test.ts src/test/roseMarkdown.test.tsx src/test/roseBookingPrivacy.test.tsx src/test/roseSession.test.ts src/test/roseMeasurement.test.ts
+ROSE_QA_OUTPUT=/tmp/browser/rose-p5-final NODE_PATH=/dev-server/node_modules bun scripts/rose-quality-check.ts
+python3 /tmp/browser/rose-p5-final/check_final.py
+bunx vitest run
+```
+
+Exact fifteen model outputs and streams are retained locally in `/tmp/browser/rose-p5-final/answers.json`. The current release recommendation is to stop treating another prompt-only iteration as acceptance evidence: validate professional delivery facts against the maintained CV and repeat the quality gate before requesting publication approval.
+
 ## Release decision
 
 **NOT ACCEPTED for publication.** Deterministic regressions pass, booking deduplication works, and the preview journey works. Model quality remains variable, with an invented name in a follow-up and insufficiently qualified sandbox claims. No frontend publication, function deployment, database writes, notifications or real meetings were performed for P5. The definition of done is not met.
