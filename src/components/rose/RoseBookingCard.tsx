@@ -1,97 +1,32 @@
 import { Icon } from "@/components/ui/Icon";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
-import { supabase } from "@/integrations/supabase/client";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
-import type { UIMessage } from "ai";
 
 interface RoseBookingCardProps {
   intent: "product" | "technical" | "culture" | "exploring" | null;
   reason: string;
-  messages: UIMessage[];
   sessionId: string;
 }
 
-const extractText = (m: UIMessage): string => {
-  if (!Array.isArray(m.parts)) return "";
-  return m.parts
-    .map((p) => (p.type === "text" ? p.text : ""))
-    .filter(Boolean)
-    .join(" ")
-    .slice(0, 2000);
-};
-
-const notifyBooking = async ({
-  intent,
-  reason,
-  messages,
-  sessionId,
-}: RoseBookingCardProps) => {
-  try {
-    const transcript = messages
-      .filter((m) => m.role === "user" || m.role === "assistant")
-      .slice(-20)
-      .map((m) => ({ role: m.role, text: extractText(m) }))
-      .filter((m) => m.text.length > 0);
-
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rose-booking-notify`;
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-      },
-      body: JSON.stringify({
-        intent,
-        reason,
-        transcript,
-        session_id: sessionId,
-        page: typeof window !== "undefined" ? window.location.pathname : null,
-        referrer:
-          typeof document !== "undefined" && document.referrer
-            ? document.referrer
-            : null,
-      }),
-      keepalive: true,
-    });
-  } catch (err) {
-    if (import.meta.env.DEV) {
-      console.warn("[rose] notify failed", err);
-    }
-  }
-};
-
-export const RoseBookingCard = (props: RoseBookingCardProps) => {
+/**
+ * Contextual booking invitation. A click logs one minimal booking_clicked event
+ * (route, session id, intent category) and opens Cal.com. No conversation text,
+ * summary or transcript leaves the page.
+ */
+export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardProps) => {
   const haptic = useHaptic();
   const track = useTrackClick();
-  const { reason } = props;
 
   const onClick = () => {
     haptic("tap");
     track({ label: "rose_booking", href: CAL_URL, kind: "contact" });
     logRoseEvent({
-      session_id: props.sessionId,
+      session_id: sessionId,
       path: typeof window !== "undefined" ? window.location.pathname : "/",
       kind: "booking_clicked",
-      label_or_question: "Booking card",
-    });
-    void notifyBooking(props);
-    // Best-effort insert of the row is done inside notifyBooking.
-    // Also log the click into link_clicks via useTrackClick above.
-    void supabase.from("rose_sessions").insert({
-      intent: props.intent,
-      transcript: props.messages
-        .filter((m) => m.role === "user" || m.role === "assistant")
-        .slice(-20)
-        .map((m) => ({ role: m.role, text: extractText(m) })),
-      booking_clicked: true,
-      session_id: props.sessionId,
-      page: typeof window !== "undefined" ? window.location.pathname : null,
-      referrer:
-        typeof document !== "undefined" && document.referrer
-          ? document.referrer
-          : null,
+      label_or_question: intent ? `Booking card · ${intent}` : "Booking card",
     });
   };
 
