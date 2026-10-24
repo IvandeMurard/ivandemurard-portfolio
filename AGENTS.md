@@ -13,4 +13,5 @@
 - Rose loads Field Notes on demand (current article or one named in the question) via selectNotes in rose-context.ts, from published /journal/<slug>.md; keeps the prompt bounded and missing notes are flagged, not invented.
 - Interactive diagram layers rendered as <button> must not contain glossary Terms or other interactive content; nested interactive markup breaks pre-rendered HTML parsing (guarded by src/test/prerenderDomIntegrity.test.ts).
 - Rose renders answers with Streamdown via src/components/rose/roseMarkdown.tsx (safe links, no raw HTML) and runs one model step with UI-only tools; this prevents repeated answers and markup injection.
+- When a Rose booking card exists, roseAnswer removes model-generated calendar destinations from its answer, so the card remains the single booking action even if prompt guidance is ignored.
 - Rose's conversation is a module-level Chat singleton in src/components/rose/roseSession.ts, persisted to sessionStorage only (versioned, 60-min idle expiry, bounded); it survives route remounts without any server transcript store.

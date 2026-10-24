@@ -24,13 +24,16 @@ describe("Rose booking card privacy", () => {
   });
 
   it("a click sends only one booking_clicked event and never calls the notify endpoint", () => {
-    render(<RoseBookingCard intent="product" reason="Discuss a pilot" sessionId="s1" />);
+    render(<RoseBookingCard intent="product" reason="Synthetic private challenge, never send this" sessionId="s1" />);
     fireEvent.click(screen.getByRole("link"));
     const urls = fetchMock.mock.calls.map((c) => String((c as unknown[])[0]));
     expect(urls.some((u) => u.includes("rose-booking-notify"))).toBe(false);
     expect(urls.filter((u) => u.includes("rose-event"))).toHaveLength(1);
     const body = JSON.parse(String(((fetchMock.mock.calls[0] as unknown[])[1] as RequestInit).body));
-    expect(body.kind).toBe("booking_clicked");
-    expect(body).not.toHaveProperty("transcript");
+    expect(body).toEqual({
+      session_id: "s1", path: "/", kind: "booking_clicked",
+      booking_source: "card", label_or_question: "Booking card · product",
+    });
+    expect(JSON.stringify(body)).not.toContain("Synthetic private challenge");
   });
 });
