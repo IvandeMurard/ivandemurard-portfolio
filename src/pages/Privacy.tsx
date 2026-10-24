@@ -22,7 +22,14 @@ const Privacy = () => (
       <H2 id="rose">Talking to Rose</H2>
       <P>
         The messages you send Rose are processed by an AI model to write each answer. The conversation is not
-        saved as a transcript by this site; it lives in your browser tab and disappears when the tab is closed.
+        saved as a transcript by this site's server.
+      </P>
+      <P>
+        So Rose can follow you from page to page, the conversation is kept in this browser tab's session storage, not in
+        a cookie and not on a server. It is dropped after an hour without a new message, and the Clear button in Rose
+        removes it at once. Your browser normally discards session storage when the tab closes, though some browsers
+        restore it with the tab. Clearing the conversation does not remove copies the AI provider may keep to process
+        requests, or the interaction records described below.
       </P>
 
       <H2 id="events">Interaction records</H2>

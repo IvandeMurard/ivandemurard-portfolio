@@ -113,7 +113,8 @@ Deno.serve(async (req) => {
       model,
       system,
       messages: convertToModelMessages(safeMessages),
-      stopWhen: stepCountIs(5),
+      // One step: tools are UI-only, so the model never continues after a tool call.
+      stopWhen: stepCountIs(1),
       tools: {
         propose_booking: tool({
           description:
@@ -131,11 +132,10 @@ Deno.serve(async (req) => {
         }),
         suggest_followups: tool({
           description:
-            "Call once at the end of every answer. Two short follow-up questions in the visitor's voice (imperative, never 'Ivan' in the third person), each about content that exists on this site. Rendered as chips under the answer.",
+            "Optional, call at most once, after the answer text. Up to two short follow-up questions in the visitor's voice (imperative, never 'Ivan' in the third person), each about content that exists on this site. Rendered as chips under the answer.",
           inputSchema: z.object({
-            items: z.array(z.string().min(3).max(80)).length(2),
+            items: z.array(z.string().min(3).max(80)).min(1).max(2),
           }),
-          execute: async () => ({ shown: true }),
         }),
       },
     });

@@ -1,16 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { renderRoseMarkdown } from "@/components/rose/roseMarkdown";
+import { renderRoseMarkdown, linkifyProjects } from "@/components/rose/roseMarkdown";
 
-const renderMd = (text: string) =>
-  render(<MemoryRouter>{renderRoseMarkdown(text)}</MemoryRouter>);
+const renderMd = (text: string) => render(<MemoryRouter>{renderRoseMarkdown(text)}</MemoryRouter>);
 
-describe("renderRoseMarkdown", () => {
+describe("Rose Markdown rendering", () => {
   it("renders bold around quoted text", () => {
     renderMd('Use the **"Copy implementation brief"** button.');
-    const el = screen.getByText('"Copy implementation brief"');
-    expect(el.tagName).toBe("STRONG");
+    expect(screen.getByText('"Copy implementation brief"').tagName).toBe("STRONG");
   });
 
   it("renders italic and inline code", () => {
@@ -22,8 +20,8 @@ describe("renderRoseMarkdown", () => {
   it("renders https links as safe external anchors", () => {
     renderMd("Read the [evaluation note](https://ivandemurard.com/journal/harnesses-graders-closed-loops) first.");
     const a = screen.getByRole("link", { name: "evaluation note" });
-    expect(a).toHaveAttribute("href", "https://ivandemurard.com/journal/harnesses-graders-closed-loops");
     expect(a).toHaveAttribute("rel", expect.stringContaining("noopener"));
+    expect(a).toHaveAttribute("target", "_blank");
   });
 
   it("renders site-relative links as internal navigation", () => {
@@ -33,9 +31,43 @@ describe("renderRoseMarkdown", () => {
     expect(a).not.toHaveAttribute("target");
   });
 
-  it("leaves non-http links and unknown syntax as plain text", () => {
-    renderMd("Not a link: [x](javascript:alert(1)) and ** unclosed");
-    expect(screen.queryByRole("link")).toBeNull();
-    expect(screen.getByText(/javascript:alert/)).toBeInTheDocument();
+  it("never renders javascript: links, raw HTML, scripts or images", () => {
+    const { container } = renderMd(
+      'Not a link: [x](javascript:alert(1)) <script>alert(1)</script> <img src=x onerror=alert(1)> ![p](https://e.com/a.png) <iframe src="https://e.com"></iframe>',
+    );
+    expect(container.querySelector("script, img, iframe")).toBeNull();
+    expect(container.querySelector('a[href^="javascript"]')).toBeNull();
+  });
+
+  it("renders bullet lists with bold labels and no stray asterisks", () => {
+    const { container } = renderMd("Roles:\n\n* **Sonor:** co-founder.\n* **Lore:** solo builder.");
+    expect(container.querySelectorAll("li")).toHaveLength(2);
+    expect(container.textContent).not.toContain("*");
+  });
+
+  it("renders ordered lists and nested emphasis", () => {
+    const { container } = renderMd("1. **First *really* first**\n2. Second");
+    expect(container.querySelectorAll("ol li")).toHaveLength(2);
+    expect(container.querySelector("strong em")?.textContent).toBe("really");
+  });
+
+  it("never nests interactive elements", () => {
+    const { container } = renderMd("**[Aetherix](/aetherix)** and [`code`](/lore)");
+    expect(container.querySelector("a a, a button, button a, button button")).toBeNull();
+  });
+});
+
+describe("Project auto-linking", () => {
+  it("links the first mention of each project to its canonical route only", () => {
+    const out = linkifyProjects("Aetherix learns. Aetherix again. Lore too.");
+    expect(out).toBe("[Aetherix](/aetherix) learns. Aetherix again. [Lore](/lore) too.");
+  });
+
+  it("does not relink a project already linked by the model", () => {
+    expect(linkifyProjects("See [the agent](/aetherix). Aetherix ships.")).toBe("See [the agent](/aetherix). Aetherix ships.");
+  });
+
+  it("leaves code spans untouched", () => {
+    expect(linkifyProjects("Run `Tacet` locally.")).toBe("Run `Tacet` locally.");
   });
 });

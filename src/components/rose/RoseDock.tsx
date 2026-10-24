@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
 import type { UIMessage } from "ai";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { Link, useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
-import { renderRoseMarkdown } from "./roseMarkdown";
+import { RoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
 import roseMark from "@/assets/rose-mark.png";
+import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
 
 const SESSION_KEY = "rose_session";
 
@@ -33,8 +33,13 @@ const renderText = (m: UIMessage): string =>
   Array.isArray(m.parts)
     ? m.parts
         .map((p) => (p.type === "text" ? p.text : ""))
+        .map((t) => t.trim())
         .filter(Boolean)
-        .join("")
+        // One answer per message: drop paragraphs a later step repeated verbatim.
+        .join("\n\n")
+        .split(/\n{2,}/)
+        .filter((para, i, all) => all.indexOf(para) === i)
+        .join("\n\n")
     : "";
 
 type ToolPart = { type: string; input?: Record<string, unknown> };
@@ -88,7 +93,9 @@ const CompassMark = ({ className }: { className?: string }) => (
 );
 
 export const RoseDock = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpenState] = useState(getRoseOpen);
+  const setOpen = (v: boolean) => { setRoseOpen(v); setOpenState(v); };
+  const [confirmClear, setConfirmClear] = useState(false);
   const [detectedIntent, setDetectedIntent] = useState<
     "product" | "technical" | "culture" | "exploring" | null
   >(null);
@@ -103,17 +110,30 @@ export const RoseDock = () => {
   const sectionRef = useSectionInView(pathname);
   const isHome = pathname === "/";
 
-  const transport = useMemo(
-    () =>
-      new DefaultChatTransport({
-        api: `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rose-chat`,
-        headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
-      }),
-    [],
-  );
-
-  const { messages, sendMessage, status, error } = useChat({ id: sessionId, transport });
+  const [chat, setChat] = useState(() => getRoseChat(sessionId));
+  const { messages, sendMessage, status, error } = useChat({ chat });
   const isLoading = status === "submitted" || status === "streaming";
+
+  // Persist settled turns to this tab's sessionStorage.
+  useEffect(() => {
+    if (status === "ready" || status === "error") saveMessages(messages);
+  }, [messages, status]);
+
+  // Page context refreshes per request; an idle hour expires the conversation.
+  useEffect(() => {
+    const fresh = expireIfIdle(sessionId);
+    if (fresh) setChat(fresh);
+    setConfirmClear(false);
+  }, [pathname, sessionId]);
+
+  const clearConversation = () => {
+    setChat(resetRoseChat(sessionId));
+    proposedSeen.current.clear();
+    setDetectedIntent(null);
+    setInputValue("");
+    setConfirmClear(false);
+    requestAnimationFrame(() => expandedInputRef.current?.focus());
+  };
 
   const log = (kind: Parameters<typeof logRoseEvent>[0]["kind"], label?: string, usedChip = false) =>
     logRoseEvent({
@@ -155,7 +175,10 @@ export const RoseDock = () => {
     };
   }, [pathname]);
 
+  const wasOpen = useRef(open);
   useEffect(() => {
+    if (open && wasOpen.current) { wasOpen.current = false; return; }
+    wasOpen.current = false;
     if (open) {
       log("opened");
       requestAnimationFrame(() => expandedInputRef.current?.focus());
@@ -179,6 +202,8 @@ export const RoseDock = () => {
   const submit = (text: string, suggested?: RosePrompt) => {
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
+    const fresh = expireIfIdle(sessionId);
+    if (fresh) setChat(fresh);
     if (!open) setOpen(true);
     setInputValue("");
     const section = sectionRef.current;
@@ -241,6 +266,10 @@ export const RoseDock = () => {
   const hidden = !open && !pastHero;
   const showChips = open ? messages.length === 0 : focusWithin;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
+  const askedTexts = new Set(messages.filter((m) => m.role === "user").map((m) => renderText(m)));
+  const fallbackFollowups = prompts
+    .filter((p) => !p.booking && !askedTexts.has(p.label) && !askedTexts.has(p.message))
+    .map((p) => p.label);
 
   return (
     <>
@@ -280,6 +309,25 @@ export const RoseDock = () => {
                   <span className="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Ivan's site agent</span>
                 </div>
               </div>
+              <div className="flex items-center gap-1">
+              {messages.length > 0 ? (
+                confirmClear ? (
+                  <span className="flex items-center gap-1.5 text-xs text-on-surface-variant" role="group" aria-label="Confirm clearing the conversation">
+                    Clear?
+                    <button type="button" onClick={clearConversation} className="rounded-full border border-secondary px-2.5 py-0.5 text-secondary hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary">Yes</button>
+                    <button type="button" onClick={() => setConfirmClear(false)} className="rounded-full px-2 py-0.5 hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary">Cancel</button>
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setConfirmClear(true)}
+                    aria-label="Clear conversation"
+                    className="rounded-full px-2.5 py-1 text-xs text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                  >
+                    Clear
+                  </button>
+                )
+              ) : null}
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close Rose"
@@ -287,6 +335,7 @@ export const RoseDock = () => {
               >
                 <Icon name="close" className="text-lg" />
               </button>
+              </div>
             </div>
           ) : null}
 
@@ -310,12 +359,14 @@ export const RoseDock = () => {
                     | { intent?: string; reason?: string }
                     | undefined;
                   const follow = findTool(m, "suggest_followups")?.input as { items?: unknown } | undefined;
-                  const items = Array.isArray(follow?.items)
-                    ? (follow!.items as unknown[]).filter((x): x is string => typeof x === "string").slice(0, 2)
+                  const modelItems = Array.isArray(follow?.items)
+                    ? (follow!.items as unknown[]).filter((x): x is string => typeof x === "string" && x.trim().length > 2)
                     : [];
+                  // Fallback: page starters the visitor has not asked yet, never booking.
+                  const items = (modelItems.length ? modelItems : booking ? [] : fallbackFollowups).slice(0, 2);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
-                      {text ? <div className="whitespace-pre-wrap text-sm text-on-surface">{renderRoseMarkdown(text)}</div> : null}
+                      {text ? <RoseMarkdown text={text} streaming={isLoading && m.id === lastAssistantId} /> : null}
                       {booking ? (
                         <RoseBookingCard
                           intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}

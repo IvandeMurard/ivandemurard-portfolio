@@ -11,3 +11,5 @@
 - Article AI reading actions copy prompts with canonical public URLs, not provider prefill links or preview URLs, so external readers receive accessible sources.
 - Rose loads Field Notes on demand (current article or one named in the question) via selectNotes in rose-context.ts, from published /journal/<slug>.md; keeps the prompt bounded and missing notes are flagged, not invented.
 - Interactive diagram layers rendered as <button> must not contain glossary Terms or other interactive content; nested interactive markup breaks pre-rendered HTML parsing (guarded by src/test/prerenderDomIntegrity.test.ts).
+- Rose renders answers with Streamdown via src/components/rose/roseMarkdown.tsx (safe links, no raw HTML) and runs one model step with UI-only tools; this prevents repeated answers and markup injection.
+- Rose's conversation is a module-level Chat singleton in src/components/rose/roseSession.ts, persisted to sessionStorage only (versioned, 60-min idle expiry, bounded); it survives route remounts without any server transcript store.
