@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { Link, useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
-import { renderRoseMarkdown } from "./roseMarkdown";
+import { RoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
 import roseMark from "@/assets/rose-mark.png";
@@ -33,8 +33,13 @@ const renderText = (m: UIMessage): string =>
   Array.isArray(m.parts)
     ? m.parts
         .map((p) => (p.type === "text" ? p.text : ""))
+        .map((t) => t.trim())
         .filter(Boolean)
-        .join("")
+        // One answer per message: drop paragraphs a later step repeated verbatim.
+        .join("\n\n")
+        .split(/\n{2,}/)
+        .filter((para, i, all) => all.indexOf(para) === i)
+        .join("\n\n")
     : "";
 
 type ToolPart = { type: string; input?: Record<string, unknown> };
@@ -241,6 +246,10 @@ export const RoseDock = () => {
   const hidden = !open && !pastHero;
   const showChips = open ? messages.length === 0 : focusWithin;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
+  const askedTexts = new Set(messages.filter((m) => m.role === "user").map((m) => renderText(m)));
+  const fallbackFollowups = prompts
+    .filter((p) => !p.booking && !askedTexts.has(p.label) && !askedTexts.has(p.message))
+    .map((p) => p.label);
 
   return (
     <>
@@ -310,12 +319,14 @@ export const RoseDock = () => {
                     | { intent?: string; reason?: string }
                     | undefined;
                   const follow = findTool(m, "suggest_followups")?.input as { items?: unknown } | undefined;
-                  const items = Array.isArray(follow?.items)
-                    ? (follow!.items as unknown[]).filter((x): x is string => typeof x === "string").slice(0, 2)
+                  const modelItems = Array.isArray(follow?.items)
+                    ? (follow!.items as unknown[]).filter((x): x is string => typeof x === "string" && x.trim().length > 2)
                     : [];
+                  // Fallback: page starters the visitor has not asked yet, never booking.
+                  const items = (modelItems.length ? modelItems : booking ? [] : fallbackFollowups).slice(0, 2);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
-                      {text ? <div className="whitespace-pre-wrap text-sm text-on-surface">{renderRoseMarkdown(text)}</div> : null}
+                      {text ? <RoseMarkdown text={text} streaming={isLoading && m.id === lastAssistantId} /> : null}
                       {booking ? (
                         <RoseBookingCard
                           intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}
