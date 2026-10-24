@@ -105,7 +105,7 @@ export const getRoseChat = (id: string): Chat<UIMessage> => {
 
 /** Drops an expired conversation before reuse (e.g. tab left idle for an hour). */
 export const expireIfIdle = (id: string): Chat<UIMessage> | null => {
-  if (current && current.messages.length && loadMessages().length === 0) {
+  if (storage() && current && current.messages.length && loadMessages().length === 0) {
     return resetRoseChat(id);
   }
   return null;
