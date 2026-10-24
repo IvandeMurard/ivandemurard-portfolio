@@ -39,6 +39,7 @@ Compass belongs under Standalone projects. It is not a node, agent or part of th
 - [Journal index](https://ivandemurard.com/journal)
 - [What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents](https://ivandemurard.com/journal/harnesses-graders-closed-loops) (markdown: https://ivandemurard.com/journal/harnesses-graders-closed-loops.md) (2026-07-31): A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Tested on Aetherix and Lore.
 - [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) (markdown: https://ivandemurard.com/journal/agent-boundaries-aetherix.md) (2026-04-20): Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
+- [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) (markdown: https://ivandemurard.com/journal/whose-truth-is-the-ground-truth.md) (2026-10-11): An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.
 
 ## Track record
 
@@ -64,4 +65,5 @@ Every document below is served as markdown at its own URL, identical in content 
 - [Tacet](https://ivandemurard.com/tacet.md)
 - [A wrong forecast is absorbed](https://ivandemurard.com/journal/agent-boundaries-aetherix.md)
 - [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops.md)
+- [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth.md)
 - [Ivan de Murard CV](https://ivandemurard.com/Ivan_de_Murard_CV.md)
