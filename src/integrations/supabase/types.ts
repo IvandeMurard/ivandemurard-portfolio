@@ -49,33 +49,42 @@ export type Database = {
       }
       rose_events: {
         Row: {
+          booking_source: string | null
           created_at: string
           id: string
           kind: string
           label_or_question: string | null
           path: string
+          request_id: string | null
           section_id: string | null
           session_id: string
+          target_path: string | null
           used_chip: boolean
         }
         Insert: {
+          booking_source?: string | null
           created_at?: string
           id?: string
           kind: string
           label_or_question?: string | null
           path: string
+          request_id?: string | null
           section_id?: string | null
           session_id: string
+          target_path?: string | null
           used_chip?: boolean
         }
         Update: {
+          booking_source?: string | null
           created_at?: string
           id?: string
           kind?: string
           label_or_question?: string | null
           path?: string
+          request_id?: string | null
           section_id?: string | null
           session_id?: string
+          target_path?: string | null
           used_chip?: boolean
         }
         Relationships: []
@@ -136,6 +145,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_rose_metrics: { Args: { days_window?: number }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
