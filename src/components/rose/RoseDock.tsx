@@ -8,6 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
 import { RoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
+import { bookingSafeAnswer } from "./roseAnswer";
 import { logRoseEvent } from "./roseEvents";
 import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
@@ -356,7 +357,7 @@ export const RoseDock = () => {
                   const items = (modelItems.length ? modelItems : booking ? [] : fallbackFollowups).slice(0, 2);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
-                      {text ? <RoseMarkdown text={text} streaming={isLoading && m.id === lastAssistantId}
+                      {text ? <RoseMarkdown text={bookingSafeAnswer(text, !!booking)} streaming={isLoading && m.id === lastAssistantId}
                         onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} /> : null}
                       {booking ? (
                         <RoseBookingCard

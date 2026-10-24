@@ -1,3 +1,9 @@
+# Rose P5
+- [ ] Refine answer-first guidance and enforce a single booking destination.
+- [ ] Run synthetic quality, continuity, accessibility and P0 to P4 regression checks without production test events.
+- [ ] Document source/live state, scorecard, measurement limits and weekly learning baseline.
+- [ ] Publish and verify the final live journey, blocked on explicit release approval.
+
 # Rose P4
 - [x] Add minimal deduplicated, content-free measurement and admin-only complete aggregates.
 - [x] Improve empty-chat discovery and evidence-first guidance, preserving P0 through P3.
