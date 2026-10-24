@@ -29,6 +29,10 @@ export const PyramidDiagram = ({
           const width = 55 + ((i + 1) / total) * 45;
           const isActive = active === i;
           const interactive = detailed && !!layer.detail;
+          // A <button> layer must not contain interactive content (glossary
+          // Term buttons): nested buttons break the HTML parser and eject
+          // pre-rendered markup outside #root. Plain text inside buttons.
+          const note = layer.note && renderNote && !interactive ? renderNote(layer.note) : layer.note;
           const body = (
             <>
               <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
@@ -44,7 +48,7 @@ export const PyramidDiagram = ({
               </div>
               {layer.note && (
                 <div className="font-body font-normal text-xs text-on-surface-variant mt-1">
-                  {renderNote ? renderNote(layer.note) : layer.note}
+                  {note}
                 </div>
               )}
             </>
