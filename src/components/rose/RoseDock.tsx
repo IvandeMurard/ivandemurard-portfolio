@@ -9,6 +9,7 @@ import { RoseBookingCard } from "./RoseBookingCard";
 import { RoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
+import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
 import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
 
@@ -111,7 +112,7 @@ export const RoseDock = () => {
   const isHome = pathname === "/";
 
   const [chat, setChat] = useState(() => getRoseChat(sessionId));
-  const { messages, sendMessage, status, error } = useChat({ chat });
+  const { messages, status, error } = useChat({ chat });
   const isLoading = status === "submitted" || status === "streaming";
 
   // Persist settled turns to this tab's sessionStorage.
@@ -127,8 +128,8 @@ export const RoseDock = () => {
   }, [pathname, sessionId]);
 
   const clearConversation = () => {
+    log("rose_conversation_cleared");
     setChat(resetRoseChat(sessionId));
-    proposedSeen.current.clear();
     setDetectedIntent(null);
     setInputValue("");
     setConfirmClear(false);
@@ -186,20 +187,7 @@ export const RoseDock = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  // One booking_proposed event per assistant message that renders the card.
-  const proposedSeen = useRef(new Set<string>());
-  useEffect(() => {
-    for (const m of messages) {
-      if (m.role !== "assistant" || proposedSeen.current.has(m.id)) continue;
-      if (findTool(m, "propose_booking")) {
-        proposedSeen.current.add(m.id);
-        log("booking_proposed");
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages]);
-
-  const submit = (text: string, suggested?: RosePrompt) => {
+  const submit = (text: string, suggested?: RosePrompt, kind: "question" | "chip" | "followup" = "question") => {
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
     const fresh = expireIfIdle(sessionId);
@@ -207,7 +195,10 @@ export const RoseDock = () => {
     if (!open) setOpen(true);
     setInputValue("");
     const section = sectionRef.current;
-    void sendMessage(
+    log(kind, suggested?.label ?? trimmed, !!suggested || kind === "followup");
+    const activeChat = fresh ?? chat;
+    startRoseRequest(sessionId, pathname, activeChat.id);
+    void activeChat.sendMessage(
       { text: trimmed },
       {
         body: {
@@ -221,28 +212,25 @@ export const RoseDock = () => {
             : {}),
         },
       },
-    );
+    ).catch(() => finishRoseRequest(true, activeChat.id));
   };
 
   const onChip = (chip: RosePrompt) => {
     if (chip.booking) {
-      log("booking_clicked", chip.label, true);
+      logRoseEvent({ session_id: sessionId, path: pathname, kind: "booking_clicked", booking_source: "chip" });
       window.open(CAL_URL, "_blank", "noopener,noreferrer");
       return;
     }
     if (chip.intent) setDetectedIntent(chip.intent);
-    log("chip", chip.label, true);
-    submit(chip.message, chip);
+    submit(chip.message, chip, "chip");
   };
 
   const onFollowup = (text: string) => {
-    log("followup", text, true);
-    submit(text);
+    submit(text, undefined, "followup");
   };
 
   const onFree = () => {
     if (!inputValue.trim() || isLoading) return;
-    log("question", inputValue.trim(), false);
     submit(inputValue);
   };
 
@@ -251,7 +239,6 @@ export const RoseDock = () => {
       const text = (event as CustomEvent<{ text?: string }>).detail?.text;
       if (!text) return;
       setOpen(true);
-      log("question", text, true);
       submit(text);
     };
     const onOpen = () => setOpen(true);
@@ -342,7 +329,10 @@ export const RoseDock = () => {
           {open ? (
             <div className="flex-1 overflow-y-auto px-5 py-4" role="log" aria-live="polite">
               {messages.length === 0 && !isLoading ? (
-                <p className="text-sm text-on-surface-variant">Pick a topic below, or ask anything.</p>
+                <div className="space-y-2">
+                  <p className="font-headline text-lg text-primary">Explore Ivan's work. Ask what matters to you.</p>
+                  <p className="text-sm text-on-surface-variant">What he has built, the decisions behind it, and where his experience could help with your challenge.</p>
+                </div>
               ) : null}
 
               <div className="flex flex-col gap-4">
@@ -360,13 +350,14 @@ export const RoseDock = () => {
                     | undefined;
                   const follow = findTool(m, "suggest_followups")?.input as { items?: unknown } | undefined;
                   const modelItems = Array.isArray(follow?.items)
-                    ? (follow!.items as unknown[]).filter((x): x is string => typeof x === "string" && x.trim().length > 2)
+                    ? (follow?.items as unknown[]).filter((x): x is string => typeof x === "string" && x.trim().length > 2)
                     : [];
                   // Fallback: page starters the visitor has not asked yet, never booking.
                   const items = (modelItems.length ? modelItems : booking ? [] : fallbackFollowups).slice(0, 2);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
-                      {text ? <RoseMarkdown text={text} streaming={isLoading && m.id === lastAssistantId} /> : null}
+                      {text ? <RoseMarkdown text={text} streaming={isLoading && m.id === lastAssistantId}
+                        onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} /> : null}
                       {booking ? (
                         <RoseBookingCard
                           intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}

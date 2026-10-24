@@ -1,3 +1,9 @@
+# Rose P4
+- [x] Add minimal deduplicated, content-free measurement and admin-only complete aggregates.
+- [x] Improve empty-chat discovery and evidence-first guidance, preserving P0 through P3.
+- [x] Add metric/privacy definitions and synthetic evaluation protocol; verify tests and authenticated dashboard without visitor text.
+- [x] Verify preview and report production release boundary, without publishing.
+
 # Article update
 - [x] Apply literal article changes, including Harness italic clarification.
 - [x] Add reusable Updates and preserve old anchors.

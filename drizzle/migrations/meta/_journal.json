@@ -22,6 +22,13 @@
       "when": 1792847010741,
       "tag": "0002_rose_sessions_retention",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792853727893,
+      "tag": "0003_rose_product_metrics",
+      "breakpoints": true
     }
   ]
 }
