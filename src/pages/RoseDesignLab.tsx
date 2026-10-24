@@ -338,7 +338,7 @@ const ConceptB = ({ reduced }: { reduced: boolean }) => {
           <div className="flex items-center gap-4 md:block">
             <div className="relative h-20 w-20 shrink-0 md:h-auto md:w-full md:max-w-[420px] md:aspect-square">
               {MILESTONES.slice(0, active).map((g) => (
-                <CompassRose key={g.date} heading={g.heading} reduced className="absolute inset-0 h-full w-full text-outline-variant opacity-30" />
+                <CompassRose key={g.date} heading={g.heading} reduced className="absolute inset-0 h-full w-full text-outline-variant opacity-30 md:[&_*]:[vector-effect:non-scaling-stroke]" />
               ))}
               <CompassRose heading={m.heading} reduced={reduced} className="absolute inset-0 h-full w-full text-secondary md:[&_*]:[vector-effect:non-scaling-stroke]" />
             </div>
