@@ -3,6 +3,7 @@ import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
+import { normalizeRoseText } from "./roseAnswer";
 
 interface RoseBookingCardProps {
   intent: "product" | "technical" | "culture" | "exploring" | null;
@@ -48,7 +49,7 @@ export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardPr
           30 minutes with Ivan
         </span>
         {reason ? (
-          <span className="mt-1 text-sm text-on-surface-variant">{reason}</span>
+          <span className="mt-1 text-sm text-on-surface-variant">{normalizeRoseText(reason)}</span>
         ) : null}
       </div>
       <Icon

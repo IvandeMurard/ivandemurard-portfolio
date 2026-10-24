@@ -1,5 +1,17 @@
 import { CAL_URL } from "./roseConfig";
 
+/** Normalize generated prose only, preserving code and link destinations. */
+export const normalizeRoseText = (text: string): string =>
+  text.split(/(```[\s\S]*?(?:```|$)|`[^`\n]*`|https?:\/\/[^\s)<>]+|\]\([^\n)]*\))/g)
+    .map((part, index) => index % 2 === 1 ? part : part.replace(/\s*\u2014\s*/g, ", "))
+    .join("");
+
+/** The CV reading action uses the human page; explicit downloads stay downloads. */
+export const roseCvHref = (href: string): string => {
+  if (href === "/cv.md" || href === "https://ivandemurard.com/cv.md") return "/cv";
+  return href;
+};
+
 /** The card owns the calendar action, not model-generated duplicate links. */
 export const bookingSafeAnswer = (text: string, hasBookingCard: boolean): string => {
   if (!hasBookingCard) return text;
