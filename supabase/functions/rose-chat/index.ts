@@ -106,7 +106,9 @@ Deno.serve(async (req) => {
   const model = gateway("google/gemini-3-flash-preview");
 
   try {
-    const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested });
+    const last = safeMessages[safeMessages.length - 1] as unknown as { parts: { text: string }[] };
+    const question = last.parts.map((p) => p.text).join(" ");
+    const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested, question });
     const result = streamText({
       model,
       system,
