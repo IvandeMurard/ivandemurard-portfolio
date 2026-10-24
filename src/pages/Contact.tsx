@@ -85,10 +85,10 @@ const Contact = () => {
       <section className="px-6 md:px-12 max-w-4xl mx-auto">
         <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block">Contact</span>
         <h1 className="font-headline font-normal text-primary text-[clamp(40px,5vw,72px)] leading-[1.04] tracking-[-0.02em]">
-          Bridging operations, technology and real business value
+          I ship prototypes fast.
         </h1>
         <p className="mt-5 font-headline italic accent-ink text-[clamp(24px,2.4vw,34px)] leading-snug">
-          Let's build the solution your team needs.
+          Aligning tech, operations and business into services people actually use is where I come in.
         </p>
         <p className="mt-8 text-lg md:text-xl text-on-surface leading-relaxed">
           Open to AI Product Manager and Product Builder roles.
