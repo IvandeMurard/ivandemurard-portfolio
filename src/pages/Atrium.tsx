@@ -134,7 +134,7 @@ const Atrium = () => (
             </p>
             <p>
               Front of house at Les Grands Verres, La Grande Épicerie de Paris, Paris La Défense Arena,
-              festivals and private events. As a product manager: 500+ users on 100+ sites and 7 C-level
+              festivals and private events. As a product manager: a rollout planned for 500+ users across 100 care homes and 7 C-level
               executives aligned at DomusVi; €1.9M of receivables tracked and 40% recovered at Bouygues Telecom IoT.
             </p>
             <p>
