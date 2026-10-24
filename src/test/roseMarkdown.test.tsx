@@ -1,8 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { renderRoseMarkdown } from "@/components/rose/roseMarkdown";
 
-const renderMd = (text: string) => render(<>{renderRoseMarkdown(text)}</>);
+const renderMd = (text: string) =>
+  render(<MemoryRouter>{renderRoseMarkdown(text)}</MemoryRouter>);
 
 describe("renderRoseMarkdown", () => {
   it("renders bold around quoted text", () => {
@@ -22,6 +24,13 @@ describe("renderRoseMarkdown", () => {
     const a = screen.getByRole("link", { name: "evaluation note" });
     expect(a).toHaveAttribute("href", "https://ivandemurard.com/journal/harnesses-graders-closed-loops");
     expect(a).toHaveAttribute("rel", expect.stringContaining("noopener"));
+  });
+
+  it("renders site-relative links as internal navigation", () => {
+    renderMd("See the [Evaluation Field Note](/journal/harnesses-graders-closed-loops).");
+    const a = screen.getByRole("link", { name: "Evaluation Field Note" });
+    expect(a).toHaveAttribute("href", "/journal/harnesses-graders-closed-loops");
+    expect(a).not.toHaveAttribute("target");
   });
 
   it("leaves non-http links and unknown syntax as plain text", () => {
