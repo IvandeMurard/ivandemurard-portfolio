@@ -88,6 +88,19 @@ const Agents = () => {
           ))}
         </ul>
 
+        <H2>Field Notes</H2>
+        <p>{AGENTS_DOC.fieldNotes.intro}</p>
+        <ul className="mt-3">
+          {AGENTS_DOC.fieldNotes.items.map(([l, q, u]) => (
+            <li key={u}><Mk>- </Mk>{l} · {q} · <RawLink to={u}>{u}</RawLink> (<RawLink to={`${u}.md`}>.md</RawLink>)</li>
+          ))}
+        </ul>
+        <ul className="mt-3">
+          {AGENTS_DOC.fieldNotes.modes.map((m) => (
+            <li key={m}><Mk>- </Mk>{m}</li>
+          ))}
+        </ul>
+
         <H2>Example</H2>
         <p>{AGENTS_DOC.exampleIntro}</p>
         <pre className="raw-cmd mt-3 whitespace-pre-wrap">

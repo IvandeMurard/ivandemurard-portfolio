@@ -412,7 +412,7 @@ var HARNESSES_ENTRY = {
       }
     ]
   },
-  updates: [{ "date": "2026-10-23", "summary": "Corrected the provenance note, which still called the Aetherix repository private, and added a short key to the four kinds of evidence the piece uses.", "reason": "The Aetherix repository is now public. The key separates measured runs, synthetic tests, guarantees held in code and proposed mechanisms, which the piece already distinguished section by section. The 2026-10-08 note below is kept: it describes the state at the time." }, { "date": "2026-10-23", "summary": "Retitled the piece around the question it answers, and opened with a one-sentence definition of an LLM evaluation harness.", "reason": "Readers arrive asking what a harness is. The answer now comes first; the content is unchanged." }, { "date": "2026-10-09", "summary": "Replaced the three-arms figure with an interactive recommendation line, added the site's signal vocabulary to the verdict table, folded long passages behind 'Read more' without removing them, and corrected two sentences about decision capture.", "reason": "The piece was long to read on screen. Nothing is removed: the full text stays in the Markdown version. The capture sentences described a state fixed in September 2026." }, { "date": "2026-10-08", "summary": "Added a provenance note: which mechanisms come from Aetherix and which from Lore.", "reason": "The piece's numbers are Lore's, but most of the gate machinery was built first in Aetherix, whose repository is private. A reader could take Lore for the more rigorous system and Aetherix for a footnote, so the note says where each mechanism comes from and what can be checked publicly." }, { "date": "2026-09-24", "summary": `Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes.`, "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
+  updates: [{ "date": "2026-10-24", "summary": "Corrected the Lore line of the opening comparison: the signed work record does not return to Lore.", "reason": "The line said Lore receives both the procedure and the signed work record. Only the procedure is available; the outcome never comes back, as section 2 and the ground-truth note state." }, { "date": "2026-10-23", "summary": "Corrected the provenance note, which still called the Aetherix repository private, and added a short key to the four kinds of evidence the piece uses.", "reason": "The Aetherix repository is now public. The key separates measured runs, synthetic tests, guarantees held in code and proposed mechanisms, which the piece already distinguished section by section. The 2026-10-08 note below is kept: it describes the state at the time." }, { "date": "2026-10-23", "summary": "Retitled the piece around the question it answers, and opened with a one-sentence definition of an LLM evaluation harness.", "reason": "Readers arrive asking what a harness is. The answer now comes first; the content is unchanged." }, { "date": "2026-10-09", "summary": "Replaced the three-arms figure with an interactive recommendation line, added the site's signal vocabulary to the verdict table, folded long passages behind 'Read more' without removing them, and corrected two sentences about decision capture.", "reason": "The piece was long to read on screen. Nothing is removed: the full text stays in the Markdown version. The capture sentences described a state fixed in September 2026." }, { "date": "2026-10-08", "summary": "Added a provenance note: which mechanisms come from Aetherix and which from Lore.", "reason": "The piece's numbers are Lore's, but most of the gate machinery was built first in Aetherix, whose repository is private. A reader could take Lore for the more rigorous system and Aetherix for a footnote, so the note says where each mechanism comes from and what can be checked publicly." }, { "date": "2026-09-24", "summary": `Corrected the dating in section 13, added "Where the two meet: the verify step", replaced figure 7.1 with figure 12.1, replaced the 52-out-of-53 example, added a reproducible regression run to section 8, corrected layer 3 of the pyramid, and corrected what the piece said about Aetherix's arm A and recorded outcomes.`, "reason": `Section 13 and the update below said the agent sense of "harness" became standard after this piece was published. It had not waited: Tejas Kumar's talk at IBM in May 2026 already treats it as the common sense and separates it from the machine-learning one. Figure 7.1 drew a third run at temperature 0.5 that was never recorded; the two recorded runs remain in the timeline in section 7. Figure 12.1 uses the verbatim model answer and the outputs of Lore's own graders. The 52-out-of-53 run is recorded in Lore, but not the tier of its miss, so it now gives way to the live 61-out-of-64 run whose tier-1 misses are recorded; the console in section 6 replays that run. Counts updated to Lore's current state: 10 graders, 19 regressions, 90 tests. Layer 3 listed Aetherix as having the parser measurement; its CI run grades a deterministic stand-in written against the same cases, so the model's accuracy is not yet measured, and the pyramid now says so. The same audit found that only an exact "accept" or "reject" records a decision in Aetherix, and that its forecast gate runs on a synthetic series; sections 2, 10 and 13 said more than that.` }, { "date": "2026-09-12", "summary": 'Added section 13, "Two harnesses, and which one this is", plus the arm C metric the piece named as missing in section 2.', "reason": 'Through August and September 2026 a body of writing redefined "harness" to mean the runtime environment around a model. This piece uses the older sense - the machinery that runs the evaluation - throughout, and a reader arriving from that discourse would read section 1 as an error rather than as the complementary half.' }],
   body: [
     {
       kind: "p",
@@ -434,7 +434,7 @@ var HARNESSES_ENTRY = {
           to: "/lore",
           what: "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask.",
           who: "A junior technician on the shop floor, hands busy.",
-          feedback: "Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed."
+          feedback: "The procedure (SOP) is known upfront and wins any conflict. The signed work record, the outcome of the operation actually performed, never returns to Lore, so it cannot learn from outcomes."
         }
       ]
     },
@@ -1391,30 +1391,42 @@ var JOURNAL_ENTRIES = [
   HARNESSES_ENTRY,
   TRUTH_ENTRY
 ];
+var JOURNAL_KNOWLEDGE_QUESTIONS = [
+  { number: "01", label: "Evaluate", question: "How do you know an agent is working?", description: "Learn what correct behavior means and how to test it.", slug: "harnesses-graders-closed-loops", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
+  { number: "02", label: "Set boundaries", question: "Where should an agent's responsibility end?", description: "Separate prediction, recommendation and authority.", slug: "agent-boundaries-aetherix", cases: [{ label: "Aetherix", to: "/aetherix" }] },
+  { number: "03", label: "Learn", question: "Whose truth should an agent learn from?", description: "Distinguish approval, prediction and observed truth.", slug: "whose-truth-is-the-ground-truth", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] }
+];
 
 // src/lib/mcp/tools/list-journal.ts
 var SITE_ORIGIN2 = "https://ivandemurard.com";
 var list_journal_default = defineTool4({
   name: "list_journal_entries",
   title: "List Field Notes",
-  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category and excerpt. Use get_journal_entry with a slug from this list to read the full body.",
+  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. Use get_journal_entry with a slug from this list to read the full body.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
-    const entries = JOURNAL_ENTRIES.map((e) => ({
-      slug: e.slug,
-      title: e.title,
-      subtitle: e.subtitle ?? null,
-      date: e.date,
-      category: e.category,
-      excerpt: e.excerpt,
-      url: `${SITE_ORIGIN2}/journal/${e.slug}`
-    })).sort((a, b) => b.date.localeCompare(a.date));
+    const entries = JOURNAL_ENTRIES.map((e) => {
+      const q = JOURNAL_KNOWLEDGE_QUESTIONS.find((k) => k.slug === e.slug);
+      return {
+        slug: e.slug,
+        title: e.title,
+        subtitle: e.subtitle ?? null,
+        date: e.date,
+        category: e.category,
+        excerpt: e.excerpt,
+        url: `${SITE_ORIGIN2}/journal/${e.slug}`,
+        markdown_url: `${SITE_ORIGIN2}/journal/${e.slug}.md`,
+        question: q ? { number: q.number, label: q.label, text: q.question, outcome: q.description } : null,
+        evidence: q ? q.cases.map((c) => ({ label: c.label, url: `${SITE_ORIGIN2}${c.to}` })) : []
+      };
+    }).sort((a, b) => b.date.localeCompare(a.date));
     return {
       content: [{ type: "text", text: JSON.stringify(entries, null, 2) }],
       structuredContent: {
         index_url: `${SITE_ORIGIN2}/journal`,
         corpus_url: `${SITE_ORIGIN2}/llms-full.txt`,
+        reading_note: "The three notes answer complementary questions and can be read in any order. Notes teach methods; case studies hold implementation evidence.",
         entries
       }
     };
