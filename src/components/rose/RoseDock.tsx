@@ -175,7 +175,10 @@ export const RoseDock = () => {
     };
   }, [pathname]);
 
+  const wasOpen = useRef(open);
   useEffect(() => {
+    if (open && wasOpen.current) { wasOpen.current = false; return; }
+    wasOpen.current = false;
     if (open) {
       log("opened");
       requestAnimationFrame(() => expandedInputRef.current?.focus());
