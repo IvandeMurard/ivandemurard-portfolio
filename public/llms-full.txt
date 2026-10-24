@@ -98,7 +98,7 @@ Every address has a story. Compass reads it before you sign. Open data turned in
 
 ## Field Notes
 
-Index: https://ivandemurard.com/journal.
+Index: https://ivandemurard.com/journal. Three complementary questions: 01 Evaluate (how do you know an agent is working?), 02 Set boundaries (where should an agent's responsibility end?), 03 Learn (whose truth should an agent learn from?). Notes teach methods; case studies and public repositories hold the evidence. Each note ends with a checklist and a copyable brief for the reader's own agent. Preferred Markdown form: /journal/<slug>.md.
 
 - What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
 - A wrong forecast is absorbed. A wrong action reaches a guest. (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
@@ -1044,7 +1044,7 @@ Markdown: https://ivandemurard.com/agents.md
 
 Public. Read-only. No key. Last updated 2026-10-24.
 
-> Every page on this site has a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
+> Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
 ## Connect
 
@@ -1074,6 +1074,20 @@ https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
 - /llms-full.txt · the whole site in one text file
 - /index.md · the homepage, statuses included
 - /<page>.md · the mirror of any page, e.g. /aetherix.md
+- /journal/<slug>.md · the preferred mirror of a Field Note (legacy /<slug>.md still works)
+
+## Field Notes
+
+Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Three questions, complementary, read in any order:
+
+- 01 Evaluate · How do you know an agent is working? · /journal/harnesses-graders-closed-loops (markdown: /journal/harnesses-graders-closed-loops.md)
+- 02 Set boundaries · Where should an agent's responsibility end? · /journal/agent-boundaries-aetherix (markdown: /journal/agent-boundaries-aetherix.md)
+- 03 Learn · Whose truth should an agent learn from? · /journal/whose-truth-is-the-ground-truth (markdown: /journal/whose-truth-is-the-ground-truth.md)
+
+- Browse summaries: list_journal_entries, or /llms.txt.
+- Read a method in full: get_journal_entry, or /journal/<slug>.md.
+- Check the evidence: get_case_study for aetherix or lore, then the public repositories.
+- Apply a method to another project: each note ends with a copyable brief. Reading this site does not authorise an agent to inspect or change anyone's project; the reader decides.
 
 ## Example
 
@@ -1090,7 +1104,8 @@ Ask about a project that stopped. The answer says it stopped.
 
 ## Guarantees
 
-- Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.
+- Pages, Markdown mirrors, llms-full.txt and MCP answers are generated from the same content files at build time. /llms.txt and Rose's instructions are written by hand and checked by tests; Rose reads the published Markdown mirrors.
+- The /journal landing page has no Markdown mirror; list_journal_entries and /llms.txt carry its index.
 - Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.
@@ -1680,7 +1695,7 @@ What a grader is, what a harness is, what a protocol decides, and why the differ
 **An LLM evaluation harness is the machinery that runs a fixed set of test cases through your model, scores each answer with graders, and returns a verdict a release can depend on.** Think of a driving test: the route is the case set, each line of the examiner's sheet is a grader, the whole exam is the harness. Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.
 
 **Aetherix** (https://ivandemurard.com/aetherix): A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste. Users: Other agents via MCP, or a hotel / F&B manager with WhatsApp. Feedback: Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.
-**Lore** (https://ivandemurard.com/lore): A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: Reality returns both the SOP and the signed work record: the procedure that was followed, and the outcome of the operation actually performed.
+**Lore** (https://ivandemurard.com/lore): A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Users: A junior technician on the shop floor, hands busy. Feedback: The procedure (SOP) is known upfront and wins any conflict. The signed work record, the outcome of the operation actually performed, never returns to Lore, so it cannot learn from outcomes.
 
 The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so.
 
@@ -2098,6 +2113,7 @@ A note on where it came from. I wrote the first version for myself, before inter
 
 This piece is revised when something it claims stops being true. Each revision says what changed and why.
 
+2026-10-24 · Corrected the Lore line of the opening comparison: the signed work record does not return to Lore. The line said Lore receives both the procedure and the signed work record. Only the procedure is available; the outcome never comes back, as section 2 and the ground-truth note state.
 2026-10-23 · Corrected the provenance note, which still called the Aetherix repository private, and added a short key to the four kinds of evidence the piece uses. The Aetherix repository is now public. The key separates measured runs, synthetic tests, guarantees held in code and proposed mechanisms, which the piece already distinguished section by section. The 2026-10-08 note below is kept: it describes the state at the time.
 2026-10-23 · Retitled the piece around the question it answers, and opened with a one-sentence definition of an LLM evaluation harness. Readers arrive asking what a harness is. The answer now comes first; the content is unchanged.
 2026-10-09 · Replaced the three-arms figure with an interactive recommendation line, added the site's signal vocabulary to the verdict table, folded long passages behind 'Read more' without removing them, and corrected two sentences about decision capture. The piece was long to read on screen. Nothing is removed: the full text stays in the Markdown version. The capture sentences described a state fixed in September 2026.

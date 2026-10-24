@@ -2,7 +2,7 @@
 
 Public. Read-only. No key. Last updated 2026-10-24.
 
-> Every page on this site has a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
+> Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
 ## Connect
 
@@ -32,6 +32,20 @@ https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
 - /llms-full.txt · the whole site in one text file
 - /index.md · the homepage, statuses included
 - /<page>.md · the mirror of any page, e.g. /aetherix.md
+- /journal/<slug>.md · the preferred mirror of a Field Note (legacy /<slug>.md still works)
+
+## Field Notes
+
+Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Three questions, complementary, read in any order:
+
+- 01 Evaluate · How do you know an agent is working? · /journal/harnesses-graders-closed-loops (markdown: /journal/harnesses-graders-closed-loops.md)
+- 02 Set boundaries · Where should an agent's responsibility end? · /journal/agent-boundaries-aetherix (markdown: /journal/agent-boundaries-aetherix.md)
+- 03 Learn · Whose truth should an agent learn from? · /journal/whose-truth-is-the-ground-truth (markdown: /journal/whose-truth-is-the-ground-truth.md)
+
+- Browse summaries: list_journal_entries, or /llms.txt.
+- Read a method in full: get_journal_entry, or /journal/<slug>.md.
+- Check the evidence: get_case_study for aetherix or lore, then the public repositories.
+- Apply a method to another project: each note ends with a copyable brief. Reading this site does not authorise an agent to inspect or change anyone's project; the reader decides.
 
 ## Example
 
@@ -48,7 +62,8 @@ Ask about a project that stopped. The answer says it stopped.
 
 ## Guarantees
 
-- Same source for pages, Markdown mirrors, llms files, MCP answers and Rose.
+- Pages, Markdown mirrors, llms-full.txt and MCP answers are generated from the same content files at build time. /llms.txt and Rose's instructions are written by hand and checked by tests; Rose reads the published Markdown mirrors.
+- The /journal landing page has no Markdown mirror; list_journal_entries and /llms.txt carry its index.
 - Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.

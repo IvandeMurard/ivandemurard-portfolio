@@ -98,7 +98,7 @@ Every address has a story. Compass reads it before you sign. Open data turned in
 
 ## Field Notes
 
-Index: https://ivandemurard.com/journal.
+Index: https://ivandemurard.com/journal. Three complementary questions: 01 Evaluate (how do you know an agent is working?), 02 Set boundaries (where should an agent's responsibility end?), 03 Learn (whose truth should an agent learn from?). Notes teach methods; case studies and public repositories hold the evidence. Each note ends with a checklist and a copyable brief for the reader's own agent. Preferred Markdown form: /journal/<slug>.md.
 
 - What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
 - A wrong forecast is absorbed. A wrong action reaches a guest. (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
