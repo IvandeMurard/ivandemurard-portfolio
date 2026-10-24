@@ -12,6 +12,8 @@ describe("Rose booking card privacy", () => {
   beforeEach(() => {
     fetchMock.mockClear();
     vi.stubGlobal("fetch", fetchMock);
+    vi.stubEnv("DEV", false);
+    vi.stubGlobal("window", { location: { hostname: "ivandemurard.com", pathname: "/" } });
   });
 
   it("opens Cal.com with no conversation in the URL", () => {

@@ -17,19 +17,21 @@ export const referencePath = (href: string): string | null => {
   } catch { return null; }
 };
 
-type Pending = { session_id: string; path: string; request_id: string };
+type Pending = { session_id: string; path: string; request_id: string; owner: string };
 let pending: Pending | null = null;
 const proposed = new Set<string>();
 
 /** Owned outside React: remounts and rehydration never create measurement events. */
-export const startRoseRequest = (session_id: string, path: string) => {
-  pending = { session_id, path, request_id: crypto.randomUUID() };
-  logRoseEvent({ ...pending, kind: "rose_request_started" });
+export const startRoseRequest = (session_id: string, path: string, owner = "") => {
+  pending = { session_id, path, request_id: crypto.randomUUID(), owner };
+  const { owner: _owner, ...event } = pending;
+  logRoseEvent({ ...event, kind: "rose_request_started" });
 };
-export const finishRoseRequest = (failed: boolean) => {
-  if (!pending) return;
-  const event = pending;
+export const finishRoseRequest = (failed: boolean, owner = "", bookingMessageId?: string) => {
+  if (!pending || pending.owner !== owner) return;
+  const { owner: _owner, ...event } = pending;
   pending = null;
+  if (!failed && bookingMessageId) logBookingProposal(event.session_id, event.path, bookingMessageId);
   logRoseEvent({ ...event, kind: failed ? "rose_answer_failed" : "rose_answer_completed" });
 };
 export const logBookingProposal = (session_id: string, path: string, messageId: string) => {

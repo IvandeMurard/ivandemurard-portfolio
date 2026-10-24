@@ -9,7 +9,7 @@ import { RoseBookingCard } from "./RoseBookingCard";
 import { RoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
-import { logBookingProposal, startRoseRequest } from "./roseMeasurement";
+import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
 import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
 
@@ -112,7 +112,7 @@ export const RoseDock = () => {
   const isHome = pathname === "/";
 
   const [chat, setChat] = useState(() => getRoseChat(sessionId));
-  const { messages, sendMessage, status, error } = useChat({ chat });
+  const { messages, status, error } = useChat({ chat });
   const isLoading = status === "submitted" || status === "streaming";
 
   // Persist settled turns to this tab's sessionStorage.
@@ -187,19 +187,6 @@ export const RoseDock = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  // One booking_proposed event per assistant message that renders the card.
-  const proposedSeen = useRef(new Set(messages.map((m) => m.id)));
-  useEffect(() => {
-    for (const m of messages) {
-      if (m.role !== "assistant" || proposedSeen.current.has(m.id)) continue;
-      if (findTool(m, "propose_booking")) {
-        proposedSeen.current.add(m.id);
-        logBookingProposal(sessionId, pathname, m.id);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages]);
-
   const submit = (text: string, suggested?: RosePrompt, kind: "question" | "chip" | "followup" = "question") => {
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
@@ -209,8 +196,9 @@ export const RoseDock = () => {
     setInputValue("");
     const section = sectionRef.current;
     log(kind, suggested?.label ?? trimmed, !!suggested || kind === "followup");
-    startRoseRequest(sessionId, pathname);
-    void (fresh ?? chat).sendMessage(
+    const activeChat = fresh ?? chat;
+    startRoseRequest(sessionId, pathname, activeChat.id);
+    void activeChat.sendMessage(
       { text: trimmed },
       {
         body: {
@@ -224,7 +212,7 @@ export const RoseDock = () => {
             : {}),
         },
       },
-    );
+    ).catch(() => finishRoseRequest(true, activeChat.id));
   };
 
   const onChip = (chip: RosePrompt) => {

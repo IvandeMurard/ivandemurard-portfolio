@@ -83,15 +83,17 @@ export const selectRecent = (messages: UIMessage[], max = MAX_SENT_MESSAGES): UI
   return firstUser > 0 ? recent.slice(firstUser) : recent;
 };
 
-const makeChat = (id: string, messages: UIMessage[]) =>
-  new Chat<UIMessage>({
-    id,
+const makeChat = (id: string, messages: UIMessage[]) => {
+  const owner = `${id}:${crypto.randomUUID()}`;
+  return new Chat<UIMessage>({
+    id: owner,
     messages,
-    onError: () => finishRoseRequest(true),
+    onError: () => finishRoseRequest(true, owner),
     onFinish: ({ isAbort, isDisconnect, isError, message }) => {
       const hasAnswer = message.parts.some((p) =>
         (p.type === "text" && p.text.trim().length > 0) || p.type === "tool-propose_booking");
-      finishRoseRequest(isAbort || isDisconnect || isError || !hasAnswer);
+      const booking = message.parts.some((p) => p.type === "tool-propose_booking");
+      finishRoseRequest(isAbort || isDisconnect || isError || !hasAnswer, owner, booking ? message.id : undefined);
     },
     transport: new DefaultChatTransport({
       api: `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rose-chat`,
@@ -101,6 +103,7 @@ const makeChat = (id: string, messages: UIMessage[]) =>
       }),
     }),
   });
+};
 
 let current: Chat<UIMessage> | null = null;
 let openState = false;
@@ -119,7 +122,7 @@ export const expireIfIdle = (id: string): Chat<UIMessage> | null => {
 };
 
 export const resetRoseChat = (id: string): Chat<UIMessage> => {
-  finishRoseRequest(true);
+  if (current) finishRoseRequest(true, current.id);
   void current?.stop();
   clearStoredMessages();
   current = makeChat(id, []);
