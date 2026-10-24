@@ -7,7 +7,7 @@
 export type RosePrompt = {
   label: string;
   message: string;
-  intent?: "product" | "technical" | "culture" | "exploring";
+  intent?: "product" | "technical" | "culture" | "exploring" | "explain";
   ariaLabel?: string;
   /** Fixed chip that opens the booking flow. */
   booking?: boolean;
@@ -46,6 +46,22 @@ const ROUTES: Array<{ match: string; prefix?: boolean; prompts: RosePrompt[] }> 
   ] },
   { match: "/cv", prompts: PROFILE },
   { match: "/atrium", prompts: PROFILE },
+  { match: "/journal", prompts: [
+    p("Which Field Note should I read?", "On Field Notes: which of the three notes should I read, given what I am working on?", "explain"),
+    p("Show me how the notes connect to the projects.", "Show me how the three Field Notes connect to the projects on this site.", "explain"),
+  ] },
+  { match: "/journal/harnesses-graders-closed-loops", prompts: [
+    p("What should block an agent release?", "On the evaluation note: what should block an agent release?", "explain"),
+    p("How would I apply this to my own agent?", "On the evaluation note: how would I apply this to my own agent?", "explain"),
+  ] },
+  { match: "/journal/agent-boundaries-aetherix", prompts: [
+    p("Where should human approval sit?", "On the boundaries note: where should human approval sit?", "explain"),
+    p("How does this decision change hotel operations?", "On the boundaries note: how does this decision change hotel operations?", "explain"),
+  ] },
+  { match: "/journal/whose-truth-is-the-ground-truth", prompts: [
+    p("Why isn't approval ground truth?", "On the ground-truth note: why isn't approval ground truth?", "explain"),
+    p("What can Aetherix actually learn from?", "On the ground-truth note: what can Aetherix actually learn from today?", "explain"),
+  ] },
   { match: "/journal/", prefix: true, prompts: [
     p("Summarise this note in 3 points", "Summarise this field note in 3 points.", "exploring"),
     p("Where is this applied?", "Where is this field note applied in the projects on this site?", "technical"),
