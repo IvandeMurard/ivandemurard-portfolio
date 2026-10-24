@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MEASUREMENT_FROM, rateLabel, type RoseMetrics } from "@/components/rose/roseMetrics";
 
 type RoseEvent = {
   id: string;
@@ -40,6 +42,10 @@ const AdminRose = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
+  const [days, setDays] = useState(30);
+  const [metrics, setMetrics] = useState<RoseMetrics | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [showQuestions, setShowQuestions] = useState(false);
 
   useEffect(() => {
     const meta = document.createElement("meta");
@@ -58,10 +64,37 @@ const AdminRose = () => {
       const { data: role } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle();
       setIsAdmin(!!role);
       if (!role) return;
-      const { data } = await supabase.from("rose_events").select("*").order("created_at", { ascending: false }).limit(1000);
-      setEvents((data as RoseEvent[]) ?? []);
     })();
   }, [session]);
+
+  useEffect(() => {
+    if (!isAdmin) { setMetrics(null); setEvents([]); return; }
+    let active = true;
+    setLoading(true);
+    setMsg("");
+    supabase.rpc("get_rose_metrics", { days_window: days }).then(({ data, error }) => {
+      if (!active) return;
+      setLoading(false);
+      if (error) { setMsg("Metrics could not be loaded. Please retry."); setMetrics(null); return; }
+      setMetrics(data as unknown as RoseMetrics);
+    });
+    return () => { active = false; };
+  }, [isAdmin, days]);
+
+  useEffect(() => {
+    setEvents([]);
+    if (!isAdmin || !showQuestions) return;
+    let active = true;
+    const since = new Date(Math.max(Date.now() - days * 86400000, Date.parse(MEASUREMENT_FROM))).toISOString();
+    supabase.from("rose_events").select("id,created_at,path,section_id,kind,label_or_question,used_chip")
+      .in("kind", ["question", "followup"]).gte("created_at", since)
+      .order("created_at", { ascending: false }).limit(100).then(({ data, error }) => {
+        if (!active) return;
+        if (error) setMsg("Recent questions could not be loaded.");
+        else setEvents((data as RoseEvent[]) ?? []);
+      });
+    return () => { active = false; };
+  }, [isAdmin, showQuestions, days]);
 
   const stats = useMemo(() => {
     const questions = events.filter((e) => e.kind === "question" || e.kind === "followup" || e.kind === "chip");
@@ -101,19 +134,45 @@ const AdminRose = () => {
         </div>
       ) : isAdmin ? (
         <>
-          <div className="mb-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[["Opened", stats.opened], ["Questions", stats.recent.length], ["Booking proposed", stats.proposed], ["Booking clicked", stats.clicked]].map(([k, v]) => (
-              <div key={k as string} className="rounded-md border border-outline-variant p-4">
-                <p className="font-mono uppercase tracking-[0.12em] text-[10px] text-on-surface-variant">{k}</p>
-                <p className="mt-2 font-headline text-3xl text-primary tabular-nums">{v}</p>
-              </div>
-            ))}
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <p className="text-sm text-on-surface-variant">Rose product measures</p>
+            <Select value={String(days)} onValueChange={(v) => setDays(Number(v))}>
+              <SelectTrigger aria-label="Measurement window" className="w-36"><SelectValue /></SelectTrigger>
+              <SelectContent>{[7, 30, 90].map((d) => <SelectItem key={d} value={String(d)}>{d} days</SelectItem>)}</SelectContent>
+            </Select>
           </div>
+          <p className="mb-6 text-sm text-on-surface-variant">Complete aggregates since 24 October 2026, 14:55 UTC, within the selected window. Earlier records may include tests and are excluded. Preview and local events are not collected. Sessions are browser tabs, not unique people.</p>
+          {loading ? <p role="status" className="mb-6 text-sm">Loading measures...</p> : null}
+          {msg ? <p role="alert" className="mb-6 text-sm text-destructive">{msg}</p> : null}
+          {metrics && !loading ? <>
+            <div className="mb-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                ["Activation", metrics.activated, metrics.opened, "Opened sessions with a visitor turn / opened sessions"],
+                ["Continuation", metrics.continued, metrics.question_sessions, "Sessions with at least two visitor turns / question sessions. Not proof of usefulness."],
+                ["Evidence navigation", metrics.reference_sessions, metrics.answered_sessions, "Answered sessions with an internal reference click / answered sessions. Clicks, not confirmed reading."],
+                ["Contact intent", metrics.contact_sessions, metrics.question_sessions, "Question sessions with a booking link click / question sessions. Not confirmed meetings."],
+                ["Booking proposals", metrics.proposed_sessions, metrics.question_sessions, "Question sessions with a proposal / question sessions. Relevance requires qualitative review."],
+                ["Booking card clicks", metrics.card_clicked_sessions, metrics.card_proposed_sessions, "Sessions with a card click and proposal / proposal sessions. Direct booking chips excluded."],
+                ["Request failures", metrics.failed, metrics.submitted, "Failed or interrupted requests / started requests. Includes Clear during streaming."],
+              ].map(([label, numerator, denominator, definition]) => <div key={String(label)} className="rounded-md border border-outline-variant p-4">
+                <h2 className="font-mono text-xs uppercase text-secondary">{label}</h2>
+                <p className="my-2 font-headline text-2xl text-primary tabular-nums">{String(numerator)} / {String(denominator)}</p>
+                <p className="text-sm text-on-surface">{rateLabel(Number(numerator), Number(denominator))}</p>
+                <details className="mt-3 text-xs text-on-surface-variant"><summary className="cursor-pointer">Definition</summary><p className="mt-2">{definition}</p></details>
+              </div>)}
+            </div>
+            <p className="mb-8 text-sm text-on-surface-variant">Requests: {metrics.submitted} started, {metrics.completed} completed, {metrics.failed} failed or interrupted. Internal reference clicks: {metrics.reference_clicks}. Missing outcomes can indicate abandoned tabs or lost telemetry, not success. Percentages are withheld below 20 observations, a display rule, not statistical confidence.</p>
+          </> : null}
           <div className="grid md:grid-cols-2 gap-10">
-            <Table title="Questions per page" rows={stats.perPage} />
-            <Table title="Chips clicked" rows={stats.perChip} />
+            <Table title="Visitor turns per page" rows={(metrics?.per_page ?? []).map((r) => [r.label, r.count])} />
+            <Table title="Internal reference destinations" rows={(metrics?.destinations ?? []).map((r) => [r.label, r.count])} />
           </div>
-          <section>
+          <section className="mb-10 border-y border-outline-variant py-5">
+            <h2 className="font-mono text-xs uppercase text-secondary mb-3">Not measured</h2>
+            <p className="text-sm text-on-surface-variant">Confirmed meetings (Cal.com), professional outcomes, visitor satisfaction, factual correctness, booking relevance and reading completion. General site traffic is outside this dashboard. Continuity and answer quality are assessed with synthetic scenarios. Trends await a sufficient clean baseline.</p>
+          </section>
+          <Button variant="outline" onClick={() => setShowQuestions((v) => !v)}>{showQuestions ? "Hide recent questions" : "Show recent questions"}</Button>
+          {showQuestions ? <section className="mt-5">
             <h2 className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-3">Recent questions</h2>
             <ul className="divide-y divide-outline-variant border-y border-outline-variant">
               {stats.recent.map((e) => (
@@ -125,7 +184,7 @@ const AdminRose = () => {
                 </li>
               ))}
             </ul>
-          </section>
+          </section> : null}
           <Button variant="outline" className="mt-10" onClick={() => supabase.auth.signOut()}>Sign out</Button>
         </>
       ) : null}

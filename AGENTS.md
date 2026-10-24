@@ -1,4 +1,5 @@
 # Project rules
+- Rose product measurement stays in the existing private admin page, with server-authorized full-window aggregates and tab-local request lifecycle callbacks, so remounts never count restored conversations as new outcomes. Never join general click sessions to Rose sessions.
 
 - Compass uses the existing case-study reading furniture and semantic tokens; its approved narrative is centralized in `src/content/compass.ts` so the page and Markdown mirror stay aligned.
 - Compass subsections live in the shared content tree and retain their heading IDs; its TOC lists top-level sections only because the shared TOC has no nesting support.
