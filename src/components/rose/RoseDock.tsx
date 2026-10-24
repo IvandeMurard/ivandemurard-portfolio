@@ -320,7 +320,6 @@ export const RoseDock = () => {
                         <RoseBookingCard
                           intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}
                           reason={booking.reason ?? ""}
-                          messages={messages}
                           sessionId={sessionId}
                         />
                       ) : null}
