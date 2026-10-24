@@ -8,19 +8,15 @@ import type { ReactNode } from "react";
  */
 
 const TOKEN =
-  /(\*\*[^*]+\*\*|\*[^*\n]+\*|`[^`\n]+`|\[[^\]\n]+\]\((https?:\/\/[^\s)]+)\))/g;
+  /(\*\*[^*]+\*\*|\*[^*\n]+\*|`[^`\n]+`|\[[^\]\n]+\]\((?:https?:\/\/[^\s)]+)\))/g;
 
 export const renderRoseMarkdown = (text: string): ReactNode => {
   const parts = text.split(TOKEN);
   const out: ReactNode[] = [];
   let key = 0;
 
-  for (let i = 0; i < parts.length; i++) {
-    const part = parts[i];
+  for (const part of parts) {
     if (!part) continue;
-
-    // The link token captures its URL in the following group; skip it here.
-    if (/^https?:\/\//.test(part) && /^\[[^\]]+\]\($/.test(parts[i - 1] ?? "")) continue;
 
     if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
       out.push(<strong key={key++} className="font-semibold">{part.slice(2, -2)}</strong>);
