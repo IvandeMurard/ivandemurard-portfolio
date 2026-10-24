@@ -43,13 +43,13 @@ export const RoseHistoryTransition = ({ reduced, renderCompass }: {
           <p className="mt-3 text-center font-label text-xs text-on-surface-variant">{august ? "Begin with the work" : "Begin with the visitor"}</p>
         </div>
         <div id="rose-history-panel" role="tabpanel" aria-labelledby={`rose-period-${august ? 1 : 0}`}>
-          <div className="relative grid min-h-36" aria-label="Reconstructed dock starters">
+          <div className="relative grid min-h-56 sm:min-h-36" aria-label="Reconstructed dock starters">
             {[JULY, AUGUST].map((starters, index) => {
               const selected = august === (index === 1);
               return <ul key={index} aria-hidden={!selected}
                 className={cn("col-start-1 row-start-1 flex flex-wrap content-start gap-2 self-start",
                   !reduced && "transition-[opacity,transform] duration-700 ease-out",
-                  selected ? "translate-y-0 opacity-100" : index === 0 ? "translate-y-20 opacity-40" : "translate-y-3 opacity-0")}>
+                  selected ? "translate-y-0 opacity-100" : index === 0 ? "translate-y-32 opacity-40 sm:translate-y-20" : "translate-y-3 opacity-0")}>
                 {starters.map((starter) => <li key={starter}
                   className={cn("max-w-full rounded-full border bg-surface px-3 py-2 font-body text-sm",
                     selected && index === 1 ? "border-secondary text-primary" : "border-outline-variant text-on-surface-variant",
