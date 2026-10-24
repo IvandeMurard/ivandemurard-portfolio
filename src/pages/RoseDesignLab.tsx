@@ -138,7 +138,7 @@ const RoseQuestion = ({ text, className }: { text: string; className?: string })
       className,
     )}
   >
-    <span aria-hidden="true" className="not-italic font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Ask Rose</span>
+    <span aria-hidden="true" className="shrink-0 whitespace-nowrap not-italic font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Ask Rose</span>
     <span>{text}</span>
   </button>
 );
@@ -325,7 +325,7 @@ const ConceptB = ({ reduced }: { reduced: boolean }) => {
             </p>
           </div>
           <div className="relative order-1 mx-auto aspect-square w-[min(70vw,520px)] md:order-2">
-            <CompassRose heading={reduced ? 0 : 300} reduced={reduced} className="h-full w-full motion-safe:animate-[spin_1s_ease-out_1]" />
+            <CompassRose heading={reduced ? 0 : 300} reduced={reduced} className="h-full w-full [&_*]:[vector-effect:non-scaling-stroke]" />
             {[["N", "Book", "top-0 left-1/2 -translate-x-1/2"], ["E", "Page", "right-0 top-1/2 -translate-y-1/2"], ["S", "Context", "bottom-0 left-1/2 -translate-x-1/2"], ["W", "Trust", "left-0 top-1/2 -translate-y-1/2"]].map(([k, l, pos]) => (
               <span key={k} className={cn("absolute font-label text-[10px] uppercase tracking-[0.2em] opacity-70", pos)}>{l}</span>
             ))}
@@ -340,7 +340,7 @@ const ConceptB = ({ reduced }: { reduced: boolean }) => {
               {MILESTONES.slice(0, active).map((g) => (
                 <CompassRose key={g.date} heading={g.heading} reduced className="absolute inset-0 h-full w-full text-outline-variant opacity-30" />
               ))}
-              <CompassRose heading={m.heading} reduced={reduced} className="absolute inset-0 h-full w-full text-secondary" />
+              <CompassRose heading={m.heading} reduced={reduced} className="absolute inset-0 h-full w-full text-secondary md:[&_*]:[vector-effect:non-scaling-stroke]" />
             </div>
             <div className="md:mt-6">
               <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">{m.date} · heading {m.heading}°</p>
@@ -388,7 +388,7 @@ const RoseDesignLab = () => {
     <SiteLayout>
       <Seo title="Rose design lab" description="Internal prototype, not published." noIndex path="/rose-design-lab" />
       <LabCursor />
-      <div className="border-b border-outline-variant bg-surface-container-low">
+      <div className="mt-20 border-b border-outline-variant bg-surface-container-low">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
           <span className="uppercase tracking-[0.2em] text-on-surface-variant">Design lab · unlinked prototype · not published</span>
           <div role="tablist" aria-label="Concept" className="inline-flex rounded-full border border-outline-variant p-0.5">
