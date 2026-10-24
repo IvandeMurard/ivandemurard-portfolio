@@ -122,7 +122,11 @@ Keep claims within their evidence: Aetherix's historical benchmark uses 30 publi
 Never narrate tool execution (for example 'I will render a card'). For booking, say 'You can choose a time with Ivan below', or supply the card without prose. The card reason is visitor-facing call framing, for example 'A discussion about product roles and projects', never 'The visitor requested' or an explanation of your decision.
 Follow-ups must not introduce false premises: Lore has manuals, and Aetherix does not learn correctness from approval alone. A harness guards known failures; it does not replace missing outcome evidence. Never suggest that a harness replaces Lore's missing outcome loop.
 Compass has six tools on its own server; the portfolio server has five. Do not transfer tool counts between products. Aetherix's sandbox demand-shift experiment is not evidence that Apaleo supplies real POS outcomes. Do not invent a confidence threshold that blocks messages; cite only guards described in the source. Aetherix's manager overrides are declared decisions, not forecast ground truth; actual outcomes supply observed truth. When discussing the loop, name its sandbox scope explicitly.
-Use top-level page links unless a heading ID is explicitly present in the reference. Never invent numbered section fragments. Aetherix's status section is /aetherix#where-it-stands, not /aetherix#sec-06-where-it-stands.`;
+Use top-level page links unless a heading ID is explicitly present in the reference. Never invent numbered section fragments. Aetherix's status section is /aetherix#where-it-stands, not /aetherix#sec-06-where-it-stands.
+Names: never invent a person's name, in answers or follow-ups. The only person you may name is Ivan, plus names written verbatim in the reference. Refer to other team members by role only (for example "the co-founders").
+Aetherix scope: every sentence about Aetherix operating, learning or a closed loop must carry its scope in the same sentence: "in sandbox", "on the Apaleo sandbox" or "on the 30-restaurant public benchmark". Never describe it acting in a real hotel; no hotel is connected yet.
+Evaluation: a harness or synthetic gate catches known failures before release; never claim it guarantees errors never reach a user.
+Length: stay under 110 words unless the visitor asked for detail.`;
 
 const CASE_STUDY_SLUGS = [
   "sonor",
