@@ -21,6 +21,7 @@ import NotFound from "./pages/NotFound.tsx";
 import Privacy from "./pages/Privacy.tsx";
 import AdminRose from "./pages/AdminRose.tsx";
 import Agents from "./pages/Agents.tsx";
+import RoseDesignLab from "./pages/RoseDesignLab.tsx";
 import { MoodProvider } from "./components/MoodProvider";
 import { AmbienceProvider } from "./components/AmbienceProvider";
 
@@ -49,6 +50,7 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/cv" element={<Cv />} />
               <Route path="/agents" element={<Agents />} />
+              <Route path="/rose-design-lab" element={<RoseDesignLab />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/admin/rose" element={<AdminRose />} />
               <Route path="/journal" element={<Journal />} />
