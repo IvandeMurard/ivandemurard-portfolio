@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
+import { renderRoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
 import roseMark from "@/assets/rose-mark.png";
@@ -314,7 +315,7 @@ export const RoseDock = () => {
                     : [];
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
-                      {text ? <div className="whitespace-pre-wrap text-sm text-on-surface">{text}</div> : null}
+                      {text ? <div className="whitespace-pre-wrap text-sm text-on-surface">{renderRoseMarkdown(text)}</div> : null}
                       {booking ? (
                         <RoseBookingCard
                           intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}
