@@ -202,7 +202,7 @@ const Block = ({
           tabIndex={0}
           role="region"
           aria-label="Code sample"
-          className="overflow-x-auto rounded-sm border border-outline-variant bg-surface-container-low"
+          className="overflow-x-auto rounded-sm border border-outline-variant bg-surface-container-low focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary"
         >
           <pre className="p-4 md:p-6 text-sm leading-relaxed">
             <code className="font-mono text-on-surface-variant">{block.text}</code>
@@ -215,7 +215,7 @@ const Block = ({
           tabIndex={0}
           role="region"
           aria-label={block.caption ?? labels.dataTable}
-          className="overflow-x-auto rounded-sm border border-outline-variant"
+          className="overflow-x-auto rounded-sm border border-outline-variant focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary"
         >
           <table className="w-full min-w-[520px] border-collapse text-left text-sm">
             <caption className="sr-only">{block.caption ?? block.head.join(", ")}</caption>
