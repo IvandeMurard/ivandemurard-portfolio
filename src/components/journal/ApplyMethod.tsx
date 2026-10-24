@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { APPLY_GUIDES, applyBrief } from "@/content/journalApply";
 
 const BTN =
-  "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:border-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary h-auto whitespace-normal text-left";
+  "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:bg-transparent hover:border-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary h-auto whitespace-normal text-left";
 
 /** Human checklist first; the agent brief is the secondary action. Rose stays for questioning the article. */
 export const ApplyMethod = ({ slug }: { slug: string }) => {
