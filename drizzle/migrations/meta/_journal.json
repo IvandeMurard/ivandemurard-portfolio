@@ -15,6 +15,13 @@
       "when": 1791965330632,
       "tag": "0001_grant_admin_ivan",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792847010741,
+      "tag": "0002_rose_sessions_retention",
+      "breakpoints": true
     }
   ]
 }

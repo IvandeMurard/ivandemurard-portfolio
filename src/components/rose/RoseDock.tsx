@@ -5,7 +5,7 @@ import type { UIMessage } from "ai";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
 import { renderRoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
@@ -437,6 +437,14 @@ export const RoseDock = () => {
               <Icon name="arrow_upward" className="text-lg" />
             </button>
           </form>
+          {open ? (
+            <p className="px-5 pb-2.5 -mt-1 text-[11px] text-on-surface-variant">
+              Questions are kept 90 days, without IP.{" "}
+              <Link to="/privacy#rose" className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                Privacy
+              </Link>
+            </p>
+          ) : null}
         </div>
       </div>
     </>
