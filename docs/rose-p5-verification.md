@@ -16,7 +16,7 @@ Verification:
 - PASS: controlled browser replay at 1280x1800 shows the injected `/cv.md` destination corrected to `/cv` and an injected em-dash replaced in prose; one booking card, no calendar duplicate, no page errors. Screenshots inspected. Browser requests were guarded against application writes, and no booking was clicked.
 - PASS in this sample: Sonor team is five, four co-founders plus one developer/data scientist; no paying city customer; no invented follow-up name. Only the two explicit booking requests call `propose_booking`; declined contact remains respected in the three-turn chain.
 - FAIL: recruiter invents completed DomusVi rollout. The boundaries answer describes an agent and manager activity without sandbox scope in the same sentences. The truth answer calls sandbox covers “real covers”, an ambiguous claim. Sonor's transfer-to-Aetherix sentence omits sandbox scope.
-- FAIL: five ordinary samples exceed the 110-word instruction (Lore 125, evaluation 147, multi-1 135, multi-2 127; the count includes four, not five). No truncation was applied. The ambiguous-explorer answer still asks a qualification question; its usefulness is debatable rather than a privacy failure.
+- FAIL: four ordinary samples exceed the 110-word instruction (Lore 125, evaluation 147, multi-1 135, multi-2 127). No truncation was applied. The ambiguous-explorer answer still asks a qualification question; its usefulness is debatable rather than a privacy failure.
 - NOT TESTED: repeated model reliability, deployed prompt equality and final live release journey. No function deployment or publication occurred. Source-prompt evaluation and replay do not prove public Rose uses the new rules.
 
 Reproducible commands:
