@@ -1,5 +1,5 @@
 # Rose P5
-- [x] Verify final CV-link, recruiter sandbox and generated punctuation corrections: 83 tests and controlled browser replay pass; sampled completed-rollout claim still blocks acceptance, no publication.
+- [x] Verify final CV-link, recruiter sandbox and generated punctuation corrections: 83 tests and controlled browser replay pass; conflicting rollout references and inconsistent sandbox caveats still block acceptance, no publication.
 - [x] Refine answer-first guidance and enforce a single booking destination.
 - [x] Run synthetic quality, continuity, accessibility and P0 to P4 regression checks without production test events; record limits and failed acceptance.
 - [x] Document source/live state, scorecard, measurement limits and weekly learning baseline.

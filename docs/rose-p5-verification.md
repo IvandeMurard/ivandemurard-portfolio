@@ -2,7 +2,7 @@
 
 ## Final targeted round, 16:15 UTC
 
-**Still not accepted for release.** The latest fifteen current-source model samples fix the recruiter CV destination and include a sandbox caveat, but the recruiter answer falsely says the DomusVi MVP was rolled out to 100+ facilities. The source only supports an MVP delivered with rollout planned. A working link does not establish factual accuracy.
+**Still not accepted for release.** The latest fifteen current-source model samples fix the recruiter CV destination and include a sandbox caveat. However, DomusVi references conflict: the Rose base prompt says rollout planned, while the maintained CV and its Markdown say deployment completed with 500+ users live across 100+ facilities. The sampled completed-rollout wording agrees with the CV, so it must not be labeled an invented claim. Resolving that source conflict requires editorial confirmation rather than another inference.
 
 Changes in this round:
 - `supabase/functions/_shared/rose-context.ts`: require `/cv` in recruiter answers, reserve actual PDF/Markdown destinations for requested downloads, explicitly extend sandbox scope to recruiter summaries.
@@ -15,7 +15,7 @@ Verification:
 - PASS: 83/83 tests across 11 files; targeted five-file run 32/32. Preview health reports build OK.
 - PASS: controlled browser replay at 1280x1800 shows the injected `/cv.md` destination corrected to `/cv` and an injected em-dash replaced in prose; one booking card, no calendar duplicate, no page errors. Screenshots inspected. Browser requests were guarded against application writes, and no booking was clicked.
 - PASS in this sample: Sonor team is five, four co-founders plus one developer/data scientist; no paying city customer; no invented follow-up name. Only the two explicit booking requests call `propose_booking`; declined contact remains respected in the three-turn chain.
-- FAIL: recruiter invents completed DomusVi rollout. The boundaries answer describes an agent and manager activity without sandbox scope in the same sentences. The truth answer calls sandbox covers “real covers”, an ambiguous claim. Sonor's transfer-to-Aetherix sentence omits sandbox scope.
+- UNCLEAR: recruiter completed DomusVi rollout agrees with the CV but conflicts with Rose's base prompt. FAIL: the boundaries answer describes agent and manager activity without sandbox scope in the same sentences. The truth answer calls sandbox covers “real covers”, an ambiguous claim. Sonor's transfer-to-Aetherix sentence omits sandbox scope.
 - FAIL: four ordinary samples exceed the 110-word instruction (Lore 125, evaluation 147, multi-1 135, multi-2 127). No truncation was applied. The ambiguous-explorer answer still asks a qualification question; its usefulness is debatable rather than a privacy failure.
 - NOT TESTED: repeated model reliability, deployed prompt equality and final live release journey. No function deployment or publication occurred. Source-prompt evaluation and replay do not prove public Rose uses the new rules.
 
