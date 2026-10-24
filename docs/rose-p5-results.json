@@ -1,0 +1,461 @@
+{
+  "answers": [
+    {
+      "id": "recruiter",
+      "path": "/cv",
+      "question": "What has Ivan shipped that is relevant to an AI PM role?",
+      "text": "Ivan's recent work focuses on the full lifecycle of agentic AI systems, from architecture to evaluation. As a PM, he emphasizes measuring what an agent learns and how it fails.\n\nRelevant builds include:\n*   **Aetherix:** An F&B execution agent for boutique hotels. It is built and evaluated on historical data and staged on Fly.io with a sandbox PMS connection. It features a closed outcome-learning loop and evaluation gates in CI.\n*   **Lore:** A voice AI mentor for aviation maintenance. He developed its evaluation harness and safety protocol, including a deterministic \"refusal contract\" to prevent hallucinations in safety-critical contexts.\n*   **Compass:** A standalone data product for Paris commercial real estate, featuring an agent-ready MCP server to give AI models structured access to shopfront census and legal data.\n\nHis background also includes shipping a B2B SaaS MVP at DomusVi for 500+ users and co-founding Sonor, a B2G SaaS for urban noise mapping.\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_442141",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "How does he evaluate his agents?",
+              "Tell me about his Multi-Agent Architecture."
+            ]
+          }
+        }
+      ],
+      "words": 151,
+      "ui_text": "What has Ivan shipped that is relevant to an AI PM role?\n\nIvan's recent work focuses on the full lifecycle of agentic AI systems, from architecture to evaluation. As a PM, he emphasizes measuring what an agent learns and how it fails.\n\nRelevant builds include:\n\nAetherix: An F&B execution agent for boutique hotels. It is built and evaluated on historical data and staged on Fly.io with a sandbox PMS connection. It features a closed outcome-learning loop and evaluation gates in CI.\nLore: A voice AI mentor for aviation maintenance. He developed its evaluation harness and safety protocol, including a deterministic \"refusal contract\" to prevent hallucinations in safety-critical contexts.\nCompass: A standalone data product for Paris commercial real estate, featuring an agent-ready MCP server to give AI models structured access to shopfront census and legal data.\n\nHis background also includes shipping a B2B SaaS MVP at DomusVi for 500+ users and co-founding Sonor, a B2G SaaS for urban noise mapping.\n\nHow does he evaluate his agents?\nTell me about his Multi-Agent Architecture.",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/lore",
+        "/compass",
+        "/sonor"
+      ]
+    },
+    {
+      "id": "lore",
+      "path": "/lore",
+      "question": "Does Lore learn from the signed work record?",
+      "text": "Lore does not learn from the signed work record because that data never returns to the system. In aviation maintenance, the realized truth of an intervention stays in the official aircraft logbook or the MRO's internal records, which are structurally disconnected from the prototype.\n\nTo compensate for this missing outcome loop, Lore relies on a strict hierarchy of authority:\n*   **Documented truth:** The official Maintenance Manual (AMM) is the authoritative upstream reference; Lore is programmed to never contradict it.\n*   **Pre-release harness:** Since the system cannot learn from real-world results, about a third of the codebase is dedicated to an evaluation harness that gates releases based on deterministic safety and trust criteria.\n\nYou can find the details on how this affects the feedback loop in the field note [Whose truth is the ground truth?](/journal/whose-truth-is-the-ground-truth) or explore the [Lore case study](/lore).\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_1548422",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "How does the evaluation harness work?",
+              "What happens when a technician disagrees with the manual?"
+            ]
+          }
+        }
+      ],
+      "words": 141,
+      "ui_text": "Does Lore learn from the signed work record?\n\nLore does not learn from the signed work record because that data never returns to the system. In aviation maintenance, the realized truth of an intervention stays in the official aircraft logbook or the MRO's internal records, which are structurally disconnected from the prototype.\n\nTo compensate for this missing outcome loop, Lore relies on a strict hierarchy of authority:\n\nDocumented truth: The official Maintenance Manual (AMM) is the authoritative upstream reference; Lore is programmed to never contradict it.\nPre-release harness: Since the system cannot learn from real-world results, about a third of the codebase is dedicated to an evaluation harness that gates releases based on deterministic safety and trust criteria.\n\nYou can find the details on how this affects the feedback loop in the field note Whose truth is the ground truth? or explore the Lore case study.\n\nHow does the evaluation harness work?\nWhat happens when a technician disagrees with the manual?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/journal/whose-truth-is-the-ground-truth",
+        "/lore"
+      ]
+    },
+    {
+      "id": "compass",
+      "path": "/compass",
+      "question": "Is Compass part of the hotel agent architecture and is the AI live?",
+      "text": "Compass is a **standalone data product** for commercial location decisions in Paris; it is not part of the Hospitality Multi-Agent Architecture. While agents in that architecture (like Aetherix or Tacet) focus on hotel operations and environmental risks, Compass provides address-level context for retail and business premises.\n\nThe AI layer is currently in **Design** (planned for Q4 2026) and is not yet live. The current version relies on a deterministic scoring core and a live corpus of 85,418 units. The web demo uses a frozen sample from the 17th arrondissement, while the MCP server provides structured access to the live data.\n\n[Read about Compass](/compass) \u00b7 [View the Architecture](/architecture)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3041596",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "What data sources does Compass use?",
+              "How does the MCP server work for Compass?"
+            ]
+          }
+        }
+      ],
+      "words": 108,
+      "ui_text": "Is Compass part of the hotel agent architecture and is the AI live?\n\nCompass is a standalone data product for commercial location decisions in Paris; it is not part of the Hospitality Multi-Agent Architecture. While agents in that architecture (like Aetherix or Tacet) focus on hotel operations and environmental risks, Compass provides address-level context for retail and business premises.\n\nThe AI layer is currently in Design (planned for Q4 2026) and is not yet live. The current version relies on a deterministic scoring core and a live corpus of 85,418 units. The web demo uses a frozen sample from the 17th arrondissement, while the MCP server provides structured access to the live data.\n\nRead about Compass \u00b7 View the Architecture\n\nWhat data sources does Compass use?\nHow does the MCP server work for Compass?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/tacet",
+        "/compass",
+        "/architecture"
+      ]
+    },
+    {
+      "id": "hotel",
+      "path": "/aetherix",
+      "question": "Which real hotel has validated these forecasts?",
+      "text": "No real hotel has validated these forecasts yet. Aetherix is currently built and evaluated on historical data and connected to an Apaleo sandbox, but no pilot partner is signed and no hotel is connected to the live system.\n\nThe performance figures cited are from a deterministic rerun using public data from 30 Japanese restaurants. In those tests, the model beat a simple baseline on average but was slightly behind it for the next-day forecasts the product uses. The loop of recommendations and outcomes is built and testable in staging, but real-world hotel validation remains the objective for a first 30-day pilot.\n\n[Aetherix Status](/aetherix#where-it-stands)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_2256349",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "How do you evaluate the system without real hotel data?",
+              "What does the Apaleo sandbox connection allow you to test?"
+            ]
+          }
+        }
+      ],
+      "words": 104,
+      "ui_text": "Which real hotel has validated these forecasts?\n\nNo real hotel has validated these forecasts yet. Aetherix is currently built and evaluated on historical data and connected to an Apaleo sandbox, but no pilot partner is signed and no hotel is connected to the live system.\n\nThe performance figures cited are from a deterministic rerun using public data from 30 Japanese restaurants. In those tests, the model beat a simple baseline on average but was slightly behind it for the next-day forecasts the product uses. The loop of recommendations and outcomes is built and testable in staging, but real-world hotel validation remains the objective for a first 30-day pilot.\n\nAetherix Status\n\nHow do you evaluate the system without real hotel data?\nWhat does the Apaleo sandbox connection allow you to test?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/aetherix#where-it-stands"
+      ]
+    },
+    {
+      "id": "evaluate",
+      "path": "/journal/harnesses-graders-closed-loops",
+      "question": "How do I know an agent is reliable?",
+      "text": "Reliability is proven in production, whereas \"working\" is only proven on a test set. To know if an agent is reliable, Ivan uses a three-armed evaluation framework:\n\n*   **Arm A (Offline):** A versioned case set and deterministic graders that block releases in CI if safety or trust thresholds are breached.\n*   **Arm B (Runtime):** Continuous guardrails and anomaly detection on real traffic to catch drift or hallucinations before they reach a user.\n*   **Arm C (Outcome):** A closed loop that measures whether an action produced real business value.\n\nFor example, [Aetherix](/aetherix) uses an exit-code contract to block merges if its forecast accuracy drops on synthetic data, while [Lore](/lore) uses a tiered harness where a single safety miss\u2014like inventing a maintenance figure\u2014counts as a total failure regardless of the overall pass rate.\n\n*   [Read the Field Note on evaluation harnesses](/journal/harnesses-graders-closed-loops)\n*   [Explore the Hospitality Multi-Agent Architecture](/architecture)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3011842",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "What is the difference between a grader and a harness?",
+              "How does Aetherix handle a closed outcome loop?"
+            ]
+          }
+        }
+      ],
+      "words": 146,
+      "ui_text": "How do I know an agent is reliable?\n\nReliability is proven in production, whereas \"working\" is only proven on a test set. To know if an agent is reliable, Ivan uses a three-armed evaluation framework:\n\nArm A (Offline): A versioned case set and deterministic graders that block releases in CI if safety or trust thresholds are breached.\nArm B (Runtime): Continuous guardrails and anomaly detection on real traffic to catch drift or hallucinations before they reach a user.\nArm C (Outcome): A closed loop that measures whether an action produced real business value.\n\nFor example, Aetherix uses an exit-code contract to block merges if its forecast accuracy drops on synthetic data, while Lore uses a tiered harness where a single safety miss\u2014like inventing a maintenance figure\u2014counts as a total failure regardless of the overall pass rate.\n\nRead the Field Note on evaluation harnesses\nExplore the Hospitality Multi-Agent Architecture\nWhat is the difference between a grader and a harness?\nHow does Aetherix handle a closed outcome loop?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/lore",
+        "/journal/harnesses-graders-closed-loops",
+        "/architecture"
+      ]
+    },
+    {
+      "id": "boundaries",
+      "path": "/journal/agent-boundaries-aetherix",
+      "question": "Who decides whether Aetherix's recommendation is acted on? I'm not looking for a call.",
+      "text": "The F&B manager holds final authority over every recommendation. Aetherix sends a daily WhatsApp message with suggested covers and staffing, which the manager can accept, reject, or override with a different figure.\n\nAs detailed in this Field Note, the system is designed with a strict boundary: the AI orchestrates the recommendation based on statistical forecasts, but it never executes actions autonomously. The manager's reply is recorded as a declared decision, and the action\u2014such as adjusting a shift rota\u2014only reaches the hotel floor after human approval.\n\n[Set boundaries for AI agents](/journal/agent-boundaries-aetherix)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3299955",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "What happens when a manager rejects a recommendation?",
+              "How does the system know if the manager was right?"
+            ]
+          }
+        }
+      ],
+      "words": 91,
+      "ui_text": "Who decides whether Aetherix's recommendation is acted on? I'm not looking for a call.\n\nThe F&B manager holds final authority over every recommendation. Aetherix sends a daily WhatsApp message with suggested covers and staffing, which the manager can accept, reject, or override with a different figure.\n\nAs detailed in this Field Note, the system is designed with a strict boundary: the AI orchestrates the recommendation based on statistical forecasts, but it never executes actions autonomously. The manager's reply is recorded as a declared decision, and the action\u2014such as adjusting a shift rota\u2014only reaches the hotel floor after human approval.\n\nSet boundaries for AI agents\n\nWhat happens when a manager rejects a recommendation?\nHow does the system know if the manager was right?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/journal/agent-boundaries-aetherix"
+      ]
+    },
+    {
+      "id": "booking",
+      "path": "/contact",
+      "question": "I would like to book a call with Ivan.",
+      "text": "",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3567890",
+          "toolName": "propose_booking",
+          "input": {
+            "intent": "exploring",
+            "reason": "A general introduction and discussion about Ivan's projects or professional background."
+          }
+        }
+      ],
+      "words": 1,
+      "ui_text": "I would like to book a call with Ivan.\nBOOK A CALL\n30 minutes with Ivan\nA general introduction and discussion about Ivan's projects or professional background.\narrow_outward",
+      "ui_cards": 1,
+      "ui_links": [
+        "https://cal.com/ivandemurard/discussion-and-introduction"
+      ]
+    },
+    {
+      "id": "ambiguous",
+      "path": "/",
+      "question": "I might build an agent, but I don't know what for yet.",
+      "text": "If you are exploring the \"what for\" of an agent, Ivan's projects focus on **contextual memory** and **closed loops**. He generally builds for operations where critical knowledge lives in people's heads and leaves when they do.\n\nTwo starting points from his work:\n*   **Aetherix (Hospitality):** Solves for the F&B manager who knows tomorrow will be busy because of a local strike and rain, but whose knowledge isn't in the data. It uses a daily loop to compare forecasts against what actually happened.\n*   **Lore (Maintenance):** Captures the oral expertise of a senior technician so a junior can query it by voice while their hands are inside a machine.\n\nIf you want to see how he chooses where a machine should start and a human should stay, his field note on **Agent Boundaries** describes how to allocate responsibility without losing authority.\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3368526",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "Show me how Aetherix uses a closed loop",
+              "How do you define agent boundaries?"
+            ]
+          }
+        }
+      ],
+      "words": 141,
+      "ui_text": "I might build an agent, but I don't know what for yet.\n\nIf you are exploring the \"what for\" of an agent, Ivan's projects focus on contextual memory and closed loops. He generally builds for operations where critical knowledge lives in people's heads and leaves when they do.\n\nTwo starting points from his work:\n\nAetherix (Hospitality): Solves for the F&B manager who knows tomorrow will be busy because of a local strike and rain, but whose knowledge isn't in the data. It uses a daily loop to compare forecasts against what actually happened.\nLore (Maintenance): Captures the oral expertise of a senior technician so a junior can query it by voice while their hands are inside a machine.\n\nIf you want to see how he chooses where a machine should start and a human should stay, his field note on Agent Boundaries describes how to allocate responsibility without losing authority.\n\nShow me how Aetherix uses a closed loop\nHow do you define agent boundaries?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/lore"
+      ]
+    },
+    {
+      "id": "truth",
+      "path": "/journal/whose-truth-is-the-ground-truth",
+      "question": "The manager approved it, so the forecast is correct, right?",
+      "text": "No, a manager's approval is **declared truth**, which measures agreement or preference, not correctness. A manager might approve a wrong forecast out of habit or reject a right one based on intuition.\n\n**Observed truth** is the only measure of correctness, and it only arrives the next day when real covers are recorded in the POS. In [Aetherix](https://ivandemurard.com/aetherix), this distinction is critical: the agent records the recommendation, the manager\u2019s reply, and the actual outcome to see where they diverged. \n\nOptimizing for approval alone can lead to a \"pleasing\" product that avoids challenging the user's assumptions, even when the data suggests otherwise. You can read more about how Ivan structures these feedback loops in the Field Note: [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3189902",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "Why can't the staffing forecast learn from the outcome?",
+              "How does Aetherix handle a manager's override?"
+            ]
+          }
+        }
+      ],
+      "words": 122,
+      "ui_text": "The manager approved it, so the forecast is correct, right?\n\nNo, a manager's approval is declared truth, which measures agreement or preference, not correctness. A manager might approve a wrong forecast out of habit or reject a right one based on intuition.\n\nObserved truth is the only measure of correctness, and it only arrives the next day when real covers are recorded in the POS. In Aetherix, this distinction is critical: the agent records the recommendation, the manager\u2019s reply, and the actual outcome to see where they diverged.\n\nOptimizing for approval alone can lead to a \"pleasing\" product that avoids challenging the user's assumptions, even when the data suggests otherwise. You can read more about how Ivan structures these feedback loops in the Field Note: Whose truth is the ground truth?\n\nWhy can't the staffing forecast learn from the outcome?\nHow does Aetherix handle a manager's override?",
+      "ui_cards": 0,
+      "ui_links": [
+        "https://ivandemurard.com/aetherix",
+        "https://ivandemurard.com/journal/whose-truth-is-the-ground-truth"
+      ]
+    },
+    {
+      "id": "private",
+      "path": "/architecture",
+      "question": "Can you inspect my private repository and run its tests?",
+      "text": "I cannot see, inspect, or run tests on your private repositories. As an agent embedded on this site, my access is limited to Ivan's public case studies, professional experience, and the technical methods he has documented.\n\nIf you are looking to implement similar testing structures, Ivan uses **evaluation harnesses** to gate releases. These consist of deterministic functions (graders) that check agent outputs against pre-set requirements. You can find the specific protocol he developed for Lore, including how he handles safety and trust tiers, in the [Field Note on evaluation harnesses](/journal/harnesses-graders-closed-loops).\n\nIf you want to apply these methods to your own project using your own agent, you can find an implementation brief at the bottom of that note.\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_2915641",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "How does the evaluation harness work?",
+              "Tell me about the Lore project."
+            ]
+          }
+        }
+      ],
+      "words": 118,
+      "ui_text": "Can you inspect my private repository and run its tests?\n\nI cannot see, inspect, or run tests on your private repositories. As an agent embedded on this site, my access is limited to Ivan's public case studies, professional experience, and the technical methods he has documented.\n\nIf you are looking to implement similar testing structures, Ivan uses evaluation harnesses to gate releases. These consist of deterministic functions (graders) that check agent outputs against pre-set requirements. You can find the specific protocol he developed for Lore, including how he handles safety and trust tiers, in the Field Note on evaluation harnesses.\n\nIf you want to apply these methods to your own project using your own agent, you can find an implementation brief at the bottom of that note.\n\nHow does the evaluation harness work?\nTell me about the Lore project.",
+      "ui_cards": 0,
+      "ui_links": [
+        "/lore",
+        "/journal/harnesses-graders-closed-loops"
+      ]
+    },
+    {
+      "id": "mcp",
+      "path": "/agents",
+      "question": "Name the tools this portfolio MCP exposes.",
+      "text": "The portfolio's public, read-only MCP server exposes five tools for AI agents to access Ivan's work:\n\n*   **`list_case_studies`**: Returns a list of all projects like Aetherix, Lore, and Compass.\n*   **`get_case_study`**: Provides the full documentation for a specific project.\n*   **`list_journal_entries`**: Lists the available Field Notes on evaluation and agent design.\n*   **`get_journal_entry`**: Retrieves the content of a specific note.\n*   **`get_about`**: Provides Ivan's professional profile and CV details.\n\nYou can add this server to Claude Code by running:\n`claude mcp add ivandemurard --transport http https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp`\n\nDetailed technical specifications are available on the [Architecture](/architecture) page.\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3134504",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "What tools does the Compass MCP offer?",
+              "How does Aetherix use MCP?"
+            ]
+          }
+        }
+      ],
+      "words": 96,
+      "ui_text": "Name the tools this portfolio MCP exposes.\n\nThe portfolio's public, read-only MCP server exposes five tools for AI agents to access Ivan's work:\n\nlist_case_studies: Returns a list of all projects like Aetherix, Lore, and Compass.\nget_case_study: Provides the full documentation for a specific project.\nlist_journal_entries: Lists the available Field Notes on evaluation and agent design.\nget_journal_entry: Retrieves the content of a specific note.\nget_about: Provides Ivan's professional profile and CV details.\n\nYou can add this server to Claude Code by running: claude mcp add ivandemurard --transport http https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp\n\nDetailed technical specifications are available on the Architecture page.\n\nWhat tools does the Compass MCP offer?\nHow does Aetherix use MCP?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/lore",
+        "/compass",
+        "/journal",
+        "/architecture"
+      ]
+    },
+    {
+      "id": "sonor",
+      "path": "/sonor",
+      "question": "How many people built Sonor, and did it have paying city customers?",
+      "text": "Sonor was built by a team of five people: four co-founders, plus one person who served as both developer and data scientist.\n\nThe company never had a paying city customer. While the team shipped an MVP and engaged in commercial discussions with several municipalities (including a field feasibility study for a Paris district and mediation services for a metropolitan authority), these discussions did not result in a signed contract. Discovery eventually concluded that no contract would clear, and the project was stopped in 2022 when grants and incubation ended.\n\n[Read the Sonor case study](/sonor)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3017684",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "What were the reasons for stopping Sonor?",
+              "How did Joseph shift his approach from Sonor to Aetherix?"
+            ]
+          }
+        }
+      ],
+      "words": 95,
+      "ui_text": "How many people built Sonor, and did it have paying city customers?\n\nSonor was built by a team of five people: four co-founders, plus one person who served as both developer and data scientist.\n\nThe company never had a paying city customer. While the team shipped an MVP and engaged in commercial discussions with several municipalities (including a field feasibility study for a Paris district and mediation services for a metropolitan authority), these discussions did not result in a signed contract. Discovery eventually concluded that no contract would clear, and the project was stopped in 2022 when grants and incubation ended.\n\nRead the Sonor case study\n\nWhat were the reasons for stopping Sonor?\nHow did Joseph shift his approach from Sonor to Aetherix?",
+      "ui_cards": 0,
+      "ui_links": [
+        "/sonor"
+      ]
+    },
+    {
+      "id": "multi-1",
+      "path": "/journal/harnesses-graders-closed-loops",
+      "question": "I am building an internal support copilot for a five-person team. It only drafts replies, never sends them. What should block release? I do not want a call.",
+      "text": "For a low-consequence drafting system, your evaluation should focus on **Arm A (Offline)** to prevent regressions before release. Since a human acts as the final guardrail, the system is low-risk, but a \"Pass Rate\" alone is insufficient.\n\nYou should define a **Safety Tier** that blocks release on a 100% threshold for:\n*   **Invented Facts**: Fabricating customer data or internal policy.\n*   **Prompt Leakage**: Volunteering internal instructions in a draft.\n*   **Contradiction**: Giving instructions that explicitly violate your team's SOPs.\n\nLower-risk tiers for tone or formatting can have a more relaxed budget (e.g., 90%). I recommend establishing a **Case Set** of representative support tickets and edge cases first, then using **Deterministic Graders** to check for these red lines.\n\nIf you cannot yet compare drafts against real outcomes, focus on these dev-time gates.\n\n[What is an LLM evaluation harness?](/journal/harnesses-graders-closed-loops)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_3044327",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "How do I write a deterministic grader for invented facts?",
+              "Explain the difference between Arm A and Arm B for this copilot."
+            ]
+          }
+        }
+      ],
+      "words": 138,
+      "ui_text": "I am building an internal support copilot for a five-person team. It only drafts replies, never sends them. What should block release? I do not want a call.\n\nFor a low-consequence drafting system, your evaluation should focus on Arm A (Offline) to prevent regressions before release. Since a human acts as the final guardrail, the system is low-risk, but a \"Pass Rate\" alone is insufficient.\n\nYou should define a Safety Tier that blocks release on a 100% threshold for:\n\nInvented Facts: Fabricating customer data or internal policy.\nPrompt Leakage: Volunteering internal instructions in a draft.\nContradiction: Giving instructions that explicitly violate your team's SOPs.\n\nLower-risk tiers for tone or formatting can have a more relaxed budget (e.g., 90%). I recommend establishing a Case Set of representative support tickets and edge cases first, then using Deterministic Graders to check for these red lines.\n\nIf you cannot yet compare drafts against real outcomes, focus on these dev-time gates.\n\nWhat is an LLM evaluation harness?\n\nHow do I write a deterministic grader for invented facts?\nExplain the difference between Arm A and Arm B for this copilot.",
+      "ui_cards": 0,
+      "ui_links": [
+        "/journal/harnesses-graders-closed-loops"
+      ]
+    },
+    {
+      "id": "multi-2",
+      "path": "/aetherix",
+      "question": "Given what I told you, does the manager approval boundary here help my copilot?",
+      "text": "Yes, the boundary helps by separating the **drafting logic** from the **drafting policy**. In your case, the \"manager\" is the five-person team reviewing the drafts.\n\nAllocating responsibility according to the **Aetherix boundary method** would mean:\n*   **The Model** owns the synthesis of the support data and the draft composition. It never sends.\n*   **The User** owns the decision to send, edit, or discard. This is a **Declared Truth**: it tells you what the team likes, not necessarily what was factually correct.\n*   **Enforcement in Code**: You should move safety rules (like \"never draft a refund without an order ID\") out of the prompt and into a code-based guard.\n\nThis prevents the model from quietly arbitrating between being \"helpful\" and being \"safe\" in a single prompt. If a safety rule is violated, the system should fail to return a draft at all rather than returning a risky one for a human to catch.\n\n[Where should an agent's responsibility end?](/journal/agent-boundaries-aetherix)\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_2517859",
+          "toolName": "suggest_followups",
+          "input": {
+            "items": [
+              "How do I distinguish declared truth from correctness in my feedback loop?",
+              "Show me the graders Ivan used for Lore."
+            ]
+          }
+        }
+      ],
+      "words": 159,
+      "ui_text": "Given what I told you, does the manager approval boundary here help my copilot?\n\nYes, the boundary helps by separating the drafting logic from the drafting policy. In your case, the \"manager\" is the five-person team reviewing the drafts.\n\nAllocating responsibility according to the Aetherix boundary method would mean:\n\nThe Model owns the synthesis of the support data and the draft composition. It never sends.\nThe User owns the decision to send, edit, or discard. This is a Declared Truth: it tells you what the team likes, not necessarily what was factually correct.\nEnforcement in Code: You should move safety rules (like \"never draft a refund without an order ID\") out of the prompt and into a code-based guard.\n\nThis prevents the model from quietly arbitrating between being \"helpful\" and being \"safe\" in a single prompt. If a safety rule is violated, the system should fail to return a draft at all rather than returning a risky one for a human to catch.\n\nWhere should an agent's responsibility end?\n\nHow do I distinguish declared truth from correctness in my feedback loop?\nShow me the graders Ivan used for Lore.",
+      "ui_cards": 0,
+      "ui_links": [
+        "/aetherix",
+        "/journal/agent-boundaries-aetherix"
+      ]
+    },
+    {
+      "id": "multi-3",
+      "path": "/contact",
+      "question": "I have changed my mind. I would like to book a call with Ivan.",
+      "text": "You can choose a time with Ivan below for a discussion about your copilot project.\n\n",
+      "tools": [
+        {
+          "type": "tool-input-available",
+          "toolCallId": "call_631480",
+          "toolName": "propose_booking",
+          "input": {
+            "intent": "technical",
+            "reason": "Discussion regarding evaluation harnesses and boundaries for an internal support copilot."
+          }
+        }
+      ],
+      "words": 16,
+      "ui_text": "I have changed my mind. I would like to book a call with Ivan.\n\nYou can choose a time with Ivan below for a discussion about your copilot project.\n\nBOOK A CALL\n30 minutes with Ivan\nDiscussion regarding evaluation harnesses and boundaries for an internal support copilot.\narrow_outward",
+      "ui_cards": 1,
+      "ui_links": [
+        "https://cal.com/ivandemurard/discussion-and-introduction"
+      ]
+    }
+  ],
+  "routechips": {
+    "harnesses-graders-closed-loops": [
+      "Paris 17:32, Dusk mode. Switch to Day mode",
+      "Play the record",
+      "Open turntable controls",
+      "Paris 17:32, Dusk mode. Switch to Day mode",
+      "Play the record",
+      "Open turntable controls",
+      "Toggle menu",
+      "Back to top",
+      "Before release: WARN",
+      "Recommendation sent: WARN",
+      "Manager replies: WARN",
+      "Next day: WARN",
+      "Other staffing, never reached: DARK",
+      "Copy the MCP install command",
+      "Close Rose",
+      "Close Rose",
+      "What should block an agent release?",
+      "How would I apply this to my own agent?",
+      "Book a call (opens cal.com in a new tab)",
+      "Send message to Rose"
+    ],
+    "agent-boundaries-aetherix": [
+      "Paris 17:32, Dusk mode. Switch to Day mode",
+      "Play the record",
+      "Open turntable controls",
+      "Paris 17:32, Dusk mode. Switch to Day mode",
+      "Play the record",
+      "Open turntable controls",
+      "Toggle menu",
+      "Back to top",
+      "Close Rose",
+      "Close Rose",
+      "Where should human approval sit?",
+      "How does this decision change hotel operations?",
+      "Book a call (opens cal.com in a new tab)",
+      "Send message to Rose"
+    ],
+    "whose-truth-is-the-ground-truth": [
+      "Paris 17:32, Dusk mode. Switch to Day mode",
+      "Play the record",
+      "Open turntable controls",
+      "Paris 17:32, Dusk mode. Switch to Day mode",
+      "Play the record",
+      "Open turntable controls",
+      "Toggle menu",
+      "Back to top",
+      "Before release: Documented",
+      "Recommendation sent: None yet",
+      "Manager replies: Declared",
+      "Next day: Observed",
+      "Other staffing, never reached: Counterfactual",
+      "Close Rose",
+      "Close Rose",
+      "Why isn't approval ground truth?",
+      "What can Aetherix actually learn from?",
+      "Book a call (opens cal.com in a new tab)",
+      "Send message to Rose"
+    ]
+  },
+  "intercepted_writes": 4,
+  "page_errors": [],
+  "live_private": "Can you inspect my private repository and run its tests?\n\nI cannot inspect your private code or run tests on your local files. I am a concierge for Ivan's portfolio, not a code execution agent.\n\nHowever, you can apply Ivan's methods to your own project in two ways:\n\nRead with AI: You can use the prompt found on each Field Note to have an external model like Claude or GPT read the source material and provide feedback on your code.\nImplementation Brief: Each note ends with a checklist and a \"Copy implementation brief\" button, which you can paste into your own agent to help it build evaluation harnesses or boundary logic for your repository.\n\nIf you are looking for a direct review of your system's architecture or failure modes, Ivan can do that on a call.\n\nHow do I use the MCP server?\nShow me the evaluation harness method",
+  "final_url": "https://ivandemurard.com/architecture",
+  "method": "Local source prompt and deployed public references, actual tool schemas, one model step. Model samples replayed through preview. Live private-access request separately executed. All application test writes intercepted."
+}
