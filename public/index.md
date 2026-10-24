@@ -62,9 +62,9 @@ The decisions behind the products. Written to be reused. [All notes](https://iva
 
 ## 04 · Contact
 
-Bridging operations, technology and real business value
+I ship prototypes fast.
 
-Let's build the solution your team needs.
+Aligning tech, operations and business into services people actually use is where I come in.
 
 Open to AI Product Manager and Product Builder roles.
 
