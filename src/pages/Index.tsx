@@ -197,10 +197,10 @@ const Index = () => {
         <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
           <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
           <h2 className="font-headline font-normal text-primary text-[clamp(40px,4.6vw,68px)] leading-[1.04] tracking-[-0.02em]" data-reveal-child>
-            Bridging operations, technology and real business value
+            I ship prototypes fast.
           </h2>
           <p className="mt-5 font-headline italic accent-ink text-[clamp(24px,2.4vw,34px)] leading-snug" data-reveal-child>
-            Let's build the solution your team needs.
+            Aligning tech, operations and business into services people actually use is where I come in.
           </p>
           <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
             Open to AI Product Manager and Product Builder roles.
