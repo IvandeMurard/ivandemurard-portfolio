@@ -71,7 +71,7 @@ export const Footer = () => {
                 aria-label={label}
                 title={label}
                 onClick={() => track({ label, href, kind })}
-                className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110"
+                className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] -m-3 rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary"
               >
                 <Icon size={20} strokeWidth={1.5} />
               </a>
