@@ -1,5 +1,6 @@
 import { Chat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
+import { finishRoseRequest } from "./roseMeasurement";
 
 /**
  * One Rose conversation per browser tab, owned at module level so it survives
@@ -86,6 +87,12 @@ const makeChat = (id: string, messages: UIMessage[]) =>
   new Chat<UIMessage>({
     id,
     messages,
+    onError: () => finishRoseRequest(true),
+    onFinish: ({ isAbort, isDisconnect, isError, message }) => {
+      const hasAnswer = message.parts.some((p) =>
+        (p.type === "text" && p.text.trim().length > 0) || p.type === "tool-propose_booking");
+      finishRoseRequest(isAbort || isDisconnect || isError || !hasAnswer);
+    },
     transport: new DefaultChatTransport({
       api: `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rose-chat`,
       headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
@@ -112,6 +119,7 @@ export const expireIfIdle = (id: string): Chat<UIMessage> | null => {
 };
 
 export const resetRoseChat = (id: string): Chat<UIMessage> => {
+  finishRoseRequest(true);
   void current?.stop();
   clearStoredMessages();
   current = makeChat(id, []);

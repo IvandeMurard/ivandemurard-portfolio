@@ -37,7 +37,7 @@ const CASE = [
 const ROUTES: Array<{ match: string; prefix?: boolean; prompts: RosePrompt[] }> = [
   { match: "/", prompts: HOME },
   { match: "/aetherix", prompts: [
-    p("How does it decide?", "On Aetherix: how does it decide what to recommend?", "technical"),
+    p("What has actually been built?", "On Aetherix: what has actually been built, and what remains unvalidated?", "technical"),
     p("What happens when it's wrong?", "On Aetherix: what happens when it's wrong?", "technical"),
   ] },
   { match: "/architecture", prompts: [
@@ -66,7 +66,11 @@ const ROUTES: Array<{ match: string; prefix?: boolean; prompts: RosePrompt[] }> 
     p("Summarise this note in 3 points", "Summarise this field note in 3 points.", "exploring"),
     p("Where is this applied?", "Where is this field note applied in the projects on this site?", "technical"),
   ] },
-  ...["/sonor", "/tacet", "/lore", "/compass", "/anima"].map((match) => ({ match, prompts: CASE })),
+  { match: "/lore", prompts: [
+    p("What does the voice mentor actually do?", "On Lore: what does the voice mentor actually do?", "technical"),
+    p("What did the evaluation reveal?", "On Lore: what did the evaluation reveal?", "technical"),
+  ] },
+  ...["/sonor", "/tacet", "/compass", "/anima"].map((match) => ({ match, prompts: CASE })),
 ];
 
 export const getRosePrompts = (pathname: string): RosePrompt[] => {

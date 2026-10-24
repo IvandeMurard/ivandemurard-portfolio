@@ -1,6 +1,9 @@
-import type { ComponentProps, ReactNode } from "react";
+import { createContext, useContext, type ComponentProps, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Streamdown } from "streamdown";
+import { referencePath } from "./roseMeasurement";
+
+const ReferenceClick = createContext<((path: string) => void) | undefined>(undefined);
 
 /**
  * Rose's assistant-message renderer, built on Streamdown (streaming-safe
@@ -46,10 +49,13 @@ export const linkifyProjects = (text: string): string => {
 const linkCls = "text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary";
 
 const RoseLink = ({ href, children }: ComponentProps<"a">) => {
+  const onReference = useContext(ReferenceClick);
   if (!href || !SAFE_HREF.test(href)) return <span>{children}</span>;
-  if (href.startsWith("/")) return <Link to={href} className={linkCls}>{children}</Link>;
+  const target = referencePath(href);
+  const onClick = () => { if (target) onReference?.(target); };
+  if (href.startsWith("/")) return <Link to={href} onClick={onClick} className={linkCls}>{children}</Link>;
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={linkCls}>
+    <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={linkCls}>
       {children}
     </a>
   );
@@ -74,7 +80,8 @@ const components = {
   table: ({ children }: { children?: ReactNode }) => <div>{children}</div>,
 };
 
-export const RoseMarkdown = ({ text, streaming = false }: { text: string; streaming?: boolean }) => (
+export const RoseMarkdown = ({ text, streaming = false, onReferenceClick }: { text: string; streaming?: boolean; onReferenceClick?: (path: string) => void }) => (
+  <ReferenceClick.Provider value={onReferenceClick}>
   <Streamdown
     components={components as never}
     skipHtml
@@ -83,6 +90,7 @@ export const RoseMarkdown = ({ text, streaming = false }: { text: string; stream
   >
     {linkifyProjects(text)}
   </Streamdown>
+  </ReferenceClick.Provider>
 );
 
 /** Backwards-compatible helper used by tests and callers. */

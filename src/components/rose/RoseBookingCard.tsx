@@ -26,6 +26,7 @@ export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardPr
       session_id: sessionId,
       path: typeof window !== "undefined" ? window.location.pathname : "/",
       kind: "booking_clicked",
+      booking_source: "card",
       label_or_question: intent ? `Booking card · ${intent}` : "Booking card",
     });
   };

@@ -36,8 +36,11 @@ const Privacy = () => (
       <P>
         The site records interaction events: that Rose was opened, which suggestion was chosen, the questions you
         type, and whether a call was proposed or the booking link opened, with the page and section you were
-        reading. No IP address, browser or device identifier, or account is stored. A random session number links
-        the events of one visit.
+        reading. It also records request completion or failure, clearing the conversation, and clicks on known
+        portfolio references inside Rose. These additional events contain no question or answer text, and reference
+        destinations exclude query strings. No IP address, browser fingerprint, device details, or account is stored
+        in these interaction records. A random, tab-scoped session number links Rose events across pages, separately
+        from general site link-click records. A reference click is not proof that its destination was read.
       </P>
       <P>
         Email addresses and phone numbers in typed questions are masked automatically before saving. Masking works
