@@ -160,7 +160,7 @@ export const NOW_PROJECTS: NowEntry[] = [
   {
     name: "Lore",
     blurb:
-      "Voice AI mentor that captures tacit expertise from senior technicians and shares it on the shop floor. Built in 24 hours by a team of 4.",
+      "Voice AI mentor that captures tacit expertise from senior technicians and shares it on the shop floor. Built in 24 hours by a team of four.",
     href: "/lore",
     external: false,
     meta: "Case study",

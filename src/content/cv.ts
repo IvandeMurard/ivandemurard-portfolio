@@ -43,7 +43,7 @@ export const CV = {
       dates: "2020 – 2022",
       context: "B2G SaaS helping local governments reduce noise pollution with open data.",
       bullets: [
-        "Took the product from problem discovery to a working MVP and engaged local governments in a sales process, in a team of 4 including a developer and a data scientist.",
+        "Took the product from problem discovery to a working MVP and engaged local governments in a sales process, with four co-founders plus a fifth person covering development and data science.",
         "Raised 20 000 € in grants; incubated at Matrice (Banque des Territoires).",
       ],
     },
@@ -56,7 +56,7 @@ export const CV = {
       bullets: [
         "Owned discovery, specs and a no-code POC (Airtable, Make) to consolidate 10+ legacy tools onto one SaaS platform across 3 business lines.",
         "Aligned 7 C-level stakeholders and coordinated IT, business teams, legal, marketing and an external SaaS vendor.",
-        "Ran deployment and training: 500+ users live across 100+ facilities.",
+        "Prepared deployment and training; rollout planned for 500+ users across 100 care homes.",
       ],
     },
     {
