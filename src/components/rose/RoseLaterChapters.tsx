@@ -110,7 +110,7 @@ const ChapterTrust = ({ ask, compass, reduced }: { ask: Ask; compass: Compass; r
   );
 };
 
-/* ---------------- 05 · Learning from reality ---------------- */
+/* ---------------- 05 · Does Rose actually help? ---------------- */
 const LEVELS = [
   {
     title: "Tested", sub: "Does it behave?",
@@ -126,11 +126,37 @@ const LEVELS = [
   },
   {
     title: "Valuable", sub: "Does it help?",
-    shows: "Nothing yet. Whether a visitor understood the work better, or trusted it more, is not recorded by any event.",
+    shows: "Nothing yet. A follow-up question is not a failure: it can be productive curiosity rather than unresolved confusion, and no event tells the two apart.",
     limits: "This is the question Rose exists to answer, and the one current data cannot.",
     status: "Not measured",
   },
 ];
+
+const FEEDBACK = [
+  { a: "Yes", q: "What helped most?" },
+  { a: "Partly", q: "What would make this more useful?" },
+  { a: "Not yet", q: "What was missing?" },
+];
+
+const FeedbackPrototype = () => {
+  const [pick, setPick] = useState<number | null>(null);
+  return (
+    <figure aria-label="Conceptual feedback prototype" className="mt-12 max-w-xl rounded-sm border border-dashed border-outline-variant bg-surface p-5 md:p-6">
+      <p className="w-fit rounded-full border border-outline-variant px-3 py-1 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Concept · no data is stored or transmitted</p>
+      <p className="mt-5 font-headline text-xl text-primary">Did Rose help you move your thinking forward?</p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {FEEDBACK.map((f, i) => (
+          <Button key={f.a} type="button" variant="outline" size="sm" aria-pressed={pick === i} onClick={() => setPick(i)}
+            className={cn("rounded-full", pick === i && "border-secondary text-primary")}>{f.a}</Button>
+        ))}
+      </div>
+      <p aria-live="polite" className="mt-4 min-h-6 font-body text-sm italic text-on-surface-variant">
+        {pick !== null ? `${FEEDBACK[pick].q} (optional, nothing is sent)` : ""}
+      </p>
+      <figcaption className="mt-2 font-body text-xs text-on-surface-variant">Would appear only after two completed answers, once per session, dismissible.</figcaption>
+    </figure>
+  );
+};
 
 const ChapterLearning = ({ ask, reduced }: { ask: Ask; reduced: boolean }) => {
   const [v, setV] = useState(0);
@@ -140,7 +166,7 @@ const ChapterLearning = ({ ask, reduced }: { ask: Ask; reduced: boolean }) => {
       <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
         <div className="max-w-2xl">
           <Kicker>05 · Learning from reality</Kicker>
-          <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Passing a test is not being useful.</h2>
+          <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Does Rose actually help?</h2>
           <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
             In October I wrote fake conversations and checked Rose against them, then released on a risk-based decision rather than a perfect score. That proves she behaves. It does not prove anyone is better off for asking.
           </p>
@@ -148,13 +174,7 @@ const ChapterLearning = ({ ask, reduced }: { ask: Ask; reduced: boolean }) => {
 
         <figure aria-label="Three kinds of evidence" className="mt-14">
           <Tabs id="learn" label="Level of evidence" options={LEVELS} value={v} onChange={setV} />
-          <div className="mt-6 flex gap-1" aria-hidden="true">
-            {LEVELS.map((_, i) => (
-              <span key={i} className={cn("h-1 flex-1 rounded-full", !reduced && "transition-colors duration-500",
-                i <= v ? (i === 2 ? "bg-outline-variant" : "bg-secondary") : "bg-surface-container-high")} />
-            ))}
-          </div>
-          <div id="learn-panel" role="tabpanel" aria-labelledby={`learn-tab-${v}`} aria-live="polite" className="mt-8 grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]">
+          <div id="learn-panel" role="tabpanel" aria-labelledby={`learn-tab-${v}`} aria-live="polite" className={cn("mt-8 grid gap-8 md:grid-cols-[160px_minmax(0,1fr)]", !reduced && "animate-in fade-in duration-500")} key={v}>
             <p className={cn("font-headline text-3xl italic", v === 2 ? "text-on-surface-variant" : "text-secondary")}>{l.status}</p>
             <div className="max-w-prose space-y-4">
               <p className="font-body text-base leading-relaxed text-on-surface"><span className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">What it shows · </span>{l.shows}</p>
@@ -163,49 +183,53 @@ const ChapterLearning = ({ ask, reduced }: { ask: Ask; reduced: boolean }) => {
           </div>
           <figcaption className="mt-8 font-body text-xs text-on-surface-variant">Sources: P4 measurement definitions and P5 verification, October 2026. No production outcome figures are shown because none are established.</figcaption>
         </figure>
+        <p className="mt-12 max-w-xl font-headline text-2xl italic leading-snug text-secondary">A useful answer doesn't always end the conversation. Sometimes it improves the next question.</p>
+        <FeedbackPrototype />
         <div className="mt-10">{ask("How do you know an agent is working?")}</div>
       </div>
     </section>
   );
 };
 
-/* ---------------- 06 · What's next ---------------- */
-const FRAMES = [
-  { t: "Now", d: "You read a case study and type a question beside it. Rose answers from the page you are on." },
-  { t: "Hypothesis", d: "You listen to a case study while walking, and ask aloud what a figure means. The answer points back to the written evidence." },
-  { t: "Hypothesis", d: "The same content adapts to how you arrived: a quick summary, a technical path, or a spoken walkthrough, all from one source." },
+/* ---------------- 06 · Adaptive reading ---------------- */
+const BASE = "Breakfast forecast: 84 covers. Staff: 4 front of house.";
+const MODES = [
+  { title: "Point to evidence", sub: "Where does it come from?", hi: "84 covers", note: "72 rooms booked plus 12 typical Tuesday walk-ins. Figures in the case study mock-up are illustrative." },
+  { title: "Explain differently", sub: "In plain words", hi: "4 front of house", note: "For a manager: one more person than last Tuesday, because more guests are expected." },
+  { title: "Show connections", sub: "What else relates?", hi: "forecast", note: "The same forecast feeds the Field Note on whose truth an agent should learn from." },
+  { title: "Another modality", sub: "Voice, one option", hi: "", note: "Hypothesis: the same passage, read aloud while walking, with the answer pointing back to the text. No voice feature exists." },
 ];
+
+const Highlighted = ({ text, hi }: { text: string; hi: string }) => {
+  if (!hi || !text.includes(hi)) return <>{text}</>;
+  const [a, b] = text.split(hi);
+  return <>{a}<mark className="rounded-sm bg-secondary/20 px-0.5 text-primary">{hi}</mark>{b}</>;
+};
 
 const ChapterNext = ({ compass }: { compass: Compass }) => {
   const [v, setV] = useState(0);
+  const m = MODES[v];
   return (
     <section aria-labelledby="ch-next" className="border-y border-outline-variant bg-surface-container-low">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:py-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-        <div className="max-w-xl">
-          <Kicker>06 · What's next?</Kicker>
-          <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">From a chat box to an adaptive reading experience.</h2>
-          <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
-            Rose is less a chatbot than an experiment in AI-mediated content: dense proof, made queryable in context. Voice is one modality I want to explore, alongside others, without replacing the written record.
-          </p>
-          <div className="mt-10 w-28 text-secondary">{compass(300)}</div>
+      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_160px] lg:items-end">
+          <div className="max-w-2xl">
+            <Kicker>06 · Adaptive reading</Kicker>
+            <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">What if the content could respond, too?</h2>
+            <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
+              Rose is less a chatbot than an experiment in AI-mediated content: dense proof, made queryable in context. The next step is the page itself adapting to the question, with voice as one modality among several.
+            </p>
+          </div>
+          <div className="mx-auto w-24 text-secondary lg:w-32">{compass(300)}</div>
         </div>
-        <figure aria-label="Conceptual storyboard, not a working feature" className="self-start rounded-sm border border-dashed border-outline-variant bg-surface p-5 md:p-8">
-          <p className="w-fit rounded-full border border-outline-variant px-3 py-1 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Concept · no voice feature exists</p>
-          <ol className="mt-6 space-y-2">
-            {FRAMES.map((f, i) => (
-              <li key={i}>
-                <Button type="button" variant="ghost" aria-pressed={v === i} onClick={() => setV(i)}
-                  className={cn("h-auto w-full items-start justify-start whitespace-normal rounded-sm border px-4 py-3 text-left hover:bg-surface-container-low",
-                    v === i ? "border-secondary" : "border-transparent")}>
-                  <span className="flex flex-col gap-1">
-                    <span className={cn("font-label text-[10px] uppercase tracking-[0.2em]", f.t === "Now" ? "text-secondary" : "text-on-surface-variant")}>{String(i + 1).padStart(2, "0")} · {f.t}</span>
-                    <span className="font-body text-base font-normal leading-relaxed text-on-surface">{f.d}</span>
-                  </span>
-                </Button>
-              </li>
-            ))}
-          </ol>
-          <figcaption className="mt-6 font-body text-xs text-on-surface-variant">Frames 2 and 3 are design hypotheses. Nothing on this page records or plays audio.</figcaption>
+        <figure aria-label="Conceptual adaptive reading demo, not a working feature" className="mt-14 rounded-sm border border-dashed border-outline-variant bg-surface p-5 md:p-8">
+          <p className="w-fit rounded-full border border-outline-variant px-3 py-1 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Concept · not a working feature</p>
+          <div className="mt-6"><Tabs id="next" label="Adaptation" options={MODES} value={v} onChange={setV} /></div>
+          <div id="next-panel" role="tabpanel" aria-labelledby={`next-tab-${v}`} aria-live="polite" className="mt-8 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <p className="font-mono text-sm leading-relaxed text-on-surface"><Highlighted text={BASE} hi={m.hi} /></p>
+            <p className="border-l-2 border-secondary pl-4 font-body text-sm italic leading-relaxed text-on-surface-variant">{m.note}</p>
+          </div>
+          <figcaption className="mt-6 font-body text-xs text-on-surface-variant">Example based on the Aetherix message mock-up. Nothing on this page records or plays audio.</figcaption>
         </figure>
       </div>
     </section>
@@ -213,19 +237,30 @@ const ChapterNext = ({ compass }: { compass: Compass }) => {
 };
 
 /* ---------------- Closing ---------------- */
+const PATHS = [
+  { t: "Answer", d: "Rose replies from the published pages, with links to the evidence." },
+  { t: "Explore", d: "A better next question is often the value created." },
+  { t: "Connect", d: "When context matters, a human conversation adds what Rose cannot." },
+];
+
 const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
   <section aria-labelledby="ch-close">
     <div className="mx-auto flex max-w-3xl flex-col items-center px-6 py-28 text-center md:py-36">
       <div className="w-20 text-secondary">{compass(0)}</div>
       <h2 id="ch-close" className="mt-10 font-headline text-3xl leading-tight text-primary md:text-5xl">
-        Can a conversational portfolio help visitors explore the work more deeply, <span className="italic text-secondary">on their own terms?</span>
+        Can a conversational portfolio help us explore the work more deeply, <span className="italic text-secondary">and ask better questions along the way?</span>
       </h2>
-      <p className="mt-8 max-w-xl font-body text-base leading-relaxed text-on-surface md:text-lg">
-        The capabilities are built and the behaviour is tested. Whether it helps is still open. The most useful evidence is the next question someone asks.
-      </p>
-      <div className="mt-10">{ask("What has Ivan actually built?")}</div>
+      <ol className="mt-12 grid w-full gap-6 text-left md:grid-cols-3">
+        {PATHS.map((p, i) => (
+          <li key={p.t} className="border-t border-outline-variant pt-4">
+            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">{String(i + 1).padStart(2, "0")} · {p.t}</p>
+            <p className="mt-2 font-body text-base leading-relaxed text-on-surface">{p.d}</p>
+          </li>
+        ))}
+      </ol>
+      <div className="mt-12">{ask("What has Ivan actually built?")}</div>
       <p className="mt-10 font-body text-sm text-on-surface-variant">
-        Already have a reason to talk? <Link to="/contact" className="underline underline-offset-4 hover:text-primary">Contact Ivan</Link>
+        Some questions deserve a conversation. <Link to="/contact" className="underline underline-offset-4 hover:text-primary">Talk to Ivan</Link>
       </p>
     </div>
   </section>
