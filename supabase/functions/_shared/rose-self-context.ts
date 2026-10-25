@@ -17,11 +17,16 @@ No public historical-reference URL exists. Do not turn source headings into anch
 Do not offer booking as a follow-up to a self-history or identity question without contact intent. A question about privacy is not booking intent.`;
 const selfTopic = /\brose\b|\byou(?:r|rs|rself)?\b.*\b(built|design|chang|evol|book|remember|memory|stor|log|measure|work|voice|screen|cursor|instruction|learn|aware|annotat|highlight|feedback|page|july|august)|\b(who|what) are you\b|\bare you ivan\b|\bmy (screen|cursor|conversation|questions)\b|\bvisitors?\b.*\b(booking|prompt|research|dislike)/i;
 
-/** Only bounded user-authored turns select references, never assistant/tool claims. */
+/** Only user-authored turns select references, never assistant or tool claims.
+ * After leaving Rose's page, retain her history for a referential follow-up,
+ * not indefinitely for every unrelated topic on another project page.
+ */
 export function selectRoseHistory(path: string, question: string, previousQuestions: string[] = []): boolean {
   const route = path.split(/[?#]/)[0].replace(/\/+$/, "");
   if (route === "/rose-design-lab") return true;
-  return [question, ...previousQuestions.slice(-20)].some(q => selfTopic.test(q.slice(0, 2000)));
+  if (selfTopic.test(question.slice(0, 2000))) return true;
+  const refersBack = /\b(you|your|yours|yourself|that|those|this)\b/i.test(question);
+  return refersBack && previousQuestions.slice(-4).some(q => selfTopic.test(q.slice(0, 2000)));
 }
 
 export function roseHistoryLayer(selected: boolean, reference: string | null = ROSE_HISTORY_REFERENCE): string {
