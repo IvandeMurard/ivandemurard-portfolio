@@ -40,6 +40,10 @@ describe("Stray model tool syntax", () => {
     const raw = "I can explain Ivan's work.\npropose_booking(intent: \"product\", reason: \"A call\")";
     expect(stripLeakedRoseToolCalls(raw)).toBe("I can explain Ivan's work.");
   });
+  it("also suppresses an incomplete tool invocation during streaming", () => {
+    const partial = "The change was implemented in August.\nsuggest_followups(items: [";
+    expect(stripLeakedRoseToolCalls(partial)).toBe("The change was implemented in August.");
+  });
   it("preserves a legitimate fenced-code example", () => {
     const raw = "Example syntax:\n\n```text\nsuggest_followups(items: [\"Example?\"])\n```";
     expect(stripLeakedRoseToolCalls(raw)).toBe(raw);
