@@ -127,15 +127,15 @@ const LEVELS = [
   },
   {
     title: "Does it create value?", sub: "For the visitor",
-    shows: "Nothing yet. A follow-up question is not a failure: it can be productive curiosity rather than unresolved confusion, and no event tells the two apart.",
+    shows: "Visitor value is not yet established. A follow-up question might signal curiosity, or confusion. Understanding the difference requires feedback from the person asking.",
     limits: "This is the question Rose exists to answer, and the one current data cannot.",
     status: "Not yet established",
   },
 ];
 
-const ChapterLearning = ({ ask }: { ask: Ask; reduced: boolean }) => (
+export const ChapterLearning = () => (
   <section aria-labelledby="ch-learn">
-    <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+    <div className="mx-auto max-w-6xl px-6 pt-24 md:pt-32">
       <div className="max-w-3xl">
         <Kicker>05 · Learning from reality</Kicker>
         <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-6xl">Does Rose actually help?</h2>
@@ -143,8 +143,9 @@ const ChapterLearning = ({ ask }: { ask: Ask; reduced: boolean }) => (
           There are three questions behind that one. Tests can answer the first. Operational measurements can inform the second. The third needs something neither can supply: visitors.
         </p>
       </div>
-
-      <div className="mt-16 grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+    </div>
+    <div className="mx-auto max-w-7xl px-6 pb-24 md:pb-32">
+      <div className="mt-16 grid gap-12 xl:grid-cols-[minmax(0,1fr)_20rem] xl:gap-20">
         <ol aria-label="Three questions about Rose" className="border-t border-outline-variant">
           {LEVELS.map((l, i) => (
             <li key={l.title} className="grid gap-4 border-b border-outline-variant py-10 md:grid-cols-[4rem_minmax(0,1fr)] md:gap-8">
@@ -160,17 +161,20 @@ const ChapterLearning = ({ ask }: { ask: Ask; reduced: boolean }) => (
           <li className="pt-6 font-body text-xs text-on-surface-variant">Sources: P4 measurement definitions and P5 verification, October 2026. No outcome figures are shown because none are established.</li>
         </ol>
 
-        <aside aria-labelledby="ch-learn-invite" className="lg:sticky lg:top-28 lg:self-start">
-          <div className="border-l-2 border-secondary pl-6 md:pl-8">
+        <aside aria-labelledby="ch-learn-invite" className="self-start xl:[@media(min-height:840px)]:sticky xl:[@media(min-height:840px)]:top-28">
+          <div className="border-l-2 border-secondary pl-5">
             <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Where the evidence runs out</p>
-            <p id="ch-learn-invite" className="mt-5 font-headline text-3xl leading-snug text-primary md:text-4xl">
-              The third question can only be answered by someone reading.
+            <h3 id="ch-learn-invite" className="mt-4 font-headline text-3xl leading-snug text-primary">
+              There's one question I can't answer alone.
+            </h3>
+            <p className="mt-4 font-body text-base leading-relaxed text-on-surface">
+              Does Rose help you understand the work, discover a useful connection or ask a better question? Try her on something you're genuinely curious about.
             </p>
-            <p className="mt-6 font-body text-base leading-relaxed text-on-surface">
-              Ask Rose something about the work. If her answer leads you to a better next question, that is the value this chapter cannot yet measure.
-            </p>
-            <p className="mt-6 font-headline text-xl italic leading-snug text-secondary">A useful answer doesn't always end the conversation. Sometimes it improves the next question.</p>
-            <div className="mt-8">{ask("How do you know an agent is working?")}</div>
+            <p className="mt-4 font-headline text-xl italic leading-snug text-secondary">A useful answer doesn't always end the conversation. Sometimes it improves the next question.</p>
+            <Button type="button" variant="link" onClick={() => window.dispatchEvent(new Event("rose:open"))}
+              className="mt-5 h-auto max-w-full justify-start whitespace-normal rounded-sm p-0 text-left font-label text-sm text-primary underline underline-offset-4 hover:bg-transparent hover:text-secondary">
+              Ask Rose your question <span aria-hidden="true">↗</span>
+            </Button>
           </div>
         </aside>
       </div>
@@ -267,7 +271,7 @@ const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
 export const RoseLaterChapters = ({ ask, compass, reduced }: { ask: Ask; compass: Compass; reduced: boolean }) => (
   <>
     <ChapterTrust ask={ask} compass={compass} reduced={reduced} />
-    <ChapterLearning ask={ask} reduced={reduced} />
+    <ChapterLearning />
     <ChapterNext compass={compass} reduced={reduced} />
     <Closing ask={ask} compass={compass} />
   </>
