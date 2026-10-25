@@ -249,7 +249,6 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
   if (!selected) return undefined;
   const path = clean(ctx?.page?.path, 120).split(/[?#]/)[0].replace(/\/+$/, "") || "/";
   const question = (ctx?.question ?? "").slice(0, 2000);
-  const section = clean(ctx?.page?.section_heading, 120);
   const named = (["sonor", "aetherix", "tacet", "lore", "architecture", "anima", "compass", "cv"] as const)
     .filter(slug => new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question));
   // Chapter 06 is an Aetherix receipt demo, not Rose editing the DOM.
