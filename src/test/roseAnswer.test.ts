@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bookingSafeAnswer, normalizeRoseText, roseCvHref } from "@/components/rose/roseAnswer";
+import { bookingSafeAnswer, normalizeRoseText, roseCvHref, stripLeakedRoseToolCalls } from "@/components/rose/roseAnswer";
 import { CAL_URL } from "@/components/rose/roseConfig";
 
 describe("One booking destination", () => {
@@ -29,5 +29,23 @@ describe("Generated Rose prose", () => {
     expect(roseCvHref("/cv.md")).toBe("/cv");
     expect(roseCvHref("https://ivandemurard.com/cv.md")).toBe("/cv");
     expect(roseCvHref("/Ivan_de_Murard_CV.md")).toBe("/Ivan_de_Murard_CV.md");
+  });
+});
+describe("Stray model tool syntax", () => {
+  it("removes a leaked follow-up invocation without hiding the substantive answer", () => {
+    const raw = "In August 2026, Rose adopted contextual starters.\n\nsuggest_followups(items: [\"How did that work?\"])";
+    expect(stripLeakedRoseToolCalls(raw)).toBe("In August 2026, Rose adopted contextual starters.");
+  });
+  it("removes a leaked booking-tool call, not the actual visitor-facing explanation", () => {
+    const raw = "I can explain Ivan's work.\npropose_booking(intent: \"product\", reason: \"A call\")";
+    expect(stripLeakedRoseToolCalls(raw)).toBe("I can explain Ivan's work.");
+  });
+  it("preserves a legitimate fenced-code example", () => {
+    const raw = "Example syntax:\n\n```text\nsuggest_followups(items: [\"Example?\"])\n```";
+    expect(stripLeakedRoseToolCalls(raw)).toBe(raw);
+  });
+  it("does not remove ordinary discussions of tools or follow-up questions", () => {
+    const raw = "I may suggest follow-ups, but only when you want to explore more.";
+    expect(stripLeakedRoseToolCalls(raw)).toBe(raw);
   });
 });
