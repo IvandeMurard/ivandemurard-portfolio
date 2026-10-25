@@ -1,5 +1,20 @@
 import { CAL_URL } from "./roseConfig";
 
+/** Hide accidental textual tool invocations, not legitimate fenced code examples.
+ * The model must call UI tools structurally. This is a rendering safety net,
+ * not evidence that the model respected the tool contract.
+ */
+export const stripLeakedRoseToolCalls = (text: string): string =>
+  text.split(/(```[\s\S]*?(?:```|$))/g)
+    .map((part, index) => index % 2 === 1 ? part : part.replace(
+      /^[ \t]*(?:suggest_followups|propose_booking)\s*\([^\r\n]*\)\s*$/gm, "",
+    ))
+    .join("")
+    .replace(/\n[ \t]+\n/g, "\n\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+
 /** Normalize generated prose only, preserving code and link destinations. */
 export const normalizeRoseText = (text: string): string =>
   text.split(/(```[\s\S]*?(?:```|$)|`[^`\n]*`|https?:\/\/[^\s)<>]+|\]\([^\n)]*\))/g)
