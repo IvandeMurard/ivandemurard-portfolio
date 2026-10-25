@@ -133,68 +133,50 @@ const LEVELS = [
   },
 ];
 
-const FEEDBACK = [
-  { a: "Yes", q: "What helped most?" },
-  { a: "Partly", q: "What would make this more useful?" },
-  { a: "Not yet", q: "What was missing?" },
-];
-
-const FeedbackPrototype = () => {
-  const [pick, setPick] = useState<number | null>(null);
-  return (
-    <figure aria-label="Conceptual feedback prototype" className="mt-12 max-w-xl rounded-sm border border-dashed border-outline-variant bg-surface p-5 md:p-6">
-      <p className="w-fit rounded-full border border-outline-variant px-3 py-1 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Concept · no data is stored or transmitted</p>
-      <p className="mt-5 font-label text-xs uppercase tracking-[0.2em] text-secondary">Help Rose get better</p>
-      <p className="mt-2 font-headline text-xl text-primary">Did Rose help you move your thinking forward?</p>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {FEEDBACK.map((f, i) => (
-          <Button key={f.a} type="button" variant="outline" size="sm" aria-pressed={pick === i} onClick={() => setPick(i)}
-            className={cn("rounded-full", pick === i && "border-secondary text-primary")}>{f.a}</Button>
-        ))}
+const ChapterLearning = ({ ask }: { ask: Ask; reduced: boolean }) => (
+  <section aria-labelledby="ch-learn">
+    <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <div className="max-w-3xl">
+        <Kicker>05 · Learning from reality</Kicker>
+        <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-6xl">Does Rose actually help?</h2>
+        <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-xl">
+          There are three questions behind that one. Tests can answer the first. Operational measurements can inform the second. The third needs something neither can supply: visitors.
+        </p>
       </div>
-      <p aria-live="polite" className="mt-4 min-h-6 font-body text-sm italic text-on-surface-variant">
-        {pick !== null ? `${FEEDBACK[pick].q} (optional, nothing is sent)` : ""}
-      </p>
-      <figcaption className="mt-2 font-body text-xs text-on-surface-variant">A better next question counts as a good outcome, not a failure.</figcaption>
-    </figure>
-  );
-};
 
-const ChapterLearning = ({ ask, reduced }: { ask: Ask; reduced: boolean }) => {
-  const [v, setV] = useState(0);
-  const l = LEVELS[v];
-  return (
-    <section aria-labelledby="ch-learn">
-      <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
-        <div className="max-w-2xl">
-          <Kicker>05 · Learning from reality</Kicker>
-          <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Does Rose actually help?</h2>
-          <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
-            There are three different questions behind that one. Does Rose behave as intended? Does she work reliably in practice? And most importantly, does she help visitors understand something or discover what to ask next?
-          </p>
-          <p className="mt-4 font-body text-base leading-relaxed text-on-surface md:text-lg">
-            Tests can help answer the first. Operational measurements can inform the second. The third requires evidence of genuine visitor value.
-          </p>
-        </div>
+      <div className="mt-16 grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+        <ol aria-label="Three questions about Rose" className="border-t border-outline-variant">
+          {LEVELS.map((l, i) => (
+            <li key={l.title} className="grid gap-4 border-b border-outline-variant py-10 md:grid-cols-[4rem_minmax(0,1fr)] md:gap-8">
+              <span aria-hidden className="font-headline text-4xl italic leading-none text-outline-variant md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 className="font-headline text-2xl text-primary md:text-3xl">{l.title}</h3>
+                <p className={cn("mt-2 font-headline text-lg italic", i === 2 ? "text-on-surface-variant" : "text-secondary")}>{l.status}</p>
+                <p className="mt-5 max-w-prose font-body text-base leading-relaxed text-on-surface">{l.shows}</p>
+                <p className="mt-3 max-w-prose font-body text-sm leading-relaxed text-on-surface-variant"><span className="font-label text-xs uppercase tracking-[0.2em]">Limits · </span>{l.limits}</p>
+              </div>
+            </li>
+          ))}
+          <li className="pt-6 font-body text-xs text-on-surface-variant">Sources: P4 measurement definitions and P5 verification, October 2026. No outcome figures are shown because none are established.</li>
+        </ol>
 
-        <figure aria-label="Three questions about Rose" className="mt-14">
-          <Tabs id="learn" label="Question" options={LEVELS} value={v} onChange={setV} />
-          <div id="learn-panel" role="tabpanel" aria-labelledby={`learn-tab-${v}`} aria-live="polite" className={cn("mt-8 grid gap-8 md:grid-cols-[200px_minmax(0,1fr)]", !reduced && "animate-in fade-in duration-500")} key={v}>
-            <p className={cn("font-headline text-2xl italic leading-snug", v === 2 ? "text-on-surface-variant" : "text-secondary")}>{l.status}</p>
-            <div className="max-w-prose space-y-4">
-              <p className="font-body text-base leading-relaxed text-on-surface"><span className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">What it shows · </span>{l.shows}</p>
-              <p className="font-body text-base leading-relaxed text-on-surface"><span className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">What it cannot · </span>{l.limits}</p>
-            </div>
+        <aside aria-labelledby="ch-learn-invite" className="lg:sticky lg:top-28 lg:self-start">
+          <div className="border-l-2 border-secondary pl-6 md:pl-8">
+            <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Where the evidence runs out</p>
+            <p id="ch-learn-invite" className="mt-5 font-headline text-3xl leading-snug text-primary md:text-4xl">
+              The third question can only be answered by someone reading.
+            </p>
+            <p className="mt-6 font-body text-base leading-relaxed text-on-surface">
+              Ask Rose something about the work. If her answer leads you to a better next question, that is the value this chapter cannot yet measure.
+            </p>
+            <p className="mt-6 font-headline text-xl italic leading-snug text-secondary">A useful answer doesn't always end the conversation. Sometimes it improves the next question.</p>
+            <div className="mt-8">{ask("How do you know an agent is working?")}</div>
           </div>
-          <figcaption className="mt-8 font-body text-xs text-on-surface-variant">Sources: P4 measurement definitions and P5 verification, October 2026. No production outcome figures are shown because none are established.</figcaption>
-        </figure>
-        <p className="mt-12 max-w-xl font-headline text-2xl italic leading-snug text-secondary">A useful answer doesn't always end the conversation. Sometimes it improves the next question.</p>
-        <FeedbackPrototype />
-        <div className="mt-10">{ask("How do you know an agent is working?")}</div>
+        </aside>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 /* ---------------- 06 · Adaptive reading ---------------- */
 const RECEIPT_LINES = RECEIPT.split("\n");
