@@ -1,5 +1,5 @@
 # Rose Stage 2
-- [ ] Refine Chapter 05 invitation, alignment and dock clearance; verify themes, viewport sizes and visitor-led handoff without publishing.
+- [x] Refine Chapter 05 invitation, alignment and desktop dock clearance; 86 tests and 12 Day/Dusk viewport checks pass, synthetic continuity verified, limits in docs/rose-ch05-final-verification.md; not published.
 - [ ] Future response-level feedback integration: separate workstream, collection and persistence are not enabled or authorized here.
 - [x] Chapters 04 to 06 and closing in design lab, desktop/mobile Day checked, 85 tests pass.
 - [ ] Dusk, reduced motion, keyboard and live Rose handoff review; Rose history knowledge spec.
