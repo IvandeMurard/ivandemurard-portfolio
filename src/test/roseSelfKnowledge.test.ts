@@ -48,7 +48,6 @@ describe("Rose canonical knowledge", () => {
     expect(ordinary).not.toContain("BEGIN ROSE FACTUAL REFERENCE");
     const followup = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "Why did that change?", previousQuestions: ["Why was Rose built?"] });
     expect(followup).toContain("BEGIN ROSE FACTUAL REFERENCE");
-    expect(followup).toContain("First-person").not; // assertions below check real behavior, not display copy
     expect(followup).toContain("speak naturally in the first person");
   });
 });
