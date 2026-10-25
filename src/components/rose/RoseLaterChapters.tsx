@@ -2,6 +2,7 @@ import { useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { RECEIPT } from "@/components/atherix/AetherixDailyReceipt";
 
 /**
  * Design-lab chapters 04 to 06 and the closing of Rose Prototype C.
@@ -285,7 +286,7 @@ export const RoseLaterChapters = ({ ask, compass, reduced }: { ask: Ask; compass
   <>
     <ChapterTrust ask={ask} compass={compass} reduced={reduced} />
     <ChapterLearning ask={ask} reduced={reduced} />
-    <ChapterNext compass={compass} />
+    <ChapterNext compass={compass} reduced={reduced} />
     <Closing ask={ask} compass={compass} />
   </>
 );
