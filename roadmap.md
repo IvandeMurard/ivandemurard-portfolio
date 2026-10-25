@@ -1,3 +1,7 @@
+# Rose Stage 2
+- [x] Chapters 04 to 06 and closing in design lab, desktop/mobile Day checked, 85 tests pass.
+- [ ] Dusk, reduced motion, keyboard and live Rose handoff review; Rose history knowledge spec.
+
 # Rose prototype C refinement
 - [x] Refine the three-scene narrative and synchronize historical interaction, keeping A and B available.
 - [x] Verify both themes, desktop/mobile, keyboard, reduced motion and a controlled Rose handoff without production events.
