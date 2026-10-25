@@ -52,7 +52,7 @@ async function run(journey: typeof journeys[number]) {
     const previousQuestions = messages.filter(m => m.role === "user").flatMap(m => m.parts.flatMap(p => p.type === "text" ? [p.text] : []));
     messages.push({ id: `${journey.id}-${index}-u`, role: "user", parts: [{ type: "text", text: turn.question }] });
     try {
-      const page = { path: turn.path, ...(turn.chapter ? { section_id: "chapter-03", section_heading: "Chapter 03: Context changes the conversation" } : {}) };
+      const page = { path: turn.path, ...(turn.chapter ? { section_id: "scene-c", section_heading: "Start with the work." } : {}) };
       let system = await getRoseSystemPrompt({ page, question: turn.question, previousQuestions });
       if (turn.unavailable) system = system.replace(/--- BEGIN ROSE FACTUAL REFERENCE[\s\S]*?--- END ROSE FACTUAL REFERENCE ---/, "") + "\n" + roseHistoryLayer(true, null);
       const result = streamText({ model: provider("google/gemini-3-flash-preview"), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools });
