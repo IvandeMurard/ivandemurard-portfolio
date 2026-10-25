@@ -7,7 +7,7 @@ import { CAL_URL } from "./roseConfig";
 export const stripLeakedRoseToolCalls = (text: string): string =>
   text.split(/(```[\s\S]*?(?:```|$))/g)
     .map((part, index) => index % 2 === 1 ? part : part.replace(
-      /^[ \t]*(?:suggest_followups|propose_booking)\s*\([^\r\n]*\)\s*$/gm, "",
+      /^[ \t]*(?:suggest_followups|propose_booking)[ \t]*\([^\r\n]*$/gm, "",
     ))
     .join("")
     .replace(/\n[ \t]+\n/g, "\n\n")
