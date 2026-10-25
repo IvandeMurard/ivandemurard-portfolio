@@ -47,7 +47,7 @@ const Tabs = ({ label, options, value, onChange, id }: {
 const TRUST = [
   {
     title: "Before 24 October", sub: "Booking with context",
-    leaves: ["Your name and email", "Up to 20 messages of the conversation", "A notification email to Ivan"],
+    leaves: ["The booking request", "Up to 20 messages of the conversation", "A notification email to Ivan"],
     stays: ["Nothing else was promised"],
     note: "Found in a read-only audit: the booking card sent recent messages with the request, without a notice saying so.",
   },
