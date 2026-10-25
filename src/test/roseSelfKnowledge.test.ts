@@ -1,7 +1,8 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { getRosePrompts } from "../content/rosePrompts";
-import { selectRoseHistory, roseHistoryLayer } from "../../supabase/functions/_shared/rose-self-context";
+import { selectRoseHistory, roseHistoryLayer, ROSE_CANONICAL_ANCHORS } from "../../supabase/functions/_shared/rose-self-context";
 import { getRoseSystemPrompt } from "../../supabase/functions/_shared/rose-context";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -50,4 +51,53 @@ describe("Rose canonical knowledge", () => {
     expect(followup).toContain("BEGIN ROSE FACTUAL REFERENCE");
     expect(followup).toContain("speak naturally in the first person");
   });
+  it("derives exact date and retention anchors from the single canonical history", () => {
+    expect(ROSE_CANONICAL_ANCHORS.launchDate).toBe("2026-07-21");
+    expect(ROSE_CANONICAL_ANCHORS.eventPurgeDays).toBe("90");
+  });
+
+  it("prioritizes Rose evidence over unrelated case studies on the lab route", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "scene-c", section_heading: "Start with the work." },
+      question: "What does Ivan measure?",
+    });
+    expect(answer).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(answer).toContain("launch (2026-07-21, implemented)");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(answer).toContain("On the Rose design-lab page");
+  });
+
+  it("keeps named external project evidence available from Rose's case study", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "How is Rose's approach different from Aetherix?",
+    });
+    expect(answer).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: sonor ---");
+  });
+
+  it("retains the current project's evidence in a Rose-to-Aetherix journey", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "How do your human-agency principles relate to the manager here?",
+      previousQuestions: ["Why were you designed around booking first?"],
+    });
+    expect(answer).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(answer).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
+  });
+
+  it("uses exactly the same tool descriptions in evaluation and live handler", () => {
+    const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
+    const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
+    for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION"]) {
+      expect(edge).toContain(name);
+      expect(harness).toContain(name);
+    }
+  });
+
 });
