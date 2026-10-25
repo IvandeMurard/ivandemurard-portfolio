@@ -96,6 +96,17 @@ describe("Rose canonical knowledge", () => {
     expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
   });
 
+  it("keeps an ambiguous historical follow-up about Rose focused after navigation", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "How do you know this is better?",
+      previousQuestions: ["Why were you built for booking?", "What made you change?"],
+    });
+    expect(answer).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
