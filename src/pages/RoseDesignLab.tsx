@@ -479,7 +479,6 @@ const RoseDesignLab = () => {
   return (
     <SiteLayout>
       <Seo title="Rose design lab" description="Internal prototype, not published." noIndex path="/rose-design-lab" />
-      <LabCursor />
       <div className="mt-20 border-b border-outline-variant bg-surface-container-low">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
           <span className="uppercase tracking-[0.2em] text-on-surface-variant">Design lab · unlinked prototype · not published</span>
