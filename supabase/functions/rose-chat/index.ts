@@ -9,6 +9,7 @@ import {
 import { z } from "npm:zod@3.23.8";
 import { createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
 import { getRoseSystemPrompt } from "../_shared/rose-context.ts";
+import { ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION } from "../_shared/rose-tool-contract.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -120,8 +121,7 @@ Deno.serve(async (req) => {
       stopWhen: stepCountIs(1),
       tools: {
         propose_booking: tool({
-          description:
-            "Render a booking CTA card in the chat when the visitor's intent is clear enough to warrant a 30-minute call with Ivan. No execute: the human clicks the rendered card.",
+          description: ROSE_BOOKING_TOOL_DESCRIPTION,
           inputSchema: z.object({
             intent: z.enum(["product", "technical", "culture", "exploring"])
               .describe("Detected intent bucket."),
@@ -134,8 +134,7 @@ Deno.serve(async (req) => {
           }),
         }),
         suggest_followups: tool({
-          description:
-            "Optional, call at most once, after the answer text. Up to two short follow-up questions in the visitor's voice (imperative, never 'Ivan' in the third person), each about content that exists on this site. Rendered as chips under the answer.",
+          description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
           inputSchema: z.object({
             items: z.array(z.string().min(3).max(80)).min(1).max(2),
           }),
