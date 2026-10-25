@@ -23,6 +23,11 @@ describe("Rose canonical knowledge", () => {
     expect(selectRoseHistory("/aetherix", "What made that change?", ["Why was Rose built for booking?"])).toBe(true);
     expect(selectRoseHistory("/aetherix", "What made that change?", ["Explain Aetherix"])).toBe(false);
   });
+  it("drops Rose history when the visitor clearly changes subjects off her page", () => {
+    expect(selectRoseHistory("/sonor", "How many people built Sonor?", ["Why was Rose built?"])).toBe(false);
+    expect(selectRoseHistory("/aetherix", "What does the manager decide?", ["Who is Rose?"])).toBe(false);
+    expect(selectRoseHistory("/aetherix", "How does your design relate to the manager here?", ["Who is Rose?"])).toBe(true);
+  });
   it("bounds retention to the last twenty user turns", () => {
     expect(selectRoseHistory("/sonor", "Tell me more", ["Who is Rose?", ...Array(20).fill("Sonor")])).toBe(false);
   });
