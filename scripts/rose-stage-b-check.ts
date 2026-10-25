@@ -70,5 +70,6 @@ async function run(journey: typeof journeys[number]) {
     writeFileSync(`${output}/answers.json`, JSON.stringify(results, null, 2));
   }
 }
-const queue = [...journeys];
+const selected = process.env.ROSE_QA_CASES?.split(",");
+const queue = selected ? journeys.filter(journey => selected.includes(journey.id)) : [...journeys];
 await Promise.all(Array.from({ length: 3 }, async () => { while (queue.length) { const next = queue.shift(); if (next) await run(next); } }));
