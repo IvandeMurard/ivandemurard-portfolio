@@ -260,7 +260,7 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
   // only when the visitor is talking about this page's work, not asking about Rose.
   const routeSlug = path.slice(1) as Slug;
   if (CASE_STUDY_SLUGS.includes(routeSlug) &&
-      /\b(this|here|project|manager|forecast|recommendation|agent|architecture)\b/i.test(question) &&
+      /\b(this project|on this page|here|project|manager|forecast|recommendation|agent|architecture)\b/i.test(question) &&
       !named.includes(routeSlug)) return [...named, routeSlug];
   return named;
 }
