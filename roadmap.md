@@ -1,7 +1,7 @@
 # Rose self-knowledge Stage B
-- [ ] Generate private, versioned history/persona artifacts with drift and provenance checks.
-- [ ] Integrate bounded history selection, cross-page follow-ups and lab starters locally.
-- [ ] Run historical, conversational, portfolio and controlled dock checks; document risks without deployment or publication.
+- [x] Generate private, versioned history/persona artifacts with drift and provenance checks.
+- [x] Integrate bounded history selection, cross-page follow-ups and lab starters locally.
+- [x] Run historical, conversational, portfolio and controlled dock checks; 95 tests pass, two 55-response runs and corrected chapter rerun documented in docs/rose-stage-b-verification.md; release held for factual/privacy/context/tool-prose failures, nothing deployed or published.
 
 # Rose Stage 2
 - [x] Refine Chapter 05 invitation, alignment and desktop dock clearance; 86 tests and 12 Day/Dusk viewport checks pass, synthetic continuity verified, limits in docs/rose-ch05-final-verification.md; not published.

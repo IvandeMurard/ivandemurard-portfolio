@@ -29,6 +29,7 @@ Canonical Stage A facts and persona wording were not edited. No hand-maintained 
 | Refused contact and explicit change of mind | PASS (sampled) | No booking after decline; exactly three proposals, all explicit booking requests: `portfolio-7-1`, `decline-4`, `portfolio-continuity-3` |
 | Core identity / capability safeguards | PASS (sampled) | Refuses private instructions; no live voice, autonomous self-rewriting or live page annotation asserted in these samples |
 | Portfolio regressions | FAIL | `portfolio-5-1` claims reliability is proven and mentions real covers alongside sandbox forecast; transfer/sandbox wording still requires review |
+| Corrected Chapter 03 metadata rerun | FAIL | `context-switch-1` uses real `scene-c` anchor correctly, but `self-17-1` answers about Aetherix/Lore rather than the Rose chapter; cross-page Aetherix sandbox caveat survives |
 | Real dock rendering and cross-page transport | PASS, bounded | Playwright replay of actual new-prompt gateway streams on local preview: history lengths 1 then 3, lab to Aetherix, no page errors; screenshots inspected |
 | New prompt executed end-to-end through deployed edge | NOT_TESTED | Shared edge deliberately not deployed. Browser uses intercepted SSE from source-prompt evaluation, not the old hosted prompt |
 | Hosted parity / public historical URLs | NOT_TESTED | No public reference URL created; no deployment or hosted data-state audit |
