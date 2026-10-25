@@ -4,6 +4,7 @@ import { z } from "zod";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { getRoseSystemPrompt } from "../supabase/functions/_shared/rose-context.ts";
 import { roseHistoryLayer } from "../supabase/functions/_shared/rose-self-context.ts";
+import { ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION } from "../supabase/functions/_shared/rose-tool-contract.ts";
 
 const output = process.env.ROSE_QA_OUTPUT ?? "/tmp/browser/rose-stage-b";
 mkdirSync(output, { recursive: true });
@@ -42,8 +43,8 @@ journeys.push(
   ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose-design-lab", question: historyQuestions[i] }] })),
 );
 const tools = {
-  propose_booking: tool({ description: "Render a booking CTA card when the visitor's intent warrants a 30-minute call with Ivan. UI only, human clicks.", inputSchema: z.object({ intent: z.enum(["product", "technical", "culture", "exploring"]), reason: z.string().max(200) }) }),
-  suggest_followups: tool({ description: "Optional, call at most once after answer text. Up to two short follow-up questions in the visitor's voice about existing site content.", inputSchema: z.object({ items: z.array(z.string().min(3).max(80)).min(1).max(2) }) }),
+  propose_booking: tool({ description: ROSE_BOOKING_TOOL_DESCRIPTION, inputSchema: z.object({ intent: z.enum(["product", "technical", "culture", "exploring"]), reason: z.string().max(200) }) }),
+  suggest_followups: tool({ description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION, inputSchema: z.object({ items: z.array(z.string().min(3).max(80)).min(1).max(2) }) }),
 };
 const results: unknown[] = [];
 async function run(journey: typeof journeys[number]) {
