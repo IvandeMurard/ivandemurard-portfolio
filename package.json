@@ -6,7 +6,9 @@
   "scripts": {
     "predev": "bunx tsx scripts/generate-sitemap.ts",
     "dev": "vite",
-    "prebuild": "bunx tsx scripts/generate-agents.ts && bun scripts/generate-journal-mirror.ts && bunx tsx scripts/generate-sitemap.ts && bunx tsx scripts/generate-llms-full.ts",
+    "rose:generate": "bun scripts/generate-rose-history.ts",
+    "rose:check": "bun scripts/generate-rose-history.ts --check",
+    "prebuild": "bun scripts/generate-rose-history.ts --check && bunx tsx scripts/generate-agents.ts && bun scripts/generate-journal-mirror.ts && bunx tsx scripts/generate-sitemap.ts && bunx tsx scripts/generate-llms-full.ts",
     "build": "vite build",
     "postbuild": "bunx tsx scripts/generate-seo-snapshots.ts && bunx tsx scripts/generate-markdown-routes.ts && bunx tsx scripts/apply-prerender.ts",
     "prerender": "python3 scripts/prerender-capture.py && bunx tsx scripts/apply-prerender.ts",

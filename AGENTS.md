@@ -1,4 +1,5 @@
 # Project rules
+- Rose self-knowledge is generated privately from roseHistory.ts facts and rosePersona.ts behavior into a Deno-local artifact; check drift before builds and select history from bounded user turns so cross-page continuation works without publishing lab content.
 - Rose lab participation uses the existing rose:open event without submitting a prompt; keep its desktop margin outside the centered dock footprint and enable sticky positioning only with sufficient viewport height, preserving visitor-led continuity.
 - Rose design-lab historical comparisons use one local period state for compass, starters and explanation, so visual evidence cannot contradict the selected period; the lab stays outside public content generation.
 - Rose product measurement stays in the existing private admin page, with server-authorized full-window aggregates and tab-local request lifecycle callbacks, so remounts never count restored conversations as new outcomes. Never join general click sessions to Rose sessions.
