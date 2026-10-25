@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { JournalToc } from "@/components/reading/JournalToc";
 import { useHeadingToc } from "@/components/reading/useHeadingToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
@@ -128,7 +129,32 @@ const SectionHeading = ({ id, title }: { id: string; title: string }) => (
   <h2 id={id} className={titleCls}>{title}</h2>
 );
 
+const FOCUS_TARGETS = ["daily-receipt", "the-daily-loop"] as const;
+type FocusTarget = (typeof FOCUS_TARGETS)[number];
+
+/** Allowlisted ?focus= deep link: scroll to a figure and ring it briefly. No storage, no tracking. */
+const useFocusTarget = (): FocusTarget | null => {
+  const [params] = useSearchParams();
+  const raw = params.get("focus");
+  const valid = (FOCUS_TARGETS as readonly string[]).includes(raw ?? "") ? (raw as FocusTarget) : null;
+  const [active, setActive] = useState<FocusTarget | null>(null);
+  useEffect(() => {
+    if (!valid) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const t0 = window.setTimeout(() => {
+      document.getElementById(valid)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+      setActive(valid);
+    }, 350);
+    const clear = () => setActive(null);
+    const t1 = window.setTimeout(clear, 4500);
+    window.addEventListener("pointerdown", clear, { once: true });
+    return () => { window.clearTimeout(t0); window.clearTimeout(t1); window.removeEventListener("pointerdown", clear); };
+  }, [valid]);
+  return active;
+};
+
 const Atherix = () => {
+  const focus = useFocusTarget();
   const articleRef = useRef<HTMLElement>(null);
   const toc = useHeadingToc(articleRef);
   return (
@@ -248,12 +274,12 @@ const Atherix = () => {
           <SectionHeading id="how-it-works-heading" title="How it works" />
           <p className={leadCls}>Every day adds one record: what was recommended, what the manager said, what happened.</p>
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="min-w-0 lg:col-span-7">
+          <div id="the-daily-loop" className={`min-w-0 lg:col-span-7 scroll-mt-24 rounded-sm transition-shadow duration-700 ${focus === "the-daily-loop" ? "ring-2 ring-secondary ring-offset-8 ring-offset-surface" : ""}`}>
           <h3 className={subheadCls}>The daily loop</h3>
           <AetherixLoopCards />
           <p className="mt-8 max-w-3xl text-sm text-on-surface-variant">Free-text replies are not used yet. Whether the agent gets sharper over time is what a pilot would test.</p>
           </div>
-          <div className="min-w-0 lg:col-span-5">
+          <div id="daily-receipt" className={`min-w-0 lg:col-span-5 scroll-mt-24 rounded-sm transition-shadow duration-700 ${focus === "daily-receipt" ? "ring-2 ring-secondary ring-offset-8 ring-offset-surface" : ""}`}>
           <h3 className={subheadCls}>What the manager receives</h3>
           <AetherixDailyReceipt />
           </div>
