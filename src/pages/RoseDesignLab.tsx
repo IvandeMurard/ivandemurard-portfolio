@@ -5,6 +5,7 @@ import { Seo } from "@/components/Seo";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RoseHistoryTransition } from "@/components/rose/RoseHistoryTransition";
+import { RoseLaterChapters } from "@/components/rose/RoseLaterChapters";
 
 /**
  * Temporary, unlinked design lab for the Rose case study. Not in nav, sitemap
@@ -463,6 +464,9 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => {
           </div>
         </div>
       </section>
+      <RoseLaterChapters reduced={reduced}
+        ask={(text) => <RoseQuestion text={text} className="text-lg" />}
+        compass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full" />} />
     </>
   );
 };
