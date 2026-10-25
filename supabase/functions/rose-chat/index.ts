@@ -108,7 +108,10 @@ Deno.serve(async (req) => {
   try {
     const last = safeMessages[safeMessages.length - 1] as unknown as { parts: { text: string }[] };
     const question = last.parts.map((p) => p.text).join(" ");
-    const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested, question });
+    const previousQuestions = safeMessages.slice(-20, -1)
+      .filter(message => message.role === "user")
+      .map(message => message.parts.filter(part => part.type === "text").map(part => part.type === "text" ? part.text : "").join(" "));
+    const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested, question, previousQuestions });
     const result = streamText({
       model,
       system,

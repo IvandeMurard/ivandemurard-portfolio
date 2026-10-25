@@ -36,6 +36,10 @@ const CASE = [
 
 const ROUTES: Array<{ match: string; prefix?: boolean; prompts: RosePrompt[] }> = [
   { match: "/", prompts: HOME },
+  { match: "/rose-design-lab", prompts: [
+    p("Why were you built around booking?", "Why were you built around booking first?", "exploring"),
+    p("What changed between July and August?", "What changed in your design between July and August?", "exploring"),
+  ] },
   { match: "/aetherix", prompts: [
     p("What has actually been built?", "On Aetherix: what has actually been built, and what remains unvalidated?", "technical"),
     p("What happens when it's wrong?", "On Aetherix: what happens when it's wrong?", "technical"),
