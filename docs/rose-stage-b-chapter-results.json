@@ -1,0 +1,83 @@
+[
+  {
+    "id": "context-switch-1",
+    "page": {
+      "path": "/rose-design-lab",
+      "section_id": "scene-c",
+      "section_heading": "Start with the work."
+    },
+    "question": "What's the key tension here?",
+    "previousQuestions": [],
+    "text": "The central tension in my design is between providing immediate, context-aware utility and the risk of being an intrusive gatekeeper.\n\nAs Ivan describes in the [Rose Design Lab](/rose-design-lab#scene-c), I moved from a \"booking-first\" interface to one that prioritizes the work. Originally, I launched with intent starters that pushed for a call early on. Now, I use contextual starters that help you question the specific case study or note you are reading. The challenge is to remain helpful and evidence-led without framing every exchange as a step toward a meeting.\n\nWould you like to know how my context-matching was refined, or what data I actually process during a session?",
+    "tools": [
+      {
+        "type": "tool-input-available",
+        "toolCallId": "call_1364890",
+        "toolName": "suggest_followups",
+        "input": {
+          "items": [
+            "How do you match your answers to the page I'm on?",
+            "What data do you log from our conversation?"
+          ]
+        }
+      }
+    ],
+    "errors": [],
+    "words": 108,
+    "reviewer": "PENDING"
+  },
+  {
+    "id": "self-17-1",
+    "page": {
+      "path": "/rose-design-lab",
+      "section_id": "scene-c",
+      "section_heading": "Start with the work."
+    },
+    "question": "What's the key tension here?",
+    "previousQuestions": [],
+    "text": "The central tension in this work is the trade-off between **automation and human authority** in high-stakes operations.\n\nIn [Aetherix](/aetherix), this means providing a daily covers forecast in a sandbox environment that is sharp enough to be useful, but structured so the F&B manager remains the final decision-maker. The agent records the manager's override as a preference, but only the actual morning outcome counts as truth for learning.\n\nIn [Lore](/lore), the tension is between a senior technician's oral judgement and the formal aircraft maintenance manual (AMM). The system is designed so the manual's safety limits always take priority, while the human's experience completes the picture rather than contradicting it.\n\nIn both cases, the goal is to capture institutional memory that usually leaves when a person resigns or retires, without letting an agent act autonomously on unverified inferences.\n\n",
+    "tools": [
+      {
+        "type": "tool-input-available",
+        "toolCallId": "call_607374",
+        "toolName": "suggest_followups",
+        "input": {
+          "items": [
+            "How does Aetherix distinguish a manager's preference from ground truth?",
+            "How do the evaluation graders in Lore enforce the manual's priority?"
+          ]
+        }
+      }
+    ],
+    "errors": [],
+    "words": 137,
+    "reviewer": "PENDING"
+  },
+  {
+    "id": "context-switch-2",
+    "page": {
+      "path": "/aetherix"
+    },
+    "question": "How do your human-agency principles relate to the manager's choice here?",
+    "previousQuestions": [
+      "What's the key tension here?"
+    ],
+    "text": "Aetherix preserves human agency by separating the **forecast** from the **decision**. In the daily sandbox loop, the agent provides a covers recommendation and its reasoning, but the manager retains the final authority to accept or override it via WhatsApp.\n\nThis follows the boundary principle from [Field Note 02](/journal/agent-boundaries-aetherix): an agent should propose, but the human decides. Crucially, the manager's override is recorded as a preference, not as ground truth. Correctness is only established the next morning when the sandbox outcome is compared against both the agent's suggestion and the manager's choice.\n\n",
+    "tools": [
+      {
+        "type": "tool-input-available",
+        "toolCallId": "call_5069300",
+        "toolName": "suggest_followups",
+        "input": {
+          "items": [
+            "How does the agent learn from the actual outcome versus the manager's reply?",
+            "What happens if the manager ignores the WhatsApp message?"
+          ]
+        }
+      }
+    ],
+    "errors": [],
+    "words": 92,
+    "reviewer": "PENDING"
+  }
+]
