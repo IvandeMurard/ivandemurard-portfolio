@@ -227,9 +227,9 @@ function isStale(entry: CacheEntry | undefined): boolean {
   return !entry || Date.now() - entry.fetchedAt > TTL_MS;
 }
 
-function assembleReference(): string {
+function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
   const parts: string[] = [];
-  for (const slug of CASE_STUDY_SLUGS) {
+  for (const slug of slugs) {
     const entry = cache.get(slug);
     if (!entry) continue;
     parts.push(
@@ -237,6 +237,32 @@ function assembleReference(): string {
     );
   }
   return parts.join("\n\n");
+}
+
+/**
+ * Self-history questions should not be drowned in unrelated project references.
+ * When a visitor explicitly relates Rose to another project, retain that project's
+ * evidence. Otherwise, self-explanations use Rose's own source alone.
+ * General portfolio turns retain the original full reference behavior.
+ */
+function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean): readonly Slug[] | undefined {
+  if (!selected) return undefined;
+  const path = clean(ctx?.page?.path, 120).split(/[?#]/)[0].replace(/\/+$/, "") || "/";
+  const question = (ctx?.question ?? "").slice(0, 2000);
+  const section = clean(ctx?.page?.section_heading, 120);
+  const named = (["sonor", "aetherix", "tacet", "lore", "architecture", "anima", "compass", "cv"] as const)
+    .filter(slug => new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question));
+  // Chapter 06 is an Aetherix receipt demo, not Rose editing the DOM.
+  if (path === "/rose-design-lab" && /^(ch-next|chapter-06)$/.test(clean(ctx?.page?.section_id, 80))) {
+    if (!named.includes("aetherix")) return [...named, "aetherix"];
+  }
+  // After a Rose-to-project transition, preserve the in-view project evidence
+  // only when the visitor is talking about this page's work, not asking about Rose.
+  const routeSlug = path.slice(1) as Slug;
+  if (CASE_STUDY_SLUGS.includes(routeSlug) &&
+      /\b(this|here|project|manager|forecast|recommendation|agent|architecture)\b/i.test(question) &&
+      !named.includes(routeSlug)) return [...named, routeSlug];
+  return named;
 }
 
 export type RoseTurnContext = {
@@ -305,9 +331,10 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
   const context = contextLayer(ctx);
   const notes = selectNotes(clean(ctx?.page?.path, 120), (ctx?.question ?? "").slice(0, 2000));
   const missing = CASE_STUDY_SLUGS.filter((s) => !cache.has(s));
-  const self = roseHistoryLayer(selectRoseHistory(clean(ctx?.page?.path, 120), ctx?.question ?? "", ctx?.previousQuestions));
+  const selfSelected = selectRoseHistory(clean(ctx?.page?.path, 120), ctx?.question ?? "", ctx?.previousQuestions);
+  const self = roseHistoryLayer(selfSelected);
   const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}`;
-  const reference = [assembleReference(), self, notes.length ? await noteReference(notes) : "",
+  const reference = [self, assembleReference(roseFocusedStudies(ctx, selfSelected)), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");
   if (!reference) return `${ROSE_BASE_PROMPT}${context}\n\n${contract}`;
