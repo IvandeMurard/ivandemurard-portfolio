@@ -228,7 +228,7 @@ The second ambiguous response is both factually overbroad and unhelpful. Even re
 
 ### Changes implemented in this draft PR
 
-- New **QA section in Rose Design Lab case study, narrative concept C**: documented synthetic response vs labelled editorial rewrite, three human-readable criteria, limitations, and source link. It is not public or deployed.
+- New **QA section in Rose Design Lab case study, visible in all three concepts (A/B after the concept; C after Chapter 05)**: documented synthetic response vs labelled editorial rewrite, three human-readable criteria, limitations, and source link. It is not public or deployed.
 - Rose turn contract now prioritizes measurement, comparison and evidentiary limitation in reader language; it keeps CI details for visitors who request engineering/testing.
 - New offline `roseReaderValueAudit.ts`, integrated with `rose-evidence-audit.ts`: advisory hints for unrequested internal QA jargon, unsupported 'guardrail reliability', and incorrectly authored Field Note paths. Automatic flags never replace human semantic or usefulness review.
 - Rose Markdown renderer normalizes three **known** root-level Field Note paths to the valid `/journal/...` destinations, preserving fragments. Unit tests cover the observed link defect.
@@ -237,7 +237,7 @@ The second ambiguous response is both factually overbroad and unhelpful. Even re
 
 ### Next stage gates
 
-1. **Local**: source-provenance check, focused Vitest (`roseLearning`, `roseReaderValueAudit`, `roseMarkdown`, `roseSelfKnowledge`, `roseEvidenceAudit`, `roseAetherixEvidence`), full Vitest, Vite build; inspect generated MCP change if any. Visually inspect `rose-design-lab?concept=narrative#ch-qa` on desktop/mobile.
+1. **Local**: source-provenance check, focused Vitest (`roseLearning`, `roseReaderValueAudit`, `roseMarkdown`, `roseSelfKnowledge`, `roseEvidenceAudit`, `roseAetherixEvidence`), full Vitest, Vite build; inspect generated MCP change if any. Visually inspect the QA section at `/rose-design-lab#ch-qa` (default A), `?concept=b#ch-qa` and `?concept=narrative#ch-qa` (C) on desktop/mobile.
 2. **Offline only**: with a new exact-source archive, ask Lovable to run the updated audit against previously saved `/tmp/rose-attribution-validation/answers.json` if still present. Score the five old responses separately for factual grounding and reader utility, WITHOUT calling Gemini or pretending they came from the new code.
 3. **Only after local + offline checks**: run exactly three independent ambiguous Aetherix measurement answers and the one explicit `metric-ci-technical` control, with source preflight and prompt capture. Grade both axes plus links and followup relevance.
 4. Stage B remains **HOLD** until wider regression and actual UI preview acceptance. No merge, deploy or publication authorised.
