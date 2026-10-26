@@ -57,7 +57,7 @@ function extractCounts(text: string): Array<QuantitativeMention & { unit: string
   return [...text.matchAll(countPattern)].map(match => ({
     text: match[0],
     value: normalizeCount(match[1]),
-    unit: match[2].toLowerCase().replace(/s$/, ""),
+    unit: match[2].toLowerCase().replace(/^scored /, "").replace(/s$/, ""),
     snippet: snippet(text, match.index ?? 0, match[0].length),
   }));
 }
