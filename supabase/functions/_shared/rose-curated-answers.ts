@@ -16,8 +16,8 @@ const TECHNICAL_EVALUATION_QUESTION =
 
 export const ROSE_AETHERIX_MEASUREMENT_ANSWER = `Ivan evaluates how well Aetherix predicts tomorrow's workload before suggesting staffing changes:
 
-1. Against a simple baseline on 30 restaurants: Prophet reached 49.71% mean error versus 55.86% for naive projection, and 28.5% versus 27.9% at day-ahead horizon (J+1).
-2. Under demand shocks: In an Apaleo simulation with a 25% shift, weekly recalibration reduced error from 15.9% to 12.3%.
+1. Against a simple baseline on 30 restaurants in public data: Prophet's mean forecast error was 49.71% versus 55.86% for naive projection, and 28.5% versus 27.9% at day-ahead horizon (J+1).
+2. Under demand shocks: In an Apaleo sandbox experiment with a 25% shift, weekly recalibration reduced error from 15.9% to 12.3%.
 
 Ivan is clear about the boundaries: this measures forecast accuracy on restaurant and sandbox data, not whether a staffing decision was optimal, and no real hotel is connected yet.`;
 

@@ -44,7 +44,7 @@ function normalizePercentage(text: string): number {
 }
 
 function normalizeCount(text: string): number {
-  return Number(text.replace(/,/g, ""));
+  return Number(text.replaceAll(",", ""));
 }
 
 function snippet(text: string, index: number, length: number): string {

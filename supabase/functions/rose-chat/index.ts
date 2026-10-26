@@ -1,6 +1,8 @@
 import "https://deno.land/std@0.224.0/dotenv/load.ts";
 import {
   convertToModelMessages,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
   streamText,
   stepCountIs,
   tool,
@@ -9,12 +11,31 @@ import {
 import { z } from "npm:zod@3.23.8";
 import { createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
 import { getRoseSystemPrompt } from "../_shared/rose-context.ts";
+import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
+import { isRoseFollowupAllowed, ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION, roseFollowupPolicyDescription, shouldSuppressRoseFollowups } from "../_shared/rose-tool-contract.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
+/** Send a narrow source-backed answer through the same UI-message protocol as streamText. */
+const curatedRoseResponse = (text: string): Response => {
+  const id = `rose-curated-${crypto.randomUUID()}`;
+  const stream = createUIMessageStream({
+    execute: ({ writer }) => {
+      writer.write({ type: "start", messageId: id });
+      writer.write({ type: "start-step" });
+      writer.write({ type: "text-start", id });
+      writer.write({ type: "text-delta", id, delta: text });
+      writer.write({ type: "text-end", id });
+      writer.write({ type: "finish-step" });
+      writer.write({ type: "finish", finishReason: "stop" });
+    },
+  });
+  return createUIMessageStreamResponse({ stream, headers: corsHeaders });
 };
 
 Deno.serve(async (req) => {
@@ -108,20 +129,36 @@ Deno.serve(async (req) => {
   try {
     const last = safeMessages[safeMessages.length - 1] as unknown as { parts: { text: string }[] };
     const question = last.parts.map((p) => p.text).join(" ");
+    const curatedAnswer = getRoseCuratedAnswer({ question, pagePath: body?.page?.path });
+    if (curatedAnswer) return curatedRoseResponse(curatedAnswer);
     const previousQuestions = safeMessages.slice(-20, -1)
       .filter(message => message.role === "user")
       .map(message => message.parts.filter(part => part.type === "text").map(part => part.type === "text" ? part.text : "").join(" "));
     const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested, question, previousQuestions });
+    const followupContext = { question, pagePath: body?.page?.path };
     const result = streamText({
       model,
       system,
       messages: convertToModelMessages(safeMessages),
       // One step: tools are UI-only, so the model never continues after a tool call.
       stopWhen: stepCountIs(1),
-      tools: {
+      tools: shouldSuppressRoseFollowups(followupContext) ? {
         propose_booking: tool({
-          description:
-            "Render a booking CTA card in the chat when the visitor's intent is clear enough to warrant a 30-minute call with Ivan. No execute: the human clicks the rendered card.",
+          description: ROSE_BOOKING_TOOL_DESCRIPTION,
+          inputSchema: z.object({
+            intent: z.enum(["product", "technical", "culture", "exploring"])
+              .describe("Detected intent bucket."),
+            reason: z
+              .string()
+              .max(200)
+              .describe(
+                "One short sentence, plain English, shown on the card as the call framing.",
+              ),
+          }),
+        }),
+      } : {
+        propose_booking: tool({
+          description: ROSE_BOOKING_TOOL_DESCRIPTION,
           inputSchema: z.object({
             intent: z.enum(["product", "technical", "culture", "exploring"])
               .describe("Detected intent bucket."),
@@ -134,10 +171,15 @@ Deno.serve(async (req) => {
           }),
         }),
         suggest_followups: tool({
-          description:
-            "Optional, call at most once, after the answer text. Up to two short follow-up questions in the visitor's voice (imperative, never 'Ivan' in the third person), each about content that exists on this site. Rendered as chips under the answer.",
+          description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
           inputSchema: z.object({
-            items: z.array(z.string().min(3).max(80)).min(1).max(2),
+            items: z.array(z.string().min(3).max(80).describe(roseFollowupPolicyDescription(followupContext))).min(1).max(2),
+          }).superRefine(({ items }, ctx) => {
+            items.forEach((item, index) => {
+              if (!isRoseFollowupAllowed(item, followupContext)) {
+                ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["items", index], message: "This follow-up does not advance the current question safely." });
+              }
+            });
           }),
         }),
       },

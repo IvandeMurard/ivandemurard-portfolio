@@ -1,13 +1,19 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { getRosePrompts } from "../content/rosePrompts";
-import { selectRoseHistory, roseHistoryLayer } from "../../supabase/functions/_shared/rose-self-context";
-import { getRoseSystemPrompt } from "../../supabase/functions/_shared/rose-context";
+import { selectRoseHistory, roseHistoryLayer, ROSE_CANONICAL_ANCHORS } from "../../supabase/functions/_shared/rose-self-context";
+import { getRoseSystemPrompt, turnReferentContext } from "../../supabase/functions/_shared/rose-context";
+import { getRoseCuratedAnswer, ROSE_AETHERIX_MEASUREMENT_ANSWER, ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER } from "../../supabase/functions/_shared/rose-curated-answers";
+import { shouldSuppressRoseFollowups } from "../../supabase/functions/_shared/rose-tool-contract";
 
 afterEach(() => vi.unstubAllGlobals());
 describe("Rose canonical knowledge", () => {
   it("generated reference and persona match canonical sources and resolve provenance", () => {
-    expect(execFileSync("bun", ["scripts/generate-rose-history.ts", "--check"], { encoding: "utf8" })).toContain("v1 verified");
+    const output = process.platform === "win32"
+      ? execFileSync(process.env.ComSpec ?? "cmd.exe", ["/d", "/s", "/c", "bun scripts/generate-rose-history.ts --check"], { encoding: "utf8" })
+      : execFileSync("bun", ["scripts/generate-rose-history.ts", "--check"], { encoding: "utf8" });
+    expect(output).toContain("v1 verified");
   });
   it("selects only the exact lab route, including its query", () => {
     expect(selectRoseHistory("/rose-design-lab?concept=narrative", "Explain this")).toBe(true);
@@ -21,6 +27,11 @@ describe("Rose canonical knowledge", () => {
   it("keeps pronoun-only follow-ups grounded after navigation", () => {
     expect(selectRoseHistory("/aetherix", "What made that change?", ["Why was Rose built for booking?"])).toBe(true);
     expect(selectRoseHistory("/aetherix", "What made that change?", ["Explain Aetherix"])).toBe(false);
+  });
+  it("drops Rose history when the visitor clearly changes subjects off her page", () => {
+    expect(selectRoseHistory("/sonor", "How many people built Sonor?", ["Why was Rose built?"])).toBe(false);
+    expect(selectRoseHistory("/aetherix", "What does the manager decide?", ["Who is Rose?"])).toBe(false);
+    expect(selectRoseHistory("/aetherix", "How does your design relate to the manager here?", ["Who is Rose?"])).toBe(true);
   });
   it("bounds retention to the last twenty user turns", () => {
     expect(selectRoseHistory("/sonor", "Tell me more", ["Who is Rose?", ...Array(20).fill("Sonor")])).toBe(false);
@@ -50,4 +61,450 @@ describe("Rose canonical knowledge", () => {
     expect(followup).toContain("BEGIN ROSE FACTUAL REFERENCE");
     expect(followup).toContain("speak naturally in the first person");
   });
+  it("derives exact date and retention anchors from the single canonical history", () => {
+    expect(ROSE_CANONICAL_ANCHORS.launchDate).toBe("2026-07-21");
+    expect(ROSE_CANONICAL_ANCHORS.eventPurgeDays).toBe("90");
+  });
+
+  it("prioritizes Rose evidence over unrelated case studies on the lab route", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "scene-c", section_heading: "Start with the work." },
+      question: "What does Ivan measure?",
+    });
+    expect(answer).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(answer).toContain("launch (2026-07-21, implemented)");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
+  });
+
+
+  it("uses the current case-study and section as a working interpretation", () => {
+    const rose = turnReferentContext({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(rose).toContain("Rose's own design, operation and evaluation");
+    expect(rose).toContain('Does Rose actually help?');
+    expect(rose).toContain("most likely interpretation");
+    expect(rose).not.toContain("Aetherix");
+
+    const aetherix = turnReferentContext({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure?",
+    });
+    expect(aetherix).toContain("current page concerns aetherix");
+    expect(aetherix).not.toContain("Rose's own");
+
+    const note = turnReferentContext({
+      page: { path: "/journal/harnesses-graders-closed-loops" },
+      question: "What does Ivan measure?",
+    });
+    expect(note).toContain("Field Note's evaluation method");
+    expect(note).toContain("not a claim of deployed metrics");
+
+    const cv = turnReferentContext({ page: { path: "/cv" }, question: "What does Ivan measure?" });
+    expect(cv).toContain("professional outcomes described in his CV");
+    expect(cv).toContain("ask one focused clarification");
+  });
+
+  it("resolves explicit, earlier and in-view references without forcing a single page", () => {
+    const ctx = {
+      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      previousQuestions: ["How does Ivan evaluate Aetherix?"],
+    };
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure?" }))
+      .toContain("Continue with aetherix");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure here?" }))
+      .toContain("Prior discussion does not override");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure in Aetherix?" }))
+      .toContain("explicitly named aetherix");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure about Rose?" }))
+      .toContain("explicitly named Rose");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure across his projects?" }))
+      .toContain("visitor explicitly asks across projects");
+  });
+
+  it("makes the working referent the final prompt guidance, not a rigid source fact", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const system = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(system).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(system).toContain("Working scope for this turn:");
+    expect(system.lastIndexOf("Working scope for this turn:")).toBeGreaterThan(system.lastIndexOf("END ROSE FACTUAL REFERENCE"));
+    expect(system).toContain("Rose's own design, operation and evaluation");
+  });
+
+  it("resolves an underspecified measurement question from its current page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const rose = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(rose).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(rose).toContain("## measurement (2026-10-24, implemented)");
+    expect(rose).toContain("Question referent resolution:");
+    expect(rose).toContain("The section in view is");
+    expect(rose).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const aetherix = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
+    expect(aetherix).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(aetherix).not.toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(aetherix).toContain("The visitor is currently on /aetherix");
+
+    const journal = await getRoseSystemPrompt({
+      page: { path: "/journal/harnesses-graders-closed-loops" },
+      question: "What does Ivan measure?",
+    });
+    expect(journal).toContain("--- BEGIN CASE STUDY: harnesses-graders-closed-loops");
+    expect(journal).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const cv = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "What does Ivan measure?" });
+    expect(cv).toContain("On a broad profile or unrelated page");
+  });
+
+  it("keeps reader-value, guardrail and canonical-link constraints in the final answer contract", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const system = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
+    expect(system).toContain("Do not call logged guardrail reasons a reliability measure");
+    expect(system).toContain("exact published /journal/ URL");
+    expect(system).toContain("Do not default to CI, release gates, golden datasets, harnesses or graders");
+    expect(system).toContain("a forecast benchmark measures forecast error, not whether an agent recommendation was right");
+    expect(system).toContain("Never turn planned rollout reach into live adoption or \"delivery at scale\"");
+    expect(system).toContain("a failing evaluation exit code blocks a merge, not that every guardrail trip or any possible code change does");
+    expect(system).toContain("forecast evaluation uses a synthetic series; the reply parser is checked with a rule-based stand-in");
+    expect(system).toContain("Do not transfer Lore evidence to Aetherix");
+  });
+
+  it("preserves a recent explicit topic despite navigation to another page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const continuing = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      question: "What does Ivan measure?",
+      previousQuestions: ["How does Aetherix measure forecast quality?"],
+    });
+    expect(continuing).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(continuing).not.toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(continuing).toContain("BEGIN ROSE FACTUAL REFERENCE");
+
+    const switched = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure about Rose?",
+      previousQuestions: ["How does Aetherix measure forecast quality?"],
+    });
+    expect(switched).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
+  it("respects explicit page references and later conversation topic changes", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const here = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      question: "What does Ivan measure here?",
+      previousQuestions: ["How does Aetherix measure its forecast accuracy?"],
+    });
+    expect(here).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const changedTopic = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure?",
+      previousQuestions: ["How does Aetherix measure its forecasts?", "Explain Rose's design"],
+    });
+    expect(changedTopic).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const otherPage = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure here?",
+      previousQuestions: ["Explain Rose's design"],
+    });
+    expect(otherPage).toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
+  it("does not override an explicitly named project or broad comparison", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const named = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure in Aetherix?",
+    });
+    expect(named).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    const broad = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure across his projects?",
+    });
+    expect(broad).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: lore ---");
+  });
+  it("keeps named external project evidence available from Rose's case study", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "How is Rose's approach different from Aetherix?",
+    });
+    expect(answer).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: sonor ---");
+  });
+
+  it("retains the current project's evidence in a Rose-to-Aetherix journey", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "How do your human-agency principles relate to the manager here?",
+      previousQuestions: ["Why were you designed around booking first?"],
+    });
+    expect(answer).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(answer).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
+  });
+
+  it("keeps an ambiguous historical follow-up about Rose focused after navigation", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const answer = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "How do you know this is better?",
+      previousQuestions: ["Why were you built for booking?", "What made you change?"],
+    });
+    expect(answer).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(answer).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
+  it("keeps unrelated career and cross-project facts out of focused Rose and Aetherix turns", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const rose = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(rose).toContain("## measurement (2026-10-24, implemented)");
+    expect(rose).toContain("Working scope for this turn");
+    expect(rose).not.toContain("Bouygues Telecom");
+    expect(rose).not.toContain("30 public Japanese restaurants");
+    expect(rose).not.toContain("Track record:");
+    expect(rose).not.toContain("MCP questions:");
+
+    const aetherix = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
+    expect(aetherix).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(aetherix).toContain("Aetherix: historical forecast benchmarks");
+    expect(aetherix).not.toContain("Bouygues Telecom");
+    expect(aetherix).not.toContain("Track record:");
+    expect(aetherix).not.toContain("--- BEGIN CASE STUDY: lore ---");
+  });
+
+  it("preserves portfolio-wide context for cross-project and recruiting questions", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const broad = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "What does Ivan measure across his projects?",
+    });
+    expect(broad).toContain("Track record:");
+    expect(broad).toContain("Bouygues Telecom");
+    expect(broad).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: lore ---");
+
+    const cv = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "What does Ivan measure?" });
+    expect(cv).toContain("Career facts: distinguish an achieved result");
+    expect(cv).toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(cv).not.toContain("Field Notes (three complementary notes");
+  });
+
+  it("loads exact specialist instructions only when requested on a focused page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const mcp = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "How do I use this portfolio MCP?",
+    });
+    expect(mcp).toContain("claude mcp add ivandemurard --transport http");
+    expect(mcp).toContain("MCP questions:");
+    expect(mcp).not.toContain("Track record:");
+  });
+
+  it("keeps explicit contact details and broad career help available from Rose's page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const contact = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "What's Ivan's email?",
+    });
+    expect(contact).toContain("Contact channels: email");
+    expect(contact).not.toContain("Track record:");
+    expect(contact).not.toContain("30 public Japanese restaurants");
+    const contactQuestion = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "How can I contact Ivan?",
+    });
+    expect(contactQuestion).toContain("Contact channels: email");
+
+    const roles = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "What roles would Ivan be strong in?",
+    });
+    expect(roles).toContain("Track record:");
+    expect(roles).toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(roles).toContain("Recruiter questions:");
+    const profile = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: "Who is Ivan?" });
+    expect(profile).toContain("Track record:");
+    expect(profile).toContain("--- BEGIN CASE STUDY: cv ---");
+  });
+
+  it("shares the same in-flight cold-start fetch across concurrent requests", async () => {
+    // Use an isolated module cache so previous tests cannot warm the references.
+    vi.resetModules();
+    let releaseFetch!: () => void;
+    const fetchGate = new Promise<void>((resolve) => { releaseFetch = resolve; });
+    const mockFetch = vi.fn(async () => {
+      await fetchGate;
+      return new Response("# FETCHED_REFERENCE_FROM_SINGLE_REFRESH", { status: 200 });
+    });
+    vi.stubGlobal("fetch", mockFetch);
+    const { getRoseSystemPrompt: coldGetRoseSystemPrompt } = await import("../../supabase/functions/_shared/rose-context");
+
+    const context = { page: { path: "/aetherix" }, question: "What does Ivan measure?" };
+    let settled = 0;
+    const first = coldGetRoseSystemPrompt(context).then(result => { settled += 1; return result; });
+    const second = coldGetRoseSystemPrompt(context).then(result => { settled += 1; return result; });
+    const third = coldGetRoseSystemPrompt(context).then(result => { settled += 1; return result; });
+
+    try {
+      // With the old boolean guard, later callers resolved before the fetch.
+      await new Promise<void>(resolve => setTimeout(resolve, 0));
+      expect(mockFetch).toHaveBeenCalledTimes(8);
+      expect(settled).toBe(0);
+    } finally {
+      releaseFetch();
+    }
+
+    const prompts = await Promise.all([first, second, third]);
+    for (const prompt of prompts) {
+      expect(prompt).toContain("--- BEGIN CASE STUDY: aetherix ---");
+      expect(prompt).toContain("FETCHED_REFERENCE_FROM_SINGLE_REFRESH");
+      expect(prompt).not.toContain("References unavailable right now: aetherix");
+    }
+    expect(mockFetch).toHaveBeenCalledTimes(8);
+  });
+
+  it("keeps long implicit questions scoped to their current case study, including measurement evidence", async () => {
+    vi.resetModules();
+    const aetherixMd = readFileSync("public/aetherix.md", "utf8");
+    const fetchStub = vi.fn(async (url: string) => new Response(
+      String(url).endsWith("/aetherix.md") ? aetherixMd : "# Other case-study source",
+      { status: 200 },
+    ));
+    vi.stubGlobal("fetch", fetchStub);
+    const { getRoseSystemPrompt: freshPrompt } = await import("../../supabase/functions/_shared/rose-context");
+
+    const prompt = await freshPrompt({
+      page: { path: "/aetherix" },
+      question: "How does Ivan assess the forecast against a baseline and how would we distinguish a model benchmark from observed improvements in a real hotel operation?",
+    });
+
+    expect(prompt).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(prompt).not.toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(prompt).not.toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(prompt).not.toContain("Track record:");
+    expect(prompt).toContain("gradient_boosted_median:");
+    expect(prompt).toContain("model=a separate gradient-boosted alternative, NOT Prophet");
+    expect(prompt).toContain("Staffing recommendations are a PILOT HYPOTHESIS");
+    expect(prompt).toContain("No guardrail-frequency KPI");
+  });
+
+  it("preserves named cross-page topics, explicit comparisons and broad requests", async () => {
+    vi.resetModules();
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("# Study source", { status: 200 })));
+    const { getRoseSystemPrompt: freshPrompt } = await import("../../supabase/functions/_shared/rose-context");
+
+    const named = await freshPrompt({
+      page: { path: "/aetherix" }, question: "Compare Lore and Sonor: what are the differences in the reliability and outcomes reported in their case studies?",
+    });
+    expect(named).toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(named).toContain("--- BEGIN CASE STUDY: sonor ---");
+    expect(named).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const previous = await freshPrompt({
+      page: { path: "/rose-design-lab" },
+      previousQuestions: ["How are Aetherix's forecasts measured?"],
+      question: "How could Ivan verify that the outcome evidence improves over time without implying that the results are proven in real hotels?",
+    });
+    expect(previous).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(previous).not.toContain("--- BEGIN CASE STUDY: lore ---");
+
+    const broad = await freshPrompt({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure across his projects?",
+    });
+    expect(broad).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(broad).toContain("Track record:");
+  });
+
+  it("never inserts an apparently verified attribution ledger when the fetched Aetherix source lacks the anchors", async () => {
+    vi.resetModules();
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("# No benchmark details", { status: 200 })));
+    const { getRoseSystemPrompt: freshPrompt } = await import("../../supabase/functions/_shared/rose-context");
+    const prompt = await freshPrompt({
+      page: { path: "/aetherix" },
+      question: "Which model achieved 25.6% and how do the reported forecast metrics compare?",
+    });
+    expect(prompt).not.toContain("gradient_boosted_median:");
+    expect(prompt).toContain("numerical evidence registry could not be verified");
+  });
+
+  it("tells Rose to explain measurements in reader terms while preserving technical detail on request", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Public case study evidence", { status: 200 })));
+    const general = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure?",
+    });
+    expect(general).toContain("Reader value comes before implementation detail");
+    expect(general).toContain("Do not volunteer CI gates");
+    expect(general).toContain("A verifiable fact unrelated to the question is still a poor answer.");
+
+    const technical = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "What testing and golden dataset checks block changes to Aetherix?",
+    });
+    expect(technical).toContain("unless the visitor asks about testing, implementation or release engineering");
+    expect(technical).toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
+  it("uses a compact, source-faithful anchor and no optional follow-up tool for Stage B Aetherix checks", async () => {
+    const question = "How do evaluation gates protect Aetherix changes to forecasting, providers, memory or prompts before merge?";
+    const technical = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question });
+    expect(technical).toContain("Technical Aetherix evaluation answer: use this factual core, then stop.");
+    expect(technical).toContain("The reply parser uses a rule-based stand-in. Do not combine them.");
+    expect(shouldSuppressRoseFollowups({ question, pagePath: "/aetherix" })).toBe(true);
+    expect(shouldSuppressRoseFollowups({ question: "What does Ivan measure?", pagePath: "/aetherix" })).toBe(true);
+    expect(shouldSuppressRoseFollowups({ question: "What did Ivan build?", pagePath: "/aetherix" })).toBe(false);
+  });
+
+  it("serves the two evidence-critical Aetherix answers from reviewed source text", () => {
+    expect(getRoseCuratedAnswer({ question: "What does Ivan measure?", pagePath: "/aetherix" })).toBe(ROSE_AETHERIX_MEASUREMENT_ANSWER);
+    expect(ROSE_AETHERIX_MEASUREMENT_ANSWER).toContain("49.71% versus 55.86%");
+    expect(ROSE_AETHERIX_MEASUREMENT_ANSWER).toContain("28.5% versus 27.9%");
+    expect(getRoseCuratedAnswer({
+      question: "How do evaluation gates protect Aetherix changes to forecasting, providers, memory or prompts before merge?",
+      pagePath: "/aetherix",
+    })).toBe(ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER);
+    expect(ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER).toContain("A failing evaluation exit code blocks a merge.");
+    expect(ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER).toContain("it is not the merge decision");
+    expect(getRoseCuratedAnswer({ question: "What does Ivan measure?", pagePath: "/cv" })).toBeNull();
+  });
+
+  it("uses exactly the same tool descriptions in evaluation and live handler", () => {
+    const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
+    const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
+    const audit = readFileSync("scripts/rose-evidence-audit.ts", "utf8");
+    expect(harness).toContain("ROSE_QA_CAPTURE_PROMPT");
+    expect(harness).toContain("ROSE_QA_PROMPT_ONLY");
+    expect(harness).toContain("hasBenchmarkNumerics");
+    // The emitted case-study marker has no "(fetched ...)" suffix.
+    expect(harness).toContain('hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix ---")');
+    expect(harness).not.toContain('hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix (fetched"');
+    expect(harness).toContain("promptEvidence, text");
+    expect(harness).toContain('e.type === "tool-input-error"');
+    expect(harness).toContain('mode: "CURATED"');
+    expect(harness).toContain("const curatedSse");
+    expect(harness).toContain("Stage B tool contract violated");
+    expect(audit).toContain("rawStreamEvidence");
+    expect(audit).toContain('event.type === "tool-input-error"');
+    expect(edge).toContain("curatedRoseResponse");
+    for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION", "isRoseFollowupAllowed", "roseFollowupPolicyDescription", "shouldSuppressRoseFollowups", "getRoseCuratedAnswer"]) {
+      expect(edge).toContain(name);
+      expect(harness).toContain(name);
+    }
+  });
+
 });
