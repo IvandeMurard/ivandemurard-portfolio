@@ -57,6 +57,20 @@ journeys.push(
   ] },
   { id: "referent-explicit", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure in Aetherix?" }] },
   { id: "referent-broad", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure across his projects?" }] },
+  // Numeric source-integrity checks are intentionally independent of the
+  // contextual referent cases; run only after the cheap offline evidence audit.
+  { id: "metric-false-premise", turns: [{
+    path: "/aetherix",
+    question: "Did Aetherix detect 85% of errors with 5.6% forecast error versus a 12.7% Prophet baseline?",
+  }] },
+  { id: "metric-benchmark", turns: [{
+    path: "/aetherix",
+    question: "Compare the documented mean MAPE and J+1 forecast error with the baseline. Were these measured in hotels?",
+  }] },
+  { id: "metric-simulation", turns: [{
+    path: "/aetherix",
+    question: "Was the simulated change from 15.9% to 12.3% validated in a real hotel?",
+  }] },
   ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose-design-lab", question: historyQuestions[i] }] })),
 );
 const tools = {
