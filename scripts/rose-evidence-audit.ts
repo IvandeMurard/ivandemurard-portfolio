@@ -52,14 +52,15 @@ const audited = scoped.map(answer => ({
   ...auditAetherixQuantitativeAnswer(answer.text ?? "", source),
 }));
 
-const hardFlags = audited.reduce((sum, answer) =>
+const unverifiedValueMentions = audited.reduce((sum, answer) =>
   sum + answer.unsupportedPercentages.length + answer.unsupportedCounts.length + answer.missingEvidenceAnchors.length, 0);
 const report = {
   source: "public/aetherix.md",
   note: "Numerically present != factually supported. Human must verify metric, comparator, sample, scope, deployment status and prose claims.",
   inspectedResponses: audited.length,
-  hardFlags,
+  unverifiedValueMentions,
   requiresHumanReview: audited.filter(answer => answer.requiresSemanticReview).length,
+  interpretation: "Exit 1 requests human review: figures in denials or corrections can be valid even when absent from source.",
   audits: audited,
 };
 
@@ -68,7 +69,7 @@ writeFileSync(reportPath, JSON.stringify(report, null, 2));
 console.log(JSON.stringify({
   report: reportPath,
   inspectedResponses: report.inspectedResponses,
-  hardFlags,
+  unverifiedValueMentions,
   requiresHumanReview: report.requiresHumanReview,
   summary: audited.map(answer => ({
     id: answer.id,
@@ -79,4 +80,4 @@ console.log(JSON.stringify({
   })),
 }, null, 2));
 
-if (hardFlags > 0) process.exitCode = 1;
+if (unverifiedValueMentions > 0) process.exitCode = 1;
