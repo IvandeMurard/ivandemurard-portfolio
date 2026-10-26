@@ -53,10 +53,10 @@ const audited = scoped.map(answer => ({
 }));
 
 const unverifiedValueMentions = audited.reduce((sum, answer) =>
-  sum + answer.unsupportedPercentages.length + answer.unsupportedCounts.length + answer.missingEvidenceAnchors.length, 0);
+  sum + answer.unsupportedPercentages.length + answer.unsupportedCounts.length + answer.missingEvidenceAnchors.length + answer.attributionWarnings.length, 0);
 const report = {
   source: "public/aetherix.md",
-  note: "Numerically present != factually supported. Human must verify metric, comparator, sample, scope, deployment status and prose claims.",
+  note: "Numerically present != factually supported. Heuristic attribution warnings request review; they do not independently prove a claim is false. Check model, metric, comparator, horizon, scope, deployment status and prose.",
   inspectedResponses: audited.length,
   unverifiedValueMentions,
   requiresHumanReview: audited.filter(answer => answer.requiresSemanticReview).length,
@@ -76,6 +76,7 @@ console.log(JSON.stringify({
     unsupportedPercentages: answer.unsupportedPercentages.map(value => value.text),
     unsupportedCounts: answer.unsupportedCounts.map(value => value.text),
     numericallyPresentPercentages: answer.numericallyPresentPercentages.map(value => value.text),
+    attributionWarnings: answer.attributionWarnings.map(warning => ({ code: warning.code, snippet: warning.snippet })),
     missingSourceAnchors: answer.missingEvidenceAnchors.length,
   })),
 }, null, 2));
