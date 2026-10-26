@@ -466,9 +466,9 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
 
   const context = contextLayer(ctx);
   const notes = selectNotes(clean(ctx?.page?.path, 120), (ctx?.question ?? "").slice(0, 2000));
+  const selfSelected = selectRoseHistory(clean(ctx?.page?.path, 120), ctx?.question ?? "", ctx?.previousQuestions);
   const selectedStudies = roseFocusedStudies(ctx, selfSelected);
   const missing = (selectedStudies ?? CASE_STUDY_SLUGS).filter((slug) => !cache.has(slug));
-  const selfSelected = selectRoseHistory(clean(ctx?.page?.path, 120), ctx?.question ?? "", ctx?.previousQuestions);
   const self = roseHistoryLayer(selfSelected);
   const supportingGuidance = focusedContextGuidance(selectedStudies, ctx?.question ?? "");
   const scopedSubject = turnReferentContext(ctx);
