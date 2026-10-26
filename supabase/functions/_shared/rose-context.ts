@@ -330,7 +330,7 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
   const heading = clean(ctx?.page?.section_heading, 120);
   const sectionId = clean(ctx?.page?.section_id, 80);
   const named = CASE_STUDY_SLUGS.filter(slug =>
-    new RegExp(\`\\b\${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b\`, "i").test(question),
+    new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question),
   );
   const namesRose = /\brose\b/i.test(question);
   const broad = /\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience)\b/i.test(question);
@@ -348,14 +348,14 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
   for (const previous of (ctx?.previousQuestions ?? []).slice(-3).reverse()) {
     if (/\brose\b/i.test(previous)) { prior = "Rose"; break; }
     const studied = CASE_STUDY_SLUGS.filter(slug =>
-      new RegExp(\`\\b\${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b\`, "i").test(previous),
+      new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(previous),
     );
     if (studied.length) { prior = studied.join(" and "); break; }
     if (/\b(?:across (?:his |the |all |different )?projects?|career|professional experience|in general)\b/i.test(previous)) break;
   }
 
   const inViewText = pageSubject
-    ? \`The current page concerns \${pageSubject}\${heading ? \`, in the section "\${heading}"\${sectionId ? \` (#\${sectionId})\` : ""}\` : ""}.\`
+    ? `The current page concerns ${pageSubject}${heading ? `, in the section "${heading}"${sectionId ? ` (#${sectionId})` : ""}` : ""}.`
     : "The current page does not establish a narrow subject.";
 
   if (broad && !named.length && !namesRose) {
@@ -363,19 +363,19 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
   }
   if (named.length || namesRose) {
     const topic = [...named, ...(namesRose ? ["Rose"] : [])].join(" and ");
-    return \`Working scope for this turn: the visitor explicitly named \${topic}; that subject takes precedence over page context. Lead with it and omit unrelated project examples unless asked.\`;
+    return `Working scope for this turn: the visitor explicitly named ${topic}; that subject takes precedence over page context. Lead with it and omit unrelated project examples unless asked.`;
   }
   if (inView && pageSubject) {
-    return \`Working scope for this turn: the visitor said "here" or referred directly to the displayed page/section. \${inViewText} Prior discussion does not override that explicit in-view reference. Answer about this subject, not a cross-project catalogue.\`;
+    return `Working scope for this turn: the visitor said "here" or referred directly to the displayed page/section. ${inViewText} Prior discussion does not override that explicit in-view reference. Answer about this subject, not a cross-project catalogue.`;
   }
   if (prior && referential) {
-    return \`Working scope for this turn: the visitor's recent question concerned \${prior}; the current question leaves its subject implicit. Continue with \${prior}, even if the page has changed, unless the current wording indicates a new topic. \${inViewText} Avoid unrelated project examples.\`;
+    return `Working scope for this turn: the visitor's recent question concerned ${prior}; the current question leaves its subject implicit. Continue with ${prior}, even if the page has changed, unless the current wording indicates a new topic. ${inViewText} Avoid unrelated project examples.`;
   }
   if (pageSubject && referential) {
     const caveat = path === "/cv"
       ? "This is a broad professional page: briefly signal which interpretation you chose, or ask one focused clarification if different plausible meanings would substantially change the answer."
       : "Lead with the current subject's documented evidence, not generic portfolio or career examples. Do not add other projects merely as alternatives.";
-    return \`Working scope for this turn: no explicit subject or relevant previous subject overrides the reading context. \${inViewText} Treat that as the most likely interpretation, not a certainty. \${caveat} Keep any follow-up chips about the resolved subject.\`;
+    return `Working scope for this turn: no explicit subject or relevant previous subject overrides the reading context. ${inViewText} Treat that as the most likely interpretation, not a certainty. ${caveat} Keep any follow-up chips about the resolved subject.`;
   }
   return "Working scope for this turn: the available question and page do not identify a clear subject. Answer what is clear; when incompatible interpretations would materially change the answer, ask one focused clarification rather than listing unrelated projects.";
 }
