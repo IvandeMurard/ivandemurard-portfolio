@@ -46,6 +46,8 @@ journeys.push(
   // evaluations, not deterministic proof that the model interpreted the referent.
   { id: "referent-rose", turns: [{ path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" }] },
   { id: "referent-aetherix", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
+  { id: "referent-aetherix-repeat-2", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
+  { id: "referent-aetherix-repeat-3", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
   { id: "referent-note", turns: [{ path: "/journal/harnesses-graders-closed-loops", question: "What does Ivan measure?" }] },
   { id: "referent-cv", turns: [{ path: "/cv", question: "What does Ivan measure?" }] },
   { id: "referent-prior", turns: [
@@ -99,6 +101,7 @@ async function run(journey: typeof journeys[number]) {
         characters: system.length,
         hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix ---"),
         hasBenchmarkNumerics: system.includes("Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%"),
+        hasAttributionLedger: system.includes("Aetherix measurement evidence (attribution contract, backed by the fetched case-study reference):"),
         hasRoseHistory: system.includes("--- BEGIN ROSE FACTUAL REFERENCE"),
         aetherixUnavailable: /References unavailable right now: [^\n]*\baetherix\b/.test(system),
       };
