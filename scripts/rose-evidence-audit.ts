@@ -1,5 +1,5 @@
 /**
- * Offline Stage B quantitative QA.
+ * Offline Stage B quantitative and reader-value QA.
  * Usage: bun scripts/rose-evidence-audit.ts <directory-containing-answers.json>
  *
  * This is not a production response filter. Any documented number can still
@@ -63,8 +63,8 @@ const report = {
   inspectedResponses: audited.length,
   unverifiedValueMentions,
   readerValueReviewMentions,
-  requiresHumanReview: audited.filter(answer => answer.requiresSemanticReview).length,
-  interpretation: "Exit 1 requests human review: figures in denials or corrections can be valid even when absent from source.",
+  requiresHumanReview: audited.filter(answer => answer.requiresSemanticReview || answer.readerValueWarnings.length > 0).length,
+  interpretation: "Exit 1 requests human review for quantitative grounding and reader usefulness. A correct denial can quote an unsupported number; jargon may be appropriate when asked for technical detail.",
   audits: audited,
 };
 
