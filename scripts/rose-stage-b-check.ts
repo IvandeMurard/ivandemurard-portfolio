@@ -50,6 +50,10 @@ journeys.push(
     { path: "/aetherix", question: "How does Ivan evaluate Aetherix?" },
     { path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" },
   ] },
+  { id: "referent-here", turns: [
+    { path: "/aetherix", question: "How does Ivan measure Aetherix forecast accuracy?" },
+    { path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure here?" },
+  ] },
   { id: "referent-explicit", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure in Aetherix?" }] },
   { id: "referent-broad", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure across his projects?" }] },
   ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose-design-lab", question: historyQuestions[i] }] })),
