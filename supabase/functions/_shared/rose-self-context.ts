@@ -21,12 +21,12 @@ Do not offer booking as a follow-up to a self-history or identity question witho
  * Keep this as scoped interpretation, not a duplicate source of facts.
  */
 export function roseMeasurementContext(path: string, question: string): string {
-  const route = path.split(/[?#]/)[0].replace(/\\/+$/, "") || "/";
+  const route = path.split(/[?#]/)[0].replace(/\/+$/, "") || "/";
   if (route !== "/rose-design-lab") return "";
-  if (!/\\b(measur(?:e|es|ed|ing|ements?)|metrics?|kpis?|track(?:s|ed|ing)?|evaluat(?:e|es|ion|ing))\\b/i.test(question)) return "";
-  if (!/\\b(ivan|rose|you|your|he|his)\\b/i.test(question)) return "";
+  if (!/\b(measur(?:e|es|ed|ing|ements?)|metrics?|kpis?|track(?:s|ed|ing)?|evaluat(?:e|es|ion|ing))\b/i.test(question)) return "";
+  if (!/\b(ivan|rose|you|your|he|his)\b/i.test(question)) return "";
   // Never override an explicitly requested outside project, job or comparison.
-  if (/\\b(aetherix|lore|sonor|tacet|anima|compass|bouygues|domusvi|career|job|other projects?|across projects|across his work)\\b/i.test(question)) return "";
+  if (/\b(aetherix|lore|sonor|tacet|anima|compass|bouygues|domusvi|career|job|other projects?|across projects|across his work)\b/i.test(question)) return "";
   return "Contextual referent: the visitor is on Rose's case-study page and asks about Ivan's measurements. Answer about Rose itself, using the measurement and synthetic evaluation entries in the Rose factual reference. Explain operational request outcomes and evidence-link or booking-link events, the limits of synthetic tests, and that visitor satisfaction or understanding has not been established. Do not substitute metrics from Ivan's professional history or other projects.";
 }
 
