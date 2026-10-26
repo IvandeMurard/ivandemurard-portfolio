@@ -2,6 +2,7 @@ import { streamText, convertToModelMessages, tool, stepCountIs, type UIMessage }
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { z } from "zod";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { getRoseSystemPrompt } from "../supabase/functions/_shared/rose-context.ts";
 import { roseHistoryLayer } from "../supabase/functions/_shared/rose-self-context.ts";
 import { ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION } from "../supabase/functions/_shared/rose-tool-contract.ts";
@@ -72,15 +73,29 @@ async function run(journey: typeof journeys[number]) {
       const page = { path: turn.path, ...(turn.chapter ? { section_id: "scene-c", section_heading: "Start with the work." } : {}), ...(turn.sectionId ? { section_id: turn.sectionId, section_heading: turn.sectionHeading } : {}) };
       let system = await getRoseSystemPrompt({ page, question: turn.question, previousQuestions });
       if (turn.unavailable) system = system.replace(/--- BEGIN ROSE FACTUAL REFERENCE[\s\S]*?--- END ROSE FACTUAL REFERENCE ---/, "") + "\n" + roseHistoryLayer(true, null);
+      const id = journey.id + "-" + (index + 1);
+      // Only capture the raw system prompt in an isolated, opt-in QA workspace.
+      // Do not publish these prompts: they include Rose's internal instructions.
+      if (process.env.ROSE_QA_CAPTURE_PROMPT === "1") {
+        writeFileSync(output + "/" + id + ".system.txt", system);
+      }
+      const promptEvidence = {
+        sha256: createHash("sha256").update(system).digest("hex"),
+        characters: system.length,
+        hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix (fetched"),
+        hasBenchmarkNumerics: system.includes("Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%"),
+        hasRoseHistory: system.includes("--- BEGIN ROSE FACTUAL REFERENCE"),
+        aetherixUnavailable: system.includes("References unavailable right now: aetherix"),
+      };
       const result = streamText({ model: provider("google/gemini-3-flash-preview"), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools });
       const sse = await result.toUIMessageStreamResponse().text();
       const events = sse.split("\n").filter(s => s.startsWith("data: ") && !s.includes("[DONE]")).map(s => JSON.parse(s.slice(6)));
       const text = events.filter(e => e.type === "text-delta").map(e => e.delta).join("");
       const calls = events.filter(e => e.type === "tool-input-available");
       const errors = events.filter(e => e.type === "error");
-      const id = `${journey.id}-${index + 1}`;
+
       writeFileSync(`${output}/${id}.sse`, sse);
-      results.push({ id, page, question: turn.question, previousQuestions, text, tools: calls, errors, words: text.split(/\s+/).length, reviewer: "PENDING" });
+      results.push({ id, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, words: text.split(/\s+/).length, reviewer: "PENDING" });
       if (text) messages.push({ id: `${id}-a`, role: "assistant", parts: [{ type: "text", text }] });
       console.log(id, text.split(/\s+/).length, calls.map(c => c.toolName).join(","), errors.length ? "ERROR" : "");
     } catch (error) { results.push({ id: journey.id, error: String(error) }); }
