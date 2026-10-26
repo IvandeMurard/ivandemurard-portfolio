@@ -122,6 +122,30 @@ describe("Rose canonical knowledge", () => {
     expect(switched).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
   });
 
+  it("respects explicit page references and later conversation topic changes", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const here = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      question: "What does Ivan measure here?",
+      previousQuestions: ["How does Aetherix measure its forecast accuracy?"],
+    });
+    expect(here).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const changedTopic = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure?",
+      previousQuestions: ["How does Aetherix measure its forecasts?", "Explain Rose's design"],
+    });
+    expect(changedTopic).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const otherPage = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure here?",
+      previousQuestions: ["Explain Rose's design"],
+    });
+    expect(otherPage).toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
   it("does not override an explicitly named project or broad comparison", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const named = await getRoseSystemPrompt({
