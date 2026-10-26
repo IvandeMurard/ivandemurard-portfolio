@@ -274,7 +274,7 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
     if (named.length) return named;
     const short = question.trim().split(/\s+/).length <= 8;
     if (!short || !refersBack) return undefined;
-    if (prior.length) return prior;
+    if (prior.length && !explicitlyInView) return prior;
     const routeSlug = path.slice(1) as Slug;
     if (CASE_STUDY_SLUGS.includes(routeSlug)) return [routeSlug];
     if (path.startsWith("/journal/")) return [];
