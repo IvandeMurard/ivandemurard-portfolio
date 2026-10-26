@@ -5,7 +5,7 @@ import { Seo } from "@/components/Seo";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RoseHistoryTransition } from "@/components/rose/RoseHistoryTransition";
-import { RoseLaterChapters } from "@/components/rose/RoseLaterChapters";
+import { RoseLaterChapters, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
 
 /**
  * Temporary, unlinked design lab for the Rose case study. Not in nav, sitemap
@@ -460,7 +460,7 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => {
             <p className="font-body text-base leading-relaxed text-on-surface">The intended difference was simple: let the visitor ask about what is in front of them before asking who they are. This is the product decision, not a claim of measured improvement.</p>
             <p className="mt-4 font-body text-xs text-on-surface-variant">Sources: contextual starters plan, 7 August; page-context integration, commit b236ff3, 10 August.</p>
             <div className="mt-8"><RoseQuestion text="What has Ivan actually built?" className="text-lg" /></div>
-            <p className="mt-4 font-body text-sm leading-relaxed text-on-surface-variant">Today's Rose answers from published portfolio content. Her full history is not yet a verified reference, so this question explores the work, not historical decisions.</p>
+            <p className="mt-4 font-body text-sm leading-relaxed text-on-surface-variant">Rose's draft self-history is a repository reference, not proof of visitor behaviour. The live dock may still use an earlier deployed prompt; check its answers against the published case studies.</p>
           </div>
         </div>
       </section>
@@ -490,9 +490,9 @@ const RoseDesignLab = () => {
           </div>
         </div>
       </div>
-      {concept === "a" ? <ConceptA reduced={reduced} /> : concept === "b" ? <ConceptB reduced={reduced} /> : <ConceptC reduced={reduced} />}
+      {concept === "a" ? <><ConceptA reduced={reduced} /><ChapterQualityAssurance /></> : concept === "b" ? <><ConceptB reduced={reduced} /><ChapterQualityAssurance /></> : <ConceptC reduced={reduced} />}
       <aside className="mx-auto max-w-3xl px-6 pb-24 font-body text-sm text-on-surface-variant">
-        Prototype note: the Ask Rose links open the real Rose dock. Rose does not yet have her own history in her references, so answers about it may be partial; that knowledge is future work. "Design reading" lines are interpretation, not user research. <Link to="/" className="underline">Back to the site</Link>
+        Prototype note: Ask Rose links open the actual dock, which may still use an earlier deployed prompt. The self-history and QA changes described here are unmerged draft work. "Design reading" is interpretation, not visitor research. <Link to="/" className="underline">Back to the site</Link>
       </aside>
     </SiteLayout>
   );

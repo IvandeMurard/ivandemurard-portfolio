@@ -1,0 +1,2 @@
+# Generated files are emitted with LF; keep them LF on Windows checkouts so drift checks stay stable.
+*.generated.* text eol=lf

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { renderRoseMarkdown, linkifyProjects } from "@/components/rose/roseMarkdown";
+import { renderRoseMarkdown, linkifyProjects, canonicalRoseHref } from "@/components/rose/roseMarkdown";
 
 const renderMd = (text: string) => render(<MemoryRouter>{renderRoseMarkdown(text)}</MemoryRouter>);
 
@@ -69,5 +69,26 @@ describe("Project auto-linking", () => {
 
   it("leaves code spans untouched", () => {
     expect(linkifyProjects("Run `Tacet` locally.")).toBe("Run `Tacet` locally.");
+  });
+});
+
+describe("Canonical Field Note destinations", () => {
+  it("repairs the malformed Agent Boundaries link seen in the gateway test", () => {
+    renderMd("Read [Agent Boundaries](/agent-boundaries-aetherix).");
+    expect(screen.getByRole("link", { name: "Agent Boundaries" }))
+      .toHaveAttribute("href", "/journal/agent-boundaries-aetherix");
+  });
+
+  it("normalizes only known routes, preserving anchors and unrelated destinations", () => {
+    expect(canonicalRoseHref("/agent-boundaries-aetherix#human-approval"))
+      .toBe("/journal/agent-boundaries-aetherix#human-approval");
+    expect(canonicalRoseHref("/harnesses-graders-closed-loops"))
+      .toBe("/journal/harnesses-graders-closed-loops");
+    expect(canonicalRoseHref("/whose-truth-is-the-ground-truth"))
+      .toBe("/journal/whose-truth-is-the-ground-truth");
+    expect(canonicalRoseHref("/aetherix#where-it-stands"))
+      .toBe("/aetherix#where-it-stands");
+    expect(canonicalRoseHref("https://example.org/agent-boundaries-aetherix"))
+      .toBe("https://example.org/agent-boundaries-aetherix");
   });
 });
