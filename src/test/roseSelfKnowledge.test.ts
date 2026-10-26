@@ -357,6 +357,73 @@ describe("Rose canonical knowledge", () => {
     expect(mockFetch).toHaveBeenCalledTimes(8);
   });
 
+  it("keeps long implicit questions scoped to their current case study, including measurement evidence", async () => {
+    vi.resetModules();
+    const aetherixMd = readFileSync("public/aetherix.md", "utf8");
+    const fetchStub = vi.fn(async (url: string) => new Response(
+      String(url).endsWith("/aetherix.md") ? aetherixMd : "# Other case-study source",
+      { status: 200 },
+    ));
+    vi.stubGlobal("fetch", fetchStub);
+    const { getRoseSystemPrompt: freshPrompt } = await import("../../supabase/functions/_shared/rose-context");
+
+    const prompt = await freshPrompt({
+      page: { path: "/aetherix" },
+      question: "How does Ivan assess the forecast against a baseline and how would we distinguish a model benchmark from observed improvements in a real hotel operation?",
+    });
+
+    expect(prompt).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(prompt).not.toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(prompt).not.toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(prompt).not.toContain("Track record:");
+    expect(prompt).toContain("gradient_boosted_median:");
+    expect(prompt).toContain("model=a separate gradient-boosted alternative, NOT Prophet");
+    expect(prompt).toContain("Staffing recommendations are a PILOT HYPOTHESIS");
+    expect(prompt).toContain("No guardrail-frequency KPI");
+  });
+
+  it("preserves named cross-page topics, explicit comparisons and broad requests", async () => {
+    vi.resetModules();
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("# Study source", { status: 200 })));
+    const { getRoseSystemPrompt: freshPrompt } = await import("../../supabase/functions/_shared/rose-context");
+
+    const named = await freshPrompt({
+      page: { path: "/aetherix" }, question: "Compare Lore and Sonor: what are the differences in the reliability and outcomes reported in their case studies?",
+    });
+    expect(named).toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(named).toContain("--- BEGIN CASE STUDY: sonor ---");
+    expect(named).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const previous = await freshPrompt({
+      page: { path: "/rose-design-lab" },
+      previousQuestions: ["How are Aetherix's forecasts measured?"],
+      question: "How could Ivan verify that the outcome evidence improves over time without implying that the results are proven in real hotels?",
+    });
+    expect(previous).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(previous).not.toContain("--- BEGIN CASE STUDY: lore ---");
+
+    const broad = await freshPrompt({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure across his projects?",
+    });
+    expect(broad).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: lore ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(broad).toContain("Track record:");
+  });
+
+  it("never inserts an apparently verified attribution ledger when the fetched Aetherix source lacks the anchors", async () => {
+    vi.resetModules();
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("# No benchmark details", { status: 200 })));
+    const { getRoseSystemPrompt: freshPrompt } = await import("../../supabase/functions/_shared/rose-context");
+    const prompt = await freshPrompt({
+      page: { path: "/aetherix" },
+      question: "Which model achieved 25.6% and how do the reported forecast metrics compare?",
+    });
+    expect(prompt).not.toContain("gradient_boosted_median:");
+    expect(prompt).toContain("numerical evidence registry could not be verified");
+  });
+
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
