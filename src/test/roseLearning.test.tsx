@@ -2,6 +2,7 @@ import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ChapterLearning, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
 import { MemoryRouter } from "react-router-dom";
+import { readFileSync } from "node:fs";
 
 afterEach(cleanup);
 
@@ -33,4 +34,12 @@ describe("Rose case-study QA chapter", () => {
     const evidence = screen.getByRole("link", { name: "See the Aetherix evidence" });
     expect(evidence).toHaveAttribute("href", "/aetherix#where-it-stands");
   });
+  it("mounts the QA section in the default, alternate and narrative concept", () => {
+    const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
+    const chapters = readFileSync("src/components/rose/RoseLaterChapters.tsx", "utf8");
+    expect(page).toContain("<ConceptA reduced={reduced} /><ChapterQualityAssurance />");
+    expect(page).toContain("<ConceptB reduced={reduced} /><ChapterQualityAssurance />");
+    expect(chapters).toContain("<ChapterLearning />\n    <ChapterQualityAssurance />");
+  });
+
 });
