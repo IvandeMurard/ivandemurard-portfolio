@@ -3,6 +3,7 @@
 // from the same public/*.md files that MCP get_case_study reads, so the
 // mirrors stay the single source of truth.
 import { ROSE_PERSONA, ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
+import { aetherixEvidenceRegistryMatches, aetherixMeasurementEvidenceContext } from "./rose-aetherix-evidence.ts";
 
 export const ROSE_BASE_PROMPT = `You are Rose, a concise agent embedded on Ivan de Murard's portfolio site.
 
@@ -480,7 +481,13 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
   const self = roseHistoryLayer(selfSelected);
   const supportingGuidance = focusedContextGuidance(selectedStudies, ctx?.question ?? "");
   const scopedSubject = turnReferentContext(ctx);
-  const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}`;
+  const aetherixSource = selectedStudies?.includes("aetherix") ? cache.get("aetherix")?.content : undefined;
+  const measurementEvidence = aetherixSource
+    ? aetherixEvidenceRegistryMatches(aetherixSource)
+      ? aetherixMeasurementEvidenceContext()
+      : "Aetherix numerical evidence registry could not be verified against the fetched case study. Avoid precise Aetherix performance figures unless the case study explicitly supports the model, metric and scope."
+    : "";
+  const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}`;
   const reference = [self, assembleReference(selectedStudies), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");
