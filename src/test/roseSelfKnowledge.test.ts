@@ -2,7 +2,7 @@ import { describe, expect, it, vi, afterEach } from "vitest";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { getRosePrompts } from "../content/rosePrompts";
-import { selectRoseHistory, roseHistoryLayer, ROSE_CANONICAL_ANCHORS } from "../../supabase/functions/_shared/rose-self-context";
+import { selectRoseHistory, roseHistoryLayer, ROSE_CANONICAL_ANCHORS, roseMeasurementContext } from "../../supabase/functions/_shared/rose-self-context";
 import { getRoseSystemPrompt } from "../../supabase/functions/_shared/rose-context";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -72,6 +72,27 @@ describe("Rose canonical knowledge", () => {
     expect(answer).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
     expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
     expect(answer).toContain("On the Rose design-lab page");
+  });
+
+  it("disambiguates Rose's measurement on the design-lab page without hijacking comparisons", () => {
+    const hint = roseMeasurementContext("/rose-design-lab", "What does Ivan measure?");
+    expect(hint).toContain("Answer about Rose itself");
+    expect(hint).toContain("synthetic evaluation");
+    expect(roseMeasurementContext("/aetherix", "What does Ivan measure?")).toBe("");
+    expect(roseMeasurementContext("/rose-design-lab", "What does Ivan measure in Aetherix?")).toBe("");
+    expect(roseMeasurementContext("/rose-design-lab", "What metrics does Ivan track across projects?")).toBe("");
+    expect(roseMeasurementContext("/rose-design-lab", "What metrics should my team track?")).toBe("");
+  });
+
+  it("places the scoped measurement clarification after the general answer contract", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
+    const message = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure?",
+    });
+    expect(message).toContain("Contextual referent: the visitor is on Rose's case-study page");
+    expect(message).toContain("## measurement (2026-10-24, implemented)");
+    expect(message.lastIndexOf("Contextual referent:")).toBeGreaterThan(message.lastIndexOf("Final answer contract:"));
   });
 
   it("keeps named external project evidence available from Rose's case study", async () => {
