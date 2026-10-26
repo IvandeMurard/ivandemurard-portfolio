@@ -324,6 +324,9 @@ describe("Rose canonical knowledge", () => {
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
+    expect(harness).toContain("ROSE_QA_CAPTURE_PROMPT");
+    expect(harness).toContain("hasBenchmarkNumerics");
+    expect(harness).toContain("promptEvidence, text");
     for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION"]) {
       expect(edge).toContain(name);
       expect(harness).toContain(name);
