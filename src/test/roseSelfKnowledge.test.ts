@@ -250,6 +250,53 @@ describe("Rose canonical knowledge", () => {
     expect(answer).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
   });
 
+  it("keeps unrelated career and cross-project facts out of focused Rose and Aetherix turns", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const rose = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(rose).toContain("## measurement (2026-10-24, implemented)");
+    expect(rose).toContain("Working scope for this turn");
+    expect(rose).not.toContain("Bouygues Telecom");
+    expect(rose).not.toContain("30 public Japanese restaurants");
+    expect(rose).not.toContain("Track record:");
+    expect(rose).not.toContain("MCP questions:");
+
+    const aetherix = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
+    expect(aetherix).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(aetherix).toContain("Aetherix: historical forecast benchmarks");
+    expect(aetherix).not.toContain("Bouygues Telecom");
+    expect(aetherix).not.toContain("Track record:");
+    expect(aetherix).not.toContain("--- BEGIN CASE STUDY: lore ---");
+  });
+
+  it("preserves portfolio-wide context for cross-project and recruiting questions", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const broad = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "What does Ivan measure across his projects?",
+    });
+    expect(broad).toContain("Track record:");
+    expect(broad).toContain("Bouygues Telecom");
+    expect(broad).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: lore ---");
+
+    const cv = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "What does Ivan measure?" });
+    expect(cv).toContain("Career facts: distinguish an achieved result");
+    expect(cv).toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(cv).not.toContain("Field Notes (three complementary notes");
+  });
+
+  it("loads exact specialist instructions only when requested on a focused page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const mcp = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "How do I use this portfolio MCP?",
+    });
+    expect(mcp).toContain("claude mcp add ivandemurard --transport http");
+    expect(mcp).toContain("MCP questions:");
+    expect(mcp).not.toContain("Track record:");
+  });
+
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
