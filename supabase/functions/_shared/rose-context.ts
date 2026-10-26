@@ -253,16 +253,16 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
   const named = (["sonor", "aetherix", "tacet", "lore", "architecture", "anima", "compass", "cv"] as const)
     .filter(slug => new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question));
   // A cross-project question needs the full portfolio, not a route-specific answer.
-  if (/\\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience)\\b/i.test(question)) return undefined;
+  if (/\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience)\b/i.test(question)) return undefined;
   // A recently named subject survives an underspecified follow-up, even if the
   // visitor has navigated onto Rose's page in the meantime.
-  const refersBack = /\\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they)\\b/i.test(question);
+  const refersBack = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they)\b/i.test(question);
   const prior = (ctx?.previousQuestions ?? []).slice(-3).reverse().map(previous =>
     CASE_STUDY_SLUGS.filter(slug =>
       new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(previous),
     ),
   ).find(subjects => subjects.length > 0) ?? [];
-  if (!named.length && !/\\brose\\b/i.test(question) && refersBack && prior.length) return prior;
+  if (!named.length && !/\brose\b/i.test(question) && refersBack && prior.length) return prior;
   // Chapter 06 is an Aetherix receipt demo, not Rose editing the DOM.
   if (path === "/rose-design-lab" && /^(ch-next|chapter-06)$/.test(clean(ctx?.page?.section_id, 80))) {
     if (!named.includes("aetherix")) return [...named, "aetherix"];
