@@ -24,15 +24,18 @@ describe("Chapter 05 visitor-led handoff", () => {
   });
 });
 describe("Rose case-study QA chapter", () => {
-  it("explains source fidelity and reader usefulness without claiming user validation", () => {
+  it("separates answer correctness from question relevance without duplicating product-level value claims", () => {
     render(<MemoryRouter><ChapterQualityAssurance /></MemoryRouter>);
     expect(screen.getByRole("heading", { name: "A correct answer can still miss the question." })).toBeInTheDocument();
-    expect(screen.getByText(/Every code change must pass versioned golden datasets/)).toBeInTheDocument();
-    expect(screen.getByText(/A more useful answer/)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Does it help?" })).toBeInTheDocument();
-    expect(screen.getByText(/do not estimate Rose's reliability/)).toBeInTheDocument();
-    const evidence = screen.getByRole("link", { name: "See the Aetherix evidence" });
-    expect(evidence).toHaveAttribute("href", "/aetherix#where-it-stands");
+    expect(screen.getByRole("table", { name: "Answer quality decision matrix" })).toBeInTheDocument();
+    expect(screen.getAllByText("Correct · pass")).toHaveLength(3);
+    expect(screen.getAllByText("Incorrect · fail")).toHaveLength(3);
+    expect(screen.getAllByText("Answers the question · pass")).toHaveLength(2);
+    expect(screen.getAllByText("Misses the reader's question · fail")).toHaveLength(2);
+    expect(screen.getByText(/Correctness and question relevance are independent/)).toBeInTheDocument();
+    expect(screen.getByText(/Chapter 05 asks whether Rose creates value across real visitors/)).toBeInTheDocument();
+    expect(screen.getByText(/does not establish whether Rose creates value for visitors/)).toBeInTheDocument();
+    expect(screen.queryByText("What Rose said")).not.toBeInTheDocument();
   });
   it("mounts the QA section in the default, alternate and narrative concept", () => {
     const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
