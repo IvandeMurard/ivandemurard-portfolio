@@ -74,6 +74,13 @@ journeys.push(
     path: "/aetherix",
     question: "Was the simulated change from 15.9% to 12.3% validated in a real hotel?",
   }] },
+  // Paired with plain-language measurement repetitions: when a visitor asks
+  // about release engineering, those technical details can be useful.
+  { id: "metric-ci-technical", turns: [{
+    path: "/aetherix",
+    question: "How do evaluation gates protect Aetherix changes to forecasting, providers, memory or prompts before merge?",
+  }] },
+
   ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose-design-lab", question: historyQuestions[i] }] })),
 );
 const tools = {
