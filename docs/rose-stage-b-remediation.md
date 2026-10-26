@@ -71,6 +71,26 @@ The current change instead establishes a general referent policy: explicit quest
 
 **Required next validation:** use the new `referent-*` matrix plus `self-09` with the actual model. Evaluate the same vague measurement question on the Rose, Aetherix, Field Note and CV routes; test a recent Aetherix topic overriding Rose's page; and test explicit Aetherix and cross-project requests. Check whether Rose answers, briefly states an assumption or asks one justified clarification. Repeat the original failing case if it passes. Do not grade by exact keyword presence.
 
+### Ambiguous-referent evaluation matrix (model gate pending)
+
+The same question is intentionally reused in distinct settings. A passing answer is judged on its **chosen referent and evidence**, not matching a memorized sentence.
+
+| Case | Reading context / conversation | Acceptable handling |
+| --- | --- | --- |
+| `self-09` | `/rose-design-lab`, no earlier topic | Answer primarily about Rose's operational events and bounded synthetic evaluation; do not substitute other projects' metrics |
+| `referent-rose` | Rose Chapter 05 (`ch-learn`) | Explain the three evidence levels: functional checks, operational usage, and unmeasured visitor value |
+| `referent-aetherix` | `/aetherix`, no earlier topic | Answer about Aetherix's evaluated sandbox/public-benchmark metrics, with explicit limitations |
+| `referent-note` | Evaluation Field Note | Relate the answer to measurement methods (graders, protocols, outcomes); distinguish the method from actual product results |
+| `referent-cv` | `/cv`, no strong recent referent | Briefly qualify whether the visitor means results across Ivan's work, or explain a clearly stated CV-related interpretation; avoid arbitrary single-project assumptions |
+| `referent-prior` | Previous question explicitly concerned Aetherix, now Rose page | Prefer the continuing Aetherix topic unless the current question clearly points to Rose |
+| `referent-here` | Previous Aetherix discussion, new Rose page, visitor asks about measurements **here** | Treat "here" as an explicit pointer to the current Rose page |
+| `referent-explicit` | On Rose page, question explicitly names Aetherix | Follow Aetherix despite the page |
+| `referent-broad` | On Rose page, visitor explicitly asks across projects | Give appropriately sourced cross-project coverage; do not force a Rose-only answer |
+
+Clarification is correct **only when** plausible meanings would materially change the answer and dialogue/section/page do not sufficiently resolve them. Do not ask a confirmation question before every contextually answerable prompt. No contact/booking inference.
+
+The prior **7/8 PASS** result applies only to the earlier `760ab832` source snapshot. The revised branch has not yet been accepted by a real-model rerun.
+
 The overall Stage B release remains **HOLD**.
 
 ## Remaining release blockers
