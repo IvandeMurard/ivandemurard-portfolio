@@ -9,6 +9,7 @@ import { RoseBookingCard } from "./RoseBookingCard";
 import { RoseMarkdown } from "./roseMarkdown";
 import { CAL_URL } from "./roseConfig";
 import { bookingSafeAnswer, normalizeRoseText, stripLeakedRoseToolCalls } from "./roseAnswer";
+import { isRoseFollowupAllowed, shouldSuppressRoseFollowups } from "../../../supabase/functions/_shared/rose-tool-contract";
 import { logRoseEvent } from "./roseEvents";
 import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
@@ -337,7 +338,7 @@ export const RoseDock = () => {
               ) : null}
 
               <div className="flex flex-col gap-4">
-                {messages.map((m) => {
+                {messages.map((m, messageIndex) => {
                   const text = renderText(m);
                   if (m.role === "user") {
                     return (
@@ -353,8 +354,17 @@ export const RoseDock = () => {
                   const modelItems = Array.isArray(follow?.items)
                     ? (follow?.items as unknown[]).filter((x): x is string => typeof x === "string" && x.trim().length > 2)
                     : [];
+                  const precedingQuestion = [...messages.slice(0, messageIndex)].reverse().find(message => message.role === "user");
+                  const allowedModelItems = modelItems.filter(item => isRoseFollowupAllowed(item, {
+                    question: precedingQuestion ? renderText(precedingQuestion) : "",
+                    pagePath: pathname,
+                  }));
+                  const suppressFollowups = shouldSuppressRoseFollowups({
+                    question: precedingQuestion ? renderText(precedingQuestion) : "",
+                    pagePath: pathname,
+                  });
                   // Fallback: page starters the visitor has not asked yet, never booking.
-                  const items = (modelItems.length ? modelItems : booking ? [] : fallbackFollowups).slice(0, 2).map(normalizeRoseText);
+                  const items = (suppressFollowups || booking ? [] : modelItems.length ? allowedModelItems : fallbackFollowups).slice(0, 2).map(normalizeRoseText);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
                       {text ? <RoseMarkdown text={stripLeakedRoseToolCalls(bookingSafeAnswer(text, !!booking))} streaming={isLoading && m.id === lastAssistantId}

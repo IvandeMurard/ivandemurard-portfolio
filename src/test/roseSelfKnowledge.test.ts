@@ -4,11 +4,16 @@ import { readFileSync } from "node:fs";
 import { getRosePrompts } from "../content/rosePrompts";
 import { selectRoseHistory, roseHistoryLayer, ROSE_CANONICAL_ANCHORS } from "../../supabase/functions/_shared/rose-self-context";
 import { getRoseSystemPrompt, turnReferentContext } from "../../supabase/functions/_shared/rose-context";
+import { getRoseCuratedAnswer, ROSE_AETHERIX_MEASUREMENT_ANSWER, ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER } from "../../supabase/functions/_shared/rose-curated-answers";
+import { shouldSuppressRoseFollowups } from "../../supabase/functions/_shared/rose-tool-contract";
 
 afterEach(() => vi.unstubAllGlobals());
 describe("Rose canonical knowledge", () => {
   it("generated reference and persona match canonical sources and resolve provenance", () => {
-    expect(execFileSync("bun", ["scripts/generate-rose-history.ts", "--check"], { encoding: "utf8" })).toContain("v1 verified");
+    const output = process.platform === "win32"
+      ? execFileSync(process.env.ComSpec ?? "cmd.exe", ["/d", "/s", "/c", "bun scripts/generate-rose-history.ts --check"], { encoding: "utf8" })
+      : execFileSync("bun", ["scripts/generate-rose-history.ts", "--check"], { encoding: "utf8" });
+    expect(output).toContain("v1 verified");
   });
   it("selects only the exact lab route, including its query", () => {
     expect(selectRoseHistory("/rose-design-lab?concept=narrative", "Explain this")).toBe(true);
@@ -158,6 +163,19 @@ describe("Rose canonical knowledge", () => {
 
     const cv = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "What does Ivan measure?" });
     expect(cv).toContain("On a broad profile or unrelated page");
+  });
+
+  it("keeps reader-value, guardrail and canonical-link constraints in the final answer contract", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const system = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
+    expect(system).toContain("Do not call logged guardrail reasons a reliability measure");
+    expect(system).toContain("exact published /journal/ URL");
+    expect(system).toContain("Do not default to CI, release gates, golden datasets, harnesses or graders");
+    expect(system).toContain("a forecast benchmark measures forecast error, not whether an agent recommendation was right");
+    expect(system).toContain("Never turn planned rollout reach into live adoption or \"delivery at scale\"");
+    expect(system).toContain("a failing evaluation exit code blocks a merge, not that every guardrail trip or any possible code change does");
+    expect(system).toContain("forecast evaluation uses a synthetic series; the reply parser is checked with a rule-based stand-in");
+    expect(system).toContain("Do not transfer Lore evidence to Aetherix");
   });
 
   it("preserves a recent explicit topic despite navigation to another page", async () => {
@@ -442,9 +460,33 @@ describe("Rose canonical knowledge", () => {
     expect(technical).toContain("--- BEGIN CASE STUDY: aetherix ---");
   });
 
+  it("uses a compact, source-faithful anchor and no optional follow-up tool for Stage B Aetherix checks", async () => {
+    const question = "How do evaluation gates protect Aetherix changes to forecasting, providers, memory or prompts before merge?";
+    const technical = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question });
+    expect(technical).toContain("Technical Aetherix evaluation answer: use this factual core, then stop.");
+    expect(technical).toContain("The reply parser uses a rule-based stand-in. Do not combine them.");
+    expect(shouldSuppressRoseFollowups({ question, pagePath: "/aetherix" })).toBe(true);
+    expect(shouldSuppressRoseFollowups({ question: "What does Ivan measure?", pagePath: "/aetherix" })).toBe(true);
+    expect(shouldSuppressRoseFollowups({ question: "What did Ivan build?", pagePath: "/aetherix" })).toBe(false);
+  });
+
+  it("serves the two evidence-critical Aetherix answers from reviewed source text", () => {
+    expect(getRoseCuratedAnswer({ question: "What does Ivan measure?", pagePath: "/aetherix" })).toBe(ROSE_AETHERIX_MEASUREMENT_ANSWER);
+    expect(ROSE_AETHERIX_MEASUREMENT_ANSWER).toContain("49.71% versus 55.86%");
+    expect(ROSE_AETHERIX_MEASUREMENT_ANSWER).toContain("28.5% versus 27.9%");
+    expect(getRoseCuratedAnswer({
+      question: "How do evaluation gates protect Aetherix changes to forecasting, providers, memory or prompts before merge?",
+      pagePath: "/aetherix",
+    })).toBe(ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER);
+    expect(ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER).toContain("A failing evaluation exit code blocks a merge.");
+    expect(ROSE_AETHERIX_TECHNICAL_EVALUATION_ANSWER).toContain("it is not the merge decision");
+    expect(getRoseCuratedAnswer({ question: "What does Ivan measure?", pagePath: "/cv" })).toBeNull();
+  });
+
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
+    const audit = readFileSync("scripts/rose-evidence-audit.ts", "utf8");
     expect(harness).toContain("ROSE_QA_CAPTURE_PROMPT");
     expect(harness).toContain("ROSE_QA_PROMPT_ONLY");
     expect(harness).toContain("hasBenchmarkNumerics");
@@ -452,7 +494,14 @@ describe("Rose canonical knowledge", () => {
     expect(harness).toContain('hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix ---")');
     expect(harness).not.toContain('hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix (fetched"');
     expect(harness).toContain("promptEvidence, text");
-    for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION"]) {
+    expect(harness).toContain('e.type === "tool-input-error"');
+    expect(harness).toContain('mode: "CURATED"');
+    expect(harness).toContain("const curatedSse");
+    expect(harness).toContain("Stage B tool contract violated");
+    expect(audit).toContain("rawStreamEvidence");
+    expect(audit).toContain('event.type === "tool-input-error"');
+    expect(edge).toContain("curatedRoseResponse");
+    for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION", "isRoseFollowupAllowed", "roseFollowupPolicyDescription", "shouldSuppressRoseFollowups", "getRoseCuratedAnswer"]) {
       expect(edge).toContain(name);
       expect(harness).toContain(name);
     }

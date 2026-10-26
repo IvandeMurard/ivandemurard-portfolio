@@ -39,7 +39,7 @@ describe("Rose case-study QA chapter", () => {
     const chapters = readFileSync("src/components/rose/RoseLaterChapters.tsx", "utf8");
     expect(page).toContain("<ConceptA reduced={reduced} /><ChapterQualityAssurance />");
     expect(page).toContain("<ConceptB reduced={reduced} /><ChapterQualityAssurance />");
-    expect(chapters).toContain("<ChapterLearning />\n    <ChapterQualityAssurance />");
+    expect(chapters).toMatch(/<ChapterLearning\s*\/>\s*<ChapterQualityAssurance\s*\/>/);
   });
 
 });
