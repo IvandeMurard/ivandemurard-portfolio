@@ -305,6 +305,10 @@ describe("Rose canonical knowledge", () => {
     expect(contact).toContain("Contact channels: email");
     expect(contact).not.toContain("Track record:");
     expect(contact).not.toContain("30 public Japanese restaurants");
+    const contactQuestion = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "How can I contact Ivan?",
+    });
+    expect(contactQuestion).toContain("Contact channels: email");
 
     const roles = await getRoseSystemPrompt({
       page: { path: "/rose-design-lab" }, question: "What roles would Ivan be strong in?",
@@ -312,6 +316,9 @@ describe("Rose canonical knowledge", () => {
     expect(roles).toContain("Track record:");
     expect(roles).toContain("--- BEGIN CASE STUDY: cv ---");
     expect(roles).toContain("Recruiter questions:");
+    const profile = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: "Who is Ivan?" });
+    expect(profile).toContain("Track record:");
+    expect(profile).toContain("--- BEGIN CASE STUDY: cv ---");
   });
 
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
