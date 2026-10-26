@@ -432,7 +432,7 @@ describe("Rose canonical knowledge", () => {
     });
     expect(general).toContain("Reader value comes before implementation detail");
     expect(general).toContain("Do not volunteer CI gates");
-    expect(general).toContain("what the visitor asks");
+    expect(general).toContain("A verifiable fact unrelated to the question is still a poor answer.");
 
     const technical = await getRoseSystemPrompt({
       page: { path: "/aetherix" },
