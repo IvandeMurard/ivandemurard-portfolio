@@ -9,9 +9,10 @@ import { ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION } from "
 
 const output = process.env.ROSE_QA_OUTPUT ?? "/tmp/browser/rose-stage-b";
 mkdirSync(output, { recursive: true });
+const promptOnly = process.env.ROSE_QA_PROMPT_ONLY === "1";
 const key = process.env.LOVABLE_API_KEY;
-if (!key) throw new Error("Gateway credential unavailable");
-const provider = createOpenAICompatible({ name: "lovable", baseURL: "https://ai.gateway.lovable.dev/v1", headers: { "Lovable-API-Key": key, "X-Lovable-AIG-SDK": "vercel-ai-sdk" } });
+if (!promptOnly && !key) throw new Error("Gateway credential unavailable");
+const provider = createOpenAICompatible({ name: "lovable", baseURL: "https://ai.gateway.lovable.dev/v1", headers: { "Lovable-API-Key": key ?? "", "X-Lovable-AIG-SDK": "vercel-ai-sdk" } });
 const historyQuestions = [
   "Why were you built around booking first?", "What changed between July and August?", "When did you start using my page?",
   "Did visitors dislike the old booking prompt?", "Is my conversation sent when I book?", "Are my questions stored?",
@@ -101,6 +102,13 @@ async function run(journey: typeof journeys[number]) {
         hasRoseHistory: system.includes("--- BEGIN ROSE FACTUAL REFERENCE"),
         aetherixUnavailable: system.includes("References unavailable right now: aetherix"),
       };
+      if (promptOnly) {
+        // Fetch and compose the exact prompt shape without making any LLM call.
+        results.push({ id, page, question: turn.question, previousQuestions, promptEvidence, mode: "PROMPT_ONLY", reviewer: "NOT_RUN" });
+        writeFileSync(output + "/answers.json", JSON.stringify(results, null, 2));
+        console.log(id, "PROMPT_ONLY", JSON.stringify(promptEvidence));
+        continue;
+      }
       const result = streamText({ model: provider("google/gemini-3-flash-preview"), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools });
       const sse = await result.toUIMessageStreamResponse().text();
       const events = sse.split("\n").filter(s => s.startsWith("data: ") && !s.includes("[DONE]")).map(s => JSON.parse(s.slice(6)));
