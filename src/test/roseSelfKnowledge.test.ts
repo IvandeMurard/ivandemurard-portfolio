@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { getRosePrompts } from "../content/rosePrompts";
 import { selectRoseHistory, roseHistoryLayer, ROSE_CANONICAL_ANCHORS } from "../../supabase/functions/_shared/rose-self-context";
-import { getRoseSystemPrompt } from "../../supabase/functions/_shared/rose-context";
+import { getRoseSystemPrompt, turnReferentContext } from "../../supabase/functions/_shared/rose-context";
 
 afterEach(() => vi.unstubAllGlobals());
 describe("Rose canonical knowledge", () => {
@@ -73,6 +73,64 @@ describe("Rose canonical knowledge", () => {
     expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
   });
 
+
+  it("uses the current case-study and section as a working interpretation", () => {
+    const rose = turnReferentContext({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(rose).toContain("Rose's own design, operation and evaluation");
+    expect(rose).toContain('Does Rose actually help?');
+    expect(rose).toContain("most likely interpretation");
+    expect(rose).not.toContain("Aetherix");
+
+    const aetherix = turnReferentContext({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure?",
+    });
+    expect(aetherix).toContain("current page concerns aetherix");
+    expect(aetherix).not.toContain("Rose's own");
+
+    const note = turnReferentContext({
+      page: { path: "/journal/harnesses-graders-closed-loops" },
+      question: "What does Ivan measure?",
+    });
+    expect(note).toContain("Field Note's evaluation method");
+    expect(note).toContain("not a claim of deployed metrics");
+
+    const cv = turnReferentContext({ page: { path: "/cv" }, question: "What does Ivan measure?" });
+    expect(cv).toContain("professional outcomes described in his CV");
+    expect(cv).toContain("ask one focused clarification");
+  });
+
+  it("resolves explicit, earlier and in-view references without forcing a single page", () => {
+    const ctx = {
+      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      previousQuestions: ["How does Ivan evaluate Aetherix?"],
+    };
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure?" }))
+      .toContain("Continue with aetherix");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure here?" }))
+      .toContain("Prior discussion does not override");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure in Aetherix?" }))
+      .toContain("explicitly named aetherix");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure about Rose?" }))
+      .toContain("explicitly named Rose");
+    expect(turnReferentContext({ ...ctx, question: "What does Ivan measure across his projects?" }))
+      .toContain("visitor explicitly asks across projects");
+  });
+
+  it("makes the working referent the final prompt guidance, not a rigid source fact", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const system = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(system).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(system).toContain("Working scope for this turn:");
+    expect(system.lastIndexOf("Working scope for this turn:")).toBeGreaterThan(system.lastIndexOf("END ROSE FACTUAL REFERENCE"));
+    expect(system).toContain("Rose's own design, operation and evaluation");
+  });
 
   it("resolves an underspecified measurement question from its current page", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
