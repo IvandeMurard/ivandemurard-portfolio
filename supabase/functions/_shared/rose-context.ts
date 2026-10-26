@@ -256,12 +256,17 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
   // A recently named subject survives an underspecified follow-up, even if the
   // visitor has navigated onto Rose's page in the meantime.
   const refersBack = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they)\b/i.test(question);
-  const prior = (ctx?.previousQuestions ?? []).slice(-3).reverse().map(previous =>
-    CASE_STUDY_SLUGS.filter(slug =>
+  const explicitlyInView = /\b(?:here|this page|this section|this chapter|on this page)\b/i.test(question);
+  let prior: Slug[] = [];
+  for (const previous of (ctx?.previousQuestions ?? []).slice(-3).reverse()) {
+    // Explicit shifts to Rose or Ivan's overall career break older project context.
+    if (/\brose\b/i.test(previous) || /\b(?:career|professional experience|across projects|in general)\b/i.test(previous)) break;
+    const found = CASE_STUDY_SLUGS.filter(slug =>
       new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(previous),
-    ),
-  ).find(subjects => subjects.length > 0) ?? [];
-  if (!named.length && !/\brose\b/i.test(question) && refersBack && prior.length) return prior;
+    );
+    if (found.length) { prior = found; break; }
+  }
+  if (!named.length && !/\brose\b/i.test(question) && !explicitlyInView && refersBack && prior.length) return prior;
   if (!selected) {
     // For a short underspecified question, retrieve the recent or in-view
     // evidence rather than drowning the relevant page in eight case studies.
