@@ -189,6 +189,32 @@ The first local `ROSE_QA_PROMPT_ONLY=1` preflight on `80dd5cc` produced unreliab
 
 **Validation boundary:** The above fixes are on the draft PR branch, but the expanded Vitest/build suite and fresh cold-start prompt-only runs need local verification. Do not rerun the Gemini gateway or treat previously generated ZIPs as current until the new commit is checked. Even after these fixes, the four-second fetch timeout and genuine source fetch failures can still yield `SOURCE_NOT_READY`; stop in that case rather than letting Gemini guess metrics. A successful preflight confirms source availability, not factual reliability of generated answers.
 
+## 26 October 2026: complete-reference Gemini result and semantic attribution remedy
+
+The authorized gateway evaluation on `63687e05c09a9488f7b2f4b915b6e2940b6b3c1c` returned **EVIDENCE_FAIL: 2/3 PASS**. All three captured prompts passed source-presence and benchmark-numeric checks; SHA-256 hashes matched the recorded prompts, and the saved SSE text matched the answers. The remaining failure was **not missing evidence**:
+
+- `referent-aetherix`: the ambiguous question on `/aetherix` was correctly resolved, but Rose called **25.6% MdAPE** a generic Aetherix outcome without identifying the separate gradient-boosted alternative (Prophet MdAPE is **27.0%**). It also framed guardrail-trip frequency and staffing outcomes as measured operational metrics when only event logging and pilot hypotheses were documented; it overgeneralized the CI gate.
+- `metric-benchmark`: PASS, with Prophet mean MAPE 49.71% vs 55.86% baseline and J+1 28.5% vs 27.9%, explicitly public restaurants rather than hotels.
+- `metric-false-premise`: PASS, rejecting the unsupported 5.6%, 12.7% and 85% premises. The 30-day simulation, 15.9% to 12.3% recalibration and injected 850-cover rejection were correctly scoped.
+
+The offline percentage checker did not detect the wrong-model 25.6% attribution because the numeral genuinely exists in the case study. Its output is **advisory**, not a fact-level verdict. One gateway success for a named model or a false-premise prompt does not establish reliable open-ended answers.
+
+### Subsequent draft-PR changes (model behavior not evaluated on this new head)
+
+1. `roseFocusedStudies()` no longer treats question length as a reason to load all case studies. Named subject, relevant prior-turn subject and current project route determine focused evidence; truly broad questions still load the portfolio. Case-study comparisons naming two projects load both. Short Rose self-history behavior and explicit `here` reference handling are unchanged.
+2. New pure `rose-aetherix-evidence.ts` exports typed, source-anchored measurement records with **model, metric, result, comparator, horizon, experimental scope** and interpretation. Before inserting the contract on a focused Aetherix turn, the runtime checks that every quoted fragment exists in the actual fetched `aetherix.md`. A mismatched reference yields a warning rather than an unsupported static numerical claim.
+3. The contract distinguishes Prophet **49.71% mean MAPE**, **27.0% MdAPE**, **28.5% J+1 vs 27.9% baseline**, the separate **gradient-boosted 25.6% median**, and the **sandbox-only 15.9% to 12.3%** recalibration. It explicitly distinguishes sandbox covers forecasts, logged manager overrides, staffing pilot hypotheses, unmeasured guardrail-trip frequency, and unknown real-hotel impact.
+4. The offline audit now emits **attributionWarnings** for recurring high-risk claims: `25.6%` without gradient-boosted attribution, purported measured guardrail-trip frequency, measured staffing outcomes, unbounded `every code change` evaluation claims, and the inaccurate phrase `median MAPE`. These rules are deliberately **heuristic**, can miss other errors or flag legitimate quoted denials, and require human reading of the entire answer.
+5. Four tests anchor the typed facts to `public/aetherix.md`; additional tests check long question scoping, named comparisons, conversation priority, source-drift behavior and the above warning patterns.
+6. The eval runner now offers two additional independent repeats of `referent-aetherix`, and records `hasAttributionLedger` in prompt-evidence metadata.
+
+### Next validation gates
+
+- Local: `bun run rose:check`, focused tests (`roseAetherixEvidence.test.ts`, `roseEvidenceAudit.test.ts`, `roseSelfKnowledge.test.ts`), full Vitest and Vite build. Check for the known generated MCP-file rewrite and restore only that unintended change.
+- Cost-free: run prompt-only for `referent-aetherix,referent-aetherix-repeat-2,referent-aetherix-repeat-3,metric-benchmark,metric-false-premise`; confirm all five have the Aetherix reference, benchmark numbers, the attribution ledger and no unavailable source.
+- Only then authorize Lovable to run **exactly those five** live gateway responses in an isolated archived snapshot with prompt capture; run the offline audit and read each claim's metric, model, scope and horizon. Do not award PASS solely because the literal percentage is in the source.
+- If all five pass, run the broader Stage B model and preview/browser regression matrix before merge. No production deployment, publication or merge in this correction.
+
 ## Remaining release blockers
 
 - Confirm the model no longer confuses the launch year or omits retention.
