@@ -241,10 +241,10 @@ function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
 }
 
 /**
- * Self-history questions should not be drowned in unrelated project references.
- * When a visitor explicitly relates Rose to another project, retain that project's
- * evidence. Otherwise, self-explanations use Rose's own source alone.
- * General portfolio turns retain the original full reference behavior.
+ * Choose the relevant evidence without treating the URL as a locked topic.
+ * Explicit subjects beat recent conversation, which can beat the current page.
+ * General questions retain the full portfolio; short implicit questions can
+ * use a narrower set of sources to avoid unrelated metrics.
  */
 function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean): readonly Slug[] | undefined {
   const path = clean(ctx?.page?.path, 120).split(/[?#]/)[0].replace(/\/+$/, "") || "/";
@@ -252,7 +252,8 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
   const named = (["sonor", "aetherix", "tacet", "lore", "architecture", "anima", "compass", "cv"] as const)
     .filter(slug => new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question));
   // A cross-project question needs the full portfolio, not a route-specific answer.
-  if (/\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience)\b/i.test(question)) return undefined;
+  if (/\bacross (?:his |the |all |different )?projects?\b/i.test(question) ||
+      (!named.length && /\b(?:in general|overall|career|professional experience)\b/i.test(question))) return undefined;
   // A recently named subject survives an underspecified follow-up, even if the
   // visitor has navigated onto Rose's page in the meantime.
   const refersBack = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they)\b/i.test(question);
