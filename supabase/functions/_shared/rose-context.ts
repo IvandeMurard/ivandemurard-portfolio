@@ -256,7 +256,7 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
       (!named.length && /\b(?:in general|overall|career|professional experience)\b/i.test(question))) return undefined;
   // A recently named subject survives an underspecified follow-up, even if the
   // visitor has navigated onto Rose's page in the meantime.
-  const refersBack = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they)\b/i.test(question);
+  const refersBack = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they|metrics?|measur(?:e|es|ed|ement|ements)|results?|outcomes?|performance)\b/i.test(question);
   const explicitlyInView = /\b(?:here|this page|this section|this chapter|on this page)\b/i.test(question);
   let prior: Slug[] = [];
   for (const previous of (ctx?.previousQuestions ?? []).slice(-3).reverse()) {
