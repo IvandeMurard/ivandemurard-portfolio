@@ -115,6 +115,29 @@ The deterministic regression additions cover Rose Chapter 05, Aetherix, the eval
 3. Only if those three graded answers pass, run the remaining `referent-rose,referent-note,referent-cv,referent-prior,referent-explicit,referent-broad` and repeat the previously failing cases for variability.
 4. Keep Stage B and PR #2 on **HOLD** until all applicable evidence gates pass; do not merge, deploy or publish.
 
+## 26 October 2026: third gateway failure and structural prompt scoping
+
+Lovable evaluated `c2046bca47cc73d1f8dcfc2ab65fb499dd51b545` using the authorized `google/gemini-3-flash-preview` model. Four responses were produced, one as the setup turn for the two-turn journey. **One of three graded answers passed**.
+
+- `self-09` **FAIL:** Aetherix still leads the answer on `/rose-design-lab`; Rose's valid operational metrics appear only later.
+- `referent-aetherix` **FAIL:** starts with the correct Aetherix benchmark/sandbox context but adds unrelated Bouygues and DomusVi professional outcomes.
+- `referent-here` **PASS:** "here" in Rose Chapter 05 beats the earlier Aetherix discussion. No booking cards or pseudo-tool calls were observed.
+
+**Diagnosis:** the context-selection code and late subject cue were working, but the always-on `ROSE_BASE_PROMPT` and late `TURN_CONTRACT` still contained a long catalogue of Aetherix, career, other-project and Field Note metrics. Even when external case-study blocks were omitted, irrelevant **prompt text itself** was available to the model. Repeating instructions to "stay on topic" did not remove that competing material.
+
+**Structural change (new commits, not model-tested yet):**
+
+1. Preserve the always-on persona, booking boundaries, tool contract, evidence hierarchy and general epistemic rules.
+2. Extract portfolio-wide career/project descriptions and cross-project claim guards into separate guidance strings, loaded for broad questions instead of every turn.
+3. Load only **small relevant factual guards** when a project is in scope. Rose-only questions get Rose history and no unrelated career examples; Aetherix-only questions get its reference and benchmark/sandbox limits, not Bouygues/DomusVi examples.
+4. Keep explicit career/roles and cross-project questions broad, regardless of current page. Preserve MCP setup instructions, external-AI workflows and contact-channel details conditionally when asked.
+5. In the list of unavailable references, mention only documents actually required by the selected question, not every case study.
+6. Keep the general per-turn referent policy and explicit late-turn scope; remove no conversational memory or user-facing capabilities.
+
+**New deterministic assertions** verify that Rose- and Aetherix-focused system prompts exclude `Bouygues Telecom`, the generic `Track record:` section and unrelated source blocks, while general portfolio, CV, MCP and contact requests still include the appropriate facts. These assertions validate prompt composition, not Gemini's behavior.
+
+**Next gates:** rerun `bun run rose:check`, all Vitest tests and the Vite build on the new PR head, then run the three focused model scenarios `self-09,referent-aetherix,referent-here` in an isolated authorized gateway workspace. If they pass, expand to the remaining previously checked historical, privacy, cross-page, tool and referent scenarios before considering merge. No deploy or publication.
+
 ## Remaining release blockers
 
 - Confirm the model no longer confuses the launch year or omits retention.
