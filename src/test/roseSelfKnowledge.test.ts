@@ -321,12 +321,51 @@ describe("Rose canonical knowledge", () => {
     expect(profile).toContain("--- BEGIN CASE STUDY: cv ---");
   });
 
+  it("shares the same in-flight cold-start fetch across concurrent requests", async () => {
+    // Use an isolated module cache so previous tests cannot warm the references.
+    vi.resetModules();
+    let releaseFetch!: () => void;
+    const fetchGate = new Promise<void>((resolve) => { releaseFetch = resolve; });
+    const mockFetch = vi.fn(async () => {
+      await fetchGate;
+      return new Response("# FETCHED_REFERENCE_FROM_SINGLE_REFRESH", { status: 200 });
+    });
+    vi.stubGlobal("fetch", mockFetch);
+    const { getRoseSystemPrompt: coldGetRoseSystemPrompt } = await import("../../supabase/functions/_shared/rose-context");
+
+    const context = { page: { path: "/aetherix" }, question: "What does Ivan measure?" };
+    let settled = 0;
+    const first = coldGetRoseSystemPrompt(context).then(result => { settled += 1; return result; });
+    const second = coldGetRoseSystemPrompt(context).then(result => { settled += 1; return result; });
+    const third = coldGetRoseSystemPrompt(context).then(result => { settled += 1; return result; });
+
+    try {
+      // With the old boolean guard, later callers resolved before the fetch.
+      await new Promise<void>(resolve => setTimeout(resolve, 0));
+      expect(mockFetch).toHaveBeenCalledTimes(8);
+      expect(settled).toBe(0);
+    } finally {
+      releaseFetch();
+    }
+
+    const prompts = await Promise.all([first, second, third]);
+    for (const prompt of prompts) {
+      expect(prompt).toContain("--- BEGIN CASE STUDY: aetherix ---");
+      expect(prompt).toContain("FETCHED_REFERENCE_FROM_SINGLE_REFRESH");
+      expect(prompt).not.toContain("References unavailable right now: aetherix");
+    }
+    expect(mockFetch).toHaveBeenCalledTimes(8);
+  });
+
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
     expect(harness).toContain("ROSE_QA_CAPTURE_PROMPT");
     expect(harness).toContain("ROSE_QA_PROMPT_ONLY");
     expect(harness).toContain("hasBenchmarkNumerics");
+    // The emitted case-study marker has no "(fetched ...)" suffix.
+    expect(harness).toContain('hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix ---")');
+    expect(harness).not.toContain('hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix (fetched"');
     expect(harness).toContain("promptEvidence, text");
     for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION"]) {
       expect(edge).toContain(name);
