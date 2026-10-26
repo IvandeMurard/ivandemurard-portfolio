@@ -97,10 +97,10 @@ async function run(journey: typeof journeys[number]) {
       const promptEvidence = {
         sha256: createHash("sha256").update(system).digest("hex"),
         characters: system.length,
-        hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix (fetched"),
+        hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix ---"),
         hasBenchmarkNumerics: system.includes("Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%"),
         hasRoseHistory: system.includes("--- BEGIN ROSE FACTUAL REFERENCE"),
-        aetherixUnavailable: system.includes("References unavailable right now: aetherix"),
+        aetherixUnavailable: /References unavailable right now: [^\n]*\baetherix\b/.test(system),
       };
       if (promptOnly) {
         // Fetch and compose the exact prompt shape without making any LLM call.
