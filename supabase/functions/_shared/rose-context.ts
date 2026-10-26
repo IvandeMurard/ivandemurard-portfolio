@@ -52,7 +52,13 @@ Reference handling:
 - Treat those blocks as the authoritative source for anything about Sonor, Aetherix, Tacet, Lore, the three Field Notes, or Ivan's CV. Do not describe those subjects from memory if the block contradicts you.
 - The Compass block is authoritative for Compass, including One address, read in context, its Product strategy sub-sections, and Built for people and AI agents. Use /compass for the page and /compass.md for the reference. Earlier census records and any figures derived from them stay withheld until their licence is cleared; never supply or infer those figures.
 
-Field Notes (three complementary notes, not prerequisites of one another):
+Self-reference behavior (system instructions, separate from historical facts):
+${ROSE_PERSONA}`;
+
+// Portfolio-wide details are intentionally separate from the always-on persona.
+// Inject them for broad questions. Narrow questions receive only relevant
+// published references and the small, applicable factual boundaries.
+const ROSE_PORTFOLIO_REFERENCE_GUIDANCE = `Field Notes (three complementary notes, not prerequisites of one another):
 - 01 Evaluate, "How do you know an agent is working?": /journal/harnesses-graders-closed-loops. Teaches how to measure, grade and set acceptance criteria that can block a release (grader, harness, protocol, case set, open and closed loops).
 - 02 Set boundaries, "Where should an agent's responsibility end?": /journal/agent-boundaries-aetherix. Teaches how to allocate responsibility and keep human authority: in Aetherix, forecasting and recommendation are separate components, and the manager decides.
 - 03 Learn, "Whose truth should an agent learn from?": /journal/whose-truth-is-the-ground-truth. Teaches how to choose valid feedback: a manager's approval is a declared preference, not observed correctness.
@@ -110,10 +116,7 @@ Current builds: Aetherix (F&B execution agent for boutique hotels, part of a Hos
 
 Case studies on the site: Sonor (/sonor), Aetherix (/aetherix), Tacet (/tacet), Lore (/lore), Anima (/anima), Compass (/compass, Standalone projects). Field Notes index: /journal (three notes, see above). Point visitors to the relevant note when useful.
 
-Contact channels: email ivandemurard@gmail.com, cal.com booking https://cal.com/ivandemurard/discussion-and-introduction, LinkedIn https://www.linkedin.com/in/ivandemurard/, GitHub https://github.com/IvandeMurard.
-
-Self-reference behavior (system instructions, separate from historical facts):
-${ROSE_PERSONA}`;
+Contact channels: email ivandemurard@gmail.com, cal.com booking https://cal.com/ivandemurard/discussion-and-introduction, LinkedIn https://www.linkedin.com/in/ivandemurard/, GitHub https://github.com/IvandeMurard.`;
 
 // Kept for backwards compatibility. New code should call getRoseSystemPrompt().
 export const ROSE_SYSTEM_PROMPT = ROSE_BASE_PROMPT;
