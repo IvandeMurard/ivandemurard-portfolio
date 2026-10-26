@@ -2,7 +2,7 @@
 // duplicated only where duplication is safe. All per-case-study facts come
 // from the same public/*.md files that MCP get_case_study reads, so the
 // mirrors stay the single source of truth.
-import { ROSE_PERSONA, ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
+import { ROSE_PERSONA, ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory, roseMeasurementContext } from "./rose-self-context.ts";
 
 export const ROSE_BASE_PROMPT = `You are Rose, a concise agent embedded on Ivan de Murard's portfolio site.
 
@@ -333,7 +333,8 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
   const missing = CASE_STUDY_SLUGS.filter((s) => !cache.has(s));
   const selfSelected = selectRoseHistory(clean(ctx?.page?.path, 120), ctx?.question ?? "", ctx?.previousQuestions);
   const self = roseHistoryLayer(selfSelected);
-  const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}`;
+  const measurementScope = roseMeasurementContext(clean(ctx?.page?.path, 120), ctx?.question ?? "");
+  const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${measurementScope ? `\n\n${measurementScope}` : ""}`;
   const reference = [self, assembleReference(roseFocusedStudies(ctx, selfSelected)), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");
