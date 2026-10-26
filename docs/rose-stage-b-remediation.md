@@ -174,7 +174,7 @@ ROSE_QA_OUTPUT=/tmp/rose-evidence-prompt-only bun scripts/rose-stage-b-check.ts
 
 For `referent-aetherix-1`, require `promptEvidence.hasAetherixReference=true`, `promptEvidence.hasBenchmarkNumerics=true` and `promptEvidence.aetherixUnavailable=false`. If those are false, diagnose reference-fetch/availability before making any model call. The dry-run reproduces the *prompt assembly*, not the content or model result of the earlier gateway run, and is **not a historical prompt capture**.
 
-Then recover the earlier raw `answers.json` if still available.  First inspect the existing Lovable raw outputs in `/tmp/rose-context-refactor/answers.json` and, if still available, run the new audit against them with no gateway. An original system prompt was not captured in the old run; rebuilding the prompt now is informative but is **not** proof of what the old model received.
+Then recover the existing Lovable raw outputs in `/tmp/rose-context-refactor/answers.json` if still available, and run the new offline quantitative audit without using the gateway. An original system prompt was not captured in the old run; rebuilding the prompt now is informative but is **not** proof of what the old model received.
 
 Then run local `bun run rose:check`, focused Vitest, full Vitest, Vite build and the offline audit's own tests. Only after all deterministic gates pass should Lovable evaluate an isolated current-head snapshot **with prompt capture enabled**. Begin with repeated Aetherix measurement cases, check actual prompt source availability, then confirm the original Rose context regressions and the wider Stage B suite. No merge or deploy until that has passed.
 
