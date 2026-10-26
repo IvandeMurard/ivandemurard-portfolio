@@ -118,8 +118,38 @@ Case studies on the site: Sonor (/sonor), Aetherix (/aetherix), Tacet (/tacet), 
 
 Contact channels: email ivandemurard@gmail.com, cal.com booking https://cal.com/ivandemurard/discussion-and-introduction, LinkedIn https://www.linkedin.com/in/ivandemurard/, GitHub https://github.com/IvandeMurard.`;
 
+// Only factual boundaries relevant to the focused evidence are included.
+// The longer broad portfolio rules remain available for cross-project questions.
+const FOCUSED_CLAIM_GUARDS: Partial<Record<Slug, string>> = {
+  aetherix: "Aetherix: historical forecast benchmarks use 30 public restaurants, not hotel validation. Staging and Apaleo sandbox are not a live hotel. Manager approvals are decisions, not ground-truth outcomes. Outcome learning and real-hotel business impact remain unproven. Distinguish the next-day horizon from average benchmark results.",
+  lore: "Lore: a synthetic prototype with a documented evaluation harness, not certified production software. Signed work records do not return to Lore; do not claim a closed outcome-learning loop.",
+  sonor: "Sonor: B2G discovery to MVP, never a paying city customer or a live city deployment. Its team included four co-founders and one person covering development and data science.",
+  tacet: "Tacet: current B2B environmental twin for boutique hotels; built and in maintenance, not a consumer or municipality product.",
+  anima: "Anima: synthetic four-layer guest memory PoC; never tested on real guest data, with scope-gated memory and no autonomous decisions.",
+  compass: "Compass: standalone commercial location data product, separate from hospitality agents. Its read-only corpus and MCP are live; its web demo uses a frozen sample and does not contain a live AI layer.",
+  cv: "Career facts: distinguish an achieved result from a target or planned rollout. Bouygues receivables total 1.9M EUR targeted with 40% recovered; DomusVi's MVP was delivered, but its 500+ user rollout was planned. Use /cv for the human page and never invent a phone number.",
+};
+
+function focusedContextGuidance(selected: readonly Slug[] | undefined, question: string): string {
+  if (selected === undefined) {
+    return [ROSE_PORTFOLIO_REFERENCE_GUIDANCE, ROSE_PORTFOLIO_TRUTH_GUARDS].join("\n\n");
+  }
+  const blocks = selected.map(slug => FOCUSED_CLAIM_GUARDS[slug]).filter((s): s is string => Boolean(s));
+  // The portfolio MCP and external-AI tools need their exact instructions
+  // even if the visitor is currently reading a focused case study.
+  if (/\bmcp\b|model context protocol/i.test(question)) {
+    const m = ROSE_PORTFOLIO_REFERENCE_GUIDANCE.match(/MCP questions:\n[\s\S]*?(?=\nFacts to defend,)/);
+    if (m) blocks.push(m[0]);
+  }
+  if (/\bread with ai\b|\bcopy implementation brief\b|\bapply this method\b/i.test(question)) {
+    const m = ROSE_PORTFOLIO_REFERENCE_GUIDANCE.match(/Three ways to use AI on this site[\s\S]*?(?=\nMCP questions:)/);
+    if (m) blocks.push(m[0]);
+  }
+  return blocks.join("\n\n");
+}
+
 // Kept for backwards compatibility. New code should call getRoseSystemPrompt().
-export const ROSE_SYSTEM_PROMPT = ROSE_BASE_PROMPT;
+export const ROSE_SYSTEM_PROMPT = `${ROSE_BASE_PROMPT}\n\n${ROSE_PORTFOLIO_REFERENCE_GUIDANCE}`;
 
 // Keep the turn contract after long reference blocks, where it cannot be diluted.
 const TURN_CONTRACT = `Final answer contract:
