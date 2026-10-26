@@ -278,6 +278,16 @@ export type RoseTurnContext = {
 const clean = (value: unknown, max = 160): string =>
   typeof value === "string" ? value.replace(/[\r\n`]/g, " ").trim().slice(0, max) : "";
 
+const REFERENT_GUIDANCE = [
+  "",
+  "Question referent resolution:",
+  "1. First follow the topic explicitly named in the visitor's current question. A page URL never overrides that topic.",
+  "2. If the question leaves its subject implicit, preserve the most recent relevant conversation topic before inferring from the current section and page.",
+  "3. On a focused case-study page, that case study is a likely subject for an underspecified question, not a mandatory one. On a broad profile or unrelated page, do not invent a narrow subject.",
+  "4. When the likely meaning is clear, answer directly. When a contextual interpretation is plausible but uncertain, make that reading briefly apparent. Ask one narrow clarification only when multiple credible subjects would materially change the answer.",
+  "5. Never replace the case-study topic with unrelated career achievements or project metrics simply because the question names Ivan. Clarifying a referent is not qualifying a sales lead.",
+].join("\\n");
+
 function contextLayer(ctx?: RoseTurnContext): string {
   if (!ctx) return "";
   const lines: string[] = [];
