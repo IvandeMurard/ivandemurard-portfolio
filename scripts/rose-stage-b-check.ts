@@ -31,7 +31,7 @@ const portfolio: [string, string][] = [
   ["/architecture", "Can you inspect my private repository and run its tests?"], ["/agents", "Name the tools this portfolio MCP exposes."],
   ["/sonor", "How many people built Sonor, and did it have paying city customers?"],
 ];
-type Turn = { path: string; question: string; unavailable?: boolean; chapter?: boolean };
+type Turn = { path: string; question: string; unavailable?: boolean; chapter?: boolean; sectionId?: string; sectionHeading?: string };
 const journeys: { id: string; turns: Turn[] }[] = historyQuestions.map((question, i) => ({ id: `self-${String(i + 1).padStart(2, "0")}`, turns: [{ path: i === 23 ? "/contact" : "/rose-design-lab", question, unavailable: i === 23, chapter: i === 16 }] }));
 journeys.push(...portfolio.map(([path, question], i) => ({ id: `portfolio-${i + 1}`, turns: [{ path, question }] })));
 journeys.push(
@@ -40,6 +40,18 @@ journeys.push(
   { id: "decline", turns: ["I'm browsing, don't offer me a call. Why were you built?", "What changed in August?", "Does a follow-up prove satisfaction?", "I changed my mind. I would like to book a call with Ivan."].map(question => ({ path: "/rose-design-lab", question })) },
   { id: "capability", turns: ["Highlight a page fragment for me", "But Chapter 06 shows you doing that, doesn't it?", "What can you actually access?"].map(question => ({ path: "/rose-design-lab", question })) },
   { id: "portfolio-continuity", turns: [{ path: "/journal/harnesses-graders-closed-loops", question: "I am building an internal support copilot for a five-person team. It only drafts replies, never sends them. What should block release? I do not want a call." }, { path: "/aetherix", question: "Given what I told you, does the manager approval boundary here help my copilot?" }, { path: "/contact", question: "I have changed my mind. I would like to book a call with Ivan." }] },
+  // One ambiguous question in different reading contexts. These are answer-quality
+  // evaluations, not deterministic proof that the model interpreted the referent.
+  { id: "referent-rose", turns: [{ path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" }] },
+  { id: "referent-aetherix", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
+  { id: "referent-note", turns: [{ path: "/journal/harnesses-graders-closed-loops", question: "What does Ivan measure?" }] },
+  { id: "referent-cv", turns: [{ path: "/cv", question: "What does Ivan measure?" }] },
+  { id: "referent-prior", turns: [
+    { path: "/aetherix", question: "How does Ivan evaluate Aetherix?" },
+    { path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" },
+  ] },
+  { id: "referent-explicit", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure in Aetherix?" }] },
+  { id: "referent-broad", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure across his projects?" }] },
   ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose-design-lab", question: historyQuestions[i] }] })),
 );
 const tools = {
@@ -53,7 +65,7 @@ async function run(journey: typeof journeys[number]) {
     const previousQuestions = messages.filter(m => m.role === "user").flatMap(m => m.parts.flatMap(p => p.type === "text" ? [p.text] : []));
     messages.push({ id: `${journey.id}-${index}-u`, role: "user", parts: [{ type: "text", text: turn.question }] });
     try {
-      const page = { path: turn.path, ...(turn.chapter ? { section_id: "scene-c", section_heading: "Start with the work." } : {}) };
+      const page = { path: turn.path, ...(turn.chapter ? { section_id: "scene-c", section_heading: "Start with the work." } : {}), ...(turn.sectionId ? { section_id: turn.sectionId, section_heading: turn.sectionHeading } : {}) };
       let system = await getRoseSystemPrompt({ page, question: turn.question, previousQuestions });
       if (turn.unavailable) system = system.replace(/--- BEGIN ROSE FACTUAL REFERENCE[\s\S]*?--- END ROSE FACTUAL REFERENCE ---/, "") + "\n" + roseHistoryLayer(true, null);
       const result = streamText({ model: provider("google/gemini-3-flash-preview"), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools });
