@@ -424,6 +424,24 @@ describe("Rose canonical knowledge", () => {
     expect(prompt).toContain("numerical evidence registry could not be verified");
   });
 
+  it("tells Rose to explain measurements in reader terms while preserving technical detail on request", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Public case study evidence", { status: 200 })));
+    const general = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "What does Ivan measure?",
+    });
+    expect(general).toContain("Reader value comes before implementation detail");
+    expect(general).toContain("Do not volunteer CI gates");
+    expect(general).toContain("what the visitor asks");
+
+    const technical = await getRoseSystemPrompt({
+      page: { path: "/aetherix" },
+      question: "What testing and golden dataset checks block changes to Aetherix?",
+    });
+    expect(technical).toContain("unless the visitor asks about testing, implementation or release engineering");
+    expect(technical).toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
