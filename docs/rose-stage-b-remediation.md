@@ -179,6 +179,16 @@ Then recover the existing Lovable raw outputs in `/tmp/rose-context-refactor/ans
 Then run local `bun run rose:check`, focused Vitest, full Vitest, Vite build and the offline audit's own tests. Only after all deterministic gates pass should Lovable evaluate an isolated current-head snapshot **with prompt capture enabled**. Begin with repeated Aetherix measurement cases, check actual prompt source availability, then confirm the original Rose context regressions and the wider Stage B suite. No merge or deploy until that has passed.
 
 
+## 26 October 2026: cold-start preflight correction
+
+The first local `ROSE_QA_PROMPT_ONLY=1` preflight on `80dd5cc` produced unreliable Aetherix evidence flags when scenarios ran concurrently (three runner workers): `hasBenchmarkNumerics=false` and `aetherixUnavailable=true` on repeated runs. The source-fetch problem is real; the preflight cannot be treated as a fact-grounding failure until it has a complete reference.
+
+**Cause 1, reference race:** `refreshAll()` returned immediately when `refreshing=true` without exposing the in-flight operation to later turns. The later concurrent prompt assembly could then run with an empty source cache. A single shared `refreshPromise` now makes cold-start calls await the same fetch, preserving the existing four-second soft timeout and cached-data-on-failure behavior. Regression test starts three simultaneous prompt builds while all eight source fetches are deliberately blocked; it asserts no premature completion, one fetch per source and inclusion of the fetched Aetherix block in all three prompts.
+
+**Cause 2, incorrect QA marker:** the prompt generator emits `--- BEGIN CASE STUDY: aetherix ---` while the runner looked for `--- BEGIN CASE STUDY: aetherix (fetched`, which cannot match a normal case-study block. The `hasAetherixReference` check now uses the actual delimiter, and the `aetherixUnavailable` pattern also recognizes Aetherix anywhere in a comma-separated unavailable-reference list.
+
+**Validation boundary:** The above fixes are on the draft PR branch, but the expanded Vitest/build suite and fresh cold-start prompt-only runs need local verification. Do not rerun the Gemini gateway or treat previously generated ZIPs as current until the new commit is checked. Even after these fixes, the four-second fetch timeout and genuine source fetch failures can still yield `SOURCE_NOT_READY`; stop in that case rather than letting Gemini guess metrics. A successful preflight confirms source availability, not factual reliability of generated answers.
+
 ## Remaining release blockers
 
 - Confirm the model no longer confuses the launch year or omits retention.
