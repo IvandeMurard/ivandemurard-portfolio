@@ -143,7 +143,7 @@ function focusedContextGuidance(selected: readonly Slug[] | undefined, question:
     const m = ROSE_PORTFOLIO_REFERENCE_GUIDANCE.match(/MCP questions:\n[\s\S]*?(?=\nFacts to defend,)/);
     if (m) blocks.push(m[0]);
   }
-  if (/\b(?:email|contact details|contact information|linkedin|github profile|reach ivan|reach him|write to ivan|write to him)\b/i.test(question)) {
+  if (/\b(?:email|contact ivan|contact him|contact details|contact information|linkedin|github profile|reach ivan|reach him|write to ivan|write to him)\b/i.test(question)) {
     const m = ROSE_PORTFOLIO_REFERENCE_GUIDANCE.match(/Contact channels: [^\n]+/);
     if (m) blocks.push(m[0]);
   }
@@ -294,7 +294,7 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
     .filter(slug => new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question));
   // A cross-project question needs the full portfolio, not a route-specific answer.
   if (/\bacross (?:his |the |all |different )?projects?\b/i.test(question) ||
-      (!named.length && /\b(?:in general|overall|career|professional experience|professional background|work experience|what (?:has|did) ivan (?:built|build|shipped|ship)|which roles|what roles|job fit|professional skills|about ivan)\b/i.test(question))) return undefined;
+      (!named.length && /\b(?:in general|overall|career|professional experience|professional background|work experience|who is ivan|what does ivan do|ivan.s (?:background|experience|skills)|what (?:has|did) ivan (?:built|build|shipped|ship)|which roles|what roles|what kind of roles|job fit|professional skills|about ivan)\b/i.test(question))) return undefined;
   // A recently named subject survives an underspecified follow-up, even if the
   // visitor has navigated onto Rose's page in the meantime.
   const refersBack = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they|metrics?|measur(?:e|es|ed|ement|ements)|results?|outcomes?|performance)\b/i.test(question);
@@ -374,7 +374,7 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
     new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question),
   );
   const namesRose = /\brose\b/i.test(question);
-  const broad = /\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience|professional background|work experience|what (?:has|did) ivan (?:built|build|shipped|ship)|which roles|what roles|job fit|professional skills|about ivan)\b/i.test(question);
+  const broad = /\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience|professional background|work experience|who is ivan|what does ivan do|ivan.s (?:background|experience|skills)|what (?:has|did) ivan (?:built|build|shipped|ship)|which roles|what roles|what kind of roles|job fit|professional skills|about ivan)\b/i.test(question);
   const inView = /\b(?:here|this page|this section|this chapter|on this page)\b/i.test(question);
   const referential = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|metrics?|measure(?:s|d|ment|ments)?|results?|outcomes?|performance)\b/i.test(question);
   const pageSubject = path === "/rose-design-lab"
