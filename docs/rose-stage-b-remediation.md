@@ -215,6 +215,32 @@ The offline percentage checker did not detect the wrong-model 25.6% attribution 
 - Only then authorize Lovable to run **exactly those five** live gateway responses in an isolated archived snapshot with prompt capture; run the offline audit and read each claim's metric, model, scope and horizon. Do not award PASS solely because the literal percentage is in the source.
 - If all five pass, run the broader Stage B model and preview/browser regression matrix before merge. No production deployment, publication or merge in this correction.
 
+## 26 October 2026: reader-value QA after the attribution rerun
+
+Lovable's five-answer scoped rerun returned **ATTRIBUTION_FAIL**: one ambiguous Aetherix answer claimed **every code change must pass versioned golden datasets** (an overextension of the source's forecasting/provider/memory/prompt gate), another ambiguously claimed **guardrail reliability** and linked to unrelated Lore, and a false-premise response linked to the wrong root-level Field Note route. The benchmark and attribution figures were otherwise correctly grounded. Source preflights passed. Lovable could **not independently verify the ZIP's commit SHA solely from ZIP contents**, so describe this as evaluation of supplied archive contents, not cryptographic Git provenance.
+
+### Two distinct quality gates
+
+- **Factual grounding:** correct model, metric, comparator, horizon, experiment scope, link destination and no fabricated operational measures.
+- **Visitor usefulness:** directly answer what was asked; communicate the meaningful comparison and limitation in ordinary language; do not volunteer internal CI/golden-dataset/harness implementation details on simple measurement questions; keep followups on topic. Technical information is welcome when directly requested.
+
+The second ambiguous response is both factually overbroad and unhelpful. Even replacing 'every' with an accurate qualifier would not answer 'What does Ivan measure?'. Three seemingly accepted answers include one borderline guardrail claim and one broken evidence link. **The 5 synthetic responses do not measure visitor understanding, satisfaction, or population reliability.**
+
+### Changes implemented in this draft PR
+
+- New **QA section in Rose Design Lab case study, narrative concept C**: documented synthetic response vs labelled editorial rewrite, three human-readable criteria, limitations, and source link. It is not public or deployed.
+- Rose turn contract now prioritizes measurement, comparison and evidentiary limitation in reader language; it keeps CI details for visitors who request engineering/testing.
+- New offline `roseReaderValueAudit.ts`, integrated with `rose-evidence-audit.ts`: advisory hints for unrequested internal QA jargon, unsupported 'guardrail reliability', and incorrectly authored Field Note paths. Automatic flags never replace human semantic or usefulness review.
+- Rose Markdown renderer normalizes three **known** root-level Field Note paths to the valid `/journal/...` destinations, preserving fragments. Unit tests cover the observed link defect.
+- The case study now explicitly distinguishes unmerged self-history and QA work from the possibly different deployed Rose dock.
+- Added `metric-ci-technical` scenario to ensure a genuinely technical visitor can still get technical explanations.
+
+### Next stage gates
+
+1. **Local**: source-provenance check, focused Vitest (`roseLearning`, `roseReaderValueAudit`, `roseMarkdown`, `roseSelfKnowledge`, `roseEvidenceAudit`, `roseAetherixEvidence`), full Vitest, Vite build; inspect generated MCP change if any. Visually inspect `rose-design-lab?concept=narrative#ch-qa` on desktop/mobile.
+2. **Offline only**: with a new exact-source archive, ask Lovable to run the updated audit against previously saved `/tmp/rose-attribution-validation/answers.json` if still present. Score the five old responses separately for factual grounding and reader utility, WITHOUT calling Gemini or pretending they came from the new code.
+3. **Only after local + offline checks**: run exactly three independent ambiguous Aetherix measurement answers and the one explicit `metric-ci-technical` control, with source preflight and prompt capture. Grade both axes plus links and followup relevance.
+4. Stage B remains **HOLD** until wider regression and actual UI preview acceptance. No merge, deploy or publication authorised.
 ## Remaining release blockers
 
 - Confirm the model no longer confuses the launch year or omits retention.
