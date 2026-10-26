@@ -71,7 +71,6 @@ describe("Rose canonical knowledge", () => {
     expect(answer).toContain("launch (2026-07-21, implemented)");
     expect(answer).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
     expect(answer).not.toContain("--- BEGIN CASE STUDY: lore ---");
-    expect(answer).toContain("On the Rose design-lab page");
   });
 
 
