@@ -297,6 +297,23 @@ describe("Rose canonical knowledge", () => {
     expect(mcp).not.toContain("Track record:");
   });
 
+  it("keeps explicit contact details and broad career help available from Rose's page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const contact = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "What's Ivan's email?",
+    });
+    expect(contact).toContain("Contact channels: email");
+    expect(contact).not.toContain("Track record:");
+    expect(contact).not.toContain("30 public Japanese restaurants");
+
+    const roles = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" }, question: "What roles would Ivan be strong in?",
+    });
+    expect(roles).toContain("Track record:");
+    expect(roles).toContain("--- BEGIN CASE STUDY: cv ---");
+    expect(roles).toContain("Recruiter questions:");
+  });
+
   it("uses exactly the same tool descriptions in evaluation and live handler", () => {
     const edge = readFileSync("supabase/functions/rose-chat/index.ts", "utf8");
     const harness = readFileSync("scripts/rose-stage-b-check.ts", "utf8");
