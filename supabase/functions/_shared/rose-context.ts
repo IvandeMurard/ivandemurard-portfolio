@@ -252,6 +252,17 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
   const question = (ctx?.question ?? "").slice(0, 2000);
   const named = (["sonor", "aetherix", "tacet", "lore", "architecture", "anima", "compass", "cv"] as const)
     .filter(slug => new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question));
+  // A cross-project question needs the full portfolio, not a route-specific answer.
+  if (/\\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience)\\b/i.test(question)) return undefined;
+  // A recently named subject survives an underspecified follow-up, even if the
+  // visitor has navigated onto Rose's page in the meantime.
+  const refersBack = /\\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|these|they)\\b/i.test(question);
+  const prior = (ctx?.previousQuestions ?? []).slice(-3).reverse().map(previous =>
+    CASE_STUDY_SLUGS.filter(slug =>
+      new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(previous),
+    ),
+  ).find(subjects => subjects.length > 0) ?? [];
+  if (!named.length && !/\\brose\\b/i.test(question) && refersBack && prior.length) return prior;
   // Chapter 06 is an Aetherix receipt demo, not Rose editing the DOM.
   if (path === "/rose-design-lab" && /^(ch-next|chapter-06)$/.test(clean(ctx?.page?.section_id, 80))) {
     if (!named.includes("aetherix")) return [...named, "aetherix"];
@@ -286,7 +297,7 @@ const REFERENT_GUIDANCE = [
   "3. On a focused case-study page, that case study is a likely subject for an underspecified question, not a mandatory one. On a broad profile or unrelated page, do not invent a narrow subject.",
   "4. When the likely meaning is clear, answer directly. When a contextual interpretation is plausible but uncertain, make that reading briefly apparent. Ask one narrow clarification only when multiple credible subjects would materially change the answer.",
   "5. Never replace the case-study topic with unrelated career achievements or project metrics simply because the question names Ivan. Clarifying a referent is not qualifying a sales lead.",
-].join("\\n");
+].join("\n");
 
 function contextLayer(ctx?: RoseTurnContext): string {
   if (!ctx) return "";
