@@ -74,6 +74,65 @@ describe("Rose canonical knowledge", () => {
     expect(answer).toContain("On the Rose design-lab page");
   });
 
+
+  it("resolves an underspecified measurement question from its current page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const rose = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      question: "What does Ivan measure?",
+    });
+    expect(rose).toContain("BEGIN ROSE FACTUAL REFERENCE");
+    expect(rose).toContain("## measurement (2026-10-24, implemented)");
+    expect(rose).toContain("Question referent resolution:");
+    expect(rose).toContain("The section in view is");
+    expect(rose).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+
+    const aetherix = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
+    expect(aetherix).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(aetherix).toContain("The visitor is currently on /aetherix");
+
+    const journal = await getRoseSystemPrompt({
+      page: { path: "/journal/harnesses-graders-closed-loops" },
+      question: "What does Ivan measure?",
+    });
+    expect(journal).toContain("harnesses-graders-closed-loops");
+
+    const cv = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "What does Ivan measure?" });
+    expect(cv).toContain("On a broad profile or unrelated page");
+  });
+
+  it("preserves a recent explicit topic despite navigation to another page", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const continuing = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      question: "What does Ivan measure?",
+      previousQuestions: ["How does Aetherix measure forecast quality?"],
+    });
+    expect(continuing).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(continuing).toContain("BEGIN ROSE FACTUAL REFERENCE");
+
+    const switched = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure about Rose?",
+      previousQuestions: ["How does Aetherix measure forecast quality?"],
+    });
+    expect(switched).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
+  });
+
+  it("does not override an explicitly named project or broad comparison", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
+    const named = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure in Aetherix?",
+    });
+    expect(named).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    const broad = await getRoseSystemPrompt({
+      page: { path: "/rose-design-lab" },
+      question: "What does Ivan measure across his projects?",
+    });
+    expect(broad).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(broad).toContain("--- BEGIN CASE STUDY: lore ---");
+  });
   it("keeps named external project evidence available from Rose's case study", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
     const answer = await getRoseSystemPrompt({
