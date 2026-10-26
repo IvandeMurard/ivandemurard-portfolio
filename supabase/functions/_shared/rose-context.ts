@@ -247,7 +247,6 @@ function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
  * General portfolio turns retain the original full reference behavior.
  */
 function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean): readonly Slug[] | undefined {
-  if (!selected) return undefined;
   const path = clean(ctx?.page?.path, 120).split(/[?#]/)[0].replace(/\/+$/, "") || "/";
   const question = (ctx?.question ?? "").slice(0, 2000);
   const named = (["sonor", "aetherix", "tacet", "lore", "architecture", "anima", "compass", "cv"] as const)
@@ -263,6 +262,19 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
     ),
   ).find(subjects => subjects.length > 0) ?? [];
   if (!named.length && !/\brose\b/i.test(question) && refersBack && prior.length) return prior;
+  if (!selected) {
+    // For a short underspecified question, retrieve the recent or in-view
+    // evidence rather than drowning the relevant page in eight case studies.
+    // Longer or general questions retain the existing complete reference set.
+    if (named.length) return named;
+    const short = question.trim().split(/\\s+/).length <= 8;
+    if (!short || !refersBack) return undefined;
+    if (prior.length) return prior;
+    const routeSlug = path.slice(1) as Slug;
+    if (CASE_STUDY_SLUGS.includes(routeSlug)) return [routeSlug];
+    if (path.startsWith("/journal/")) return [];
+    return undefined;
+  }
   // Chapter 06 is an Aetherix receipt demo, not Rose editing the DOM.
   if (path === "/rose-design-lab" && /^(ch-next|chapter-06)$/.test(clean(ctx?.page?.section_id, 80))) {
     if (!named.includes("aetherix")) return [...named, "aetherix"];
