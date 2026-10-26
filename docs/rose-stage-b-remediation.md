@@ -161,11 +161,20 @@ Disallowed without new evidence: **5.6% versus 12.7%, 85% detected, 56% error re
 - `src/lib/roseEvidenceAudit.ts` extracts reported percentages and measured counts from candidate answers, compares them with the literal numbers in `public/aetherix.md`, and surfaces unsupported quantities with surrounding text. Exact source snippets are asserted to remain present.
 - `scripts/rose-evidence-audit.ts <QA_OUTPUT_DIR>` runs **offline** on a previously saved `answers.json`; it writes `quantitative-audit.json` and exits non-zero to **request human review** when an unverified value is mentioned or a source anchor is missing. A legitimate correction (for example, "No, 85% is not documented") can also trigger this review flag; it is **not automatically a failed model answer**. It consumes **no model credits**.
 - **A matching number is only numerically present, not proven correctly attributed**. Every answer using a figure still requires human review of metric, comparator, cohort, date/horizon, deployment/simulation scope and the prose surrounding it. The script cannot judge an unsupported qualitative example like "Italian" by itself, or catch every rephrased quantity.
-- `scripts/rose-stage-b-check.ts` now reports whether the **assembled model prompt** contained the Aetherix reference and the full benchmark figures; with `ROSE_QA_CAPTURE_PROMPT=1`, it saves the exact per-turn system prompt as a private local QA file for further diagnosis. Do not publish full prompts or upload credential files.
+- `scripts/rose-stage-b-check.ts` now reports whether the **assembled model prompt** contained the Aetherix reference and the full benchmark figures. `ROSE_QA_PROMPT_ONLY=1` generates this per-turn context and `answers.json` metadata **without a gateway credential or model call**; with `ROSE_QA_CAPTURE_PROMPT=1`, it additionally saves exact per-turn system prompts as private local QA files. Do not publish full prompts or upload credentials.
 
 ### Next gates
 
-**Do not run another gateway test yet.** First inspect the existing Lovable raw outputs in `/tmp/rose-context-refactor/answers.json` and, if still available, run the new audit against them with no gateway. An original system prompt was not captured in the old run; rebuilding the prompt now is informative but is **not** proof of what the old model received.
+**Do not run another gateway test yet.** First execute the **cost-free preflight** on the exact new source snapshot:
+
+```sh
+ROSE_QA_PROMPT_ONLY=1 ROSE_QA_CASES=referent-aetherix,self-09,referent-here \
+ROSE_QA_OUTPUT=/tmp/rose-evidence-prompt-only bun scripts/rose-stage-b-check.ts
+```
+
+For `referent-aetherix-1`, require `promptEvidence.hasAetherixReference=true`, `promptEvidence.hasBenchmarkNumerics=true` and `promptEvidence.aetherixUnavailable=false`. If those are false, diagnose reference-fetch/availability before making any model call. The dry-run reproduces the *prompt assembly*, not the content or model result of the earlier gateway run, and is **not a historical prompt capture**.
+
+Then recover the earlier raw `answers.json` if still available.  First inspect the existing Lovable raw outputs in `/tmp/rose-context-refactor/answers.json` and, if still available, run the new audit against them with no gateway. An original system prompt was not captured in the old run; rebuilding the prompt now is informative but is **not** proof of what the old model received.
 
 Then run local `bun run rose:check`, focused Vitest, full Vitest, Vite build and the offline audit's own tests. Only after all deterministic gates pass should Lovable evaluate an isolated current-head snapshot **with prompt capture enabled**. Begin with repeated Aetherix measurement cases, check actual prompt source availability, then confirm the original Rose context regressions and the wider Stage B suite. No merge or deploy until that has passed.
 
