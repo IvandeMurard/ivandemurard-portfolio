@@ -26,6 +26,21 @@ export const ROSE_LINKS: Array<{ pattern: RegExp; to: string }> = [
 
 const SAFE_HREF = /^(https:\/\/|http:\/\/|\/(?!\/))/i;
 
+const ROSE_CANONICAL_PATHS: Record<string, string> = {
+  "/agent-boundaries-aetherix": "/journal/agent-boundaries-aetherix",
+  "/harnesses-graders-closed-loops": "/journal/harnesses-graders-closed-loops",
+  "/whose-truth-is-the-ground-truth": "/journal/whose-truth-is-the-ground-truth",
+};
+
+/** Correct only verified path aliases; never rewrite arbitrary model-supplied URLs. */
+export const canonicalRoseHref = (href: string): string => {
+  if (!href.startsWith("/") || href.startsWith("//")) return href;
+  const match = href.match(/^([^?#]+)(.*)$/);
+  if (!match) return href;
+  return (ROSE_CANONICAL_PATHS[match[1]] ?? match[1]) + match[2];
+};
+
+
 /** Links the first unlinked mention of each known project, outside code and existing links. */
 export const linkifyProjects = (text: string): string => {
   let out = text;
@@ -52,7 +67,7 @@ const linkCls = "text-primary underline decoration-primary/40 underline-offset-2
 const RoseLink = ({ href, children }: ComponentProps<"a">) => {
   const onReference = useContext(ReferenceClick);
   if (!href || !SAFE_HREF.test(href)) return <span>{children}</span>;
-  href = roseCvHref(href);
+  href = canonicalRoseHref(roseCvHref(href));
   const target = referencePath(href);
   const onClick = () => { if (target) onReference?.(target); };
   if (href.startsWith("/")) return <Link to={href} onClick={onClick} className={linkCls}>{children}</Link>;
