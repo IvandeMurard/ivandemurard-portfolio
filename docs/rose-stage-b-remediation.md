@@ -56,6 +56,23 @@ Use the exact raw outputs and tool-call events for manual review. Validate **bot
 
 After targeted checks pass, run the complete 24-scenario, portfolio regression and multi-turn gate. A single passing sample per case still does not establish reliability.
 
+
+## 26 October 2026: focused live-model result and narrowly scoped correction
+
+Lovable executed the seven selected scenarios as eight actual responses against the **PR head snapshot `760ab83215edfc15112ac02a6f7656fc314e8441`** using `google/gemini-3-flash-preview`. It reported **7 PASS and 1 FAIL**. No deployment or production changes occurred.
+
+- **PASS (sampled):** `self-20-1`, `self-06-1`, `self-02-1`, `self-21-1`, `portfolio-5-1`, and `context-switch-1/2`.
+- **FAIL:** `self-09-1`, question `What does Ivan measure?` on `/rose-design-lab`. The response spent most of its content on Aetherix public-benchmark figures, Bouygues Telecom receivables and Field Notes methodology; Rose's own aggregates were a final aside.
+- This does **not** prove the model lacks measurement facts: `## measurement` and `## evaluation` are present in the generated Rose reference. The observed failure is best classified as **implicit referent / answer-scope drift**.
+
+**New corrective behavior:** `roseMeasurementContext(path, question)` gives Rose-focused disambiguation at the end of prompt assembly when measurement is asked on the Rose design-lab page, without an explicitly named outside project or broader career context. It tells the model to start with Rose's measurement and evaluation sections, and to distinguish application telemetry, synthetic checks and missing visitor-value evidence. Ordinary other-page or explicitly cross-project questions are unchanged.
+
+Unit coverage tests the original failing question, site-route boundaries, explicitly named project metrics, cross-project questions and the assembled late-turn clarification. The regex behavior was checked with standalone Node examples, but the full Vitest/build suite and new gateway samples have **not** been rerun for this correction.
+
+**Required next validation:** evaluate **only `self-09`**, then verify one outside-project counterexample if possible. Pass requires a direct answer about Rose's request outcomes, evidence-link and booking-link events, the synthetic quality gate and the absence of demonstrated visitor understanding. A keyword-only success is insufficient. Repeat the failing case at least once if the first sample passes.
+
+The overall Stage B release remains **HOLD**.
+
 ## Remaining release blockers
 
 - Confirm the model no longer confuses the launch year or omits retention.
