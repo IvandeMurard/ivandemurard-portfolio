@@ -89,13 +89,15 @@ describe("Rose canonical knowledge", () => {
 
     const aetherix = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
     expect(aetherix).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(aetherix).not.toContain("--- BEGIN CASE STUDY: lore ---");
     expect(aetherix).toContain("The visitor is currently on /aetherix");
 
     const journal = await getRoseSystemPrompt({
       page: { path: "/journal/harnesses-graders-closed-loops" },
       question: "What does Ivan measure?",
     });
-    expect(journal).toContain("harnesses-graders-closed-loops");
+    expect(journal).toContain("--- BEGIN CASE STUDY: harnesses-graders-closed-loops");
+    expect(journal).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
 
     const cv = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "What does Ivan measure?" });
     expect(cv).toContain("On a broad profile or unrelated page");
@@ -109,6 +111,7 @@ describe("Rose canonical knowledge", () => {
       previousQuestions: ["How does Aetherix measure forecast quality?"],
     });
     expect(continuing).toContain("--- BEGIN CASE STUDY: aetherix ---");
+    expect(continuing).not.toContain("--- BEGIN CASE STUDY: lore ---");
     expect(continuing).toContain("BEGIN ROSE FACTUAL REFERENCE");
 
     const switched = await getRoseSystemPrompt({
