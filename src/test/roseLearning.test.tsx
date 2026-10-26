@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { ChapterLearning } from "@/components/rose/RoseLaterChapters";
+import { ChapterLearning, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
+import { MemoryRouter } from "react-router-dom";
 
 afterEach(cleanup);
 
@@ -19,5 +20,17 @@ describe("Chapter 05 visitor-led handoff", () => {
       window.removeEventListener("rose:open", open);
       window.removeEventListener("rose:ask", ask);
     }
+  });
+});
+describe("Rose case-study QA chapter", () => {
+  it("explains source fidelity and reader usefulness without claiming user validation", () => {
+    render(<MemoryRouter><ChapterQualityAssurance /></MemoryRouter>);
+    expect(screen.getByRole("heading", { name: "A correct answer can still miss the question." })).toBeInTheDocument();
+    expect(screen.getByText(/Every code change must pass versioned golden datasets/)).toBeInTheDocument();
+    expect(screen.getByText(/A more useful answer/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Does it help?" })).toBeInTheDocument();
+    expect(screen.getByText(/do not estimate Rose's reliability/)).toBeInTheDocument();
+    const evidence = screen.getByRole("link", { name: "See the Aetherix evidence" });
+    expect(evidence).toHaveAttribute("href", "/aetherix#where-it-stands");
   });
 });
