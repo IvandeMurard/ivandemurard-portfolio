@@ -183,10 +183,10 @@ export const ChapterLearning = () => (
 );
 
 
-/* ---------------- Quality assurance · reader value before release ---------------- */
+/* ---------------- Quality assurance · correctness and reader value ---------------- */
 /**
- * Case-study account of synthetic evaluation, not a live visitor study or
- * a claim that the draft PR is deployed. Does not call the model.
+ * A review framework, not a live visitor study or a claim that the draft PR
+ * is deployed. Does not call the model.
  */
 export const ChapterQualityAssurance = () => (
   <section aria-labelledby="ch-qa" className="border-t border-outline-variant bg-surface-container-low">
@@ -197,80 +197,107 @@ export const ChapterQualityAssurance = () => (
           A correct answer can still miss the question.
         </h2>
         <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
-          Rose is not evaluated only on whether a claim appears in a source. She should explain the point of the work
-          in language a visitor can use, make its limits clear, and lead to evidence without inventing or overexplaining.
+          Chapter 05 asks whether Rose creates value across real visitors. This section is narrower: before an answer
+          contributes to that picture, is it correct, and does it respond to the question asked? The second does not
+          follow from the first.
         </p>
       </div>
 
-      <figure className="mt-12 border-y border-outline-variant py-8 md:py-10">
-        <figcaption className="font-label text-xs uppercase tracking-[0.18em] text-secondary">
-          A real failure in a synthetic test · 26 October 2026
+      <figure aria-labelledby="qa-matrix-title" className="mt-12">
+        <figcaption id="qa-matrix-title" className="max-w-3xl">
+          <p className="font-label text-xs uppercase tracking-[0.18em] text-secondary">QA decision matrix</p>
+          <h3 className="mt-3 font-headline text-3xl text-primary">Two gates before an answer can earn trust.</h3>
+          <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
+            Correctness and question relevance are independent. The four outcomes tell a reviewer what to do next;
+            they do not claim that a visitor found an answer valuable.
+          </p>
         </figcaption>
-        <p className="mt-6 max-w-3xl font-headline text-2xl italic text-primary md:text-3xl">
-          “What does Ivan measure?”
-        </p>
-        <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12">
-          <div className="border-l-2 border-outline-variant pl-5">
-            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
-              What Rose said
-            </p>
-            <blockquote className="mt-3 font-body text-base leading-relaxed text-on-surface">
-              “Every code change must pass versioned golden datasets.”
-            </blockquote>
-            <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
-              The claim overstates the documented test scope. More importantly, it answers with the internal release
-              process, not what is measured or why it matters to the reader.
-            </p>
-          </div>
-          <div className="border-l-2 border-secondary pl-5">
-            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">
-              A more useful answer · Editorial example
-            </p>
-            <p className="mt-3 font-body text-base leading-relaxed text-on-surface">
-              Ivan compares Aetherix's demand forecasts with a simple baseline. On public restaurant data, the average
-              forecast error was lower, but at the next-day horizon it was slightly higher. No hotel has validated
-              these forecasts yet.
-            </p>
-            <Link to="/aetherix#where-it-stands" className="mt-4 inline-block font-label text-sm text-primary underline underline-offset-4 hover:text-secondary">
-              See the Aetherix evidence
-            </Link>
-          </div>
+        <div className="mt-7 hidden overflow-x-auto border-y border-outline-variant md:block">
+          <table aria-label="Answer quality decision matrix" className="min-w-[42rem] w-full border-collapse text-left">
+            <thead className="bg-surface-container">
+              <tr>
+                <th scope="col" className="w-[24%] border-b border-outline-variant p-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Question relevance</th>
+                <th scope="col" className="w-[38%] border-b border-l border-outline-variant p-4 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Correct · pass</th>
+                <th scope="col" className="w-[38%] border-b border-l border-outline-variant p-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Incorrect · fail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" className="align-top border-b border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-secondary">Answers the question · pass</th>
+                <td className="align-top border-b border-l border-outline-variant p-4">
+                  <p className="font-headline text-xl text-primary">Keep and link</p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-on-surface">State the comparison, its limit and where the visitor can inspect the evidence.</p>
+                </td>
+                <td className="align-top border-b border-l border-outline-variant p-4">
+                  <p className="font-headline text-xl text-primary">Block and trace</p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-on-surface">A useful-sounding claim still fails when its model, metric, scope or source cannot be checked.</p>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" className="align-top p-4 font-label text-xs uppercase tracking-[0.16em] text-on-surface-variant">Misses the reader's question · fail</th>
+                <td className="align-top border-l border-outline-variant p-4">
+                  <p className="font-headline text-xl text-primary">Rewrite</p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-on-surface">A true implementation detail can still avoid the visitor's actual question.</p>
+                </td>
+                <td className="align-top border-l border-outline-variant p-4">
+                  <p className="font-headline text-xl text-primary">Block and investigate</p>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-on-surface">Fix the evidence boundary first, then rewrite the answer around the reader's need.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <p className="mt-8 font-body text-xs leading-relaxed text-on-surface-variant">
-          Source: the Stage B evaluation of a draft change, using Gemini and scripted questions. The improved answer
-          above is an editorial illustration, not a recorded model response or visitor-test result.
-        </p>
+        <div className="mt-7 divide-y divide-outline-variant border-y border-outline-variant md:hidden">
+          {[
+            {
+              readerValue: "Answers the question · pass",
+              outcomes: [
+                {
+                  correctness: "Correct · pass",
+                  title: "Keep and link",
+                  body: "State the comparison, its limit and where the visitor can inspect the evidence.",
+                },
+                {
+                  correctness: "Incorrect · fail",
+                  title: "Block and trace",
+                  body: "A useful-sounding claim still fails when its model, metric, scope or source cannot be checked.",
+                },
+              ],
+            },
+            {
+              readerValue: "Misses the reader's question · fail",
+              outcomes: [
+                {
+                  correctness: "Correct · pass",
+                  title: "Rewrite",
+                  body: "A true implementation detail can still avoid the visitor's actual question.",
+                },
+                {
+                  correctness: "Incorrect · fail",
+                  title: "Block and investigate",
+                  body: "Fix the evidence boundary first, then rewrite the answer around the reader's need.",
+                },
+              ],
+            },
+          ].map((row) => (
+            <section className="p-5" key={row.readerValue}>
+              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{row.readerValue}</p>
+              <div className="mt-5 grid gap-5">
+                {row.outcomes.map((outcome) => (
+                  <div className="border-l border-outline-variant pl-4" key={outcome.title}>
+                    <p className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">{outcome.correctness}</p>
+                    <p className="mt-2 font-headline text-xl text-primary">{outcome.title}</p>
+                    <p className="mt-2 font-body text-sm leading-relaxed text-on-surface">{outcome.body}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </figure>
-
-      <div className="mt-12 grid gap-8 md:grid-cols-3">
-        {[
-          {
-            title: "Is it true?",
-            body: "Match each result to its model, measurement, comparison and test conditions. A real number in the wrong context is still a wrong answer.",
-          },
-          {
-            title: "Does it help?",
-            body: "Answer the visitor's question before describing the underlying implementation. Explain the decision or consequence in plain language.",
-          },
-          {
-            title: "Can it be checked?",
-            body: "Link to a working evidence page, distinguish sandbox tests from real outcomes, and say what remains unknown.",
-          },
-        ].map((check, index) => (
-          <div className="border-t border-outline-variant pt-5" key={check.title}>
-            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">
-              {String(index + 1).padStart(2, "0")} · QA check
-            </p>
-            <h3 className="mt-3 font-headline text-2xl text-primary">{check.title}</h3>
-            <p className="mt-3 font-body text-base leading-relaxed text-on-surface">{check.body}</p>
-          </div>
-        ))}
-      </div>
       <p className="mt-10 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
-        In that five-response synthetic evaluation, one answer failed, another overstated guardrail measurement,
-        and one linked to the wrong page. These samples identify defects; they do not estimate Rose's reliability
-        across visitors or demonstrate that a visitor understood or valued an answer. The evaluated changes remain
-        unmerged and undeployed.
+        This matrix helps a reviewer judge one answer. It does not establish whether Rose creates value for visitors:
+        that remains the product-level question in Chapter 05.
       </p>
     </div>
   </section>
