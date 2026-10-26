@@ -138,6 +138,38 @@ Lovable evaluated `c2046bca47cc73d1f8dcfc2ab65fb499dd51b545` using the authorize
 
 **Next gates:** rerun `bun run rose:check`, all Vitest tests and the Vite build on the new PR head, then run the three focused model scenarios `self-09,referent-aetherix,referent-here` in an isolated authorized gateway workspace. If they pass, expand to the remaining previously checked historical, privacy, cross-page, tool and referent scenarios before considering merge. No deploy or publication.
 
+## 26 October 2026: Aetherix numerical evidence audit
+
+The fourth focused Gemini evaluation of the structural prompt refactor returned **2/3 PASS, 1/3 FAIL**. The Rose-only `self-09` and the "here" cross-page scenario passed; `referent-aetherix` remained on topic but fabricated metrics (reported 5.6% vs 12.7% Prophet error, 85% of errors detected, and a workforce automation-gap measurement). In another setup answer, it claimed 56% less error. The reported "Italian" prompt example is also unsupported by the inspected case-study source.
+
+### Approved quantitative anchors in `public/aetherix.md`
+
+| What is measured | Documented figure | Required qualifier |
+| --- | --- | --- |
+| Benchmark sample | Kaggle Recruit, 30 Japanese restaurants of 829, 1,193 scored points | Public restaurant data, **not** historical hotel outcomes |
+| Mean forecast error (MAPE) | Prophet **49.71%**, naive same-weekday baseline **55.86%** | Mean percentage error, not accuracy or business impact; protocol not pre-registered |
+| Median forecast error (MdAPE) | Prophet **27.0%**, baseline **27.6%** | Median percentage error, not the mean |
+| Forecast at J+1 | Prophet **28.5%**, baseline **27.9%** | Prophet is slightly **worse** at the actual one-day horizon |
+| Gradient-boosted alternative | **25.6%** MdAPE | Different model, not Prophet |
+| Simulated demand shift | **25%** demand jump; recalibration **15.9% → 12.3%** forecast error | **Simulation only**, not field validation |
+| Hotel outcomes | None reported | No connected hotel, signed pilot partner or observed business-value evidence |
+
+Disallowed without new evidence: **5.6% versus 12.7%, 85% detected, 56% error reduction**. A source containing one numeral does not authorize attaching it to another metric (e.g., "49.71% hotel satisfaction" or "27% forecast accuracy").
+
+### QA additions and limits
+
+- `src/lib/roseEvidenceAudit.ts` extracts reported percentages and measured counts from candidate answers, compares them with the literal numbers in `public/aetherix.md`, and surfaces unsupported quantities with surrounding text. Exact source snippets are asserted to remain present.
+- `scripts/rose-evidence-audit.ts <QA_OUTPUT_DIR>` runs **offline** on a previously saved `answers.json`; it writes `quantitative-audit.json` and exits non-zero when an unsupported quantitative value or missing source anchor is found. It consumes **no model credits**.
+- **A matching number is only numerically present, not proven correctly attributed**. Every answer using a figure still requires human review of metric, comparator, cohort, date/horizon, deployment/simulation scope and the prose surrounding it. The script cannot judge an unsupported qualitative example like "Italian" by itself, or catch every rephrased quantity.
+- `scripts/rose-stage-b-check.ts` now reports whether the **assembled model prompt** contained the Aetherix reference and the full benchmark figures; with `ROSE_QA_CAPTURE_PROMPT=1`, it saves the exact per-turn system prompt as a private local QA file for further diagnosis. Do not publish full prompts or upload credential files.
+
+### Next gates
+
+**Do not run another gateway test yet.** First inspect the existing Lovable raw outputs in `/tmp/rose-context-refactor/answers.json` and, if still available, run the new audit against them with no gateway. An original system prompt was not captured in the old run; rebuilding the prompt now is informative but is **not** proof of what the old model received.
+
+Then run local `bun run rose:check`, focused Vitest, full Vitest, Vite build and the offline audit's own tests. Only after all deterministic gates pass should Lovable evaluate an isolated current-head snapshot **with prompt capture enabled**. Begin with repeated Aetherix measurement cases, check actual prompt source availability, then confirm the original Rose context regressions and the wider Stage B suite. No merge or deploy until that has passed.
+
+
 ## Remaining release blockers
 
 - Confirm the model no longer confuses the launch year or omits retention.
