@@ -8,6 +8,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { auditAetherixQuantitativeAnswer } from "../src/lib/roseEvidenceAudit.ts";
+import { flagRoseReaderValue } from "../src/lib/roseReaderValueAudit.ts";
 
 type Answer = {
   id?: string;
@@ -50,15 +51,18 @@ const audited = scoped.map(answer => ({
   question: answer.question ?? "",
   page: answer.page?.path ?? "",
   ...auditAetherixQuantitativeAnswer(answer.text ?? "", source),
+  readerValueWarnings: flagRoseReaderValue(answer.question ?? "", answer.text ?? "", answer.page?.path ?? ""),
 }));
 
 const unverifiedValueMentions = audited.reduce((sum, answer) =>
   sum + answer.unsupportedPercentages.length + answer.unsupportedCounts.length + answer.missingEvidenceAnchors.length + answer.attributionWarnings.length, 0);
+const readerValueReviewMentions = audited.reduce((sum, answer) => sum + answer.readerValueWarnings.length, 0);
 const report = {
   source: "public/aetherix.md",
   note: "Numerically present != factually supported. Heuristic attribution warnings request review; they do not independently prove a claim is false. Check model, metric, comparator, horizon, scope, deployment status and prose.",
   inspectedResponses: audited.length,
   unverifiedValueMentions,
+  readerValueReviewMentions,
   requiresHumanReview: audited.filter(answer => answer.requiresSemanticReview).length,
   interpretation: "Exit 1 requests human review: figures in denials or corrections can be valid even when absent from source.",
   audits: audited,
@@ -70,6 +74,7 @@ console.log(JSON.stringify({
   report: reportPath,
   inspectedResponses: report.inspectedResponses,
   unverifiedValueMentions,
+  readerValueReviewMentions,
   requiresHumanReview: report.requiresHumanReview,
   summary: audited.map(answer => ({
     id: answer.id,
@@ -77,8 +82,9 @@ console.log(JSON.stringify({
     unsupportedCounts: answer.unsupportedCounts.map(value => value.text),
     numericallyPresentPercentages: answer.numericallyPresentPercentages.map(value => value.text),
     attributionWarnings: answer.attributionWarnings.map(warning => ({ code: warning.code, snippet: warning.snippet })),
+    readerValueWarnings: answer.readerValueWarnings.map(warning => ({ code: warning.code, excerpt: warning.excerpt })),
     missingSourceAnchors: answer.missingEvidenceAnchors.length,
   })),
 }, null, 2));
 
-if (unverifiedValueMentions > 0) process.exitCode = 1;
+if (unverifiedValueMentions > 0 || readerValueReviewMentions > 0) process.exitCode = 1;
