@@ -5,7 +5,7 @@ import { Seo } from "@/components/Seo";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RoseHistoryTransition } from "@/components/rose/RoseHistoryTransition";
-import { RoseLaterChapters } from "@/components/rose/RoseLaterChapters";
+import { RoseLaterChapters, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
 
 /**
  * Temporary, unlinked design lab for the Rose case study. Not in nav, sitemap
@@ -490,7 +490,7 @@ const RoseDesignLab = () => {
           </div>
         </div>
       </div>
-      {concept === "a" ? <ConceptA reduced={reduced} /> : concept === "b" ? <ConceptB reduced={reduced} /> : <ConceptC reduced={reduced} />}
+      {concept === "a" ? <><ConceptA reduced={reduced} /><ChapterQualityAssurance /></> : concept === "b" ? <><ConceptB reduced={reduced} /><ChapterQualityAssurance /></> : <ConceptC reduced={reduced} />}
       <aside className="mx-auto max-w-3xl px-6 pb-24 font-body text-sm text-on-surface-variant">
         Prototype note: Ask Rose links open the actual dock, which may still use an earlier deployed prompt. The self-history and QA changes described here are unmerged draft work. "Design reading" is interpretation, not visitor research. <Link to="/" className="underline">Back to the site</Link>
       </aside>
