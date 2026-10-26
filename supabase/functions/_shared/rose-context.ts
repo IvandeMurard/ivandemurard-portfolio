@@ -267,7 +267,7 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
     // evidence rather than drowning the relevant page in eight case studies.
     // Longer or general questions retain the existing complete reference set.
     if (named.length) return named;
-    const short = question.trim().split(/\\s+/).length <= 8;
+    const short = question.trim().split(/\s+/).length <= 8;
     if (!short || !refersBack) return undefined;
     if (prior.length) return prior;
     const routeSlug = path.slice(1) as Slug;
