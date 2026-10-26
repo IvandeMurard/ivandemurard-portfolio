@@ -287,8 +287,8 @@ function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
 /**
  * Choose the relevant evidence without treating the URL as a locked topic.
  * Explicit subjects beat recent conversation, which can beat the current page.
- * General questions retain the full portfolio; short implicit questions can
- * use a narrower set of sources to avoid unrelated metrics.
+ * Only explicitly broad/profile questions load all studies; ordinary long
+ * questions stay focused on their relevant conversational or page subject.
  */
 function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean): readonly Slug[] | undefined {
   const path = clean(ctx?.page?.path, 120).split(/[?#]/)[0].replace(/\/+$/, "") || "/";
@@ -313,16 +313,14 @@ function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean)
   }
   if (!named.length && !/\brose\b/i.test(question) && !explicitlyInView && refersBack && prior.length) return prior;
   if (!selected) {
-    // For a short underspecified question, retrieve the recent or in-view
-    // evidence rather than drowning the relevant page in eight case studies.
-    // Longer or general questions retain the existing complete reference set.
+    // A question's length does not make it cross-project. Honor explicitly
+    // named subjects, the conversational referent and the current case study.
+    // Only explicitly broad questions (checked above) load all case studies.
     if (named.length) return named;
-    const short = question.trim().split(/\s+/).length <= 8;
-    if (!short || !refersBack) return undefined;
-    if (prior.length && !explicitlyInView) return prior;
     const routeSlug = path.slice(1) as Slug;
     if (CASE_STUDY_SLUGS.includes(routeSlug)) return [routeSlug];
     if (path.startsWith("/journal/")) return [];
+    // No concrete subject on a general page: retain the old broad fallback.
     return undefined;
   }
   // Chapter 06 is an Aetherix receipt demo, not Rose editing the DOM.
