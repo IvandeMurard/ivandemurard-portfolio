@@ -60,4 +60,38 @@ describe("Rose Aetherix quantitative evidence audit (offline, advisory)", () => 
     expect(result.unsupportedCounts).toEqual([]);
     expect(result.requiresSemanticReview).toBe(false);
   });
+  it("flags a sourced 25.6% value attributed to an unspecified main system rather than gradient boosting", () => {
+    const answer = "In the 30-restaurant benchmark, the system reached 25.6% median absolute percentage error (MdAPE).";
+    const result = auditAetherixQuantitativeAnswer(answer, source);
+    expect(result.unsupportedPercentages).toEqual([]);
+    expect(result.attributionWarnings.map(warning => warning.code)).toContain("gradient_boosted_attribution");
+  });
+
+  it("does not flag correct gradient-boosted model attribution", () => {
+    const answer = "A separate gradient-boosted model achieved a 25.6% median forecast error on public restaurant data.";
+    const result = auditAetherixQuantitativeAnswer(answer, source);
+    expect(result.attributionWarnings.map(warning => warning.code)).not.toContain("gradient_boosted_attribution");
+  });
+
+  it("flags unsupported guardrail-frequency and all-code-change claims without inventing numbers", () => {
+    const answer = "The system measures the frequency of guardrail trips. Every code change must pass versioned golden datasets before merging.";
+    const warnings = auditAetherixQuantitativeAnswer(answer, source).attributionWarnings.map(warning => warning.code);
+    expect(warnings).toContain("guardrail_frequency");
+    expect(warnings).toContain("all_code_changes");
+  });
+
+  it("flags measured staffing claims and imprecise median MAPE wording", () => {
+    const answer = "He compares covers and staffing against actual outcomes daily, with median MAPE of 27.0%.";
+    const warnings = auditAetherixQuantitativeAnswer(answer, source).attributionWarnings.map(warning => warning.code);
+    expect(warnings).toContain("staffing_outcome");
+    expect(warnings).toContain("median_mape_label");
+  });
+
+  it("keeps correctly qualified limitations free of those attribution warnings", () => {
+    const answer = "Guardrail trips have machine-readable reasons, but no guardrail rate is documented. Staffing remains a pilot hypothesis, not a measured benefit. Prophet MdAPE is 27.0%; a separate gradient-boosted alternative reaches 25.6%.";
+    const warnings = auditAetherixQuantitativeAnswer(answer, source).attributionWarnings;
+    expect(warnings).toEqual([]);
+  });
+
+
 });
