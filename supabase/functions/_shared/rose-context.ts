@@ -236,7 +236,9 @@ async function noteReference(slugs: NoteSlug[]): Promise<string> {
 
 type CacheEntry = { content: string; fetchedAt: number };
 const cache = new Map<Slug, CacheEntry>();
-let refreshing = false;
+// Concurrent turns on a cold server must await the SAME in-flight refresh.
+// A boolean alone let later callers return before their references existed.
+let refreshPromise: Promise<void> | null = null;
 
 async function fetchOne(slug: Slug): Promise<void> {
   try {
@@ -255,14 +257,15 @@ async function fetchOne(slug: Slug): Promise<void> {
   }
 }
 
-async function refreshAll(): Promise<void> {
-  if (refreshing) return;
-  refreshing = true;
-  try {
-    await Promise.all(CASE_STUDY_SLUGS.map(fetchOne));
-  } finally {
-    refreshing = false;
+function refreshAll(): Promise<void> {
+  if (!refreshPromise) {
+    refreshPromise = Promise.all(CASE_STUDY_SLUGS.map(fetchOne))
+      .then(() => undefined)
+      .finally(() => {
+        refreshPromise = null;
+      });
   }
+  return refreshPromise;
 }
 
 function isStale(entry: CacheEntry | undefined): boolean {
