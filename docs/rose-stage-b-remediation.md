@@ -93,6 +93,28 @@ The prior **7/8 PASS** result applies only to the earlier `760ab832` source snap
 
 The overall Stage B release remains **HOLD**.
 
+## 26 October 2026: second gateway evaluation and turn-specific subject cue
+
+Lovable evaluated commit `89122b473f89b3304a6be06695cefae3fa72927c` using the authorized `google/gemini-3-flash-preview` gateway in an isolated workspace. Eleven responses were generated: two setup turns and nine graded answers. **3 PASS, 3 FAIL, 3 UNCLEAR.**
+
+- **FAIL:** `self-09-1` and `referent-rose-1` wandered into Field Notes, Aetherix and career metrics instead of Rose's operating measurement; `referent-aetherix-1` answered as a cross-project overview instead of Aetherix's sandbox/public-benchmark measurements.
+- **UNCLEAR:** `referent-note-1` used ungrounded "in production" wording; `referent-cv-1` did not signal its interpretation and loosely paraphrased CV churn; `referent-here-2` correctly started on Rose after "here" but unnecessarily hedged into Aetherix.
+- **PASS:** `referent-prior-2`, `referent-explicit-1`, `referent-broad-1`.
+- No model/tool errors or raw pseudo-tool leakage were reported. This does not demonstrate general reliability.
+
+**Root-cause hypothesis:** source selection already narrows unrelated case-study blocks, but the lengthy generic base prompt still contains multiple other projects' metrics. The final prompt gave only an abstract priority order, without explicitly stating the **likely referent for this turn**.
+
+**Corrective change (not yet evaluated):** `turnReferentContext(ctx)` constructs a short, tentative working scope at the **end of the prompt**, derived from explicit names, recent visitor questions, in-view wording ("here"), and supplied page/section metadata. It asks the model to lead with the resolved subject, avoid unrelated examples, and clarify only when materially necessary. These cues are **not factual references**, page context is not an absolute rule, and no model intent or consciousness is inferred.
+
+The deterministic regression additions cover Rose Chapter 05, Aetherix, the evaluation Field Note, CV, conversation override, explicit "here", a named project, and cross-project scope. They have not been rerun in the user's local environment yet.
+
+### Next economical validation gate
+
+1. Run `bun run rose:check`, focused and full Vitest suites, and the Vite build locally; the former 111 passing tests belonged to the previous SHA.
+2. Against the new exact PR-head archive, run **only** `self-09,referent-aetherix,referent-here` first. This generates four responses (the last includes a setup turn), not the entire 11-response matrix. Grade actual answer **scope and factual qualifiers**, including follow-up relevance and absence of unnecessary hedging.
+3. Only if those three graded answers pass, run the remaining `referent-rose,referent-note,referent-cv,referent-prior,referent-explicit,referent-broad` and repeat the previously failing cases for variability.
+4. Keep Stage B and PR #2 on **HOLD** until all applicable evidence gates pass; do not merge, deploy or publish.
+
 ## Remaining release blockers
 
 - Confirm the model no longer confuses the launch year or omits retention.
