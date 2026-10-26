@@ -10,12 +10,19 @@ export type QuantitativeMention = {
   snippet: string;
 };
 
+export type AetherixAttributionWarning = {
+  code: "gradient_boosted_attribution" | "guardrail_frequency" | "staffing_outcome" | "all_code_changes" | "median_mape_label";
+  snippet: string;
+  reason: string;
+};
+
 export type AetherixEvidenceAudit = {
   unsupportedPercentages: QuantitativeMention[];
   numericallyPresentPercentages: QuantitativeMention[];
   unsupportedCounts: QuantitativeMention[];
   numericallyPresentCounts: QuantitativeMention[];
   missingEvidenceAnchors: string[];
+  attributionWarnings: AetherixAttributionWarning[];
   requiresSemanticReview: boolean;
 };
 
@@ -63,6 +70,62 @@ function extractCounts(text: string): Array<QuantitativeMention & { unit: string
 }
 
 /**
+ * Conservative QA warnings for recurring attribution failures.
+ * These are NOT a general semantic verifier. A warning means "inspect the
+ * claim in context"; negation, cross-sentence attribution and new published
+ * evidence may change the human verdict.
+ */
+export function flagAetherixAttribution(answer: string): AetherixAttributionWarning[] {
+  const warnings: AetherixAttributionWarning[] = [];
+
+  const flag = (
+    code: AetherixAttributionWarning["code"],
+    pattern: RegExp,
+    reason: string,
+    shouldFlag: (context: string) => boolean = () => true,
+  ) => {
+    for (const match of answer.matchAll(pattern)) {
+      const index = match.index ?? 0;
+      const context = snippet(answer, index, match[0].length);
+      if (shouldFlag(context)) warnings.push({ code, snippet: context, reason });
+    }
+  };
+
+  flag(
+    "gradient_boosted_attribution",
+    /25[.,]6\s*%/gi,
+    "25.6% MdAPE belongs to the gradient-boosted alternative, not Prophet or an unspecified main Aetherix model.",
+    context => !/gradient[\s-]*boost(?:ed|ing)?/i.test(context) &&
+      !/not (?:a |the )?(?:prophet|main model)|wrong to attribute|cannot attribute|misattributed/i.test(context),
+  );
+  flag(
+    "guardrail_frequency",
+    /(?:frequency|rate|percentage|count|number)\s+of\s+(?:the\s+)?(?:guardrail|safety)\s+(?:trips?|alerts?|triggers?|activations?)/gi,
+    "Logged guardrail events do not establish a measured frequency KPI.",
+    context => !/not tracked|not measured|not documented|no (?:measured|documented)|unproven|isn't measured/i.test(context),
+  );
+  flag(
+    "staffing_outcome",
+    /(?:covers\s+(?:and|&)\s+staffing|staffing\s+(?:and|&)\s+covers).{0,90}(?:actual\s+outcomes?|forecast\s+errors?|measured\s+results?)/gi,
+    "Aetherix runs covers forecasts in the sandbox; measured staffing outcomes remain a pilot hypothesis.",
+    context => !/pilot hypothesis|not (?:yet )?(?:measured|validated|proven)|sandbox-only|simulated/i.test(context),
+  );
+  flag(
+    "all_code_changes",
+    /(?:every|all)\s+(?:single\s+)?(?:code\s+)?changes?\s+(?:must\s+)?pass.{0,65}(?:golden\s+datasets?|evaluation|tests?|CI)/gi,
+    "The published evaluation-gate claim is scoped to forecasting, providers, memory and prompts, not an unlimited 'every code change' claim.",
+    context => !/not (?:every|all)|only (?:forecasting|relevant)|limited to/i.test(context),
+  );
+  flag(
+    "median_mape_label",
+    /\bmedian\s+MAPE\b/gi,
+    "The documented median metric is MdAPE; mean MAPE is a distinct aggregate.",
+    context => !/incorrect(?:ly)?|should be MdAPE|not the same/i.test(context),
+  );
+  return warnings;
+}
+
+/**
  * Exact value/unit matching only. Values matching the document still need a
  * semantic check: e.g. a documented MAPE is NOT hotel-level accuracy.
  */
@@ -77,12 +140,14 @@ export function auditAetherixQuantitativeAnswer(answer: string, source: string):
   const unsupportedCounts = counts.filter(mention => !sourceCounts.has(String(mention.value) + ":" + mention.unit));
   const numericallyPresentCounts = counts.filter(mention => sourceCounts.has(String(mention.value) + ":" + mention.unit));
 
+  const attributionWarnings = flagAetherixAttribution(answer);
   return {
     unsupportedPercentages,
     numericallyPresentPercentages,
     unsupportedCounts,
     numericallyPresentCounts,
     missingEvidenceAnchors: AETHERIX_EVIDENCE_ANCHORS.filter(anchor => !source.includes(anchor)),
-    requiresSemanticReview: percentages.length + counts.length > 0,
+    attributionWarnings,
+    requiresSemanticReview: percentages.length + counts.length + attributionWarnings.length > 0,
   };
 }
