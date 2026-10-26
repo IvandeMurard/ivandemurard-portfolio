@@ -182,6 +182,100 @@ export const ChapterLearning = () => (
   </section>
 );
 
+
+/* ---------------- Quality assurance · reader value before release ---------------- */
+/**
+ * Case-study account of synthetic evaluation, not a live visitor study or
+ * a claim that the draft PR is deployed. Does not call the model.
+ */
+export const ChapterQualityAssurance = () => (
+  <section aria-labelledby="ch-qa" className="border-t border-outline-variant bg-surface-container-low">
+    <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+      <div className="max-w-3xl">
+        <Kicker>Quality assurance · Answer quality</Kicker>
+        <h2 id="ch-qa" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">
+          A correct answer can still miss the question.
+        </h2>
+        <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
+          Rose is not evaluated only on whether a claim appears in a source. She should explain the point of the work
+          in language a visitor can use, make its limits clear, and lead to evidence without inventing or overexplaining.
+        </p>
+      </div>
+
+      <figure className="mt-12 border-y border-outline-variant py-8 md:py-10">
+        <figcaption className="font-label text-xs uppercase tracking-[0.18em] text-secondary">
+          A real failure in a synthetic test · 26 October 2026
+        </figcaption>
+        <p className="mt-6 max-w-3xl font-headline text-2xl italic text-primary md:text-3xl">
+          “What does Ivan measure?”
+        </p>
+        <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12">
+          <div className="border-l-2 border-outline-variant pl-5">
+            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
+              What Rose said
+            </p>
+            <blockquote className="mt-3 font-body text-base leading-relaxed text-on-surface">
+              “Every code change must pass versioned golden datasets.”
+            </blockquote>
+            <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
+              The claim overstates the documented test scope. More importantly, it answers with the internal release
+              process, not what is measured or why it matters to the reader.
+            </p>
+          </div>
+          <div className="border-l-2 border-secondary pl-5">
+            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">
+              A more useful answer · Editorial example
+            </p>
+            <p className="mt-3 font-body text-base leading-relaxed text-on-surface">
+              Ivan compares Aetherix's demand forecasts with a simple baseline. On public restaurant data, the average
+              forecast error was lower, but at the next-day horizon it was slightly higher. No hotel has validated
+              these forecasts yet.
+            </p>
+            <Link to="/aetherix#where-it-stands" className="mt-4 inline-block font-label text-sm text-primary underline underline-offset-4 hover:text-secondary">
+              See the Aetherix evidence
+            </Link>
+          </div>
+        </div>
+        <p className="mt-8 font-body text-xs leading-relaxed text-on-surface-variant">
+          Source: the Stage B evaluation of a draft change, using Gemini and scripted questions. The improved answer
+          above is an editorial illustration, not a recorded model response or visitor-test result.
+        </p>
+      </figure>
+
+      <div className="mt-12 grid gap-8 md:grid-cols-3">
+        {[
+          {
+            title: "Is it true?",
+            body: "Match each result to its model, measurement, comparison and test conditions. A real number in the wrong context is still a wrong answer.",
+          },
+          {
+            title: "Does it help?",
+            body: "Answer the visitor's question before describing the underlying implementation. Explain the decision or consequence in plain language.",
+          },
+          {
+            title: "Can it be checked?",
+            body: "Link to a working evidence page, distinguish sandbox tests from real outcomes, and say what remains unknown.",
+          },
+        ].map((check, index) => (
+          <div className="border-t border-outline-variant pt-5" key={check.title}>
+            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">
+              {String(index + 1).padStart(2, "0")} · QA check
+            </p>
+            <h3 className="mt-3 font-headline text-2xl text-primary">{check.title}</h3>
+            <p className="mt-3 font-body text-base leading-relaxed text-on-surface">{check.body}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-10 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
+        In that five-response synthetic evaluation, one answer failed, another overstated guardrail measurement,
+        and one linked to the wrong page. These samples identify defects; they do not estimate Rose's reliability
+        across visitors or demonstrate that a visitor understood or valued an answer. The evaluated changes remain
+        unmerged and undeployed.
+      </p>
+    </div>
+  </section>
+);
+
 /* ---------------- 06 · Adaptive reading ---------------- */
 const RECEIPT_LINES = RECEIPT.split("\n");
 const STEPS = [
@@ -272,6 +366,7 @@ export const RoseLaterChapters = ({ ask, compass, reduced }: { ask: Ask; compass
   <>
     <ChapterTrust ask={ask} compass={compass} reduced={reduced} />
     <ChapterLearning />
+    <ChapterQualityAssurance />
     <ChapterNext compass={compass} reduced={reduced} />
     <Closing ask={ask} compass={compass} />
   </>
