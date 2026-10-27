@@ -190,7 +190,12 @@ Deno.serve(async (req) => {
       },
     });
 
-    return result.toUIMessageStreamResponse({ headers: corsHeaders });
+    const streamResponse = result.toUIMessageStreamResponse();
+    const streamHeaders = new Headers(streamResponse.headers);
+    for (const [key, value] of Object.entries(corsHeaders)) {
+      streamHeaders.set(key, value);
+    }
+    return new Response(streamResponse.body, { status: streamResponse.status, headers: streamHeaders });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[rose-chat] error", message);
