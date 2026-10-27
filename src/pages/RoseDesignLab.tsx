@@ -338,8 +338,8 @@ const ConceptB = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
-/* ---------------- Concept C: Narrative prototype (Scenes A, B, C) ---------------- */
-const ConceptC = ({ reduced }: { reduced: boolean }) => {
+/* ---------------- Concept D: Stage C evidence-led narrative ---------------- */
+const ConceptD = ({ reduced }: { reduced: boolean }) => {
   const { refs, active } = useActiveIndex(3);
   const readingSteps = MILESTONES.map((milestone) => ({
     title: milestone.title,
@@ -445,10 +445,96 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
+const ConceptC = ({ reduced }: { reduced: boolean }) => {
+  return (
+    <>
+      {/* Scene A */}
+      <section aria-labelledby="scene-a" className="border-b border-outline-variant">
+        <div className="mx-auto flex max-w-5xl flex-col justify-center px-6 py-16 md:py-20">
+          <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Rose · The story of a conversational portfolio</p>
+          <div className="mt-8 flex flex-col gap-10 md:flex-row md:items-center">
+            <h1 id="scene-a" className="min-w-0 font-headline text-5xl font-normal leading-[1.02] text-primary sm:text-6xl lg:text-7xl">
+              A portfolio <span className="italic text-secondary">you can question.</span>
+            </h1>
+            <CompassRose heading={0} reduced={reduced} className="h-32 w-32 shrink-0 text-secondary md:h-48 md:w-48" />
+          </div>
+          <p className="mt-8 max-w-2xl font-body text-lg leading-relaxed text-on-surface">
+            The story behind Rose: why I built her, how the experience evolved, the decisions and trade-offs that shaped it, and what comes next.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="rose-idea" className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+        <p className="font-label text-xs text-on-surface-variant">July–October 2026 · From qualification to exploration</p>
+        <p className="mt-8 font-label text-xs uppercase tracking-[0.2em] text-secondary">01 · The idea</p>
+        <h2 id="rose-idea" className="mt-4 max-w-2xl font-headline text-3xl leading-tight text-primary md:text-4xl">What if the portfolio could answer back?</h2>
+        <div className="mt-6 max-w-2xl space-y-4 font-body text-base leading-relaxed text-on-surface md:text-lg">
+          <p>A case study shows the work. It cannot anticipate every question someone brings to it. I built Rose to explore another way in: a conversation alongside the evidence.</p>
+          <p>The first version shipped on 21 July 2026. Its brief was narrower than that possibility: help a visitor decide whether to book a conversation with me.</p>
+        </div>
+      </section>
+
+      {/* Scene B */}
+      <section aria-labelledby="scene-b" className="border-b border-outline-variant bg-surface-container-low">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-2 lg:gap-16 md:py-32">
+          <div className="max-w-2xl">
+            <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">02 · The first direction</p>
+            <h2 id="scene-b" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">First, an invitation to book.</h2>
+            <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
+              The July prompt aimed to help visitors decide, in two or three exchanges, whether to book 30 minutes. Four starters framed the opening around recruitment intentions.
+            </p>
+            <p className="mt-4 font-body text-base leading-relaxed text-on-surface md:text-lg">That objective shaped the experience: establish the visitor's intention, then move toward a call. But someone could want to understand a product decision without being ready to meet.</p>
+            <p className="mt-6 font-headline text-2xl italic text-secondary">A conversation is not necessarily a lead.</p>
+            <p className="mt-6 font-body text-xs leading-relaxed text-on-surface-variant">Source: original prompt and config, commit 51245fc. This is a design reading of the rules, not evidence of visitor reactions.</p>
+          </div>
+          <figure className="self-start rounded-sm border border-outline-variant bg-surface p-5 md:p-7">
+            <figcaption className="mb-5 font-label text-xs text-on-surface-variant">July 2026 · Illustrative reconstruction</figcaption>
+            <ul className="flex flex-wrap gap-2">
+              {ORIGINAL_CHIPS.map((c) => <li key={c} className="rounded-full border border-outline-variant px-3 py-1.5 font-label text-xs text-on-surface-variant">{c}</li>)}
+            </ul>
+            <div className="mt-6 space-y-3 font-body text-sm">
+              <p className="ml-auto w-fit max-w-[85%] rounded-sm bg-surface-container-low px-3 py-2 text-on-surface">What has Ivan actually built?</p>
+              <p className="max-w-[85%] text-on-surface">Ivan builds agentic products end to end. Are you hiring for a product role?</p>
+              <div className="max-w-[85%] rounded-sm border border-secondary px-3 py-2">
+                <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Book 30 minutes with Ivan</p>
+                <p className="mt-1 text-on-surface-variant">The intended destination of the exchange.</p>
+              </div>
+            </div>
+            <p className="mt-6 border-t border-outline-variant pt-4 font-body text-xs leading-relaxed text-on-surface-variant">Invented dialogue illustrating the booking-oriented rules. Not an actual visitor transcript or a measured timing claim.</p>
+          </figure>
+        </div>
+      </section>
+
+      {/* Scene C */}
+      <section aria-labelledby="scene-c">
+        <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
+          <div className="max-w-2xl">
+            <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">03 · The change in direction</p>
+            <h2 id="scene-c" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Start with the work.</h2>
+            <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
+              Instead of beginning by classifying the visitor, Rose increasingly began with the work they were exploring. A question about a product could lead into its decisions, limits and evidence, with contact still available.
+            </p>
+          </div>
+          <RoseHistoryTransition reduced={reduced} renderCompass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full text-secondary" />} />
+          <div className="mt-10 max-w-2xl">
+            <p className="font-body text-base leading-relaxed text-on-surface">The intended difference was simple: let the visitor ask about what is in front of them before asking who they are. This is the product decision, not a claim of measured improvement.</p>
+            <p className="mt-4 font-body text-xs text-on-surface-variant">Sources: contextual starters plan, 7 August; page-context integration, commit b236ff3, 10 August.</p>
+            <div className="mt-8"><RoseQuestion text="What has Ivan actually built?" className="text-lg" /></div>
+            <p className="mt-4 font-body text-sm leading-relaxed text-on-surface-variant">Rose's draft self-history is a repository reference, not proof of visitor behaviour. The live dock may still use an earlier deployed prompt; check its answers against the published case studies.</p>
+          </div>
+        </div>
+      </section>
+      <RoseLaterChapters reduced={reduced}
+        ask={(text) => <RoseQuestion text={text} className="text-lg" />}
+        compass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full" />} />
+    </>
+  );
+};
+
 const RoseDesignLab = () => {
   const [params, setParams] = useSearchParams();
   const raw = params.get("concept");
-  const concept = raw === "a" || raw === "b" ? raw : "narrative";
+  const concept = raw === "a" || raw === "b" || raw === "d" ? raw : "narrative";
   const reduced = useReducedMotion();
   return (
     <SiteLayout>
@@ -457,14 +543,14 @@ const RoseDesignLab = () => {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
           <span className="uppercase tracking-[0.2em] text-on-surface-variant">Design lab · unlinked prototype</span>
           <div role="tablist" aria-label="Concept" className="inline-flex flex-wrap rounded-full border border-outline-variant p-0.5">
-            {[["a", "A · Narrative split"], ["b", "B · Evolving orientation"], ["narrative", "C · Narrative prototype"]].map(([k, l]) => (
+            {[["a", "A · Narrative split"], ["b", "B · Evolving orientation"], ["narrative", "C · Narrative prototype"], ["d", "D · Stage C evidence-led"]].map(([k, l]) => (
               <button key={k} role="tab" aria-selected={concept === k} type="button" onClick={() => { setParams({ concept: k }); window.scrollTo(0, 0); }}
                 className={cn("rounded-full px-3 py-1", concept === k ? "bg-primary text-on-primary" : "text-on-surface-variant hover:text-primary")}>{l}</button>
             ))}
           </div>
         </div>
       </div>
-      {concept === "a" ? <><ConceptA reduced={reduced} /><ChapterQualityAssurance /></> : concept === "b" ? <><ConceptB reduced={reduced} /><ChapterQualityAssurance /></> : <ConceptC reduced={reduced} />}
+      {concept === "a" ? <><ConceptA reduced={reduced} /><ChapterQualityAssurance /></> : concept === "b" ? <><ConceptB reduced={reduced} /><ChapterQualityAssurance /></> : concept === "d" ? <ConceptD reduced={reduced} /> : <ConceptC reduced={reduced} />}
       <aside className="mx-auto max-w-3xl px-6 pb-24 font-body text-sm text-on-surface-variant">
         Ask Rose links open the portfolio dock. Sources and evidence states above distinguish what is built, bounded by validation, or still in design. <Link to="/" className="underline">Back to the site</Link>
       </aside>
