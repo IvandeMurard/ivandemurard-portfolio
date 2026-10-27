@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ChapterLearning, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
+import { EvidenceKey } from "@/components/EvidenceStatus";
 import { MemoryRouter } from "react-router-dom";
 import { readFileSync } from "node:fs";
 
@@ -45,4 +46,21 @@ describe("Rose case-study QA chapter", () => {
     expect(chapters).toMatch(/<ChapterLearning\s*\/>\s*<ChapterQualityAssurance\s*\/>/);
   });
 
+});
+
+describe("Evidence status language", () => {
+  it("uses explicit words as well as visual marks", () => {
+    render(<EvidenceKey />);
+    expect(screen.getByText("Built")).toBeInTheDocument();
+    expect(screen.getByText("Validation")).toBeInTheDocument();
+    expect(screen.getByText("Design")).toBeInTheDocument();
+    expect(screen.getByText(/Implemented behaviour that can be inspected/)).toBeInTheDocument();
+  });
+
+  it("makes Concept C the default and keeps Rose as a contextual margin voice", () => {
+    const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
+    expect(page).toContain('const concept = raw === "a" || raw === "b" ? raw : "narrative";');
+    expect(page).toContain("Rose, in the margin");
+    expect(page).not.toContain("const LabCursor");
+  });
 });
