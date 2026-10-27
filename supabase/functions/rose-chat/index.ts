@@ -8,7 +8,7 @@ import {
   tool,
   type UIMessage,
 } from "npm:ai@5.0.217";
-import { z } from "npm:zod@3.23.8";
+import { z } from "npm:zod@^3.25.76";
 import { createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
 import { getRoseSystemPrompt } from "../_shared/rose-context.ts";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
@@ -35,7 +35,12 @@ const curatedRoseResponse = (text: string): Response => {
       writer.write({ type: "finish", finishReason: "stop" });
     },
   });
-  return createUIMessageStreamResponse({ stream, headers: corsHeaders });
+  const response = createUIMessageStreamResponse({ stream });
+  const headers = new Headers(response.headers);
+  for (const [key, value] of Object.entries(corsHeaders)) {
+    headers.set(key, value);
+  }
+  return new Response(response.body, { status: response.status, headers });
 };
 
 Deno.serve(async (req) => {
@@ -185,7 +190,12 @@ Deno.serve(async (req) => {
       },
     });
 
-    return result.toUIMessageStreamResponse({ headers: corsHeaders });
+    const streamResponse = result.toUIMessageStreamResponse();
+    const streamHeaders = new Headers(streamResponse.headers);
+    for (const [key, value] of Object.entries(corsHeaders)) {
+      streamHeaders.set(key, value);
+    }
+    return new Response(streamResponse.body, { status: streamResponse.status, headers: streamHeaders });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[rose-chat] error", message);

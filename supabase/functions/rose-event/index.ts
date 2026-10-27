@@ -2,7 +2,7 @@
 // Emails and phone numbers are masked before insert. Writes use the service role;
 // the table has no public insert or read policy.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { z } from "npm:zod@3.23.8";
+import { z } from "npm:zod@^3.25.76";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 
 const EventSchema = z.object({
