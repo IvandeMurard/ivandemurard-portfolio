@@ -59,7 +59,7 @@ describe("Evidence status language", () => {
 
   it("makes Concept C the default and keeps Rose as a contextual margin voice", () => {
     const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
-    expect(page).toContain('const concept = raw === "a" || raw === "b" ? raw : "narrative";');
+    expect(page).toContain('const concept = raw === "a" || raw === "b" || raw === "d" ? raw : "narrative";');
     expect(page).toContain("Rose, in the margin");
     expect(page).not.toContain("const LabCursor");
   });
