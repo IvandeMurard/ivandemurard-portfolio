@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { RECEIPT } from "@/components/atherix/AetherixDailyReceipt";
+import { EvidenceStatus, type EvidenceState } from "@/components/EvidenceStatus";
 
 /**
  * Design-lab chapters 04 to 06 and the closing of Rose Prototype C.
@@ -15,6 +16,13 @@ type Compass = (heading: number, className?: string) => ReactNode;
 
 const Kicker = ({ children }: { children: ReactNode }) => (
   <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">{children}</p>
+);
+
+const RoseMarginNote = ({ children }: { children: ReactNode }) => (
+  <aside aria-label="Rose's note" className="border-l-2 border-secondary pl-4">
+    <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose, in the margin</p>
+    <p className="mt-2 font-headline text-lg italic leading-snug text-primary">{children}</p>
+  </aside>
 );
 
 /** Accessible two-or-more option tab control shared by the chapter instruments. */
@@ -69,6 +77,7 @@ const ChapterTrust = ({ ask, compass, reduced }: { ask: Ask; compass: Compass; r
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_200px] lg:items-end">
           <div className="max-w-2xl">
             <Kicker>04 · Designing for trust</Kicker>
+            <div className="mt-5"><EvidenceStatus state="built" /></div>
             <h2 id="ch-trust" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">What should an assistant keep, claim and send?</h2>
             <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
               Once Rose answered about the work, the harder questions were about restraint. What she may claim about projects, what she remembers between pages, and what leaves the browser when someone books a call.
@@ -76,6 +85,19 @@ const ChapterTrust = ({ ask, compass, reduced }: { ask: Ask; compass: Compass; r
           </div>
           <div className="mx-auto w-28 text-secondary lg:w-40">{compass(215)}</div>
         </div>
+
+        <dl aria-label="Trust implementation at a glance" className="mt-12 grid border-y border-outline-variant sm:grid-cols-3">
+          {[
+            ["0", "conversation or summary sent with a booking link"],
+            ["60 min", "tab-local conversation continuity after inactivity"],
+            ["90 days", "interaction-record retention in the private admin view"],
+          ].map(([value, label]) => (
+            <div key={value} className="border-b border-outline-variant p-5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
+              <dt className="font-headline text-3xl text-primary">{value}</dt>
+              <dd className="mt-2 font-body text-sm leading-relaxed text-on-surface-variant">{label}</dd>
+            </div>
+          ))}
+        </dl>
 
         <figure aria-label="What leaves the tab when a visitor books" className="mt-14 rounded-sm border border-outline-variant bg-surface p-5 md:p-8">
           <Tabs id="trust" label="Booking behaviour" options={TRUST} value={v} onChange={setV} />
@@ -105,6 +127,13 @@ const ChapterTrust = ({ ask, compass, reduced }: { ask: Ask; compass: Compass; r
             <span className="font-headline text-xl italic text-secondary">Memory.</span> A conversation follows the visitor across pages within one tab, then expires after 60 minutes of inactivity. There is no server transcript of it.
           </p>
         </div>
+        <div className="mt-10 grid max-w-4xl gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <RoseMarginNote>“When you book, I send nothing. Not even this conversation.”</RoseMarginNote>
+          <div className="border-l border-outline-variant pl-4">
+            <EvidenceStatus state="validation" />
+            <p className="mt-3 font-body text-sm leading-relaxed text-on-surface">The release decision used 15 synthetic conversations. That checks defined risks, not whether a visitor felt understood.</p>
+          </div>
+        </div>
         <div className="mt-10">{ask("What does Rose keep from my conversation?")}</div>
       </div>
     </section>
@@ -118,12 +147,14 @@ const LEVELS = [
     shows: "Automated tests cover answer rendering, booking deduplication, session expiry and page integrity. The final run of 15 synthetic conversations had no invented names, no wrong DomusVi or Sonor facts and one booking card.",
     limits: "One sample per question. Four answers exceeded 110 words. Synthetic visitors only ask what I thought to ask.",
     status: "Verified through defined tests",
+    evidence: "validation" as EvidenceState,
   },
   {
     title: "Does it hold up?", sub: "In practice",
     shows: "Content-free events count conversations, failures and booking clicks, deduplicated per tab, in a private dashboard.",
     limits: "Live volume is still small, so rates are not yet stable. Logs are purged after 90 days.",
     status: "Measured, with limitations",
+    evidence: "built" as EvidenceState,
   },
   {
     title: "Does it create value?", sub: "For the visitor",
@@ -152,6 +183,7 @@ export const ChapterLearning = () => (
               <span aria-hidden className="font-headline text-4xl italic leading-none text-outline-variant md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
               <div>
                 <h3 className="font-headline text-2xl text-primary md:text-3xl">{l.title}</h3>
+                {l.evidence ? <div className="mt-3"><EvidenceStatus state={l.evidence} /></div> : <p className="mt-3 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Open question</p>}
                 <p className={cn("mt-2 font-headline text-lg italic", i === 2 ? "text-on-surface-variant" : "text-secondary")}>{l.status}</p>
                 <p className="mt-5 max-w-prose font-body text-base leading-relaxed text-on-surface">{l.shows}</p>
                 <p className="mt-3 max-w-prose font-body text-sm leading-relaxed text-on-surface-variant"><span className="font-label text-xs uppercase tracking-[0.2em]">Limits · </span>{l.limits}</p>

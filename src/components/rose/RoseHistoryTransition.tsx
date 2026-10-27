@@ -71,7 +71,7 @@ export const RoseHistoryTransition = ({ reduced, renderCompass }: {
           </div>
         </div>
       </div>
-      <figcaption className="mt-6 max-w-prose font-body text-xs leading-relaxed text-on-surface-variant">Illustrative interface comparison, not visitor data. August questions represent the page-specific approach, not a verbatim historical transcript.</figcaption>
+      <figcaption className="mt-6 max-w-prose font-body text-xs leading-relaxed text-on-surface-variant">Interface reconstruction from the July prompt and August page-context configuration. The starters show the product direction at each point.</figcaption>
     </figure>
   );
 };
