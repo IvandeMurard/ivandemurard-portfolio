@@ -66,7 +66,7 @@ export const RoseHistoryTransition = ({ reduced, renderCompass }: {
             </div>
             <div className={cn("col-start-1 row-start-1", august ? "visible" : "invisible")} aria-hidden={!august}>
               <p className="font-headline text-2xl text-primary">What are you exploring?</p>
-              <p className="mt-3 max-w-prose font-body text-base text-on-surface">On 7 August, content pages gained route-specific starters. On 10 August, page context and intent were added to Rose's inputs. Booking remained an option, not the subject of every question.</p>
+              <p className="mt-3 max-w-prose font-body text-base text-on-surface">On 7 August, content pages gained route-specific starters. Booking remained an option, not the subject of every question.</p>
             </div>
           </div>
         </div>

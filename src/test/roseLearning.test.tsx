@@ -25,18 +25,18 @@ describe("Chapter 05 visitor-led handoff", () => {
   });
 });
 describe("Rose case-study QA chapter", () => {
-  it("separates answer correctness from question relevance without duplicating product-level value claims", () => {
+  it("shows that a factually correct answer can still fail the reader", () => {
     render(<MemoryRouter><ChapterQualityAssurance /></MemoryRouter>);
-    expect(screen.getByRole("heading", { name: "A correct answer can still miss the question." })).toBeInTheDocument();
-    expect(screen.getByRole("table", { name: "Answer quality decision matrix" })).toBeInTheDocument();
-    expect(screen.getAllByText("Correct · pass")).toHaveLength(3);
-    expect(screen.getAllByText("Incorrect · fail")).toHaveLength(3);
-    expect(screen.getAllByText("Answers the question · pass")).toHaveLength(2);
-    expect(screen.getAllByText("Misses the reader's question · fail")).toHaveLength(2);
-    expect(screen.getByText(/Correctness and question relevance are independent/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "A correct answer can still be the wrong answer." })).toBeInTheDocument();
+    expect(screen.getByRole("table", { name: "Correctness and reader usefulness review" })).toBeInTheDocument();
+    expect(screen.getAllByText("Pass")).toHaveLength(3);
+    expect(screen.getByText("Fail")).toBeInTheDocument();
+    expect(screen.getByText("Rewrite")).toBeInTheDocument();
+    expect(screen.getByText("Keep and link")).toBeInTheDocument();
+    expect(screen.getByText(/Correctness is necessary; usefulness in context is separate/)).toBeInTheDocument();
     expect(screen.getByText(/Chapter 05 asks whether Rose creates value across real visitors/)).toBeInTheDocument();
     expect(screen.getByText(/does not establish whether Rose creates value for visitors/)).toBeInTheDocument();
-    expect(screen.queryByText("What Rose said")).not.toBeInTheDocument();
+    expect(screen.getByText(/internal release-process detail/)).toBeInTheDocument();
   });
   it("mounts the QA section in the default, alternate and narrative concept", () => {
     const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
@@ -57,10 +57,12 @@ describe("Evidence status language", () => {
     expect(screen.getByText(/Implemented behaviour that can be inspected/)).toBeInTheDocument();
   });
 
-  it("makes Concept C the default and keeps Rose as a contextual margin voice", () => {
+  it("keeps Concept C as a baseline and makes D the evidence-led default", () => {
     const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
-    expect(page).toContain('const concept = raw === "a" || raw === "b" ? raw : "narrative";');
-    expect(page).toContain("Rose, in the margin");
+    expect(page).toContain('const concept = raw === "a" || raw === "b" || raw === "narrative" ? raw : "d";');
+    expect(page).toContain("D · Stage C evidence-led");
+    expect(page).toContain("const ConceptD");
+    expect(page).toContain("RoseIntervention");
     expect(page).not.toContain("const LabCursor");
   });
 });
