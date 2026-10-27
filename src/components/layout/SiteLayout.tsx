@@ -11,9 +11,10 @@ interface SiteLayoutProps {
   children: React.ReactNode;
   title?: string;
   sections?: RailSection[];
+  showFooter?: boolean;
 }
 
-export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
+export const SiteLayout = ({ children, title, sections, showFooter = true }: SiteLayoutProps) => {
   const { pathname } = useLocation();
   usePreviewMode();
 
@@ -43,9 +44,9 @@ export const SiteLayout = ({ children, title, sections }: SiteLayoutProps) => {
       <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}
       </main>
-      <div style={{ viewTransitionName: "site-footer" }}>
+      {showFooter && <div style={{ viewTransitionName: "site-footer" }}>
         <Footer />
-      </div>
+      </div>}
       <RoseDock />
     </div>
   );
