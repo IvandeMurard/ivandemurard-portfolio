@@ -35,7 +35,12 @@ const curatedRoseResponse = (text: string): Response => {
       writer.write({ type: "finish", finishReason: "stop" });
     },
   });
-  return createUIMessageStreamResponse({ stream, headers: corsHeaders });
+  const response = createUIMessageStreamResponse({ stream });
+  const headers = new Headers(response.headers);
+  for (const [key, value] of Object.entries(corsHeaders)) {
+    headers.set(key, value);
+  }
+  return new Response(response.body, { status: response.status, headers });
 };
 
 Deno.serve(async (req) => {
