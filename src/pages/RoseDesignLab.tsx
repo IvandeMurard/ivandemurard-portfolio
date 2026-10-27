@@ -88,6 +88,13 @@ const MILESTONES: Milestone[] = [
 const ORIGINAL_CHIPS = ["Product expertise", "Technical profile", "Culture fit", "Just exploring"];
 const PAGE_CHIPS = ["What has actually been built?", "What happens when it's wrong?", "Book a call"];
 
+const UX_ITERATIONS = [
+  { date: "21 Jul", title: "A dock that qualified", detail: "Four intent starters and a booking-oriented opening.", source: "51245fc" },
+  { date: "7 Aug", title: "A quieter surface", detail: "A glass veil at rest, full contrast on hover, focus or use.", source: "4efe2b8" },
+  { date: "13 Oct", title: "A header CTA", detail: "“Ask Rose” moved into the right-hand navigation.", source: "53e7d0d" },
+  { date: "14 Oct", title: "One place to return to", detail: "The header CTA was removed and the dock became the single home for the interaction.", source: "33866a5 · 7752dbb" },
+];
+
 const askRose = (text: string) => window.dispatchEvent(new CustomEvent("rose:ask", { detail: { text } }));
 
 const useReducedMotion = () => {
@@ -443,7 +450,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
         <div>
           <section ref={(el) => { refs.current[0] = el; }} data-idx={0} aria-labelledby="rose-idea" className="max-w-3xl">
             <p className="font-label text-xs text-on-surface-variant">July–October 2026 · From qualification to exploration</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3"><EvidenceStatus state="design" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Decision frame</span></div>
+            <div className="mt-8 flex flex-wrap items-center gap-3"><EvidenceStatus state="design" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Product direction</span></div>
             <h2 id="rose-idea" className="mt-4 font-headline text-3xl leading-tight text-primary md:text-5xl">What if the portfolio could answer back?</h2>
             <div className="mt-6 max-w-2xl space-y-4 font-body text-base leading-relaxed text-on-surface md:text-lg">
               <p>A case study shows the work. It cannot anticipate every question someone brings to it. I built Rose to create another way in: a conversation alongside the evidence.</p>
@@ -475,6 +482,30 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
                 </div>
               </figure>
             </div>
+          </section>
+
+          <section aria-labelledby="ux-evolution" className="border-y border-outline-variant bg-surface-container-low px-6 py-16 md:py-20">
+            <div className="max-w-3xl">
+              <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">UX/UI · Interface evolution</p>
+              <h2 id="ux-evolution" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">The interface had to carry the new direction.</h2>
+              <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">Rose did not move in a straight line from a prompt to a finished dock. The interaction was repeatedly repositioned to make the next question easier without becoming another call-to-action competing with the work.</p>
+            </div>
+            <figure aria-labelledby="ux-evolution-caption" className="mt-10 max-w-5xl">
+              <figcaption id="ux-evolution-caption" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Code-led interface reconstructions · before / after / return</figcaption>
+              <ol className="mt-5 grid gap-px border border-outline-variant bg-outline-variant sm:grid-cols-2 xl:grid-cols-4">
+                {UX_ITERATIONS.map((iteration, index) => (
+                  <li key={iteration.source} className={cn("relative min-h-52 bg-surface p-5", index === 1 && "bg-surface-container-low", index === 3 && "bg-surface-container-high") }>
+                    <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{iteration.date}</span>
+                    <div aria-hidden="true" className={cn("mt-6 border border-outline-variant p-3", index === 1 && "rounded-2xl border-secondary/50 bg-surface/55 backdrop-blur-sm", index === 2 && "ml-auto w-fit rounded-full border-secondary", index === 3 && "rounded-2xl bg-surface-container-lowest")}>
+                      <div className="flex items-center gap-2"><CompassRose heading={MILESTONES[Math.min(index, 3)].heading} reduced={reduced} className="h-5 w-5 text-secondary" /><span className="h-1.5 flex-1 rounded-full bg-outline-variant" /></div>
+                    </div>
+                    <h3 className="mt-6 font-headline text-2xl leading-tight text-primary">{iteration.title}</h3>
+                    <p className="mt-3 font-body text-sm leading-relaxed text-on-surface">{iteration.detail}</p>
+                    <p className="mt-5 font-label text-[10px] text-on-surface-variant">{iteration.source}</p>
+                  </li>
+                ))}
+              </ol>
+            </figure>
           </section>
 
           <section ref={(el) => { refs.current[1] = el; }} data-idx={1} aria-labelledby="scene-c" className="max-w-5xl py-24 md:py-32">

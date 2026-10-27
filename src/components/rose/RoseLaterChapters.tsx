@@ -279,7 +279,7 @@ export const ChapterQualityAssurance = () => (
   </section>
 );
 
-/* ---------------- 06 · Adaptive reading ---------------- */
+/* ---------------- 06 · Contextual assistant ---------------- */
 const RECEIPT_LINES = RECEIPT.split("\n");
 const STEPS = [
   { title: "01 · Original", sub: "As published", hi: [] as number[], note: "" },
@@ -296,16 +296,16 @@ const ChapterNext = ({ compass, reduced }: { compass: Compass; reduced: boolean 
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_160px] lg:items-end">
           <div className="max-w-2xl">
-            <Kicker>06 · Adaptive reading</Kicker>
-            <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">What if the content could respond, too?</h2>
+            <Kicker>06 · Contextual assistant</Kicker>
+            <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">What should Rose make easier?</h2>
             <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
-              Rose is less a chatbot than an experiment in AI-mediated content: dense proof, made queryable in context. The next step is the page itself responding to the question: locating, explaining, connecting. Voice is one possible modality among several, not the point.
+              The direction is not a page that rewrites itself. It is a contextual assistant with enough explicit context to help someone locate, explain and connect published evidence. Rose remains text-based today.
             </p>
           </div>
           <div className="mx-auto w-24 text-secondary lg:w-32">{compass(300)}</div>
         </div>
-        <figure aria-label="Conceptual adaptive reading demo, not a working feature" className="mt-14 rounded-sm border border-dashed border-outline-variant bg-surface p-5 md:p-8">
-          <p className="w-fit rounded-full border border-outline-variant px-3 py-1 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Concept · not a working feature</p>
+        <figure aria-label="Contextual assistant design exercise, not a working feature" className="mt-14 rounded-sm border border-dashed border-outline-variant bg-surface p-5 md:p-8">
+          <p className="w-fit rounded-full border border-outline-variant px-3 py-1 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Design direction · not a working feature</p>
           <p className="mt-6 font-body text-sm italic text-on-surface-variant">A visitor asks: “Why does Aetherix recommend 4 staff instead of 3?”</p>
           <div className="mt-4"><Tabs id="next" label="Adaptation step" options={STEPS} value={v} onChange={setV} /></div>
           <div id="next-panel" role="tabpanel" aria-labelledby={`next-tab-${v}`} aria-live="polite" className="mt-8 grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
@@ -328,8 +328,15 @@ const ChapterNext = ({ compass, reduced }: { compass: Compass; reduced: boolean 
               <Link to="/aetherix?focus=daily-receipt#how-it-works" className="w-fit font-label text-sm text-primary underline underline-offset-4 hover:text-secondary">Explore this in Aetherix →</Link>
             </div>
           </div>
-          <figcaption className="mt-6 font-body text-xs text-on-surface-variant">Based on the Aetherix message mock-up, whose figures are illustrative. Nothing on this page records or plays audio.</figcaption>
+          <figcaption className="mt-6 font-body text-xs text-on-surface-variant">Based on the Aetherix message mock-up, whose figures are illustrative. No voice input, page adaptation or live annotation is implemented here.</figcaption>
         </figure>
+        <div className="mt-12 grid max-w-4xl gap-8 border-t border-outline-variant pt-8 md:grid-cols-[auto_minmax(0,1fr)]">
+          <div><EvidenceStatus state="design" /></div>
+          <div>
+            <p className="font-headline text-2xl text-primary">Voice, if it earns a place.</p>
+            <p className="mt-3 font-body text-base leading-relaxed text-on-surface">Voice is a future way to ask and listen, not an ambient narrator. If explored, it needs an explicit start, a readable text alternative and the same links back to the source evidence. It is not a current Rose capability.</p>
+          </div>
+        </div>
       </div>
     </section>
   );
