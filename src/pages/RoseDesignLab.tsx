@@ -570,7 +570,7 @@ const RoseDesignLab = () => {
   const concept = raw === "a" || raw === "b" || raw === "narrative" ? raw : "d";
   const reduced = useReducedMotion();
   return (
-    <SiteLayout showFooter={false}>
+    <SiteLayout>
       <Seo title="Rose design lab" description="An unlinked prototype for Rose's evidence-led case study." noIndex path="/rose-design-lab" />
       <div className="mt-20 border-b border-outline-variant bg-surface-container-low">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
