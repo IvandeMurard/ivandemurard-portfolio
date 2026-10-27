@@ -8,7 +8,7 @@ import {
   tool,
   type UIMessage,
 } from "npm:ai@5.0.217";
-import { z } from "npm:zod@3.23.8";
+import { z } from "npm:zod@^3.25.76";
 import { createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
 import { getRoseSystemPrompt } from "../_shared/rose-context.ts";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
