@@ -139,7 +139,7 @@ const MARK_PATH: Record<MarkKind, string> = {
 export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string }) => {
   const { ref } = useInView<HTMLSpanElement>();
   const reached = useCueReached(cue);
-  const on = (active ?? reached) || !!reduced;
+  const on = active ?? reached;
   if (kind === "underline") {
     // A pencil underline that wraps with the text across lines.
     return (
@@ -513,12 +513,17 @@ export const HeroAgent = ({ reduced, compass }: { reduced: boolean; compass: (he
   );
 };
 
-/** Background field that shifts tone per chapter, behind the whole story. */
+/** Background field: each chapter shifts the surface tone and moves a soft copper wash, so the page breathes as the story turns. */
+const WASH = [["15%", "10%"], ["85%", "25%"], ["20%", "55%"], ["80%", "70%"], ["45%", "90%"]];
 export const ToneField = ({ index, reduced, children }: { index: number; reduced: boolean; children: ReactNode }) => {
   const tones = ["--surface", "--surface-container-low", "--surface-container", "--surface-container-lowest", "--surface-container-high"];
+  const [x, y] = WASH[index % WASH.length];
+  const t = reduced ? "none" : "background-color 1400ms ease, background-position 2200ms cubic-bezier(.2,.7,.1,1)";
   return (
-    <div style={{ backgroundColor: `hsl(var(${tones[index % tones.length]}))`, transition: reduced ? "none" : "background-color 1200ms ease" }}>
-      {children}
+    <div className="relative" style={{ backgroundColor: `hsl(var(${tones[index % tones.length]}))`, transition: t }}>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+        style={{ backgroundImage: "radial-gradient(40rem 32rem at var(--wx) var(--wy), hsl(var(--secondary) / 0.07), transparent 70%)", ["--wx" as string]: x, ["--wy" as string]: y, transition: reduced ? "none" : "all 2200ms ease" }} />
+      <div className="relative">{children}</div>
     </div>
   );
 };
