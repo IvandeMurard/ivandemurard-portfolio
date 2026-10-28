@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RoseHistoryTransition } from "@/components/rose/RoseHistoryTransition";
 import { RoseLaterChapters, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
+import { ConceptE } from "@/components/rose/ConceptE";
 import { EvidenceKey, EvidenceStatus } from "@/components/EvidenceStatus";
 import { ContextualLab, DockScene, HeroAgent, KineticBridge, RoseCue, RoseMark, ToneField, useScrollProgress } from "@/components/rose/RoseKinetic";
 
@@ -627,7 +628,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
 const RoseDesignLab = () => {
   const [params, setParams] = useSearchParams();
   const raw = params.get("concept");
-  const concept = raw === "a" || raw === "b" || raw === "narrative" ? raw : "d";
+  const concept = raw === "a" || raw === "b" || raw === "narrative" || raw === "e" ? raw : "d";
   const reduced = useReducedMotion();
   return (
     <SiteLayout showFooter={false}>
@@ -636,14 +637,14 @@ const RoseDesignLab = () => {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
           <span className="uppercase tracking-[0.2em] text-on-surface-variant">Design lab · unlinked prototype</span>
           <div role="tablist" aria-label="Concept" className="inline-flex flex-wrap rounded-full border border-outline-variant p-0.5">
-            {[["a", "A · Narrative split"], ["b", "B · Evolving orientation"], ["narrative", "C · Narrative prototype"], ["d", "D · Stage C evidence-led"]].map(([k, l]) => (
+            {[["a", "A · Narrative split"], ["b", "B · Evolving orientation"], ["narrative", "C · Narrative prototype"], ["d", "D · Stage C evidence-led"], ["e", "E · Reading canvas"]].map(([k, l]) => (
               <button key={k} role="tab" aria-selected={concept === k} type="button" onClick={() => { setParams({ concept: k }); window.scrollTo(0, 0); }}
                 className={cn("rounded-full px-3 py-1", concept === k ? "bg-primary text-on-primary" : "text-on-surface-variant hover:text-primary")}>{l}</button>
             ))}
           </div>
         </div>
       </div>
-      {concept === "a" ? <><ConceptA reduced={reduced} /><ChapterQualityAssurance /></> : concept === "b" ? <><ConceptB reduced={reduced} /><ChapterQualityAssurance /></> : concept === "narrative" ? <ConceptC reduced={reduced} /> : <ConceptD reduced={reduced} />}
+      {concept === "a" ? <><ConceptA reduced={reduced} /><ChapterQualityAssurance /></> : concept === "b" ? <><ConceptB reduced={reduced} /><ChapterQualityAssurance /></> : concept === "narrative" ? <ConceptC reduced={reduced} /> : concept === "e" ? <ConceptE reduced={reduced} /> : <ConceptD reduced={reduced} />}
       <aside className="mx-auto max-w-3xl px-6 pb-24 font-body text-sm text-on-surface-variant">
         Ask Rose links open the portfolio dock. Sources and evidence states above distinguish what is built, bounded by validation, or still in design. <Link to="/" className="underline">Back to the site</Link>
       </aside>
