@@ -431,7 +431,7 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => (
         <RoseHistoryTransition reduced={reduced} renderCompass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full text-secondary" />} />
       </div>
     </section>
-    <RoseLaterChapters reduced={reduced} nextLab={<ContextualLab reduced={reduced} />} ask={(text) => <RoseQuestion text={text} className="text-lg" />} compass={(heading, className) => <CompassRose heading={heading} reduced={reduced} className={cn("aspect-square w-full", className)} />} />
+    <RoseLaterChapters reduced={reduced} ask={(text) => <RoseQuestion text={text} className="text-lg" />} compass={(heading, className) => <CompassRose heading={heading} reduced={reduced} className={cn("aspect-square w-full", className)} />} />
   </>
 );
 
@@ -600,7 +600,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
           </section>
           <KineticBridge from="Experience design" to="Trust and answer quality" heading={210} compass={compass} reduced={reduced} />
           <div className="-mx-6">
-            <RoseLaterChapters reduced={reduced}
+            <RoseLaterChapters reduced={reduced} nextLab={<ContextualLab reduced={reduced} />}
               ask={(text) => <RoseQuestion text={text} className="text-lg" />}
               compass={(heading, className) => <CompassRose heading={heading} reduced={reduced} className={cn("aspect-square w-full", className)} />}
               trustRef={(el) => { refs.current[2] = el; }} trustIndex={2}

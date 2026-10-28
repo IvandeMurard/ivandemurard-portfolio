@@ -78,7 +78,7 @@ const TRUST = [
   },
 ];
 
-const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: Ask; compass: Compass; reduced: boolean; nextLab?: ReactNode; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number }) => {
+const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: Ask; compass: Compass; reduced: boolean; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number }) => {
   const [v, setV] = useState(0);
   const s = TRUST[v];
   return (
