@@ -71,7 +71,7 @@ export const AmbientRose = ({ compass, reduced }: { compass: (heading: number) =
             {compass(note.n * 47)}
           </button>
           {!hushed && <>
-            <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose · reading along</span>
+            <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose<span className="xl:hidden"> · reading along</span></span>
             <button type="button" onClick={() => setHushed(true)} className="ml-auto font-label text-[10px] uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary">Hush</button>
           </>}
         </div>
