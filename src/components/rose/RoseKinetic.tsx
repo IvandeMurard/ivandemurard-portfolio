@@ -61,7 +61,7 @@ export const AmbientRose = ({ compass, reduced }: { compass: (heading: number) =
     return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); setCue(null); };
   }, []);
   return (
-    <aside aria-label="Rose, reading along" className="pointer-events-none fixed bottom-28 right-6 z-30 hidden w-[19rem] md:block"
+    <aside aria-label="Rose, reading along" className="pointer-events-none fixed bottom-28 right-6 z-30 hidden w-[19rem] md:block xl:bottom-10 xl:right-auto xl:left-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] xl:w-48"
       style={{ opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(12px)", transition: reduced ? "none" : `opacity 700ms ease, transform 900ms ${EASE}` }}>
       <div className={cn("pointer-events-auto ml-auto overflow-hidden border border-outline-variant bg-surface/85 backdrop-blur-md", hushed ? "w-12 rounded-full" : "w-full rounded-2xl")}
         style={{ transition: reduced ? "none" : `width 600ms ${EASE}, border-radius 600ms ${EASE}` }}>
@@ -76,7 +76,7 @@ export const AmbientRose = ({ compass, reduced }: { compass: (heading: number) =
           </>}
         </div>
         {!hushed && (
-          <p key={note.n} className={cn("px-4 pb-4 font-headline text-[17px] italic leading-snug text-primary", !reduced && "animate-in fade-in slide-in-from-bottom-1 duration-700")}>{note.text}</p>
+          <p key={note.n} className={cn("px-4 pb-4 font-headline text-[17px] italic leading-snug text-primary xl:text-[15px]", !reduced && "animate-in fade-in slide-in-from-bottom-1 duration-700")}>{note.text}</p>
         )}
       </div>
     </aside>
