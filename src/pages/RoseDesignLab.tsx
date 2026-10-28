@@ -463,26 +463,40 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             Method note. This reconstruction is grounded in commits, product records and bounded tests from July to October 2026. It distinguishes implemented behaviour, validation and future design. It does not claim measured visitor outcomes.
           </p>
           <EvidenceKey className="mt-8 max-w-4xl" />
-          <nav aria-label="Case study chapters" className="mt-10 flex flex-wrap gap-x-4 gap-y-3 border-t border-outline-variant pt-5">
-            {readingSteps.map((step, index) => (
-              <a key={step.title} href={step.target} className="rounded-full border border-transparent px-2 py-1 font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant underline decoration-outline-variant underline-offset-4 transition-colors hover:border-secondary/50 hover:text-secondary hover:decoration-secondary focus-visible:border-secondary focus-visible:outline-none">
-                {String(index + 1).padStart(2, "0")} · {step.title}
-              </a>
-            ))}
+          <nav aria-labelledby="rose-contents" className="mt-10 max-w-md border-t border-outline-variant pt-5">
+            <p id="rose-contents" className="flex items-center gap-2 font-label text-[10px] uppercase tracking-[0.2em] text-secondary">
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px] leading-none">list</span>
+              Contents<span className="text-on-surface-variant"> · {readingSteps.length} chapters</span>
+            </p>
+            <ol className="mt-4 list-none space-y-1 p-0">
+              {readingSteps.map((step, index) => (
+                <li key={step.title}>
+                  <a href={step.target} className="block border-l-2 border-outline-variant py-1.5 pl-3 font-body text-sm text-on-surface-variant transition-colors hover:border-outline hover:bg-surface-container-low hover:text-primary focus-visible:border-secondary focus-visible:outline-none">
+                    <span className="mr-2 font-label text-[10px] tracking-[0.14em] text-secondary">{String(index + 1).padStart(2, "0")}</span>{step.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
           </nav>
         </div>
       </section>
 
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 xl:grid-cols-[12rem_minmax(0,1fr)] xl:py-28">
-        <aside className="hidden self-start xl:sticky xl:top-28 xl:block" aria-label="Current point in the Rose story">
+        <nav className="hidden self-start xl:sticky xl:top-28 xl:block" aria-label="Contents, current chapter">
           <CompassRose heading={current.heading} reduced={reduced} className="h-28 w-28 text-secondary" />
-          <p className="mt-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Now · {current.title}</p>
-          <ol className="mt-5 space-y-2">
+          <p className="mt-4 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Contents</p>
+          <ol className="mt-3 list-none space-y-1 p-0">
             {readingSteps.map((step, index) => (
-              <li key={step.title} className={cn("font-label text-[10px] uppercase tracking-[0.14em]", index === active ? "text-secondary" : "text-on-surface-variant")}>{String(index + 1).padStart(2, "0")} · {step.title}</li>
+              <li key={step.title}>
+                <a href={step.target} aria-current={index === active ? "location" : undefined}
+                  className={cn("block border-l-2 py-1.5 pl-3 font-label text-[10px] uppercase leading-snug tracking-[0.14em] transition-colors",
+                    index === active ? "border-secondary bg-secondary/10 text-primary" : "border-outline-variant text-on-surface-variant hover:border-outline hover:text-primary")}>
+                  {String(index + 1).padStart(2, "0")} · {step.title}
+                </a>
+              </li>
             ))}
           </ol>
-        </aside>
+        </nav>
         <div>
           <section ref={(el) => { refs.current[0] = el; }} data-idx={0} aria-labelledby="rose-idea" className="max-w-3xl">
             <p className="font-label text-xs text-on-surface-variant">July–October 2026 · From qualification to exploration</p>
@@ -597,14 +611,16 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             </div>
           </section>
           <SectionBridge from="Experience design" to="Trust and answer quality" heading={210} />
+          <div className="-mx-6">
+            <RoseLaterChapters reduced={reduced}
+              ask={(text) => <RoseQuestion text={text} className="text-lg" />}
+              compass={(heading, className) => <CompassRose heading={heading} reduced={reduced} className={cn("aspect-square w-full", className)} />}
+              trustRef={(el) => { refs.current[2] = el; }} trustIndex={2}
+              nextRef={(el) => { refs.current[3] = el; }} nextIndex={3}
+              learningRef={(el) => { refs.current[4] = el; }} learningIndex={4} />
+          </div>
         </div>
       </div>
-      <RoseLaterChapters reduced={reduced}
-        ask={(text) => <RoseQuestion text={text} className="text-lg" />}
-        compass={(heading, className) => <CompassRose heading={heading} reduced={reduced} className={cn("aspect-square w-full", className)} />}
-        trustRef={(el) => { refs.current[2] = el; }} trustIndex={2}
-        nextRef={(el) => { refs.current[3] = el; }} nextIndex={3}
-        learningRef={(el) => { refs.current[4] = el; }} learningIndex={4} />
     </>
   );
 };
