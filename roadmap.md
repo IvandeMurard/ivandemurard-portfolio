@@ -97,3 +97,8 @@
 - [x] Solid compact resting dock, chips on engagement only, lifts above footer.
 - [x] Merge Paris clock and Day/Dusk into one button; keep audio.
 - [x] Screenshots 390/800/1280/1440, Day and Dusk.
+
+# Rose case study, living prototype D
+- [x] Kinetic storytelling: sticky dock scene, Rose pencil marks and margin notes, drawn bridges, continuous compass and progress spine.
+- [x] Chapter 04 contextual lab: Locate, Reformulate, Visualise, Voice (scroll-driven and clickable, design exercise only).
+- [ ] Review Dusk theme, mobile and reduced motion for the new scenes.
