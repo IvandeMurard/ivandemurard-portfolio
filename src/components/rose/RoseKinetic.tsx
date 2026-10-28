@@ -269,7 +269,9 @@ const PHASES = [
 
 const PLAIN = "Ivan tests whether Aetherix predicts demand better than assuming tomorrow looks like the same weekday last week. On 30 restaurants it beats that guess on average, but not at next-day horizon.";
 const TECH = "Prophet mean MAPE 49.71% versus 55.86% for the naive baseline on a public 30-restaurant benchmark; at J+1, 28.5% versus 27.9%. Apaleo sandbox, 25% demand shift: weekly recalibration moved error from 15.9% to 12.3%.";
-const VOICE_WORDS = "Read the diagram from left to right: a public benchmark, a forecast compared with a simple baseline, a sandbox shock, then the boundary of what was measured.".split(" ");
+const VOICE_TEXT = "Read the diagram from left to right: a public benchmark, a forecast compared with a simple baseline, a sandbox shock, then the boundary of what was measured.";
+const VOICE_WORDS = VOICE_TEXT.split(" ");
+const WORD_STARTS = VOICE_WORDS.reduce<number[]>((acc, w, i) => { acc.push(i === 0 ? 0 : acc[i - 1] + VOICE_WORDS[i - 1].length + 1); return acc; }, []);
 
 const DiagramNode = ({ label, detail, on, delay, reduced, emphasis }: { label: string; detail: string; on: boolean; delay: number; reduced: boolean; emphasis?: boolean }) => (
   <div className={cn("border bg-surface p-3", emphasis ? "border-secondary" : "border-outline-variant")}
@@ -287,17 +289,45 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
   const [technical, setTechnical] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const [word, setWord] = useState(-1);
-  useEffect(() => {
-    if (!speaking) return;
-    if (reduced) { setWord(VOICE_WORDS.length - 1); setSpeaking(false); return; }
+  const timer = useRef<number>();
+  const stopVoice = () => {
+    window.clearInterval(timer.current);
+    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    setSpeaking(false);
+  };
+  const playVoice = () => {
+    stopVoice();
     setWord(0);
-    const id = window.setInterval(() => setWord((w) => { if (w >= VOICE_WORDS.length - 1) { window.clearInterval(id); setSpeaking(false); return w; } return w + 1; }), 260);
-    return () => window.clearInterval(id);
-  }, [speaking, reduced]);
+    setSpeaking(true);
+    const synth = typeof window !== "undefined" && "speechSynthesis" in window ? window.speechSynthesis : null;
+    let boundaries = false;
+    const fallback = () => {
+      timer.current = window.setInterval(() => setWord((w) => { if (w >= VOICE_WORDS.length - 1) { window.clearInterval(timer.current); setSpeaking(false); return w; } return w + 1; }), 300);
+    };
+    if (!synth) { fallback(); return; }
+    const u = new SpeechSynthesisUtterance(VOICE_TEXT);
+    const voice = synth.getVoices().find((v) => v.lang.startsWith("en-GB")) ?? synth.getVoices().find((v) => v.lang.startsWith("en"));
+    if (voice) u.voice = voice;
+    u.lang = voice?.lang ?? "en-GB";
+    u.rate = 0.95;
+    u.onboundary = (e) => {
+      boundaries = true;
+      let idx = 0;
+      while (idx + 1 < WORD_STARTS.length && WORD_STARTS[idx + 1] <= e.charIndex) idx++;
+      setWord(idx);
+    };
+    u.onstart = () => { window.setTimeout(() => { if (!boundaries) fallback(); }, 700); };
+    u.onend = () => { window.clearInterval(timer.current); setWord(VOICE_WORDS.length - 1); setSpeaking(false); };
+    u.onerror = () => { window.clearInterval(timer.current); setSpeaking(false); };
+    synth.speak(u);
+  };
+  useEffect(() => () => stopVoice(), []);
+  useEffect(() => { if (phase !== 3 && speaking) stopVoice(); }, [phase, speaking]);
   const tones = ["bg-surface", "bg-surface-container-low", "bg-surface-container", "bg-surface-container-high"];
   const visual = phase >= 2;
   return (
-    <figure ref={wrap} aria-label="Contextual assistant, interactive scene" className="relative mt-16" style={{ height: `${PHASES.length * 80 + 20}vh` }}>
+    <figure ref={wrap} aria-label="Contextual assistant, interactive scene" className="relative mt-16" style={{ height: `${PHASES.length * 50 + 40}vh` }}>
+      <RoseCue id="lab" note="Scroll, or pick a gesture. I will not hold the page hostage." className="mb-6" />
       <div className={cn("sticky top-20 flex min-h-[calc(100vh-6rem)] flex-col justify-center rounded-sm border border-outline-variant px-5 py-8 md:px-10", tones[phase])} style={{ transition: reduced ? "none" : "background-color 900ms ease" }}>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Design exercise · scroll or choose a gesture · not a working feature</p>
@@ -388,9 +418,9 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                 {phase === 3 && (
                   <div className="mt-6 border-t border-outline-variant pt-5">
                     <div className="flex items-center gap-4">
-                      <button type="button" onClick={() => setSpeaking(true)} disabled={speaking}
-                        className="rounded-full border border-secondary px-4 py-1.5 font-label text-xs text-primary transition-colors hover:bg-surface disabled:opacity-60">
-                        {speaking ? "Narrating…" : "Play narration"}
+                      <button type="button" onClick={speaking ? stopVoice : playVoice}
+                        className="rounded-full border border-secondary px-4 py-1.5 font-label text-xs text-primary transition-colors hover:bg-surface">
+                        {speaking ? "Stop" : "Play narration"}
                       </button>
                       <div aria-hidden="true" className="flex h-6 flex-1 items-center gap-[3px] text-secondary">
                         {Array.from({ length: 28 }, (_, i) => (
@@ -398,10 +428,10 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                         ))}
                       </div>
                     </div>
-                    <p className="mt-4 font-body text-sm leading-relaxed" aria-live="polite">
+                    <p className="mt-4 font-body text-sm leading-relaxed">
                       {VOICE_WORDS.map((w, i) => <span key={i} className={cn("transition-colors duration-300", i <= word ? "text-primary" : "text-on-surface-variant/60")}>{w} </span>)}
                     </p>
-                    <p className="mt-2 font-body text-xs text-on-surface-variant">Illustration with a live transcript, no audio is produced. Voice stays a modality, never the only channel.</p>
+                    <p className="mt-2 font-body text-xs text-on-surface-variant">Spoken by your browser's own voice, only after you press play. The transcript stays on screen; voice is a modality, never the only channel.</p>
                   </div>
                 )}
               </div>
