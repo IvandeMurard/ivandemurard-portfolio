@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RoseHistoryTransition } from "@/components/rose/RoseHistoryTransition";
 import { RoseLaterChapters, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
 import { EvidenceKey, EvidenceStatus } from "@/components/EvidenceStatus";
-import { AmbientRose, ContextualLab, DockScene, HeroAgent, KineticBridge, RoseCue, RoseMark, ToneField, useScrollProgress } from "@/components/rose/RoseKinetic";
+import { ContextualLab, DockScene, HeroAgent, KineticBridge, RoseCue, RoseMark, ToneField, useScrollProgress } from "@/components/rose/RoseKinetic";
 
 /**
  * Temporary, unlinked design lab for the Rose case study. Not in nav, sitemap
@@ -451,20 +451,26 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
   const compass = (h: number) => <CompassRose heading={h} reduced={reduced} className="h-full w-full" />;
   return (
     <>
-      <AmbientRose reduced={reduced} compass={(h) => <CompassRose heading={h} reduced={reduced} className="h-full w-full" />} />
-      <section aria-labelledby="scene-a" className="border-b border-outline-variant">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-          <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Rose · The story of a conversational portfolio</p>
-          <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center">
-            <div>
-              <h1 id="scene-a" className="min-w-0 font-headline text-5xl font-normal leading-[1.0] text-primary sm:text-6xl lg:text-7xl xl:text-8xl">
-                A portfolio <span className="italic text-secondary">you can question.</span>
-              </h1>
-              <p className="mt-8 max-w-xl font-body text-lg leading-relaxed text-on-surface">
-                I built Rose to make a portfolio easier to question. This is the decision record: why her direction changed, the evidence behind each turn, and what remains open.
-              </p>
+      <section aria-labelledby="scene-a" className="relative overflow-hidden border-b border-outline-variant bg-surface-container-low">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 h-[42rem] w-[42rem] text-secondary opacity-[0.07]">
+          <CompassRose heading={reduced ? 0 : 35} reduced={reduced} className="h-full w-full" />
+        </div>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(60rem 30rem at 50% 100%, hsl(var(--secondary) / 0.10), transparent 70%)" }} />
+        <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-20 md:pb-24 md:pt-28">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className={cn("font-label text-xs uppercase tracking-[0.24em] text-secondary", !reduced && "animate-in fade-in duration-700")}>Rose · Case study · Product and service design</p>
+            <h1 id="scene-a" className={cn("mt-6 font-headline text-5xl font-normal leading-[0.98] text-primary sm:text-7xl lg:text-8xl", !reduced && "animate-in fade-in slide-in-from-bottom-3 duration-1000")}>
+              A portfolio <span className="italic text-secondary">you can question.</span>
+            </h1>
+            <p className={cn("mx-auto mt-8 max-w-2xl font-body text-lg leading-relaxed text-on-surface md:text-xl", !reduced && "animate-in fade-in duration-1000 delay-300 fill-mode-both")}>
+              I built Rose to make a portfolio easier to question. This is the decision record: why her direction changed, the evidence behind each turn, and what remains open.
+            </p>
+          </div>
+          <div className={cn("relative mx-auto mt-14 max-w-5xl md:mt-20", !reduced && "animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-500 fill-mode-both")}>
+            <div aria-hidden="true" className="absolute -inset-4 rounded-[2rem] border border-outline-variant bg-surface/40 md:-inset-6" />
+            <div className="relative shadow-2xl shadow-primary/10">
+              <HeroAgent reduced={reduced} compass={(h) => <CompassRose heading={h} reduced={reduced} className="h-full w-full" />} />
             </div>
-            <HeroAgent reduced={reduced} compass={(h) => <CompassRose heading={h} reduced={reduced} className="h-full w-full" />} />
           </div>
           <p className="mt-12 max-w-3xl border-l border-outline-variant pl-4 font-body text-sm leading-relaxed text-on-surface-variant">
             Method note. This reconstruction is grounded in commits, product records and bounded tests from July to October 2026. It distinguishes implemented behaviour, validation and future design. It does not claim measured visitor outcomes. The demonstrations on this page are illustrations: none of them calls Rose.
@@ -593,7 +599,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
                 <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">7 August 2026 · quiet at rest, present on request</span></div>
                 <h2 id="scene-e" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">One quiet dock.</h2>
                 <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">The dock became a translucent veil at rest and returned to full contrast on hover, focus or use. Its job is to remain available without competing with the case study.</p>
-                <RoseCue id="quiet" className="mt-8" note="I learned to wait until I was invited. This corner is the exception, and it has a Hush button." />
+                <RoseCue id="quiet" className="mt-8" note="I learned to wait until I was invited. Now I point, briefly, and let go." />
                 <p className="mt-8 font-body text-xs text-on-surface-variant">Source · quiet-dock plan and implementation, commit 4efe2b8, 7 August.</p>
               </div>
               <div className="rounded-sm border border-outline-variant bg-surface-container-low p-5">
