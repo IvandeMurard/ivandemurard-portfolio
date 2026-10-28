@@ -13,73 +13,75 @@ import { cn } from "@/lib/utils";
 
 const EASE = "cubic-bezier(.2,.7,.1,1)";
 
-/* ---------------- Ambient cue store: which passage Rose is reading ---------------- */
+/* ---------------- Rose's gesture: one active intervention at a time ----------------
+ * A gesture appears when its passage enters the reading zone, marks it, says one
+ * dry sentence, then vanishes entirely once the reader moves on. No residue, no
+ * chip, no second interface: the dock stays the only place to talk to Rose.
+ * Notes are relief and wit only; anything needed to understand the page is Ivan's text. */
 let currentCue: string | null = null;
-const reachedCues = new Set<string>();
 const cueSubs = new Set<() => void>();
 const subscribeCue = (f: () => void) => { cueSubs.add(f); return () => { cueSubs.delete(f); }; };
 const setCue = (id: string | null) => {
   if (currentCue === id) return;
   currentCue = id;
-  if (id) reachedCues.add(id);
   cueSubs.forEach((f) => f());
 };
-export const useCueReached = (id?: string) => useSyncExternalStore(subscribeCue, () => !!id && reachedCues.has(id), () => false);
+const releaseCue = (id: string) => { if (currentCue === id) setCue(null); };
+export const useCueActive = (id?: string) => useSyncExternalStore(subscribeCue, () => !!id && currentCue === id, () => false);
+/** Kept for compatibility: a mark tied to a cue is drawn only while that cue is active. */
+export const useCueReached = useCueActive;
 
-/**
- * An anchor in the reading flow. On desktop the note is spoken by the ambient
- * Rose in the corner; on small screens it stays inline as a quiet margin note.
- */
-export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => (
-  <div data-rose-cue={id} data-rose-note={note} role="note" aria-label="Rose's annotation"
-    className={cn("border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-primary md:sr-only", className)}>
-    <span className="mr-2 not-italic font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose</span>{note}
+const READING_ZONE = "-30% 0px -40% 0px";
+
+/** The copper compass tip Rose points with. Desktop only; mobile gets an inline mark. */
+const RoseTip = ({ on, reduced }: { on: boolean; reduced: boolean }) => (
+  <svg aria-hidden="true" viewBox="0 0 12 12" className="hidden h-3 w-3 shrink-0 text-secondary md:block"
+    style={{ opacity: on ? 1 : 0, transform: on ? "translateX(0) rotate(45deg)" : "translateX(-28px) rotate(0deg)", transition: reduced ? "none" : `opacity 400ms ease, transform 900ms ${EASE}` }}>
+    <path d="M6 0 L8 6 L6 12 L4 6 Z" fill="currentColor" />
+  </svg>
+);
+
+const useGesture = (id: string) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const active = useCueActive(id);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setCue(id); else releaseCue(id); }, { rootMargin: READING_ZONE });
+    io.observe(el);
+    return () => { io.disconnect(); releaseCue(id); };
+  }, [id]);
+  return { ref, active };
+};
+
+const useReducedMotion = () => useSyncExternalStore(
+  (f) => { const m = window.matchMedia("(prefers-reduced-motion: reduce)"); m.addEventListener("change", f); return () => m.removeEventListener("change", f); },
+  () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  () => false,
+);
+
+const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean; children: ReactNode }) => (
+  <div className="flex items-center gap-3" aria-hidden={!on}>
+    <RoseTip on={on} reduced={reduced} />
+    <span aria-hidden="true" className="hidden h-px w-10 shrink-0 origin-left bg-secondary md:block"
+      style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />
+    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-secondary md:hidden" style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
+    <p className="font-headline text-lg italic leading-snug text-primary"
+      style={{ opacity: on ? 1 : 0, transform: on || reduced ? "none" : "translateY(4px)", transition: reduced ? "none" : `opacity ${on ? 600 : 350}ms ease ${on ? 550 : 0}ms, transform 800ms ${EASE} ${on ? 550 : 0}ms` }}>
+      {children}
+    </p>
   </div>
 );
 
-/** The single ambient Rose: she follows the reading line, speaks once per passage, and can be hushed. */
-export const AmbientRose = ({ compass, reduced }: { compass: (heading: number) => ReactNode; reduced: boolean }) => {
-  const [note, setNote] = useState<{ id: string; text: string; n: number }>({ id: "intro", text: "I am reading along. I will point things out; you keep scrolling.", n: 0 });
-  const [hushed, setHushed] = useState(false);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-rose-cue]"));
-    if (!els.length || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        const el = e.target as HTMLElement;
-        const id = el.dataset.roseCue!;
-        setCue(id);
-        setNote((prev) => (prev.id === id ? prev : { id, text: el.dataset.roseNote ?? "", n: prev.n + 1 }));
-        setVisible(true);
-      });
-    }, { rootMargin: "-35% 0px -45% 0px" });
-    els.forEach((el) => io.observe(el));
-    const onScroll = () => { if (window.scrollY > 300) setVisible(true); };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); setCue(null); };
-  }, []);
+/** An anchor in the reading flow where Rose briefly points, then lets go. */
+export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => {
+  const { ref, active } = useGesture(id);
+  const reduced = useReducedMotion();
   return (
-    <aside aria-label="Rose, reading along" className="pointer-events-none fixed bottom-28 right-6 z-30 hidden w-[19rem] md:block xl:bottom-10 xl:right-auto xl:left-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] xl:w-48"
-      style={{ opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(12px)", transition: reduced ? "none" : `opacity 700ms ease, transform 900ms ${EASE}` }}>
-      <div className={cn("pointer-events-auto ml-auto overflow-hidden border border-outline-variant bg-surface/85 backdrop-blur-md", hushed ? "w-12 rounded-full" : "w-full rounded-2xl")}
-        style={{ transition: reduced ? "none" : `width 600ms ${EASE}, border-radius 600ms ${EASE}` }}>
-        <div className="flex items-center gap-3 px-3 py-2.5">
-          <button type="button" onClick={() => setHushed((h) => !h)} aria-pressed={hushed} aria-label={hushed ? "Let Rose comment again" : "Hush Rose"}
-            className="h-6 w-6 shrink-0 text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
-            {compass(note.n * 47)}
-          </button>
-          {!hushed && <>
-            <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose<span className="xl:hidden"> · reading along</span></span>
-            <button type="button" onClick={() => setHushed(true)} className="ml-auto font-label text-[10px] uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary">Hush</button>
-          </>}
-        </div>
-        {!hushed && (
-          <p key={note.n} className={cn("px-4 pb-4 font-headline text-[17px] italic leading-snug text-primary xl:text-[15px]", !reduced && "animate-in fade-in slide-in-from-bottom-1 duration-700")}>{note.text}</p>
-        )}
-      </div>
-    </aside>
+    <div ref={ref} data-rose-cue={id} role="note" aria-label="Rose" aria-live="polite" className={cn("min-h-[1.75rem]", className)}
+      style={{ visibility: active || !reduced ? "visible" : "hidden" }}>
+      <GestureNote on={active} reduced={reduced}>{active ? note : <span className="invisible">{note}</span>}</GestureNote>
+    </div>
   );
 };
 
