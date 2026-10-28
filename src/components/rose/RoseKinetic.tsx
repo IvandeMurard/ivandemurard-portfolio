@@ -1,18 +1,88 @@
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 /**
  * Kinetic storytelling primitives for the Rose case study (design lab only).
  * Rules: living micro-environments instead of static captures, sticky
- * scroll-driven scenes, morphing rather than popping, Rose playing with the
- * page through pencil-like marks. Monochrome tokens only: no glow, no neon,
- * no blinking. Everything degrades to a static, readable state with reduced motion.
+ * scroll-driven scenes that never hold the scroll, morphing rather than
+ * popping, and one ambient Rose who reads along and marks the page herself.
+ * Monochrome tokens only: no glow, no neon, no blinking. Everything degrades
+ * to a static, readable state with reduced motion.
  */
 
 const EASE = "cubic-bezier(.2,.7,.1,1)";
 
-/* 0 at the moment the element's top reaches the viewport top, 1 when its bottom reaches the viewport bottom. */
+/* ---------------- Ambient cue store: which passage Rose is reading ---------------- */
+let currentCue: string | null = null;
+const reachedCues = new Set<string>();
+const cueSubs = new Set<() => void>();
+const subscribeCue = (f: () => void) => { cueSubs.add(f); return () => { cueSubs.delete(f); }; };
+const setCue = (id: string | null) => {
+  if (currentCue === id) return;
+  currentCue = id;
+  if (id) reachedCues.add(id);
+  cueSubs.forEach((f) => f());
+};
+export const useCueReached = (id?: string) => useSyncExternalStore(subscribeCue, () => !!id && reachedCues.has(id), () => false);
+
+/**
+ * An anchor in the reading flow. On desktop the note is spoken by the ambient
+ * Rose in the corner; on small screens it stays inline as a quiet margin note.
+ */
+export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => (
+  <div data-rose-cue={id} data-rose-note={note} role="note" aria-label="Rose's annotation"
+    className={cn("border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-primary md:sr-only", className)}>
+    <span className="mr-2 not-italic font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose</span>{note}
+  </div>
+);
+
+/** The single ambient Rose: she follows the reading line, speaks once per passage, and can be hushed. */
+export const AmbientRose = ({ compass, reduced }: { compass: (heading: number) => ReactNode; reduced: boolean }) => {
+  const [note, setNote] = useState<{ id: string; text: string; n: number }>({ id: "intro", text: "I am reading along. I will point things out; you keep scrolling.", n: 0 });
+  const [hushed, setHushed] = useState(false);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-rose-cue]"));
+    if (!els.length || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target as HTMLElement;
+        const id = el.dataset.roseCue!;
+        setCue(id);
+        setNote((prev) => (prev.id === id ? prev : { id, text: el.dataset.roseNote ?? "", n: prev.n + 1 }));
+        setVisible(true);
+      });
+    }, { rootMargin: "-35% 0px -45% 0px" });
+    els.forEach((el) => io.observe(el));
+    const onScroll = () => { if (window.scrollY > 300) setVisible(true); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); setCue(null); };
+  }, []);
+  return (
+    <aside aria-label="Rose, reading along" className="pointer-events-none fixed bottom-28 right-6 z-30 hidden w-[19rem] md:block"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(12px)", transition: reduced ? "none" : `opacity 700ms ease, transform 900ms ${EASE}` }}>
+      <div className={cn("pointer-events-auto ml-auto overflow-hidden border border-outline-variant bg-surface/85 backdrop-blur-md", hushed ? "w-12 rounded-full" : "w-full rounded-2xl")}
+        style={{ transition: reduced ? "none" : `width 600ms ${EASE}, border-radius 600ms ${EASE}` }}>
+        <div className="flex items-center gap-3 px-3 py-2.5">
+          <button type="button" onClick={() => setHushed((h) => !h)} aria-pressed={hushed} aria-label={hushed ? "Let Rose comment again" : "Hush Rose"}
+            className="h-6 w-6 shrink-0 text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
+            {compass(note.n * 47)}
+          </button>
+          {!hushed && <>
+            <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose · reading along</span>
+            <button type="button" onClick={() => setHushed(true)} className="ml-auto font-label text-[10px] uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary">Hush</button>
+          </>}
+        </div>
+        {!hushed && (
+          <p key={note.n} className={cn("px-4 pb-4 font-headline text-[17px] italic leading-snug text-primary", !reduced && "animate-in fade-in slide-in-from-bottom-1 duration-700")}>{note.text}</p>
+        )}
+      </div>
+    </aside>
+  );
+};
+
 export const useScrollProgress = (ref: RefObject<HTMLElement>) => {
   const [p, setP] = useState(0);
   useEffect(() => {
@@ -64,9 +134,11 @@ const MARK_PATH: Record<MarkKind, string> = {
   bracket: "M6 2 C 2 2, 2 2, 2 8 L 2 32 C 2 38, 2 38, 6 38",
 };
 
-export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 0 }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number }) => {
-  const { ref, seen } = useInView<HTMLSpanElement>();
-  const on = (active ?? seen) || reduced;
+/** A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it). */
+export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string }) => {
+  const { ref } = useInView<HTMLSpanElement>();
+  const reached = useCueReached(cue);
+  const on = (active ?? reached) || !!reduced;
   if (kind === "underline") {
     // A pencil underline that wraps with the text across lines.
     return (
