@@ -66,15 +66,23 @@ const MARK_PATH: Record<MarkKind, string> = {
 
 export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 0 }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number }) => {
   const { ref, seen } = useInView<HTMLSpanElement>();
-  const on = active ?? seen;
-  const box = kind === "underline" ? "left-0 right-0 -bottom-1.5 h-2.5" : kind === "circle" ? "-inset-x-3 -inset-y-2" : "-left-3 top-0 h-full w-2";
+  const on = (active ?? seen) || reduced;
+  if (kind === "underline") {
+    // A pencil underline that wraps with the text across lines.
+    return (
+      <span ref={ref} className="box-decoration-clone bg-no-repeat pb-0.5"
+        style={{ backgroundImage: "linear-gradient(hsl(var(--secondary) / 0.75), hsl(var(--secondary) / 0.75))", backgroundPosition: "0 100%", backgroundSize: on ? "100% 1.5px" : "0% 1.5px", transition: reduced ? "none" : `background-size 1100ms ${EASE} ${delay}ms` }}>
+        {children}
+      </span>
+    );
+  }
   return (
-    <span ref={ref} className="relative inline">
+    <span ref={ref} className="relative inline-block whitespace-nowrap">
       {children}
-      <svg aria-hidden="true" viewBox={kind === "bracket" ? "0 0 8 40" : kind === "circle" ? "0 0 100 40" : "0 0 100 10"} preserveAspectRatio="none"
-        className={cn("pointer-events-none absolute overflow-visible text-secondary", box)}>
-        <path d={MARK_PATH[kind]} pathLength={1} fill="none" stroke="currentColor" strokeWidth={kind === "circle" ? 1 : 1.4} vectorEffect="non-scaling-stroke" strokeLinecap="round"
-          style={{ strokeDasharray: 1, strokeDashoffset: on || reduced ? 0 : 1, transition: reduced ? "none" : `stroke-dashoffset 1100ms ${EASE} ${delay}ms` }} />
+      <svg aria-hidden="true" viewBox={kind === "bracket" ? "0 0 8 40" : "0 0 100 40"} preserveAspectRatio="none"
+        className={cn("pointer-events-none absolute overflow-visible text-secondary", kind === "circle" ? "-inset-x-2.5 -inset-y-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+1.25rem)]" : "-left-3 top-0 h-full w-2")}>
+        <path d={MARK_PATH[kind]} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke" strokeLinecap="round"
+          style={{ strokeDasharray: 1, strokeDashoffset: on ? 0 : 1, transition: reduced ? "none" : `stroke-dashoffset 1100ms ${EASE} ${delay}ms` }} />
       </svg>
     </span>
   );
