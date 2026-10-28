@@ -134,7 +134,7 @@ const ReadingCanvas = ({ reduced }: { reduced: boolean }) => {
             <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{STATES[s]}</span>
           </div>
           <div className="px-5 py-3"><p className="font-headline text-xl text-primary">The loop is built and testable. The forecast is not yet proven on hotels.</p></div>
-          <div key={s} className="min-h-[17rem] px-5 pb-6 pt-2 motion-safe:animate-fade-in"><CanvasState s={s} reduced={reduced} /></div>
+          <div key={s} className="min-h-[17rem] px-5 pb-6 pt-2"><CanvasState s={s} reduced={reduced} /></div>
           <div className="hidden md:block"><Tip x={TIP_AT[s][0]} y={TIP_AT[s][1]} reduced={reduced} /></div>
           <div className="flex gap-1 px-5 pb-4" aria-hidden="true">{STATES.map((_, i) => <span key={i} className={cn("h-0.5 flex-1", i <= s ? "bg-secondary" : "bg-outline-variant")} />)}</div>
         </figure>
