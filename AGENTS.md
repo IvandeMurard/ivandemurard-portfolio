@@ -20,3 +20,4 @@
 - Rose generated prose, follow-ups and card reasons share roseAnswer text normalization; preserve code and destinations so punctuation cleanup cannot corrupt technical material.
 - Rose's conversation is a module-level Chat singleton in src/components/rose/roseSession.ts, persisted to sessionStorage only (versioned, 60-min idle expiry, bounded); it survives route remounts without any server transcript store.
 - Rose evidence-critical Aetherix questions are served from reviewed source text in supabase/functions/_shared/rose-curated-answers.ts (exact question + page match), so high-precision claims never depend on model paraphrase; the live rose-chat wiring and its tests are imported only with explicit deployment authorization.
+- Rose case-study kinetic primitives (sticky scroll scenes, pencil marks, Rose asides) live in src/components/rose/RoseKinetic.tsx and read only semantic tokens, so motion stays reusable and degrades to static content under reduced motion.

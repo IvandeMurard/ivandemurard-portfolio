@@ -319,7 +319,7 @@ const CONTEXTUAL_MODES = [
   },
 ];
 
-const ChapterNext = ({ compass, reduced, nextRef, nextIndex }: { compass: Compass; reduced: boolean; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number }) => {
+const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: Compass; reduced: boolean; lab?: ReactNode; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number }) => {
   const [v, setV] = useState(0);
   const mode = CONTEXTUAL_MODES[v];
   return (
@@ -378,6 +378,7 @@ const ChapterNext = ({ compass, reduced, nextRef, nextIndex }: { compass: Compas
           </div>
           <figcaption className="border-t border-outline-variant px-5 py-4 font-body text-xs text-on-surface-variant md:px-8">The interaction is a prototype: no voice input, generated annotation, page adaptation or relationship map is implemented. The source links and limits are the design constraint.</figcaption>
         </figure>
+        {lab}
         <div className="mt-12 grid gap-px border border-outline-variant bg-outline-variant md:grid-cols-3">
           {[
             ["Read", "Rose points to the source and its boundary."],
@@ -428,12 +429,12 @@ const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
   </section>
 );
 
-export const RoseLaterChapters = ({ ask, compass, reduced, trustRef, trustIndex, nextRef, nextIndex, learningRef, learningIndex }: { ask: Ask; compass: Compass; reduced: boolean; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number; learningRef?: (element: HTMLElement | null) => void; learningIndex?: number }) => (
+export const RoseLaterChapters = ({ ask, compass, reduced, nextLab, trustRef, trustIndex, nextRef, nextIndex, learningRef, learningIndex }: { ask: Ask; compass: Compass; reduced: boolean; nextLab?: ReactNode; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number; learningRef?: (element: HTMLElement | null) => void; learningIndex?: number }) => (
   <>
     <ChapterTrust ask={ask} compass={compass} reduced={reduced} trustRef={trustRef} trustIndex={trustIndex} />
     <ChapterQualityAssurance />
     <ChapterBridge from="Answer quality" to="Contextual assistance" />
-    <ChapterNext compass={compass} reduced={reduced} nextRef={nextRef} nextIndex={nextIndex} />
+    <ChapterNext compass={compass} reduced={reduced} nextRef={nextRef} nextIndex={nextIndex} lab={nextLab} />
     <ChapterBridge from="Design direction" to="Open questions" />
     <ChapterLearning learningRef={learningRef} learningIndex={learningIndex} compass={compass} reduced={reduced} />
     <Closing ask={ask} compass={compass} />
