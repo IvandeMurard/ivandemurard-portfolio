@@ -78,7 +78,7 @@ const TRUST = [
   },
 ];
 
-const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: Ask; compass: Compass; reduced: boolean; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number }) => {
+const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: Ask; compass: Compass; reduced: boolean; nextLab?: ReactNode; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number }) => {
   const [v, setV] = useState(0);
   const s = TRUST[v];
   return (
@@ -429,12 +429,12 @@ const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
   </section>
 );
 
-export const RoseLaterChapters = ({ ask, compass, reduced, trustRef, trustIndex, nextRef, nextIndex, learningRef, learningIndex }: { ask: Ask; compass: Compass; reduced: boolean; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number; learningRef?: (element: HTMLElement | null) => void; learningIndex?: number }) => (
+export const RoseLaterChapters = ({ ask, compass, reduced, nextLab, trustRef, trustIndex, nextRef, nextIndex, learningRef, learningIndex }: { ask: Ask; compass: Compass; reduced: boolean; nextLab?: ReactNode; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number; learningRef?: (element: HTMLElement | null) => void; learningIndex?: number }) => (
   <>
     <ChapterTrust ask={ask} compass={compass} reduced={reduced} trustRef={trustRef} trustIndex={trustIndex} />
     <ChapterQualityAssurance />
     <ChapterBridge from="Answer quality" to="Contextual assistance" />
-    <ChapterNext compass={compass} reduced={reduced} nextRef={nextRef} nextIndex={nextIndex} />
+    <ChapterNext compass={compass} reduced={reduced} nextRef={nextRef} nextIndex={nextIndex} lab={nextLab} />
     <ChapterBridge from="Design direction" to="Open questions" />
     <ChapterLearning learningRef={learningRef} learningIndex={learningIndex} compass={compass} reduced={reduced} />
     <Closing ask={ask} compass={compass} />
