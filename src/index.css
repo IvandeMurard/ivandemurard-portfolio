@@ -198,6 +198,10 @@
     /* Rose dock safe zone: anchors and focused elements never land under the dock. */
     scroll-padding-bottom: 6.5rem;
   }
+  /* Rose lab chapter anchors land below the fixed site header. */
+  #rose-idea, #ux-evolution, #ch-trust, #ch-next, #ch-learn {
+    scroll-margin-top: 11rem;
+  }
   /*
     Global keyboard focus ring: gold, low-specificity (`:where`) so any
     component with its own focus-visible style still wins.
