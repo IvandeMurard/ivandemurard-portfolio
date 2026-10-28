@@ -78,9 +78,8 @@ export const RoseCue = ({ id, note, className }: { id: string; note: string; cla
   const { ref, active } = useGesture(id);
   const reduced = useReducedMotion();
   return (
-    <div ref={ref} data-rose-cue={id} role="note" aria-label="Rose" aria-live="polite" className={cn("min-h-[1.75rem]", className)}
-      style={{ visibility: active || !reduced ? "visible" : "hidden" }}>
-      <GestureNote on={active} reduced={reduced}>{active ? note : <span className="invisible">{note}</span>}</GestureNote>
+    <div ref={ref} data-rose-cue={id} role="note" aria-label="Rose" className={cn("min-h-[1.75rem]", className)}>
+      <GestureNote on={active} reduced={reduced}>{note}</GestureNote>
     </div>
   );
 };
@@ -162,16 +161,13 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
   );
 };
 
-/* A margin note from Rose: a hairline draws towards it, then the words settle. */
+/* A margin note from Rose, same ephemeral gesture as RoseCue. */
 export const RoseAside = ({ children, reduced, className }: { children: ReactNode; reduced?: boolean; className?: string }) => {
-  const { ref, seen } = useInView<HTMLDivElement>("-25% 0px -25% 0px");
-  const on = seen || reduced;
+  const id = useRef(`aside-${Math.random().toString(36).slice(2)}`).current;
+  const { ref, active } = useGesture(id);
   return (
-    <div ref={ref} role="note" aria-label="Rose's annotation" className={cn("flex max-w-md items-start gap-3", className)}>
-      <span aria-hidden="true" className="mt-3 h-px w-10 shrink-0 origin-left bg-secondary" style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE}` }} />
-      <p className="font-headline text-lg italic leading-snug text-primary" style={{ opacity: on ? 1 : 0, transform: on ? "none" : "translateY(6px)", transition: reduced ? "none" : `opacity 600ms ease 450ms, transform 800ms ${EASE} 450ms` }}>
-        <span className="mr-2 not-italic font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose</span>{children}
-      </p>
+    <div ref={ref} role="note" aria-label="Rose" className={cn("max-w-md min-h-[1.75rem]", className)}>
+      <GestureNote on={active} reduced={!!reduced}>{children}</GestureNote>
     </div>
   );
 };
@@ -288,6 +284,13 @@ const DiagramNode = ({ label, detail, on, delay, reduced, emphasis }: { label: s
   </div>
 );
 
+/* Inside the lab, Rose re-points at each gesture change: the tip travels in, the line settles. */
+const LabGesture = ({ line, reduced }: { line: string; reduced: boolean }) => {
+  const [on, setOn] = useState(reduced);
+  useEffect(() => { if (reduced) return; const t = window.setTimeout(() => setOn(true), 30); return () => window.clearTimeout(t); }, [reduced]);
+  return <div role="note" aria-label="Rose" className="mt-8"><GestureNote on={on} reduced={reduced}>{line}</GestureNote></div>;
+};
+
 export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
   const wrap = useRef<HTMLDivElement>(null);
   const p = useScrollProgress(wrap);
@@ -373,10 +376,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                 ))}
               </div>
             )}
-            <div key={phase} className={cn("mt-8 border-l-2 border-secondary pl-4", !reduced && "animate-in fade-in slide-in-from-left-2 duration-700")}>
-              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose · {PHASES[phase].key}</p>
-              <p className="mt-2 font-headline text-xl italic leading-snug text-primary">{PHASES[phase].line}</p>
-            </div>
+            <LabGesture key={phase} line={PHASES[phase].line} reduced={reduced} />
           </article>
 
           {/* The stage: one surface that changes shape between gestures. */}
