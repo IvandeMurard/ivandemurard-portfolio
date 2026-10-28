@@ -319,7 +319,7 @@ const CONTEXTUAL_MODES = [
   },
 ];
 
-const ChapterNext = ({ compass, reduced, nextRef, nextIndex }: { compass: Compass; reduced: boolean; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number }) => {
+const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: Compass; reduced: boolean; lab?: ReactNode; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number }) => {
   const [v, setV] = useState(0);
   const mode = CONTEXTUAL_MODES[v];
   return (

@@ -238,9 +238,9 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
             <div className="relative mt-5 min-h-[11rem]">
               <p className="font-body text-base leading-relaxed text-on-surface md:text-lg" style={{ opacity: phase === 1 ? 0 : 1, transition: reduced ? "none" : "opacity 500ms ease", position: phase === 1 ? "absolute" : "relative" }}>
                 Aetherix is tested on{" "}
-                <RoseMark kind="underline" active={phase === 0} reduced={reduced && phase === 0}>public restaurant data</RoseMark>{" "}
+                <RoseMark kind="underline" active={phase === 0} reduced={reduced}>public restaurant data</RoseMark>{" "}
                 and in a{" "}
-                <RoseMark kind="circle" active={phase === 0 && local > 0.25} reduced={reduced && phase === 0} delay={200}>controlled sandbox</RoseMark>. The forecast is compared with a simple baseline, and the page states where that comparison stops.
+                <RoseMark kind="circle" active={phase === 0 && local > 0.25} reduced={reduced} delay={200}>controlled sandbox</RoseMark>. The forecast is compared with a simple baseline, and the page states where that comparison stops.
               </p>
               {phase === 1 && (
                 <div key={String(technical)} className={cn(!reduced && "animate-in fade-in duration-500")}>
@@ -300,9 +300,9 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
             {visual && (
               <div className={cn("flex h-full min-h-[18rem] flex-col justify-center", !reduced && "animate-in fade-in duration-700")} aria-label="Evaluation path, redrawn from the passage">
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <DiagramNode on label="1 · Public benchmark" detail="30 restaurants, open data" delay={0} reduced={reduced} emphasis={phase === 3 && word >= 0 && word < 9} />
-                  <DiagramNode on label="2 · Compared forecast" detail="Prophet against a same-weekday baseline" delay={150} reduced={reduced} emphasis={phase === 3 && word >= 9 && word < 16} />
-                  <DiagramNode on label="3 · Sandbox shock" detail="Apaleo simulation, 25% demand shift" delay={300} reduced={reduced} emphasis={phase === 3 && word >= 16 && word < 20} />
+                  <DiagramNode on label="1 · Public benchmark" detail="30 restaurants, open data" delay={0} reduced={reduced} emphasis={phase === 3 && word >= 7 && word < 10} />
+                  <DiagramNode on label="2 · Compared forecast" detail="Prophet against a same-weekday baseline" delay={150} reduced={reduced} emphasis={phase === 3 && word >= 10 && word < 17} />
+                  <DiagramNode on label="3 · Sandbox shock" detail="Apaleo simulation, 25% demand shift" delay={300} reduced={reduced} emphasis={phase === 3 && word >= 17 && word < 20} />
                   <DiagramNode on label="4 · Boundary" detail="Forecast accuracy, not whether a staffing decision was optimal" delay={450} reduced={reduced} emphasis={phase === 3 && word >= 20} />
                 </div>
                 {phase === 3 && (
