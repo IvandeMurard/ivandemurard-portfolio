@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { EvidenceStatus, type EvidenceState } from "@/components/EvidenceStatus";
+import { RoseCue } from "@/components/rose/RoseKinetic";
 
 /**
  * Design-lab chapters 04 to 06 and the closing of Rose Prototype C.
@@ -142,7 +143,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
           </p>
         </div>
         <div className="mt-10 grid max-w-4xl gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <RoseIntervention>“When you book, I send nothing. Not even this conversation.”</RoseIntervention>
+          <RoseIntervention id="trust" note="When you book, I send nothing. Not even this conversation." />
           <div className="border-l border-outline-variant pl-4">
             <EvidenceStatus state="validation" />
             <p className="mt-3 font-body text-sm leading-relaxed text-on-surface">The release decision used 15 synthetic conversations. That checks defined risks, not whether a visitor felt understood.</p>
