@@ -203,7 +203,7 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
   const t = reduced ? "none" : `all 900ms ${EASE}`;
   const chips = step === 0 ? ["Product expertise", "Technical profile", "Culture fit", "Just exploring"] : ["What has actually been built?", "What happens when it's wrong?"];
   return (
-    <figure ref={wrap} aria-labelledby="ux-evolution-caption" className="relative mt-10" style={{ height: `${iterations.length * 75 + 25}vh` }}>
+    <figure ref={wrap} aria-labelledby="ux-evolution-caption" className="relative mt-10" style={{ height: `${iterations.length * 50 + 40}vh` }}>
       <div className="sticky top-24 grid min-h-[calc(100vh-8rem)] content-center gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center">
         <div>
           <figcaption id="ux-evolution-caption" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Code-led interface reconstruction · scroll to replay four versions</figcaption>
@@ -230,18 +230,23 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
         </div>
 
         {/* A miniature page: the reading surface stays still while the dock changes shape. */}
-        <div aria-hidden="true" className="relative aspect-[4/3] overflow-hidden rounded-sm border border-outline-variant bg-surface" style={{ transition: t }}>
+        <div aria-hidden="true" className="relative aspect-[4/3] overflow-hidden rounded-xl border border-outline-variant bg-surface" style={{ transition: t }}>
           <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
-            <span className="h-2 w-16 rounded-full bg-outline-variant" />
-            <div className="flex items-center gap-3">
-              <span className="h-1.5 w-8 rounded-full bg-outline-variant" /><span className="h-1.5 w-8 rounded-full bg-outline-variant" />
-              <span className="rounded-full border border-secondary px-2.5 py-1 font-label text-[9px] uppercase tracking-[0.14em] text-secondary"
+            <span className="font-headline text-sm italic text-primary">Ivan de Murard</span>
+            <div className="flex items-center gap-4 font-label text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">
+              <span>Work</span><span>Field Notes</span>
+              <span className="rounded-full border border-secondary px-2.5 py-1 text-secondary"
                 style={{ opacity: step === 2 ? 1 : 0, transform: step === 2 ? "none" : "translateY(-6px) scale(.9)", transition: t }}>Ask Rose</span>
             </div>
           </div>
-          <div className="space-y-2.5 px-8 pt-8">
-            <span className="block h-4 w-2/3 rounded-sm bg-surface-container-high" />
-            {[92, 86, 95, 70, 88, 60].map((w, i) => <span key={i} className="block h-1.5 rounded-full bg-outline-variant/70" style={{ width: `${w}%` }} />)}
+          <div className="px-8 pt-7">
+            <p className="font-label text-[9px] uppercase tracking-[0.18em] text-secondary">Case study · Aetherix</p>
+            <p className="mt-2 font-headline text-2xl leading-tight text-primary">Forecasting tomorrow's workload.</p>
+            <p className="mt-3 font-body text-[11px] leading-relaxed text-on-surface">
+              Aetherix estimates demand so a manager can staff ahead. It is evaluated against{" "}
+              <span className="bg-no-repeat" style={{ backgroundImage: "linear-gradient(hsl(var(--secondary) / .7), hsl(var(--secondary) / .7))", backgroundPosition: "0 100%", backgroundSize: step >= 1 ? "100% 1px" : "0% 1px", transition: reduced ? "none" : `background-size 900ms ${EASE} 300ms` }}>a simple baseline</span>
+              {" "}on public data and in a controlled sandbox, and the page states where that comparison stops.
+            </p>
           </div>
           <div className="absolute inset-x-0 bottom-5 flex justify-center px-6">
             <div className={cn("flex max-w-full flex-col items-center gap-2 border px-3 py-2.5",
@@ -250,7 +255,7 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
               <div className="flex flex-wrap justify-center gap-1.5">
                 {chips.map((c) => <span key={c} className={cn("rounded-full border px-2 py-0.5 font-label text-[9px]", step === 0 ? "border-outline-variant text-on-surface-variant" : "border-secondary/60 text-primary")}>{c}</span>)}
               </div>
-              <div className="flex w-full items-center gap-2"><span className="h-1.5 flex-1 rounded-full bg-outline-variant" /><span className="font-label text-[9px] uppercase tracking-[0.14em] text-secondary">Rose</span></div>
+              <div className="flex w-full items-center gap-2"><span className="flex-1 font-body text-[10px] text-on-surface-variant">{step === 0 ? "Tell me who you are…" : "Ask about this page…"}</span><span className="font-label text-[9px] uppercase tracking-[0.14em] text-secondary">Rose</span></div>
             </div>
           </div>
         </div>
