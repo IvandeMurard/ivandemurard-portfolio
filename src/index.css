@@ -200,7 +200,7 @@
   }
   /* Rose lab chapter anchors land below the fixed site header. */
   #rose-idea, #ux-evolution, #ch-trust, #ch-next, #ch-learn {
-    scroll-margin-top: 8rem;
+    scroll-margin-top: 11rem;
   }
   /*
     Global keyboard focus ring: gold, low-specificity (`:where`) so any
