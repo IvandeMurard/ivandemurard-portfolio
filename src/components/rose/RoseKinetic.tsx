@@ -1,18 +1,88 @@
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 /**
  * Kinetic storytelling primitives for the Rose case study (design lab only).
  * Rules: living micro-environments instead of static captures, sticky
- * scroll-driven scenes, morphing rather than popping, Rose playing with the
- * page through pencil-like marks. Monochrome tokens only: no glow, no neon,
- * no blinking. Everything degrades to a static, readable state with reduced motion.
+ * scroll-driven scenes that never hold the scroll, morphing rather than
+ * popping, and one ambient Rose who reads along and marks the page herself.
+ * Monochrome tokens only: no glow, no neon, no blinking. Everything degrades
+ * to a static, readable state with reduced motion.
  */
 
 const EASE = "cubic-bezier(.2,.7,.1,1)";
 
-/* 0 at the moment the element's top reaches the viewport top, 1 when its bottom reaches the viewport bottom. */
+/* ---------------- Ambient cue store: which passage Rose is reading ---------------- */
+let currentCue: string | null = null;
+const reachedCues = new Set<string>();
+const cueSubs = new Set<() => void>();
+const subscribeCue = (f: () => void) => { cueSubs.add(f); return () => { cueSubs.delete(f); }; };
+const setCue = (id: string | null) => {
+  if (currentCue === id) return;
+  currentCue = id;
+  if (id) reachedCues.add(id);
+  cueSubs.forEach((f) => f());
+};
+export const useCueReached = (id?: string) => useSyncExternalStore(subscribeCue, () => !!id && reachedCues.has(id), () => false);
+
+/**
+ * An anchor in the reading flow. On desktop the note is spoken by the ambient
+ * Rose in the corner; on small screens it stays inline as a quiet margin note.
+ */
+export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => (
+  <div data-rose-cue={id} data-rose-note={note} role="note" aria-label="Rose's annotation"
+    className={cn("border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-primary md:sr-only", className)}>
+    <span className="mr-2 not-italic font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose</span>{note}
+  </div>
+);
+
+/** The single ambient Rose: she follows the reading line, speaks once per passage, and can be hushed. */
+export const AmbientRose = ({ compass, reduced }: { compass: (heading: number) => ReactNode; reduced: boolean }) => {
+  const [note, setNote] = useState<{ id: string; text: string; n: number }>({ id: "intro", text: "I am reading along. I will point things out; you keep scrolling.", n: 0 });
+  const [hushed, setHushed] = useState(false);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-rose-cue]"));
+    if (!els.length || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target as HTMLElement;
+        const id = el.dataset.roseCue!;
+        setCue(id);
+        setNote((prev) => (prev.id === id ? prev : { id, text: el.dataset.roseNote ?? "", n: prev.n + 1 }));
+        setVisible(true);
+      });
+    }, { rootMargin: "-35% 0px -45% 0px" });
+    els.forEach((el) => io.observe(el));
+    const onScroll = () => { if (window.scrollY > 300) setVisible(true); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); setCue(null); };
+  }, []);
+  return (
+    <aside aria-label="Rose, reading along" className="pointer-events-none fixed bottom-28 right-6 z-30 hidden w-[19rem] md:block xl:bottom-10 xl:right-auto xl:left-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] xl:w-48"
+      style={{ opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(12px)", transition: reduced ? "none" : `opacity 700ms ease, transform 900ms ${EASE}` }}>
+      <div className={cn("pointer-events-auto ml-auto overflow-hidden border border-outline-variant bg-surface/85 backdrop-blur-md", hushed ? "w-12 rounded-full" : "w-full rounded-2xl")}
+        style={{ transition: reduced ? "none" : `width 600ms ${EASE}, border-radius 600ms ${EASE}` }}>
+        <div className="flex items-center gap-3 px-3 py-2.5">
+          <button type="button" onClick={() => setHushed((h) => !h)} aria-pressed={hushed} aria-label={hushed ? "Let Rose comment again" : "Hush Rose"}
+            className="h-6 w-6 shrink-0 text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
+            {compass(note.n * 47)}
+          </button>
+          {!hushed && <>
+            <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose<span className="xl:hidden"> · reading along</span></span>
+            <button type="button" onClick={() => setHushed(true)} className="ml-auto font-label text-[10px] uppercase tracking-[0.14em] text-on-surface-variant hover:text-primary">Hush</button>
+          </>}
+        </div>
+        {!hushed && (
+          <p key={note.n} className={cn("px-4 pb-4 font-headline text-[17px] italic leading-snug text-primary xl:text-[15px]", !reduced && "animate-in fade-in slide-in-from-bottom-1 duration-700")}>{note.text}</p>
+        )}
+      </div>
+    </aside>
+  );
+};
+
 export const useScrollProgress = (ref: RefObject<HTMLElement>) => {
   const [p, setP] = useState(0);
   useEffect(() => {
@@ -64,9 +134,11 @@ const MARK_PATH: Record<MarkKind, string> = {
   bracket: "M6 2 C 2 2, 2 2, 2 8 L 2 32 C 2 38, 2 38, 6 38",
 };
 
-export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 0 }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number }) => {
-  const { ref, seen } = useInView<HTMLSpanElement>();
-  const on = (active ?? seen) || reduced;
+/** A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it). */
+export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string }) => {
+  const { ref } = useInView<HTMLSpanElement>();
+  const reached = useCueReached(cue);
+  const on = (active ?? reached) || !!reduced;
   if (kind === "underline") {
     // A pencil underline that wraps with the text across lines.
     return (
@@ -131,7 +203,7 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
   const t = reduced ? "none" : `all 900ms ${EASE}`;
   const chips = step === 0 ? ["Product expertise", "Technical profile", "Culture fit", "Just exploring"] : ["What has actually been built?", "What happens when it's wrong?"];
   return (
-    <figure ref={wrap} aria-labelledby="ux-evolution-caption" className="relative mt-10" style={{ height: `${iterations.length * 75 + 25}vh` }}>
+    <figure ref={wrap} aria-labelledby="ux-evolution-caption" className="relative mt-10" style={{ height: `${iterations.length * 50 + 40}vh` }}>
       <div className="sticky top-24 grid min-h-[calc(100vh-8rem)] content-center gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center">
         <div>
           <figcaption id="ux-evolution-caption" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Code-led interface reconstruction · scroll to replay four versions</figcaption>
@@ -158,18 +230,23 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
         </div>
 
         {/* A miniature page: the reading surface stays still while the dock changes shape. */}
-        <div aria-hidden="true" className="relative aspect-[4/3] overflow-hidden rounded-sm border border-outline-variant bg-surface" style={{ transition: t }}>
+        <div aria-hidden="true" className="relative aspect-[4/3] overflow-hidden rounded-xl border border-outline-variant bg-surface" style={{ transition: t }}>
           <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
-            <span className="h-2 w-16 rounded-full bg-outline-variant" />
-            <div className="flex items-center gap-3">
-              <span className="h-1.5 w-8 rounded-full bg-outline-variant" /><span className="h-1.5 w-8 rounded-full bg-outline-variant" />
-              <span className="rounded-full border border-secondary px-2.5 py-1 font-label text-[9px] uppercase tracking-[0.14em] text-secondary"
+            <span className="font-headline text-sm italic text-primary">Ivan de Murard</span>
+            <div className="flex items-center gap-4 font-label text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">
+              <span>Work</span><span>Field Notes</span>
+              <span className="rounded-full border border-secondary px-2.5 py-1 text-secondary"
                 style={{ opacity: step === 2 ? 1 : 0, transform: step === 2 ? "none" : "translateY(-6px) scale(.9)", transition: t }}>Ask Rose</span>
             </div>
           </div>
-          <div className="space-y-2.5 px-8 pt-8">
-            <span className="block h-4 w-2/3 rounded-sm bg-surface-container-high" />
-            {[92, 86, 95, 70, 88, 60].map((w, i) => <span key={i} className="block h-1.5 rounded-full bg-outline-variant/70" style={{ width: `${w}%` }} />)}
+          <div className="px-8 pt-7">
+            <p className="font-label text-[9px] uppercase tracking-[0.18em] text-secondary">Case study · Aetherix</p>
+            <p className="mt-2 font-headline text-2xl leading-tight text-primary">Forecasting tomorrow's workload.</p>
+            <p className="mt-3 font-body text-[11px] leading-relaxed text-on-surface">
+              Aetherix estimates demand so a manager can staff ahead. It is evaluated against{" "}
+              <span className="bg-no-repeat" style={{ backgroundImage: "linear-gradient(hsl(var(--secondary) / .7), hsl(var(--secondary) / .7))", backgroundPosition: "0 100%", backgroundSize: step >= 1 ? "100% 1px" : "0% 1px", transition: reduced ? "none" : `background-size 900ms ${EASE} 300ms` }}>a simple baseline</span>
+              {" "}on public data and in a controlled sandbox, and the page states where that comparison stops.
+            </p>
           </div>
           <div className="absolute inset-x-0 bottom-5 flex justify-center px-6">
             <div className={cn("flex max-w-full flex-col items-center gap-2 border px-3 py-2.5",
@@ -178,7 +255,7 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
               <div className="flex flex-wrap justify-center gap-1.5">
                 {chips.map((c) => <span key={c} className={cn("rounded-full border px-2 py-0.5 font-label text-[9px]", step === 0 ? "border-outline-variant text-on-surface-variant" : "border-secondary/60 text-primary")}>{c}</span>)}
               </div>
-              <div className="flex w-full items-center gap-2"><span className="h-1.5 flex-1 rounded-full bg-outline-variant" /><span className="font-label text-[9px] uppercase tracking-[0.14em] text-secondary">Rose</span></div>
+              <div className="flex w-full items-center gap-2"><span className="flex-1 font-body text-[10px] text-on-surface-variant">{step === 0 ? "Tell me who you are…" : "Ask about this page…"}</span><span className="font-label text-[9px] uppercase tracking-[0.14em] text-secondary">Rose</span></div>
             </div>
           </div>
         </div>
@@ -197,7 +274,9 @@ const PHASES = [
 
 const PLAIN = "Ivan tests whether Aetherix predicts demand better than assuming tomorrow looks like the same weekday last week. On 30 restaurants it beats that guess on average, but not at next-day horizon.";
 const TECH = "Prophet mean MAPE 49.71% versus 55.86% for the naive baseline on a public 30-restaurant benchmark; at J+1, 28.5% versus 27.9%. Apaleo sandbox, 25% demand shift: weekly recalibration moved error from 15.9% to 12.3%.";
-const VOICE_WORDS = "Read the diagram from left to right: a public benchmark, a forecast compared with a simple baseline, a sandbox shock, then the boundary of what was measured.".split(" ");
+const VOICE_TEXT = "Read the diagram from left to right: a public benchmark, a forecast compared with a simple baseline, a sandbox shock, then the boundary of what was measured.";
+const VOICE_WORDS = VOICE_TEXT.split(" ");
+const WORD_STARTS = VOICE_WORDS.reduce<number[]>((acc, w, i) => { acc.push(i === 0 ? 0 : acc[i - 1] + VOICE_WORDS[i - 1].length + 1); return acc; }, []);
 
 const DiagramNode = ({ label, detail, on, delay, reduced, emphasis }: { label: string; detail: string; on: boolean; delay: number; reduced: boolean; emphasis?: boolean }) => (
   <div className={cn("border bg-surface p-3", emphasis ? "border-secondary" : "border-outline-variant")}
@@ -215,17 +294,45 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
   const [technical, setTechnical] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const [word, setWord] = useState(-1);
-  useEffect(() => {
-    if (!speaking) return;
-    if (reduced) { setWord(VOICE_WORDS.length - 1); setSpeaking(false); return; }
+  const timer = useRef<number>();
+  const stopVoice = () => {
+    window.clearInterval(timer.current);
+    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    setSpeaking(false);
+  };
+  const playVoice = () => {
+    stopVoice();
     setWord(0);
-    const id = window.setInterval(() => setWord((w) => { if (w >= VOICE_WORDS.length - 1) { window.clearInterval(id); setSpeaking(false); return w; } return w + 1; }), 260);
-    return () => window.clearInterval(id);
-  }, [speaking, reduced]);
+    setSpeaking(true);
+    const synth = typeof window !== "undefined" && "speechSynthesis" in window ? window.speechSynthesis : null;
+    let boundaries = false;
+    const fallback = () => {
+      timer.current = window.setInterval(() => setWord((w) => { if (w >= VOICE_WORDS.length - 1) { window.clearInterval(timer.current); setSpeaking(false); return w; } return w + 1; }), 300);
+    };
+    if (!synth) { fallback(); return; }
+    const u = new SpeechSynthesisUtterance(VOICE_TEXT);
+    const voice = synth.getVoices().find((v) => v.lang.startsWith("en-GB")) ?? synth.getVoices().find((v) => v.lang.startsWith("en"));
+    if (voice) u.voice = voice;
+    u.lang = voice?.lang ?? "en-GB";
+    u.rate = 0.95;
+    u.onboundary = (e) => {
+      boundaries = true;
+      let idx = 0;
+      while (idx + 1 < WORD_STARTS.length && WORD_STARTS[idx + 1] <= e.charIndex) idx++;
+      setWord(idx);
+    };
+    u.onstart = () => { window.setTimeout(() => { if (!boundaries) fallback(); }, 700); };
+    u.onend = () => { window.clearInterval(timer.current); setWord(VOICE_WORDS.length - 1); setSpeaking(false); };
+    u.onerror = () => { window.clearInterval(timer.current); setSpeaking(false); };
+    synth.speak(u);
+  };
+  useEffect(() => () => stopVoice(), []);
+  useEffect(() => { if (phase !== 3 && speaking) stopVoice(); }, [phase, speaking]);
   const tones = ["bg-surface", "bg-surface-container-low", "bg-surface-container", "bg-surface-container-high"];
   const visual = phase >= 2;
   return (
-    <figure ref={wrap} aria-label="Contextual assistant, interactive scene" className="relative mt-16" style={{ height: `${PHASES.length * 80 + 20}vh` }}>
+    <figure ref={wrap} aria-label="Contextual assistant, interactive scene" className="relative mt-16" style={{ height: `${PHASES.length * 50 + 40}vh` }}>
+      <RoseCue id="lab" note="Scroll, or pick a gesture. I will not hold the page hostage." className="mb-6" />
       <div className={cn("sticky top-20 flex min-h-[calc(100vh-6rem)] flex-col justify-center rounded-sm border border-outline-variant px-5 py-8 md:px-10", tones[phase])} style={{ transition: reduced ? "none" : "background-color 900ms ease" }}>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Design exercise · scroll or choose a gesture · not a working feature</p>
@@ -316,9 +423,9 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                 {phase === 3 && (
                   <div className="mt-6 border-t border-outline-variant pt-5">
                     <div className="flex items-center gap-4">
-                      <button type="button" onClick={() => setSpeaking(true)} disabled={speaking}
-                        className="rounded-full border border-secondary px-4 py-1.5 font-label text-xs text-primary transition-colors hover:bg-surface disabled:opacity-60">
-                        {speaking ? "Narrating…" : "Play narration"}
+                      <button type="button" onClick={speaking ? stopVoice : playVoice}
+                        className="rounded-full border border-secondary px-4 py-1.5 font-label text-xs text-primary transition-colors hover:bg-surface">
+                        {speaking ? "Stop" : "Play narration"}
                       </button>
                       <div aria-hidden="true" className="flex h-6 flex-1 items-center gap-[3px] text-secondary">
                         {Array.from({ length: 28 }, (_, i) => (
@@ -326,10 +433,10 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                         ))}
                       </div>
                     </div>
-                    <p className="mt-4 font-body text-sm leading-relaxed" aria-live="polite">
+                    <p className="mt-4 font-body text-sm leading-relaxed">
                       {VOICE_WORDS.map((w, i) => <span key={i} className={cn("transition-colors duration-300", i <= word ? "text-primary" : "text-on-surface-variant/60")}>{w} </span>)}
                     </p>
-                    <p className="mt-2 font-body text-xs text-on-surface-variant">Illustration with a live transcript, no audio is produced. Voice stays a modality, never the only channel.</p>
+                    <p className="mt-2 font-body text-xs text-on-surface-variant">Spoken by your browser's own voice, only after you press play. The transcript stays on screen; voice is a modality, never the only channel.</p>
                   </div>
                 )}
               </div>
@@ -338,5 +445,78 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
         </div>
       </div>
     </figure>
+  );
+};
+
+/* ---------------- Hero: a live Rose working on a real passage ---------------- */
+const HERO_Q = "What was actually tested?";
+const HERO_A = "Two things, kept apart. The forecast was compared with a simple baseline on public data from 30 restaurants, then stressed in a controlled sandbox. The page also says what that does not prove.".split(" ");
+const HERO_CHIPS = ["Show me the figures", "Where does the comparison stop?"];
+
+export const HeroAgent = ({ reduced, compass }: { reduced: boolean; compass: (heading: number) => ReactNode }) => {
+  const { ref, seen } = useInView<HTMLDivElement>("0px");
+  const [t, setT] = useState(0);
+  const [run, setRun] = useState(0);
+  const total = HERO_Q.length + 14 + HERO_A.length * 3 + 10;
+  useEffect(() => {
+    if (!seen) return;
+    if (reduced) { setT(total); return; }
+    setT(0);
+    const id = window.setInterval(() => setT((v) => { if (v >= total) { window.clearInterval(id); return v; } return v + 1; }), 45);
+    return () => window.clearInterval(id);
+  }, [seen, reduced, run, total]);
+  const typed = HERO_Q.slice(0, Math.min(t, HERO_Q.length));
+  const words = Math.max(0, Math.floor((t - HERO_Q.length - 14) / 3));
+  const thinking = t > HERO_Q.length && words === 0;
+  const markA = words >= 9;
+  const markB = words >= 22;
+  const done = t >= total;
+  return (
+    <div ref={ref} aria-label="Illustration: Rose answering on the Aetherix page" className="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest">
+      <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
+        <span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix</span>
+        <button type="button" onClick={() => setRun((r) => r + 1)} disabled={!done} className="font-label text-[10px] uppercase tracking-[0.14em] text-secondary disabled:opacity-0" style={{ transition: "opacity 500ms ease" }}>Replay</button>
+      </div>
+      <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+        <div className="border-b border-outline-variant p-6 md:border-b-0 md:border-r">
+          <p className="font-headline text-2xl leading-tight text-primary">Where it stands</p>
+          <p className="mt-4 font-body text-sm leading-relaxed text-on-surface">
+            Aetherix is evaluated against{" "}
+            <RoseMark active={markA} reduced={reduced} delay={0}>a simple baseline</RoseMark>{" "}
+            on public restaurant data and in a{" "}
+            <RoseMark kind="circle" active={markB} reduced={reduced} delay={0}>controlled sandbox</RoseMark>. The page states where that comparison stops.
+          </p>
+          <p className="mt-4 font-body text-xs leading-relaxed text-on-surface-variant">Rose marks the passage she is quoting. The page stays the source.</p>
+        </div>
+        <div className="flex min-h-[17rem] flex-col gap-4 p-6">
+          <p className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-surface-container px-4 py-2 font-body text-sm text-on-surface" style={{ opacity: t > 0 ? 1 : 0, transition: "opacity 400ms ease" }}>
+            {typed}<span aria-hidden="true" className="text-on-surface-variant" style={{ opacity: t < HERO_Q.length ? 1 : 0 }}>|</span>
+          </p>
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 h-6 w-6 shrink-0 text-secondary">{compass(thinking ? 90 : words * 6)}</span>
+            <p className="font-body text-sm leading-relaxed text-on-surface">
+              {thinking && <span className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Reading the page…</span>}
+              {HERO_A.slice(0, words).map((w, i) => <span key={i} className={cn(!reduced && "animate-in fade-in duration-500")}>{w} </span>)}
+            </p>
+          </div>
+          <div className="mt-auto flex flex-wrap gap-2">
+            {HERO_CHIPS.map((c, i) => (
+              <span key={c} className="rounded-full border border-outline-variant px-3 py-1 font-label text-[11px] text-primary"
+                style={{ opacity: done ? 1 : 0, transform: done ? "none" : "translateY(6px)", transition: reduced ? "none" : `opacity 500ms ease ${i * 120}ms, transform 700ms ${EASE} ${i * 120}ms` }}>{c}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/** Background field that shifts tone per chapter, behind the whole story. */
+export const ToneField = ({ index, reduced, children }: { index: number; reduced: boolean; children: ReactNode }) => {
+  const tones = ["--surface", "--surface-container-low", "--surface-container", "--surface-container-lowest", "--surface-container-high"];
+  return (
+    <div style={{ backgroundColor: `hsl(var(${tones[index % tones.length]}))`, transition: reduced ? "none" : "background-color 1200ms ease" }}>
+      {children}
+    </div>
   );
 };

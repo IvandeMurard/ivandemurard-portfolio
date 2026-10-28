@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { EvidenceStatus, type EvidenceState } from "@/components/EvidenceStatus";
+import { RoseCue } from "@/components/rose/RoseKinetic";
 
 /**
  * Design-lab chapters 04 to 06 and the closing of Rose Prototype C.
@@ -17,15 +18,8 @@ const Kicker = ({ children }: { children: ReactNode }) => (
   <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">{children}</p>
 );
 
-const RoseIntervention = ({ children }: { children: ReactNode }) => (
-  <details className="group/rose">
-    <summary className="flex cursor-pointer list-none items-center gap-3 font-label text-[10px] uppercase tracking-[0.18em] text-secondary marker:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary [&::-webkit-details-marker]:hidden">
-      <span aria-hidden="true" className="h-px w-8 origin-left bg-secondary transition-transform duration-500 group-open/rose:scale-x-125 group-hover/rose:scale-x-125" />
-      Rose, on this decision <span aria-hidden="true" className="group-open/rose:hidden">+</span><span aria-hidden="true" className="hidden group-open/rose:inline">−</span>
-    </summary>
-    <p className="mt-3 border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-primary">{children}</p>
-  </details>
-);
+/* Rose speaks through the ambient reader, not an expandable widget. */
+const RoseIntervention = ({ id, note }: { id: string; note: string }) => <RoseCue id={id} note={note} />;
 
 const ChapterBridge = ({ from, to }: { from: string; to: string }) => (
   <div aria-hidden="true" className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-12 text-on-surface-variant md:py-16">
@@ -149,7 +143,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
           </p>
         </div>
         <div className="mt-10 grid max-w-4xl gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <RoseIntervention>“When you book, I send nothing. Not even this conversation.”</RoseIntervention>
+          <RoseIntervention id="trust" note="When you book, I send nothing. Not even this conversation." />
           <div className="border-l border-outline-variant pl-4">
             <EvidenceStatus state="validation" />
             <p className="mt-3 font-body text-sm leading-relaxed text-on-surface">The release decision used 15 synthetic conversations. That checks defined risks, not whether a visitor felt understood.</p>
