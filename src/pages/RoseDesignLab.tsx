@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RoseHistoryTransition } from "@/components/rose/RoseHistoryTransition";
 import { RoseLaterChapters, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
 import { EvidenceKey, EvidenceStatus } from "@/components/EvidenceStatus";
-import { ContextualLab, DockScene, KineticBridge, RoseAside, RoseMark, useScrollProgress } from "@/components/rose/RoseKinetic";
+import { AmbientRose, ContextualLab, DockScene, HeroAgent, KineticBridge, RoseCue, RoseMark, ToneField, useScrollProgress } from "@/components/rose/RoseKinetic";
 
 /**
  * Temporary, unlinked design lab for the Rose case study. Not in nav, sitemap
@@ -613,6 +613,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
           </div>
         </div>
       </div>
+      </ToneField>
     </>
   );
 };
