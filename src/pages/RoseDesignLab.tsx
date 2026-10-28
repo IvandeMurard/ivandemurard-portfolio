@@ -89,10 +89,30 @@ const ORIGINAL_CHIPS = ["Product expertise", "Technical profile", "Culture fit",
 const PAGE_CHIPS = ["What has actually been built?", "What happens when it's wrong?", "Book a call"];
 
 const UX_ITERATIONS = [
-  { date: "21 Jul", title: "A dock that qualified", detail: "Four intent starters and a booking-oriented opening.", source: "51245fc" },
-  { date: "7 Aug", title: "A quieter surface", detail: "A glass veil at rest, full contrast on hover, focus or use.", source: "4efe2b8" },
-  { date: "13 Oct", title: "A header CTA", detail: "“Ask Rose” moved into the right-hand navigation.", source: "53e7d0d" },
-  { date: "14 Oct", title: "One place to return to", detail: "The header CTA was removed and the dock became the single home for the interaction.", source: "33866a5 · 7752dbb" },
+  {
+    date: "21 Jul", title: "A dock that qualified", source: "51245fc",
+    problem: "The opening asked visitors to declare a recruitment intent before they had seen the work.",
+    decision: "Four intent starters led towards a booking within two or three exchanges.",
+    result: "Useful as an early hypothesis; too much like a conversion gate.",
+  },
+  {
+    date: "7 Aug", title: "A quieter surface", source: "4efe2b8",
+    problem: "A persistent widget could compete with the case study it was meant to help explore.",
+    decision: "A glass dock rests quietly, then becomes legible on hover, focus or use.",
+    result: "Availability without a permanent demand for attention.",
+  },
+  {
+    date: "13 Oct", title: "A navigation CTA", source: "53e7d0d",
+    problem: "The dock was easy to miss while reading long pages.",
+    decision: "“Ask Rose” moved into the right-hand navigation.",
+    result: "Reachable, but now a second navigation-level call to action.",
+  },
+  {
+    date: "14 Oct", title: "One place to return to", source: "33866a5 · 7752dbb",
+    problem: "Two entry points divided attention and made Rose feel promotional.",
+    decision: "Remove the navigation CTA; refine one dock as the interaction’s home.",
+    result: "The page stays primary. Rose is present when invited.",
+  },
 ];
 
 const askRose = (text: string) => window.dispatchEvent(new CustomEvent("rose:ask", { detail: { text } }));
@@ -155,16 +175,32 @@ const RoseQuestion = ({ text, className }: { text: string; className?: string })
   </Button>
 );
 
-/* Rose is present only when she has something specific to point out. The mark
- * traces back to the decision beside it; it never follows the visitor's cursor. */
+/* Rose is present only when she has something specific to point out. Her note
+ * stays closed until the reader asks for it. The mark traces to the decision;
+ * it never follows the visitor's cursor. */
 const RoseIntervention = ({ children, heading = 0, className }: { children: string; heading?: number; className?: string }) => (
-  <aside aria-label="Rose's note" className={cn("group/rose flex max-w-xl items-start gap-3", className)}>
-    <div className="relative mt-0.5 shrink-0 text-secondary">
-      <CompassRose heading={heading} className="h-7 w-7 transition-transform duration-700 motion-safe:group-hover/rose:rotate-12" />
-      <span aria-hidden="true" className="absolute left-6 top-1/2 h-px w-5 origin-left bg-secondary/70 transition-transform duration-500 motion-safe:group-hover/rose:scale-x-125" />
+  <details className={cn("group/rose max-w-xl", className)}>
+    <summary className="flex cursor-pointer list-none items-center gap-3 text-secondary marker:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary [&::-webkit-details-marker]:hidden">
+      <span className="relative shrink-0">
+        <CompassRose heading={heading} className="h-7 w-7 transition-transform duration-700 group-open/rose:rotate-12 group-hover/rose:rotate-6" />
+        <span aria-hidden="true" className="absolute left-6 top-1/2 h-px w-5 origin-left bg-secondary/70 transition-transform duration-500 group-open/rose:scale-x-125 group-hover/rose:scale-x-125" />
+      </span>
+      <span className="font-label text-[10px] uppercase tracking-[0.18em]">Rose, on this decision <span aria-hidden="true" className="ml-1 normal-case group-open/rose:hidden">+</span><span aria-hidden="true" className="ml-1 normal-case hidden group-open/rose:inline">−</span></span>
+    </summary>
+    <p className="mt-3 border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-primary">{children}</p>
+  </details>
+);
+
+const SectionBridge = ({ from, to, heading }: { from: string; to: string; heading: number }) => (
+  <div aria-hidden="true" className="mx-auto flex max-w-5xl items-center gap-4 py-12 text-on-surface-variant md:py-16">
+    <span className="h-px flex-1 bg-outline-variant" />
+    <div className="flex items-center gap-3">
+      <span className="font-label text-[10px] uppercase tracking-[0.16em]">{from}</span>
+      <CompassRose heading={heading} className="h-8 w-8 text-secondary motion-safe:animate-pulse" />
+      <span className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">{to}</span>
     </div>
-    <p className="pt-0.5 font-headline text-lg italic leading-snug text-primary">{children}</p>
-  </aside>
+    <span className="h-px flex-1 bg-outline-variant" />
+  </div>
 );
 
 /* The real transformation: four intents become page questions. */
@@ -394,7 +430,7 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => (
         <RoseHistoryTransition reduced={reduced} renderCompass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full text-secondary" />} />
       </div>
     </section>
-    <RoseLaterChapters reduced={reduced} ask={(text) => <RoseQuestion text={text} className="text-lg" />} compass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full" />} />
+    <RoseLaterChapters reduced={reduced} ask={(text) => <RoseQuestion text={text} className="text-lg" />} compass={(heading, className) => <CompassRose heading={heading} reduced={reduced} className={cn("aspect-square w-full", className)} />} />
   </>
 );
 
@@ -402,13 +438,13 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => (
 const ConceptD = ({ reduced }: { reduced: boolean }) => {
   const { refs, active } = useActiveIndex(5);
   const readingSteps = [
-    { title: "Qualify", target: "#scene-b" },
-    { title: "Listen to the page", target: "#scene-c" },
-    { title: "Know where you are", target: "#scene-d" },
-    { title: "One quiet dock", target: "#scene-e" },
-    { title: "Earn trust", target: "#ch-trust" },
+    { title: "Product direction", heading: 0, target: "#rose-idea" },
+    { title: "Experience design", heading: 120, target: "#ux-evolution" },
+    { title: "Trust and answer quality", heading: 215, target: "#ch-trust" },
+    { title: "Contextual assistant", heading: 270, target: "#ch-next" },
+    { title: "Open questions", heading: 300, target: "#ch-learn" },
   ];
-  const current = MILESTONES[active];
+  const current = readingSteps[active];
   return (
     <>
       <section aria-labelledby="scene-a" className="border-b border-outline-variant">
@@ -442,8 +478,8 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
           <CompassRose heading={current.heading} reduced={reduced} className="h-28 w-28 text-secondary" />
           <p className="mt-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Now · {current.title}</p>
           <ol className="mt-5 space-y-2">
-            {MILESTONES.map((milestone, index) => (
-              <li key={milestone.title} className={cn("font-label text-[10px] uppercase tracking-[0.14em]", index === active ? "text-secondary" : "text-on-surface-variant")}>{String(index + 1).padStart(2, "0")} · {milestone.title}</li>
+            {readingSteps.map((step, index) => (
+              <li key={step.title} className={cn("font-label text-[10px] uppercase tracking-[0.14em]", index === active ? "text-secondary" : "text-on-surface-variant")}>{String(index + 1).padStart(2, "0")} · {step.title}</li>
             ))}
           </ol>
         </aside>
@@ -459,14 +495,14 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             <RoseIntervention heading={0} className="mt-8 max-w-xl">“A portfolio is a lot of reading. I was the footnote that could answer back.”</RoseIntervention>
           </section>
 
-          <section ref={(el) => { refs.current[1] = el; }} data-idx={1} aria-labelledby="scene-b" className="mt-24 border-y border-outline-variant bg-surface-container-low px-6 py-16 md:mt-32 md:py-20">
+          <section aria-labelledby="scene-b" className="mt-24 border-y border-outline-variant bg-surface-container-low px-6 py-16 md:mt-32 md:py-20">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
               <div className="max-w-2xl">
                 <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">21 July 2026 · 4 starters · 2–3 exchanges · 30 min call</span></div>
                 <h2 id="scene-b" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">First, an invitation to book.</h2>
                 <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">The July prompt framed four starters around recruitment intent and aimed to reach a booking decision within two or three exchanges.</p>
-                <p className="mt-4 font-body text-base leading-relaxed text-on-surface md:text-lg">That was a deliberate starting point. I changed it because someone can want to inspect a product decision without being ready to meet.</p>
-                <p className="mt-6 font-headline text-2xl italic text-secondary">A conversation is not necessarily a lead.</p>
+                <p className="mt-4 font-body text-base leading-relaxed text-on-surface md:text-lg">That was a deliberate starting point. I changed it because a visitor can need useful evidence before deciding whether a conversation with me would add anything.</p>
+                <p className="mt-6 font-headline text-2xl italic text-secondary">Offer proof before asking for commitment.</p>
                 <RoseIntervention heading={0} className="mt-8">“My first job was to sort you into four boxes. Nobody likes boxes.”</RoseIntervention>
                 <p className="mt-8 font-body text-xs leading-relaxed text-on-surface-variant">Source · original prompt and configuration, commit 51245fc.</p>
               </div>
@@ -484,11 +520,13 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             </div>
           </section>
 
-          <section aria-labelledby="ux-evolution" className="border-y border-outline-variant bg-surface-container-low px-6 py-16 md:py-20">
+          <SectionBridge from="Product direction" to="Experience design" heading={75} />
+
+          <section ref={(el) => { refs.current[1] = el; }} data-idx={1} aria-labelledby="ux-evolution" className="border-y border-outline-variant bg-surface-container-low px-6 py-16 md:py-20">
             <div className="max-w-3xl">
               <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">UX/UI · Interface evolution</p>
               <h2 id="ux-evolution" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">The interface had to carry the new direction.</h2>
-              <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">Rose did not move in a straight line from a prompt to a finished dock. The interaction was repeatedly repositioned to make the next question easier without becoming another call-to-action competing with the work.</p>
+              <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">This was interface work, not a cosmetic sequence. Each version tested where help could live without asking the reader to stop reading, choose a funnel, or mistake Rose for the point of the page.</p>
             </div>
             <figure aria-labelledby="ux-evolution-caption" className="mt-10 max-w-5xl">
               <figcaption id="ux-evolution-caption" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Code-led interface reconstructions · before / after / return</figcaption>
@@ -500,19 +538,23 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
                       <div className="flex items-center gap-2"><CompassRose heading={MILESTONES[Math.min(index, 3)].heading} reduced={reduced} className="h-5 w-5 text-secondary" /><span className="h-1.5 flex-1 rounded-full bg-outline-variant" /></div>
                     </div>
                     <h3 className="mt-6 font-headline text-2xl leading-tight text-primary">{iteration.title}</h3>
-                    <p className="mt-3 font-body text-sm leading-relaxed text-on-surface">{iteration.detail}</p>
-                    <p className="mt-5 font-label text-[10px] text-on-surface-variant">{iteration.source}</p>
+                    <dl className="mt-4 space-y-3 font-body text-xs leading-relaxed text-on-surface">
+                      <div><dt className="font-label text-[9px] uppercase tracking-[0.16em] text-on-surface-variant">Problem</dt><dd>{iteration.problem}</dd></div>
+                      <div><dt className="font-label text-[9px] uppercase tracking-[0.16em] text-on-surface-variant">What changed</dt><dd>{iteration.decision}</dd></div>
+                      <div><dt className="font-label text-[9px] uppercase tracking-[0.16em] text-on-surface-variant">Decision</dt><dd>{iteration.result}</dd></div>
+                    </dl>
+                    <p className="mt-5 font-label text-[10px] text-on-surface-variant">Commit {iteration.source}</p>
                   </li>
                 ))}
               </ol>
             </figure>
           </section>
 
-          <section ref={(el) => { refs.current[1] = el; }} data-idx={1} aria-labelledby="scene-c" className="max-w-5xl py-24 md:py-32">
+          <section aria-labelledby="scene-c" className="max-w-5xl py-24 md:py-32">
             <div className="max-w-2xl">
               <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">7 August 2026 · route-specific starters</span></div>
-              <h2 id="scene-c" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Start with the work.</h2>
-              <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">I replaced fixed intents with questions tied to the page being read. Booking stayed available, but stopped being the default subject of the exchange.</p>
+              <h2 id="scene-c" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Make the page the starting point.</h2>
+              <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">I replaced fixed intents with questions tied to the page being read, then passed the page address and selected starter into Rose’s context. These are two mechanisms of one decision: start from the work, not from a guessed visitor profile.</p>
             </div>
             <RoseHistoryTransition reduced={reduced} renderCompass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full text-secondary" />} />
             <div className="mt-10 max-w-2xl">
@@ -521,7 +563,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             </div>
           </section>
 
-          <section ref={(el) => { refs.current[2] = el; }} data-idx={2} aria-labelledby="scene-d" className="border-y border-outline-variant bg-surface-container-low px-6 py-16 md:py-20">
+          <section aria-labelledby="scene-d" className="border-y border-outline-variant bg-surface-container-low px-6 py-16 md:py-20">
             <div className="max-w-2xl">
               <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">10 August 2026 · page address + selected starter</span></div>
               <h2 id="scene-d" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Know where you are.</h2>
@@ -539,7 +581,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             <p className="mt-8 font-body text-xs text-on-surface-variant">Source · page-context integration, commit b236ff3, 10 August.</p>
           </section>
 
-          <section ref={(el) => { refs.current[3] = el; }} data-idx={3} aria-labelledby="scene-e" className="max-w-5xl py-24 md:py-32">
+          <section aria-labelledby="scene-e" className="max-w-5xl py-24 md:py-32">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
               <div className="max-w-2xl">
                 <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">7 August 2026 · quiet at rest, present on request</span></div>
@@ -554,12 +596,15 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
               </div>
             </div>
           </section>
+          <SectionBridge from="Experience design" to="Trust and answer quality" heading={210} />
         </div>
       </div>
       <RoseLaterChapters reduced={reduced}
         ask={(text) => <RoseQuestion text={text} className="text-lg" />}
-        compass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full" />}
-        trustRef={(el) => { refs.current[4] = el; }} trustIndex={4} />
+        compass={(heading, className) => <CompassRose heading={heading} reduced={reduced} className={cn("aspect-square w-full", className)} />}
+        trustRef={(el) => { refs.current[2] = el; }} trustIndex={2}
+        nextRef={(el) => { refs.current[3] = el; }} nextIndex={3}
+        learningRef={(el) => { refs.current[4] = el; }} learningIndex={4} />
     </>
   );
 };

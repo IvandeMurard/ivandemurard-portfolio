@@ -2,7 +2,6 @@ import { useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { RECEIPT } from "@/components/atherix/AetherixDailyReceipt";
 import { EvidenceStatus, type EvidenceState } from "@/components/EvidenceStatus";
 
 /**
@@ -19,10 +18,21 @@ const Kicker = ({ children }: { children: ReactNode }) => (
 );
 
 const RoseIntervention = ({ children }: { children: ReactNode }) => (
-  <aside aria-label="Rose's note" className="group/rose flex items-start gap-3">
-    <span aria-hidden="true" className="mt-2 h-px w-8 origin-left bg-secondary transition-transform duration-500 motion-safe:group-hover/rose:scale-x-125" />
-    <p className="font-headline text-lg italic leading-snug text-primary">{children}</p>
-  </aside>
+  <details className="group/rose">
+    <summary className="flex cursor-pointer list-none items-center gap-3 font-label text-[10px] uppercase tracking-[0.18em] text-secondary marker:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary [&::-webkit-details-marker]:hidden">
+      <span aria-hidden="true" className="h-px w-8 origin-left bg-secondary transition-transform duration-500 group-open/rose:scale-x-125 group-hover/rose:scale-x-125" />
+      Rose, on this decision <span aria-hidden="true" className="group-open/rose:hidden">+</span><span aria-hidden="true" className="hidden group-open/rose:inline">−</span>
+    </summary>
+    <p className="mt-3 border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-primary">{children}</p>
+  </details>
+);
+
+const ChapterBridge = ({ from, to }: { from: string; to: string }) => (
+  <div aria-hidden="true" className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-12 text-on-surface-variant md:py-16">
+    <span className="h-px flex-1 bg-outline-variant" />
+    <span className="font-label text-[10px] uppercase tracking-[0.18em]">{from} <span className="mx-2 text-secondary">→</span> {to}</span>
+    <span className="h-px flex-1 bg-outline-variant" />
+  </div>
 );
 
 /** Accessible two-or-more option tab control shared by the chapter instruments. */
@@ -52,18 +62,18 @@ const Tabs = ({ label, options, value, onChange, id }: {
   );
 };
 
-/* ---------------- 04 · Designing for trust ---------------- */
+/* ---------------- 03 · Trust and answer quality ---------------- */
 const TRUST = [
   {
     title: "Before 24 October", sub: "Booking with context",
     leaves: ["The booking request", "Up to 20 messages of the conversation", "A notification email to Ivan"],
-    stays: ["Nothing else was promised"],
+    stays: ["No documented browser-only conversation boundary"],
     note: "Found in a read-only audit: the booking card sent recent messages with the request, without a notice saying so.",
   },
   {
     title: "After 24 October", sub: "Booking opens the calendar",
     leaves: ["One content-free click event"],
-    stays: ["The conversation, in this tab only, for up to 60 minutes", "Your details, entered on the calendar page you chose"],
+    stays: ["The conversation, in this tab only, for up to 60 minutes", "Calendar details are entered on the calendar page, not passed by Rose"],
     note: "The notification endpoint now refuses requests. Questions are logged for up to 90 days, with email and phone patterns masked, and no IP address.",
   },
 ];
@@ -76,11 +86,11 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_200px] lg:items-end">
           <div className="max-w-2xl">
-            <Kicker>04 · Designing for trust</Kicker>
+            <Kicker>03 · Trust and answer quality</Kicker>
             <div className="mt-5"><EvidenceStatus state="built" /></div>
-            <h2 id="ch-trust" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">What should an assistant keep, claim and send?</h2>
+            <h2 id="ch-trust" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Trust has two separate contracts.</h2>
             <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
-              Once Rose answered about the work, the harder questions were about restraint. What she may claim about projects, what she remembers between pages, and what leaves the browser when someone books a call.
+              One concerns data: what is retained and transmitted. The other concerns knowledge: what Rose may assert or infer. Mixing them would make privacy sound like proof, or proof sound like privacy.
             </p>
           </div>
           <div className="mx-auto w-28 text-secondary lg:w-40">{compass(300)}</div>
@@ -99,7 +109,11 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
           ))}
         </dl>
 
-        <figure aria-label="What leaves the tab when a visitor books" className="mt-14 rounded-sm border border-outline-variant bg-surface p-5 md:p-8">
+        <div className="mt-14 max-w-4xl">
+          <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Data integrity · retain and transmit</p>
+          <p className="mt-3 font-body text-base leading-relaxed text-on-surface">The tab keeps a bounded conversation for continuity. Interaction records are retained for product measurement with email and phone patterns masked. A booking sends no conversation or summary.</p>
+        </div>
+        <figure aria-label="What leaves the tab when a visitor books" className="mt-8 rounded-sm border border-outline-variant bg-surface p-5 md:p-8">
           <Tabs id="trust" label="Booking behaviour" options={TRUST} value={v} onChange={setV} />
           <div id="trust-panel" role="tabpanel" aria-labelledby={`trust-tab-${v}`} aria-live="polite" className="mt-8 grid gap-8 md:grid-cols-2">
             <div>
@@ -109,7 +123,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
               </ul>
             </div>
             <div>
-              <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">Stays with the visitor</p>
+              <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">Browser boundary</p>
               <ul className="mt-4 space-y-3">
                 {s.stays.map((t) => <li key={t} className={cn("border-l-2 border-outline-variant pl-3 font-body text-base text-on-surface", !reduced && "animate-in fade-in duration-500")}>{t}</li>)}
               </ul>
@@ -119,12 +133,16 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
           <figcaption className="mt-6 font-body text-xs text-on-surface-variant">Sources: Rose audit and P0 privacy fix, 24 October 2026. Layout is illustrative; the listed behaviours are recorded.</figcaption>
         </figure>
 
-        <div className="mt-14 grid max-w-5xl gap-8 lg:grid-cols-3">
+        <div className="mt-14 max-w-4xl">
+          <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Epistemic integrity · assert and infer</p>
+          <p className="mt-3 font-body text-base leading-relaxed text-on-surface">Rose can ground an answer in published pages, the page address and an optional selected starter. She cannot turn hidden browser state into knowledge, or turn a plausible paraphrase into an established fact.</p>
+        </div>
+        <div className="mt-8 grid max-w-5xl gap-8 lg:grid-cols-3">
           <p className="font-body text-base leading-relaxed text-on-surface">
             <span className="font-headline text-xl italic text-secondary">Claims.</span> Rose may only state what the published pages state. Aetherix is described as running on sandbox and public benchmark data, never with real hotel outcomes.
           </p>
           <p className="font-body text-base leading-relaxed text-on-surface">
-            <span className="font-headline text-xl italic text-secondary">Memory.</span> A conversation follows the visitor across pages within one tab, then expires after 60 minutes of inactivity. There is no server transcript of it.
+            <span className="font-headline text-xl italic text-secondary">Retain.</span> A conversation follows the visitor across pages within one tab, then expires after 60 minutes of inactivity. The application does not keep a server transcript; bounded interaction records are retained separately for up to 90 days.
           </p>
           <p className="font-body text-base leading-relaxed text-on-surface">
             <span className="font-headline text-xl italic text-secondary">Inference.</span> Rose receives the page address and a selected starter’s intent, not a full screen, cursor position or private browser state. Context is supplied, not guessed.
@@ -143,7 +161,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
   );
 };
 
-/* ---------------- 05 · Does Rose actually help? ---------------- */
+/* ---------------- 05 · Open questions ---------------- */
 const LEVELS = [
   {
     title: "Does it work?", sub: "Intended behaviour",
@@ -167,14 +185,14 @@ const LEVELS = [
   },
 ];
 
-export const ChapterLearning = () => (
-  <section aria-labelledby="ch-learn">
+export const ChapterLearning = ({ learningRef, learningIndex, compass, reduced }: { learningRef?: (element: HTMLElement | null) => void; learningIndex?: number; compass?: Compass; reduced?: boolean }) => (
+  <section ref={learningRef} data-idx={learningIndex} aria-labelledby="ch-learn">
     <div className="mx-auto max-w-6xl px-6 pt-24 md:pt-32">
       <div className="max-w-3xl">
-        <Kicker>05 · Learning from reality</Kicker>
-        <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-6xl">Does Rose actually help?</h2>
+        <Kicker>05 · Open questions</Kicker>
+        <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-6xl">What has Rose not earned the right to claim?</h2>
         <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-xl">
-          There are three questions behind that one. Tests can answer the first. Operational measurements can inform the second. The third needs something neither can supply: visitors.
+          The product can demonstrate defined behaviour and observe bounded signals. It cannot yet claim that a source-correct answer helps someone decide, that a contextual assistant is the right role, or that voice makes navigation easier.
         </p>
       </div>
     </div>
@@ -198,12 +216,15 @@ export const ChapterLearning = () => (
 
         <aside aria-labelledby="ch-learn-invite" className="self-start xl:[@media(min-height:840px)]:sticky xl:[@media(min-height:840px)]:top-28">
           <div className="border-l-2 border-secondary pl-5">
-            <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Where the evidence runs out</p>
+            <div className="flex items-center gap-3">
+              {compass && <span aria-hidden="true" className={cn("w-10 text-secondary", !reduced && "motion-safe:animate-pulse")}>{compass(300, "h-10 w-10")}</span>}
+              <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Where the evidence runs out</p>
+            </div>
             <h3 id="ch-learn-invite" className="mt-4 font-headline text-3xl leading-snug text-primary">
               There's one question I can't answer alone.
             </h3>
             <p className="mt-4 font-body text-base leading-relaxed text-on-surface">
-              Does Rose help you understand the work, discover a useful connection or ask a better question? Try her on something you're genuinely curious about.
+              Does Rose help you understand the work, discover a useful connection or ask a better question? The product has not earned that conclusion yet. Try her on something you are genuinely curious about.
             </p>
             <p className="mt-4 font-headline text-xl italic leading-snug text-secondary">A useful answer doesn't always end the conversation. Sometimes it improves the next question.</p>
             <Button type="button" variant="link" onClick={() => window.dispatchEvent(new Event("rose:open"))}
@@ -232,7 +253,7 @@ export const ChapterQualityAssurance = () => (
           A correct answer can still be the wrong answer.
         </h2>
         <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
-          Chapter 05 asks whether Rose creates value across real visitors. This section is narrower: a source check can
+          The final chapter asks whether Rose creates value across real visitors. This section is narrower: a source check can
           pass while an answer still fails the reader’s question. Correctness is necessary; usefulness in context is separate.
         </p>
       </div>
@@ -273,69 +294,106 @@ export const ChapterQualityAssurance = () => (
         </div>
       </figure>
       <p className="mt-10 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
-        This review checks one answer at a time. It does not establish whether Rose creates value for visitors; that remains the product-level question in Chapter 05.
+        This review checks one answer at a time. It does not establish whether Rose creates value for visitors; that remains the product-level question in the final chapter.
       </p>
     </div>
   </section>
 );
 
-/* ---------------- 06 · Contextual assistant ---------------- */
-const RECEIPT_LINES = RECEIPT.split("\n");
-const STEPS = [
-  { title: "01 · Original", sub: "As published", hi: [] as number[], note: "" },
-  { title: "02 · Locate", sub: "Find the evidence", hi: [2, 3], note: "" },
-  { title: "03 · Explain", sub: "In plain words", hi: [2, 3],
-    note: "More guests are expected than last Tuesday: rooms are well booked and a local conference brings check-ins. So the suggestion is one more person front of house. The manager still accepts, corrects or rejects it." },
+/* ---------------- 04 · Contextual assistant, a work in progress ---------------- */
+const CONTEXTUAL_MODES = [
+  {
+    title: "01 · Locate", sub: "Find the evidence",
+    response: "This page explains what was tested. For the forecasting boundary, open the Aetherix case study. For how those claims are evaluated, open the Field Note.",
+    sources: ["Aetherix · public benchmark and sandbox boundary", "Field Note · Harnesses, graders, closed loops"],
+  },
+  {
+    title: "02 · Reformulate", sub: "Answer at this depth",
+    response: "The short version: the forecast was better than a simple baseline on public restaurant data overall, but not at every horizon. It has not been validated with a real hotel.",
+    sources: ["One direct answer", "Scope and limit kept together"],
+  },
+  {
+    title: "03 · Visualise", sub: "Show the relationship",
+    response: "A diagram can connect the page being read to the evidence it depends on, without pretending that Rose has discovered new facts.",
+    sources: ["Visited page", "Published evidence", "Inspectable links"],
+  },
 ];
 
-const ChapterNext = ({ compass, reduced }: { compass: Compass; reduced: boolean }) => {
+const ChapterNext = ({ compass, reduced, nextRef, nextIndex }: { compass: Compass; reduced: boolean; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number }) => {
   const [v, setV] = useState(0);
-  const s = STEPS[v];
+  const mode = CONTEXTUAL_MODES[v];
   return (
-    <section aria-labelledby="ch-next" className="border-y border-outline-variant bg-surface-container-low">
+    <section ref={nextRef} data-idx={nextIndex} aria-labelledby="ch-next" className="border-y border-outline-variant bg-surface-container-low">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_160px] lg:items-end">
           <div className="max-w-2xl">
-            <Kicker>06 · Contextual assistant</Kicker>
-            <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">What should Rose make easier?</h2>
+            <Kicker>04 · Contextual assistant · Work in progress</Kicker>
+            <div className="mt-5"><EvidenceStatus state="design" /></div>
+            <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Make the whole site easier to navigate, not just one reply.</h2>
             <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
-              The direction is not a page that rewrites itself. It is a contextual assistant with enough explicit context to help someone locate, explain and connect published evidence. Rose remains text-based today.
+              Contextual assistant is the direction; adaptive reading is one possible behaviour inside it. Rose could locate, reformulate and visualise the relationships between pages while preserving the original sources and their limits. Rose remains text-based today.
             </p>
           </div>
           <div className="mx-auto w-24 text-secondary lg:w-32">{compass(300)}</div>
         </div>
-        <figure aria-label="Contextual assistant design exercise, not a working feature" className="mt-14 rounded-sm border border-dashed border-outline-variant bg-surface p-5 md:p-8">
-          <p className="w-fit rounded-full border border-outline-variant px-3 py-1 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Design direction · not a working feature</p>
-          <p className="mt-6 font-body text-sm italic text-on-surface-variant">A visitor asks: “Why does Aetherix recommend 4 staff instead of 3?”</p>
-          <div className="mt-4"><Tabs id="next" label="Adaptation step" options={STEPS} value={v} onChange={setV} /></div>
-          <div id="next-panel" role="tabpanel" aria-labelledby={`next-tab-${v}`} aria-live="polite" className="mt-8 grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-            <div className="overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-high">
-              <p className="border-b border-outline-variant bg-surface-container px-5 py-3 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Aetherix · Daily Receipt</p>
-              <pre className="overflow-x-auto px-5 py-5 font-mono text-xs leading-relaxed text-on-surface">
-                {RECEIPT_LINES.map((line, i) => {
-                  const on = s.hi.includes(i);
-                  return (
-                    <span key={i} className={cn("block rounded-sm px-1 transition-colors", !reduced && "duration-500",
-                      on ? "bg-secondary/20 text-primary" : s.hi.length ? "opacity-50" : "")}>{line}</span>
-                  );
-                })}
-              </pre>
-            </div>
-            <div className="flex flex-col justify-between gap-6">
-              <p className={cn("border-l-2 pl-4 font-body text-sm leading-relaxed", s.note ? "border-secondary text-on-surface" : "border-outline-variant italic text-on-surface-variant", !reduced && "animate-in fade-in duration-500")} key={v}>
-                {s.note || (v === 0 ? "The message as the manager receives it." : "The two lines that answer the question, nothing added.")}
-              </p>
-              <Link to="/aetherix?focus=daily-receipt#how-it-works" className="w-fit font-label text-sm text-primary underline underline-offset-4 hover:text-secondary">Explore this in Aetherix →</Link>
+        <figure aria-label="Contextual assistant design exercise" className="mt-14 overflow-hidden rounded-sm border border-dashed border-outline-variant bg-surface">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-outline-variant px-5 py-4 md:px-8">
+            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Design exercise · not a working feature</p>
+            <p className="font-body text-xs text-on-surface-variant">Visitor asks: “What was actually tested?”</p>
+          </div>
+          <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <article className="border-b border-outline-variant bg-surface-container-low p-5 md:border-b-0 md:border-r md:p-8">
+              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix</p>
+              <h3 className="mt-4 font-headline text-3xl text-primary">Where it stands</h3>
+              <p className="mt-4 font-body text-sm leading-relaxed text-on-surface">Aetherix is tested on public restaurant data and in a controlled sandbox. No real hotel is connected to the published evaluation.</p>
+              <div className="mt-7 space-y-3 border-l border-outline-variant pl-4">
+                <p className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Page signals available to Rose</p>
+                <p className="font-body text-sm text-on-surface">Route · section heading · optional starter</p>
+              </div>
+            </article>
+            <div className="p-5 md:p-8">
+              <Tabs id="contextual" label="Contextual response type" options={CONTEXTUAL_MODES} value={v} onChange={setV} />
+              <div id="contextual-panel" role="tabpanel" aria-labelledby={`contextual-tab-${v}`} aria-live="polite" className="pt-7">
+                <div className={cn("border-l-2 border-secondary pl-4", !reduced && "animate-in fade-in duration-500")} key={v}>
+                  <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose · {mode.title.replace(/^\d+ · /, "")}</p>
+                  <p className="mt-3 font-body text-base leading-relaxed text-on-surface">{mode.response}</p>
+                </div>
+                {v === 2 ? (
+                  <div aria-label="Illustrative map from the visited page to published evidence" className="mt-7 grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+                    <div className="border border-outline-variant bg-surface-container-low p-3 font-label text-xs text-primary">Aetherix<br /><span className="font-body text-on-surface-variant">visited page</span></div>
+                    <span aria-hidden="true" className="text-center text-secondary">→</span>
+                    <div className="border border-secondary/60 bg-surface p-3 font-label text-xs text-primary">Evidence + Field Note<br /><span className="font-body text-on-surface-variant">inspectable sources</span></div>
+                  </div>
+                ) : (
+                  <ul className="mt-7 space-y-3">
+                    {mode.sources.map((source) => <li key={source} className="border-l border-outline-variant pl-3 font-body text-sm text-on-surface-variant">{source}</li>)}
+                  </ul>
+                )}
+                <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3">
+                  <Link to="/aetherix#where-it-stands" className="font-label text-xs text-primary underline underline-offset-4 hover:text-secondary">Open Aetherix</Link>
+                  <Link to="/journal/harnesses-graders-closed-loops" className="font-label text-xs text-primary underline underline-offset-4 hover:text-secondary">Open the Field Note</Link>
+                </div>
+              </div>
             </div>
           </div>
-          <figcaption className="mt-6 font-body text-xs text-on-surface-variant">Based on the Aetherix message mock-up, whose figures are illustrative. No voice input, page adaptation or live annotation is implemented here.</figcaption>
+          <figcaption className="border-t border-outline-variant px-5 py-4 font-body text-xs text-on-surface-variant md:px-8">The interaction is a prototype: no voice input, generated annotation, page adaptation or relationship map is implemented. The source links and limits are the design constraint.</figcaption>
         </figure>
-        <div className="mt-12 grid max-w-4xl gap-8 border-t border-outline-variant pt-8 md:grid-cols-[auto_minmax(0,1fr)]">
-          <div><EvidenceStatus state="design" /></div>
-          <div>
-            <p className="font-headline text-2xl text-primary">Voice, if it earns a place.</p>
-            <p className="mt-3 font-body text-base leading-relaxed text-on-surface">Voice is a future way to ask and listen, not an ambient narrator. If explored, it needs an explicit start, a readable text alternative and the same links back to the source evidence. It is not a current Rose capability.</p>
-          </div>
+        <div className="mt-12 grid gap-px border border-outline-variant bg-outline-variant md:grid-cols-3">
+          {[
+            ["Read", "Rose points to the source and its boundary."],
+            ["Diagram", "Rose maps a relationship already documented across pages."],
+            ["Voice", "A hands-free request or answer only when it removes a real navigation task."],
+          ].map(([modeTitle, copy]) => (
+            <div key={modeTitle} className="bg-surface p-5">
+              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{modeTitle}</p>
+              {modeTitle === "Voice" && <div aria-hidden="true" className="mt-4 flex h-8 items-center gap-1 text-secondary">{[35, 70, 45, 100, 55, 75, 30].map((height, index) => <span key={index} className={cn("w-1 rounded-full bg-current", !reduced && "motion-safe:animate-pulse")} style={{ height: `${height}%`, animationDelay: `${index * 90}ms` }} />)}</div>}
+              <p className={cn("font-body text-sm leading-relaxed text-on-surface", modeTitle === "Voice" ? "mt-3" : "mt-4")}>{copy}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 max-w-3xl border-l-2 border-secondary pl-5">
+          <p className="font-headline text-2xl text-primary">Voice, only if it removes work.</p>
+          <p className="mt-3 font-body text-base leading-relaxed text-on-surface">This is work in progress, not an announced capability. Voice would need an explicit start, a readable text alternative and the same inspectable evidence. It is a modality inside the contextual-assistant direction, not an ambient narrator.</p>
         </div>
       </div>
     </section>
@@ -344,9 +402,9 @@ const ChapterNext = ({ compass, reduced }: { compass: Compass; reduced: boolean 
 
 /* ---------------- Closing ---------------- */
 const PATHS = [
-  { t: "Answer", d: "Rose replies from the published pages, with links to the evidence." },
-  { t: "Explore", d: "A better next question is often the value created." },
-  { t: "Connect", d: "When context matters, a human conversation adds what Rose cannot." },
+  { t: "Value", d: "Does a source-correct answer actually help someone decide about the work?" },
+  { t: "Role", d: "Should Rose remain an index of the site, or become a critical discussion partner?" },
+  { t: "Modality", d: "When would voice reduce navigation work rather than add spectacle?" },
 ];
 
 const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
@@ -354,7 +412,7 @@ const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
     <div className="mx-auto flex max-w-3xl flex-col items-center px-6 py-28 text-center md:py-36">
       <div className="w-20 text-secondary">{compass(0)}</div>
       <h2 id="ch-close" className="mt-10 font-headline text-3xl leading-tight text-primary md:text-5xl">
-        Can a conversational portfolio help us explore the work more deeply, <span className="italic text-secondary">and ask better questions along the way?</span>
+        Questions I am leaving open, <span className="italic text-secondary">rather than calling them features.</span>
       </h2>
       <ol className="mt-12 grid w-full gap-6 text-left md:grid-cols-3">
         {PATHS.map((p, i) => (
@@ -365,19 +423,19 @@ const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
         ))}
       </ol>
       <div className="mt-12">{ask("What has Ivan actually built?")}</div>
-      <p className="mt-10 font-body text-sm text-on-surface-variant">
-        Some questions deserve a conversation. <Link to="/contact" className="underline underline-offset-4 hover:text-primary">Talk to Ivan</Link>
-      </p>
+      <p className="mt-10 font-body text-sm text-on-surface-variant">Start with the evidence. A human conversation is available when it adds context Rose cannot.</p>
     </div>
   </section>
 );
 
-export const RoseLaterChapters = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: Ask; compass: Compass; reduced: boolean; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number }) => (
+export const RoseLaterChapters = ({ ask, compass, reduced, trustRef, trustIndex, nextRef, nextIndex, learningRef, learningIndex }: { ask: Ask; compass: Compass; reduced: boolean; trustRef?: (element: HTMLElement | null) => void; trustIndex?: number; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number; learningRef?: (element: HTMLElement | null) => void; learningIndex?: number }) => (
   <>
     <ChapterTrust ask={ask} compass={compass} reduced={reduced} trustRef={trustRef} trustIndex={trustIndex} />
-    <ChapterLearning />
     <ChapterQualityAssurance />
-    <ChapterNext compass={compass} reduced={reduced} />
+    <ChapterBridge from="Answer quality" to="Contextual assistance" />
+    <ChapterNext compass={compass} reduced={reduced} nextRef={nextRef} nextIndex={nextIndex} />
+    <ChapterBridge from="Design direction" to="Open questions" />
+    <ChapterLearning learningRef={learningRef} learningIndex={learningIndex} compass={compass} reduced={reduced} />
     <Closing ask={ask} compass={compass} />
   </>
 );
