@@ -447,3 +447,76 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
     </figure>
   );
 };
+
+/* ---------------- Hero: a live Rose working on a real passage ---------------- */
+const HERO_Q = "What was actually tested?";
+const HERO_A = "Two things, kept apart. The forecast was compared with a simple baseline on public data from 30 restaurants, then stressed in a controlled sandbox. The page also says what that does not prove.".split(" ");
+const HERO_CHIPS = ["Show me the figures", "Where does the comparison stop?"];
+
+export const HeroAgent = ({ reduced, compass }: { reduced: boolean; compass: (heading: number) => ReactNode }) => {
+  const { ref, seen } = useInView<HTMLDivElement>("0px");
+  const [t, setT] = useState(0);
+  const [run, setRun] = useState(0);
+  const total = HERO_Q.length + 14 + HERO_A.length * 3 + 10;
+  useEffect(() => {
+    if (!seen) return;
+    if (reduced) { setT(total); return; }
+    setT(0);
+    const id = window.setInterval(() => setT((v) => { if (v >= total) { window.clearInterval(id); return v; } return v + 1; }), 45);
+    return () => window.clearInterval(id);
+  }, [seen, reduced, run, total]);
+  const typed = HERO_Q.slice(0, Math.min(t, HERO_Q.length));
+  const words = Math.max(0, Math.floor((t - HERO_Q.length - 14) / 3));
+  const thinking = t > HERO_Q.length && words === 0;
+  const markA = words >= 9;
+  const markB = words >= 22;
+  const done = t >= total;
+  return (
+    <div ref={ref} aria-label="Illustration: Rose answering on the Aetherix page" className="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest">
+      <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
+        <span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix</span>
+        <button type="button" onClick={() => setRun((r) => r + 1)} disabled={!done} className="font-label text-[10px] uppercase tracking-[0.14em] text-secondary disabled:opacity-0" style={{ transition: "opacity 500ms ease" }}>Replay</button>
+      </div>
+      <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+        <div className="border-b border-outline-variant p-6 md:border-b-0 md:border-r">
+          <p className="font-headline text-2xl leading-tight text-primary">Where it stands</p>
+          <p className="mt-4 font-body text-sm leading-relaxed text-on-surface">
+            Aetherix is evaluated against{" "}
+            <RoseMark active={markA} reduced={reduced} delay={0}>a simple baseline</RoseMark>{" "}
+            on public restaurant data and in a{" "}
+            <RoseMark kind="circle" active={markB} reduced={reduced} delay={0}>controlled sandbox</RoseMark>. The page states where that comparison stops.
+          </p>
+          <p className="mt-4 font-body text-xs leading-relaxed text-on-surface-variant">Rose marks the passage she is quoting. The page stays the source.</p>
+        </div>
+        <div className="flex min-h-[17rem] flex-col gap-4 p-6">
+          <p className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-surface-container px-4 py-2 font-body text-sm text-on-surface" style={{ opacity: t > 0 ? 1 : 0, transition: "opacity 400ms ease" }}>
+            {typed}<span aria-hidden="true" className="text-on-surface-variant" style={{ opacity: t < HERO_Q.length ? 1 : 0 }}>|</span>
+          </p>
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 h-6 w-6 shrink-0 text-secondary">{compass(thinking ? 90 : words * 6)}</span>
+            <p className="font-body text-sm leading-relaxed text-on-surface">
+              {thinking && <span className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Reading the page…</span>}
+              {HERO_A.slice(0, words).map((w, i) => <span key={i} className={cn(!reduced && "animate-in fade-in duration-500")}>{w} </span>)}
+            </p>
+          </div>
+          <div className="mt-auto flex flex-wrap gap-2">
+            {HERO_CHIPS.map((c, i) => (
+              <span key={c} className="rounded-full border border-outline-variant px-3 py-1 font-label text-[11px] text-primary"
+                style={{ opacity: done ? 1 : 0, transform: done ? "none" : "translateY(6px)", transition: reduced ? "none" : `opacity 500ms ease ${i * 120}ms, transform 700ms ${EASE} ${i * 120}ms` }}>{c}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/** Background field that shifts tone per chapter, behind the whole story. */
+export const ToneField = ({ index, reduced, children }: { index: number; reduced: boolean; children: ReactNode }) => {
+  const tones = ["--surface", "--surface-container-low", "--surface-container", "--surface-container-lowest", "--surface-container-high"];
+  return (
+    <div style={{ backgroundColor: `hsl(var(${tones[index % tones.length]}))`, transition: reduced ? "none" : "background-color 1200ms ease" }}>
+      {children}
+    </div>
+  );
+};
