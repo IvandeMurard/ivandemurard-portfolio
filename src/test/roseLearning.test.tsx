@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 
 afterEach(cleanup);
 
-describe("Chapter 05 visitor-led handoff", () => {
+describe("Open-question visitor-led handoff", () => {
   it("opens the existing Rose without submitting a predefined question", () => {
     const open = vi.fn();
     const ask = vi.fn();
@@ -34,7 +34,7 @@ describe("Rose case-study QA chapter", () => {
     expect(screen.getByText("Rewrite")).toBeInTheDocument();
     expect(screen.getByText("Keep and link")).toBeInTheDocument();
     expect(screen.getByText(/Correctness is necessary; usefulness in context is separate/)).toBeInTheDocument();
-    expect(screen.getByText(/Chapter 05 asks whether Rose creates value across real visitors/)).toBeInTheDocument();
+    expect(screen.getByText(/product-level question in the final chapter/)).toBeInTheDocument();
     expect(screen.getByText(/does not establish whether Rose creates value for visitors/)).toBeInTheDocument();
     expect(screen.getByText(/internal release-process detail/)).toBeInTheDocument();
   });
@@ -43,7 +43,7 @@ describe("Rose case-study QA chapter", () => {
     const chapters = readFileSync("src/components/rose/RoseLaterChapters.tsx", "utf8");
     expect(page).toContain("<ConceptA reduced={reduced} /><ChapterQualityAssurance />");
     expect(page).toContain("<ConceptB reduced={reduced} /><ChapterQualityAssurance />");
-    expect(chapters).toMatch(/<ChapterLearning\s*\/>\s*<ChapterQualityAssurance\s*\/>/);
+    expect(chapters).toMatch(/<ChapterQualityAssurance\s*\/>\s*<ChapterBridge[^>]*\/?>\s*<ChapterNext[\s\S]*<ChapterLearning/);
   });
 
 });
@@ -64,5 +64,21 @@ describe("Evidence status language", () => {
     expect(page).toContain("const ConceptD");
     expect(page).toContain("RoseIntervention");
     expect(page).not.toContain("const LabCursor");
+  });
+
+  it("keeps the D table of contents, annotations and future direction explicit", () => {
+    const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
+    const chapters = readFileSync("src/components/rose/RoseLaterChapters.tsx", "utf8");
+    expect(page).toContain('{ title: "Product direction", heading: 0, target: "#rose-idea" }');
+    expect(page).toContain('{ title: "Experience design", heading: 120, target: "#ux-evolution" }');
+    expect(page).toContain('{ title: "Trust and answer quality", heading: 215, target: "#ch-trust" }');
+    expect(page).toContain('{ title: "Contextual assistant", heading: 270, target: "#ch-next" }');
+    expect(page).toContain('{ title: "Open questions", heading: 300, target: "#ch-learn" }');
+    expect(page).not.toContain('{ title: "Qualify", target: "#scene-b" }');
+    expect(page).toContain("<details className={cn(\"group/rose max-w-xl\", className)}>");
+    expect(chapters).toContain("What has Rose not earned the right to claim?");
+    expect(chapters).toContain("Contextual assistant · Work in progress");
+    expect(chapters).toContain("Where the evidence runs out");
+    expect(chapters).toContain("motion-safe:animate-pulse");
   });
 });
