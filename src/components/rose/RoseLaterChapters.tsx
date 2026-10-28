@@ -378,6 +378,7 @@ const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: C
           </div>
           <figcaption className="border-t border-outline-variant px-5 py-4 font-body text-xs text-on-surface-variant md:px-8">The interaction is a prototype: no voice input, generated annotation, page adaptation or relationship map is implemented. The source links and limits are the design constraint.</figcaption>
         </figure>
+        {lab}
         <div className="mt-12 grid gap-px border border-outline-variant bg-outline-variant md:grid-cols-3">
           {[
             ["Read", "Rose points to the source and its boundary."],
