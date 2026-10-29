@@ -107,6 +107,8 @@ export const RoseDock = () => {
   const [pastHero, setPastHero] = useState(false);
   const [lift, setLift] = useState(0);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+  const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   const sessionId = useMemo(() => getSessionId(), []);
   const { pathname, search } = useLocation();
   const prompts = useMemo(() => getRosePrompts(pathname), [pathname]);
@@ -253,6 +255,29 @@ export const RoseDock = () => {
       window.removeEventListener("rose:open", onOpen);
     };
   });
+
+  // Cmd+K / Ctrl+K opens the dock from anywhere, except inside other text fields.
+  // Escape closes it and returns focus to where the reader was.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        const t = e.target as HTMLElement | null;
+        const inField = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+        if (inField && !t.closest("[data-rose-dock]")) return;
+        e.preventDefault();
+        if (!open) returnFocusRef.current = document.activeElement as HTMLElement | null;
+        setOpen(true);
+        requestAnimationFrame(() => expandedInputRef.current?.focus());
+      } else if (e.key === "Escape" && open) {
+        setOpen(false);
+        const back = returnFocusRef.current;
+        returnFocusRef.current = null;
+        requestAnimationFrame(() => back?.focus?.());
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   const hidden = !open && !pastHero;
   const showChips = open ? messages.length === 0 : focusWithin;
@@ -491,6 +516,11 @@ export const RoseDock = () => {
             >
               <Icon name="arrow_upward" className="text-lg" />
             </button>
+            {!open ? (
+              <kbd aria-label={isMac ? "Shortcut: Command K" : "Shortcut: Control K"} className="hidden shrink-0 rounded border border-outline-variant px-1.5 py-0.5 font-label text-[10px] text-on-surface-variant md:inline">
+                {isMac ? "⌘K" : "Ctrl+K"}
+              </kbd>
+            ) : null}
           </form>
           {open ? (
             <p className="px-5 pb-2.5 -mt-1 text-[11px] text-on-surface-variant">
