@@ -470,6 +470,15 @@ describe("Rose canonical knowledge", () => {
     expect(shouldSuppressRoseFollowups({ question: "What did Ivan build?", pagePath: "/aetherix" })).toBe(false);
   });
 
+  it("keeps follow-ups available off /aetherix and tells the model when the tool is removed", async () => {
+    const generic = { question: "What does Ivan measure?", pagePath: "/rose-design-lab" };
+    expect(shouldSuppressRoseFollowups(generic)).toBe(false);
+    expect(await getRoseSystemPrompt({ page: { path: generic.pagePath }, question: generic.question })).not.toContain("suggest_followups tool is not available");
+    const suppressed = { question: "What does Ivan measure?", pagePath: "/aetherix" };
+    expect(shouldSuppressRoseFollowups(suppressed)).toBe(true);
+    expect(await getRoseSystemPrompt({ page: { path: suppressed.pagePath }, question: suppressed.question })).toContain("suggest_followups tool is not available");
+  });
+
   it("serves the two evidence-critical Aetherix answers from reviewed source text", () => {
     expect(getRoseCuratedAnswer({ question: "What does Ivan measure?", pagePath: "/aetherix" })).toBe(ROSE_AETHERIX_MEASUREMENT_ANSWER);
     expect(ROSE_AETHERIX_MEASUREMENT_ANSWER).toContain("49.71% versus 55.86%");

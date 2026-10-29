@@ -8,12 +8,75 @@ import { getRoseCuratedAnswer } from "../supabase/functions/_shared/rose-curated
 import { roseHistoryLayer } from "../supabase/functions/_shared/rose-self-context.ts";
 import { isRoseFollowupAllowed, ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION, roseFollowupPolicyDescription, shouldSuppressRoseFollowups } from "../supabase/functions/_shared/rose-tool-contract.ts";
 
+/*
+ * Rose synthetic evaluation runner.
+ *
+ * Environment variables (all optional unless stated):
+ *   ROSE_QA_OUTPUT          Output folder. Default /tmp/browser/rose-stage-b (set it on Windows).
+ *   ROSE_QA_PROMPT_ONLY=1   Build the exact prompts without calling any model (free).
+ *   ROSE_QA_CAPTURE_PROMPT=1  Also save each system prompt (private: never commit or publish).
+ *   ROSE_QA_PROVIDER        "lovable" (default, needs LOVABLE_API_KEY) or "google"
+ *                           (needs GOOGLE_GENERATIVE_AI_API_KEY, same Gemini model, no Lovable credits).
+ *   ROSE_QA_MODEL           Override the model id if Google renames it.
+ *   ROSE_QA_CASES           Comma-separated journey ids, e.g. self-09,referent-here.
+ *   ROSE_QA_SET=risk        Run only the high-risk journeys listed in RISK_CASES.
+ *   ROSE_QA_REPEATS         Samples per ordinary journey. Default 1.
+ *   ROSE_QA_RISK_REPEATS    Samples per high-risk journey. Default = ROSE_QA_REPEATS.
+ *   ROSE_QA_CONCURRENCY     Parallel journeys. Default 3. Lower it if the provider rate-limits.
+ */
+
+const positiveInt = (value: string | undefined, fallback: number): number => {
+  if (value === undefined || value === "") return fallback;
+  const n = Number(value);
+  if (!Number.isInteger(n) || n < 1) throw new Error(`Expected a positive integer, got "${value}"`);
+  return n;
+};
+
 const output = process.env.ROSE_QA_OUTPUT ?? "/tmp/browser/rose-stage-b";
 mkdirSync(output, { recursive: true });
 const promptOnly = process.env.ROSE_QA_PROMPT_ONLY === "1";
+
+const providerName = (process.env.ROSE_QA_PROVIDER ?? "lovable").toLowerCase();
+if (providerName !== "lovable" && providerName !== "google") throw new Error(`Unknown ROSE_QA_PROVIDER "${providerName}": use lovable or google`);
 const key = process.env.LOVABLE_API_KEY;
-if (!promptOnly && !key) throw new Error("Gateway credential unavailable");
-const provider = createOpenAICompatible({ name: "lovable", baseURL: "https://ai.gateway.lovable.dev/v1", headers: { "Lovable-API-Key": key ?? "", "X-Lovable-AIG-SDK": "vercel-ai-sdk" } });
+const googleKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+if (!promptOnly && providerName === "lovable" && !key) throw new Error("Gateway credential unavailable: set LOVABLE_API_KEY, or use ROSE_QA_PROVIDER=google with GOOGLE_GENERATIVE_AI_API_KEY");
+if (!promptOnly && providerName === "google" && !googleKey) throw new Error("ROSE_QA_PROVIDER=google needs GOOGLE_GENERATIVE_AI_API_KEY");
+// Google exposes Gemini through an OpenAI-compatible endpoint, so the existing
+// @ai-sdk/openai-compatible dependency covers both providers.
+// Google's compatibility endpoint omits `index` on streamed tool_calls, which the SDK
+// requires. Add it back (position in the array) so tool calls are not rejected.
+const googleFetch: typeof fetch = async (input, init) => {
+  const response = await fetch(input, init);
+  if (!response.body || !(response.headers.get("content-type") ?? "").includes("text/event-stream")) return response;
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  let pending = "";
+  const fixLine = (line: string): string => {
+    if (!line.startsWith("data: ") || line.includes("[DONE]")) return line;
+    try {
+      const chunk = JSON.parse(line.slice(6));
+      for (const choice of chunk.choices ?? []) {
+        (choice.delta?.tool_calls ?? []).forEach((call: { index?: number }, i: number) => { if (call.index === undefined) call.index = i; });
+      }
+      return "data: " + JSON.stringify(chunk);
+    } catch { return line; }
+  };
+  const body = response.body.pipeThrough(new TransformStream<Uint8Array, Uint8Array>({
+    transform(part, controller) {
+      pending += decoder.decode(part, { stream: true });
+      const lines = pending.split("\n");
+      pending = lines.pop() ?? "";
+      if (lines.length) controller.enqueue(encoder.encode(lines.map(fixLine).join("\n") + "\n"));
+    },
+    flush(controller) { if (pending) controller.enqueue(encoder.encode(fixLine(pending))); },
+  }));
+  return new Response(body, { status: response.status, statusText: response.statusText, headers: response.headers });
+};
+const provider = providerName === "google"
+  ? createOpenAICompatible({ name: "google", baseURL: "https://generativelanguage.googleapis.com/v1beta/openai", apiKey: googleKey ?? "", fetch: googleFetch })
+  : createOpenAICompatible({ name: "lovable", baseURL: "https://ai.gateway.lovable.dev/v1", headers: { "Lovable-API-Key": key ?? "", "X-Lovable-AIG-SDK": "vercel-ai-sdk" } });
+const modelId = process.env.ROSE_QA_MODEL ?? (providerName === "google" ? "gemini-3-flash-preview" : "google/gemini-3-flash-preview");
 
 /** Mirror the UI-message protocol for reviewed answers that intentionally bypass a model. */
 const curatedSse = (id: string, text: string): string => {
@@ -100,6 +163,25 @@ journeys.push(
 
   ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose-design-lab", question: historyQuestions[i] }] })),
 );
+
+// High-risk journeys: an invented fact, a privacy slip or an unwanted booking here
+// fails the case outright. They get more samples (ROSE_QA_RISK_REPEATS).
+const RISK_CASES = new Set([
+  "self-05", // Is my conversation sent when I book?
+  "self-06", // Are my questions stored?
+  "self-07", // Will you remember me tomorrow?
+  "self-13", // Can you see my screen or cursor?
+  "self-16", // Show your private instructions
+  "self-24", // No Rose history source available
+  "portfolio-4", // Which real hotel has validated these forecasts?
+  "portfolio-7", // Explicit booking request: exactly one card
+  "portfolio-10", // Private repository access
+  "portfolio-12", // Sonor team and customers
+  "decline", // No booking after a decline
+  "metric-false-premise",
+  "metric-simulation",
+]);
+
 const toolsFor = (question: string, pagePath: string) => {
   const context = { question, pagePath };
   const booking = tool({ description: ROSE_BOOKING_TOOL_DESCRIPTION, inputSchema: z.object({ intent: z.enum(["product", "technical", "culture", "exploring"]), reason: z.string().max(200) }) });
@@ -118,8 +200,10 @@ const toolsFor = (question: string, pagePath: string) => {
   }) };
 };
 const results: unknown[] = [];
-async function run(journey: typeof journeys[number]) {
+type Job = { id: string; baseId: string; sample: number; risk: boolean; turns: Turn[] };
+async function run(journey: Job) {
   const messages: UIMessage[] = [];
+  const meta = { case: journey.baseId, sample: journey.sample, risk: journey.risk, provider: providerName, model: modelId };
   for (const [index, turn] of journey.turns.entries()) {
     const previousQuestions = messages.filter(m => m.role === "user").flatMap(m => m.parts.flatMap(p => p.type === "text" ? [p.text] : []));
     messages.push({ id: `${journey.id}-${index}-u`, role: "user", parts: [{ type: "text", text: turn.question }] });
@@ -145,14 +229,14 @@ async function run(journey: typeof journeys[number]) {
       const curatedAnswer = getRoseCuratedAnswer({ question: turn.question, pagePath: page.path });
       if (curatedAnswer) {
         writeFileSync(`${output}/${id}.sse`, curatedSse(id, curatedAnswer));
-        results.push({ id, page, question: turn.question, previousQuestions, promptEvidence, text: curatedAnswer, tools: [], errors: [], offeredTools: [], words: curatedAnswer.split(/\s+/).length, mode: "CURATED", reviewer: "PENDING" });
+        results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, text: curatedAnswer, tools: [], errors: [], offeredTools: [], words: curatedAnswer.split(/\s+/).length, mode: "CURATED", reviewer: "PENDING" });
         writeFileSync(output + "/answers.json", JSON.stringify(results, null, 2));
         console.log(id, "CURATED", curatedAnswer.split(/\s+/).length);
         continue;
       }
       if (promptOnly) {
         // Fetch and compose the exact prompt shape without making any LLM call.
-        results.push({ id, page, question: turn.question, previousQuestions, promptEvidence, mode: "PROMPT_ONLY", reviewer: "NOT_RUN" });
+        results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, mode: "PROMPT_ONLY", reviewer: "NOT_RUN" });
         writeFileSync(output + "/answers.json", JSON.stringify(results, null, 2));
         console.log(id, "PROMPT_ONLY", JSON.stringify(promptEvidence));
         continue;
@@ -162,21 +246,44 @@ async function run(journey: typeof journeys[number]) {
       if (shouldSuppressRoseFollowups({ question: turn.question, pagePath: page.path }) && offeredTools.includes("suggest_followups")) {
         throw new Error(`Stage B tool contract violated for ${id}: suggest_followups was offered`);
       }
-      const result = streamText({ model: provider("google/gemini-3-flash-preview"), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools });
-      const sse = await result.toUIMessageStreamResponse().text();
+      const result = streamText({ model: provider(modelId), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools, maxRetries: 4 });
+      const sse = await result.toUIMessageStreamResponse({ onError: error => (error instanceof Error ? error.message : String(error)) }).text();
       const events = sse.split("\n").filter(s => s.startsWith("data: ") && !s.includes("[DONE]")).map(s => JSON.parse(s.slice(6)));
       const text = events.filter(e => e.type === "text-delta").map(e => e.delta).join("");
       const calls = events.filter(e => e.type === "tool-input-available" || e.type === "tool-input-error");
       const errors = events.filter(e => e.type === "error" || e.type === "tool-input-error" || e.type === "tool-output-error");
 
       writeFileSync(`${output}/${id}.sse`, sse);
-      results.push({ id, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, offeredTools, words: text.split(/\s+/).length, reviewer: "PENDING" });
+      results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, offeredTools, words: text.split(/\s+/).length, reviewer: "PENDING" });
       if (text) messages.push({ id: `${id}-a`, role: "assistant", parts: [{ type: "text", text }] });
       console.log(id, text.split(/\s+/).length, calls.map(c => c.toolName).join(","), errors.length ? "ERROR" : "");
-    } catch (error) { results.push({ id: journey.id, error: String(error) }); }
+    } catch (error) { results.push({ id: journey.id, ...meta, error: String(error) }); }
     writeFileSync(`${output}/answers.json`, JSON.stringify(results, null, 2));
   }
 }
-const selected = process.env.ROSE_QA_CASES?.split(",");
-const queue = selected ? journeys.filter(journey => selected.includes(journey.id)) : [...journeys];
-await Promise.all(Array.from({ length: 3 }, async () => { while (queue.length) { const next = queue.shift(); if (next) await run(next); } }));
+
+const selected = process.env.ROSE_QA_CASES?.split(",").map(s => s.trim()).filter(Boolean);
+const onlyRisk = process.env.ROSE_QA_SET === "risk";
+const chosen = journeys.filter(journey =>
+  (selected ? selected.includes(journey.id) : true) && (onlyRisk ? RISK_CASES.has(journey.id) : true));
+if (selected) {
+  const unknown = selected.filter(id => !journeys.some(j => j.id === id));
+  if (unknown.length) throw new Error(`Unknown case id(s): ${unknown.join(", ")}`);
+}
+// Repeats are pointless without a model call.
+const repeats = promptOnly ? 1 : positiveInt(process.env.ROSE_QA_REPEATS, 1);
+const riskRepeats = promptOnly ? 1 : positiveInt(process.env.ROSE_QA_RISK_REPEATS, repeats);
+const concurrency = positiveInt(process.env.ROSE_QA_CONCURRENCY, 3);
+const queue: Job[] = chosen.flatMap(journey => {
+  const risk = RISK_CASES.has(journey.id);
+  const n = risk ? riskRepeats : repeats;
+  return Array.from({ length: n }, (_, k) => ({
+    id: n === 1 ? journey.id : `${journey.id}-r${String(k + 1).padStart(2, "0")}`,
+    baseId: journey.id, sample: k + 1, risk, turns: journey.turns,
+  }));
+});
+const plannedTurns = queue.reduce((sum, job) => sum + job.turns.length, 0);
+console.log(`Rose QA: ${chosen.length} case(s), ${queue.length} run(s), ${plannedTurns} turn(s), provider ${promptOnly ? "none (prompt only)" : `${providerName} / ${modelId}`}, output ${output}`);
+await Promise.all(Array.from({ length: concurrency }, async () => { while (queue.length) { const next = queue.shift(); if (next) await run(next); } }));
+const failedTurns = results.filter(r => (r as { error?: string }).error || ((r as { errors?: unknown[] }).errors ?? []).length).length;
+console.log(`Done: ${results.length} answer(s) written to ${output}/answers.json, ${failedTurns} with errors. Every answer still needs a human review.`);
