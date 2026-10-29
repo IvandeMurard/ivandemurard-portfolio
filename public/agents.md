@@ -1,6 +1,6 @@
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-10-24.
+Public. Read-only. No key. Last updated 2026-10-29.
 
 > Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
