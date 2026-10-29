@@ -107,8 +107,10 @@ export const RoseDock = () => {
   const [pastHero, setPastHero] = useState(false);
   const [lift, setLift] = useState(0);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+  const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   const sessionId = useMemo(() => getSessionId(), []);
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const prompts = useMemo(() => getRosePrompts(pathname), [pathname]);
   const sectionRef = useSectionInView(pathname);
   const isHome = pathname === "/";
@@ -149,17 +151,19 @@ export const RoseDock = () => {
     });
 
   // Homepage: the dock waits until the hero call to action has scrolled away.
+  // Pages whose hero already shows the dock mark it with data-rose-hero.
   useEffect(() => {
-    if (!isHome) { setPastHero(true); return; }
+    const hero = document.querySelector("[data-rose-hero]");
+    if (!isHome && !hero) { setPastHero(true); return; }
     setPastHero(false);
-    const cta = document.querySelector('[data-cta="primary"]');
+    const cta = hero ?? document.querySelector('[data-cta="primary"]');
     if (!cta) { setPastHero(true); return; }
     const io = new IntersectionObserver(([e]) => {
       setPastHero(!e.isIntersecting && e.boundingClientRect.top < 0);
     });
     io.observe(cta);
     return () => io.disconnect();
-  }, [isHome]);
+  }, [isHome, pathname, search]);
 
   // Lift above the footer so its links stay reachable.
   useEffect(() => {
@@ -252,6 +256,29 @@ export const RoseDock = () => {
     };
   });
 
+  // Cmd+K / Ctrl+K opens the dock from anywhere, except inside other text fields.
+  // Escape closes it and returns focus to where the reader was.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        const t = e.target as HTMLElement | null;
+        const inField = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+        if (inField && !t.closest("[data-rose-dock]")) return;
+        e.preventDefault();
+        if (!open) returnFocusRef.current = document.activeElement as HTMLElement | null;
+        setOpen(true);
+        requestAnimationFrame(() => expandedInputRef.current?.focus());
+      } else if (e.key === "Escape" && open) {
+        setOpen(false);
+        const back = returnFocusRef.current;
+        returnFocusRef.current = null;
+        requestAnimationFrame(() => back?.focus?.());
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   const hidden = !open && !pastHero;
   const showChips = open ? messages.length === 0 : focusWithin;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
@@ -271,6 +298,7 @@ export const RoseDock = () => {
       ) : null}
 
       <div
+        data-rose-dock
         aria-hidden={hidden || undefined}
         style={{ transform: `translateY(${hidden ? "160%" : `-${lift}px`})` }}
         className={cn(
@@ -489,6 +517,11 @@ export const RoseDock = () => {
             >
               <Icon name="arrow_upward" className="text-lg" />
             </button>
+            {!open ? (
+              <kbd aria-label={isMac ? "Shortcut: Command K" : "Shortcut: Control K"} className="hidden shrink-0 rounded border border-outline-variant px-1.5 py-0.5 font-label text-[10px] text-on-surface-variant md:inline">
+                {isMac ? "⌘K" : "Ctrl+K"}
+              </kbd>
+            ) : null}
           </form>
           {open ? (
             <p className="px-5 pb-2.5 -mt-1 text-[11px] text-on-surface-variant">

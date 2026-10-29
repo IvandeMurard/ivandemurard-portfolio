@@ -12,6 +12,8 @@
   :root {
     /* Surfaces: warm creams */
     --surface: 42 41% 97%;                    /* #fbf9f4 */
+    --rose-copper: 22 58% 32%;                /* Rose's colour, Rose case study only */
+    --rose-cool: 212 32% 93%;                 /* end of the case-study gradient */
     --surface-bright: 42 41% 97%;
     --surface-dim: 45 7% 85%;                 /* #dbdad5 */
     --surface-container-lowest: 0 0% 100%;    /* #ffffff */
@@ -114,6 +116,8 @@
     --on-error: 0 40% 12%;
 
     --surface: 32 14% 11%;                    /* warm taupe room */
+    --rose-copper: 22 62% 66%;
+    --rose-cool: 215 24% 12%;
     --surface-bright: 32 14% 14%;
     --surface-dim: 32 14% 8%;
     --surface-container-lowest: 32 14% 9%;
@@ -1063,3 +1067,8 @@
 .wa-field { background: hsl(var(--wa-field)); color: hsl(var(--wa-muted)); }
 .wa-send { background: hsl(var(--wa-send)); color: hsl(0 0% 100%); }
 .wa-date { background: hsl(var(--wa-in)); color: hsl(var(--wa-muted)); }
+
+/* Rose case study: one continuous gradient from the July page colour to cool tones. */
+.rose-case-bg {
+  background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 12%, hsl(var(--rose-cool)) 100%);
+}
