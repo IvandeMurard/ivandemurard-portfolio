@@ -285,9 +285,10 @@ export const RoseDock = () => {
         const back = returnFocusRef.current;
         setOpen(false);
         requestAnimationFrame(() => requestAnimationFrame(() => {
-          if (back && back.isConnected && back !== document.body) back.focus();
-          else if (back && !back.isConnected && back.closest === undefined) return;
-          else if (back && !back.isConnected) document.querySelector<HTMLElement>("[data-rose-dock] input")?.focus();
+          if (!back || back === document.body) return;
+          // The collapsed dock input is replaced while open: focus its successor.
+          if (back.isConnected) back.focus();
+          else document.querySelector<HTMLElement>("[data-rose-dock] input")?.focus();
         }));
       }
     };
