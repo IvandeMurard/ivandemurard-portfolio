@@ -4,7 +4,7 @@ B2G SaaS that turned acoustic open data into a decision tool for cities. Taken f
 
 - Role: Co-founder and Product Lead
 - Duration: 2020 to 2022
-- Team: 4 co-founders, plus a developer and data scientist
+- Team: 4 co-founders, plus one person who was both developer and data scientist (5 people)
 - Context: Incubated at Matrice (Banque des Territoires)
 - Funding: €20k in grants
 - Outcome: MVP shipped, commercial discussions with municipalities, no contract

@@ -53,7 +53,7 @@ Ask about a project that stopped. The answer says it stopped.
 
 ```
 → get_case_study { "slug": "sonor" }
-← Status: MVP shipped · stopped 2022 · 0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
+← Status: MVP shipped · stopped 2022 · 0→1 with 4 co-founders, plus one person who was both developer and data scientist (5 people): discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
   
   # Sonor
   
