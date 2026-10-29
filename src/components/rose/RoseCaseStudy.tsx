@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { CompassRose } from "@/components/rose/CompassRose";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -32,16 +33,6 @@ const LEGEND = [
   ["◐", "Validation", "A bounded test, audit or measurement. It does not prove every visitor outcome."],
   ["○", "Design", "A proposed direction or prototype, not a deployed behaviour."],
 ] as const;
-
-const Needle = ({ heading, reduced }: { heading: number; reduced: boolean }) => (
-  <svg viewBox="0 0 40 40" aria-hidden="true" className="h-16 w-16 text-secondary" fill="none" stroke="currentColor" strokeLinecap="round">
-    <circle cx="20" cy="20" r="17" strokeWidth="0.5" />
-    <g style={{ transform: `rotate(${heading}deg)`, transformOrigin: "20px 20px", transition: reduced ? "none" : "transform 900ms cubic-bezier(.2,.7,.1,1)" }}>
-      <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" strokeWidth="0.5" />
-      <path d="M20 3l4 13-4 4z" fill="currentColor" strokeWidth="0" />
-    </g>
-  </svg>
-);
 
 export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
   const [active, setActive] = useState(0);
@@ -100,7 +91,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
 
       <div className="mx-auto grid max-w-7xl gap-12 px-8 py-16 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
         <aside className="hidden self-start lg:sticky lg:top-28 lg:block">
-          <Needle heading={active * (300 / (ROSE_CHAPTERS.length - 1))} reduced={reduced} />
+          <CompassRose heading={active * (300 / (ROSE_CHAPTERS.length - 1))} reduced={reduced} className="h-16 w-16 text-secondary" />
           <p className="mt-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">On this page</p>
           <nav aria-label="On this page" className="mt-3">{toc()}</nav>
         </aside>
