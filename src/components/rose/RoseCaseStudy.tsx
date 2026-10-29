@@ -34,6 +34,83 @@ const LEGEND = [
   ["○", "Design", "A proposed direction or prototype, not a deployed behaviour."],
 ] as const;
 
+/* §6.1 Hero. Copy verbatim from docs/rose-case-study-copy.md. */
+const HERO_Q = "Why was Rose first built around booking?";
+const HERO_A = "Ivan's first brief was narrow: help you decide, in two or three exchanges, whether to book 30 minutes with him. He changed it in August.";
+const TLDR = [
+  ["The problem", "A case study shows the work. It cannot answer the question a visitor brings."],
+  ["Five decisions", "July to October 2026: qualify, listen to the page, know where you are, one quiet dock, earn trust."],
+  ["Today", "Live, text only. Rose knows the page and section in view, answers from the site’s own text, and sends nothing when you book."],
+  ["Still open", "Whether a source-faithful answer helps each reader understand the work from their own angle."],
+] as const;
+
+/** Scripted replay styled as the dock: question, reading status, answer, Locate, source. */
+const HeroDock = ({ reduced }: { reduced: boolean }) => {
+  const [step, setStep] = useState(reduced ? 3 : 0);
+  useEffect(() => {
+    if (reduced) { setStep(3); return; }
+    const ts = [400, 1600, 3000].map((d, i) => window.setTimeout(() => setStep(i + 1), d));
+    return () => ts.forEach(window.clearTimeout);
+  }, [reduced]);
+  const locate = () => {
+    // Until §6.3 exists, Locate only scrolls to chapter 01.
+    const el = document.getElementById("ch-01-decision") ?? document.getElementById("ch-01");
+    el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  };
+  const fade = (on: boolean) => ({ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 500ms ease" });
+  return (
+    <div data-rose-hero aria-label="Rose, one example exchange" className="flex min-h-[20rem] flex-col rounded-2xl bg-primary p-5 text-on-primary shadow-xl shadow-primary/10">
+      <div className="flex items-center justify-between">
+        <span className="flex items-center gap-2 font-headline text-base italic"><CompassRose heading={0} reduced className="h-5 w-5" />Rose</span>
+        <span className="font-label text-[10px] opacity-80">reading: /rose · hero</span>
+      </div>
+      <div className="mt-6 flex flex-1 flex-col gap-3" aria-live="polite">
+        <p className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-on-primary/10 px-4 py-2 font-body text-sm" style={fade(step >= 1)}>{HERO_Q}</p>
+        {step === 2 && <p className="font-label text-xs opacity-80">Rose is reading the page…</p>}
+        {step >= 3 && (
+          <div style={fade(true)}>
+            <p className="font-body text-sm leading-relaxed">{HERO_A}</p>
+            <button type="button" onClick={locate} className="mt-3 rounded-md border border-on-primary/60 px-3 py-1 font-label text-xs hover:bg-on-primary/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary">Locate · where he changed it ↓</button>
+            <p className="mt-2 font-label text-[10px] opacity-80">Source: original prompt, commit 51245fc</p>
+          </div>
+        )}
+      </div>
+      <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:open"))}
+        className="mt-4 rounded-lg border border-on-primary/30 px-3 py-2 text-left font-body text-xs opacity-90 hover:border-on-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-on-primary">Ask Rose anything</button>
+    </div>
+  );
+};
+
+const RoseHero = ({ reduced }: { reduced: boolean }) => (
+  <header aria-labelledby="rose-hero-h">
+    <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
+      <div>
+        <p className="flex flex-wrap items-center gap-3 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">
+          Case study · AI service design · Rose
+          <span className="rounded-full border border-outline-variant px-2 py-0.5 text-on-surface">● Live · text only</span>
+        </p>
+        <h1 id="rose-hero-h" className="mt-5 font-headline text-5xl leading-[1.05] text-primary md:text-7xl">
+          A portfolio <em className="text-secondary">you can question.</em>
+        </h1>
+        <p className="mt-6 max-w-xl font-body text-lg text-on-surface">The story behind Rose: why I built her, the five decisions that reshaped her, and the questions I am leaving open.</p>
+        <p className="mt-4 font-label text-xs text-on-surface-variant">July to October 2026 · five decisions · sources from the repository</p>
+      </div>
+      <HeroDock reduced={reduced} />
+    </div>
+    <section aria-labelledby="rose-tldr" className="mt-14 border-t border-outline-variant pt-4">
+      <h2 id="rose-tldr" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">TL;DR</h2>
+      <dl className="mt-4 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {TLDR.map(([t, d]) => (
+          <div key={t} className="border-b border-outline-variant pb-4">
+            <dt className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">{t}</dt>
+            <dd className="mt-2 font-body text-sm text-on-surface">{d}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  </header>
+);
+
 export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -97,7 +174,8 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
         </aside>
 
         <div className="min-w-0">
-          <section aria-labelledby="rose-legend" className="max-w-3xl">
+          <RoseHero reduced={reduced} />
+          <section aria-labelledby="rose-legend" className="mt-16 max-w-3xl">
             <h2 id="rose-legend" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">How to read this case study</h2>
             <dl className="mt-3 space-y-1 font-body text-sm text-on-surface">
               {LEGEND.map(([mark, term, def]) => (
