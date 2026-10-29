@@ -43,7 +43,7 @@ export const CV = {
       dates: "2020 – 2022",
       context: "B2G SaaS helping local governments reduce noise pollution with open data.",
       bullets: [
-        "Took the product from problem discovery to a working MVP and engaged local governments in a sales process, with four co-founders plus a fifth person covering development and data science.",
+        "Took the product from problem discovery to a working MVP and engaged local governments in a sales process, with 4 co-founders, plus one person who was both developer and data scientist (5 people).",
         "Raised 20 000 € in grants; incubated at Matrice (Banque des Territoires).",
       ],
     },

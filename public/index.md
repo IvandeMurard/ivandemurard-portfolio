@@ -49,7 +49,7 @@ APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,4
 Every address has a story. Compass reads it before you sign.
 
 ### Sonor (DARK · MVP shipped · stopped 2022)
-0→1 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
+0→1 with 4 co-founders, plus one person who was both developer and data scientist (5 people): discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
 It taught me to ship one use case before ten, the rule Aetherix is built on.
 
 ## 03 · Field Notes

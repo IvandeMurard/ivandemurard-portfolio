@@ -10,7 +10,7 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 
 // src/content/statuses.ts
 var STATUSES = {
-  sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with four co-founders, plus a developer and data scientist: discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022." },
+  sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with 4 co-founders, plus one person who was both developer and data scientist (5 people): discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022." },
   aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
@@ -176,7 +176,7 @@ var CV = {
       dates: "2020 \u2013 2022",
       context: "B2G SaaS helping local governments reduce noise pollution with open data.",
       bullets: [
-        "Took the product from problem discovery to a working MVP and engaged local governments in a sales process, with four co-founders plus a fifth person covering development and data science.",
+        "Took the product from problem discovery to a working MVP and engaged local governments in a sales process, with 4 co-founders, plus one person who was both developer and data scientist (5 people).",
         "Raised 20 000 \u20AC in grants; incubated at Matrice (Banque des Territoires)."
       ]
     }

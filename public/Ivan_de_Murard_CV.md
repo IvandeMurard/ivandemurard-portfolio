@@ -33,7 +33,7 @@ Product builder with 5 years in B2B SaaS: co-founded a SaaS company, led product
 
 *B2G SaaS helping local governments reduce noise pollution with open data.*
 
-- Took the product from problem discovery to a working MVP and engaged local governments in a sales process, with four co-founders plus a fifth person covering development and data science.
+- Took the product from problem discovery to a working MVP and engaged local governments in a sales process, with 4 co-founders, plus one person who was both developer and data scientist (5 people).
 - Raised 20 000 € in grants; incubated at Matrice (Banque des Territoires).
 
 ## Product & Customer Roles

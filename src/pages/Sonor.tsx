@@ -62,7 +62,7 @@ const FIGMA_PROTOTYPE_URL =
 const META = [
   { label: "Role", value: "Co-founder and Product Lead" },
   { label: "Duration", value: "2020 to 2022" },
-  { label: "Team", value: "4 co-founders, plus a developer and data scientist" },
+  { label: "Team", value: "4 co-founders, plus one person who was both developer and data scientist (5 people)" },
   { label: "Context", value: "Incubated at Matrice (Banque des Territoires)" },
   { label: "Funding", value: "€20k in grants" },
   { label: "Outcome", value: "MVP shipped, commercial discussions with municipalities, no contract" },
