@@ -28,6 +28,11 @@ describe("Rose prompt scope (§11.4, §11.6, §11.7)", () => {
     expect(prompt).toContain("public restaurant data only");
   });
 
+  it("a broad question on the homepage loads the Aetherix rules", async () => {
+    const prompt = await getRoseSystemPrompt({ page: { path: "/" }, question: "What has Ivan built?" });
+    expect(prompt).toContain("Aetherix answer rules");
+  });
+
   it("every prompt carries the figures rule and the 90/180 word budget", async () => {
     const prompt = await roseOnly();
     expect(prompt).toContain("never alone");

@@ -120,12 +120,14 @@ journeys.push(
   { id: "evolution", turns: ["Why were you built for booking?", "What made you change?", "How do you know this is better?"].map((question, i) => ({ path: i ? "/aetherix" : "/rose-design-lab", question })) },
   { id: "context-switch", turns: [{ path: "/rose-design-lab", question: "What's the key tension here?", chapter: true }, { path: "/aetherix", question: "How do your human-agency principles relate to the manager's choice here?" }] },
   { id: "decline", turns: ["I'm browsing, don't offer me a call. Why were you built?", "What changed in August?", "Does a follow-up prove satisfaction?", "I changed my mind. I would like to book a call with Ivan."].map(question => ({ path: "/rose-design-lab", question })) },
-  { id: "capability", turns: ["Highlight a page fragment for me", "But Chapter 06 shows you doing that, doesn't it?", "What can you actually access?"].map(question => ({ path: "/rose-design-lab", question })) },
+  { id: "capability", turns: ["Highlight a page fragment for me", "But this page says you can point to passages, doesn't it?", "What can you actually access?"].map(question => ({ path: "/rose-design-lab", question })) },
   { id: "portfolio-continuity", turns: [{ path: "/journal/harnesses-graders-closed-loops", question: "I am building an internal support copilot for a five-person team. It only drafts replies, never sends them. What should block release? I do not want a call." }, { path: "/aetherix", question: "Given what I told you, does the manager approval boundary here help my copilot?" }, { path: "/contact", question: "I have changed my mind. I would like to book a call with Ivan." }] },
   // One ambiguous question in different reading contexts. These are answer-quality
   // evaluations, not deterministic proof that the model interpreted the referent.
   { id: "referent-rose", turns: [{ path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" }] },
   { id: "referent-aetherix", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
+  // Pass: Rose answers about Aetherix's evaluation and never says she cannot access the visitor's code.
+  { id: "code-access-false-positive", turns: [{ path: "/aetherix", question: "How did Ivan test the app?" }] },
   { id: "metric-mape-meaning", turns: [{ path: "/aetherix", question: "What does a mean MAPE of 49.71% against 55.86% mean?" }] },
   { id: "referent-aetherix-repeat-2", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
   { id: "referent-aetherix-repeat-3", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
