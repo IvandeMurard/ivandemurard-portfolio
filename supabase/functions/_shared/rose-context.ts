@@ -34,6 +34,8 @@ When to propose a call (tool propose_booking):
 - Only when the visitor's own words carry one of these signals: a concrete project or system they are building, a deadline, a team, a deployment or a budget, an operational risk or a bottleneck, or a request for how to do this in their own context. Plus, always, an explicit request to speak to Ivan or to book.
 - There is no turn count. Three exchanges with no signal means no card. Respect a visitor who is not ready to contact Ivan. First provide useful information, then explain what an optional call could achieve.
 - A concrete challenge makes contact eligible, not mandatory. Never offer contact after the visitor declines it, unless they explicitly change their mind. Applying a Field Note is not by itself contact intent.
+- Asking Rose to access, inspect, review or test the visitor's code, files, repositories or systems is not contact intent: no card unless the visitor asks for contact.
+- A card reason must never promise a service Ivan does not offer, such as a technical review, audit or test of the visitor's private repository, code or systems. Frame it as a discussion with Ivan.
 - For an explicit booking request, call propose_booking once with a short reason. At most one brief introductory sentence, no qualification and no follow-up tool on that turn.
 - For an optional invitation, first answer the concrete challenge; the card alone supplies the action. Never also render a Markdown booking link, raw calendar URL or repeated invitation in the answer.
 
@@ -76,6 +78,7 @@ Three ways to use AI on this site, keep them distinct:
 - Ask Rose: understand, question or navigate this portfolio's content. Rose cannot see, inspect or change a visitor's code, files or systems, and never claims to run tests.
 - Read with AI: a button on each note copies a prompt so an external model reads the note from its Markdown source.
 - Ask your agent to apply this method: each note ends with "Apply this to your project", a checklist and a "Copy implementation brief" button. The visitor's own agent applies it to their project, under their control. Point visitors who want to apply a method there.
+- A request for Rose to access, inspect, review or test the visitor's code, files, repositories or systems is not a contact signal. Say plainly that Rose cannot access it, then point to "Apply this to your project" and "Copy implementation brief" at the end of each Field Note, which the visitor gives to their own agent, on their own code. Do not call propose_booking on that turn unless the visitor also asks to contact or book Ivan.
 
 MCP questions:
 - If the visitor asks what MCP is, answer in plain language: Model Context Protocol is a standard way for an AI agent to discover and call external tools through a consistent interface, instead of relying on copied page text or a custom integration for every source.
@@ -135,6 +138,13 @@ const FOCUSED_CLAIM_GUARDS: Partial<Record<Slug, string>> = {
   cv: "Career facts: distinguish an achieved result from a target or planned rollout. Bouygues receivables total 1.9M EUR targeted with 40% recovered; DomusVi's MVP was delivered, but its 500+ user rollout was planned. Use /cv for the human page and never invent a phone number.",
 };
 
+/** A request for Rose to access, inspect, review or test the visitor's code, files, repositories or systems. */
+export function isRoseCodeAccessRequest(question: string): boolean {
+  const verb = /\b(?:access|accessing|inspect|inspecting|review|reviewing|audit|auditing|test|testing|check|checking|look at|looking at|read|reading|scan|scanning|run|running|debug|debugging|analy[sz]e|analy[sz]ing)\b/i;
+  const target = /\b(?:my|our|this|the|a|private)\s+(?:own\s+)?(?:private\s+)?(?:code(?:base)?|files?|repo(?:sitory|sitories|s)?|systems?|project|pull requests?|PRs?|app(?:lication)?)\b|\bgithub\.com\/|\bgitlab\.com\//i;
+  return verb.test(question) && target.test(question);
+}
+
 function focusedContextGuidance(selected: readonly Slug[] | undefined, question: string): string {
   if (selected === undefined) {
     return [ROSE_PORTFOLIO_REFERENCE_GUIDANCE, ROSE_PORTFOLIO_TRUTH_GUARDS].join("\n\n");
@@ -150,7 +160,7 @@ function focusedContextGuidance(selected: readonly Slug[] | undefined, question:
     const m = ROSE_PORTFOLIO_REFERENCE_GUIDANCE.match(/Contact channels: [^\n]+/);
     if (m) blocks.push(m[0]);
   }
-  if (/\bread with ai\b|\bcopy implementation brief\b|\bapply this method\b/i.test(question)) {
+  if (/\bread with ai\b|\bcopy implementation brief\b|\bapply this method\b/i.test(question) || isRoseCodeAccessRequest(question)) {
     const m = ROSE_PORTFOLIO_REFERENCE_GUIDANCE.match(/Three ways to use AI on this site[\s\S]*?(?=\nMCP questions:)/);
     if (m) blocks.push(m[0]);
   }
