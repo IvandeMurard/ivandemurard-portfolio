@@ -256,8 +256,20 @@ export const RoseDock = () => {
     };
   });
 
+  // Remember the element the reader was on before the dock opened, so
+  // Escape can hand focus back to it.
+  const openRef = useRef(open);
+  openRef.current = open;
+  useEffect(() => {
+    const onFocusIn = (e: FocusEvent) => {
+      if (!openRef.current) returnFocusRef.current = e.target as HTMLElement;
+    };
+    document.addEventListener("focusin", onFocusIn);
+    return () => document.removeEventListener("focusin", onFocusIn);
+  }, []);
+
   // Cmd+K / Ctrl+K opens the dock from anywhere, except inside other text fields.
-  // Escape closes it and returns focus to where the reader was.
+  // Escape closes it and returns focus to the element that opened it.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -265,14 +277,19 @@ export const RoseDock = () => {
         const inField = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
         if (inField && !t.closest("[data-rose-dock]")) return;
         e.preventDefault();
-        if (!open) returnFocusRef.current = document.activeElement as HTMLElement | null;
+        if (!open) returnFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
         setOpen(true);
         requestAnimationFrame(() => expandedInputRef.current?.focus());
       } else if (e.key === "Escape" && open) {
-        setOpen(false);
+        e.preventDefault();
         const back = returnFocusRef.current;
-        returnFocusRef.current = null;
-        requestAnimationFrame(() => back?.focus?.());
+        setOpen(false);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          if (!back || back === document.body) return;
+          // The collapsed dock input is replaced while open: focus its successor.
+          if (back.isConnected) back.focus();
+          else document.querySelector<HTMLElement>("[data-rose-dock] input")?.focus();
+        }));
       }
     };
     window.addEventListener("keydown", onKey);
