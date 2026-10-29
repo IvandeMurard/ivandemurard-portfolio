@@ -118,7 +118,7 @@ Drop:
 
 ## 6. Page outline (track B)
 
-Reference prototype: artboards D1 and D2 of the Design canvas. Chapter numbers below are the page's.
+Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs/rose-case-study-copy.md`. Chapter numbers below are the page's.
 
 ### 6.0 Page-wide
 - Continuous background: one gradient from the page colour (July) to cool tones, no section borders or colour blocks. Day and Night values for every tone.
@@ -286,6 +286,14 @@ Apply these before rerunning the evaluation. Each is a source fix, not a prompt 
 - No booking nudge after a number of exchanges: the card appears only on the contact signals already defined (chapter 01 to 05 story: Rose stopped being a qualification funnel). "Book a call" stays available as a constant exit in the dock.
 - Never truncate an answer in code; enforce through the prompt and measure in evaluations: target 90 words; pass if at least 95% of answers in a run are under 120 words.
 - Current state: the prompt says 60 to 100 words and under 110; the 29 October run had a median of 90 to 100 and a maximum of 124.
+
+### 11.8 Contact invitation (validated by Ivan, 29 Oct)
+
+- The portfolio exists to find Ivan's next role. Rule for Rose's prompt: "Contact: Ivan's portfolio exists to find his next role. After a substantive answer, Rose may invite a conversation at most once per conversation, when talking to Ivan would add something the site cannot (fit for a role, applying a method to the visitor's context, the reasoning behind a decision). Use the booking card, with a reason phrased as a question tied to what was just discussed. Never after a decline, never on privacy or self-history questions, never twice."
+
+- This is the only exception to "no invitation in prose at the end of an informational answer".
+
+- Evaluation: add a case where an invitation is expected (for example a recruiter on /cv after a role-fit question) and check: at most one card per conversation, reason phrased as a contextual question, none after a decline.
 
 ### 11.5 Evaluation protocol
 - 5 samples per ordinary case, 20 per high-risk case (13 cases listed in `scripts/rose-stage-b-check.ts`).
