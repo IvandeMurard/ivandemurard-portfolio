@@ -108,7 +108,7 @@ export const RoseDock = () => {
   const [lift, setLift] = useState(0);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
   const sessionId = useMemo(() => getSessionId(), []);
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const prompts = useMemo(() => getRosePrompts(pathname), [pathname]);
   const sectionRef = useSectionInView(pathname);
   const isHome = pathname === "/";
@@ -149,17 +149,19 @@ export const RoseDock = () => {
     });
 
   // Homepage: the dock waits until the hero call to action has scrolled away.
+  // Pages whose hero already shows the dock mark it with data-rose-hero.
   useEffect(() => {
-    if (!isHome) { setPastHero(true); return; }
+    const hero = document.querySelector("[data-rose-hero]");
+    if (!isHome && !hero) { setPastHero(true); return; }
     setPastHero(false);
-    const cta = document.querySelector('[data-cta="primary"]');
+    const cta = hero ?? document.querySelector('[data-cta="primary"]');
     if (!cta) { setPastHero(true); return; }
     const io = new IntersectionObserver(([e]) => {
       setPastHero(!e.isIntersecting && e.boundingClientRect.top < 0);
     });
     io.observe(cta);
     return () => io.disconnect();
-  }, [isHome]);
+  }, [isHome, pathname, search]);
 
   // Lift above the footer so its links stay reachable.
   useEffect(() => {
