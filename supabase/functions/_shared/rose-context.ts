@@ -521,7 +521,8 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
   }) ? `\n\n${TECHNICAL_AETHERIX_EVALUATION_ANSWER_ANCHOR}` : "";
   const noFollowups = shouldSuppressRoseFollowups({ question: ctx?.question ?? "", pagePath: ctx?.page?.path })
     ? `\n\n${ROSE_NO_FOLLOWUPS_NOTICE}` : "";
-  const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}`;
+  const aetherixGuard = selectedStudies?.includes("aetherix") ? `\n\n${AETHERIX_TURN_GUARD}` : "";
+  const contract = `${TURN_CONTRACT}${aetherixGuard}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}`;
   const reference = [self, assembleReference(selectedStudies), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");
