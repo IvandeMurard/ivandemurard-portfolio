@@ -13,17 +13,19 @@ type Chapter = { id: string; toc: string; kicker: string; heading: string; trans
 
 export const ROSE_CHAPTERS: Chapter[] = [
   { id: "ch-00", toc: "00 The idea", kicker: "00 · The idea", heading: "What if the portfolio could answer back?", transition: "So the first version did one thing: qualify." },
-  { id: "ch-01", toc: "01 Qualify", kicker: "01 · 21 Jul 2026 · Qualify", heading: "Qualify", transition: "One destination, and the same four boxes whatever page you were on. That was the next problem." },
-  { id: "ch-02", toc: "02 Listen to the page", kicker: "02 · 7 Aug 2026 · Listen to the page", heading: "Listen to the page", transition: "The questions now started from the page. The answers did not, yet." },
-  { id: "ch-03", toc: "03 Know where you are", kicker: "03 · 10 Aug 2026 · Know where you are", heading: "Know where you are", transition: "Rose knew where you were. Where she should live was the next question." },
-  { id: "ch-04", toc: "04 One quiet dock", kicker: "04 · 14 Oct 2026 · One quiet dock", heading: "One quiet dock", transition: "Quiet until asked. Then: what happens to what you tell her?" },
-  { id: "ch-05", toc: "05 Earn trust", kicker: "05 · 24 Oct 2026 · Earn trust", heading: "Earn trust", transition: "Five decisions later, here is what she does today." },
+  { id: "ch-01", toc: "01 Qualify", kicker: "01 · 21 Jul 2026", heading: "Qualify", transition: "One destination, and the same four boxes whatever page you were on. That was the next problem." },
+  { id: "ch-02", toc: "02 Listen to the page", kicker: "02 · 7 Aug 2026", heading: "Listen to the page", transition: "The questions now started from the page. The answers did not, yet." },
+  { id: "ch-03", toc: "03 Know where you are", kicker: "03 · 10 Aug 2026", heading: "Know where you are", transition: "Rose knew where you were. Where she should live was the next question." },
+  { id: "ch-04", toc: "04 One quiet dock", kicker: "04 · 14 Oct 2026", heading: "One quiet dock", transition: "Quiet until asked. Then: what happens to what you tell her?" },
+  { id: "ch-05", toc: "05 Earn trust", kicker: "05 · 24 Oct 2026", heading: "Earn trust", transition: "Five decisions later, here is what she does today." },
   { id: "ch-06", toc: "06 What Rose can do now", kicker: "06 · What Rose can do now", heading: "Ask about what you're reading.", transition: "What she does is narrow on purpose. What she may keep, and say, is narrower still." },
   { id: "ch-07", toc: "07 Trust", kicker: "07 · Trust", heading: "Trust has two separate contracts.", transition: "Contracts are only as good as the checks behind them." },
   { id: "ch-08", toc: "08 What she got wrong", kicker: "08 · What she got wrong", heading: "What she got wrong, and how I check her.", transition: "The checks cover what she does today. Here is what comes next, and why it waits." },
   { id: "ch-09", toc: "09 Next steps", kicker: "09 · Next steps", heading: "Make the whole site easier to navigate, not just one reply.", transition: "Some things I have not settled. I would rather say so." },
   { id: "ch-10", toc: "10 Open questions", kicker: "10 · Open questions", heading: "Questions I am leaving open, rather than calling them features." },
 ];
+
+const LEGEND_TONE: Record<string, string> = { Built: "text-secondary", Validation: "text-primary", Design: "text-on-surface-variant" };
 
 const LEGEND = [
   ["●", "Built", "Implemented behaviour that can be inspected in the product or repository."],
@@ -32,7 +34,7 @@ const LEGEND = [
 ] as const;
 
 const Needle = ({ heading, reduced }: { heading: number; reduced: boolean }) => (
-  <svg viewBox="0 0 40 40" aria-hidden="true" className="h-16 w-16 text-rose-copper" fill="none" stroke="currentColor" strokeLinecap="round">
+  <svg viewBox="0 0 40 40" aria-hidden="true" className="h-16 w-16 text-secondary" fill="none" stroke="currentColor" strokeLinecap="round">
     <circle cx="20" cy="20" r="17" strokeWidth="0.5" />
     <g style={{ transform: `rotate(${heading}deg)`, transformOrigin: "20px 20px", transition: reduced ? "none" : "transform 900ms cubic-bezier(.2,.7,.1,1)" }}>
       <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" strokeWidth="0.5" />
@@ -72,8 +74,8 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
       {ROSE_CHAPTERS.map((c, i) => (
         <li key={c.id}>
           <a href={`#${c.id}`} onClick={onPick} aria-current={i === active ? "location" : undefined}
-            className={cn("block border-l-2 py-1 pl-3 font-label text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-rose-copper",
-              i === active ? "border-rose-copper text-primary" : "border-transparent text-on-surface-variant hover:text-primary")}>
+            className={cn("block border-l-2 py-1 pl-3 font-label text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary",
+              i === active ? "border-secondary text-primary" : "border-transparent text-on-surface-variant hover:text-primary")}>
             {c.toc}
           </a>
         </li>
@@ -98,7 +100,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
 
       <div className="mx-auto grid max-w-7xl gap-12 px-8 py-16 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
         <aside className="hidden self-start lg:sticky lg:top-28 lg:block">
-          <Needle heading={reduced ? 0 : active * (300 / (ROSE_CHAPTERS.length - 1))} reduced={reduced} />
+          <Needle heading={active * (300 / (ROSE_CHAPTERS.length - 1))} reduced={reduced} />
           <p className="mt-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">On this page</p>
           <nav aria-label="On this page" className="mt-3">{toc()}</nav>
         </aside>
@@ -108,7 +110,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
             <h2 id="rose-legend" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">How to read this case study</h2>
             <dl className="mt-3 space-y-1 font-body text-sm text-on-surface">
               {LEGEND.map(([mark, term, def]) => (
-                <div key={term} className="flex gap-2"><dt className="shrink-0 font-label text-xs text-rose-copper"><span aria-hidden="true">{mark} </span>{term}</dt><dd>{def}</dd></div>
+                <div key={term} className="flex gap-2"><dt className={cn("shrink-0 font-label text-xs", LEGEND_TONE[term])}><span aria-hidden="true">{mark} </span>{term}</dt><dd>{def}</dd></div>
               ))}
             </dl>
             <p className="mt-3 font-body text-xs text-on-surface-variant">Milestones come from the repository: commit dates, archived plans, the original prompt. Readings of the design are mine.</p>
@@ -116,7 +118,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
 
           {ROSE_CHAPTERS.map((c, i) => (
             <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className="max-w-3xl scroll-mt-32 pt-24 md:pt-32">
-              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-rose-copper">{c.kicker}</p>
+              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}</p>
               <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary md:text-5xl">{c.heading}</h2>
               {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}
             </section>
