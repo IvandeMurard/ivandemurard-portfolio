@@ -274,7 +274,7 @@ Apply these before rerunning the evaluation. Each is a source fix, not a prompt 
 - Target plain-language reading for that figure (intent, not wording): "On average its forecasts were off by about half, a little less than simply repeating last week's number. Better than the simplest guess on average, not for next-day forecasts, and only on restaurant data so far."
 - Never "proves", "adds value" or "better than a human" from a benchmark.
 - Add to the evaluation script: a case on /aetherix asking what the MAPE comparison means (pass: plain language, both caveats, no value claim, no closing question in prose), and a check that informational answers do not end with a question.
-- Optional, Ivan to decide: after answering about the page's subject, Rose may add at most one sentence pointing to another project, introduced as an example, with a link and no figures.
+- Decided: another project is only named and linked, never described, unless its reference is loaded.
 - Rerun: `self-09`, `referent-rose`, `referent-cv`, plus `referent-aetherix` and `metric-benchmark` to check Aetherix answers keep their figures.
 
 ### 11.7 Answer budget
@@ -284,7 +284,7 @@ Apply these before rerunning the evaluation. Each is a source fix, not a prompt 
   - Diagram (later): one figure and one sentence.
 - Then up to two follow-up questions. Follow-ups are the default way to continue.
 - No booking nudge after a number of exchanges: the card appears only on the contact signals already defined (chapter 01 to 05 story: Rose stopped being a qualification funnel). "Book a call" stays available as a constant exit in the dock.
-- Never truncate an answer in code; enforce through the prompt and measure in evaluations: pass if at least 95% of answers in a run are within budget.
+- Never truncate an answer in code; enforce through the prompt and measure in evaluations: target 90 words; pass if at least 95% of answers in a run are under 120 words.
 - Current state: the prompt says 60 to 100 words and under 110; the 29 October run had a median of 90 to 100 and a maximum of 124.
 
 ### 11.5 Evaluation protocol

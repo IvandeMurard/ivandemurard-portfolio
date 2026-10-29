@@ -33,6 +33,10 @@ describe("Rose prompt scope (§11.4, §11.6, §11.7)", () => {
     expect(prompt).toContain("Aetherix answer rules");
   });
 
+  it("a Rose-only prompt forbids describing unloaded projects", async () => {
+    expect(await roseOnly()).toContain("Never describe what another project does, measures or contains unless its reference block is in this prompt. If another project is relevant, name it and link to its page, with no claim about it.");
+  });
+
   it("every prompt carries the figures rule and the 90/180 word budget", async () => {
     const prompt = await roseOnly();
     expect(prompt).toContain("never alone");
