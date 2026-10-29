@@ -124,7 +124,7 @@ export const ROSE_HISTORY: RoseHistoryEntry[] = [
   },
   {
     id: "adaptive", date: null, claim: "hypothesis",
-    text: "Ivan is exploring adaptive, AI-mediated reading in which content could be located, annotated or explained in place, with voice as one potential modality. The Chapter 06 interaction is a scripted design demonstration; generative page adaptation and voice are not implemented capabilities.",
+    text: "Ivan is exploring adaptive, AI-mediated reading in which content could be located, annotated or explained in place, with voice as one potential modality. Generative page adaptation and voice are not implemented capabilities.",
     provenance: { commits: [], plans: [], files: ["src/components/rose/RoseLaterChapters.tsx"] },
   },
 ];
