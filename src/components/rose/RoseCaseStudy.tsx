@@ -45,6 +45,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
   const root = useRef<HTMLDivElement>(null);
+  const details = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -90,11 +91,11 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
       </div>
 
       {/* Mobile: one-line sticky bar. */}
-      <details className="sticky top-16 z-30 border-b border-outline-variant bg-surface/95 px-6 py-3 backdrop-blur-sm lg:hidden">
+      <details ref={details} className="sticky top-16 z-30 border-b border-outline-variant bg-surface/95 px-6 py-3 backdrop-blur-sm lg:hidden">
         <summary className="cursor-pointer list-none font-label text-xs text-primary [&::-webkit-details-marker]:hidden">
           {current.toc} · On this page <span aria-hidden="true">▾</span>
         </summary>
-        <nav aria-label="On this page" className="mt-3">{toc((e?: unknown) => { (document.activeElement as HTMLElement | null)?.closest("details")?.removeAttribute("open"); })}</nav>
+        <nav aria-label="On this page" className="mt-3">{toc(() => details.current?.removeAttribute("open"))}</nav>
       </details>
 
       <div className="mx-auto grid max-w-7xl gap-12 px-8 py-16 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
