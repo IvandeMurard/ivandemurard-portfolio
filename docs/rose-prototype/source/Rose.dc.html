@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rose case study</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&amp;family=Manrope:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3px}
+@media (min-width: 1024px){.toc{position:sticky;top:24px}}
+.toc-m{display:none}
+@media (max-width: 1023px){.toc{display:none !important}.toc-m{display:block;position:sticky;top:0;z-index:5}}
+.toc-m summary{list-style:none;cursor:pointer}
+.toc-m summary::-webkit-details-marker{display:none}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+@keyframes rose-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.rose-note{animation:rose-in 420ms ease-out both}
+.kick{margin:0;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
+.lab{margin:0;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.mono{font:400 11.5px 'IBM Plex Mono',monospace}
+</style>
+</helmet>
+<div style="background: {{c.bg}}; color: {{c.ink}}; font-family: Manrope, 'Helvetica Neue', sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background 400ms ease, color 400ms ease">
+
+  <!-- Site header -->
+  <header style="border-bottom: 1px solid {{c.line}}">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 20px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; color: {{c.head}}">Ivan de Murard</span>
+      <nav aria-label="Site" style="display: flex; flex-wrap: wrap; gap: 26px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: {{c.soft}}">
+        <a href="#top">Case Studies</a><a href="#top">About</a><a href="#top">CV</a><a href="#top">Field Notes</a><a href="#contact">Contact</a>
+      </nav>
+      <span style="font: 500 12px 'IBM Plex Mono', monospace; border: 1px solid {{c.rule}}; border-radius: 999px; padding: 6px 12px">{{clock}}</span>
+    </div>
+  </header>
+
+  <sc-if value="{{p1}}" hint-placeholder-val="{{ true }}">
+  <!-- 6.1 Hero -->
+  <section id="top" style="max-width: 1360px; margin: 0 auto; padding: 72px 40px 88px; display: flex; flex-wrap: wrap; gap: 56px 72px; align-items: center">
+    <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+      <p class="kick" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: {{c.gold}}">Case study · AI service design · Rose <span style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid {{c.rule}}; border-radius: 999px; padding: 3px 10px; letter-spacing: 0.06em; color: {{c.ink}}"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{c.go}}"></span>Live · text only</span></p>
+      <h1 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(56px, 7.4vw, 112px); line-height: 0.92; letter-spacing: -0.03em; color: {{c.head}}">A portfolio <em style="color: {{c.gold}}">you can question.</em></h1>
+      <p style="margin: 0; max-width: 560px; font-size: 19px; line-height: 1.6; color: {{c.soft}}">The story behind Rose: why I built her, the five decisions that reshaped her, and the questions I am leaving open.</p>
+      <p class="mono" style="margin: 0; color: {{c.muted}}">July to October 2026 · five decisions · sources from the repository</p>
+    </div>
+
+    <!-- The agent shown working (ada.cx principle) -->
+    <div style="flex: 1 1 420px; min-width: 0; max-width: 500px; background: {{c.dock}}; color: #f4efe6; border: 1px solid {{c.dockLine}}; border-radius: 18px; padding: 18px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.55)">
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 14px; border-bottom: 1px solid rgba(244,239,230,.14)">
+        <span style="display: flex; align-items: center; gap: 10px">
+          <svg viewBox="0 0 40 40" width="26" height="26" aria-hidden="true" fill="none" stroke="#e0a77c" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="17"></circle><path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z"></path></svg>
+          <span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 18px">Rose</span>
+        </span>
+        <span class="mono" style="color: rgba(244,239,230,.6)">reading: /rose · hero</span>
+      </div>
+      <div style="min-height: 250px; padding: 16px 6px; display: flex; flex-direction: column; gap: 12px">
+        <sc-if value="{{showQ}}" hint-placeholder-val="{{ true }}">
+          <p class="rose-note" style="margin: 0; align-self: flex-end; max-width: 85%; background: rgba(244,239,230,.1); border-radius: 12px 12px 2px 12px; padding: 10px 14px; font-size: 14.5px">Why was Rose first built around booking?</p>
+        </sc-if>
+        <sc-if value="{{showTyping}}" hint-placeholder-val="{{ false }}">
+          <p class="mono" style="margin: 0; color: rgba(244,239,230,.6)">Rose is reading the page…</p>
+        </sc-if>
+        <sc-if value="{{showA}}" hint-placeholder-val="{{ true }}">
+          <div class="rose-note" style="max-width: 92%; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; line-height: 1.55">
+            <p style="margin: 0">Ivan's first brief was narrow: help you decide, in two or three exchanges, whether to book 30 minutes with him. He changed it in August.</p>
+            <button type="button" onClick="{{locateCh1}}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid #e0a77c; color: #f4efe6; border-radius: 999px; padding: 7px 14px; cursor: pointer; font: 500 12.5px 'IBM Plex Mono', monospace">Locate · where he changed it ↓</button>
+            <span class="mono" style="color: rgba(244,239,230,.55)">Source: original prompt, commit 51245fc</span>
+          </div>
+        </sc-if>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; border: 1px solid rgba(244,239,230,.2); border-radius: 999px; padding: 10px 14px; font-size: 13.5px; color: rgba(244,239,230,.6)">Ask Rose anything</div>
+    </div>
+  </section>
+  <!-- TL;DR -->
+  <section aria-labelledby="tldr-h" style="max-width: 1360px; margin: 0 auto; padding: 0 40px 56px">
+    <h2 id="tldr-h" class="kick" style="margin: 0 0 10px; color: {{c.gold}}">TL;DR</h2>
+    <dl style="margin: 0; border-top: 1px solid {{c.ink}}; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 0 32px">
+      <sc-for list="{{tldr}}" as="t" hint-placeholder-count="4">
+        <div style="padding: 16px 0; border-bottom: 1px solid {{c.line}}">
+          <dt class="lab" style="color: {{c.gold}}">{{t.k}}</dt>
+          <dd style="margin: 6px 0 0; font-size: 15.5px; line-height: 1.5">{{t.v}}</dd>
+        </div>
+      </sc-for>
+    </dl>
+  </section>
+
+  </sc-if>
+
+  <!-- Body: one continuous background, no section seams -->
+  <div style="background: {{flowBg}}">
+  <!-- Mobile contents: one line, opens the full list -->
+  <details class="toc-m" aria-label="On this page" style="background: {{c.bg}}; border-bottom: 1px solid {{c.line}}">
+    <summary style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 0 16px; font-size: 14px">
+      <span><span class="mono" style="color: {{c.gold}}">{{cur.num}}</span> {{cur.label}}</span>
+      <span class="mono" style="color: {{c.muted}}">On this page ▾</span>
+    </summary>
+    <ol style="list-style: none; margin: 0; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 2px; font-size: 15px">
+      <sc-for list="{{toc}}" as="t" hint-placeholder-count="11">
+        <li><a href="#{{t.id}}" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: {{t.color}}; font-weight: {{t.weight}}"><span class="mono" style="min-width: 22px">{{t.num}}</span>{{t.label}}</a></li>
+      </sc-for>
+    </ol>
+    <div aria-hidden="true" style="height: 2px; background: {{c.line}}"><div style="height: 2px; width: {{thread}}; background: #b06a3b"></div></div>
+  </details>
+  <div style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start">
+
+    <aside aria-label="On this page" class="toc" style="flex: 1 1 200px; max-width: 240px; padding-top: 40px; display: flex; flex-direction: column; gap: 18px">
+      <svg viewBox="0 0 40 40" width="88" height="88" aria-hidden="true" fill="none" stroke="{{c.gold}}" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="20" cy="20" r="17" stroke-width="0.5"></circle>
+        <circle cx="20" cy="20" r="5.5" stroke-width="0.35"></circle>
+        <g style="transform: rotate({{needle}}deg); transform-origin: 20px 20px; transition: transform 900ms cubic-bezier(.2,.7,.1,1)">
+          <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" stroke-width="0.55"></path>
+          <path d="M20 3l4 13-4 4z" fill="#b06a3b" stroke-width="0"></path>
+        </g>
+      </svg>
+      <p class="mono" style="margin: 0; color: {{c.muted}}">heading {{needle}}°</p>
+      <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+        <sc-for list="{{toc}}" as="t" hint-placeholder-count="10">
+          <li><a href="#{{t.id}}" style="display: flex; gap: 10px; color: {{t.color}}; font-weight: {{t.weight}}"><span class="mono" style="padding-top: 3px; min-width: 18px">{{t.num}}</span>{{t.label}}</a></li>
+        </sc-for>
+      </ol>
+    </aside>
+
+    <main style="flex: 999 1 640px; min-width: 0; position: relative">
+      <div aria-hidden="true" style="position: absolute; left: -28px; top: 40px; bottom: 0; width: 1px; background: {{c.line}}"><div style="width: 1px; height: {{thread}}; background: #b06a3b; transition: height 900ms cubic-bezier(.2,.7,.1,1)"></div></div>
+
+      <sc-if value="{{p1}}" hint-placeholder-val="{{ true }}">
+      <!-- How to read this case study: the one honesty mechanism on the page -->
+      <div style="margin: 40px 0 0; padding: 16px 0 4px; border-top: 1px solid {{c.line}}">
+        <p class="kick" style="color: {{c.muted}}">How to read this case study</p>
+        <ul style="list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+          <sc-for list="{{legend}}" as="l" hint-placeholder-count="3">
+            <li style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px"><span style="display: inline-flex; align-items: baseline; gap: 6px; min-width: 112px; font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: {{l.color}}"><span aria-hidden="true">{{l.glyph}}</span>{{l.name}}</span><span style="flex: 1 1 260px; color: {{c.soft}}">{{l.text}}</span></li>
+          </sc-for>
+        </ul>
+        <p class="mono" style="margin: 12px 0 0; color: {{c.muted}}">Milestones come from the repository: commit dates, archived plans, the original prompt. Readings of the design are mine.</p>
+      </div>
+
+      <!-- 6.2 Chapter 0: the idea -->
+      <section id="ch0" data-chapter="0" style="padding: 72px 0 56px">
+        <p class="kick" style="color: {{c.gold}}">00 · The idea</p>
+        <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 20px 40px">
+          <div style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+            <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.05; color: {{c.head}}">What if the portfolio could answer back?</h2>
+            <p style="margin: 0; font-size: 17px; line-height: 1.65">A case study shows the work. It cannot anticipate every question someone brings to it. I built Rose to explore another way in: a conversation alongside the evidence.</p>
+            <p style="margin: 0; font-size: 17px; line-height: 1.65"><span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: 0.1em; color: {{c.built}}">● BUILT </span>The first version shipped on 21 July 2026. Its brief was narrower than that possibility: help a visitor decide whether to book a conversation with me.</p>
+            <p style="margin: 0; font-size: 17px; line-height: 1.65; color: {{c.soft}}">I named Rose after, and shaped her dock on, <span data-rose-anchor="ch0" style="background-image: linear-gradient(#b06a3b,#b06a3b); background-repeat: no-repeat; background-position: 0 100%; background-size: {{ul.ch0}} 2px; transition: background-size 700ms ease">userose.ai's website agent</span>. The idea of an agent commenting the page it lives on came from co-existence.ai. What I changed: her goal. Not selling. Explaining, reformulating, contextualising.</p>
+            <p style="margin: 40px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: {{c.soft}}">{{bridges.ch0}}</p>
+          </div>
+          <div style="flex: 1 1 200px; min-width: 0; padding-top: 220px">
+            <sc-if value="{{on.ch0}}" hint-placeholder-val="{{ false }}">
+              <p class="rose-note" style="margin: 0; display: flex; gap: 8px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.4; color: {{c.roseInk}}"><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" style="flex-shrink: 0; margin-top: 5px"><path d="M10 1l2.5 6.5L19 10l-6.5 2.5L10 19l-2.5-6.5L1 10l6.5-2.5z" fill="#b06a3b"></path></svg>Yes, there's another Rose. He credits her. So do I.</p>
+            </sc-if>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6.3 Chapters 1 to 5 -->
+      <sc-for list="{{chapters}}" as="m" hint-placeholder-count="5">
+        <section id="{{m.id}}" data-chapter="{{m.index}}" style="padding: 72px 0">
+          <p class="kick" style="color: {{c.gold}}">{{m.num}} · {{m.date}} <span style="margin-left: 10px; color: {{c.built}}">● Built</span></p>
+          <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 20px 40px">
+            <div style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+              <h2 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; color: {{c.head}}">{{m.title}}</h2>
+              <dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px 32px">
+                <div><dt class="lab" style="color: {{c.muted}}">The brief</dt><dd style="margin: 4px 0 0; font-size: 15.5px">{{m.intention}}</dd></div>
+                <div><dt class="lab" style="color: {{c.muted}}">The tension</dt><dd style="margin: 4px 0 0; font-size: 15.5px">{{m.tension}}</dd></div>
+              </dl>
+              <div>
+                <p class="lab" style="color: {{c.gold}}">What I decided</p>
+                <p style="margin: 6px 0 0; font-family: Newsreader, Georgia, serif; font-size: 25px; line-height: 1.32"><span data-rose-anchor="{{m.id}}" id="{{m.anchor}}" style="background-image: linear-gradient(#b06a3b,#b06a3b); background-repeat: no-repeat; background-position: 0 100%; background-size: {{m.ul}} 2px; transition: background-size 700ms ease">{{m.decision}}</span></p>
+              </div>
+              <p style="margin: 0; font-size: 15.5px; color: {{c.soft}}">{{m.result}}</p>
+              <!-- Before / after vignette (generalises the July / August chip toggle) -->
+              <figure style="margin: 8px 0 0; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.card}}; padding: 16px 18px">
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px">
+                  <figcaption class="mono" style="color: {{c.muted}}">{{m.v.caption}}</figcaption>
+                  <div role="group" aria-label="Before or after" style="display: flex; border: 1px solid {{c.rule}}; border-radius: 999px; padding: 2px">
+                    <button type="button" onClick="{{m.v.showBefore}}" aria-pressed="{{m.v.isBefore}}" style="border: 0; border-radius: 999px; padding: 5px 12px; cursor: pointer; font: 500 12px 'IBM Plex Mono', monospace; background: {{m.v.bBg}}; color: {{m.v.bFg}}">{{m.v.beforeLabel}}</button>
+                    <button type="button" onClick="{{m.v.showAfter}}" aria-pressed="{{m.v.isAfter}}" style="border: 0; border-radius: 999px; padding: 5px 12px; cursor: pointer; font: 500 12px 'IBM Plex Mono', monospace; background: {{m.v.aBg}}; color: {{m.v.aFg}}">{{m.v.afterLabel}}</button>
+                  </div>
+                </div>
+                <div class="rose-note" style="margin-top: 14px; max-width: 420px; background: {{c.dock}}; color: #f4efe6; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; min-height: 120px">
+                  <span class="mono" style="color: rgba(244,239,230,.6)">{{m.v.meta}}</span>
+                  <sc-for list="{{m.v.items}}" as="it" hint-placeholder-count="2">
+                    <div>
+                      <sc-if value="{{it.isChips}}" hint-placeholder-val="{{ false }}">
+                        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px">
+                          <sc-for list="{{it.chips}}" as="ch" hint-placeholder-count="3">
+                            <li style="border: 1px solid rgba(244,239,230,.35); border-radius: 999px; padding: 4px 10px; font-size: 12.5px">{{ch}}</li>
+                          </sc-for>
+                        </ul>
+                      </sc-if>
+                      <sc-if value="{{it.isQ}}" hint-placeholder-val="{{ false }}">
+                        <p style="margin: 0 0 0 auto; width: fit-content; max-width: 85%; background: rgba(244,239,230,.1); border-radius: 10px 10px 2px 10px; padding: 7px 11px; font-size: 13px">{{it.text}}</p>
+                      </sc-if>
+                      <sc-if value="{{it.isA}}" hint-placeholder-val="{{ false }}">
+                        <p style="margin: 0; font-size: 13px; line-height: 1.5">{{it.text}}</p>
+                      </sc-if>
+                      <sc-if value="{{it.isCard}}" hint-placeholder-val="{{ false }}">
+                        <div style="border: 1px solid #e0a77c; border-radius: 8px; padding: 8px 10px; font-size: 12.5px"><span style="font-weight: 600">Book 30 minutes</span> · {{it.text}}</div>
+                      </sc-if>
+                      <sc-if value="{{it.isNote}}" hint-placeholder-val="{{ false }}">
+                        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: rgba(244,239,230,.8); font-style: italic">{{it.text}}</p>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </figure>
+              <p class="mono" style="margin: 0; color: {{c.muted}}">Source: {{m.evidence}}</p>
+              <p style="margin: 40px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: {{c.soft}}">{{m.bridge}}</p>
+            </div>
+            <div style="flex: 1 1 200px; min-width: 0; padding-top: 120px">
+              <sc-if value="{{m.on}}" hint-placeholder-val="{{ false }}">
+                <p class="rose-note" style="margin: 0; display: flex; gap: 8px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.4; color: {{c.roseInk}}"><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" style="flex-shrink: 0; margin-top: 5px"><path d="M10 1l2.5 6.5L19 10l-6.5 2.5L10 19l-2.5-6.5L1 10l6.5-2.5z" fill="#b06a3b"></path></svg>{{m.note}}</p>
+              </sc-if>
+            </div>
+          </div>
+        </section>
+      </sc-for>
+
+
+      <!-- 6.4 Chapter 6: answers live in the dock only -->
+      <section id="ch6" data-chapter="6" style="padding: 80px 0 64px">
+        <p class="kick" style="color: {{c.gold}}">06 · What Rose can do now <span style="margin-left: 10px; color: {{c.muted}}">○ Design</span></p>
+        <h2 style="margin: 18px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.05; color: {{c.head}}">Ask about what you're reading.</h2>
+        <p style="margin: 16px 0 0; max-width: 640px; font-size: 16.5px; color: {{c.soft}}">Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plain words, a link to other work, or a diagram.</p>
+
+        <!-- How Rose works: architecture, Built solid / Design dashed -->
+        <figure id="arch" style="margin: 32px 0 0">
+          <figcaption class="kick" style="color: {{c.muted}}">How Rose works · solid = built · dashed = design</figcaption>
+          <div style="margin-top: 14px; overflow-x: auto; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.card}}">
+            <div style="position: relative; min-width: 760px; aspect-ratio: 1000 / 420">
+              <svg viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" stroke="{{c.rule}}" stroke-width="1">
+                <line x1="110" y1="90" x2="330" y2="180" vector-effect="non-scaling-stroke"></line>
+                <line x1="110" y1="180" x2="330" y2="180" vector-effect="non-scaling-stroke"></line>
+                <line x1="110" y1="270" x2="330" y2="180" vector-effect="non-scaling-stroke"></line>
+                <line x1="330" y1="180" x2="550" y2="180" vector-effect="non-scaling-stroke"></line>
+                <line x1="550" y1="180" x2="790" y2="46" vector-effect="non-scaling-stroke"></line>
+                <line x1="550" y1="180" x2="790" y2="128" vector-effect="non-scaling-stroke"></line>
+                <line x1="550" y1="180" x2="790" y2="210" vector-effect="non-scaling-stroke"></line>
+                <line x1="550" y1="180" x2="790" y2="292" vector-effect="non-scaling-stroke"></line>
+                <line x1="550" y1="180" x2="790" y2="374" vector-effect="non-scaling-stroke"></line>
+                <line x1="550" y1="180" x2="550" y2="300" vector-effect="non-scaling-stroke"></line>
+                <path d="M 690 210 C 640 412, 140 412, 110 292" stroke="#b06a3b" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"></path>
+              </svg>
+              <span class="mono" style="position: absolute; left: 11%; top: 6%; transform: translateX(-50%); color: {{c.muted}}">READER</span>
+              <span class="mono" style="position: absolute; left: 22%; top: 36%; transform: translate(-50%,-50%); color: {{c.muted}}; background: {{c.card}}; padding: 0 4px">context</span>
+              <span class="mono" style="position: absolute; left: 44%; top: 39%; transform: translate(-50%,-50%); color: {{c.muted}}; background: {{c.card}}; padding: 0 4px">question ⇄ answer</span>
+              <span class="mono" style="position: absolute; left: 45%; top: 91%; transform: translate(-50%,-50%); color: {{c.roseInk}}; background: {{c.card}}; padding: 0 4px">gesture on the passage</span>
+              <sc-for list="{{arch}}" as="n" hint-placeholder-count="10">
+                <div style="position: absolute; left: {{n.left}}; top: {{n.top}}; transform: translate(-50%,-50%); width: {{n.w}}; padding: 7px 10px; border-radius: 6px; border: 1px {{n.bs}} {{n.bc}}; background: {{c.card}}; box-shadow: {{n.ring}}; transition: box-shadow 400ms ease, border-color 400ms ease">
+                  <p style="margin: 0; font: 500 12.5px 'IBM Plex Mono', monospace; color: {{c.head}}"><span style="color: {{n.dot}}">{{n.glyph}}</span> {{n.label}}</p>
+                  <p style="margin: 2px 0 0; font-size: 11.5px; line-height: 1.35; color: {{c.muted}}">{{n.sub}}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </figure>
+
+        <!-- What Rose can relate: the hand-authored graph -->
+        <figure style="margin: 40px 0 0">
+          <figcaption class="kick" style="color: {{c.muted}}">What Rose can relate · a map I write by hand</figcaption>
+          <div style="margin-top: 14px; overflow-x: auto; border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.card}}">
+            <div style="position: relative; min-width: 700px; aspect-ratio: 1000 / 380">
+              <svg viewBox="0 0 1000 380" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" stroke="{{c.rule}}" stroke-width="1">
+                <rect x="110" y="185" width="570" height="175" rx="10" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"></rect>
+                <line x1="500" y1="50" x2="230" y2="50" stroke="#b06a3b" vector-effect="non-scaling-stroke"></line>
+                <line x1="500" y1="50" x2="770" y2="50" stroke="#b06a3b" vector-effect="non-scaling-stroke"></line>
+                <line x1="500" y1="50" x2="900" y2="130" stroke="#b06a3b" vector-effect="non-scaling-stroke"></line>
+                <line x1="500" y1="50" x2="500" y2="185" stroke="#b06a3b" vector-effect="non-scaling-stroke"></line>
+                <line x1="230" y1="255" x2="420" y2="255" vector-effect="non-scaling-stroke"></line>
+                <line x1="420" y1="255" x2="330" y2="325" vector-effect="non-scaling-stroke"></line>
+                <line x1="760" y1="325" x2="560" y2="325" vector-effect="non-scaling-stroke"></line>
+                <line x1="840" y1="235" x2="420" y2="255" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"></line>
+              </svg>
+              <span class="mono" style="position: absolute; left: 12.5%; top: 53%; transform: translateY(-50%); color: {{c.muted}}">Hospitality multi-agent architecture</span>
+              <span class="mono" style="position: absolute; left: 84%; top: 50%; transform: translate(-50%,-50%); color: {{c.muted}}">Standalone</span>
+              <sc-for list="{{edgeLabels}}" as="e" hint-placeholder-count="6">
+                <span class="mono" style="position: absolute; left: {{e.left}}; top: {{e.top}}; transform: translate(-50%,-50%); background: {{c.card}}; padding: 0 4px; color: {{e.color}}; white-space: nowrap">{{e.t}}</span>
+              </sc-for>
+              <sc-for list="{{graph}}" as="n" hint-placeholder-count="8">
+                <span style="position: absolute; left: {{n.left}}; top: {{n.top}}; transform: translate(-50%,-50%); padding: 6px 12px; border-radius: 999px; border: 1px {{n.bs}} {{n.bc}}; background: {{n.bg}}; color: {{n.fg}}; font-family: Newsreader, Georgia, serif; font-size: 17px; white-space: nowrap">{{n.label}}</span>
+              </sc-for>
+            </div>
+          </div>
+          <p class="mono" style="margin: 10px 0 0; color: {{c.muted}}">Rose links the site’s content, not the projects’ code. Projects link only where I wrote the link; dashed means indirect. Each link carries a one-line reason.</p>
+        </figure>
+        <!-- Usage: the whole block stays hidden below 33 conversations -->
+        <sc-if value="{{usageAbove}}" hint-placeholder-val="{{ false }}">
+        <div style="margin: 40px 0 0; border-top: 1px solid {{c.line}}; padding-top: 18px">
+          <p class="lab" style="color: {{c.gold}}">In use</p>
+            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: flex-start">
+              <p style="margin: 0; flex: 0 0 auto"><span style="display: block; font-family: Newsreader, Georgia, serif; font-size: 48px; line-height: 1; color: {{c.head}}">[N]</span><span class="mono" style="color: {{c.muted}}">questions answered since [date]</span></p>
+              <div style="flex: 1 1 320px; min-width: 0">
+                <p class="mono" style="margin: 0; color: {{c.muted}}">Asked by visitors, chosen by me, personal details removed</p>
+                <ul style="list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-family: Newsreader, Georgia, serif; font-size: 19px">
+                  <li>“[real question from the logs]”</li>
+                  <li>“[real question from the logs]”</li>
+                  <li>“[real question from the logs]”</li>
+                </ul>
+              </div>
+            </div>
+        </div>
+        </sc-if>
+        <p style="margin: 40px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: {{c.soft}}">{{bridges.b6}}</p>
+      </section>
+      </sc-if>
+
+      <sc-if value="{{p2}}" hint-placeholder-val="{{ false }}">
+      <!-- Chapter 7: trust, two contracts -->
+      <section id="ch7" data-chapter="7" style="padding: 72px 0">
+        <p class="kick" style="color: {{c.gold}}">07 · Trust <span style="margin-left: 10px; color: {{c.built}}">● Built</span></p>
+        <h2 style="margin: 18px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: {{c.head}}">Trust has two separate contracts.</h2>
+        <p style="margin: 16px 0 0; max-width: 660px; font-size: 16.5px; color: {{c.soft}}">One concerns data: what is retained and transmitted. The other concerns knowledge: what Rose may assert or infer. Mixing them would make privacy sound like proof, or proof sound like privacy.</p>
+        <div style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px">
+          <sc-for list="{{contracts}}" as="k" hint-placeholder-count="2">
+            <div style="border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.card}}; padding: 20px 22px">
+              <p class="lab" style="color: {{c.gold}}">{{k.kicker}}</p>
+              <p style="margin: 8px 0 0; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.2; color: {{c.head}}">{{k.title}}</p>
+              <ul style="list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+                <sc-for list="{{k.items}}" as="it" hint-placeholder-count="3">
+                  <li style="display: flex; gap: 10px"><span style="font: 500 12px 'IBM Plex Mono', monospace; color: {{it.color}}; min-width: 14px" title="{{it.status}}">{{it.glyph}}</span><span>{{it.text}}</span></li>
+                </sc-for>
+              </ul>
+            </div>
+          </sc-for>
+        </div>
+        <!-- Principle: correct is not enough (built, in Rose's answer contract) -->
+        <div style="margin: 40px 0 0">
+          <p class="kick" style="color: {{c.gold}}">The answer rule <span style="margin-left: 10px; color: {{c.built}}">● Built</span></p>
+          <h3 style="margin: 12px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(30px, 3.4vw, 42px); line-height: 1.08; color: {{c.head}}">A correct answer can still be <em style="color: {{c.gold}}">the wrong answer.</em></h3>
+          <p style="margin: 12px 0 0; max-width: 640px; font-size: 16.5px; color: {{c.soft}}">So Rose answers the decision behind the question first, keeps the evidence limit, and leaves implementation detail for when it is asked.</p>
+          <figure style="margin: 22px 0 0">
+            <p style="margin: 0; display: inline-block; background: {{c.card}}; border: 1px solid {{c.line}}; border-radius: 12px 12px 12px 2px; padding: 10px 14px; font-size: 15px">Is Aetherix in production?</p>
+            <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px">
+              <div style="border: 1px dashed {{c.rule}}; border-radius: 6px; padding: 18px 20px">
+                <p class="lab" style="color: {{c.muted}}">Source-correct</p>
+                <p style="margin: 8px 0 0; font-size: 15.5px; color: {{c.soft}}">"Aetherix is staged on Fly.io and connected to the Apaleo sandbox."</p>
+                <p class="mono" style="margin: 10px 0 0; color: {{c.muted}}">True, cited. The reader still has to work out what it means.</p>
+              </div>
+              <div style="border: 1px solid {{c.gold}}; border-radius: 6px; padding: 18px 20px; background: {{c.card}}">
+                <p class="lab" style="color: {{c.gold}}">Useful</p>
+                <p style="margin: 8px 0 0; font-size: 15.5px">"No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot."</p>
+                <p class="mono" style="margin: 10px 0 0; color: {{c.muted}}">Same sources. It answers the decision behind the question.</p>
+              </div>
+            </div>
+            <figcaption class="mono" style="margin-top: 10px; color: {{c.muted}}">Source: Rose's answer contract, "a verifiable fact unrelated to the question is still a poor answer" (rose-context.ts).</figcaption>
+          </figure>
+        </div>
+
+        <figure style="margin: 28px 0 0; border: 1px solid {{c.rule}}; border-radius: 6px; padding: 22px; background: {{c.card}}">
+          <blockquote style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.45">"Pass the current page and intent into Rose's context, so answers refer to the case study being read."</blockquote>
+          <figcaption class="mono" style="margin-top: 8px; color: {{c.muted}}">Decision of 10 Aug 2026 · commit b236ff3</figcaption>
+          <p class="lab" style="margin-top: 20px; color: {{c.muted}}">Ask Rose about this passage</p>
+          <ul style="list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{asks}}" as="a" hint-placeholder-count="4">
+              <li><button type="button" onClick="{{a.pick}}" aria-pressed="{{a.on}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid {{a.border}}; background: {{a.bg}}; color: {{a.fg}}; cursor: pointer; font-size: 14px"><span style="font: 500 10.5px 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; opacity: .75">{{a.format}}</span>{{a.q}}</button></li>
+            </sc-for>
+          </ul>
+          <p class="mono" style="margin: 14px 0 0; color: {{c.muted}}">The question goes to the dock below. That's where Rose answers, always.</p>
+        </figure>
+
+        <p style="margin: 40px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: {{c.soft}}">{{bridges.b7}}</p>
+      </section>
+
+      <!-- Chapter 8: what she got wrong, and how I check her -->
+      <section id="ch8" data-chapter="8" style="padding: 72px 0">
+        <p class="kick" style="color: {{c.gold}}">08 · What she got wrong <span style="margin-left: 10px; color: {{c.valid}}">◐ Validation</span></p>
+        <h2 style="margin: 18px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: {{c.head}}">What she got wrong, and how I check her.</h2>
+        <p style="margin: 16px 0 0; max-width: 660px; font-size: 16.5px; color: {{c.soft}}">Many of Rose's rules started as a mistake caught in testing, before any visitor saw it. Three of them, from synthetic test runs in October.</p>
+
+        <ol style="margin: 28px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px">
+          <sc-for list="{{wrong}}" as="w" hint-placeholder-count="4">
+            <li style="border: 1px solid {{c.line}}; border-radius: 6px; background: {{c.card}}; padding: 18px 20px">
+              <p class="mono" style="margin: 0; color: {{c.muted}}">{{w.when}}</p>
+              <div style="margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px 28px">
+                <div><p class="lab" style="color: {{c.muted}}">She said</p>
+                  <sc-if value="{{w.plain}}" hint-placeholder-val="{{ true }}"><p style="margin: 4px 0 0; font-size: 15px">{{w.said}}</p></sc-if>
+                  <sc-if value="{{w.self}}" hint-placeholder-val="{{ false }}"><p style="margin: 4px 0 0; font-size: 15px"><span data-rose-anchor="ch8" style="background-image: linear-gradient(#b06a3b,#b06a3b); background-repeat: no-repeat; background-position: 0 100%; background-size: {{ul.ch8}} 2px; transition: background-size 700ms ease">{{w.said}}</span></p></sc-if>
+                </div>
+                <div><p class="lab" style="color: {{c.gold}}">What I changed</p><p style="margin: 4px 0 0; font-size: 15px">{{w.changed}}</p></div>
+                <div><p class="lab" style="color: {{c.muted}}">Result</p><p style="margin: 4px 0 0; font-size: 15px; color: {{c.soft}}">{{w.result}}</p></div>
+              </div>
+              <sc-if value="{{w.noteOn}}" hint-placeholder-val="{{ false }}">
+                <p class="rose-note" style="margin: 14px 0 0; display: flex; gap: 8px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.4; color: {{c.roseInk}}"><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" style="flex-shrink: 0; margin-top: 5px"><path d="M10 1l2.5 6.5L19 10l-6.5 2.5L10 19l-2.5-6.5L1 10l6.5-2.5z" fill="#b06a3b"></path></svg>Asked about myself, on my own page, I talked about Aetherix. He gave me less to read.</p>
+              </sc-if>
+            </li>
+          </sc-for>
+        </ol>
+
+        <!-- How a case is judged -->
+        <div style="margin-top: 36px; border-top: 1px solid {{c.ink}}; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 20px 48px">
+          <div style="flex: 1 1 260px; min-width: 0">
+            <p class="lab" style="color: {{c.gold}}">How a case is judged</p>
+            <p style="margin: 8px 0 0; font-size: 15.5px; color: {{c.soft}}">Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are read by a person, not graded by the model.</p>
+            <ul style="list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px">
+              <sc-for list="{{dims}}" as="d" hint-placeholder-count="8">
+                <li style="border: 1px solid {{c.rule}}; border-radius: 999px; padding: 4px 10px; font-size: 12.5px">{{d}}</li>
+              </sc-for>
+            </ul>
+          </div>
+          <ul style="flex: 1 1 260px; min-width: 0; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+            <li><span class="lab" style="color: {{c.muted}}">Verdict · </span>Pass, fail or unclear, with the quoted answer as evidence.</li>
+            <li><span class="lab" style="color: {{c.muted}}">Critical · </span>An invented fact or a privacy slip fails the case. It is never averaged away.</li>
+            <li><span class="lab" style="color: {{c.muted}}">Limit · </span>One sample per case is not a reliability estimate, and usage logs are not proof of correctness.</li>
+          </ul>
+        </div>
+        <p class="mono" style="margin: 18px 0 0; color: {{c.muted}}">Sources: docs/rose-p4-evaluation.md, rose-p5-verification.md, rose-stage-b-remediation.md, in the site repository.</p>
+        <p style="margin: 40px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: {{c.soft}}">{{bridges.b8}}</p>
+      </section>
+
+      <!-- Chapter 9: next steps -->
+      <section id="ch9" data-chapter="9" style="padding: 72px 0">
+        <p class="kick" style="color: {{c.gold}}">09 · Next steps <span style="margin-left: 10px; color: {{c.muted}}">○ Design</span></p>
+        <h2 style="margin: 18px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: {{c.head}}">Make the whole site easier to navigate, not just one reply.</h2>
+        <p style="margin: 16px 0 0; max-width: 660px; font-size: 16.5px; color: {{c.soft}}">Contextual assistant is the direction; adaptive reading is one possible behaviour inside it. Rose could locate, reformulate and visualise the relationships between pages while preserving the original sources and their limits. Rose remains text-based today.</p>
+        <ol style="margin: 28px 0 0; padding: 0; list-style: none; border-top: 1px solid {{c.ink}}">
+          <sc-for list="{{nextSteps}}" as="n" hint-placeholder-count="4">
+            <li style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0; border-bottom: 1px solid {{c.line}}">
+              <span style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px">{{n.what}}</span>
+              <span style="flex: 2 1 320px; font-size: 15px; color: {{c.soft}}">{{n.why}}</span>
+            </li>
+          </sc-for>
+        </ol>
+        <p style="margin: 40px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: {{c.soft}}">{{bridges.b9}}</p>
+      </section>
+
+      <!-- Chapter 10: open questions, follows the mood; each question carries its PM reasoning -->
+      <section id="ch10" data-chapter="10" style="padding: 88px 0 40px">
+        <div style="text-align: center">
+          <svg viewBox="0 0 40 40" width="72" height="72" aria-hidden="true" fill="none" stroke="{{c.gold}}" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto">
+            <circle cx="20" cy="20" r="17" stroke-width="0.6"></circle>
+            <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" stroke-width="0.6"></path>
+            <path d="M20 3l4 13-4 4z" fill="{{c.gold}}" stroke-width="0"></path>
+          </svg>
+          <p class="kick" style="margin-top: 22px; color: {{c.gold}}">10 · Open questions</p>
+          <h2 style="margin: 14px auto 0; max-width: 760px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(38px, 4.6vw, 56px); line-height: 1.08"><span style="color: {{c.qa}}">Questions I am leaving open,</span> <em style="color: {{c.qb}}">rather than calling them features.</em></h2>
+        </div>
+
+        <ol style="margin: 56px 0 0; padding: 0; list-style: none; border-top: 1px solid {{c.ink}}">
+          <sc-for list="{{openQs}}" as="o" hint-placeholder-count="4">
+            <li style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0; border-bottom: 1px solid {{c.line}}">
+              <div style="flex: 1 1 280px; min-width: 0">
+                <p class="kick" style="color: {{c.gold}}">{{o.n}} · {{o.k}}</p>
+                <p style="margin: 10px 0 0; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: {{c.head}}">{{o.q}}</p>
+              </div>
+              <dl style="flex: 2 1 420px; min-width: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px">
+                <sc-for list="{{o.r}}" as="f" hint-placeholder-count="4">
+                  <div><dt class="lab" style="color: {{c.muted}}">{{f.k}}</dt><dd style="margin: 4px 0 0; font-size: 15px; color: {{f.color}}; font-style: {{f.style}}">{{f.v}}</dd></div>
+                </sc-for>
+              </dl>
+            </li>
+          </sc-for>
+        </ol>
+
+      </section>
+
+      </sc-if>
+    </main>
+  </div>
+  </div>
+
+  <sc-if value="{{p2}}" hint-placeholder-val="{{ false }}">
+  <!-- Transition: the page darkens into the contact -->
+  <section aria-label="Ask Rose" style="background: linear-gradient(180deg, {{toneEnd}} 0%, {{c.contact}} 50%); padding: 140px 40px 40px; text-align: center; color: #f4efe6">
+    <p style="margin: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 10px">
+      <span style="font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #a9c1ef; border-bottom: 1px solid rgba(244,239,230,.3); padding-bottom: 2px">Ask Rose</span>
+      <button type="button" onClick="{{askBuilt}}" style="background: transparent; border: 0; border-bottom: 1px solid rgba(244,239,230,.3); padding: 0 0 2px; cursor: pointer; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 20px; color: #f0c070">What has Ivan actually built?</button>
+    </p>
+    <p style="margin: 24px 0 0; font-size: 15px; color: rgba(244,239,230,.75)">Start with the evidence. A human conversation is available when it adds context Rose cannot.</p>
+  </section>
+  <!-- Contextual contact -->
+  <section id="contact" style="background: {{c.contact}}; color: #f4efe6">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 64px 40px 120px; display: flex; flex-wrap: wrap; gap: 32px 72px; align-items: flex-end">
+      <div style="flex: 999 1 560px; min-width: 0">
+        <p class="kick" style="color: #e0a77c">Contact</p>
+        <h2 style="margin: 18px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(40px, 5vw, 68px); line-height: 1.02; letter-spacing: -0.02em">Hiring for AI product? <em style="color: #e0a77c">I design the whole loop: the people on the ground, the software, and the outcome it's judged on.</em></h2>
+        <p style="margin: 18px 0 0; max-width: 560px; font-size: 17px; color: rgba(244,239,230,.8)">Operations, product, business and tech, in one service. I ship, I evaluate, and I say what isn't proven yet. I am looking for an AI Product Manager or Product Builder role.</p>
+      </div>
+      <div style="flex: 1 1 260px; display: flex; flex-wrap: wrap; gap: 12px">
+        <a href="#book" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; background: #f4efe6; color: #001b3a; font-weight: 600">Book 30 minutes</a>
+        <a href="#mail" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(244,239,230,.4)">Email</a>
+        <a href="#cv" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(244,239,230,.4)">CV</a>
+      </div>
+    </div>
+  </section>
+
+  </sc-if>
+
+  <!-- The dock: the only conversation surface -->
+  <div style="position: sticky; bottom: 16px; display: flex; justify-content: center; padding: 0 16px 16px; pointer-events: none; opacity: {{dockOp}}; visibility: {{dockVis}}; transition: opacity 300ms ease, visibility 300ms ease">
+    <div style="pointer-events: auto; width: min(600px, 100%); display: flex; flex-direction: column; gap: 10px">
+      <sc-if value="{{dockOpen}}" hint-placeholder-val="{{ false }}">
+        <div class="rose-note" role="region" aria-label="Rose" aria-live="polite" style="background: {{c.dock}}; color: #f4efe6; border: 1px solid {{c.dockLine}}; border-radius: 18px; padding: 16px 18px; max-height: 52vh; overflow: auto; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <span class="mono" style="color: rgba(244,239,230,.6)">reading: /rose · 06 · What Rose can do now</span>
+            <button type="button" onClick="{{closeDock}}" aria-label="Close" style="background: transparent; border: 0; color: rgba(244,239,230,.7); cursor: pointer; font-size: 18px; line-height: 1">×</button>
+          </div>
+          <p style="margin: 0; align-self: flex-end; max-width: 85%; background: rgba(244,239,230,.1); border-radius: 12px 12px 2px 12px; padding: 10px 14px; font-size: 14.5px">{{dockQ}}</p>
+          <sc-if value="{{ans.locate}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px">
+              <p style="margin: 0">Ivan made this call on 10 August, in chapter 03, "Know where you are".</p>
+              <button type="button" onClick="{{locateCh3}}" style="align-self: flex-start; background: transparent; border: 1px solid #e0a77c; color: #f4efe6; border-radius: 999px; padding: 7px 14px; cursor: pointer; font: 500 12.5px 'IBM Plex Mono', monospace">Locate · show me ↑</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ans.reformulate}}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 0; font-size: 14.5px">In plain words: when you ask me something, I also receive which page you're on. So I answer about what you're reading, not about Ivan in general.</p>
+          </sc-if>
+          <sc-if value="{{ans.connect}}" hint-placeholder-val="{{ false }}">
+            <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+              <li><span style="font: 500 10.5px 'IBM Plex Mono', monospace; color: #e0a77c">SAME SOURCE · </span>/agents: pages, Markdown mirrors, MCP and Rose read the same content.</li>
+              <li><span style="font: 500 10.5px 'IBM Plex Mono', monospace; color: #e0a77c">READS · </span>The case studies and Field Notes: I answer from the page you are on first.</li>
+            </ul>
+          </sc-if>
+          <sc-if value="{{ans.sketch}}" hint-placeholder-val="{{ false }}">
+            <figure style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 500 12px 'IBM Plex Mono', monospace">
+              <span style="border: 1px solid rgba(244,239,230,.35); border-radius: 6px; padding: 8px 10px">Page</span><span aria-hidden="true" style="color: #e0a77c">→</span>
+              <span style="border: 1px solid rgba(244,239,230,.35); border-radius: 6px; padding: 8px 10px">Section in view</span><span aria-hidden="true" style="color: #e0a77c">→</span>
+              <span style="border: 1px solid rgba(244,239,230,.35); border-radius: 6px; padding: 8px 10px">Marked passage</span><span aria-hidden="true" style="color: #e0a77c">→</span>
+              <span style="border-radius: 6px; padding: 8px 10px; background: #f4efe6; color: #001b3a">Answer</span>
+            </figure>
+          </sc-if>
+          <span class="mono" style="color: rgba(244,239,230,.55)">Source: commit b236ff3</span>
+        </div>
+      </sc-if>
+      <div style="display: flex; align-items: center; gap: 10px; background: {{c.dockRest}}; border: 1px solid {{c.rule}}; border-radius: 999px; padding: 10px 12px 10px 16px; box-shadow: 0 10px 30px -18px rgba(0,0,0,.5)">
+        <svg viewBox="0 0 40 40" width="22" height="22" aria-hidden="true" fill="none" stroke="{{c.gold}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="17"></circle><path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z"></path></svg>
+        <label for="rose-q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Ask Rose</label>
+        <input id="rose-q" type="text" value="{{draft}}" onInput="{{onDraft}}" placeholder="Ask Rose anything" style="flex: 1; min-width: 0; border: 0; background: transparent; font: 400 14px Manrope, sans-serif; color: {{c.ink}}; outline: none">
+        <kbd aria-hidden="true" style="font: 500 11px 'IBM Plex Mono', monospace; color: {{c.muted}}; border: 1px solid {{c.rule}}; border-radius: 4px; padding: 2px 6px">⌘K</kbd>
+        <button type="button" aria-label="Send" style="width: 34px; height: 34px; border-radius: 50%; border: 0; background: #9a5a30; color: #fff; cursor: pointer">↑</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"part":{"editor":"enum","options":["1","2"],"default":"1"},"usage":{"editor":"enum","options":["Below 33","From 33"],"default":"Below 33"},"mood":{"editor":"enum","options":["Day","Night"],"default":"Day"},"$preview":{"width":1440,"height":7400}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    var self = this;
+    this.timers = [600, 1700, 2900].map(function (ms, i) {
+      return setTimeout(function () { self.setState({ step: i + 1 }); }, ms);
+    });
+    this.bindTimer = setTimeout(function () {
+      if (typeof IntersectionObserver === 'undefined') return;
+      self.io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var id = e.target.getAttribute('data-rose-anchor');
+          if (e.isIntersecting) { self.setState({ gesture: id }); }
+          else if ((self.state || {}).gesture === id) { self.setState({ gesture: null }); }
+        });
+      }, { rootMargin: '-38% 0px -38% 0px' });
+      document.querySelectorAll('[data-rose-anchor]').forEach(function (el) { self.io.observe(el); });
+      self.io2 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) self.setState({ chapter: Number(e.target.getAttribute('data-chapter')) }); });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      document.querySelectorAll('[data-chapter]').forEach(function (el) { self.io2.observe(el); });
+      var hero = document.getElementById('top');
+      if (hero) {
+        self.io3 = new IntersectionObserver(function (entries) { entries.forEach(function (e) { self.setState({ heroIn: e.isIntersecting }); }); }, { threshold: 0.15 });
+        self.io3.observe(hero);
+      }
+    }, 400);
+  }
+  componentWillUnmount() {
+    (this.timers || []).forEach(clearTimeout);
+    clearTimeout(this.bindTimer);
+    if (this.io) this.io.disconnect();
+    if (this.io2) this.io2.disconnect();
+    if (this.io3) this.io3.disconnect();
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state || {};
+    var night = this.props.mood === 'Night';
+    // Palettes. Chapter tones shift July -> October -> now, in both moods.
+    var C = night ? {
+      bg: '#0e1117', ink: '#ece6da', head: '#f4efe6', soft: '#c9c3b8', muted: '#8f949f', gold: '#d6b06a', built: '#d6b06a', valid: '#8fb3e0',
+      line: '#262b36', rule: '#3a404c', card: '#151a23', roseInk: '#e0a77c', dock: '#1a2335', dockLine: '#2f3a52', dockRest: '#151a23', contact: '#0a1628', go: '#6fbf87', qa: '#a9c1ef', qb: '#f0c070',
+      tones: ['#0f151a', '#12161a', '#161619', '#191714', '#1a1515', '#181620', '#141826', '#11182a', '#0f182c']
+    } : {
+      bg: '#fbf9f4', ink: '#16170f', head: '#001b3a', soft: '#2e3040', muted: '#555a68', gold: '#6b5420', built: '#6b5420', valid: '#2d5a8a',
+      line: '#dcd7cb', rule: '#a9a59a', card: '#fffdf8', roseInk: '#8a4e27', dock: '#001b3a', dockLine: '#001b3a', dockRest: '#fbf9f4', contact: '#001b3a', go: '#2f7a45', qa: '#001b3a', qb: '#6b5420',
+      tones: ['#eef2f3', '#f2f1ea', '#f4eee3', '#f3e8da', '#ece4e0', '#e9e3e6', '#e5e3ea', '#e0e3ea', '#dce1ea']
+    };
+    var step = s.step || 0;
+    var g = s.gesture || null;
+    var chapter = s.chapter == null ? 0 : s.chapter;
+    var aug = s.chips === 'aug';
+    var goTo = function (anchor, id) {
+      return function () {
+        var el = document.getElementById(anchor) || document.querySelector('[data-rose-anchor="' + id + '"]');
+        if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        self.setState({ gesture: id });
+      };
+    };
+    var M = [
+      { id: 'ch1', num: '01', date: '21 Jul 2026', title: 'Qualify',
+        intention: 'Help the visitor decide, in two or three exchanges, whether to book 30 minutes with me.',
+        tension: 'Four intent chips asked visitors who they were before showing them anything.',
+        decision: 'Ship a small dock with four intents and a booking card.',
+        result: 'A qualification funnel with one destination.',
+        evidence: 'original prompt and config, commit 51245fc',
+        note: 'My first job was to sort you into four boxes. His idea. He admits it.', hasChips: true },
+      { id: 'ch2', num: '02', date: '7 Aug 2026', title: 'Listen to the page',
+        intention: 'Keep booking reachable.',
+        tension: 'The same four intents appeared on every page, whatever the visitor was reading.',
+        decision: 'Replace fixed intents with three questions written for each page, and keep Book a call as a constant exit.',
+        result: 'Questions start from the work, not from the visitor’s profile.',
+        evidence: 'archived plan, contextual starters, 7 Aug',
+        note: 'He stopped me asking who you are. I started asking what you were reading.' },
+      { id: 'ch3', num: '03', date: '10 Aug 2026', title: 'Know where you are',
+        intention: 'Answer generally about Ivan.',
+        tension: 'A page-specific question deserves a page-specific answer.',
+        decision: 'Pass the current page and intent into Rose’s context.',
+        result: 'Answers refer to the case study being read.',
+        evidence: 'commit b236ff3, page context and intent',
+        note: 'I know which page you’re on. Not who you are. He drew that line.' },
+      { id: 'ch4', num: '04', date: '14 Oct 2026', title: 'One quiet dock',
+        intention: 'Several entry points to Rose.',
+        tension: 'A dock competing with the page reads as a sales widget.',
+        decision: 'Unify the dock: discreet at rest, full contrast in use, questions by page.',
+        result: 'Rose stays out of the way until asked.',
+        evidence: 'commit 7752dbb, unified dock and chips',
+        note: 'I used to sit in the nav bar. Nobody found me there. He moved me.' },
+      { id: 'ch5', num: '05', date: '24 Oct 2026', title: 'Earn trust',
+        intention: 'Send the conversation with each booking request.',
+        tension: 'A transcript is more than a visitor agreed to share.',
+        decision: 'Booking opens the calendar and nothing else.',
+        result: 'Contact is an optional outcome, not the goal of every answer.',
+        evidence: 'privacy, memory and evaluation work, 24 Oct',
+        note: 'When you book, I send nothing. Not even this conversation. His call.' }
+    ];
+    var V5 = {
+      ch1: { caption: 'The site before Rose, and her first dock', b: 'Before', a: 'July', mb: 'every page · before 21 Jul', ma: 'every page · 21 Jul',
+        before: [{ t: 'note', text: 'No dock. The case studies are the only way in.' }],
+        after: [{ t: 'chips', chips: ['Product expertise', 'Technical profile', 'Culture fit', 'Just exploring'] }, { t: 'card', text: 'the one destination' }] },
+      ch2: { caption: 'Dock starters on /aetherix', b: 'July', a: 'August', mb: '/aetherix · 21 Jul', ma: '/aetherix · after 7 Aug',
+        before: [{ t: 'chips', chips: ['Product expertise', 'Technical profile', 'Culture fit', 'Just exploring'] }],
+        after: [{ t: 'chips', chips: ['What has actually been built?', 'What happens when it’s wrong?', 'Book a call'] }] },
+      ch3: { caption: 'What Rose receives with a question', b: 'Before', a: 'After', mb: 'context: none', ma: 'context: /aetherix · section in view',
+        before: [{ t: 'q', text: 'What does he measure?' }, { t: 'a', text: 'An answer about Ivan in general.' }],
+        after: [{ t: 'q', text: 'What does he measure?' }, { t: 'a', text: 'An answer about the case study being read.' }] },
+      ch4: { caption: 'Where Rose lives', b: 'Before', a: 'After', mb: 'nav bar + dock', ma: 'bottom of every page',
+        before: [{ t: 'note', text: '"Ask Rose" in the nav bar, plus a dock competing with the page.' }],
+        after: [{ t: 'note', text: 'One dock. Discreet at rest, full contrast in use.' }] },
+      ch5: { caption: 'What a booking carries', b: 'Planned', a: 'Shipped', mb: 'booking request', ma: 'booking request',
+        before: [{ t: 'card', text: 'conversation attached' }],
+        after: [{ t: 'card', text: 'opens the calendar, nothing else' }] }
+    };
+    var vig = function (id) {
+      var d = V5[id]; var showAfter = (s.va || {})[id] !== 'before';
+      var list = showAfter ? d.after : d.before;
+      var setV = function (val) { return function () { var va = Object.assign({}, s.va || {}); va[id] = val; self.setState({ va: va }); }; };
+      return { caption: d.caption, beforeLabel: d.b, afterLabel: d.a, meta: showAfter ? d.ma : d.mb,
+        isBefore: !showAfter, isAfter: showAfter, showBefore: setV('before'), showAfter: setV('after'),
+        bBg: showAfter ? 'transparent' : C.head, bFg: showAfter ? C.muted : C.bg, aBg: showAfter ? C.head : 'transparent', aFg: showAfter ? C.bg : C.muted,
+        items: list.map(function (it) { return { isChips: it.t === 'chips', isQ: it.t === 'q', isA: it.t === 'a', isCard: it.t === 'card', isNote: it.t === 'note', chips: it.chips || [], text: it.text || '' }; }) };
+    };
+    var BR = {
+      ch1: 'One destination, and the same four boxes whatever page you were on. That was the next problem.',
+      ch2: 'The questions now started from the page. The answers did not, yet.',
+      ch3: 'Rose knew where you were. Where she should live was the next question.',
+      ch4: 'Quiet until asked. Then: what happens to what you tell her?',
+      ch5: 'Five decisions later, here is what she does today.'
+    };
+    var chapters = M.map(function (m, i) {
+      var on = g === m.id;
+      return Object.assign({}, m, { index: i + 1, anchor: m.id + '-anchor', on: on, ul: on ? '100%' : '0%', hasChips: !!m.hasChips, bg: C.tones[i], v: vig(m.id), bridge: BR[m.id] });
+    });
+    var headings = [0, 0, 80, 150, 215, 300, 320, 335, 345, 355, 360];
+    var tocItems = [
+      ['ch0', '00', 'The idea'], ['ch1', '01', 'Qualify'], ['ch2', '02', 'Listen to the page'], ['ch3', '03', 'Know where you are'],
+      ['ch4', '04', 'One quiet dock'], ['ch5', '05', 'Earn trust'], ['ch6', '06', 'What Rose can do now'], ['ch7', '07', 'Trust'],
+      ['ch8', '08', 'What she got wrong'], ['ch9', '09', 'Next steps'], ['ch10', '10', 'Open questions']
+    ];
+    var toc = tocItems.map(function (t, i) {
+      var cur = i === chapter;
+      return { id: t[0], num: t[1], label: t[2], color: cur ? C.head : C.muted, weight: cur ? '600' : '400' };
+    });
+    var askDefs = [
+      ['locate', 'Locate', 'Where did he decide this?'],
+      ['reformulate', 'Reformulate', 'Say it more simply'],
+      ['connect', 'Connect', 'How does this relate to his other work?'],
+      ['sketch', 'Sketch', 'Draw how it works']
+    ];
+    var askSel = s.ask || null;
+    var asks = askDefs.map(function (d) {
+      var on = askSel === d[0];
+      return { format: d[1], q: d[2], on: on, border: on ? '#b06a3b' : C.rule, bg: on ? '#9a5a30' : 'transparent', fg: on ? '#ffffff' : C.ink,
+        pick: function () { self.setState({ ask: d[0] }); } };
+    });
+    var askQ = {}; askDefs.forEach(function (d) { askQ[d[0]] = d[2]; });
+    var B = { glyph: '●', status: 'Built', color: C.built };
+    var V = { glyph: '◐', status: 'Validation', color: C.valid };
+    var pinTo = function (node) {
+      return function () {
+        var el = document.getElementById('arch');
+        if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        self.setState({ pin: node });
+      };
+    };
+    var pct = function (v, max) { return (v / max * 100).toFixed(2) + '%'; };
+    var A = [
+      ['route', 110, 90, 'Page route', 'which page is open', 'B'],
+      ['section', 110, 180, 'Section in view', 'id and heading', 'B'],
+      ['passage', 110, 270, 'Marked passage', 'data-rose-anchor, set by me', 'D'],
+      ['dock', 330, 180, 'Dock', 'the only place to ask', 'B'],
+      ['rosechat', 550, 180, 'rose-chat', 'edge function, model via gateway', 'B'],
+      ['sitetext', 550, 300, 'Site text', 'same source as Markdown and MCP', 'B'],
+      ['booking', 790, 46, 'propose_booking', 'card, on a real signal', 'B'],
+      ['followups', 790, 128, 'suggest_followups', 'one or two next questions', 'B'],
+      ['showpassage', 790, 210, 'show_passage', 'link + gesture', 'D'],
+      ['showrelations', 790, 292, 'show_relations', 'reads the map below', 'D'],
+      ['showdiagram', 790, 374, 'show_diagram', 'fixed, checked library', 'D']
+    ];
+    var archNodes = A.map(function (a) {
+      var built = a[5] === 'B';
+      var pinned = s.pin === a[0];
+      return { left: pct(a[1], 1000), top: pct(a[2], 420), w: a[1] === 790 ? '190px' : '172px', label: a[3], sub: a[4],
+        glyph: built ? '●' : '○', dot: built ? C.built : C.muted, bs: built ? 'solid' : 'dashed',
+        bc: pinned ? '#b06a3b' : (built ? C.head : C.rule), ring: pinned ? '0 0 0 4px rgba(176,106,59,.28)' : 'none' };
+    });
+    var G = [
+      ['Rose', 500, 50, 'rose'], ['Field Notes', 230, 50, 'site'], ['Path · CV', 770, 50, 'site'], ['/agents · MCP', 900, 130, 'site'],
+      ['Aetherix', 230, 255, 'p'], ['Tacet', 420, 255, 'p'], ['Anima', 330, 325, 'p'], ['Peritia', 560, 325, 'p'],
+      ['Sonor', 840, 235, 'p'], ['Lore', 760, 325, 'p'], ['Compass', 915, 325, 'p']
+    ];
+    var graphNodes = G.map(function (n) {
+      var rose = n[3] === 'rose';
+      return { label: n[0], left: pct(n[1], 1000), top: pct(n[2], 380),
+        bs: 'solid', bc: rose ? '#b06a3b' : (n[3] === 'site' ? C.rule : C.head),
+        bg: rose ? '#9a5a30' : C.card, fg: rose ? '#ffffff' : (n[3] === 'site' ? C.soft : C.head) };
+    });
+    var EL = [
+      ['reads', 365, 50, true], ['reads', 635, 50, true], ['same source', 735, 97, true], ['reads the case studies', 500, 140, true],
+      ['same architecture', 325, 240, false], ['adapted into', 660, 312, false], ['inspired', 640, 230, false]
+    ];
+    var edgeLabels = EL.map(function (e) { return { t: e[0], left: pct(e[1], 1000), top: pct(e[2], 380), color: e[3] ? C.roseInk : C.muted }; });
+    var paris = new Date().toLocaleTimeString('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit' });
+    var part2 = this.props.part === '2';
+    return {
+      p1: !part2, p2: part2,
+      usageAbove: this.props.usage === 'From 33',
+      c: C,
+      flowBg: part2
+        ? 'linear-gradient(180deg, ' + C.tones[5] + ' 0%, ' + C.tones[6] + ' 35%, ' + C.tones[7] + ' 65%, ' + C.tones[8] + ' 100%)'
+        : 'linear-gradient(180deg, ' + C.bg + ' 0%, ' + C.tones[0] + ' 10%, ' + C.tones[1] + ' 24%, ' + C.tones[2] + ' 38%, ' + C.tones[3] + ' 52%, ' + C.tones[4] + ' 70%, ' + C.tones[5] + ' 100%)',
+      toneEnd: C.tones[8],
+      thread: (part2 ? Math.max(0, Math.min(1, (chapter - 6) / 4)) : Math.max(0.05, Math.min(1, (chapter + 1) / 7))) * 100 + '%',
+      cur: { num: tocItems[chapter] ? tocItems[chapter][1] : '00', label: tocItems[chapter] ? tocItems[chapter][2] : 'The idea' },
+      dockOp: (!part2 && s.heroIn !== false) ? '0' : '1',
+      dockVis: (!part2 && s.heroIn !== false) ? 'hidden' : 'visible',
+      bridges: {
+        ch0: 'So the first version did one thing: qualify.',
+        b6: 'What she does is narrow on purpose. What she may keep, and say, is narrower still.',
+        b7: 'Contracts are only as good as the checks behind them.',
+        b8: 'The checks cover what she does today. Here is what comes next, and why it waits.',
+        b9: 'Some things I have not settled. I would rather say so.'
+      },
+      tldr: [
+        { k: 'The problem', v: 'A case study shows the work. It cannot answer the question a visitor brings.' },
+        { k: 'Five decisions', v: 'July to October 2026: qualify, listen to the page, know where you are, one quiet dock, earn trust.' },
+        { k: 'Today', v: 'Live, text only. Rose knows the page and section in view, answers from the site’s own text, and sends nothing when you book.' },
+        { k: 'Still open', v: 'Whether a source-faithful answer helps each reader understand the work from their own angle.' }
+      ],
+      wrong: (function (list) { return list.map(function (w) { return Object.assign({ plain: !w.self, self: !!w.self, noteOn: !!w.self && g === 'ch8' }, w); }); })([
+        { when: '24 Oct · release gate, 15 cases', said: 'A follow-up suggestion about Sonor named a team member who does not exist.', changed: 'Rose may name only Ivan, plus names written word for word in the references.', result: 'No invented names in the final run.' },
+        { self: true, when: '25 to 26 Oct · self-knowledge tests', said: 'On her own page, asked how Ivan measures her (“What does Ivan measure?”), she answered with Aetherix figures.', changed: 'Repeating “stay on topic” did not work. I removed the competing material from her prompt and load only what the question needs.', result: 'Passed on the next focused run. Self-knowledge turned out to be a reading problem: she had her facts, other material outweighed them.' },
+        { when: '26 Oct · self-knowledge tests', said: 'On Aetherix, she invented precise error rates and attached a real figure to the wrong model.', changed: 'For the two high-precision questions on /aetherix, she returns an answer I wrote and checked. Elsewhere, every figure carries its model, metric and scope.', result: 'Open-ended answers still under evaluation. That version is on hold.' }
+      ]),
+      dims: ['Accuracy', 'Context', 'Directness', 'Evidence', 'Visitor value', 'Judgment', 'Booking discipline', 'Trust and privacy'],
+      clock: 'Paris ' + paris + (night ? ' ☾' : ' ☀'),
+      legend: [
+        { glyph: '●', name: 'Built', color: C.built, text: 'Implemented behaviour that can be inspected in the product or repository.' },
+        { glyph: '◐', name: 'Validation', color: C.valid, text: 'A bounded test, audit or measurement. It does not prove every visitor outcome.' },
+        { glyph: '○', name: 'Design', color: C.muted, text: 'A proposed direction or prototype, not a deployed behaviour.' }
+      ],
+      showQ: step >= 1,
+      showTyping: step === 2,
+      showA: step >= 3,
+      locateCh1: goTo('ch1-anchor', 'ch1'),
+      locateCh3: goTo('ch3-anchor', 'ch3'),
+      needle: headings[chapter] || 0,
+      toc: toc,
+      chapters: chapters,
+      on: { ch0: g === 'ch0' },
+      ul: { ch0: g === 'ch0' ? '100%' : '0%', ch8: g === 'ch8' ? '100%' : '0%' },
+      chips: aug ? ['What has actually been built?', 'What happens when it’s wrong?', 'Book a call'] : ['Product expertise', 'Technical profile', 'Culture fit', 'Just exploring'],
+      chipCaption: aug ? 'on /aetherix, after 7 Aug' : 'on every page, 21 Jul',
+      chipsJuly: function () { self.setState({ chips: 'jul' }); },
+      chipsAug: function () { self.setState({ chips: 'aug' }); },
+      chipsIsJuly: !aug, chipsIsAug: aug,
+      julyBg: aug ? 'transparent' : C.head, julyFg: aug ? C.muted : C.bg,
+      augBg: aug ? C.head : 'transparent', augFg: aug ? C.bg : C.muted,
+      asks: asks,
+      ans: { locate: askSel === 'locate', reformulate: askSel === 'reformulate', connect: askSel === 'connect', sketch: askSel === 'sketch' },
+      dockOpen: !!askSel,
+      dockQ: askSel ? askQ[askSel] : '',
+      askBuilt: function () { self.setState({ draft: 'What has Ivan actually built?' }); var i = document.getElementById('rose-q'); if (i && i.focus) i.focus(); },
+      draft: s.draft || '',
+      onDraft: function (e) { self.setState({ draft: e && e.target ? e.target.value : '' }); },
+      closeDock: function () { self.setState({ ask: null }); },
+      map: [
+        { name: 'Projects', items: 'Aetherix, Anima, Tacet, Lore, Compass, Sonor', accent: C.head },
+        { name: 'Proofs', items: 'Statuses, stated limits, published metrics', accent: C.gold },
+        { name: 'Field Notes', items: 'Methods, evaluations, decisions', accent: C.gold },
+        { name: 'Path', items: 'CV, expertise, contact', accent: C.head },
+        { name: 'Rose', items: 'Links, explains and sketches the four others', accent: '#b06a3b' }
+      ],
+      nextSteps: [
+        { what: 'A complete, automatic semantic graph of the site', why: 'The map is written by hand. It stays small and true before it grows.' },
+        { what: 'Diagrams that explain the complex parts', why: 'A visual rewording of a dense passage, to teach rather than decorate. Drawn from a fixed set of diagrams I checked.' },
+        { what: 'Answers read aloud', why: 'For readers who prefer to listen: a spoken version of a written answer, which stays the reference.' },
+        { what: 'Placing any passage in context', why: 'Relating what you are reading to the rest of the page and the site, not only the passages I marked.' }
+      ],
+      contracts: [
+        { kicker: 'Contract 1 · Data', title: 'What is retained and transmitted.', items: [
+          Object.assign({ text: 'Your conversation stays in this tab for 60 minutes, or until a hard refresh.' }, B),
+          Object.assign({ text: 'Questions are stored with personal details masked by pattern, then purged after 90 days.' }, B),
+          Object.assign({ text: 'Booking opens the calendar and nothing else. No transcript travels with it.' }, B)
+        ] },
+        { kicker: 'Contract 2 · Knowledge', title: 'What Rose may assert or infer.', items: [
+          Object.assign({ text: 'Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.' }, B),
+          Object.assign({ text: 'A delivery status is preserved: planned is never turned into done, sandbox never into production.' }, B),
+          Object.assign({ text: 'Released after 15 synthetic cases, one sample each, read by a person.' }, V)
+        ] }
+      ],
+      openQs: (function () {
+        var R = function (h, sg, d, c) { return [['Hypothesis', h], ['Signal', sg], ['Decision', d], ['Cost of being wrong', c]].map(function (f) { return { k: f[0], v: f[1], color: C.ink, style: 'normal' }; }); };
+        return [
+          { n: '01', k: 'Value', q: 'Does a source-faithful answer help each reader understand the work from their own angle?',
+            r: R('One page every reader can question beats separate versions per audience, which failed in my previous portfolio.',
+                 'The same question asked twice in one session, and what readers write in an optional feedback form.',
+                 'If it holds, Rose gets more context and scope. If not, I narrow her to navigation.',
+                 'Rose adds noise to the content she was built to serve, and costs me credibility.') },
+          { n: '02', k: 'Measure', q: 'What should count as Rose helping, if booking is an outcome rather than the goal?',
+            r: R('Booking stays possible, but value comes first: Rose helps when readers use her and go to the sources.',
+                 'Share of visits that open Rose, then answers whose source link is followed, page by page.',
+                 'If few readers open her, I rethink how the dock invites a first question before adding any capability.',
+                 'Flattering numbers that hide how narrow the real use is.') },
+          { n: '03', k: 'Role', q: 'Should Rose remain an index of the site, or become a critical discussion partner?',
+            r: R('Rose is more useful when she connects content and questions my choices, never the reader’s, from trade-offs I documented.',
+                 'Whether questions ask “where” or “why”, and whether answers link beyond the current page.',
+                 'If it holds, she questions my choices from documented limits. If not, she returns to a stricter index.',
+                 'An invented critique costs more credibility than no critique at all.') },
+          { n: '04', k: 'Modality', q: 'When would voice reduce navigation work rather than add spectacle?',
+            r: R('Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about.',
+                 'Requests to summarise in the logs, then use of a simple Listen button before any custom voice.',
+                 'If Listen gets used, I invest in a voice matching the site. If not, voice leaves the roadmap.',
+                 'A demonstrative feature, without use, to maintain.') }
+        ];
+      })(),
+      arch: archNodes,
+      graph: graphNodes,
+      edgeLabels: edgeLabels
+    };
+  }
+}
+</script>
+</body>
+</html>
