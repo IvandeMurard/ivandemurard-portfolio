@@ -20,23 +20,18 @@ export const isRoseTechnicalEvaluationQuestion = ({ question, pagePath = "" }: R
   pagePath.split(/[?#]/)[0] === "/aetherix" &&
   /\b(?:evaluation|eval|CI|pipeline|release|merge|gates?|golden datasets?|harness|graders?|tests?)\b/i.test(question);
 
-const isStageBMeasurementQuestion = (question: string): boolean =>
-  /^(?:what does ivan measure|what does he measure)\s*\??$/i.test(question.trim());
-
-const isStageBTechnicalEvaluationQuestion = (question: string): boolean =>
-  /\baetherix\b/i.test(question) &&
-  /\b(?:evaluation|eval|CI|pipeline|release|merge|gates?|golden datasets?|harness|graders?|tests?)\b/i.test(question);
-
 /**
- * Suggestions are useful elsewhere, but the two Stage B evaluation prompts
- * need a compact, evidence-led answer. Omitting this optional UI tool avoids
- * both irrelevant chips and rejected tool calls in the raw response stream.
+ * Suggestions are useful elsewhere, but the Aetherix evaluation prompts need a
+ * compact, evidence-led answer. Omitting this optional UI tool avoids irrelevant
+ * chips. The system prompt says so (ROSE_NO_FOLLOWUPS_NOTICE) so the model does
+ * not call a tool it was not given.
  */
 export const shouldSuppressRoseFollowups = ({ question, pagePath = "" }: RoseFollowupContext): boolean =>
-  isStageBMeasurementQuestion(question) ||
-  isStageBTechnicalEvaluationQuestion(question) ||
   plainAetherixMeasurementQuestion(question, pagePath) ||
   isRoseTechnicalEvaluationQuestion({ question, pagePath });
+
+export const ROSE_NO_FOLLOWUPS_NOTICE =
+  "For this turn the suggest_followups tool is not available. Do not call it and do not write follow-up questions in the answer.";
 
 /** Shared policy for live tool validation, client rendering, and offline review. */
 export function roseFollowupRejection(item: string, context: RoseFollowupContext): RoseFollowupRejection | null {

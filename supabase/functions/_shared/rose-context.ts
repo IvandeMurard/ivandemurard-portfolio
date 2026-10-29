@@ -4,7 +4,7 @@
 // mirrors stay the single source of truth.
 import { ROSE_PERSONA, ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
 import { aetherixEvidenceRegistryMatches, aetherixMeasurementEvidenceContext } from "./rose-aetherix-evidence.ts";
-import { isRoseTechnicalEvaluationQuestion } from "./rose-tool-contract.ts";
+import { isRoseTechnicalEvaluationQuestion, ROSE_NO_FOLLOWUPS_NOTICE, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
 
 export const ROSE_BASE_PROMPT = `You are Rose, a concise agent embedded on Ivan de Murard's portfolio site.
 
@@ -507,7 +507,9 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
     question: ctx?.question ?? "",
     pagePath: ctx?.page?.path,
   }) ? `\n\n${TECHNICAL_AETHERIX_EVALUATION_ANSWER_ANCHOR}` : "";
-  const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}`;
+  const noFollowups = shouldSuppressRoseFollowups({ question: ctx?.question ?? "", pagePath: ctx?.page?.path })
+    ? `\n\n${ROSE_NO_FOLLOWUPS_NOTICE}` : "";
+  const contract = `${TURN_CONTRACT}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}`;
   const reference = [self, assembleReference(selectedStudies), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");
