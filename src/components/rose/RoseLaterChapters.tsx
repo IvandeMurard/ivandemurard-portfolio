@@ -295,27 +295,7 @@ export const ChapterQualityAssurance = () => (
 );
 
 /* ---------------- 04 · Contextual assistant, a work in progress ---------------- */
-const CONTEXTUAL_MODES = [
-  {
-    title: "01 · Locate", sub: "Find the evidence",
-    response: "This page explains what was tested. For the forecasting boundary, open the Aetherix case study. For how those claims are evaluated, open the Field Note.",
-    sources: ["Aetherix · public benchmark and sandbox boundary", "Field Note · Harnesses, graders, closed loops"],
-  },
-  {
-    title: "02 · Reformulate", sub: "Answer at this depth",
-    response: "The short version: the forecast was better than a simple baseline on public restaurant data overall, but not at every horizon. It has not been validated with a real hotel.",
-    sources: ["One direct answer", "Scope and limit kept together"],
-  },
-  {
-    title: "03 · Visualise", sub: "Show the relationship",
-    response: "A diagram can connect the page being read to the evidence it depends on, without pretending that Rose has discovered new facts.",
-    sources: ["Visited page", "Published evidence", "Inspectable links"],
-  },
-];
-
 const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: Compass; reduced: boolean; lab?: ReactNode; nextRef?: (element: HTMLElement | null) => void; nextIndex?: number }) => {
-  const [v, setV] = useState(0);
-  const mode = CONTEXTUAL_MODES[v];
   return (
     <section ref={nextRef} data-idx={nextIndex} aria-labelledby="ch-next" className="border-y border-outline-variant bg-surface-container-low">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
@@ -330,48 +310,6 @@ const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: C
           </div>
           <div className="mx-auto w-24 text-secondary lg:w-32">{compass(300)}</div>
         </div>
-        <figure aria-label="Contextual assistant design exercise" className="mt-14 overflow-hidden rounded-sm border border-dashed border-outline-variant bg-surface">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-outline-variant px-5 py-4 md:px-8">
-            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Design exercise · not a working feature</p>
-            <p className="font-body text-xs text-on-surface-variant">Visitor asks: “What was actually tested?”</p>
-          </div>
-          <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-            <article className="border-b border-outline-variant bg-surface-container-low p-5 md:border-b-0 md:border-r md:p-8">
-              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix</p>
-              <h3 className="mt-4 font-headline text-3xl text-primary">Where it stands</h3>
-              <p className="mt-4 font-body text-sm leading-relaxed text-on-surface">Aetherix is tested on public restaurant data and in a controlled sandbox. No real hotel is connected to the published evaluation.</p>
-              <div className="mt-7 space-y-3 border-l border-outline-variant pl-4">
-                <p className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Page signals available to Rose</p>
-                <p className="font-body text-sm text-on-surface">Route · section heading · optional starter</p>
-              </div>
-            </article>
-            <div className="p-5 md:p-8">
-              <Tabs id="contextual" label="Contextual response type" options={CONTEXTUAL_MODES} value={v} onChange={setV} />
-              <div id="contextual-panel" role="tabpanel" aria-labelledby={`contextual-tab-${v}`} aria-live="polite" className="pt-7">
-                <div className={cn("border-l-2 border-secondary pl-4", !reduced && "animate-in fade-in duration-500")} key={v}>
-                  <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Rose · {mode.title.replace(/^\d+ · /, "")}</p>
-                  <p className="mt-3 font-body text-base leading-relaxed text-on-surface">{mode.response}</p>
-                </div>
-                {v === 2 ? (
-                  <div aria-label="Illustrative map from the visited page to published evidence" className="mt-7 grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
-                    <div className="border border-outline-variant bg-surface-container-low p-3 font-label text-xs text-primary">Aetherix<br /><span className="font-body text-on-surface-variant">visited page</span></div>
-                    <span aria-hidden="true" className="text-center text-secondary">→</span>
-                    <div className="border border-secondary/60 bg-surface p-3 font-label text-xs text-primary">Evidence + Field Note<br /><span className="font-body text-on-surface-variant">inspectable sources</span></div>
-                  </div>
-                ) : (
-                  <ul className="mt-7 space-y-3">
-                    {mode.sources.map((source) => <li key={source} className="border-l border-outline-variant pl-3 font-body text-sm text-on-surface-variant">{source}</li>)}
-                  </ul>
-                )}
-                <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3">
-                  <Link to="/aetherix#where-it-stands" className="font-label text-xs text-primary underline underline-offset-4 hover:text-secondary">Open Aetherix</Link>
-                  <Link to="/journal/harnesses-graders-closed-loops" className="font-label text-xs text-primary underline underline-offset-4 hover:text-secondary">Open the Field Note</Link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <figcaption className="border-t border-outline-variant px-5 py-4 font-body text-xs text-on-surface-variant md:px-8">The interaction is a prototype: no voice input, generated annotation, page adaptation or relationship map is implemented. The source links and limits are the design constraint.</figcaption>
-        </figure>
         {lab}
         <div className="mt-12 grid gap-px border border-outline-variant bg-outline-variant md:grid-cols-3">
           {[
