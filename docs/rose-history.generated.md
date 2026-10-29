@@ -1,4 +1,4 @@
-<!-- Generated. Private review artifact, excluded from public content. v1 sha256:9af54bc6f76ea3324f1954c43996e6f460ba6849e88ee9bef6393ff108ad51b8 -->
+<!-- Generated. Private review artifact, excluded from public content. v1 sha256:2fc89816455ba300c9d81ed8368922ca1e28a0de4d7a193114cc0e3658bb2391 -->
 
 Rose historical reference, v1. Repository evidence, not verified deployment parity. No measured visitor-value claim is established. Source paths and commit IDs are provenance, not public reading URLs. Do not invent a public Rose history page or link to the private reference.
 
@@ -88,5 +88,5 @@ Provenance: fdb2388; docs/rose-progressive-feedback-spec.md
 Unsupported wording: Rose asks for feedback after two answers.
 
 ## adaptive (date unverified, hypothesis)
-Ivan is exploring adaptive, AI-mediated reading in which content could be located, annotated or explained in place, with voice as one potential modality. The Chapter 06 interaction is a scripted design demonstration; generative page adaptation and voice are not implemented capabilities.
+Ivan is exploring adaptive, AI-mediated reading in which content could be located, annotated or explained in place, with voice as one potential modality. Generative page adaptation and voice are not implemented capabilities.
 Provenance: src/components/rose/RoseLaterChapters.tsx

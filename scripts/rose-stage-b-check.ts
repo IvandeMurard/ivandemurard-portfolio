@@ -126,6 +126,7 @@ journeys.push(
   // evaluations, not deterministic proof that the model interpreted the referent.
   { id: "referent-rose", turns: [{ path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" }] },
   { id: "referent-aetherix", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
+  { id: "metric-mape-meaning", turns: [{ path: "/aetherix", question: "What does a mean MAPE of 49.71% against 55.86% mean?" }] },
   { id: "referent-aetherix-repeat-2", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
   { id: "referent-aetherix-repeat-3", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
   { id: "referent-note", turns: [{ path: "/journal/harnesses-graders-closed-loops", question: "What does Ivan measure?" }] },
