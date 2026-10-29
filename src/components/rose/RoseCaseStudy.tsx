@@ -84,14 +84,12 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
   return (
     <div ref={root} className="rose-case-bg relative">
       {/* Copper reading thread, left margin. */}
-      <div aria-hidden="true" className="pointer-events-none absolute bottom-0 left-2 top-0 w-px bg-outline-variant md:left-4">
-        <div className="sticky top-0 h-screen">
-          <div className="h-full w-px origin-top bg-rose-copper" style={{ transform: `scaleY(${progress})`, transition: reduced ? "none" : "transform 120ms linear" }} />
-        </div>
+      <div aria-hidden="true" className="pointer-events-none fixed bottom-0 left-2 top-0 z-20 w-px bg-outline-variant md:left-4">
+        <div className="h-full w-px origin-top bg-rose-copper" style={{ transform: `scaleY(${progress})`, transition: reduced ? "none" : "transform 120ms linear" }} />
       </div>
 
       {/* Mobile: one-line sticky bar. */}
-      <details ref={details} className="sticky top-16 z-30 border-b border-outline-variant bg-surface/95 px-6 py-3 backdrop-blur-sm lg:hidden">
+      <details ref={details} className="sticky top-[76px] z-30 border-b border-outline-variant bg-surface/95 px-6 py-3 backdrop-blur-sm lg:hidden">
         <summary className="cursor-pointer list-none font-label text-xs text-primary [&::-webkit-details-marker]:hidden">
           {current.toc} · On this page <span aria-hidden="true">▾</span>
         </summary>
