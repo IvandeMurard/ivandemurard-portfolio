@@ -20,7 +20,7 @@ Status: v3, 2026-10-29. This file replaces every earlier prompt about Rose and t
 | A. Rose v1 (product) | What Rose can actually do on the site | The dock, `rose-chat`, page anchors |
 | B. Case study (page) | The story of how Rose was designed, and a live demonstration of track A | `/rose-design-lab` (unlinked until approved) |
 
-Rule: the case study only shows capabilities that exist in track A. It never mocks or fakes a capability. Anything not built goes in the "Not yet" chapter.
+Rule: the case study only shows capabilities that exist in track A. It never mocks or fakes a capability. Anything not built goes in the "Next steps" chapter.
 
 ---
 
@@ -45,7 +45,7 @@ Rose's answer is text by default. She may add exactly one of these, through tool
 |---|---|---|---|
 | Link to a passage | `show_passage(anchor_id)` | `data-rose-anchor` ids on the site | In the dock as a link; on click the page scrolls and the passage gets the Rose gesture (R3) |
 | Diagram | `show_diagram(diagram_id)` | A fixed library of pre-built diagrams (list in §2.1). Never generated freely | In the dock, as a figure |
-| Project relations | `show_relations(project_slug)` | A hand-authored `src/content/project-relations.json` (project, relation, other project, one-line reason) | In the dock, as a small list or graph |
+| Project relations | `show_relations(project_slug)` | A hand-authored `src/content/portfolio-graph.json` (node, relation, other node, one-line reason) | In the dock, as a small list or graph |
 | Voice (later, not v1) | `Listen` button on an answer | Browser speech synthesis reading a written answer | In the dock only. Listed in "Next steps", not demonstrated |
 
 #### 2.1 Diagram library (v1)
@@ -251,7 +251,7 @@ Apply these before rerunning the evaluation. Each is a source fix, not a prompt 
 - Cause: the "Three ways to use AI on this site" guidance is loaded only when the question names "read with AI", "copy implementation brief" or "apply this method". Also load it when the question asks Rose to access, inspect, review or test code, files, repositories or systems.
 - Booking card reasons must never promise a service Ivan does not offer (for example "Technical review of your private repository").
 
-### 11.3 Follow-up tool contradiction (fixed locally, not yet committed)
+### 11.3 Follow-up tool contradiction (done: merged in PR #3, deployed 29 Oct from `main` at `ace8e78`)
 - Removed the two test-specific "Stage B" suppression rules from `rose-tool-contract.ts`; kept the two `/aetherix` rules.
 - When the follow-up tool is withheld, `getRoseSystemPrompt` adds: "For this turn the suggest_followups tool is not available. Do not call it and do not write follow-up questions in the answer."
 - Rerun: 45 answers, 0 errors. Follow-up quality still to be reviewed.
