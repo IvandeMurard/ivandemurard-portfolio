@@ -298,6 +298,7 @@ export const RoseDock = () => {
       ) : null}
 
       <div
+        data-rose-dock
         aria-hidden={hidden || undefined}
         style={{ transform: `translateY(${hidden ? "160%" : `-${lift}px`})` }}
         className={cn(

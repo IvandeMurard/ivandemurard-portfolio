@@ -59,7 +59,7 @@ describe("Evidence status language", () => {
 
   it("keeps Concept C as a baseline and makes D the evidence-led default", () => {
     const page = readFileSync("src/pages/RoseDesignLab.tsx", "utf8");
-    expect(page).toContain('const concept = raw === "a" || raw === "b" || raw === "narrative" || raw === "e" ? raw : "d";');
+    expect(page).toContain('const concept = raw === "a" || raw === "b" || raw === "narrative" || raw === "d" || raw === "e" ? raw : "page";');
     expect(page).toContain("D · Stage C evidence-led");
     expect(page).toContain("const ConceptD");
     expect(page).toContain("RoseIntervention");
