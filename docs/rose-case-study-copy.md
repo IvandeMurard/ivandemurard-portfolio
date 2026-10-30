@@ -30,8 +30,8 @@ Status: v1, 2026-10-29. Exact text for every section of the page, extracted from
 - Heading: "What if the portfolio could answer back?"
 - P1: "A case study shows the work. It cannot anticipate every question someone brings to it. I built Rose to explore another way in: a conversation alongside the evidence."
 - P2 (marker ● Built): "The first version shipped on 21 July 2026. Its brief was narrower than that possibility: help a visitor decide whether to book a conversation with me."
-- P3: "I named Rose after, and shaped her dock on, userose.ai's website agent. The idea of an agent commenting the page it lives on came from co-existence.ai. What I changed: her goal. Not selling. Explaining, reformulating, contextualising." (gesture anchor on "userose.ai's website agent")
-- Rose note: "Yes, there's another Rose. He credits her. So do I."
+- P3: "The dock is modelled on userose.ai's website agent; the idea of an agent commenting the page it lives on came from co-existence.ai. What I changed: her goal. Not selling. Explaining, reformulating, contextualising." (gesture anchor on "userose.ai's website agent")
+- Rose note: "He gave me a name before he gave me a job."
 - Transition: "So the first version did one thing: qualify."
 
 ## 6.3 Chapters 01 to 05 (marker ● Built)

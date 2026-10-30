@@ -125,6 +125,47 @@ export const MILESTONES: Record<string, Milestone> = {
   },
 };
 
+/* §6.2 Chapter 00. Copy verbatim from docs/rose-case-study-copy.md. */
+export const IDEA = {
+  p1: "A case study shows the work. It cannot anticipate every question someone brings to it. I built Rose to explore another way in: a conversation alongside the evidence.",
+  p2: "The first version shipped on 21 July 2026. Its brief was narrower than that possibility: help a visitor decide whether to book a conversation with me.",
+  p3: {
+    before: "The dock is modelled on ",
+    anchor: { text: "userose.ai's website agent", href: "https://userose.ai" },
+    middle: "; the idea of an agent commenting the page it lives on came from ",
+    second: { text: "co-existence.ai", href: "https://co-existence.ai" },
+    after: ". What I changed: her goal. Not selling. Explaining, reformulating, contextualising.",
+  },
+  note: "He gave me a name before he gave me a job.",
+};
+
+const QUIET_LINK = "underline decoration-on-surface-variant/50 underline-offset-4 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+
+const ExternalLink = ({ href, children }: { href: string; children: string }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className={QUIET_LINK}>{children}<span className="sr-only"> (opens in a new tab)</span></a>
+);
+
+const IdeaBody = ({ reduced }: { reduced: boolean }) => {
+  const { p1, p2, p3, note } = IDEA;
+  return (
+    <div className="mt-8 space-y-5 font-body text-base text-on-surface">
+      <p>{p1}</p>
+      <p><span className="mr-2 font-label text-[10px] uppercase tracking-[0.18em] text-secondary"><span aria-hidden="true">● </span>Built</span>{p2}</p>
+      <div className="relative">
+        <p>
+          {p3.before}
+          <RoseMark cue="ch-00" reduced={reduced}><ExternalLink href={p3.anchor.href}>{p3.anchor.text}</ExternalLink></RoseMark>
+          {p3.middle}
+          <ExternalLink href={p3.second.href}>{p3.second.text}</ExternalLink>
+          {p3.after}
+        </p>
+        {/* Margin note on wide screens, inline under the passage elsewhere. */}
+        <RoseCue id="ch-00" note={note} className="mt-3 xl:absolute xl:left-full xl:top-0 xl:ml-4 xl:mt-0 xl:w-64" />
+      </div>
+    </div>
+  );
+};
+
 /* The dock surface: navy in Day, the real dock's surface and border in Night. */
 const DOCK_PANEL = "border border-transparent bg-primary text-on-primary [[data-mood=dusk]_&]:border-outline-variant [[data-mood=dusk]_&]:bg-surface-container-high [[data-mood=dusk]_&]:text-on-surface";
 const DOCK_OUTLINE = "border-on-primary/40 [[data-mood=dusk]_&]:border-outline-variant";
@@ -293,9 +334,10 @@ const ReadingThread = ({ rootRef, reduced }: { rootRef: RefObject<HTMLElement>; 
 const Chapters = memo(({ reduced }: { reduced: boolean }) => (
   <>
     {ROSE_CHAPTERS.map((c, i) => (
-      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] ? "max-w-2xl xl:max-w-[40rem]" : "max-w-3xl")}>
+      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : "max-w-3xl")}>
         <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{MILESTONES[c.id] && <span className="ml-3"><span aria-hidden="true">● </span>Built</span>}</p>
         <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
+        {c.id === "ch-00" && <IdeaBody reduced={reduced} />}
         {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
         {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}
       </section>

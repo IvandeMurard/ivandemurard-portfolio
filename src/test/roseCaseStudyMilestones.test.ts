@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { MILESTONES } from "@/components/rose/RoseCaseStudy";
+import { IDEA, MILESTONES } from "@/components/rose/RoseCaseStudy";
 
 const deck = readFileSync("docs/rose-case-study-copy.md", "utf8");
 
@@ -25,5 +25,20 @@ describe("Rose case study §6.3 chapters 01 to 05", () => {
   });
   it("contains no em-dashes", () => {
     expect(JSON.stringify(MILESTONES)).not.toContain("—");
+  });
+});
+
+describe("Rose case study §6.2 chapter 00", () => {
+  const p3 = Object.values(IDEA.p3).map((v) => (typeof v === "string" ? v : v.text)).join("");
+  it("uses only text that appears in the copy deck", () => {
+    for (const s of [IDEA.p1, IDEA.p2, p3, IDEA.note, IDEA.p3.anchor.text]) expect(deck, s).toContain(s);
+  });
+  it("writes the Rose note as a single sentence", () => {
+    expect(IDEA.note).toMatch(/[.!?]$/);
+    expect(IDEA.note.slice(0, -1)).not.toMatch(/[.!?]/);
+  });
+  it("links to https addresses and contains no em-dashes", () => {
+    expect([IDEA.p3.anchor.href, IDEA.p3.second.href].every((h) => h.startsWith("https://"))).toBe(true);
+    expect(JSON.stringify(IDEA)).not.toContain("—");
   });
 });
