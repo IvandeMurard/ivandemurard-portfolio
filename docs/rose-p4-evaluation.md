@@ -1,5 +1,7 @@
 # Rose synthetic evaluation, v1
 
+**Read this first.** The protocol I wrote on 24 Oct 2026, before running the evaluation it governs: each synthetic question, the behaviour it requires and the failure that blocks release. Results are in [rose-p5-verification.md](rose-p5-verification.md).
+
 Use fake scenarios only. Never open the recent-question list during verification. Block `/functions/v1/rose-event`, `/rest/v1/link_clicks` and booking notification requests in browser tests; do not click Cal.com. Capture model text and tool parts once per final assistant message, then review against published references. Scores are not model self-grades.
 
 ## Acceptance set, defined before execution
