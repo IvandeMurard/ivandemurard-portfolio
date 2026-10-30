@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
+import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -44,6 +45,155 @@ const TLDR = [
   ["Still open", "Whether a source-faithful answer helps each reader understand the work from their own angle."],
 ] as const;
 
+/* §6.3 Chapters 01 to 05. Copy and vignette data verbatim from docs/rose-case-study-copy.md. */
+type VItem =
+  | { t: "note"; text: string }
+  | { t: "chips"; chips: string[] }
+  | { t: "card"; text: string }
+  | { t: "q"; text: string }
+  | { t: "a"; text: string };
+type Vignette = { caption: string; b: string; a: string; mb: string; ma: string; before: VItem[]; after: VItem[] };
+type Milestone = { brief: string; tension: string; decision: string; result: string; source: string; note: string; vignette: Vignette };
+
+const FOUR_INTENTS = ["Product expertise", "Technical profile", "Culture fit", "Just exploring"];
+
+export const MILESTONES: Record<string, Milestone> = {
+  "ch-01": {
+    brief: "Help the visitor decide, in two or three exchanges, whether to book 30 minutes with me.",
+    tension: "Four intent chips asked visitors who they were before showing them anything.",
+    decision: "Ship a small dock with four intents and a booking card.",
+    result: "A qualification funnel with one destination.",
+    source: "original prompt and config, commit 51245fc",
+    note: "My first job was to sort you into four boxes: his idea, and he admits it.",
+    vignette: {
+      caption: "The site before Rose, and her first dock", b: "Before", a: "July", mb: "every page · before 21 Jul", ma: "every page · 21 Jul",
+      before: [{ t: "note", text: "No dock. The case studies are the only way in." }],
+      after: [{ t: "chips", chips: FOUR_INTENTS }, { t: "card", text: "the one destination" }],
+    },
+  },
+  "ch-02": {
+    brief: "Keep booking reachable.",
+    tension: "The same four intents appeared on every page, whatever the visitor was reading.",
+    decision: "Replace fixed intents with three questions written for each page, and keep Book a call as a constant exit.",
+    result: "Questions start from the work, not from the visitor’s profile.",
+    source: "archived plan, contextual starters, 7 Aug",
+    note: "He stopped me asking who you are and had me ask what you were reading.",
+    vignette: {
+      caption: "Dock starters on /aetherix", b: "July", a: "August", mb: "/aetherix · 21 Jul", ma: "/aetherix · after 7 Aug",
+      before: [{ t: "chips", chips: FOUR_INTENTS }],
+      after: [{ t: "chips", chips: ["What has actually been built?", "What happens when it’s wrong?", "Book a call"] }],
+    },
+  },
+  "ch-03": {
+    brief: "Answer generally about Ivan.",
+    tension: "A page-specific question deserves a page-specific answer.",
+    decision: "Pass the current page and intent into Rose’s context.",
+    result: "Answers refer to the case study being read.",
+    source: "commit b236ff3, page context and intent",
+    note: "I know which page you’re on, not who you are: he drew that line.",
+    vignette: {
+      caption: "What Rose receives with a question", b: "Before", a: "After", mb: "context: none", ma: "context: /aetherix · section in view",
+      before: [{ t: "q", text: "What does he measure?" }, { t: "a", text: "An answer about Ivan in general." }],
+      after: [{ t: "q", text: "What does he measure?" }, { t: "a", text: "An answer about the case study being read." }],
+    },
+  },
+  "ch-04": {
+    brief: "Several entry points to Rose.",
+    tension: "A dock competing with the page reads as a sales widget.",
+    decision: "Unify the dock: discreet at rest, full contrast in use, questions by page.",
+    result: "Rose stays out of the way until asked.",
+    source: "commit 7752dbb, unified dock and chips",
+    note: "I used to sit in the nav bar, where nobody found me, so he moved me.",
+    vignette: {
+      caption: "Where Rose lives", b: "Before", a: "After", mb: "nav bar + dock", ma: "bottom of every page",
+      before: [{ t: "note", text: "\"Ask Rose\" in the nav bar, plus a dock competing with the page." }],
+      after: [{ t: "note", text: "One dock. Discreet at rest, full contrast in use." }],
+    },
+  },
+  "ch-05": {
+    brief: "Send the conversation with each booking request.",
+    tension: "A transcript is more than a visitor agreed to share.",
+    decision: "Booking opens the calendar and nothing else.",
+    result: "Contact is an optional outcome, not the goal of every answer.",
+    source: "privacy, memory and evaluation work, 24 Oct",
+    note: "When you book, I send nothing, not even this conversation: his call.",
+    vignette: {
+      caption: "What a booking carries", b: "Planned", a: "Shipped", mb: "booking request", ma: "booking request",
+      before: [{ t: "card", text: "conversation attached" }],
+      after: [{ t: "card", text: "opens the calendar, nothing else" }],
+    },
+  },
+};
+
+/* The dock surface: navy in Day, the real dock's surface and border in Night. */
+const DOCK_PANEL = "border border-transparent bg-primary text-on-primary [[data-mood=dusk]_&]:border-outline-variant [[data-mood=dusk]_&]:bg-surface-container-high [[data-mood=dusk]_&]:text-on-surface";
+const DOCK_OUTLINE = "border-on-primary/40 [[data-mood=dusk]_&]:border-outline-variant";
+const DOCK_GOLD = "border-secondary-fixed-dim [[data-mood=dusk]_&]:border-secondary";
+
+const VignetteItem = ({ item }: { item: VItem }) => {
+  switch (item.t) {
+    case "note": return <p className="font-body text-sm italic">{item.text}</p>;
+    case "chips": return (
+      <ul className="flex list-none flex-wrap gap-2 p-0">
+        {item.chips.map((c) => <li key={c} className={cn("rounded-full border px-3 py-1 font-body text-xs", DOCK_OUTLINE)}>{c}</li>)}
+      </ul>
+    );
+    case "card": return <p className={cn("rounded-lg border px-3 py-2 font-body text-xs", DOCK_GOLD)}><strong className="font-semibold">Book 30 minutes</strong> · {item.text}</p>;
+    case "q": return <p className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-on-primary/10 px-4 py-2 font-body text-sm [[data-mood=dusk]_&]:bg-on-surface/10">{item.text}</p>;
+    case "a": return <p className="font-body text-sm leading-relaxed">{item.text}</p>;
+  }
+};
+
+/** Before / after dock mock-up. A two-state toggle: real buttons with aria-pressed, state announced politely. */
+const MilestoneVignette = ({ v }: { v: Vignette }) => {
+  const [after, setAfter] = useState(true);
+  const label = after ? v.a : v.b;
+  const meta = after ? v.ma : v.mb;
+  const pill = (on: boolean) => cn(
+    "rounded-full px-3 py-1 font-label text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+    on ? "bg-primary text-on-primary [[data-mood=dusk]_&]:bg-on-surface [[data-mood=dusk]_&]:text-surface" : "text-on-surface-variant hover:text-on-surface",
+  );
+  return (
+    <figure className="mt-10 rounded-xl border border-outline-variant bg-surface-container-lowest p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <figcaption className="font-label text-xs text-on-surface-variant">{v.caption}</figcaption>
+        <div role="group" aria-label={`${v.caption}: choose a state`} className="flex rounded-full border border-outline-variant p-0.5">
+          <button type="button" aria-pressed={!after} onClick={() => setAfter(false)} className={pill(!after)}>{v.b}</button>
+          <button type="button" aria-pressed={after} onClick={() => setAfter(true)} className={pill(after)}>{v.a}</button>
+        </div>
+      </div>
+      <p className="sr-only" role="status" aria-live="polite">Showing {label}: {meta}</p>
+      <div className={cn("mt-4 flex min-h-[9rem] max-w-md flex-col gap-3 rounded-2xl p-4", DOCK_PANEL)}>
+        <p className="font-label text-[10px] opacity-80">{meta}</p>
+        {(after ? v.after : v.before).map((it, i) => <VignetteItem key={`${label}-${i}`} item={it} />)}
+      </div>
+    </figure>
+  );
+};
+
+const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: boolean }) => {
+  const label = "font-label text-[10px] uppercase tracking-[0.18em]";
+  return (
+    <div className="mt-8">
+      <div className="grid gap-6 sm:grid-cols-2 sm:gap-x-12">
+        <div><p className={cn(label, "text-on-surface-variant")}>The brief</p><p className="mt-1 font-body text-base text-on-surface">{m.brief}</p></div>
+        <div><p className={cn(label, "text-on-surface-variant")}>The tension</p><p className="mt-1 font-body text-base text-on-surface">{m.tension}</p></div>
+      </div>
+      <div className="relative mt-8">
+        <p className={cn(label, "text-secondary")}>What I decided</p>
+        <p id={`${id}-decision`} className="mt-1 scroll-mt-40 font-headline text-2xl leading-snug text-on-surface">
+          <RoseMark cue={id} reduced={reduced}>{m.decision}</RoseMark>
+        </p>
+        {/* Margin note on wide screens, inline under the passage elsewhere. */}
+        <RoseCue id={id} note={m.note} className="mt-3 xl:absolute xl:left-full xl:top-5 xl:ml-4 xl:mt-0 xl:w-64" />
+      </div>
+      <p className="mt-4 font-body text-base text-on-surface">{m.result}</p>
+      <MilestoneVignette v={m.vignette} />
+      <p className="mt-4 font-label text-xs text-on-surface-variant">Source: {m.source}</p>
+    </div>
+  );
+};
+
 /** Scripted replay styled as the dock: question, reading status, answer, Locate, source. */
 const HeroDock = ({ reduced }: { reduced: boolean }) => {
   const [step, setStep] = useState(reduced ? 3 : 0);
@@ -53,35 +203,34 @@ const HeroDock = ({ reduced }: { reduced: boolean }) => {
     return () => ts.forEach(window.clearTimeout);
   }, [reduced]);
   const locate = () => {
-    // Until §6.3 exists, Locate only scrolls to chapter 01.
-    const el = document.getElementById("ch-01-decision") ?? document.getElementById("ch-01");
-    el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    // Centre the decision in the reading zone so Rose's gesture plays on arrival.
+    document.getElementById("ch-01-decision")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
   };
   const fade = (on: boolean) => ({ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 500ms ease" });
   return (
-    <div data-rose-hero aria-label="Rose, one example exchange" className="flex min-h-[20rem] flex-col rounded-2xl bg-primary p-5 text-on-primary shadow-xl shadow-primary/10">
+    <div data-rose-hero aria-label="Rose, one example exchange" className={cn("flex min-h-[20rem] flex-col rounded-2xl p-5 shadow-xl shadow-primary/10", DOCK_PANEL)}>
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-2 font-headline text-base italic"><CompassRose heading={0} reduced className="h-5 w-5" />Rose</span>
         <span className="font-label text-[10px] opacity-80">reading: /rose · hero</span>
       </div>
       <div className="mt-6 flex flex-1 flex-col gap-3" aria-live="polite">
-        <p className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-on-primary/10 px-4 py-2 font-body text-sm" style={fade(step >= 1)}>{HERO_Q}</p>
+        <p className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-on-primary/10 [[data-mood=dusk]_&]:bg-on-surface/10 px-4 py-2 font-body text-sm" style={fade(step >= 1)}>{HERO_Q}</p>
         {step === 2 && <p className="font-label text-xs opacity-80">Rose is reading the page…</p>}
         {step >= 3 && (
           <div style={fade(true)}>
             <p className="font-body text-sm leading-relaxed">{HERO_A}</p>
-            <button type="button" onClick={locate} className="mt-3 rounded-md border border-on-primary/60 px-3 py-1 font-label text-xs hover:bg-on-primary/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary">Locate · where he changed it ↓</button>
+            <button type="button" onClick={locate} className="mt-3 rounded-md border border-secondary-fixed-dim [[data-mood=dusk]_&]:border-secondary px-3 py-1 font-label text-xs hover:bg-on-primary/10 [[data-mood=dusk]_&]:hover:bg-on-surface/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary [[data-mood=dusk]_&]:focus-visible:outline-secondary">Locate · where he changed it ↓</button>
             <p className="mt-2 font-label text-[10px] opacity-80">Source: original prompt, commit 51245fc</p>
           </div>
         )}
       </div>
       <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:open"))}
-        className="mt-4 rounded-lg border border-on-primary/30 px-3 py-2 text-left font-body text-xs opacity-90 hover:border-on-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-on-primary">Ask Rose anything</button>
+        className="mt-4 rounded-lg border border-on-primary/30 [[data-mood=dusk]_&]:border-outline-variant px-3 py-2 text-left font-body text-xs opacity-90 hover:border-on-primary/60 [[data-mood=dusk]_&]:hover:border-on-surface/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-on-primary [[data-mood=dusk]_&]:focus-visible:outline-secondary">Ask Rose anything</button>
     </div>
   );
 };
 
-const RoseHero = ({ reduced }: { reduced: boolean }) => (
+const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
   <header aria-labelledby="rose-hero-h">
     <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
       <div>
@@ -89,7 +238,7 @@ const RoseHero = ({ reduced }: { reduced: boolean }) => (
           Case study · AI service design · Rose
           <span className="rounded-full border border-outline-variant px-2 py-0.5 text-on-surface">● Live · text only</span>
         </p>
-        <h1 id="rose-hero-h" className="mt-5 font-headline text-5xl leading-[1.05] text-primary md:text-7xl">
+        <h1 id="rose-hero-h" className="mt-5 font-headline text-5xl leading-[1.05] text-primary [[data-mood=dusk]_&]:text-on-surface md:text-7xl">
           A portfolio <em className="text-secondary">you can question.</em>
         </h1>
         <p className="mt-6 max-w-xl font-body text-lg text-on-surface">The story behind Rose: why I built her, the five decisions that reshaped her, and the questions I am leaving open.</p>
@@ -109,34 +258,66 @@ const RoseHero = ({ reduced }: { reduced: boolean }) => (
       </dl>
     </section>
   </header>
-);
+));
+
+/** Runs `work` at most once per frame on scroll and resize. */
+const useFrameScroll = (work: () => void) => {
+  useEffect(() => {
+    let raf = 0;
+    const on = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; work(); }); };
+    work();
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
+  }, [work]);
+};
+
+/** Copper reading thread, left margin. Owns its scroll state so the page does not re-render with it. */
+const ReadingThread = ({ rootRef, reduced }: { rootRef: RefObject<HTMLElement>; reduced: boolean }) => {
+  const [progress, setProgress] = useState(0);
+  const measure = useCallback(() => {
+    const r = rootRef.current?.getBoundingClientRect();
+    if (!r) return;
+    const total = r.height - window.innerHeight;
+    setProgress(total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1);
+  }, [rootRef]);
+  useFrameScroll(measure);
+  return (
+    <div aria-hidden="true" className="pointer-events-none fixed bottom-0 left-2 top-0 z-20 w-px bg-outline-variant md:left-4">
+      <div className="h-full w-px origin-top bg-rose-copper" style={{ transform: `scaleY(${progress})`, transition: reduced ? "none" : "transform 120ms linear" }} />
+    </div>
+  );
+};
+
+/** Chapter bodies never depend on scroll state, so they are memoised against the active-chapter updates. */
+const Chapters = memo(({ reduced }: { reduced: boolean }) => (
+  <>
+    {ROSE_CHAPTERS.map((c, i) => (
+      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] ? "max-w-2xl xl:max-w-[40rem]" : "max-w-3xl")}>
+        <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{MILESTONES[c.id] && <span className="ml-3"><span aria-hidden="true">● </span>Built</span>}</p>
+        <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
+        {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
+        {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}
+      </section>
+    ))}
+  </>
+));
 
 export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
-  const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const [active, setActive] = useState(-1);
   const root = useRef<HTMLDivElement>(null);
   const details = useRef<HTMLDetailsElement>(null);
 
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (es) => es.forEach((e) => e.isIntersecting && setActive(Number((e.target as HTMLElement).dataset.ch))),
-      { rootMargin: "-40% 0px -55% 0px" },
-    );
-    root.current?.querySelectorAll("[data-ch]").forEach((el) => io.observe(el));
-    const onScroll = () => {
-      const el = root.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      setProgress(total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+  // Active chapter: the last one whose top crossed 40% of the viewport; none before chapter 00.
+  const measureActive = useCallback(() => {
+    let next = -1;
+    root.current?.querySelectorAll<HTMLElement>("[data-ch]").forEach((c) => { if (c.getBoundingClientRect().top <= window.innerHeight * 0.4) next = Number(c.dataset.ch); });
+    setActive(next);
   }, []);
+  useFrameScroll(measureActive);
 
   const current = ROSE_CHAPTERS[active];
+  const needleTurn = Math.max(0, active) * (300 / (ROSE_CHAPTERS.length - 1));
   const toc = (onPick?: () => void) => (
     <ol className="list-none space-y-1 p-0">
       {ROSE_CHAPTERS.map((c, i) => (
@@ -153,45 +334,38 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
 
   return (
     <div ref={root} className="rose-case-bg relative">
-      {/* Copper reading thread, left margin. */}
-      <div aria-hidden="true" className="pointer-events-none fixed bottom-0 left-2 top-0 z-20 w-px bg-outline-variant md:left-4">
-        <div className="h-full w-px origin-top bg-rose-copper" style={{ transform: `scaleY(${progress})`, transition: reduced ? "none" : "transform 120ms linear" }} />
-      </div>
+      <ReadingThread rootRef={root} reduced={reduced} />
 
       {/* Mobile: one-line sticky bar. */}
       <details ref={details} className="sticky top-[76px] z-30 border-b border-outline-variant bg-surface/95 px-6 py-3 backdrop-blur-sm lg:hidden">
         <summary className="cursor-pointer list-none font-label text-xs text-primary [&::-webkit-details-marker]:hidden">
-          {current.toc} · On this page <span aria-hidden="true">▾</span>
+          {current ? `${current.toc} · ` : ""}On this page <span aria-hidden="true">▾</span>
         </summary>
         <nav aria-label="On this page" className="mt-3">{toc(() => details.current?.removeAttribute("open"))}</nav>
       </details>
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-8 py-16 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
+      <div className="mx-auto max-w-7xl px-8 pt-16 md:px-12">
+        <RoseHero reduced={reduced} />
+        <section aria-labelledby="rose-legend" className="mt-16 max-w-3xl">
+          <h2 id="rose-legend" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">How to read this case study</h2>
+          <dl className="mt-3 space-y-1 font-body text-sm text-on-surface">
+            {LEGEND.map(([mark, term, def]) => (
+              <div key={term} className="flex gap-2"><dt className={cn("w-28 shrink-0 font-label text-xs", LEGEND_TONE[term])}><span aria-hidden="true">{mark} </span>{term}</dt><dd>{def}</dd></div>
+            ))}
+          </dl>
+          <p className="mt-3 font-body text-xs text-on-surface-variant">Milestones come from the repository: commit dates, archived plans, the original prompt. Readings of the design are mine.</p>
+        </section>
+      </div>
+
+      <div className="mx-auto grid max-w-7xl gap-12 px-8 pb-16 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
         <aside className="hidden self-start lg:sticky lg:top-28 lg:block">
-          <CompassRose heading={active * (300 / (ROSE_CHAPTERS.length - 1))} reduced={reduced} className="h-16 w-16 text-secondary" />
+          <CompassRose heading={needleTurn} reduced={reduced} className="h-16 w-16 text-secondary" />
           <p className="mt-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">On this page</p>
           <nav aria-label="On this page" className="mt-3">{toc()}</nav>
         </aside>
 
         <div className="min-w-0">
-          <RoseHero reduced={reduced} />
-          <section aria-labelledby="rose-legend" className="mt-16 max-w-3xl">
-            <h2 id="rose-legend" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">How to read this case study</h2>
-            <dl className="mt-3 space-y-1 font-body text-sm text-on-surface">
-              {LEGEND.map(([mark, term, def]) => (
-                <div key={term} className="flex gap-2"><dt className={cn("shrink-0 font-label text-xs", LEGEND_TONE[term])}><span aria-hidden="true">{mark} </span>{term}</dt><dd>{def}</dd></div>
-              ))}
-            </dl>
-            <p className="mt-3 font-body text-xs text-on-surface-variant">Milestones come from the repository: commit dates, archived plans, the original prompt. Readings of the design are mine.</p>
-          </section>
-
-          {ROSE_CHAPTERS.map((c, i) => (
-            <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className="max-w-3xl scroll-mt-32 pt-24 md:pt-32">
-              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}</p>
-              <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary md:text-5xl">{c.heading}</h2>
-              {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}
-            </section>
-          ))}
+          <Chapters reduced={reduced} />
         </div>
       </div>
     </div>

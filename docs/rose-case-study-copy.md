@@ -44,7 +44,7 @@ Labels: "The brief" · "The tension" · "What I decided" · "Source:". The decis
 - What I decided: "Ship a small dock with four intents and a booking card."
 - Result: "A qualification funnel with one destination."
 - Source: "original prompt and config, commit 51245fc"
-- Rose note: "My first job was to sort you into four boxes. His idea. He admits it."
+- Rose note: "My first job was to sort you into four boxes: his idea, and he admits it."
 - Vignette: caption "The site before Rose, and her first dock", toggle "Before" / "July" (contents below)
 - Transition: "One destination, and the same four boxes whatever page you were on. That was the next problem."
 
@@ -54,7 +54,7 @@ Labels: "The brief" · "The tension" · "What I decided" · "Source:". The decis
 - What I decided: "Replace fixed intents with three questions written for each page, and keep Book a call as a constant exit."
 - Result: "Questions start from the work, not from the visitor’s profile."
 - Source: "archived plan, contextual starters, 7 Aug"
-- Rose note: "He stopped me asking who you are. I started asking what you were reading."
+- Rose note: "He stopped me asking who you are and had me ask what you were reading."
 - Vignette: caption "Dock starters on /aetherix", toggle "July" / "August" (contents below)
 - Transition: "The questions now started from the page. The answers did not, yet."
 
@@ -64,7 +64,7 @@ Labels: "The brief" · "The tension" · "What I decided" · "Source:". The decis
 - What I decided: "Pass the current page and intent into Rose’s context."
 - Result: "Answers refer to the case study being read."
 - Source: "commit b236ff3, page context and intent"
-- Rose note: "I know which page you’re on. Not who you are. He drew that line."
+- Rose note: "I know which page you’re on, not who you are: he drew that line."
 - Vignette: caption "What Rose receives with a question", toggle "Before" / "After" (contents below)
 - Transition: "Rose knew where you were. Where she should live was the next question."
 
@@ -74,7 +74,7 @@ Labels: "The brief" · "The tension" · "What I decided" · "Source:". The decis
 - What I decided: "Unify the dock: discreet at rest, full contrast in use, questions by page."
 - Result: "Rose stays out of the way until asked."
 - Source: "commit 7752dbb, unified dock and chips"
-- Rose note: "I used to sit in the nav bar. Nobody found me there. He moved me."
+- Rose note: "I used to sit in the nav bar, where nobody found me, so he moved me."
 - Vignette: caption "Where Rose lives", toggle "Before" / "After" (contents below)
 - Transition: "Quiet until asked. Then: what happens to what you tell her?"
 
@@ -84,7 +84,7 @@ Labels: "The brief" · "The tension" · "What I decided" · "Source:". The decis
 - What I decided: "Booking opens the calendar and nothing else."
 - Result: "Contact is an optional outcome, not the goal of every answer."
 - Source: "privacy, memory and evaluation work, 24 Oct"
-- Rose note: "When you book, I send nothing. Not even this conversation. His call."
+- Rose note: "When you book, I send nothing, not even this conversation: his call."
 - Vignette: caption "What a booking carries", toggle "Planned" / "Shipped" (contents below)
 - Transition: "Five decisions later, here is what she does today."
 
