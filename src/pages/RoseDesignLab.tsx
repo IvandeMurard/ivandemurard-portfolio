@@ -632,9 +632,11 @@ const RoseDesignLab = () => {
         </div>
       </div>
       {concept === "a" ? <><ConceptA reduced={reduced} /><ChapterQualityAssurance /></> : concept === "b" ? <><ConceptB reduced={reduced} /><ChapterQualityAssurance /></> : concept === "narrative" ? <ConceptC reduced={reduced} /> : concept === "e" ? <ConceptE reduced={reduced} /> : concept === "d" ? <ConceptD reduced={reduced} /> : <RoseCaseStudy reduced={reduced} />}
-      <aside className="mx-auto max-w-3xl px-6 pb-24 font-body text-sm text-on-surface-variant">
-        Ask Rose links open the portfolio dock. Sources and evidence states above distinguish what is built, bounded by validation, or still in design. <Link to="/" className="underline">Back to the site</Link>
-      </aside>
+      {concept !== "page" && (
+        <aside className="mx-auto max-w-3xl px-6 pb-24 font-body text-sm text-on-surface-variant">
+          Ask Rose links open the portfolio dock. Sources and evidence states above distinguish what is built, bounded by validation, or still in design. <Link to="/" className="underline">Back to the site</Link>
+        </aside>
+      )}
     </SiteLayout>
   );
 };
