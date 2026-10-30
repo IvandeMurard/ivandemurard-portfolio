@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { CLOSE, IDEA, MILESTONES } from "@/components/rose/RoseCaseStudy";
+import { existsSync } from "node:fs";
+import { CLOSE, GOT_WRONG, IDEA, MILESTONES, REPO_URL } from "@/components/rose/RoseCaseStudy";
 
 const deck = readFileSync("docs/rose-case-study-copy.md", "utf8");
 
@@ -54,5 +55,31 @@ describe("Rose case study §6.9 close", () => {
   });
   it("hard-codes no destination", () => {
     expect(JSON.stringify(CLOSE)).not.toMatch(/https?:|mailto:|\.pdf/);
+  });
+});
+
+describe("Rose case study §6.6 chapter 08", () => {
+  const g = GOT_WRONG;
+  const texts = [
+    g.intro, ...g.labels.map((l) => l), g.note, g.judgedLabel, g.judged, g.dimensions.join(", "),
+    ...g.cases.flatMap((c) => [c.meta, c.said, c.changed, c.result.join("")]),
+    ...g.rules.flatMap(([t, d]) => [t, d]),
+  ];
+  it("uses only text that appears in the copy deck", () => {
+    for (const s of texts) expect(deck, s).toContain(s);
+  });
+  it("keeps the Limit line verbatim and adds no figure beyond the cited 9 of 10", () => {
+    expect(g.rules[2]).toEqual(["Limit", "One sample per case is not a reliability estimate, and usage logs are not proof of correctness."]);
+    const figures = g.cases.flatMap((c) => c.result.join("")).join(" ").match(/\d+ of \d+|\d+\/\d+|\d+%/g) ?? [];
+    expect(figures).toEqual(["9 of 10"]);
+  });
+  it("prints the sources line as in the deck and links only files that exist", () => {
+    expect(deck).toContain(`${g.sourcesLead}${g.sources.map((s) => s.label).join(", ")}${g.sourcesTail}`);
+    for (const s of g.sources) expect(existsSync(s.path), s.path).toBe(true);
+    expect(existsSync(g.evalDoc)).toBe(true);
+    expect(REPO_URL).toBe("https://github.com/IvandeMurard/ivandemurard-portfolio");
+  });
+  it("contains no em-dashes", () => {
+    expect(JSON.stringify(g)).not.toContain("\u2014");
   });
 });

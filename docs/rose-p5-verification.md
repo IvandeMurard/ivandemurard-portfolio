@@ -1,5 +1,9 @@
 # Rose P5 quality gate, 24 October 2026
 
+**Read this first.** Working log of Rose's release gate on 24 Oct 2026. Earlier rounds, at the top, were not accepted. The outcome is at the bottom: accepted for release after source corrections. The invented team member cited in the case study is in the Sonor row of the scorecard.
+
+**Correction.** An early round quotes my CV as saying the DomusVi rollout was live with 500+ users. That was wrong: the rollout was still planned when I left. I corrected the CV on 24 Oct.
+
 ## Final targeted round, 16:15 UTC
 
 **Still not accepted for release.** The latest fifteen current-source model samples fix the recruiter CV destination and include a sandbox caveat. However, DomusVi references conflict: the Rose base prompt says rollout planned, while the maintained CV and its Markdown say deployment completed with 500+ users live across 100+ facilities. The sampled completed-rollout wording agrees with the CV, so it must not be labeled an invented claim. Resolving that source conflict requires editorial confirmation rather than another inference.

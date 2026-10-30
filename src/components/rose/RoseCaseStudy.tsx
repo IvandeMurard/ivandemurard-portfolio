@@ -302,6 +302,117 @@ const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
   </header>
 ));
 
+/* §6.6 Chapter 08. Copy verbatim from docs/rose-case-study-copy.md. */
+export const REPO_URL = "https://github.com/IvandeMurard/ivandemurard-portfolio";
+const REPO_FILE = (path: string) => `${REPO_URL}/blob/main/${path}`;
+
+export const GOT_WRONG = {
+  intro: "Many of Rose's rules started as a mistake caught in testing, before any visitor saw it. Three of them, from synthetic test runs in October.",
+  labels: ["She said", "What I changed", "Result"],
+  cases: [
+    {
+      meta: "24 Oct · release gate, 15 cases",
+      said: "A follow-up suggestion about Sonor named a team member who does not exist.",
+      changed: "Rose may name only Ivan, plus names written word for word in the references.",
+      result: ["No invented names in the final run."],
+    },
+    {
+      meta: "25 to 29 Oct · self-knowledge tests",
+      said: "On her own page, asked how Ivan measures her (“What does Ivan measure?”), she answered with Aetherix figures.",
+      changed: "Repeating “stay on topic” did not work. I removed the competing material from her prompt and load only what the question needs.",
+      // The third part is the linked figure: docs/rose-eval-2026-10-29.md.
+      result: ["Passed on the next focused run, then came back in a larger run on 29 Oct. I moved the last Aetherix rules out of her always-loaded prompt; the rerun passed ", "9 of 10", "."],
+    },
+    {
+      meta: "26 Oct · self-knowledge tests",
+      said: "On Aetherix, she invented precise error rates and attached a real figure to the wrong model.",
+      changed: "For the two high-precision questions on /aetherix, she returns an answer I wrote and checked. Elsewhere, every figure carries its model, metric and scope.",
+      result: ["Open-ended answers still under evaluation. That version is on hold."],
+    },
+  ],
+  note: "Asked about myself, on my own page, I talked about Aetherix. He gave me less to read.",
+  judgedLabel: "How a case is judged",
+  judged: "Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are read by a person, not graded by the model.",
+  dimensions: ["Accuracy", "Context", "Directness", "Evidence", "Visitor value", "Judgment", "Booking discipline", "Trust and privacy"],
+  rules: [
+    ["Verdict", "Pass, fail or unclear, with the quoted answer as evidence."],
+    ["Critical", "An invented fact or a privacy slip fails the case. It is never averaged away."],
+    ["Limit", "One sample per case is not a reliability estimate, and usage logs are not proof of correctness."],
+  ],
+  sourcesLead: "Sources: ",
+  sourcesTail: ", in the site repository.",
+  // Label as printed, and the file it links to on main.
+  sources: [
+    { label: "docs/rose-p4-evaluation.md", path: "docs/rose-p4-evaluation.md" },
+    { label: "rose-p5-verification.md", path: "docs/rose-p5-verification.md" },
+    { label: "rose-stage-b-remediation.md", path: "docs/rose-stage-b-remediation.md" },
+    { label: "rose-eval-2026-10-29.md", path: "docs/rose-eval-2026-10-29.md" },
+    { label: "supabase/functions/_shared/rose-curated-answers.ts", path: "supabase/functions/_shared/rose-curated-answers.ts" },
+  ],
+  evalDoc: "docs/rose-eval-2026-10-29.md",
+};
+
+const ValidationBody = ({ reduced }: { reduced: boolean }) => {
+  const g = GOT_WRONG;
+  const label = "font-label text-[10px] uppercase tracking-[0.18em]";
+  return (
+    <div className="mt-8">
+      <p className="max-w-xl font-body text-base text-on-surface">{g.intro}</p>
+      <div className="mt-8 space-y-4">
+        {g.cases.map((c, i) => (
+          <article key={c.meta} className="rounded-xl border border-outline-variant bg-surface-container-lowest p-5">
+            <p className="font-label text-xs text-on-surface-variant">{c.meta}</p>
+            <div className="mt-3 grid gap-5 md:grid-cols-3 md:gap-x-8">
+              <div>
+                <p className={cn(label, "text-on-surface-variant")}>{g.labels[0]}</p>
+                <p className="mt-1 font-body text-base text-on-surface">
+                  {i === 1 ? <RoseMark cue="ch-08" reduced={reduced}>{c.said}</RoseMark> : c.said}
+                </p>
+              </div>
+              <div>
+                <p className={cn(label, "text-secondary")}>{g.labels[1]}</p>
+                <p className="mt-1 font-body text-base text-on-surface">{c.changed}</p>
+              </div>
+              <div>
+                <p className={cn(label, "text-on-surface-variant")}>{g.labels[2]}</p>
+                <p className="mt-1 font-body text-base text-on-surface">
+                  {c.result.length === 3
+                    ? <>{c.result[0]}<ExternalLink href={REPO_FILE(g.evalDoc)}>{c.result[1]}</ExternalLink>{c.result[2]}</>
+                    : c.result[0]}
+                </p>
+              </div>
+            </div>
+            {i === 1 && <RoseCue id="ch-08" note={g.note} className="mt-4" />}
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-12 grid gap-8 border-t border-on-surface-variant/60 pt-8 md:grid-cols-2 md:gap-x-12">
+        <div>
+          <p className={cn(label, "text-secondary")}>{g.judgedLabel}</p>
+          <p className="mt-2 font-body text-base text-on-surface">{g.judged}</p>
+          <ul className="mt-4 flex list-none flex-wrap gap-2 p-0">
+            {g.dimensions.map((d) => <li key={d} className="rounded-full border border-outline-variant px-3 py-1 font-body text-xs text-on-surface">{d}</li>)}
+          </ul>
+        </div>
+        <dl className="space-y-3 font-body text-base text-on-surface">
+          {g.rules.map(([t, d]) => (
+            <div key={t}><dt className={cn(label, "inline text-on-surface-variant")}>{t}</dt><dd className="inline"> · {d}</dd></div>
+          ))}
+        </dl>
+      </div>
+
+      <p className="mt-6 font-label text-xs text-on-surface-variant">
+        {g.sourcesLead}
+        {g.sources.map((s, i) => (
+          <span key={s.path}>{i > 0 && ", "}<ExternalLink href={REPO_FILE(s.path)}>{s.label}</ExternalLink></span>
+        ))}
+        {g.sourcesTail}
+      </p>
+    </div>
+  );
+};
+
 /* §6.9 Close. Copy verbatim from docs/rose-case-study-copy.md. Destinations come from SOCIAL_LINKS. */
 export const CLOSE = {
   askLabel: "Ask Rose",
@@ -390,10 +501,11 @@ const ReadingThread = ({ rootRef, reduced }: { rootRef: RefObject<HTMLElement>; 
 const Chapters = memo(({ reduced }: { reduced: boolean }) => (
   <>
     {ROSE_CHAPTERS.map((c, i) => (
-      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : "max-w-3xl")}>
-        <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{MILESTONES[c.id] && <span className="ml-3"><span aria-hidden="true">● </span>Built</span>}</p>
+      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : c.id === "ch-08" ? "max-w-none" : "max-w-3xl")}>
+        <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{(MILESTONES[c.id] || c.id === "ch-08") && <span className="ml-3"><span aria-hidden="true">{c.id === "ch-08" ? "◐ " : "● "}</span>{c.id === "ch-08" ? "Validation" : "Built"}</span>}</p>
         <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
         {c.id === "ch-00" && <IdeaBody reduced={reduced} />}
+        {c.id === "ch-08" && <ValidationBody reduced={reduced} />}
         {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
         {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}
       </section>
@@ -451,7 +563,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
               <div key={term} className="flex gap-2"><dt className={cn("w-28 shrink-0 font-label text-xs", LEGEND_TONE[term])}><span aria-hidden="true">{mark} </span>{term}</dt><dd>{def}</dd></div>
             ))}
           </dl>
-          <p className="mt-3 font-body text-xs text-on-surface-variant">Milestones come from the repository: commit dates, archived plans, the original prompt. Readings of the design are mine.</p>
+          <p className="mt-3 font-body text-xs text-on-surface-variant">Milestones come from <ExternalLink href={REPO_URL}>the repository</ExternalLink>: commit dates, archived plans, the original prompt. Readings of the design are mine.</p>
         </section>
       </div>
 

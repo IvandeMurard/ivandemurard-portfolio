@@ -170,14 +170,14 @@ var V5 = {
 - Intro: "Many of Rose's rules started as a mistake caught in testing, before any visitor saw it. Three of them, from synthetic test runs in October."
 - Labels per case: "She said" · "What I changed" · "Result".
   - 24 Oct · release gate, 15 cases · She said: "A follow-up suggestion about Sonor named a team member who does not exist." · What I changed: "Rose may name only Ivan, plus names written word for word in the references." · Result: "No invented names in the final run."
-  - 25 to 26 Oct · self-knowledge tests · She said: "On her own page, asked how Ivan measures her (“What does Ivan measure?”), she answered with Aetherix figures." · What I changed: "Repeating “stay on topic” did not work. I removed the competing material from her prompt and load only what the question needs." · Result: "Passed on the next focused run. Self-knowledge turned out to be a reading problem: she had her facts, other material outweighed them."
+  - 25 to 29 Oct · self-knowledge tests · She said: "On her own page, asked how Ivan measures her (“What does Ivan measure?”), she answered with Aetherix figures." · What I changed: "Repeating “stay on topic” did not work. I removed the competing material from her prompt and load only what the question needs." · Result: "Passed on the next focused run, then came back in a larger run on 29 Oct. I moved the last Aetherix rules out of her always-loaded prompt; the rerun passed 9 of 10." ("9 of 10" links to docs/rose-eval-2026-10-29.md)
   - 26 Oct · self-knowledge tests · She said: "On Aetherix, she invented precise error rates and attached a real figure to the wrong model." · What I changed: "For the two high-precision questions on /aetherix, she returns an answer I wrote and checked. Elsewhere, every figure carries its model, metric and scope." · Result: "Open-ended answers still under evaluation. That version is on hold."
 - Rose note on case 2 (gesture on "She said"): "Asked about myself, on my own page, I talked about Aetherix. He gave me less to read."
 - "How a case is judged": "Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are read by a person, not graded by the model." Dimensions: Accuracy, Context, Directness, Evidence, Visitor value, Judgment, Booking discipline, Trust and privacy.
   - Verdict: "Pass, fail or unclear, with the quoted answer as evidence."
   - Critical: "An invented fact or a privacy slip fails the case. It is never averaged away."
   - Limit: "One sample per case is not a reliability estimate, and usage logs are not proof of correctness." (update once the 5/20 protocol results are published, e.g. "0 critical failures in 20 runs")
-- Sources line: "Sources: docs/rose-p4-evaluation.md, rose-p5-verification.md, rose-stage-b-remediation.md, in the site repository."
+- Sources line: "Sources: docs/rose-p4-evaluation.md, rose-p5-verification.md, rose-stage-b-remediation.md, rose-eval-2026-10-29.md, supabase/functions/_shared/rose-curated-answers.ts, in the site repository." (each file links to its GitHub page on main)
 - Transition: "The checks cover what she does today. Here is what comes next, and why it waits."
 
 ## 6.7 Chapter 09 · Next steps (marker ○ Design)

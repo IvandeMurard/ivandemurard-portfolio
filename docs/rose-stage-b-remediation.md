@@ -1,5 +1,7 @@
 # Rose Stage B remediation: source review and targeted verification
 
+**Read this first.** Working log, 25 to 26 Oct 2026. Status lines describe the state at the time of writing. The scope drift on "What does Ivan measure?" starts at the focused live-model result and passes in the fourth focused evaluation, which also records the invented Aetherix figures.
+
 Date: 2026-10-25. Base commit: `a084ebdeeaf611cdc2dcad2d05e5499806905fa6`.
 Status: **code changes proposed, not released**. This work does not establish model acceptance.
 
