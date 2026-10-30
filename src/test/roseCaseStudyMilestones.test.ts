@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { IDEA, MILESTONES } from "@/components/rose/RoseCaseStudy";
+import { CLOSE, IDEA, MILESTONES } from "@/components/rose/RoseCaseStudy";
 
 const deck = readFileSync("docs/rose-case-study-copy.md", "utf8");
 
@@ -40,5 +40,19 @@ describe("Rose case study §6.2 chapter 00", () => {
   it("links to https addresses and contains no em-dashes", () => {
     expect([IDEA.p3.anchor.href, IDEA.p3.second.href].every((h) => h.startsWith("https://"))).toBe(true);
     expect(JSON.stringify(IDEA)).not.toContain("—");
+  });
+});
+
+describe("Rose case study §6.9 close", () => {
+  it("uses only text that appears in the copy deck", () => {
+    for (const s of [CLOSE.askLabel, CLOSE.askQuestion, CLOSE.line, CLOSE.kicker, CLOSE.headingLead + CLOSE.headingEm, CLOSE.subline]) expect(deck, s).toContain(s);
+    for (const b of CLOSE.buttons) expect(deck, b).toContain(`"${b}"`);
+  });
+  it("starts the italic copper part of the heading at \"I design\" and has no em-dashes", () => {
+    expect(CLOSE.headingEm.startsWith("I design")).toBe(true);
+    expect(JSON.stringify(CLOSE)).not.toContain("\u2014");
+  });
+  it("hard-codes no destination", () => {
+    expect(JSON.stringify(CLOSE)).not.toMatch(/https?:|mailto:|\.pdf/);
   });
 });

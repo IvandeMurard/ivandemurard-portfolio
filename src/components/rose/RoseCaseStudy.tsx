@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useRef, useState, type RefObject } from "
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
 import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
+import { SOCIAL_LINKS } from "@/content/site";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -301,6 +302,59 @@ const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
   </header>
 ));
 
+/* §6.9 Close. Copy verbatim from docs/rose-case-study-copy.md. Destinations come from SOCIAL_LINKS. */
+export const CLOSE = {
+  askLabel: "Ask Rose",
+  askQuestion: "What has Ivan actually built?",
+  line: "Start with the evidence. A human conversation is available when it adds context Rose cannot.",
+  kicker: "Contact",
+  headingLead: "Hiring for AI product? ",
+  headingEm: "I design the whole loop: the people on the ground, the software, and the outcome it's judged on.",
+  subline: "Operations, product, business and tech, in one service. I ship, I evaluate, and I say what isn't proven yet. I am looking for an AI Product Manager or Product Builder role.",
+  buttons: ["Book 30 minutes", "Email", "CV"],
+};
+
+// Navy in Day; in Night the navy is the inverse of the light-blue primary.
+const NAVY = "bg-primary text-on-primary [[data-mood=dusk]_&]:bg-inverse-primary [[data-mood=dusk]_&]:text-on-surface";
+const CLOSE_RING = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-fixed-dim";
+
+const RoseClose = () => {
+  const [book, email, cv] = CLOSE.buttons;
+  const ghost = cn("rounded-full border border-on-primary/60 px-5 py-2.5 font-body text-sm hover:bg-on-primary/10 [[data-mood=dusk]_&]:border-on-surface/60 [[data-mood=dusk]_&]:hover:bg-on-surface/10", CLOSE_RING);
+  return (
+    <>
+      <section aria-label={CLOSE.askLabel} className="bg-gradient-to-b from-[hsl(var(--rose-cool))] to-primary px-8 pb-10 pt-32 text-center text-on-primary [[data-mood=dusk]_&]:to-inverse-primary [[data-mood=dusk]_&]:text-on-surface md:px-12 md:pt-36">
+        <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
+          <span className="border-b border-on-primary/30 pb-0.5 font-label text-[11px] uppercase tracking-[0.12em] text-primary-fixed-dim [[data-mood=dusk]_&]:border-on-surface/30 [[data-mood=dusk]_&]:text-primary">{CLOSE.askLabel}</span>
+          <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask", { detail: { text: CLOSE.askQuestion } }))}
+            className={cn("font-headline text-xl italic underline underline-offset-4 hover:opacity-80", CLOSE_RING)}>{CLOSE.askQuestion}</button>
+        </p>
+        <p className="mt-6 font-body text-[15px] text-on-primary/80 [[data-mood=dusk]_&]:text-on-surface/80">{CLOSE.line}</p>
+      </section>
+      <section id="contact" aria-labelledby="rose-contact-h" className={NAVY}>
+        <div className="mx-auto flex max-w-7xl flex-wrap items-end gap-x-[4.5rem] gap-y-8 px-8 pb-28 pt-16 md:px-12">
+          <div className="min-w-0 flex-1 basis-[28rem]">
+            <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary-fixed-dim [[data-mood=dusk]_&]:text-rose-copper">{CLOSE.kicker}</p>
+            <h2 id="rose-contact-h" className="mt-4 max-w-4xl font-headline text-4xl leading-[1.1] md:text-6xl">
+              {CLOSE.headingLead}
+              <em className="text-secondary-fixed-dim [[data-mood=dusk]_&]:text-rose-copper">{CLOSE.headingEm}</em>
+            </h2>
+            <p className="mt-6 max-w-xl font-body text-base text-on-primary/80 [[data-mood=dusk]_&]:text-on-surface/80">{CLOSE.subline}</p>
+          </div>
+          <div className="flex flex-wrap gap-3 md:max-w-[12rem]">
+            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
+              className={cn("rounded-full bg-surface px-5 py-2.5 font-body text-sm font-medium text-primary hover:opacity-90 [[data-mood=dusk]_&]:bg-on-surface [[data-mood=dusk]_&]:text-surface", CLOSE_RING)}>
+              {book}<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            <a href={SOCIAL_LINKS.email} className={ghost}>{email}</a>
+            <a href={SOCIAL_LINKS.cv} target="_blank" rel="noopener noreferrer" className={ghost}>{cv}<span className="sr-only"> (PDF, opens in a new tab)</span></a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
 /** Runs `work` at most once per frame on scroll and resize. */
 const useFrameScroll = (work: () => void) => {
   useEffect(() => {
@@ -410,6 +464,8 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
           <Chapters reduced={reduced} />
         </div>
       </div>
+
+      <RoseClose />
     </div>
   );
 };
