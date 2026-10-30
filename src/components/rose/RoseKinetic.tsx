@@ -35,7 +35,7 @@ const READING_ZONE = "-30% 0px -40% 0px";
 
 /** The copper compass tip Rose points with. Desktop only; mobile gets an inline mark. */
 const RoseTip = ({ on, reduced }: { on: boolean; reduced: boolean }) => (
-  <svg aria-hidden="true" viewBox="0 0 12 12" className="hidden h-3 w-3 shrink-0 text-secondary md:block"
+  <svg aria-hidden="true" viewBox="0 0 12 12" className="hidden h-3 w-3 shrink-0 text-rose-copper md:block"
     style={{ opacity: on ? 1 : 0, transform: on ? "translateX(0) rotate(45deg)" : "translateX(-28px) rotate(0deg)", transition: reduced ? "none" : `opacity 400ms ease, transform 900ms ${EASE}` }}>
     <path d="M6 0 L8 6 L6 12 L4 6 Z" fill="currentColor" />
   </svg>
@@ -61,12 +61,12 @@ const useReducedMotion = () => useSyncExternalStore(
 );
 
 const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean; children: ReactNode }) => (
-  <div className="flex items-center gap-3" aria-hidden={!on}>
+  <div className="flex items-center gap-2" aria-hidden={!on}>
     <RoseTip on={on} reduced={reduced} />
-    <span aria-hidden="true" className="hidden h-px w-10 shrink-0 origin-left bg-secondary md:block"
+    <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
       style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />
-    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-secondary md:hidden" style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
-    <p className="font-headline text-lg italic leading-snug text-primary"
+    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-rose-copper md:hidden" style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
+    <p className="font-headline text-lg italic leading-snug text-rose-copper"
       style={{ opacity: on ? 1 : 0, transform: on || reduced ? "none" : "translateY(4px)", transition: reduced ? "none" : `opacity ${on ? 600 : 350}ms ease ${on ? 550 : 0}ms, transform 800ms ${EASE} ${on ? 550 : 0}ms` }}>
       {children}
     </p>
@@ -144,7 +144,7 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
     // A pencil underline that wraps with the text across lines.
     return (
       <span ref={ref} className="box-decoration-clone bg-no-repeat pb-0.5"
-        style={{ backgroundImage: "linear-gradient(hsl(var(--secondary) / 0.75), hsl(var(--secondary) / 0.75))", backgroundPosition: "0 100%", backgroundSize: on ? "100% 1.5px" : "0% 1.5px", transition: reduced ? "none" : `background-size 1100ms ${EASE} ${delay}ms` }}>
+        style={{ backgroundImage: "linear-gradient(hsl(var(--rose-copper) / 0.75), hsl(var(--rose-copper) / 0.75))", backgroundPosition: "0 100%", backgroundSize: on ? "100% 1.5px" : "0% 1.5px", transition: reduced ? "none" : `background-size 1100ms ${EASE} ${delay}ms` }}>
         {children}
       </span>
     );
@@ -153,7 +153,7 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
     <span ref={ref} className="relative inline-block whitespace-nowrap">
       {children}
       <svg aria-hidden="true" viewBox={kind === "bracket" ? "0 0 8 40" : "0 0 100 40"} preserveAspectRatio="none"
-        className={cn("pointer-events-none absolute overflow-visible text-secondary", kind === "circle" ? "-inset-x-2.5 -inset-y-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+1.25rem)]" : "-left-3 top-0 h-full w-2")}>
+        className={cn("pointer-events-none absolute overflow-visible text-rose-copper", kind === "circle" ? "-inset-x-2.5 -inset-y-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+1.25rem)]" : "-left-3 top-0 h-full w-2")}>
         <path d={MARK_PATH[kind]} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke" strokeLinecap="round"
           style={{ strokeDasharray: 1, strokeDashoffset: on ? 0 : 1, transition: reduced ? "none" : `stroke-dashoffset 1100ms ${EASE} ${delay}ms` }} />
       </svg>

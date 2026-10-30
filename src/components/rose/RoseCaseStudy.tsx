@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
 import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
@@ -64,7 +64,7 @@ export const MILESTONES: Record<string, Milestone> = {
     decision: "Ship a small dock with four intents and a booking card.",
     result: "A qualification funnel with one destination.",
     source: "original prompt and config, commit 51245fc",
-    note: "My first job was to sort you into four boxes. His idea. He admits it.",
+    note: "My first job was to sort you into four boxes: his idea, and he admits it.",
     vignette: {
       caption: "The site before Rose, and her first dock", b: "Before", a: "July", mb: "every page · before 21 Jul", ma: "every page · 21 Jul",
       before: [{ t: "note", text: "No dock. The case studies are the only way in." }],
@@ -77,7 +77,7 @@ export const MILESTONES: Record<string, Milestone> = {
     decision: "Replace fixed intents with three questions written for each page, and keep Book a call as a constant exit.",
     result: "Questions start from the work, not from the visitor’s profile.",
     source: "archived plan, contextual starters, 7 Aug",
-    note: "He stopped me asking who you are. I started asking what you were reading.",
+    note: "He stopped me asking who you are and had me ask what you were reading.",
     vignette: {
       caption: "Dock starters on /aetherix", b: "July", a: "August", mb: "/aetherix · 21 Jul", ma: "/aetherix · after 7 Aug",
       before: [{ t: "chips", chips: FOUR_INTENTS }],
@@ -90,7 +90,7 @@ export const MILESTONES: Record<string, Milestone> = {
     decision: "Pass the current page and intent into Rose’s context.",
     result: "Answers refer to the case study being read.",
     source: "commit b236ff3, page context and intent",
-    note: "I know which page you’re on. Not who you are. He drew that line.",
+    note: "I know which page you’re on, not who you are: he drew that line.",
     vignette: {
       caption: "What Rose receives with a question", b: "Before", a: "After", mb: "context: none", ma: "context: /aetherix · section in view",
       before: [{ t: "q", text: "What does he measure?" }, { t: "a", text: "An answer about Ivan in general." }],
@@ -103,7 +103,7 @@ export const MILESTONES: Record<string, Milestone> = {
     decision: "Unify the dock: discreet at rest, full contrast in use, questions by page.",
     result: "Rose stays out of the way until asked.",
     source: "commit 7752dbb, unified dock and chips",
-    note: "I used to sit in the nav bar. Nobody found me there. He moved me.",
+    note: "I used to sit in the nav bar, where nobody found me, so he moved me.",
     vignette: {
       caption: "Where Rose lives", b: "Before", a: "After", mb: "nav bar + dock", ma: "bottom of every page",
       before: [{ t: "note", text: "\"Ask Rose\" in the nav bar, plus a dock competing with the page." }],
@@ -116,7 +116,7 @@ export const MILESTONES: Record<string, Milestone> = {
     decision: "Booking opens the calendar and nothing else.",
     result: "Contact is an optional outcome, not the goal of every answer.",
     source: "privacy, memory and evaluation work, 24 Oct",
-    note: "When you book, I send nothing. Not even this conversation. His call.",
+    note: "When you book, I send nothing, not even this conversation: his call.",
     vignette: {
       caption: "What a booking carries", b: "Planned", a: "Shipped", mb: "booking request", ma: "booking request",
       before: [{ t: "card", text: "conversation attached" }],
@@ -185,7 +185,7 @@ const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: 
           <RoseMark cue={id} reduced={reduced}>{m.decision}</RoseMark>
         </p>
         {/* Margin note on wide screens, inline under the passage elsewhere. */}
-        <RoseCue id={id} note={m.note} className="mt-3 xl:absolute xl:left-full xl:top-5 xl:ml-6 xl:mt-0 xl:w-56" />
+        <RoseCue id={id} note={m.note} className="mt-3 xl:absolute xl:left-full xl:top-5 xl:ml-4 xl:mt-0 xl:w-64" />
       </div>
       <p className="mt-4 font-body text-base text-on-surface">{m.result}</p>
       <MilestoneVignette v={m.vignette} />
@@ -230,7 +230,7 @@ const HeroDock = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
-const RoseHero = ({ reduced }: { reduced: boolean }) => (
+const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
   <header aria-labelledby="rose-hero-h">
     <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
       <div>
@@ -258,31 +258,63 @@ const RoseHero = ({ reduced }: { reduced: boolean }) => (
       </dl>
     </section>
   </header>
-);
+));
+
+/** Runs `work` at most once per frame on scroll and resize. */
+const useFrameScroll = (work: () => void) => {
+  useEffect(() => {
+    let raf = 0;
+    const on = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; work(); }); };
+    work();
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
+  }, [work]);
+};
+
+/** Copper reading thread, left margin. Owns its scroll state so the page does not re-render with it. */
+const ReadingThread = ({ rootRef, reduced }: { rootRef: RefObject<HTMLElement>; reduced: boolean }) => {
+  const [progress, setProgress] = useState(0);
+  const measure = useCallback(() => {
+    const r = rootRef.current?.getBoundingClientRect();
+    if (!r) return;
+    const total = r.height - window.innerHeight;
+    setProgress(total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1);
+  }, [rootRef]);
+  useFrameScroll(measure);
+  return (
+    <div aria-hidden="true" className="pointer-events-none fixed bottom-0 left-2 top-0 z-20 w-px bg-outline-variant md:left-4">
+      <div className="h-full w-px origin-top bg-rose-copper" style={{ transform: `scaleY(${progress})`, transition: reduced ? "none" : "transform 120ms linear" }} />
+    </div>
+  );
+};
+
+/** Chapter bodies never depend on scroll state, so they are memoised against the active-chapter updates. */
+const Chapters = memo(({ reduced }: { reduced: boolean }) => (
+  <>
+    {ROSE_CHAPTERS.map((c, i) => (
+      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] ? "max-w-2xl xl:max-w-[40rem]" : "max-w-3xl")}>
+        <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{MILESTONES[c.id] && <span className="ml-3"><span aria-hidden="true">● </span>Built</span>}</p>
+        <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
+        {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
+        {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}
+      </section>
+    ))}
+  </>
+));
 
 export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
   const [active, setActive] = useState(-1);
-  const [progress, setProgress] = useState(0);
   const root = useRef<HTMLDivElement>(null);
   const details = useRef<HTMLDetailsElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => {
-      const el = root.current;
-      if (!el) return;
-      // Active chapter: the last one whose top crossed 40% of the viewport; none before chapter 00.
-      let next = -1;
-      el.querySelectorAll<HTMLElement>("[data-ch]").forEach((c) => { if (c.getBoundingClientRect().top <= window.innerHeight * 0.4) next = Number(c.dataset.ch); });
-      setActive(next);
-      const r = el.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      setProgress(total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+  // Active chapter: the last one whose top crossed 40% of the viewport; none before chapter 00.
+  const measureActive = useCallback(() => {
+    let next = -1;
+    root.current?.querySelectorAll<HTMLElement>("[data-ch]").forEach((c) => { if (c.getBoundingClientRect().top <= window.innerHeight * 0.4) next = Number(c.dataset.ch); });
+    setActive(next);
   }, []);
+  useFrameScroll(measureActive);
 
   const current = ROSE_CHAPTERS[active];
   const needleTurn = Math.max(0, active) * (300 / (ROSE_CHAPTERS.length - 1));
@@ -302,10 +334,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
 
   return (
     <div ref={root} className="rose-case-bg relative">
-      {/* Copper reading thread, left margin. */}
-      <div aria-hidden="true" className="pointer-events-none fixed bottom-0 left-2 top-0 z-20 w-px bg-outline-variant md:left-4">
-        <div className="h-full w-px origin-top bg-rose-copper" style={{ transform: `scaleY(${progress})`, transition: reduced ? "none" : "transform 120ms linear" }} />
-      </div>
+      <ReadingThread rootRef={root} reduced={reduced} />
 
       {/* Mobile: one-line sticky bar. */}
       <details ref={details} className="sticky top-[76px] z-30 border-b border-outline-variant bg-surface/95 px-6 py-3 backdrop-blur-sm lg:hidden">
@@ -336,14 +365,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
         </aside>
 
         <div className="min-w-0">
-          {ROSE_CHAPTERS.map((c, i) => (
-            <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] ? "max-w-2xl" : "max-w-3xl")}>
-              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{MILESTONES[c.id] && <span className="ml-3"><span aria-hidden="true">● </span>Built</span>}</p>
-              <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary md:text-5xl">{c.heading}</h2>
-              {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
-              {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}
-            </section>
-          ))}
+          <Chapters reduced={reduced} />
         </div>
       </div>
     </div>

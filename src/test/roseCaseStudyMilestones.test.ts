@@ -17,6 +17,12 @@ describe("Rose case study §6.3 chapters 01 to 05", () => {
   it("uses only text that appears in the copy deck", () => {
     for (const m of Object.values(MILESTONES)) for (const s of strings(m)) expect(deck, s).toContain(s);
   });
+  it("writes each Rose note as a single sentence", () => {
+    for (const m of Object.values(MILESTONES)) {
+      expect(m.note, m.note).toMatch(/[.!?]$/);
+      expect(m.note.slice(0, -1), m.note).not.toMatch(/[.!?]/);
+    }
+  });
   it("contains no em-dashes", () => {
     expect(JSON.stringify(MILESTONES)).not.toContain("—");
   });
