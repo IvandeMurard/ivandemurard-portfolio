@@ -14,6 +14,7 @@
     --surface: 42 41% 97%;                    /* #fbf9f4 */
     --rose-copper: 22 58% 32%;                /* Rose's colour, Rose case study only */
     --rose-cool: 212 32% 93%;                 /* end of the case-study gradient */
+    --rose-copper-on-navy: 22 62% 66%;        /* the Night value of --rose-copper, for the navy close in both moods */
     --surface-bright: 42 41% 97%;
     --surface-dim: 45 7% 85%;                 /* #dbdad5 */
     --surface-container-lowest: 0 0% 100%;    /* #ffffff */

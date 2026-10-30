@@ -50,6 +50,7 @@ export default {
           foreground: "hsl(var(--on-secondary))",
         },
         "rose-copper": "hsl(var(--rose-copper))",
+        "rose-copper-on-navy": "hsl(var(--rose-copper-on-navy))",
         "secondary-fixed": "hsl(var(--secondary-fixed))",
         "secondary-fixed-dim": "hsl(var(--secondary-fixed-dim))",
         "on-secondary": "hsl(var(--on-secondary))",

@@ -323,7 +323,9 @@ const RoseClose = () => {
   const ghost = cn("rounded-full border border-on-primary/60 px-5 py-2.5 font-body text-sm hover:bg-on-primary/10 [[data-mood=dusk]_&]:border-on-surface/60 [[data-mood=dusk]_&]:hover:bg-on-surface/10", CLOSE_RING);
   return (
     <>
-      <section aria-label={CLOSE.askLabel} className="bg-gradient-to-b from-[hsl(var(--rose-cool))] to-primary px-8 pb-10 pt-32 text-center text-on-primary [[data-mood=dusk]_&]:to-inverse-primary [[data-mood=dusk]_&]:text-on-surface md:px-12 md:pt-36">
+      {/* The gradient is its own band, so every word of the ask block sits on solid navy. */}
+      <div aria-hidden="true" className="h-32 bg-gradient-to-b from-[hsl(var(--rose-cool))] to-primary [[data-mood=dusk]_&]:to-inverse-primary md:h-40" />
+      <section aria-label={CLOSE.askLabel} className={cn("px-8 pb-10 pt-4 text-center md:px-12", NAVY)}>
         <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
           <span className="border-b border-on-primary/30 pb-0.5 font-label text-[11px] uppercase tracking-[0.12em] text-primary-fixed-dim [[data-mood=dusk]_&]:border-on-surface/30 [[data-mood=dusk]_&]:text-primary">{CLOSE.askLabel}</span>
           <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask", { detail: { text: CLOSE.askQuestion } }))}
@@ -334,10 +336,10 @@ const RoseClose = () => {
       <section id="contact" aria-labelledby="rose-contact-h" className={NAVY}>
         <div className="mx-auto flex max-w-7xl flex-wrap items-end gap-x-[4.5rem] gap-y-8 px-8 pb-28 pt-16 md:px-12">
           <div className="min-w-0 flex-1 basis-[28rem]">
-            <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary-fixed-dim [[data-mood=dusk]_&]:text-rose-copper">{CLOSE.kicker}</p>
+            <p className="font-label text-[10px] uppercase tracking-[0.18em] text-rose-copper-on-navy">{CLOSE.kicker}</p>
             <h2 id="rose-contact-h" className="mt-4 max-w-4xl font-headline text-4xl leading-[1.1] md:text-6xl">
               {CLOSE.headingLead}
-              <em className="text-secondary-fixed-dim [[data-mood=dusk]_&]:text-rose-copper">{CLOSE.headingEm}</em>
+              <em className="text-rose-copper-on-navy">{CLOSE.headingEm}</em>
             </h2>
             <p className="mt-6 max-w-xl font-body text-base text-on-primary/80 [[data-mood=dusk]_&]:text-on-surface/80">{CLOSE.subline}</p>
           </div>
