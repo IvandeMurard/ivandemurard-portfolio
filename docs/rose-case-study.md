@@ -54,6 +54,14 @@ Rose's answer is text by default. She may add exactly one of these, through tool
 - `rose-evolution`: July to October, five decisions.
 - (Ivan adds to this list; Rose can only use ids listed here.)
 
+#### 2.2 Project relations: one source, three consumers
+`src/content/portfolio-graph.json` is the single source for project relations. It is hand-authored by Ivan: each edge is a node, a relation, another node and a one-line reason. Three consumers read it, and none keeps its own copy of the edges:
+1. the chapter 06 map on the site (§6.4);
+2. Rose's `show_relations(project_slug)` tool (R2, table above);
+3. a new MCP tool, `get_relations` (to build, not yet built): read-only, it returns each edge with its one-line reason, and nothing else.
+
+An edge or a reason changes in the JSON file only; the map, Rose and the MCP then change together. No consumer adds, infers or rewords an edge.
+
 Not in v1: free diagram generation, a complete automatic semantic graph of the site, real-time voice conversation.
 
 ### R3. Rose acts in the reading, without becoming a second widget
@@ -145,7 +153,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 ### 6.4 Chapter 06: What Rose can do now (Design)
 - Architecture diagram (reader context → dock → rose-chat → tools → site text). Solid = built, dashed = design.
 - One marked passage, four suggested questions (Locate, Reformulate, Connect, Sketch); answers only in the dock.
-- Relations graph from `src/content/portfolio-graph.json`, edges written by Ivan. Rose links the site's content (Field Notes, Path · CV, /agents · MCP, case studies), never the projects' code. Hospitality multi-agent architecture: Aetherix, Tacet, Anima, Peritia; Tacet linked to Aetherix and Anima. Standalone: Lore (adapted into Peritia), Sonor (inspired Tacet, indirect), Compass (no link). Evaluation (`/rose-design-lab/evaluation`) is a site-content node with two edges: Rose → Evaluation, label "how she is tested", reason "The evaluation page shows how every change to Rose is tested before it reaches visitors."; Evaluation → Field Notes, label "applies “Evaluate”", reason "The campaign applies the harness and grading method this Field Note describes." No invented analogies ("same principle", "same lesson" removed).
+- Relations graph from `src/content/portfolio-graph.json`, edges written by Ivan; the map is one of the three consumers of that file (§2.2). Rose links the site's content (Field Notes, Path · CV, /agents · MCP, case studies), never the projects' code. Hospitality multi-agent architecture: Aetherix, Tacet, Anima, Peritia; Tacet linked to Aetherix and Anima. Standalone: Lore (adapted into Peritia), Sonor (inspired Tacet, indirect), Compass (no link). Evaluation (`/rose-design-lab/evaluation`) is a site-content node with two edges: Rose → Evaluation, label "how she is tested", reason "The evaluation page shows how every change to Rose is tested before it reaches visitors."; Evaluation → Field Notes, label "applies “Evaluate”", reason "The campaign applies the harness and grading method this Field Note describes." No invented analogies ("same principle", "same lesson" removed).
 - "In use": the whole block stays hidden below 33 conversations (no placeholder line). From 33: count since a date, plus a few real questions chosen by Ivan from the logs, personal details removed.
 
 ### 6.5 Chapter 07: Trust (Built)
@@ -224,6 +232,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 - Tested with a real screen reader (VoiceOver on macOS and iOS, NVDA on Windows): headings, the "On this page" list, the dock and its answers are announced correctly.
 - Cmd+K (macOS) or Ctrl+K (Windows, Linux) opens the dock and focuses its input from anywhere on the site, without overriding the shortcut inside text fields; the hint is shown in the dock.
 - The "In use" block is absent below 33 conversations.
+- An agent using only the MCP answers relation questions (for example "Is Compass part of the hospitality architecture?", "How does Tacet relate to Aetherix?") with the edges and reasons Ivan wrote, and nothing else.
 - Evaluation runs: 5 samples per ordinary case (pass: at least 4 of 5 on quality dimensions), 20 per high-risk case (invented fact, privacy, booking after a decline; pass: 0 critical failures). The page states results as counts, e.g. "0 critical failures in 20 runs".
 
 ---
