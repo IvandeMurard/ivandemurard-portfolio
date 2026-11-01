@@ -742,4 +742,4 @@ export const HARNESSES_ENTRY: JournalEntry = {
   ],
 };
 
-HARNESSES_ENTRY.readingMinutes = visibleMinutes(HARNESSES_ENTRY.body);
+Object.assign(HARNESSES_ENTRY, { readingMinutes: visibleMinutes(HARNESSES_ENTRY.body) });

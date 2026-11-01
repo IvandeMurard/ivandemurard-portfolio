@@ -132,7 +132,10 @@ export default defineTool({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ slug }) => {
-    const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+    // JSON round-trip gives the stripped Deno bundle a loose entry instead of a union of
+    // literal note shapes (which fails strict type checking); the source stays typed.
+    const found = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+    const entry: JournalEntry | undefined = found ? JSON.parse(JSON.stringify(found)) : undefined;
     if (!entry) {
       const available = JOURNAL_ENTRIES.map((e) => e.slug).join(", ");
       return {
