@@ -119,16 +119,14 @@ const RELATED_ROLE ={ method: "Read the method", decision: "Understand the desig
 /** Internal Markdown links become canonical public URLs so agents can follow them. */
 const absolutize = (md: string) => md.replace(/\]\((\/[^\s)]*)\)/g, `](${SITE_ORIGIN}$1)`);
 
-export function renderEntryMarkdown(entry: JournalEntry): string {
+/** The entry from the TL;DR to the source line: everything except the title, subtitle and dateline. */
+export function renderEntryBody(entry: JournalEntry): string {
     const related = entry.related?.length
       ? `## Continue exploring\n\n${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}`
       : "";
     const bodyText = absolutize([...renderBlocks(entry.body), related].filter(Boolean).join("\n\n"));
     const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
     return [
-      `# ${entry.title}`,
-      entry.subtitle ?? "",
-      `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${entry.readingMinutes} min read` : ""}`,
       entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
       entry.glance
         ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}`
@@ -149,14 +147,39 @@ export function renderEntryMarkdown(entry: JournalEntry): string {
       `Source: ${url}`,
     ]
       .filter(Boolean)
-      .join("\n\n");;
+      .join("\n\n");
+}
+
+/** The full Markdown of an entry, as published on the site and in the .md mirror. */
+export function renderEntryMarkdown(entry: JournalEntry): string {
+    return [
+      `# ${entry.title}`,
+      entry.subtitle ?? "",
+      `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${entry.readingMinutes} min read` : ""}`,
+      renderEntryBody(entry),
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+}
+
+/** Fixed "Key: value" lines, one per field and always all seven, so a program can parse them. */
+export function renderEntryHeader(entry: JournalEntry): string {
+  return [
+    `Title: ${entry.title}`,
+    `Subtitle: ${entry.subtitle ?? "none"}`,
+    `Date: ${entry.date}`,
+    `Category: ${entry.category}`,
+    `Reading time: ${entry.readingMinutes ? `${entry.readingMinutes} min` : "none"}`,
+    `URL: ${SITE_ORIGIN}/journal/${entry.slug}`,
+    `Markdown URL: ${entry.mirror ? `${SITE_ORIGIN}${entry.mirror}` : "none"}`,
+  ].join("\n");
 }
 
 export default defineTool({
   name: "get_journal_entry",
   title: "Get Field Note",
   description:
-    "Fetch one Field Notes entry in full by slug. The text content is the complete entry as readable Markdown, once; structured content carries only the short metadata (slug, title, subtitle, date, category, excerpt, reading time, URLs). Use list_journal_entries to discover valid slugs.",
+    "Fetch one Field Notes entry in full by slug. Returns one text content: a metadata header of fixed 'Key: value' lines (Title, Subtitle, Date, Category, Reading time, URL, Markdown URL), a blank line, then the complete entry as Markdown, once. There is no structured content. Use list_journal_entries to discover valid slugs.",
   inputSchema: {
     slug: z.string().describe("Field Note slug, as returned by list_journal_entries."),
   },
@@ -179,23 +202,9 @@ export default defineTool({
       };
     }
 
-    const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
-    const text = renderEntryMarkdown(entry);
-
-    // The full entry is in `content` only: repeating it in structuredContent doubled the payload.
+    // Text only, no structuredContent: the metadata header and the body are the whole payload, once.
     return {
-      content: [{ type: "text" as const, text }],
-      structuredContent: {
-        slug: entry.slug,
-        title: entry.title,
-        subtitle: entry.subtitle ?? null,
-        date: entry.date,
-        category: entry.category,
-        excerpt: entry.excerpt,
-        reading_minutes: entry.readingMinutes ?? null,
-        url,
-        markdown_url: entry.mirror ? `${SITE_ORIGIN}${entry.mirror}` : null,
-      },
+      content: [{ type: "text" as const, text: `${renderEntryHeader(entry)}\n\n${renderEntryBody(entry)}` }],
     };
   },
 });
