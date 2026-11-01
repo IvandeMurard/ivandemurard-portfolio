@@ -18,6 +18,7 @@ Read `AGENTS.md` too: its project rules apply.
 
 ## Quality
 - Before every commit: `bun.cmd x vitest run` and `bun.cmd run build`. Report failures, do not hide them.
+- Never change a test input to make a failing test pass. Fix the code, or keep the failing case as a documented known failure (skipped test with a comment) and report it.
 - When done, list what changed and check it against §9 of the brief (390, 800, 1280, 1440 px; Day and Night; contrast at least 4.5:1; keyboard; reduced motion).
 - Site copy: no em-dashes. Never invent metrics, dates, names or sources.
 - Use semantic tokens, never hard-coded colours.

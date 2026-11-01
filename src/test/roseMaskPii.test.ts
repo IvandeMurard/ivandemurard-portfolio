@@ -79,6 +79,10 @@ describe("maskPii: phone numbers need 9 digits", () => {
     "call 1234567 or 12345678",
     "versions 10.20.30",
     "between 2019 - 2021, then 2024",
+    "between 2019 - 2021 (3 years)",
+    "from 1998-2005 (7 years)",
+    "between 2019 to 2021 (3 years)",
+    "Sonor 2020-2022 (2 years)",
   ])("keeps %s", (input) => {
     expect(maskPii(input)).toBe(input);
   });
@@ -89,6 +93,21 @@ describe("maskPii: phone numbers need 9 digits", () => {
     ["+44 20 7946 0958", "[phone masked]"],
   ])("masks %s", (input, expected) => {
     expect(maskPii(input)).toBe(expected);
+  });
+  // A year range is not a phone, but a real number right after it still is.
+  it.each([
+    ["2019-2021 0612345678", "2019-2021 [phone masked]"],
+    ["between 2019 - 2021 (3 years) or 06 12 34 56 78", "between 2019 - 2021 (3 years) or [phone masked]"],
+    ["2019 to 2021 and 0612345678", "2019 to 2021 and [phone masked]"],
+  ])("masks the number but keeps the years in %s", (input, expected) => {
+    expect(maskPii(input)).toBe(expected);
+  });
+  // The exemption is bounded to the years 1900 to 2099 and to a range of two years.
+  it.each([
+    "1899-1901 (3 years)",
+    "2099-2100 (2 years)",
+  ])("does not exempt %s, which is not two years in 1900 to 2099", (input) => {
+    expect(maskPii(input)).toContain("[phone masked]");
   });
 });
 
