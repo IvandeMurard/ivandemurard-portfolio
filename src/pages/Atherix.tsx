@@ -319,11 +319,11 @@ const Atherix = () => {
           <div className="min-w-0">
           <div className={`${tableWrapCls} mb-8`}><table className="w-full border-collapse"><tbody>{[
             ["Hotels connected", "None. No pilot partner signed, no go-live date"],
-            ["Forecast test", "Public data, 30 restaurants. Beats a simple \"same weekday last week\" guess on average. Matches it on a typical day. Slightly behind it for next-day forecasts, the horizon the product uses"],
+            ["Forecast test", "Public data, 30 restaurants. Beats a naive same-weekday baseline (the mean of the last four same weekdays) on average. Matches it on a typical day. Slightly behind it for next-day forecasts, the horizon the product uses"],
             ["Limit of that test", "Restaurants, not hotels. No occupancy data, the signal the product relies on"],
             ["What is solid today", "The loop: recommendation, reply, outcome, and the checks that guard them"],
           ].map(([label, value]) => <tr key={label} className="border-b border-outline-variant last:border-b-0"><th scope="row" className={`${thCls} w-40`}>{label}</th><td className={tdCls}>{value}</td></tr>)}</tbody></table></div>
-          <AetherixDisclosure title="The numbers"><p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.</p></AetherixDisclosure>
+          <AetherixDisclosure title="The numbers"><p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.</p></AetherixDisclosure>
           </div>
           <div className="min-w-0">
           <h3 className={subheadCls}>Product vision</h3>

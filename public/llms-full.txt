@@ -141,7 +141,7 @@ Product builder with 5 years in B2B SaaS: co-founded a SaaS company, led product
 
 - **[Aetherix](/aetherix) (F&B agent):** one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; staged for a 30-day pilot.
 - **[Anima](/anima) (guest memory):** keeps what guests said apart from what was inferred, and forgets what was never confirmed. Synthetic proof of concept with four memory layers and an MCP server; real guest data gated behind a data-protection assessment.
-- **Evaluation by design:** forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive median baseline, with mixed results reported as they are; 12 public ADRs.
+- **Evaluation by design:** forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive same-weekday baseline (the mean of the last four same weekdays), with mixed results reported as they are; 12 public ADRs.
 - **Architecture:** 5 agents around a central orchestrator, multi-tenant, with GDPR constraints designed in from the start.
 
 ### Product Builder, Compass
@@ -325,13 +325,13 @@ Sandbox data, real mechanics, deterministic reruns.
 | | |
 | --- | --- |
 | Hotels connected | None. No pilot partner signed, no go-live date |
-| Forecast test | Public data, 30 restaurants. Beats a simple "same weekday last week" guess on average. Matches it on a typical day. Slightly behind it for next-day forecasts, the horizon the product uses |
+| Forecast test | Public data, 30 restaurants. Beats a naive same-weekday baseline (the mean of the last four same weekdays) on average. Matches it on a typical day. Slightly behind it for next-day forecasts, the horizon the product uses |
 | Limit of that test | Restaurants, not hotels. No occupancy data, the signal the product relies on |
 | What is solid today | The loop: recommendation, reply, outcome, and the checks that guard them |
 
 ### The numbers
 
-Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.
+Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.
 
 ### Roadmap
 
@@ -1042,7 +1042,7 @@ Markdown: https://ivandemurard.com/agents.md
 
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-10-29.
+Public. Read-only. No key. Last updated 2026-11-01.
 
 > Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
@@ -1349,7 +1349,7 @@ The seam is also what lets the system be honest about itself. In a simulated 30-
 
 ## What it cost
 
-Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet.
+Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline (the mean of the last four same weekdays) on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet.
 
 And a limit I have to keep restating. The comparison runs on its own, but the truth it compares against is still declared by a human. That is a closed loop on a declared truth, which is an engineering statement. "Dual autonomous loop" would be a brochure statement.
 

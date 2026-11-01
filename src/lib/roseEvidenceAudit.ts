@@ -30,7 +30,7 @@ export type AetherixEvidenceAudit = {
 export const AETHERIX_EVIDENCE_ANCHORS = [
   "After a simulated 25% jump in demand, weekly recalibration cut the forecast error from 15.9% to 12.3%.",
   "Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points",
-  "Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%",
+  "Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%",
   "MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%.",
   "A gradient-boosted model reaches 25.6% on the median.",
   "The protocol was not pre-registered for this run.",

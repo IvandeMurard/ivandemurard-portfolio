@@ -77,9 +77,9 @@ const CanvasState = ({ s, reduced }: { s: number; reduced: boolean }) => {
     <div className="grid gap-4 md:grid-cols-[1fr_11rem]">
       <div>
         <p className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Published, technical</p>
-        <p className="mt-1 font-body text-xs leading-relaxed text-on-surface-variant line-through decoration-secondary/60">Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%. At J+1, 28.5% vs 27.9%.</p>
+        <p className="mt-1 font-body text-xs leading-relaxed text-on-surface-variant line-through decoration-secondary/60">Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%. At J+1, 28.5% vs 27.9%.</p>
         <p className="mt-4 font-label text-[10px] uppercase tracking-[0.16em] text-secondary">For the reader</p>
-        <p className="mt-1 font-headline text-lg leading-snug text-primary">On 30 restaurants, the forecast beats "same weekday last week" on average (49.71% vs 55.86% error), but is slightly behind it for next-day forecasts (28.5% vs 27.9%).</p>
+        <p className="mt-1 font-headline text-lg leading-snug text-primary">On 30 restaurants, the forecast beats "the mean of the last four same weekdays" on average (49.71% vs 55.86% error), but is slightly behind it for next-day forecasts (28.5% vs 27.9%).</p>
       </div>
       <aside className="border-l-2 border-secondary pl-3">
         <p className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">Scope kept beside it</p>
