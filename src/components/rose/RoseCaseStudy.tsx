@@ -318,7 +318,7 @@ export const TRUST = {
       sourcesLead: "Retention and masking: ",
       sources: [
         { label: "supabase/functions/_shared/mask-pii.ts", path: "supabase/functions/_shared/mask-pii.ts" },
-        { label: "the purge migration", path: "supabase/migrations/20261101090000_rose_retention_cron.sql" },
+        { label: "the purge migration", path: "drizzle/migrations/0004_rose_retention_cron.sql" },
       ],
     },
     {
