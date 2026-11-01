@@ -1,4 +1,4 @@
-<!-- Generated. Private review artifact, excluded from public content. v1 sha256:59b7c357c56f2f937e00b2619fd9d6f118889d2f16ea64e02489142843cce708 -->
+<!-- Generated. Private review artifact, excluded from public content. v1 sha256:19a9af0089e72384c9c05ae59fa92e2b09a6a991d98a9003212b1e03b1e695fe -->
 
 Rose historical reference, v1. Repository evidence, not verified deployment parity. No measured visitor-value claim is established. Source paths and commit IDs are provenance, not public reading URLs. Do not invent a public Rose history page or link to the private reference.
 
@@ -54,7 +54,7 @@ Provenance: 12c03fb; src/components/rose/RoseBookingCard.tsx; supabase/functions
 
 ## question-logging (2026-10-24, implemented)
 Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage. Typed questions and selected chip labels are both stored. Links and IP addresses are masked too; masking works by pattern, so names are not masked and unusual formats can slip through. Rose application event records do not include IP addresses or user agents, but providers and hosting may process separate network data. Generated answers are not saved in the current application event table; request-lifecycle events are content-free. Deprecated booking-transcript rows may remain until the scheduled 90-day purge. Access to Rose event records is restricted to the site admin.
-Provenance: ccad61e; 475b2ed; supabase/functions/rose-event/index.ts; supabase/functions/_shared/mask-pii.ts; supabase/migrations/20261101090000_rose_retention_cron.sql; src/components/rose/roseEvents.ts; drizzle/migrations/0002_rose_sessions_retention.sql; src/pages/Privacy.tsx
+Provenance: ccad61e; 475b2ed; supabase/functions/rose-event/index.ts; supabase/functions/_shared/mask-pii.ts; drizzle/migrations/0004_rose_retention_cron.sql; src/components/rose/roseEvents.ts; drizzle/migrations/0002_rose_sessions_retention.sql; src/pages/Privacy.tsx
 Unsupported wording: Nothing you type is stored.
 
 ## dom-integrity (2026-10-24, implemented)
