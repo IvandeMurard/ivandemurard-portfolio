@@ -17,7 +17,7 @@ export default defineTool({
   name: "get_case_study",
   title: "Get case study",
   description:
-    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: Pilot-ready · ...); the rest covers vision, architecture, stack and outcomes.",
+    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready · ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z
       .enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"])
@@ -36,13 +36,22 @@ export default defineTool({
         };
       }
       const markdown = `${statusLine(slug)}\n\n${await res.text()}`;
+      const group = slug === "compass" ? "Standalone projects" : undefined;
+      const canonicalUrl = `${SITE_ORIGIN}/${slug}`;
+      // Every structuredContent field except the Markdown is a fixed "Key: value" line, then the Markdown once.
+      const header = [
+        `Slug: ${slug}`,
+        ...(group ? [`Group: ${group}`] : []),
+        `Source URL: ${url}`,
+        `Canonical URL: ${canonicalUrl}`,
+      ].join("\n");
       return {
-        content: [{ type: "text", text: markdown }],
+        content: [{ type: "text", text: `${header}\n\n${markdown}` }],
         structuredContent: {
           slug,
-          ...(slug === "compass" ? { group: "Standalone projects" } : {}),
+          ...(group ? { group } : {}),
           source_url: url,
-          canonical_url: `${SITE_ORIGIN}/${slug === "aetherix" ? "aetherix" : slug}`,
+          canonical_url: canonicalUrl,
           markdown,
         },
       };
