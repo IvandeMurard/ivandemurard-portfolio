@@ -155,7 +155,7 @@ var V5 = {
   - Built: Your conversation stays in this tab for 60 minutes, or until you reload the page.
   - Built: Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
   - Built: Booking opens the calendar and nothing else. No transcript travels with it.
-  - Sources line under the data contract: "Retention and masking: supabase/functions/rose-event/index.ts and the purge migration" (each linked to its GitHub page on main)
+  - Sources line under the data contract: "Retention and masking: supabase/functions/_shared/mask-pii.ts and the purge migration" (each linked to its GitHub page on main)
 - Contract 2 · Knowledge · "What Rose may assert or infer."
   - Built: Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.
   - Built: A delivery status is preserved: planned is never turned into done, sandbox never into production.

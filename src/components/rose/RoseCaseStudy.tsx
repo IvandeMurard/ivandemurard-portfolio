@@ -317,7 +317,7 @@ export const TRUST = {
       ] as TrustItem[],
       sourcesLead: "Retention and masking: ",
       sources: [
-        { label: "supabase/functions/rose-event/index.ts", path: "supabase/functions/rose-event/index.ts" },
+        { label: "supabase/functions/_shared/mask-pii.ts", path: "supabase/functions/_shared/mask-pii.ts" },
         { label: "the purge migration", path: "supabase/migrations/20261101090000_rose_retention_cron.sql" },
       ],
     },
