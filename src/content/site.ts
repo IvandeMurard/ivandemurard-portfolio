@@ -144,7 +144,7 @@ export const NOW_PROJECTS: NowEntry[] = [
   {
     name: "Aetherix",
     blurb:
-      "F&B execution agent for boutique hotel operations. Forecasts covers daily against real data; staffing and waste outcomes are pilot hypotheses, not measured results.",
+      "F&B execution agent for boutique hotel operations. Built to forecast covers every day from each hotel's own data. Today: evaluated on historical data and staged on the Apaleo sandbox; staffing and waste outcomes are pilot hypotheses, not measured results.",
     href: "/aetherix",
     external: false,
     meta: "Case study",

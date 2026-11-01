@@ -12,4 +12,12 @@ describe("Aetherix CI gate wording", () => {
       expect(text).not.toContain("fixed set of real-world scenarios");
     }
   });
+
+  it("the Atrium blurb states today's stage and the snapshot matches it", () => {
+    const blurb = "Built to forecast covers every day from each hotel's own data. Today: evaluated on historical data and staged on the Apaleo sandbox; staffing and waste outcomes are pilot hypotheses, not measured results.";
+    expect(readFileSync("src/content/site.ts", "utf8")).toContain(blurb);
+    expect(readFileSync("prerendered/atrium.html", "utf8")).toContain(blurb);
+    expect(readFileSync("prerendered/atrium.html", "utf8")).not.toContain("against real data");
+  });
 });
+
