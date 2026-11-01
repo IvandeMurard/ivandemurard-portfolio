@@ -49,9 +49,18 @@ const maskLinks = (text: string): string =>
     .replace(URL_SCHEME, (m) => (OWN_SITE.test(m) ? m : "[link masked]"))
     .replace(URL_BARE, (m) => (OWN_SITE.test(m) ? m : "[link masked]"));
 
+// Two years from 1900 to 2099, joined by a hyphen or "to": "2019 - 2021", "1998-2005".
+const YEAR_RANGE_PREFIX = /^(?:19|20)\d{2}\s*(?:-|to)\s*(?:19|20)\d{2}(?!\d)/;
+
 // A digit run is a phone number only from 9 digits, so "2020-2022" and short numbers are kept.
+// A match that starts with a year range is not a phone: the range is kept and only the rest is
+// checked again, so "2019 - 2021 (3 years)" survives and "2019-2021 0612345678" still loses the number.
 const maskPhones = (text: string): string =>
-  text.replace(PHONE, (m) => (m.replace(/\D/g, "").length >= PHONE_MIN_DIGITS ? "[phone masked]" : m));
+  text.replace(PHONE, (m) => {
+    const years = m.match(YEAR_RANGE_PREFIX);
+    if (years) return years[0] + maskPhones(m.slice(years[0].length));
+    return m.replace(/\D/g, "").length >= PHONE_MIN_DIGITS ? "[phone masked]" : m;
+  });
 
 // French: "12 rue de la Paix, 75002 Paris". Words after the street type are taken up to four,
 // so a trailing word can occasionally be masked with the address.
