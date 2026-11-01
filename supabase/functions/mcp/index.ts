@@ -1036,7 +1036,7 @@ var HARNESSES_ENTRY = {
     }
   ]
 };
-HARNESSES_ENTRY.readingMinutes = visibleMinutes(HARNESSES_ENTRY.body);
+Object.assign(HARNESSES_ENTRY, { readingMinutes: visibleMinutes(HARNESSES_ENTRY.body) });
 
 // src/content/journalTruth.ts
 var PROOF = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md";
@@ -1756,10 +1756,8 @@ var get_journal_entry_default = defineTool5({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ slug }) => {
-    const entry = Reflect.get(
-      { found: JOURNAL_ENTRIES.find((e) => e.slug === slug) },
-      "found"
-    );
+    const found = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+    const entry = found ? JSON.parse(JSON.stringify(found)) : void 0;
     if (!entry) {
       const available = JOURNAL_ENTRIES.map((e) => e.slug).join(", ");
       return {
