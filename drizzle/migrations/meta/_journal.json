@@ -29,6 +29,13 @@
       "when": 1792853727893,
       "tag": "0003_rose_product_metrics",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793531843872,
+      "tag": "0004_rose_retention_cron",
+      "breakpoints": true
     }
   ]
 }
