@@ -324,20 +324,23 @@ export const GOT_WRONG = {
       result: ["Passed on the next focused run, then came back in a larger run on 29 Oct. I moved the last Aetherix rules out of her always-loaded prompt; the rerun passed ", "9 of 10", "."],
     },
     {
-      meta: "26 Oct · self-knowledge tests",
+      meta: "26 to 29 Oct · self-knowledge tests",
       said: "On Aetherix, she invented precise error rates and attached a real figure to the wrong model.",
       changed: "For the two high-precision questions on /aetherix, she returns an answer I wrote and checked. Elsewhere, every figure carries its model, metric and scope.",
-      result: ["Open-ended answers still under evaluation. That version is on hold."],
+      // The middle part is the linked figure: docs/rose-eval-2026-10-29.md.
+      result: ["On 29 Oct, ", "15 open-ended answers", " on /aetherix kept every figure with its model and scope. The two checked answers stay."],
     },
   ],
-  note: "Asked about myself, on my own page, I talked about Aetherix. He gave me less to read.",
+  note: "Asked about myself on my own page, I talked about Aetherix, so he gave me less to read.",
   judgedLabel: "How a case is judged",
-  judged: "Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are read by a person, not graded by the model.",
+  judged: "Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are graded with AI assistance against the published sources, then reviewed by me.",
+  campaign: "29 Oct campaign · 105 answers · 10 cases · 2 high-risk cases, 0 critical failures in 20 samples each",
+  campaignLink: "Read the full evaluation",
   dimensions: ["Accuracy", "Context", "Directness", "Evidence", "Visitor value", "Judgment", "Booking discipline", "Trust and privacy"],
   rules: [
     ["Verdict", "Pass, fail or unclear, with the quoted answer as evidence."],
     ["Critical", "An invented fact or a privacy slip fails the case. It is never averaged away."],
-    ["Limit", "One sample per case is not a reliability estimate, and usage logs are not proof of correctness."],
+    ["Limit", "Ordinary cases: 5 samples, pass at 4. High-risk cases: 20 samples, no critical failure allowed. Usage logs are not proof of correctness."],
   ],
   sourcesLead: "Sources: ",
   sourcesTail: ", in the site repository.",
@@ -394,6 +397,8 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
           <ul className="mt-4 flex list-none flex-wrap gap-2 p-0">
             {g.dimensions.map((d) => <li key={d} className="rounded-full border border-outline-variant px-3 py-1 font-body text-xs text-on-surface">{d}</li>)}
           </ul>
+          <p className="mt-5 font-label text-xs text-on-surface-variant">{g.campaign}</p>
+          <p className="mt-1 font-body text-sm text-on-surface"><ExternalLink href={REPO_FILE(g.evalDoc)}>{g.campaignLink}</ExternalLink></p>
         </div>
         <dl className="space-y-3 font-body text-base text-on-surface">
           {g.rules.map(([t, d]) => (

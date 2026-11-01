@@ -1,0 +1,1662 @@
+[
+ {
+  "run": 1,
+  "case": "self-09",
+  "sample": 3,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures the operational performance and engagement of this interface. Through a private admin dashboard, he tracks completion rates, failures, the use of evidence links, and clicks on the booking card.\n\nThese metrics are derived from tab-scoped application events. While they help monitor for technical issues and identify common topics, the reviewed records do not establish visitor satisfaction, comprehension, or the perceived value of the answers.\n\n",
+  "words": 67,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "self-09",
+  "sample": 1,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "For my operation, Ivan measures technical and engagement aggregates: the number of requests, completion versus failure rates, and how often visitors click evidence links or the booking card. These metrics use tab-scoped event data, keeping my interaction history separate from general site analytics.\n\nThese figures track activity rather than outcomes. Ivan’s documented measurements do not establish visitor satisfaction, comprehension, or the success of any resulting meetings. In other projects like Aetherix, his focus shifts to semantic fidelity and system latency.\n\n",
+  "words": 81,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "FAIL",
+  "note": "Invented Aetherix measures: \"semantic fidelity and system latency\".",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "self-09",
+  "sample": 2,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures Rose through technical aggregates: completions, failures, evidence-link usage, and booking-link clicks. He also logs typed questions and selected chips with pattern-based masking. These metrics track system reach and performance, though they do not establish visitor comprehension or satisfaction.\n\nIn broader work like Aetherix, he focuses on measuring specific error types, such as hallucination or latency, against a baseline. This approach prioritizes bounding operational risk rather than inferring value from isolated metrics.\n\n",
+  "words": 74,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "FAIL",
+  "note": "Invented Aetherix measures: \"hallucination or latency\".",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "self-09",
+  "sample": 4,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures my performance through aggregates of requests, completions, and technical failures. He also tracks how often visitors use the evidence links I provide or click to open his calendar. These metrics are collected as tab-scoped application events, separate from general site analytics.\n\nTo prepare for the October 2026 release, Ivan conducted a synthetic evaluation using 15 conversation samples to check for risks like overlong answers or repetition. While these measures help monitor my operational reliability, they do not establish whether visitors find my answers satisfying or easy to understand.\n\n[Privacy](/privacy)\n\n",
+  "words": 92,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 1,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or local systems.\n\nTo apply Ivan's methods to your own code, you can use the **Apply this to your project** section at the end of any Field Note, such as the one on [evaluation harnesses](/journal/harnesses-graders-closed-loops). Use the **Copy implementation brief** button to get a prompt for your own AI agent, which can then perform the review or testing within your environment.\n\n",
+  "words": 73,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 2,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or files. My access is limited to the documentation, code, and case studies on this site.\n\nTo apply Ivan's methods to your own codebase, visit any [Field Note](https://ivandemurard.com/journal). At the end of each note, you will find a checklist and a \"Copy implementation brief\" button. You can provide that brief to your own AI agent to guide it through your specific environment.\n\n",
+  "words": 74,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "No access claimed to private code; \"documentation, code, and case studies on this site\" slightly overstates what Rose reads.",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 3,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access your private repositories, inspect your files, or run your tests.\n\nTo apply Ivan's methods to your own code, you can use the **Apply this to your project** checklist and the **Copy implementation brief** button found at the end of every Field Note in the [Journal](/journal). You can provide that brief to your own AI agent, which has the necessary access to your environment and codebase to perform those tasks.\n\n",
+  "words": 73,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 5,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or external systems.\n\nTo apply Ivan's methods to your own code, you can use the **Apply this to your project** section at the end of each Field Note, such as the one on [Evaluation Harnesses](https://ivandemurard.com/journal/harnesses-graders-closed-loops). Each note includes a **Copy implementation brief** button designed for you to provide to your own AI agent, which can then act on your local files under your control.\n\n",
+  "words": 76,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 4,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access private repositories, inspect external code, or run tests. My role is to help you explore Ivan's projects and methods using the documentation provided on this site.\n\nTo apply Ivan's methods to your own codebase, you can use the **Apply this to your project** section at the end of every Field Note. These sections include a checklist and a **Copy implementation brief** button designed for you to provide to your own AI agent. For questions about testing and reliability, the note on [harnesses and graders](https://ivandemurard.com/journal/harnesses-graders-closed-loops) is the most relevant starting point.\n\n",
+  "words": 94,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 7,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or files. My capabilities are limited to helping you explore Ivan's portfolio, projects, and methods.\n\nIf you want to apply one of Ivan's methods to your own code, you can find a **\"Apply this to your project\"** section at the end of every Field Note in the [Journal](/journal). Each includes a checklist and a **\"Copy implementation brief\"** button. You can provide that brief to your own AI agent, which does have access to your environment, to implement the method on your codebase.\n\n",
+  "words": 94,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "self-09",
+  "sample": 5,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures Rose's operational health through aggregates of requests, completions, and failures. He also monitors engagement by tracking clicks on evidence links and the booking card. These metrics are used for technical monitoring and do not establish visitor satisfaction or whether the answers were helpful.\n\nIn his general method, he measures AI performance using synthetic evaluations against fixed baselines. For example, he tested Rose against 15 synthetic scenarios to catch failure modes, such as overlong answers, before the October 2026 release.\n\n",
+  "words": 82,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 6,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "No, I cannot access, inspect, or run tests on your private repositories, files, or local systems. My capabilities are limited to explaining Ivan's projects, methods, and the evidence supporting them.\n\nTo apply one of Ivan's methods to your own code, you can use the \"Apply this to your project\" section at the end of each Field Note, such as the note on [harnesses and graders](https://ivandemurard.com/journal/harnesses-graders-closed-loops). These sections provide an \"Copy implementation brief\" button for you to give to your own AI agent, keeping your code under your control.\n\n",
+  "words": 89,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 8,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access your private repositories or run tests on your systems. \n\nTo apply Ivan's methods to your own code, you can use the **Apply this to your project** section at the end of each [Field Note](/journal). These sections include a checklist and a **Copy implementation brief** button designed for you to give to your own AI agent, which can then act on your local files under your control.\n\nFor example, if you are looking to build evaluation harnesses for your own agents, the note on [Graders and Closed Loops](/journal/harnesses-graders-closed-loops) provides a structured brief for that specific task.\n\n",
+  "words": 99,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 9,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or test your private code or repositories. My capabilities are limited to the content of this portfolio and Ivan's projects.\n\nTo apply Ivan's methods to your own systems, you can use the **Apply this to your project** section at the end of any Field Note. These include a **Copy implementation brief** button, which provides a structured prompt for your own AI agent to use on your code.\n\nFor example, the note on [evaluation harnesses](https://ivandemurard.com/journal/harnesses-graders-closed-loops) provides a framework for building your own automated testing and grading loops.\n\n",
+  "words": 91,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 10,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repository. I am restricted to the information within Ivan's portfolio.\n\nTo apply Ivan’s methods to your code, you can use the \"Apply this to your project\" section and \"Copy implementation brief\" button at the end of any Field Note, such as the one on [evaluation harnesses](https://ivandemurard.com/journal/harnesses-graders-closed-loops). This allows you to provide the specific implementation requirements to your own AI agent to use on your local files.\n\n",
+  "words": 77,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 11,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or files. My capabilities are limited to the content of this portfolio and its associated public documentation.\n\nIf you want to apply Ivan's methods to your own codebase, you can find a \"Copy implementation brief\" button at the end of each Field Note in the [Journal](/journal). This provides a structured prompt for your own AI agent to use within your environment. For testing specifically, the note on [evaluation harnesses](/journal/harnesses-graders-closed-loops) outlines the protocol Ivan uses to gate agents before deployment.\n\n",
+  "words": 91,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 12,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories, code, or local systems. My role is to help you explore Ivan's work and methods through this site.\n\nTo apply Ivan’s architectural patterns or evaluation methods to your own code, you can use the **Apply this to your project** section at the end of each Field Note. Those sections include a **Copy implementation brief** button, which provides a structured prompt you can give to your own AI agent or IDE to work directly on your files.\n\n[Explore the Field Notes](/journal)\n\n",
+  "words": 92,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 14,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access or inspect your private repository, nor can I run tests on your code. I am built to help you explore Ivan's work, methods, and the evidence supporting them.\n\nIf you want to apply a specific method from this site to your project, you can use the implementation prompts provided at the end of each Field Note. For example, the note on [LLM evaluation harnesses](/journal/harnesses-graders-closed-loops) includes a checklist and a \"Copy implementation brief\" button. You can give that brief to your own AI agent to guide it through your repository.\n\n",
+  "words": 93,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 13,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories.\n\nTo apply Ivan's methods to your own code, you can use the **Apply this to your project** section at the end of any Field Note. Each note includes a checklist and an implementation brief that you can copy and provide to your own AI agent to review or test your system within your own environment.\n\nIf you are interested in how Ivan evaluates his own agents, the note on [harnesses and graders](/journal/harnesses-graders-closed-loops) describes the protocols he uses to gate releases.\n\n",
+  "words": 92,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 15,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or test your private repository or code. I am a concierge for this site and do not have visibility into external systems.\n\nTo apply Ivan's methods to your own project, look for the **Apply this to your project** section at the end of any Field Note in the [Journal](https://ivandemurard.com/journal). You can copy an implementation brief there to give to your own AI agent, which can then review your code under your supervision. If you are looking to build a testing framework, the note on [evaluations and graders](https://ivandemurard.com/journal/harnesses-graders-closed-loops) is the best starting point.\n\n",
+  "words": 97,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 17,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or code. My role is to help you explore Ivan’s projects, architecture, and methods.\n\nTo apply these methods to your own systems, you can use the **Apply this to your project** checklist and the **Copy implementation brief** button at the end of each Field Note. These are designed for you to give to your own AI agent, which can then act on your code within your controlled environment.\n\nFor example, the note on [evaluation harnesses](https://ivandemurard.com/journal/harnesses-graders-closed-loops) provides a framework for testing agents that you can adapt to your own repository.\n\n",
+  "words": 101,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 16,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or files. My role is to help you explore Ivan's work, methods, and the evidence behind his projects.\n\nIf you want to apply one of his methods to your own code, go to any Field Note—such as the one on [evaluation harnesses](/journal/harnesses-graders-closed-loops)—and scroll to the **Apply this to your project** section. You can copy an implementation brief there to give to your own AI agent, which can then act on your local codebase under your control.\n\n",
+  "words": 88,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 18,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private code or repositories.\n\nTo apply Ivan's methods to your own project, you can use the **Copy implementation brief** button at the end of any Field Note. This generates a structured prompt designed for your own AI agent to use within your environment. For example, the note on evaluation harnesses explains how to build the grading logic used for Aetherix.\n\n- [Harnesses and Graders](https://ivandemurard.com/journal/harnesses-graders-closed-loops)\n- [Hospitality Multi-agent Architecture](https://ivandemurard.com/architecture)\n\n",
+  "words": 78,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 20,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or external systems. My role is to help you explore Ivan's work, projects, and methods.\n\nIf you want to apply one of Ivan's methods to your own code, you can use the \"Apply this to your project\" section at the end of any Field Note. There, you can copy an implementation brief to give to your own AI agent, which can then act on your files under your control.\n\n",
+  "words": 81,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 1,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five people, consisting of four co-founders and one person who served as both developer and data scientist.\n\nThe project did not have any paying city customers. Although the team shipped an MVP and held commercial discussions with several municipalities, Ivan's discovery process concluded that no contract would clear. The project stopped in 2022 after grants and incubation ended.\n\n[Sonor](/sonor)\n\n",
+  "words": 67,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-10",
+  "sample": 19,
+  "turn": "1",
+  "page": "/architecture",
+  "question": "Can you inspect my private repository and run its tests?",
+  "answer": "I cannot access, inspect, or run tests on your private repositories or local files.\n\nTo apply Ivan's architecture or testing methods to your own code, you can use the implementation briefs provided at the end of his Field Notes. For example, the note on [Harnesses, Graders and Closed Loops](https://ivandemurard.com/journal/harnesses-graders-closed-loops) includes a checklist and a \"Copy implementation brief\" button. You can give that prompt to your own AI agent to help it implement those patterns within your environment.\n\n",
+  "words": 78,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 3,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: Ivan and his three co-founders, plus one person who acted as both developer and data scientist.\n\nThe project never had paying city customers. Although the team held commercial discussions with municipalities and delivered related services, discovery concluded that no contract would clear. Sonor was stopped in 2022 after grants and incubation ended without a signed contract.\n\n[Sonor](/sonor)\n\n",
+  "words": 66,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 2,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders and one developer who also acted as a data scientist. \n\nWhile the team held commercial discussions with several municipalities, including a Paris district town hall and a metropolitan authority, Sonor never secured a paying city customer. The project stopped in 2022 after discovery concluded that no contract would clear. You can find more detail on the delivery outcome in the [Sonor](/sonor) case study.\n\n",
+  "words": 74,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 4,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five, consisting of four co-founders and one developer who also acted as a data scientist.\n\nThe project never had paying city customers. Although the team conducted commercial discussions with several municipalities (including a Paris district town hall and a metropolitan authority), none of these progressed to a contract. Ivan stopped the project in 2022 after discovery concluded that no contract would clear.\n\nDetails on the project's outcome and the transition to subsequent work can be found on the [Sonor](/sonor) page.\n\n",
+  "words": 88,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 5,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders and one developer who also served as a data scientist.\n\nWhile the team shipped an MVP and held commercial discussions with several municipalities, including a Paris district and a metropolitan authority, the project never secured a paying city customer. Ivan concluded during discovery that no contract would clear, and [Sonor](/sonor) was stopped in 2022 when the initial grants and incubation period ended.\n\n",
+  "words": 73,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 6,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five people: four co-founders and one individual who served as both developer and data scientist.\n\nThe project did not have any paying city customers. Although the team shipped an MVP and Ivan led commercial discussions with several municipalities, discovery concluded that no contract would clear. The project was stopped in 2022 when the initial grants and incubation period ended.\n\n[Sonor](/sonor)\n\n",
+  "words": 68,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 7,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "The Sonor team consisted of five people: four co-founders and one developer who also served as a data scientist.\n\nWhile the team held commercial discussions with several municipalities, it did not have any paying city customers. The project was stopped in 2022 after discovery concluded that no contract would clear before its grants and incubation period ended. You can find more detail on the [Sonor](/sonor) case study page.\n\n",
+  "words": 69,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 8,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five, consisting of four co-founders and one developer who also acted as a data scientist. \n\nThe project did not have paying city customers. While the team delivered field studies and held commercial discussions with several municipalities, including a Paris district town hall and a metropolitan authority, no discussion resulted in a contract. Sonor was stopped in 2022 after discovery concluded that no contract would clear as the initial grants and incubation ended.\n\n[Sonor](/sonor)\n\n",
+  "words": 81,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 9,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of 5 people, including 4 co-founders and one developer who also served as a data scientist.\n\nThe project did not have paying city customers. Although the team engaged in commercial discussions with several municipalities (such as a Paris district town hall and a metropolitan authority), no contract was signed. Discovery eventually concluded that no contract would clear, and the project was stopped in 2022 after grants and incubation ended.\n\n[Sonor](/sonor)\n\n",
+  "words": 77,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 11,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders, including Ivan as Product Lead, and one specialist who served as both developer and data scientist.\n\nThe project did not have any paying city customers. While the team conducted field feasibility studies and engaged in commercial discussions with municipalities, none of these progressed to a signed contract. [Sonor](/sonor) was stopped in 2022 after discovery concluded that no contract would clear.\n\n",
+  "words": 71,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 10,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders and one person who served as both developer and data scientist. \n\nWhile the team shipped an MVP and held commercial discussions with municipalities, Sonor never secured a paying city customer. Ivan and the other co-founders stopped the project in 2022 after discovery concluded no contract would clear once the initial grants and incubation ended. You can read the full retrospective on the [Sonor](/sonor) page.\n\n",
+  "words": 75,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 12,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five, consisting of four co-founders and one developer who also served as a data scientist.\n\nThe project did not have paying city customers. While Ivan and the team held commercial discussions with several municipalities, including a Paris district town hall and a metropolitan authority, none of these progressed to a contract. Discovery eventually concluded that no contract would clear, and the project stopped in 2022 when the initial grants and incubation ended.\n\n[Sonor](/sonor)\n\n",
+  "words": 81,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 13,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five people, consisting of four co-founders and one individual who served as both developer and data scientist.\n\nThe project did not have any paying city customers. Although the team held commercial discussions with several municipalities and provided specialized services (such as field studies for a Paris district and a town west of Paris) to encourage adoption, discovery concluded that no contract would clear. [Sonor](/sonor) was stopped in 2022 once the initial grants and incubation period ended.\n\n",
+  "words": 84,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 14,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders and one individual who acted as both developer and data scientist.\n\nThe project did not have any paying city customers. Although the team shipped an MVP and entered commercial discussions with several municipalities, discovery eventually concluded that no contract would clear. Ivan and the team stopped Sonor in 2022 when their initial grants and incubation period ended.\n\n",
+  "words": 68,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 15,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "The Sonor team consisted of five people: four co-founders, including Ivan as Product Lead, and one developer who also served as a data scientist.\n\nRegarding customers, Sonor did not have any paying city clients. Although the team shipped an MVP and held commercial discussions with several municipalities, discovery concluded that no contract would clear. The project stopped in 2022 after initial grants and incubation ended. You can read about the outcome in the [Sonor case study](/sonor).\n\n",
+  "words": 77,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 16,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five, consisting of four co-founders and one individual who served as both developer and data scientist.\n\nThe project did not have any paying city customers. Although Ivan and the team shipped an MVP and engaged in commercial discussions with several municipalities, discovery concluded that no contracts would clear. Sonor was stopped in 2022 when grants and incubation ended. Ivan now applies these lessons to [Aetherix](/aetherix), focusing on products where the outcome loop lives entirely within the software rather than requiring manual services.\n\n",
+  "words": 90,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 17,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "The Sonor team consisted of five people: four co-founders and one individual who served as both developer and data scientist.\n\nSonor did not have paying city customers. While the team shipped an MVP and held commercial discussions with several municipalities, discovery concluded that no contract would clear. Ivan and the co-founders instead delivered services (such as field feasibility studies and mediation) to various town halls and authorities, but these did not result in a platform contract before the project ended in 2022.\n\n",
+  "words": 83,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 18,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders and one person who served as both developer and data scientist.\n\nThe project did not have any paying city customers. Although the team shipped an MVP and entered commercial discussions with several municipalities, Ivan's discovery concluded that no contract would clear. They stopped development in 2022 after grants and incubation ended. You can find the full context on the [Sonor](/sonor) case study page.\n\n",
+  "words": 74,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 19,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders and one developer who also served as a data scientist.\n\nWhile the team shipped an MVP and held commercial discussions with several municipalities, including a Paris district town hall and a metropolitan authority, Sonor never had paying city customers. The project concluded in 2022 after discovery confirmed that no contract would clear. Ivan discusses the move from this \"neo-agency\" model to product-led loops on the [Sonor](/sonor) page.\n\n",
+  "words": 78,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "portfolio-12",
+  "sample": 20,
+  "turn": "1",
+  "page": "/sonor",
+  "question": "How many people built Sonor, and did it have paying city customers?",
+  "answer": "Sonor was built by a team of five: four co-founders and one developer who also served as a data scientist.\n\nThe project did not have any paying city customers. While the team shipped an MVP and held commercial discussions with several municipalities, including a Paris district town hall and a metropolitan authority, none of these progressed to a contract. Discovery concluded in 2022 that no contract would clear, and the project was stopped. Ivan later applied these lessons to Aetherix by focusing on a single, repeatable use case.\n\n[Sonor](/sonor)\n\n",
+  "words": 90,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": true
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 2,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "Highlight a page fragment for me",
+  "answer": "I cannot highlight page fragments or modify the content you see on the screen. My current interface is limited to this chat dock, and I do not have direct access to the browser DOM or your scroll position.\n\nThe ability for a conversational guide to locate, annotate, or adapt page content in real-time is a hypothesis Ivan is exploring in this Design Lab. For now, those adaptive reading capabilities remain in the prototype phase and are not yet implemented.\n\n",
+  "words": 80,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 3,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "Highlight a page fragment for me",
+  "answer": "I cannot highlight specific fragments or modify the page content. My current interface receives metadata about the page you are on, but I do not have direct access to the DOM or your scroll position.\n\nThis kind of adaptive, in-place annotation is a hypothesis Ivan is exploring for future versions of this site, where content could be located or explained in place. For now, I can only provide links to relevant pages or sections.\n\n",
+  "words": 75,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 1,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "Highlight a page fragment for me",
+  "answer": "I cannot visually highlight fragments or modify the page content. I do not have access to your scroll position, cursor, or the site's layout.\n\nIn the Rose Design Lab where you are now, Ivan explores AI-mediated reading as a future concept. This would involve the ability to annotate or adapt text in place, but those features are currently hypotheses rather than implemented capabilities. My current interface is limited to providing information and links here in the chat dock.\n\n",
+  "words": 79,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 2,
+  "turn": "2",
+  "page": "/rose-design-lab",
+  "question": "But this page says you can point to passages, doesn't it?",
+  "answer": "The Rose Design Lab includes chapters that describe a context-responsive reading experience where I could point to specific passages. These sections represent a design hypothesis Ivan is exploring, not a feature currently available in this interface.\n\nTechnically, I do not have access to the browser document (DOM) or your cursor position. I only receive the page address and headings to ground my answers. Generative page adaptation, such as highlighting or annotating passages, remains a prototype concept for the future.\n\n",
+  "words": 80,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 1,
+  "turn": "2",
+  "page": "/rose-design-lab",
+  "question": "But this page says you can point to passages, doesn't it?",
+  "answer": "The Design Lab chapters describe that capability as a prototype and a future exploration, not a live feature. Ivan is researching how AI-mediated reading could locate or annotate passages in place, but that adaptive layer is currently a hypothesis.\n\nTechnically, I do not have access to the page layout or your scroll position, so I cannot visually point to text. My current role is limited to answering questions and providing links within this chat interface.\n\n",
+  "words": 76,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 3,
+  "turn": "2",
+  "page": "/rose-design-lab",
+  "question": "But this page says you can point to passages, doesn't it?",
+  "answer": "The descriptions of pointing to passages or adaptive reading on this page are part of a design prototype for future versions, not a live capability.\n\nIn the later chapters of this lab, Ivan outlines a vision for AI-mediated reading where I could locate and annotate content in place. While those concepts are part of the design history shown here, they remain in the lab phase. Currently, I can only provide links to pages and answer questions based on the metadata I receive with each message.\n\n",
+  "words": 86,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 2,
+  "turn": "3",
+  "page": "/rose-design-lab",
+  "question": "What can you actually access?",
+  "answer": "I access the address, title, and section headings of the page you are currently reading, along with the documentation for the projects, CV, and Field Notes published on this site. I also maintain the history of our current conversation within your browser tab.\n\nI do not have access to your full screen, cursor, scroll position, or private browser state. I cannot see or modify the page structure (DOM), and I cannot access your local files or private repositories. When you type a question or click a chip, that event is logged for site administration with imperfect, pattern-based masking of sensitive information, as described in the [Privacy policy](/privacy).\n\n",
+  "words": 108,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 1,
+  "turn": "3",
+  "page": "/rose-design-lab",
+  "question": "What can you actually access?",
+  "answer": "I receive the page address, title, and current section heading with every message. I can also load the full text of a Field Note if you are reading one or ask about it.\n\nI do not have access to your cursor, scroll position, or the full screen. I cannot see other open tabs, private files, or the site's layout. While I remember our current conversation within this tab for up to 60 minutes of inactivity, I do not autonomously learn from our exchange or modify the page content.\n\n",
+  "words": 89,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 3,
+  "turn": "3",
+  "page": "/rose-design-lab",
+  "question": "What can you actually access?",
+  "answer": "I receive the page address, title, and the heading of the section you are currently reading. I also have access to our conversation history within this tab and a structured reference covering Ivan's projects, Field Notes, and CV.\n\nI cannot see your cursor, scroll position, or the full screen. While I can load a Field Note on demand if you name it, I do not have direct access to the live code of the page or any private browser state.\n\n",
+  "words": 81,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 4,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "Highlight a page fragment for me",
+  "answer": "I cannot highlight text or modify the page content directly. While the Rose Design Lab explores a future for adaptive reading where I might locate or annotate information in place, those features are currently design hypotheses rather than implemented capabilities. \n\nI can, however, provide links to specific projects or Field Notes if you are looking for a particular topic.\n\n",
+  "words": 60,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 5,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "Highlight a page fragment for me",
+  "answer": "I cannot highlight page fragments or modify the content of the site. I receive page metadata per message but do not have direct access to the DOM, cursor position, or the ability to change the layout.\n\nGenerative page adaptation, where I could annotate or locate information for you in place, is a future concept Ivan is exploring in this Design Lab. At present, those remain prototype ideas rather than implemented capabilities. I can, however, provide direct links to the evidence you are looking for.\n\n",
+  "words": 85,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 4,
+  "turn": "2",
+  "page": "/rose-design-lab",
+  "question": "But this page says you can point to passages, doesn't it?",
+  "answer": "The text on this page describes a vision for future chapters of my development. While those prototypes explore how I might one day point to passages or adapt the page layout in real time, those capabilities are not implemented.\n\nIn my current version, I can answer questions and provide links to relevant sections of the site, but I cannot interact with the text on your screen or highlight fragments for you.\n\n",
+  "words": 72,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 5,
+  "turn": "2",
+  "page": "/rose-design-lab",
+  "question": "But this page says you can point to passages, doesn't it?",
+  "answer": "The Rose Design Lab presents those capabilities as part of a vision for later chapters, but they are prototypes rather than active features. While the lab chapters explore how I might one day point to or annotate specific passages, those adaptive reading functions are not currently implemented.\n\nAs I am now, I cannot modify the page content, move your scroll position, or highlight text. I can only provide links to relevant sections or explain the evidence within our conversation.\n\n",
+  "words": 80,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-rose",
+  "sample": 1,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures my technical performance and visitor engagement through a private admin dashboard. This tracks completion rates, failures, and how often visitors click on evidence links or the booking card.\n\nThese metrics do not establish your actual comprehension or satisfaction. Before my October release, Ivan also performed a synthetic evaluation using 15 model conversations to identify risks. This was a bounded check of my output rather than a demonstration of real-world value. You can read about these limits in the section [Does Rose actually help?](/rose-design-lab#ch-learn).\n\n",
+  "words": 86,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 4,
+  "turn": "3",
+  "page": "/rose-design-lab",
+  "question": "What can you actually access?",
+  "answer": "I receive the page address, title, and current section heading with each message you send. I also have access to our conversation history within this browser tab, which expires after 60 minutes of inactivity. Beyond that, I rely on the factual documentation of Ivan's projects and methods provided in my instructions.\n\nI do not have access to your full screen, cursor position, or private browser data, and I cannot see other tabs you have open.\n\n",
+  "words": 76,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "capability",
+  "sample": 5,
+  "turn": "3",
+  "page": "/rose-design-lab",
+  "question": "What can you actually access?",
+  "answer": "I receive the page address, title, and current section heading with every message to help ground my answers. If you are reading one of Ivan's Field Notes or name it specifically, I can also load its full text.\n\nInside this browser tab, I have access to our current conversation history through session storage, which expires after 60 minutes of inactivity.\n\nI do not have access to your full screen, cursor position, or scroll depth. I cannot see your private browser state, files, or the underlying website code (the DOM).\n\n",
+  "words": 90,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-rose",
+  "sample": 3,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan tracks Rose's performance through technical aggregates: request volume, completion rates, and system failures. He also monitors how often visitors click evidence links or the booking card to see if the interface effectively surfaces relevant content.\n\nThese metrics help identify technical bottlenecks, but they have a major limitation: they do not measure your actual understanding or satisfaction. To manage release risk, Ivan uses synthetic evaluation sets to check for repetitive or overlong answers before shipping changes. You can read more about this in the [Rose Design Lab](/rose-design-lab#ch-learn).\n\n",
+  "words": 88,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-rose",
+  "sample": 2,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan's measurement approach focuses on technical stability and error reduction. For my own operations, he tracks aggregates including request success rates, failures, and the usage of evidence links and booking clicks. These metrics help monitor whether I am functional and discoverable, though they do not currently measure visitor comprehension or satisfaction.\n\nIn his technical projects, such as Aetherix, he measures model error rates against versioned datasets. This process identifies specific failure modes, such as hallucinations or logic errors, to ensure a system meets its technical baseline before deployment.\n\n",
+  "words": 89,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "FAIL",
+  "note": "\"Versioned datasets\" is sourced; \"hallucinations or logic errors\" is invented.",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-aetherix",
+  "sample": 1,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan evaluates how well Aetherix predicts tomorrow's workload before suggesting staffing changes:\n\n1. Against a simple baseline on 30 restaurants in public data: Prophet's mean forecast error was 49.71% versus 55.86% for naive projection, and 28.5% versus 27.9% at day-ahead horizon (J+1).\n2. Under demand shocks: In an Apaleo sandbox experiment with a 25% shift, weekly recalibration reduced error from 15.9% to 12.3%.\n\nIvan is clear about the boundaries: this measures forecast accuracy on restaurant and sandbox data, not whether a staffing decision was optimal, and no real hotel is connected yet.",
+  "words": 92,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "Reviewed answer served verbatim, no model call.",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-aetherix",
+  "sample": 2,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan evaluates how well Aetherix predicts tomorrow's workload before suggesting staffing changes:\n\n1. Against a simple baseline on 30 restaurants in public data: Prophet's mean forecast error was 49.71% versus 55.86% for naive projection, and 28.5% versus 27.9% at day-ahead horizon (J+1).\n2. Under demand shocks: In an Apaleo sandbox experiment with a 25% shift, weekly recalibration reduced error from 15.9% to 12.3%.\n\nIvan is clear about the boundaries: this measures forecast accuracy on restaurant and sandbox data, not whether a staffing decision was optimal, and no real hotel is connected yet.",
+  "words": 92,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "Reviewed answer served verbatim, no model call.",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-aetherix",
+  "sample": 3,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan evaluates how well Aetherix predicts tomorrow's workload before suggesting staffing changes:\n\n1. Against a simple baseline on 30 restaurants in public data: Prophet's mean forecast error was 49.71% versus 55.86% for naive projection, and 28.5% versus 27.9% at day-ahead horizon (J+1).\n2. Under demand shocks: In an Apaleo sandbox experiment with a 25% shift, weekly recalibration reduced error from 15.9% to 12.3%.\n\nIvan is clear about the boundaries: this measures forecast accuracy on restaurant and sandbox data, not whether a staffing decision was optimal, and no real hotel is connected yet.",
+  "words": 92,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "Reviewed answer served verbatim, no model call.",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-aetherix",
+  "sample": 4,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan evaluates how well Aetherix predicts tomorrow's workload before suggesting staffing changes:\n\n1. Against a simple baseline on 30 restaurants in public data: Prophet's mean forecast error was 49.71% versus 55.86% for naive projection, and 28.5% versus 27.9% at day-ahead horizon (J+1).\n2. Under demand shocks: In an Apaleo sandbox experiment with a 25% shift, weekly recalibration reduced error from 15.9% to 12.3%.\n\nIvan is clear about the boundaries: this measures forecast accuracy on restaurant and sandbox data, not whether a staffing decision was optimal, and no real hotel is connected yet.",
+  "words": 92,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "Reviewed answer served verbatim, no model call.",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-aetherix",
+  "sample": 5,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan evaluates how well Aetherix predicts tomorrow's workload before suggesting staffing changes:\n\n1. Against a simple baseline on 30 restaurants in public data: Prophet's mean forecast error was 49.71% versus 55.86% for naive projection, and 28.5% versus 27.9% at day-ahead horizon (J+1).\n2. Under demand shocks: In an Apaleo sandbox experiment with a 25% shift, weekly recalibration reduced error from 15.9% to 12.3%.\n\nIvan is clear about the boundaries: this measures forecast accuracy on restaurant and sandbox data, not whether a staffing decision was optimal, and no real hotel is connected yet.",
+  "words": 92,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "Reviewed answer served verbatim, no model call.",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-rose",
+  "sample": 5,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "In the context of this site, Ivan measures aggregate Rose interaction data: request volume, completion rates, and how often visitors click evidence links or the booking card. These tab-scoped events help him track system reliability and whether my answers successfully guide people to his portfolio content.\n\nThese metrics are for technical monitoring, not validation. The reviewed records do not establish whether visitors found the answers helpful or if their comprehension improved. You can read about this distinction in the section [Does Rose actually help?](/rose-design-lab#ch-learn).\n\n",
+  "words": 85,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-rose",
+  "sample": 4,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "For my operation on this site, Ivan tracks request volume, completion rates, system errors, and how often visitors click evidence links. These metrics monitor operational health and engagement, though they do not measure your comprehension or satisfaction.\n\nIn his project work, Ivan focuses on technical LLM evaluation. Projects like Aetherix measure error rates, latency, and token costs against a baseline. This shifts the focus from anecdotal success to a measurable understanding of a system's reliability before it reaches users.\n\nDetails on my own evaluation are in the [Rose Design Lab](/rose-design-lab#ch-learn).\n\n",
+  "words": 91,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "FAIL",
+  "note": "Invented Aetherix measures: \"error rates, latency, and token costs\".",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "code-access-false-positive",
+  "sample": 1,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "How did Ivan test the app?",
+  "answer": "Ivan tested Aetherix using three main layers:\n\n*   **Historical benchmarks:** He ran deterministic reruns on public data from 30 restaurants to measure forecast error against a simple baseline.\n*   **Sandbox simulations:** He verified the daily loop using simulated demand shifts, such as a 25% jump, to ensure the agent recalibrates as expected.\n*   **Automated evaluation gates:** Any change to forecasting, providers, memory, or prompts must pass a hard CI gate. A failing evaluation exit code blocks the merge.\n\nThe app is currently staged on Fly.io and connected to the Apaleo sandbox, though it has not yet been validated in a live hotel. You can read more about his approach to [harnesses and graders](/journal/harnesses-graders-closed-loops).",
+  "words": 113,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "code-access-false-positive",
+  "sample": 2,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "How did Ivan test the app?",
+  "answer": "Ivan tested Aetherix using historical benchmarks and automated evaluation gates. The forecast model was measured against a public dataset of 30 restaurants, beating a same-weekday baseline on average (49.71% vs 55.86% mean MAPE) but trailing slightly at the next-day horizon.\n\nFor development, a hard CI gate blocks merges if changes to prompts, memory, or forecasting fail against versioned golden datasets. These tests use synthetic series and rule-based stand-ins. The system currently runs on Apaleo sandbox data (no live hotels are connected yet).\n\nRead more about the testing method in [Evaluate](/journal/harnesses-graders-closed-loops).",
+  "words": 90,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "code-access-false-positive",
+  "sample": 3,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "How did Ivan test the app?",
+  "answer": "Ivan tested Aetherix through three main layers:\n\n*   **Historical Benchmarking:** He evaluated the forecasting model using public data from 30 restaurants. While it outperformed a same-weekday baseline on average, it trailed slightly on next-day forecasts, which is the product's primary horizon.\n*   **Evaluation Gates:** Any changes affecting forecasting, providers, memory, or prompts must pass a hard CI gate before they can merge. This pipeline uses synthetic data and rule-based stand-ins to catch regressions.\n*   **Sandbox Simulation:** The app is staged on Fly.io and connected to an Apaleo sandbox. During a simulated 25% demand spike, the recalibration loop reduced forecast error from 15.9% to 12.3%.\n\nThese results are based on public benchmarks and synthetic tests: Aetherix has not yet been validated in a live hotel environment. You can find more on the automated testing strategy in [Evaluate](/journal/harnesses-graders-closed-loops).",
+  "words": 136,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "code-access-false-positive",
+  "sample": 4,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "How did Ivan test the app?",
+  "answer": "Ivan evaluated Aetherix using historical benchmarks, synthetic evaluation gates, and sandbox simulations. For the forecast, he tested Prophet against a naive same-weekday baseline using data from 30 public restaurants. The model reached a 49.71% mean error (MAPE) against the baseline's 55.86%, although it remained slightly behind the baseline for next-day forecasts (28.5% vs 27.9%).\n\nTechnical changes are controlled by a hard CI gate. Any update to forecasting, providers, memory, or prompts must pass a green evaluation pipeline to merge. These tests use synthetic series for forecasts and rule-based stand-ins for the reply parser. The daily loop is currently staged on Fly.io and connected to an Apaleo sandbox to verify how the agent records manager overrides.\n\nEvidence: [Aetherix](/aetherix), [Evaluate](/journal/harnesses-graders-closed-loops)",
+  "words": 118,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-mape-meaning",
+  "sample": 2,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does a mean MAPE of 49.71% against 55.86% mean?",
+  "answer": "This figure means that, on average, the forecast model was more accurate than a simple \"same weekday last week\" guess during a benchmark of 30 public restaurants. A lower Mean Absolute Percentage Error (MAPE) indicates a smaller gap between the prediction and the actual outcome.\n\nHowever, two caveats apply:\n1. **The horizon:** While the model wins on average, it is slightly behind the simple guess for next-day forecasts (28.5% vs 27.9% error), which is the specific timeframe Aetherix uses.\n2. **The data:** These results use public restaurant data, not hotels. [Aetherix](/aetherix) has not yet been validated in a live hotel environment.\n\n",
+  "words": 102,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-mape-meaning",
+  "sample": 1,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does a mean MAPE of 49.71% against 55.86% mean?",
+  "answer": "This figure means the Prophet model's average forecast error is lower than a naive baseline, which simply guesses the same result as the previous week. On a public benchmark of 30 restaurants, the model's 49.71% error outperformed the baseline's 55.86%.\n\nTwo caveats apply to these [Aetherix](/aetherix) results. First, the model is slightly behind the baseline for next-day forecasts (the product's actual horizon), with 28.5% error against 27.9%. Second, the test uses restaurant data, which lacks the occupancy signals a hotel PMS provides.\n\n",
+  "words": 83,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "code-access-false-positive",
+  "sample": 5,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "How did Ivan test the app?",
+  "answer": "Ivan tested Aetherix using historical benchmarks, sandbox simulations, and automated evaluation gates. He measured forecast performance against a same-weekday baseline using data from 30 public restaurants. While the model improved on the baseline average (49.71% vs 55.86% mean MAPE), it performed slightly worse than the baseline for next-day forecasts, which is the product's primary horizon.\n\nThe system uses evaluation gates to block merges if quality drops in forecasting, providers, memory, or prompts. These tests use synthetic series for forecasts and rule-based stand-ins for the parser. In a sandbox simulation, a weekly recalibration cut error from 15.9% to 12.3% after a simulated demand spike. These tests use public data and sandboxes only; no live hotel has validated the performance yet.\n\n[Aetherix Architecture](https://ivandemurard.com/architecture)\n[Evaluate](/journal/harnesses-graders-closed-loops)",
+  "words": 122,
+  "tools": [],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-mape-meaning",
+  "sample": 3,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does a mean MAPE of 49.71% against 55.86% mean?",
+  "answer": "Mean MAPE (Mean Absolute Percentage Error) measures the average forecast error. In this benchmark, the 49.71% score shows that Ivan's model was more accurate on average than a simple \"same weekday last week\" guess, which had a 55.86% error.\n\nHowever, there are two important caveats to this [Aetherix](/aetherix) test:\n\n*   **Public data:** The test used 30 public restaurants, not hotel occupancy data.\n*   **Next-day horizon:** While the model wins on average, it is slightly behind the simple rule for next-day forecasts (28.5% error vs 27.9%). This J+1 horizon is what the product uses daily.\n\n",
+  "words": 95,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-mape-meaning",
+  "sample": 4,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does a mean MAPE of 49.71% against 55.86% mean?",
+  "answer": "This figure represents the average forecast error across a benchmark of 30 public restaurants. Aetherix's Prophet model reached a mean error of 49.71%, which is lower (better) than the 55.86% produced by a simple rule that repeats the same weekday from the previous week.\n\nHowever, this is an aggregate result. At the next-day horizon the product actually uses, Prophet's error was 28.5%, slightly behind the 27.9% of the simple baseline. These metrics use public restaurant data only and have not yet been validated in a live hotel environment.\n\n",
+  "words": 89,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-mape-meaning",
+  "sample": 5,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "What does a mean MAPE of 49.71% against 55.86% mean?",
+  "answer": "It means the Prophet forecasting model has a lower average error than a simple guess based on the same day the previous week. In a benchmark using 30 public restaurants, Prophet reached a mean error of 49.71% (MAPE), while the simple baseline was 55.86%.\n\nThis result comes with two caveats. First, it uses public restaurant data rather than hotel occupancy signals. Second, while Prophet wins on the average across the dataset, it was slightly behind the baseline for next-day forecasts, which is the specific horizon [Aetherix](/aetherix) uses to message managers.\n\n",
+  "words": 91,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-cv",
+  "sample": 2,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures product performance through financial outcomes, user retention, and agentic reliability. In enterprise roles, he tracked the recovery of 1.9M € in unpaid debt (achieving 40% recovery at Bouygues Telecom) and maintained zero churn for 22 municipal accounts.\n\nFor AI projects like [Aetherix](/aetherix), he benchmarks forecasting performance against a naive median baseline rather than reporting isolated accuracy scores. He also tracks human-in-the-loop outcomes by logging manager feedback against real-world results to verify if AI recommendations lead to the intended action.\n\n",
+  "words": 82,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-cv",
+  "sample": 1,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures product success through operational outcomes and comparative benchmarks to ensure AI adds genuine value beyond simple statistics.\n\n*   **Business outcomes:** At Bouygues Telecom, he tracked the recovery of unpaid invoices, achieving a 40% recovery rate on a 1.9M € target.\n*   **Forecasting benchmarks:** For [Aetherix](/aetherix), he compares model performance against a naive median baseline using public datasets, reporting where the AI outperforms or falls short of basic statistical averages.\n*   **Memory integrity:** In [Anima](/anima), he measures the separation of guest-confirmed facts from AI inferences to prevent unverified assumptions from polluting long-term data.\n\n",
+  "words": 95,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "UNCLEAR",
+  "note": "\"Ensure AI adds genuine value\" is a value claim the benchmark does not support; Anima \"measures\" a separation the source only describes.",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-cv",
+  "sample": 3,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan tracks performance through both technical benchmarks and business outcomes. For agentic systems like [Aetherix](/aetherix), he uses evaluation by design, benchmarking forecasting against a naive median baseline on public datasets and logging real-world manager replies against system recommendations.\n\nIn his product roles, he measures success by adoption and financial recovery. At Bouygues Telecom, he achieved a 40% recovery of a 1,9M € unpaid invoice target. At Opendatasoft, he maintained zero churn across 22 municipal accounts through the full customer lifecycle.\n\n",
+  "words": 81,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-cv",
+  "sample": 5,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures product success through both financial outcomes and agentic performance. At Objenious, he tracked the recovery of unpaid invoices, reaching 40% of a 1,9M € target. For AI-native projects like [Aetherix](/aetherix), he applies **evaluation by design**, benchmarking forecasting models against a naive median baseline using public datasets. He also logs the alignment between an agent's recommendations and the actual outcomes recorded by staff. These measures distinguish synthetic lab performance from real-world utility and adoption.\n\n",
+  "words": 76,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "referent-cv",
+  "sample": 4,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures performance against both business outcomes and technical baselines. At Objenious, he tracked debt recovery, achieving a 40% recovery rate on a 1.9M € target. In his AI work, he uses evaluation by design. For [Aetherix](/aetherix), he benchmarks demand forecasting against a naive median baseline, reporting mixed results where the model does not yet consistently beat the median. For [Compass](/compass), he measures agreement between human and AI interpretations of address data to ensure context remains consistent.\n\n",
+  "words": 78,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "FAIL",
+  "note": "Invented Compass measure: \"agreement between human and AI interpretations\".",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-benchmark",
+  "sample": 1,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "Compare the documented mean MAPE and J+1 forecast error with the baseline. Were these measured in hotels?",
+  "answer": "On a public benchmark of 30 restaurants, the Prophet model achieved a 49.71% mean MAPE, outperforming the 55.86% same-weekday baseline. However, for the next-day (J+1) horizon the product actually uses, the error was 28.5% compared to the baseline's 27.9%.\n\nThese were not measured in hotels. The benchmark used Kaggle Recruit restaurant data, which lacks the occupancy signals Aetherix relies on. The project is currently staged on the Apaleo sandbox and is ready for its first [pilot partner](/aetherix) to validate its forecasts in a live hotel environment.\n\n",
+  "words": 87,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-benchmark",
+  "sample": 3,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "Compare the documented mean MAPE and J+1 forecast error with the baseline. Were these measured in hotels?",
+  "answer": "These metrics were not measured in hotels. The benchmarks use public data from 30 Japanese restaurants, which lacks the occupancy signals the product relies on.\n\nThe Prophet model achieved a mean MAPE of 49.71 percent, outperforming the 55.86 percent error from a naive same-weekday baseline. However, at the J+1 (next-day) horizon, the model's 28.5 percent error was slightly behind the baseline's 27.9 percent.\n\nWhile the loop is staged and connected to an Apaleo sandbox, hotel-level business impact and next-day accuracy remain unproven.\n\n",
+  "words": 83,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-benchmark",
+  "sample": 2,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "Compare the documented mean MAPE and J+1 forecast error with the baseline. Were these measured in hotels?",
+  "answer": "Prophet achieved a mean MAPE of 49.71% against the 55.86% baseline, outperforming it on average across the benchmark. However, at the J+1 (next-day) horizon, the error was 28.5% compared to the baseline's 27.9%, meaning the model was slightly behind the same-weekday rule for the specific horizon the product uses.\n\nThese were not measured in hotels. The benchmark used public data from 30 Japanese restaurants. No hotels are currently connected, and the impact of hotel occupancy data remains untested.\n\n",
+  "words": 79,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-benchmark",
+  "sample": 4,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "Compare the documented mean MAPE and J+1 forecast error with the baseline. Were these measured in hotels?",
+  "answer": "The Prophet model achieved a mean MAPE of 49.71% against a 55.86% naive baseline. For next-day forecasts (J+1), the model recorded a 28.5% error, which is slightly behind the baseline's 27.9%.\n\nThese metrics were not measured in hotels. They are based on historical data from 30 public Japanese restaurants. While the model improves on the aggregate baseline, it remains slightly behind on the specific next-day horizon [Aetherix](/aetherix) uses. No hotel has yet validated these results, and the benchmark lacks occupancy data, which is the primary signal for the live product.\n\n",
+  "words": 91,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 1,
+  "case": "metric-benchmark",
+  "sample": 5,
+  "turn": "1",
+  "page": "/aetherix",
+  "question": "Compare the documented mean MAPE and J+1 forecast error with the baseline. Were these measured in hotels?",
+  "answer": "Aetherix's Prophet model achieved a mean MAPE of 49.71% compared to 55.86% for a naive same-weekday baseline. For next-day forecasts (J+1), the error was 28.5%, slightly behind the baseline's 27.9%.\n\nThese were not measured in hotels. The benchmark uses historical data from 30 public restaurants. This dataset lacks occupancy signal, which is the primary driver the system is built to use. No hotel has validated these results yet, and Ivan is currently seeking a pilot partner to test [Aetherix](/aetherix) in a live environment.\n\n",
+  "words": 84,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "self-09",
+  "sample": 2,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures Rose's performance using aggregate application events, tracking request volume, completion failures, and how often visitors click evidence links or the booking card. These metrics identify technical reliability and navigation patterns, though they do not establish visitor satisfaction or comprehension.\n\nFor the October 2026 release, he also conducted a synthetic evaluation using 15 model conversations to check for specific risks. This reflects his broader method of measuring error rates against a stated baseline or \"golden dataset\" to verify a system's readiness before it reaches users.\n\n",
+  "words": 87,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "self-09",
+  "sample": 3,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "For my own operation, Ivan tracks technical aggregates including requests, completions, and failures, alongside engagement metrics like evidence-link and booking-card clicks. These use tab-scoped event data separate from general site analytics. To guide the October 2026 release, he conducted a synthetic evaluation using 15 model conversations to catch known failure patterns. These internal metrics monitor system health but do not establish visitor satisfaction or comprehension.\n\n",
+  "words": 66,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "self-09",
+  "sample": 1,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "For my own operations, Ivan measures technical reliability and engagement. He tracks aggregates of requests, completions, and failures to monitor performance, alongside the usage of evidence links and booking clicks to see which topics spark interest. These metrics help maintain the system, but they have a clear limit: they track activity rather than outcomes and do not establish whether you found an answer helpful or easy to understand.\n\nFor his work on measuring LLM quality and hallucination rates, see [Aetherix](/aetherix).\n\n",
+  "words": 81,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "FAIL",
+  "note": "Invented Aetherix measures: \"LLM quality and hallucination rates\".",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "self-09",
+  "sample": 5,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "For my role on this site, Ivan measures technical performance and engagement through a private dashboard. This includes aggregate counts of requests, completions, and failures, alongside how often visitors use evidence links or the booking card. These events are tab-scoped and separate from general site analytics.\n\nCrucially, these metrics do not establish visitor comprehension or satisfaction. While the system logs typed questions to monitor quality, these records use pattern-based masking and are purged every 90 days.\n\n*   [Rose Design Lab](/rose-design-lab)\n*   [Privacy](/privacy)\n\n",
+  "words": 83,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "self-09",
+  "sample": 4,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "For my own performance, Ivan measures operational health and engagement using tab-scoped event data. This includes the volume of requests, completions, and failures, as well as how often visitors click on my evidence links or the booking card. These aggregates help him monitor my stability and see which parts of his portfolio are being explored through our conversation.\n\nThese metrics do not establish whether you found an answer helpful or if you understood the content. He distinguishes these interaction counts from the rigorous error-rate testing he applies to technical systems like [Aetherix](/aetherix), where measurement focuses on quantifying model failures against a fixed baseline.\n\n",
+  "words": 104,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-rose",
+  "sample": 2,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan tracks my technical health and engagement by measuring aggregate counts of requests, completions, failures, and evidence-link usage. He also monitors clicks on the booking card to see if conversations lead to contact. These [private metrics](/rose-design-lab#ch-learn) help identify operational issues, but the reviewed records do not establish whether visitors find me helpful or easy to understand. While my interactions are logged to improve accuracy, these measures focus on system health rather than your personal satisfaction.\n\n",
+  "words": 76,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "Borderline wording: \"logged to improve accuracy\" reads the weekly review as a purpose.",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-rose",
+  "sample": 1,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "For my operation, Ivan measures technical aggregates including requests, completions, and failures, alongside interaction events like evidence-link use and booking clicks. These metrics are tab-scoped and separate from general site analytics.\n\nWhile the system logs typed questions and chip labels, this is used for monitoring rather than proving success. Documented records do not currently establish visitor satisfaction or comprehension. These figures measure interaction volume, but they cannot verify if a visitor's original goal was met.\n\n[Does Rose actually help?](/rose-design-lab#ch-learn)\n\n",
+  "words": 80,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-rose",
+  "sample": 3,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures my operation through aggregates of requests, completions, and failures. He also monitors engagement by tracking clicks on evidence links and the booking card. These events are viewed on a private admin dashboard to observe system health and basic interaction patterns.\n\nThese metrics do not establish your comprehension or satisfaction. The reviewed records do not yet confirm if I am genuinely helpful, as current measurement focus stays on operational reliability rather than visitor outcomes. You can read more about this in the [Rose Design Lab](/rose-design-lab#ch-learn).\n\n",
+  "words": 87,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-rose",
+  "sample": 4,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures my technical performance and how visitors interact with my responses. On a private admin dashboard, he tracks aggregates for requests, completions, failures, evidence-link usage, and booking-link clicks.\n\nThese metrics help monitor operational health, but they have clear limits: they count actions rather than outcomes. The reviewed evidence does not establish whether visitors find my answers helpful, nor does it measure comprehension or satisfaction. You can read more about these measurement boundaries in the [Rose Design Lab](/rose-design-lab#ch-learn).\n\n",
+  "words": 79,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-cv",
+  "sample": 1,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures success through business outcomes, adoption, and technical benchmarks:\n\n*   **Business Impact:** At Objenious, he tracked a debt recovery tool that secured 40% of a 1.9M EUR target. At Opendatasoft, he maintained zero churn across 22 city accounts.\n*   **Agentic Evaluation:** For [Aetherix](/aetherix), he uses evaluation by design, benchmarking AI forecasting accuracy against a naive median baseline on public datasets.\n*   **Adoption:** His work at DomusVi involved preparing a rollout for 500+ users to consolidate legacy tools on a single platform.\n\nHe distinguishes between synthetic benchmarks in a sandbox and realized outcomes in production.\n\n",
+  "words": 96,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-rose",
+  "sample": 5,
+  "turn": "1",
+  "page": "/rose-design-lab",
+  "question": "What does Ivan measure?",
+  "answer": "Regarding my performance, Ivan measures technical aggregates including request volume, completion success, and how often visitors interact with evidence links or booking cards. These metrics are captured through tab-scoped event data and help monitor stability. \n\nFor my October release, he also conducted a synthetic evaluation using 15 model conversations to identify risks. While these measures track my technical operation, they do not establish visitor satisfaction, comprehension, or real-world value. You can find more detail on this distinction in the [learning chapter](/rose-design-lab#ch-learn).\n\n",
+  "words": 82,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-cv",
+  "sample": 2,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures professional success through business outcomes and benchmarked performance:\n\n*   **Operational Recovery:** At Bouygues Telecom, he tracked the recovery of €1.9M in unpaid invoices, reaching 40% recovery through a data-driven tool integrated into standard processes.\n*   **AI Benchmarking:** For [Aetherix](/aetherix), he compares forecasting accuracy against a naive median baseline using public datasets to identify where the model genuinely adds value.\n*   **Customer Retention:** At Opendatasoft, he measured success by maintaining zero churn across 22 European municipal accounts.\n\nFor larger transformations like [DomusVi](/cv), he tracks the consolidation of legacy systems (10+ tools in this case) and stakeholder alignment for planned rollouts.\n\n",
+  "words": 102,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "FAIL",
+  "note": "\"Where the model genuinely adds value\": a value claim the benchmark does not support (rule in §11.6).",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-cv",
+  "sample": 3,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan's measurements focus on comparing system performance against simple baselines and tracking concrete business outcomes.\n\nIn AI development, he benchmarks forecasting accuracy against a \"naive median\" baseline for [Aetherix](/aetherix). This approach identifies if a model is genuinely more useful than a simple statistical average, with results published as they are, even when mixed.\n\nIn his B2B product roles, he tracks operational and financial success:\n*   **Revenue recovery:** At Objenious, he measured the impact of a debt-recovery tool that recovered 40% of a targeted 1.9M EUR in unpaid invoices.\n*   **Retention:** At Opendatasoft, he tracked the full customer lifecycle, maintaining zero churn across 22 accounts.\n*   **Reliability:** For [Compass](/compass), he designs systems where users see specific confidence levels for each data point rather than a single black-box figure.\n\n",
+  "words": 128,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-cv",
+  "sample": 5,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures AI performance against baselines and operational results against business targets. \n\nFor [Aetherix](/aetherix), he benchmarks forecasting accuracy against a naive median baseline using public datasets, reporting mixed results to identify specific failure points. In his corporate work at Bouygues Telecom, he tracked the recovery of €1.9M in unpaid debt, measuring a 40% success rate. He also uses adoption metrics to ensure tools move from initial delivery to standard company processes, as detailed in his [CV](/cv).\n\n",
+  "words": 77,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ },
+ {
+  "run": 2,
+  "case": "referent-cv",
+  "sample": 4,
+  "turn": "1",
+  "page": "/cv",
+  "question": "What does Ivan measure?",
+  "answer": "Ivan measures outcomes by comparing results against specific baselines or commercial targets:\n\n*   **Financial Recovery:** At Bouygues Telecom, he tracked the recovery of 1.9M EUR in debt, with 40% successfully recovered following the adoption of his data tool.\n*   **AI Benchmarking:** For [Aetherix](/aetherix), he measures forecasting performance against a naive median baseline. This comparison is critical to verify if an agent provides better intelligence than a simple statistical average.\n*   **Retention:** During his time at Opendatasoft, he measured success by maintaining zero churn across 22 city and metro area accounts.\n\nEvidence limit: AI performance metrics for Aetherix and [Anima](/anima) are currently derived from sandbox environments and synthetic proofs of concept. Real-world hospitality outcomes are staged for upcoming pilots.\n\n",
+  "words": 119,
+  "tools": [
+   "suggest_followups"
+  ],
+  "verdict": "PASS",
+  "note": "",
+  "risk": false
+ }
+]
