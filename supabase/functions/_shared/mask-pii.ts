@@ -40,9 +40,23 @@ const IPV4 = /(?<![\d.])(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2
 const IPV6_FULL = /\b(?:[0-9a-f]{1,4}:){7}[0-9a-f]{1,4}\b/gi;
 const IPV6_COMPRESSED = /\b(?:[0-9a-f]{1,4}:){1,6}(?::[0-9a-f]{1,4}){1,6}(?![\w:])|\b(?:[0-9a-f]{1,4}:){1,7}:(?![\w:])/gi;
 const PHONE = /\+?\d[\d\s().-]{7,}\d/g;
+const PHONE_MIN_DIGITS = 9;
+// Links to this site are pages, not personal data, with or without scheme or www.
+const OWN_SITE = /^(?:https?:\/\/)?(?:www\.)?ivandemurard\.com(?:[/?#:]|$)/i;
+
+const maskLinks = (text: string): string =>
+  text
+    .replace(URL_SCHEME, (m) => (OWN_SITE.test(m) ? m : "[link masked]"))
+    .replace(URL_BARE, (m) => (OWN_SITE.test(m) ? m : "[link masked]"));
+
+// A digit run is a phone number only from 9 digits, so "2020-2022" and short numbers are kept.
+const maskPhones = (text: string): string =>
+  text.replace(PHONE, (m) => (m.replace(/\D/g, "").length >= PHONE_MIN_DIGITS ? "[phone masked]" : m));
 
 // French: "12 rue de la Paix, 75002 Paris". Words after the street type are taken up to four,
 // so a trailing word can occasionally be masked with the address.
+// Known false positive, deliberately not fixed: "3 cours and 2 places" reads as a street ("cours" is also
+// the French word for a course), so "3 cours and" is masked. Over-masking only costs a log line.
 const ADDRESS_FR = new RegExp(
   `\\b\\d{1,4}(?:\\s?(?:bis|ter))?,?\\s+${FR_STREET}\\.?\\s+${NAME}(?:\\s+${NAME}){0,3}(?:,?\\s*\\d{5}\\s+${NAME}(?:[ -]${NAME})?)?`,
   "giu",
@@ -87,13 +101,10 @@ const maskIpv6 = (text: string): string =>
     .replace(IPV6_COMPRESSED, (m) => (/[0-9a-f]{2,}/i.test(m) ? "[IP masked]" : m));
 
 export const maskPii = (text: string): string => {
-  const withoutLinks = text
-    .replace(EMAIL, "[email masked]")
-    .replace(URL_SCHEME, "[link masked]")
-    .replace(URL_BARE, "[link masked]");
-  return maskIpv6(maskCards(maskIbans(withoutLinks)))
+  const withoutLinks = maskLinks(text.replace(EMAIL, "[email masked]"));
+  const masked = maskIpv6(maskCards(maskIbans(withoutLinks)))
     .replace(IPV4, "[IP masked]")
     .replace(ADDRESS_FR, "[address masked]")
-    .replace(ADDRESS_EN, "[address masked]")
-    .replace(PHONE, "[phone masked]");
+    .replace(ADDRESS_EN, "[address masked]");
+  return maskPhones(masked);
 };

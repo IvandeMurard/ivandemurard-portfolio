@@ -51,6 +51,47 @@ describe("maskPii: URLs", () => {
   });
 });
 
+describe("maskPii: links to this site", () => {
+  it.each([
+    "see https://ivandemurard.com/aetherix for the case study",
+    "see https://www.ivandemurard.com/journal/harnesses-graders-closed-loops",
+    "see http://ivandemurard.com",
+    "see www.ivandemurard.com/cv",
+    "see ivandemurard.com/aetherix",
+    "see https://ivandemurard.com/rose-design-lab#ch-learn.",
+  ])("keeps %s", (input) => {
+    expect(maskPii(input)).toBe(input);
+  });
+  it.each([
+    ["https://ivandemurard.com.evil.example/login", "[link masked]"],
+    ["https://notivandemurard.com/x", "[link masked]"],
+    ["https://evil.example/ivandemurard.com", "[link masked]"],
+    ["https://ivandemurard.com@evil.example/", "[email masked]"],
+  ])("still masks the lookalike %s", (input, expected) => {
+    expect(maskPii(input)).toContain(expected);
+  });
+});
+
+describe("maskPii: phone numbers need 9 digits", () => {
+  it.each([
+    "in 2020-2022 the team grew",
+    "Sonor ran 2020-2022",
+    "call 1234567 or 12345678",
+    "versions 10.20.30",
+    "between 2019 - 2021, then 2024",
+  ])("keeps %s", (input) => {
+    expect(maskPii(input)).toBe(input);
+  });
+  it.each([
+    ["call 123456789 now", "call [phone masked] now"],
+    ["call 06 12 34 56 78 now", "call [phone masked] now"],
+    ["call 01 23 45 67 89", "call [phone masked]"],
+    ["+44 20 7946 0958", "[phone masked]"],
+  ])("masks %s", (input, expected) => {
+    expect(maskPii(input)).toBe(expected);
+  });
+});
+
 describe("maskPii: card numbers", () => {
   it("accepts Luhn-valid numbers only", () => {
     expect(luhnValid("4111111111111111")).toBe(true);
