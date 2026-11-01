@@ -50,9 +50,9 @@ const Privacy = () => (
 
       <H2 id="retention">Retention and access</H2>
       <P>
-        Records are read only by Ivan through a private, signed-in view, used to improve Rose and the site, and
-        deleted automatically after 90 days. Closing, reloading or clearing the chat does not delete records already
-        saved.
+        Records are read only by Ivan through a private, signed-in view, so Ivan can see how visitors use Rose, which
+        topics they ask about and where her answers fail. They are deleted automatically after 90 days. Closing,
+        reloading or clearing the chat does not delete records already saved.
       </P>
 
       <H2 id="booking">Booking a call</H2>
