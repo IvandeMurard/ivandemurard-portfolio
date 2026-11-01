@@ -149,7 +149,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 - "In use": the whole block stays hidden below 33 conversations (no placeholder line). From 33: count since a date, plus a few real questions chosen by Ivan from the logs, personal details removed.
 
 ### 6.5 Chapter 07: Trust (Built)
-- Two contracts. Data: tab kept 60 minutes or until a hard refresh; questions stored with personal details masked by pattern, purged after 90 days; nothing sent with a booking. Knowledge: answers from the same Markdown the MCP reads, with links; delivery status preserved; released after 15 synthetic cases, one sample each (Validation).
+- Two contracts. Data: conversation kept in the tab for up to 60 minutes of inactivity, erased on reload or Clear; questions stored with emails, phone numbers, postal addresses, links, card numbers, IBANs and IP addresses masked by pattern, deleted after 90 days; nothing sent with a booking. Knowledge: answers from the same Markdown the MCP reads, with links; delivery status preserved; released after 15 synthetic cases, one sample each (Validation).
 - The answer rule: "A correct answer can still be the wrong answer", with the Aetherix example.
 
 ### 6.6 Chapter 08: What she got wrong, and how I check her (Validation)

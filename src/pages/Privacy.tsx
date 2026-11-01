@@ -26,9 +26,9 @@ const Privacy = () => (
       </P>
       <P>
         So Rose can follow you from page to page, the conversation is kept in this browser tab's session storage, not in
-        a cookie and not on a server. It is dropped after an hour without a new message, and the Clear button in Rose
-        removes it at once. Your browser normally discards session storage when the tab closes, though some browsers
-        restore it with the tab. Clearing the conversation does not remove copies the AI provider may keep to process
+        a cookie and not on a server. It stays in this tab for up to 60 minutes of inactivity. Reloading the page or
+        pressing Clear erases it. Your browser normally discards session storage when the tab closes, though some
+        browsers restore it with the tab. Clearing the conversation does not remove copies the AI provider may keep to process
         requests, or the interaction records described below.
       </P>
 
@@ -43,15 +43,16 @@ const Privacy = () => (
         from general site link-click records. A reference click is not proof that its destination was read.
       </P>
       <P>
-        Email addresses and phone numbers in typed questions are masked automatically before saving. Masking works
-        by pattern recognition, so unusual formats may slip through: please avoid typing personal details you do not
-        want recorded.
+        Typed questions are stored with email addresses, phone numbers, postal addresses, links, card numbers, IBANs
+        and IP addresses masked by pattern, then deleted after 90 days. Names are not masked, and unusual formats may
+        slip through: please avoid typing personal details you do not want recorded.
       </P>
 
       <H2 id="retention">Retention and access</H2>
       <P>
         Records are read only by Ivan through a private, signed-in view, used to improve Rose and the site, and
-        deleted automatically after 90 days. Closing or clearing the chat does not delete records already saved.
+        deleted automatically after 90 days. Closing, reloading or clearing the chat does not delete records already
+        saved.
       </P>
 
       <H2 id="booking">Booking a call</H2>

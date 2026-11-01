@@ -1,4 +1,4 @@
-<!-- Generated. Private review artifact, excluded from public content. v1 sha256:2fc89816455ba300c9d81ed8368922ca1e28a0de4d7a193114cc0e3658bb2391 -->
+<!-- Generated. Private review artifact, excluded from public content. v1 sha256:37030d21ec12eba8e1e786a86e204e5e8d767250ddaa3469593e5c6620409503 -->
 
 Rose historical reference, v1. Repository evidence, not verified deployment parity. No measured visitor-value claim is established. Source paths and commit IDs are provenance, not public reading URLs. Do not invent a public Rose history page or link to the private reference.
 
@@ -53,8 +53,8 @@ Opening the booking link navigates to Ivan's calendar and records a bounded clic
 Provenance: 12c03fb; src/components/rose/RoseBookingCard.tsx; supabase/functions/rose-booking-notify/index.ts; src/test/roseBookingPrivacy.test.tsx
 
 ## question-logging (2026-10-24, implemented)
-The site logs typed questions and selected chip labels with pattern-based email and phone masking, which is imperfect. Rose application event records do not include IP addresses or user agents, but providers and hosting may process separate network data. Generated answers are not saved in the current application event table; request-lifecycle events are content-free. Deprecated booking-transcript rows may remain until the scheduled 90-day purge. Access to Rose event records is restricted to the site admin.
-Provenance: ccad61e; 475b2ed; supabase/functions/rose-event/index.ts; src/components/rose/roseEvents.ts; drizzle/migrations/0002_rose_sessions_retention.sql; src/pages/Privacy.tsx
+The site stores typed questions and selected chip labels with email addresses, phone numbers, postal addresses, links, card numbers, IBANs and IP addresses masked by pattern, then deleted after 90 days. Names are not masked and unusual formats can slip through. Rose application event records do not include IP addresses or user agents, but providers and hosting may process separate network data. Generated answers are not saved in the current application event table; request-lifecycle events are content-free. Deprecated booking-transcript rows may remain until the scheduled 90-day purge. Access to Rose event records is restricted to the site admin.
+Provenance: ccad61e; 475b2ed; supabase/functions/rose-event/index.ts; supabase/functions/_shared/mask-pii.ts; supabase/migrations/20261101090000_rose_retention_cron.sql; src/components/rose/roseEvents.ts; drizzle/migrations/0002_rose_sessions_retention.sql; src/pages/Privacy.tsx
 Unsupported wording: Nothing you type is stored.
 
 ## dom-integrity (2026-10-24, implemented)
@@ -66,7 +66,7 @@ The backend is configured for one model step per request, with UI-display tools 
 Provenance: 6a63c1e; 6b2c26d; supabase/functions/rose-chat/index.ts; src/components/rose/roseMarkdown.tsx; src/components/rose/RoseDock.tsx
 
 ## session-memory (2026-10-24, implemented)
-Chat history is kept in browser-tab sessionStorage across page navigation, expires after 60 minutes of inactivity and can be cleared. It is not persisted as a current server-side chat transcript. Some browsers may restore tab sessionStorage, and model-provider processing is a separate boundary.
+Chat history is kept in browser-tab sessionStorage across page navigation and stays for up to 60 minutes of inactivity. Reloading the page or pressing Clear erases it. It is not persisted as a current server-side chat transcript. Some browsers may restore tab sessionStorage, and model-provider processing is a separate boundary.
 Provenance: 467fa3b; src/components/rose/roseSession.ts; src/test/roseSession.test.ts
 
 ## measurement (2026-10-24, implemented)

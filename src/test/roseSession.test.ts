@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import type { UIMessage } from "ai";
 import {
   STORAGE_KEY, INACTIVITY_MS, loadMessages, saveMessages, clearStoredMessages, selectRecent,
-  getRoseChat, resetRoseChat,
+  getRoseChat, resetRoseChat, clearOnReload,
 } from "@/components/rose/roseSession";
 
 const msg = (i: number, role: "user" | "assistant" = i % 2 ? "assistant" : "user"): UIMessage =>
@@ -58,5 +58,56 @@ describe("Rose session memory", () => {
     expect(b.messages).toEqual([]);
     expect(sessionStorage.getItem(STORAGE_KEY)).toBeNull();
     clearStoredMessages();
+  });
+});
+
+describe("Rose session on reload", () => {
+  afterEach(() => { vi.restoreAllMocks(); vi.resetModules(); });
+
+  it("erases the stored conversation when the page load is a reload", () => {
+    saveMessages([msg(0), msg(1)]);
+    expect(clearOnReload([{ type: "reload" }])).toBe(true);
+    expect(sessionStorage.getItem(STORAGE_KEY)).toBeNull();
+    expect(loadMessages()).toEqual([]);
+  });
+
+  it.each(["navigate", "back_forward", "prerender", undefined])("keeps the conversation for a %s load", (type) => {
+    saveMessages([msg(0), msg(1)]);
+    expect(clearOnReload([{ type }])).toBe(false);
+    expect(loadMessages().map((m) => m.id)).toEqual(["m0", "m1"]);
+  });
+
+  it("keeps the conversation when the browser exposes no navigation entry", () => {
+    saveMessages([msg(0)]);
+    expect(clearOnReload([])).toBe(false);
+    expect(loadMessages()).toHaveLength(1);
+  });
+
+  it("clears at module load after a reload, and not after in-app navigation", async () => {
+    const spy = vi.spyOn(performance, "getEntriesByType");
+    saveMessages([msg(0)]);
+    spy.mockReturnValue([{ type: "navigate" }] as unknown as PerformanceEntryList);
+    vi.resetModules();
+    await import("@/components/rose/roseSession");
+    expect(sessionStorage.getItem(STORAGE_KEY)).not.toBeNull();
+
+    spy.mockReturnValue([{ type: "reload" }] as unknown as PerformanceEntryList);
+    vi.resetModules();
+    await import("@/components/rose/roseSession");
+    expect(sessionStorage.getItem(STORAGE_KEY)).toBeNull();
+  });
+
+  it("does not clear again on later saves within the same page load", () => {
+    clearOnReload([{ type: "reload" }]);
+    saveMessages([msg(0)]);
+    expect(loadMessages()).toHaveLength(1);
+  });
+
+  it("keeps the 60-minute expiry and Clear", () => {
+    saveMessages([msg(0)], 1_000);
+    expect(loadMessages(1_000 + INACTIVITY_MS + 1)).toEqual([]);
+    saveMessages([msg(0)]);
+    clearStoredMessages();
+    expect(loadMessages()).toEqual([]);
   });
 });
