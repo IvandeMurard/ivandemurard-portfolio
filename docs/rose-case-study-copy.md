@@ -155,16 +155,17 @@ var V5 = {
   - Built: Your conversation stays in this tab for 60 minutes, or until you reload the page.
   - Built: Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
   - Built: Booking opens the calendar and nothing else. No transcript travels with it.
+  - Sources line under the data contract: "Retention and masking: supabase/functions/_shared/mask-pii.ts and the purge migration" (each linked to its GitHub page on main)
 - Contract 2 · Knowledge · "What Rose may assert or infer."
   - Built: Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.
   - Built: A delivery status is preserved: planned is never turned into done, sandbox never into production.
-  - Validation: Released after 15 synthetic cases, one sample each, read by a person.
+  - Validation: Released on 24 Oct after 15 synthetic cases. Since 29 Oct, each change is tested with 5 samples per case and 20 per high-risk case. ("tested" links to docs/rose-eval-2026-10-29.md on GitHub)
 - The answer rule (marker ● Built), heading "A correct answer can still be the wrong answer."
   - Intro: "So Rose answers the decision behind the question first, keeps the evidence limit, and leaves implementation detail for when it is asked."
   - Example question: "Is Aetherix in production?"
   - Source-correct: "\"Aetherix is staged on Fly.io and connected to the Apaleo sandbox.\"" · note "True, cited. The reader still has to work out what it means."
   - Useful: "\"No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.\"" · note "Same sources. It answers the decision behind the question."
-  - Caption: "Source: Rose's answer contract, \"a verifiable fact unrelated to the question is still a poor answer\" (rose-context.ts)."
+  - Caption: "From Rose’s answer contract: “A verifiable fact unrelated to the question is still a poor answer.”" (no file name and no link: the prompt will leave the repository)
 - Transition: "Contracts are only as good as the checks behind them."
 
 ## 6.6 Chapter 08 · What she got wrong (marker ◐ Validation)

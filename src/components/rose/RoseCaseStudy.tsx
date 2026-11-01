@@ -302,6 +302,117 @@ const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
   </header>
 ));
 
+/* §6.5 Chapter 07. Copy verbatim from docs/rose-case-study-copy.md. */
+type TrustItem = { mark: "Built" | "Validation"; parts: string[] };
+export const TRUST = {
+  intro: "One concerns data: what is retained and transmitted. The other concerns knowledge: what Rose may assert or infer. Mixing them would make privacy sound like proof, or proof sound like privacy.",
+  contracts: [
+    {
+      kicker: "Contract 1 · Data",
+      title: "What is retained and transmitted.",
+      items: [
+        { mark: "Built", parts: ["Your conversation stays in this tab for 60 minutes, or until you reload the page."] },
+        { mark: "Built", parts: ["Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage."] },
+        { mark: "Built", parts: ["Booking opens the calendar and nothing else. No transcript travels with it."] },
+      ] as TrustItem[],
+      sourcesLead: "Retention and masking: ",
+      sources: [
+        { label: "supabase/functions/_shared/mask-pii.ts", path: "supabase/functions/_shared/mask-pii.ts" },
+        { label: "the purge migration", path: "supabase/migrations/20261101090000_rose_retention_cron.sql" },
+      ],
+    },
+    {
+      kicker: "Contract 2 · Knowledge",
+      title: "What Rose may assert or infer.",
+      items: [
+        { mark: "Built", parts: ["Rose answers from the same Markdown pages the MCP server reads, with one or two links to them."] },
+        { mark: "Built", parts: ["A delivery status is preserved: planned is never turned into done, sandbox never into production."] },
+        // The middle part is the linked word: docs/rose-eval-2026-10-29.md.
+        { mark: "Validation", parts: ["Released on 24 Oct after 15 synthetic cases. Since 29 Oct, each change is ", "tested", " with 5 samples per case and 20 per high-risk case."] },
+      ] as TrustItem[],
+    },
+  ],
+  rule: {
+    kicker: "The answer rule",
+    headingLead: "A correct answer can still be ",
+    headingEm: "the wrong answer.",
+    intro: "So Rose answers the decision behind the question first, keeps the evidence limit, and leaves implementation detail for when it is asked.",
+    question: "Is Aetherix in production?",
+    // Printed inside quotation marks.
+    answers: [
+      { label: "Source-correct", text: "Aetherix is staged on Fly.io and connected to the Apaleo sandbox.", note: "True, cited. The reader still has to work out what it means." },
+      { label: "Useful", text: "No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.", note: "Same sources. It answers the decision behind the question." },
+    ],
+    caption: "From Rose’s answer contract: “A verifiable fact unrelated to the question is still a poor answer.”",
+  },
+  evalDoc: "docs/rose-eval-2026-10-29.md",
+};
+
+const TrustMark = ({ mark }: { mark: TrustItem["mark"] }) => (
+  <span className={cn("mr-2 font-label text-xs", LEGEND_TONE[mark])}>
+    <span aria-hidden="true">{mark === "Built" ? "●" : "◐"}</span>
+    <span className="sr-only">{mark}: </span>
+  </span>
+);
+
+const TrustBody = () => {
+  const t = TRUST;
+  const label = "font-label text-[10px] uppercase tracking-[0.18em]";
+  return (
+    <div className="mt-8">
+      <p className="max-w-2xl font-body text-base text-on-surface">{t.intro}</p>
+
+      <div className="mt-8 grid gap-4 md:grid-cols-2">
+        {t.contracts.map((c, ci) => (
+          <section key={c.kicker} aria-labelledby={`trust-contract-${ci}`} className="flex flex-col rounded-xl border border-outline-variant bg-surface-container-lowest p-5">
+            <p className={cn(label, "text-secondary")}>{c.kicker}</p>
+            <h3 id={`trust-contract-${ci}`} className="mt-2 font-headline text-2xl leading-snug text-primary [[data-mood=dusk]_&]:text-on-surface">{c.title}</h3>
+            <ul className="mt-4 list-none space-y-3 p-0 font-body text-base text-on-surface">
+              {c.items.map((it) => (
+                <li key={it.parts.join("")} className="flex">
+                  <TrustMark mark={it.mark} />
+                  <span>
+                    {it.parts.length === 3
+                      ? <>{it.parts[0]}<ExternalLink href={REPO_FILE(t.evalDoc)}>{it.parts[1]}</ExternalLink>{it.parts[2]}</>
+                      : it.parts[0]}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {"sources" in c && c.sources && (
+              <p className="mt-auto pt-5 font-label text-xs text-on-surface-variant">
+                {c.sourcesLead}
+                {c.sources.map((s, i) => (
+                  <span key={s.path}>{i > 0 && " and "}<ExternalLink href={REPO_FILE(s.path)}>{s.label}</ExternalLink></span>
+                ))}
+              </p>
+            )}
+          </section>
+        ))}
+      </div>
+
+      <section aria-labelledby="trust-rule" className="mt-14">
+        <p className={cn(label, "text-secondary")}><span aria-hidden="true">● </span>{t.rule.kicker} · Built</p>
+        <h3 id="trust-rule" className="mt-3 font-headline text-3xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-4xl">
+          {t.rule.headingLead}<em className="text-secondary">{t.rule.headingEm}</em>
+        </h3>
+        <p className="mt-4 max-w-2xl font-body text-base text-on-surface">{t.rule.intro}</p>
+        <p className="mt-6 inline-block rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2 font-body text-sm text-on-surface">{t.rule.question}</p>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {t.rule.answers.map((a, i) => (
+            <figure key={a.label} className={cn("rounded-xl border p-5", i === 0 ? "border-dashed border-outline-variant" : "border-secondary bg-surface-container-lowest")}>
+              <figcaption className={cn(label, i === 0 ? "text-on-surface-variant" : "text-secondary")}>{a.label}</figcaption>
+              <blockquote className="mt-2 font-body text-base text-on-surface">“{a.text}”</blockquote>
+              <p className="mt-3 font-label text-xs text-on-surface-variant">{a.note}</p>
+            </figure>
+          ))}
+        </div>
+        <p className="mt-3 font-label text-xs text-on-surface-variant">{t.rule.caption}</p>
+      </section>
+    </div>
+  );
+};
+
 /* §6.6 Chapter 08. Copy verbatim from docs/rose-case-study-copy.md. */
 export const REPO_URL = "https://github.com/IvandeMurard/ivandemurard-portfolio";
 const REPO_FILE = (path: string) => `${REPO_URL}/blob/main/${path}`;
@@ -506,10 +617,11 @@ const ReadingThread = ({ rootRef, reduced }: { rootRef: RefObject<HTMLElement>; 
 const Chapters = memo(({ reduced }: { reduced: boolean }) => (
   <>
     {ROSE_CHAPTERS.map((c, i) => (
-      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : c.id === "ch-08" ? "max-w-none" : "max-w-3xl")}>
-        <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{(MILESTONES[c.id] || c.id === "ch-08") && <span className="ml-3"><span aria-hidden="true">{c.id === "ch-08" ? "◐ " : "● "}</span>{c.id === "ch-08" ? "Validation" : "Built"}</span>}</p>
+      <section key={c.id} id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : c.id === "ch-07" || c.id === "ch-08" ? "max-w-none" : "max-w-3xl")}>
+        <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{c.kicker}{(MILESTONES[c.id] || c.id === "ch-07" || c.id === "ch-08") && <span className="ml-3"><span aria-hidden="true">{c.id === "ch-08" ? "◐ " : "● "}</span>{c.id === "ch-08" ? "Validation" : "Built"}</span>}</p>
         <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
         {c.id === "ch-00" && <IdeaBody reduced={reduced} />}
+        {c.id === "ch-07" && <TrustBody />}
         {c.id === "ch-08" && <ValidationBody reduced={reduced} />}
         {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
         {c.transition && <p className="mt-16 font-headline text-xl italic text-on-surface">{c.transition}</p>}

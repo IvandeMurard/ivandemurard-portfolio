@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { existsSync } from "node:fs";
-import { CLOSE, GOT_WRONG, IDEA, MILESTONES, REPO_URL } from "@/components/rose/RoseCaseStudy";
+import { CLOSE, GOT_WRONG, IDEA, MILESTONES, REPO_URL, TRUST } from "@/components/rose/RoseCaseStudy";
 
 const deck = readFileSync("docs/rose-case-study-copy.md", "utf8");
 
@@ -130,4 +130,47 @@ describe("Rose reports: 'Read this first' anchors", () => {
       }
     });
   }
+});
+
+describe("Rose case study §6.5 chapter 07", () => {
+  const t = TRUST;
+  const quoted = (s: string) => `\\"${s}\\"`;
+  it("uses only text that appears in the copy deck", () => {
+    expect(deck).toContain(t.intro);
+    for (const c of t.contracts) {
+      expect(deck, c.title).toContain(c.title);
+      expect(deck, c.kicker).toContain(c.kicker.replace(" · ", " · "));
+      for (const it of c.items) expect(deck, it.parts.join("")).toContain(it.parts.join(""));
+    }
+    const r = t.rule;
+    expect(deck).toContain(r.headingLead + r.headingEm);
+    expect(deck).toContain(r.intro);
+    expect(deck).toContain(r.question);
+    for (const a of r.answers) {
+      expect(deck, a.text).toContain(quoted(a.text));
+      expect(deck, a.note).toContain(a.note);
+      expect(deck, a.label).toContain(a.label);
+    }
+    expect(deck).toContain(`"${r.caption}"`);
+  });
+  it("marks the chapter items as in the deck: Built, Built, Built, Built, Built, Validation", () => {
+    expect(t.contracts.flatMap((c) => c.items.map((i) => i.mark))).toEqual(["Built", "Built", "Built", "Built", "Built", "Validation"]);
+  });
+  it("states the validation item and links only the word tested, to the evaluation file", () => {
+    const v = t.contracts[1].items[2].parts;
+    expect(v.join("")).toBe("Released on 24 Oct after 15 synthetic cases. Since 29 Oct, each change is tested with 5 samples per case and 20 per high-risk case.");
+    expect(v[1]).toBe("tested");
+    expect(existsSync(t.evalDoc)).toBe(true);
+  });
+  it("keeps the answer-rule caption free of file names and links", () => {
+    expect(t.rule.caption).not.toMatch(/rose-context|\.ts\b|https?:|\/\//);
+  });
+  it("links the data sources to files that exist, as the deck states", () => {
+    const d = t.contracts[0];
+    expect(deck).toContain(`"${d.sourcesLead}${d.sources.map((s) => s.label).join(" and ")}"`);
+    for (const s of d.sources) expect(existsSync(s.path), s.path).toBe(true);
+  });
+  it("contains no em-dashes", () => {
+    expect(JSON.stringify(t)).not.toContain("—");
+  });
 });
