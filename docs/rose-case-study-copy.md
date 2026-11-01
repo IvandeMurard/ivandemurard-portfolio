@@ -152,8 +152,8 @@ var V5 = {
 - Heading: "Trust has two separate contracts."
 - Intro: "One concerns data: what is retained and transmitted. The other concerns knowledge: what Rose may assert or infer. Mixing them would make privacy sound like proof, or proof sound like privacy."
 - Contract 1 · Data · "What is retained and transmitted."
-  - Built: Your conversation stays in this tab for up to 60 minutes of inactivity. Reloading the page or pressing Clear erases it.
-  - Built: Questions are stored with email addresses, phone numbers, postal addresses, links, card numbers, IBANs and IP addresses masked by pattern, then deleted after 90 days.
+  - Built: Your conversation stays in this tab for 60 minutes, or until you reload the page.
+  - Built: Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
   - Built: Booking opens the calendar and nothing else. No transcript travels with it.
 - Contract 2 · Knowledge · "What Rose may assert or infer."
   - Built: Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.

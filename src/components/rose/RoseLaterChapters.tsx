@@ -67,8 +67,8 @@ const TRUST = [
   {
     title: "After 24 October", sub: "Booking opens the calendar",
     leaves: ["One content-free click event"],
-    stays: ["The conversation, in this tab only, for up to 60 minutes of inactivity; reloading erases it", "Calendar details are entered on the calendar page, not passed by Rose"],
-    note: "The notification endpoint now refuses requests. Questions are stored masked by pattern and deleted after 90 days, with no IP address.",
+    stays: ["The conversation, in this tab only, for 60 minutes, or until you reload the page", "Calendar details are entered on the calendar page, not passed by Rose"],
+    note: "The notification endpoint now refuses requests. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.",
   },
 ];
 
@@ -105,7 +105,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
 
         <div className="mt-14 max-w-4xl">
           <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Data integrity · retain and transmit</p>
-          <p className="mt-3 font-body text-base leading-relaxed text-on-surface">The tab keeps a bounded conversation for continuity. Interaction records are retained for product measurement, masked by pattern, and deleted after 90 days. A booking sends no conversation or summary.</p>
+          <p className="mt-3 font-body text-base leading-relaxed text-on-surface">The tab keeps a bounded conversation for continuity. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage. A booking sends no conversation or summary.</p>
         </div>
         <figure aria-label="What leaves the tab when a visitor books" className="mt-8 rounded-sm border border-outline-variant bg-surface p-5 md:p-8">
           <Tabs id="trust" label="Booking behaviour" options={TRUST} value={v} onChange={setV} />

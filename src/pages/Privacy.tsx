@@ -26,9 +26,9 @@ const Privacy = () => (
       </P>
       <P>
         So Rose can follow you from page to page, the conversation is kept in this browser tab's session storage, not in
-        a cookie and not on a server. It stays in this tab for up to 60 minutes of inactivity. Reloading the page or
-        pressing Clear erases it. Your browser normally discards session storage when the tab closes, though some
-        browsers restore it with the tab. Clearing the conversation does not remove copies the AI provider may keep to process
+        a cookie and not on a server. Your conversation stays in this tab for 60 minutes, or until you reload the page.
+        The 60 minutes run from your last message, and the Clear button erases it at once. Your browser normally
+        discards session storage when the tab closes, though some browsers restore it with the tab. Clearing the conversation does not remove copies the AI provider may keep to process
         requests, or the interaction records described below.
       </P>
 
@@ -43,9 +43,9 @@ const Privacy = () => (
         from general site link-click records. A reference click is not proof that its destination was read.
       </P>
       <P>
-        Typed questions are stored with email addresses, phone numbers, postal addresses, links, card numbers, IBANs
-        and IP addresses masked by pattern, then deleted after 90 days. Names are not masked, and unusual formats may
-        slip through: please avoid typing personal details you do not want recorded.
+        Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are
+        masked before storage. Links and IP addresses are masked too. Masking works by pattern, so names are not
+        masked and unusual formats may slip through: please avoid typing personal details you do not want recorded.
       </P>
 
       <H2 id="retention">Retention and access</H2>
