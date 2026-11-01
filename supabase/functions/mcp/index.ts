@@ -158,7 +158,7 @@ var CV = {
       bullets: [
         "Aetherix (F&B agent): one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; staged for a 30-day pilot.",
         "Anima (guest memory): keeps what guests said apart from what was inferred, and forgets what was never confirmed. Synthetic proof of concept with four memory layers and an MCP server; real guest data gated behind a data-protection assessment.",
-        "Evaluation by design: forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive median baseline, with mixed results reported as they are; 12 public ADRs.",
+        "Evaluation by design: forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive same-weekday baseline (the mean of the last four same weekdays), with mixed results reported as they are; 12 public ADRs.",
         "Architecture: 5 agents around a central orchestrator, multi-tenant, with GDPR constraints designed in from the start."
       ]
     },
@@ -1363,7 +1363,7 @@ var JOURNAL_ENTRIES = [
       { kind: "h2", text: "What it cost" },
       {
         kind: "p",
-        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet."
+        text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline (the mean of the last four same weekdays) on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet."
       },
       {
         kind: "p",
@@ -1715,13 +1715,37 @@ ${block.text}
     }
   }
 }
+function tableRuns(md) {
+  const runs = [];
+  let run = [];
+  for (const line of md.split("\n")) {
+    if (line.startsWith("|")) run.push(line);
+    else if (run.length) {
+      runs.push(run.join("\n"));
+      run = [];
+    }
+  }
+  if (run.length) runs.push(run.join("\n"));
+  return runs;
+}
+var tableKey = (table) => table.replace(/\s+/g, "").replace(/[‘’]/g, "'");
+function renderBlocks(blocks) {
+  const seen = /* @__PURE__ */ new Set();
+  return blocks.map((block) => {
+    const out = renderBlock(block);
+    const tables = tableRuns(out).map(tableKey);
+    if (block.kind === "table" && tables.length > 0 && tables.every((t) => seen.has(t))) return "";
+    for (const t of tables) seen.add(t);
+    return out;
+  });
+}
 var RELATED_ROLE = { method: "Read the method", decision: "Understand the design decision", evidence: "Inspect implementation evidence" };
 var absolutize = (md) => md.replace(/\]\((\/[^\s)]*)\)/g, `](${SITE_ORIGIN3}$1)`);
 function renderEntryMarkdown(entry) {
   const related = entry.related?.length ? `## Continue exploring
 
 ${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN3}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}` : "";
-  const bodyText = absolutize([...entry.body.map(renderBlock), related].filter(Boolean).join("\n\n"));
+  const bodyText = absolutize([...renderBlocks(entry.body), related].filter(Boolean).join("\n\n"));
   const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
   return [
     `# ${entry.title}`,
@@ -1750,7 +1774,7 @@ ${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")
 var get_journal_entry_default = defineTool5({
   name: "get_journal_entry",
   title: "Get Field Note",
-  description: "Fetch one Field Notes entry in full by slug: title, subtitle, date, category and the complete body rendered as readable Markdown. Use list_journal_entries to discover valid slugs.",
+  description: "Fetch one Field Notes entry in full by slug. The text content is the complete entry as readable Markdown, once; structured content carries only the short metadata (slug, title, subtitle, date, category, excerpt, reading time, URLs). Use list_journal_entries to discover valid slugs.",
   inputSchema: {
     slug: z2.string().describe("Field Note slug, as returned by list_journal_entries.")
   },
@@ -1782,17 +1806,8 @@ var get_journal_entry_default = defineTool5({
         category: entry.category,
         excerpt: entry.excerpt,
         reading_minutes: entry.readingMinutes ?? null,
-        related: entry.related ?? [],
         url,
-        tldr: entry.tldr ?? null,
-        glance: entry.glance ?? null,
-        takeaways: entry.takeaways ?? [],
-        takeaway_punch: entry.takeawayPunch ?? null,
-        diagnostic: entry.diagnostic ?? null,
-        updates: entry.updates ?? [],
-        markdown_url: entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : null,
-        body: entry.body,
-        body_text: entry.body.map(renderBlock).filter(Boolean).join("\n\n")
+        markdown_url: entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : null
       }
     };
   }

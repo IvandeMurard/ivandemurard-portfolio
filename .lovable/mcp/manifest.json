@@ -96,7 +96,7 @@
       {
         "name": "get_journal_entry",
         "title": "Get Field Note",
-        "description": "Fetch one Field Notes entry in full by slug: title, subtitle, date, category and the complete body rendered as readable Markdown. Use list_journal_entries to discover valid slugs.",
+        "description": "Fetch one Field Notes entry in full by slug. The text content is the complete entry as readable Markdown, once; structured content carries only the short metadata (slug, title, subtitle, date, category, excerpt, reading time, URLs). Use list_journal_entries to discover valid slugs.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
