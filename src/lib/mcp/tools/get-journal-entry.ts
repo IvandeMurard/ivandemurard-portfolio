@@ -84,7 +84,37 @@ export function renderBlock(block: JournalBlock): string {
   }
 }
 
-const RELATED_ROLE = { method: "Read the method", decision: "Understand the design decision", evidence: "Inspect implementation evidence" } as const;
+/** Contiguous runs of Markdown table lines ("| ... |"), one string per table. */
+export function tableRuns(md: string): string[] {
+  const runs: string[] = [];
+  let run: string[] = [];
+  for (const line of md.split("\n")) {
+    if (line.startsWith("|")) run.push(line);
+    else if (run.length) { runs.push(run.join("\n")); run = []; }
+  }
+  if (run.length) runs.push(run.join("\n"));
+  return runs;
+}
+
+/** Identity of a table regardless of spacing and apostrophe style ("|---|" equals "| --- |"). */
+export const tableKey = (table: string): string => table.replace(/\s+/g, "").replace(/[‘’]/g, "'");
+
+/**
+ * Renders a body block by block. A figure can already print its data as a table (recoLine), so an
+ * explicit table block that repeats a table already emitted is skipped: no table is emitted twice.
+ */
+export function renderBlocks(blocks: JournalBlock[]): string[] {
+  const seen = new Set<string>();
+  return blocks.map((block) => {
+    const out = renderBlock(block);
+    const tables = tableRuns(out).map(tableKey);
+    if (block.kind === "table" && tables.length > 0 && tables.every((t) => seen.has(t))) return "";
+    for (const t of tables) seen.add(t);
+    return out;
+  });
+}
+
+const RELATED_ROLE ={ method: "Read the method", decision: "Understand the design decision", evidence: "Inspect implementation evidence" } as const;
 
 /** Internal Markdown links become canonical public URLs so agents can follow them. */
 const absolutize = (md: string) => md.replace(/\]\((\/[^\s)]*)\)/g, `](${SITE_ORIGIN}$1)`);
@@ -93,7 +123,7 @@ export function renderEntryMarkdown(entry: JournalEntry): string {
     const related = entry.related?.length
       ? `## Continue exploring\n\n${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}`
       : "";
-    const bodyText = absolutize([...entry.body.map(renderBlock), related].filter(Boolean).join("\n\n"));
+    const bodyText = absolutize([...renderBlocks(entry.body), related].filter(Boolean).join("\n\n"));
     const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
     return [
       `# ${entry.title}`,
@@ -126,7 +156,7 @@ export default defineTool({
   name: "get_journal_entry",
   title: "Get Field Note",
   description:
-    "Fetch one Field Notes entry in full by slug: title, subtitle, date, category and the complete body rendered as readable Markdown. Use list_journal_entries to discover valid slugs.",
+    "Fetch one Field Notes entry in full by slug. The text content is the complete entry as readable Markdown, once; structured content carries only the short metadata (slug, title, subtitle, date, category, excerpt, reading time, URLs). Use list_journal_entries to discover valid slugs.",
   inputSchema: {
     slug: z.string().describe("Field Note slug, as returned by list_journal_entries."),
   },
@@ -152,6 +182,7 @@ export default defineTool({
     const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
     const text = renderEntryMarkdown(entry);
 
+    // The full entry is in `content` only: repeating it in structuredContent doubled the payload.
     return {
       content: [{ type: "text" as const, text }],
       structuredContent: {
@@ -162,17 +193,8 @@ export default defineTool({
         category: entry.category,
         excerpt: entry.excerpt,
         reading_minutes: entry.readingMinutes ?? null,
-        related: entry.related ?? [],
         url,
-        tldr: entry.tldr ?? null,
-        glance: entry.glance ?? null,
-        takeaways: entry.takeaways ?? [],
-        takeaway_punch: entry.takeawayPunch ?? null,
-        diagnostic: entry.diagnostic ?? null,
-        updates: entry.updates ?? [],
         markdown_url: entry.mirror ? `${SITE_ORIGIN}${entry.mirror}` : null,
-        body: entry.body,
-        body_text: entry.body.map(renderBlock).filter(Boolean).join("\n\n"),
       },
     };
   },
