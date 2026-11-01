@@ -1,6 +1,6 @@
 # Rose P5 quality gate, 24 October 2026
 
-**Read this first.** Working log of Rose's release gate on 24 Oct 2026. Earlier rounds, at the top, were not accepted. The outcome is at the bottom: accepted for release after source corrections. The invented team member cited in the case study is in the Sonor row of the scorecard.
+**Read this first.** Working log of Rose's release gate on 24 Oct 2026. Earlier rounds, at the top, were not accepted. The outcome is at the bottom: [accepted for release after source corrections](#final-release-decision-2026-10-24-risk-based). The invented team member cited in the case study is in the Sonor row of the [scorecard](#synthetic-scorecard).
 
 **Correction.** An early round quotes my CV as saying the DomusVi rollout was live with 500+ users. That was wrong: the rollout was still planned when I left. I corrected the CV on 24 Oct.
 
