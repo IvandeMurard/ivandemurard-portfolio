@@ -28,6 +28,19 @@ describe("Rose prompt scope (§11.4, §11.6, §11.7)", () => {
     expect(prompt).toContain("public restaurant data only");
   });
 
+  it("the Aetherix guard states the plain baseline wording and the not-in-production rule", async () => {
+    const prompt = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: "What does Ivan measure?" });
+    expect(prompt).toContain("When you explain the baseline in plain words, say 'the average of the last four same weekdays'. Never describe it as last week's value or the previous week.");
+    expect(prompt).toContain("Aetherix is not in production: never say it uses, runs or relies on anything 'in production'. It is staged on the Apaleo sandbox.");
+  });
+
+  it("a Rose-only prompt does not carry either sentence", async () => {
+    const prompt = await roseOnly();
+    expect(prompt).not.toContain("When you explain the baseline in plain words");
+    expect(prompt).not.toContain("the average of the last four same weekdays");
+    expect(prompt).not.toContain("Aetherix is not in production: never say it uses, runs or relies on anything");
+  });
+
   it("a broad question on the homepage loads the Aetherix rules", async () => {
     const prompt = await getRoseSystemPrompt({ page: { path: "/" }, question: "What has Ivan built?" });
     expect(prompt).toContain("Aetherix answer rules");
