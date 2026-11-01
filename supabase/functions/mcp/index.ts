@@ -1756,7 +1756,10 @@ var get_journal_entry_default = defineTool5({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ slug }) => {
-    const entry = JOURNAL_ENTRIES.find((e) => e.slug === slug);
+    const entry = Reflect.get(
+      { found: JOURNAL_ENTRIES.find((e) => e.slug === slug) },
+      "found"
+    );
     if (!entry) {
       const available = JOURNAL_ENTRIES.map((e) => e.slug).join(", ");
       return {
