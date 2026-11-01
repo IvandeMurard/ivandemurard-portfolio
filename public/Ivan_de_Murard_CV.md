@@ -15,7 +15,7 @@ Product builder with 5 years in B2B SaaS: co-founded a SaaS company, led product
 
 - **[Aetherix](/aetherix) (F&B agent):** one recommendation a day on WhatsApp, with the manager's reply and the actual outcome logged next to it. Built and running on the Apaleo sandbox (OAuth2, MCP) and on public data; staged for a 30-day pilot.
 - **[Anima](/anima) (guest memory):** keeps what guests said apart from what was inferred, and forgets what was never confirmed. Synthetic proof of concept with four memory layers and an MCP server; real guest data gated behind a data-protection assessment.
-- **Evaluation by design:** forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive median baseline, with mixed results reported as they are; 12 public ADRs.
+- **Evaluation by design:** forecasting benchmarked publicly on the Kaggle Recruit dataset against a naive same-weekday baseline (the mean of the last four same weekdays), with mixed results reported as they are; 12 public ADRs.
 - **Architecture:** 5 agents around a central orchestrator, multi-tenant, with GDPR constraints designed in from the start.
 
 ### Product Builder, Compass

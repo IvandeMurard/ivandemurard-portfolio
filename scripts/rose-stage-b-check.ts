@@ -224,7 +224,7 @@ async function run(journey: Job) {
         sha256: createHash("sha256").update(system).digest("hex"),
         characters: system.length,
         hasAetherixReference: system.includes("--- BEGIN CASE STUDY: aetherix ---"),
-        hasBenchmarkNumerics: system.includes("Prophet against a naive same-weekday baseline: mean MAPE 49.71% vs 55.86%"),
+        hasBenchmarkNumerics: system.includes("Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%"),
         hasAttributionLedger: system.includes("Aetherix measurement evidence (attribution contract, backed by the fetched case-study reference):"),
         hasRoseHistory: system.includes("--- BEGIN ROSE FACTUAL REFERENCE"),
         aetherixUnavailable: /References unavailable right now: [^\n]*\baetherix\b/.test(system),

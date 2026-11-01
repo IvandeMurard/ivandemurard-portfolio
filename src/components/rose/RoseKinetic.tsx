@@ -270,8 +270,8 @@ const PHASES = [
   { key: "Voice", line: "Read aloud only when your eyes are busy with the diagram." },
 ] as const;
 
-const PLAIN = "Ivan tests whether Aetherix predicts demand better than assuming tomorrow looks like the same weekday last week. On 30 restaurants it beats that guess on average, but not at next-day horizon.";
-const TECH = "Prophet mean MAPE 49.71% versus 55.86% for the naive baseline on a public 30-restaurant benchmark; at J+1, 28.5% versus 27.9%. Apaleo sandbox, 25% demand shift: weekly recalibration moved error from 15.9% to 12.3%.";
+const PLAIN = "Ivan tests whether Aetherix predicts demand better than the mean of the last four same weekdays. On 30 restaurants it beats that baseline on average, but not at next-day horizon.";
+const TECH = "Prophet mean MAPE 49.71% versus 55.86% for the naive same-weekday baseline (the mean of the last four same weekdays) on a public 30-restaurant benchmark; at J+1, 28.5% versus 27.9%. Apaleo sandbox, 25% demand shift: weekly recalibration moved error from 15.9% to 12.3%.";
 const VOICE_TEXT = "Read the diagram from left to right: a public benchmark, a forecast compared with a simple baseline, a sandbox shock, then the boundary of what was measured.";
 const VOICE_WORDS = VOICE_TEXT.split(" ");
 const WORD_STARTS = VOICE_WORDS.reduce<number[]>((acc, w, i) => { acc.push(i === 0 ? 0 : acc[i - 1] + VOICE_WORDS[i - 1].length + 1); return acc; }, []);
@@ -418,7 +418,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
               <div className={cn("flex h-full min-h-[18rem] flex-col justify-center", !reduced && "animate-in fade-in duration-700")} aria-label="Evaluation path, redrawn from the passage">
                 <div className="grid gap-3 sm:grid-cols-2">
                   <DiagramNode on label="1 · Public benchmark" detail="30 restaurants, open data" delay={0} reduced={reduced} emphasis={phase === 3 && word >= 7 && word < 10} />
-                  <DiagramNode on label="2 · Compared forecast" detail="Prophet against a same-weekday baseline" delay={150} reduced={reduced} emphasis={phase === 3 && word >= 10 && word < 17} />
+                  <DiagramNode on label="2 · Compared forecast" detail="Prophet against a naive same-weekday baseline" delay={150} reduced={reduced} emphasis={phase === 3 && word >= 10 && word < 17} />
                   <DiagramNode on label="3 · Sandbox shock" detail="Apaleo simulation, 25% demand shift" delay={300} reduced={reduced} emphasis={phase === 3 && word >= 17 && word < 20} />
                   <DiagramNode on label="4 · Boundary" detail="Forecast accuracy, not whether a staffing decision was optimal" delay={450} reduced={reduced} emphasis={phase === 3 && word >= 20} />
                 </div>
