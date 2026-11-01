@@ -81,8 +81,8 @@ export const ROSE_HISTORY: RoseHistoryEntry[] = [
   },
   {
     id: "question-logging", date: "2026-10-24", claim: "implemented",
-    text: "The site logs typed questions and selected chip labels with pattern-based email and phone masking, which is imperfect. Rose application event records do not include IP addresses or user agents, but providers and hosting may process separate network data. Generated answers are not saved in the current application event table; request-lifecycle events are content-free. Deprecated booking-transcript rows may remain until the scheduled 90-day purge. Access to Rose event records is restricted to the site admin.",
-    provenance: { commits: ["ccad61e", "475b2ed"], plans: [], files: ["supabase/functions/rose-event/index.ts", "src/components/rose/roseEvents.ts", "drizzle/migrations/0002_rose_sessions_retention.sql", "src/pages/Privacy.tsx"] },
+    text: "Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage. Typed questions and selected chip labels are both stored. Links and IP addresses are masked too; masking works by pattern, so names are not masked and unusual formats can slip through. Rose application event records do not include IP addresses or user agents, but providers and hosting may process separate network data. Generated answers are not saved in the current application event table; request-lifecycle events are content-free. Deprecated booking-transcript rows may remain until the scheduled 90-day purge. Access to Rose event records is restricted to the site admin.",
+    provenance: { commits: ["ccad61e", "475b2ed"], plans: [], files: ["supabase/functions/rose-event/index.ts", "supabase/functions/_shared/mask-pii.ts", "supabase/migrations/20261101090000_rose_retention_cron.sql", "src/components/rose/roseEvents.ts", "drizzle/migrations/0002_rose_sessions_retention.sql", "src/pages/Privacy.tsx"] },
     notThis: "Nothing you type is stored.",
   },
   {
@@ -97,7 +97,7 @@ export const ROSE_HISTORY: RoseHistoryEntry[] = [
   },
   {
     id: "session-memory", date: "2026-10-24", claim: "implemented",
-    text: "Chat history is kept in browser-tab sessionStorage across page navigation, expires after 60 minutes of inactivity and can be cleared. It is not persisted as a current server-side chat transcript. Some browsers may restore tab sessionStorage, and model-provider processing is a separate boundary.",
+    text: "Your conversation stays in this tab for 60 minutes, or until you reload the page. The 60 minutes run from the last message, and the Clear button erases it at once. The history is kept in browser-tab sessionStorage across page navigation. It is not persisted as a current server-side chat transcript. Some browsers may restore tab sessionStorage, and model-provider processing is a separate boundary.",
     provenance: { commits: ["467fa3b"], plans: [], files: ["src/components/rose/roseSession.ts", "src/test/roseSession.test.ts"] },
   },
   {

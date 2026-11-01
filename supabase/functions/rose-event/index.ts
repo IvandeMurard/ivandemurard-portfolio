@@ -1,9 +1,13 @@
 // Records one anonymous Rose interaction. No IP, no user agent is stored.
-// Emails and phone numbers are masked before insert. Writes use the service role;
+// Emails, phone numbers, postal addresses, links, card numbers, IBANs and IP addresses are masked
+// by pattern before insert (see _shared/mask-pii.ts). Writes use the service role;
 // the table has no public insert or read policy.
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@^3.25.76";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { maskPii } from "../_shared/mask-pii.ts";
+
+export { maskPii };
 
 const EventSchema = z.object({
   session_id: z.string().min(1).max(64),
@@ -16,11 +20,6 @@ const EventSchema = z.object({
   target_path: z.enum(["/", "/aetherix", "/tacet", "/anima", "/compass", "/sonor", "/lore", "/architecture", "/cv", "/atrium", "/journal", "/contact", "/agents", "/journal/harnesses-graders-closed-loops", "/journal/agent-boundaries-aetherix", "/journal/whose-truth-is-the-ground-truth"]).optional(),
   booking_source: z.enum(["card", "chip"]).optional(),
 });
-
-export const maskPii = (text: string): string =>
-  text
-    .replace(/[^\s@<>()]+@[^\s@<>()]+\.[a-z]{2,}/gi, "[email masked]")
-    .replace(/\+?\d[\d\s().-]{7,}\d/g, "[phone masked]");
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });

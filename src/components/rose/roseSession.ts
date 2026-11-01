@@ -6,6 +6,7 @@ import { finishRoseRequest } from "./roseMeasurement";
  * One Rose conversation per browser tab, owned at module level so it survives
  * route changes (each page remounts SiteLayout and the dock). Persisted in
  * sessionStorage only: no cookies, no localStorage, no server transcript.
+ * It ends after 60 minutes of inactivity, on Clear, and when the page is reloaded.
  */
 export const STORAGE_KEY = "rose_conversation_v1";
 export const SCHEMA_VERSION = 1;
@@ -75,6 +76,21 @@ export const saveMessages = (messages: UIMessage[], now = Date.now()) => {
 export const clearStoredMessages = () => {
   try { storage()?.removeItem(STORAGE_KEY); } catch { /* ignore */ }
 };
+
+/**
+ * A reload erases the conversation; in-app navigation, back/forward and new
+ * navigations keep it. Runs once per page load, when this module is first evaluated.
+ */
+export const clearOnReload = (
+  entries: ReadonlyArray<{ type?: string }> = typeof performance !== "undefined" && performance.getEntriesByType
+    ? (performance.getEntriesByType("navigation") as PerformanceNavigationTiming[])
+    : [],
+): boolean => {
+  if (entries[0]?.type !== "reload") return false;
+  clearStoredMessages();
+  return true;
+};
+clearOnReload();
 
 /** Most recent messages, starting on a user turn, capped for the model. */
 export const selectRecent = (messages: UIMessage[], max = MAX_SENT_MESSAGES): UIMessage[] => {

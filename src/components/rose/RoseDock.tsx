@@ -542,7 +542,7 @@ export const RoseDock = () => {
           </form>
           {open ? (
             <p className="px-5 pb-2.5 -mt-1 text-[11px] text-on-surface-variant">
-              Your questions are logged for up to 90 days.{" "}
+              Your conversation stays in this tab for 60 minutes, or until you reload the page. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.{" "}
               <Link to="/privacy#rose" className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
                 Privacy
               </Link>
