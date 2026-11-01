@@ -139,7 +139,7 @@ Status: Research, not built.
 
 - **Spec before code, with the BMAD method.** Every feature follows the path of a real product team: product requirements, architecture, epics, then one written story per change. Each step is run by a dedicated AI role: analyst, product manager, architect, scrum master, developer, QA. Code comes last.
 - **I direct the agents; I own the result.** AI agents build from those stories, inside the decisions I set for them (34 so far). I review what they deliver and decide what ships.
-- **Nothing merges without passing its tests.** A fixed set of real-world scenarios checks every change. If quality drops, the change is blocked automatically.
+- **Nothing merges without passing its tests.** A fixed set of synthetic scenarios checks every change. If quality drops, the change is blocked automatically.
 - **A weekly self-audit.** Every Monday, an agent checks that what the project claims still matches what it does, and proposes corrections for me to approve.
 - **Honest about what is unfinished.** Every component is labelled Built, Synthetic PoC, Design or Research. No demo dressed up as a product.
 
