@@ -588,14 +588,17 @@ export const RoseDock = () => {
               </kbd>
             ) : null}
           </form>
-          {open ? (
-            <p className="px-5 pb-2.5 -mt-1 text-[11px] text-on-surface-variant">
-              {ROSE_DATA_SHORT.text} ·{" "}
-              <Link to={ROSE_DATA_SHORT.href} className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
-                {ROSE_DATA_SHORT.linkLabel}
-              </Link>
-            </p>
-          ) : null}
+          {/* Wherever the input is rendered (open or at rest), under it and on one line. The minimised dock has no input and returns earlier. */}
+          <p className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant", open ? "-mt-1 pb-2.5" : "pb-2")}>
+            {ROSE_DATA_SHORT.text} ·{" "}
+            <Link
+              to={ROSE_DATA_SHORT.href}
+              tabIndex={hidden ? -1 : undefined}
+              className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm"
+            >
+              {ROSE_DATA_SHORT.linkLabel}
+            </Link>
+          </p>
         </div>
       </div>
     </>

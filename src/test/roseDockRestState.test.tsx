@@ -33,6 +33,57 @@ afterEach(() => {
   void getRoseChat("test");
 });
 
+describe("Rose dock: the short data line goes wherever the message input is rendered", () => {
+  const shortLine = () => screen.queryAllByText((_, el) => el?.tagName === "P" && el.textContent?.replace(/\s+/g, " ").trim() === ROSE_DATA_SHORT.line);
+  const input = () => screen.queryAllByRole("textbox", { name: "Message Rose" });
+  const open = () => fireEvent.click(screen.getByRole("button", { name: /^(Open Rose|Reopen the conversation with Rose)$/ }));
+  const minimise = () => fireEvent.click(screen.getByRole("button", { name: "Minimise Rose and keep the conversation" }));
+  const states: Array<[string, boolean, () => void]> = [
+    ["rest, no conversation", false, () => {}],
+    ["rest, with a conversation", true, () => {}],
+    ["open, no conversation", false, open],
+    ["open, with a conversation", true, open],
+    ["closed again after opening", true, () => { open(); fireEvent.click(screen.getAllByRole("button", { name: "Close Rose" })[0]); }],
+  ];
+
+  for (const [name, conversation, reach] of states) {
+    it(`${name}: the input and the line are both there`, () => {
+      mount(conversation ? seed : []);
+      reach();
+      expect(input()).toHaveLength(1);
+      expect(shortLine()).toHaveLength(1);
+      const line = shortLine()[0];
+      expect(line.querySelector("a")?.getAttribute("href")).toBe("/privacy");
+      // One line: never allowed to wrap.
+      expect(line.className).toContain("whitespace-nowrap");
+      // Under the input, not beside it.
+      expect(input()[0].compareDocumentPosition(line) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+  }
+
+  it("minimised: no input, so no line", () => {
+    mount(seed);
+    open();
+    minimise();
+    expect(input()).toHaveLength(0);
+    expect(shortLine()).toHaveLength(0);
+  });
+
+  it("in every state, an input without the line is impossible: both or neither", () => {
+    mount(seed);
+    const check = () => expect(input().length).toBe(shortLine().length);
+    check();
+    open();
+    check();
+    minimise();
+    check();
+    fireEvent.click(screen.getByRole("button", { name: "Reopen the conversation with Rose" }));
+    check();
+    fireEvent.click(screen.getAllByRole("button", { name: "Close Rose" })[0]);
+    check();
+  });
+});
+
 describe("Rose dock: open state", () => {
   it("shows the page's three starters and the input, with no heading or paragraph", () => {
     mount();
