@@ -31,7 +31,7 @@
       {
         "name": "get_case_study",
         "title": "Get case study",
-        "description": "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: Pilot-ready · ...); the rest covers vision, architecture, stack and outcomes.",
+        "description": "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready · ...); the rest covers vision, architecture, stack and outcomes.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -80,7 +80,7 @@
       {
         "name": "list_journal_entries",
         "title": "List Field Notes",
-        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. Use get_journal_entry with a slug from this list to read the full body.",
+        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. The text starts with fixed 'Key: value' lines (Index URL, Corpus URL, Reading note), a blank line, then the entries as JSON. Use get_journal_entry with a slug from this list to read the full body.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -96,7 +96,7 @@
       {
         "name": "get_journal_entry",
         "title": "Get Field Note",
-        "description": "Fetch one Field Notes entry in full by slug. The text content is the complete entry as readable Markdown, once; structured content carries only the short metadata (slug, title, subtitle, date, category, excerpt, reading time, URLs). Use list_journal_entries to discover valid slugs.",
+        "description": "Fetch one Field Notes entry in full by slug. Returns one text content: a metadata header of fixed 'Key: value' lines (Title, Subtitle, Date, Category, Reading time, URL, Markdown URL), a blank line, then the complete entry as Markdown, once. There is no structured content. Use list_journal_entries to discover valid slugs.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,

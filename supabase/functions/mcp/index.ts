@@ -100,7 +100,7 @@ var SLUGS = {
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The first line states the project status (for example Status: Pilot-ready \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass.")
   },
@@ -119,13 +119,23 @@ var get_case_study_default = defineTool2({
       const markdown = `${statusLine(slug)}
 
 ${await res.text()}`;
+      const group = slug === "compass" ? "Standalone projects" : void 0;
+      const canonicalUrl = `${SITE_ORIGIN}/${slug}`;
+      const header = [
+        `Slug: ${slug}`,
+        ...group ? [`Group: ${group}`] : [],
+        `Source URL: ${url}`,
+        `Canonical URL: ${canonicalUrl}`
+      ].join("\n");
       return {
-        content: [{ type: "text", text: markdown }],
+        content: [{ type: "text", text: `${header}
+
+${markdown}` }],
         structuredContent: {
           slug,
-          ...slug === "compass" ? { group: "Standalone projects" } : {},
+          ...group ? { group } : {},
           source_url: url,
-          canonical_url: `${SITE_ORIGIN}/${slug === "aetherix" ? "aetherix" : slug}`,
+          canonical_url: canonicalUrl,
           markdown
         }
       };
@@ -1402,7 +1412,7 @@ var SITE_ORIGIN2 = "https://ivandemurard.com";
 var list_journal_default = defineTool4({
   name: "list_journal_entries",
   title: "List Field Notes",
-  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. Use get_journal_entry with a slug from this list to read the full body.",
+  description: "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. The text starts with fixed 'Key: value' lines (Index URL, Corpus URL, Reading note), a blank line, then the entries as JSON. Use get_journal_entry with a slug from this list to read the full body.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
@@ -1421,14 +1431,15 @@ var list_journal_default = defineTool4({
         evidence: q ? q.cases.map((c) => ({ label: c.label, url: `${SITE_ORIGIN2}${c.to}` })) : []
       };
     }).sort((a, b) => b.date.localeCompare(a.date));
+    const indexUrl = `${SITE_ORIGIN2}/journal`;
+    const corpusUrl = `${SITE_ORIGIN2}/llms-full.txt`;
+    const readingNote = "The three notes answer complementary questions and can be read in any order. Notes teach methods; case studies hold implementation evidence.";
+    const header = [`Index URL: ${indexUrl}`, `Corpus URL: ${corpusUrl}`, `Reading note: ${readingNote}`].join("\n");
     return {
-      content: [{ type: "text", text: JSON.stringify(entries, null, 2) }],
-      structuredContent: {
-        index_url: `${SITE_ORIGIN2}/journal`,
-        corpus_url: `${SITE_ORIGIN2}/llms-full.txt`,
-        reading_note: "The three notes answer complementary questions and can be read in any order. Notes teach methods; case studies hold implementation evidence.",
-        entries
-      }
+      content: [{ type: "text", text: `${header}
+
+${JSON.stringify(entries, null, 2)}` }],
+      structuredContent: { index_url: indexUrl, corpus_url: corpusUrl, reading_note: readingNote, entries }
     };
   }
 });
@@ -1741,16 +1752,13 @@ function renderBlocks(blocks) {
 }
 var RELATED_ROLE = { method: "Read the method", decision: "Understand the design decision", evidence: "Inspect implementation evidence" };
 var absolutize = (md) => md.replace(/\]\((\/[^\s)]*)\)/g, `](${SITE_ORIGIN3}$1)`);
-function renderEntryMarkdown(entry) {
+function renderEntryBody(entry) {
   const related = entry.related?.length ? `## Continue exploring
 
 ${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN3}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}` : "";
   const bodyText = absolutize([...renderBlocks(entry.body), related].filter(Boolean).join("\n\n"));
   const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
   return [
-    `# ${entry.title}`,
-    entry.subtitle ?? "",
-    `${entry.category} \xB7 ${entry.date}${entry.readingMinutes ? ` \xB7 ${entry.readingMinutes} min read` : ""}`,
     entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
     entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
     entry.takeaways?.length ? `What you will decide differently:
@@ -1769,12 +1777,22 @@ ${entry.updates.map((u) => `${u.date} \xB7 ${u.summary} ${u.reason}`).join("\n")
     entry.license ? `Licence: ${entry.license.label} (${entry.license.url}). ${entry.license.note ?? ""}` : "",
     `Source: ${url}`
   ].filter(Boolean).join("\n\n");
-  ;
+}
+function renderEntryHeader(entry) {
+  return [
+    `Title: ${entry.title}`,
+    `Subtitle: ${entry.subtitle ?? "none"}`,
+    `Date: ${entry.date}`,
+    `Category: ${entry.category}`,
+    `Reading time: ${entry.readingMinutes ? `${entry.readingMinutes} min` : "none"}`,
+    `URL: ${SITE_ORIGIN3}/journal/${entry.slug}`,
+    `Markdown URL: ${entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : "none"}`
+  ].join("\n");
 }
 var get_journal_entry_default = defineTool5({
   name: "get_journal_entry",
   title: "Get Field Note",
-  description: "Fetch one Field Notes entry in full by slug. The text content is the complete entry as readable Markdown, once; structured content carries only the short metadata (slug, title, subtitle, date, category, excerpt, reading time, URLs). Use list_journal_entries to discover valid slugs.",
+  description: "Fetch one Field Notes entry in full by slug. Returns one text content: a metadata header of fixed 'Key: value' lines (Title, Subtitle, Date, Category, Reading time, URL, Markdown URL), a blank line, then the complete entry as Markdown, once. There is no structured content. Use list_journal_entries to discover valid slugs.",
   inputSchema: {
     slug: z2.string().describe("Field Note slug, as returned by list_journal_entries.")
   },
@@ -1794,21 +1812,10 @@ var get_journal_entry_default = defineTool5({
         isError: true
       };
     }
-    const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
-    const text = renderEntryMarkdown(entry);
     return {
-      content: [{ type: "text", text }],
-      structuredContent: {
-        slug: entry.slug,
-        title: entry.title,
-        subtitle: entry.subtitle ?? null,
-        date: entry.date,
-        category: entry.category,
-        excerpt: entry.excerpt,
-        reading_minutes: entry.readingMinutes ?? null,
-        url,
-        markdown_url: entry.mirror ? `${SITE_ORIGIN3}${entry.mirror}` : null
-      }
+      content: [{ type: "text", text: `${renderEntryHeader(entry)}
+
+${renderEntryBody(entry)}` }]
     };
   }
 });
