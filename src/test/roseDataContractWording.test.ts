@@ -9,7 +9,6 @@ const flat = (file: string) => readFileSync(file, "utf8").replace(/\s+/g, " ");
 const surfaces = {
   "copy deck §6.5": "docs/rose-case-study-copy.md",
   "/privacy": "src/pages/Privacy.tsx",
-  "dock disclosure": "src/components/rose/RoseDock.tsx",
   "Rose self-knowledge": "src/content/roseHistory.ts",
   "generated history": "docs/rose-history.generated.md",
 };
@@ -24,7 +23,7 @@ describe("Rose data contract wording", () => {
     });
   }
   it("no surface still states the superseded wording", () => {
-    for (const file of [...Object.values(surfaces), "docs/rose-case-study.md", "src/components/rose/RoseLaterChapters.tsx"]) {
+    for (const file of [...Object.values(surfaces), "docs/rose-case-study.md", "src/components/rose/RoseLaterChapters.tsx", "src/components/rose/RoseDock.tsx"]) {
       expect(flat(file), file).not.toMatch(/hard refresh|personal details masked|email and phone (patterns )?masking?|Reloading or Clear erases/i);
     }
   });

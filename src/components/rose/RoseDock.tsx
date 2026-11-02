@@ -13,7 +13,8 @@ import { isRoseFollowupAllowed, shouldSuppressRoseFollowups } from "../../../sup
 import { logRoseEvent } from "./roseEvents";
 import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
-import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
+import { expireIfIdle, getRoseChat, getRoseMinimised, getRoseOpen, resetRoseChat, saveMessages, setRoseMinimised, setRoseOpen } from "./roseSession";
+import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 
 const SESSION_KEY = "rose_session";
 
@@ -97,7 +98,20 @@ const CompassMark = ({ className }: { className?: string }) => (
 
 export const RoseDock = () => {
   const [open, setOpenState] = useState(getRoseOpen);
-  const setOpen = (v: boolean) => { setRoseOpen(v); setOpenState(v); };
+  const [minimised, setMinimisedState] = useState(getRoseMinimised);
+  const setOpen = (v: boolean) => { setRoseOpen(v); setOpenState(v); if (v) setMinimisedState(false); };
+  // Minimising keeps the conversation and leaves only the compass button; focus moves to it.
+  const focusCompass = useRef(false);
+  const compassRef = useRef<HTMLButtonElement>(null);
+  const minimise = () => {
+    focusCompass.current = true;
+    setRoseMinimised(true);
+    setOpenState(false);
+    setMinimisedState(true);
+  };
+  useEffect(() => {
+    if (minimised && focusCompass.current) { focusCompass.current = false; compassRef.current?.focus(); }
+  }, [minimised]);
   const [confirmClear, setConfirmClear] = useState(false);
   const [detectedIntent, setDetectedIntent] = useState<
     "product" | "technical" | "culture" | "exploring" | null
@@ -304,6 +318,35 @@ export const RoseDock = () => {
     .filter((p) => !p.booking && !askedTexts.has(p.label) && !askedTexts.has(p.message))
     .map((p) => p.label);
 
+  const hasConversation = messages.length > 0;
+  const reopenLabel = hasConversation ? "Reopen the conversation with Rose" : "Open Rose";
+
+  if (minimised && !open) {
+    return (
+      <div
+        data-rose-dock
+        data-rose-minimised
+        aria-hidden={hidden || undefined}
+        style={{ transform: `translateY(${hidden ? "160%" : `-${lift}px`})` }}
+        className={cn(
+          "fixed bottom-4 right-4 z-50 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none md:bottom-6 md:right-6",
+          hidden ? "pointer-events-none opacity-0" : "opacity-100",
+        )}
+      >
+        <button
+          ref={compassRef}
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label={reopenLabel}
+          tabIndex={hidden ? -1 : 0}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-secondary bg-surface-container-lowest text-secondary shadow-md shadow-primary/5 transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+        >
+          <CompassMark className="h-6 w-6" />
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       {open ? (
@@ -363,6 +406,15 @@ export const RoseDock = () => {
                 )
               ) : null}
               <button
+                type="button"
+                onClick={minimise}
+                aria-label="Minimise Rose and keep the conversation"
+                className="rounded-full p-1.5 text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              >
+                <Icon name="expand_more" className="text-lg" />
+              </button>
+              <button
+                type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close Rose"
                 className="rounded-full p-1.5 text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
@@ -374,14 +426,7 @@ export const RoseDock = () => {
           ) : null}
 
           {open ? (
-            <div className="flex-1 overflow-y-auto px-5 py-4" role="log" aria-live="polite">
-              {messages.length === 0 && !isLoading ? (
-                <div className="space-y-2">
-                  <p className="font-headline text-lg text-primary">Explore Ivan's work. Ask what matters to you.</p>
-                  <p className="text-sm text-on-surface-variant">What he has built, the decisions behind it, and where his experience could help with your challenge.</p>
-                </div>
-              ) : null}
-
+            <div className={cn("flex-1 overflow-y-auto", (hasConversation || isLoading || error) && "px-5 py-4")} role="log" aria-live="polite">
               <div className="flex flex-col gap-4">
                 {messages.map((m, messageIndex) => {
                   const text = renderText(m);
@@ -482,18 +527,21 @@ export const RoseDock = () => {
             }}
             className={cn("flex items-center gap-2 px-3", open ? "border-t border-outline-variant py-3" : "h-[52px] md:h-[48px] py-0")}
           >
-            {!open && messages.length > 0 ? (
+            {!open ? (
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                aria-label="Reopen the conversation with Rose"
+                aria-label={reopenLabel}
                 tabIndex={hidden ? -1 : 0}
-                className="ml-1 flex shrink-0 items-center gap-1.5 rounded-full border border-secondary px-2.5 py-1 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                className={cn(
+                  "ml-1 flex shrink-0 items-center gap-1.5 rounded-full border border-secondary text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary",
+                  hasConversation ? "px-2.5 py-1" : "h-8 w-8 justify-center",
+                )}
               >
-                <CompassMark className="h-4 w-4" />
-                Resume
+                <CompassMark className={hasConversation ? "h-4 w-4" : "h-5 w-5"} />
+                {hasConversation ? "Resume" : null}
               </button>
-            ) : !open ? <CompassMark className="ml-1 h-6 w-6 shrink-0 text-secondary" /> : null}
+            ) : null}
             {open ? (
               <textarea
                 ref={expandedInputRef}
@@ -542,9 +590,9 @@ export const RoseDock = () => {
           </form>
           {open ? (
             <p className="px-5 pb-2.5 -mt-1 text-[11px] text-on-surface-variant">
-              Your conversation stays in this tab for 60 minutes, or until you reload the page. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.{" "}
-              <Link to="/privacy#rose" className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
-                Privacy
+              {ROSE_DATA_SHORT.text} ·{" "}
+              <Link to={ROSE_DATA_SHORT.href} className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                {ROSE_DATA_SHORT.linkLabel}
               </Link>
             </p>
           ) : null}
