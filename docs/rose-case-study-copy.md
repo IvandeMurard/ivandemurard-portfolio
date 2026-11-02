@@ -155,6 +155,7 @@ var V5 = {
   - Built: Your conversation stays in this tab for 60 minutes, or until you reload the page.
   - Built: Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
   - Built: Booking opens the calendar and nothing else. No transcript travels with it.
+  - Short form of the data contract, for any surface with room for one line (the dock): "Questions are stored for 90 days · Privacy" (Privacy links to /privacy, which keeps the full text). Constant: `ROSE_DATA_SHORT` in `src/content/roseDataContract.ts`.
   - Sources line under the data contract: "Retention and masking: supabase/functions/_shared/mask-pii.ts and the purge migration" (each linked to its GitHub page on main; "the purge migration" is drizzle/migrations/0004_rose_retention_cron.sql)
 - Contract 2 · Knowledge · "What Rose may assert or infer."
   - Built: Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.

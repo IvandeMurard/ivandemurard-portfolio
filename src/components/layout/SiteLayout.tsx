@@ -6,6 +6,7 @@ import { SectionRail, type RailSection } from "./SectionRail";
 import { PageLight } from "@/components/PageLight";
 import { RoseDock } from "@/components/rose/RoseDock";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
+import { useRevealHash } from "@/hooks/useRevealHash";
 
 interface SiteLayoutProps {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ export const SiteLayout = ({ children, title, sections, showFooter = true }: Sit
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [pathname]);
+  useRevealHash();
 
   useEffect(() => {
     // Only a fallback: pages that render <Seo> own their own title.
