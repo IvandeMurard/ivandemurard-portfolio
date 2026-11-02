@@ -8,6 +8,7 @@ Read `AGENTS.md` too: its project rules apply.
 - Work on one section of the brief at a time. Do not touch other sections. Do not create a new concept or variant.
 - If the brief is ambiguous for the section, ask before building.
 - If two sources contradict each other, stop and list the conflicts before coding.
+- For any copy or layout work, follow docs/style.md.
 
 ## Git and deployment
 - One branch per task (for example `case-study/6-3`). Commit, push, then stop. Never merge into `main`.
