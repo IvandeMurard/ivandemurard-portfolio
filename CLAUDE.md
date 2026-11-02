@@ -15,6 +15,7 @@ Read `AGENTS.md` too: its project rules apply.
 - `qa/` stays out of Git: it can contain Rose's internal prompt. Never commit evaluation outputs.
 - Never read or print `.env`.
 - After a local build, never commit generated files (`public/`, `supabase/functions/mcp/index.ts`, `src/content/agents.generated.ts`): a Windows build replaces the MCP bundle with a broken stub. Restore them with `git checkout` before committing.
+- Never edit, replace or regenerate supabase/functions/mcp/index.ts yourself to make the freshness test pass. A red freshness test means Lovable must regenerate the bundle: report it.
 
 ## Quality
 - Before every commit: `bun.cmd x vitest run` and `bun.cmd run build`. Report failures, do not hide them.
