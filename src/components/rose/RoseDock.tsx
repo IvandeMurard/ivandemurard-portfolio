@@ -498,7 +498,7 @@ export const RoseDock = () => {
           ) : null}
 
           {showChips ? (
-            <div className={cn("flex flex-wrap gap-2 px-4", open ? "pb-3" : "pt-3")}>
+            <div className={cn("flex flex-wrap gap-2 px-4", open ? "py-3" : "pt-3")}>
               {prompts.map((chip) => (
                 <button
                   key={chip.label}
