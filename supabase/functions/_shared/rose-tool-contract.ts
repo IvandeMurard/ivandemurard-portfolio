@@ -6,10 +6,10 @@ export const ROSE_BOOKING_TOOL_DESCRIPTION =
   "Render a booking CTA card in the chat when the visitor's intent is clear enough to warrant a 30-minute call with Ivan. A request for Rose to access, review or test the visitor's code is not such intent. The reason must never promise a service Ivan does not offer (for example a review of the visitor's private repository). No execute: the human clicks the rendered card.";
 
 export const ROSE_FOLLOWUPS_TOOL_DESCRIPTION =
-  "Optional, call at most once, after the answer text. Up to two short follow-up questions the visitor could ask Rose: polite questions that name Ivan in the third person (for example "Would you tell me more about his AI-native projects?"), never "you" or "your" for Ivan, each about content that exists on this site. Each must advance the visitor's current question. Rendered as chips under the answer.";
+  "Optional, call at most once, after the answer text. Up to two short follow-up questions the visitor could ask Rose: polite questions that name Ivan in the third person (for example 'Would you tell me more about his AI-native projects?'), never 'you' or 'your' for Ivan, each about content that exists on this site. Each must advance the visitor's current question. Rendered as chips under the answer.";
 
 /**
- * Profile questions (role, background, CV) get an answer, not a booking card. The booking tool is offered
+ * Profile questions get an answer, not a booking card. The booking tool is offered
  * only when the visitor explicitly asks for a call, a meeting or a way to talk to Ivan.
  */
 export const isRoseExplicitMeetingRequest = (question: string): boolean =>
