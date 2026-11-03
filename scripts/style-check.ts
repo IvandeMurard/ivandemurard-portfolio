@@ -12,6 +12,7 @@
 // closing lines, and whether a mono label or pill is decorative.
 import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
+import { STATUSES } from "../src/content/statuses";
 
 export type Hit = { file: string; line: number; pattern: PatternId; text: string };
 export type AllowEntry = { file: string; pattern: PatternId; text: string; reason: string };
@@ -37,6 +38,19 @@ export const stripComments = (source: string): string =>
 
 const words = (sentence: string) => sentence.match(/[A-Za-z0-9’'-]+/g) ?? [];
 const lastToken = (s: string) => s.split(/\s+/).pop() ?? "";
+
+/** Labels, not prose: a project status (src/content/statuses.ts), an evidence marker, or the Anima status opener. */
+const STATUS_LABELS = new Set(
+  [...Object.values(STATUSES).map((s) => s.word), "Built", "Validation", "Design", "Synthetic PoC"].map((w) => w.toLowerCase()),
+);
+const isStatusLabel = (sentence: string) => STATUS_LABELS.has(sentence.replace(/\.$/, "").trim().toLowerCase());
+
+/** A short control label: a UI verb, plus at most one word ("Show details."). */
+const CONTROL_LABEL = /^(?:Show|Hide|Open|Close|Expand|Collapse|Copy|Download|Skip|Replay|Reset|Search|Filter|Sort|Back|Next|Previous|Submit|Cancel|Save|Share|Print|Retry|Try|Learn|See|View|Read|Listen|Play|Pause)(?:\s+[A-Za-z]+)?\.$/;
+
+/** A metadata line carries a date stamp ("Public. Read-only. No key. Last updated 2026-10-29."). */
+const METADATA_LINE = /\b(?:Last updated|Updated on)\b/i;
+
 const ABBREVIATION = /^(?:e\.g|i\.e|vs|etc|no|dr|mr|mrs|st|approx|fig|cf|inc|ltd|[a-z])\.?$/i;
 
 /** Sentences of a line, with code and quote debris trimmed from the ends. */
@@ -51,10 +65,10 @@ function proseHits(line: string): Array<{ pattern: PatternId; text: string }> {
   const out: Array<{ pattern: PatternId; text: string }> = [];
   const sentences = sentencesOf(line);
 
-  if (sentences.length >= 2) {
+  if (sentences.length >= 2 && !METADATA_LINE.test(line)) {
     for (const s of sentences) {
       const w = words(s);
-      if (s.endsWith(".") && w.length >= 1 && w.length <= 2 && /^[A-Z]/.test(s) && !ABBREVIATION.test(lastToken(s))) {
+      if (s.endsWith(".") && w.length >= 1 && w.length <= 2 && /^[A-Z]/.test(s) && !ABBREVIATION.test(lastToken(s)) && !isStatusLabel(s) && !CONTROL_LABEL.test(s)) {
         out.push({ pattern: "theatrical-fragment", text: s });
       }
     }

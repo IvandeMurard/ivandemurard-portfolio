@@ -47,6 +47,27 @@ describe("style checker: it finds the examples in docs/style.md §2", () => {
   });
 });
 
+describe("style checker: what is not a theatrical fragment", () => {
+  const fragments = (source: string) => scanSource("src/content/x.ts", source).filter((h) => h.pattern === "theatrical-fragment");
+  it("excludes a project status label", () => {
+    expect(fragments('const a = "Pilot-ready. Staged on Fly.io and connected to the Apaleo sandbox.";')).toEqual([]);
+    expect(fragments('const a = "Compliance Gated. Deployment is frozen until the assessment clears.";')).toEqual([]);
+  });
+  it("excludes an evidence marker and the Synthetic PoC opener", () => {
+    expect(fragments('const a = "Design. Named in the contract, no code.";')).toEqual([]);
+    expect(fragments('const a = "Synthetic PoC. Architecture ready, deployment frozen.";')).toEqual([]);
+  });
+  it("excludes a UI control label", () => {
+    expect(fragments('const a = "Show details. The panel opens below the card.";')).toEqual([]);
+  });
+  it("excludes a metadata line that carries a date stamp", () => {
+    expect(fragments("const meta = (date: string) => `Public. Read-only. No key. Last updated ${date}.`;")).toEqual([]);
+  });
+  it("still catches a real fragment", () => {
+    expect(fragments('const a = "Every grader passed. Six yeses.";').map((h) => h.text)).toEqual(["Six yeses."]);
+  });
+});
+
 describe("style checker: italic", () => {
   it("flags italic outside a hero headline, in classes and tags", () => {
     expect(patternsIn("src/pages/X.tsx", '<h2 className="font-headline italic text-3xl">Title</h2>')).toContain("italic");

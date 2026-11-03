@@ -15,10 +15,6 @@
     "mood-word": 1,
     "theatrical-fragment": 1
   },
-  "public/agents.md": {
-    "rhythm-triad": 1,
-    "theatrical-fragment": 3
-  },
   "public/anima.md": {
     "contrast-reflex": 5,
     "italic": 1,
@@ -46,8 +42,7 @@
   },
   "public/index.md": {
     "dot-chain": 1,
-    "mood-word": 1,
-    "theatrical-fragment": 1
+    "mood-word": 1
   },
   "public/lore.md": {
     "contrast-reflex": 10,
@@ -297,8 +292,7 @@
     "italic": 2
   },
   "src/content/agents.ts": {
-    "dot-chain": 1,
-    "theatrical-fragment": 2
+    "dot-chain": 1
   },
   "src/content/compass.ts": {
     "contrast-reflex": 2,
@@ -345,8 +339,7 @@
     "contrast-reflex": 1
   },
   "src/content/systems.ts": {
-    "contrast-reflex": 2,
-    "theatrical-fragment": 4
+    "contrast-reflex": 2
   },
   "src/pages/AdminRose.tsx": {
     "contrast-reflex": 4,
