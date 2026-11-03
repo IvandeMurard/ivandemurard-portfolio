@@ -26,13 +26,13 @@ const CopyPrompt = () => {
   );
 };
 
-/** The one Contact block, used on the homepage and on /rose-design-lab. Copy lives in src/content/site.ts. */
-export const ContactBlock = () => {
+/** The one Contact block, used on the homepage ("04 · Contact") and on /rose-design-lab ("Contact"). Copy lives in src/content/site.ts. */
+export const ContactBlock = ({ number }: { number?: string }) => {
   const track = useTrackClick();
   return (
     <section id="contact" aria-labelledby="contact-h" className="section-inverse">
       <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
-        <p className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-8" data-reveal-child>{CONTACT.kicker}</p>
+        <p className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-8" data-reveal-child>{number ? `${number} · ${CONTACT.kicker}` : CONTACT.kicker}</p>
         <h2 id="contact-h" className="font-headline font-normal text-primary text-[clamp(32px,4.2vw,60px)] leading-[1.06] tracking-[-0.02em]" data-reveal-child>
           {CONTACT.heading}
         </h2>

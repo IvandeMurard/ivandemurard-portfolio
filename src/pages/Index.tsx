@@ -168,7 +168,7 @@ const Index = () => {
         </Reveal>
       </section>
 
-      <ContactBlock />
+      <ContactBlock number="04" />
     </SiteLayout>
   );
 };

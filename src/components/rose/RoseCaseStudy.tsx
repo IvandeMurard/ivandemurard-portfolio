@@ -22,7 +22,7 @@ export const ROSE_CHAPTERS: Chapter[] = [
   { id: "ch-03", toc: "03 Know where you are", kicker: "03 · 10 Aug 2026", heading: "Know where you are" },
   { id: "ch-04", toc: "04 One dock", kicker: "04 · 14 Oct 2026", heading: "One dock" },
   { id: "ch-05", toc: "05 Earn trust", kicker: "05 · 24 Oct 2026", heading: "Earn trust" },
-  { id: "ch-06", toc: "06 What Rose can do now", kicker: "06 · In design", heading: "Answers that point into the page" },
+  { id: "ch-06", toc: "06 Answer formats", kicker: "06 · Answer formats", heading: "Answers that point into the page" },
   { id: "ch-07", toc: "07 Trust", kicker: "07 · Trust", heading: "Trust has two separate contracts." },
   { id: "ch-08", toc: "08 What she got wrong", kicker: "08 · What she got wrong", heading: "Caught in testing" },
   { id: "ch-09", toc: "09 Next steps", kicker: "09 · Next steps", heading: "Next: help readers move across the whole site" },
@@ -44,7 +44,7 @@ const LEGEND_TONE: Record<string, string> = { Built: "text-secondary", Validatio
 const LEGEND = [
   ["●", "Built", "Implemented behaviour that can be inspected in the product or repository."],
   ["◐", "Validation", "A bounded test, audit or measurement. It does not prove every visitor outcome."],
-  ["○", "Design", "A proposed direction or prototype, not a deployed behaviour."],
+  ["○", "Design", "A proposed direction or a prototype."],
 ] as const;
 
 /* §6.1 Hero. Copy verbatim from docs/rose-case-study-copy-v2.md. The demo exchange stays as built until the hero demo branch. */
@@ -245,7 +245,12 @@ const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: 
       <RoseCue id={id} note={m.note} className="mt-3 xl:absolute xl:left-full xl:top-5 xl:ml-4 xl:mt-0 xl:w-64" />
     </div>
     <p className="mt-4 font-body text-base text-on-surface">{m.result}</p>
-    {m.tradeoff && <p className="mt-3 font-body text-base text-on-surface">{m.tradeoff}</p>}
+    {m.tradeoff && (
+      <div className="mt-6">
+        <p className={cn(LABEL, "text-secondary")}>The trade-off</p>
+        <p className="mt-1 font-body text-base text-on-surface">{m.tradeoff}</p>
+      </div>
+    )}
     <MilestoneVignette v={m.vignette} />
     <p className="mt-4 font-label text-xs text-on-surface-variant">Source: {m.source}</p>
   </div>
@@ -322,7 +327,7 @@ export const TRUST = {
   intro: "One contract covers data: what is kept and what is sent. The other covers knowledge: what Rose may assert or infer. I keep them apart so that a privacy promise is never read as proof of accuracy.",
   contracts: [
     {
-      kicker: "Contract 1 · Data",
+      kicker: "Data",
       title: "What is kept and sent",
       items: [
         { mark: "Built", parts: ["Your conversation stays in this tab for 60 minutes, or until you reload the page."] },
@@ -336,7 +341,7 @@ export const TRUST = {
       ],
     },
     {
-      kicker: "Contract 2 · Knowledge",
+      kicker: "Knowledge",
       title: "What Rose may assert or infer",
       items: [
         { mark: "Built", parts: ["Rose answers from the same Markdown pages the MCP server reads, with one or two links to them."] },
@@ -347,14 +352,13 @@ export const TRUST = {
     },
   ],
   rule: {
-    kicker: "The answer rule",
     heading: "A true answer can still be useless",
     intro: "She answers the decision first, states the limit of the evidence, and gives implementation detail only when asked.",
     question: "Is Aetherix in production?",
     // Printed inside quotation marks.
     answers: [
-      { label: "Source-correct", text: "Aetherix is staged on Fly.io and connected to the Apaleo sandbox.", note: "It is true and cited, but the reader still has to work out what it means." },
-      { label: "Useful", text: "No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.", note: "It uses the same sources and answers the decision behind the question." },
+      { label: "Source-correct answer", text: "Aetherix is staged on Fly.io and connected to the Apaleo sandbox.", note: "It is true and cited, but the reader still has to work out what it means." },
+      { label: "Useful answer", text: "No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.", note: "It uses the same sources and answers the decision behind the question." },
     ],
     caption: "From Rose’s answer contract: “A verifiable fact unrelated to the question is still a poor answer.”",
   },
@@ -404,8 +408,7 @@ const TrustBody = () => {
       </div>
 
       <section aria-labelledby="trust-rule" className="mt-14">
-        <p className={cn(LABEL, "text-secondary")}><span aria-hidden="true">● </span>{t.rule.kicker} · Built</p>
-        <h3 id="trust-rule" className="mt-3 font-headline text-3xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-4xl">
+        <h3 id="trust-rule" className="font-headline text-3xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-4xl">
           {t.rule.heading}
         </h3>
         <p className="mt-4 max-w-2xl font-body text-base text-on-surface">{t.rule.intro}</p>
@@ -652,21 +655,22 @@ export const CLOSE = {
   line: "Start with the evidence. A human conversation is available when it adds context Rose cannot.",
 };
 
-// Navy in Day; in Night the navy is the inverse of the light-blue primary.
-const NAVY = "bg-primary text-on-primary [[data-mood=dusk]_&]:bg-inverse-primary [[data-mood=dusk]_&]:text-on-surface";
-const CLOSE_RING = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-fixed-dim";
+const CLOSE_RING = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
+/* The Ask Rose block and the Contact block share the section-inverse background, so Day and Night have no seam. */
 const RoseClose = () => (
   <>
-    {/* The gradient is its own band, so every word of the ask block sits on solid navy. */}
-    <div aria-hidden="true" className="h-32 bg-gradient-to-b from-[hsl(var(--rose-cool))] to-primary [[data-mood=dusk]_&]:to-inverse-primary md:h-40" />
-    <section aria-label={CLOSE.askLabel} className={cn("px-8 pb-10 pt-4 text-center md:px-12", NAVY)}>
+    {/* The gradient fades from the page into the section-inverse colour, which this band supplies underneath. */}
+    <div aria-hidden="true" className="section-inverse relative h-32 md:h-40">
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(var(--rose-cool)), hsl(var(--rose-cool) / 0))" }} />
+    </div>
+    <section aria-label={CLOSE.askLabel} className="section-inverse px-8 pb-10 pt-4 text-center md:px-12">
       <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
-        <span className="border-b border-on-primary/30 pb-0.5 font-label text-[11px] uppercase tracking-[0.12em] text-primary-fixed-dim [[data-mood=dusk]_&]:border-on-surface/30 [[data-mood=dusk]_&]:text-primary">{CLOSE.askLabel}</span>
+        <span className="border-b border-primary/30 pb-0.5 font-label text-[11px] uppercase tracking-[0.12em] text-secondary">{CLOSE.askLabel}</span>
         <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask", { detail: { text: CLOSE.askQuestion } }))}
-          className={cn("font-headline text-xl underline underline-offset-4 hover:opacity-80", CLOSE_RING)}>{CLOSE.askQuestion}</button>
+          className={cn("font-headline text-xl text-primary underline underline-offset-4 hover:opacity-80", CLOSE_RING)}>{CLOSE.askQuestion}</button>
       </p>
-      <p className="mt-6 font-body text-[15px] text-on-primary/80 [[data-mood=dusk]_&]:text-on-surface/80">{CLOSE.line}</p>
+      <p className="mt-6 font-body text-[15px] text-on-surface-variant">{CLOSE.line}</p>
     </section>
     <ContactBlock />
   </>

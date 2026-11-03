@@ -1,3 +1,5 @@
+**Read this first.** `docs/rose-case-study-copy-v2.md` replaces the copy quoted in this file (headings, transition sentences, contact block, open-question wording). The brief still holds structure, rules and facts; where its wording differs from v2, v2 wins.
+
 # Rose case study: single source of truth
 
 Status: v3, 2026-10-29. This file replaces every earlier prompt about Rose and the Rose case study. If an earlier instruction contradicts this file, this file wins. Change this file before changing the code.

@@ -150,8 +150,8 @@ describe("Rose case study §6.5 chapter 07", () => {
     expect(deck).toContain(t.intro);
     for (const c of t.contracts) {
       expect(deck, c.title).toContain(c.title);
-      expect(deckV1, c.kicker).toContain(c.kicker);
     }
+    expect(t.contracts.map((c) => c.kicker)).toEqual(["Data", "Knowledge"]);
     for (const it of t.contracts[0].items) expect(deckV1, it.parts.join("")).toContain(it.parts.join(""));
     for (const it of t.contracts[1].items) expect(deck, it.parts.join("")).toContain(norm(it.parts.join("")));
     const r = t.rule;

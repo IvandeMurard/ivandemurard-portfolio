@@ -3,8 +3,8 @@
 Visual reference for `/rose-design-lab`, exported from the Design canvas (artboards D1 and D2). v2 export: 3 Nov 2026, after copy deck v2 and docs/style.md.
 
 Order of authority when they disagree:
-1. `docs/rose-case-study.md` (structure, rules, acceptance criteria §9)
-2. `docs/rose-case-study-copy-v2.md` (exact words; replaces the v1 deck)
+1. `docs/rose-case-study-copy-v2.md` (exact words; wins over `docs/rose-case-study.md` for wording, and replaces the v1 deck)
+2. `docs/rose-case-study.md` (structure, rules, facts, acceptance criteria §9)
 3. this folder (layout, spacing, hierarchy, colour intent)
 
 The prototype is a reference, not code to copy. Build with the site's semantic tokens and existing components (`src/components/rose/RoseCaseStudy.tsx`). Never copy hex values from the prototype.

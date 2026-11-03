@@ -1,3 +1,5 @@
+**Read this first.** `docs/rose-case-study-copy-v2.md` replaces the copy in this file. Use v2 for every exact word; this v1 deck stays only for what v2 leaves unchanged (vignettes, source lines, dates, the evaluation block). The brief (`docs/rose-case-study.md`) still holds structure, rules and facts.
+
 # Rose case study: copy deck
 
 Status: v1, 2026-10-29. Exact text for every section of the page, extracted from the reference prototype (Design canvas, artboards D1 and D2). Use this text verbatim; `docs/rose-case-study.md` gives structure and rules, this file gives the words. No em-dashes.

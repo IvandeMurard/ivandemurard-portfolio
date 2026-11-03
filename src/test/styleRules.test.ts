@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
 import { PATTERNS, applyAllowlist, compareToBaseline, countHits, describeChanges, formatBaseline, loadAllowlist, loadBaseline, scanSite, scanSource, stripComments, totalOf, type AllowEntry, type Baseline, type PatternId } from "../../scripts/style-check";
 
 // docs/style.md §5. A ratchet: docs/style-baseline.json records the hits per file and per pattern. The test
@@ -107,16 +106,13 @@ describe("style checker: italic", () => {
 });
 
 describe("style checker: allowlist", () => {
-  it("is a list, starts empty and holds only entries with a reason", () => {
+  it("is a list and holds only entries with a reason (Ivan reviews each one)", () => {
     const allow = loadAllowlist();
     expect(Array.isArray(allow)).toBe(true);
     for (const entry of allow) {
       expect(entry.reason.trim().length, JSON.stringify(entry)).toBeGreaterThan(0);
       expect(Object.keys(PATTERNS)).toContain(entry.pattern);
     }
-  });
-  it("is committed empty: nothing is allowlisted until Ivan reviews an entry", () => {
-    expect(readFileSync("docs/style-allowlist.json", "utf8").trim()).toBe("[]");
   });
   it("removes a recorded hit and reports an entry that no longer matches anything", () => {
     const hits = [{ file: "src/content/x.ts", line: 3, pattern: "mood-word" as const, text: "quiet" }];

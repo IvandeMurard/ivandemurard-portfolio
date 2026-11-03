@@ -3,7 +3,7 @@
 Read `AGENTS.md` too: its project rules apply.
 
 ## Rose and the Rose case study
-- Before any change related to Rose or `/rose-design-lab`, read `docs/rose-case-study.md` (source of truth) and `docs/rose-case-study-copy.md` (exact copy, use it verbatim).
+- Before any change related to Rose or `/rose-design-lab`, read `docs/rose-case-study.md` (structure, rules and facts) and `docs/rose-case-study-copy-v2.md` (exact words, use it verbatim). Where they differ on wording, v2 wins. `docs/rose-case-study-copy.md` is the v1 deck, kept only for what v2 leaves unchanged.
 - Visual reference: `docs/rose-prototype/` (see its README). Open the screenshot of the section you work on, Day and Night, desktop and mobile.
 - Work on one section of the brief at a time. Do not touch other sections. Do not create a new concept or variant.
 - If the brief is ambiguous for the section, ask before building.
