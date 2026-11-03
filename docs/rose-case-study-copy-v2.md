@@ -98,13 +98,14 @@ Rose's marks, one meaning each, one at a time, drawn by the copper tip and absen
 
 Vignettes keep their v1 contents. The five notes are the validated provisional versions, unchanged.
 
-## Chapter 06: What Rose can do now
+## Chapter 06: Answer formats
 
 The chapter stays at a product manager's level: the architecture loses its file and tool names, and the map of relations becomes the single source shared by the site, Rose and the MCP.
 
 | Element | v2 copy |
 |---|---|
-| Kicker | 06 · In design (Design) |
+| Table of contents | 06 Answer formats |
+| Kicker | 06 · Answer formats (Design) |
 | Heading | Answers that point into the page |
 | Intro | Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plainer words, a link to other work or a diagram. |
 | Influence | The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on. |
