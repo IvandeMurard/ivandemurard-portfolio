@@ -68,6 +68,26 @@ describe("style checker: what is not a theatrical fragment", () => {
   });
 });
 
+describe("style checker: line endings", () => {
+  const source = [
+    'const a = "Every grader passed. Six yeses.";',
+    'const b = "Ask anything. Just ask.";',
+    '<h2 className="font-headline italic text-primary">Heading</h2>',
+    'const c = "Ready. Nothing else.";',
+  ].join("\n");
+  it("finds the same hits with LF and with CRLF endings, including at the end of a line", () => {
+    const lf = scanSource("src/content/x.ts", source);
+    const crlf = scanSource("src/content/x.ts", source.replace(/\n/g, "\r\n"));
+    expect(lf.map((h) => h.text)).toEqual(expect.arrayContaining(["Six yeses.", "Just ask."]));
+    expect(lf.some((h) => h.pattern === "italic")).toBe(true);
+    expect(crlf).toEqual(lf);
+  });
+  it("does the same for Markdown", () => {
+    const md = "Every grader passed. Six yeses.\nNothing more. Gaps stated.";
+    expect(scanSource("public/x.md", md.replace(/\n/g, "\r\n"))).toEqual(scanSource("public/x.md", md));
+  });
+});
+
 describe("style checker: italic", () => {
   it("flags italic outside a hero headline, in classes and tags", () => {
     expect(patternsIn("src/pages/X.tsx", '<h2 className="font-headline italic text-3xl">Title</h2>')).toContain("italic");

@@ -315,11 +315,12 @@
     "dot-chain": 1,
     "em-dash": 13,
     "mood-word": 9,
-    "theatrical-fragment": 4
+    "theatrical-fragment": 6
   },
   "src/content/journalTruth.ts": {
     "contrast-reflex": 11,
-    "mood-word": 2
+    "mood-word": 2,
+    "theatrical-fragment": 2
   },
   "src/content/meshNodes.ts": {
     "theatrical-fragment": 2
@@ -339,7 +340,8 @@
     "contrast-reflex": 1
   },
   "src/content/systems.ts": {
-    "contrast-reflex": 2
+    "contrast-reflex": 2,
+    "theatrical-fragment": 1
   },
   "src/pages/AdminRose.tsx": {
     "contrast-reflex": 4,
@@ -350,13 +352,13 @@
   },
   "src/pages/Anima.tsx": {
     "contrast-reflex": 1,
-    "italic": 6,
+    "italic": 7,
     "mood-word": 1,
     "theatrical-fragment": 1
   },
   "src/pages/Architecture.tsx": {
     "contrast-reflex": 7,
-    "italic": 12,
+    "italic": 13,
     "mood-word": 1,
     "theatrical-fragment": 2
   },
@@ -395,7 +397,7 @@
   },
   "src/pages/Lore.tsx": {
     "contrast-reflex": 1,
-    "italic": 22,
+    "italic": 23,
     "mood-word": 4,
     "theatrical-fragment": 1
   },

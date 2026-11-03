@@ -121,7 +121,9 @@ function italicHits(line: string, index: number, heroLines: Set<number>, markdow
   return [{ pattern: "italic", text: line.trim() }];
 }
 
-export function scanSource(file: string, source: string): Hit[] {
+export function scanSource(file: string, rawSource: string): Hit[] {
+  // Windows checkouts have CRLF endings; a stray "\r" hides any hit at the end of a line.
+  const source = rawSource.replace(/\r\n/g, "\n");
   const markdown = file.endsWith(".md");
   let text = markdown ? source.replace(/```[\s\S]*?```/g, (m) => m.replace(/[^\n]/g, " ")) : stripComments(source);
   if (markdown) text = text.replace(/<!--[\s\S]*?-->/g, (m) => m.replace(/[^\n]/g, " "));
