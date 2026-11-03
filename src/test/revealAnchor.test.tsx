@@ -79,6 +79,7 @@ describe("The numbers on /aetherix", () => {
     const disclosure = readFileSync("src/components/atherix/AetherixDisclosure.tsx", "utf8");
     expect(disclosure).toContain("DISCLOSURE_TRIGGER");
     expect(disclosure).toContain("forceMount");
+    expect(disclosure).toContain("data-[state=closed]:hidden");
     expect(readFileSync("src/components/layout/SiteLayout.tsx", "utf8")).toContain("useRevealHash()");
   });
 

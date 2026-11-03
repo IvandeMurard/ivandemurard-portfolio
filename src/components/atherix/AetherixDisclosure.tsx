@@ -15,7 +15,7 @@ export const AetherixDisclosure = ({ title, id, children }: { title: string; id?
       {title}
       <Icon name="expand_more" className="text-lg transition-transform group-data-[state=open]:rotate-180" />
     </CollapsibleTrigger>
-    <CollapsibleContent forceMount className="pt-6">{children}</CollapsibleContent>
+    <CollapsibleContent forceMount className="pt-6 data-[state=closed]:hidden">{children}</CollapsibleContent>
   </Collapsible>
 );
 
