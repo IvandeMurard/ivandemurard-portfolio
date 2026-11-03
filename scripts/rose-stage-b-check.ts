@@ -3,7 +3,7 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { z } from "zod";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { getRoseSystemPrompt } from "../supabase/functions/_shared/rose-context.ts";
+import { getRoseSystemPrompt, shouldOfferRoseBooking } from "../supabase/functions/_shared/rose-context.ts";
 import { getRoseCuratedAnswer } from "../supabase/functions/_shared/rose-curated-answers.ts";
 import { roseHistoryLayer } from "../supabase/functions/_shared/rose-self-context.ts";
 import { isRoseFollowupAllowed, ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION, roseFollowupPolicyDescription, shouldSuppressRoseFollowups } from "../supabase/functions/_shared/rose-tool-contract.ts";
