@@ -16,7 +16,7 @@ const seed: UIMessage[] = [
 const mount = (messages: UIMessage[] = []) => {
   const chat = resetRoseChat("test");
   chat.messages = messages;
-  render(<MemoryRouter initialEntries={["/aetherix"]}><RoseDock /></MemoryRouter>);
+  render(<MemoryRouter initialEntries={["/aetherix"]}><RoseDock roseStatus="live" /></MemoryRouter>);
 };
 const opened = () => !!document.querySelector('[role="log"]');
 const minimisedDock = () => document.querySelector("[data-rose-minimised]");
