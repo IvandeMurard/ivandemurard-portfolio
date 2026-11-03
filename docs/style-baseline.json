@@ -1,0 +1,427 @@
+{
+  "public/Ivan_de_Murard_CV.md": {
+    "contrast-reflex": 1,
+    "italic": 6
+  },
+  "public/aetherix.md": {
+    "contrast-reflex": 5,
+    "dot-chain": 1,
+    "mood-word": 2,
+    "theatrical-fragment": 1
+  },
+  "public/agent-boundaries-aetherix.md": {
+    "colon-reveal": 1,
+    "contrast-reflex": 7,
+    "mood-word": 1,
+    "theatrical-fragment": 1
+  },
+  "public/anima.md": {
+    "contrast-reflex": 5,
+    "italic": 1,
+    "mood-word": 1,
+    "theatrical-fragment": 1
+  },
+  "public/architecture.md": {
+    "contrast-reflex": 5,
+    "theatrical-fragment": 2
+  },
+  "public/compass.md": {
+    "contrast-reflex": 2,
+    "dot-chain": 2,
+    "em-dash": 4,
+    "mood-word": 1
+  },
+  "public/harnesses-graders-closed-loops.md": {
+    "colon-reveal": 1,
+    "contrast-reflex": 31,
+    "dot-chain": 1,
+    "em-dash": 13,
+    "italic": 5,
+    "mood-word": 8,
+    "theatrical-fragment": 3
+  },
+  "public/index.md": {
+    "dot-chain": 1,
+    "mood-word": 1
+  },
+  "public/lore.md": {
+    "contrast-reflex": 10,
+    "mood-word": 5,
+    "theatrical-fragment": 1
+  },
+  "public/sonor.md": {
+    "contrast-reflex": 1
+  },
+  "public/tacet.md": {
+    "contrast-reflex": 1,
+    "mood-word": 1
+  },
+  "public/whose-truth-is-the-ground-truth.md": {
+    "colon-reveal": 1,
+    "contrast-reflex": 10,
+    "italic": 1,
+    "mood-word": 2,
+    "theatrical-fragment": 1
+  },
+  "src/components/EvidenceStatus.tsx": {
+    "contrast-reflex": 1
+  },
+  "src/components/McpEndpoint.tsx": {
+    "dot-chain": 1,
+    "italic": 1
+  },
+  "src/components/MoodToggle.tsx": {
+    "italic": 2
+  },
+  "src/components/PortraitPlaceholder.tsx": {
+    "italic": 1
+  },
+  "src/components/Term.tsx": {
+    "italic": 1
+  },
+  "src/components/anima/AnimaClaimCard.tsx": {
+    "contrast-reflex": 1,
+    "italic": 1
+  },
+  "src/components/anima/AnimaGateDiagram.tsx": {
+    "contrast-reflex": 1,
+    "italic": 2
+  },
+  "src/components/anima/AnimaRoadmapStrip.tsx": {
+    "italic": 1
+  },
+  "src/components/anima/AnimaStayTimeline.tsx": {
+    "contrast-reflex": 1,
+    "italic": 1
+  },
+  "src/components/architecture/MeshBlueprint.tsx": {
+    "italic": 3
+  },
+  "src/components/architecture/MeshRail.tsx": {
+    "italic": 2
+  },
+  "src/components/atherix/AetherixArchitectureDiagram.tsx": {
+    "dot-chain": 2,
+    "italic": 3
+  },
+  "src/components/atherix/AetherixDailyReceipt.tsx": {
+    "italic": 2
+  },
+  "src/components/atherix/AetherixForecastConsole.tsx": {
+    "contrast-reflex": 1,
+    "italic": 4,
+    "theatrical-fragment": 2
+  },
+  "src/components/atherix/AetherixHiveStanzas.tsx": {
+    "italic": 2
+  },
+  "src/components/atherix/AetherixHomepageLoop.tsx": {
+    "dot-chain": 2
+  },
+  "src/components/atherix/AetherixHorizonIllustration.tsx": {
+    "italic": 1
+  },
+  "src/components/atherix/AetherixLayerStack.tsx": {
+    "italic": 1
+  },
+  "src/components/atherix/AetherixLoopCards.tsx": {
+    "italic": 1
+  },
+  "src/components/atherix/AetherixMeshDiagram.tsx": {
+    "italic": 4
+  },
+  "src/components/atherix/AetherixPhaseTimeline.tsx": {
+    "dot-chain": 1,
+    "italic": 1
+  },
+  "src/components/atherix/AetherixRelationshipFigure.tsx": {
+    "italic": 2
+  },
+  "src/components/atherix/AetherixWhatRemainsPrivate.tsx": {
+    "italic": 1
+  },
+  "src/components/case/CaseAnchors.tsx": {
+    "italic": 3
+  },
+  "src/components/case/ClosingContact.tsx": {
+    "italic": 1
+  },
+  "src/components/compass/CompassDossier.tsx": {
+    "italic": 4
+  },
+  "src/components/compass/CompassFigures.tsx": {
+    "italic": 3
+  },
+  "src/components/console/EvalConsole.tsx": {
+    "dot-chain": 1,
+    "italic": 1
+  },
+  "src/components/journal/AetherixServiceBlueprint.tsx": {
+    "italic": 4
+  },
+  "src/components/journal/ArticleUpdates.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/CanaryTimeline.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/CardGrid.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/CoverageMatrix.tsx": {
+    "italic": 2
+  },
+  "src/components/journal/EntryOpening.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/GraderStepper.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/HarnessConsole.tsx": {
+    "contrast-reflex": 1,
+    "dot-chain": 1
+  },
+  "src/components/journal/JournalKnowledgeMap.tsx": {
+    "italic": 2
+  },
+  "src/components/journal/PyramidDiagram.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/SectionKey.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/SelfDiagnostic.tsx": {
+    "em-dash": 3,
+    "italic": 2
+  },
+  "src/components/journal/SignalLamp.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/SystemAnchors.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/TermText.tsx": {
+    "italic": 1
+  },
+  "src/components/journal/ThreeArmsDiagram.tsx": {
+    "dot-chain": 1,
+    "italic": 1
+  },
+  "src/components/layout/AtriumHeader.tsx": {
+    "dot-chain": 1,
+    "italic": 3
+  },
+  "src/components/layout/Footer.tsx": {
+    "dot-chain": 2,
+    "italic": 1,
+    "mood-word": 1
+  },
+  "src/components/layout/SectionRail.tsx": {
+    "italic": 1
+  },
+  "src/components/lore/LoreComplianceSpectrogram.tsx": {
+    "contrast-reflex": 1,
+    "dot-chain": 1
+  },
+  "src/components/lore/LoreHangarDialogue.tsx": {
+    "contrast-reflex": 1,
+    "italic": 1
+  },
+  "src/components/lore/LoreHonestyBlock.tsx": {
+    "contrast-reflex": 1,
+    "italic": 2,
+    "mood-word": 1
+  },
+  "src/components/lore/LoreMemoryThread.tsx": {
+    "italic": 3
+  },
+  "src/components/lore/LoreSopConflictCard.tsx": {
+    "contrast-reflex": 2,
+    "italic": 2
+  },
+  "src/components/lore/LoreStatBand.tsx": {
+    "contrast-reflex": 2,
+    "italic": 3,
+    "theatrical-fragment": 1
+  },
+  "src/components/lore/LoreThreeModes.tsx": {
+    "italic": 2
+  },
+  "src/components/lore/LoreTierTable.tsx": {
+    "italic": 1
+  },
+  "src/components/lore/LoreWhatItIsFor.tsx": {
+    "contrast-reflex": 3,
+    "italic": 5,
+    "mood-word": 2
+  },
+  "src/components/rose/ConceptE.tsx": {
+    "contrast-reflex": 1
+  },
+  "src/components/rose/RoseBookingCard.tsx": {
+    "italic": 1
+  },
+  "src/components/rose/RoseCaseStudy.tsx": {
+    "colon-reveal": 1,
+    "contrast-reflex": 6,
+    "dot-chain": 3,
+    "italic": 6,
+    "mood-word": 5,
+    "self-aware-aside": 2,
+    "theatrical-fragment": 1
+  },
+  "src/components/rose/RoseDock.tsx": {
+    "italic": 1
+  },
+  "src/components/rose/RoseHistoryTransition.tsx": {
+    "contrast-reflex": 1
+  },
+  "src/components/rose/RoseKinetic.tsx": {
+    "contrast-reflex": 1,
+    "dot-chain": 2,
+    "italic": 3
+  },
+  "src/components/rose/RoseLaterChapters.tsx": {
+    "contrast-reflex": 7,
+    "dot-chain": 1,
+    "italic": 7,
+    "self-aware-aside": 1
+  },
+  "src/components/tacet/TacetPipelineDiagram.tsx": {
+    "dot-chain": 1,
+    "italic": 2
+  },
+  "src/content/agents.ts": {
+    "dot-chain": 1
+  },
+  "src/content/compass.ts": {
+    "contrast-reflex": 2,
+    "mood-word": 1
+  },
+  "src/content/cv.ts": {
+    "contrast-reflex": 1
+  },
+  "src/content/glossary.ts": {
+    "contrast-reflex": 5,
+    "mood-word": 2
+  },
+  "src/content/journal.ts": {
+    "contrast-reflex": 6,
+    "mood-word": 1,
+    "theatrical-fragment": 1
+  },
+  "src/content/journalHarnesses.ts": {
+    "contrast-reflex": 31,
+    "dot-chain": 1,
+    "em-dash": 13,
+    "mood-word": 9,
+    "theatrical-fragment": 6
+  },
+  "src/content/journalTruth.ts": {
+    "contrast-reflex": 11,
+    "mood-word": 2,
+    "theatrical-fragment": 2
+  },
+  "src/content/meshNodes.ts": {
+    "theatrical-fragment": 2
+  },
+  "src/content/roseHistory.ts": {
+    "contrast-reflex": 6,
+    "mood-word": 1
+  },
+  "src/content/rosePersona.ts": {
+    "contrast-reflex": 2
+  },
+  "src/content/serviceBlueprint.ts": {
+    "contrast-reflex": 1,
+    "theatrical-fragment": 3
+  },
+  "src/content/site.ts": {
+    "contrast-reflex": 1
+  },
+  "src/content/systems.ts": {
+    "contrast-reflex": 2,
+    "theatrical-fragment": 1
+  },
+  "src/pages/AdminRose.tsx": {
+    "contrast-reflex": 4,
+    "dot-chain": 1
+  },
+  "src/pages/Agents.tsx": {
+    "dot-chain": 1
+  },
+  "src/pages/Anima.tsx": {
+    "contrast-reflex": 1,
+    "italic": 7,
+    "mood-word": 1,
+    "theatrical-fragment": 1
+  },
+  "src/pages/Architecture.tsx": {
+    "contrast-reflex": 7,
+    "italic": 13,
+    "mood-word": 1,
+    "theatrical-fragment": 2
+  },
+  "src/pages/Atherix.tsx": {
+    "contrast-reflex": 6,
+    "italic": 4,
+    "mood-word": 2,
+    "theatrical-fragment": 3
+  },
+  "src/pages/Atrium.tsx": {
+    "contrast-reflex": 3,
+    "italic": 14
+  },
+  "src/pages/Compass.tsx": {
+    "italic": 4
+  },
+  "src/pages/Contact.tsx": {
+    "italic": 3
+  },
+  "src/pages/Cv.tsx": {
+    "italic": 7
+  },
+  "src/pages/Index.tsx": {
+    "dot-chain": 1,
+    "italic": 2
+  },
+  "src/pages/Journal.tsx": {
+    "italic": 5
+  },
+  "src/pages/JournalEntry.tsx": {
+    "italic": 9
+  },
+  "src/pages/Journeys.tsx": {
+    "italic": 7,
+    "mood-word": 1
+  },
+  "src/pages/Lore.tsx": {
+    "contrast-reflex": 1,
+    "italic": 23,
+    "mood-word": 4,
+    "theatrical-fragment": 1
+  },
+  "src/pages/NotFound.tsx": {
+    "mood-word": 1
+  },
+  "src/pages/Privacy.tsx": {
+    "contrast-reflex": 2
+  },
+  "src/pages/RoseDesignLab.tsx": {
+    "contrast-reflex": 5,
+    "dot-chain": 3,
+    "italic": 7,
+    "mood-word": 7,
+    "theatrical-fragment": 1
+  },
+  "src/pages/Sonor.tsx": {
+    "contrast-reflex": 1,
+    "italic": 11,
+    "mood-word": 3
+  },
+  "src/pages/Tacet.tsx": {
+    "contrast-reflex": 2,
+    "italic": 18,
+    "mood-word": 1
+  }
+}
