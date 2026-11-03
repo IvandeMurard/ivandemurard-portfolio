@@ -321,12 +321,48 @@ function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
 }
 
 /**
+ * A question about Ivan's profile: the roles he wants, his background, skills or how he describes his work.
+ * Matches on any page, including Rose's own, where no CV is otherwise loaded.
+ */
+export function isRoseCareerQuestion(question: string): boolean {
+  return /\b(?:roles?|looking for|hiring|hire|jobs?|positions?|open to|available|background|experience|skills?|cv|resume|résumé|what does (?:he|ivan) do|work with (?:him|ivan)|describe (?:his|ivan.s) work)\b/i.test(question);
+}
+
+/** The Contact facts the site publishes (homepage and /rose-design-lab). Quoted, never extended. */
+export const ROSE_CONTACT_FACTS = [
+  "Open to AI Product Manager and Product Builder roles.",
+  "I design, build and evaluate AI services for operations.",
+];
+
+const careerNamesProject = (question: string): boolean =>
+  /\brose\b/i.test(question) || CASE_STUDY_SLUGS.some(slug => slug !== "cv" && new RegExp(`\\b${slug}\\b`, "i").test(question));
+
+/** Turn guidance for a profile question. The restriction applies unless the visitor names a project or Rose. */
+export function roseCareerGuidance(question: string): string {
+  if (!isRoseCareerQuestion(question)) return "";
+  const facts = `Contact text published on the site: "${ROSE_CONTACT_FACTS[0]}" and "${ROSE_CONTACT_FACTS[1]}"`;
+  if (careerNamesProject(question)) return facts;
+  return [
+    facts,
+    "This question is about Ivan's profile. Answer only from the CV reference and the Contact text above. Name the roles the Contact text states (AI Product Manager and Product Builder) and link [CV](/cv).",
+    "Never name a target role, title, framework or phrase that the CV and the Contact text do not state, and never confirm openness to any other role. If a fact is not there, say so and link [CV](/cv).",
+  ].join("\n");
+}
+
+/**
  * Choose the relevant evidence without treating the URL as a locked topic.
  * Explicit subjects beat recent conversation, which can beat the current page.
  * Only explicitly broad/profile questions load all studies; ordinary long
  * questions stay focused on their relevant conversational or page subject.
  */
 function roseFocusedStudies(ctx: RoseTurnContext | undefined, selected: boolean): readonly Slug[] | undefined {
+  const studies = pickStudies(ctx, selected);
+  // A profile question always needs the CV, on top of the page's own references. undefined already means all of them.
+  if (studies && isRoseCareerQuestion((ctx?.question ?? "").slice(0, 2000)) && !studies.includes("cv")) return [...studies, "cv"];
+  return studies;
+}
+
+function pickStudies(ctx: RoseTurnContext | undefined, selected: boolean): readonly Slug[] | undefined {
   const path = clean(ctx?.page?.path, 120).split(/[?#]/)[0].replace(/\/+$/, "") || "/";
   const question = (ctx?.question ?? "").slice(0, 2000);
   const named = (["sonor", "aetherix", "tacet", "lore", "architecture", "anima", "compass", "cv"] as const)
@@ -432,6 +468,9 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
     ? `The current page concerns ${pageSubject}${heading ? `, in the section "${heading}"${sectionId ? ` (#${sectionId})` : ""}` : ""}.`
     : "The current page does not establish a narrow subject.";
 
+  if (isRoseCareerQuestion(question) && !careerNamesProject(question)) {
+    return "Working scope for this turn: the visitor asks about Ivan's profile, whichever page is open. Do not answer from the current page's subject.";
+  }
   if (broad && !named.length && !namesRose) {
     return "Working scope for this turn: the visitor explicitly asks across projects or professional experience. Give a bounded cross-project answer, not a single-page answer.";
   }
@@ -526,7 +565,8 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
     ? `\n\n${ROSE_NO_FOLLOWUPS_NOTICE}` : "";
   // Broad questions (selectedStudies undefined) load every case study, Aetherix included.
   const aetherixGuard = selectedStudies === undefined || selectedStudies.includes("aetherix") ? `\n\n${AETHERIX_TURN_GUARD}` : "";
-  const contract = `${TURN_CONTRACT}${aetherixGuard}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}`;
+  const career = roseCareerGuidance(ctx?.question ?? "");
+  const contract = `${TURN_CONTRACT}${aetherixGuard}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${career ? `\n\n${career}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}`;
   const reference = [self, assembleReference(selectedStudies), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");
