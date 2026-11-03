@@ -15,6 +15,7 @@ import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
 import { expireIfIdle, getRoseChat, getRoseMinimised, getRoseOpen, resetRoseChat, saveMessages, setRoseMinimised, setRoseOpen } from "./roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
+import { ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
 
 const SESSION_KEY = "rose_session";
 
@@ -96,7 +97,9 @@ const CompassMark = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const RoseDock = () => {
+export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus }) => {
+  // Paused: no request to rose-chat or rose-event, no input, no starters.
+  const paused = roseStatus === "paused";
   const [open, setOpenState] = useState(getRoseOpen);
   const [minimised, setMinimisedState] = useState(getRoseMinimised);
   const setOpen = (v: boolean) => { setRoseOpen(v); setOpenState(v); if (v) setMinimisedState(false); };
@@ -155,7 +158,7 @@ export const RoseDock = () => {
   };
 
   const log = (kind: Parameters<typeof logRoseEvent>[0]["kind"], label?: string, usedChip = false) =>
-    logRoseEvent({
+    !paused && logRoseEvent({
       session_id: sessionId,
       path: pathname,
       section_id: sectionRef.current?.id ?? null,
@@ -209,7 +212,7 @@ export const RoseDock = () => {
 
   const submit = (text: string, suggested?: RosePrompt, kind: "question" | "chip" | "followup" = "question") => {
     const trimmed = text.trim();
-    if (!trimmed || isLoading) return;
+    if (paused || !trimmed || isLoading) return;
     const fresh = expireIfIdle(sessionId);
     if (fresh) setChat(fresh);
     if (!open) setOpen(true);
@@ -321,7 +324,7 @@ export const RoseDock = () => {
   const hasConversation = messages.length > 0;
   const reopenLabel = hasConversation ? "Reopen the conversation with Rose" : "Open Rose";
 
-  if (minimised && !open) {
+  if ((minimised || paused) && !open) {
     return (
       <div
         data-rose-dock
@@ -387,7 +390,7 @@ export const RoseDock = () => {
                 </div>
               </div>
               <div className="flex items-center gap-1">
-              {messages.length > 0 ? (
+              {messages.length > 0 && !paused ? (
                 confirmClear ? (
                   <span className="flex items-center gap-1.5 text-xs text-on-surface-variant" role="group" aria-label="Confirm clearing the conversation">
                     Clear?
@@ -425,7 +428,24 @@ export const RoseDock = () => {
             </div>
           ) : null}
 
-          {open ? (
+          {open && paused ? (
+            <div role="status" className="flex-1 overflow-y-auto px-5 py-5 text-sm text-on-surface">
+              <p>{ROSE_PAUSED.text}</p>
+              <p className="mt-4 flex flex-wrap gap-2">
+                {ROSE_PAUSED.links.map((l) => (
+                  <Link
+                    key={l.href}
+                    to={l.href}
+                    className="rounded-full border border-secondary px-4 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </p>
+            </div>
+          ) : null}
+
+          {open && !paused ? (
             <div className={cn("flex-1 overflow-y-auto", (hasConversation || isLoading || error) && "px-5 py-4")} role="log" aria-live="polite">
               <div className="flex flex-col gap-4">
                 {messages.map((m, messageIndex) => {
@@ -497,7 +517,7 @@ export const RoseDock = () => {
             </div>
           ) : null}
 
-          {showChips ? (
+          {showChips && !paused ? (
             <div className={cn("flex flex-wrap gap-2 px-4", open ? "py-3" : "pt-3")}>
               {prompts.map((chip) => (
                 <button
@@ -520,6 +540,7 @@ export const RoseDock = () => {
             </div>
           ) : null}
 
+          {paused ? null : (
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -588,8 +609,9 @@ export const RoseDock = () => {
               </kbd>
             ) : null}
           </form>
+          )}
           {/* Wherever the input is rendered (open or at rest), under it and on one line. The minimised dock has no input and returns earlier. */}
-          <p className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant", open ? "-mt-1 pb-2.5" : "pb-2")}>
+          <p className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant", paused ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
             {ROSE_DATA_SHORT.text} ·{" "}
             <Link
               to={ROSE_DATA_SHORT.href}
