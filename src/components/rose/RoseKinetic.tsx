@@ -66,7 +66,7 @@ const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean;
     <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
       style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />
     <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-rose-copper md:hidden" style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
-    <p className="font-headline text-lg italic leading-snug text-rose-copper"
+    <p className="font-headline text-lg leading-snug text-rose-copper"
       style={{ opacity: on ? 1 : 0, transform: on || reduced ? "none" : "translateY(4px)", transition: reduced ? "none" : `opacity ${on ? 600 : 350}ms ease ${on ? 550 : 0}ms, transform 800ms ${EASE} ${on ? 550 : 0}ms` }}>
       {children}
     </p>

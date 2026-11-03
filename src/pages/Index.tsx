@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { Check, Copy } from "lucide-react";
 import portrait from "@/assets/Ivan_de_Murard.jpg.asset.json";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
@@ -9,33 +7,11 @@ import { COMPASS_SOURCES_LINE } from "@/content/statuses";
 import { SignalLamp } from "@/components/journal/SignalLamp";
 import { AetherixHomepageLoop } from "@/components/atherix/AetherixHomepageLoop";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
+import { ContactBlock } from "@/components/case/ContactBlock";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-
-const AI_PROMPT = "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used.";
-// Perplexity documents a prefill URL; ChatGPT and Claude block or ignore one, so the prompt is copied instead.
-const PERPLEXITY_HREF = `https://www.perplexity.ai/search?q=${encodeURIComponent(AI_PROMPT)}`;
-
-const CopyPrompt = () => {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(AI_PROMPT);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch { /* clipboard unavailable: leave the label unchanged */ }
-  };
-  return (
-    <button type="button" onClick={copy}
-      className="inline-flex items-center gap-1.5 text-primary border-b border-primary/40 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">
-      {copied ? <Check size={12} aria-hidden /> : <Copy size={12} aria-hidden />}
-      {copied ? "Copied!" : "Copy prompt for Claude or ChatGPT"}
-      <span className="sr-only" aria-live="polite">{copied ? "Prompt copied to clipboard" : ""}</span>
-    </button>
-  );
-};
 
 const Tip = ({ label, explain, children }: { label: string; explain: string; children: React.ReactNode }) => (
   <Popover>
@@ -192,39 +168,7 @@ const Index = () => {
         </Reveal>
       </section>
 
-      {/* 04 · Contact */}
-      <section className="section-inverse">
-        <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
-          <p className={`${kicker} text-secondary mb-8`} data-reveal-child>04 · Contact</p>
-          <h2 className="font-headline font-normal text-primary text-[clamp(40px,4.6vw,68px)] leading-[1.04] tracking-[-0.02em]" data-reveal-child>
-            I ship prototypes fast.
-          </h2>
-          <p className="mt-5 font-headline italic accent-ink text-[clamp(24px,2.4vw,34px)] leading-snug" data-reveal-child>
-            Aligning tech, operations and business into services people actually use is where I come in.
-          </p>
-          <p className="mt-8 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>
-            Open to AI Product Manager and Product Builder roles.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-8" data-reveal-child>
-            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
-              onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "contact" })}
-              className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
-              Book a call
-            </a>
-            <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">
-              Email Ivan
-            </a>
-            <a href={PERPLEXITY_HREF} target="_blank" rel="noopener noreferrer"
-              onClick={() => track({ label: "Ask Perplexity", href: PERPLEXITY_HREF, kind: "contact" })}
-              className="text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">Ask your AI ↗</a>
-          </div>
-          <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2" data-reveal-child>
-            <CopyPrompt />
-            <span aria-hidden>·</span>
-            <Link to="/contact" className="text-primary border-b border-primary/40 hover:border-primary">All ways to reach me →</Link>
-          </p>
-        </Reveal>
-      </section>
+      <ContactBlock />
     </SiteLayout>
   );
 };
