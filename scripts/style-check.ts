@@ -1,14 +1,16 @@
 // Checker for docs/style.md §5. Scans site copy for the banned patterns it can detect and for italic
 // outside page heroes, and lists every hit with its file and line.
-//   bunx tsx scripts/style-check.ts      prints the report (exit 1 if there are hits)
-// src/test/styleRules.test.ts runs the same scan. A hit is fixed in the copy, or recorded in
+//   bunx tsx scripts/style-check.ts            prints the report and the baseline gap (exit 1 if a count moved)
+//   bunx tsx scripts/style-check.ts --lower    rewrites docs/style-baseline.json, only if no count went up
+// src/test/styleRules.test.ts runs the same scan as a ratchet against docs/style-baseline.json: a count
+// may go down, never up, and a new file with a hit fails. A hit is fixed in the copy, or recorded in
 // docs/style-allowlist.json with a one-line reason, reviewed by Ivan.
 //
 // Scope: src/content, src/pages, src/components (not src/components/ui or ai-elements, which are
 // library primitives, and not generated files) and public/*.md. Comments are ignored.
 // Heuristics, so a hit is a place to look, not a verdict. Not detectable, so not checked: maxim-like
 // closing lines, and whether a mono label or pill is decorative.
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
 export type Hit = { file: string; line: number; pattern: PatternId; text: string };
@@ -171,8 +173,72 @@ export function report(hits: Hit[]): string {
 export const loadAllowlist = (root = process.cwd()): AllowEntry[] =>
   JSON.parse(readFileSync(join(root, "docs/style-allowlist.json"), "utf8"));
 
+// Ratchet: docs/style-baseline.json records the hits per file and per pattern. A count may only go down.
+export type Baseline = Record<string, Partial<Record<PatternId, number>>>;
+export type Change = { file: string; pattern: PatternId; was: number; now: number };
+
+export const countHits = (hits: Hit[]): Baseline => {
+  const out: Baseline = {};
+  for (const h of hits) {
+    const row = (out[h.file] ??= {});
+    row[h.pattern] = (row[h.pattern] ?? 0) + 1;
+  }
+  return out;
+};
+
+export const totalOf = (baseline: Baseline): number =>
+  Object.values(baseline).reduce((sum, row) => sum + Object.values(row).reduce((a, n) => a + (n ?? 0), 0), 0);
+
+/** `raised` includes a new file or a new pattern in a file (was 0); `lowered` includes a count that reached 0. */
+export function compareToBaseline(current: Baseline, baseline: Baseline): { raised: Change[]; lowered: Change[] } {
+  const raised: Change[] = [];
+  const lowered: Change[] = [];
+  const files = new Set([...Object.keys(current), ...Object.keys(baseline)]);
+  for (const file of [...files].sort()) {
+    for (const pattern of Object.keys(PATTERNS) as PatternId[]) {
+      const was = baseline[file]?.[pattern] ?? 0;
+      const now = current[file]?.[pattern] ?? 0;
+      if (now > was) raised.push({ file, pattern, was, now });
+      else if (now < was) lowered.push({ file, pattern, was, now });
+    }
+  }
+  return { raised, lowered };
+}
+
+export const describeChanges = (changes: Change[]): string =>
+  changes.map((c) => `  ${c.file}  [${c.pattern}]  ${c.was} -> ${c.now}`).join("\n");
+
+export const loadBaseline = (root = process.cwd()): Baseline =>
+  JSON.parse(readFileSync(join(root, "docs/style-baseline.json"), "utf8"));
+
+/** Sorted, so a diff of the baseline shows only the counts that moved. */
+export const formatBaseline = (baseline: Baseline): string => {
+  const sorted: Baseline = {};
+  for (const file of Object.keys(baseline).sort()) {
+    sorted[file] = {};
+    for (const pattern of Object.keys(PATTERNS).sort() as PatternId[]) if (baseline[file][pattern]) sorted[file][pattern] = baseline[file][pattern];
+  }
+  return JSON.stringify(sorted, null, 2) + "\n";
+};
+
 if (process.argv[1] && /style-check\.ts$/.test(process.argv[1])) {
   const { remaining } = applyAllowlist(scanSite(), loadAllowlist());
+  const current = countHits(remaining);
+  const baseline = loadBaseline();
+  const { raised, lowered } = compareToBaseline(current, baseline);
+  if (process.argv.includes("--lower")) {
+    // Writes the new counts only when none went up. It cannot raise a baseline.
+    if (raised.length) {
+      console.log(`Refusing to write: ${raised.length} count(s) went up. Fix the copy.\n${describeChanges(raised)}`);
+      process.exit(1);
+    }
+    writeFileSync(join(process.cwd(), "docs/style-baseline.json"), formatBaseline(current));
+    console.log(`Baseline lowered: ${totalOf(baseline)} -> ${totalOf(current)} hit(s).`);
+    process.exit(0);
+  }
   console.log(report(remaining));
-  process.exit(remaining.length ? 1 : 0);
+  console.log(`\nBaseline ${totalOf(baseline)}, now ${remaining.length}.`);
+  if (raised.length) console.log(`\nAbove the baseline:\n${describeChanges(raised)}`);
+  if (lowered.length) console.log(`\nBelow the baseline (run with --lower and commit):\n${describeChanges(lowered)}`);
+  process.exit(raised.length || lowered.length ? 1 : 0);
 }

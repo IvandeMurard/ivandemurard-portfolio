@@ -1,6 +1,6 @@
 # Site style: words, type and layout
 
-Status: draft v1, 2 Nov 2026, to be validated by Ivan. Applies to every page of ivandemurard.com and to Rose. Pilot: the Rose case study (`/rose-design-lab`). When this file and an older brief disagree, this file wins for style; the brief still wins for facts.
+Status: v1, validated by Ivan on 2 Nov 2026. Applies to every page of ivandemurard.com and to Rose. Pilot: the Rose case study (`/rose-design-lab`). When this file and an older brief disagree, this file wins for style; the brief still wins for facts.
 
 Principles. Simple purpose, simple architecture, simple implementation. Cut taglines, helper text and secondary labels that explain the interface: if a screen needs them to make sense, fix the layout. Keep, as short as possible, what commits you: status, sources, honesty markers and the data notice where data is collected. Every decision should serve the reader (UX), the builder (DX) and agents (AX). When one gains at another’s expense, say so and measure it. A change ships only when tests show nothing else broke.
 
@@ -55,4 +55,5 @@ Each is banned in site copy and in Rose's answers. The checker in §5 flags the 
 
 - A test scans site copy (`src/content`, page components, `public/*.md`) for the detectable patterns of §2 and for italic outside the hero, and lists every hit with its file and line.
 - A hit is fixed in the copy, or recorded in an allowlist with a one-line reason. The allowlist is reviewed by Ivan.
+- The test is a ratchet. `docs/style-baseline.json` records the hits per file and per pattern. The test fails if a count goes up or a new file gets a hit; when a count goes down, it asks for the baseline to be lowered in the same commit (`bunx tsx scripts/style-check.ts --lower`). The baseline is never raised to pass. The remaining total is printed on every run.
 - Rose's evaluation adds a style dimension: an answer with a banned pattern is a quality failure (not critical).
