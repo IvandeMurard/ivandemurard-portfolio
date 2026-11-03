@@ -4,7 +4,7 @@
 // mirrors stay the single source of truth.
 import { ROSE_PERSONA, ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
 import { aetherixEvidenceRegistryMatches, aetherixMeasurementEvidenceContext } from "./rose-aetherix-evidence.ts";
-import { isRoseTechnicalEvaluationQuestion, ROSE_NO_FOLLOWUPS_NOTICE, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
+import { isRoseExplicitMeetingRequest, isRoseTechnicalEvaluationQuestion, ROSE_NO_BOOKING_NOTICE, ROSE_NO_FOLLOWUPS_NOTICE, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
 
 export const ROSE_BASE_PROMPT = `You are Rose, a concise agent embedded on Ivan de Murard's portfolio site.
 
@@ -327,6 +327,10 @@ function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
 export function isRoseCareerQuestion(question: string): boolean {
   return /\b(?:roles?|looking for|hiring|hire|jobs?|positions?|open to|available|background|experience|skills?|cv|resume|résumé|what does (?:he|ivan) do|work with (?:him|ivan)|describe (?:his|ivan.s) work)\b/i.test(question);
 }
+
+/** Booking is offered unless the turn is a profile question without an explicit call or meeting request. */
+export const shouldOfferRoseBooking = (question: string): boolean =>
+  !isRoseCareerQuestion(question) || isRoseExplicitMeetingRequest(question);
 
 /** The Contact facts the site publishes (homepage and /rose-design-lab). Quoted, never extended. */
 export const ROSE_CONTACT_FACTS = [

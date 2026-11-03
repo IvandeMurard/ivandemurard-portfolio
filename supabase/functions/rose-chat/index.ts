@@ -147,44 +147,34 @@ Deno.serve(async (req) => {
       messages: convertToModelMessages(safeMessages),
       // One step: tools are UI-only, so the model never continues after a tool call.
       stopWhen: stepCountIs(1),
-      tools: shouldSuppressRoseFollowups(followupContext) ? {
-        propose_booking: tool({
-          description: ROSE_BOOKING_TOOL_DESCRIPTION,
-          inputSchema: z.object({
-            intent: z.enum(["product", "technical", "culture", "exploring"])
-              .describe("Detected intent bucket."),
-            reason: z
-              .string()
-              .max(200)
-              .describe(
-                "One short sentence, plain English, shown on the card as the call framing.",
-              ),
+      tools: {
+        ...(shouldOfferRoseBooking(question) ? {
+          propose_booking: tool({
+            description: ROSE_BOOKING_TOOL_DESCRIPTION,
+            inputSchema: z.object({
+              intent: z.enum(["product", "technical", "culture", "exploring"])
+                .describe("Detected intent bucket."),
+              reason: z
+                .string()
+                .max(200)
+                .describe(
+                  "One short sentence, plain English, shown on the card as the call framing.",
+                ),
+            }),
           }),
-        }),
-      } : {
-        propose_booking: tool({
-          description: ROSE_BOOKING_TOOL_DESCRIPTION,
-          inputSchema: z.object({
-            intent: z.enum(["product", "technical", "culture", "exploring"])
-              .describe("Detected intent bucket."),
-            reason: z
-              .string()
-              .max(200)
-              .describe(
-                "One short sentence, plain English, shown on the card as the call framing.",
-              ),
-          }),
-        }),
-        suggest_followups: tool({
-          description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
-          inputSchema: z.object({
-            items: z.array(z.string().min(3).max(80).describe(roseFollowupPolicyDescription(followupContext))).min(1).max(2),
-          }).superRefine(({ items }, ctx) => {
-            items.forEach((item, index) => {
-              if (!isRoseFollowupAllowed(item, followupContext)) {
-                ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["items", index], message: "This follow-up does not advance the current question safely." });
-              }
-            });
+        } : {}),
+        ...(shouldSuppressRoseFollowups(followupContext) ? {} : {
+          suggest_followups: tool({
+            description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
+            inputSchema: z.object({
+              items: z.array(z.string().min(3).max(80).describe(roseFollowupPolicyDescription(followupContext))).min(1).max(2),
+            }).superRefine(({ items }, ctx) => {
+              items.forEach((item, index) => {
+                if (!isRoseFollowupAllowed(item, followupContext)) {
+                  ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["items", index], message: "This follow-up does not advance the current question safely." });
+                }
+              });
+            }),
           }),
         }),
       },
