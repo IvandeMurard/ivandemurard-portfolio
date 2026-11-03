@@ -340,10 +340,12 @@ const careerNamesProject = (question: string): boolean =>
 /** Turn guidance for a profile question. The restriction applies unless the visitor names a project or Rose. */
 export function roseCareerGuidance(question: string): string {
   if (!isRoseCareerQuestion(question)) return "";
-  const facts = `Contact text published on the site: "${ROSE_CONTACT_FACTS[0]}" and "${ROSE_CONTACT_FACTS[1]}"`;
-  if (careerNamesProject(question)) return facts;
+  // The CV claim guard rides with every profile question, whichever studies were selected (focused, CV added, or all).
+  const facts = `Contact text published on the site: "${ROSE_CONTACT_FACTS[0]}" and "${ROSE_CONTACT_FACTS[1]}"\n${FOCUSED_CLAIM_GUARDS.cv}`;
+  const booking = isRoseExplicitMeetingRequest(question) ? "" : `\n${ROSE_NO_BOOKING_NOTICE}`;
+  if (careerNamesProject(question)) return facts + booking;
   return [
-    facts,
+    facts + booking,
     "This question is about Ivan's profile. Answer only from the CV reference and the Contact text above. Name the roles the Contact text states (AI Product Manager and Product Builder) and link [CV](/cv).",
     "Never name a target role, title, framework or phrase that the CV and the Contact text do not state, and never confirm openness to any other role. If a fact is not there, say so and link [CV](/cv).",
   ].join("\n");

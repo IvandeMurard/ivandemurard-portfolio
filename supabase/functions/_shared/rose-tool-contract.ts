@@ -6,10 +6,20 @@ export const ROSE_BOOKING_TOOL_DESCRIPTION =
   "Render a booking CTA card in the chat when the visitor's intent is clear enough to warrant a 30-minute call with Ivan. A request for Rose to access, review or test the visitor's code is not such intent. The reason must never promise a service Ivan does not offer (for example a review of the visitor's private repository). No execute: the human clicks the rendered card.";
 
 export const ROSE_FOLLOWUPS_TOOL_DESCRIPTION =
-  "Optional, call at most once, after the answer text. Up to two short follow-up questions in the visitor's voice (imperative, never 'Ivan' in the third person), each about content that exists on this site. Each must advance the visitor's current question. Rendered as chips under the answer.";
+  "Optional, call at most once, after the answer text. Up to two short follow-up questions the visitor could ask Rose: polite questions that name Ivan in the third person (for example "Would you tell me more about his AI-native projects?"), never "you" or "your" for Ivan, each about content that exists on this site. Each must advance the visitor's current question. Rendered as chips under the answer.";
+
+/**
+ * Profile questions (role, background, CV) get an answer, not a booking card. The booking tool is offered
+ * only when the visitor explicitly asks for a call, a meeting or a way to talk to Ivan.
+ */
+export const isRoseExplicitMeetingRequest = (question: string): boolean =>
+  /\b(?:call|calls|meeting|meet|book|booking|schedule|appointment|calendar|talk to (?:ivan|him)|speak (?:to|with) (?:ivan|him)|chat with (?:ivan|him)|get in touch|contact (?:ivan|him)|reach (?:ivan|him)|interview)\b/i.test(question);
+
+export const ROSE_NO_BOOKING_NOTICE =
+  "For this turn the propose_booking tool is not available: the visitor asks about Ivan's profile, not for a call or a meeting. Do not call it and do not invite a call in the answer.";
 
 export type RoseFollowupContext = { question: string; pagePath?: string };
-export type RoseFollowupRejection = "unrequested_implementation" | "unsupported_outcome_learning" | "unfocused_technical";
+export type RoseFollowupRejection = "addresses_ivan" | "unrequested_implementation" | "unsupported_outcome_learning" | "unfocused_technical";
 
 const plainAetherixMeasurementQuestion = (question: string, pagePath = ""): boolean =>
   pagePath.split(/[?#]/)[0] === "/aetherix" &&
@@ -33,8 +43,16 @@ export const shouldSuppressRoseFollowups = ({ question, pagePath = "" }: RoseFol
 export const ROSE_NO_FOLLOWUPS_NOTICE =
   "For this turn the suggest_followups tool is not available. Do not call it and do not write follow-up questions in the answer.";
 
+/**
+ * A chip is read by Rose, so "you" means Rose. "Your projects", "your CV", "did you build" or
+ * "your role" address Ivan as if he were the reader: rejected. "Would you tell me more about his..." is allowed.
+ */
+const IVAN_AS_YOU = /\b(?:your|yours|yourself)\b|\byou\s+(?:built|build|designed|design|worked|work|shipped|ship|led|lead|founded|co-?founded|studied|learned|measured|measure|tested|test|chose|choose|decided|decide|managed|manage|delivered|deliver|are looking|looking)\b|\b(?:did|have|were|are)\s+you\s+(?:build|built|design|designed|work|worked|ship|shipped|lead|led|found|founded|study|studied|test|tested|choose|chose|decide|decided|deliver|delivered|open|looking)\b/i;
+export const addressesIvanAsYou = (item: string): boolean => IVAN_AS_YOU.test(item);
+
 /** Shared policy for live tool validation, client rendering, and offline review. */
 export function roseFollowupRejection(item: string, context: RoseFollowupContext): RoseFollowupRejection | null {
+  if (addressesIvanAsYou(item)) return "addresses_ivan";
   if (plainAetherixMeasurementQuestion(context.question, context.pagePath) &&
       /\b(?:CI|(?:evaluation|release) gates?|golden datasets?|test harness(?:es)?|graders?)\b/i.test(item)) {
     return "unrequested_implementation";
@@ -53,12 +71,15 @@ export function roseFollowupRejection(item: string, context: RoseFollowupContext
 export const isRoseFollowupAllowed = (item: string, context: RoseFollowupContext): boolean =>
   roseFollowupRejection(item, context) === null;
 
+export const ROSE_FOLLOWUP_VOICE =
+  "Phrase each follow-up as a polite question to Rose about Ivan in the third person (\"Would you tell me more about his AI-native projects?\"). Never use \"you\" or \"your\" for Ivan.";
+
 export function roseFollowupPolicyDescription(context: RoseFollowupContext): string {
   if (plainAetherixMeasurementQuestion(context.question, context.pagePath)) {
-    return "For this plain-language Aetherix measurement question, suggest only the comparison, evidence limit, or operational consequence. Do not mention evaluation, CI, gates, datasets, harnesses, or graders.";
+    return `${ROSE_FOLLOWUP_VOICE} ` + "For this plain-language Aetherix measurement question, suggest only the comparison, evidence limit, or operational consequence. Do not mention evaluation, CI, gates, datasets, harnesses, or graders.";
   }
   if (isRoseTechnicalEvaluationQuestion(context)) {
-    return "For this technical Aetherix evaluation question, every follow-up must stay on gates, case sets, exit codes, guardrails, forecast, parser, providers, memory, or prompts. Do not suggest restaurant benchmarks or claim that a manager override improves a forecast.";
+    return `${ROSE_FOLLOWUP_VOICE} ` + "For this technical Aetherix evaluation question, every follow-up must stay on gates, case sets, exit codes, guardrails, forecast, parser, providers, memory, or prompts. Do not suggest restaurant benchmarks or claim that a manager override improves a forecast.";
   }
-  return "Advance the visitor's current question with a topic covered on this site.";
+  return `${ROSE_FOLLOWUP_VOICE} Advance the visitor's current question with a topic covered on this site.`;
 }
