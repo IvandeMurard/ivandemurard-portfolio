@@ -4,7 +4,7 @@
 // mirrors stay the single source of truth.
 import { ROSE_PERSONA, ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
 import { aetherixEvidenceRegistryMatches, aetherixMeasurementEvidenceContext } from "./rose-aetherix-evidence.ts";
-import { isRoseTechnicalEvaluationQuestion, ROSE_NO_FOLLOWUPS_NOTICE, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
+import { isRoseExplicitMeetingRequest, isRoseTechnicalEvaluationQuestion, ROSE_NO_BOOKING_NOTICE, ROSE_NO_FOLLOWUPS_NOTICE, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
 
 export const ROSE_BASE_PROMPT = `You are Rose, a concise agent embedded on Ivan de Murard's portfolio site.
 
@@ -328,6 +328,10 @@ export function isRoseCareerQuestion(question: string): boolean {
   return /\b(?:roles?|looking for|hiring|hire|jobs?|positions?|open to|available|background|experience|skills?|cv|resume|résumé|what does (?:he|ivan) do|work with (?:him|ivan)|describe (?:his|ivan.s) work)\b/i.test(question);
 }
 
+/** Booking is offered unless the turn is a profile question without an explicit call or meeting request. */
+export const shouldOfferRoseBooking = (question: string): boolean =>
+  !isRoseCareerQuestion(question) || isRoseExplicitMeetingRequest(question);
+
 /** The Contact facts the site publishes (homepage and /rose-design-lab). Quoted, never extended. */
 export const ROSE_CONTACT_FACTS = [
   "Open to AI Product Manager and Product Builder roles.",
@@ -340,10 +344,12 @@ const careerNamesProject = (question: string): boolean =>
 /** Turn guidance for a profile question. The restriction applies unless the visitor names a project or Rose. */
 export function roseCareerGuidance(question: string): string {
   if (!isRoseCareerQuestion(question)) return "";
-  const facts = `Contact text published on the site: "${ROSE_CONTACT_FACTS[0]}" and "${ROSE_CONTACT_FACTS[1]}"`;
-  if (careerNamesProject(question)) return facts;
+  // The CV claim guard rides with every profile question, whichever studies were selected (focused, CV added, or all).
+  const facts = `Contact text published on the site: "${ROSE_CONTACT_FACTS[0]}" and "${ROSE_CONTACT_FACTS[1]}"\n${FOCUSED_CLAIM_GUARDS.cv}`;
+  const booking = isRoseExplicitMeetingRequest(question) ? "" : `\n${ROSE_NO_BOOKING_NOTICE}`;
+  if (careerNamesProject(question)) return facts + booking;
   return [
-    facts,
+    facts + booking,
     "This question is about Ivan's profile. Answer only from the CV reference and the Contact text above. Name the roles the Contact text states (AI Product Manager and Product Builder) and link [CV](/cv).",
     "Never name a target role, title, framework or phrase that the CV and the Contact text do not state, and never confirm openness to any other role. If a fact is not there, say so and link [CV](/cv).",
   ].join("\n");

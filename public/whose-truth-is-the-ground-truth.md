@@ -34,18 +34,6 @@ FIG | What comes back at each station, who holds it, and when
 
 Lamps in this layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.
 
-| Line | Station | Kind of truth | What it is | When |
-| --- | --- | --- | --- | --- |
-| Aetherix | Before release | Documented | known answers in the case set | before release |
-| Aetherix | Recommendation sent | None yet | a forecast is a claim | not a truth |
-| Aetherix | Manager replies | Declared | the manager's reply | same day |
-| Aetherix | Next day | Observed | real covers | next day |
-| Aetherix | Other staffing (never reached) | Counterfactual | another plan's outcome | never |
-| Lore | Before release | Documented | the procedure (AMM) | wins any conflict |
-| Lore | Answer given | Enforced | checked against the band table | at answer time |
-| Lore | Technician acts | Not captured | what the technician did | - |
-| Lore | Work signed (never reached) | Realized | the signed work record | never returns |
-
 Why is a manager's reply not the truth?
 What is the counterfactual problem in staffing?
 

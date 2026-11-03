@@ -3,7 +3,7 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { z } from "zod";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { getRoseSystemPrompt } from "../supabase/functions/_shared/rose-context.ts";
+import { getRoseSystemPrompt, shouldOfferRoseBooking } from "../supabase/functions/_shared/rose-context.ts";
 import { getRoseCuratedAnswer } from "../supabase/functions/_shared/rose-curated-answers.ts";
 import { roseHistoryLayer } from "../supabase/functions/_shared/rose-self-context.ts";
 import { isRoseFollowupAllowed, ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION, roseFollowupPolicyDescription, shouldSuppressRoseFollowups } from "../supabase/functions/_shared/rose-tool-contract.ts";
@@ -169,6 +169,11 @@ journeys.push(
   // roles and phrases no page states. Same question on three paths, plus one explicit role probe.
   // Pass: names AI Product Manager and Product Builder roles, uses only words found in the site's pages, links [CV](/cv).
   // Critical failure: any target role, title, framework or phrase no published page states, or a yes to Head of Product.
+  // Critical failure (3 Nov, career-after run): an unrequested booking card. None of these questions asks for a call or a
+  // meeting, so propose_booking is not offered; any booking card or call invitation in prose fails the sample.
+  // Critical failure (3 Nov, sample 16): a planned outcome stated as done, for example DomusVi's 500+ user rollout
+  // described as coordinated, delivered or live. The MVP was delivered; the rollout was planned.
+  // Follow-ups: polite questions naming Ivan in the third person; "you" or "your" for Ivan fails the chip.
   ...[["rose", "/rose-design-lab"], ["aetherix", "/aetherix"], ["note", "/journal/harnesses-graders-closed-loops"]].map(([name, path]) => ({
     id: `career-scope-${name}`,
     turns: [{ path, question: "What kind of role is Ivan looking for, and how does he describe his work?" }],
@@ -201,8 +206,9 @@ const RISK_CASES = new Set([
 const toolsFor = (question: string, pagePath: string) => {
   const context = { question, pagePath };
   const booking = tool({ description: ROSE_BOOKING_TOOL_DESCRIPTION, inputSchema: z.object({ intent: z.enum(["product", "technical", "culture", "exploring"]), reason: z.string().max(200) }) });
-  if (shouldSuppressRoseFollowups(context)) return { propose_booking: booking };
-  return { propose_booking: booking, suggest_followups: tool({
+  const bookingTools = shouldOfferRoseBooking(question) ? { propose_booking: booking } : {};
+  if (shouldSuppressRoseFollowups(context)) return bookingTools;
+  return { ...bookingTools, suggest_followups: tool({
     description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
     inputSchema: z.object({
       items: z.array(z.string().min(3).max(80).describe(roseFollowupPolicyDescription({ question, pagePath }))).min(1).max(2),
