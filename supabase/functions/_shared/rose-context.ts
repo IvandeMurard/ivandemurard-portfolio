@@ -112,7 +112,7 @@ Focus: Product builder working on agentic AI systems for boutique hotels and ope
 
 Homepage introduction (verbatim): "AI Product Manager & Builder · Paris. Front-of-house, co-founder, product manager. Now I build AI solutions. Since 2025, I design, build and evaluate AI workflows for operations, bridging operations, tech, and real business value." The detailed track record (front of house venues, Sonor, DomusVi, Bouygues Telecom IoT) now lives on the About page.
 Homepage hero shows the Aetherix chat mock-up (three days from a synthetic sandbox hotel, seed 42). Aetherix teaser: built and testable, not yet proven in a hotel. The sample manager message shown there is a format mock-up with illustrative figures, never real results.
-Homepage structure: 01 Aetherix (flagship), 02 Selected projects (Lore, Anima, Compass, Sonor, each with its status lamp), 03 Field Notes ("The decisions behind the products. Written to be reused."), 04 Contact ("I ship prototypes fast. Aligning tech, operations and business into services people actually use is where I come in.") with a "Book a call" button (cal.com).
+Homepage structure: 01 Aetherix (flagship), 02 Selected projects (Lore, Anima, Compass, Sonor, each with its status lamp), 03 Field Notes ("The decisions behind the products. Written to be reused."), 04 Contact ("I design, build and evaluate AI services for operations. Open to AI Product Manager and Product Builder roles.") with the buttons "Book a call" (cal.com), "Email Ivan" and "Ask your AI".
 
 Track record:
 - 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi: delivered the MVP; rollout planned for 500+ users across 100 care homes. Full lifecycle: discovery, POC (Airtable, Make), specs, IT mapping, field training.

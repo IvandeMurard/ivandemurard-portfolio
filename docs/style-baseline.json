@@ -261,15 +261,6 @@
   "src/components/rose/RoseBookingCard.tsx": {
     "italic": 1
   },
-  "src/components/rose/RoseCaseStudy.tsx": {
-    "colon-reveal": 1,
-    "contrast-reflex": 6,
-    "dot-chain": 3,
-    "italic": 6,
-    "mood-word": 5,
-    "self-aware-aside": 2,
-    "theatrical-fragment": 1
-  },
   "src/components/rose/RoseDock.tsx": {
     "italic": 1
   },
@@ -279,7 +270,7 @@
   "src/components/rose/RoseKinetic.tsx": {
     "contrast-reflex": 1,
     "dot-chain": 2,
-    "italic": 3
+    "italic": 2
   },
   "src/components/rose/RoseLaterChapters.tsx": {
     "contrast-reflex": 7,
@@ -383,7 +374,7 @@
   },
   "src/pages/Index.tsx": {
     "dot-chain": 1,
-    "italic": 2
+    "italic": 1
   },
   "src/pages/Journal.tsx": {
     "italic": 5

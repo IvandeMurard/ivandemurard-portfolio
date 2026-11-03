@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><style>
+<!doctype html>
+<html lang="en"><head><style>
     .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
       border:1px solid color-mix(in srgb,currentColor 50%,transparent);
       border-radius:2px;box-sizing:border-box;overflow:hidden}
@@ -60,8 +61,12 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 @keyframes rose-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .rose-note{animation:rose-in 420ms ease-out both}
+.rose-cursor{display:flex;gap:10px;align-items:flex-start;animation:rose-in 420ms ease-out both}
+.rose-cursor .tip{flex-shrink:0;margin-top:2px;animation:tip-in 600ms cubic-bezier(.2,.7,.1,1) both}
+@keyframes tip-in{from{opacity:0;transform:translate(-24px,-10px) rotate(-30deg)}to{opacity:1;transform:none}}
 .kick{margin:0;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
-.lab{margin:0;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.lab{margin:0;font:600 13px Manrope,'Helvetica Neue',sans-serif;letter-spacing:0}
+.cap{margin:0;font:400 12.5px 'IBM Plex Mono',monospace}
 .mono{font:400 11.5px 'IBM Plex Mono',monospace}
 </style></head>
 <body>
@@ -70,373 +75,355 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
   
   <header data-dc-tpl="5" style="border-bottom: 1px solid rgb(38, 43, 54);">
     <div data-dc-tpl="6" style="max-width: 1360px; margin: 0px auto; padding: 20px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
-      <span data-dc-tpl="7" style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; color: rgb(244, 239, 230);">Ivan de Murard</span>
-      <nav data-dc-tpl="8" aria-label="Site" style="display: flex; flex-wrap: wrap; gap: 26px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: rgb(201, 195, 184);">
+      <span data-dc-tpl="7" style="font-family: Newsreader, Georgia, serif; font-size: 22px; color: rgb(244, 239, 230);">Ivan de Murard</span>
+      <nav data-dc-tpl="8" aria-label="Site" style="display: flex; flex-wrap: wrap; gap: 26px; font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(201, 195, 184);">
         <a data-dc-tpl="9" href="#top">Case Studies</a><a data-dc-tpl="10" href="#top">About</a><a data-dc-tpl="11" href="#top">CV</a><a data-dc-tpl="12" href="#top">Field Notes</a><a data-dc-tpl="13" href="#contact">Contact</a>
       </nav>
-      <span data-dc-tpl="14" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 6px 12px;"><span class="sc-interp">Paris 17:30 ☾</span></span>
+      <span data-dc-tpl="14" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 6px 12px;"><span class="sc-interp">Paris 14:15 ☾</span></span>
     </div>
   </header>
 
   
 
   
-  <div data-dc-tpl="51" style="background: linear-gradient(rgb(24, 22, 32) 0%, rgb(20, 24, 38) 35%, rgb(17, 24, 42) 65%, rgb(15, 24, 44) 100%);">
+  <div data-dc-tpl="55" style="background: linear-gradient(rgb(24, 22, 32) 0%, rgb(20, 24, 38) 35%, rgb(17, 24, 42) 65%, rgb(15, 24, 44) 100%);">
   
-  <details data-dc-tpl="52" class="toc-m" aria-label="On this page" style="background: rgb(14, 17, 23); border-bottom: 1px solid rgb(38, 43, 54);">
-    <summary data-dc-tpl="53" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 0px 16px; font-size: 14px;">
-      <span data-dc-tpl="54"><span data-dc-tpl="55" class="mono" style="color: rgb(214, 176, 106);"><span class="sc-interp">10</span></span> <span class="sc-interp">Open questions</span></span>
-      <span data-dc-tpl="56" class="mono" style="color: rgb(143, 148, 159);">On this page ▾</span>
+  <details data-dc-tpl="56" class="toc-m" aria-label="On this page" style="background: rgb(14, 17, 23); border-bottom: 1px solid rgb(38, 43, 54);">
+    <summary data-dc-tpl="57" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 0px 16px; font-size: 14px;">
+      <span data-dc-tpl="58"><span data-dc-tpl="59" class="mono" style="color: rgb(214, 176, 106);"><span class="sc-interp">07</span></span> <span class="sc-interp">Trust</span></span>
+      <span data-dc-tpl="60" class="mono" style="color: rgb(143, 148, 159);">On this page ▾</span>
     </summary>
-    <ol data-dc-tpl="57" style="list-style: none; margin: 0px; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 2px; font-size: 15px;">
+    <ol data-dc-tpl="61" style="list-style: none; margin: 0px; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 2px; font-size: 15px;">
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch0" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">00</span></span><span class="sc-interp">The idea</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch0" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">00</span></span><span class="sc-interp">The idea</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch1" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">01</span></span><span class="sc-interp">Qualify</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch1" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">01</span></span><span class="sc-interp">Qualify</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch2" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">02</span></span><span class="sc-interp">Listen to the page</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch2" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">02</span></span><span class="sc-interp">Listen to the page</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch3" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">03</span></span><span class="sc-interp">Know where you are</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch3" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">03</span></span><span class="sc-interp">Know where you are</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch4" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">04</span></span><span class="sc-interp">One quiet dock</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch4" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">04</span></span><span class="sc-interp">One dock</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch5" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">05</span></span><span class="sc-interp">Earn trust</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch5" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">05</span></span><span class="sc-interp">Earn trust</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch6" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">06</span></span><span class="sc-interp">What Rose can do now</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch6" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">06</span></span><span class="sc-interp">In design</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch7" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">07</span></span><span class="sc-interp">Trust</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch7" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(244, 239, 230); font-weight: 600;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">07</span></span><span class="sc-interp">Trust</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch8" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">08</span></span><span class="sc-interp">What she got wrong</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch8" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">08</span></span><span class="sc-interp">What she got wrong</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch9" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">09</span></span><span class="sc-interp">Next steps</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch9" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">09</span></span><span class="sc-interp">Next steps</span></a></li>
       
-        <li data-dc-tpl="59"><a data-dc-tpl="60" href="#ch10" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(244, 239, 230); font-weight: 600;"><span data-dc-tpl="61" class="mono" style="min-width: 22px;"><span class="sc-interp">10</span></span><span class="sc-interp">Open questions</span></a></li>
+        <li data-dc-tpl="63"><a data-dc-tpl="64" href="#ch10" style="display: flex; gap: 10px; min-height: 40px; align-items: center; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="65" class="mono" style="min-width: 22px;"><span class="sc-interp">10</span></span><span class="sc-interp">Open questions</span></a></li>
       
     </ol>
-    <div data-dc-tpl="62" aria-hidden="true" style="height: 2px; background: rgb(38, 43, 54);"><div data-dc-tpl="63" style="height: 2px; width: 100%; background: rgb(176, 106, 59);"></div></div>
+    <div data-dc-tpl="66" aria-hidden="true" style="height: 2px; background: rgb(38, 43, 54);"><div data-dc-tpl="67" style="height: 2px; width: 25%; background: rgb(176, 106, 59);"></div></div>
   </details>
-  <div data-dc-tpl="64" style="max-width: 1360px; margin: 0px auto; padding: 0px 40px; display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start;">
+  <div data-dc-tpl="68" style="max-width: 1360px; margin: 0px auto; padding: 0px 40px; display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-start;">
 
-    <aside data-dc-tpl="65" aria-label="On this page" class="toc" style="flex: 1 1 200px; max-width: 240px; padding-top: 40px; display: flex; flex-direction: column; gap: 18px;">
-      <svg data-dc-tpl="66" viewBox="0 0 40 40" width="88" height="88" aria-hidden="true" fill="none" stroke="#d6b06a" stroke-linecap="round" stroke-linejoin="round">
-        <circle data-dc-tpl="67" cx="20" cy="20" r="17" stroke-width="0.5"></circle>
-        <circle data-dc-tpl="68" cx="20" cy="20" r="5.5" stroke-width="0.35"></circle>
-        <g data-dc-tpl="69" style="transform: rotate(360deg); transform-origin: 20px 20px; transition: transform 900ms cubic-bezier(0.2, 0.7, 0.1, 1);">
-          <path data-dc-tpl="70" d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" stroke-width="0.55"></path>
-          <path data-dc-tpl="71" d="M20 3l4 13-4 4z" fill="#b06a3b" stroke-width="0"></path>
+    <aside data-dc-tpl="69" aria-label="On this page" class="toc" style="flex: 1 1 200px; max-width: 240px; padding-top: 40px; display: flex; flex-direction: column; gap: 18px;">
+      <svg data-dc-tpl="70" viewBox="0 0 40 40" width="88" height="88" aria-hidden="true" fill="none" stroke="#d6b06a" stroke-linecap="round" stroke-linejoin="round">
+        <circle data-dc-tpl="71" cx="20" cy="20" r="17" stroke-width="0.5"></circle>
+        <circle data-dc-tpl="72" cx="20" cy="20" r="5.5" stroke-width="0.35"></circle>
+        <g data-dc-tpl="73" style="transform: rotate(335deg); transform-origin: 20px 20px; transition: transform 900ms cubic-bezier(0.2, 0.7, 0.1, 1);">
+          <path data-dc-tpl="74" d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" stroke-width="0.55"></path>
+          <path data-dc-tpl="75" d="M20 3l4 13-4 4z" fill="#b06a3b" stroke-width="0"></path>
         </g>
       </svg>
-      <p data-dc-tpl="72" class="mono" style="margin: 0px; color: rgb(143, 148, 159);">heading <span class="sc-interp">360</span>°</p>
-      <ol data-dc-tpl="73" style="list-style: none; margin: 0px; padding: 0px; display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
+      <p data-dc-tpl="76" class="mono" style="margin: 0px; color: rgb(143, 148, 159);">heading <span class="sc-interp">335</span>°</p>
+      <ol data-dc-tpl="77" style="list-style: none; margin: 0px; padding: 0px; display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch0" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">00</span></span><span class="sc-interp">The idea</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch0" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">00</span></span><span class="sc-interp">The idea</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch1" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">01</span></span><span class="sc-interp">Qualify</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch1" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">01</span></span><span class="sc-interp">Qualify</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch2" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">02</span></span><span class="sc-interp">Listen to the page</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch2" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">02</span></span><span class="sc-interp">Listen to the page</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch3" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">03</span></span><span class="sc-interp">Know where you are</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch3" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">03</span></span><span class="sc-interp">Know where you are</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch4" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">04</span></span><span class="sc-interp">One quiet dock</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch4" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">04</span></span><span class="sc-interp">One dock</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch5" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">05</span></span><span class="sc-interp">Earn trust</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch5" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">05</span></span><span class="sc-interp">Earn trust</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch6" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">06</span></span><span class="sc-interp">What Rose can do now</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch6" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">06</span></span><span class="sc-interp">In design</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch7" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">07</span></span><span class="sc-interp">Trust</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch7" style="display: flex; gap: 10px; color: rgb(244, 239, 230); font-weight: 600;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">07</span></span><span class="sc-interp">Trust</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch8" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">08</span></span><span class="sc-interp">What she got wrong</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch8" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">08</span></span><span class="sc-interp">What she got wrong</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch9" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">09</span></span><span class="sc-interp">Next steps</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch9" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">09</span></span><span class="sc-interp">Next steps</span></a></li>
         
-          <li data-dc-tpl="75"><a data-dc-tpl="76" href="#ch10" style="display: flex; gap: 10px; color: rgb(244, 239, 230); font-weight: 600;"><span data-dc-tpl="77" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">10</span></span><span class="sc-interp">Open questions</span></a></li>
+          <li data-dc-tpl="79"><a data-dc-tpl="80" href="#ch10" style="display: flex; gap: 10px; color: rgb(143, 148, 159); font-weight: 400;"><span data-dc-tpl="81" class="mono" style="padding-top: 3px; min-width: 18px;"><span class="sc-interp">10</span></span><span class="sc-interp">Open questions</span></a></li>
         
       </ol>
     </aside>
 
-    <main data-dc-tpl="78" style="flex: 999 1 640px; min-width: 0px; position: relative;">
-      <div data-dc-tpl="79" aria-hidden="true" style="position: absolute; left: -28px; top: 40px; bottom: 0px; width: 1px; background: rgb(38, 43, 54);"><div data-dc-tpl="80" style="width: 1px; height: 100%; background: rgb(176, 106, 59); transition: height 900ms cubic-bezier(0.2, 0.7, 0.1, 1);"></div></div>
+    <main data-dc-tpl="82" style="flex: 999 1 640px; min-width: 0px; position: relative;">
+      <div data-dc-tpl="83" aria-hidden="true" style="position: absolute; left: -28px; top: 40px; bottom: 0px; width: 1px; background: rgb(38, 43, 54);"><div data-dc-tpl="84" style="width: 1px; height: 25%; background: rgb(176, 106, 59); transition: height 900ms cubic-bezier(0.2, 0.7, 0.1, 1);"></div></div>
 
       
 
       
       
-      <section data-dc-tpl="222" id="ch7" data-chapter="7" style="padding: 72px 0px;">
-        <p data-dc-tpl="223" class="kick" style="color: rgb(214, 176, 106);">07 · Trust <span data-dc-tpl="224" style="margin-left: 10px; color: rgb(214, 176, 106);">● Built</span></p>
-        <h2 data-dc-tpl="225" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: rgb(244, 239, 230);">Trust has two separate contracts.</h2>
-        <p data-dc-tpl="226" style="margin: 16px 0px 0px; max-width: 660px; font-size: 16.5px; color: rgb(201, 195, 184);">One concerns data: what is retained and transmitted. The other concerns knowledge: what Rose may assert or infer. Mixing them would make privacy sound like proof, or proof sound like privacy.</p>
-        <div data-dc-tpl="227" style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
+      <section data-dc-tpl="274" id="ch7" data-chapter="7" style="padding: 72px 0px;">
+        <p data-dc-tpl="275" class="kick" style="color: rgb(214, 176, 106);">07 · Trust <span data-dc-tpl="276" style="margin-left: 10px; color: rgb(214, 176, 106);">● Built</span></p>
+        <h2 data-dc-tpl="277" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: rgb(244, 239, 230);">Trust has two separate contracts.</h2>
+        <p data-dc-tpl="278" style="margin: 16px 0px 0px; max-width: 660px; font-size: 16.5px; color: rgb(201, 195, 184);">One contract covers data: what is kept and what is sent. The other covers knowledge: what Rose may assert or infer. I keep them apart so that a privacy promise is never read as proof of accuracy.</p>
+        <div data-dc-tpl="279" style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
           
-            <div data-dc-tpl="229" style="border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 20px 22px;">
-              <p data-dc-tpl="230" class="lab" style="color: rgb(214, 176, 106);"><span class="sc-interp">Contract 1 · Data</span></p>
-              <p data-dc-tpl="231" style="margin: 8px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.2; color: rgb(244, 239, 230);"><span class="sc-interp">What is retained and transmitted.</span></p>
-              <ul data-dc-tpl="232" style="list-style: none; margin: 14px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
+            <div data-dc-tpl="281" style="border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 20px 22px;">
+              <p data-dc-tpl="282" class="lab" style="color: rgb(214, 176, 106);"><span class="sc-interp">Data</span></p>
+              <p data-dc-tpl="283" style="margin: 8px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.2; color: rgb(244, 239, 230);"><span class="sc-interp">What is kept and sent</span></p>
+              <ul data-dc-tpl="284" style="list-style: none; margin: 14px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
                 
-                  <li data-dc-tpl="234" style="display: flex; gap: 10px;"><span data-dc-tpl="235" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="236"><span class="sc-interp">Your conversation stays in this tab for 60 minutes, or until a hard refresh.</span></span></li>
+                  <li data-dc-tpl="286" style="display: flex; gap: 10px;"><span data-dc-tpl="287" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="288"><span class="sc-interp">Your conversation stays in this tab for 60 minutes, or until you reload the page.</span></span></li>
                 
-                  <li data-dc-tpl="234" style="display: flex; gap: 10px;"><span data-dc-tpl="235" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="236"><span class="sc-interp">Questions are stored with personal details masked by pattern, then purged after 90 days.</span></span></li>
+                  <li data-dc-tpl="286" style="display: flex; gap: 10px;"><span data-dc-tpl="287" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="288"><span class="sc-interp">Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.</span></span></li>
                 
-                  <li data-dc-tpl="234" style="display: flex; gap: 10px;"><span data-dc-tpl="235" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="236"><span class="sc-interp">Booking opens the calendar and nothing else. No transcript travels with it.</span></span></li>
+                  <li data-dc-tpl="286" style="display: flex; gap: 10px;"><span data-dc-tpl="287" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="288"><span class="sc-interp">Booking opens the calendar and nothing else. No transcript travels with it.</span></span></li>
                 
               </ul>
+              
+                <p data-dc-tpl="290" class="mono" style="margin: 14px 0px 0px; color: rgb(143, 148, 159);">Retention and masking: mask-pii.ts and the purge migration</p>
+              
             </div>
           
-            <div data-dc-tpl="229" style="border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 20px 22px;">
-              <p data-dc-tpl="230" class="lab" style="color: rgb(214, 176, 106);"><span class="sc-interp">Contract 2 · Knowledge</span></p>
-              <p data-dc-tpl="231" style="margin: 8px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.2; color: rgb(244, 239, 230);"><span class="sc-interp">What Rose may assert or infer.</span></p>
-              <ul data-dc-tpl="232" style="list-style: none; margin: 14px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
+            <div data-dc-tpl="281" style="border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 20px 22px;">
+              <p data-dc-tpl="282" class="lab" style="color: rgb(214, 176, 106);"><span class="sc-interp">Knowledge</span></p>
+              <p data-dc-tpl="283" style="margin: 8px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.2; color: rgb(244, 239, 230);"><span class="sc-interp">What Rose may assert or infer</span></p>
+              <ul data-dc-tpl="284" style="list-style: none; margin: 14px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
                 
-                  <li data-dc-tpl="234" style="display: flex; gap: 10px;"><span data-dc-tpl="235" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="236"><span class="sc-interp">Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.</span></span></li>
+                  <li data-dc-tpl="286" style="display: flex; gap: 10px;"><span data-dc-tpl="287" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="288"><span class="sc-interp">Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.</span></span></li>
                 
-                  <li data-dc-tpl="234" style="display: flex; gap: 10px;"><span data-dc-tpl="235" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="236"><span class="sc-interp">A delivery status is preserved: planned is never turned into done, sandbox never into production.</span></span></li>
+                  <li data-dc-tpl="286" style="display: flex; gap: 10px;"><span data-dc-tpl="287" title="Built" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(214, 176, 106); min-width: 14px;"><span class="sc-interp">●</span></span><span data-dc-tpl="288"><span class="sc-interp">Rose keeps each project’s delivery status: she never turns planned into done, or sandbox into production.</span></span></li>
                 
-                  <li data-dc-tpl="234" style="display: flex; gap: 10px;"><span data-dc-tpl="235" title="Validation" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(143, 179, 224); min-width: 14px;"><span class="sc-interp">◐</span></span><span data-dc-tpl="236"><span class="sc-interp">Released after 15 synthetic cases, one sample each, read by a person.</span></span></li>
+                  <li data-dc-tpl="286" style="display: flex; gap: 10px;"><span data-dc-tpl="287" title="Validation" style="font: 500 12px &quot;IBM Plex Mono&quot;, monospace; color: rgb(143, 179, 224); min-width: 14px;"><span class="sc-interp">◐</span></span><span data-dc-tpl="288"><span class="sc-interp">Released on 24 Oct after 15 synthetic cases. Since 29 Oct, each change is tested with 5 samples per case and 20 per high-risk case.</span></span></li>
                 
               </ul>
+              
             </div>
           
         </div>
         
-        <div data-dc-tpl="237" style="margin: 40px 0px 0px;">
-          <p data-dc-tpl="238" class="kick" style="color: rgb(214, 176, 106);">The answer rule <span data-dc-tpl="239" style="margin-left: 10px; color: rgb(214, 176, 106);">● Built</span></p>
-          <h3 data-dc-tpl="240" style="margin: 12px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(30px, 3.4vw, 42px); line-height: 1.08; color: rgb(244, 239, 230);">A correct answer can still be <em data-dc-tpl="241" style="color: rgb(214, 176, 106);">the wrong answer.</em></h3>
-          <p data-dc-tpl="242" style="margin: 12px 0px 0px; max-width: 640px; font-size: 16.5px; color: rgb(201, 195, 184);">So Rose answers the decision behind the question first, keeps the evidence limit, and leaves implementation detail for when it is asked.</p>
-          <figure data-dc-tpl="243" style="margin: 22px 0px 0px;">
-            <p data-dc-tpl="244" style="margin: 0px; display: inline-block; background: rgb(21, 26, 35); border: 1px solid rgb(38, 43, 54); border-radius: 12px 12px 12px 2px; padding: 10px 14px; font-size: 15px;">Is Aetherix in production?</p>
-            <div data-dc-tpl="245" style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
-              <div data-dc-tpl="246" style="border: 1px dashed rgb(58, 64, 76); border-radius: 6px; padding: 18px 20px;">
-                <p data-dc-tpl="247" class="lab" style="color: rgb(143, 148, 159);">Source-correct</p>
-                <p data-dc-tpl="248" style="margin: 8px 0px 0px; font-size: 15.5px; color: rgb(201, 195, 184);">"Aetherix is staged on Fly.io and connected to the Apaleo sandbox."</p>
-                <p data-dc-tpl="249" class="mono" style="margin: 10px 0px 0px; color: rgb(143, 148, 159);">True, cited. The reader still has to work out what it means.</p>
+        <div data-dc-tpl="291" style="margin: 40px 0px 0px;">
+          <h3 data-dc-tpl="292" style="margin: 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(30px, 3.4vw, 42px); line-height: 1.08; color: rgb(244, 239, 230);">A true answer can still be useless</h3>
+          <p data-dc-tpl="293" style="margin: 12px 0px 0px; max-width: 640px; font-size: 16.5px; color: rgb(201, 195, 184);">She answers the decision first, states the limit of the evidence, and gives implementation detail only when asked.</p>
+          <figure data-dc-tpl="294" style="margin: 22px 0px 0px;">
+            <p data-dc-tpl="295" style="margin: 0px; display: inline-block; background: rgb(21, 26, 35); border: 1px solid rgb(38, 43, 54); border-radius: 12px 12px 12px 2px; padding: 10px 14px; font-size: 15px;">Is Aetherix in production?</p>
+            <div data-dc-tpl="296" style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px;">
+              <div data-dc-tpl="297" style="border: 1px dashed rgb(58, 64, 76); border-radius: 6px; padding: 18px 20px;">
+                <p data-dc-tpl="298" class="lab" style="color: rgb(143, 148, 159);">Source-correct answer</p>
+                <p data-dc-tpl="299" style="margin: 8px 0px 0px; font-size: 15.5px; color: rgb(201, 195, 184);">"Aetherix is staged on Fly.io and connected to the Apaleo sandbox."</p>
+                <p data-dc-tpl="300" class="mono" style="margin: 10px 0px 0px; color: rgb(143, 148, 159);">It is true and cited, but the reader still has to work out what it means.</p>
               </div>
-              <div data-dc-tpl="250" style="border: 1px solid rgb(214, 176, 106); border-radius: 6px; padding: 18px 20px; background: rgb(21, 26, 35);">
-                <p data-dc-tpl="251" class="lab" style="color: rgb(214, 176, 106);">Useful</p>
-                <p data-dc-tpl="252" style="margin: 8px 0px 0px; font-size: 15.5px;">"No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot."</p>
-                <p data-dc-tpl="253" class="mono" style="margin: 10px 0px 0px; color: rgb(143, 148, 159);">Same sources. It answers the decision behind the question.</p>
+              <div data-dc-tpl="301" style="border: 1px solid rgb(214, 176, 106); border-radius: 6px; padding: 18px 20px; background: rgb(21, 26, 35);">
+                <p data-dc-tpl="302" class="lab" style="color: rgb(214, 176, 106);">Useful answer</p>
+                <p data-dc-tpl="303" style="margin: 8px 0px 0px; font-size: 15.5px;">"No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot."</p>
+                <p data-dc-tpl="304" class="mono" style="margin: 10px 0px 0px; color: rgb(143, 148, 159);">It uses the same sources and answers the decision behind the question.</p>
               </div>
             </div>
-            <figcaption data-dc-tpl="254" class="mono" style="margin-top: 10px; color: rgb(143, 148, 159);">Source: Rose's answer contract, "a verifiable fact unrelated to the question is still a poor answer" (rose-context.ts).</figcaption>
+            <figcaption data-dc-tpl="305" class="mono" style="margin-top: 10px; color: rgb(143, 148, 159);">From Rose's answer contract: "A verifiable fact unrelated to the question is still a poor answer."</figcaption>
           </figure>
         </div>
 
-        <figure data-dc-tpl="255" style="margin: 28px 0px 0px; border: 1px solid rgb(58, 64, 76); border-radius: 6px; padding: 22px; background: rgb(21, 26, 35);">
-          <blockquote data-dc-tpl="256" style="margin: 0px; font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.45;">"Pass the current page and intent into Rose's context, so answers refer to the case study being read."</blockquote>
-          <figcaption data-dc-tpl="257" class="mono" style="margin-top: 8px; color: rgb(143, 148, 159);">Decision of 10 Aug 2026 · commit b236ff3</figcaption>
-          <p data-dc-tpl="258" class="lab" style="margin-top: 20px; color: rgb(143, 148, 159);">Ask Rose about this passage</p>
-          <ul data-dc-tpl="259" style="list-style: none; margin: 10px 0px 0px; padding: 0px; display: flex; flex-wrap: wrap; gap: 8px;">
-            
-              <li data-dc-tpl="261"><button data-dc-tpl="262" type="button" aria-pressed="false" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0px 14px; border-radius: 999px; border: 1px solid rgb(58, 64, 76); background: transparent; color: rgb(236, 230, 218); cursor: pointer; font-size: 14px;"><span data-dc-tpl="263" style="font: 500 10.5px &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75;"><span class="sc-interp">Locate</span></span><span class="sc-interp">Where did he decide this?</span></button></li>
-            
-              <li data-dc-tpl="261"><button data-dc-tpl="262" type="button" aria-pressed="false" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0px 14px; border-radius: 999px; border: 1px solid rgb(58, 64, 76); background: transparent; color: rgb(236, 230, 218); cursor: pointer; font-size: 14px;"><span data-dc-tpl="263" style="font: 500 10.5px &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75;"><span class="sc-interp">Reformulate</span></span><span class="sc-interp">Say it more simply</span></button></li>
-            
-              <li data-dc-tpl="261"><button data-dc-tpl="262" type="button" aria-pressed="false" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0px 14px; border-radius: 999px; border: 1px solid rgb(58, 64, 76); background: transparent; color: rgb(236, 230, 218); cursor: pointer; font-size: 14px;"><span data-dc-tpl="263" style="font: 500 10.5px &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75;"><span class="sc-interp">Connect</span></span><span class="sc-interp">How does this relate to his other work?</span></button></li>
-            
-              <li data-dc-tpl="261"><button data-dc-tpl="262" type="button" aria-pressed="false" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0px 14px; border-radius: 999px; border: 1px solid rgb(58, 64, 76); background: transparent; color: rgb(236, 230, 218); cursor: pointer; font-size: 14px;"><span data-dc-tpl="263" style="font: 500 10.5px &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75;"><span class="sc-interp">Sketch</span></span><span class="sc-interp">Draw how it works</span></button></li>
-            
-          </ul>
-          <p data-dc-tpl="264" class="mono" style="margin: 14px 0px 0px; color: rgb(143, 148, 159);">The question goes to the dock below. That's where Rose answers, always.</p>
-        </figure>
 
-        <p data-dc-tpl="265" style="margin: 40px 0px 0px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: rgb(201, 195, 184);"><span class="sc-interp">Contracts are only as good as the checks behind them.</span></p>
       </section>
 
       
-      <section data-dc-tpl="266" id="ch8" data-chapter="8" style="padding: 72px 0px;">
-        <p data-dc-tpl="267" class="kick" style="color: rgb(214, 176, 106);">08 · What she got wrong <span data-dc-tpl="268" style="margin-left: 10px; color: rgb(143, 179, 224);">◐ Validation</span></p>
-        <h2 data-dc-tpl="269" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: rgb(244, 239, 230);">What she got wrong, and how I check her.</h2>
-        <p data-dc-tpl="270" style="margin: 16px 0px 0px; max-width: 660px; font-size: 16.5px; color: rgb(201, 195, 184);">Many of Rose's rules started as a mistake caught in testing, before any visitor saw it. Three of them, from synthetic test runs in October.</p>
+      <section data-dc-tpl="306" id="ch8" data-chapter="8" style="padding: 72px 0px;">
+        <p data-dc-tpl="307" class="kick" style="color: rgb(214, 176, 106);">08 · What she got wrong <span data-dc-tpl="308" style="margin-left: 10px; color: rgb(143, 179, 224);">◐ Validation</span></p>
+        <h2 data-dc-tpl="309" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: rgb(244, 239, 230);">Caught in testing</h2>
+        <p data-dc-tpl="310" style="margin: 16px 0px 0px; max-width: 660px; font-size: 16.5px; color: rgb(201, 195, 184);">Many of Rose's rules started as a mistake caught in testing, before any visitor saw it. Here are three, from synthetic test runs in October.</p>
 
-        <ol data-dc-tpl="271" style="margin: 28px 0px 0px; padding: 0px; list-style: none; display: flex; flex-direction: column; gap: 14px;">
-          
-            <li data-dc-tpl="273" style="border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 18px 20px;">
-              <p data-dc-tpl="274" class="mono" style="margin: 0px; color: rgb(143, 148, 159);"><span class="sc-interp">24 Oct · release gate, 15 cases</span></p>
-              <div data-dc-tpl="275" style="margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px 28px;">
-                <div data-dc-tpl="276"><p data-dc-tpl="277" class="lab" style="color: rgb(143, 148, 159);">She said</p>
-                  <p data-dc-tpl="279" style="margin: 4px 0px 0px; font-size: 15px;"><span class="sc-interp">A follow-up suggestion about Sonor named a team member who does not exist.</span></p>
-                  
-                </div>
-                <div data-dc-tpl="283"><p data-dc-tpl="284" class="lab" style="color: rgb(214, 176, 106);">What I changed</p><p data-dc-tpl="285" style="margin: 4px 0px 0px; font-size: 15px;"><span class="sc-interp">Rose may name only Ivan, plus names written word for word in the references.</span></p></div>
-                <div data-dc-tpl="286"><p data-dc-tpl="287" class="lab" style="color: rgb(143, 148, 159);">Result</p><p data-dc-tpl="288" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">No invented names in the final run.</span></p></div>
+        <div data-dc-tpl="311" style="margin: 28px 0px 0px; overflow-x: auto; border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35);">
+          <div data-dc-tpl="312" style="min-width: 640px; font-size: 15px;">
+            <div data-dc-tpl="313" style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; border-bottom: 1px solid rgb(38, 43, 54);">
+              <p data-dc-tpl="314" class="lab" style="padding: 12px 16px; color: rgb(143, 148, 159);">She said</p>
+              <p data-dc-tpl="315" class="lab" style="padding: 12px 16px; color: rgb(214, 176, 106);">What I changed</p>
+              <p data-dc-tpl="316" class="lab" style="padding: 12px 16px; color: rgb(143, 148, 159);">Result</p>
+            </div>
+            
+              <div data-dc-tpl="318" style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; border-bottom: 1px solid rgb(38, 43, 54);">
+                <p data-dc-tpl="319" style="margin: 0px; padding: 14px 16px;"><span data-dc-tpl="320" class="mono" style="display: block; color: rgb(143, 148, 159);"><span class="sc-interp">24 Oct</span></span><span class="sc-interp">Named a Sonor team member who does not exist.</span></p>
+                <p data-dc-tpl="321" style="margin: 0px; padding: 14px 16px;"><span class="sc-interp">She may name only Ivan and names written in the sources.</span></p>
+                <p data-dc-tpl="322" style="margin: 0px; padding: 14px 16px; color: rgb(201, 195, 184);"><span class="sc-interp">No invented names in the final run.</span></p>
               </div>
-              
-            </li>
-          
-            <li data-dc-tpl="273" style="border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 18px 20px;">
-              <p data-dc-tpl="274" class="mono" style="margin: 0px; color: rgb(143, 148, 159);"><span class="sc-interp">25 to 26 Oct · self-knowledge tests</span></p>
-              <div data-dc-tpl="275" style="margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px 28px;">
-                <div data-dc-tpl="276"><p data-dc-tpl="277" class="lab" style="color: rgb(143, 148, 159);">She said</p>
-                  
-                  <p data-dc-tpl="281" style="margin: 4px 0px 0px; font-size: 15px;"><span data-dc-tpl="282" data-rose-anchor="ch8" style="background-image: linear-gradient(rgb(176, 106, 59), rgb(176, 106, 59)); background-repeat: no-repeat; background-position: 0px 100%; background-size: 0% 2px; transition: background-size 700ms;"><span class="sc-interp">On her own page, asked how Ivan measures her (“What does Ivan measure?”), she answered with Aetherix figures.</span></span></p>
-                </div>
-                <div data-dc-tpl="283"><p data-dc-tpl="284" class="lab" style="color: rgb(214, 176, 106);">What I changed</p><p data-dc-tpl="285" style="margin: 4px 0px 0px; font-size: 15px;"><span class="sc-interp">Repeating “stay on topic” did not work. I removed the competing material from her prompt and load only what the question needs.</span></p></div>
-                <div data-dc-tpl="286"><p data-dc-tpl="287" class="lab" style="color: rgb(143, 148, 159);">Result</p><p data-dc-tpl="288" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">Passed on the next focused run. Self-knowledge turned out to be a reading problem: she had her facts, other material outweighed them.</span></p></div>
+            
+              <div data-dc-tpl="318" style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; border-bottom: 1px solid rgb(38, 43, 54);">
+                <p data-dc-tpl="319" style="margin: 0px; padding: 14px 16px;"><span data-dc-tpl="320" class="mono" style="display: block; color: rgb(143, 148, 159);"><span class="sc-interp">25 to 29 Oct</span></span><span class="sc-interp">Asked about herself, she answered with Aetherix figures.</span></p>
+                <p data-dc-tpl="321" style="margin: 0px; padding: 14px 16px;"><span class="sc-interp">She loads only what the question needs.</span></p>
+                <p data-dc-tpl="322" style="margin: 0px; padding: 14px 16px; color: rgb(201, 195, 184);"><span class="sc-interp">The 29 Oct rerun passed 9 of 10.</span></p>
               </div>
-              
-            </li>
-          
-            <li data-dc-tpl="273" style="border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 18px 20px;">
-              <p data-dc-tpl="274" class="mono" style="margin: 0px; color: rgb(143, 148, 159);"><span class="sc-interp">26 Oct · self-knowledge tests</span></p>
-              <div data-dc-tpl="275" style="margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px 28px;">
-                <div data-dc-tpl="276"><p data-dc-tpl="277" class="lab" style="color: rgb(143, 148, 159);">She said</p>
-                  <p data-dc-tpl="279" style="margin: 4px 0px 0px; font-size: 15px;"><span class="sc-interp">On Aetherix, she invented precise error rates and attached a real figure to the wrong model.</span></p>
-                  
-                </div>
-                <div data-dc-tpl="283"><p data-dc-tpl="284" class="lab" style="color: rgb(214, 176, 106);">What I changed</p><p data-dc-tpl="285" style="margin: 4px 0px 0px; font-size: 15px;"><span class="sc-interp">For the two high-precision questions on /aetherix, she returns an answer I wrote and checked. Elsewhere, every figure carries its model, metric and scope.</span></p></div>
-                <div data-dc-tpl="286"><p data-dc-tpl="287" class="lab" style="color: rgb(143, 148, 159);">Result</p><p data-dc-tpl="288" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">Open-ended answers still under evaluation. That version is on hold.</span></p></div>
+            
+              <div data-dc-tpl="318" style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; border-bottom: 1px solid rgb(38, 43, 54);">
+                <p data-dc-tpl="319" style="margin: 0px; padding: 14px 16px;"><span data-dc-tpl="320" class="mono" style="display: block; color: rgb(143, 148, 159);"><span class="sc-interp">26 to 29 Oct</span></span><span class="sc-interp">Invented precise error rates for Aetherix.</span></p>
+                <p data-dc-tpl="321" style="margin: 0px; padding: 14px 16px;"><span class="sc-interp">Two checked answers for high-precision questions; every other figure carries its model, metric and scope.</span></p>
+                <p data-dc-tpl="322" style="margin: 0px; padding: 14px 16px; color: rgb(201, 195, 184);"><span class="sc-interp">On 29 Oct, 15 open-ended answers kept every figure with its model and scope.</span></p>
               </div>
-              
-            </li>
+            
+          </div>
+        </div>
+        <div data-dc-tpl="323" style="margin: 24px 0px 0px; max-width: 660px;">
+          <p data-dc-tpl="324" class="lab" style="color: rgb(214, 176, 106);">Cost</p>
+          <p data-dc-tpl="325" style="margin: 6px 0px 0px; font-size: 15.5px;">Loading only what the question needs also made answers cheaper: a typical answer costs about <span data-dc-tpl="326" data-rose-anchor="ch8" style="padding: 0px 4px; border-radius: 50%; box-shadow: rgb(176, 106, 59) 0px 0px 0px 0px; transition: box-shadow 600ms;">0.015 Lovable credits</span>, less than half the cost of one that loads a full Field Note. Nearly all of the cost comes from what Rose reads.</p>
+          <p data-dc-tpl="327" class="mono" style="margin: 8px 0px 0px; color: rgb(143, 148, 159);">Source: Lovable AI gateway logs, the 20 most recent calls, 2 Nov 2026; costs stated in credits, because the Lite plan's price per credit is not published.</p>
           
-        </ol>
+        </div>
 
         
-        <div data-dc-tpl="293" style="margin-top: 36px; border-top: 1px solid rgb(236, 230, 218); padding-top: 20px; display: flex; flex-wrap: wrap; gap: 20px 48px;">
-          <div data-dc-tpl="294" style="flex: 1 1 260px; min-width: 0px;">
-            <p data-dc-tpl="295" class="lab" style="color: rgb(214, 176, 106);">How a case is judged</p>
-            <p data-dc-tpl="296" style="margin: 8px 0px 0px; font-size: 15.5px; color: rgb(201, 195, 184);">Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are read by a person, not graded by the model.</p>
-            <ul data-dc-tpl="297" style="list-style: none; margin: 14px 0px 0px; padding: 0px; display: flex; flex-wrap: wrap; gap: 6px;">
+        <div data-dc-tpl="333" style="margin-top: 40px; border-top: 1px solid rgb(236, 230, 218); padding-top: 24px;">
+          <h3 data-dc-tpl="334" style="margin: 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(28px, 3vw, 36px); line-height: 1.1; color: rgb(244, 239, 230);">How a case is judged</h3>
+          <p data-dc-tpl="335" style="margin: 10px 0px 0px; max-width: 660px; font-size: 16px; color: rgb(201, 195, 184);">Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are graded with AI assistance against the published sources, then reviewed by me.</p>
+          <figure data-dc-tpl="336" style="margin: 22px 0px 0px; overflow-x: auto;">
+            <ol data-dc-tpl="337" style="list-style: none; margin: 0px; padding: 0px; min-width: 760px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; align-items: stretch;">
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Accuracy</span></li>
+                <li data-dc-tpl="339" style="position: relative; border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 10px 12px; font-size: 13.5px; line-height: 1.35;"><span data-dc-tpl="340" class="mono" style="display: block; color: rgb(214, 176, 106);"><span class="sc-interp">1</span></span><span class="sc-interp">Write cases before the run</span></li>
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Context</span></li>
+                <li data-dc-tpl="339" style="position: relative; border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 10px 12px; font-size: 13.5px; line-height: 1.35;"><span data-dc-tpl="340" class="mono" style="display: block; color: rgb(214, 176, 106);"><span class="sc-interp">2</span></span><span class="sc-interp">Run 5 or 20 samples</span></li>
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Directness</span></li>
+                <li data-dc-tpl="339" style="position: relative; border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 10px 12px; font-size: 13.5px; line-height: 1.35;"><span data-dc-tpl="340" class="mono" style="display: block; color: rgb(214, 176, 106);"><span class="sc-interp">3</span></span><span class="sc-interp">Automatic checks: tests, unsourced figures</span></li>
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Evidence</span></li>
+                <li data-dc-tpl="339" style="position: relative; border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 10px 12px; font-size: 13.5px; line-height: 1.35;"><span data-dc-tpl="340" class="mono" style="display: block; color: rgb(214, 176, 106);"><span class="sc-interp">4</span></span><span class="sc-interp">Grade every answer against the sources</span></li>
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Visitor value</span></li>
+                <li data-dc-tpl="339" style="position: relative; border: 1px solid rgb(176, 106, 59); border-radius: 6px; background: rgb(21, 26, 35); padding: 10px 12px; font-size: 13.5px; line-height: 1.35;"><span data-dc-tpl="340" class="mono" style="display: block; color: rgb(214, 176, 106);"><span class="sc-interp">5</span></span><span class="sc-interp">Pass? If not, back to 2</span></li>
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Judgment</span></li>
+                <li data-dc-tpl="339" style="position: relative; border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 10px 12px; font-size: 13.5px; line-height: 1.35;"><span data-dc-tpl="340" class="mono" style="display: block; color: rgb(214, 176, 106);"><span class="sc-interp">6</span></span><span class="sc-interp">Deploy with my approval</span></li>
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Booking discipline</span></li>
+                <li data-dc-tpl="339" style="position: relative; border: 1px solid rgb(38, 43, 54); border-radius: 6px; background: rgb(21, 26, 35); padding: 10px 12px; font-size: 13.5px; line-height: 1.35;"><span data-dc-tpl="340" class="mono" style="display: block; color: rgb(214, 176, 106);"><span class="sc-interp">7</span></span><span class="sc-interp">Live check on the site</span></li>
               
-                <li data-dc-tpl="299" style="border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 4px 10px; font-size: 12.5px;"><span class="sc-interp">Trust and privacy</span></li>
-              
-            </ul>
-          </div>
-          <ul data-dc-tpl="300" style="flex: 1 1 260px; min-width: 0px; list-style: none; margin: 0px; padding: 0px; display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-            <li data-dc-tpl="301"><span data-dc-tpl="302" class="lab" style="color: rgb(143, 148, 159);">Verdict · </span>Pass, fail or unclear, with the quoted answer as evidence.</li>
-            <li data-dc-tpl="303"><span data-dc-tpl="304" class="lab" style="color: rgb(143, 148, 159);">Critical · </span>An invented fact or a privacy slip fails the case. It is never averaged away.</li>
-            <li data-dc-tpl="305"><span data-dc-tpl="306" class="lab" style="color: rgb(143, 148, 159);">Limit · </span>One sample per case is not a reliability estimate, and usage logs are not proof of correctness.</li>
+            </ol>
+            <figcaption data-dc-tpl="341" class="mono" style="margin-top: 10px; color: rgb(143, 148, 159);">A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case.</figcaption>
+          </figure>
+          <p data-dc-tpl="342" style="margin: 18px 0px 0px; font-size: 15px; color: rgb(201, 195, 184);">Eight dimensions: <span class="sc-interp">accuracy, context, directness, evidence, visitor value, judgment, booking discipline, trust and privacy</span>.</p>
+          <ul data-dc-tpl="343" style="list-style: none; margin: 14px 0px 0px; padding: 0px; display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
+            <li data-dc-tpl="344"><span data-dc-tpl="345" class="lab" style="color: rgb(143, 148, 159);">Verdict. </span>Pass, fail or unclear, with the quoted answer as evidence.</li>
+            <li data-dc-tpl="346"><span data-dc-tpl="347" class="lab" style="color: rgb(143, 148, 159);">Critical. </span>An invented fact or a privacy slip fails the case. It is never averaged away.</li>
+            <li data-dc-tpl="348"><span data-dc-tpl="349" class="lab" style="color: rgb(143, 148, 159);">Limit. </span>Ordinary cases: 5 samples, pass at 4. High-risk cases: 20 samples, no critical failure allowed. Usage logs are not proof of correctness.</li>
           </ul>
+          <p data-dc-tpl="350" class="mono" style="margin: 18px 0px 0px; color: rgb(143, 148, 159);">29 Oct campaign · 105 answers · 10 cases · 2 high-risk cases, 0 critical failures in 20 samples each</p>
+          <p data-dc-tpl="351" style="margin: 6px 0px 0px; font-size: 15px;"><a data-dc-tpl="352" href="#evaluation" style="border-bottom: 1px solid rgb(58, 64, 76);">Read the full evaluation</a></p>
         </div>
-        <p data-dc-tpl="307" class="mono" style="margin: 18px 0px 0px; color: rgb(143, 148, 159);">Sources: docs/rose-p4-evaluation.md, rose-p5-verification.md, rose-stage-b-remediation.md, in the site repository.</p>
-        <p data-dc-tpl="308" style="margin: 40px 0px 0px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: rgb(201, 195, 184);"><span class="sc-interp">The checks cover what she does today. Here is what comes next, and why it waits.</span></p>
+        <p data-dc-tpl="353" class="mono" style="margin: 18px 0px 0px; color: rgb(143, 148, 159);">Sources: docs/rose-p4-evaluation.md, rose-p5-verification.md, rose-stage-b-remediation.md, rose-eval-2026-10-29.md, supabase/functions/_shared/rose-curated-answers.ts, in the site repository.</p>
       </section>
 
       
-      <section data-dc-tpl="309" id="ch9" data-chapter="9" style="padding: 72px 0px;">
-        <p data-dc-tpl="310" class="kick" style="color: rgb(214, 176, 106);">09 · Next steps <span data-dc-tpl="311" style="margin-left: 10px; color: rgb(143, 148, 159);">○ Design</span></p>
-        <h2 data-dc-tpl="312" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: rgb(244, 239, 230);">Make the whole site easier to navigate, not just one reply.</h2>
-        <p data-dc-tpl="313" style="margin: 16px 0px 0px; max-width: 660px; font-size: 16.5px; color: rgb(201, 195, 184);">Contextual assistant is the direction; adaptive reading is one possible behaviour inside it. Rose could locate, reformulate and visualise the relationships between pages while preserving the original sources and their limits. Rose remains text-based today.</p>
-        <ol data-dc-tpl="314" style="margin: 28px 0px 0px; padding: 0px; list-style: none; border-top: 1px solid rgb(236, 230, 218);">
+      <section data-dc-tpl="354" id="ch9" data-chapter="9" style="padding: 72px 0px;">
+        <p data-dc-tpl="355" class="kick" style="color: rgb(214, 176, 106);">09 · Next steps <span data-dc-tpl="356" style="margin-left: 10px; color: rgb(143, 148, 159);">○ Design</span></p>
+        <h2 data-dc-tpl="357" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; color: rgb(244, 239, 230);">Next: help readers move across the whole site</h2>
+        <p data-dc-tpl="358" style="margin: 16px 0px 0px; max-width: 660px; font-size: 16.5px; color: rgb(201, 195, 184);">The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text only.</p>
+        <ol data-dc-tpl="359" style="margin: 28px 0px 0px; padding: 0px; list-style: none; border-top: 1px solid rgb(236, 230, 218);">
           
-            <li data-dc-tpl="316" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <span data-dc-tpl="317" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">A complete, automatic semantic graph of the site</span></span>
-              <span data-dc-tpl="318" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">The map is written by hand. It stays small and true before it grows.</span></span>
+            <li data-dc-tpl="361" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <span data-dc-tpl="362" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">An automatic map of the whole site</span></span>
+              <span data-dc-tpl="363" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">Today I write the map by hand, and it grows only when I can state the reason for each link.</span></span>
             </li>
           
-            <li data-dc-tpl="316" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <span data-dc-tpl="317" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">Diagrams that explain the complex parts</span></span>
-              <span data-dc-tpl="318" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">A visual rewording of a dense passage, to teach rather than decorate. Drawn from a fixed set of diagrams I checked.</span></span>
+            <li data-dc-tpl="361" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <span data-dc-tpl="362" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">Diagrams for the complex parts</span></span>
+              <span data-dc-tpl="363" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked.</span></span>
             </li>
           
-            <li data-dc-tpl="316" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <span data-dc-tpl="317" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">Answers read aloud</span></span>
-              <span data-dc-tpl="318" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">For readers who prefer to listen: a spoken version of a written answer, which stays the reference.</span></span>
+            <li data-dc-tpl="361" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <span data-dc-tpl="362" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">Answers read aloud</span></span>
+              <span data-dc-tpl="363" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">A spoken version of a written answer, for readers who prefer to listen; the written answer stays the reference.</span></span>
             </li>
           
-            <li data-dc-tpl="316" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <span data-dc-tpl="317" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">Placing any passage in context</span></span>
-              <span data-dc-tpl="318" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">Relating what you are reading to the rest of the page and the site, not only the passages I marked.</span></span>
+            <li data-dc-tpl="361" style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 16px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <span data-dc-tpl="362" style="flex: 1 1 260px; font-family: Newsreader, Georgia, serif; font-size: 21px;"><span class="sc-interp">Context for any passage</span></span>
+              <span data-dc-tpl="363" style="flex: 2 1 320px; font-size: 15px; color: rgb(201, 195, 184);"><span class="sc-interp">Relating what you read to the rest of the page and the site, beyond the passages I marked.</span></span>
             </li>
           
         </ol>
-        <p data-dc-tpl="319" style="margin: 40px 0px 0px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4; color: rgb(201, 195, 184);"><span class="sc-interp">Some things I have not settled. I would rather say so.</span></p>
+        <p data-dc-tpl="364" style="margin: 24px 0px 0px; max-width: 660px; font-size: 16.5px;">The same pattern fits any site where readers bring their own questions to dense pages, such as product documentation, onboarding guides and B2B offer pages.</p>
       </section>
 
       
-      <section data-dc-tpl="320" id="ch10" data-chapter="10" style="padding: 88px 0px 40px;">
-        <div data-dc-tpl="321" style="text-align: center;">
-          <svg data-dc-tpl="322" viewBox="0 0 40 40" width="72" height="72" aria-hidden="true" fill="none" stroke="#d6b06a" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0px auto;">
-            <circle data-dc-tpl="323" cx="20" cy="20" r="17" stroke-width="0.6"></circle>
-            <path data-dc-tpl="324" d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" stroke-width="0.6"></path>
-            <path data-dc-tpl="325" d="M20 3l4 13-4 4z" fill="#d6b06a" stroke-width="0"></path>
+      <section data-dc-tpl="365" id="ch10" data-chapter="10" style="padding: 88px 0px 40px;">
+        <div data-dc-tpl="366" style="text-align: center;">
+          <svg data-dc-tpl="367" viewBox="0 0 40 40" width="72" height="72" aria-hidden="true" fill="none" stroke="#d6b06a" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0px auto;">
+            <circle data-dc-tpl="368" cx="20" cy="20" r="17" stroke-width="0.6"></circle>
+            <path data-dc-tpl="369" d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" stroke-width="0.6"></path>
+            <path data-dc-tpl="370" d="M20 3l4 13-4 4z" fill="#d6b06a" stroke-width="0"></path>
           </svg>
-          <p data-dc-tpl="326" class="kick" style="margin-top: 22px; color: rgb(214, 176, 106);">10 · Open questions</p>
-          <h2 data-dc-tpl="327" style="margin: 14px auto 0px; max-width: 760px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(38px, 4.6vw, 56px); line-height: 1.08;"><span data-dc-tpl="328" style="color: rgb(169, 193, 239);">Questions I am leaving open,</span> <em data-dc-tpl="329" style="color: rgb(240, 192, 112);">rather than calling them features.</em></h2>
+          <p data-dc-tpl="371" class="kick" style="margin-top: 22px; color: rgb(214, 176, 106);">10 · Open questions</p>
+          <h2 data-dc-tpl="372" style="margin: 14px auto 0px; max-width: 760px; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: clamp(38px, 4.6vw, 56px); line-height: 1.08;"><span data-dc-tpl="373" style="color: rgb(169, 193, 239);">Four questions that have yet to be answered.</span> <span data-dc-tpl="374" style="color: rgb(240, 192, 112);">Have an answer to one of them? Tell me.</span></h2>
         </div>
 
-        <ol data-dc-tpl="330" style="margin: 56px 0px 0px; padding: 0px; list-style: none; border-top: 1px solid rgb(236, 230, 218);">
+        <ol data-dc-tpl="375" style="margin: 56px 0px 0px; padding: 0px; list-style: none; border-top: 1px solid rgb(236, 230, 218);">
           
-            <li data-dc-tpl="332" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <div data-dc-tpl="333" style="flex: 1 1 280px; min-width: 0px;">
-                <p data-dc-tpl="334" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">01</span> · <span class="sc-interp">Value</span></p>
-                <p data-dc-tpl="335" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">Does a source-faithful answer help each reader understand the work from their own angle?</span></p>
+            <li data-dc-tpl="377" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <div data-dc-tpl="378" style="flex: 1 1 280px; min-width: 0px;">
+                <p data-dc-tpl="379" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">01</span> · <span class="sc-interp">Value</span></p>
+                <p data-dc-tpl="380" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">Does a source-faithful answer help each reader understand the work from their own angle?</span></p>
+                <a data-dc-tpl="381" href="mailto:ivandemurard@gmail.com?subject=Open%20question%2001" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; font-size: 15px; border-bottom: 1px solid rgb(58, 64, 76);">Reply by email</a>
               </div>
-              <dl data-dc-tpl="336" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
+              <dl data-dc-tpl="382" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">One page every reader can question beats separate versions per audience, which failed in my previous portfolio.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">One page every reader can question beats separate versions per audience, which failed in my previous portfolio.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">The same question asked twice in one session, and what readers write in an optional feedback form.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">The same question asked twice in one session, and what readers write in an optional feedback form.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">If it holds, Rose gets more context and scope. If not, I narrow her to navigation.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">If it holds, Rose gets more context and scope. If not, I narrow her to navigation.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Rose adds noise to the content she was built to serve, and costs me credibility.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">Rose adds noise to the content she was built to serve, and costs me credibility.</span></dd></div>
                 
               </dl>
             </li>
           
-            <li data-dc-tpl="332" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <div data-dc-tpl="333" style="flex: 1 1 280px; min-width: 0px;">
-                <p data-dc-tpl="334" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">02</span> · <span class="sc-interp">Measure</span></p>
-                <p data-dc-tpl="335" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">What should count as Rose helping, if booking is an outcome rather than the goal?</span></p>
+            <li data-dc-tpl="377" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <div data-dc-tpl="378" style="flex: 1 1 280px; min-width: 0px;">
+                <p data-dc-tpl="379" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">02</span> · <span class="sc-interp">Measure</span></p>
+                <p data-dc-tpl="380" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">What should count as Rose helping, if booking is an outcome rather than the goal?</span></p>
+                <a data-dc-tpl="381" href="mailto:ivandemurard@gmail.com?subject=Open%20question%2002" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; font-size: 15px; border-bottom: 1px solid rgb(58, 64, 76);">Reply by email</a>
               </div>
-              <dl data-dc-tpl="336" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
+              <dl data-dc-tpl="382" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Booking stays possible, but value comes first: Rose helps when readers use her and go to the sources.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">Booking stays possible, but value comes first: Rose helps when readers use her and go to the sources.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Share of visits that open Rose, then answers whose source link is followed, page by page.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">Share of visits that open Rose, then answers whose source link is followed, page by page.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">If few readers open her, I rethink how the dock invites a first question before adding any capability.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">If few readers open her, I rethink how the dock invites a first question before adding any capability.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Flattering numbers that hide how narrow the real use is.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">The numbers would flatter Rose and hide how narrow her real use is.</span></dd></div>
                 
               </dl>
             </li>
           
-            <li data-dc-tpl="332" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <div data-dc-tpl="333" style="flex: 1 1 280px; min-width: 0px;">
-                <p data-dc-tpl="334" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">03</span> · <span class="sc-interp">Role</span></p>
-                <p data-dc-tpl="335" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">Should Rose remain an index of the site, or become a critical discussion partner?</span></p>
+            <li data-dc-tpl="377" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <div data-dc-tpl="378" style="flex: 1 1 280px; min-width: 0px;">
+                <p data-dc-tpl="379" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">03</span> · <span class="sc-interp">Role</span></p>
+                <p data-dc-tpl="380" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">Should Rose remain an index of the site, or become a critical discussion partner?</span></p>
+                <a data-dc-tpl="381" href="mailto:ivandemurard@gmail.com?subject=Open%20question%2003" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; font-size: 15px; border-bottom: 1px solid rgb(58, 64, 76);">Reply by email</a>
               </div>
-              <dl data-dc-tpl="336" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
+              <dl data-dc-tpl="382" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Rose is more useful when she connects content and questions my choices, never the reader’s, from trade-offs I documented.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">Rose is more useful when she connects content and questions my choices, never the reader’s, from trade-offs I documented.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Whether questions ask “where” or “why”, and whether answers link beyond the current page.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">Whether questions ask “where” or “why”, and whether answers link beyond the current page.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">If it holds, she questions my choices from documented limits. If not, she returns to a stricter index.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">If it holds, she questions my choices from documented limits. If not, she returns to a stricter index.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">An invented critique costs more credibility than no critique at all.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">An invented critique costs more credibility than no critique at all.</span></dd></div>
                 
               </dl>
             </li>
           
-            <li data-dc-tpl="332" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
-              <div data-dc-tpl="333" style="flex: 1 1 280px; min-width: 0px;">
-                <p data-dc-tpl="334" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">04</span> · <span class="sc-interp">Modality</span></p>
-                <p data-dc-tpl="335" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">When would voice reduce navigation work rather than add spectacle?</span></p>
+            <li data-dc-tpl="377" style="display: flex; flex-wrap: wrap; gap: 18px 40px; padding: 28px 0px; border-bottom: 1px solid rgb(38, 43, 54);">
+              <div data-dc-tpl="378" style="flex: 1 1 280px; min-width: 0px;">
+                <p data-dc-tpl="379" class="kick" style="color: rgb(214, 176, 106);"><span class="sc-interp">04</span> · <span class="sc-interp">Modality</span></p>
+                <p data-dc-tpl="380" style="margin: 10px 0px 0px; font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.3; color: rgb(244, 239, 230);"><span class="sc-interp">When would voice reduce navigation work rather than add spectacle?</span></p>
+                <a data-dc-tpl="381" href="mailto:ivandemurard@gmail.com?subject=Open%20question%2004" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; font-size: 15px; border-bottom: 1px solid rgb(58, 64, 76);">Reply by email</a>
               </div>
-              <dl data-dc-tpl="336" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
+              <dl data-dc-tpl="382" style="flex: 2 1 420px; min-width: 0px; margin: 0px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 14px 28px;">
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Hypothesis</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">Requests to summarise in the logs, then use of a simple Listen button before any custom voice.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Signal</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">Requests to summarise in the logs, then use of a simple Listen button before any custom voice.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">If Listen gets used, I invest in a voice matching the site. If not, voice leaves the roadmap.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Decision</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">If Listen gets used, I invest in a voice matching the site. If not, voice leaves the roadmap.</span></dd></div>
                 
-                  <div data-dc-tpl="338"><dt data-dc-tpl="339" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="340" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218); font-style: normal;"><span class="sc-interp">A demonstrative feature, without use, to maintain.</span></dd></div>
+                  <div data-dc-tpl="384"><dt data-dc-tpl="385" class="lab" style="color: rgb(143, 148, 159);"><span class="sc-interp">Cost of being wrong</span></dt><dd data-dc-tpl="386" style="margin: 4px 0px 0px; font-size: 15px; color: rgb(236, 230, 218);"><span class="sc-interp">I would maintain a feature that nobody uses.</span></dd></div>
                 
               </dl>
             </li>
@@ -452,25 +439,25 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
 
   
   
-  <section data-dc-tpl="342" aria-label="Ask Rose" style="background: linear-gradient(rgb(15, 24, 44) 0%, rgb(10, 22, 40) 50%); padding: 140px 40px 40px; text-align: center; color: rgb(244, 239, 230);">
-    <p data-dc-tpl="343" style="margin: 0px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 10px;">
-      <span data-dc-tpl="344" style="font: 500 11px &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(169, 193, 239); border-bottom: 1px solid rgba(244, 239, 230, 0.3); padding-bottom: 2px;">Ask Rose</span>
-      <button data-dc-tpl="345" type="button" style="background: transparent; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-left-color: initial; border-image: initial; border-bottom-style: solid; border-bottom-color: rgba(244, 239, 230, 0.3); padding: 0px 0px 2px; cursor: pointer; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 20px; color: rgb(240, 192, 112);">What has Ivan actually built?</button>
+  <section data-dc-tpl="388" aria-label="Ask Rose" style="background: linear-gradient(rgb(15, 24, 44) 0%, rgb(10, 22, 40) 50%); padding: 140px 40px 40px; text-align: center; color: rgb(244, 239, 230);">
+    <p data-dc-tpl="389" style="margin: 0px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 10px;">
+      <span data-dc-tpl="390" style="font: 500 11px &quot;IBM Plex Mono&quot;, monospace; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(169, 193, 239); border-bottom: 1px solid rgba(244, 239, 230, 0.3); padding-bottom: 2px;">Ask Rose</span>
+      <button data-dc-tpl="391" type="button" style="background: transparent; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-left-color: initial; border-image: initial; border-bottom-style: solid; border-bottom-color: rgba(244, 239, 230, 0.3); padding: 0px 0px 2px; cursor: pointer; font-family: Newsreader, Georgia, serif; font-size: 20px; color: rgb(240, 192, 112);">What has Ivan actually built?</button>
     </p>
-    <p data-dc-tpl="346" style="margin: 24px 0px 0px; font-size: 15px; color: rgba(244, 239, 230, 0.75);">Start with the evidence. A human conversation is available when it adds context Rose cannot.</p>
+    <p data-dc-tpl="392" style="margin: 24px 0px 0px; font-size: 15px; color: rgba(244, 239, 230, 0.75);">Start with the evidence. A human conversation is available when it adds context Rose cannot.</p>
   </section>
   
-  <section data-dc-tpl="347" id="contact" style="background: rgb(10, 22, 40); color: rgb(244, 239, 230);">
-    <div data-dc-tpl="348" style="max-width: 1360px; margin: 0px auto; padding: 64px 40px 120px; display: flex; flex-wrap: wrap; gap: 32px 72px; align-items: flex-end;">
-      <div data-dc-tpl="349" style="flex: 999 1 560px; min-width: 0px;">
-        <p data-dc-tpl="350" class="kick" style="color: rgb(224, 167, 124);">Contact</p>
-        <h2 data-dc-tpl="351" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(40px, 5vw, 68px); line-height: 1.02; letter-spacing: -0.02em;">Hiring for AI product? <em data-dc-tpl="352" style="color: rgb(224, 167, 124);">I design the whole loop: the people on the ground, the software, and the outcome it's judged on.</em></h2>
-        <p data-dc-tpl="353" style="margin: 18px 0px 0px; max-width: 560px; font-size: 17px; color: rgba(244, 239, 230, 0.8);">Operations, product, business and tech, in one service. I ship, I evaluate, and I say what isn't proven yet. I am looking for an AI Product Manager or Product Builder role.</p>
+  <section data-dc-tpl="393" id="contact" style="background: rgb(10, 22, 40); color: rgb(244, 239, 230);">
+    <div data-dc-tpl="394" style="max-width: 1360px; margin: 0px auto; padding: 64px 40px 120px; display: flex; flex-wrap: wrap; gap: 32px 72px; align-items: flex-end;">
+      <div data-dc-tpl="395" style="flex: 999 1 560px; min-width: 0px;">
+        <p data-dc-tpl="396" class="kick" style="color: rgb(224, 167, 124);">Contact</p>
+        <h2 data-dc-tpl="397" style="margin: 18px 0px 0px; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(40px, 5vw, 68px); line-height: 1.02; letter-spacing: -0.02em;">I design, build and evaluate AI services for operations.</h2>
+        <p data-dc-tpl="398" style="margin: 18px 0px 0px; max-width: 560px; font-size: 17px; color: rgba(244, 239, 230, 0.8);">Open to AI Product Manager and Product Builder roles.</p>
       </div>
-      <div data-dc-tpl="354" style="flex: 1 1 260px; display: flex; flex-wrap: wrap; gap: 12px;">
-        <a data-dc-tpl="355" href="#book" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0px 22px; border-radius: 999px; background: rgb(244, 239, 230); color: rgb(0, 27, 58); font-weight: 600;">Book 30 minutes</a>
-        <a data-dc-tpl="356" href="#mail" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0px 22px; border-radius: 999px; border: 1px solid rgba(244, 239, 230, 0.4);">Email</a>
-        <a data-dc-tpl="357" href="#cv" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0px 22px; border-radius: 999px; border: 1px solid rgba(244, 239, 230, 0.4);">CV</a>
+      <div data-dc-tpl="399" style="flex: 1 1 260px; display: flex; flex-wrap: wrap; gap: 12px;">
+        <a data-dc-tpl="400" href="#book" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0px 22px; border-radius: 999px; background: rgb(244, 239, 230); color: rgb(0, 27, 58); font-weight: 600;">Book a call</a>
+        <a data-dc-tpl="401" href="#mail" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0px 22px; border-radius: 999px; border: 1px solid rgba(244, 239, 230, 0.4);">Email Ivan</a>
+        <a data-dc-tpl="402" href="#ask-ai" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0px 22px; border-radius: 999px; border: 1px solid rgba(244, 239, 230, 0.4);">Ask your AI ↗</a>
       </div>
     </div>
   </section>
@@ -478,16 +465,17 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
   
 
   
-  <div data-dc-tpl="358" style="position: sticky; bottom: 16px; display: flex; justify-content: center; padding: 0px 16px 16px; pointer-events: none; opacity: 1; visibility: visible; transition: opacity 300ms, visibility 300ms;">
-    <div data-dc-tpl="359" style="pointer-events: auto; width: min(600px, 100%); display: flex; flex-direction: column; gap: 10px;">
+  <div data-dc-tpl="403" style="position: sticky; bottom: 16px; display: flex; justify-content: center; padding: 0px 16px 16px; pointer-events: none; opacity: 1; visibility: visible; transition: opacity 300ms, visibility 300ms;">
+    <div data-dc-tpl="404" style="pointer-events: auto; width: min(600px, 100%); display: flex; flex-direction: column; gap: 10px;">
       
-      <div data-dc-tpl="388" style="display: flex; align-items: center; gap: 10px; background: rgb(21, 26, 35); border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 10px 12px 10px 16px; box-shadow: rgba(0, 0, 0, 0.5) 0px 10px 30px -18px;">
-        <svg data-dc-tpl="389" viewBox="0 0 40 40" width="22" height="22" aria-hidden="true" fill="none" stroke="#d6b06a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle data-dc-tpl="390" cx="20" cy="20" r="17"></circle><path data-dc-tpl="391" d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z"></path></svg>
-        <label data-dc-tpl="392" for="rose-q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px);">Ask Rose</label>
-        <input data-dc-tpl="393" id="rose-q" type="text" placeholder="Ask Rose anything" value="" style="flex: 1 1 0%; min-width: 0px; border: 0px; background: transparent; font: 400 14px Manrope, sans-serif; color: rgb(236, 230, 218); outline: none;">
-        <kbd data-dc-tpl="394" aria-hidden="true" style="font: 500 11px &quot;IBM Plex Mono&quot;, monospace; color: rgb(143, 148, 159); border: 1px solid rgb(58, 64, 76); border-radius: 4px; padding: 2px 6px;">⌘K</kbd>
-        <button data-dc-tpl="395" type="button" aria-label="Send" style="width: 34px; height: 34px; border-radius: 50%; border: 0px; background: rgb(154, 90, 48); color: rgb(255, 255, 255); cursor: pointer;">↑</button>
+      <div data-dc-tpl="435" style="display: flex; align-items: center; gap: 10px; background: rgb(21, 26, 35); border: 1px solid rgb(58, 64, 76); border-radius: 999px; padding: 10px 12px 10px 16px; box-shadow: rgba(0, 0, 0, 0.5) 0px 10px 30px -18px;">
+        <svg data-dc-tpl="436" viewBox="0 0 40 40" width="22" height="22" aria-hidden="true" fill="none" stroke="#d6b06a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle data-dc-tpl="437" cx="20" cy="20" r="17"></circle><path data-dc-tpl="438" d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z"></path></svg>
+        <label data-dc-tpl="439" for="rose-q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px);">Ask Rose</label>
+        <input data-dc-tpl="440" id="rose-q" type="text" placeholder="Ask Rose anything" value="" style="flex: 1 1 0%; min-width: 0px; border: 0px; background: transparent; font: 400 14px Manrope, sans-serif; color: rgb(236, 230, 218); outline: none;">
+        <kbd data-dc-tpl="441" aria-hidden="true" style="font: 500 11px &quot;IBM Plex Mono&quot;, monospace; color: rgb(143, 148, 159); border: 1px solid rgb(58, 64, 76); border-radius: 4px; padding: 2px 6px;">⌘K</kbd>
+        <button data-dc-tpl="442" type="button" aria-label="Send" style="width: 44px; height: 44px; border-radius: 50%; border: 0px; background: rgb(154, 90, 48); color: rgb(255, 255, 255); cursor: pointer;">↑</button>
       </div>
+      <p data-dc-tpl="443" class="mono" style="margin: 0px; text-align: center; color: rgb(143, 148, 159);">Questions are stored for 90 days · <a data-dc-tpl="444" href="#privacy" style="border-bottom: 1px solid rgb(58, 64, 76);">Privacy</a></p>
     </div>
   </div></div></div></div>
 

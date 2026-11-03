@@ -17,6 +17,18 @@ export const SOCIAL_LINKS = {
   cv: "/cv/Ivan_de_Murard_CV.pdf",
 };
 
+/** The shared Contact block (homepage and /rose-design-lab). Copy from docs/rose-case-study-copy-v2.md. */
+export const CONTACT = {
+  kicker: "Contact",
+  heading: "I design, build and evaluate AI services for operations.",
+  subline: "Open to AI Product Manager and Product Builder roles.",
+  buttons: { book: "Book a call", email: "Email Ivan", askAi: "Ask your AI" },
+  copyPrompt: "Copy prompt for Claude or ChatGPT",
+  allWays: "All ways to reach me",
+  // Perplexity documents a prefill URL; ChatGPT and Claude block or ignore one, so the prompt is copied instead.
+  aiPrompt: "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used.",
+};
+
 export type NavItem = { label: string; to: string };
 
 export const PRIMARY_NAV: NavItem[] = [
