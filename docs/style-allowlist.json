@@ -28,5 +28,17 @@
     "pattern": "dot-chain",
     "text": "29 Oct campaign · 105 answers",
     "reason": "metadata line: middle dots allowed by docs/style.md §2"
+  },
+  {
+    "file": "src/pages/Index.tsx",
+    "pattern": "dot-chain",
+    "text": "29 Oct campaign · 105 answers",
+    "reason": "metadata line: middle dots allowed by docs/style.md §2"
+  },
+  {
+    "file": "public/index.md",
+    "pattern": "dot-chain",
+    "text": "29 Oct campaign · 105 answers",
+    "reason": "metadata line: middle dots allowed by docs/style.md §2"
   }
 ]

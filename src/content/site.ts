@@ -56,6 +56,14 @@ export const PROJECTS = {
     image: sonorImg,
     cta: "The Full Narrative",
   },
+  rose: {
+    status: STATUSES.rose,
+    slug: "rose-design-lab",
+    name: "Rose",
+    tagline: "Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors.",
+    label: "AI service · Portfolio agent · 2026",
+    cta: "Read the case",
+  },
   atherix: {
     status: STATUSES.aetherix,
     slug: "aetherix",

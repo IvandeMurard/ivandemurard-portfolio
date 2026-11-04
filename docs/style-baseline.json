@@ -373,8 +373,7 @@
     "italic": 7
   },
   "src/pages/Index.tsx": {
-    "dot-chain": 1,
-    "italic": 1
+    "dot-chain": 1
   },
   "src/pages/Journal.tsx": {
     "italic": 5
