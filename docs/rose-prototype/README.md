@@ -27,6 +27,10 @@ The prototype is a reference, not code to copy. Build with the site's semantic t
 
 ## v2 behaviours the static captures cannot show
 
-- Hero demo: three exchanges in a loop (reformulation, sourced answer, follow-up questions), all built behaviours.
-- Chapter 06 demo: the same dock, three exchanges marked Design (Locate, Connect, Sketch), with the caption "Prototype. Live Rose answers in text only."
-- Rose's notes: the copper tip arrives on the passage, one note at a time, and leaves when the reader moves on. Marks: underline = the decision; strike = the first brief; circle = a figure and its comparison (chapter 08 cost). Mobile, reduced motion and screen readers get the note inline, no motion.
+Re-exported on 4 Nov 2026, after the demos shipped. The words in docs/rose-case-study-copy-v2.md win over this folder.
+
+- Hero demo: three exchanges in a loop (reformulation, sourced answer, follow-up questions), all built behaviours, with a Pause / Play button in code.
+- Chapter 06 demo: the same dock, four exchanges marked Design (Locate, Connect, Sketch, then a profile question that shows the source link and the discreet booking line), with the caption "These formats are in design. Live Rose answers in text only."
+- Source links (design): each claim ends with a link (§ + section name for this site, ↗ only for links that leave it). A click scrolls to the passage and highlights it for a moment. In the prototype only the Locate link goes to the right passage.
+- Booking line (design): on a profile question, no booking card; one line under the answer, set apart by a thin copper rule and the compass.
+- Rose's notes: the copper tip arrives on the passage, one note at a time, and leaves when the reader moves on. Marks, one meaning each: underline = the decision; strike = the first brief; circle = a figure and its comparison (chapter 08 cost); highlight = the passage Rose cited. Mobile, reduced motion and screen readers get the note inline, with no motion.
