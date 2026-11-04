@@ -141,7 +141,7 @@ export const PassageQuestions = ({ current, onSelect }: { current: string; onSel
       return (
         <li key={p.format}>
           <button type="button" aria-current={on ? "true" : undefined} onClick={() => onSelect(p.format)}
-            className={cn("flex w-full flex-wrap items-baseline gap-x-3 rounded-md border px-3 py-2.5 text-left transition-colors hover:bg-surface-container focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+            className={cn("flex w-full flex-col gap-1 rounded-md border px-3 py-2.5 text-left transition-colors sm:flex-row sm:items-baseline sm:gap-x-3 hover:bg-surface-container focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
               on ? "border-secondary bg-surface-container-low" : "border-outline-variant")}>
             <span className={cn("w-28 shrink-0 font-label text-xs", p.mark === "Built" ? "text-secondary" : "text-on-surface-variant")}>
               <span aria-hidden="true">{p.mark === "Built" ? "●" : "○"} </span><span className="sr-only">{p.mark}: </span>{p.format}
