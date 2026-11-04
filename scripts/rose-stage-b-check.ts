@@ -3,10 +3,12 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { z } from "zod";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { getRoseSystemPrompt, shouldOfferRoseBooking } from "../supabase/functions/_shared/rose-context.ts";
+import { getRoseSystemPrompt } from "../supabase/functions/_shared/rose-context.ts";
+import { GATEWAY_MODEL, GOOGLE_BASE_URL, GOOGLE_MODEL, ROSE_MAX_RETRIES, withToolCallIndex } from "../supabase/functions/_shared/rose-provider.ts";
+import { createRoseTools, roseHistoryQuestions } from "../supabase/functions/_shared/rose-tools.ts";
 import { getRoseCuratedAnswer } from "../supabase/functions/_shared/rose-curated-answers.ts";
 import { roseHistoryLayer } from "../supabase/functions/_shared/rose-self-context.ts";
-import { isRoseFollowupAllowed, ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION, roseFollowupPolicyDescription, shouldSuppressRoseFollowups } from "../supabase/functions/_shared/rose-tool-contract.ts";
+import { shouldSuppressRoseFollowups } from "../supabase/functions/_shared/rose-tool-contract.ts";
 
 /*
  * Rose synthetic evaluation runner.
@@ -42,41 +44,13 @@ const key = process.env.LOVABLE_API_KEY;
 const googleKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 if (!promptOnly && providerName === "lovable" && !key) throw new Error("Gateway credential unavailable: set LOVABLE_API_KEY, or use ROSE_QA_PROVIDER=google with GOOGLE_GENERATIVE_AI_API_KEY");
 if (!promptOnly && providerName === "google" && !googleKey) throw new Error("ROSE_QA_PROVIDER=google needs GOOGLE_GENERATIVE_AI_API_KEY");
-// Google exposes Gemini through an OpenAI-compatible endpoint, so the existing
-// @ai-sdk/openai-compatible dependency covers both providers.
-// Google's compatibility endpoint omits `index` on streamed tool_calls, which the SDK
-// requires. Add it back (position in the array) so tool calls are not rejected.
-const googleFetch: typeof fetch = async (input, init) => {
-  const response = await fetch(input, init);
-  if (!response.body || !(response.headers.get("content-type") ?? "").includes("text/event-stream")) return response;
-  const decoder = new TextDecoder();
-  const encoder = new TextEncoder();
-  let pending = "";
-  const fixLine = (line: string): string => {
-    if (!line.startsWith("data: ") || line.includes("[DONE]")) return line;
-    try {
-      const chunk = JSON.parse(line.slice(6));
-      for (const choice of chunk.choices ?? []) {
-        (choice.delta?.tool_calls ?? []).forEach((call: { index?: number }, i: number) => { if (call.index === undefined) call.index = i; });
-      }
-      return "data: " + JSON.stringify(chunk);
-    } catch { return line; }
-  };
-  const body = response.body.pipeThrough(new TransformStream<Uint8Array, Uint8Array>({
-    transform(part, controller) {
-      pending += decoder.decode(part, { stream: true });
-      const lines = pending.split("\n");
-      pending = lines.pop() ?? "";
-      if (lines.length) controller.enqueue(encoder.encode(lines.map(fixLine).join("\n") + "\n"));
-    },
-    flush(controller) { if (pending) controller.enqueue(encoder.encode(fixLine(pending))); },
-  }));
-  return new Response(body, { status: response.status, statusText: response.statusText, headers: response.headers });
-};
+// Google exposes Gemini through an OpenAI-compatible endpoint, so the existing @ai-sdk/openai-compatible
+// dependency covers both providers. withToolCallIndex (shared with rose-chat) adds the `index` that Google's
+// compatibility endpoint omits on streamed tool_calls and the SDK requires.
 const provider = providerName === "google"
-  ? createOpenAICompatible({ name: "google", baseURL: "https://generativelanguage.googleapis.com/v1beta/openai", apiKey: googleKey ?? "", fetch: googleFetch })
+  ? createOpenAICompatible({ name: "google", baseURL: GOOGLE_BASE_URL, apiKey: googleKey ?? "", fetch: withToolCallIndex(fetch) })
   : createOpenAICompatible({ name: "lovable", baseURL: "https://ai.gateway.lovable.dev/v1", headers: { "Lovable-API-Key": key ?? "", "X-Lovable-AIG-SDK": "vercel-ai-sdk" } });
-const modelId = process.env.ROSE_QA_MODEL ?? (providerName === "google" ? "gemini-3-flash-preview" : "google/gemini-3-flash-preview");
+const modelId = process.env.ROSE_QA_MODEL ?? (providerName === "google" ? GOOGLE_MODEL : GATEWAY_MODEL);
 
 /** Mirror the UI-message protocol for reviewed answers that intentionally bypass a model. */
 const curatedSse = (id: string, text: string): string => {
@@ -113,7 +87,7 @@ const portfolio: [string, string][] = [
   ["/architecture", "Can you inspect my private repository and run its tests?"], ["/agents", "Name the tools this portfolio MCP exposes."],
   ["/sonor", "How many people built Sonor, and did it have paying city customers?"],
 ];
-type Turn = { path: string; question: string; unavailable?: boolean; chapter?: boolean; sectionId?: string; sectionHeading?: string };
+type Turn = { path: string; question: string; suggested?: { label: string; intent?: string | null }; unavailable?: boolean; chapter?: boolean; sectionId?: string; sectionHeading?: string };
 const journeys: { id: string; turns: Turn[] }[] = historyQuestions.map((question, i) => ({ id: `self-${String(i + 1).padStart(2, "0")}`, turns: [{ path: i === 23 ? "/contact" : "/rose-design-lab", question, unavailable: i === 23, chapter: i === 16 }] }));
 journeys.push(...portfolio.map(([path, question], i) => ({ id: `portfolio-${i + 1}`, turns: [{ path, question }] })));
 journeys.push(
@@ -203,35 +177,18 @@ const RISK_CASES = new Set([
   "metric-simulation",
 ]);
 
-const toolsFor = (question: string, pagePath: string) => {
-  const context = { question, pagePath };
-  const booking = tool({ description: ROSE_BOOKING_TOOL_DESCRIPTION, inputSchema: z.object({ intent: z.enum(["product", "technical", "culture", "exploring"]), reason: z.string().max(200) }) });
-  const bookingTools = shouldOfferRoseBooking(question) ? { propose_booking: booking } : {};
-  if (shouldSuppressRoseFollowups(context)) return bookingTools;
-  return { ...bookingTools, suggest_followups: tool({
-    description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
-    inputSchema: z.object({
-      items: z.array(z.string().min(3).max(80).describe(roseFollowupPolicyDescription({ question, pagePath }))).min(1).max(2),
-    }).superRefine(({ items }, ctx) => {
-      items.forEach((item, itemIndex) => {
-        if (!isRoseFollowupAllowed(item, { question, pagePath })) {
-          ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["items", itemIndex], message: "This follow-up does not advance the current question safely." });
-        }
-      });
-    }),
-  }) };
-};
 const results: unknown[] = [];
 type Job = { id: string; baseId: string; sample: number; risk: boolean; turns: Turn[] };
 async function run(journey: Job) {
   const messages: UIMessage[] = [];
   const meta = { case: journey.baseId, sample: journey.sample, risk: journey.risk, provider: providerName, model: modelId };
   for (const [index, turn] of journey.turns.entries()) {
-    const previousQuestions = messages.filter(m => m.role === "user").flatMap(m => m.parts.flatMap(p => p.type === "text" ? [p.text] : []));
     messages.push({ id: `${journey.id}-${index}-u`, role: "user", parts: [{ type: "text", text: turn.question }] });
+    // The same 20-message window as rose-chat; the last message is the question itself.
+    const previousQuestions = roseHistoryQuestions(messages);
     try {
       const page = { path: turn.path, ...(turn.chapter ? { section_id: "scene-c", section_heading: "Start with the work." } : {}), ...(turn.sectionId ? { section_id: turn.sectionId, section_heading: turn.sectionHeading } : {}) };
-      let system = await getRoseSystemPrompt({ page, question: turn.question, previousQuestions });
+      let system = await getRoseSystemPrompt({ page, suggested: turn.suggested, question: turn.question, previousQuestions });
       if (turn.unavailable) system = system.replace(/--- BEGIN ROSE FACTUAL REFERENCE[\s\S]*?--- END ROSE FACTUAL REFERENCE ---/, "") + "\n" + roseHistoryLayer(true, null);
       const id = journey.id + "-" + (index + 1);
       // Only capture the raw system prompt in an isolated, opt-in QA workspace.
@@ -263,12 +220,12 @@ async function run(journey: Job) {
         console.log(id, "PROMPT_ONLY", JSON.stringify(promptEvidence));
         continue;
       }
-      const tools = toolsFor(turn.question, page.path);
+      const tools = createRoseTools({ tool, z }, { question: turn.question, pagePath: page.path });
       const offeredTools = Object.keys(tools);
       if (shouldSuppressRoseFollowups({ question: turn.question, pagePath: page.path }) && offeredTools.includes("suggest_followups")) {
         throw new Error(`Stage B tool contract violated for ${id}: suggest_followups was offered`);
       }
-      const result = streamText({ model: provider(modelId), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools, maxRetries: 4 });
+      const result = streamText({ model: provider(modelId), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools, maxRetries: ROSE_MAX_RETRIES });
       const sse = await result.toUIMessageStreamResponse({ onError: error => (error instanceof Error ? error.message : String(error)) }).text();
       const events = sse.split("\n").filter(s => s.startsWith("data: ") && !s.includes("[DONE]")).map(s => JSON.parse(s.slice(6)));
       const text = events.filter(e => e.type === "text-delta").map(e => e.delta).join("");

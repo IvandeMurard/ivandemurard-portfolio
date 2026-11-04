@@ -7,6 +7,9 @@ export const GOOGLE_MODEL = "gemini-3-flash-preview";
 export const GATEWAY_MODEL = "google/gemini-3-flash-preview";
 export const GOOGLE_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
 
+/** Retries of a refused or failed model call: the same in rose-chat and in the evaluation script. */
+export const ROSE_MAX_RETRIES = 2;
+
 export type RoseProviderChoice = { kind: "google" | "lovable"; apiKey: string; modelId: string };
 
 /** Google directly when its secret is set, the Lovable gateway otherwise. Never logs a key. */
