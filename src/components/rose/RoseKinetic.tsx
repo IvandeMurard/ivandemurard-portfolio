@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -149,6 +149,16 @@ const MARK_PATH: Record<PathKind, string> = {
   bracket: "M6 2 C 2 2, 2 2, 2 8 L 2 32 C 2 38, 2 38, 6 38",
 };
 
+/** The circle is drawn in the pixels of the marked span's own box, with a few px of padding on each side. */
+const CIRCLE_PAD_X = 7;
+const CIRCLE_PAD_Y = 3;
+/** A hand-drawn ellipse that starts and ends a little off, fitted to a w by h box. */
+const circlePath = (w: number, h: number) => {
+  const X = (u: number) => +((u * w) / 100).toFixed(1);
+  const Y = (v: number) => +((v * h) / 40).toFixed(1);
+  return `M${X(50)} ${Y(3)} C ${X(82)} ${Y(2)}, ${X(98)} ${Y(10)}, ${X(97)} ${Y(20)} C ${X(96)} ${Y(31)}, ${X(70)} ${Y(37)}, ${X(46)} ${Y(36)} C ${X(18)} ${Y(35)}, ${X(2)} ${Y(28)}, ${X(3)} ${Y(18)} C ${X(4)} ${Y(8)}, ${X(26)} ${Y(3)}, ${X(56)} ${Y(5)}`;
+};
+
 /**
  * A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it).
  * One meaning each: underline = the decision, strike = the first brief, circle = a figure and its comparison,
@@ -161,9 +171,27 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
   const reducedMotion = useReducedMotion();
   const desktop = useDesktop();
   const on = active ?? reached;
+  // The circle follows the marked span's own box, at every width.
+  const [box, setBox] = useState({ w: 100, h: 24 });
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (kind !== "circle" || !el) return;
+    const measure = () => { if (el.offsetWidth > 0) setBox({ w: el.offsetWidth, h: el.offsetHeight }); };
+    measure();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [kind, ref]);
+  // The tip sits to the left of a passage that starts a block, and above a passage that starts mid-line.
+  const [startsBlock, setStartsBlock] = useState(true);
+  useLayoutEffect(() => {
+    const prev = ref.current?.previousSibling;
+    setStartsBlock(!prev || (prev.nodeType === 3 && !(prev.textContent ?? "").trim()));
+  }, [ref]);
   if (skipWhenReduced && (reduced || reducedMotion)) return <>{children}</>;
   const pointer = tip && desktop && !reduced && !reducedMotion
-    ? <span aria-hidden="true" data-rose-tip className="pointer-events-none absolute -left-5 top-[0.3em]"><RoseTip on={on} reduced={false} /></span>
+    ? <span aria-hidden="true" data-rose-tip data-tip={startsBlock ? "left" : "above"} className={cn("pointer-events-none absolute", startsBlock ? "-left-5 top-[0.3em]" : "left-0 -top-[1.4em]")}><RoseTip on={on} reduced={false} /></span>
     : null;
   if (kind === "strike") {
     // The first brief, crossed out while Rose points at the decision that replaced it.
@@ -192,13 +220,30 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
       </span>
     );
   }
+  if (kind === "circle") {
+    // The svg is a child of the marked span (position: relative), inset by a few px on each side. Its viewBox is the
+    // span's own box in px, so nothing is stretched, and the stroke reveal (pathLength) draws the whole ellipse.
+    const w = box.w + 2 * CIRCLE_PAD_X;
+    const h = box.h + 2 * CIRCLE_PAD_Y;
+    return (
+      <span ref={ref} data-mark="circle" className="relative inline-block whitespace-nowrap">
+        {pointer}
+        {children}
+        <svg aria-hidden="true" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none"
+          className="pointer-events-none absolute block overflow-visible text-rose-copper"
+          style={{ left: -CIRCLE_PAD_X, top: -CIRCLE_PAD_Y, width: `calc(100% + ${2 * CIRCLE_PAD_X}px)`, height: `calc(100% + ${2 * CIRCLE_PAD_Y}px)` }}>
+          <path d={circlePath(w, h)} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round"
+            style={{ strokeDasharray: 1, strokeDashoffset: on ? 0 : 1, transition: reduced ? "none" : `stroke-dashoffset 1100ms ${EASE} ${delay}ms` }} />
+        </svg>
+      </span>
+    );
+  }
   return (
     <span ref={ref} data-mark={kind} className="relative inline-block whitespace-nowrap">
       {pointer}
       {children}
-      <svg aria-hidden="true" viewBox={kind === "bracket" ? "0 0 8 40" : "0 0 100 40"} preserveAspectRatio="none"
-        className={cn("pointer-events-none absolute overflow-visible text-rose-copper", kind === "circle" ? "-inset-x-2.5 -inset-y-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+1.25rem)]" : "-left-3 top-0 h-full w-2")}>
-        <path d={MARK_PATH[kind]} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke" strokeLinecap="round"
+      <svg aria-hidden="true" viewBox="0 0 8 40" preserveAspectRatio="none" className="pointer-events-none absolute -left-3 top-0 h-full w-2 overflow-visible text-rose-copper">
+        <path d={MARK_PATH.bracket} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke" strokeLinecap="round"
           style={{ strokeDasharray: 1, strokeDashoffset: on ? 0 : 1, transition: reduced ? "none" : `stroke-dashoffset 1100ms ${EASE} ${delay}ms` }} />
       </svg>
     </span>

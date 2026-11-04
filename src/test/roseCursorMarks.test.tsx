@@ -261,3 +261,79 @@ describe("On the case study page", () => {
     expect(tips()).toHaveLength(0);
   });
 });
+
+describe("Circle: sized from the marked span's own box", () => {
+  const wrapper = () => document.querySelector('[data-mark="circle"]') as HTMLElement;
+
+  it("the svg is a child of the span's relative wrapper, inset by a few px on each side", () => {
+    setEnv(DESKTOP);
+    render(<Passage />);
+    const svg = wrapper().querySelector(":scope > svg") as SVGElement;
+    expect(svg).not.toBeNull();
+    expect(svg.parentElement).toBe(wrapper());
+    expect(wrapper().className).toContain("relative");
+    expect(wrapper().className).toContain("inline-block");
+    const style = svg.getAttribute("style") ?? "";
+    expect(style).toContain("left: -7px");
+    expect(style).toContain("top: -3px");
+    expect(style).toContain("width: calc(100% + 14px)");
+    expect(style).toContain("height: calc(100% + 6px)");
+  });
+
+  it("draws in the pixels of that box: the viewBox is the span's size plus the padding, so nothing is stretched", () => {
+    setEnv(DESKTOP);
+    const width = vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(154);
+    const height = vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(24);
+    render(<Passage />);
+    const svg = wrapper().querySelector(":scope > svg") as SVGElement;
+    expect(svg.getAttribute("viewBox")).toBe("0 0 168 30"); // 154 + 2 x 7, 24 + 2 x 3
+    // Every point of the ellipse lies inside the box.
+    const numbers = (svg.querySelector("path")?.getAttribute("d") ?? "").match(/-?\d+(\.\d+)?/g)?.map(Number) ?? [];
+    expect(numbers.length).toBeGreaterThan(20);
+    numbers.forEach((n, i) => { expect(n).toBeGreaterThanOrEqual(0); expect(n).toBeLessThanOrEqual(i % 2 === 0 ? 168 : 30); });
+    width.mockRestore();
+    height.mockRestore();
+  });
+
+  it("does not use a non-scaling stroke: with a path length it drew only part of the ellipse", () => {
+    setEnv(DESKTOP);
+    render(<Passage />);
+    const path = wrapper().querySelector(":scope > svg path") as SVGPathElement;
+    expect(path.getAttribute("vector-effect")).toBeNull();
+    expect(path.outerHTML).toMatch(/pathlength="1"/i);
+  });
+});
+
+describe("The tip on an inline passage", () => {
+  const tipOf = (id: string) => document.getElementById(id)?.querySelector("[data-rose-tip]") as HTMLElement;
+
+  it("sits to the left of a passage that starts a block, and above one that starts mid-line", () => {
+    setEnv(DESKTOP);
+    render(
+      <>
+        <p id="block"><RoseMark cue="x" skipWhenReduced tip>Starts a block</RoseMark></p>
+        <p id="inline">Text before the passage, <RoseMark cue="y" skipWhenReduced tip>starts mid-line</RoseMark></p>
+        <RoseCue id="x" note="Note X." />
+        <RoseCue id="y" note="Note Y." />
+      </>,
+    );
+    expect(tipOf("block").getAttribute("data-tip")).toBe("left");
+    expect(tipOf("block").className).toContain("-left-5");
+    expect(tipOf("inline").getAttribute("data-tip")).toBe("above");
+    expect(tipOf("inline").className).toContain("-top-[1.4em]");
+    expect(tipOf("inline").className).not.toContain("-left-5"); // never over the preceding text
+  });
+
+  it("on the case study: above the link in chapter 00 and the cost figure, left of the decisions in 01 to 05", () => {
+    setEnv(DESKTOP);
+    render(<MemoryRouter><RoseCaseStudy reduced={false} /></MemoryRouter>);
+    const link = screen.getByText("userose.ai's website agent").closest("[data-mark]") as HTMLElement;
+    expect(link.querySelector("[data-rose-tip]")?.getAttribute("data-tip")).toBe("above");
+    const figure = screen.getByText(GOT_WRONG.cost.figure);
+    expect(figure.querySelector("[data-rose-tip]")?.getAttribute("data-tip")).toBe("above");
+    for (const id of ["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"]) {
+      const decision = screen.getByText(MILESTONES[id].decision);
+      expect(decision.querySelector("[data-rose-tip]")?.getAttribute("data-tip"), id).toBe("left");
+    }
+  });
+});
