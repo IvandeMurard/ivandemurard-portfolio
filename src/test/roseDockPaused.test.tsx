@@ -32,8 +32,8 @@ afterEach(() => {
 });
 
 describe("Rose paused state", () => {
-  it("ships paused", () => {
-    expect(ROSE_STATUS).toBe("paused");
+  it("ships live; the paused cases below render roseStatus=\"paused\" explicitly", () => {
+    expect(ROSE_STATUS).toBe("live");
     expect(ROSE_PAUSED.text).toBe(MESSAGE);
   });
 

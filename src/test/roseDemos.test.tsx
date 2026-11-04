@@ -186,18 +186,18 @@ describe("Pause and Play (WCAG 2.2.2)", () => {
   const button = () => screen.getByRole("button", { name: /^(Pause|Play)$/ }) as HTMLButtonElement;
 
   for (const [name, node] of [["hero demo", <HeroDock key="h" reduced={false} />], ["chapter 06 demo", <DesignDemo key="d" reduced={false} />]] as const) {
-    it(`${name}: a real button, labelled Pause, then Play, with aria-pressed`, () => {
+    it(`${name}: a real button whose label switches between Pause and Play, with no aria-pressed`, () => {
       inRouter(node);
       expect(button().tagName).toBe("BUTTON");
       expect(button().getAttribute("type")).toBe("button");
       expect(button().textContent).toBe("Pause");
-      expect(button().getAttribute("aria-pressed")).toBe("false");
+      expect(button().hasAttribute("aria-pressed")).toBe(false);
       act(() => { button().click(); });
       expect(button().textContent).toBe("Play");
-      expect(button().getAttribute("aria-pressed")).toBe("true");
+      expect(button().hasAttribute("aria-pressed")).toBe(false);
       act(() => { button().click(); });
       expect(button().textContent).toBe("Pause");
-      expect(button().getAttribute("aria-pressed")).toBe("false");
+      expect(button().hasAttribute("aria-pressed")).toBe(false);
     });
 
     it(`${name}: Pause stops the loop on the current exchange, shown complete; Play resumes`, () => {
