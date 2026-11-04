@@ -2,9 +2,9 @@
 
 AI Product Manager & Builder · Paris
 
-## Front-of-house, co-founder, product manager. Now I build AI solutions
+## Product manager and co-founder. Now I build AI services that connect operations, tech and the business.
 
-Since 2025, I design, build and evaluate AI workflows for operations, bridging operations, tech, and real business value.
+Every project on this site states what runs today, what was tested and what is not proven yet.
 
 ## 01 · Flagship: Aetherix
 
@@ -35,6 +35,10 @@ Hero: Aetherix · WhatsApp · mock-up. Three days from a sandbox hotel (syntheti
 - Next morning (WARN): Actual: 92 covers. Forecast 82: 11% off, outside the 75–90 range. That is the third under-estimate in a row: demand seems to be shifting (a new contract? a recurring group?). The weekly recalibration will take it into account.
 
 ## 02 · Selected projects
+
+### Rose (GO · Live, text only)
+29 Oct campaign · 105 answers · 10 cases · 0 critical failures in 20 samples each.
+Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors. [Read the case](https://ivandemurard.com/rose-design-lab)
 
 ### Lore (GO · Evaluated)
 Evaluation harness · 64 cases · pure-function graders · hard safety tier.

@@ -1,0 +1,116 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen, within } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { readFileSync } from "node:fs";
+import Index from "@/pages/Index";
+import { MoodProvider } from "@/components/MoodProvider";
+import { AmbienceProvider } from "@/components/AmbienceProvider";
+import { STATUSES } from "@/content/statuses";
+import { PROJECTS } from "@/content/site";
+import { scanSource } from "../../scripts/style-check";
+
+// Homepage v2 (5 Nov): the new hero, and Rose as the first of the selected projects.
+const HEADLINE = "Product manager and co-founder. Now I build AI services that connect operations, tech and the business.";
+const SUBLINE = "Every project on this site states what runs today, what was tested and what is not proven yet.";
+const FRAGMENT = "29 Oct campaign · 105 answers · 10 cases · 0 critical failures in 20 samples each";
+const LINE = "Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors.";
+
+class NoopObserver { observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } }
+
+beforeEach(() => {
+  vi.stubGlobal("IntersectionObserver", NoopObserver);
+  vi.stubGlobal("ResizeObserver", NoopObserver);
+  window.scrollTo = vi.fn();
+  Element.prototype.scrollIntoView = vi.fn();
+});
+afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
+
+const page = () => render(<MoodProvider><AmbienceProvider><MemoryRouter><Index /></MemoryRouter></AmbienceProvider></MoodProvider>);
+const text = (el: Element | null) => el?.textContent?.replace(/\s+/g, " ").trim();
+
+describe("Homepage hero", () => {
+  it("says the new headline, with only the lead-in of the second sentence in italic", () => {
+    page();
+    const h1 = screen.getByRole("heading", { level: 1 });
+    expect(text(h1)).toBe(HEADLINE);
+    expect(h1.querySelectorAll("em")).toHaveLength(1);
+    expect(text(h1.querySelector("em"))).toBe("Now I build AI services");
+  });
+
+  it("has that one italic as the page's only italic", () => {
+    page();
+    // The page's content, not the site header (its wordmark and menu are shared chrome, outside this page's copy).
+    const main = document.querySelector("main") as HTMLElement;
+    expect(main).not.toBeNull();
+    const italics = [...main.querySelectorAll("em, .italic, .accent-ink")];
+    expect(italics).toHaveLength(1);
+    for (const el of italics) expect(el.closest("h1"), text(el)).not.toBeNull();
+    // And the source of the page has no italic outside the hero headline.
+    expect(scanSource("src/pages/Index.tsx", readFileSync("src/pages/Index.tsx", "utf8")).filter((h) => h.pattern === "italic")).toEqual([]);
+  });
+
+  it("says the new subline and keeps the kicker and the buttons", () => {
+    page();
+    expect(screen.getByText(SUBLINE)).toBeTruthy();
+    expect(screen.queryByText(/Since 2025, I design, build and evaluate/)).toBeNull();
+    expect(screen.getByText("AI Product Manager & Builder · Paris")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Explore the projects" }).getAttribute("href")).toBe("#work");
+    expect(screen.getAllByRole("link", { name: "Book a call" }).length).toBeGreaterThan(0);
+  });
+});
+
+describe("02 · Selected projects", () => {
+  const cards = () => within(screen.getByText("02 · Selected projects").parentElement as HTMLElement).getAllByRole("article");
+
+  it("lists Rose first, then Lore, Anima, Compass and Sonor", () => {
+    page();
+    expect(cards().map((c) => text(within(c).getByRole("heading", { level: 3 })))).toEqual(["Rose", "Lore", "Anima", "Compass", "Sonor"]);
+  });
+
+  it("shows Rose with her status, her fragment, her line and a link to the case", () => {
+    page();
+    const rose = within(cards()[0]);
+    expect(rose.getByText("Live, text only")).toBeTruthy();
+    expect(rose.getByText(FRAGMENT)).toBeTruthy();
+    expect(rose.getByText(LINE)).toBeTruthy();
+    expect(rose.getByRole("link", { name: "Read the case" }).getAttribute("href")).toBe("/rose-design-lab");
+  });
+});
+
+describe("Status and project entries", () => {
+  it("adds a rose status: signal go, word 'Live, text only'", () => {
+    expect(STATUSES.rose.signal).toBe("go");
+    expect(STATUSES.rose.word).toBe("Live, text only");
+    expect(STATUSES.rose.note).toContain("Rose is live and text only");
+  });
+
+  it("adds PROJECTS.rose with the slug of the case study and the same status", () => {
+    expect(PROJECTS.rose.slug).toBe("rose-design-lab");
+    expect(PROJECTS.rose.name).toBe("Rose");
+    expect(PROJECTS.rose.status).toBe(STATUSES.rose);
+    expect(PROJECTS.rose.tagline).toBe(LINE);
+  });
+});
+
+describe("The mirrors quote the same words", () => {
+  const index = readFileSync("public/index.md", "utf8").replace(/\r\n/g, "\n");
+  const roseContext = readFileSync("supabase/functions/_shared/rose-context.ts", "utf8");
+
+  it("public/index.md has the new hero and lists Rose before Lore", () => {
+    expect(index).toContain(`## ${HEADLINE}`);
+    expect(index).toContain(SUBLINE);
+    expect(index).not.toContain("Now I build AI solutions");
+    const rose = index.indexOf("### Rose (GO · Live, text only)");
+    expect(rose).toBeGreaterThan(index.indexOf("## 02 · Selected projects"));
+    expect(rose).toBeLessThan(index.indexOf("### Lore"));
+    expect(index).toContain(FRAGMENT);
+    expect(index).toContain(LINE);
+  });
+
+  it("Rose's homepage description quotes the hero and lists Rose among the selected projects", () => {
+    expect(roseContext).toContain(`"${HEADLINE}"`);
+    expect(roseContext).toContain(`"${SUBLINE}"`);
+    expect(roseContext).toContain("02 Selected projects (Rose, Lore, Anima, Compass, Sonor");
+    expect(roseContext).not.toContain("Now I build AI solutions");
+  });
+});
