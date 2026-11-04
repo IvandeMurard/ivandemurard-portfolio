@@ -34,7 +34,7 @@ const Bubble = ({ text, reduced, on }: { text: string; reduced: boolean; on: boo
 
 /** WCAG 2.2.2: a real button that stops the loop. Not shown under reduced motion, where nothing moves. */
 const PauseButton = ({ paused, onToggle, className }: { paused: boolean; onToggle: () => void; className?: string }) => (
-  <button type="button" aria-pressed={paused} onClick={onToggle}
+  <button type="button" onClick={onToggle}
     className={cn("rounded-lg border px-3 py-2 font-label text-xs hover:border-on-primary/60 [[data-mood=dusk]_&]:hover:border-on-surface/60", DEMO_OUTLINE, DEMO_RING, className)}>
     {paused ? "Play" : "Pause"}
   </button>
