@@ -1,12 +1,15 @@
-import { useEffect, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
+import { CONNECT_LINKS, DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS, SKETCH_STEPS } from "@/components/rose/roseDemoData";
+import { useDemoLoop } from "@/components/rose/useDemoLoop";
 
 /**
  * The three demos of copy deck v2 (docs/rose-case-study-copy-v2.md). Layout and loop logic follow
- * docs/rose-prototype/source/Rose.dc.html; every colour is a semantic token.
- * Hero demo: three built exchanges. Chapter 06: three formats in design. Chapter 08: the test loop.
+ * docs/rose-prototype/source/Rose.dc.html; every colour is a semantic token. Copy is in roseDemoData.ts,
+ * the loop in useDemoLoop.ts. Hero demo: three built exchanges. Chapter 06: three formats in design.
+ * Chapter 08: the test loop.
  */
 
 /* Day: navy. Night: the navy of the inverse sections, so the demo stands apart from the page. */
@@ -15,21 +18,6 @@ const DEMO_BUBBLE = "bg-on-primary/10 [[data-mood=dusk]_&]:bg-on-surface/10";
 const DEMO_OUTLINE = "border-on-primary/40 [[data-mood=dusk]_&]:border-on-surface/40";
 const DEMO_GOLD = "border-secondary-fixed-dim [[data-mood=dusk]_&]:border-secondary";
 const DEMO_RING = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary [[data-mood=dusk]_&]:focus-visible:outline-secondary";
-
-/** One exchange every 9 ticks of 900 ms: question, reading, answer held, blank. Reduced motion: the first exchange complete. */
-const STEPS = [1, 2, 3, 3, 3, 3, 3, 3, 0];
-const TICK_MS = 900;
-
-export const useDemoLoop = (count: number, reduced: boolean) => {
-  const [tick, setTick] = useState(reduced ? 2 : 0);
-  useEffect(() => {
-    if (reduced) { setTick(2); return; }
-    setTick(0);
-    const id = window.setInterval(() => setTick((t) => (t + 1) % (STEPS.length * count)), TICK_MS);
-    return () => window.clearInterval(id);
-  }, [reduced, count]);
-  return { ex: Math.floor(tick / STEPS.length), step: STEPS[tick % STEPS.length] };
-};
 
 const fade = (on: boolean, reduced: boolean) => ({ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 500ms ease" });
 
@@ -44,19 +32,17 @@ const Bubble = ({ text, reduced, on }: { text: string; reduced: boolean; on: boo
   <p className={cn("ml-auto max-w-[85%] rounded-2xl rounded-br-sm px-4 py-2 font-body text-sm", DEMO_BUBBLE)} style={fade(on, reduced)}>{text}</p>
 );
 
-/* ---------------------------------------------------------------- Hero: three built exchanges */
-
-type HeroExchange = { where: string; q: string; a: string; src: string; link?: { label: string; to: string }; chips?: string[] };
-
-export const HERO_EXCHANGES: HeroExchange[] = [
-  { where: "Reading: /rose · 03 · Know where you are", q: "Say it more simply.", a: "When you ask me something, I also receive the page you are on, so I answer about what you are reading.", src: "Source: chapter 03" },
-  { where: "Reading: /aetherix", q: "Is Aetherix in production?", a: "No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.", src: "Source: /aetherix, status", link: { label: "Aetherix, the case study", to: "/aetherix" } },
-  { where: "Reading: /journeys", q: "What has Ivan built?", a: "Six projects, each with its status. Aetherix is ready for a 30-day pilot, Tacet is built and in maintenance, and Anima is a synthetic proof of concept.", src: "Source: case studies, /journeys", chips: ["What happens when it's wrong?", "Which ones are live?"] },
-];
+/** WCAG 2.2.2: a real button that stops the loop. Not shown under reduced motion, where nothing moves. */
+const PauseButton = ({ paused, onToggle, className }: { paused: boolean; onToggle: () => void; className?: string }) => (
+  <button type="button" aria-pressed={paused} onClick={onToggle}
+    className={cn("rounded-lg border px-3 py-2 font-label text-xs hover:border-on-primary/60 [[data-mood=dusk]_&]:hover:border-on-surface/60", DEMO_OUTLINE, DEMO_RING, className)}>
+    {paused ? "Play" : "Pause"}
+  </button>
+);
 
 /** The three exchanges play in a loop; the input opens the real dock. Each one is a built behaviour. */
 export const HeroDock = ({ reduced }: { reduced: boolean }) => {
-  const { ex, step } = useDemoLoop(HERO_EXCHANGES.length, reduced);
+  const { ex, step, paused, toggle } = useDemoLoop(HERO_EXCHANGES.length, reduced);
   const e = HERO_EXCHANGES[ex];
   return (
     <div data-rose-hero aria-label="Rose, example exchanges" className={cn("flex min-h-[22rem] flex-col rounded-2xl p-5 shadow-xl shadow-primary/10", DEMO_PANEL)}>
@@ -81,38 +67,21 @@ export const HeroDock = ({ reduced }: { reduced: boolean }) => {
           </div>
         )}
       </div>
-      <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:open"))}
-        className={cn("mt-4 rounded-lg border px-3 py-2 text-left font-body text-xs opacity-90 hover:border-on-primary/60 [[data-mood=dusk]_&]:hover:border-on-surface/60", DEMO_OUTLINE, DEMO_RING)}>Ask Rose anything</button>
+      <div className="mt-4 flex gap-2">
+        <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:open"))}
+          className={cn("flex-1 rounded-lg border px-3 py-2 text-left font-body text-xs opacity-90 hover:border-on-primary/60 [[data-mood=dusk]_&]:hover:border-on-surface/60", DEMO_OUTLINE, DEMO_RING)}>Ask Rose anything</button>
+        {!reduced && <PauseButton paused={paused} onToggle={toggle} />}
+      </div>
     </div>
   );
 };
-
-/* ---------------------------------------------------------------- Chapter 06: three formats in design */
-
-export const DESIGN_CAPTION = "Prototype. Live Rose answers in text only.";
-
-type DesignExchange = { format: "Locate" | "Connect" | "Sketch"; q: string; a: string };
-
-export const DESIGN_EXCHANGES: DesignExchange[] = [
-  { format: "Locate", q: "Where did he decide this?", a: "Ivan made this call on 10 August, in chapter 03, Know where you are." },
-  { format: "Connect", q: "How does this relate to his other work?", a: "Two links, each with the reason Ivan wrote for it:" },
-  { format: "Sketch", q: "Draw how it works.", a: "Page, then section in view, then marked passage, then answer." },
-];
-
-/** Static for now: the relations decided on 3 Nov. The relations data comes in a later branch. */
-export const CONNECT_LINKS = [
-  { kind: "same thesis", text: "Lore, one industry over", to: "/lore" },
-  { kind: "part of", text: "the multi-agent architecture, through the orchestrator", to: "/architecture" },
-] as const;
-
-export const SKETCH_STEPS = ["Page", "Section in view", "Marked passage", "Answer"] as const;
 
 const locateChapter03 = (reduced: boolean) =>
   document.getElementById("ch-03-decision")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
 
 /** The same dock as the hero, three exchanges marked Design. */
 export const DesignDemo = ({ reduced }: { reduced: boolean }) => {
-  const { ex, step } = useDemoLoop(DESIGN_EXCHANGES.length, reduced);
+  const { ex, step, paused, toggle } = useDemoLoop(DESIGN_EXCHANGES.length, reduced);
   const e = DESIGN_EXCHANGES[ex];
   return (
     <figure className={cn("mt-8 max-w-xl rounded-2xl p-5", DEMO_PANEL)}>
@@ -129,7 +98,12 @@ export const DesignDemo = ({ reduced }: { reduced: boolean }) => {
             {e.format === "Connect" && (
               <ul className="flex list-none flex-col gap-2 p-0">
                 {CONNECT_LINKS.map((l) => (
-                  <li key={l.to}><span className="font-label text-xs opacity-80">{l.kind} · </span><Link to={l.to} className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}</Link></li>
+                  <li key={l.href}>
+                    <span className="font-label text-xs opacity-80">{l.kind} · </span>
+                    {l.external
+                      ? <a href={l.href} target="_blank" rel="noopener noreferrer" className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}<span className="sr-only"> (opens in a new tab)</span></a>
+                      : <Link to={l.href} className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}</Link>}
+                  </li>
                 ))}
               </ul>
             )}
@@ -146,18 +120,13 @@ export const DesignDemo = ({ reduced }: { reduced: boolean }) => {
           </div>
         )}
       </div>
-      <figcaption className="mt-4 font-label text-xs opacity-80">{DESIGN_CAPTION}</figcaption>
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <figcaption className="font-label text-xs opacity-80">{DESIGN_CAPTION}</figcaption>
+        {!reduced && <PauseButton paused={paused} onToggle={toggle} className="shrink-0" />}
+      </div>
     </figure>
   );
 };
-
-/** The four passage questions, each with its marker. */
-export const PASSAGE_QUESTIONS = [
-  { format: "Locate", q: "Where did he decide this?", mark: "Design" },
-  { format: "Reformulate", q: "Say it more simply", mark: "Built" },
-  { format: "Connect", q: "How does this relate to his other work?", mark: "Design" },
-  { format: "Sketch", q: "Draw how it works", mark: "Design" },
-] as const;
 
 export const PassageQuestions = () => (
   <ul aria-label="The four passage questions" className="mt-8 max-w-xl list-none space-y-3 p-0 font-body text-base text-on-surface">
@@ -172,9 +141,7 @@ export const PassageQuestions = () => (
   </ul>
 );
 
-/* ---------------------------------------------------------------- Chapter 08: the test loop */
-
-/** Step 5 is the loop back to step 2. */
+/** The test loop of chapter 08. Step 5 is the loop back to step 2. */
 export const TestLoop = ({ steps, caption }: { steps: readonly string[]; caption: ReactNode }) => (
   <figure className="mt-6">
     <div role="region" aria-label="The test loop, seven steps" tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">

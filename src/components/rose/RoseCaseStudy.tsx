@@ -427,7 +427,7 @@ export const GOT_WRONG = {
     source: "Lovable AI gateway logs, the 20 most recent calls, 2 Nov 2026; costs stated in credits, because the Lite plan's price per credit is not published.",
   },
   judgedLabel: "How a case is judged",
-  loop: ["Write cases before the run", "Run 5 or 20 samples", "Automatic checks", "Grade every answer against the sources", "Pass? If not, back to 2", "Deploy with my approval", "Live check on the site"],
+  loop: ["Write cases before the run", "Run 5 or 20 samples", "Automatic checks: tests, unsourced figures", "Grade every answer against the sources", "Pass? If not, back to 2", "Deploy with my approval", "Live check on the site"],
   loopCaption: "A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case.",
   judged: "Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are graded with AI assistance against the published sources, then reviewed by me.",
   campaign: "29 Oct campaign · 105 answers · 10 cases · 2 high-risk cases, 0 critical failures in 20 samples each",

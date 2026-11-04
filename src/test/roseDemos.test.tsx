@@ -3,8 +3,9 @@ import { act, cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { readFileSync } from "node:fs";
 import type { ReactNode } from "react";
-import { CONNECT_LINKS, DESIGN_CAPTION, DESIGN_EXCHANGES, DesignDemo, HERO_EXCHANGES, HeroDock, PASSAGE_QUESTIONS, PassageQuestions, SKETCH_STEPS, TestLoop } from "@/components/rose/RoseDemos";
-import { GOT_WRONG } from "@/components/rose/RoseCaseStudy";
+import { DesignDemo, HeroDock, PassageQuestions, TestLoop } from "@/components/rose/RoseDemos";
+import { CONNECT_LINKS, DESIGN_CAPTION, DESIGN_EXCHANGES, EVALUATION_URL, HERO_EXCHANGES, PASSAGE_QUESTIONS, SKETCH_STEPS } from "@/components/rose/roseDemoData";
+import { GOT_WRONG, REPO_URL } from "@/components/rose/RoseCaseStudy";
 
 // Copy deck v2 is the source of the words; the prototype source gives the lines the deck leaves to it
 // (the page each exchange reads, its source line) and the test loop.
@@ -97,10 +98,8 @@ describe("Hero demo: three built exchanges in a loop", () => {
 describe("Chapter 06 demo: three formats in design", () => {
   it("uses the deck's questions, answers and caption", () => {
     expect(DESIGN_EXCHANGES.map((e) => e.format)).toEqual(["Locate", "Connect", "Sketch"]);
-    expect(DESIGN_CAPTION).toBe("Prototype. Live Rose answers in text only.");
-    // The caption is not in the deck: it comes from the prototype (source and README) and the brief.
-    expect(prototype).toContain(DESIGN_CAPTION);
-    expect(norm(readFileSync("docs/rose-prototype/README.md", "utf8"))).toContain(DESIGN_CAPTION);
+    // The caption is Ivan's wording of 4 Nov, set in review: it is in neither the deck nor the prototype.
+    expect(DESIGN_CAPTION).toBe("These formats are in design. Live Rose answers in text only.");
     for (const e of DESIGN_EXCHANGES.filter((x) => x.format !== "Connect")) {
       expect(deck, e.q).toContain(e.q.replace(/\.$/, ""));
       expect(deck, e.a).toContain(e.a);
@@ -124,12 +123,18 @@ describe("Chapter 06 demo: three formats in design", () => {
   });
 
   it("lists the two decided relations in Connect, as links", () => {
-    expect(CONNECT_LINKS.map((l) => [l.kind, l.text])).toEqual([["same thesis", "Lore, one industry over"], ["part of", "the multi-agent architecture, through the orchestrator"]]);
+    expect(CONNECT_LINKS.map((l) => [l.kind, l.text])).toEqual([["how she is tested", "The evaluation"], ["uses the method of", "Harnesses, graders and closed loops"]]);
+    // The kinds are the labels of the relations decided on 3 Nov.
+    for (const l of CONNECT_LINKS) expect(deck, l.kind).toContain(l.kind);
+    expect(EVALUATION_URL).toBe(`${REPO_URL}/blob/main/${GOT_WRONG.evalDoc}`);
+    expect(DESIGN_EXCHANGES[1].q).toBe("How does this relate to his other work?");
+    expect(DESIGN_EXCHANGES[1].a).toBe("Two links, each with the reason Ivan wrote for it: the evaluation page, which shows how every change to me is tested, and the Field Note whose method that evaluation applies.");
     inRouter(<DesignDemo reduced={false} />);
     ticks(9 + 2);
     ticks(1);
-    expect(screen.getByRole("link", { name: "Lore, one industry over" }).getAttribute("href")).toBe("/lore");
-    expect(screen.getByRole("link", { name: /multi-agent architecture/ }).getAttribute("href")).toBe("/architecture");
+    expect(screen.getByText(/the evaluation page, which shows how every change to me is tested/)).toBeTruthy();
+    expect(screen.getByRole("link", { name: /^The evaluation/ }).getAttribute("href")).toBe(EVALUATION_URL);
+    expect(screen.getByRole("link", { name: "Harnesses, graders and closed loops" }).getAttribute("href")).toBe("/journal/harnesses-graders-closed-loops");
   });
 
   it("draws the Sketch answer as page, section, passage, answer", () => {
@@ -174,5 +179,65 @@ describe("Chapter 08: how a case is judged", () => {
     const items = screen.getAllByRole("listitem");
     expect(items.map((li) => li.textContent)).toEqual(GOT_WRONG.loop.map((t, i) => `${i + 1}${t}`));
     expect(screen.getByText(GOT_WRONG.loopCaption)).toBeTruthy();
+  });
+});
+
+describe("Pause and Play (WCAG 2.2.2)", () => {
+  const button = () => screen.getByRole("button", { name: /^(Pause|Play)$/ }) as HTMLButtonElement;
+
+  for (const [name, node] of [["hero demo", <HeroDock key="h" reduced={false} />], ["chapter 06 demo", <DesignDemo key="d" reduced={false} />]] as const) {
+    it(`${name}: a real button, labelled Pause, then Play, with aria-pressed`, () => {
+      inRouter(node);
+      expect(button().tagName).toBe("BUTTON");
+      expect(button().getAttribute("type")).toBe("button");
+      expect(button().textContent).toBe("Pause");
+      expect(button().getAttribute("aria-pressed")).toBe("false");
+      act(() => { button().click(); });
+      expect(button().textContent).toBe("Play");
+      expect(button().getAttribute("aria-pressed")).toBe("true");
+      act(() => { button().click(); });
+      expect(button().textContent).toBe("Pause");
+      expect(button().getAttribute("aria-pressed")).toBe("false");
+    });
+
+    it(`${name}: Pause stops the loop on the current exchange, shown complete; Play resumes`, () => {
+      inRouter(node);
+      const firstQuestion = (node.type === HeroDock ? HERO_EXCHANGES[0] : DESIGN_EXCHANGES[0]).q;
+      const secondQuestion = (node.type === HeroDock ? HERO_EXCHANGES[1] : DESIGN_EXCHANGES[1]).q;
+      ticks(1); // reading, not yet answered
+      act(() => { button().click(); });
+      const frozen = document.body.textContent;
+      expect(screen.getByText(firstQuestion)).toBeTruthy();
+      ticks(100);
+      expect(document.body.textContent).toBe(frozen);
+      expect(screen.queryByText(secondQuestion)).toBeNull();
+      act(() => { button().click(); });
+      ticks(12);
+      expect(screen.getByText(secondQuestion)).toBeTruthy();
+    });
+  }
+
+  it("is a keyboard control: a button, so Enter and Space activate it, and it takes focus", () => {
+    inRouter(<HeroDock reduced={false} />);
+    button().focus();
+    expect(document.activeElement).toBe(button());
+    expect(button().className).toContain("focus-visible:outline");
+  });
+
+  it("is absent under reduced motion, where nothing moves", () => {
+    inRouter(<HeroDock reduced />);
+    expect(screen.queryByRole("button", { name: /^(Pause|Play)$/ })).toBeNull();
+    cleanup();
+    inRouter(<DesignDemo reduced />);
+    expect(screen.queryByRole("button", { name: /^(Pause|Play)$/ })).toBeNull();
+  });
+});
+
+describe("The passage questions are examples, not controls", () => {
+  it("has no button, no link and no line under the questions", () => {
+    inRouter(<PassageQuestions />);
+    expect(screen.queryAllByRole("button")).toHaveLength(0);
+    expect(screen.queryAllByRole("link")).toHaveLength(0);
+    expect(document.body.textContent).not.toMatch(/Your question goes to the dock/);
   });
 });

@@ -28,11 +28,5 @@
     "pattern": "dot-chain",
     "text": "29 Oct campaign · 105 answers",
     "reason": "metadata line: middle dots allowed by docs/style.md §2"
-  },
-  {
-    "file": "src/components/rose/RoseDemos.tsx",
-    "pattern": "theatrical-fragment",
-    "text": "Prototype.",
-    "reason": "validated copy, 4 Nov 2026: the chapter 06 demo caption \"Prototype. Live Rose answers in text only.\""
   }
 ]
