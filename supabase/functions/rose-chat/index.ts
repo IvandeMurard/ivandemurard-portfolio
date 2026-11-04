@@ -9,7 +9,8 @@ import {
   type UIMessage,
 } from "npm:ai@5.0.217";
 import { z } from "npm:zod@^3.25.76";
-import { createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
+import { createGoogleAiProvider, createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
+import { chooseRoseProvider, isQuotaRefusal, ROSE_UNAVAILABLE, roseStreamErrorText } from "../_shared/rose-provider.ts";
 import { getRoseSystemPrompt, shouldOfferRoseBooking } from "../_shared/rose-context.ts";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
 import { isRoseFollowupAllowed, ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION, roseFollowupPolicyDescription, shouldSuppressRoseFollowups } from "../_shared/rose-tool-contract.ts";
@@ -48,10 +49,11 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  const key = Deno.env.get("LOVABLE_API_KEY");
-  if (!key) {
+  // Google directly when GOOGLE_GENERATIVE_AI_API_KEY is set, the Lovable gateway otherwise.
+  const choice = chooseRoseProvider(Deno.env);
+  if (!choice) {
     return new Response(
-      JSON.stringify({ error: "LOVABLE_API_KEY missing" }),
+      JSON.stringify({ error: "AI provider key missing" }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -128,8 +130,10 @@ Deno.serve(async (req) => {
   }
 
 
-  const gateway = createLovableAiGatewayProvider(key);
-  const model = gateway("google/gemini-3-flash-preview");
+  const provider = choice.kind === "google"
+    ? createGoogleAiProvider(choice.apiKey)
+    : createLovableAiGatewayProvider(choice.apiKey);
+  const model = provider(choice.modelId);
 
   try {
     const last = safeMessages[safeMessages.length - 1] as unknown as { parts: { text: string }[] };
@@ -180,7 +184,8 @@ Deno.serve(async (req) => {
       },
     });
 
-    const streamResponse = result.toUIMessageStreamResponse();
+    // A quota or credit refusal (402 or 429) reaches the dock as "rose_unavailable", not as a generic error.
+    const streamResponse = result.toUIMessageStreamResponse({ onError: roseStreamErrorText });
     const streamHeaders = new Headers(streamResponse.headers);
     for (const [key, value] of Object.entries(corsHeaders)) {
       streamHeaders.set(key, value);
@@ -189,6 +194,12 @@ Deno.serve(async (req) => {
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[rose-chat] error", message);
+    if (isQuotaRefusal(err)) {
+      return new Response(JSON.stringify({ error: ROSE_UNAVAILABLE }), {
+        status: 503,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
     return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
