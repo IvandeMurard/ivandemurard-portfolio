@@ -1,7 +1,7 @@
 import { Fragment, memo, useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
-import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
+import { RoseCue, RoseMark, RosePassage } from "@/components/rose/RoseKinetic";
 import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
 import { DesignDemo, HeroDock, PassageQuestions, TestLoop } from "@/components/rose/RoseDemos";
@@ -171,7 +171,7 @@ const IdeaBody = ({ reduced }: { reduced: boolean }) => {
       <div className="relative">
         <p>
           {p3.before}
-          <RoseMark cue="ch-00" reduced={reduced}><ExternalLink href={p3.anchor.href}>{p3.anchor.text}</ExternalLink></RoseMark>
+          <RoseMark cue="ch-00" reduced={reduced} desktopOnly><ExternalLink href={p3.anchor.href}>{p3.anchor.text}</ExternalLink></RoseMark>
           {p3.middle}
           <ExternalLink href={p3.second.href}>{p3.second.text}</ExternalLink>
           {p3.after}
@@ -232,13 +232,13 @@ const MilestoneVignette = ({ v }: { v: Vignette }) => {
 const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: boolean }) => (
   <div className="mt-8">
     <div className="grid gap-6 sm:grid-cols-2 sm:gap-x-12">
-      <div><p className={cn(LABEL, "text-on-surface-variant")}>The brief</p><p className="mt-1 font-body text-base text-on-surface">{m.brief}</p></div>
+      <div><p className={cn(LABEL, "text-on-surface-variant")}>The brief</p><p className="mt-1 font-body text-base text-on-surface"><RoseMark kind="strike" cue={id} reduced={reduced} desktopOnly>{m.brief}</RoseMark></p></div>
       <div><p className={cn(LABEL, "text-on-surface-variant")}>The tension</p><p className="mt-1 font-body text-base text-on-surface">{m.tension}</p></div>
     </div>
     <div className="relative mt-8">
       <p className={cn(LABEL, "text-secondary")}>What I decided</p>
       <p id={`${id}-decision`} className="mt-1 scroll-mt-40 font-headline text-2xl leading-snug text-on-surface">
-        <RoseMark cue={id} reduced={reduced}>{m.decision}</RoseMark>
+        <RosePassage id={`${id}-decision`}><RoseMark cue={id} reduced={reduced} desktopOnly>{m.decision}</RoseMark></RosePassage>
       </p>
       {/* Margin note on wide screens, inline under the passage elsewhere. */}
       <RoseCue id={id} note={m.note} className="mt-3 xl:absolute xl:left-full xl:top-5 xl:ml-4 xl:mt-0 xl:w-64" />
@@ -422,6 +422,7 @@ export const GOT_WRONG = {
   ],
   note: "Asked about myself on my own page, I talked about Aetherix, so he gave me less to read.",
   cost: {
+    figure: "0.015 Lovable credits",
     text: "Loading only what the question needs also made answers cheaper: a typical answer costs about 0.015 Lovable credits, less than half the cost of one that loads a full Field Note. Nearly all of the cost comes from what Rose reads.",
     sourceLead: "Source: ",
     source: "Lovable AI gateway logs, the 20 most recent calls, 2 Nov 2026; costs stated in credits, because the Lite plan's price per credit is not published.",
@@ -471,7 +472,7 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
               <tr key={c.meta} className="align-top">
                 <td className="border-b border-outline-variant py-5 pr-8">
                   <span className="block font-label text-xs text-on-surface-variant">{c.meta}</span>
-                  <span className="mt-1 block">{i === 1 ? <RoseMark cue="ch-08" reduced={reduced}>{c.said}</RoseMark> : c.said}</span>
+                  <span className="mt-1 block">{c.said}</span>
                 </td>
                 <td className="border-b border-outline-variant py-5 pr-8">{c.changed}</td>
                 <td className="border-b border-outline-variant py-5">
@@ -487,7 +488,11 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
       <RoseCue id="ch-08" note={g.note} className="mt-4" />
 
       <div className="mt-10 max-w-2xl">
-        <p className="font-body text-base text-on-surface">{g.cost.text}</p>
+        <p className="font-body text-base text-on-surface">
+          {g.cost.text.split(g.cost.figure)[0]}
+          <RoseMark kind="circle" cue="ch-08" reduced={reduced} desktopOnly>{g.cost.figure}</RoseMark>
+          {g.cost.text.split(g.cost.figure)[1]}
+        </p>
         <p className="mt-2 font-label text-xs text-on-surface-variant">{g.cost.sourceLead}{g.cost.source}</p>
       </div>
 

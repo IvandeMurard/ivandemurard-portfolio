@@ -54,6 +54,14 @@ const useGesture = (id: string) => {
   return { ref, active };
 };
 
+/** The copper tip is desktop only. Below md, like with reduced motion, the note is inline and no mark is drawn. */
+const DESKTOP = "(min-width: 768px)";
+const useDesktop = () => useSyncExternalStore(
+  (f) => { const m = window.matchMedia(DESKTOP); m.addEventListener("change", f); return () => m.removeEventListener("change", f); },
+  () => window.matchMedia(DESKTOP).matches,
+  () => true,
+);
+
 const useReducedMotion = () => useSyncExternalStore(
   (f) => { const m = window.matchMedia("(prefers-reduced-motion: reduce)"); m.addEventListener("change", f); return () => m.removeEventListener("change", f); },
   () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -61,7 +69,7 @@ const useReducedMotion = () => useSyncExternalStore(
 );
 
 const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean; children: ReactNode }) => (
-  <div className="flex items-center gap-2" aria-hidden={!on}>
+  <div className="flex items-center gap-2" >
     <RoseTip on={on} reduced={reduced} />
     <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
       style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />
@@ -77,9 +85,12 @@ const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean;
 export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => {
   const { ref, active } = useGesture(id);
   const reduced = useReducedMotion();
+  const desktop = useDesktop();
+  // Mobile and reduced motion: the note stays inline next to its passage, with no motion.
+  const inline = reduced || !desktop;
   return (
     <div ref={ref} data-rose-cue={id} role="note" aria-label="Rose" className={cn("min-h-[1.75rem]", className)}>
-      <GestureNote on={active} reduced={reduced}>{note}</GestureNote>
+      <GestureNote on={active || inline} reduced={reduced || inline}>{note}</GestureNote>
     </div>
   );
 };
@@ -128,18 +139,31 @@ const scrollToFraction = (el: HTMLElement | null, f: number) => {
 };
 
 /* ---------------- Rose marks: pencil gestures on the page ---------------- */
-type MarkKind = "underline" | "circle" | "bracket";
-const MARK_PATH: Record<MarkKind, string> = {
+type PathKind = "underline" | "circle" | "bracket";
+type MarkKind = PathKind | "strike";
+const MARK_PATH: Record<PathKind, string> = {
   underline: "M2 7 C 30 4, 60 9, 98 5",
   circle: "M50 3 C 82 2, 98 10, 97 20 C 96 31, 70 37, 46 36 C 18 35, 2 28, 3 18 C 4 8, 26 3, 56 5",
   bracket: "M6 2 C 2 2, 2 2, 2 8 L 2 32 C 2 38, 2 38, 6 38",
 };
 
 /** A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it). */
-export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string }) => {
+export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue, desktopOnly }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string; desktopOnly?: boolean }) => {
   const { ref } = useInView<HTMLSpanElement>();
   const reached = useCueReached(cue);
+  const reducedMotion = useReducedMotion();
+  const desktop = useDesktop();
   const on = active ?? reached;
+  // Case study: marks are drawn by the copper tip, so they are absent with reduced motion and below md.
+  if (desktopOnly && (reduced || reducedMotion || !desktop)) return <>{children}</>;
+  if (kind === "strike") {
+    // The first brief, crossed out while Rose points at the decision that replaced it.
+    return (
+      <span ref={ref} style={{ textDecorationLine: on ? "line-through" : "none", textDecorationColor: "hsl(var(--rose-copper))", textDecorationThickness: "1.5px", color: on ? "hsl(var(--on-surface-variant))" : undefined, transition: reduced ? "none" : "color 600ms ease" }}>
+        {children}
+      </span>
+    );
+  }
   if (kind === "underline") {
     // A pencil underline that wraps with the text across lines.
     return (
@@ -159,6 +183,42 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
       </svg>
     </span>
   );
+};
+
+/* ---------------- Highlight: the passage Rose cited ---------------- */
+let highlighted: string | null = null;
+const highlightSubs = new Set<() => void>();
+let highlightTimers: number[] = [];
+const setHighlight = (id: string | null) => { highlighted = id; highlightSubs.forEach((f) => f()); };
+const useHighlighted = (id: string) => useSyncExternalStore(
+  (f) => { highlightSubs.add(f); return () => { highlightSubs.delete(f); }; },
+  () => highlighted === id,
+  () => false,
+);
+
+/** A passage Rose can cite: it takes a copper highlight for a moment when Locate points to it. */
+export const RosePassage = ({ id, children }: { id: string; children: ReactNode }) => {
+  const on = useHighlighted(id);
+  return (
+    <span data-rose-passage={id} data-highlighted={on ? "true" : "false"} style={{ backgroundColor: on ? "hsl(var(--rose-copper) / 0.22)" : "transparent", borderRadius: 3, transition: "background-color 500ms ease" }}>
+      {children}
+    </span>
+  );
+};
+
+/** Locate: scroll to the element, then highlight its passage for a moment. With reduced motion or below md, scroll only. */
+export const locatePassage = (id: string) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches || !window.matchMedia(DESKTOP).matches;
+  el.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "center" });
+  highlightTimers.forEach(window.clearTimeout);
+  highlightTimers = [];
+  if (calm) { setHighlight(null); return; }
+  highlightTimers.push(window.setTimeout(() => {
+    setHighlight(id);
+    highlightTimers.push(window.setTimeout(() => setHighlight(null), 2600));
+  }, 600));
 };
 
 /* A margin note from Rose, same ephemeral gesture as RoseCue. */
