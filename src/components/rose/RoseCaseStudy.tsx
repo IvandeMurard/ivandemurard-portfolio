@@ -1,7 +1,7 @@
 import { Fragment, memo, useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
-import { RoseCue, RoseMark, RosePassage } from "@/components/rose/RoseKinetic";
+import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
 import { DesignDemo, HeroDock, PassageQuestions, TestLoop } from "@/components/rose/RoseDemos";
@@ -171,13 +171,12 @@ const IdeaBody = ({ reduced }: { reduced: boolean }) => {
       <div className="relative">
         <p>
           {p3.before}
-          <RoseMark cue="ch-00" reduced={reduced} desktopOnly><ExternalLink href={p3.anchor.href}>{p3.anchor.text}</ExternalLink></RoseMark>
+          <RoseMark cue="ch-00" reduced={reduced} skipWhenReduced tip><ExternalLink href={p3.anchor.href}>{p3.anchor.text}</ExternalLink></RoseMark>
           {p3.middle}
           <ExternalLink href={p3.second.href}>{p3.second.text}</ExternalLink>
           {p3.after}
         </p>
-        {/* Margin note on wide screens, inline under the passage elsewhere. */}
-        <RoseCue id="ch-00" note={note} className="mt-3 xl:absolute xl:left-full xl:top-0 xl:ml-4 xl:mt-0 xl:w-64" />
+        <RoseCue id="ch-00" note={note} className="mt-3" />
       </div>
     </div>
   );
@@ -232,16 +231,15 @@ const MilestoneVignette = ({ v }: { v: Vignette }) => {
 const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: boolean }) => (
   <div className="mt-8">
     <div className="grid gap-6 sm:grid-cols-2 sm:gap-x-12">
-      <div><p className={cn(LABEL, "text-on-surface-variant")}>The brief</p><p className="mt-1 font-body text-base text-on-surface"><RoseMark kind="strike" cue={id} reduced={reduced} desktopOnly>{m.brief}</RoseMark></p></div>
+      <div><p className={cn(LABEL, "text-on-surface-variant")}>The brief</p><p className="mt-1 font-body text-base text-on-surface"><RoseMark kind="strike" cue={id} reduced={reduced} skipWhenReduced>{m.brief}</RoseMark></p></div>
       <div><p className={cn(LABEL, "text-on-surface-variant")}>The tension</p><p className="mt-1 font-body text-base text-on-surface">{m.tension}</p></div>
     </div>
     <div className="relative mt-8">
       <p className={cn(LABEL, "text-secondary")}>What I decided</p>
       <p id={`${id}-decision`} className="mt-1 scroll-mt-40 font-headline text-2xl leading-snug text-on-surface">
-        <RosePassage id={`${id}-decision`}><RoseMark cue={id} reduced={reduced} desktopOnly>{m.decision}</RoseMark></RosePassage>
+        <RoseMark cue={id} reduced={reduced} skipWhenReduced tip>{m.decision}</RoseMark>
       </p>
-      {/* Margin note on wide screens, inline under the passage elsewhere. */}
-      <RoseCue id={id} note={m.note} className="mt-3 xl:absolute xl:left-full xl:top-5 xl:ml-4 xl:mt-0 xl:w-64" />
+      <RoseCue id={id} note={m.note} className="mt-3" />
     </div>
     <p className="mt-4 font-body text-base text-on-surface">{m.result}</p>
     {m.tradeoff && (
@@ -485,15 +483,15 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
           </tbody>
         </table>
       </div>
-      <RoseCue id="ch-08" note={g.note} className="mt-4" />
 
       <div className="mt-10 max-w-2xl">
         <p className="font-body text-base text-on-surface">
           {g.cost.text.split(g.cost.figure)[0]}
-          <RoseMark kind="circle" cue="ch-08" reduced={reduced} desktopOnly>{g.cost.figure}</RoseMark>
+          <RoseMark kind="circle" cue="ch-08" reduced={reduced} skipWhenReduced tip>{g.cost.figure}</RoseMark>
           {g.cost.text.split(g.cost.figure)[1]}
         </p>
         <p className="mt-2 font-label text-xs text-on-surface-variant">{g.cost.sourceLead}{g.cost.source}</p>
+        <RoseCue id="ch-08" note={g.note} className="mt-4" />
       </div>
 
       <div className="mt-12 border-t border-on-surface-variant/60 pt-8">

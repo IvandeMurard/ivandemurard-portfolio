@@ -1,13 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { RoseCue, RoseMark, RosePassage, locatePassage } from "@/components/rose/RoseKinetic";
+import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { GOT_WRONG, MILESTONES, RoseCaseStudy } from "@/components/rose/RoseCaseStudy";
 
-// Deck v2: the copper tip moves to the passage, one note at a time, and leaves when the reader moves on.
-// Marks, one meaning each: underline = the decision, strike = the first brief, circle = a figure and its
-// comparison (chapter 08 cost), highlight = the passage Rose cited. Mobile, reduced motion and screen readers
-// get the note inline, with no motion and no mark.
+// Deck v2 and the brief of the cursor branch. Notes are a cursor: when a marked passage enters the reading zone the
+// copper tip moves onto its start and the note appears directly under it; one note at a time; it leaves when the
+// reader moves on. Below md the note shows under the passage without the tip travelling. Reduced motion: notes are
+// always visible inline, no mark is drawn, nothing moves. Screen readers: the note is always in the DOM after its
+// passage, role="note" labelled "Rose", never aria-hidden. Marks, one meaning each.
 
 type Env = { desktop: boolean; reduced: boolean };
 const setEnv = ({ desktop, reduced }: Env) => {
@@ -20,6 +21,9 @@ const setEnv = ({ desktop, reduced }: Env) => {
     }),
   });
 };
+const DESKTOP: Env = { desktop: true, reduced: false };
+const MOBILE: Env = { desktop: false, reduced: false };
+const REDUCED: Env = { desktop: true, reduced: true };
 
 /** An IntersectionObserver the test drives: `reach(cue)` plays the cue entering the reading zone. */
 type Observer = { callback: (entries: Array<{ isIntersecting: boolean; target: Element }>) => void; targets: Element[] };
@@ -35,112 +39,167 @@ const reach = (cue: string, isIntersecting = true) => act(() => {
   for (const o of observers) for (const target of o.targets) if (target.getAttribute("data-rose-cue") === cue) o.callback([{ isIntersecting, target }]);
 });
 
-const scroll = vi.fn();
-beforeEach(() => {
-  observers = [];
-  vi.stubGlobal("IntersectionObserver", FakeObserver);
-  Element.prototype.scrollIntoView = scroll;
-  scroll.mockClear();
-  vi.useFakeTimers();
-});
-afterEach(() => { cleanup(); vi.useRealTimers(); vi.unstubAllGlobals(); setEnv({ desktop: false, reduced: false }); });
+beforeEach(() => { observers = []; vi.stubGlobal("IntersectionObserver", FakeObserver); });
+afterEach(() => { cleanup(); vi.unstubAllGlobals(); setEnv(MOBILE); });
 
-const noteOpacity = (text: string) => (screen.getByText(text) as HTMLElement).style.opacity;
-const struck = (text: string) => (screen.getByText(text) as HTMLElement).style.textDecorationLine === "line-through";
+const note = (text: string) => screen.getByText(text) as HTMLElement;
+const opacity = (text: string) => note(text).style.opacity;
+const struck = (el: HTMLElement) => el.style.textDecorationLine === "line-through";
+const underlined = (el: HTMLElement) => el.style.backgroundSize.startsWith("100%");
+// The mark's SVG stretches to its text (preserveAspectRatio); a note carries no SVG of its own.
+const hasCircle = () => document.querySelector("svg[preserveAspectRatio] path") !== null;
+const tips = () => [...document.querySelectorAll<HTMLElement>("[data-rose-tip]")];
 
 const Passage = () => (
   <>
-    <p><RoseMark kind="strike" cue="a" desktopOnly>Brief A</RoseMark></p>
-    <p><RoseMark cue="a" desktopOnly>Decision A</RoseMark></p>
-    <p><RoseMark kind="circle" cue="a" desktopOnly>Figure A</RoseMark></p>
-    <RoseCue id="a" note="Note A." />
-    <RoseCue id="b" note="Note B." />
+    <p><RoseMark kind="strike" cue="a" skipWhenReduced>Brief A</RoseMark></p>
+    <p id="decision-a"><RoseMark cue="a" skipWhenReduced tip>Decision A</RoseMark></p>
+    <RoseCue id="a" note="Note A." className="mt-3" />
+    <p><RoseMark kind="circle" cue="b" skipWhenReduced tip>Figure B</RoseMark></p>
+    <RoseCue id="b" note="Note B." className="mt-3" />
   </>
 );
-const underlined = (text: string) => (screen.getByText(text) as HTMLElement).style.backgroundSize.startsWith("100%");
-// The mark's SVG stretches to its text (preserveAspectRatio); the compass tip beside a note does not.
-const hasCircle = () => document.querySelector("svg[preserveAspectRatio] path") !== null;
 
-describe("Rose's cursor: one note at a time", () => {
-  it("shows a note when its passage is reached, and takes it away when the reader moves on", () => {
-    setEnv({ desktop: true, reduced: false });
+describe("The cursor: one note at a time, under its passage", () => {
+  it("shows a note when its passage is reached and takes it away when the reader moves on", () => {
+    setEnv(DESKTOP);
     render(<Passage />);
-    expect(noteOpacity("Note A.")).toBe("0");
+    expect(opacity("Note A.")).toBe("0");
     reach("a");
-    expect(noteOpacity("Note A.")).toBe("1");
-    expect(noteOpacity("Note B.")).toBe("0");
-    reach("b");
-    expect(noteOpacity("Note A.")).toBe("0");
-    expect(noteOpacity("Note B.")).toBe("1");
+    expect(opacity("Note A.")).toBe("1");
+    expect(opacity("Note B.")).toBe("0");
+    reach("b"); // one active note: A leaves as B arrives
+    expect(opacity("Note A.")).toBe("0");
+    expect(opacity("Note B.")).toBe("1");
     reach("b", false);
-    expect(noteOpacity("Note B.")).toBe("0");
+    expect(opacity("Note B.")).toBe("0");
   });
 
-  it("draws a mark only while its cue is active: strike the brief, underline the decision, circle the figure", () => {
-    setEnv({ desktop: true, reduced: false });
+  it("moves the copper tip onto the start of the passage, and it is not a system pointer", () => {
+    setEnv(DESKTOP);
     render(<Passage />);
-    expect(struck("Brief A")).toBe(false);
-    expect(underlined("Decision A")).toBe(false);
+    const decision = document.getElementById("decision-a") as HTMLElement;
+    const tip = decision.querySelector<HTMLElement>("[data-rose-tip]");
+    expect(tip).not.toBeNull();
+    expect(tip?.className).toContain("pointer-events-none");
+    expect(tip?.getAttribute("aria-hidden")).toBe("true");
+    // The tip sits before the passage text, at its start.
+    expect(decision.firstElementChild?.firstElementChild).toBe(tip);
+    const needle = () => tip?.querySelector("svg") as SVGElement;
+    expect(needle().style.opacity).toBe("0");
+    expect(needle().style.transform).toContain("translateX(-28px)"); // waiting off to the left
     reach("a");
-    expect(struck("Brief A")).toBe(true);
-    expect(underlined("Decision A")).toBe(true);
-    expect(hasCircle()).toBe(true);
-    reach("b"); // Rose moves on: the marks leave with the note
-    expect(struck("Brief A")).toBe(false);
-    expect(underlined("Decision A")).toBe(false);
+    expect(needle().style.opacity).toBe("1");
+    expect(needle().style.transform).toContain("translateX(0)"); // arrived on the passage
+    // A diamond needle, not an arrow cursor, and no custom pointer is set on the page.
+    expect(needle().innerHTML).toContain("M6 0 L8 6 L6 12 L4 6 Z");
+    expect(document.documentElement.style.cursor).toBe("");
   });
 
-  it("never hides the note from a screen reader", () => {
-    setEnv({ desktop: true, reduced: false });
+  it("puts the note after its passage in the DOM, with no margin column", () => {
+    setEnv(DESKTOP);
     render(<Passage />);
-    expect(screen.getAllByRole("note", { name: "Rose" })).toHaveLength(2);
-    expect(screen.getByText("Note A.").closest('[aria-hidden="true"]')).toBeNull();
+    const decision = document.getElementById("decision-a") as HTMLElement;
+    const cue = document.querySelector('[data-rose-cue="a"]') as HTMLElement;
+    expect(decision.compareDocumentPosition(cue) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(cue.className).not.toMatch(/absolute|left-full|xl:/);
   });
 });
 
-describe.each([["reduced motion", { desktop: true, reduced: true }], ["mobile", { desktop: false, reduced: false }]] as const)("%s: the note is inline and no mark is drawn", (_name, env) => {
-  it("shows every note without any cue, in roman and with no motion", () => {
+describe("Screen readers", () => {
+  it.each([["desktop, before and after reaching", DESKTOP], ["mobile", MOBILE], ["reduced motion", REDUCED]] as const)("%s: every note is role=note, labelled Rose, never aria-hidden", (_n, env) => {
     setEnv(env);
     render(<Passage />);
-    expect(noteOpacity("Note A.")).toBe("1");
-    expect(noteOpacity("Note B.")).toBe("1");
-    expect((screen.getByText("Note A.") as HTMLElement).className).not.toContain("italic");
-    expect((screen.getByText("Note A.") as HTMLElement).style.transition).toBe("none");
+    const check = () => {
+      const notes = screen.getAllByRole("note", { name: "Rose" });
+      expect(notes).toHaveLength(2);
+      for (const text of ["Note A.", "Note B."]) expect(note(text).closest('[aria-hidden="true"]')).toBeNull();
+    };
+    check(); // not reached
+    reach("a");
+    check(); // reached
+    reach("a", false);
+    check(); // left
+  });
+});
+
+describe("Below md: the note shows under the passage when reached, without the tip travelling", () => {
+  it("shows the note only when reached, and draws no tip", () => {
+    setEnv(MOBILE);
+    render(<Passage />);
+    expect(opacity("Note A.")).toBe("0");
+    expect(tips()).toHaveLength(0);
+    reach("a");
+    expect(opacity("Note A.")).toBe("1");
+    expect(tips()).toHaveLength(0);
+    reach("b");
+    expect(opacity("Note A.")).toBe("0");
   });
 
-  it("draws no mark, even when the cue is reached", () => {
-    setEnv(env);
+  it("still draws the marks of the reached cue", () => {
+    setEnv(MOBILE);
     render(<Passage />);
     reach("a");
-    expect(struck("Brief A")).toBe(false);
-    expect(underlined("Decision A")).toBe(false);
+    expect(struck(screen.getByText("Brief A"))).toBe(true);
+    expect(underlined(screen.getByText("Decision A"))).toBe(true);
+  });
+});
+
+describe("Reduced motion: notes always visible, no mark, nothing moves", () => {
+  it("shows every note without any cue, in roman, with no transition", () => {
+    setEnv(REDUCED);
+    render(<Passage />);
+    expect(opacity("Note A.")).toBe("1");
+    expect(opacity("Note B.")).toBe("1");
+    expect(note("Note A.").className).not.toContain("italic");
+    expect(note("Note A.").style.transition).toBe("none");
+    expect(note("Note A.").style.transform).toBe("none");
+  });
+
+  it("draws no mark and no tip, even when the cue is reached", () => {
+    setEnv(REDUCED);
+    render(<Passage />);
+    reach("a");
+    reach("b");
+    expect(document.querySelector("[data-mark]")).toBeNull();
     expect(hasCircle()).toBe(false);
+    expect(tips()).toHaveLength(0);
+    expect(screen.getByText("Brief A").getAttribute("style")).toBeNull();
   });
 });
 
-describe("Highlight: the passage Rose cited", () => {
-  const Target = () => <p id="p"><RosePassage id="p">The decision.</RosePassage></p>;
-  const highlighted = () => document.querySelector("[data-rose-passage]")?.getAttribute("data-highlighted");
-
-  it("Locate scrolls to the passage and highlights it for a moment", () => {
-    setEnv({ desktop: true, reduced: false });
-    render(<Target />);
-    act(() => locatePassage("p"));
-    expect(scroll).toHaveBeenCalledWith({ behavior: "smooth", block: "center" });
-    expect(highlighted()).toBe("false");
-    act(() => { vi.advanceTimersByTime(700); });
-    expect(highlighted()).toBe("true");
-    act(() => { vi.advanceTimersByTime(3000); });
-    expect(highlighted()).toBe("false");
+describe("Marks, one meaning each", () => {
+  it("strike: the first brief is struck through while the decision is underlined, only while its cue is active", () => {
+    setEnv(DESKTOP);
+    render(<Passage />);
+    expect(struck(screen.getByText("Brief A"))).toBe(false);
+    expect(underlined(screen.getByText("Decision A"))).toBe(false);
+    reach("a");
+    expect(struck(screen.getByText("Brief A"))).toBe(true);
+    expect(underlined(screen.getByText("Decision A"))).toBe(true);
+    reach("b");
+    expect(struck(screen.getByText("Brief A"))).toBe(false);
+    expect(underlined(screen.getByText("Decision A"))).toBe(false);
   });
 
-  it.each([["reduced motion", { desktop: true, reduced: true }], ["mobile", { desktop: false, reduced: false }]] as const)("%s: Locate only scrolls, with no highlight", (_n, env) => {
-    setEnv(env);
-    render(<Target />);
-    act(() => locatePassage("p"));
-    expect(scroll).toHaveBeenCalledWith({ behavior: "auto", block: "center" });
-    act(() => { vi.advanceTimersByTime(6000); });
-    expect(highlighted()).toBe("false");
+  it("circle: drawn around its figure while its cue is active", () => {
+    setEnv(DESKTOP);
+    render(<Passage />);
+    expect(document.querySelector("[data-mark=\"circle\"] svg[preserveAspectRatio] path")?.getAttribute("style")).toContain("stroke-dashoffset: 1");
+    reach("b");
+    expect(document.querySelector("[data-mark=\"circle\"] svg[preserveAspectRatio] path")?.getAttribute("style")).toContain("stroke-dashoffset: 0");
+  });
+
+  it("highlight: the kind exists, is on only when active, and is not drawn with reduced motion", () => {
+    setEnv(DESKTOP);
+    const { rerender } = render(<RoseMark kind="highlight" active>Cited passage</RoseMark>);
+    expect(screen.getByText("Cited passage").getAttribute("data-mark")).toBe("highlight");
+    expect(screen.getByText("Cited passage").getAttribute("data-on")).toBe("true");
+    rerender(<RoseMark kind="highlight" active={false}>Cited passage</RoseMark>);
+    expect(screen.getByText("Cited passage").getAttribute("data-on")).toBe("false");
+    setEnv(REDUCED);
+    rerender(<RoseMark kind="highlight" active skipWhenReduced>Cited passage</RoseMark>);
+    expect(document.querySelector('[data-mark="highlight"]')).toBeNull();
   });
 });
 
@@ -150,36 +209,55 @@ describe("On the case study page", () => {
     return render(<MemoryRouter><RoseCaseStudy reduced={env.reduced} /></MemoryRouter>);
   };
 
-  it("circles the cost figure, as one mark of chapter 08, and no longer underlines case 2", () => {
-    page({ desktop: true, reduced: false });
+  it("has no margin column at any width", () => {
+    page(DESKTOP);
+    for (const cue of document.querySelectorAll('[data-rose-cue]')) expect((cue as HTMLElement).className).not.toMatch(/absolute|left-full|xl:/);
+    expect(document.querySelector(".xl\\:left-full")).toBeNull();
+  });
+
+  it("strikes The brief while the decision is underlined and carries the tip, chapters 01 to 05", () => {
+    page(DESKTOP);
+    for (const id of ["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"]) {
+      const m = MILESTONES[id];
+      const brief = screen.getByText(m.brief) as HTMLElement;
+      const decision = screen.getByText(m.decision) as HTMLElement;
+      expect(struck(brief)).toBe(false);
+      reach(id);
+      expect(struck(brief)).toBe(true);
+      expect(underlined(decision)).toBe(true);
+      expect(decision.querySelector("[data-rose-tip]")).not.toBeNull();
+    }
+  });
+
+  it("chapter 08: the cue is the cost figure, circled, and the note follows the Cost block", () => {
+    page(DESKTOP);
     const figure = screen.getByText(GOT_WRONG.cost.figure);
-    expect(figure.querySelector("svg path")).not.toBeNull();
-    expect(GOT_WRONG.cost.text).toContain(GOT_WRONG.cost.figure);
+    expect(figure.getAttribute("data-mark")).toBe("circle");
+    expect(figure.querySelector("[data-rose-tip]")).not.toBeNull();
+    const cost = screen.getByText(/costs about/);
+    const source = screen.getByText(/Lovable AI gateway logs/);
+    const cue = document.querySelector('[data-rose-cue="ch-08"]') as HTMLElement;
+    expect(cue.textContent).toBe(GOT_WRONG.note);
+    expect(cost.compareDocumentPosition(cue) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(source.compareDocumentPosition(cue) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    // Case 2's "She said" text carries no mark any more.
     const said = screen.getByText(GOT_WRONG.cases[1].said);
-    expect(said.className).not.toContain("box-decoration-clone");
-    expect(said.querySelector("span")).toBeNull();
+    expect(said.closest("[data-mark]")).toBeNull();
+    reach("ch-08");
+    expect(figure.querySelector("svg[preserveAspectRatio] path")?.getAttribute("style")).toContain("stroke-dashoffset: 0");
   });
 
-  it("strikes the first brief while the decision that replaced it is underlined", () => {
-    page({ desktop: true, reduced: false });
-    const m = MILESTONES["ch-01"];
-    const brief = screen.getByText(m.brief) as HTMLElement;
-    const decision = screen.getByText(m.decision) as HTMLElement;
-    expect(brief.style.textDecorationLine).toBe("none");
-    reach("ch-01");
-    expect(brief.style.textDecorationLine).toBe("line-through");
-    expect(decision.style.backgroundSize.startsWith("100%")).toBe(true);
-    // The decision is a passage Locate can highlight.
-    expect(decision.closest("[data-rose-passage]")?.getAttribute("data-rose-passage")).toBe("ch-01-decision");
+  it("does not use the highlight mark on the page yet", () => {
+    page(DESKTOP);
+    expect(document.querySelector('[data-mark="highlight"]')).toBeNull();
   });
 
-  it("draws no mark and shows the notes inline under reduced motion", () => {
-    page({ desktop: true, reduced: true });
+  it("with reduced motion shows the notes and draws no mark", () => {
+    page(REDUCED);
     expect(document.querySelector('[data-rose-cue="ch-01"] p')?.getAttribute("style")).toContain("opacity: 1");
     reach("ch-01");
-    expect((screen.getByText(MILESTONES["ch-01"].brief) as HTMLElement).style.textDecorationLine).not.toBe("line-through");
-    const cost = screen.getByText(/costs about 0\.015 Lovable credits/);
-    expect(cost.textContent).toContain(GOT_WRONG.cost.figure);
-    expect(cost.querySelector("svg")).toBeNull();
+    reach("ch-08");
+    expect(document.querySelector("[data-mark]")).toBeNull();
+    expect(tips()).toHaveLength(0);
   });
 });

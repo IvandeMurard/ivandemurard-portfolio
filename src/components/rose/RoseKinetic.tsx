@@ -54,7 +54,7 @@ const useGesture = (id: string) => {
   return { ref, active };
 };
 
-/** The copper tip is desktop only. Below md, like with reduced motion, the note is inline and no mark is drawn. */
+/** The copper tip travels on desktop only. Below md the note shows under its passage without the tip. */
 const DESKTOP = "(min-width: 768px)";
 const useDesktop = () => useSyncExternalStore(
   (f) => { const m = window.matchMedia(DESKTOP); m.addEventListener("change", f); return () => m.removeEventListener("change", f); },
@@ -68,12 +68,12 @@ const useReducedMotion = () => useSyncExternalStore(
   () => false,
 );
 
-const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean; children: ReactNode }) => (
-  <div className="flex items-center gap-2" >
-    <RoseTip on={on} reduced={reduced} />
-    <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
-      style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />
-    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-rose-copper md:hidden" style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
+const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduced: boolean; children: ReactNode; tip?: boolean }) => (
+  <div className="flex items-center gap-2">
+    {tip && <RoseTip on={on} reduced={reduced} />}
+    {tip && <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
+      style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />}
+    <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0 rotate-45 bg-rose-copper", tip && "md:hidden")} style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
     <p className="font-headline text-lg leading-snug text-rose-copper"
       style={{ opacity: on ? 1 : 0, transform: on || reduced ? "none" : "translateY(4px)", transition: reduced ? "none" : `opacity ${on ? 600 : 350}ms ease ${on ? 550 : 0}ms, transform 800ms ${EASE} ${on ? 550 : 0}ms` }}>
       {children}
@@ -81,16 +81,18 @@ const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean;
   </div>
 );
 
-/** An anchor in the reading flow where Rose briefly points, then lets go. */
+/**
+ * Rose's note, placed directly under the passage it comments on (never in a margin column).
+ * It shows when its passage is reached and leaves when the reader moves on; with reduced motion it is always
+ * visible. It is always in the DOM, role="note", never aria-hidden. The tip that travels onto the passage is
+ * drawn by RoseMark (tip), on desktop only.
+ */
 export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => {
   const { ref, active } = useGesture(id);
   const reduced = useReducedMotion();
-  const desktop = useDesktop();
-  // Mobile and reduced motion: the note stays inline next to its passage, with no motion.
-  const inline = reduced || !desktop;
   return (
     <div ref={ref} data-rose-cue={id} role="note" aria-label="Rose" className={cn("min-h-[1.75rem]", className)}>
-      <GestureNote on={active || inline} reduced={reduced || inline}>{note}</GestureNote>
+      <GestureNote on={active || reduced} reduced={reduced} tip={false}>{note}</GestureNote>
     </div>
   );
 };
@@ -140,26 +142,42 @@ const scrollToFraction = (el: HTMLElement | null, f: number) => {
 
 /* ---------------- Rose marks: pencil gestures on the page ---------------- */
 type PathKind = "underline" | "circle" | "bracket";
-type MarkKind = PathKind | "strike";
+type MarkKind = PathKind | "strike" | "highlight";
 const MARK_PATH: Record<PathKind, string> = {
   underline: "M2 7 C 30 4, 60 9, 98 5",
   circle: "M50 3 C 82 2, 98 10, 97 20 C 96 31, 70 37, 46 36 C 18 35, 2 28, 3 18 C 4 8, 26 3, 56 5",
   bracket: "M6 2 C 2 2, 2 2, 2 8 L 2 32 C 2 38, 2 38, 6 38",
 };
 
-/** A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it). */
-export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue, desktopOnly }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string; desktopOnly?: boolean }) => {
+/**
+ * A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it).
+ * One meaning each: underline = the decision, strike = the first brief, circle = a figure and its comparison,
+ * highlight = the passage Rose cited. `skipWhenReduced` (the case study): with reduced motion nothing is drawn.
+ * `tip`: the copper tip travels onto the start of this passage (desktop only, never with reduced motion).
+ */
+export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue, skipWhenReduced, tip }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string; skipWhenReduced?: boolean; tip?: boolean }) => {
   const { ref } = useInView<HTMLSpanElement>();
   const reached = useCueReached(cue);
   const reducedMotion = useReducedMotion();
   const desktop = useDesktop();
   const on = active ?? reached;
-  // Case study: marks are drawn by the copper tip, so they are absent with reduced motion and below md.
-  if (desktopOnly && (reduced || reducedMotion || !desktop)) return <>{children}</>;
+  if (skipWhenReduced && (reduced || reducedMotion)) return <>{children}</>;
+  const pointer = tip && desktop && !reduced && !reducedMotion
+    ? <span aria-hidden="true" data-rose-tip className="pointer-events-none absolute -left-5 top-[0.3em]"><RoseTip on={on} reduced={false} /></span>
+    : null;
   if (kind === "strike") {
     // The first brief, crossed out while Rose points at the decision that replaced it.
     return (
-      <span ref={ref} style={{ textDecorationLine: on ? "line-through" : "none", textDecorationColor: "hsl(var(--rose-copper))", textDecorationThickness: "1.5px", color: on ? "hsl(var(--on-surface-variant))" : undefined, transition: reduced ? "none" : "color 600ms ease" }}>
+      <span ref={ref} data-mark="strike" style={{ textDecorationLine: on ? "line-through" : "none", textDecorationColor: "hsl(var(--rose-copper))", textDecorationThickness: "1.5px", color: on ? "hsl(var(--on-surface-variant))" : undefined, transition: reduced ? "none" : "color 600ms ease" }}>
+        {children}
+      </span>
+    );
+  }
+  if (kind === "highlight") {
+    // The passage Rose cited. Not used on the page yet (source links come later).
+    return (
+      <span ref={ref} data-mark="highlight" data-on={on ? "true" : "false"} className="rounded-[3px]"
+        style={{ backgroundColor: on ? "hsl(var(--rose-copper) / 0.22)" : "transparent", transition: reduced ? "none" : "background-color 500ms ease" }}>
         {children}
       </span>
     );
@@ -167,14 +185,16 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
   if (kind === "underline") {
     // A pencil underline that wraps with the text across lines.
     return (
-      <span ref={ref} className="box-decoration-clone bg-no-repeat pb-0.5"
-        style={{ backgroundImage: "linear-gradient(hsl(var(--rose-copper) / 0.75), hsl(var(--rose-copper) / 0.75))", backgroundPosition: "0 100%", backgroundSize: on ? "100% 1.5px" : "0% 1.5px", transition: reduced ? "none" : `background-size 1100ms ${EASE} ${delay}ms` }}>
+      <span ref={ref} data-mark="underline" className="relative box-decoration-clone bg-no-repeat pb-0.5"
+        style={{ backgroundImage: "linear-gradient(hsl(var(--rose-copper) / 0.75), hsl(var(--rose-copper) / 0.75))", backgroundPosition: "0 100%", backgroundSize: on ? "100% 1.5px" : "0% 1.5px", transition: reduced ? "none" : `background-size 900ms ${EASE} ${delay}ms` }}>
+        {pointer}
         {children}
       </span>
     );
   }
   return (
-    <span ref={ref} className="relative inline-block whitespace-nowrap">
+    <span ref={ref} data-mark={kind} className="relative inline-block whitespace-nowrap">
+      {pointer}
       {children}
       <svg aria-hidden="true" viewBox={kind === "bracket" ? "0 0 8 40" : "0 0 100 40"} preserveAspectRatio="none"
         className={cn("pointer-events-none absolute overflow-visible text-rose-copper", kind === "circle" ? "-inset-x-2.5 -inset-y-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+1.25rem)]" : "-left-3 top-0 h-full w-2")}>
@@ -183,42 +203,6 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
       </svg>
     </span>
   );
-};
-
-/* ---------------- Highlight: the passage Rose cited ---------------- */
-let highlighted: string | null = null;
-const highlightSubs = new Set<() => void>();
-let highlightTimers: number[] = [];
-const setHighlight = (id: string | null) => { highlighted = id; highlightSubs.forEach((f) => f()); };
-const useHighlighted = (id: string) => useSyncExternalStore(
-  (f) => { highlightSubs.add(f); return () => { highlightSubs.delete(f); }; },
-  () => highlighted === id,
-  () => false,
-);
-
-/** A passage Rose can cite: it takes a copper highlight for a moment when Locate points to it. */
-export const RosePassage = ({ id, children }: { id: string; children: ReactNode }) => {
-  const on = useHighlighted(id);
-  return (
-    <span data-rose-passage={id} data-highlighted={on ? "true" : "false"} style={{ backgroundColor: on ? "hsl(var(--rose-copper) / 0.22)" : "transparent", borderRadius: 3, transition: "background-color 500ms ease" }}>
-      {children}
-    </span>
-  );
-};
-
-/** Locate: scroll to the element, then highlight its passage for a moment. With reduced motion or below md, scroll only. */
-export const locatePassage = (id: string) => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches || !window.matchMedia(DESKTOP).matches;
-  el.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "center" });
-  highlightTimers.forEach(window.clearTimeout);
-  highlightTimers = [];
-  if (calm) { setHighlight(null); return; }
-  highlightTimers.push(window.setTimeout(() => {
-    setHighlight(id);
-    highlightTimers.push(window.setTimeout(() => setHighlight(null), 2600));
-  }, 600));
 };
 
 /* A margin note from Rose, same ephemeral gesture as RoseCue. */

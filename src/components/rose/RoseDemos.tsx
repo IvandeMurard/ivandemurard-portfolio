@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
-import { locatePassage } from "@/components/rose/RoseKinetic";
 import { CONNECT_LINKS, DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS, SKETCH_STEPS } from "@/components/rose/roseDemoData";
 import { useDemoLoop } from "@/components/rose/useDemoLoop";
 
@@ -77,6 +76,9 @@ export const HeroDock = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
+const locateChapter03 = (reduced: boolean) =>
+  document.getElementById("ch-03-decision")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+
 /** The same dock as the hero, three exchanges marked Design. */
 export const DesignDemo = ({ reduced }: { reduced: boolean }) => {
   const { ex, step, paused, toggle } = useDemoLoop(DESIGN_EXCHANGES.length, reduced);
@@ -90,7 +92,7 @@ export const DesignDemo = ({ reduced }: { reduced: boolean }) => {
           <div className="flex flex-col gap-3 font-body text-sm leading-relaxed" style={fade(true, reduced)}>
             <p>{e.a}</p>
             {e.format === "Locate" && (
-              <button type="button" onClick={() => locatePassage("ch-03-decision")}
+              <button type="button" onClick={() => locateChapter03(reduced)}
                 className={cn("self-start rounded-full border px-4 py-2 font-label text-xs hover:bg-on-primary/10 [[data-mood=dusk]_&]:hover:bg-on-surface/10", DEMO_GOLD, DEMO_RING)}>Locate, show me <span aria-hidden="true">↑</span></button>
             )}
             {e.format === "Connect" && (
