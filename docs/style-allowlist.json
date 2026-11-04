@@ -40,5 +40,35 @@
     "pattern": "dot-chain",
     "text": "29 Oct campaign · 105 answers",
     "reason": "metadata line: middle dots allowed by docs/style.md §2"
+  },
+  {
+    "file": "public/rose-design-lab.md",
+    "pattern": "contrast-reflex",
+    "text": "on, not who you are",
+    "reason": "validated copy, 3 Nov 2026"
+  },
+  {
+    "file": "public/rose-design-lab.md",
+    "pattern": "contrast-reflex",
+    "text": "nothing, not even this conversation",
+    "reason": "validated copy, 3 Nov 2026"
+  },
+  {
+    "file": "public/rose-design-lab.md",
+    "pattern": "contrast-reflex",
+    "text": "outcome, not the goal of every",
+    "reason": "validated copy, 3 Nov 2026"
+  },
+  {
+    "file": "public/rose-design-lab.md",
+    "pattern": "dot-chain",
+    "text": "29 Oct campaign · 105 answers",
+    "reason": "metadata line: middle dots allowed by docs/style.md §2"
+  },
+  {
+    "file": "public/rose-design-lab.md",
+    "pattern": "theatrical-fragment",
+    "text": "Tell me.",
+    "reason": "validated copy, 3 Nov 2026: the chapter 10 heading of the page"
   }
 ]

@@ -31,7 +31,7 @@ export const ROSE_CHAPTERS: Chapter[] = [
 ];
 
 /** The marker printed after a chapter kicker. */
-const CHAPTER_MARK: Record<string, "Built" | "Validation" | "Design"> = {
+export const CHAPTER_MARK: Record<string, "Built" | "Validation" | "Design"> = {
   "ch-01": "Built", "ch-02": "Built", "ch-03": "Built", "ch-04": "Built", "ch-05": "Built",
   "ch-06": "Design", "ch-07": "Built", "ch-08": "Validation", "ch-09": "Design",
 };
@@ -42,15 +42,18 @@ export const NOTES_INTRO = "Rose's notes come from co-existence.ai's AI cursor, 
 
 const LEGEND_TONE: Record<string, string> = { Built: "text-secondary", Validation: "text-primary", Design: "text-on-surface-variant" };
 
-const LEGEND = [
+export const LEGEND = [
   ["●", "Built", "Implemented behaviour that can be inspected in the product or repository."],
   ["◐", "Validation", "A bounded test, audit or measurement. It does not prove every visitor outcome."],
   ["○", "Design", "A proposed direction or a prototype."],
 ] as const;
 
 /* §6.1 Hero. Copy verbatim from docs/rose-case-study-copy-v2.md. The demo is in RoseDemos.tsx. */
-const HERO_LEAD = "Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.";
-const TLDR = [
+export const HERO = { label: "Case study · Rose", status: "Live, text only", headline: ["A portfolio ", "you can question."] } as const;
+/** The sentence under the legend; the repository is linked. */
+export const LEGEND_NOTE = { before: "Milestones come from ", link: "the repository", after: ": commit dates, archived plans, the original prompt. Readings of the design are mine." } as const;
+export const HERO_LEAD = "Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.";
+export const TLDR = [
   ["The problem", "A case study shows the work, but it cannot answer a visitor's own question."],
   ["Five decisions", "Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust."],
   ["Today", "Rose is live and text only. She knows the page and section in view, answers from the site’s own text and sends nothing when you book."],
@@ -258,11 +261,11 @@ const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
     <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
       <div>
         <p className={cn("flex flex-wrap items-center gap-3", KICKER)}>
-          Case study · Rose
-          <span className="rounded-full border border-outline-variant px-2 py-0.5 font-body text-xs normal-case tracking-normal text-on-surface">● Live, text only</span>
+          {HERO.label}
+          <span className="rounded-full border border-outline-variant px-2 py-0.5 font-body text-xs normal-case tracking-normal text-on-surface">● {HERO.status}</span>
         </p>
         <h1 id="rose-hero-h" className="mt-5 font-headline text-5xl leading-[1.05] text-primary [[data-mood=dusk]_&]:text-on-surface md:text-7xl">
-          A portfolio <em className="text-secondary">you can question.</em>
+          {HERO.headline[0]}<em className="text-secondary">{HERO.headline[1]}</em>
         </h1>
         <p className="mt-6 max-w-xl font-body text-lg text-on-surface">{HERO_LEAD}</p>
       </div>
@@ -391,7 +394,7 @@ const TrustBody = () => {
 
 /* §6.6 Chapter 08. Copy verbatim from docs/rose-case-study-copy-v2.md. */
 export const REPO_URL = "https://github.com/IvandeMurard/ivandemurard-portfolio";
-const REPO_FILE = (path: string) => `${REPO_URL}/blob/main/${path}`;
+export const REPO_FILE = (path: string) => `${REPO_URL}/blob/main/${path}`;
 
 export const GOT_WRONG = {
   intro: "Many of Rose's rules started as a mistake caught in testing, before any visitor saw it. Here are three, from synthetic test runs in October.",
@@ -748,7 +751,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
               <div key={term} className="flex gap-2"><dt className={cn("w-28 shrink-0 font-label text-xs", LEGEND_TONE[term])}><span aria-hidden="true">{mark} </span>{term}</dt><dd>{def}</dd></div>
             ))}
           </dl>
-          <p className="mt-3 font-body text-xs text-on-surface-variant">Milestones come from <ExternalLink href={REPO_URL}>the repository</ExternalLink>: commit dates, archived plans, the original prompt. Readings of the design are mine.</p>
+          <p className="mt-3 font-body text-xs text-on-surface-variant">{LEGEND_NOTE.before}<ExternalLink href={REPO_URL}>{LEGEND_NOTE.link}</ExternalLink>{LEGEND_NOTE.after}</p>
         </section>
       </div>
 
