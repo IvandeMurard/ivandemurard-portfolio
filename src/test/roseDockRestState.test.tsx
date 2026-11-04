@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { UIMessage } from "ai";
 import { RoseDock } from "@/components/rose/RoseDock";
-import { getRoseChat, resetRoseChat, setRoseMinimised, setRoseOpen } from "@/components/rose/roseSession";
+import { getRoseChat, resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 
 class NoopObserver { observe() {} unobserve() {} disconnect() {} }
@@ -19,12 +19,10 @@ const mount = (messages: UIMessage[] = []) => {
   render(<MemoryRouter initialEntries={["/aetherix"]}><RoseDock roseStatus="live" /></MemoryRouter>);
 };
 const opened = () => !!document.querySelector('[role="log"]');
-const minimisedDock = () => document.querySelector("[data-rose-minimised]");
 
 beforeEach(() => {
   vi.stubGlobal("IntersectionObserver", NoopObserver);
   setRoseOpen(false);
-  setRoseMinimised(false);
   window.sessionStorage.clear();
 });
 afterEach(() => {
@@ -61,12 +59,12 @@ describe("Rose dock: the short data line goes wherever the message input is rend
     });
   }
 
-  it("minimised: no input, so no line", () => {
+  it("folded with the chevron: back at the bar, with its input and its line", () => {
     mount(seed);
     open();
     minimise();
-    expect(input()).toHaveLength(0);
-    expect(shortLine()).toHaveLength(0);
+    expect(input()).toHaveLength(1);
+    expect(shortLine()).toHaveLength(1);
   });
 
   it("in every state, an input without the line is impossible: both or neither", () => {
@@ -126,52 +124,65 @@ describe("Rose dock: open state", () => {
   });
 });
 
-describe("Rose dock: minimise, close and the compass button", () => {
-  it("minimise leaves only the compass button, focused; with no conversation it reopens on the starters", () => {
+describe("Rose dock: the bar at rest, the chevron and close", () => {
+  const fold = () => fireEvent.click(screen.getByRole("button", { name: "Minimise Rose and keep the conversation" }));
+
+  it("at rest it is the centred bar \"Ask Rose anything\", with the data line under it", () => {
     mount();
-    fireEvent.click(screen.getByRole("button", { name: "Open Rose" }));
-    fireEvent.click(screen.getByRole("button", { name: "Minimise Rose and keep the conversation" }));
-    expect(opened()).toBe(false);
-    expect(minimisedDock()).not.toBeNull();
-    expect(screen.queryByRole("textbox")).toBeNull();
-    const compass = screen.getByRole("button", { name: "Open Rose" });
-    expect(document.activeElement).toBe(compass);
-    fireEvent.click(compass);
-    expect(opened()).toBe(true);
-    expect(minimisedDock()).toBeNull();
-    expect(screen.getByRole("button", { name: "What has actually been built?" })).toBeTruthy();
+    const box = screen.getByRole("textbox", { name: "Message Rose" });
+    expect(box.getAttribute("placeholder")).toBe("Ask Rose anything");
+    const dock = document.querySelector("[data-rose-dock]") as HTMLElement;
+    expect(dock.className).toContain("md:left-1/2"); // centred at the bottom
+    expect(dock.className).not.toMatch(/right-4 [^"]*md:right-6|md:bottom-6 md:right-6/);
+    expect(box.compareDocumentPosition(screen.getByRole("link", { name: ROSE_DATA_SHORT.linkLabel })) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
-  it("minimise keeps the conversation, and the compass reopens it without typing", () => {
+  it("the chevron folds the open panel back to the bar and focuses its input; there is no compass rest button", async () => {
+    mount();
+    fireEvent.click(screen.getByRole("button", { name: "Open Rose" }));
+    fold();
+    expect(opened()).toBe(false);
+    expect(document.querySelector("[data-rose-minimised]")).toBeNull();
+    const box = screen.getByRole("textbox", { name: "Message Rose" });
+    await vi.waitFor(() => expect(document.activeElement).toBe(box));
+    // The only compass button is the small one inside the bar; no 44 px button floats at the bottom right.
+    const compass = screen.getAllByRole("button", { name: /^(Open Rose|Reopen the conversation with Rose)$/ });
+    expect(compass).toHaveLength(1);
+    expect(compass[0].closest("form")).not.toBeNull();
+    expect(document.querySelector("button.h-11.w-11")).toBeNull();
+    expect(document.querySelectorAll("[data-rose-dock]")).toHaveLength(1);
+  });
+
+  it("folding keeps the conversation: the bar offers Resume, and it reopens the conversation without typing", () => {
     mount(seed);
     fireEvent.click(screen.getByRole("button", { name: "Reopen the conversation with Rose" }));
     expect(screen.getByText("The loop and its checks.")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Minimise Rose and keep the conversation" }));
+    fold();
     expect(screen.queryByText("The loop and its checks.")).toBeNull();
-    const compass = screen.getByRole("button", { name: "Reopen the conversation with Rose" });
-    expect(document.activeElement).toBe(compass);
-    fireEvent.click(compass);
+    const resume = screen.getByRole("button", { name: "Reopen the conversation with Rose" });
+    expect(resume.textContent).toContain("Resume");
+    fireEvent.click(resume);
     expect(screen.getByText("The loop and its checks.")).toBeTruthy();
-    expect(screen.getByText("What has actually been built?", { selector: "div" })).toBeTruthy();
   });
 
-  it("close returns to the rest bar with the input, and its compass button resumes the conversation", () => {
+  it("close also returns to the bar, and Ctrl+K opens the dock from it", () => {
     mount(seed);
     fireEvent.click(screen.getByRole("button", { name: "Reopen the conversation with Rose" }));
     fireEvent.click(screen.getAllByRole("button", { name: "Close Rose" })[1] ?? screen.getAllByRole("button", { name: "Close Rose" })[0]);
     expect(opened()).toBe(false);
-    expect(minimisedDock()).toBeNull();
     expect(screen.getByRole("textbox", { name: "Message Rose" })).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Reopen the conversation with Rose" }));
-    expect(screen.getByText("The loop and its checks.")).toBeTruthy();
-  });
-
-  it("Ctrl+K opens the dock from the minimised state", () => {
-    mount(seed);
-    fireEvent.click(screen.getByRole("button", { name: "Reopen the conversation with Rose" }));
-    fireEvent.click(screen.getByRole("button", { name: "Minimise Rose and keep the conversation" }));
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     expect(opened()).toBe(true);
-    expect(minimisedDock()).toBeNull();
+  });
+
+  it("paused: the bar is an opener, not a text field, and the notice stays inside the open panel", () => {
+    resetRoseChat("test");
+    render(<MemoryRouter initialEntries={["/aetherix"]}><RoseDock roseStatus="paused" /></MemoryRouter>);
+    expect(screen.queryByRole("textbox")).toBeNull();
+    expect(document.querySelector("[data-rose-minimised]")).toBeNull();
+    expect(screen.getByRole("link", { name: ROSE_DATA_SHORT.linkLabel })).toBeTruthy(); // the data line stays under the bar
+    fireEvent.click(screen.getByRole("button", { name: "Ask Rose anything" }));
+    expect(opened()).toBe(false); // the paused panel has no conversation log
+    expect(screen.getByText(/Rose has run out of credits/)).toBeTruthy();
   });
 });

@@ -146,9 +146,5 @@ export const resetRoseChat = (id: string): Chat<UIMessage> => {
 };
 
 export const getRoseOpen = () => openState;
-export const setRoseOpen = (v: boolean) => { openState = v; if (v) minimisedState = false; };
+export const setRoseOpen = (v: boolean) => { openState = v; };
 
-/** Minimised: the dock is reduced to the compass button; the conversation is kept. Opening clears it. */
-let minimisedState = false;
-export const getRoseMinimised = () => minimisedState;
-export const setRoseMinimised = (v: boolean) => { minimisedState = v; if (v) openState = false; };
