@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { RoseDock } from "@/components/rose/RoseDock";
-import { resetRoseChat, setRoseMinimised, setRoseOpen } from "@/components/rose/roseSession";
+import { resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 import { ROSE_PAUSED, ROSE_STATUS } from "@/content/roseStatus";
 
@@ -23,7 +23,6 @@ beforeEach(() => {
   vi.stubGlobal("fetch", fetchMock);
   vi.stubGlobal("IntersectionObserver", NoopObserver);
   setRoseOpen(false);
-  setRoseMinimised(false);
   window.sessionStorage.clear();
 });
 afterEach(() => {

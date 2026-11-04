@@ -17,12 +17,13 @@ export const HERO_EXCHANGES: HeroExchange[] = [
 
 export const DESIGN_CAPTION = "These formats are in design. Live Rose answers in text only.";
 
-export type DesignExchange = { format: "Locate" | "Connect" | "Sketch"; q: string; a: string };
+export type DesignExchange = { format: "Reformulate" | "Locate" | "Connect" | "Sketch"; mark: "Built" | "Design"; q: string; a: string };
 
 export const DESIGN_EXCHANGES: DesignExchange[] = [
-  { format: "Locate", q: "Where did he decide this?", a: "Ivan made this call on 10 August, in chapter 03, Know where you are." },
-  { format: "Connect", q: "How does this relate to his other work?", a: "Two links, each with the reason Ivan wrote for it: the evaluation page, which shows how every change to me is tested, and the Field Note whose method that evaluation applies." },
-  { format: "Sketch", q: "Draw how it works.", a: "Page, then section in view, then marked passage, then answer." },
+  { format: "Reformulate", mark: "Built", q: "Say it more simply.", a: "When you ask me something, I also receive the page you are on, so I answer about what you are reading rather than about Ivan in general." },
+  { format: "Locate", mark: "Design", q: "Where did he decide this?", a: "Ivan made this call on 10 August, in chapter 03, Know where you are." },
+  { format: "Connect", mark: "Design", q: "How does this relate to his other work?", a: "Two links, each with the reason Ivan wrote for it: the evaluation page, which shows how every change to me is tested, and the Field Note whose method that evaluation applies." },
+  { format: "Sketch", mark: "Design", q: "Draw how it works.", a: "Page, then section in view, then marked passage, then answer." },
 ];
 
 /** The evaluation record on GitHub, until the evaluation page exists. */

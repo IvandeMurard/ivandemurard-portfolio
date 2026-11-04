@@ -105,7 +105,8 @@ export const SectionRail = ({ sections = [] }: SectionRailProps) => {
         onClick={scrollToTop}
         aria-label="Back to top"
         className={[
-          "fixed bottom-8 right-6 lg:right-10 z-30",
+          // Below md the Rose bar spans the page and sits at the bottom, so the button rides above it.
+          "fixed bottom-28 md:bottom-8 right-6 lg:right-10 z-30",
           "w-11 h-11 rounded-full bg-surface-container-high border border-outline",
           "flex items-center justify-center text-on-surface hover:text-secondary hover:border-secondary",
           "shadow-md transition-all duration-500",

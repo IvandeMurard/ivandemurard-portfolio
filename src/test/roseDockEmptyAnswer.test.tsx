@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { UIMessage } from "ai";
 import { RoseDock } from "@/components/rose/RoseDock";
-import { getRoseChat, resetRoseChat, setRoseMinimised, setRoseOpen } from "@/components/rose/roseSession";
+import { getRoseChat, resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
 import { ROSE_EMPTY_ANSWER } from "@/content/roseStatus";
 
 // An assistant turn that ends with no text (only tool calls) shows one fallback line, not an empty bubble.
@@ -23,7 +23,6 @@ const fallbackShown = () => screen.queryAllByText(/I could not write an answer t
 beforeEach(() => {
   vi.stubGlobal("IntersectionObserver", NoopObserver);
   setRoseOpen(false);
-  setRoseMinimised(false);
   window.sessionStorage.clear();
 });
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); void getRoseChat("test"); });

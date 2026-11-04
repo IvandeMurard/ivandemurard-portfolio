@@ -4,7 +4,7 @@ import { CompassRose } from "@/components/rose/CompassRose";
 import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
-import { DesignDemo, HeroDock, PassageQuestions, TestLoop } from "@/components/rose/RoseDemos";
+import { AnswerFormats, HeroDock, TestLoop } from "@/components/rose/RoseDemos";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -531,8 +531,7 @@ const SixBody = ({ reduced }: { reduced: boolean }) => (
       <p>{SIX.intro}</p>
       <p>{SIX.influence}</p>
     </div>
-    <DesignDemo reduced={reduced} />
-    <PassageQuestions />
+    <AnswerFormats reduced={reduced} />
   </div>
 );
 

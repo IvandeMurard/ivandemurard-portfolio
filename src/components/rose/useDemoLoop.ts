@@ -6,7 +6,7 @@ export const TICK_MS = 900;
 
 /**
  * The loop of a demo. Reduced motion: the first exchange complete, no loop. Paused (WCAG 2.2.2): the loop
- * stops and the current exchange is shown complete.
+ * stops and the current exchange is shown complete. select() jumps to an exchange and pauses on it.
  */
 export const useDemoLoop = (count: number, reduced: boolean) => {
   const [tick, setTick] = useState(reduced ? 2 : 0);
@@ -25,5 +25,7 @@ export const useDemoLoop = (count: number, reduced: boolean) => {
     step: paused ? 3 : STEPS[tick % STEPS.length],
     paused,
     toggle: () => setPaused((p) => !p),
+    /** Show exchange `index` complete and pause the loop on it. */
+    select: (index: number) => { setTick(index * STEPS.length + 2); setPaused(true); },
   };
 };

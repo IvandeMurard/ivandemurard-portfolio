@@ -13,7 +13,7 @@ import { isRoseFollowupAllowed, shouldSuppressRoseFollowups } from "../../../sup
 import { logRoseEvent } from "./roseEvents";
 import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
-import { expireIfIdle, getRoseChat, getRoseMinimised, getRoseOpen, resetRoseChat, saveMessages, setRoseMinimised, setRoseOpen } from "./roseSession";
+import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 import { ROSE_EMPTY_ANSWER, ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
 import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose-provider";
@@ -120,20 +120,13 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   // Paused: no request to rose-chat or rose-event, no input, no starters.
   const paused = roseStatus === "paused";
   const [open, setOpenState] = useState(getRoseOpen);
-  const [minimised, setMinimisedState] = useState(getRoseMinimised);
-  const setOpen = (v: boolean) => { setRoseOpen(v); setOpenState(v); if (v) setMinimisedState(false); };
-  // Minimising keeps the conversation and leaves only the compass button; focus moves to it.
-  const focusCompass = useRef(false);
-  const compassRef = useRef<HTMLButtonElement>(null);
-  const minimise = () => {
-    focusCompass.current = true;
-    setRoseMinimised(true);
-    setOpenState(false);
-    setMinimisedState(true);
+  const setOpen = (v: boolean) => { setRoseOpen(v); setOpenState(v); };
+  // The "⌄" button folds the open panel back to the bar at the bottom of the page. The conversation is kept and
+  // focus moves to the bar.
+  const fold = () => {
+    setOpen(false);
+    requestAnimationFrame(() => document.querySelector<HTMLElement>("[data-rose-bar]")?.focus());
   };
-  useEffect(() => {
-    if (minimised && focusCompass.current) { focusCompass.current = false; compassRef.current?.focus(); }
-  }, [minimised]);
   const [confirmClear, setConfirmClear] = useState(false);
   const [detectedIntent, setDetectedIntent] = useState<
     "product" | "technical" | "culture" | "exploring" | null
@@ -343,32 +336,6 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const hasConversation = messages.length > 0;
   const reopenLabel = hasConversation ? "Reopen the conversation with Rose" : "Open Rose";
 
-  if ((minimised || paused) && !open) {
-    return (
-      <div
-        data-rose-dock
-        data-rose-minimised
-        aria-hidden={hidden || undefined}
-        style={{ transform: `translateY(${hidden ? "160%" : `-${lift}px`})` }}
-        className={cn(
-          "fixed bottom-4 right-4 z-50 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none md:bottom-6 md:right-6",
-          hidden ? "pointer-events-none opacity-0" : "opacity-100",
-        )}
-      >
-        <button
-          ref={compassRef}
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label={reopenLabel}
-          tabIndex={hidden ? -1 : 0}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-secondary bg-surface-container-lowest text-secondary shadow-md shadow-primary/5 transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-        >
-          <CompassMark className="h-6 w-6" />
-        </button>
-      </div>
-    );
-  }
-
   return (
     <>
       {open ? (
@@ -429,7 +396,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
               ) : null}
               <button
                 type="button"
-                onClick={minimise}
+                onClick={fold}
                 aria-label="Minimise Rose and keep the conversation"
                 className="rounded-full p-1.5 text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
               >
@@ -561,7 +528,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             </div>
           ) : null}
 
-          {paused ? null : (
+          {paused && open ? null : (
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -601,8 +568,20 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                 className="flex-1 resize-none bg-transparent px-2 py-1.5 text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none"
                 disabled={isLoading}
               />
+            ) : paused ? (
+              // Paused: the bar is an opener for the notice, not a text field.
+              <button
+                type="button"
+                data-rose-bar
+                onClick={() => setOpen(true)}
+                tabIndex={hidden ? -1 : 0}
+                className="flex-1 rounded-sm bg-transparent px-2 py-1.5 text-left text-sm text-on-surface-variant focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              >
+                Ask Rose anything
+              </button>
             ) : (
               <input
+                data-rose-bar
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -615,7 +594,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                 tabIndex={hidden ? -1 : 0}
               />
             )}
-            <button
+            {paused ? null : <button
               type="submit"
               disabled={isLoading || !inputValue.trim()}
               aria-label="Send message to Rose"
@@ -623,7 +602,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary text-on-secondary transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-40"
             >
               <Icon name="arrow_upward" className="text-lg" />
-            </button>
+            </button>}
             {!open ? (
               <kbd aria-label={isMac ? "Shortcut: Command K" : "Shortcut: Control K"} className="hidden shrink-0 rounded border border-outline-variant px-1.5 py-0.5 font-label text-[10px] text-on-surface-variant md:inline">
                 {isMac ? "⌘K" : "Ctrl+K"}
@@ -631,8 +610,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             ) : null}
           </form>
           )}
-          {/* Wherever the input is rendered (open or at rest), under it and on one line. The minimised dock has no input and returns earlier. */}
-          <p className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant", paused ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
+          {/* Wherever the bar or the input is rendered (open or at rest), under it and on one line. */}
+          <p className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
             {ROSE_DATA_SHORT.text} ·{" "}
             <Link
               to={ROSE_DATA_SHORT.href}
