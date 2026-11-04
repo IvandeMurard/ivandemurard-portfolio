@@ -273,7 +273,9 @@ async function run(journey: Job) {
       const events = sse.split("\n").filter(s => s.startsWith("data: ") && !s.includes("[DONE]")).map(s => JSON.parse(s.slice(6)));
       const text = events.filter(e => e.type === "text-delta").map(e => e.delta).join("");
       const calls = events.filter(e => e.type === "tool-input-available" || e.type === "tool-input-error");
-      const errors = events.filter(e => e.type === "error" || e.type === "tool-input-error" || e.type === "tool-output-error");
+      const errors: Array<{ type: string; errorText?: string }> = events.filter(e => e.type === "error" || e.type === "tool-input-error" || e.type === "tool-output-error");
+      // An assistant turn with no text (only tool calls) is a failure: the dock would have nothing to show.
+      if (!text.trim()) errors.push({ type: "empty-answer", errorText: "The assistant turn ended with no text" });
 
       writeFileSync(`${output}/${id}.sse`, sse);
       results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, offeredTools, words: text.split(/\s+/).length, reviewer: "PENDING" });

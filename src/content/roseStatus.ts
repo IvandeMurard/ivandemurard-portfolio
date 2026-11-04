@@ -13,3 +13,6 @@ export const ROSE_PAUSED = {
     { label: "Contact", href: "/contact" },
   ],
 } as const;
+
+/** Shown instead of an empty bubble when an assistant turn ends with no text (only tool calls). Front end only. */
+export const ROSE_EMPTY_ANSWER = "I could not write an answer this time. The [CV](/cv) and the case studies have the details.";
