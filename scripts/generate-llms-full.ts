@@ -3,9 +3,10 @@
 // mirror listed in scripts/seo-routes.ts, with one delimiter per document.
 // The file name promises the corpus, so it carries the corpus.
 
-import { readFileSync, writeFileSync, existsSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { resolve, join } from "path";
 import { BASE_URL, SEO_ROUTES } from "./seo-routes";
+import { writeIfChanged } from "./content-date";
 
 const PUBLIC = resolve("public");
 const preamble = readFileSync(resolve("scripts/llms-full-preamble.txt"), "utf8").trimEnd();
@@ -33,5 +34,5 @@ for (const route of SEO_ROUTES) {
 }
 
 const out = parts.join("\n") + "\n";
-writeFileSync(join(PUBLIC, "llms-full.txt"), out);
-console.log(`[llms-full] wrote ${docs} full documents, ${Buffer.byteLength(out)} bytes`);
+const changed = writeIfChanged(join(PUBLIC, "llms-full.txt"), out);
+console.log(`[llms-full] ${changed ? "wrote" : "unchanged:"} ${docs} full documents, ${Buffer.byteLength(out)} bytes`);
