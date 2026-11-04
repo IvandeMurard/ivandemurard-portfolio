@@ -2,10 +2,10 @@
 // source the page renders, using the same renderer the MCP server uses.
 // Run with bun (tsconfig path aliases).
 
-import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { renderEntryMarkdown } from "@/lib/mcp/tools/get-journal-entry";
+import { writeIfChanged } from "./content-date";
 
 const SLUGS = [
   "agent-boundaries-aetherix",
@@ -20,6 +20,6 @@ for (const slug of SLUGS) {
     continue;
   }
   const out = renderEntryMarkdown(entry) + "\n";
-  writeFileSync(resolve(`public/${slug}.md`), out);
-  console.log(`[journal-mirror] wrote public/${slug}.md, ${Buffer.byteLength(out)} bytes`);
+  const changed = writeIfChanged(resolve(`public/${slug}.md`), out);
+  console.log(`[journal-mirror] ${changed ? "wrote" : "unchanged:"} public/${slug}.md, ${Buffer.byteLength(out)} bytes`);
 }

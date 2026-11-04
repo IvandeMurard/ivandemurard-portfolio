@@ -15,7 +15,7 @@ import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import roseMark from "@/assets/rose-mark.png";
 import { expireIfIdle, getRoseChat, getRoseMinimised, getRoseOpen, resetRoseChat, saveMessages, setRoseMinimised, setRoseOpen } from "./roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
-import { ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
+import { ROSE_EMPTY_ANSWER, ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
 import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose-provider";
 
 const SESSION_KEY = "rose_session";
@@ -485,8 +485,17 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                   const items = (suppressFollowups || booking ? [] : modelItems.length ? allowedModelItems : fallbackFollowups).slice(0, 2).map(normalizeRoseText);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
-                      {text ? <RoseMarkdown text={stripLeakedRoseToolCalls(bookingSafeAnswer(text, !!booking))} streaming={isLoading && m.id === lastAssistantId}
-                        onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} /> : null}
+                      {(() => {
+                        const shown = text ? stripLeakedRoseToolCalls(bookingSafeAnswer(text, !!booking)) : "";
+                        const streaming = isLoading && m.id === lastAssistantId;
+                        // A finished turn with no text (only tool calls) gets one fallback line, not an empty bubble.
+                        if (!shown.trim() && !streaming) {
+                          return <RoseMarkdown text={ROSE_EMPTY_ANSWER} streaming={false}
+                            onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} />;
+                        }
+                        return shown ? <RoseMarkdown text={shown} streaming={streaming}
+                          onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} /> : null;
+                      })()}
                       {booking ? (
                         <RoseBookingCard
                           intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}

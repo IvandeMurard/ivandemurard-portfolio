@@ -510,7 +510,12 @@ describe("Rose canonical knowledge", () => {
     expect(audit).toContain("rawStreamEvidence");
     expect(audit).toContain('event.type === "tool-input-error"');
     expect(edge).toContain("curatedRoseResponse");
-    for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION", "isRoseFollowupAllowed", "roseFollowupPolicyDescription", "shouldSuppressRoseFollowups", "getRoseCuratedAnswer"]) {
+    // The tools are built once, in the shared module, so evaluation and live handler cannot differ.
+    const shared = readFileSync("supabase/functions/_shared/rose-tools.ts", "utf8");
+    for (const name of ["ROSE_BOOKING_TOOL_DESCRIPTION", "ROSE_FOLLOWUPS_TOOL_DESCRIPTION", "isRoseFollowupAllowed", "roseFollowupPolicyDescription", "shouldSuppressRoseFollowups"]) {
+      expect(shared).toContain(name);
+    }
+    for (const name of ["createRoseTools", "getRoseCuratedAnswer"]) {
       expect(edge).toContain(name);
       expect(harness).toContain(name);
     }

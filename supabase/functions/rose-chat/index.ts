@@ -10,10 +10,10 @@ import {
 } from "npm:ai@5.0.217";
 import { z } from "npm:zod@^3.25.76";
 import { createGoogleAiProvider, createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
-import { chooseRoseProvider, isQuotaRefusal, ROSE_UNAVAILABLE, roseStreamErrorText } from "../_shared/rose-provider.ts";
-import { getRoseSystemPrompt, shouldOfferRoseBooking } from "../_shared/rose-context.ts";
+import { chooseRoseProvider, isQuotaRefusal, ROSE_MAX_RETRIES, ROSE_UNAVAILABLE, roseStreamErrorText } from "../_shared/rose-provider.ts";
+import { createRoseTools, roseHistoryQuestions } from "../_shared/rose-tools.ts";
+import { getRoseSystemPrompt } from "../_shared/rose-context.ts";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
-import { isRoseFollowupAllowed, ROSE_BOOKING_TOOL_DESCRIPTION, ROSE_FOLLOWUPS_TOOL_DESCRIPTION, roseFollowupPolicyDescription, shouldSuppressRoseFollowups } from "../_shared/rose-tool-contract.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -140,9 +140,7 @@ Deno.serve(async (req) => {
     const question = last.parts.map((p) => p.text).join(" ");
     const curatedAnswer = getRoseCuratedAnswer({ question, pagePath: body?.page?.path });
     if (curatedAnswer) return curatedRoseResponse(curatedAnswer);
-    const previousQuestions = safeMessages.slice(-20, -1)
-      .filter(message => message.role === "user")
-      .map(message => message.parts.filter(part => part.type === "text").map(part => part.type === "text" ? part.text : "").join(" "));
+    const previousQuestions = roseHistoryQuestions(safeMessages);
     const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested, question, previousQuestions });
     const followupContext = { question, pagePath: body?.page?.path };
     const result = streamText({
@@ -151,37 +149,8 @@ Deno.serve(async (req) => {
       messages: convertToModelMessages(safeMessages),
       // One step: tools are UI-only, so the model never continues after a tool call.
       stopWhen: stepCountIs(1),
-      tools: {
-        ...(shouldOfferRoseBooking(question) ? {
-          propose_booking: tool({
-            description: ROSE_BOOKING_TOOL_DESCRIPTION,
-            inputSchema: z.object({
-              intent: z.enum(["product", "technical", "culture", "exploring"])
-                .describe("Detected intent bucket."),
-              reason: z
-                .string()
-                .max(200)
-                .describe(
-                  "One short sentence, plain English, shown on the card as the call framing.",
-                ),
-            }),
-          }),
-        } : {}),
-        ...(shouldSuppressRoseFollowups(followupContext) ? {} : {
-          suggest_followups: tool({
-            description: ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
-            inputSchema: z.object({
-              items: z.array(z.string().min(3).max(80).describe(roseFollowupPolicyDescription(followupContext))).min(1).max(2),
-            }).superRefine(({ items }, ctx) => {
-              items.forEach((item, index) => {
-                if (!isRoseFollowupAllowed(item, followupContext)) {
-                  ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["items", index], message: "This follow-up does not advance the current question safely." });
-                }
-              });
-            }),
-          }),
-        }),
-      },
+      tools: createRoseTools({ tool, z }, followupContext),
+      maxRetries: ROSE_MAX_RETRIES,
     });
 
     // A quota or credit refusal (402 or 429) reaches the dock as "rose_unavailable", not as a generic error.
