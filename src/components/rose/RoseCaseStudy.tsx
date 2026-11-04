@@ -4,6 +4,7 @@ import { CompassRose } from "@/components/rose/CompassRose";
 import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
+import { DesignDemo, HeroDock, PassageQuestions, TestLoop } from "@/components/rose/RoseDemos";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -47,9 +48,7 @@ const LEGEND = [
   ["○", "Design", "A proposed direction or a prototype."],
 ] as const;
 
-/* §6.1 Hero. Copy verbatim from docs/rose-case-study-copy-v2.md. The demo exchange stays as built until the hero demo branch. */
-const HERO_Q = "Why was Rose first built around booking?";
-const HERO_A = "Ivan's first brief was narrow: help you decide, in two or three exchanges, whether to book 30 minutes with him. He changed it in August.";
+/* §6.1 Hero. Copy verbatim from docs/rose-case-study-copy-v2.md. The demo is in RoseDemos.tsx. */
 const HERO_LEAD = "Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.";
 const TLDR = [
   ["The problem", "A case study shows the work, but it cannot answer a visitor's own question."],
@@ -256,42 +255,6 @@ const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: 
   </div>
 );
 
-/** Scripted replay styled as the dock: question, reading status, answer, Locate, source. */
-const HeroDock = ({ reduced }: { reduced: boolean }) => {
-  const [step, setStep] = useState(reduced ? 3 : 0);
-  useEffect(() => {
-    if (reduced) { setStep(3); return; }
-    const ts = [400, 1600, 3000].map((d, i) => window.setTimeout(() => setStep(i + 1), d));
-    return () => ts.forEach(window.clearTimeout);
-  }, [reduced]);
-  const locate = () => {
-    // Centre the decision in the reading zone so Rose's gesture plays on arrival.
-    document.getElementById("ch-01-decision")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-  };
-  const fade = (on: boolean) => ({ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 500ms ease" });
-  return (
-    <div data-rose-hero aria-label="Rose, one example exchange" className={cn("flex min-h-[20rem] flex-col rounded-2xl p-5 shadow-xl shadow-primary/10", DOCK_PANEL)}>
-      <div className="flex items-center justify-between">
-        <span className="flex items-center gap-2 font-headline text-base"><CompassRose heading={0} reduced className="h-5 w-5" />Rose</span>
-        <span className="font-label text-[10px] opacity-80">reading: /rose · hero</span>
-      </div>
-      <div className="mt-6 flex flex-1 flex-col gap-3" aria-live="polite">
-        <p className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-on-primary/10 [[data-mood=dusk]_&]:bg-on-surface/10 px-4 py-2 font-body text-sm" style={fade(step >= 1)}>{HERO_Q}</p>
-        {step === 2 && <p className="font-label text-xs opacity-80">Rose is reading the page…</p>}
-        {step >= 3 && (
-          <div style={fade(true)}>
-            <p className="font-body text-sm leading-relaxed">{HERO_A}</p>
-            <button type="button" onClick={locate} className="mt-3 rounded-md border border-secondary-fixed-dim [[data-mood=dusk]_&]:border-secondary px-3 py-1 font-label text-xs hover:bg-on-primary/10 [[data-mood=dusk]_&]:hover:bg-on-surface/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary [[data-mood=dusk]_&]:focus-visible:outline-secondary">Locate · where he changed it ↓</button>
-            <p className="mt-2 font-label text-[10px] opacity-80">Source: original prompt, commit 51245fc</p>
-          </div>
-        )}
-      </div>
-      <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:open"))}
-        className="mt-4 rounded-lg border border-on-primary/30 [[data-mood=dusk]_&]:border-outline-variant px-3 py-2 text-left font-body text-xs opacity-90 hover:border-on-primary/60 [[data-mood=dusk]_&]:hover:border-on-surface/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-on-primary [[data-mood=dusk]_&]:focus-visible:outline-secondary">Ask Rose anything</button>
-    </div>
-  );
-};
-
 const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
   <header aria-labelledby="rose-hero-h">
     <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
@@ -464,6 +427,8 @@ export const GOT_WRONG = {
     source: "Lovable AI gateway logs, the 20 most recent calls, 2 Nov 2026; costs stated in credits, because the Lite plan's price per credit is not published.",
   },
   judgedLabel: "How a case is judged",
+  loop: ["Write cases before the run", "Run 5 or 20 samples", "Automatic checks", "Grade every answer against the sources", "Pass? If not, back to 2", "Deploy with my approval", "Live check on the site"],
+  loopCaption: "A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case.",
   judged: "Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are graded with AI assistance against the published sources, then reviewed by me.",
   campaign: "29 Oct campaign · 105 answers · 10 cases · 2 high-risk cases, 0 critical failures in 20 samples each",
   campaignLink: "Read the full evaluation",
@@ -526,21 +491,18 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
         <p className="mt-2 font-label text-xs text-on-surface-variant">{g.cost.sourceLead}{g.cost.source}</p>
       </div>
 
-      <div className="mt-12 grid gap-8 border-t border-on-surface-variant/60 pt-8 md:grid-cols-2 md:gap-x-12">
-        <div>
-          <p className={cn(LABEL, "text-secondary")}>{g.judgedLabel}</p>
-          <p className="mt-2 font-body text-base text-on-surface">{g.judged}</p>
-          <ul className="mt-4 flex list-none flex-wrap gap-2 p-0">
-            {g.dimensions.map((d) => <li key={d} className="rounded-full border border-outline-variant px-3 py-1 font-body text-xs text-on-surface">{d}</li>)}
-          </ul>
-          <p className="mt-5 font-label text-xs text-on-surface-variant">{g.campaign}</p>
-          <p className="mt-1 font-body text-sm text-on-surface"><ExternalLink href={REPO_FILE(g.evalDoc)}>{g.campaignLink}</ExternalLink></p>
-        </div>
-        <dl className="space-y-3 font-body text-base text-on-surface">
+      <div className="mt-12 border-t border-on-surface-variant/60 pt-8">
+        <h3 className="font-headline text-3xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-4xl">{g.judgedLabel}</h3>
+        <p className="mt-3 max-w-2xl font-body text-base text-on-surface">{g.judged}</p>
+        <TestLoop steps={g.loop} caption={g.loopCaption} />
+        <p className="mt-6 max-w-2xl font-body text-base text-on-surface">Eight dimensions: {g.dimensions.map((d) => d.toLowerCase()).join(", ")}.</p>
+        <dl className="mt-4 max-w-2xl space-y-3 font-body text-base text-on-surface">
           {g.rules.map(([t, d]) => (
             <div key={t}><dt className={cn(LABEL, "inline text-on-surface-variant")}>{t}</dt><dd className="inline"> · {d}</dd></div>
           ))}
         </dl>
+        <p className="mt-6 font-label text-xs text-on-surface-variant">{g.campaign}</p>
+        <p className="mt-1 font-body text-sm text-on-surface"><ExternalLink href={REPO_FILE(g.evalDoc)}>{g.campaignLink}</ExternalLink></p>
       </div>
 
       <p className="mt-6 font-label text-xs text-on-surface-variant">
@@ -554,16 +516,20 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
-/* §6.4 Chapter 06, words only. The diagram, the answer formats and the demo come in later branches. */
+/* §6.4 Chapter 06. The demo and the passage questions are in RoseDemos.tsx. The "How Rose works" diagram and the relations map come in later branches. */
 export const SIX = {
   intro: "Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plainer words, a link to other work or a diagram.",
   influence: "The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on.",
 };
 
-const SixBody = () => (
-  <div className="mt-8 space-y-4 font-body text-base text-on-surface">
-    <p>{SIX.intro}</p>
-    <p>{SIX.influence}</p>
+const SixBody = ({ reduced }: { reduced: boolean }) => (
+  <div className="mt-8">
+    <div className="space-y-4 font-body text-base text-on-surface">
+      <p>{SIX.intro}</p>
+      <p>{SIX.influence}</p>
+    </div>
+    <DesignDemo reduced={reduced} />
+    <PassageQuestions />
   </div>
 );
 
@@ -718,7 +684,7 @@ const Chapters = memo(({ reduced }: { reduced: boolean }) => (
             <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
             {c.id === "ch-00" && <IdeaBody reduced={reduced} />}
             {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
-            {c.id === "ch-06" && <SixBody />}
+            {c.id === "ch-06" && <SixBody reduced={reduced} />}
             {c.id === "ch-07" && <TrustBody />}
             {c.id === "ch-08" && <ValidationBody reduced={reduced} />}
             {c.id === "ch-09" && <NextBody />}
