@@ -16,6 +16,7 @@ import roseMark from "@/assets/rose-mark.png";
 import { expireIfIdle, getRoseChat, getRoseMinimised, getRoseOpen, resetRoseChat, saveMessages, setRoseMinimised, setRoseOpen } from "./roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 import { ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
+import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose-provider";
 
 const SESSION_KEY = "rose_session";
 
@@ -95,6 +96,24 @@ const CompassMark = ({ className }: { className?: string }) => (
     <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" />
     <path d="M8 8l6 6M32 8l-6 6M8 32l6-6M32 32l-6-6" strokeWidth="0.6" />
   </svg>
+);
+
+/** The paused notice: shown when Rose is paused, and when the provider refuses for quota or credits. */
+const RosePausedNotice = () => (
+  <>
+    <p>{ROSE_PAUSED.text}</p>
+    <p className="mt-4 flex flex-wrap gap-2">
+      {ROSE_PAUSED.links.map((l) => (
+        <Link
+          key={l.href}
+          to={l.href}
+          className="rounded-full border border-secondary px-4 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+        >
+          {l.label}
+        </Link>
+      ))}
+    </p>
+  </>
 );
 
 export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus }) => {
@@ -430,18 +449,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
 
           {open && paused ? (
             <div role="status" className="flex-1 overflow-y-auto px-5 py-5 text-sm text-on-surface">
-              <p>{ROSE_PAUSED.text}</p>
-              <p className="mt-4 flex flex-wrap gap-2">
-                {ROSE_PAUSED.links.map((l) => (
-                  <Link
-                    key={l.href}
-                    to={l.href}
-                    className="rounded-full border border-secondary px-4 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-                  >
-                    {l.label}
-                  </Link>
-                ))}
-              </p>
+              <RosePausedNotice />
             </div>
           ) : null}
 
@@ -512,7 +520,11 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                   </div>
                 ) : null}
 
-                {error ? <p className="text-xs text-destructive">Rose lost the thread for a moment. Please feel free to try again, or reach out to Ivan directly.</p> : null}
+                {error ? (
+                  isRoseUnavailableError(error)
+                    ? <div role="status" className="text-sm text-on-surface"><RosePausedNotice /></div>
+                    : <p className="text-xs text-destructive">Rose lost the thread for a moment. Please feel free to try again, or reach out to Ivan directly.</p>
+                ) : null}
               </div>
             </div>
           ) : null}
