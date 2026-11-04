@@ -184,7 +184,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
               </dl>
               <div>
                 <p class="lab" style="color: {{c.gold}}">What I decided</p>
-                <p style="margin: 6px 0 0; font-family: Newsreader, Georgia, serif; font-size: 25px; line-height: 1.32"><span data-rose-anchor="{{m.id}}" id="{{m.anchor}}" style="background-image: linear-gradient(#b06a3b,#b06a3b); background-repeat: no-repeat; background-position: 0 100%; background-size: {{m.ul}} 2px; transition: background-size 700ms ease">{{m.decision}}</span></p>
+                <p style="margin: 6px 0 0; font-family: Newsreader, Georgia, serif; font-size: 25px; line-height: 1.32"><span data-rose-anchor="{{m.id}}" id="{{m.anchor}}" style="background-image: linear-gradient(#b06a3b,#b06a3b); background-repeat: no-repeat; background-position: 0 100%; background-size: {{m.ul}} 2px; background-color: {{m.hl}}; border-radius: 3px; transition: background-size 700ms ease, background-color 500ms ease">{{m.decision}}</span></p>
                 <sc-if value="{{m.on}}" hint-placeholder-val="{{ false }}">
                   <p class="rose-cursor" role="note" aria-label="Rose" style="margin: 12px 0 0; font-family: Newsreader, Georgia, serif; font-size: 18px; line-height: 1.4; color: {{c.roseInk}}">"""+TIP+"""<span>{{m.note}}</span></p>
                 </sc-if>
@@ -241,7 +241,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
 
       <!-- 6.4 Chapter 6: answers live in the dock only -->
       <section id="ch6" data-chapter="6" style="padding: 80px 0 64px">
-        <p class="kick" style="color: {{c.gold}}">06 · In design <span style="margin-left: 10px; color: {{c.muted}}">○ Design</span></p>
+        <p class="kick" style="color: {{c.gold}}">06 · Answer formats <span style="margin-left: 10px; color: {{c.muted}}">○ Design</span></p>
         <h2 style="margin: 18px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.05; color: {{c.head}}">Answers that point into the page</h2>
         <p style="margin: 16px 0 0; max-width: 640px; font-size: 16.5px; color: {{c.soft}}">Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plainer words, a link to other work or a diagram.</p>
         <p style="margin: 10px 0 0; max-width: 640px; font-size: 15px; color: {{c.muted}}">The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on.</p>
@@ -259,14 +259,17 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
             </sc-if>
             <sc-if value="{{showA}}" hint-placeholder-val="{{ true }}">
               <div class="rose-note" style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; line-height: 1.55">
-                <p style="margin: 0">{{d6.a}}</p>
+                <p style="margin: 0">{{d6.a}} <button type="button" onClick="{{citeCh3}}" aria-label="Go to the source: {{d6.src}}" style="display: inline-flex; align-items: center; gap: 4px; min-height: 28px; vertical-align: baseline; background: rgba(224,167,124,.14); border: 1px solid rgba(224,167,124,.45); color: #f0c9a6; border-radius: 6px; padding: 0 7px; cursor: pointer; font: 500 11.5px 'IBM Plex Mono', monospace">↗ {{d6.src}}</button></p>
+                <sc-if value="{{d6.isBook}}" hint-placeholder-val="{{ false }}">
+                  <p style="margin: 4px 0 0; padding-top: 10px; border-top: 1px solid rgba(224,167,124,.3); display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: rgba(244,239,230,.82)"><svg viewBox="0 0 40 40" width="14" height="14" aria-hidden="true" fill="none" stroke="#e0a77c" stroke-width="2"><circle cx="20" cy="20" r="17"></circle><path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z"></path></svg><span>If this fits a role you are hiring for, <a href="#book" style="color: #f0c070; border-bottom: 1px solid rgba(240,192,112,.5)">book a call with Ivan</a>.</span></p>
+                </sc-if>
                 <sc-if value="{{d6.isLocate}}" hint-placeholder-val="{{ true }}">
                   <button type="button" onClick="{{locateCh3}}" style="align-self: flex-start; min-height: 40px; background: transparent; border: 1px solid #e0a77c; color: #f4efe6; border-radius: 999px; padding: 0 14px; cursor: pointer; font: 500 12.5px 'IBM Plex Mono', monospace">Locate, show me ↑</button>
                 </sc-if>
                 <sc-if value="{{d6.isConnect}}" hint-placeholder-val="{{ false }}">
                   <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px">
-                    <li><span class="mono" style="color: #e0a77c">same thesis · </span>Lore, one industry over</li>
-                    <li><span class="mono" style="color: #e0a77c">part of · </span>the multi-agent architecture, through the orchestrator</li>
+                    <li><span class="mono" style="color: #e0a77c">how she is tested · </span>The evaluation</li>
+                    <li><span class="mono" style="color: #e0a77c">uses the method of · </span>Harnesses, graders and closed loops</li>
                   </ul>
                 </sc-if>
                 <sc-if value="{{d6.isSketch}}" hint-placeholder-val="{{ false }}">
@@ -280,7 +283,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
               </div>
             </sc-if>
           </div>
-          <figcaption class="mono" style="padding: 10px 6px 0; color: rgba(244,239,230,.55)">Prototype. Live Rose answers in text only.</figcaption>
+          <figcaption class="mono" style="padding: 10px 6px 0; color: rgba(244,239,230,.55)">These formats are in design. Live Rose answers in text only.</figcaption>
         </figure>
 
         <!-- How Rose works: architecture, Built solid / Design dashed -->
@@ -565,7 +568,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #b06a3b;outline-offset:3p
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
             <span style="display: flex; align-items: center; gap: 8px; min-width: 0">
               <svg viewBox="0 0 40 40" width="18" height="18" aria-hidden="true" fill="none" stroke="#e0a77c" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="opacity: .55; flex-shrink: 0"><circle cx="20" cy="20" r="17"></circle><path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z"></path></svg>
-              <span class="mono" style="color: rgba(244,239,230,.6)">Reading: /rose · 06 · In design</span>
+              <span class="mono" style="color: rgba(244,239,230,.6)">Reading: /rose · 06 · Answer formats</span>
             </span>
             <span style="display: flex; gap: 4px">
               <button type="button" onClick="{{closeDock}}" aria-label="Minimise" style="width: 44px; height: 44px; background: transparent; border: 0; color: rgba(244,239,230,.7); cursor: pointer; font-size: 16px; line-height: 1">⌄</button>
@@ -615,8 +618,8 @@ class Component extends DCLogic {
     // Hero demo: two exchanges in a loop (question, reading, answer, pause).
     var tick = 0;
     this.loop = setInterval(function () {
-      tick = (tick + 1) % 27;
-      self.setState({ ex: Math.floor(tick / 9), step: [1, 2, 3, 3, 3, 3, 3, 3, 0][tick % 9] });
+      tick = (tick + 1) % 36;
+      self.setState({ ex: Math.floor(tick / 9) % 3, ex6: Math.floor(tick / 9), step: [1, 2, 3, 3, 3, 3, 3, 3, 0][tick % 9] });
     }, 900);
     this.timers = [];
     this.bindTimer = setTimeout(function () {
@@ -739,12 +742,12 @@ class Component extends DCLogic {
     };
     var chapters = M.map(function (m, i) {
       var on = g === m.id;
-      return Object.assign({}, m, { index: i + 1, anchor: m.id + '-anchor', on: on, ul: on ? '100%' : '0%', hasChips: !!m.hasChips, hasTrade: !!m.trade, trade: m.trade || '', strike: on ? 'line-through' : 'none', bg: C.tones[i], v: vig(m.id) });
+      return Object.assign({}, m, { index: i + 1, anchor: m.id + '-anchor', on: on, ul: on ? '100%' : '0%', hasChips: !!m.hasChips, hasTrade: !!m.trade, trade: m.trade || '', strike: on ? 'line-through' : 'none', hl: s.hl === m.id ? 'rgba(176,106,59,.22)' : 'transparent', bg: C.tones[i], v: vig(m.id) });
     });
     var headings = [0, 0, 80, 150, 215, 300, 320, 335, 345, 355, 360];
     var tocItems = [
       ['ch0', '00', 'The idea'], ['ch1', '01', 'Qualify'], ['ch2', '02', 'Listen to the page'], ['ch3', '03', 'Know where you are'],
-      ['ch4', '04', 'One dock'], ['ch5', '05', 'Earn trust'], ['ch6', '06', 'In design'], ['ch7', '07', 'Trust'],
+      ['ch4', '04', 'One dock'], ['ch5', '05', 'Earn trust'], ['ch6', '06', 'Answer formats'], ['ch7', '07', 'Trust'],
       ['ch8', '08', 'What she got wrong'], ['ch9', '09', 'Next steps'], ['ch10', '10', 'Open questions']
     ];
     var toc = tocItems.map(function (t, i) {
@@ -831,10 +834,12 @@ class Component extends DCLogic {
         { where: 'Reading: /journeys', q: 'What has Ivan built?', a: 'Six projects, each with its status. Aetherix is ready for a 30-day pilot, Tacet is built and in maintenance, and Anima is a synthetic proof of concept.', src: 'Source: case studies, /journeys', hasLink: false, link: '', hasChips: true, chips: ['What happens when it’s wrong?', 'Which ones are live?'] }
       ][s.ex || 0],
       d6: [
-        { format: 'Locate', isLocate: true, isConnect: false, isSketch: false, q: 'Where did he decide this?', a: 'Ivan made this call on 10 August, in chapter 03, Know where you are.' },
-        { format: 'Connect', isLocate: false, isConnect: true, isSketch: false, q: 'How does Aetherix relate to his other work?', a: 'Two links, each with the reason Ivan wrote for it:' },
-        { format: 'Sketch', isLocate: false, isConnect: false, isSketch: true, q: 'Draw how it works.', a: 'Page, then section in view, then marked passage, then answer.' }
-      ][s.ex || 0],
+        { format: 'Locate', isLocate: true, isConnect: false, isSketch: false, isBook: false, q: 'Where did he decide this?', a: 'Ivan made this call on 10 August, in chapter 03.', src: '03 · Know where you are' },
+        { format: 'Connect', isLocate: false, isConnect: true, isSketch: false, isBook: false, q: 'How does this relate to his other work?', a: 'Two links, each with the reason Ivan wrote for it: the evaluation page, which shows how every change to me is tested, and the Field Note whose method that evaluation applies.', src: 'Relations map, chapter 06' },
+        { format: 'Sketch', isLocate: false, isConnect: false, isSketch: true, isBook: false, q: 'Draw how it works.', a: 'Page, then section in view, then marked passage, then answer.', src: '03 · Know where you are' },
+        { format: 'Sources and booking line', isLocate: false, isConnect: false, isSketch: false, isBook: true, q: 'Is Ivan open to AI product roles?', a: 'Yes. He is open to AI Product Manager and Product Builder roles. He designs, builds and evaluates AI services for operations.', src: 'Contact · CV' }
+      ][s.ex6 || 0],
+      citeCh3: function () { var el = document.getElementById('ch3-anchor'); if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); self.setState({ hl: 'ch3' }); setTimeout(function () { self.setState({ hl: null }); }, 2600); },
       on8: g === 'ch8',
       ring8: g === 'ch8' ? '2px' : '0px',
       cases: [

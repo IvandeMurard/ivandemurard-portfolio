@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -54,18 +54,26 @@ const useGesture = (id: string) => {
   return { ref, active };
 };
 
+/** The copper tip travels on desktop only. Below md the note shows under its passage without the tip. */
+const DESKTOP = "(min-width: 768px)";
+const useDesktop = () => useSyncExternalStore(
+  (f) => { const m = window.matchMedia(DESKTOP); m.addEventListener("change", f); return () => m.removeEventListener("change", f); },
+  () => window.matchMedia(DESKTOP).matches,
+  () => true,
+);
+
 const useReducedMotion = () => useSyncExternalStore(
   (f) => { const m = window.matchMedia("(prefers-reduced-motion: reduce)"); m.addEventListener("change", f); return () => m.removeEventListener("change", f); },
   () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   () => false,
 );
 
-const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean; children: ReactNode }) => (
-  <div className="flex items-center gap-2" aria-hidden={!on}>
-    <RoseTip on={on} reduced={reduced} />
-    <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
-      style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />
-    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rotate-45 bg-rose-copper md:hidden" style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
+const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduced: boolean; children: ReactNode; tip?: boolean }) => (
+  <div className="flex items-center gap-2">
+    {tip && <RoseTip on={on} reduced={reduced} />}
+    {tip && <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
+      style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />}
+    <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0 rotate-45 bg-rose-copper", tip && "md:hidden")} style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
     <p className="font-headline text-lg leading-snug text-rose-copper"
       style={{ opacity: on ? 1 : 0, transform: on || reduced ? "none" : "translateY(4px)", transition: reduced ? "none" : `opacity ${on ? 600 : 350}ms ease ${on ? 550 : 0}ms, transform 800ms ${EASE} ${on ? 550 : 0}ms` }}>
       {children}
@@ -73,13 +81,18 @@ const GestureNote = ({ on, reduced, children }: { on: boolean; reduced: boolean;
   </div>
 );
 
-/** An anchor in the reading flow where Rose briefly points, then lets go. */
+/**
+ * Rose's note, placed directly under the passage it comments on (never in a margin column).
+ * It shows when its passage is reached and leaves when the reader moves on; with reduced motion it is always
+ * visible. It is always in the DOM, role="note", never aria-hidden. The tip that travels onto the passage is
+ * drawn by RoseMark (tip), on desktop only.
+ */
 export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => {
   const { ref, active } = useGesture(id);
   const reduced = useReducedMotion();
   return (
     <div ref={ref} data-rose-cue={id} role="note" aria-label="Rose" className={cn("min-h-[1.75rem]", className)}>
-      <GestureNote on={active} reduced={reduced}>{note}</GestureNote>
+      <GestureNote on={active || reduced} reduced={reduced} tip={false}>{note}</GestureNote>
     </div>
   );
 };
@@ -128,33 +141,130 @@ const scrollToFraction = (el: HTMLElement | null, f: number) => {
 };
 
 /* ---------------- Rose marks: pencil gestures on the page ---------------- */
-type MarkKind = "underline" | "circle" | "bracket";
-const MARK_PATH: Record<MarkKind, string> = {
+type PathKind = "underline" | "circle" | "bracket";
+type MarkKind = PathKind | "strike" | "highlight";
+const MARK_PATH: Record<PathKind, string> = {
   underline: "M2 7 C 30 4, 60 9, 98 5",
   circle: "M50 3 C 82 2, 98 10, 97 20 C 96 31, 70 37, 46 36 C 18 35, 2 28, 3 18 C 4 8, 26 3, 56 5",
   bracket: "M6 2 C 2 2, 2 2, 2 8 L 2 32 C 2 38, 2 38, 6 38",
 };
 
-/** A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it). */
-export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string }) => {
+/** The tip is TIP_SIZE px wide and sits TIP_GAP px left of the text column. */
+const TIP_SIZE = 12;
+const TIP_GAP = 20;
+
+/** The circle is drawn in the pixels of the marked span's own box, with a few px of padding on each side. */
+const CIRCLE_PAD_X = 7;
+const CIRCLE_PAD_Y = 3;
+/** A hand-drawn ellipse that starts and ends a little off, fitted to a w by h box. */
+const circlePath = (w: number, h: number) => {
+  const X = (u: number) => +((u * w) / 100).toFixed(1);
+  const Y = (v: number) => +((v * h) / 40).toFixed(1);
+  return `M${X(50)} ${Y(3)} C ${X(82)} ${Y(2)}, ${X(98)} ${Y(10)}, ${X(97)} ${Y(20)} C ${X(96)} ${Y(31)}, ${X(70)} ${Y(37)}, ${X(46)} ${Y(36)} C ${X(18)} ${Y(35)}, ${X(2)} ${Y(28)}, ${X(3)} ${Y(18)} C ${X(4)} ${Y(8)}, ${X(26)} ${Y(3)}, ${X(56)} ${Y(5)}`;
+};
+
+/**
+ * A mark is never drawn in advance: it appears when Rose reaches its cue (or when a scene drives it).
+ * One meaning each: underline = the decision, strike = the first brief, circle = a figure and its comparison,
+ * highlight = the passage Rose cited. `skipWhenReduced` (the case study): with reduced motion nothing is drawn.
+ * `tip`: the copper tip travels onto the start of this passage (desktop only, never with reduced motion).
+ */
+export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue, skipWhenReduced, tip }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string; skipWhenReduced?: boolean; tip?: boolean }) => {
   const { ref } = useInView<HTMLSpanElement>();
   const reached = useCueReached(cue);
+  const reducedMotion = useReducedMotion();
+  const desktop = useDesktop();
   const on = active ?? reached;
-  if (kind === "underline") {
-    // A pencil underline that wraps with the text across lines.
+  // The circle follows the marked span's own box, at every width.
+  const [box, setBox] = useState({ w: 100, h: 24 });
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (kind !== "circle" || !el) return;
+    const measure = () => { if (el.offsetWidth > 0) setBox({ w: el.offsetWidth, h: el.offsetHeight }); };
+    measure();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [kind, ref]);
+  // The tip always sits in the left margin of the text column, TIP_GAP px left of it, level with the first line of
+  // the marked passage. For a passage that starts mid-line it is therefore far left of the passage itself.
+  const [tipPos, setTipPos] = useState({ left: -TIP_GAP, top: 6 });
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const column = el?.parentElement;
+    if (!tip || !el || !column) return;
+    const place = () => {
+      const cs = getComputedStyle(column);
+      const columnLeft = column.getBoundingClientRect().left + (parseFloat(cs.paddingLeft) || 0);
+      const box = el.getBoundingClientRect();
+      const first = el.getClientRects()[0] ?? box;
+      // Offsets are from the span's own box, the containing block of the absolutely positioned tip. Vertically the
+      // tip is centred on the first line box of the passage.
+      setTipPos({ left: Math.round(columnLeft - box.left - TIP_GAP), top: Math.round(first.top - box.top + (first.height - TIP_SIZE) / 2) });
+    };
+    place();
+    window.addEventListener("resize", place);
+    if (typeof ResizeObserver === "undefined") return () => window.removeEventListener("resize", place);
+    const ro = new ResizeObserver(place);
+    ro.observe(column);
+    return () => { window.removeEventListener("resize", place); ro.disconnect(); };
+  }, [tip, ref]);
+  if (skipWhenReduced && (reduced || reducedMotion)) return <>{children}</>;
+  const pointer = tip && desktop && !reduced && !reducedMotion
+    ? <span aria-hidden="true" data-rose-tip data-tip="margin" className="pointer-events-none absolute" style={{ left: tipPos.left, top: tipPos.top }}><RoseTip on={on} reduced={false} /></span>
+    : null;
+  if (kind === "strike") {
+    // The first brief, crossed out while Rose points at the decision that replaced it.
     return (
-      <span ref={ref} className="box-decoration-clone bg-no-repeat pb-0.5"
-        style={{ backgroundImage: "linear-gradient(hsl(var(--rose-copper) / 0.75), hsl(var(--rose-copper) / 0.75))", backgroundPosition: "0 100%", backgroundSize: on ? "100% 1.5px" : "0% 1.5px", transition: reduced ? "none" : `background-size 1100ms ${EASE} ${delay}ms` }}>
+      <span ref={ref} data-mark="strike" style={{ textDecorationLine: on ? "line-through" : "none", textDecorationColor: "hsl(var(--rose-copper))", textDecorationThickness: "1.5px", color: on ? "hsl(var(--on-surface-variant))" : undefined, transition: reduced ? "none" : "color 600ms ease" }}>
         {children}
       </span>
     );
   }
+  if (kind === "highlight") {
+    // The passage Rose cited. Not used on the page yet (source links come later).
+    return (
+      <span ref={ref} data-mark="highlight" data-on={on ? "true" : "false"} className="rounded-[3px]"
+        style={{ backgroundColor: on ? "hsl(var(--rose-copper) / 0.22)" : "transparent", transition: reduced ? "none" : "background-color 500ms ease" }}>
+        {children}
+      </span>
+    );
+  }
+  if (kind === "underline") {
+    // A pencil underline that wraps with the text across lines.
+    return (
+      <span ref={ref} data-mark="underline" className="relative box-decoration-clone bg-no-repeat pb-0.5"
+        style={{ backgroundImage: "linear-gradient(hsl(var(--rose-copper) / 0.75), hsl(var(--rose-copper) / 0.75))", backgroundPosition: "0 100%", backgroundSize: on ? "100% 1.5px" : "0% 1.5px", transition: reduced ? "none" : `background-size 900ms ${EASE} ${delay}ms` }}>
+        {pointer}
+        {children}
+      </span>
+    );
+  }
+  if (kind === "circle") {
+    // The svg is a child of the marked span (position: relative), inset by a few px on each side. Its viewBox is the
+    // span's own box in px, so nothing is stretched, and the stroke reveal (pathLength) draws the whole ellipse.
+    const w = box.w + 2 * CIRCLE_PAD_X;
+    const h = box.h + 2 * CIRCLE_PAD_Y;
+    return (
+      <span ref={ref} data-mark="circle" className="relative inline-block whitespace-nowrap">
+        {pointer}
+        {children}
+        <svg aria-hidden="true" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none"
+          className="pointer-events-none absolute block overflow-visible text-rose-copper"
+          style={{ left: -CIRCLE_PAD_X, top: -CIRCLE_PAD_Y, width: `calc(100% + ${2 * CIRCLE_PAD_X}px)`, height: `calc(100% + ${2 * CIRCLE_PAD_Y}px)` }}>
+          <path d={circlePath(w, h)} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round"
+            style={{ strokeDasharray: 1, strokeDashoffset: on ? 0 : 1, transition: reduced ? "none" : `stroke-dashoffset 1100ms ${EASE} ${delay}ms` }} />
+        </svg>
+      </span>
+    );
+  }
   return (
-    <span ref={ref} className="relative inline-block whitespace-nowrap">
+    <span ref={ref} data-mark={kind} className="relative inline-block whitespace-nowrap">
+      {pointer}
       {children}
-      <svg aria-hidden="true" viewBox={kind === "bracket" ? "0 0 8 40" : "0 0 100 40"} preserveAspectRatio="none"
-        className={cn("pointer-events-none absolute overflow-visible text-rose-copper", kind === "circle" ? "-inset-x-2.5 -inset-y-1.5 h-[calc(100%+0.75rem)] w-[calc(100%+1.25rem)]" : "-left-3 top-0 h-full w-2")}>
-        <path d={MARK_PATH[kind]} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke" strokeLinecap="round"
+      <svg aria-hidden="true" viewBox="0 0 8 40" preserveAspectRatio="none" className="pointer-events-none absolute -left-3 top-0 h-full w-2 overflow-visible text-rose-copper">
+        <path d={MARK_PATH.bracket} pathLength={1} fill="none" stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke" strokeLinecap="round"
           style={{ strokeDasharray: 1, strokeDashoffset: on ? 0 : 1, transition: reduced ? "none" : `stroke-dashoffset 1100ms ${EASE} ${delay}ms` }} />
       </svg>
     </span>

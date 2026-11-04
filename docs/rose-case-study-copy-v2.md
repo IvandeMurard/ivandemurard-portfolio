@@ -1,4 +1,4 @@
-<!-- Exported from the Claude Doc "Rose case study: copy deck v2" on 3 Nov 2026, validated by Ivan. This file is the copy source for the Rose case study. -->
+<!-- Exported from the Claude Doc "Rose case study: copy deck v2" on 4 Nov 2026 (rev 92), validated by Ivan. This file is the copy source for the Rose case study. -->
 
 # Rose case study: copy deck v2
 
@@ -67,6 +67,12 @@ Intro line above chapter 01 (new): Rose's notes come from co-existence.ai's AI c
 
 Rose's marks, one meaning each, one at a time, drawn by the copper tip and absent with reduced motion: underline = the decision she comments on (chapters 01 to 05); circle = a figure and what it is compared with (chapter 08, cost); strike and replace = the first brief, crossed out, with the decision that replaced it. In her answers (design), Locate draws the mark on the page instead of only giving a link.
 
+Answer sources and booking line (design, decided 3 Nov). Each claim in Rose's answer ends with a source link (↗ + the section name). A click scrolls to the exact passage, sentence or diagram and highlights it for a moment: highlight = the passage Rose cited (a fourth mark, one meaning). On a question about Ivan's profile, no booking card unless the visitor asks; instead one line under the answer, set apart by a thin copper rule and the compass: "If this fits a role you are hiring for, book a call with Ivan." Follow-up questions are polite questions with Ivan in the third person, e.g. "Would you tell me more about his AI-native projects?"
+
+Source links, journey (decided 3 Nov). Two signs: § + section name for a passage on this site (same tab); ↗ only for links that leave the site (new tab). A § click on another page navigates in the same tab, the dock and the conversation follow, the page scrolls so the section heading and the passage are both in view, and the passage is highlighted. Only after such a jump, the dock shows one fixed context line built from the page and section titles (e.g. "Aetherix · How the forecast is checked"), not written by the model, and a return link "← Back to Rose's case study, chapter 08" (pattern: Back to {page title}, {section}) that restores the exact place and its highlight; the browser Back button does the same. A reader who arrives by normal reading never sees the context line or the return link. The return position is kept in the tab only and never sent. On mobile the dock minimises on the jump so it does not cover the passage. A § link to the same page only scrolls and highlights, with no return link.
+
+Demos, decided 4 Nov. Hero exchanges show the page read and the source: 1 reads /rose-design-lab · 03, source chapter 03; 2 reads /aetherix, source /aetherix status, link to the case study; 3 reads /journeys, source the case studies. Chapter 06 demo caption: "These formats are in design. Live Rose answers in text only." Both demos have a Pause / Play button (WCAG 2.2.2); with reduced motion they show the first exchange, still. Chapter 08 test loop, seven steps: 1 Write cases before the run; 2 Run 5 or 20 samples; 3 Automatic checks: tests, unsourced figures; 4 Grade every answer against the sources; 5 Pass? If not, back to 2; 6 Deploy with my approval; 7 Live check on the site. Caption: "A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case."
+
 | Ch. | Field | v2 copy |
 |---|---|---|
 | 01 Qualify, 21 Jul | Brief | Help the visitor decide, in two or three exchanges, whether to book 30 minutes with me. |
@@ -104,8 +110,7 @@ The chapter stays at a product manager's level: the architecture loses its file 
 
 | Element | v2 copy |
 |---|---|
-| Table of contents | 06 Answer formats |
-| Kicker | 06 · Answer formats (Design) |
+| Kicker | 06 · Answer formats (Design). TOC: 06 Answer formats |
 | Heading | Answers that point into the page |
 | Intro | Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plainer words, a link to other work or a diagram. |
 | Influence | The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on. |
@@ -113,11 +118,11 @@ The chapter stays at a product manager's level: the architecture loses its file 
 | Diagram nodes | Reader context (page, section in view, marked passage) → Dock → Rose → Site pages (the same text the MCP serves). Outputs: answer with sources and booking card (built), follow-up questions (built), passage link, relations and diagram (design). |
 | Marked passage | Pass the current page and intent into Rose's context, so answers refer to the case study being read. Decision of 10 Aug 2026. |
 | Questions | Locate: Where did he decide this? Reformulate: Say it more simply. Connect: How does this relate to his other work? Sketch: Draw how it works. |
-| Under the questions | Your question goes to the dock below, where Rose always answers. |
+| Under the questions | None. The four questions are non-clickable examples (decided 4 Nov): three of the four formats are in design, so live Rose could not answer them in that format. |
 | Answer formats (new component) | Each of the four questions shows its answer format with a marker: Reformulate (Built), Locate, Connect and Sketch (Design). |
 | Answer, Locate | Ivan made this call on 10 August, in chapter 03, Know where you are. Button: Locate, show me. |
 | Answer, Reformulate | When you ask me something, I also receive the page you are on, so I answer about what you are reading rather than about Ivan in general. |
-| Answer, Connect | The same pages feed me, the Markdown mirrors and the MCP server. I answer from the page you are on first. |
+| Answer, Connect | Two links, each with the reason Ivan wrote for it: the evaluation page, which shows how every change to me is tested, and the Field Note whose method that evaluation applies. |
 | Answer, Sketch | Page, then section in view, then marked passage, then answer. |
 | Map caption | What Rose can relate. I write this map by hand, and each link carries a one-line reason. |
 | Under the map | Rose links the site's content, not the projects' code. A dashed line marks an indirect link. |
