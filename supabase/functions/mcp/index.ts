@@ -11,6 +11,7 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 // src/content/statuses.ts
 var STATUSES = {
   sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with 4 co-founders, plus one person who was both developer and data scientist (5 people): discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022." },
+  rose: { signal: "go", word: "Live, text only", note: "Rose is live and text only. She knows the page and section in view, answers from the site's own text and sends nothing when you book." },
   aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
@@ -63,6 +64,14 @@ var BASE = [
     markdown_path: "/anima.md"
   },
   {
+    slug: "rose",
+    name: "Rose",
+    label: "AI service \xB7 Portfolio agent \xB7 2026",
+    tagline: "Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors.",
+    url: "https://ivandemurard.com/rose-design-lab",
+    markdown_path: "/rose-design-lab.md"
+  },
+  {
     slug: "compass",
     name: "Compass",
     group: "Standalone projects",
@@ -76,7 +85,7 @@ var STUDIES = BASE.map((s) => ({ ...s, status: { ...STATUSES[s.slug] } }));
 var list_case_studies_default = defineTool({
   name: "list_case_studies",
   title: "List case studies",
-  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, label, tagline, status (signal go|warn|stop|dark, word, note) and URL. Use get_case_study to fetch the full narrative for one of them.",
+  description: "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Rose, Compass) with slug, label, tagline, status (signal go|warn|stop|dark, word, note) and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
@@ -95,14 +104,16 @@ var SLUGS = {
   tacet: "/tacet.md",
   lore: "/lore.md",
   anima: "/anima.md",
+  rose: "/rose-design-lab.md",
   compass: "/compass.md"
 };
+var PAGES = { rose: "/rose-design-lab" };
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'rose', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
-    slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass.")
+    slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "rose", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, rose, or compass.")
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
   handler: async ({ slug }) => {
@@ -120,7 +131,7 @@ var get_case_study_default = defineTool2({
 
 ${await res.text()}`;
       const group = slug === "compass" ? "Standalone projects" : void 0;
-      const canonicalUrl = `${SITE_ORIGIN}/${slug}`;
+      const canonicalUrl = `${SITE_ORIGIN}${PAGES[slug] ?? `/${slug}`}`;
       const header = [
         `Slug: ${slug}`,
         ...group ? [`Group: ${group}`] : [],
