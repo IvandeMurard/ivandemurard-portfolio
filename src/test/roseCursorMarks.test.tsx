@@ -304,36 +304,90 @@ describe("Circle: sized from the marked span's own box", () => {
   });
 });
 
-describe("The tip on an inline passage", () => {
+describe("The tip: always in the left margin of the text column", () => {
   const tipOf = (id: string) => document.getElementById(id)?.querySelector("[data-rose-tip]") as HTMLElement;
+  // jsdom has no layout: the paragraph (the text column) starts at x = columnLeft, a passage at x = its own left.
+  let columnLeft = 100;
+  let spyRect: ReturnType<typeof vi.spyOn>;
+  beforeEach(() => {
+    columnLeft = 100;
+    spyRect = vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(function (this: Element) {
+      const left = this.tagName === "P" ? columnLeft : this.getAttribute("data-mark") && this.parentElement?.id === "inline" ? columnLeft + 160 : columnLeft;
+      return { left, right: left + 100, top: 0, bottom: 24, width: 100, height: 24, x: left, y: 0, toJSON() {} } as DOMRect;
+    });
+  });
+  afterEach(() => spyRect.mockRestore());
 
-  it("sits to the left of a passage that starts a block, and above one that starts mid-line", () => {
+  const Texts = () => (
+    <>
+      <p id="block"><RoseMark cue="x" skipWhenReduced tip>Starts a block</RoseMark></p>
+      <p id="inline">Text before the passage, <RoseMark cue="y" skipWhenReduced tip>starts mid-line</RoseMark></p>
+      <RoseCue id="x" note="Note X." />
+      <RoseCue id="y" note="Note Y." />
+    </>
+  );
+
+  it("is 20 px left of the column for a passage that starts a block, as before", () => {
     setEnv(DESKTOP);
-    render(
-      <>
-        <p id="block"><RoseMark cue="x" skipWhenReduced tip>Starts a block</RoseMark></p>
-        <p id="inline">Text before the passage, <RoseMark cue="y" skipWhenReduced tip>starts mid-line</RoseMark></p>
-        <RoseCue id="x" note="Note X." />
-        <RoseCue id="y" note="Note Y." />
-      </>,
-    );
-    expect(tipOf("block").getAttribute("data-tip")).toBe("left");
-    expect(tipOf("block").className).toContain("-left-5");
-    expect(tipOf("inline").getAttribute("data-tip")).toBe("above");
-    expect(tipOf("inline").className).toContain("-top-[1.4em]");
-    expect(tipOf("inline").className).not.toContain("-left-5"); // never over the preceding text
+    render(<Texts />);
+    expect(tipOf("block").getAttribute("data-tip")).toBe("margin");
+    expect(tipOf("block").style.left).toBe("-20px");
   });
 
-  it("on the case study: above the link in chapter 00 and the cost figure, left of the decisions in 01 to 05", () => {
+  it("is at that same x for a passage that starts mid-line, level with its first line, never over the text", () => {
+    setEnv(DESKTOP);
+    render(<Texts />);
+    const tip = tipOf("inline");
+    expect(tip.getAttribute("data-tip")).toBe("margin");
+    // The passage is 160 px into the column: the tip is 160 + 20 px to its left, i.e. 20 px left of the column.
+    expect(tip.style.left).toBe("-180px");
+    const spanLeft = columnLeft + 160;
+    const tipRight = spanLeft + parseFloat(tip.style.left) + 12;
+    expect(tipRight).toBeLessThanOrEqual(columnLeft - 8);
+    // Same horizontal position as the block-start tip, and the same vertical offset (line box of the first line).
+    expect(columnLeft + 160 + parseFloat(tip.style.left)).toBe(columnLeft + parseFloat(tipOf("block").style.left));
+    expect(tip.style.top).toBe(tipOf("block").style.top);
+    expect(tip.className).not.toMatch(/-top-|left-0/);
+  });
+
+  it("follows the column when the layout changes", () => {
+    setEnv(DESKTOP);
+    render(<Texts />);
+    expect(tipOf("inline").style.left).toBe("-180px");
+    columnLeft = 140; // the passage moves with the column, so the offset is unchanged
+    act(() => { window.dispatchEvent(new Event("resize")); });
+    expect(tipOf("inline").style.left).toBe("-180px");
+    spyRect.mockImplementation(function (this: Element) {
+      const left = this.tagName === "P" ? 100 : 400; // the passage starts further in: the tip moves further left
+      return { left, right: left + 100, top: 0, bottom: 24, width: 100, height: 24, x: left, y: 0, toJSON() {} } as DOMRect;
+    });
+    act(() => { window.dispatchEvent(new Event("resize")); });
+    expect(tipOf("inline").style.left).toBe("-320px");
+  });
+
+  it("is absent below md and with reduced motion", () => {
+    setEnv(MOBILE);
+    render(<Texts />);
+    expect(tips()).toHaveLength(0);
+    cleanup();
+    setEnv(REDUCED);
+    render(<Texts />);
+    expect(tips()).toHaveLength(0);
+  });
+
+  it("on the case study: the chapter 00 link, the cost figure and the decisions all use the margin placement", () => {
     setEnv(DESKTOP);
     render(<MemoryRouter><RoseCaseStudy reduced={false} /></MemoryRouter>);
     const link = screen.getByText("userose.ai's website agent").closest("[data-mark]") as HTMLElement;
-    expect(link.querySelector("[data-rose-tip]")?.getAttribute("data-tip")).toBe("above");
-    const figure = screen.getByText(GOT_WRONG.cost.figure);
-    expect(figure.querySelector("[data-rose-tip]")?.getAttribute("data-tip")).toBe("above");
-    for (const id of ["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"]) {
-      const decision = screen.getByText(MILESTONES[id].decision);
-      expect(decision.querySelector("[data-rose-tip]")?.getAttribute("data-tip"), id).toBe("left");
+    const placed = [
+      link.querySelector("[data-rose-tip]"),
+      screen.getByText(GOT_WRONG.cost.figure).querySelector("[data-rose-tip]"),
+      ...["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"].map((id) => screen.getByText(MILESTONES[id].decision).querySelector("[data-rose-tip]")),
+    ];
+    expect(placed).toHaveLength(7);
+    for (const tip of placed) {
+      expect(tip).not.toBeNull();
+      expect(tip?.getAttribute("data-tip")).toBe("margin");
     }
   });
 });

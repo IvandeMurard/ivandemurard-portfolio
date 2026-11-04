@@ -149,6 +149,10 @@ const MARK_PATH: Record<PathKind, string> = {
   bracket: "M6 2 C 2 2, 2 2, 2 8 L 2 32 C 2 38, 2 38, 6 38",
 };
 
+/** The tip is TIP_SIZE px wide and sits TIP_GAP px left of the text column. */
+const TIP_SIZE = 12;
+const TIP_GAP = 20;
+
 /** The circle is drawn in the pixels of the marked span's own box, with a few px of padding on each side. */
 const CIRCLE_PAD_X = 7;
 const CIRCLE_PAD_Y = 3;
@@ -183,15 +187,32 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
     ro.observe(el);
     return () => ro.disconnect();
   }, [kind, ref]);
-  // The tip sits to the left of a passage that starts a block, and above a passage that starts mid-line.
-  const [startsBlock, setStartsBlock] = useState(true);
+  // The tip always sits in the left margin of the text column, TIP_GAP px left of it, level with the first line of
+  // the marked passage. For a passage that starts mid-line it is therefore far left of the passage itself.
+  const [tipPos, setTipPos] = useState({ left: -TIP_GAP, top: 6 });
   useLayoutEffect(() => {
-    const prev = ref.current?.previousSibling;
-    setStartsBlock(!prev || (prev.nodeType === 3 && !(prev.textContent ?? "").trim()));
-  }, [ref]);
+    const el = ref.current;
+    const column = el?.parentElement;
+    if (!tip || !el || !column) return;
+    const place = () => {
+      const cs = getComputedStyle(column);
+      const columnLeft = column.getBoundingClientRect().left + (parseFloat(cs.paddingLeft) || 0);
+      const box = el.getBoundingClientRect();
+      const first = el.getClientRects()[0] ?? box;
+      // Offsets are from the span's own box, the containing block of the absolutely positioned tip. Vertically the
+      // tip is centred on the first line box of the passage.
+      setTipPos({ left: Math.round(columnLeft - box.left - TIP_GAP), top: Math.round(first.top - box.top + (first.height - TIP_SIZE) / 2) });
+    };
+    place();
+    window.addEventListener("resize", place);
+    if (typeof ResizeObserver === "undefined") return () => window.removeEventListener("resize", place);
+    const ro = new ResizeObserver(place);
+    ro.observe(column);
+    return () => { window.removeEventListener("resize", place); ro.disconnect(); };
+  }, [tip, ref]);
   if (skipWhenReduced && (reduced || reducedMotion)) return <>{children}</>;
   const pointer = tip && desktop && !reduced && !reducedMotion
-    ? <span aria-hidden="true" data-rose-tip data-tip={startsBlock ? "left" : "above"} className={cn("pointer-events-none absolute", startsBlock ? "-left-5 top-[0.3em]" : "left-0 -top-[1.4em]")}><RoseTip on={on} reduced={false} /></span>
+    ? <span aria-hidden="true" data-rose-tip data-tip="margin" className="pointer-events-none absolute" style={{ left: tipPos.left, top: tipPos.top }}><RoseTip on={on} reduced={false} /></span>
     : null;
   if (kind === "strike") {
     // The first brief, crossed out while Rose points at the decision that replaced it.
