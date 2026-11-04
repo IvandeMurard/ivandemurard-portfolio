@@ -8,7 +8,7 @@ import { useDemoLoop } from "@/components/rose/useDemoLoop";
 /**
  * The three demos of copy deck v2 (docs/rose-case-study-copy-v2.md). Layout and loop logic follow
  * docs/rose-prototype/source/Rose.dc.html; every colour is a semantic token. Copy is in roseDemoData.ts,
- * the loop in useDemoLoop.ts. Hero demo: three built exchanges. Chapter 06: three formats in design.
+ * the loop in useDemoLoop.ts. Hero demo: three built exchanges. Chapter 06: four answer formats, one built and three in design.
  * Chapter 08: the test loop.
  */
 
@@ -79,13 +79,15 @@ export const HeroDock = ({ reduced }: { reduced: boolean }) => {
 const locateChapter03 = (reduced: boolean) =>
   document.getElementById("ch-03-decision")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
 
-/** The same dock as the hero, three exchanges marked Design. */
-export const DesignDemo = ({ reduced }: { reduced: boolean }) => {
-  const { ex, step, paused, toggle } = useDemoLoop(DESIGN_EXCHANGES.length, reduced);
+type DemoLoop = ReturnType<typeof useDemoLoop>;
+
+/** The same dock as the hero: Reformulate (built), then Locate, Connect and Sketch (design), each marked in its header. */
+export const DesignDemo = ({ reduced, loop }: { reduced: boolean; loop: DemoLoop }) => {
+  const { ex, step, paused, toggle } = loop;
   const e = DESIGN_EXCHANGES[ex];
   return (
     <figure className={cn("mt-8 max-w-xl rounded-2xl p-5", DEMO_PANEL)}>
-      <DemoHeader right={`○ Design · ${e.format}`} />
+      <DemoHeader right={`${e.mark === "Built" ? "●" : "○"} ${e.mark} · ${e.format}`} />
       <div className="mt-5 flex min-h-[13rem] flex-col gap-3" aria-live="off">
         <Bubble text={e.q} reduced={reduced} on={step >= 1} />
         {step >= 3 && (
@@ -128,18 +130,44 @@ export const DesignDemo = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
-export const PassageQuestions = () => (
-  <ul aria-label="The four passage questions" className="mt-8 max-w-xl list-none space-y-3 p-0 font-body text-base text-on-surface">
-    {PASSAGE_QUESTIONS.map((p) => (
-      <li key={p.format} className="flex flex-wrap items-baseline gap-x-3 border-b border-outline-variant pb-3">
-        <span className={cn("w-28 shrink-0 font-label text-xs", p.mark === "Built" ? "text-secondary" : "text-on-surface-variant")}>
-          <span aria-hidden="true">{p.mark === "Built" ? "●" : "○"} </span><span className="sr-only">{p.mark}: </span>{p.format}
-        </span>
-        <span>{p.q}</span>
-      </li>
-    ))}
+/**
+ * The four passage questions, each with its marker. They control the demo above, never Rose: the one matching the
+ * running exchange is highlighted, and choosing one shows that exchange complete and pauses the loop.
+ */
+export const PassageQuestions = ({ current, onSelect }: { current: string; onSelect: (format: string) => void }) => (
+  <ul aria-label="The four passage questions" className="mt-8 max-w-xl list-none space-y-2 p-0 font-body text-base text-on-surface">
+    {PASSAGE_QUESTIONS.map((p) => {
+      const on = p.format === current;
+      return (
+        <li key={p.format}>
+          <button type="button" aria-current={on ? "true" : undefined} onClick={() => onSelect(p.format)}
+            className={cn("flex w-full flex-wrap items-baseline gap-x-3 rounded-md border px-3 py-2.5 text-left transition-colors hover:bg-surface-container focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+              on ? "border-secondary bg-surface-container-low" : "border-outline-variant")}>
+            <span className={cn("w-28 shrink-0 font-label text-xs", p.mark === "Built" ? "text-secondary" : "text-on-surface-variant")}>
+              <span aria-hidden="true">{p.mark === "Built" ? "●" : "○"} </span><span className="sr-only">{p.mark}: </span>{p.format}
+            </span>
+            <span>{p.q}</span>
+          </button>
+        </li>
+      );
+    })}
   </ul>
 );
+
+/** Chapter 06: the demo and the four questions share one loop. */
+export const AnswerFormats = ({ reduced }: { reduced: boolean }) => {
+  const loop = useDemoLoop(DESIGN_EXCHANGES.length, reduced);
+  const select = (format: string) => {
+    const index = DESIGN_EXCHANGES.findIndex((e) => e.format === format);
+    if (index >= 0) loop.select(index);
+  };
+  return (
+    <>
+      <DesignDemo reduced={reduced} loop={loop} />
+      <PassageQuestions current={DESIGN_EXCHANGES[loop.ex].format} onSelect={select} />
+    </>
+  );
+};
 
 /** The test loop of chapter 08. Step 5 is the loop back to step 2. */
 export const TestLoop = ({ steps, caption }: { steps: readonly string[]; caption: ReactNode }) => (
