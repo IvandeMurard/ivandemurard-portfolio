@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { RoseHistoryTransition } from "@/components/rose/RoseHistoryTransition";
 import { RoseLaterChapters, ChapterQualityAssurance } from "@/components/rose/RoseLaterChapters";
 import { ConceptE } from "@/components/rose/ConceptE";
-import { RoseCaseStudy } from "@/components/rose/RoseCaseStudy";
+import { HERO_LEAD, RoseCaseStudy } from "@/components/rose/RoseCaseStudy";
 import { CompassRose } from "@/components/rose/CompassRose";
 import { EvidenceKey, EvidenceStatus } from "@/components/EvidenceStatus";
 import { ContextualLab, DockScene, HeroAgent, KineticBridge, RoseCue, RoseMark, ToneField, useScrollProgress } from "@/components/rose/RoseKinetic";
@@ -619,7 +619,10 @@ const RoseDesignLab = () => {
   const reduced = useReducedMotion();
   return (
     <SiteLayout showFooter={false}>
-      <Seo title="Rose design lab" description="An unlinked prototype for Rose's evidence-led case study." noIndex path="/rose-design-lab" />
+      {/* The case study is indexed and has a Markdown mirror; the lab's other concepts stay out of the index. */}
+      {concept === "page"
+        ? <Seo title="Rose, a portfolio you can question" description={HERO_LEAD} type="article" path="/rose-design-lab" />
+        : <Seo title="Rose design lab" description="An unlinked prototype for Rose's evidence-led case study." noIndex path="/rose-design-lab" />}
       <div className="mt-20 border-b border-outline-variant bg-surface-container-low">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
           <span className="uppercase tracking-[0.2em] text-on-surface-variant">Design lab · unlinked prototype</span>

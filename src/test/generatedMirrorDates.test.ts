@@ -49,18 +49,18 @@ describe("writeIfChanged", () => {
 describe("two builds in a row with no content change leave the tracked files as they were", () => {
   const repo = resolve(".");
   let work: string;
-  const GENERATORS = ["generate-agents.ts", "generate-journal-mirror.ts", "generate-sitemap.ts", "generate-llms-full.ts"];
+  const GENERATORS = ["generate-agents.ts", "generate-journal-mirror.ts", "generate-rose-mirror.ts", "generate-sitemap.ts", "generate-llms-full.ts"];
 
   /** Runs the real prebuild generators, in a scratch copy of the files they write, on a given day. */
   const build = (today: string) => {
     for (const script of GENERATORS) {
-      const runner = script === "generate-journal-mirror.ts" ? "bun" : "bun x tsx";
+      const runner = script === "generate-journal-mirror.ts" || script === "generate-rose-mirror.ts" ? "bun" : "bun x tsx";
       execSync(`${runner} "${join(repo, "scripts", script)}"`, { cwd: work, env: { ...process.env, BUILD_TODAY: today }, stdio: "pipe", shell: process.platform === "win32" ? "cmd.exe" : "/bin/sh" });
     }
   };
 
   const TRACKED = ["public/agents.md", "public/llms-full.txt", "public/sitemap.xml", "src/content/agents.generated.ts",
-    "public/agent-boundaries-aetherix.md", "public/harnesses-graders-closed-loops.md", "public/whose-truth-is-the-ground-truth.md"];
+    "public/agent-boundaries-aetherix.md", "public/harnesses-graders-closed-loops.md", "public/whose-truth-is-the-ground-truth.md", "public/rose-design-lab.md"];
   const snapshot = () => Object.fromEntries(TRACKED.map((f) => [f, normalizeEol(readFileSync(join(work, f), "utf8"))]));
 
   beforeAll(() => {

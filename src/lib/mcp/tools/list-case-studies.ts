@@ -48,6 +48,14 @@ const BASE = [
     markdown_path: "/anima.md",
   },
   {
+    slug: "rose",
+    name: "Rose",
+    label: "AI service · Portfolio agent · 2026",
+    tagline: "Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors.",
+    url: "https://ivandemurard.com/rose-design-lab",
+    markdown_path: "/rose-design-lab.md",
+  },
+  {
     slug: "compass",
     name: "Compass",
     group: "Standalone projects",
@@ -65,7 +73,7 @@ export default defineTool({
   name: "list_case_studies",
   title: "List case studies",
   description:
-    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Compass) with slug, label, tagline, status (signal go|warn|stop|dark, word, note) and URL. Use get_case_study to fetch the full narrative for one of them.",
+    "List Ivan de Murard's published product case studies (Sonor, Aetherix, Tacet, Lore, Anima, Rose, Compass) with slug, label, tagline, status (signal go|warn|stop|dark, word, note) and URL. Use get_case_study to fetch the full narrative for one of them.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({

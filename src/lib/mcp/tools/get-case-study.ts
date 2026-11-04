@@ -10,18 +10,22 @@ const SLUGS = {
   tacet: "/tacet.md",
   lore: "/lore.md",
   anima: "/anima.md",
+  rose: "/rose-design-lab.md",
   compass: "/compass.md",
 } as const;
+
+/** The page of a case study is its mirror's path without ".md", except Rose, whose slug is shorter than her route. */
+const PAGES: Partial<Record<keyof typeof SLUGS, string>> = { rose: "/rose-design-lab" };
 
 export default defineTool({
   name: "get_case_study",
   title: "Get case study",
   description:
-    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready · ...); the rest covers vision, architecture, stack and outcomes.",
+    "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'rose', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready · ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z
-      .enum(["sonor", "aetherix", "tacet", "lore", "anima", "compass"])
-      .describe("Case study slug: sonor, aetherix, tacet, lore, anima, or compass."),
+      .enum(["sonor", "aetherix", "tacet", "lore", "anima", "rose", "compass"])
+      .describe("Case study slug: sonor, aetherix, tacet, lore, anima, rose, or compass."),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
   handler: async ({ slug }) => {
@@ -37,7 +41,7 @@ export default defineTool({
       }
       const markdown = `${statusLine(slug)}\n\n${await res.text()}`;
       const group = slug === "compass" ? "Standalone projects" : undefined;
-      const canonicalUrl = `${SITE_ORIGIN}/${slug}`;
+      const canonicalUrl = `${SITE_ORIGIN}${PAGES[slug] ?? `/${slug}`}`;
       // Every structuredContent field except the Markdown is a fixed "Key: value" line, then the Markdown once.
       const header = [
         `Slug: ${slug}`,

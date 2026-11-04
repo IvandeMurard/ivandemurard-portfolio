@@ -18,7 +18,7 @@ type Call = { name: string; run: () => Promise<Result> | Result };
 
 const run = (tool: unknown, args: object = {}) => async () => (tool as { handler: (a: object) => Promise<Result> | Result }).handler(args);
 
-const CASE_STUDIES = ["sonor", "aetherix", "tacet", "lore", "anima", "compass"];
+const CASE_STUDIES = ["sonor", "aetherix", "tacet", "lore", "anima", "rose", "compass"];
 
 const CALLS: Call[] = [
   { name: "get_about", run: run(getAbout) },
