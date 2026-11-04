@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { readFileSync } from "node:fs";
 import type { UIMessage } from "ai";
 import { RoseDock } from "@/components/rose/RoseDock";
 import { getRoseChat, resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
@@ -184,5 +185,16 @@ describe("Rose dock: the bar at rest, the chevron and close", () => {
     fireEvent.click(screen.getByRole("button", { name: "Ask Rose anything" }));
     expect(opened()).toBe(false); // the paused panel has no conversation log
     expect(screen.getByText(/Rose has run out of credits/)).toBeTruthy();
+  });
+});
+
+describe("Back to top and the bar", () => {
+  it("rides above the bar below md, where the bar spans the page, and keeps its place from md up", () => {
+    const rail = readFileSync("src/components/layout/SectionRail.tsx", "utf8");
+    expect(rail).toContain('"fixed bottom-28 md:bottom-8 right-6 lg:right-10 z-30"');
+    // The bar is centred and 560 px wide from md up, so it does not reach the button there.
+    mount();
+    const dock = document.querySelector("[data-rose-dock]") as HTMLElement;
+    expect(dock.className).toContain("md:w-[min(560px,calc(100vw-3rem))]");
   });
 });
