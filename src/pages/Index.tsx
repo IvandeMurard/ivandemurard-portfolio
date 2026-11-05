@@ -11,7 +11,7 @@ import { ContactBlock } from "@/components/case/ContactBlock";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
-import roseMark from "@/assets/rose-mark.png";
+import { CompassMark } from "@/components/rose/CompassMark";
 import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
@@ -136,7 +136,7 @@ const Index = () => {
                   {isRose ? (
                     <span className="inline-flex items-center gap-3">
                       <RoseMark kind="underline" cue="home-rose" skipWhenReduced tip>{p.name}</RoseMark>
-                      <img src={roseMark} alt="" aria-hidden="true" width={36} height={36} loading="lazy" className="h-9 w-9 dark:invert" />
+                      <CompassMark className="h-7 w-7 shrink-0 text-primary" />
                     </span>
                   ) : p.name}
                 </h3>

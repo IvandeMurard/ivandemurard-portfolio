@@ -67,6 +67,13 @@ describe("02 · Selected projects", () => {
     expect(cards().map((c) => text(within(c).getByRole("heading", { level: 3 })))).toEqual(["Rose", "Lore", "Anima", "Compass", "Sonor"]);
   });
 
+  it("marks the Rose title with the compass svg, not an image", () => {
+    page();
+    const h3 = within(cards()[0]).getByRole("heading", { level: 3 });
+    expect(h3.querySelector("svg")).toBeTruthy();
+    expect(h3.querySelector("img")).toBeNull();
+  });
+
   it("shows Rose with her status, her fragment, her line and a link to the case", () => {
     page();
     const rose = within(cards()[0]);
