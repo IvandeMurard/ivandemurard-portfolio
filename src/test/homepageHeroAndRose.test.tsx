@@ -12,8 +12,8 @@ import { scanSource } from "../../scripts/style-check";
 // Homepage v2 (5 Nov): the new hero, and Rose as the first of the selected projects.
 const HEADLINE = "Product manager and co-founder. Now I build AI services that connect operations, tech and the business.";
 const SUBLINE = "Every project on this site states what runs today, what was tested and what is not proven yet.";
-const FRAGMENT = "29 Oct campaign · 105 answers · 10 cases · 0 critical failures in 20 samples each";
-const LINE = "Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors.";
+const FRAGMENT = "Contextual assistant · knows the page you are reading · answers from the site's own text · text only today";
+const LINE = "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site.";
 
 class NoopObserver { observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } }
 

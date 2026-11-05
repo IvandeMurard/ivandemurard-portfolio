@@ -272,7 +272,13 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   useEffect(() => {
     const onAsk = (event: Event) => {
       const text = (event as CustomEvent<{ text?: string }>).detail?.text;
-      if (!text) return;
+      if (!text) {
+        // No text: open the dock and focus its input without sending anything (paused: the notice opens instead).
+        if (!open) returnFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
+        setOpen(true);
+        requestAnimationFrame(() => expandedInputRef.current?.focus());
+        return;
+      }
       setOpen(true);
       submit(text);
     };
