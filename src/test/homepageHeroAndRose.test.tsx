@@ -12,8 +12,8 @@ import { scanSource } from "../../scripts/style-check";
 // Homepage v2 (5 Nov): the new hero, and Rose as the first of the selected projects.
 const HEADLINE = "Product manager and co-founder. Now I build AI services that connect operations, tech and the business.";
 const SUBLINE = "Every project on this site states what runs today, what was tested and what is not proven yet.";
-const FRAGMENT = "29 Oct campaign · 105 answers · 10 cases · 0 critical failures in 20 samples each";
-const LINE = "Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors.";
+const FRAGMENT = "Contextual assistant · knows the page you are reading · answers from the site's own text · text only today";
+const LINE = "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site.";
 
 class NoopObserver { observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } }
 
@@ -65,6 +65,13 @@ describe("02 · Selected projects", () => {
   it("lists Rose first, then Lore, Anima, Compass and Sonor", () => {
     page();
     expect(cards().map((c) => text(within(c).getByRole("heading", { level: 3 })))).toEqual(["Rose", "Lore", "Anima", "Compass", "Sonor"]);
+  });
+
+  it("marks the Rose title with the compass svg, not an image", () => {
+    page();
+    const h3 = within(cards()[0]).getByRole("heading", { level: 3 });
+    expect(h3.querySelector("svg")).toBeTruthy();
+    expect(h3.querySelector("img")).toBeNull();
   });
 
   it("shows Rose with her status, her fragment, her line and a link to the case", () => {

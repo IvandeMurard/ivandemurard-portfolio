@@ -37,8 +37,8 @@ Hero: Aetherix · WhatsApp · mock-up. Three days from a sandbox hotel (syntheti
 ## 02 · Selected projects
 
 ### Rose (GO · Live, text only)
-29 Oct campaign · 105 answers · 10 cases · 0 critical failures in 20 samples each.
-Rose answers visitors' questions from the site's own pages. Every change to her is tested before it reaches visitors. [Read the case](https://ivandemurard.com/rose-design-lab)
+Contextual assistant · knows the page you are reading · answers from the site's own text · text only today.
+Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. [Read the case](https://ivandemurard.com/rose-design-lab)
 
 ### Lore (GO · Evaluated)
 Evaluation harness · 64 cases · pure-function graders · hard safety tier.

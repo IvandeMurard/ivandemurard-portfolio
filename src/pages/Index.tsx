@@ -11,6 +11,8 @@ import { ContactBlock } from "@/components/case/ContactBlock";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
+import { CompassMark } from "@/components/rose/CompassMark";
+import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const Tip = ({ label, explain, children }: { label: string; explain: string; children: React.ReactNode }) => (
@@ -39,8 +41,9 @@ const LATEST_NOTES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.
 const SELECTED = [
   {
     p: PROJECTS.rose,
-    fragment: "29 Oct campaign · 105 answers · 10 cases · 0 critical failures in 20 samples each",
+    fragment: "Contextual assistant · knows the page you are reading · answers from the site's own text · text only today",
     line: PROJECTS.rose.tagline,
+    isRose: true,
   },
   {
     p: PROJECTS.lore,
@@ -126,16 +129,30 @@ const Index = () => {
       <Reveal as="section" className="py-16 md:py-28 px-6 md:px-10 max-w-screen-2xl mx-auto">
         <p className={`${kicker} text-secondary mb-8`} data-reveal-child>02 · Selected projects</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
-          {SELECTED.map(({ p, fragment, line, href }: { p: (typeof SELECTED)[number]["p"]; fragment: string; line: string; href?: string }, i) => (
+          {SELECTED.map(({ p, fragment, line, href, isRose }: { p: (typeof SELECTED)[number]["p"]; fragment: string; line: string; href?: string; isRose?: boolean }, i) => (
             <article key={p.slug} className={`${rule} pt-6 flex flex-col`} data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
               <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-headline font-normal text-primary text-[44px] leading-none">{p.name}</h3>
+                <h3 className="font-headline font-normal text-primary text-[44px] leading-none">
+                  {isRose ? (
+                    <span className="inline-flex items-center gap-3">
+                      <RoseMark kind="underline" cue="home-rose" skipWhenReduced tip>{p.name}</RoseMark>
+                      <CompassMark className="h-7 w-7 shrink-0 text-primary" />
+                    </span>
+                  ) : p.name}
+                </h3>
                 <SignalLamp state={p.status.signal} label={p.status.word} />
               </div>
               <p className={`${hair} mt-6 pt-3 font-mono text-[12.5px] leading-relaxed text-on-surface`}>{fragment}</p>
               <p className="mt-6 text-on-surface-variant leading-relaxed flex-1">{line}</p>
-              <Link to={href ?? `/${p.slug}`} onClick={() => track({ label: p.name, href: href ?? `/${p.slug}`, kind: "project" })}
-                className="mt-6 text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors self-start">Read the case</Link>
+              <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
+                <Link to={href ?? `/${p.slug}`} onClick={() => track({ label: p.name, href: href ?? `/${p.slug}`, kind: "project" })}
+                  className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors">Read the case</Link>
+                {isRose && (
+                  <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask"))}
+                    className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">Ask Rose</button>
+                )}
+              </div>
+              {isRose && <RoseCue id="home-rose" note="That's me. I live in the bar below." className="mt-4" />}
             </article>
           ))}
         </div>

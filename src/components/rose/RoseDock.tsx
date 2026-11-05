@@ -12,7 +12,7 @@ import { bookingSafeAnswer, normalizeRoseText, stripLeakedRoseToolCalls } from "
 import { isRoseFollowupAllowed, shouldSuppressRoseFollowups } from "../../../supabase/functions/_shared/rose-tool-contract";
 import { logRoseEvent } from "./roseEvents";
 import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
-import roseMark from "@/assets/rose-mark.png";
+import { CompassMark } from "./CompassMark";
 import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 import { ROSE_EMPTY_ANSWER, ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
@@ -88,15 +88,6 @@ const useSectionInView = (pathname: string): React.MutableRefObject<Section> => 
   }, [pathname]);
   return ref;
 };
-
-const CompassMark = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false" className={className} fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="20" cy="20" r="17" />
-    <circle cx="20" cy="20" r="5.5" strokeWidth="0.8" />
-    <path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" />
-    <path d="M8 8l6 6M32 8l-6 6M8 32l6-6M32 32l-6-6" strokeWidth="0.6" />
-  </svg>
-);
 
 /** The paused notice: shown when Rose is paused, and when the provider refuses for quota or credits. */
 const RosePausedNotice = () => (
@@ -272,7 +263,13 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   useEffect(() => {
     const onAsk = (event: Event) => {
       const text = (event as CustomEvent<{ text?: string }>).detail?.text;
-      if (!text) return;
+      if (!text) {
+        // No text: open the dock and focus its input without sending anything (paused: the notice opens instead).
+        if (!open) returnFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
+        setOpen(true);
+        requestAnimationFrame(() => expandedInputRef.current?.focus());
+        return;
+      }
       setOpen(true);
       submit(text);
     };
@@ -369,7 +366,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           {open ? (
             <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
               <div className="flex items-center gap-2.5">
-                <img src={roseMark} alt="" width={28} height={28} loading="lazy" className="h-7 w-7 dark:invert" />
+                <CompassMark className="h-7 w-7 text-primary" />
                 <div className="flex flex-col">
                   <span className="font-headline italic text-base text-primary leading-none">Rose</span>
                   <span className="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Ivan's site agent</span>
