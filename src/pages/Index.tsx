@@ -135,8 +135,8 @@ const Index = () => {
                 <h3 className="font-headline font-normal text-primary text-[44px] leading-none">
                   {isRose ? (
                     <span className="inline-flex items-center gap-3">
-                      <img src={roseMark} alt="" aria-hidden="true" width={36} height={36} loading="lazy" className="h-9 w-9 dark:invert" />
                       <RoseMark kind="underline" cue="home-rose" skipWhenReduced tip>{p.name}</RoseMark>
+                      <img src={roseMark} alt="" aria-hidden="true" width={36} height={36} loading="lazy" className="h-9 w-9 dark:invert" />
                     </span>
                   ) : p.name}
                 </h3>
