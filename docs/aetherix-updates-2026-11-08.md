@@ -33,7 +33,7 @@ Source of truth for every fact below: the Aetherix repository (public), merged o
 | 4 | 45 numbered architecture decisions | `CLAUDE.md`, decision table, rows 1 to 45 | Count | "45 so far" |
 | 5 | A forecast model, own or third party, is admitted only through the same evaluation gate as language models. No second forecast model has passed it | `docs/context/decisions-architecturales.md`, Decision 35, D6, PR #317 | **Design** | Only with the word Design |
 | 6 | A read-only "feasibility query" is designed: can the F&B service honour a request of this class, for N covers, at a given time, and until when can it adapt. Nothing is built | `docs/context/fnb-feasibility-query-brief.md`, `docs/context/open-decisions.md`, PR #319 | **Design** | "A read-only feasibility query is designed for the Orchestrator (Design)." |
-| 7 | A manager can ask for a forecast in WhatsApp. It runs on a staging system with a fictional hotel, with zero real users | `public-status.yml` (entry "Forecast on request over WhatsApp"), PR #316 | Built, live on staging only | Ivan decides (see A5) |
+| 7 | A manager can ask for a forecast in WhatsApp. It runs on a staging system with a fictional hotel, with zero real users | `public-status.yml` (entry "Forecast on request over WhatsApp"), PR #316 | Built, live on staging only. Ivan confirmed on 8 Nov 2026 that it works | Exact words to approve at checkpoint 1 (see A5) |
 | 8 | A manager's free-text reply is read as a stance on the proposal, and an uncertain reading is confirmed before anything is recorded. Tested on 52 hand-written cases on one pinned model. Not measured on real replies | `public-status.yml` (entries "Decision capture with confirmation" and "Reply-reading eval on a pinned model") | Built, not live in any hotel | Ivan decides (see A4) |
 
 Still true and unchanged: no hotel connected, no design partner signed, status "Pilot-ready" (do not change the word).
@@ -66,8 +66,9 @@ The wording avoids the "X, not Y" reflex on purpose (one per page at most). Chec
 - **Proposed, if approved**: "Free-text replies are read, and an uncertain reading is confirmed with the manager before anything is recorded. This is built and tested on hand-written cases, not on real replies. Whether the agent gets sharper over time is what a pilot would test."
 - Do not add the 52-case figure unless it comes with its comparison and its meaning.
 
-### A5. Forecast on request in WhatsApp (not proposed, for Ivan to decide)
-The case study says "Running daily on sandbox data". The repository now also records a forecast on request, on a staging system with a fictional hotel. Candidate wording, only if Ivan approves: "A manager can ask for a day's covers in WhatsApp. This runs on a staging system with a fictional hotel." Do not write it otherwise.
+### A5. Forecast on request in WhatsApp (fact confirmed by Ivan, wording to approve)
+The case study says "Running daily on sandbox data". The repository also records a forecast on request, on a staging system with a fictional hotel (`public-status.yml`, PR #316). **Ivan confirmed on 8 Nov 2026 that this works.** What was checked on 6 Nov 2026: the staging application was running and its health check passed. It is a staging system, with a fictional hotel and no real users: the label stays "staging", never "live in a hotel".
+Proposed wording, to be approved by Ivan at checkpoint 1: "A manager can ask for a day's covers in WhatsApp. This runs on a staging system with a fictional hotel." The status word "Pilot-ready" does not change. Do not reword it beyond this without asking.
 
 ### A6. One sentence on the agent-readable pilot brief
 In Sec. 08, "Built to be trusted", one bullet: "The pilot brief is one page, and also a typed record that a hotel's own agent can read and draft. It admits only the lowest authority level and leaves every decision to a human. Status: Design. No agent has used it."
@@ -80,7 +81,7 @@ This is not a new section. A standalone "Onboarding for agents" section would cl
 - A final list: what changed, what was left, what was not verified.
 
 ### Checkpoints for A
-1. Ivan approves the facts: A1, A2, A3, A6 are low risk. A4 and A5 need an explicit yes.
+1. Ivan approves the facts and the exact words: A1, A2, A3, A6 are low risk. A4 needs an explicit yes (it changes a capability statement). A5 is confirmed as a fact, and its exact words are approved here.
 2. Preview only, on one branch (for example `content/aetherix-pilot-2w`). Never merge into `main`.
 3. Mirrors and corpus regenerated, verification run, leftovers listed. No deployment without Ivan's explicit approval in the current message.
 
