@@ -51,7 +51,7 @@ const BASE = [
     slug: "rose",
     name: "Rose",
     label: "AI service · Portfolio agent · 2026",
-    tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site.",
+    tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.",
     url: "https://ivandemurard.com/rose-design-lab",
     markdown_path: "/rose-design-lab.md",
   },
@@ -61,7 +61,7 @@ const BASE = [
     group: "Standalone projects",
     label: "Data product · Commercial premises · Paris · 2026",
     tagline:
-      "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. " + COMPASS_SOURCES_LINE + ".",
+      "Every address has a story. Compass helps entrepreneurs choose premises that fit their project, with the context listings leave out: past trades, how often the place changed hands, the neighbourhood around it and, next, its amenities. Make informed decisions, envision your project. " + COMPASS_SOURCES_LINE + ".",
     url: "https://ivandemurard.com/compass",
     markdown_path: "/compass.md",
   },
