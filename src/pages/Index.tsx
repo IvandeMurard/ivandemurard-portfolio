@@ -50,7 +50,7 @@ const SELECTED = [
     fragment: "Evaluation harness · 64 cases · pure-function graders · hard safety tier",
     line: "Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure.",
   },
-  { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: "Hotels forget their guests: what they know sits in one person's head or in scattered tools. Anima keeps only what guests chose to share, and uses it to adapt the stay." },
+  { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: "What hotels' know of their guests sits in one person's head or in scattered tools. It is difficult to anticipate their needs and adapt operations. Anima provides intelligence to help managers adapt their guests' stay." },
   { p: PROJECTS.compass, fragment: COMPASS_SOURCES_LINE, line: PROJECTS.compass.tagline },
   { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: "Sonor is a two year B2B SaaS entrepreneurial project led with 3 co-founders. Goal: help cities reduce noise pollution thanks to open data.", href: "/sonor#what-id-change" },
 ];
