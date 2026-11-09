@@ -60,7 +60,7 @@ export const PROJECTS = {
     status: STATUSES.rose,
     slug: "rose-design-lab",
     name: "Rose",
-    tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site.",
+    tagline: "Rose is here to answer questions you may have about this site and it's content. Next, she will locate passages, rephrase them and connect pages across the site. Read to learn how I build her and the decisions I made along the way.",
     label: "AI service · Portfolio agent · 2026",
     cta: "Read the case",
   },
