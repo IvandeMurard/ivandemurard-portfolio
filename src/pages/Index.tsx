@@ -77,7 +77,7 @@ const Index = () => {
           <div className="max-w-[760px]" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
-              Product manager and co-founder.<br /> <em className="accent-ink">Now I build AI services</em> that connect operations, tech and the business.
+              SaaS Product manager and co-founder.<br />I build AI services&nbsp;working on operations, tech and business.
             </h1>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
               Every project on this site states what runs today, what was tested and what is not proven yet.
