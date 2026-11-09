@@ -48,7 +48,10 @@ describe("Hero demo: three built exchanges in a loop", () => {
 
     ticks(9); // second exchange, answer shown
     expect(screen.getByText("Is Aetherix in production?")).toBeTruthy();
-    expect(screen.getByRole("link", { name: /Aetherix, the case study/ }).getAttribute("href")).toBe("/aetherix");
+    const caseLink = screen.getByRole("link", { name: /Aetherix, the case study/ });
+    expect(caseLink.getAttribute("href")).toBe("/aetherix");
+    // It stays on the site, so it does not carry the arrow of a link that leaves it.
+    expect(caseLink.textContent).not.toContain("↗");
     expect(screen.getByText("Source: /aetherix, status")).toBeTruthy();
 
     ticks(9); // third exchange, answer shown

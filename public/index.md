@@ -10,7 +10,7 @@ Every project on this site states what runs today, what was tested and what is n
 
 The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs.
 
-[How it decides, and when it refuses](https://ivandemurard.com/aetherix#what-it-does-today)
+[Read the Aetherix case](https://ivandemurard.com/aetherix)
 
 Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
 

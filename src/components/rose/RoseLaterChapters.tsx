@@ -223,7 +223,7 @@ export const ChapterLearning = ({ learningRef, learningIndex, compass, reduced }
             <p className="mt-4 font-headline text-xl italic leading-snug text-secondary">A useful answer doesn't always end the conversation. Sometimes it improves the next question.</p>
             <Button type="button" variant="link" onClick={() => window.dispatchEvent(new Event("rose:open"))}
               className="mt-5 h-auto max-w-full justify-start whitespace-normal rounded-sm p-0 text-left font-label text-sm text-primary underline underline-offset-4 hover:bg-transparent hover:text-secondary">
-              Ask Rose your question <span aria-hidden="true">↗</span>
+              Ask Rose your question
             </Button>
           </div>
         </aside>

@@ -1073,3 +1073,10 @@
 .rose-case-bg {
   background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 12%, hsl(var(--rose-cool)) 100%);
 }
+
+/* The passage a Rose source link points at: the colour of RoseMark kind="highlight", one meaning only. */
+[data-passage-cited] { border-radius: 3px; transition: background-color 500ms ease; }
+[data-passage-cited="on"] { background-color: hsl(var(--rose-copper) / 0.22); }
+@media (prefers-reduced-motion: reduce) {
+  [data-passage-cited] { transition: none; }
+}

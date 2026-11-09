@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { registerRail } from "@/lib/railRegistry";
 
 export type RailSection = { id: string; label: string };
 
@@ -23,6 +24,13 @@ const scrollToTop = () => {
 export const SectionRail = ({ sections = [] }: SectionRailProps) => {
   const [activeId, setActiveId] = useState<string | null>(sections[0]?.id ?? null);
   const [showTop, setShowTop] = useState(false);
+  // What the rail highlights, readable at the moment of a click (see railRegistry).
+  const activeRef = useRef<string | null>(activeId);
+  activeRef.current = activeId;
+  useEffect(() => {
+    if (!sections.length) return;
+    return registerRail(() => sections.find((s) => s.id === activeRef.current) ?? null);
+  }, [sections]);
 
   useEffect(() => {
     const onScroll = () => {

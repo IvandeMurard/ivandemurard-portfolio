@@ -112,9 +112,9 @@ const Index = () => {
               <p className={`${kicker} text-secondary mb-8`}>01 · Flagship</p>
               <h2 className="font-headline font-light text-primary text-[clamp(72px,9vw,136px)] leading-[0.9] tracking-[-0.04em]">Aetherix</h2>
               <p className="mt-8 text-[21px] leading-relaxed text-on-surface max-w-[520px]">{PROJECTS.atherix.tagline}</p>
-              <Link to="/aetherix#what-it-does-today" onClick={() => track({ label: "Aetherix teaser", href: "/aetherix", kind: "project" })}
+              <Link to="/aetherix" onClick={() => track({ label: "Aetherix teaser", href: "/aetherix", kind: "project" })}
                 className="mt-10 inline-flex items-center min-h-[48px] px-6 border border-on-surface rounded-md text-on-surface font-medium hover:bg-on-surface hover:text-surface transition-colors">
-                How it decides, and when it refuses →
+                Read the Aetherix case →
               </Link>
               <div className="mt-6"><AetherixStatus /></div>
             </div>

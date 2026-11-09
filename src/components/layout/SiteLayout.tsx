@@ -5,6 +5,7 @@ import { Footer } from "./Footer";
 import { SectionRail, type RailSection } from "./SectionRail";
 import { PageLight } from "@/components/PageLight";
 import { RoseDock } from "@/components/rose/RoseDock";
+import { SourceContextLine } from "./SourceContextLine";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
 import { useRevealHash } from "@/hooks/useRevealHash";
 
@@ -42,6 +43,7 @@ export const SiteLayout = ({ children, title, sections, showFooter = true }: Sit
       <div className="relative z-50" style={{ viewTransitionName: "site-header" }}>
         <AtriumHeader />
       </div>
+      <SourceContextLine />
       <SectionRail sections={sections} />
       <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}

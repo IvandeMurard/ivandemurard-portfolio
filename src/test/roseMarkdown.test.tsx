@@ -1,7 +1,10 @@
-import { describe, it, expect } from "vitest";
+import { beforeAll, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { renderRoseMarkdown, linkifyProjects, canonicalRoseHref } from "@/components/rose/roseMarkdown";
+import { loadSourceLabels } from "@/lib/sourceLinks";
+
+beforeAll(async () => { await loadSourceLabels(); });
 
 const renderMd = (text: string) => render(<MemoryRouter>{renderRoseMarkdown(text)}</MemoryRouter>);
 
@@ -19,14 +22,16 @@ describe("Rose Markdown rendering", () => {
 
   it("renders https links as safe external anchors", () => {
     renderMd("Read the [evaluation note](https://ivandemurard.com/journal/harnesses-graders-closed-loops) first.");
-    const a = screen.getByRole("link", { name: "evaluation note" });
+    const a = screen.getByRole("link", { name: "evaluation note, opens in a new tab" });
     expect(a).toHaveAttribute("rel", expect.stringContaining("noopener"));
     expect(a).toHaveAttribute("target", "_blank");
   });
 
   it("renders site-relative links as internal navigation", () => {
     renderMd("See the [Evaluation Field Note](/journal/harnesses-graders-closed-loops).");
-    const a = screen.getByRole("link", { name: "Evaluation Field Note" });
+    // The note is in the Field Notes index, so the link reads "§ " and the note's title rather than Rose's words.
+    const a = screen.getByRole("link");
+    expect(a.textContent).toMatch(/^§ What is an LLM evaluation harness\?/);
     expect(a).toHaveAttribute("href", "/journal/harnesses-graders-closed-loops");
     expect(a).not.toHaveAttribute("target");
   });
@@ -75,7 +80,7 @@ describe("Project auto-linking", () => {
 describe("Canonical Field Note destinations", () => {
   it("repairs the malformed Agent Boundaries link seen in the gateway test", () => {
     renderMd("Read [Agent Boundaries](/agent-boundaries-aetherix).");
-    expect(screen.getByRole("link", { name: "Agent Boundaries" }))
+    expect(screen.getByRole("link"))
       .toHaveAttribute("href", "/journal/agent-boundaries-aetherix");
   });
 

@@ -7,6 +7,7 @@ import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { Link, useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
 import { RoseMarkdown } from "./roseMarkdown";
+import { loadSourceLabels } from "@/lib/sourceLinks";
 import { CAL_URL } from "./roseConfig";
 import { bookingSafeAnswer, normalizeRoseText, stripLeakedRoseToolCalls } from "./roseAnswer";
 import { isRoseFollowupAllowed, shouldSuppressRoseFollowups } from "../../../supabase/functions/_shared/rose-tool-contract";
@@ -276,14 +277,21 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       submit(text);
     };
     const onOpen = () => setOpen(true);
+    const onAskLoad = () => { void loadSourceLabels(); };
+    // A source link was followed: on a narrow screen the dock folds to its bar so the page it points to is in view.
+    const onMinimise = () => { if (window.matchMedia?.("(max-width: 767px)").matches) setOpen(false); };
     const onEcho = (e: Event) => setEcho(Boolean((e as CustomEvent<boolean>).detail));
     window.addEventListener("rose:ask", onAsk as EventListener);
     window.addEventListener("rose:open", onOpen);
+    window.addEventListener("rose:ask", onAskLoad);
+    window.addEventListener("rose:minimise", onMinimise);
     window.addEventListener("rose:echo", onEcho);
     return () => {
       window.removeEventListener("rose:echo", onEcho);
       window.removeEventListener("rose:ask", onAsk as EventListener);
       window.removeEventListener("rose:open", onOpen);
+      window.removeEventListener("rose:ask", onAskLoad);
+      window.removeEventListener("rose:minimise", onMinimise);
     };
   });
 
@@ -326,6 +334,9 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  // The labels of source links come from a registry kept in its own chunk: it starts loading when the dock opens.
+  useEffect(() => { if (open) void loadSourceLabels(); }, [open]);
 
   const hidden = !open && !pastHero;
   const showChips = open ? messages.length === 0 : focusWithin;

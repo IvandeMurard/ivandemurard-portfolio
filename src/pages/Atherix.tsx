@@ -104,18 +104,6 @@ const FAQ = [
   },
 ];
 
-const SECTIONS = [
-  { id: "in-one-minute", label: "In one minute" },
-  { id: "the-problem", label: "The problem" },
-  { id: "product-strategy", label: "Product strategy" },
-  { id: "how-it-works", label: "How it works" },
-  { id: "what-it-does-today", label: "What it does today" },
-  { id: "where-it-stands", label: "Where it stands" },
-  { id: "how-its-built", label: "How it's built" },
-  { id: "under-the-hood", label: "Under the hood" },
-  { id: "talk-about-a-pilot", label: "Talk about a pilot" },
-];
-
 const linkCls = "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
 const sectionCls = "px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24";
 const titleCls = "font-headline italic text-3xl md:text-4xl text-primary leading-tight mb-6";
