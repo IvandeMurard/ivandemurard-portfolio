@@ -1,16 +1,24 @@
-import { PROJECTS } from "@/content/site";
-import { COMPASS_SECTIONS, type CompassSection } from "@/content/compass";
-import { OTHER_PAGE_TITLES, PAGE_SECTIONS, type PageSection } from "@/content/pageSections";
-import { SECTION_INDEX } from "@/content/sectionIndex.generated";
-
 /**
- * Labels for the source links in Rose's answers. Everything comes from registries that already exist:
- * pageSections.ts (the case-study pages), site.ts (page titles), the Compass content tree and the generated
- * index of the Field Notes (sectionIndex.generated.ts). Only an id that is in none of them returns null, and the
- * caller then keeps Rose's own link text.
+ * Labels for the source links in Rose's answers. This module is light: the registry itself
+ * (src/content/sourceLabels.ts: the section lists, the Field Notes index, the page names) is a separate chunk,
+ * loaded when the dock opens or Rose is asked. A link that renders before the registry has loaded shows Rose's own
+ * text, and keeps it: a label never changes after it has rendered.
  */
 
 export type InternalTarget = { path: string; hash: string };
+export type SourceLabel = { text: string; full?: string; title?: string };
+
+type Labels = typeof import("@/content/sourceLabels");
+let loaded: Labels | null = null;
+let loading: Promise<Labels | null> | null = null;
+
+/** Starts loading the registry (once). Safe to call from anywhere, as often as needed. */
+export const loadSourceLabels = (): Promise<Labels | null> => {
+  loading ??= import("@/content/sourceLabels").then((m) => (loaded = m)).catch(() => { loading = null; return null; });
+  return loading;
+};
+
+export const sourceLabelsLoaded = (): boolean => loaded !== null;
 
 /** Splits a site-relative href into path and decoded hash (without "#"). Null for anything else. */
 export const splitInternal = (href: string): InternalTarget | null => {
@@ -22,58 +30,19 @@ export const splitInternal = (href: string): InternalTarget | null => {
   return { path: m[1].replace(/\/$/, "") || "/", hash };
 };
 
-const flattenCompass = (sections: CompassSection[]): PageSection[] =>
-  sections.flatMap((s) => [{ id: s.id, label: s.title, heading: s.title }, ...flattenCompass(s.subsections ?? [])]);
+/** The label of an internal link, or Rose's own text while the registry has not loaded. */
+export const internalSourceLabel = (href: string, text: string): SourceLabel =>
+  loaded ? loaded.internalSourceLabel(href, text) : { text };
 
-const COMPASS_LIST = flattenCompass(COMPASS_SECTIONS);
-const JOURNAL = new Map(SECTION_INDEX.map((e) => [e.path, e]));
-
-/** The sections of a page that have a heading, wherever the registry keeps them. */
-export const sectionsFor = (path: string): PageSection[] => {
-  if (path === "/compass") return COMPASS_LIST;
-  const note = JOURNAL.get(path);
-  if (note) return note.sections.map((s) => ({ id: s.id, label: s.heading, heading: s.heading }));
-  return PAGE_SECTIONS[path] ?? [];
-};
-
-/** The heading text of a section, or null when no registry has the id. */
-export const sectionLabelFor = (path: string, id: string): string | null =>
-  sectionsFor(path).find((s) => s.id === id)?.heading ?? null;
-
-/** The page's name: site.ts for the case studies, the Field Notes index for the notes, pageSections.ts for the rest. */
-export const pageTitleFor = (path: string): string | null => {
-  const p = path === "/atherix" ? "/aetherix" : path;
-  return (
-    Object.values(PROJECTS).find((project) => `/${project.slug}` === p)?.name ??
-    JOURNAL.get(p)?.title ??
-    OTHER_PAGE_TITLES[p] ??
-    null
-  );
-};
-
-/** Title of the page the reader is on now: the registry, else the document title without the site suffix. */
-export const currentPageTitle = (path: string, doc: Document = document): string => {
-  const fromRegistry = pageTitleFor(path);
-  if (fromRegistry) return fromRegistry;
-  return doc.title.replace(/\s+·\s+Ivan de Murard$/, "").trim() || "this page";
-};
-
-export type SourceLabel = { text: string; full?: string };
+/** The heading of a section from the registry, or null (not loaded, or in no registry). */
+export const sectionLabelFor = (path: string, id: string): string | null => loaded?.sectionLabelFor(path, id) ?? null;
 
 /**
- * "§ Section" for a link with a #section, "§ Page title" for a link without one. Where no registry covers
- * the target, or where Rose's own text already is the page's name (a project mention), the text is kept.
- * `full` is the accessible name: the label plus the page it belongs to.
+ * Title of the page the reader is on: the registry's, else the document title without the site suffix.
+ * `full` asks for a Field Note's whole title (the context line); otherwise the short one.
  */
-export const internalSourceLabel = (href: string, text: string): SourceLabel => {
-  const target = splitInternal(href);
-  if (!target) return { text };
-  const title = pageTitleFor(target.path);
-  if (target.hash) {
-    const section = sectionLabelFor(target.path, target.hash);
-    if (!section) return { text };
-    return { text: `§ ${section}`, full: `§ ${section}${title ? ` (${title})` : ""}` };
-  }
-  if (!title || text.trim().toLowerCase() === title.toLowerCase()) return { text };
-  return { text: `§ ${title}`, full: `§ ${title}` };
+export const currentPageTitle = (path: string, doc: Document = document, full = false): string => {
+  const fromRegistry = loaded?.pageTitleFor(path, full);
+  if (fromRegistry) return fromRegistry;
+  return doc.title.replace(/\s+·\s+Ivan de Murard$/, "").trim() || "this page";
 };

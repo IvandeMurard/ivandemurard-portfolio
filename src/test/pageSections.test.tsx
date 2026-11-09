@@ -21,7 +21,9 @@ import { JOURNAL_ENTRIES } from "@/content/journal";
 import { journalHeadingIds } from "@/lib/journalHeadingIds";
 import { headingOf } from "@/lib/sourceArrival";
 import { headingText } from "@/lib/sourceJump";
-import { internalSourceLabel, pageTitleFor, sectionsFor } from "@/lib/sourceLinks";
+import { internalSourceLabel, pageTitleFor, sectionsFor } from "@/content/sourceLabels";
+import { COMPASS_SECTIONS, type CompassSection } from "@/content/compass";
+import { shortNoteTitle } from "@/lib/shortTitle";
 
 // Rose's source links label "/page#id" as "§ <heading>" before the page loads, from registries. A registry that
 // drifts from the page would put a wrong heading on a link, so each registered id is checked in the rendered page.
@@ -91,17 +93,27 @@ describe("Section registry against the rendered pages", () => {
   });
 });
 
+describe("Compass in the registry", () => {
+  const flat = (s: CompassSection[]): Array<{ id: string; heading: string }> =>
+    s.flatMap((x) => [{ id: x.id, heading: x.title }, ...flat(x.subsections ?? [])]);
+
+  it("lists the same ids and headings as its content tree, which the dock does not import", () => {
+    expect(PAGE_SECTIONS["/compass"].map((s) => ({ id: s.id, heading: s.heading }))).toEqual(flat(COMPASS_SECTIONS));
+  });
+});
+
 describe("The generated Field Notes index", () => {
   it("has, per note, its path, title and the id and text of each heading, and no body text", () => {
     for (const note of JOURNAL_ENTRIES) {
       const ids = journalHeadingIds(note.body);
       const entry = SECTION_INDEX.find((e) => e.path === `/journal/${note.slug}`);
       expect(entry?.title).toBe(note.title);
+      expect(entry?.short).toBe(shortNoteTitle(note.title, note.homeHook?.title));
       note.body.forEach((b, i) => {
         const id = ids[i];
         if (id && (b.kind === "h2" || b.kind === "h3")) expect(entry?.sections).toContainEqual({ id, heading: b.text });
       });
-      expect(Object.keys(entry ?? {}).sort()).toEqual(["path", "sections", "title"]);
+      expect(Object.keys(entry ?? {}).sort()).toEqual(["path", "sections", "short", "title"]);
     }
   });
 });

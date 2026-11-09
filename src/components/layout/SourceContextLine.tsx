@@ -42,7 +42,8 @@ export const SourceContextLine = () => {
 
   if (!jump || jump.samePage || !jumpMatches(jump, pathname, hash)) return null;
 
-  const title = currentPageTitle(pathname);
+  // The context line gives the page's whole title; a link label uses the short one.
+  const title = currentPageTitle(pathname, document, true);
   const target = jump.target.hash ? document.getElementById(jump.target.hash) : null;
   const section = sectionLabelFor(pathname, jump.target.hash) ?? (target ? headingText(headingOf(target)) : null) ?? null;
   const origin = jump.origin.section ? `${jump.origin.title}, ${jump.origin.section}` : jump.origin.title;

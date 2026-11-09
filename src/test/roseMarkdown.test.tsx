@@ -1,7 +1,10 @@
-import { describe, it, expect } from "vitest";
+import { beforeAll, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { renderRoseMarkdown, linkifyProjects, canonicalRoseHref } from "@/components/rose/roseMarkdown";
+import { loadSourceLabels } from "@/lib/sourceLinks";
+
+beforeAll(async () => { await loadSourceLabels(); });
 
 const renderMd = (text: string) => render(<MemoryRouter>{renderRoseMarkdown(text)}</MemoryRouter>);
 

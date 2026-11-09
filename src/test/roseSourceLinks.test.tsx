@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { UIMessage } from "ai";
@@ -8,9 +8,11 @@ import { SourceContextLine } from "@/components/layout/SourceContextLine";
 import { getRoseChat, resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
 import { clearJump, readJump, saveJump, type Jump } from "@/lib/sourceJump";
 import { arriveAtSource, CITED_ATTR, CITED_MS } from "@/lib/sourceArrival";
-import { internalSourceLabel } from "@/lib/sourceLinks";
+import { internalSourceLabel, loadSourceLabels } from "@/lib/sourceLinks";
 
 class NoopObserver { observe() {} unobserve() {} disconnect() {} }
+
+beforeAll(async () => { await loadSourceLabels(); });
 
 const md = (text: string, at = "/rose-design-lab") => {
   window.history.pushState({}, "", at);
@@ -47,7 +49,20 @@ describe("Source link labels", () => {
     expect(screen.getByRole("link", { name: "§ Lore" }).textContent).toBe("§ Lore");
   });
 
-  it("finds the Compass sections in the Compass content tree", () => {
+  it("labels a Field Note with its short title, and keeps the full title in the accessible name and the title attribute", () => {
+    md("See [the harness note](/journal/harnesses-graders-closed-loops).");
+    const a = screen.getByRole("link");
+    expect(a.textContent).toBe("§ What is an LLM evaluation harness?");
+    expect(a.getAttribute("aria-label")).toBe("§ What is an LLM evaluation harness?: What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents");
+    expect(a.getAttribute("title")).toBe("What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents");
+  });
+
+  it("uses the homepage title of a note when it has one", () => {
+    md("See [the split](/journal/agent-boundaries-aetherix).");
+    expect(screen.getByRole("link").textContent).toBe("§ Keep the forecaster and the actor apart.");
+  });
+
+  it("finds the Compass sections in the registry", () => {
     expect(internalSourceLabel("/compass#the-address", "x").text).toBe("§ The address");
   });
 
@@ -111,6 +126,13 @@ describe("Context line", () => {
     const nav = screen.getByRole("navigation", { name: "Return to where you were" });
     expect(nav.textContent).toContain("Aetherix · Where it stands");
     expect(screen.getByRole("button", { name: "← Back to Rose, Chapter 08" })).toBeTruthy();
+  });
+
+  it("shows the full title of a Field Note, not the short one", () => {
+    saveJump(jump({ target: { path: "/journal/harnesses-graders-closed-loops", hash: "" } }));
+    line("/journal/harnesses-graders-closed-loops");
+    const nav = screen.getByRole("navigation", { name: "Return to where you were" });
+    expect(nav.textContent).toContain("What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents");
   });
 
   it("is not shown for a jump within the same page", () => {

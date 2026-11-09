@@ -81,6 +81,24 @@ export const CV_SECTIONS: PageSection[] = [
 // The contact page has a single heading and no section a link can point at.
 export const CONTACT_SECTIONS: PageSection[] = [];
 
+// Compass: the ids and headings of its content tree (src/content/compass.ts), kept here so that the dock does not
+// import the tree. A test checks the two stay the same.
+export const COMPASS_SECTION_LIST: PageSection[] = [
+  same("one-address-three-questions", "One address, read in context"),
+  same("the-address", "The address"),
+  same("the-surroundings", "The surroundings"),
+  same("against-another-address", "Against another address"),
+  same("product-strategy", "Product strategy"),
+  same("the-problem", "The problem"),
+  same("the-bet", "The bet"),
+  same("what-it-refuses", "What it refuses"),
+  same("against-what-exists", "Against what exists"),
+  same("where-ai-sits", "Where AI sits"),
+  same("one-core-two-readers", "Built for people and AI agents"),
+  same("how-sure-is-it", "How sure is it?"),
+  same("where-it-stands", "Where it stands"),
+];
+
 /** Sonor's story, one block per heading. The page renders these titles; the rail and the labels read the same list. */
 export const SONOR_NARRATIVE: ReadonlyArray<{ id: string; title: string }> = [
   { id: "what-happened", title: "What happened" },
@@ -107,7 +125,7 @@ export const OTHER_PAGE_TITLES: Record<string, string> = {
   "/contact": "Contact",
 };
 
-/** The section lists by page path (Compass reads its own content tree; the Field Notes read the generated index). */
+/** The section lists by page path (the Field Notes read the generated index). */
 export const PAGE_SECTIONS: Record<string, PageSection[]> = {
   "/aetherix": AETHERIX_SECTIONS,
   "/tacet": TACET_SECTIONS,
@@ -117,4 +135,5 @@ export const PAGE_SECTIONS: Record<string, PageSection[]> = {
   "/cv": CV_SECTIONS,
   "/contact": CONTACT_SECTIONS,
   "/sonor": SONOR_SECTIONS,
+  "/compass": COMPASS_SECTION_LIST,
 };

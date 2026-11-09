@@ -1,4 +1,4 @@
-import { createContext, useContext, type ComponentProps, type MouseEvent, type ReactNode } from "react";
+import { createContext, useContext, useRef, type ComponentProps, type MouseEvent, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Streamdown } from "streamdown";
 import { referencePath } from "./roseMeasurement";
@@ -72,13 +72,17 @@ const plainText = (node: ReactNode): string =>
 
 const RoseLink = ({ href, children }: ComponentProps<"a">) => {
   const onReference = useContext(ReferenceClick);
+  const first = useRef<{ key: string; label: ReturnType<typeof internalSourceLabel> } | null>(null);
   if (!href || !SAFE_HREF.test(href)) return <span>{children}</span>;
   href = canonicalRoseHref(roseCvHref(href));
   const target = referencePath(href);
   if (href.startsWith("/")) {
     // A source link: "§ Section" or "§ Page title" where a registry knows the target, Rose's own text otherwise.
     const text = plainText(children);
-    const label = text ? internalSourceLabel(href, text) : { text };
+    // Fixed at first render: if the registry loads later, this link keeps what it showed.
+    const key = `${href}\u0000${text}`;
+    if (!first.current || first.current.key !== key) first.current = { key, label: text ? internalSourceLabel(href, text) : { text } };
+    const label = first.current.label;
     const dest = splitInternal(href);
     const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
       if (target) onReference?.(target);
@@ -90,7 +94,7 @@ const RoseLink = ({ href, children }: ComponentProps<"a">) => {
       if (getRoseOpen()) window.dispatchEvent(new Event("rose:minimise"));
     };
     return (
-      <Link to={href} onClick={onClick} className={linkCls} aria-label={label.full}>
+      <Link to={href} onClick={onClick} className={linkCls} aria-label={label.full} title={label.title}>
         {text && label.text !== text ? label.text : children}
       </Link>
     );
