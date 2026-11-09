@@ -142,7 +142,7 @@ const Index = () => {
                         onMouseLeave={() => window.dispatchEvent(new CustomEvent("rose:echo", { detail: false }))}
                         onFocus={() => window.dispatchEvent(new CustomEvent("rose:echo", { detail: true }))}
                         onBlur={() => window.dispatchEvent(new CustomEvent("rose:echo", { detail: false }))}
-                        className="group/compass -m-1 cursor-pointer rounded-full p-1 ring-1 ring-outline-variant hover:ring-secondary/60 text-primary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary transition-colors">
+                        className="group/compass rounded-full text-primary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary transition-colors">
                         <CompassMark className="h-7 w-7 shrink-0 transition-transform duration-700 ease-out group-hover/compass:rotate-45 group-focus-visible/compass:rotate-45 motion-reduce:transition-none" />
                       </button>
                     </span>
