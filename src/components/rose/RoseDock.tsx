@@ -551,7 +551,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                   hasConversation ? "border border-secondary px-2.5 py-1" : "h-8 w-8 justify-center",
                 )}
               >
-                <CompassMark className={cn(hasConversation ? "h-4 w-4" : "h-5 w-5", "transition-transform duration-700 ease-out motion-reduce:transition-none", echo && "rotate-45")} />
+                <CompassMark className={cn(hasConversation ? "h-4 w-4" : "h-6 w-6", "transition-transform duration-700 ease-out motion-reduce:transition-none", echo && "rotate-45")} />
                 {hasConversation ? "Resume" : null}
               </button>
             ) : null}
