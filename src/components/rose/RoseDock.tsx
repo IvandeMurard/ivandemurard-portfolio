@@ -547,8 +547,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                 aria-label={reopenLabel}
                 tabIndex={hidden ? -1 : 0}
                 className={cn(
-                  "ml-1 flex shrink-0 items-center gap-1.5 rounded-full border border-secondary text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary",
-                  hasConversation ? "px-2.5 py-1" : "h-8 w-8 justify-center",
+                  "ml-1 flex shrink-0 items-center gap-1.5 rounded-full text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary",
+                  hasConversation ? "border border-secondary px-2.5 py-1" : "h-8 w-8 justify-center",
                 )}
               >
                 <CompassMark className={cn(hasConversation ? "h-4 w-4" : "h-5 w-5", "transition-transform duration-700 ease-out motion-reduce:transition-none", echo && "rotate-45")} />
