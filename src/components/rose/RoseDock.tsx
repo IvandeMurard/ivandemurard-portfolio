@@ -276,14 +276,18 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       submit(text);
     };
     const onOpen = () => setOpen(true);
+    // A source link was followed: on a narrow screen the dock folds to its bar so the page it points to is in view.
+    const onMinimise = () => { if (window.matchMedia?.("(max-width: 767px)").matches) setOpen(false); };
     const onEcho = (e: Event) => setEcho(Boolean((e as CustomEvent<boolean>).detail));
     window.addEventListener("rose:ask", onAsk as EventListener);
     window.addEventListener("rose:open", onOpen);
+    window.addEventListener("rose:minimise", onMinimise);
     window.addEventListener("rose:echo", onEcho);
     return () => {
       window.removeEventListener("rose:echo", onEcho);
       window.removeEventListener("rose:ask", onAsk as EventListener);
       window.removeEventListener("rose:open", onOpen);
+      window.removeEventListener("rose:minimise", onMinimise);
     };
   });
 

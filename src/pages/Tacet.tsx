@@ -12,6 +12,7 @@ import { TacetPipelineDiagram } from "@/components/tacet/TacetPipelineDiagram";
 import { SectionDivider } from "@/components/SectionDivider";
 import acousticTwinImg from "@/assets/tacet-acoustic-twin.jpg";
 import { Term } from "@/components/Term";
+import { TACET_SECTIONS } from "@/content/pageSections";
 import { EntryActions } from "@/components/journal/EntryActions";
 
 const PROJECT_INFO = [
@@ -119,18 +120,6 @@ const FAQ = [
   },
 ];
 
-const TACET_SECTIONS = [
-  { id: "overview", label: "Overview" },
-  { id: "problem", label: "Problem" },
-  { id: "solution", label: "Solution" },
-  { id: "architecture", label: "Architecture" },
-  { id: "pillars", label: "Pillars" },
-  { id: "impact", label: "Impact" },
-  { id: "synergy", label: "Synergy" },
-  { id: "horizon", label: "Horizon" },
-  { id: "faq", label: "FAQ" },
-  { id: "contact", label: "Contact" },
-];
 
 const Tacet = () => (
   <SiteLayout title="Tacet: The Environmental Twin" sections={TACET_SECTIONS}>

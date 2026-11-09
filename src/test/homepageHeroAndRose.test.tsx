@@ -56,6 +56,19 @@ describe("Homepage hero", () => {
   });
 });
 
+describe("Aetherix call to action", () => {
+  it("reads 'Read the Aetherix case →' and opens the page at the top, with no hash", () => {
+    page();
+    const cta = screen.getByRole("link", { name: "Read the Aetherix case →" });
+    expect(cta.getAttribute("href")).toBe("/aetherix");
+    expect(screen.queryByText(/How it decides, and when it refuses/)).toBeNull();
+  });
+
+  it("is quoted by public/index.md", () => {
+    expect(readFileSync("public/index.md", "utf8")).toContain("[Read the Aetherix case](https://ivandemurard.com/aetherix)");
+  });
+});
+
 describe("02 · Selected projects", () => {
   const cards = () => within(screen.getByText("02 · Selected projects").parentElement as HTMLElement).getAllByRole("article");
 

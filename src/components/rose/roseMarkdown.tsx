@@ -1,8 +1,11 @@
-import { createContext, useContext, type ComponentProps, type ReactNode } from "react";
+import { createContext, useContext, type ComponentProps, type MouseEvent, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Streamdown } from "streamdown";
 import { referencePath } from "./roseMeasurement";
 import { normalizeRoseText, roseCvHref } from "./roseAnswer";
+import { internalSourceLabel, splitInternal } from "@/lib/sourceLinks";
+import { captureOrigin, saveJump } from "@/lib/sourceJump";
+import { getRoseOpen } from "./roseSession";
 
 const ReferenceClick = createContext<((path: string) => void) | undefined>(undefined);
 
@@ -64,16 +67,39 @@ export const linkifyProjects = (text: string): string => {
 
 const linkCls = "text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary";
 
+const plainText = (node: ReactNode): string =>
+  typeof node === "string" ? node : Array.isArray(node) ? node.map(plainText).join("") : "";
+
 const RoseLink = ({ href, children }: ComponentProps<"a">) => {
   const onReference = useContext(ReferenceClick);
   if (!href || !SAFE_HREF.test(href)) return <span>{children}</span>;
   href = canonicalRoseHref(roseCvHref(href));
   const target = referencePath(href);
+  if (href.startsWith("/")) {
+    // A source link: "§ Section" or "§ Page title" where a registry knows the target, Rose's own text otherwise.
+    const text = plainText(children);
+    const label = text ? internalSourceLabel(href, text) : { text };
+    const dest = splitInternal(href);
+    const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
+      if (target) onReference?.(target);
+      // Same tab only: a modified click opens elsewhere and leaves this page as it is.
+      if (!dest || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const origin = captureOrigin();
+      saveJump({ target: dest, samePage: origin.path === dest.path, origin });
+      // Open dock on a narrow screen: it folds to its bar so the page it points to is in view.
+      if (getRoseOpen()) window.dispatchEvent(new Event("rose:minimise"));
+    };
+    return (
+      <Link to={href} onClick={onClick} className={linkCls} aria-label={label.full}>
+        {text && label.text !== text ? label.text : children}
+      </Link>
+    );
+  }
   const onClick = () => { if (target) onReference?.(target); };
-  if (href.startsWith("/")) return <Link to={href} onClick={onClick} className={linkCls}>{children}</Link>;
   return (
     <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={linkCls}>
       {children}
+      <span aria-hidden="true"> ↗</span>
     </a>
   );
 };
