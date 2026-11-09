@@ -2,7 +2,7 @@
 
 AI Product Manager & Builder · Paris
 
-## Product manager and co-founder. Now I build AI services that connect operations, tech and the business.
+## SaaS product manager and co-founder. Now I build AI services that work across operations, tech and the business.
 
 Every project on this site states what runs today, what was tested and what is not proven yet.
 
@@ -38,7 +38,7 @@ Hero: Aetherix · WhatsApp · mock-up. Three days from a sandbox hotel (syntheti
 
 ### Rose (GO · Live, text only)
 Contextual assistant · knows the page you are reading · answers from the site's own text · text only today.
-Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. [Read the case](https://ivandemurard.com/rose-design-lab)
+Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made. [Read the case](https://ivandemurard.com/rose-design-lab)
 
 ### Lore (GO · Evaluated)
 Evaluation harness · 64 cases · pure-function graders · hard safety tier.
@@ -46,15 +46,15 @@ Captures the tacit knowledge a retiring technician never wrote down and returns 
 
 ### Anima (STOP · Compliance Gated)
 Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears.
-Hotels forget their guests: what they know sits in one person's head or in scattered tools. Anima keeps only what guests chose to share, and uses it to adapt the stay.
+What a hotel knows about its guests sits in one person's head or in scattered tools, so needs are met late. Anima helps teams anticipate them and adapt the stay, from what guests chose to share, with less strain on operations.
 
 ### Compass (WARN · Partial)
 APUR BDCom 2023 shopfront census · BODACC legal notices · INSEE Sirene · 85,418 units · every figure with its source, licence and date.
-Every address has a story. Compass reads it before you sign.
+Every address has a story. Compass helps entrepreneurs choose premises that fit their project, with the context listings leave out: past trades, how often the place changed hands, the neighbourhood around it and, next, its amenities. Make informed decisions, envision your project.
 
 ### Sonor (DARK · MVP shipped · stopped 2022)
-0→1 with 4 co-founders, plus one person who was both developer and data scientist (5 people): discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022.
-It taught me to ship one use case before ten, the rule Aetherix is built on.
+0→1 with 4 co-founders, backed by Banque des Territoires. No contract closed; we stopped in 2022.
+A two-year B2G SaaS I co-founded with three partners, to help cities reduce noise pollution with open data.
 
 ## 03 · Field Notes
 

@@ -10,10 +10,10 @@ import { PROJECTS } from "@/content/site";
 import { scanSource } from "../../scripts/style-check";
 
 // Homepage v2 (5 Nov): the new hero, and Rose as the first of the selected projects.
-const HEADLINE = "Product manager and co-founder. Now I build AI services that connect operations, tech and the business.";
+const HEADLINE = "SaaS product manager and co-founder. Now I build AI services that work across operations, tech and the business.";
 const SUBLINE = "Every project on this site states what runs today, what was tested and what is not proven yet.";
 const FRAGMENT = "Contextual assistant · knows the page you are reading · answers from the site's own text · text only today";
-const LINE = "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site.";
+const LINE = "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.";
 
 class NoopObserver { observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } }
 
@@ -29,23 +29,20 @@ const page = () => render(<MoodProvider><AmbienceProvider><MemoryRouter><Index /
 const text = (el: Element | null) => el?.textContent?.replace(/\s+/g, " ").trim();
 
 describe("Homepage hero", () => {
-  it("says the new headline, with only the lead-in of the second sentence in italic", () => {
+  it("says the new headline, with no italic", () => {
     page();
     const h1 = screen.getByRole("heading", { level: 1 });
     expect(text(h1)).toBe(HEADLINE);
-    expect(h1.querySelectorAll("em")).toHaveLength(1);
-    expect(text(h1.querySelector("em"))).toBe("Now I build AI services");
+    expect(h1.querySelectorAll("em, i, .italic, .accent-ink")).toHaveLength(0);
   });
 
-  it("has that one italic as the page's only italic", () => {
+  it("has no italic anywhere on the page", () => {
     page();
     // The page's content, not the site header (its wordmark and menu are shared chrome, outside this page's copy).
     const main = document.querySelector("main") as HTMLElement;
     expect(main).not.toBeNull();
-    const italics = [...main.querySelectorAll("em, .italic, .accent-ink")];
-    expect(italics).toHaveLength(1);
-    for (const el of italics) expect(el.closest("h1"), text(el)).not.toBeNull();
-    // And the source of the page has no italic outside the hero headline.
+    expect([...main.querySelectorAll("em, .italic, .accent-ink")]).toHaveLength(0);
+    // And the source of the page has no italic at all.
     expect(scanSource("src/pages/Index.tsx", readFileSync("src/pages/Index.tsx", "utf8")).filter((h) => h.pattern === "italic")).toEqual([]);
   });
 

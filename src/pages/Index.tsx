@@ -50,9 +50,9 @@ const SELECTED = [
     fragment: "Evaluation harness · 64 cases · pure-function graders · hard safety tier",
     line: "Captures the tacit knowledge a retiring technician never wrote down and returns it to a junior on the shop floor by voice, always behind the procedure.",
   },
-  { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: "What hotels' know of their guests sits in one person's head or in scattered tools. It is difficult to anticipate their needs and adapt operations. Anima provides intelligence to help managers adapt their guests' stay." },
+  { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: "What a hotel knows about its guests sits in one person's head or in scattered tools, so needs are met late. Anima helps teams anticipate them and adapt the stay, from what guests chose to share, with less strain on operations." },
   { p: PROJECTS.compass, fragment: COMPASS_SOURCES_LINE, line: PROJECTS.compass.tagline },
-  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: "Sonor is a two year B2B SaaS entrepreneurial project led with 3 co-founders. Goal: help cities reduce noise pollution thanks to open data.", href: "/sonor#what-id-change" },
+  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: "A two-year B2G SaaS I co-founded with three partners, to help cities reduce noise pollution with open data.", href: "/sonor#what-id-change" },
 ];
 
 const kicker = "font-mono uppercase tracking-[0.12em] text-[11px]";
@@ -77,7 +77,7 @@ const Index = () => {
           <div className="max-w-[760px]" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
             <h1 className="font-headline font-normal text-primary text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
-              SaaS Product manager and co-founder.<br />I build AI services&nbsp;working on operations, tech and business.
+              SaaS product manager and co-founder. Now I build AI services that work across operations, tech and the business.
             </h1>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
               Every project on this site states what runs today, what was tested and what is not proven yet.
