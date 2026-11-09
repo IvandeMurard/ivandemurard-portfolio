@@ -104,7 +104,7 @@ export const PROJECTS = {
     status: STATUSES.compass,
     slug: "compass",
     name: "Compass",
-    tagline: "Every address has a story. Compass reads it before you sign.",
+    tagline: "Every address has a story. Compass helps entrepreneurs find the right adress for their project by contextualising any commercial rental: history, rotation, neighbourhood, amenities, ... Make enlightened decisions.",
     label: "Data product · Commercial premises · Paris · 2026",
     image: parisCompassImg,
     cta: "Read the case study",
