@@ -152,7 +152,6 @@ const Index = () => {
                     className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">Ask Rose</button>
                 )}
               </div>
-              {isRose && <RoseCue id="home-rose" note="." className="mt-4" />}
             </article>
           ))}
         </div>
