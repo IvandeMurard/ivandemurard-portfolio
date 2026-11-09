@@ -16,7 +16,7 @@ export const isRoseExplicitMeetingRequest = (question: string): boolean =>
   /\b(?:call|calls|meeting|meet|book|booking|schedule|appointment|calendar|talk to (?:ivan|him)|speak (?:to|with) (?:ivan|him)|chat with (?:ivan|him)|get in touch|contact (?:ivan|him)|reach (?:ivan|him)|interview)\b/i.test(question);
 
 export const ROSE_NO_BOOKING_NOTICE =
-  "For this turn the propose_booking tool is not available: the visitor asks about Ivan's profile, not for a call or a meeting. Do not call it and do not invite a call in the answer.";
+  "For this turn the propose_booking tool is not available. The interface adds a booking line under your answer itself: do not invite a call or mention booking in the answer.";
 
 export type RoseFollowupContext = { question: string; pagePath?: string };
 export type RoseFollowupRejection = "addresses_ivan" | "unrequested_implementation" | "unsupported_outcome_learning" | "unfocused_technical";

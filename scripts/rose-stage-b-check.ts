@@ -1,9 +1,10 @@
-import { streamText, convertToModelMessages, tool, stepCountIs, type UIMessage } from "ai";
+import { streamText, convertToModelMessages, createUIMessageStreamResponse, tool, stepCountIs, type UIMessage } from "ai";
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { z } from "zod";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { getRoseSystemPrompt } from "../supabase/functions/_shared/rose-context.ts";
+import { getRoseSystemPrompt, shouldShowRoseBookingLine } from "../supabase/functions/_shared/rose-context.ts";
+import { ROSE_BOOKING_LINE_PART, withRoseBookingLine } from "../supabase/functions/_shared/rose-booking-line.ts";
 import { GATEWAY_MODEL, GOOGLE_BASE_URL, GOOGLE_MODEL, ROSE_MAX_RETRIES, withToolCallIndex } from "../supabase/functions/_shared/rose-provider.ts";
 import { createRoseTools, roseHistoryQuestions } from "../supabase/functions/_shared/rose-tools.ts";
 import { getRoseCuratedAnswer } from "../supabase/functions/_shared/rose-curated-answers.ts";
@@ -226,16 +227,19 @@ async function run(journey: Job) {
         throw new Error(`Stage B tool contract violated for ${id}: suggest_followups was offered`);
       }
       const result = streamText({ model: provider(modelId), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools, maxRetries: ROSE_MAX_RETRIES });
-      const sse = await result.toUIMessageStreamResponse({ onError: error => (error instanceof Error ? error.message : String(error)) }).text();
+      // The same stream as rose-chat: on a profile question, one data-booking-line part after the text.
+      const uiStream = result.toUIMessageStream({ onError: error => (error instanceof Error ? error.message : String(error)) });
+      const sse = await createUIMessageStreamResponse({ stream: shouldShowRoseBookingLine(turn.question) ? withRoseBookingLine(uiStream) : uiStream }).text();
       const events = sse.split("\n").filter(s => s.startsWith("data: ") && !s.includes("[DONE]")).map(s => JSON.parse(s.slice(6)));
       const text = events.filter(e => e.type === "text-delta").map(e => e.delta).join("");
+      const bookingLine = events.some(e => e.type === ROSE_BOOKING_LINE_PART);
       const calls = events.filter(e => e.type === "tool-input-available" || e.type === "tool-input-error");
       const errors: Array<{ type: string; errorText?: string }> = events.filter(e => e.type === "error" || e.type === "tool-input-error" || e.type === "tool-output-error");
       // An assistant turn with no text (only tool calls) is a failure: the dock would have nothing to show.
       if (!text.trim()) errors.push({ type: "empty-answer", errorText: "The assistant turn ended with no text" });
 
       writeFileSync(`${output}/${id}.sse`, sse);
-      results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, offeredTools, words: text.split(/\s+/).length, reviewer: "PENDING" });
+      results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, offeredTools, bookingLine, words: text.split(/\s+/).length, reviewer: "PENDING" });
       if (text) messages.push({ id: `${id}-a`, role: "assistant", parts: [{ type: "text", text }] });
       console.log(id, text.split(/\s+/).length, calls.map(c => c.toolName).join(","), errors.length ? "ERROR" : "");
     } catch (error) { results.push({ id: journey.id, ...meta, error: String(error) }); }
