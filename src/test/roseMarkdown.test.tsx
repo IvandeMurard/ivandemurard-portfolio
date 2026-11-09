@@ -22,7 +22,7 @@ describe("Rose Markdown rendering", () => {
 
   it("renders https links as safe external anchors", () => {
     renderMd("Read the [evaluation note](https://ivandemurard.com/journal/harnesses-graders-closed-loops) first.");
-    const a = screen.getByRole("link", { name: "evaluation note" });
+    const a = screen.getByRole("link", { name: "evaluation note, opens in a new tab" });
     expect(a).toHaveAttribute("rel", expect.stringContaining("noopener"));
     expect(a).toHaveAttribute("target", "_blank");
   });

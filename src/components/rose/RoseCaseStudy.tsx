@@ -1,5 +1,6 @@
 import { Fragment, memo, useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { cn } from "@/lib/utils";
+import { registerRail } from "@/lib/railRegistry";
 import { CompassRose } from "@/components/rose/CompassRose";
 import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { SOCIAL_LINKS } from "@/content/site";
@@ -703,6 +704,10 @@ const Chapters = memo(({ reduced }: { reduced: boolean }) => (
 
 export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
   const [active, setActive] = useState(-1);
+  // The chapter list is this page's rail: its active chapter is what a source link calls "where the reader is".
+  const activeRef = useRef(-1);
+  activeRef.current = active;
+  useEffect(() => registerRail(() => { const c = ROSE_CHAPTERS[activeRef.current]; return c ? { id: c.id, label: c.toc } : null; }), []);
   const root = useRef<HTMLDivElement>(null);
   const details = useRef<HTMLDetailsElement>(null);
 

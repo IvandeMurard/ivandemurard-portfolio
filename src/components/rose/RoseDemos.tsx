@@ -55,7 +55,7 @@ export const HeroDock = ({ reduced }: { reduced: boolean }) => {
             <p className="font-body text-sm leading-relaxed">{e.a}</p>
             {e.link && (
               <Link to={e.link.to} className={cn("mt-3 inline-block rounded-md border px-3 py-1 font-label text-xs hover:bg-on-primary/10 [[data-mood=dusk]_&]:hover:bg-on-surface/10", DEMO_GOLD, DEMO_RING)}>
-                {e.link.label} <span aria-hidden="true">↗</span>
+                {e.link.label}
               </Link>
             )}
             {e.chips && (

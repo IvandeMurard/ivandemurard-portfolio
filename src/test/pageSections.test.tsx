@@ -128,7 +128,7 @@ describe("Labels from the registries", () => {
   });
 
   it("falls back to Rose's text only for an id that no registry has", () => {
-    expect(internalSourceLabel("/lore#honesty", "x").text).toBe("§ Where it stands.");
+    expect(internalSourceLabel("/lore#honesty", "x").text).toBe("§ Where it stands");
     expect(internalSourceLabel("/anima#scope-gated", "x").text).toBe("§ Scope-gated, and it never decides");
     expect(internalSourceLabel("/aetherix#no-such-id", "Rose's text").text).toBe("Rose's text");
   });

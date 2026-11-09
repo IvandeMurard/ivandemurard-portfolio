@@ -100,8 +100,10 @@ const RoseLink = ({ href, children }: ComponentProps<"a">) => {
     );
   }
   const onClick = () => { if (target) onReference?.(target); };
+  const text = plainText(children);
   return (
-    <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={linkCls}>
+    <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={linkCls}
+      aria-label={text ? `${text}, opens in a new tab` : undefined}>
       {children}
       <span aria-hidden="true"> ↗</span>
     </a>

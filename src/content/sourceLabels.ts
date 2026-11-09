@@ -1,7 +1,7 @@
 import { PROJECTS } from "@/content/site";
 import { OTHER_PAGE_TITLES, PAGE_SECTIONS, type PageSection } from "@/content/pageSections";
 import { SECTION_INDEX } from "@/content/sectionIndex.generated";
-import { splitInternal, type SourceLabel } from "@/lib/sourceLinks";
+import { inSentence, splitInternal, type SourceLabel } from "@/lib/sourceLinks";
 
 /**
  * The registry behind the "§" labels of Rose's source links, loaded on demand (sourceLinks.loadSourceLabels):
@@ -31,22 +31,39 @@ export const pageTitleFor = (path: string, full = false): string | null => {
 };
 
 /**
- * "§ Section" for a link with a #section, "§ Page title" for a link without one. Where no registry covers
- * the target, or where Rose's own text already is the page's name (a project mention), the text is kept.
- * `full` is the accessible name: the label with the page's whole title.
+ * The return name of a page, for "Back to ...": Rose's case study, "the {Name} case study", a Field Note's short title.
+ * Null for any other page, which is called by its h1 (sourceLinks.currentReturnName).
+ */
+export const returnNameFor = (path: string): string | null => {
+  if (path === "/rose-design-lab") return "Rose's case study";
+  const p = path === "/atherix" ? "/aetherix" : path;
+  const note = NOTES.get(p);
+  if (note) return inSentence(note.short);
+  const project = Object.values(PROJECTS).find((x) => `/${x.slug}` === p);
+  return project ? `the ${project.name} case study` : null;
+};
+
+/**
+ * "§ Section" for a link with a #section, "§ Page title" for a link without one; a final full stop is dropped, the
+ * label sits inside Rose's sentence. Where no registry covers the target, or where Rose's own text already is the
+ * page's name (a project mention), the text is kept.
+ * `full` is the accessible name, without the section sign: "{Section}, in {Page full title}" for a section,
+ * "{Full title}" for a page. `title` is the whole title, shown on hover when the label is a short one.
  */
 export const internalSourceLabel = (href: string, text: string): SourceLabel => {
   const target = splitInternal(href);
   if (!target) return { text };
   const short = pageTitleFor(target.path);
   const full = pageTitleFor(target.path, true);
+  const hover = full && full !== short ? full : undefined;
   if (target.hash) {
     const section = sectionLabelFor(target.path, target.hash);
     if (!section) return { text };
-    const label = `§ ${section}`;
-    return { text: label, full: full ? `${label} (${full})` : label, title: full && full !== short ? full : undefined };
+    const name = inSentence(section);
+    // "Section, in Page"; after a "?" or "!" the comma would double the punctuation, so it reads "Section? In Page".
+    const join = /[?!]$/.test(name) ? " In " : ", in ";
+    return { text: `\u00a7 ${name}`, full: full ? `${name}${join}${inSentence(full)}` : name, title: hover };
   }
-  if (!short || text.trim().toLowerCase() === short.toLowerCase()) return { text };
-  const label = `§ ${short}`;
-  return full && full !== short ? { text: label, full: `${label}: ${full}`, title: full } : { text: label, full: label };
+  if (!short || text.trim().toLowerCase() === inSentence(short).toLowerCase()) return { text };
+  return { text: `\u00a7 ${inSentence(short)}`, full: inSentence(full ?? short), title: hover };
 };

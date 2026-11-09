@@ -34,6 +34,21 @@ export const splitInternal = (href: string): InternalTarget | null => {
 export const internalSourceLabel = (href: string, text: string): SourceLabel =>
   loaded ? loaded.internalSourceLabel(href, text) : { text };
 
+/** A title used inside a sentence loses its final full stop; "?" and "!" stay. */
+export const inSentence = (s: string): string => s.replace(/\.$/, "");
+
+/**
+ * What a page is called in "Back to ...": the registry's return name (Rose's case study, the {Name} case study, a
+ * Field Note's short title), else the page's h1. Not the homepage's h1, which is a sentence: "the homepage".
+ */
+export const currentReturnName = (path: string, doc: Document = document): string => {
+  if (path === "/") return "the homepage";
+  const fromRegistry = loaded?.returnNameFor(path);
+  if (fromRegistry) return fromRegistry;
+  const h1 = doc.querySelector("main h1")?.textContent?.replace(/\s+/g, " ").trim();
+  return h1 || doc.title.replace(/\s+\u00b7\s+Ivan de Murard$/, "").trim() || "this page";
+};
+
 /** The heading of a section from the registry, or null (not loaded, or in no registry). */
 export const sectionLabelFor = (path: string, id: string): string | null => loaded?.sectionLabelFor(path, id) ?? null;
 
