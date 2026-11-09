@@ -12,7 +12,7 @@ import { JOURNAL_ENTRIES } from "@/content/journal";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
 import { CompassMark } from "@/components/rose/CompassMark";
-import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
+import { RoseMark } from "@/components/rose/RoseKinetic";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const Tip = ({ label, explain, children }: { label: string; explain: string; children: React.ReactNode }) => (
