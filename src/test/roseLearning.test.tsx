@@ -15,7 +15,10 @@ describe("Open-question visitor-led handoff", () => {
     window.addEventListener("rose:ask", ask);
     try {
       render(<ChapterLearning />);
-      fireEvent.click(screen.getByRole("button", { name: /Ask Rose your question/ }));
+      const button = screen.getByRole("button", { name: /Ask Rose your question/ });
+      // It opens the dock and stays on the page, so it does not carry the arrow of a link that leaves the site.
+      expect(button.textContent?.trim()).toBe("Ask Rose your question");
+      fireEvent.click(button);
       expect(open).toHaveBeenCalledTimes(1);
       expect(ask).not.toHaveBeenCalled();
     } finally {
