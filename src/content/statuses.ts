@@ -6,7 +6,7 @@ export type Signal = "go" | "warn" | "stop" | "dark";
 export type ProjectStatus = { signal: Signal; word: string; note: string };
 
 export const STATUSES = {
-  sonor: { signal: "dark", word: "MVP shipped · stopped 2022", note: "0→1 with 4 co-founders, plus one person who was both developer and data scientist (5 people): discovery, MVP, grants, commercial discussions with cities. No contract closed; we stopped in 2022." },
+  sonor: { signal: "dark", word: "MVP shipped · stopped 2022", note: "0→1 with 4 co-founders and La Banque des Territoires." },
   rose: { signal: "go", word: "Live, text only", note: "Rose is live and text only. She knows the page and section in view, answers from the site's own text and sends nothing when you book." },
   aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },

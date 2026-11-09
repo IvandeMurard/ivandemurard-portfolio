@@ -52,7 +52,7 @@ const SELECTED = [
   },
   { p: PROJECTS.anima, fragment: PROJECTS.anima.status.note, line: "Hotels forget their guests: what they know sits in one person's head or in scattered tools. Anima keeps only what guests chose to share, and uses it to adapt the stay." },
   { p: PROJECTS.compass, fragment: COMPASS_SOURCES_LINE, line: PROJECTS.compass.tagline },
-  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: "It taught me to ship one use case before ten, the rule Aetherix is built on.", href: "/sonor#what-id-change" },
+  { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: "Sonor is a two year B2B SaaS entrepreneurial project led with 3 co-founders. Goal: help cities reduce noise pollution thanks to open data.", href: "/sonor#what-id-change" },
 ];
 
 const kicker = "font-mono uppercase tracking-[0.12em] text-[11px]";
