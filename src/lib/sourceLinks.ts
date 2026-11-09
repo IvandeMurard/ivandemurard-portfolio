@@ -1,11 +1,13 @@
 import { PROJECTS } from "@/content/site";
 import { COMPASS_SECTIONS, type CompassSection } from "@/content/compass";
-import { AETHERIX_SECTIONS, TACET_SECTIONS, type PageSection } from "@/content/pageSections";
+import { OTHER_PAGE_TITLES, PAGE_SECTIONS, type PageSection } from "@/content/pageSections";
+import { SECTION_INDEX } from "@/content/sectionIndex.generated";
 
 /**
- * Labels for the source links in Rose's answers. Everything comes from registries that already exist
- * (site.ts for page titles, the section lists of the case-study pages, the Compass content tree).
- * A page or section no registry covers returns null, and the caller keeps Rose's own link text.
+ * Labels for the source links in Rose's answers. Everything comes from registries that already exist:
+ * pageSections.ts (the case-study pages), site.ts (page titles), the Compass content tree and the generated
+ * index of the Field Notes (sectionIndex.generated.ts). Only an id that is in none of them returns null, and the
+ * caller then keeps Rose's own link text.
  */
 
 export type InternalTarget = { path: string; hash: string };
@@ -21,21 +23,32 @@ export const splitInternal = (href: string): InternalTarget | null => {
 };
 
 const flattenCompass = (sections: CompassSection[]): PageSection[] =>
-  sections.flatMap((s) => [{ id: s.id, label: s.title }, ...flattenCompass(s.subsections ?? [])]);
+  sections.flatMap((s) => [{ id: s.id, label: s.title, heading: s.title }, ...flattenCompass(s.subsections ?? [])]);
 
-const SECTION_REGISTRY: Record<string, PageSection[]> = {
-  "/aetherix": AETHERIX_SECTIONS,
-  "/tacet": TACET_SECTIONS,
-  "/compass": flattenCompass(COMPASS_SECTIONS),
+const COMPASS_LIST = flattenCompass(COMPASS_SECTIONS);
+const JOURNAL = new Map(SECTION_INDEX.map((e) => [e.path, e]));
+
+/** The sections of a page that have a heading, wherever the registry keeps them. */
+export const sectionsFor = (path: string): PageSection[] => {
+  if (path === "/compass") return COMPASS_LIST;
+  const note = JOURNAL.get(path);
+  if (note) return note.sections.map((s) => ({ id: s.id, label: s.heading, heading: s.heading }));
+  return PAGE_SECTIONS[path] ?? [];
 };
 
+/** The heading text of a section, or null when no registry has the id. */
 export const sectionLabelFor = (path: string, id: string): string | null =>
-  SECTION_REGISTRY[path]?.find((s) => s.id === id)?.label ?? null;
+  sectionsFor(path).find((s) => s.id === id)?.heading ?? null;
 
-/** The page's name in site.ts. Pages outside the case studies are not in any registry. */
+/** The page's name: site.ts for the case studies, the Field Notes index for the notes, pageSections.ts for the rest. */
 export const pageTitleFor = (path: string): string | null => {
   const p = path === "/atherix" ? "/aetherix" : path;
-  return Object.values(PROJECTS).find((project) => `/${project.slug}` === p)?.name ?? null;
+  return (
+    Object.values(PROJECTS).find((project) => `/${project.slug}` === p)?.name ??
+    JOURNAL.get(p)?.title ??
+    OTHER_PAGE_TITLES[p] ??
+    null
+  );
 };
 
 /** Title of the page the reader is on now: the registry, else the document title without the site suffix. */

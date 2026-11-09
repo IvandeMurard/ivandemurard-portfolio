@@ -1,5 +1,5 @@
-import { openCollapsedAncestors } from "./revealAnchor";
-import { headerOffset, JUMP_EVENT } from "./sourceJump";
+import { DISCLOSURE, DISCLOSURE_TRIGGER, openCollapsedAncestors } from "./revealAnchor";
+import { headerOffset, headingText, JUMP_EVENT } from "./sourceJump";
 
 /**
  * Arrival of a source link: the section heading and the first block after it are in view under the sticky
@@ -12,9 +12,19 @@ export const CITED_MS = 4000;
 
 const HEADING = "h1,h2,h3,h4,h5,h6";
 
-/** The heading of the target: the target itself, or the first heading inside it. */
-export const headingOf = (el: HTMLElement): HTMLElement =>
-  (el.matches(HEADING) ? el : el.querySelector<HTMLElement>(HEADING)) ?? el;
+/**
+ * The heading of the target: the target itself, the heading an alias id sits in, the first heading inside it, or,
+ * for a collapsible panel, its trigger (the panel's own summary text is its heading).
+ */
+export const headingOf = (el: HTMLElement): HTMLElement => {
+  if (el.hasAttribute(DISCLOSURE)) {
+    const trigger = Array.from(el.children).find((c) => c.hasAttribute(DISCLOSURE_TRIGGER)) as HTMLElement | undefined;
+    if (trigger) return trigger;
+  }
+  return el.closest<HTMLElement>(HEADING) ?? el.querySelector<HTMLElement>(HEADING) ?? el;
+};
+
+export { headingText };
 
 /** The first block after the heading, climbing out of a heading wrapper that has nothing after it. */
 export const firstBlockAfter = (heading: HTMLElement, within: HTMLElement): HTMLElement | null => {

@@ -13,6 +13,7 @@ import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
 
 import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
+import { journalHeadingIds } from "@/lib/journalHeadingIds";
 import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
 import { ThreeArmsDiagram } from "@/components/journal/ThreeArmsDiagram";
@@ -44,14 +45,6 @@ const RELATED_ROLE = {
   evidence: "Inspect implementation evidence",
 } as const;
 
-
-const slugifyHeading = (text: string) =>
-  text
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "") || "section";
 
 
 type Lang = "en" | "fr";
@@ -408,16 +401,7 @@ const JournalEntry = () => {
   const labels = LABELS[lang];
   const articleRef = useRef<HTMLElement>(null);
 
-  const headingIds = useMemo(() => {
-    const used = new Map<string, number>();
-    return (entry?.body ?? []).map((b) => {
-      if (b.kind !== "h2" && b.kind !== "h3") return undefined;
-      const base = slugifyHeading(b.text);
-      const n = used.get(base) ?? 0;
-      used.set(base, n + 1);
-      return n === 0 ? base : `${base}-${n + 1}`;
-    });
-  }, [entry]);
+  const headingIds = useMemo(() => journalHeadingIds(entry?.body ?? []), [entry]);
 
   const tocItems = useMemo<TocItem[]>(
     () =>

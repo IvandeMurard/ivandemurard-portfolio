@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS } from "@/content/site";
+import { LORE_SECTIONS } from "@/content/pageSections";
 import { Term } from "@/components/Term";
 import { LoreHeroBadges } from "@/components/lore/LoreHeroBadges";
 import { EntryActions } from "@/components/journal/EntryActions";
@@ -40,19 +41,6 @@ const STACK: { layer: string; tech: string }[] = [
   { layer: "Voice out", tech: "OpenAI TTS" },
   { layer: "Frontend", tech: "Next.js 14, TypeScript, Tailwind" },
   { layer: "Deploy", tech: "Vercel" },
-];
-
-const LORE_SECTIONS = [
-  { id: "loss", label: "The loss" },
-  { id: "modes", label: "Three modes" },
-  { id: "hangar", label: "The hangar" },
-  { id: "thesis", label: "Same thesis" },
-  { id: "hazard", label: "The hazard" },
-  { id: "admissible", label: "Admissible" },
-  { id: "evaluation", label: "Evaluation" },
-  { id: "purpose", label: "What it is for" },
-  { id: "honesty", label: "Honestly" },
-  { id: "contact", label: "Stack & links" },
 ];
 
 const Lore = () => (
@@ -480,7 +468,7 @@ const Lore = () => (
       <Reveal as="section" id="honesty" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-4xl mx-auto">
           <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight mb-10">
-            Where it stands, honestly.
+            Where it stands.
           </h2>
           <LoreHonestyBlock />
         </div>

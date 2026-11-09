@@ -26,7 +26,9 @@ describe("Rose Markdown rendering", () => {
 
   it("renders site-relative links as internal navigation", () => {
     renderMd("See the [Evaluation Field Note](/journal/harnesses-graders-closed-loops).");
-    const a = screen.getByRole("link", { name: "Evaluation Field Note" });
+    // The note is in the Field Notes index, so the link reads "§ " and the note's title rather than Rose's words.
+    const a = screen.getByRole("link");
+    expect(a.textContent).toMatch(/^§ What is an LLM evaluation harness\?/);
     expect(a).toHaveAttribute("href", "/journal/harnesses-graders-closed-loops");
     expect(a).not.toHaveAttribute("target");
   });
@@ -75,7 +77,7 @@ describe("Project auto-linking", () => {
 describe("Canonical Field Note destinations", () => {
   it("repairs the malformed Agent Boundaries link seen in the gateway test", () => {
     renderMd("Read [Agent Boundaries](/agent-boundaries-aetherix).");
-    expect(screen.getByRole("link", { name: "Agent Boundaries" }))
+    expect(screen.getByRole("link"))
       .toHaveAttribute("href", "/journal/agent-boundaries-aetherix");
   });
 

@@ -52,8 +52,8 @@ describe("Source link labels", () => {
   });
 
   it("keeps Rose's own text where no registry covers the target, and for a project mention", () => {
-    md("Read [the harness note](/journal/harnesses-graders-closed-loops) and [Aetherix](/aetherix) and [a part](/aetherix#no-such-section).");
-    expect(screen.getByRole("link", { name: "the harness note" })).toBeTruthy();
+    md("Read [the status note](/anima#no-such-section) and [Aetherix](/aetherix) and [a part](/aetherix#no-such-section).");
+    expect(screen.getByRole("link", { name: "the status note" })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Aetherix" }).textContent).toBe("Aetherix");
     expect(screen.getByRole("link", { name: "a part" })).toBeTruthy();
   });

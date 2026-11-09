@@ -46,7 +46,7 @@
   },
   "public/lore.md": {
     "contrast-reflex": 10,
-    "mood-word": 5,
+    "mood-word": 4,
     "theatrical-fragment": 1
   },
   "public/sonor.md": {
@@ -388,7 +388,7 @@
   "src/pages/Lore.tsx": {
     "contrast-reflex": 1,
     "italic": 23,
-    "mood-word": 4,
+    "mood-word": 2,
     "theatrical-fragment": 1
   },
   "src/pages/NotFound.tsx": {

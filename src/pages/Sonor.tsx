@@ -12,6 +12,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
+import { SONOR_NARRATIVE, sonorSections } from "@/content/pageSections";
 import { Term } from "@/components/Term";
 import { EntryActions } from "@/components/journal/EntryActions";
 import { useMood } from "@/components/MoodProvider";
@@ -68,25 +69,23 @@ const META = [
   { label: "Outcome", value: "MVP shipped, commercial discussions with municipalities, no contract" },
 ];
 
+// Ids and titles come from the shared list (pageSections.ts); the bodies are this page's.
+const head = (id: string) => SONOR_NARRATIVE.find((n) => n.id === id) as { id: string; title: string };
 const NARRATIVE: { id: string; title: string; body: React.ReactNode }[] = [
   {
-    id: "what-happened",
-    title: "What happened",
+    ...head("what-happened"),
     body: "To ease adoption, we offered services around the platform. Each city asked for something different: a field feasibility study for a Paris district town hall, mediation and a field study for a town west of Paris, communication on actions taken for a metropolitan authority. We had commercial discussions; none became a contract.",
   },
   {
-    id: "why-it-stopped",
-    title: "Why it stopped",
+    ...head("why-it-stopped"),
     body: "Discovery concluded no contract would clear. When the grants and the incubation ended, we stopped Sonor.",
   },
   {
-    id: "what-id-change",
-    title: "What I'd change",
+    ...head("what-id-change"),
     body: "Stay on delivering the product. We drifted into a \"neo-agency\" answering every need a city expressed, so the loop lived in our team's time, not in the product. I believe one use case, delivered and repeated, would have had a better chance of a first contract. I cannot prove it.",
   },
   {
-    id: "what-i-applied-next",
-    title: "What I applied next",
+    ...head("what-i-applied-next"),
     body: (
       <>
         <Link to="/aetherix" className="text-primary border-b border-outline-variant hover:border-primary">Aetherix</Link> starts with one job, F&B covers, because its result can be checked the next morning. And the loop lives in the product: the recommendation, the manager's reply and the outcome are recorded without anyone in between.
@@ -94,8 +93,7 @@ const NARRATIVE: { id: string; title: string; body: React.ReactNode }[] = [
     ),
   },
   {
-    id: "related-work",
-    title: "Related work",
+    ...head("related-work"),
     body: (
       <>
         <Link to="/tacet" className="text-primary border-b border-outline-variant hover:border-primary">Tacet</Link> carries the acoustic thesis forward, as an environmental twin for boutique hotels.
@@ -104,12 +102,7 @@ const NARRATIVE: { id: string; title: string; body: React.ReactNode }[] = [
   },
 ];
 
-const SONOR_SECTIONS = [
-  { id: "hypothesis", label: "Prototype" },
-  { id: "product", label: "What it is" },
-  ...NARRATIVE.map((n) => ({ id: n.id, label: n.title })),
-  { id: "platform", label: "Platform" },
-];
+const SONOR_SECTIONS = sonorSections(NARRATIVE);
 const Sonor = () => {
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
   const { mood } = useMood();

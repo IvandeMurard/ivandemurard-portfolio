@@ -35,6 +35,13 @@ const safeDecode = (s: string) => { try { return decodeURIComponent(s); } catch 
 export const jumpMatches = (jump: Jump | null, pathname: string, hash: string): jump is Jump =>
   !!jump && jump.target.path === pathname && jump.target.hash === safeDecode(hash.replace(/^#/, ""));
 
+/** A heading's text as a reader sees it: without the copy-link affordance that sits inside it. */
+export const headingText = (el: HTMLElement): string => {
+  const clone = el.cloneNode(true) as HTMLElement;
+  clone.querySelectorAll('a[href^="#"], [aria-hidden="true"]').forEach((n) => n.remove());
+  return (clone.textContent ?? "").replace(/\s+/g, " ").trim();
+};
+
 const HEADER_FALLBACK = 80;
 export const headerOffset = (doc: Document = document): number => {
   const nav = doc.querySelector("nav.fixed") as HTMLElement | null;
@@ -52,7 +59,7 @@ const currentSection = (doc: Document): { id: string | null; text: string | null
   const h = found as HTMLElement | null;
   if (!h) return { id: null, text: null };
   const id = h.id.replace(/-heading$/, "") || h.closest("section")?.id || null;
-  return { id: h.id || id, text: h.textContent?.replace(/\s+/g, " ").trim() || null };
+  return { id: h.id || id, text: headingText(h) || null };
 };
 
 /** Where the reader is right now, to come back to it. */

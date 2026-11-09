@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { clearJump, JUMP_EVENT, jumpMatches, readJump, type Jump } from "@/lib/sourceJump";
-import { restoreOrigin, headingOf } from "@/lib/sourceArrival";
+import { restoreOrigin, headingOf, headingText } from "@/lib/sourceArrival";
 import { currentPageTitle, sectionLabelFor } from "@/lib/sourceLinks";
 
 /**
@@ -44,7 +44,7 @@ export const SourceContextLine = () => {
 
   const title = currentPageTitle(pathname);
   const target = jump.target.hash ? document.getElementById(jump.target.hash) : null;
-  const section = sectionLabelFor(pathname, jump.target.hash) ?? (target ? headingOf(target).textContent?.replace(/\s+/g, " ").trim() : null) ?? null;
+  const section = sectionLabelFor(pathname, jump.target.hash) ?? (target ? headingText(headingOf(target)) : null) ?? null;
   const origin = jump.origin.section ? `${jump.origin.title}, ${jump.origin.section}` : jump.origin.title;
 
   return (

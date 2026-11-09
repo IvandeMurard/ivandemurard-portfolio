@@ -1159,7 +1159,7 @@ Aviation is the most demanding case, not the only one. Wherever expertise is ora
 
 That portability is not a projection. Aetherix solves the same loss in hospitality: a manager leaves and takes what they knew about the property. Same memory architecture, two industries, two levels of tolerance for being wrong. Built twice, not argued once.
 
-## Where it stands, honestly
+## Where it stands
 
 This is a prototype, not production software.
 
