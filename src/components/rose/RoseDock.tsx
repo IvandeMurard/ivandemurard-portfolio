@@ -126,6 +126,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const [focusWithin, setFocusWithin] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [lift, setLift] = useState(0);
+  // Echo from the homepage Rose card: the same compass, answering from the dock.
+  const [echo, setEcho] = useState(false);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
   const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
@@ -274,9 +276,12 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       submit(text);
     };
     const onOpen = () => setOpen(true);
+    const onEcho = (e: Event) => setEcho(Boolean((e as CustomEvent<boolean>).detail));
     window.addEventListener("rose:ask", onAsk as EventListener);
     window.addEventListener("rose:open", onOpen);
+    window.addEventListener("rose:echo", onEcho);
     return () => {
+      window.removeEventListener("rose:echo", onEcho);
       window.removeEventListener("rose:ask", onAsk as EventListener);
       window.removeEventListener("rose:open", onOpen);
     };
@@ -361,6 +366,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           className={cn(
             "flex flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest",
             open ? "max-h-[min(600px,80vh)] shadow-xl shadow-primary/10" : "shadow-md shadow-primary/5",
+            "transition-[border-color,box-shadow] duration-500 motion-reduce:transition-none",
+            echo && !open && "border-secondary shadow-lg shadow-secondary/20",
           )}
         >
           {open ? (
@@ -544,7 +551,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                   hasConversation ? "px-2.5 py-1" : "h-8 w-8 justify-center",
                 )}
               >
-                <CompassMark className={hasConversation ? "h-4 w-4" : "h-5 w-5"} />
+                <CompassMark className={cn(hasConversation ? "h-4 w-4" : "h-5 w-5", "transition-transform duration-700 ease-out motion-reduce:transition-none", echo && "rotate-45")} />
                 {hasConversation ? "Resume" : null}
               </button>
             ) : null}

@@ -136,7 +136,15 @@ const Index = () => {
                   {isRose ? (
                     <span className="inline-flex items-center gap-3">
                       <RoseMark kind="underline" cue="home-rose" skipWhenReduced tip>{p.name}</RoseMark>
-                      <CompassMark className="h-7 w-7 shrink-0 text-primary" />
+                      <button type="button" aria-label="Open Rose, the same compass as the dock below"
+                        onClick={() => window.dispatchEvent(new CustomEvent("rose:ask"))}
+                        onMouseEnter={() => window.dispatchEvent(new CustomEvent("rose:echo", { detail: true }))}
+                        onMouseLeave={() => window.dispatchEvent(new CustomEvent("rose:echo", { detail: false }))}
+                        onFocus={() => window.dispatchEvent(new CustomEvent("rose:echo", { detail: true }))}
+                        onBlur={() => window.dispatchEvent(new CustomEvent("rose:echo", { detail: false }))}
+                        className="group/compass rounded-full text-primary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary transition-colors">
+                        <CompassMark className="h-7 w-7 shrink-0 transition-transform duration-700 ease-out group-hover/compass:rotate-45 group-focus-visible/compass:rotate-45 motion-reduce:transition-none" />
+                      </button>
                     </span>
                   ) : p.name}
                 </h3>
