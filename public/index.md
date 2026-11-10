@@ -8,7 +8,7 @@ Every project on this site states what runs today, what was tested and what is n
 
 ## 01 · Flagship: Aetherix
 
-The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager’s reply, the outcome recorded next to it. Built to improve with every day it runs.
+The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs.
 
 [Read the Aetherix case](https://ivandemurard.com/aetherix)
 
