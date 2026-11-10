@@ -10,7 +10,7 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 
 // src/content/statuses.ts
 var STATUSES = {
-  sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with 4 co-founders and La Banque des Territoires." },
+  sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with 4 co-founders, backed by Banque des Territoires. No contract closed; we stopped in 2022." },
   rose: { signal: "go", word: "Live, text only", note: "Rose is live and text only. She knows the page and section in view, answers from the site's own text and sends nothing when you book." },
   aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
@@ -67,7 +67,7 @@ var BASE = [
     slug: "rose",
     name: "Rose",
     label: "AI service \xB7 Portfolio agent \xB7 2026",
-    tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site.",
+    tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.",
     url: "https://ivandemurard.com/rose-design-lab",
     markdown_path: "/rose-design-lab.md"
   },
@@ -76,7 +76,7 @@ var BASE = [
     name: "Compass",
     group: "Standalone projects",
     label: "Data product \xB7 Commercial premises \xB7 Paris \xB7 2026",
-    tagline: "Every address has a story. Compass reads it before you sign. Open data turned into traceable, address-level context for commercial location decisions in Paris. " + COMPASS_SOURCES_LINE + ".",
+    tagline: "Every address has a story. Compass helps entrepreneurs choose premises that fit their project, with the context listings leave out: past trades, how often the place changed hands, the neighbourhood around it and, next, its amenities. Make informed decisions, envision your project. " + COMPASS_SOURCES_LINE + ".",
     url: "https://ivandemurard.com/compass",
     markdown_path: "/compass.md"
   }
