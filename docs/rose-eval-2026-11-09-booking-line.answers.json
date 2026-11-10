@@ -1,0 +1,1793 @@
+[
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r02-1",
+    "case": "career-scope-rose",
+    "sample": 2,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years in B2B SaaS, he specializes in taking AI-native products from 0 to 1 by directing AI coding agents. He works across technical and non-technical teams and is drawn to challenges where the product concept is still being defined. You can review his full professional history in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 76,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r01-1",
+    "case": "career-scope-rose",
+    "sample": 1,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work by stating: \"I design, build and evaluate AI services for operations.\"\n\nHe specializes in taking products from 0 to 1, often by directing AI coding agents to build agentic systems. His background includes five years in B2B SaaS, spanning from co-founding Sonor to leading product initiatives at large organizations. For instance, at Bouygues Telecom, he recovered 40% of targeted unpaid debt, and at DomusVi, he delivered an MVP for a planned 500+ user rollout. You can find more details in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 98,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "DomusVi: \"MVP\" where the CV says \"no-code POC\". The 500+ rollout is correctly described as planned."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r03-1",
+    "case": "career-scope-rose",
+    "sample": 3,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work by stating: \"I design, build and evaluate AI services for operations.\"\n\nAs seen in his [CV](/cv), he has five years of experience in B2B SaaS, focusing on building AI-native products from 0 to 1 by directing AI coding agents. His background includes delivering a data-driven recovery tool at Bouygues Telecom that recovered 40% of its 1.9M EUR target and preparing a consolidation platform for DomusVi with a planned 500+ user rollout.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 87,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r04-1",
+    "case": "career-scope-rose",
+    "sample": 4,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHe is a product builder with five years of experience in B2B SaaS, focusing on taking AI-native products from 0 to 1. Ivan often works by directing AI coding agents and excels in environments where he needs to bridge technical and non-technical teams to solve poorly defined problems. His full professional history is on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 81,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r05-1",
+    "case": "career-scope-rose",
+    "sample": 5,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and AI Product Builder roles. He describes his work by stating: \"I design, build and evaluate AI services for operations.\"\n\nHis background includes five years in B2B SaaS, where he has co-founded a startup and led product initiatives in large organizations. He specializes in building AI-native products from 0 to 1, often by directing AI coding agents to create agentic systems. You can find more detail on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 77,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r07-1",
+    "case": "career-scope-rose",
+    "sample": 7,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": false,
+    "words": 1,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "fail",
+    "critical": false,
+    "notes": [
+      "Empty answer: the model returned only follow-up questions. No booking line was sent, as designed. The dock shows its fallback line."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r06-1",
+    "case": "career-scope-rose",
+    "sample": 6,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHe focuses on building AI-native products from 0 to 1, often by directing AI coding agents. His background combines co-founding the B2G SaaS [Sonor](/sonor) with leading large-scale product initiatives at companies like DomusVi and Bouygues Telecom. He specializes in agentic systems where intelligence is integrated into existing tools rather than new dashboards. Further details are on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 83,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r08-1",
+    "case": "career-scope-rose",
+    "sample": 8,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work by stating: \"I design, build and evaluate AI services for operations.\"\n\nHis experience involves taking AI-native products from 0 to 1, often by directing AI coding agents. He works across technical and non-technical teams to move from initial problem discovery to working MVPs, such as his recent agentic architecture for hospitality or his work consolidating legacy tools at DomusVi. You can find his full background and list of projects on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 88,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r09-1",
+    "case": "career-scope-rose",
+    "sample": 9,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHis experience focuses on taking B2B SaaS products from 0 to 1. He currently builds AI-native systems by directing AI coding agents, such as the agentic hospitality tools in his [CV](/cv) and the [Compass](/compass) location-intelligence project. He typically works between technical and non-technical teams to solve problems where the product definition is still evolving.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 79,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r11-1",
+    "case": "career-scope-rose",
+    "sample": 11,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work by stating, \"I design, build and evaluate AI services for operations.\"\n\nWith five years of experience in B2B SaaS, he specializes in taking AI-native products from 0 to 1. He often builds by directing AI coding agents and works across technical and non-technical teams to solve problems where the product definition is still evolving. More details on his experience and past projects are available on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 83,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r10-1",
+    "case": "career-scope-rose",
+    "sample": 10,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work by stating, \"I design, build and evaluate AI services for operations.\"\n\nHis experience spans five years in B2B SaaS, including co-founding a startup and leading product initiatives within large organizations. He specializes in taking AI-native products from 0 to 1, often by directing AI coding agents to build agentic systems and data-driven tools. He works across technical and non-technical teams to deliver functional MVPs and manage complex stakeholder alignments. More details are available on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 92,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r13-1",
+    "case": "career-scope-rose",
+    "sample": 13,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nAs an AI Product Builder with five years of experience in B2B SaaS, he specializes in taking AI-native products from 0 to 1 by directing AI coding agents. He has experience co-founding a startup, leading product initiatives within large organizations like Bouygues Telecom and DomusVi, and building multi-agent architectures. He works across technical and non-technical teams, focusing on problems where the product direction is still being defined. You can find more details in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 100,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r14-1",
+    "case": "career-scope-rose",
+    "sample": 14,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and AI Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS as a founder and product lead, he focuses on taking AI-native products from 0 to 1 by directing AI coding agents. He works across technical and non-technical teams, specifically on problems where the product itself still has to be defined. You can find a detailed breakdown of his background on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 86,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r12-1",
+    "case": "career-scope-rose",
+    "sample": 12,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": false,
+    "words": 1,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "fail",
+    "critical": false,
+    "notes": [
+      "Empty answer: the model returned only follow-up questions. No booking line was sent, as designed. The dock shows its fallback line."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r17-1",
+    "case": "career-scope-rose",
+    "sample": 17,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nAccording to his [CV](/cv), he focuses on taking AI-native products from 0 to 1 by directing AI coding agents. His experience ranges from co-founding a B2G SaaS startup to managing digital transformation in large organizations like DomusVi and Bouygues Telecom. He specializes in agentic systems, such as his current work on hospitality intelligence, where he builds multi-agent architectures and evaluation frameworks.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 86,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "Wording no page states: \"digital transformation\" (the CV says he owned discovery, specs and a no-code POC)."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r15-1",
+    "case": "career-scope-rose",
+    "sample": 15,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work by stating: \"I design, build and evaluate AI services for operations.\"\n\nHe has five years of experience in B2B SaaS, ranging from co-founding a startup to leading product initiatives within large organizations. He specializes in building AI-native products from 0 to 1 by directing AI coding agents and designing agentic systems for operations. You can find his full professional history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 79,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r16-1",
+    "case": "career-scope-rose",
+    "sample": 16,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": false,
+    "words": 1,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "fail",
+    "critical": false,
+    "notes": [
+      "Empty answer: the model returned only follow-up questions. No booking line was sent, as designed. The dock shows its fallback line."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r20-1",
+    "case": "career-scope-rose",
+    "sample": 20,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHe specializes in taking AI-native products from 0 to 1 by directing AI coding agents. His experience includes co-founding a SaaS startup and leading product discovery for large organizations like DomusVi and Bouygues Telecom. He works across technical and non-technical teams to implement multi-agent architectures and agentic systems. You can find his full history in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 82,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r19-1",
+    "case": "career-scope-rose",
+    "sample": 19,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations, typically taking AI-native products from 0 to 1 by directing AI coding agents.\n\nHis profile includes five years in B2B SaaS, where he has co-founded a startup and led product initiatives in large organizations. At Bouygues Telecom, he recovered 40% of targeted unpaid debt, and at DomusVi, he delivered an MVP for a planned 500-user rollout. You can find more details on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 89,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "DomusVi: \"MVP\" where the CV says \"no-code POC\". The 500+ rollout is correctly described as planned.",
+      "\"500-user\" where the CV says \"500+ users\"; the rollout is correctly described as planned."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-rose-r18-1",
+    "case": "career-scope-rose",
+    "sample": 18,
+    "page": "/rose-design-lab",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his professional work by stating, \"I design, build and evaluate AI services for operations.\"\n\nWith five years in B2B SaaS, he builds AI-native products from 0 to 1 by directing AI coding agents. His experience includes co-founding Sonor and leading digital transformations in large organizations. At [DomusVi](/cv), he delivered an MVP to consolidate legacy tools for a planned rollout to 500+ users across 100 care homes. He focuses on problems where the product is still being defined, working across technical and non-technical teams.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 97,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "Wording no page states: \"digital transformation\" (the CV says he owned discovery, specs and a no-code POC).",
+      "DomusVi: \"MVP\" where the CV says \"no-code POC\". The 500+ rollout is correctly described as planned."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r01-1",
+    "case": "career-scope-aetherix",
+    "sample": 1,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations, focusing on taking AI-native products from 0 to 1.\n\nHis experience includes five years in B2B SaaS, where he co-founded a company and led product initiatives for large organizations. He specializes in directing AI coding agents to build systems like Aetherix, bridging technical development with business needs. You can find his full history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 81,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r02-1",
+    "case": "career-scope-aetherix",
+    "sample": 2,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nAs detailed in his [CV](/cv), Ivan is a product builder with five years of experience in B2B SaaS. He specializes in taking AI-native products from 0 to 1 by directing AI coding agents. His background includes co-founding a B2G SaaS and leading product delivery within large organizations, including Bouygues Telecom and DomusVi.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 77,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r04-1",
+    "case": "career-scope-aetherix",
+    "sample": 4,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work by stating, \"I design, build and evaluate AI services for operations.\"\n\nHis background includes five years in B2B SaaS, where he co-founded a startup and led product initiatives for large organizations such as DomusVi and Bouygues Telecom. Currently, he builds AI-native systems from 0 to 1 by directing AI coding agents, focusing on multi-agent architectures and evaluation-driven development. You can find more detail on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 82,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r03-1",
+    "case": "career-scope-aetherix",
+    "sample": 3,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations. With five years in B2B SaaS, he has co-founded a company and led product initiatives for large organizations such as DomusVi and Bouygues Telecom. He currently builds AI-native products from 0 to 1 by directing AI coding agents, focusing on pushing intelligence into tools that teams already use. Details on his projects and experience are in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 83,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r05-1",
+    "case": "career-scope-aetherix",
+    "sample": 5,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **AI Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHis [CV](/cv) shows five years of experience in B2B SaaS, including co-founding the startup Sonor and leading digital transformation for large organizations such as DomusVi and Bouygues Telecom. Today, he focuses on building AI-native products from 0 to 1 by directing AI coding agents. He specializes in agentic architectures, multi-tenant security, and evaluation by design, combining technical build skills with discovery and delivery methods like Shape Up.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 93,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "Wording no page states: \"digital transformation\" (the CV says he owned discovery, specs and a no-code POC).",
+      "\"multi-tenant security\" where the CV says \"multi-tenant, with GDPR constraints designed in\"."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r07-1",
+    "case": "career-scope-aetherix",
+    "sample": 7,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, he focuses on taking AI-native products from 0 to 1 by directing AI coding agents. He works across technical and non-technical teams, specifically on problems where the product must still be defined. You can find his full professional history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 75,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r06-1",
+    "case": "career-scope-aetherix",
+    "sample": 6,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations, with a focus on moving from 0 to 1 by directing AI coding agents.\n\nHis background includes five years in B2B SaaS, ranging from co-founding a startup to leading complex product discovery for large organizations like DomusVi and Bouygues Telecom. He prioritizes pushing intelligence into the tools staff already use, such as WhatsApp or existing enterprise platforms, rather than creating new dashboards. You can find a full list of his experience and skills in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 101,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r09-1",
+    "case": "career-scope-aetherix",
+    "sample": 9,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and AI Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHis [CV](/cv) documents five years of experience in B2B SaaS, including co-founding a startup and leading product initiatives for large organizations like DomusVi and Bouygues Telecom. He specializes in 0-to-1 delivery by directing AI coding agents to build systems, ensuring every feature is specified and evaluated before it ships.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 75,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "Wording no page states: \"every feature is specified and evaluated before it ships\" (a loose reading of the evaluation gates)."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r10-1",
+    "case": "career-scope-aetherix",
+    "sample": 10,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations. \n\nWith five years of experience in B2B SaaS, he focuses on taking AI-native products from 0 to 1 by directing AI coding agents. His background includes co-founding a company and leading product discovery for large organizations like DomusVi and Bouygues Telecom. He is drawn to challenges where the product still needs to be defined and built. You can find his full history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 90,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r08-1",
+    "case": "career-scope-aetherix",
+    "sample": 8,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations. He specializes in taking AI-native products from 0 to 1 by directing AI coding agents, and he is drawn to problems where the product still has to be made. His background includes co-founding a B2G SaaS and leading product delivery within large organizations like DomusVi. More details are available on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 77,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r13-1",
+    "case": "career-scope-aetherix",
+    "sample": 13,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, he specializes in taking AI-native products from 0 to 1 by directing AI coding agents. His background includes co-founding a startup and leading product discovery and delivery for organizations like DomusVi and Bouygues Telecom. He focuses on pushing intelligence into the tools teams already use rather than building new dashboards. Detailed history and results are available on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 92,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r11-1",
+    "case": "career-scope-aetherix",
+    "sample": 11,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": false,
+    "words": 1,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "fail",
+    "critical": false,
+    "notes": [
+      "Empty answer: the model returned only follow-up questions. No booking line was sent, as designed. The dock shows its fallback line."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r12-1",
+    "case": "career-scope-aetherix",
+    "sample": 12,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHe specializes in 0-to-1 product delivery by directing AI coding agents. His background includes five years in B2B SaaS, where he has led product discovery for large organizations and co-founded a startup. Detailed evidence of his methods and career history is available on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 70,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r15-1",
+    "case": "career-scope-aetherix",
+    "sample": 15,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHis background includes five years in B2B SaaS, during which he co-founded a startup and led product initiatives within large organizations. Ivan currently focuses on building AI-native products from 0 to 1 by directing AI coding agents, managing the process from discovery to delivery across technical and non-technical teams. Further details on his experience are available in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 84,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r14-1",
+    "case": "career-scope-aetherix",
+    "sample": 14,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHis background includes five years in B2B SaaS, where he co-founded a company and led product initiatives in large organizations. He now focuses on taking AI-native products from 0 to 1 by directing AI coding agents, a method he uses to develop his current projects. You can find his full history and achievements on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 81,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r16-1",
+    "case": "career-scope-aetherix",
+    "sample": 16,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work by stating: \"I design, build and evaluate AI services for operations.\"\n\nWith five years of experience in B2B SaaS, he has co-founded a startup and led product initiatives within large organizations like Bouygues Telecom and DomusVi. He specializes in building AI-native products from 0 to 1 by directing AI coding agents and works across both technical and non-technical teams. You can find his full professional history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 85,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r17-1",
+    "case": "career-scope-aetherix",
+    "sample": 17,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations. With five years of experience in B2B SaaS, he specializes in taking AI-native products from 0 to 1 by directing AI coding agents. His background includes co-founding a SaaS company and leading product initiatives within large organizations such as Bouygues Telecom and DomusVi. Ivan works across technical and non-technical teams to solve problems where the product still has to be made. Details on his projects and experience are on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 96,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r18-1",
+    "case": "career-scope-aetherix",
+    "sample": 18,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations. As a product builder with five years of experience in B2B SaaS, he has co-founded a company and led product teams in large organizations. He now builds AI-native products from 0 to 1 by directing AI coding agents, working across both technical and non-technical teams. His full professional history is documented in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 79,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "Wording no page states: \"led product teams\" (the CV says he led product inside large organisations)."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r19-1",
+    "case": "career-scope-aetherix",
+    "sample": 19,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan describes his work as designing, building, and evaluating AI services for operations. He is currently open to **AI Product Manager** and **Product Builder** roles.\n\nHis [CV](/cv) details five years of experience in B2B SaaS, ranging from co-founding a startup to leading product initiatives at large organizations like Bouygues Telecom and DomusVi. He now focuses on building AI-native products from 0 to 1 by directing AI coding agents, an approach he applied to the hospitality agent [Aetherix](/aetherix).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 78,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r01-1",
+    "case": "career-scope-note",
+    "sample": 1,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nIn his professional practice, he focuses on building AI-native products from 0 to 1 by directing AI coding agents. He works across technical and non-technical teams to move projects from problem discovery to working MVPs, drawing on five years of experience in B2B SaaS and product leadership within large organisations. More details on his methods and background are available in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 87,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r02-1",
+    "case": "career-scope-note",
+    "sample": 2,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHe specializes in moving AI-native products from 0 to 1 by directing AI coding agents, drawing on five years of experience in B2B SaaS. His background includes co-founding a SaaS company and leading product delivery within large, regulated organizations. You can find the full details of his experience and current projects on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 79,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-aetherix-r20-1",
+    "case": "career-scope-aetherix",
+    "sample": 20,
+    "page": "/aetherix",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations. He specializes in creating AI-native products from 0 to 1 by directing AI coding agents, moving from initial discovery to a working implementation while maintaining ownership of the final result.\n\nHis background includes five years in B2B SaaS, where he co-founded a startup and led product strategy for large groups like DomusVi. He works across technical and non-technical teams to solve complex operational problems. His full professional history is on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 97,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "Wording no page states: \"led product strategy\" (the CV says he owned discovery and specs)."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r03-1",
+    "case": "career-scope-note",
+    "sample": 3,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHis experience includes co-founding a SaaS company and leading product delivery within large organizations. He now builds AI-native products from 0 to 1 by directing AI coding agents, working across technical and non-technical teams to solve problems where the product has yet to be defined. You can find further details on his background and skills in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 83,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r05-1",
+    "case": "career-scope-note",
+    "sample": 5,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations, focusing on AI-native products from 0 to 1.\n\nHis background includes five years in B2B SaaS, where he co-founded a company and led product initiatives in large organizations. He works across technical and non-technical teams, using AI coding agents to build systems like Aetherix and Lore. You can find more detail on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 79,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r04-1",
+    "case": "career-scope-note",
+    "sample": 4,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHe focuses on taking AI-native products from 0 to 1 by directing AI coding agents, working across technical and non-technical teams to solve problems where the product still has to be made. You can find further details in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 65,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r06-1",
+    "case": "career-scope-note",
+    "sample": 6,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHis background includes five years in B2B SaaS, where he co-founded a company and led product within large organizations. He now builds AI-native products from 0 to 1 by directing AI coding agents, working across technical and non-technical teams on problems where the product has yet to be made. You can find his full history in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 83,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r08-1",
+    "case": "career-scope-note",
+    "sample": 8,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations, focusing on AI-native products from 0 to 1 by directing AI coding agents.\n\nHe has five years of experience in B2B SaaS, including co-founding a startup and leading product initiatives for large organisations like Bouygues Telecom and DomusVi. He is especially drawn to environments where the product still has to be made. You can find further details in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 85,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r09-1",
+    "case": "career-scope-note",
+    "sample": 9,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nHe is a product builder with five years of experience in B2B SaaS, including co-founding a company and leading product initiatives within large organizations. Ivan currently focuses on building AI-native products from 0 to 1 by directing AI coding agents, working across both technical and non-technical teams. You can find more detail on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 80,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r07-1",
+    "case": "career-scope-note",
+    "sample": 7,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations. His [CV](/cv) details five years in B2B SaaS, where he has co-founded a startup and led product initiatives for large organizations. He specializes in building AI-native products from 0 to 1 by directing AI coding agents. His background includes delivering a tool for Bouygues Telecom that recovered 40% of targeted debt and building a no-code MVP for DomusVi for a planned rollout to over 500 users.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 91,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "DomusVi: \"MVP\" where the CV says \"no-code POC\". The 500+ rollout is correctly described as planned."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r10-1",
+    "case": "career-scope-note",
+    "sample": 10,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, Ivan focuses on taking AI-native products from 0 to 1 by directing AI coding agents. His background includes co-founding a SaaS company and leading product initiatives within large organizations like Bouygues Telecom and DomusVi. He works across technical and non-technical teams, prioritizing problems where the product has yet to be defined. You can find more detail in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 92,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r11-1",
+    "case": "career-scope-note",
+    "sample": 11,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, Ivan builds AI-native products from 0 to 1 by directing AI coding agents. He works across technical and non-technical teams, focusing on projects where the product still needs to be defined. You can find more detail on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 72,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r13-1",
+    "case": "career-scope-note",
+    "sample": 13,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for **AI Product Manager** and **AI Product Builder** roles. He describes his work by saying, \"I design, build and evaluate AI services for operations.\"\n\nHe has five years of experience in B2B SaaS, including co-founding a startup and leading product for large organizations like DomusVi and Bouygues Telecom. He currently specializes in taking AI-native products from 0 to 1 by directing AI coding agents. You can find his full professional history in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 78,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r12-1",
+    "case": "career-scope-note",
+    "sample": 12,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations, often taking AI-native products from 0 to 1 by directing AI coding agents.\n\nHis experience includes co-founding a SaaS company and leading product initiatives within large organizations. Notable results include delivering a no-code POC for a planned 500+ user rollout at DomusVi and recovering 40% of targeted debt for Bouygues Telecom IoT. You can find his full professional history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 87,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r15-1",
+    "case": "career-scope-note",
+    "sample": 15,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, Ivan has co-founded a company and led product initiatives within large organizations like Bouygues Telecom and DomusVi. He specializes in building AI-native products from 0 to 1 by directing AI coding agents, focusing on problems where the product still has to be made. Based in Paris, he is open to relocation.\n\nYou can find more detail in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 92,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r14-1",
+    "case": "career-scope-note",
+    "sample": 14,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to **AI Product Manager** and **Product Builder** roles. He describes himself as a product builder with five years in B2B SaaS: he co-founded a SaaS company, led product in large organizations, and now builds AI-native products from 0 to 1 by directing AI coding agents. He specifically describes his focus as designing, building, and evaluating AI services for operations. His experience spans technical and non-technical teams, particularly for problems where the product is still being defined. Details are in his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 85,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r16-1",
+    "case": "career-scope-note",
+    "sample": 16,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, he focuses on building AI-native products from 0 to 1 by directing AI coding agents. He has co-founded a SaaS company and led product initiatives in large organizations, coordinating across technical and business teams to solve problems where the product has yet to be defined.\n\n[CV](/cv)\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 79,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r17-1",
+    "case": "career-scope-note",
+    "sample": 17,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations, specifically focusing on taking AI-native products from 0 to 1 by directing AI coding agents.\n\nHis experience includes five years in B2B SaaS, including co-founding Sonor and leading product initiatives in large organizations. At Bouygues Telecom IoT, he delivered a data-driven tool that recovered 40% of a targeted 1.9M EUR in unpaid debt. For DomusVi, he led the discovery and prototype for a platform consolidation with a rollout planned for over 500 users. Ivan currently builds agentic systems, such as Aetherix, that integrate intelligence into the tools staff already use rather than adding new dashboards. You can find more details on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 128,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r18-1",
+    "case": "career-scope-note",
+    "sample": 18,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is open to **AI Product Manager** and **Product Builder** roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, he builds AI-native products from 0 to 1 by directing AI coding agents. His recent work focuses on agentic architectures, such as Aetherix for hospitality, and location-intelligence tools like Compass. His background includes co-founding a startup and leading product initiatives for large organisations, including DomusVi and Bouygues Telecom. He works across technical and non-technical teams to ship software that solves operational challenges.\n\nDetailed experience and project outcomes are available on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 105,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r19-1",
+    "case": "career-scope-note",
+    "sample": 19,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager or Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations. As a builder with five years in B2B SaaS, he focuses on taking AI-native products from 0 to 1 by directing AI coding agents. He works across technical and non-technical teams to solve problems where the product has yet to be made. You can find further details on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 75,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r01-1",
+    "case": "career-scope-head-of-product",
+    "sample": 1,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's published profile states he is open to AI Product Manager and Product Builder roles. It does not explicitly list Head of Product among his target positions. His [CV](/cv) details his background leading product discovery and delivery in both startup and enterprise environments, including his work at DomusVi and Bouygues Telecom.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 52,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-note-r20-1",
+    "case": "career-scope-note",
+    "sample": 20,
+    "page": "/journal/harnesses-graders-closed-loops",
+    "question": "What kind of role is Ivan looking for, and how does he describe his work?",
+    "text": "Ivan is looking for AI Product Manager and Product Builder roles. He describes his work as designing, building, and evaluating AI services for operations.\n\nWith five years of experience in B2B SaaS, he has co-founded a company and led product initiatives for large organizations like Bouygues Telecom and DomusVi. Ivan currently focuses on building AI-native products from 0 to 1 by directing AI coding agents, working across technical and non-technical teams on problems where the product has yet to be defined. You can find his full history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 91,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r02-1",
+    "case": "career-scope-head-of-product",
+    "sample": 2,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is explicitly open to **AI Product Manager** and **Product Builder** roles. While he has experience co-founding a SaaS company and leading product initiatives for large organizations like DomusVi and Bouygues Telecom, his current focus is on designing and building AI-native services for operations. The role of \"Head of Product\" is not specifically listed in his target roles. You can review his full experience on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 68,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r03-1",
+    "case": "career-scope-head-of-product",
+    "sample": 3,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is open to **AI Product Manager** and **Product Builder** roles. He focuses on designing, building, and evaluating AI services for operations. The specific role of \"Head of Product\" is not listed in his stated target positions. You can review his full leadership experience and project history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 51,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r04-1",
+    "case": "career-scope-head-of-product",
+    "sample": 4,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's site states he is open to **AI Product Manager** and **Product Builder** roles. He focuses on designing, building, and evaluating AI services for operations.\n\nThe role of Head of Product is not explicitly listed in his current focus. While he has experience leading product discovery for large organizations and co-founding a startup, he currently emphasizes roles where he can build AI-native products from 0 to 1. You can see his full professional history and current project work on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 82,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r05-1",
+    "case": "career-scope-head-of-product",
+    "sample": 5,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is explicitly open to AI Product Manager and Product Builder roles. He has not listed Head of Product as a target title on his [CV](/cv) or profile.\n\nHe focuses on designing, building, and evaluating AI services for operations, particularly directing AI coding agents to take products from 0 to 1. His background includes co-founding a SaaS startup and leading product discovery and delivery for large organizations like DomusVi and Bouygues Telecom.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 73,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r06-1",
+    "case": "career-scope-head-of-product",
+    "sample": 6,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's profile states he is open to **AI Product Manager** and **Product Builder** roles. He focuses on designing, building, and evaluating AI services for operations. While his [CV](/cv) documents experience leading product discovery and coordinating C-level stakeholders at organizations like DomusVi, it does not explicitly list \"Head of Product\" as a target role.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 54,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r07-1",
+    "case": "career-scope-head-of-product",
+    "sample": 7,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is open to **AI Product Manager** and **Product Builder** roles. A \"Head of Product\" position is not explicitly listed in his stated target roles or on his [CV](/cv).\n\nHis profile focuses on designing, building, and evaluating AI services for operations. This includes experience leading product discovery and aligning C-level stakeholders for large organisations, such as his work at DomusVi, alongside his current work building agentic systems from 0 to 1.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 72,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r08-1",
+    "case": "career-scope-head-of-product",
+    "sample": 8,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's current profile states he is open to AI Product Manager and Product Builder roles. The specific title of Head of Product is not mentioned in his published availability or [CV](/cv).\n\nHe focuses on designing, building, and evaluating AI services for operations, typically working on 0-to-1 agentic systems or leading product initiatives within large organizations. His experience includes co-founding a startup and managing product consolidation for major groups like DomusVi.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 71,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r09-1",
+    "case": "career-scope-head-of-product",
+    "sample": 9,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's current profile and [CV](/cv) state that he is open to **AI Product Manager** and **Product Builder** roles. He does not explicitly list \"Head of Product\" among his current target positions.\n\nHis background includes leading product from discovery to delivery as a co-founder and a consultant product manager for large organizations like DomusVi and Bouygues Telecom. He currently focuses on designing, building, and evaluating AI services for operations.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 69,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r10-1",
+    "case": "career-scope-head-of-product",
+    "sample": 10,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan’s profile specifies that he is open to AI Product Manager and Product Builder roles. The role of Head of Product is not explicitly listed in his current focus. He specializes in designing, building, and evaluating AI services for operations, often working across technical and non-technical teams from discovery to delivery. You can see the full scope of his leadership and management experience on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 67,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r12-1",
+    "case": "career-scope-head-of-product",
+    "sample": 12,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's profile does not specify a Head of Product role. He is explicitly open to AI Product Manager and Product Builder roles, where he focuses on designing, building, and evaluating AI services for operations. His experience includes co-founding a startup and leading product initiatives within large organizations like DomusVi and Bouygues Telecom. You can see his full professional history on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 63,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r13-1",
+    "case": "career-scope-head-of-product",
+    "sample": 13,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's profile states he is open to **AI Product Manager** and **Product Builder** roles. The site does not explicitly mention openness to a \"Head of Product\" position.\n\nHis experience includes leading product discovery and delivery for startups and large organizations, such as his work as a Consultant Product Manager for DomusVi and Objenious. He currently focuses on building AI-native services from 0 to 1. You can find his full history and stated focus on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 77,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r11-1",
+    "case": "career-scope-head-of-product",
+    "sample": 11,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's profile explicitly states he is open to **AI Product Manager** and **Product Builder** roles. His [CV](/cv) does not list \"Head of Product\" as a target position.\n\nHis experience includes co-founding a SaaS and leading product discovery and delivery for large organizations as a Consultant Product Manager, where he aligned stakeholders up to C-level. He currently focuses on designing, building, and evaluating AI agentic systems for operations.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 68,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r15-1",
+    "case": "career-scope-head-of-product",
+    "sample": 15,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's profile states that he is open to AI Product Manager and Product Builder roles. He has not explicitly listed an interest in a Head of Product title. His [CV](/cv) detail shows experience leading product discovery and aligning stakeholders across large organisations, such as DomusVi and Bouygues Telecom, as well as co-founding a SaaS company. He currently focuses on building and evaluating AI-native services from 0 to 1.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 69,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r16-1",
+    "case": "career-scope-head-of-product",
+    "sample": 16,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's profile states he is open to **AI Product Manager** and **Product Builder** roles. He focuses on designing, building, and evaluating AI services for operations, such as his work on agentic systems for hospitality.\n\nWhile his experience includes leading product initiatives within large organizations like DomusVi and co-founding a SaaS startup, the role of Head of Product is not explicitly listed among his current targets. You can find his full professional history and core competencies on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 79,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r14-1",
+    "case": "career-scope-head-of-product",
+    "sample": 14,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is explicitly open to AI Product Manager and Product Builder roles. He has five years of experience in B2B SaaS, including co-founding a startup and leading product initiatives for large organizations, but his [CV](/cv) does not specifically list Head of Product as a target title. He currently focuses on designing, building, and evaluating AI services for operations.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 59,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r17-1",
+    "case": "career-scope-head-of-product",
+    "sample": 17,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan's profile specifically states he is open to **AI Product Manager** and **Product Builder** roles. A \"Head of Product\" position is not explicitly listed among his target roles.\n\nHis background includes five years in B2B SaaS, where he co-founded a startup and led product discovery and delivery for large organizations such as DomusVi and Bouygues Telecom. You can review his full experience with stakeholder alignment and zero-to-one product development on his [CV](/cv).\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 73,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r18-1",
+    "case": "career-scope-head-of-product",
+    "sample": 18,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is explicitly open to **AI Product Manager** and **Product Builder** roles. His [CV](/cv) does not specify \"Head of Product\" among the positions he is currently seeking. He focuses on designing, building, and evaluating AI services for operations, with experience ranging from co-founding a SaaS startup to leading complex product consolidations for large organizations like DomusVi and Bouygues Telecom.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 60,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r19-1",
+    "case": "career-scope-head-of-product",
+    "sample": 19,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is explicitly open to AI Product Manager and Product Builder roles, as noted in his [CV](/cv). While he has led product strategy and coordinated C-level stakeholders at organisations like DomusVi and Bouygues Telecom, he does not list Head of Product among his specific target roles. He currently focuses on designing, building, and evaluating AI services for operations.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 59,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": [
+      "Wording no page states: \"led product strategy\" (the CV says he owned discovery and specs)."
+    ]
+  },
+  {
+    "run": "booking-line",
+    "id": "career-scope-head-of-product-r20-1",
+    "case": "career-scope-head-of-product",
+    "sample": 20,
+    "page": "/rose-design-lab",
+    "question": "Is Ivan open to a Head of Product role?",
+    "text": "Ivan is explicitly open to AI Product Manager and Product Builder roles. His [CV](/cv) does not mention openness to a Head of Product position, though it documents his experience leading product discovery and delivery within large organizations and as a startup co-founder. You can find his full professional history and current focus on the [CV](/cv) page.\n\n",
+    "tools": [
+      "suggest_followups"
+    ],
+    "offeredTools": [
+      "suggest_followups"
+    ],
+    "bookingLine": true,
+    "words": 57,
+    "model": "gemini-3-flash-preview",
+    "provider": "google",
+    "verdict": "pass",
+    "critical": false,
+    "notes": []
+  }
+]

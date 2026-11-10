@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { Link, useLocation } from "react-router-dom";
 import { RoseBookingCard } from "./RoseBookingCard";
+import { RoseBookingLine } from "./RoseBookingLine";
 import { RoseMarkdown } from "./roseMarkdown";
 import { loadSourceLabels } from "@/lib/sourceLinks";
 import { CAL_URL } from "./roseConfig";
@@ -18,6 +19,7 @@ import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, se
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 import { ROSE_EMPTY_ANSWER, ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
 import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose-provider";
+import { ROSE_BOOKING_LINE_PART } from "../../../supabase/functions/_shared/rose-booking-line";
 
 const SESSION_KEY = "rose_session";
 
@@ -244,10 +246,15 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     ).catch(() => finishRoseRequest(true, activeChat.id));
   };
 
+  // The "Book a call" chip and the booking line under a profile answer do exactly this: the same event, the same tab.
+  const openBooking = () => {
+    logRoseEvent({ session_id: sessionId, path: pathname, kind: "booking_clicked", booking_source: "chip" });
+    window.open(CAL_URL, "_blank", "noopener,noreferrer");
+  };
+
   const onChip = (chip: RosePrompt) => {
     if (chip.booking) {
-      logRoseEvent({ session_id: sessionId, path: pathname, kind: "booking_clicked", booking_source: "chip" });
-      window.open(CAL_URL, "_blank", "noopener,noreferrer");
+      openBooking();
       return;
     }
     if (chip.intent) setDetectedIntent(chip.intent);
@@ -478,6 +485,9 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                         return shown ? <RoseMarkdown text={shown} streaming={streaming}
                           onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} /> : null;
                       })()}
+                      {/* Once per answer, on a profile question only, and not while the answer is still streaming. */}
+                      {!paused && !booking && !(isLoading && m.id === lastAssistantId) && m.parts.some((p) => p.type === ROSE_BOOKING_LINE_PART)
+                        ? <RoseBookingLine onBook={openBooking} /> : null}
                       {booking ? (
                         <RoseBookingCard
                           intent={(booking.intent as "product" | "technical" | "culture" | "exploring" | undefined) ?? detectedIntent}

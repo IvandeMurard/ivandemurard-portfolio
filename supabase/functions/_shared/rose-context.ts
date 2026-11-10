@@ -332,6 +332,9 @@ export function isRoseCareerQuestion(question: string): boolean {
 export const shouldOfferRoseBooking = (question: string): boolean =>
   !isRoseCareerQuestion(question) || isRoseExplicitMeetingRequest(question);
 
+/** The booking line (the interface's, under the answer) accompanies exactly the turns where the booking tool is withheld. */
+export const shouldShowRoseBookingLine = (question: string): boolean => !shouldOfferRoseBooking(question);
+
 /** The Contact facts the site publishes (homepage and /rose-design-lab). Quoted, never extended. */
 export const ROSE_CONTACT_FACTS = [
   "Open to AI Product Manager and Product Builder roles.",

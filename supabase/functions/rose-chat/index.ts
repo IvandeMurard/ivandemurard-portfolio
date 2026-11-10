@@ -12,7 +12,8 @@ import { z } from "npm:zod@^3.25.76";
 import { createGoogleAiProvider, createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
 import { chooseRoseProvider, isQuotaRefusal, ROSE_MAX_RETRIES, ROSE_UNAVAILABLE, roseStreamErrorText } from "../_shared/rose-provider.ts";
 import { createRoseTools, roseHistoryQuestions } from "../_shared/rose-tools.ts";
-import { getRoseSystemPrompt } from "../_shared/rose-context.ts";
+import { getRoseSystemPrompt, shouldShowRoseBookingLine } from "../_shared/rose-context.ts";
+import { withRoseBookingLine } from "../_shared/rose-booking-line.ts";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
 
 const corsHeaders = {
@@ -154,7 +155,12 @@ Deno.serve(async (req) => {
     });
 
     // A quota or credit refusal (402 or 429) reaches the dock as "rose_unavailable", not as a generic error.
-    const streamResponse = result.toUIMessageStreamResponse({ onError: roseStreamErrorText });
+    // On a profile question the interface adds a booking line under the answer: one data part after the text,
+    // nothing else changes. Other turns stream exactly as before.
+    const uiStream = result.toUIMessageStream({ onError: roseStreamErrorText });
+    const streamResponse = createUIMessageStreamResponse({
+      stream: shouldShowRoseBookingLine(question) ? withRoseBookingLine(uiStream) : uiStream,
+    });
     const streamHeaders = new Headers(streamResponse.headers);
     for (const [key, value] of Object.entries(corsHeaders)) {
       streamHeaders.set(key, value);
