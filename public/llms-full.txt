@@ -26,7 +26,7 @@ CV: https://ivandemurard.com/cv. PDF: https://ivandemurard.com/Ivan_de_Murard_CV
 
 URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture.
 
-Aetherix. The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. Full narrative: https://ivandemurard.com/aetherix.md
+Aetherix. The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager’s reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. Full narrative: https://ivandemurard.com/aetherix.md
 
 Roadmap. Phase 0 Validation done · Phase 1 Observability done · Phase 2 Receipts done · Phase 3 Pilot current · Phase 4 Scale planned (Mews, POS, Federated HiveMemory, Context Graph, Anima) · Phase 5 Vision planned (Revenue Orchestrator).
 
@@ -109,7 +109,7 @@ Q: Who is Ivan de Murard?
 A: A Paris-based product builder with five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor. He focuses on product management, service design, and agentic AI for operations.
 
 Q: What is Aetherix?
-A: The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
+A: The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager’s reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
 
 Q: What is Lore?
 A: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Used by a junior technician on the shop floor, hands busy. Prototype, built at a Speechmatics hackathon in early 2026.

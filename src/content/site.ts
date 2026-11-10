@@ -68,7 +68,7 @@ export const PROJECTS = {
     status: STATUSES.aetherix,
     slug: "aetherix",
     name: "Aetherix",
-    tagline: "The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs.",
+    tagline: "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager’s reply, the outcome recorded next to it. Built to improve with every day it runs.",
     label: "AI Agent • Boutique Hotel Operations • 2026",
     image: aetherixImg,
     cta: "Read the Vision",
