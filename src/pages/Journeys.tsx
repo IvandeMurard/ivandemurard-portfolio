@@ -41,7 +41,7 @@ const ACTS: Act[] = [
     kicker: "The Hospitality Multi-Agent Architecture",
     slug: "aetherix",
     name: PROJECTS.atherix.name,
-    body: "The F&B agent for boutique hotels: one recommendation a day in WhatsApp, the manager's reply, and the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
+    body: "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
     note: "The food and beverage agent of the architecture.",
     image: PROJECTS.atherix.image,
     cta: "Trace the Path",
