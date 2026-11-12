@@ -154,6 +154,7 @@ const AdminRose = () => {
                 ["Booking proposals", metrics.proposed_sessions, metrics.question_sessions, "Question sessions with a proposal / question sessions. Relevance requires qualitative review."],
                 ["Booking card clicks", metrics.card_clicked_sessions, metrics.card_proposed_sessions, "Sessions with a card click and proposal / proposal sessions. Direct booking chips excluded."],
                 ["Request failures", metrics.failed, metrics.submitted, "Failed or interrupted requests / started requests. Includes Clear during streaming."],
+                ["Empty answers recovered", metrics.empty_retries_recovered ?? 0, metrics.empty_retries ?? 0, "Answers the model first left with no text and gave on a second try / retries. For the rest, the dock shows its fallback line. Counted from the date the retry went live."],
               ].map(([label, numerator, denominator, definition]) => <div key={String(label)} className="rounded-md border border-outline-variant p-4">
                 <h2 className="font-mono text-xs uppercase text-secondary">{label}</h2>
                 <p className="my-2 font-headline text-2xl text-primary tabular-nums">{String(numerator)} / {String(denominator)}</p>

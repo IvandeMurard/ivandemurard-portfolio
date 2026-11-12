@@ -36,6 +36,20 @@
       "when": 1793531843872,
       "tag": "0004_rose_retention_cron",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794514327104,
+      "tag": "0005_rose_events_kinds_and_outcome",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794516310880,
+      "tag": "0006_rose_metrics_empty_retries",
+      "breakpoints": true
     }
   ]
 }

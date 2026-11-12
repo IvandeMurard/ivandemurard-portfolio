@@ -52,7 +52,7 @@ Not counted as critical. Each is a loose reading of the CV.
 - **"digital transformation"**, 3 answers. `career-scope-rose` 17: "managing digital transformation in large organizations like DomusVi and Bouygues Telecom". `career-scope-rose` 18: "leading digital transformations in large organizations". `career-scope-aetherix` 5: "leading digital transformation for large organizations such as DomusVi and Bouygues Telecom". The CV says he owned discovery, specs and a no-code POC at DomusVi, and coordinated IT, finance, sales and legal at Objenious.
 - **"led product strategy"**, 2 answers. `career-scope-aetherix` 20: "led product strategy for large groups like DomusVi". `career-scope-head-of-product` 19: "he has led product strategy and coordinated C-level stakeholders at organisations like DomusVi and Bouygues Telecom". The CV says he owned discovery and specs, and aligned 7 C-level stakeholders at DomusVi.
 - **"led product teams"**, 1 answer. `career-scope-aetherix` 18: "led product teams in large organizations". The CV says "led product inside large organisations".
-- **"MVP" for DomusVi**, 4 answers (`career-scope-rose` 1, 18 and 19; `career-scope-note` 7), where the CV says "no-code POC". In every one the 500+ rollout is described as planned. `career-scope-rose` 19 writes "a planned 500-user rollout" for "500+".
+- **"MVP" for DomusVi**, 4 answers (`career-scope-rose` 1, 18 and 19; `career-scope-note` 7). Not stated by any page: the CV says "no-code POC". **Correction of 12 November:** Ivan says the DomusVi work was more than a POC, and the POC covered one need among others. So this wording may be accurate, and it is the CV that understates it. It is not an error of Rose, and two of these answers (`career-scope-rose` 1 and `career-scope-note` 7) carry no other flag. In every one the 500+ rollout is described as planned. `career-scope-rose` 19 writes "a planned 500-user rollout" for "500+".
 - **"every feature is specified and evaluated before it ships"**, `career-scope-aetherix` 9: a loose reading of the evaluation gates.
 - **"multi-tenant security"**, `career-scope-aetherix` 5, where the CV says "multi-tenant, with GDPR constraints designed in from the start".
 
@@ -65,7 +65,7 @@ Not counted as critical. Each is a loose reading of the CV.
 ## Still open
 
 - **Empty answer:** 5% here. Next: retry once on the server when the model returns only tool calls, instead of relying on the fallback line.
-- **Loose wording about DomusVi and "strategy":** add to the CV guard that Ivan "owned discovery and specs" and that the CV does not say "strategy" or "digital transformation".
+- **Loose wording about "strategy" and "digital transformation":** add to the CV guard that Ivan "owned discovery and specs" and that the CV does not say "strategy" or "digital transformation". **Correction of 12 November:** the DomusVi work itself (more than a POC, per Ivan) is for Ivan to describe in the CV, not for the guard to restrict.
 - **Evaluation and production differ slightly:** the booking tool's field descriptions, retries and the 20-message window, as noted on 3 November.
 
 ## Limits

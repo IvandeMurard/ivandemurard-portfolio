@@ -6,6 +6,8 @@ export type RoseMetrics = {
   answered_sessions: number; reference_sessions: number; contact_sessions: number;
   proposed_sessions: number; card_clicked_sessions: number; card_proposed_sessions: number;
   submitted: number; completed: number; failed: number; reference_clicks: number;
+  /** Absent until migration 0006 is applied: read with `?? 0`. */
+  empty_retries?: number; empty_retries_recovered?: number;
   destinations: Breakdown[]; per_page: Breakdown[];
 };
 /** No invented percentage for absent or tiny denominators. Counts remain visible. */

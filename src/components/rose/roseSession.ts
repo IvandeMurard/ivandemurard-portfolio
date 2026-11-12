@@ -115,7 +115,8 @@ const makeChat = (id: string, messages: UIMessage[]) => {
       api: `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rose-chat`,
       headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
       prepareSendMessagesRequest: ({ messages: all, body }) => ({
-        body: { ...(body ?? {}), messages: selectRecent(all) },
+        // The session id lets rose-chat record an empty-answer retry (kind, outcome, path); it carries no text.
+        body: { ...(body ?? {}), session_id: id, messages: selectRecent(all) },
       }),
     }),
   });

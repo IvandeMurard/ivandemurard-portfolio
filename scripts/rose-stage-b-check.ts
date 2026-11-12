@@ -5,6 +5,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { getRoseSystemPrompt, shouldShowRoseBookingLine } from "../supabase/functions/_shared/rose-context.ts";
 import { ROSE_BOOKING_LINE_PART, withRoseBookingLine } from "../supabase/functions/_shared/rose-booking-line.ts";
+import { retryIfEmpty, type RoseRetryInfo } from "../supabase/functions/_shared/rose-empty-retry.ts";
 import { GATEWAY_MODEL, GOOGLE_BASE_URL, GOOGLE_MODEL, ROSE_MAX_RETRIES, withToolCallIndex } from "../supabase/functions/_shared/rose-provider.ts";
 import { createRoseTools, roseHistoryQuestions } from "../supabase/functions/_shared/rose-tools.ts";
 import { getRoseCuratedAnswer } from "../supabase/functions/_shared/rose-curated-answers.ts";
@@ -226,10 +227,17 @@ async function run(journey: Job) {
       if (shouldSuppressRoseFollowups({ question: turn.question, pagePath: page.path }) && offeredTools.includes("suggest_followups")) {
         throw new Error(`Stage B tool contract violated for ${id}: suggest_followups was offered`);
       }
-      const result = streamText({ model: provider(modelId), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools, maxRetries: ROSE_MAX_RETRIES });
-      // The same stream as rose-chat: on a profile question, one data-booking-line part after the text.
-      const uiStream = result.toUIMessageStream({ onError: error => (error instanceof Error ? error.message : String(error)) });
+      const callModel = () => streamText({ model: provider(modelId), system, messages: convertToModelMessages(messages), stopWhen: stepCountIs(1), tools, maxRetries: ROSE_MAX_RETRIES });
+      // The same stream as rose-chat: a call that ends with no text is made once more (retryIfEmpty), and on a profile
+      // question one data-booking-line part follows the text. `retry` is set only when the first call was empty.
+      let retry: RoseRetryInfo | null = null;
+      const startedAt = Date.now();
+      const uiStream = retryIfEmpty(
+        () => callModel().toUIMessageStream({ onError: error => (error instanceof Error ? error.message : String(error)) }),
+        { onRetry: info => { retry = info; } },
+      );
       const sse = await createUIMessageStreamResponse({ stream: shouldShowRoseBookingLine(turn.question) ? withRoseBookingLine(uiStream) : uiStream }).text();
+      const totalMs = Date.now() - startedAt;
       const events = sse.split("\n").filter(s => s.startsWith("data: ") && !s.includes("[DONE]")).map(s => JSON.parse(s.slice(6)));
       const text = events.filter(e => e.type === "text-delta").map(e => e.delta).join("");
       const bookingLine = events.some(e => e.type === ROSE_BOOKING_LINE_PART);
@@ -239,7 +247,7 @@ async function run(journey: Job) {
       if (!text.trim()) errors.push({ type: "empty-answer", errorText: "The assistant turn ended with no text" });
 
       writeFileSync(`${output}/${id}.sse`, sse);
-      results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, offeredTools, bookingLine, words: text.split(/\s+/).length, reviewer: "PENDING" });
+      results.push({ id, ...meta, page, question: turn.question, previousQuestions, promptEvidence, text, tools: calls, errors, offeredTools, bookingLine, retry, totalMs, words: text.split(/\s+/).length, reviewer: "PENDING" });
       if (text) messages.push({ id: `${id}-a`, role: "assistant", parts: [{ type: "text", text }] });
       console.log(id, text.split(/\s+/).length, calls.map(c => c.toolName).join(","), errors.length ? "ERROR" : "");
     } catch (error) { results.push({ id: journey.id, ...meta, error: String(error) }); }
