@@ -14,6 +14,8 @@ import { chooseRoseProvider, isQuotaRefusal, ROSE_MAX_RETRIES, ROSE_UNAVAILABLE,
 import { createRoseTools, roseHistoryQuestions } from "../_shared/rose-tools.ts";
 import { getRoseSystemPrompt, shouldShowRoseBookingLine } from "../_shared/rose-context.ts";
 import { withRoseBookingLine } from "../_shared/rose-booking-line.ts";
+import { retryIfEmpty, type RoseRetryInfo } from "../_shared/rose-empty-retry.ts";
+import { createClient } from "npm:@supabase/supabase-js@2";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
 
 const corsHeaders = {
@@ -45,6 +47,30 @@ const curatedRoseResponse = (text: string): Response => {
   return new Response(response.body, { status: response.status, headers });
 };
 
+/** Same origins as rose-event: only the real site is measured, never a local or preview run. */
+const MEASURED_ORIGINS = ["https://ivandemurard.com", "https://www.ivandemurard.com", "https://ivandemurard.lovable.app"];
+
+/**
+ * Records one empty-answer retry in rose_events: kind "empty_retry", outcome "recovered" or "still_empty", with the
+ * page path and the session. Content-free: no question, no answer. Never delays or breaks the answer.
+ */
+const logEmptyRetry = (req: Request, body: { session_id?: unknown; page?: { path?: string } | null }, info: RoseRetryInfo) => {
+  const origin = req.headers.get("origin");
+  const sessionId = typeof body.session_id === "string" ? body.session_id : "";
+  const path = body.page?.path;
+  if (!origin || !MEASURED_ORIGINS.includes(origin) || sessionId.length < 1 || sessionId.length > 64 || !path || path.length > 200) return;
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) return;
+  const write = createClient(url, key)
+    .from("rose_events")
+    .insert({ session_id: sessionId, path, kind: "empty_retry", outcome: info.outcome })
+    .then(({ error }) => { if (error) console.error("[rose-chat] empty_retry not recorded", error.code); })
+    .catch(() => {});
+  // Keep the write alive after the response has been sent.
+  (globalThis as unknown as { EdgeRuntime?: { waitUntil?: (p: Promise<unknown>) => void } }).EdgeRuntime?.waitUntil?.(write);
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -62,7 +88,7 @@ Deno.serve(async (req) => {
     );
   }
 
-  let body: { messages?: UIMessage[]; page?: { path?: string; title?: string; section_id?: string; section_heading?: string } | null; suggested?: { label?: string; intent?: string | null } | null };
+  let body: { session_id?: string; messages?: UIMessage[]; page?: { path?: string; title?: string; section_id?: string; section_heading?: string } | null; suggested?: { label?: string; intent?: string | null } | null };
   try {
     body = await req.json();
   } catch {
@@ -144,7 +170,8 @@ Deno.serve(async (req) => {
     const previousQuestions = roseHistoryQuestions(safeMessages);
     const system = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested, question, previousQuestions });
     const followupContext = { question, pagePath: body?.page?.path };
-    const result = streamText({
+    // One model call. It is made again, once, if the first finishes with no text (retryIfEmpty).
+    const callModel = () => streamText({
       model,
       system,
       messages: convertToModelMessages(safeMessages),
@@ -157,7 +184,11 @@ Deno.serve(async (req) => {
     // A quota or credit refusal (402 or 429) reaches the dock as "rose_unavailable", not as a generic error.
     // On a profile question the interface adds a booking line under the answer: one data part after the text,
     // nothing else changes. Other turns stream exactly as before.
-    const uiStream = result.toUIMessageStream({ onError: roseStreamErrorText });
+    // A model call that ends with no text is made once more before anything is streamed (retryIfEmpty).
+    const uiStream = retryIfEmpty(
+      () => callModel().toUIMessageStream({ onError: roseStreamErrorText }),
+      { onRetry: (info) => logEmptyRetry(req, body, info) },
+    );
     const streamResponse = createUIMessageStreamResponse({
       stream: shouldShowRoseBookingLine(question) ? withRoseBookingLine(uiStream) : uiStream,
     });
