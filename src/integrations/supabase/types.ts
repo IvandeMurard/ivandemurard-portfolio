@@ -54,6 +54,7 @@ export type Database = {
           id: string
           kind: string
           label_or_question: string | null
+          outcome: string | null
           path: string
           request_id: string | null
           section_id: string | null
@@ -67,6 +68,7 @@ export type Database = {
           id?: string
           kind: string
           label_or_question?: string | null
+          outcome?: string | null
           path: string
           request_id?: string | null
           section_id?: string | null
@@ -80,6 +82,7 @@ export type Database = {
           id?: string
           kind?: string
           label_or_question?: string | null
+          outcome?: string | null
           path?: string
           request_id?: string | null
           section_id?: string | null
