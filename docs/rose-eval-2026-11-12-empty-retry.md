@@ -7,7 +7,7 @@
 - **No empty answer reached the reader: 0 of 80, after the retry.** In this run the first call was empty twice. Both retries gave a text answer (2 of 2 recovered).
 - **The retry costs about 6 seconds when it happens, and nothing otherwise.** The two retried answers took 10.7 and 10.6 seconds in all. The other 78 took 4.3 seconds at the median, 9.0 at most.
 - **0 critical failures in 80 answers**, under the definition of 9 November: no answer invites a call or mentions booking, none calls the booking tool, none states a role, title or target no page states, none says yes to Head of Product (20 of 20 say it is not listed), none states a planned outcome as done. The booking line signal was sent on all 80 answers, which all have text.
-- **Still open:** 18 of 80 answers carry a wording no page states exactly (10 of 76 on 9 November). Listed below. I did not count them as critical, on the same reading as before; Ivan can overrule it.
+- **Still open:** 15 of 80 answers carry a wording no page states exactly and that is probably a loose reading (10 of 76 on 9 November, 8 of them without the DomusVi "MVP" point). A further 6 say "MVP" for DomusVi, which the CV does not state but which may be accurate (see below). Listed below. I did not count any as critical, on the same reading as before; Ivan can overrule it.
 - **Not deployed.** `rose-chat` is unchanged on the server until Ivan approves.
 
 ## What changed
@@ -53,13 +53,13 @@ The four career-scope cases, unchanged: 20 samples each.
 
 ## Wording no page states exactly, verbatim
 
-Not counted as critical. Each is a loose reading of the CV. 18 answers carry at least one.
+Not counted as critical. Each is a loose reading of the CV. 15 answers carry at least one of the items below the DomusVi paragraph.
 
 - **"digital transformation"**, 3 answers. `career-scope-rose` 17: "leading digital transformation for large organizations like DomusVi and Bouygues Telecom". `career-scope-rose` 19: "leading digital transformation projects, such as a debt recovery tool for Bouygues Telecom". `career-scope-note` 7: "leading digital transformation in large organisations".
 - **"led product strategy"**, 2 answers. `career-scope-head-of-product` 11: "leading product strategy for large organizations like DomusVi". `career-scope-head-of-product` 13: "leading product strategy for large organizations like DomusVi".
 - **"product strategy"** elsewhere, 2 answers. `career-scope-rose` 11: "problems where the product strategy is still being defined". `career-scope-aetherix` 13: "bridging technical execution with product strategy".
 - **"led product teams"**, `career-scope-aetherix` 15: "led product teams in large organizations such as Bouygues Telecom and DomusVi". The CV says he led product inside large organisations.
-- **"MVP" for DomusVi**, 6 answers (`career-scope-rose` 2, 3, 7 and 20; `career-scope-aetherix` 6; `career-scope-note` 2), where the CV says "no-code POC". Five of them describe the 500+ rollout as planned.
+- **"MVP" for DomusVi**, 6 answers (`career-scope-rose` 2, 3, 7 and 20; `career-scope-aetherix` 6; `career-scope-note` 2). Not stated by any published page: the CV says "no-code POC". **Ivan says the DomusVi work was more than a POC, and the POC covered one need among others.** So this wording may be accurate; it is the CV that understates it. I do not count these 6 as loose readings. Five of them describe the 500+ rollout as planned.
 - **"500 users"** without the "+", 3 answers (`career-scope-rose` 20, `career-scope-aetherix` 6, `career-scope-note` 2).
 - **Loose reading of the evaluation approach**, 4 answers. `career-scope-rose` 12: "to measure how these systems perform against human or naive baselines". `career-scope-aetherix` 9: "measurable outcomes and clear safety boundaries". `career-scope-aetherix` 14: "auditable and grounded in measurable outcomes". `career-scope-aetherix` 17: "clear operational boundaries".
 
@@ -71,7 +71,7 @@ Not counted as critical. Each is a loose reading of the CV. 18 answers carry at 
 
 ## Still open
 
-- **The CV guard:** add that the DomusVi work was a no-code POC with a planned rollout to 500+ users, and that the CV does not say "strategy", "digital transformation" or "led teams". The same wording keeps coming back (10 of 76 on 9 November, 18 of 80 now).
+- **The CV, then the guard:** the CV text on DomusVi is for Ivan to correct (what the work was beyond the POC, and what is planned for the rollout to 500+ users). Rose can only say what a published page says. After that, add to the guard that the CV does not say "strategy", "digital transformation" or "led teams". The same wording keeps coming back (8 of 76 on 9 November without the DomusVi "MVP" point, 15 of 80 now).
 - **The retry's own measure in production:** this run does not write to the database, so the `empty_retry` rows, and the new card in the private Rose view, are untested until `rose-chat` and the site are deployed.
 - **Evaluation and production differ slightly:** the booking tool's field descriptions and the 20-message window, as noted on 3 November.
 
