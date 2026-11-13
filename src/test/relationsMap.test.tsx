@@ -34,8 +34,8 @@ describe("portfolio-graph.json, the one source", () => {
     expect(GRAPH_STANDALONE).toEqual([{ node: "compass", reason: "Standalone project." }]);
   });
 
-  it("marks only Tacet to Aetherix, Sonor and Lore as indirect (dashed)", () => {
-    expect(GRAPH_EDGES.filter((e) => e.indirect).map((e) => e.from)).toEqual(["tacet", "sonor", "lore"]);
+  it("draws as dashed only Peritia (design), Tacet to Aetherix, Sonor and Lore", () => {
+    expect(GRAPH_EDGES.filter((e) => e.indirect).map((e) => e.from)).toEqual(["peritia", "tacet", "sonor", "lore"]);
   });
 
   it("only links known nodes, and Compass has no edge", () => {
@@ -69,7 +69,7 @@ describe("The list, which is the reading order", () => {
   it("draws dashed link pills for the indirect rows only", () => {
     const { container } = render(<RelationsMap />);
     const dashed = [...container.querySelectorAll(".rm-link[data-indirect]")].map((n) => n.textContent);
-    expect(dashed).toEqual(["direct, until the orchestrator exists", "inspired", "same thesis"]);
+    expect(dashed).toEqual(["part of, design", "direct, until the orchestrator exists", "inspired", "same thesis"]);
   });
 
   it("says the caption, then the note, in the v2 words", () => {
@@ -89,7 +89,7 @@ describe("The drawing", () => {
     expect(svg.getAttribute("aria-hidden")).toBe("true");
     const lines = [...svg.querySelectorAll("line")];
     expect(lines).toHaveLength(GRAPH_EDGES.length);
-    expect(lines.filter((l) => l.hasAttribute("stroke-dasharray"))).toHaveLength(3);
+    expect(lines.filter((l) => l.hasAttribute("stroke-dasharray"))).toHaveLength(4);
     expect(svg.querySelectorAll("rect.rm-node")).toHaveLength(GRAPH_NODES.length);
   });
 
