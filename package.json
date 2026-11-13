@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "predev": "bunx tsx scripts/generate-sitemap.ts",
+    "postinstall": "node scripts/patch-mcp-plugin.mjs",
     "dev": "vite",
     "rose:generate": "bun scripts/generate-rose-history.ts",
     "rose:check": "bun scripts/generate-rose-history.ts --check",
