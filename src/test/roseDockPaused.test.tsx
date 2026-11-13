@@ -53,7 +53,7 @@ describe("Rose paused state", () => {
     expect(document.querySelector('[aria-label="Suggested follow-ups"]')).toBeNull();
     // Only the dock controls remain as buttons: no starter chip.
     const names = screen.getAllByRole("button").map((b) => b.getAttribute("aria-label") ?? b.textContent);
-    expect(names.every((n) => /Rose|Close|Minimise|Clear|Cancel|Yes/.test(n ?? ""))).toBe(true);
+    expect(names.every((n) => /Rose|Close|Minimise|Clear|Cancel|Yes|Page notes/.test(n ?? ""))).toBe(true);
   });
 
   it("makes no network call to rose-chat or rose-event, even when asked", () => {

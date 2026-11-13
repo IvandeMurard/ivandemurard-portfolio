@@ -111,7 +111,7 @@ describe("Screen readers", () => {
     setEnv(env);
     render(<Passage />);
     const check = () => {
-      const notes = screen.getAllByRole("note", { name: "Rose" });
+      const notes = screen.getAllByRole("note", { name: "Note from Rose, written by Ivan" });
       expect(notes).toHaveLength(2);
       for (const text of ["Note A.", "Note B."]) expect(note(text).closest('[aria-hidden="true"]')).toBeNull();
     };
@@ -152,8 +152,9 @@ describe("Reduced motion: notes always visible, no mark, nothing moves", () => {
     expect(opacity("Note A.")).toBe("1");
     expect(opacity("Note B.")).toBe("1");
     expect(note("Note A.").className).not.toContain("italic");
-    expect(note("Note A.").style.transition).toBe("none");
-    expect(note("Note A.").style.transform).toBe("none");
+    const bubble = note("Note A.").parentElement as HTMLElement; // the bubble carries the motion
+    expect(bubble.style.transition).toBe("none");
+    expect(bubble.style.transform).toBe("none");
   });
 
   it("draws no mark and no tip, even when the cue is reached", () => {
@@ -237,7 +238,7 @@ describe("On the case study page", () => {
     const cost = screen.getByText(/costs about/);
     const source = screen.getByText(/Lovable AI gateway logs/);
     const cue = document.querySelector('[data-rose-cue="ch-08"]') as HTMLElement;
-    expect(cue.textContent).toBe(GOT_WRONG.note);
+    expect(cue.querySelector("p")?.textContent).toBe(GOT_WRONG.note);
     expect(cost.compareDocumentPosition(cue) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(source.compareDocumentPosition(cue) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     // Case 2's "She said" text carries no mark any more.
