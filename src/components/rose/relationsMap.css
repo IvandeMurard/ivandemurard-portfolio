@@ -1,0 +1,30 @@
+/*
+ * The map of relations (chapter 06). One switch, a container query: the drawing shows from 720px of room, above the
+ * list; under it, the list alone (every reason is in the list, so nothing is lost). Colours are the site's tokens.
+ */
+.rm {
+  container: rm / inline-size;
+  --rm-ink: hsl(var(--primary));
+  --rm-line: hsl(var(--rose-copper));
+}
+[data-mood="dusk"] .rm { --rm-ink: hsl(var(--on-surface)); }
+
+.rm-bg { display: none; }
+.rm-frame { stroke: hsl(var(--outline-variant)); }
+.rm-node { fill: hsl(var(--surface-container-lowest)); stroke: var(--rm-ink); }
+.rm-line { stroke: var(--rm-line); }
+.rm-text { fill: var(--rm-ink); font-size: 14px; }
+.rm-small { fill: hsl(var(--on-surface-variant)); font-size: 12px; }
+
+.rm-list { display: flex; flex-direction: column; gap: 16px; }
+.rm-row { padding-left: 14px; border-left: 1.5px solid hsl(var(--outline-variant)); }
+.rm-link {
+  border: 1px solid var(--rm-ink);
+  border-radius: 9999px;
+  padding: 1px 9px;
+}
+.rm-link[data-indirect] { border-style: dashed; }
+
+@container rm (min-width: 720px) {
+  .rm-bg { display: block; width: 100%; height: auto; margin-bottom: 28px; }
+}

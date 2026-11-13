@@ -126,6 +126,7 @@ The chapter stays at a product manager's level: the architecture loses its file 
 | Answer, Sketch | Page, then section in view, then marked passage, then answer. |
 | Map caption | What Rose can relate. I write this map by hand, and each link carries a one-line reason. |
 | Under the map | Rose links the site's content, not the projects' code. A dashed line marks an indirect link. |
+| Map, the component (13 Nov; `RelationsMap`, after the loop) | Read from `src/content/portfolio-graph.json`, the nine rows of "Relations, decided 3 Nov" below, with Compass as a standalone node. Over 720px of room: a drawing (nodes, solid lines, dashed lines for the indirect links) above the list. Under it: the list alone. The list is the reading order: from, link, to, then the reason. Edges that share a link, a target and a reason are one row (Aetherix, Tacet, Anima, part of, built, Orchestrator). Four dashed lines: Peritia (part of, design), Tacet to Aetherix, Sonor and Lore. |
 | In use | Hidden below 33 conversations, as in v1. |
 
 ### Relations, decided 3 Nov
@@ -138,7 +139,7 @@ One source, portfolio-graph.json, read by the case studies index (projects only)
 | Rose | how she is tested | Evaluation | The evaluation page shows how every change to Rose is tested before it reaches visitors. | Validated |
 | Evaluation | uses the method of | Field Notes (evaluation harness) | The campaign applies the harness and grading method this Field Note describes. | Validated |
 | Aetherix, Tacet, Anima | part of, built | Orchestrator | One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP. | architecture.md |
-| Peritia | part of, design | Orchestrator | The trade agent, named in the contract, with no code yet. Links to /architecture. | architecture.md |
+| Peritia | part of, design (dashed, decided 13 Nov) | Orchestrator | The trade agent, named in the contract, with no code yet. Links to /architecture. | architecture.md |
 | Tacet | direct, until the orchestrator exists (dashed) | Aetherix | Until the orchestrator is built, Tacet's output reaches Aetherix directly: non-personal, read-only, logged. | architecture.md, tacet.md |
 | Sonor | inspired (dashed) | Tacet | Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels. | sonor.md |
 | Lore | same thesis (dashed) | Aetherix | The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project. | lore.md |

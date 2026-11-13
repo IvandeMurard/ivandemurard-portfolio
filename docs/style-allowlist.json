@@ -30,6 +30,18 @@
     "reason": "metadata line: middle dots allowed by docs/style.md §2"
   },
   {
+    "file": "src/content/relationsMap.ts",
+    "pattern": "contrast-reflex",
+    "text": "content, not the projects' code",
+    "reason": "validated copy, deck v2 (Under the map)"
+  },
+  {
+    "file": "public/rose-design-lab.md",
+    "pattern": "contrast-reflex",
+    "text": "content, not the projects' code",
+    "reason": "validated copy, deck v2 (Under the map)"
+  },
+  {
     "file": "src/pages/Index.tsx",
     "pattern": "dot-chain",
     "text": "Contextual assistant · knows the page you are reading",

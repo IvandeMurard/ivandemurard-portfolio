@@ -7,6 +7,7 @@ import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
 import { AnswerFormats, HeroDock, TestLoop } from "@/components/rose/RoseDemos";
 import { HowRoseWorks } from "@/components/rose/HowRoseWorks";
+import { RelationsMap } from "@/components/rose/RelationsMap";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -524,7 +525,7 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
-/* §6.4 Chapter 06. The demo and the passage questions are in RoseDemos.tsx. The "How Rose works" loop (HowRoseWorks.tsx) follows the demo; the relations map comes in a later branch. */
+/* §6.4 Chapter 06. The demo and the passage questions are in RoseDemos.tsx. The "How Rose works" loop (HowRoseWorks.tsx) follows the demo; the map of relations (RelationsMap.tsx, read from src/content/portfolio-graph.json) follows the loop. */
 export const SIX = {
   intro: "Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plainer words, a link to other work or a diagram.",
   influence: "The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on.",
@@ -538,6 +539,7 @@ const SixBody = ({ reduced }: { reduced: boolean }) => (
     </div>
     <AnswerFormats reduced={reduced} />
     <HowRoseWorks />
+    <RelationsMap />
   </div>
 );
 

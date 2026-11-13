@@ -12,6 +12,7 @@ import {
 import { DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "../src/components/rose/roseDemoData";
 import { CONTACT, SOCIAL_LINKS } from "../src/content/site";
 import { HOW_ROSE_WORKS } from "../src/content/howRoseWorks";
+import { GRAPH_STANDALONE, RELATIONS_MAP, nodeLabel, relationRows, relationSentence } from "../src/content/relationsMap";
 
 /** The label that marks Rose's notes: Ivan writes them in her voice. */
 export const ROSE_NOTE_LABEL = "Rose's note (written by Ivan in her voice)";
@@ -70,6 +71,10 @@ function chapterBody(id: string): string[] {
       // One list item per step: a bold title, then its text (and, for step 04, each Next tag) on following lines.
       HOW_ROSE_WORKS.steps.map((s) => [`${Number(s.n)}. ${label(s.title)}  `, `   ${s.text}`, ..."tags" in s ? s.tags.map((t) => `   ${t}`) : []].join("\n")).join("\n"),
       HOW_ROSE_WORKS.caption,
+      // The map of relations: the rows of portfolio-graph.json (the single source), then the standalone nodes.
+      [...relationRows().map(relationSentence), ...GRAPH_STANDALONE.map((s) => `- ${nodeLabel(s.node)}\n  ${s.reason}`)].join("\n"),
+      RELATIONS_MAP.caption,
+      RELATIONS_MAP.note,
     ];
   }
   if (id === "ch-07") {

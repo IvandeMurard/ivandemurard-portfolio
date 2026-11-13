@@ -1,0 +1,31 @@
+{
+  "nodes": [
+    { "id": "rose", "label": "Rose" },
+    { "id": "every-page", "label": "Every page" },
+    { "id": "evaluation", "label": "Evaluation" },
+    { "id": "field-notes", "label": "Field Notes (evaluation harness)" },
+    { "id": "orchestrator", "label": "Orchestrator" },
+    { "id": "aetherix", "label": "Aetherix" },
+    { "id": "tacet", "label": "Tacet" },
+    { "id": "anima", "label": "Anima" },
+    { "id": "peritia", "label": "Peritia" },
+    { "id": "sonor", "label": "Sonor" },
+    { "id": "lore", "label": "Lore" },
+    { "id": "compass", "label": "Compass" }
+  ],
+  "edges": [
+    { "from": "rose", "link": "answers from", "to": "every-page", "reason": "Rose answers from the page you are on first, then from the rest of the site.", "indirect": false },
+    { "from": "rose", "link": "how she is tested", "to": "evaluation", "reason": "The evaluation page shows how every change to Rose is tested before it reaches visitors.", "indirect": false },
+    { "from": "evaluation", "link": "uses the method of", "to": "field-notes", "reason": "The campaign applies the harness and grading method this Field Note describes.", "indirect": false },
+    { "from": "aetherix", "link": "part of, built", "to": "orchestrator", "reason": "One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP.", "indirect": false },
+    { "from": "tacet", "link": "part of, built", "to": "orchestrator", "reason": "One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP.", "indirect": false },
+    { "from": "anima", "link": "part of, built", "to": "orchestrator", "reason": "One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP.", "indirect": false },
+    { "from": "peritia", "link": "part of, design", "to": "orchestrator", "reason": "The trade agent, named in the contract, with no code yet. Links to /architecture.", "indirect": true },
+    { "from": "tacet", "link": "direct, until the orchestrator exists", "to": "aetherix", "reason": "Until the orchestrator is built, Tacet's output reaches Aetherix directly: non-personal, read-only, logged.", "indirect": true },
+    { "from": "sonor", "link": "inspired", "to": "tacet", "reason": "Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels.", "indirect": true },
+    { "from": "lore", "link": "same thesis", "to": "aetherix", "reason": "The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project.", "indirect": true }
+  ],
+  "standalone": [
+    { "node": "compass", "reason": "Standalone project." }
+  ]
+}
