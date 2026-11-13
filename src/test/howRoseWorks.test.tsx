@@ -19,7 +19,7 @@ const STEP_TITLES = ["You read a page", "You ask in the dock", "Rose reads the s
 describe("The figure and its reading order", () => {
   it("is a figure labelled for screen readers, with the caption under it", () => {
     render(<HowRoseWorks />);
-    const figure = screen.getByRole("figure", { name: "How Rose works: a loop of five steps around the site's text" });
+    const figure = screen.getByRole("figure", { name: "How Rose works, a loop of five steps around the site's text" });
     const caption = figure.querySelector("figcaption") as HTMLElement;
     expect(caption.textContent).toBe("How Rose works. Solid lines are built; dashed lines are design.");
     expect(figure.lastElementChild).toBe(caption);
@@ -69,6 +69,42 @@ describe("The figure and its reading order", () => {
     const index = readFileSync("src/index.css", "utf8");
     expect(index).toContain('[data-passage-cited="on"] { background-color: hsl(var(--rose-copper) / 0.22); }');
     expect(css).toContain("--hrw-highlight: hsl(var(--rose-copper) / 0.22);");
+  });
+});
+
+describe("Labels have no box, and 05 wears the passage-cited colour", () => {
+  it("gives the step labels and the centre no background of their own", () => {
+    const inside = css.slice(css.indexOf("@container"));
+    expect(inside).toMatch(/\.hrw-step \{[^}]*background: none/);
+    expect(inside).toMatch(/\.hrw-centre \{[^}]*background: transparent/);
+    expect(css.slice(0, css.indexOf("@container"))).not.toMatch(/\.hrw-centre \{[^}]*background/);
+  });
+
+  it("keeps every label outside the dashed circle (r 290 around 500, 410)", () => {
+    const src = source.slice(source.indexOf("const STEP_AT"), source.indexOf("] as const;"));
+    const rows = [...src.matchAll(/side: "(\w)", x: (\d+), y: (\d+), w: (\d+)/g)];
+    expect(rows).toHaveLength(5);
+    for (const [, side, x, y, w] of rows) {
+      if (side === "c") continue; // top label, 50px above the circle
+      const near = side === "r" ? +x : +x + +w; // the label edge that faces the circle
+      for (let yy = +y; yy <= +y + 115; yy += 5) {
+        const dy = yy - 410;
+        const half = Math.sqrt(Math.max(0, 290 * 290 - dy * dy));
+        const edge = side === "r" ? 500 + half : 500 - half;
+        expect(side === "r" ? near - edge : edge - near, `${side} ${x},${y} at y ${yy}`).toBeGreaterThanOrEqual(6);
+      }
+    }
+  });
+
+  it("fills disc 05 with the page surface, then the exact passage-cited colour, in both themes", () => {
+    const { container } = render(<HowRoseWorks />);
+    const discs = [...container.querySelectorAll('svg.hrw-bg circle[r="24"]')];
+    expect(discs).toHaveLength(6);
+    expect(discs[4].getAttribute("class")).toContain("hrw-fill-surface");
+    expect(discs[5].getAttribute("class")).toContain("hrw-fill-highlight");
+    expect(css).toContain(".hrw-fill-surface { fill: hsl(var(--surface)); }");
+    expect(css).toContain(".hrw-fill-highlight { fill: var(--hrw-highlight); }");
+    expect(css).not.toMatch(/\[data-mood="dusk"\] \.hrw \{[^}]*--hrw-highlight/); // one value for Day and Night
   });
 });
 

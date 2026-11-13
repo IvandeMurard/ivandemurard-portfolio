@@ -4,7 +4,7 @@
  * file, so the page and the mirror cannot say different things.
  */
 export const HOW_ROSE_WORKS = {
-  label: "How Rose works: a loop of five steps around the site's text",
+  label: "How Rose works, a loop of five steps around the site's text",
   rules: [
     { title: "Tested before every release", text: "Each change runs on fixed questions. A critical failure blocks it.", icon: "check" },
     { title: "Questions kept 90 days", text: "Contact details are masked before they are stored.", icon: "lock" },

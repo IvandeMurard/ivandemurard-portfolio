@@ -35,13 +35,17 @@ const useRoomOnTheRight = () => {
   return { ref, room };
 };
 
-/** Where each step sits in the figure: its label's top-left (or top-centre) and its disc's centre. */
+/**
+ * Where each step sits in the figure: its label's top-left (or top-centre), its width and its disc's centre. Labels
+ * have no background, so each one sits wholly outside the dashed circle (r 290): the left or right edge of a label is
+ * at least 6px clear of the circle along its whole height. Labels 02 and 05 are lifted above their discs for that.
+ */
 const STEP_AT = [
-  { side: "c", x: 500, y: 8, cx: 500, cy: 170 },
-  { side: "r", x: 760, y: 290, cx: 728, cy: 336 },
-  { side: "r", x: 680, y: 586, cx: 641, cy: 604 },
-  { side: "l", x: 90, y: 586, cx: 359, cy: 604 },
-  { side: "l", x: 4, y: 272, cx: 272, cy: 336 },
+  { side: "c", x: 500, y: 8, w: 320, cx: 500, cy: 170 },
+  { side: "r", x: 788, y: 222, w: 208, cx: 728, cy: 336 },
+  { side: "r", x: 744, y: 586, w: 224, cx: 641, cy: 604 },
+  { side: "l", x: 32, y: 586, w: 224, cx: 359, cy: 604 },
+  { side: "l", x: 4, y: 222, w: 208, cx: 272, cy: 336 },
 ] as const;
 const CARD_AT = [{ x: 80, y: 104 }, { x: 648, y: 104 }] as const;
 const CHEVRONS = [
@@ -77,7 +81,8 @@ const Drawing = () => (
     </g>
     {STEP_AT.map((s, i) => (
       <g key={i}>
-        <circle cx={s.cx} cy={s.cy} r="24" className="hrw-fill-lowest hrw-ink" strokeWidth="1.5" />
+        {/* 05 sits on the page surface, then the "passage cited" colour over it: the same result as the highlight on the page. */}
+        <circle cx={s.cx} cy={s.cy} r="24" className={i === 4 ? "hrw-fill-surface hrw-ink" : "hrw-fill-lowest hrw-ink"} strokeWidth="1.5" />
         {i === 4 && <circle cx={s.cx} cy={s.cy} r="24" className="hrw-fill-highlight" stroke="none" />}
       </g>
     ))}
@@ -102,7 +107,7 @@ export const HowRoseWorks = () => {
         </div>
         <ol className="hrw-steps" role="list">
           {H.steps.map((s, i) => (
-            <li key={s.n} className="hrw-step" data-side={STEP_AT[i].side} data-highlight={i === 4 ? "" : undefined} style={at(STEP_AT[i].x, STEP_AT[i].y)}>
+            <li key={s.n} className="hrw-step" data-side={STEP_AT[i].side} data-highlight={i === 4 ? "" : undefined} style={{ ...at(STEP_AT[i].x, STEP_AT[i].y), "--w": `${STEP_AT[i].w}px` } as CSSProperties}>
               <span className="hrw-num font-mono text-[13px] font-medium" aria-hidden="true">{s.n}</span>
               <div>
                 <p className={`m-0 font-headline text-[23px] leading-[1.2] ${INK}`}>{s.title}</p>
