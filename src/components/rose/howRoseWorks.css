@@ -1,0 +1,81 @@
+/*
+ * How Rose works (chapter 06, the loop). One layout switch, and it is a container query, not a viewport one, so a
+ * zoomed page (less room in CSS pixels) falls back to the list as it should.
+ *   under 1000px of room: a list in reading order (the two rules, the centre, steps 01 to 05)
+ *   1000px or more: the 1000 x 820 figure, SVG drawing under HTML text
+ * Colours are the site's tokens; the ink is primary in Day and on-surface in Night, as on the board.
+ */
+.hrw {
+  container: hrw / inline-size;
+  --hrw-ink: hsl(var(--primary));
+  --hrw-copper: hsl(var(--rose-copper));
+  --hrw-band: hsl(var(--rose-copper) / 0.1);
+  --hrw-highlight: hsl(var(--rose-copper) / 0.22);
+}
+[data-mood="dusk"] .hrw {
+  --hrw-ink: hsl(var(--on-surface));
+  --hrw-band: hsl(var(--rose-copper) / 0.14);
+}
+
+/* The drawing (wide layout only) */
+.hrw-bg, .hrw-nodes { display: none; }
+.hrw-ink { stroke: var(--hrw-ink); }
+.hrw-copper { stroke: var(--hrw-copper); }
+.hrw-band { stroke: var(--hrw-band); }
+.hrw-fill-low { fill: hsl(var(--surface-container-low)); }
+.hrw-fill-lowest { fill: hsl(var(--surface-container-lowest)); }
+.hrw-fill-surface { fill: hsl(var(--surface)); }
+.hrw-fill-highlight { fill: var(--hrw-highlight); }
+
+/* List layout (default) */
+.hrw-fig { display: flex; flex-direction: column; gap: 18px; max-width: 48rem; }
+.hrw-card {
+  border: 1.5px solid var(--hrw-ink);
+  border-radius: 14px;
+  padding: 10px 14px;
+  background: hsl(var(--surface-container-lowest));
+  box-shadow: 0 10px 24px -20px hsl(var(--primary) / 0.6);
+}
+.hrw-centre {
+  border: 1.25px solid var(--hrw-ink);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+.hrw-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.hrw-step { display: grid; grid-template-columns: 36px 1fr; gap: 0 12px; text-align: left; }
+.hrw-num {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 9999px;
+  border: 1.5px solid var(--hrw-ink);
+  background: hsl(var(--surface-container-lowest));
+  color: var(--hrw-ink);
+}
+.hrw-step[data-highlight] .hrw-num { background: var(--hrw-highlight); }
+.hrw-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-start; }
+
+/* Figure layout */
+@container hrw (min-width: 1000px) {
+  .hrw-fig { display: block; position: relative; width: 1000px; height: 820px; max-width: none; }
+  .hrw-bg { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hrw-nodes { display: block; position: absolute; inset: 0; pointer-events: none; }
+  .hrw-node {
+    position: absolute; width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--hrw-ink);
+  }
+  .hrw-card { position: absolute; left: var(--x); top: var(--y); width: 272px; box-sizing: border-box; }
+  .hrw-centre {
+    position: absolute; left: 500px; top: 376px; width: 214px; transform: translateX(-50%);
+    text-align: center; border: 0; padding: 0; background: transparent;
+  }
+  .hrw-pre { display: none; }
+  .hrw-steps { position: absolute; inset: 0; display: block; pointer-events: none; }
+  .hrw-step {
+    position: absolute; left: var(--x); top: var(--y); width: var(--w, 224px); box-sizing: border-box;
+    display: block; padding: 0; background: none; pointer-events: auto;
+  }
+  .hrw-step[data-side="l"] { text-align: right; }
+  .hrw-step[data-side="c"] { transform: translateX(-50%); text-align: center; }
+  .hrw-num { display: none; }
+  .hrw-step[data-side="l"] .hrw-tags { justify-content: flex-end; }
+}
