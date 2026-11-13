@@ -61,18 +61,31 @@ const Passage = () => (
 );
 
 describe("The cursor: one note at a time, under its passage", () => {
-  it("shows a note when its passage is reached and takes it away when the reader moves on", () => {
+  it("shows every note without scrolling into the reading zone; only the tip follows the reader", () => {
     setEnv(DESKTOP);
     render(<Passage />);
-    expect(opacity("Note A.")).toBe("0");
+    // Visible from the first render: nothing fades, nothing is moved, no reserved space.
+    for (const text of ["Note A.", "Note B."]) {
+      const bubble = note(text).parentElement as HTMLElement;
+      expect(bubble.style.opacity).toBe("");
+      expect(bubble.style.transform).toBe("");
+      expect(opacity(text)).toBe("");
+    }
+    const needle = (n: number) => tips()[n].querySelector("svg") as SVGElement;
+    expect(needle(0).style.opacity).toBe("0");
     reach("a");
-    expect(opacity("Note A.")).toBe("1");
-    expect(opacity("Note B.")).toBe("0");
-    reach("b"); // one active note: A leaves as B arrives
-    expect(opacity("Note A.")).toBe("0");
-    expect(opacity("Note B.")).toBe("1");
-    reach("b", false);
-    expect(opacity("Note B.")).toBe("0");
+    expect(needle(0).style.opacity).toBe("1"); // the tip arrives on passage A
+    expect(needle(1).style.opacity).toBe("0");
+    reach("b"); // one active tip: A's leaves as B's arrives
+    expect(needle(0).style.opacity).toBe("0");
+    expect(needle(1).style.opacity).toBe("1");
+    for (const text of ["Note A.", "Note B."]) expect((note(text).parentElement as HTMLElement).style.opacity).toBe("");
+  });
+
+  it("keeps no placeholder height for a bubble: no min-height on a note wrapper", () => {
+    setEnv(DESKTOP);
+    render(<Passage />);
+    for (const cue of document.querySelectorAll('[data-rose-cue]')) expect((cue as HTMLElement).className).not.toMatch(/min-h/);
   });
 
   it("moves the copper tip onto the start of the passage, and it is not a system pointer", () => {
@@ -124,16 +137,17 @@ describe("Screen readers", () => {
 });
 
 describe("Below md: the note shows under the passage when reached, without the tip travelling", () => {
-  it("shows the note only when reached, and draws no tip", () => {
+  it("shows the notes in full, and draws no tip", () => {
     setEnv(MOBILE);
     render(<Passage />);
-    expect(opacity("Note A.")).toBe("0");
+    expect(opacity("Note A.")).toBe("");
     expect(tips()).toHaveLength(0);
     reach("a");
-    expect(opacity("Note A.")).toBe("1");
+    expect(opacity("Note A.")).toBe("");
     expect(tips()).toHaveLength(0);
     reach("b");
-    expect(opacity("Note A.")).toBe("0");
+    expect(opacity("Note A.")).toBe("");
+    expect(opacity("Note B.")).toBe("");
   });
 
   it("still draws the marks of the reached cue", () => {
@@ -149,12 +163,12 @@ describe("Reduced motion: notes always visible, no mark, nothing moves", () => {
   it("shows every note without any cue, in roman, with no transition", () => {
     setEnv(REDUCED);
     render(<Passage />);
-    expect(opacity("Note A.")).toBe("1");
-    expect(opacity("Note B.")).toBe("1");
+    expect(opacity("Note A.")).toBe("");
+    expect(opacity("Note B.")).toBe("");
     expect(note("Note A.").className).not.toContain("italic");
-    const bubble = note("Note A.").parentElement as HTMLElement; // the bubble carries the motion
-    expect(bubble.style.transition).toBe("none");
-    expect(bubble.style.transform).toBe("none");
+    const bubble = note("Note A.").parentElement as HTMLElement; // the bubble has no motion of its own
+    expect(bubble.style.transition).toBe("");
+    expect(bubble.style.transform).toBe("");
   });
 
   it("draws no mark and no tip, even when the cue is reached", () => {
@@ -255,7 +269,8 @@ describe("On the case study page", () => {
 
   it("with reduced motion shows the notes and draws no mark", () => {
     page(REDUCED);
-    expect(document.querySelector('[data-rose-cue="ch-01"] p')?.getAttribute("style")).toContain("opacity: 1");
+    expect(document.querySelector('[data-rose-cue="ch-01"] p')).not.toBeNull();
+    expect(document.querySelector('[data-rose-cue="ch-01"] p')?.getAttribute("style")).toBeNull();
     reach("ch-01");
     reach("ch-08");
     expect(document.querySelector("[data-mark]")).toBeNull();

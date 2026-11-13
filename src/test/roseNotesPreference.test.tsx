@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
+import { RoseAside, RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
+import { RoseCaseStudy } from "@/components/rose/RoseCaseStudy";
 import { RoseDock } from "@/components/rose/RoseDock";
 import { resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
 import { ROSE_NOTES_KEY, resetRoseNotesCache, setRoseNotes } from "@/lib/roseNotes";
@@ -138,6 +139,43 @@ describe("Hide notes", () => {
     const button = screen.getByRole("button", { name: /^Page notes/ });
     expect(privacy.closest("div")?.contains(button)).toBe(true);
     expect(privacy.closest("div")?.textContent).toContain("Questions are stored for 90 days · Privacy · Page notes: on");
+  });
+});
+
+describe("Notes off leave no trace in the layout; notes on are always visible", () => {
+  it("RoseCue and RoseAside render nothing at all: no wrapper, no height, no margin", () => {
+    setRoseNotes(false);
+    const { container } = render(<><RoseCue id="x" note="Gone." className="mt-8" /><RoseAside>Gone too.</RoseAside></>);
+    expect(container.innerHTML).toBe("");
+  });
+
+  it("on the case study page, after Hide notes, no note, no cue wrapper and no reserved height is left", () => {
+    render(<MemoryRouter><RoseCaseStudy reduced={false} /></MemoryRouter>);
+    expect(document.querySelectorAll("[data-rose-cue]").length).toBeGreaterThan(0);
+    fireEvent.click(screen.getByRole("button", { name: "Hide notes" }));
+    expect(document.querySelectorAll("[data-rose-cue], [role=note]")).toHaveLength(0);
+    expect(document.body.innerHTML).not.toMatch(/min-h-\[1\.75rem\]/);
+    // The passage before the first note still ends the block: nothing follows "she does not sell."
+    const para = screen.getByText(/she does not sell\./);
+    expect(para.nextElementSibling).toBeNull();
+  });
+
+  it("a note is visible as soon as it renders, without scrolling into the reading zone", () => {
+    render(<Page />);
+    for (const note of notes()) {
+      const bubble = note.querySelector("p")?.parentElement as HTMLElement;
+      expect(bubble.style.opacity).toBe("");
+      expect(bubble.style.visibility).toBe("");
+      expect(note.querySelector("p")?.style.opacity).toBe("");
+    }
+  });
+
+  it("the rule above the first-note footer is the hairline colour, not primary", () => {
+    render(<Page />);
+    const footer = screen.getByText(FOOTER).parentElement as HTMLElement;
+    expect(footer.className).toContain("border-t");
+    expect(footer.className).toContain("border-outline-variant");
+    expect(footer.className).not.toMatch(/border-primary/);
   });
 });
 

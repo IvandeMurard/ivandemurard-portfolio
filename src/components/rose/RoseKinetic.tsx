@@ -91,23 +91,23 @@ const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduc
   }, [id, notesOn]);
   if (!notesOn) return null;
   const still = reduced || reducedMotion;
-  const shown = on || still;
+  // The bubble is always there and always visible; only the copper tip keeps its gesture (`on`).
+  const pointing = on && !still;
   return (
     <div ref={ref} role="note" aria-label="Note from Rose, written by Ivan" className="flex items-center gap-2">
-      {tip && <RoseTip on={shown} reduced={still} />}
+      {tip && <RoseTip on={pointing || still} reduced={still} />}
       {tip && <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
-        style={{ transform: `scaleX(${shown ? 1 : 0})`, transition: still ? "none" : `transform 700ms ${EASE} ${shown ? 250 : 0}ms` }} />}
-      <div className="min-w-0 flex-1 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-md shadow-primary/5"
-        style={{ opacity: shown ? 1 : 0, transform: shown || still ? "none" : "translateY(4px)", pointerEvents: shown ? undefined : "none", transition: still ? "none" : `opacity ${shown ? 600 : 350}ms ease ${shown ? 550 : 0}ms, transform 800ms ${EASE} ${shown ? 550 : 0}ms` }}>
+        style={{ transform: `scaleX(${pointing || still ? 1 : 0})`, transition: still ? "none" : `transform 700ms ${EASE} ${pointing ? 250 : 0}ms` }} />}
+      <div className="min-w-0 flex-1 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-md shadow-primary/5">
         <div className="flex items-center gap-1.5">
           <CompassMark className="h-[18px] w-[18px] shrink-0 text-primary" />
           <span className="font-headline text-base leading-none text-primary">Rose</span>
         </div>
-        <p className="mt-2 font-headline text-lg leading-snug text-on-surface" style={{ opacity: shown ? 1 : 0 }}>{children}</p>
+        <p className="mt-2 font-headline text-lg leading-snug text-on-surface">{children}</p>
         {firstId === id && (
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-outline-variant pt-2.5 text-xs text-on-surface-variant">
             <span>Written by Ivan in my voice. My answers in the bar are live.</span>
-            <button type="button" tabIndex={shown ? 0 : -1} onClick={() => setRoseNotes(false)}
+            <button type="button" onClick={() => setRoseNotes(false)}
               className="rounded-sm underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
               Hide notes
             </button>
@@ -130,7 +130,7 @@ export const RoseCue = ({ id, note, className }: { id: string; note: string; cla
   const reduced = useReducedMotion();
   if (!notesOn) return null;
   return (
-    <div ref={ref} data-rose-cue={id} className={cn("min-h-[1.75rem]", className)}>
+    <div ref={ref} data-rose-cue={id} className={className}>
       <GestureNote on={active || reduced} reduced={reduced} tip={false}>{note}</GestureNote>
     </div>
   );
@@ -321,7 +321,7 @@ export const RoseAside = ({ children, reduced, className }: { children: ReactNod
   const { ref, active } = useGesture(id, notesOn);
   if (!notesOn) return null;
   return (
-    <div ref={ref} className={cn("max-w-md min-h-[1.75rem]", className)}>
+    <div ref={ref} className={cn("max-w-md", className)}>
       <GestureNote on={active} reduced={!!reduced}>{children}</GestureNote>
     </div>
   );
