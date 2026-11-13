@@ -11,6 +11,7 @@ import {
 } from "../src/components/rose/RoseCaseStudy";
 import { DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "../src/components/rose/roseDemoData";
 import { CONTACT, SOCIAL_LINKS } from "../src/content/site";
+import { HOW_ROSE_WORKS } from "../src/content/howRoseWorks";
 
 /** The label that marks Rose's notes: Ivan writes them in her voice. */
 export const ROSE_NOTE_LABEL = "Rose's note (written by Ivan in her voice)";
@@ -63,6 +64,12 @@ function chapterBody(id: string): string[] {
     return [
       SIX.intro, SIX.influence, demo,
       bullets(PASSAGE_QUESTIONS.map((p) => `${p.format} (${p.mark}): ${p.q}`)),
+      // The loop, as text: the two rules, the centre, then steps 01 to 05 in order (the page's reading order).
+      ...HOW_ROSE_WORKS.rules.map((r) => `${label(r.title)}\n\n${r.text}`),
+      `${label(HOW_ROSE_WORKS.centre.title)}\n\n${HOW_ROSE_WORKS.centre.text}`,
+      // One list item per step: a bold title, then its text (and, for step 04, each Next tag) on following lines.
+      HOW_ROSE_WORKS.steps.map((s) => [`${Number(s.n)}. ${label(s.title)}  `, `   ${s.text}`, ..."tags" in s ? s.tags.map((t) => `   ${t}`) : []].join("\n")).join("\n"),
+      HOW_ROSE_WORKS.caption,
     ];
   }
   if (id === "ch-07") {

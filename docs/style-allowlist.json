@@ -70,5 +70,11 @@
     "pattern": "theatrical-fragment",
     "text": "Tell me.",
     "reason": "validated copy, 3 Nov 2026: the chapter 10 heading of the page"
+  },
+  {
+    "file": "src/content/howRoseWorks.ts",
+    "pattern": "colon-reveal",
+    "text": "How Rose works: a",
+    "reason": "accessible name of the loop figure, set by the brief of 13 Nov 2026; read by screen readers, not shown on the page"
   }
 ]

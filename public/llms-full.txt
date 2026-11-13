@@ -219,7 +219,7 @@ Case study · Rose
 
 Status: Live, text only
 
-Last updated 2026-11-04.
+Last updated 2026-11-13.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.
 
@@ -467,6 +467,33 @@ Scripted demo with four exchanges: Reformulate (Built), Locate (Design), Connect
 - Reformulate (Built): Say it more simply
 - Connect (Design): How does this relate to his other work?
 - Sketch (Design): Draw how it works
+
+**Tested before every release**
+
+Each change runs on fixed questions. A critical failure blocks it.
+
+**Questions kept 90 days**
+
+Contact details are masked before they are stored.
+
+**The site's text**
+
+Case studies, Field Notes, CV. The same text AI agents read through the MCP server.
+
+1. **You read a page**  
+   The section in view and the passages Ivan marked travel with your question.
+2. **You ask in the dock**  
+   In your words, or with a starter question written for that page.
+3. **Rose reads the site**  
+   A language model, under rules Ivan wrote: answer from the pages, cite them.
+4. **She answers with sources**  
+   With follow-up questions, and the booking line on a profile question.
+   Next: relations
+   Next: diagrams
+5. **A source opens the passage**  
+   Highlighted, with a way back to where you were.
+
+How Rose works. Solid lines are built; dashed lines are design.
 
 ## Trust has two separate contracts.
 
