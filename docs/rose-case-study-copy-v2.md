@@ -126,6 +126,7 @@ The chapter stays at a product manager's level: the architecture loses its file 
 | Answer, Sketch | Page, then section in view, then marked passage, then answer. |
 | Map caption | What Rose can relate. I write this map by hand, and each link carries a one-line reason. |
 | Under the map | Rose links the site's content, not the projects' code. A dashed line marks an indirect link. |
+| Map, the component (13 Nov; `RelationsMap`, after the loop) | Read from `src/content/portfolio-graph.json`, the nine rows of "Relations, decided 3 Nov" below, with Compass as a standalone node. Over 720px of room: a drawing (nodes, solid lines, dashed lines for the indirect links) above the list. Under it: the list alone. The list is the reading order: from, link, to, then the reason. Edges that share a link, a target and a reason are one row (Aetherix, Tacet, Anima, part of, built, Orchestrator). Peritia's link reads "part of, design" and is drawn solid, as the table marks only three dashed lines. |
 | In use | Hidden below 33 conversations, as in v1. |
 
 ### Relations, decided 3 Nov

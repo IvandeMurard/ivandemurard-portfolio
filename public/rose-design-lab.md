@@ -280,6 +280,29 @@ Case studies, Field Notes, CV. The same text AI agents read through the MCP serv
 
 How Rose works. Solid lines are built; dashed lines are design.
 
+- Rose answers from Every page
+  Rose answers from the page you are on first, then from the rest of the site.
+- Rose how she is tested Evaluation
+  The evaluation page shows how every change to Rose is tested before it reaches visitors.
+- Evaluation uses the method of Field Notes (evaluation harness)
+  The campaign applies the harness and grading method this Field Note describes.
+- Aetherix, Tacet, Anima part of, built Orchestrator
+  One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP.
+- Peritia part of, design Orchestrator
+  The trade agent, named in the contract, with no code yet. Links to /architecture.
+- Tacet direct, until the orchestrator exists Aetherix
+  Until the orchestrator is built, Tacet's output reaches Aetherix directly: non-personal, read-only, logged.
+- Sonor inspired Tacet
+  Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels.
+- Lore same thesis Aetherix
+  The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project.
+- Compass
+  Standalone project.
+
+What Rose can relate. I write this map by hand, and each link carries a one-line reason.
+
+Rose links the site's content, not the projects' code. A dashed line marks an indirect link.
+
 ## Trust has two separate contracts.
 
 07 · Trust
