@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { setRoseNotes, useRoseNotes } from "@/lib/roseNotes";
 import { useChat } from "@ai-sdk/react";
 import type { UIMessage } from "ai";
 import { Icon } from "@/components/ui/Icon";
@@ -113,6 +114,8 @@ const RosePausedNotice = () => (
 export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus }) => {
   // Paused: no request to rose-chat or rose-event, no input, no starters.
   const paused = roseStatus === "paused";
+  const notesOn = useRoseNotes();
+  const notesHintId = useId();
   const [open, setOpenState] = useState(getRoseOpen);
   const setOpen = (v: boolean) => { setRoseOpen(v); setOpenState(v); };
   // The "⌄" button folds the open panel back to the bar at the bottom of the page. The conversation is kept and
@@ -636,16 +639,31 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           </form>
           )}
           {/* Wherever the bar or the input is rendered (open or at rest), under it and on one line. */}
-          <p className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
-            {ROSE_DATA_SHORT.text} ·{" "}
-            <Link
-              to={ROSE_DATA_SHORT.href}
+          <div className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant max-[380px]:whitespace-normal", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
+            <p className="inline whitespace-nowrap">
+              {ROSE_DATA_SHORT.text} ·{" "}
+              <Link
+                to={ROSE_DATA_SHORT.href}
+                tabIndex={hidden ? -1 : undefined}
+                className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm"
+              >
+                {ROSE_DATA_SHORT.linkLabel}
+              </Link>
+            </p>
+            {" · "}
+            {/* Page notes: Ivan writes them in Rose's voice. The button shows and hides them on every page. */}
+            <button
+              type="button"
+              aria-pressed={notesOn}
+              aria-describedby={notesHintId}
               tabIndex={hidden ? -1 : undefined}
+              onClick={() => setRoseNotes(!notesOn)}
               className="underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm"
             >
-              {ROSE_DATA_SHORT.linkLabel}
-            </Link>
-          </p>
+              Page notes: {notesOn ? "on" : "off"}
+            </button>
+            <span id={notesHintId} className="sr-only">Ivan writes the notes on the pages in Rose's voice. Her answers here are live.</span>
+          </div>
         </div>
       </div>
     </>

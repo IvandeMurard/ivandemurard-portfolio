@@ -1,6 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore, type ReactNode, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { registerRoseNote, setRoseNotes, useFirstRoseNoteId, useRoseNotes } from "@/lib/roseNotes";
+import { CompassMark } from "./CompassMark";
 
 /**
  * Kinetic storytelling primitives for the Rose case study (design lab only).
@@ -41,16 +43,16 @@ const RoseTip = ({ on, reduced }: { on: boolean; reduced: boolean }) => (
   </svg>
 );
 
-const useGesture = (id: string) => {
+const useGesture = (id: string, enabled = true) => {
   const ref = useRef<HTMLDivElement>(null);
   const active = useCueActive(id);
   useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (!enabled || !el || typeof IntersectionObserver === "undefined") return;
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setCue(id); else releaseCue(id); }, { rootMargin: READING_ZONE });
     io.observe(el);
     return () => { io.disconnect(); releaseCue(id); };
-  }, [id]);
+  }, [id, enabled]);
   return { ref, active };
 };
 
@@ -68,18 +70,53 @@ const useReducedMotion = () => useSyncExternalStore(
   () => false,
 );
 
-const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduced: boolean; children: ReactNode; tip?: boolean }) => (
-  <div className="flex items-center gap-2">
-    {tip && <RoseTip on={on} reduced={reduced} />}
-    {tip && <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
-      style={{ transform: `scaleX(${on ? 1 : 0})`, transition: reduced ? "none" : `transform 700ms ${EASE} ${on ? 250 : 0}ms` }} />}
-    <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0 rotate-45 bg-rose-copper", tip && "md:hidden")} style={{ opacity: on ? 1 : 0, transition: reduced ? "none" : "opacity 300ms ease" }} />
-    <p className="font-headline text-lg leading-snug text-rose-copper"
-      style={{ opacity: on ? 1 : 0, transform: on || reduced ? "none" : "translateY(4px)", transition: reduced ? "none" : `opacity ${on ? 600 : 350}ms ease ${on ? 550 : 0}ms, transform 800ms ${EASE} ${on ? 550 : 0}ms` }}>
-      {children}
-    </p>
-  </div>
-);
+/**
+ * Rose's note: a small bubble with the surface, border, radius and shadow of the dock panel, the compass mark and
+ * "Rose" in the dock header style, then the line in the ink colour. role="note", written by Ivan.
+ * The first note of a page (document order) carries a footer: who wrote the notes, and "Hide notes".
+ * With notes off nothing is rendered. With reduced motion the note is always visible and nothing moves.
+ * On desktop the copper tip (tip) waits in the left margin of the row; the passage's own tip is drawn by RoseMark.
+ * Below md there is no tip and the bubble takes the full width under its passage.
+ */
+const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduced: boolean; children: ReactNode; tip?: boolean }) => {
+  const notesOn = useRoseNotes();
+  const reducedMotion = useReducedMotion();
+  const id = useId();
+  const ref = useRef<HTMLDivElement>(null);
+  const firstId = useFirstRoseNoteId();
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!notesOn || !el) return;
+    return registerRoseNote(id, el);
+  }, [id, notesOn]);
+  if (!notesOn) return null;
+  const still = reduced || reducedMotion;
+  // The bubble is always there and always visible; only the copper tip keeps its gesture (`on`).
+  const pointing = on && !still;
+  return (
+    <div ref={ref} role="note" aria-label="Note from Rose, written by Ivan" className="flex items-center gap-2">
+      {tip && <RoseTip on={pointing || still} reduced={still} />}
+      {tip && <span aria-hidden="true" className="hidden h-px w-4 shrink-0 origin-left bg-rose-copper md:block"
+        style={{ transform: `scaleX(${pointing || still ? 1 : 0})`, transition: still ? "none" : `transform 700ms ${EASE} ${pointing ? 250 : 0}ms` }} />}
+      <div className="min-w-0 flex-1 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-md shadow-primary/5">
+        <div className="flex items-center gap-1.5">
+          <CompassMark className="h-[18px] w-[18px] shrink-0 text-primary" />
+          <span className="font-headline text-base leading-none text-primary">Rose</span>
+        </div>
+        <p className="mt-2 font-headline text-lg leading-snug text-on-surface">{children}</p>
+        {firstId === id && (
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-outline-variant pt-2.5 text-xs text-on-surface-variant">
+            <span>Written by Ivan in my voice. My answers in the bar are live.</span>
+            <button type="button" onClick={() => setRoseNotes(false)}
+              className="rounded-sm underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+              Hide notes
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 /**
  * Rose's note, placed directly under the passage it comments on (never in a margin column).
@@ -88,10 +125,12 @@ const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduc
  * drawn by RoseMark (tip), on desktop only.
  */
 export const RoseCue = ({ id, note, className }: { id: string; note: string; className?: string }) => {
-  const { ref, active } = useGesture(id);
+  const notesOn = useRoseNotes();
+  const { ref, active } = useGesture(id, notesOn);
   const reduced = useReducedMotion();
+  if (!notesOn) return null;
   return (
-    <div ref={ref} data-rose-cue={id} role="note" aria-label="Rose" className={cn("min-h-[1.75rem]", className)}>
+    <div ref={ref} data-rose-cue={id} className={className}>
       <GestureNote on={active || reduced} reduced={reduced} tip={false}>{note}</GestureNote>
     </div>
   );
@@ -169,12 +208,16 @@ const circlePath = (w: number, h: number) => {
  * highlight = the passage Rose cited. `skipWhenReduced` (the case study): with reduced motion nothing is drawn.
  * `tip`: the copper tip travels onto the start of this passage (desktop only, never with reduced motion).
  */
-export const RoseMark = ({ children, kind = "underline", active, reduced, delay = 600, cue, skipWhenReduced, tip }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string; skipWhenReduced?: boolean; tip?: boolean }) => {
+export const RoseMark = ({ children, kind = "underline", active, reduced: reducedProp, delay = 600, cue, skipWhenReduced, tip }: { children: ReactNode; kind?: MarkKind; active?: boolean; reduced?: boolean; delay?: number; cue?: string; skipWhenReduced?: boolean; tip?: boolean }) => {
   const { ref } = useInView<HTMLSpanElement>();
   const reached = useCueReached(cue);
   const reducedMotion = useReducedMotion();
   const desktop = useDesktop();
-  const on = active ?? reached;
+  const notesOn = useRoseNotes();
+  // Notes off: a mark tied to a cue stays drawn, fully and still (no cue is ever reached, nothing moves).
+  const calm = !notesOn && active === undefined;
+  const reduced = reducedProp || calm;
+  const on = calm ? true : (active ?? reached);
   // The circle follows the marked span's own box, at every width.
   const [box, setBox] = useState({ w: 100, h: 24 });
   useLayoutEffect(() => {
@@ -210,8 +253,8 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
     ro.observe(column);
     return () => { window.removeEventListener("resize", place); ro.disconnect(); };
   }, [tip, ref]);
-  if (skipWhenReduced && (reduced || reducedMotion)) return <>{children}</>;
-  const pointer = tip && desktop && !reduced && !reducedMotion
+  if (skipWhenReduced && (reducedProp || reducedMotion)) return <>{children}</>;
+  const pointer = tip && notesOn && desktop && !reduced && !reducedMotion
     ? <span aria-hidden="true" data-rose-tip data-tip="margin" className="pointer-events-none absolute" style={{ left: tipPos.left, top: tipPos.top }}><RoseTip on={on} reduced={false} /></span>
     : null;
   if (kind === "strike") {
@@ -274,9 +317,11 @@ export const RoseMark = ({ children, kind = "underline", active, reduced, delay 
 /* A margin note from Rose, same ephemeral gesture as RoseCue. */
 export const RoseAside = ({ children, reduced, className }: { children: ReactNode; reduced?: boolean; className?: string }) => {
   const id = useRef(`aside-${Math.random().toString(36).slice(2)}`).current;
-  const { ref, active } = useGesture(id);
+  const notesOn = useRoseNotes();
+  const { ref, active } = useGesture(id, notesOn);
+  if (!notesOn) return null;
   return (
-    <div ref={ref} role="note" aria-label="Rose" className={cn("max-w-md min-h-[1.75rem]", className)}>
+    <div ref={ref} className={cn("max-w-md", className)}>
       <GestureNote on={active} reduced={!!reduced}>{children}</GestureNote>
     </div>
   );
@@ -398,7 +443,9 @@ const DiagramNode = ({ label, detail, on, delay, reduced, emphasis }: { label: s
 const LabGesture = ({ line, reduced }: { line: string; reduced: boolean }) => {
   const [on, setOn] = useState(reduced);
   useEffect(() => { if (reduced) return; const t = window.setTimeout(() => setOn(true), 30); return () => window.clearTimeout(t); }, [reduced]);
-  return <div role="note" aria-label="Rose" className="mt-8"><GestureNote on={on} reduced={reduced}>{line}</GestureNote></div>;
+  const notesOn = useRoseNotes();
+  if (!notesOn) return null;
+  return <div className="mt-8"><GestureNote on={on} reduced={reduced}>{line}</GestureNote></div>;
 };
 
 export const ContextualLab = ({ reduced }: { reduced: boolean }) => {

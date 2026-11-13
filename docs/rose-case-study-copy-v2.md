@@ -11,7 +11,7 @@ This deck rewrites every word of the Rose case study under docs/style.md, valida
 What changed from v1:
 
 - No transition sentence closes a chapter. Each heading follows from the one before.
-- Italic appears once, in the hero headline. Rose's notes are set in roman and marked by the copper compass.
+- Italic appears once, in the hero headline. Rose's notes are set in roman and recognised by their bubble (dock surface and border), the compass and the name Rose. Their text is ink, not copper.
 - Fragments, maxims, self-aware asides and colon reveals are gone.
 - The page stays on design and product. Technical detail lives on the evaluation page and in the repository, one link away.
 - Three business points are added: the trade-off in chapter 01, the cost of an answer in chapter 08, and where the pattern transfers in chapter 09.
@@ -63,7 +63,7 @@ Links: userose.ai and co-existence.ai stay quiet external links, as built.
 
 Each chapter keeps its date, its Built marker, its vignette and its source line. Results become full sentences, chapter 01 gains the business trade-off, and one line credits co-existence.ai for the notes.
 
-Intro line above chapter 01 (new): Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Form: the copper compass tip moves to the passage, one note at a time, and leaves when the reader moves on; on mobile, with reduced motion or a screen reader, the note shows inline next to the passage.
+Intro line above chapter 01 (new): Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Form: each note is a bubble under its passage, always visible; the copper compass tip moves to the passage when it enters the reading zone, one at a time, on desktop only; on mobile and with reduced motion there is no tip and no movement. The first note of a page carries a footer ("Written by Ivan in my voice. My answers in the bar are live.") with a "Hide notes" button; the dock has a "Page notes: on/off" button.
 
 Rose's marks, one meaning each, one at a time, drawn by the copper tip and absent with reduced motion: underline = the decision she comments on (chapters 01 to 05); circle = a figure and what it is compared with (chapter 08, cost); strike and replace = the first brief, crossed out, with the decision that replaced it. In her answers (design), Locate draws the mark on the page instead of only giving a link.
 
