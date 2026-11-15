@@ -6,8 +6,8 @@ import graph from "./portfolio-graph.json";
  * map") and groups edges that share a link, a target and a reason, so the page and the Markdown mirror read the same.
  */
 export const RELATIONS_MAP = {
-  caption: "What Rose can relate. I write this map by hand, and each link carries a one-line reason.",
-  note: "Rose links the site's content, not the projects' code. A dashed line marks an indirect link.",
+  caption: "What Rose can relate. I write these links by hand, and each carries a one-line reason.",
+  note: "Rose links what the site's pages say about each project. A dashed label marks an indirect link.",
 } as const;
 
 export type GraphEdge = { from: string; link: string; to: string; reason: string; indirect: boolean };

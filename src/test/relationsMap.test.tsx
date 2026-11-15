@@ -34,8 +34,13 @@ describe("portfolio-graph.json, the one source", () => {
     expect(GRAPH_STANDALONE).toEqual([{ node: "compass", reason: "Standalone project." }]);
   });
 
-  it("draws as dashed only Peritia (design), Tacet to Aetherix, Sonor and Lore", () => {
-    expect(GRAPH_EDGES.filter((e) => e.indirect).map((e) => e.from)).toEqual(["peritia", "tacet", "sonor", "lore"]);
+  it("draws as dashed only Tacet to Aetherix, Sonor and Lore; Peritia is not indirect", () => {
+    expect(GRAPH_EDGES.filter((e) => e.indirect).map((e) => e.from)).toEqual(["tacet", "sonor", "lore"]);
+    expect(GRAPH_EDGES.find((e) => e.from === "peritia")?.indirect).toBe(false);
+  });
+
+  it("keeps no style-allowlist entry for the old note text", () => {
+    expect(readFileSync("docs/style-allowlist.json", "utf8")).not.toContain("content, not the projects");
   });
 
   it("only links known nodes, and Compass has no edge", () => {
@@ -69,14 +74,15 @@ describe("The list, which is the reading order", () => {
   it("draws dashed link pills for the indirect rows only", () => {
     const { container } = render(<RelationsMap />);
     const dashed = [...container.querySelectorAll(".rm-link[data-indirect]")].map((n) => n.textContent);
-    expect(dashed).toEqual(["part of, design", "direct, until the orchestrator exists", "inspired", "same thesis"]);
+    expect(dashed).toEqual(["direct, until the orchestrator exists", "inspired", "same thesis"]);
+    expect([...container.querySelectorAll(".rm-link")].find((n) => n.textContent === "part of, design")?.hasAttribute("data-indirect")).toBe(false);
   });
 
   it("says the caption, then the note, in the v2 words", () => {
     const { container } = render(<RelationsMap />);
     const fig = container.querySelector("figure") as HTMLElement;
-    expect(fig.querySelector("figcaption")?.textContent).toBe("What Rose can relate. I write this map by hand, and each link carries a one-line reason.");
-    expect(fig.lastElementChild?.textContent).toBe("Rose links the site's content, not the projects' code. A dashed line marks an indirect link.");
+    expect(fig.querySelector("figcaption")?.textContent).toBe("What Rose can relate. I write these links by hand, and each carries a one-line reason.");
+    expect(fig.lastElementChild?.textContent).toBe("Rose links what the site's pages say about each project. A dashed label marks an indirect link.");
     expect(deck).toContain(R.caption);
     expect(deck).toContain(R.note);
   });
@@ -89,7 +95,7 @@ describe("The drawing", () => {
     expect(svg.getAttribute("aria-hidden")).toBe("true");
     const lines = [...svg.querySelectorAll("line")];
     expect(lines).toHaveLength(GRAPH_EDGES.length);
-    expect(lines.filter((l) => l.hasAttribute("stroke-dasharray"))).toHaveLength(4);
+    expect(lines.filter((l) => l.hasAttribute("stroke-dasharray"))).toHaveLength(3);
     expect(svg.querySelectorAll("rect.rm-node")).toHaveLength(GRAPH_NODES.length);
   });
 

@@ -17,7 +17,7 @@
 .rm-small { fill: hsl(var(--on-surface-variant)); font-size: 12px; }
 
 .rm-list { display: flex; flex-direction: column; gap: 16px; }
-.rm-row { padding-left: 14px; border-left: 1.5px solid hsl(var(--outline-variant)); }
+.rm-row { padding-top: 16px; border-top: 1px solid hsl(var(--outline-variant)); }
 .rm-link {
   border: 1px solid var(--rm-ink);
   border-radius: 9999px;
