@@ -9,6 +9,7 @@ import type React from "react";
 import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
@@ -376,7 +377,7 @@ const Sonor = () => {
                 </p>
                 <span className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-primary">
                   {item.cta}
-                  <Icon name="open_in_new" className="text-sm" />
+                  <ExternalMark className="text-sm" />
                 </span>
               </a>
             ))}

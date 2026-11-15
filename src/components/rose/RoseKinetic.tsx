@@ -105,7 +105,7 @@ const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduc
         </div>
         <p className="mt-2 font-headline text-lg leading-snug text-on-surface">{children}</p>
         {firstId === id && (
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-outline-variant pt-2.5 text-xs text-on-surface-variant">
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-outline-variant/50 pt-2.5 text-xs text-on-surface-variant">
             <span>Written by Ivan in my voice. My answers in the bar are live.</span>
             <button type="button" onClick={() => setRoseNotes(false)}
               className="rounded-sm underline underline-offset-2 hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary">

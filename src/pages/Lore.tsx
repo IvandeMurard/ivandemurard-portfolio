@@ -6,6 +6,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 import { Reveal } from "@/components/Reveal";
 import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS } from "@/content/site";
@@ -147,7 +148,7 @@ const Lore = () => (
                     className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
                   >
                     {info.value}
-                    <Icon name="open_in_new" className="text-xs" />
+                    <ExternalMark className="text-xs" />
                   </a>
                 ) : (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
@@ -504,7 +505,7 @@ const Lore = () => (
                 className="text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
               >
                 AUTHORS.md
-                <Icon name="open_in_new" className="text-xs" />
+                <ExternalMark className="text-xs" />
               </a>
             </p>
           </div>

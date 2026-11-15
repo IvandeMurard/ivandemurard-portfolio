@@ -1,11 +1,13 @@
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { Icon } from "@/components/ui/Icon";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { SOCIAL_LINKS } from "@/content/site";
 import { COMPASS } from "@/content/compass";
 
-type Action = { label: string; href: string; icon: string; internal?: boolean };
+/** `leaves`: the link leaves the site; it carries the "↗" sign (and the spoken ", opens in a new tab") instead of an icon. */
+type Action = { label: string; href: string; icon?: string; internal?: boolean; leaves?: boolean };
 type Room = { title: string; body: string; actions: Action[] };
 
 const call: Action = { label: "Book a call", href: SOCIAL_LINKS.schedule, icon: "event" };
@@ -27,7 +29,7 @@ export const CLOSING_ROOMS: Record<string, Room> = {
   compass: {
     title: "Turn open data into location decisions",
     body: "Compass assembles public registries into traceable context for commercial premises. Building a data product, or weighing an address?",
-    actions: [call, { label: "Open the demo", href: COMPASS.demo, icon: "open_in_new" }, email],
+    actions: [call, { label: "Open the demo", href: COMPASS.demo, leaves: true }, email],
   },
   lore: {
     title: "Guardrails for high-stakes domains",
@@ -68,9 +70,9 @@ export const ClosingContact = ({ room }: { room: keyof typeof CLOSING_ROOMS }) =
           {r.actions.map((a, i) => (
             <Button key={a.label} asChild variant={i === 0 ? "default" : "outline"}>
               {a.internal ? (
-                <Link to={a.href}><Icon name={a.icon} />{a.label}</Link>
+                <Link to={a.href}>{a.icon && <Icon name={a.icon} />}{a.label}</Link>
               ) : (
-                <a href={a.href} {...(a.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}><Icon name={a.icon} />{a.label}</a>
+                <a href={a.href} {...(a.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{a.icon && <Icon name={a.icon} />}{a.label}{a.leaves && <ExternalMark />}</a>
               )}
             </Button>
           ))}
