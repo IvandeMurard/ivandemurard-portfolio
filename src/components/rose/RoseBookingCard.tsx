@@ -4,6 +4,7 @@ import { useTrackClick } from "@/hooks/useTrackClick";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
 import { normalizeRoseText } from "./roseAnswer";
+import { ExternalSign, externalName } from "@/components/ui/ExternalMark";
 
 interface RoseBookingCardProps {
   intent: "product" | "technical" | "culture" | "exploring" | null;
@@ -39,7 +40,7 @@ export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardPr
       rel="noopener noreferrer"
       onClick={onClick}
       className="group my-3 flex items-center justify-between gap-4 rounded-2xl border border-secondary bg-secondary/5 px-5 py-4 transition-colors hover:border-secondary hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-      aria-label="Book a 30 minute call with Ivan on cal.com (opens in a new tab)"
+      aria-label={externalName("Book a 30 minute call with Ivan on cal.com")}
     >
       <div className="flex flex-col">
         <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
@@ -52,10 +53,7 @@ export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardPr
           <span className="mt-1 text-sm text-on-surface-variant">{normalizeRoseText(reason)}</span>
         ) : null}
       </div>
-      <Icon
-        name="arrow_outward"
-        className="text-secondary transition-transform group-hover:translate-x-1"
-      />
+      <ExternalSign className="inline-block text-2xl text-secondary transition-transform group-hover:translate-x-1" />
     </a>
   );
 };

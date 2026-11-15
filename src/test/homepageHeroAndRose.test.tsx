@@ -52,7 +52,7 @@ describe("Homepage hero", () => {
     expect(screen.queryByText(/Since 2025, I design, build and evaluate/)).toBeNull();
     expect(screen.getByText("AI Product Manager & Builder · Paris")).toBeTruthy();
     expect(screen.getByRole("link", { name: "Explore the projects" }).getAttribute("href")).toBe("#work");
-    expect(screen.getAllByRole("link", { name: "Book a call" }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("link", { name: "Book a call, opens in a new tab" }).length).toBeGreaterThan(0);
   });
 });
 

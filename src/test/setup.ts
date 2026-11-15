@@ -13,3 +13,10 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: () => {},
   }),
 });
+
+// jsdom reads a <span> as a block and puts a space before it when it
+// builds an accessible name ("Book a call , opens in a new tab"). A browser does not. Say what a browser knows, so a name
+// computed here is the name a browser computes (checked in Chrome and Edge on 15 Nov 2026).
+const style = document.createElement("style");
+style.textContent = "[data-external-mark], [data-external-mark] span { display: inline; }";
+document.head.appendChild(style);

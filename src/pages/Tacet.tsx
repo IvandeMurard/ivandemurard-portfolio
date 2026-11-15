@@ -7,6 +7,7 @@ import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { AETHERIX_ANCHORS } from "@/content/systems";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 import { Reveal } from "@/components/Reveal";
 import { TacetPipelineDiagram } from "@/components/tacet/TacetPipelineDiagram";
 import { SectionDivider } from "@/components/SectionDivider";
@@ -202,8 +203,7 @@ const Tacet = () => (
                     rel="noopener noreferrer"
                     className="font-body text-sm text-on-surface inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary hover:text-primary transition-colors"
                   >
-                    {info.value}
-                    <Icon name="open_in_new" className="text-xs" />
+                    <ExternalMark className="text-xs">{info.value}</ExternalMark>
                   </a>
                 ) : (
                   <p className="font-body text-sm text-on-surface">{info.value}</p>
@@ -485,10 +485,11 @@ const Tacet = () => (
               rel="noopener noreferrer"
               className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
-              <span className="font-label text-xs uppercase tracking-widest mr-3">
-                Original B2C dashboard, visual reference
-              </span>
-              <Icon name="open_in_new" className="text-xs" />
+              <ExternalMark className="text-xs">
+                <span className="font-label text-xs uppercase tracking-widest mr-3">
+                  Original B2C dashboard, visual reference
+                </span>
+              </ExternalMark>
             </a>
             <a
               href="https://github.com/IvandeMurard/tacet-app"
@@ -496,10 +497,11 @@ const Tacet = () => (
               rel="noopener noreferrer"
               className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
-              <span className="font-label text-xs uppercase tracking-widest mr-3">
-                View source on GitHub
-              </span>
-              <Icon name="open_in_new" className="text-xs" />
+              <ExternalMark className="text-xs">
+                <span className="font-label text-xs uppercase tracking-widest mr-3">
+                  View source on GitHub
+                </span>
+              </ExternalMark>
             </a>
           </div>
         </div>

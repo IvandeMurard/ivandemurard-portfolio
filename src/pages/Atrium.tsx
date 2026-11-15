@@ -7,6 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import { SectionDivider } from "@/components/SectionDivider";
 import { CountUp } from "@/components/CountUp";
 import { SOCIAL_LINKS, TRACK_RECORD, NOW_PROJECTS } from "@/content/site";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 // Numeric milestones get a count-up. Textual ones stay static.
 type Milestone =
@@ -145,7 +146,7 @@ const Atrium = () => (
                 rel="noopener noreferrer"
                 className="text-primary underline decoration-secondary/40 underline-offset-4 hover:decoration-secondary transition-colors"
               >
-                Sonor
+                <ExternalMark>Sonor</ExternalMark>
               </a>
               , a 0 to 1 open data SaaS for urban noise mapping, backed by Matrice and La Banque
               des Territoires, which taught me how to read a field, build with very little, and
@@ -267,11 +268,14 @@ const Atrium = () => (
                   {p.blurb}
                 </p>
                 <span className="inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
-                  {p.meta}
-                  <Icon
-                    name={p.external ? "arrow_outward" : "arrow_forward"}
-                    className="text-sm group-hover:translate-x-1 transition-transform"
-                  />
+                  {p.external ? (
+                    <ExternalMark className="inline-block text-sm group-hover:translate-x-1 transition-transform">{p.meta}</ExternalMark>
+                  ) : (
+                    <>
+                      {p.meta}
+                      <Icon name="arrow_forward" className="text-sm group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </span>
               </Wrapper>
             );
@@ -366,11 +370,7 @@ const Atrium = () => (
               rel="noopener noreferrer"
               className="bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-10 py-5 rounded-xl font-medium tracking-wide [transition:background-color_500ms_ease,color_500ms_ease,box-shadow_500ms_ease] ambient-shadow inline-flex items-center gap-3 group"
             >
-              Book a call
-              <Icon
-                name="arrow_forward"
-                className="text-sm group-hover:translate-x-1 transition-transform"
-              />
+              <ExternalMark className="inline-block text-sm group-hover:translate-x-1 transition-transform">Book a call</ExternalMark>
             </a>
             <a
               href={SOCIAL_LINKS.email}
@@ -394,7 +394,7 @@ const Atrium = () => (
               rel="noopener noreferrer"
               className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
             >
-              LinkedIn
+              <ExternalMark>LinkedIn</ExternalMark>
             </a>
             <a
               href={SOCIAL_LINKS.github}
@@ -402,7 +402,7 @@ const Atrium = () => (
               rel="noopener noreferrer"
               className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
             >
-              GitHub
+              <ExternalMark>GitHub</ExternalMark>
             </a>
             <a
               href={SOCIAL_LINKS.x}
@@ -410,7 +410,7 @@ const Atrium = () => (
               rel="noopener noreferrer"
               className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
             >
-              X
+              <ExternalMark>X</ExternalMark>
             </a>
           </div>
         </div>

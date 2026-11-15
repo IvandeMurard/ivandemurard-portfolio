@@ -6,6 +6,7 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { Button } from "@/components/ui/button";
 import { CV, CV_PROJECT_LINKS, type CvRole } from "@/content/cv";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 const LinkedText = ({ text }: { text: string }) => {
   const names = Object.keys(CV_PROJECT_LINKS);
@@ -72,7 +73,7 @@ const Cv = () => (
         <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-body text-sm text-on-surface-variant">
           <a href={`mailto:${CV.email}`} className="hover:text-primary transition-colors">{CV.email}</a>
           <a href={`https://${CV.website}`} className="hover:text-primary transition-colors">{CV.website}</a>
-          <a href={`https://${CV.github}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">{CV.github}</a>
+          <a href={`https://${CV.github}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><ExternalMark>{CV.github}</ExternalMark></a>
         </div>
         <p className="mt-10 max-w-4xl font-body text-lg md:text-xl text-on-surface-variant leading-relaxed">{CV.summary}</p>
       </header>

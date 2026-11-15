@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { Button } from "@/components/ui/button";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 type EntryActionsProps = {
   title: string;
@@ -98,7 +99,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
           {copied === "context" ? "Prompt copied" : "Copy prompt for Claude or ChatGPT"}
         </Button>
         {markdownPath && variant === "note" && (
-          <a className={BTN} href={markdownPath} target="_blank" rel="noopener noreferrer">
+          <a className={BTN} href={markdownPath}>
             <Icon name="description" className="text-[16px] leading-none" />
             Raw markdown
           </a>
@@ -129,7 +130,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
                   className="flex items-center gap-2 px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
                 >
                   <Icon name={l.icon} className="text-[16px] leading-none" />
-                  {l.label}
+                  <ExternalMark>{l.label}</ExternalMark>
                 </a>
               ))}
               <button

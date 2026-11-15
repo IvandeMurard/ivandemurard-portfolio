@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 type ShareRowProps = {
   title: string;
@@ -67,7 +68,7 @@ export const ShareRow = ({ title, excerpt, mirror, license }: ShareRowProps) => 
             target="_blank"
             className="text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
           >
-            {license.label}
+            <ExternalMark>{license.label}</ExternalMark>
           </a>
           {license.note ? `. ${license.note}` : "."}
         </p>

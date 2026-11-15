@@ -4,11 +4,12 @@ import { Mail, Calendar, Linkedin, Github } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { PressMark } from "./PressMark";
+import { externalName } from "@/components/ui/ExternalMark";
 
 
 const ICON_LINKS = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, external: false, kind: "contact" as const },
-  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar, external: true, kind: "contact" as const },
+  { label: "Book a call", href: SOCIAL_LINKS.schedule, Icon: Calendar, external: true, kind: "contact" as const },
   { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin, external: true, kind: "social" as const },
   { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, external: true, kind: "social" as const },
 ];
@@ -68,7 +69,7 @@ export const Footer = () => {
                 href={href}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
-                aria-label={label}
+                aria-label={external ? externalName(label) : label}
                 title={label}
                 onClick={() => track({ label, href, kind })}
                 className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] -m-3 rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary"

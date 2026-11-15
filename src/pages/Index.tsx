@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { CompassMark } from "@/components/rose/CompassMark";
 import { RoseMark } from "@/components/rose/RoseKinetic";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 const Tip = ({ label, explain, children }: { label: string; explain: string; children: React.ReactNode }) => (
   <Popover>
@@ -29,7 +30,7 @@ const AetherixStatus = () => (
     <SignalLamp state={PROJECTS.atherix.status.signal} label={PROJECTS.atherix.status.word} />
     <p className="font-mono text-[12.5px] leading-relaxed text-on-surface-variant max-w-[560px]">
       Built and evaluated on historical data. <Tip label="Staged" explain="what this means">Deployed on a pre-production server (Fly.io, Paris): the same setup a pilot hotel would get, before any real hotel data.</Tip> on Fly.io, connected to the{" "}
-      <Tip label="Apaleo sandbox" explain="what this means">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline">apaleo.com ↗</a></Tip>. Ready for a 30-day pilot.
+      <Tip label="Apaleo sandbox" explain="what this means">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline"><ExternalMark>apaleo.com</ExternalMark></a></Tip>. Ready for a 30-day pilot.
     </p>
   </div>
 );
@@ -89,7 +90,7 @@ const Index = () => {
               <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
                 onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "nav" })}
                 className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors">
-                Book a call
+                <ExternalMark>Book a call</ExternalMark>
               </a>
             </div>
           </div>
@@ -111,7 +112,7 @@ const Index = () => {
             <div data-reveal-child className="max-w-[760px]">
               <p className={`${kicker} text-secondary mb-8`}>01 · Flagship</p>
               <h2 className="font-headline font-light text-primary text-[clamp(72px,9vw,136px)] leading-[0.9] tracking-[-0.04em]">Aetherix</h2>
-              <p className="mt-8 text-[21px] leading-relaxed text-on-surface max-w-[520px]">{PROJECTS.atherix.tagline}</p>
+              <p className="mt-8 text-[18px] md:text-[21px] leading-relaxed text-on-surface max-w-[520px]">{PROJECTS.atherix.tagline}</p>
               <Link to="/aetherix" onClick={() => track({ label: "Aetherix teaser", href: "/aetherix", kind: "project" })}
                 className="mt-10 inline-flex items-center min-h-[48px] px-6 border border-on-surface rounded-md text-on-surface font-medium hover:bg-on-surface hover:text-surface transition-colors">
                 Read the Aetherix case →

@@ -9,6 +9,7 @@ import type React from "react";
 import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 import { Reveal } from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
@@ -157,8 +158,7 @@ const Sonor = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-primary transition-colors border-b border-outline-variant hover:border-primary/60 pb-0.5"
               >
-                <span>Original project site (2020)</span>
-                <Icon name="arrow_outward" className="text-sm" />
+                <ExternalMark className="text-sm"><span>Original project site (2020)</span></ExternalMark>
               </a>
             </div>
             <div data-reveal-child style={{ ["--reveal-delay" as string]: "860ms" }} className="mt-8">
@@ -305,7 +305,7 @@ const Sonor = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary text-on-primary font-headline italic text-lg rounded-full hover:bg-primary-container transition-colors shadow-lg"
               >
-                Banque des Territoires vision →
+                <ExternalMark>Banque des Territoires vision</ExternalMark>
               </a>
             </div>
           </div>
@@ -375,8 +375,7 @@ const Sonor = () => {
                   {item.description}
                 </p>
                 <span className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-primary">
-                  {item.cta}
-                  <Icon name="open_in_new" className="text-sm" />
+                  <ExternalMark className="text-sm">{item.cta}</ExternalMark>
                 </span>
               </a>
             ))}

@@ -50,7 +50,7 @@ describe("The booking line under a profile answer", () => {
     mount([question, withLine()]);
     expect(lines()).toHaveLength(1);
     expect(textOf(lines()[0])).toBe(LINE);
-    const link = screen.getByRole("button", { name: "Book a call with Ivan (opens cal.com in a new tab)" });
+    const link = screen.getByRole("button", { name: "Book a call with Ivan, opens in a new tab" });
     expect(link.textContent).toBe("book a call with Ivan");
     expect(textOf(lines()[0])).not.toContain("↗");
     expect(lines()[0].querySelector("svg")).toBeTruthy(); // the compass mark
@@ -100,7 +100,7 @@ describe("The booking line under a profile answer", () => {
   it("does what the 'Book a call' chip does: the same event, the same tab", () => {
     // The chip, on an empty conversation.
     mount([]);
-    fireEvent.click(screen.getByRole("button", { name: "Book a call (opens cal.com in a new tab)" }));
+    fireEvent.click(screen.getByRole("button", { name: "Book a call, opens in a new tab" }));
     const chipEvents = logged.filter((e) => (e as { kind?: string }).kind === "booking_clicked");
     const chipOpen = (window.open as unknown as ReturnType<typeof vi.fn>).mock.calls.slice();
     expect(chipEvents).toHaveLength(1);
