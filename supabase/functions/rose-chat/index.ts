@@ -62,9 +62,9 @@ const logEmptyRetry = (req: Request, body: { session_id?: unknown; page?: { path
   const url = Deno.env.get("SUPABASE_URL");
   const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   if (!url || !key) return;
-  const write = createClient(url, key)
+  const write = Promise.resolve(createClient(url, key)
     .from("rose_events")
-    .insert({ session_id: sessionId, path, kind: "empty_retry", outcome: info.outcome })
+    .insert({ session_id: sessionId, path, kind: "empty_retry", outcome: info.outcome }))
     .then(({ error }) => { if (error) console.error("[rose-chat] empty_retry not recorded", error.code); })
     .catch(() => {});
   // Keep the write alive after the response has been sent.
