@@ -4,6 +4,7 @@ import { Mail, Calendar, Linkedin, Github } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { PressMark } from "./PressMark";
+import { externalName } from "@/components/ui/ExternalMark";
 
 
 const ICON_LINKS = [
@@ -68,7 +69,7 @@ export const Footer = () => {
                 href={href}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
-                aria-label={label}
+                aria-label={external ? externalName(label) : label}
                 title={label}
                 onClick={() => track({ label, href, kind })}
                 className="text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] -m-3 rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary"

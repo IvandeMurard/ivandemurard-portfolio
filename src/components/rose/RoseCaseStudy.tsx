@@ -8,6 +8,7 @@ import { ContactBlock } from "@/components/case/ContactBlock";
 import { AnswerFormats, HeroDock, TestLoop } from "@/components/rose/RoseDemos";
 import { HowRoseWorks } from "@/components/rose/HowRoseWorks";
 import { RelationsMap } from "@/components/rose/RelationsMap";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -161,7 +162,7 @@ export const IDEA = {
 const QUIET_LINK = "underline decoration-on-surface-variant/50 underline-offset-4 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
 const ExternalLink = ({ href, children }: { href: string; children: string }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className={QUIET_LINK}>{children}<span className="sr-only"> (opens in a new tab)</span></a>
+  <a href={href} target="_blank" rel="noopener noreferrer" className={QUIET_LINK}>{children}<ExternalMark /></a>
 );
 
 /* Uppercase mono is for the one kicker of a section. Every other label is sentence case. */

@@ -97,8 +97,8 @@ describe("Source link labels", () => {
 
   it("keeps the text of a link that leaves the site, adds ↗, opens it in a new tab and says so in its name", () => {
     md("See [the Kaggle data](https://www.kaggle.com/c/recruit).");
-    const a = screen.getByRole("link", { name: "the Kaggle data, opens in a new tab" });
-    expect(a.textContent).toBe("the Kaggle data ↗");
+    const a = screen.getByRole("link", { name: /^the Kaggle data ?, opens in a new tab$/ });
+    expect(a.textContent).toBe("the Kaggle data ↗, opens in a new tab");
     expect(a).toHaveAttribute("target", "_blank");
     expect(a).toHaveAttribute("rel", expect.stringContaining("noopener"));
   });

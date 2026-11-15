@@ -6,6 +6,7 @@ import { normalizeRoseText, roseCvHref } from "./roseAnswer";
 import { internalSourceLabel, splitInternal } from "@/lib/sourceLinks";
 import { captureOrigin, saveJump } from "@/lib/sourceJump";
 import { getRoseOpen } from "./roseSession";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 const ReferenceClick = createContext<((path: string) => void) | undefined>(undefined);
 
@@ -102,10 +103,9 @@ const RoseLink = ({ href, children }: ComponentProps<"a">) => {
   const onClick = () => { if (target) onReference?.(target); };
   const text = plainText(children);
   return (
-    <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={linkCls}
-      aria-label={text ? `${text}, opens in a new tab` : undefined}>
+    <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={linkCls}>
       {children}
-      <span aria-hidden="true"> ↗</span>
+      <ExternalMark />
     </a>
   );
 };

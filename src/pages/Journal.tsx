@@ -5,6 +5,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { JOURNAL_ENTRIES, READING_LIST } from "@/content/journal";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 // Newest first. Default ordering for every entry.
 const ENTRIES = [...JOURNAL_ENTRIES].sort((a, b) => b.date.localeCompare(a.date));
@@ -66,7 +67,7 @@ const Journal = () => (
                 </div>
                 <div className="md:col-span-1 flex md:justify-end items-start">
                   <Icon
-                    name="arrow_outward"
+                    name="arrow_forward"
                     className="text-secondary opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500"
                   />
                 </div>
@@ -112,10 +113,7 @@ const Journal = () => (
                 <p className="text-on-surface-variant font-normal leading-relaxed">{r.take}</p>
                 <div className="mt-6 flex items-center gap-2 text-secondary text-sm font-headline italic">
                   Read
-                  <Icon
-                    name="arrow_outward"
-                    className="text-sm group-hover:translate-x-1 transition-transform duration-500"
-                  />
+                  <ExternalMark className="inline-block text-sm group-hover:translate-x-1 transition-transform duration-500" />
                 </div>
               </a>
             ))}

@@ -24,6 +24,7 @@ import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimelin
 import { AetherixRelationshipFigure } from "@/components/atherix/AetherixRelationshipFigure";
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { AetherixWhatRemainsPrivate } from "@/components/atherix/AetherixWhatRemainsPrivate";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.";
 
@@ -193,8 +194,8 @@ const Atherix = () => {
           </dl>
           <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link to="/architecture" className={linkCls}>The architecture</Link>
-            <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}>GitHub</a>
-            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Book a call</a>
+            <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}>GitHub<ExternalMark /></a>
+            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Book a call<ExternalMark /></a>
           </div>
           <div data-reveal-child className="mt-12 md:mt-14"><EntryActions title="Aetherix" markdownPath="/aetherix.md" variant="case" /></div>
         </div>
@@ -371,8 +372,8 @@ const Atherix = () => {
           <SectionHeading id="talk-about-a-pilot-heading" title="Talk about a pilot" />
           <p className="text-on-surface-variant leading-relaxed">Solo builder. Open to a first pilot hotel running Apaleo, and to product conversations.</p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button asChild><a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"><Icon name="event" />Book a call</a></Button>
-            <Button asChild variant="outline"><a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer"><Icon name="hub" />Architecture repo</a></Button>
+            <Button asChild><a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"><Icon name="event" />Book a call<ExternalMark /></a></Button>
+            <Button asChild variant="outline"><a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer"><Icon name="hub" />Architecture repo<ExternalMark /></a></Button>
             <Button asChild variant="outline"><Link to="/tacet"><Icon name="arrow_forward" />Read Tacet</Link></Button>
           </div>
         </div>

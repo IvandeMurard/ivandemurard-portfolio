@@ -18,6 +18,7 @@ import { McpEndpoint } from "@/components/McpEndpoint";
 
 import { MeshBlueprint } from "@/components/architecture/MeshBlueprint";
 import { MeshRail } from "@/components/architecture/MeshRail";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 const REPO = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture";
 
@@ -220,7 +221,7 @@ const Architecture = () => {
                 rel="noopener noreferrer"
                 className={linkCls}
               >
-                the canonical status enum
+                the canonical status enum<ExternalMark />
               </a>
               .
             </p>
@@ -496,7 +497,7 @@ const Architecture = () => {
                 <P>
                   Public meta-repository:{" "}
                   <a href={REPO} target="_blank" rel="noopener noreferrer" className={linkCls}>
-                    github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
+                    github.com/IvandeMurard/Hospitality-Multi-agent-Architecture<ExternalMark />
                   </a>
                   .
                 </P>

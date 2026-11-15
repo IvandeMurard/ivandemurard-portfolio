@@ -580,7 +580,7 @@ const Lore = () => (
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
             >
               <Icon name="code" className="text-base" />
-              Repository
+              Repository<ExternalMark />
             </a>
             <Link
               to="/aetherix"
@@ -603,7 +603,7 @@ const Lore = () => (
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="event" className="text-base" />
-              Contact
+              Contact<ExternalMark />
             </a>
           </div>
         </div>

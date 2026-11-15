@@ -6,6 +6,7 @@ import { Github, Linkedin, type LucideIcon } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick, type ClickKind } from "@/hooks/useTrackClick";
+import { ExternalMark, EXTERNAL_SUFFIX } from "@/components/ui/ExternalMark";
 
 const CHANNELS: Array<{
   label: string;
@@ -104,7 +105,7 @@ const Contact = () => {
                 target={c.external ? "_blank" : undefined}
                 rel={c.external ? "noopener noreferrer" : undefined}
                 onClick={() => { haptic("tap"); track({ label: c.label, href: c.href, kind: c.kind }); }}
-                aria-label={`${c.label}: ${c.desc}${c.external ? " (opens in a new tab)" : ""}`}
+                aria-label={`${c.label}: ${c.desc}${c.external ? EXTERNAL_SUFFIX : ""}`}
                 className="group grid grid-cols-[28px_1fr_auto] md:grid-cols-[28px_200px_1fr_auto] items-center gap-x-5 py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
               >
                 {c.Logo ? (
@@ -114,7 +115,11 @@ const Contact = () => {
                 )}
                 <span className="font-headline italic text-2xl md:text-3xl text-primary group-hover:text-secondary transition-colors">{c.label}</span>
                 <span className="hidden md:block text-on-surface-variant leading-relaxed">{c.desc}</span>
-                <Icon name={c.external ? "arrow_outward" : "arrow_forward"} className="text-secondary text-base group-hover:translate-x-1 transition-transform" />
+                {c.external ? (
+                  <ExternalMark className="inline-block text-secondary text-base group-hover:translate-x-1 transition-transform" />
+                ) : (
+                  <Icon name="arrow_forward" className="text-secondary text-base group-hover:translate-x-1 transition-transform" />
+                )}
               </a>
             </li>
           ))}

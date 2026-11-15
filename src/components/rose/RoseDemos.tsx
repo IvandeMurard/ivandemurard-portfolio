@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
 import { CONNECT_LINKS, DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS, SKETCH_STEPS } from "@/components/rose/roseDemoData";
 import { useDemoLoop } from "@/components/rose/useDemoLoop";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 /**
  * The three demos of copy deck v2 (docs/rose-case-study-copy-v2.md). Layout and loop logic follow
@@ -103,7 +104,7 @@ export const DesignDemo = ({ reduced, loop }: { reduced: boolean; loop: DemoLoop
                   <li key={l.href}>
                     <span className="font-label text-xs opacity-80">{l.kind} · </span>
                     {l.external
-                      ? <a href={l.href} target="_blank" rel="noopener noreferrer" className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}<span className="sr-only"> (opens in a new tab)</span></a>
+                      ? <a href={l.href} target="_blank" rel="noopener noreferrer" className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}<ExternalMark /></a>
                       : <Link to={l.href} className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}</Link>}
                   </li>
                 ))}

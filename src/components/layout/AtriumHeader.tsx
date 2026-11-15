@@ -9,6 +9,7 @@ import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
+import { externalName } from "@/components/ui/ExternalMark";
 
 /** Live Paris time and the Day/Dusk ambience, one control. */
 const ClockMood = ({ compact = false }: { compact?: boolean }) => {
@@ -128,7 +129,7 @@ export const AtriumHeader = () => {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={label}
+                aria-label={href.startsWith("http") ? externalName(label) : label}
                 title={label}
                 onClick={() => track({ label, href, kind })}
                 className="hidden 2xl:inline-flex text-on-surface-variant hover:text-secondary transition-all duration-500 hover:scale-110"
@@ -197,7 +198,7 @@ export const AtriumHeader = () => {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={label}
+                aria-label={href.startsWith("http") ? externalName(label) : label}
                 title={label}
                 onClick={() => track({ label, href, kind })}
                 className="text-on-surface-variant hover:text-secondary transition-colors"
