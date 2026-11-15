@@ -22,7 +22,7 @@ export const createTermTaker = (marks: TermMark[]) => {
       const content = inline[1]
         ? inline[2].startsWith("/")
           ? <Link to={inline[2]} className={cls}>{render(inline[1], depth + 1)}</Link>
-          : <a href={inline[2]} target="_blank" rel="noopener noreferrer" className={cls}>{render(inline[1], depth + 1)}<ExternalMark /></a>
+          : <a href={inline[2]} target="_blank" rel="noopener noreferrer" className={cls}><ExternalMark>{render(inline[1], depth + 1)}</ExternalMark></a>
         : inline[3] ? <strong>{render(inline[3], depth + 1)}</strong>
         : inline[4] ? <em>{render(inline[4], depth + 1)}</em>
         : <code>{inline[5]}</code>;

@@ -4,7 +4,7 @@ import { useTrackClick } from "@/hooks/useTrackClick";
 import { CAL_URL } from "./roseConfig";
 import { logRoseEvent } from "./roseEvents";
 import { normalizeRoseText } from "./roseAnswer";
-import { ExternalMark, externalName } from "@/components/ui/ExternalMark";
+import { ExternalSign, externalName } from "@/components/ui/ExternalMark";
 
 interface RoseBookingCardProps {
   intent: "product" | "technical" | "culture" | "exploring" | null;
@@ -53,7 +53,7 @@ export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardPr
           <span className="mt-1 text-sm text-on-surface-variant">{normalizeRoseText(reason)}</span>
         ) : null}
       </div>
-      <ExternalMark className="inline-block text-2xl text-secondary transition-transform group-hover:translate-x-1" />
+      <ExternalSign className="inline-block text-2xl text-secondary transition-transform group-hover:translate-x-1" />
     </a>
   );
 };

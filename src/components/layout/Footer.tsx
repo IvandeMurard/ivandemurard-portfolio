@@ -9,7 +9,7 @@ import { externalName } from "@/components/ui/ExternalMark";
 
 const ICON_LINKS = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, external: false, kind: "contact" as const },
-  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar, external: true, kind: "contact" as const },
+  { label: "Book a call", href: SOCIAL_LINKS.schedule, Icon: Calendar, external: true, kind: "contact" as const },
   { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin, external: true, kind: "social" as const },
   { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, external: true, kind: "social" as const },
 ];

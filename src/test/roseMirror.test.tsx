@@ -145,7 +145,7 @@ describe("Rose mirror: no text that is not on the page", () => {
     const second = container.textContent ?? "";
     // The demos play data of their own; the exchanges and formats are on the page as the loop runs.
     const demo = [...HERO_EXCHANGES.map((e) => `${e.q} ${e.a}`), ...DESIGN_EXCHANGES.map((e) => `${e.format} ${e.q} ${e.a}`)].join(" ");
-    return norm(`${first} ${second} ${demo}`).replace(/ ↗, opens in a new tab/g, "").replace(/ \((?:PDF, )?opens in a new tab\)/g, "");
+    return norm(`${first} ${second} ${demo}`).replace(/, opens in a new tab↗/g, "").replace(/ \((?:PDF, )?opens in a new tab\)/g, "");
   };
 
   /** Plain text of a mirror line: no list or heading marks, no link targets, no bold. */

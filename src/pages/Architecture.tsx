@@ -221,7 +221,7 @@ const Architecture = () => {
                 rel="noopener noreferrer"
                 className={linkCls}
               >
-                the canonical status enum<ExternalMark />
+                <ExternalMark>the canonical status enum</ExternalMark>
               </a>
               .
             </p>
@@ -497,7 +497,7 @@ const Architecture = () => {
                 <P>
                   Public meta-repository:{" "}
                   <a href={REPO} target="_blank" rel="noopener noreferrer" className={linkCls}>
-                    github.com/IvandeMurard/Hospitality-Multi-agent-Architecture<ExternalMark />
+                    <ExternalMark>github.com/IvandeMurard/Hospitality-Multi-agent-Architecture</ExternalMark>
                   </a>
                   .
                 </P>

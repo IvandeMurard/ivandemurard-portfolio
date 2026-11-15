@@ -203,8 +203,7 @@ const Tacet = () => (
                     rel="noopener noreferrer"
                     className="font-body text-sm text-on-surface inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary hover:text-primary transition-colors"
                   >
-                    {info.value}
-                    <ExternalMark className="text-xs" />
+                    <ExternalMark className="text-xs">{info.value}</ExternalMark>
                   </a>
                 ) : (
                   <p className="font-body text-sm text-on-surface">{info.value}</p>
@@ -486,10 +485,11 @@ const Tacet = () => (
               rel="noopener noreferrer"
               className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
-              <span className="font-label text-xs uppercase tracking-widest mr-3">
-                Original B2C dashboard, visual reference
-              </span>
-              <ExternalMark className="text-xs" />
+              <ExternalMark className="text-xs">
+                <span className="font-label text-xs uppercase tracking-widest mr-3">
+                  Original B2C dashboard, visual reference
+                </span>
+              </ExternalMark>
             </a>
             <a
               href="https://github.com/IvandeMurard/tacet-app"
@@ -497,10 +497,11 @@ const Tacet = () => (
               rel="noopener noreferrer"
               className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
-              <span className="font-label text-xs uppercase tracking-widest mr-3">
-                View source on GitHub
-              </span>
-              <ExternalMark className="text-xs" />
+              <ExternalMark className="text-xs">
+                <span className="font-label text-xs uppercase tracking-widest mr-3">
+                  View source on GitHub
+                </span>
+              </ExternalMark>
             </a>
           </div>
         </div>

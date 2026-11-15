@@ -31,6 +31,6 @@ COMPASS_SECTIONS.forEach((section, i) => {
     renderBlocks(subsection.blocks, i + 1);
   });
 });
-lines.push(`[Schedule a conversation](${COMPASS.schedule})`, "", "© Ivan de Murard. All rights reserved.", "");
+lines.push(`[Book a call](${COMPASS.schedule})`, "", "© Ivan de Murard. All rights reserved.", "");
 writeFileSync("public/compass.md", lines.join("\n"));
 console.log("[compass] synchronized Markdown mirror");

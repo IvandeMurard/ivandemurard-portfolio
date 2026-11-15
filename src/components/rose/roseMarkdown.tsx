@@ -104,8 +104,7 @@ const RoseLink = ({ href, children }: ComponentProps<"a">) => {
   const text = plainText(children);
   return (
     <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={linkCls}>
-      {children}
-      <ExternalMark />
+      <ExternalMark>{children}</ExternalMark>
     </a>
   );
 };

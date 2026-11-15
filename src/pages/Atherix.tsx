@@ -194,8 +194,8 @@ const Atherix = () => {
           </dl>
           <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link to="/architecture" className={linkCls}>The architecture</Link>
-            <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}>GitHub<ExternalMark /></a>
-            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Book a call<ExternalMark /></a>
+            <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>GitHub</ExternalMark></a>
+            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>Book a call</ExternalMark></a>
           </div>
           <div data-reveal-child className="mt-12 md:mt-14"><EntryActions title="Aetherix" markdownPath="/aetherix.md" variant="case" /></div>
         </div>
@@ -372,8 +372,8 @@ const Atherix = () => {
           <SectionHeading id="talk-about-a-pilot-heading" title="Talk about a pilot" />
           <p className="text-on-surface-variant leading-relaxed">Solo builder. Open to a first pilot hotel running Apaleo, and to product conversations.</p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button asChild><a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"><Icon name="event" />Book a call<ExternalMark /></a></Button>
-            <Button asChild variant="outline"><a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer"><Icon name="hub" />Architecture repo<ExternalMark /></a></Button>
+            <Button asChild><a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"><Icon name="event" /><ExternalMark>Book a call</ExternalMark></a></Button>
+            <Button asChild variant="outline"><a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer"><Icon name="hub" /><ExternalMark>Architecture repo</ExternalMark></a></Button>
             <Button asChild variant="outline"><Link to="/tacet"><Icon name="arrow_forward" />Read Tacet</Link></Button>
           </div>
         </div>

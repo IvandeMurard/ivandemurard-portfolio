@@ -5,7 +5,9 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { RoseCue } from "@/components/rose/RoseKinetic";
 import { CLOSING_ROOMS, ClosingContact } from "@/components/case/ClosingContact";
+import { computeAccessibleName } from "dom-accessibility-api";
 import { ExternalMark } from "@/components/ui/ExternalMark";
+import Footer from "@/components/layout/Footer";
 import { ROSE_NOTES_KEY, resetRoseNotesCache } from "@/lib/roseNotes";
 
 // Polish batch 1: the flagship paragraph size, one sign for leaving the site, the hairline above the first note's footer.
@@ -41,10 +43,13 @@ describe("One sign for leaving the site", () => {
   });
 
   it("draws the arrow ↗ aria-hidden and speaks ', opens in a new tab' in the link's name", () => {
-    render(<a href="https://example.org/x" target="_blank" rel="noopener noreferrer">AUTHORS.md<ExternalMark /></a>);
-    const link = screen.getByRole("link", { name: /^AUTHORS.md ?, opens in a new tab$/ });
-    expect(link.textContent).toBe("AUTHORS.md ↗, opens in a new tab");
-    expect(link.querySelector('[aria-hidden="true"]')?.textContent).toBe(" ↗");
+    render(<a href="https://example.org/x" target="_blank" rel="noopener noreferrer"><ExternalMark>AUTHORS.md</ExternalMark></a>);
+    const link = screen.getByRole("link", { name: "AUTHORS.md, opens in a new tab" });
+    expect(computeAccessibleName(link)).toBe("AUTHORS.md, opens in a new tab");
+    expect(link.querySelector('[aria-hidden="true"]')?.textContent).toBe("↗");
+    // the gap before the arrow is a CSS margin, not a space in the text
+    expect(link.querySelector('[aria-hidden="true"]')?.className).toContain("ml-[0.25em]");
+    expect(link.textContent).toBe("AUTHORS.md, opens in a new tab↗");
   });
 
   // The source scan: every link that opens a new tab carries the sign or the words, and the sign is on no other link.
@@ -63,7 +68,7 @@ describe("One sign for leaving the site", () => {
       const src = read(file);
       for (const m of src.matchAll(/target=(?:"_blank"|\{[^}]*"_blank"[^}]*\})/g)) {
         const el = around(src, m.index ?? 0);
-        if (!/ExternalMark|externalName\(/.test(el)) missing.push(`${file}: ${el.slice(0, 90).replace(/\s+/g, " ")}`);
+        if (!/ExternalMark|externalName\(|EXTERNAL_SUFFIX/.test(el)) missing.push(`${file}: ${el.slice(0, 90).replace(/\s+/g, " ")}`);
       }
       // the object form (target: "_blank" in spread props): the file must carry as many marks as new-tab links
       const objects = src.match(/target:\s*"_blank"/g)?.length ?? 0;
@@ -78,7 +83,7 @@ describe("One sign for leaving the site", () => {
       const src = read(file);
       for (const m of src.matchAll(/<ExternalMark/g)) {
         const el = around(src, m.index ?? 0);
-        const opensNewTab = /_blank|\.external\b|startsWith\("http"\)|const external|external\b/.test(el) || file.endsWith("ClosingContact.tsx");
+        const opensNewTab = /_blank|\.external\b|startsWith\("http"\)|const external|external\b|chip\.booking/.test(el) || file.endsWith("ClosingContact.tsx") || file.endsWith("RoseDock.tsx");
         if (!opensNewTab) wrong.push(`${file}: ${el.slice(0, 90).replace(/\s+/g, " ")}`);
       }
     }
@@ -92,7 +97,7 @@ describe("One sign for leaving the site", () => {
 
   it("is on the Compass demo link of the closing contact, and on no internal link", () => {
     render(<MemoryRouter><ClosingContact room="compass" /></MemoryRouter>);
-    const demo = screen.getByRole("link", { name: /^Open the demo ?, opens in a new tab$/ });
+    const demo = screen.getByRole("link", { name: "Open the demo, opens in a new tab" });
     expect(demo.getAttribute("target")).toBe("_blank");
     expect(demo.textContent).toContain("↗");
     expect(demo.querySelector(".material-symbols-outlined")).toBeNull();
@@ -128,17 +133,15 @@ describe("The first note's footer", () => {
 
 describe("Every rendered link that opens a new tab", () => {
   const NAME = /, opens in a new tab$/;
-  // The test environment puts a space before the comma that a browser does not; both end with the same words.
   const check = (root: HTMLElement) => {
     const links = [...root.querySelectorAll<HTMLAnchorElement>('a[target="_blank"]')];
     expect(links.length).toBeGreaterThan(0);
     for (const a of links) {
-      const name = (a.getAttribute("aria-label") ?? a.textContent ?? "").replace(/\s+,/, ",");
+      const name = computeAccessibleName(a);
       expect(name, a.getAttribute("href") ?? "").toMatch(NAME);
-      const visible = [...a.childNodes].some((n) => n.nodeType === 3 ? (n.textContent ?? "").trim() : (n as Element).textContent?.trim() && !(n as Element).classList.contains("sr-only"));
-      // with visible text: the arrow is drawn; an icon-only link carries the words in its aria-label instead
+      expect(name, a.getAttribute("href") ?? "").not.toContain(" ,");
+      // a link with visible text draws the arrow; an icon-only link carries the same words in its aria-label
       if (!a.getAttribute("aria-label")) expect(a.textContent, a.getAttribute("href") ?? "").toContain("↗");
-      else expect(visible || a.getAttribute("aria-label")).toBeTruthy();
     }
   };
 
@@ -158,5 +161,25 @@ describe("Every rendered link that opens a new tab", () => {
     const lore = render(<MemoryRouter><ClosingContact room="lore" /></MemoryRouter>);
     expect(screen.getByRole("link", { name: /GitHub repo/ }).textContent).toContain("↗");
     lore.unmount();
+  });
+});
+
+describe("The links of the page frame and the dock", () => {
+  it("names every icon-only external link of the footer with the same words, no space before the comma", () => {
+    const { container } = render(<MemoryRouter><Footer /></MemoryRouter>);
+    const links = [...container.querySelectorAll<HTMLAnchorElement>('a[target="_blank"]')];
+    expect(links.length).toBeGreaterThan(0);
+    for (const a of links) {
+      const name = computeAccessibleName(a);
+      expect(name).toMatch(/, opens in a new tab$/);
+      expect(name).not.toContain(" ,");
+    }
+  });
+
+  it("labels the booking link \"Book a call\" (lower-case c) wherever it is a label", () => {
+    const SOURCES = ["src/components/layout/Footer.tsx", "src/components/layout/AtriumHeader.tsx", "src/pages/Contact.tsx", "src/content/site.ts", "src/pages/Lore.tsx", "src/pages/Compass.tsx"];
+    for (const file of SOURCES) expect(read(file), file).not.toMatch(/Book a Call|Schedule a conversation|Book a slot|label: "Schedule"/);
+    expect(read("src/components/layout/Footer.tsx")).toContain('label: "Book a call"');
+    expect(read("src/components/layout/AtriumHeader.tsx")).toContain('label: "Book a call"');
   });
 });

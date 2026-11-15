@@ -73,7 +73,7 @@ const Cv = () => (
         <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-body text-sm text-on-surface-variant">
           <a href={`mailto:${CV.email}`} className="hover:text-primary transition-colors">{CV.email}</a>
           <a href={`https://${CV.website}`} className="hover:text-primary transition-colors">{CV.website}</a>
-          <a href={`https://${CV.github}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">{CV.github}<ExternalMark /></a>
+          <a href={`https://${CV.github}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><ExternalMark>{CV.github}</ExternalMark></a>
         </div>
         <p className="mt-10 max-w-4xl font-body text-lg md:text-xl text-on-surface-variant leading-relaxed">{CV.summary}</p>
       </header>

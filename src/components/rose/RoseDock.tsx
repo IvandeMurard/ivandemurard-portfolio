@@ -21,6 +21,7 @@ import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 import { ROSE_EMPTY_ANSWER, ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
 import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose-provider";
 import { ROSE_BOOKING_LINE_PART } from "../../../supabase/functions/_shared/rose-booking-line";
+import { ExternalMark } from "@/components/ui/ExternalMark";
 
 const SESSION_KEY = "rose_session";
 
@@ -542,7 +543,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => onChip(chip)}
                   disabled={isLoading && !chip.booking}
-                  aria-label={chip.booking ? "Book a call (opens cal.com in a new tab)" : chip.ariaLabel ?? chip.label}
+                  aria-label={chip.booking ? undefined : chip.ariaLabel ?? chip.label}
                   className={cn(
                     "rounded-full border px-3.5 py-1.5 text-xs transition-colors hover:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50",
                     chip.booking
@@ -550,7 +551,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                       : "border-outline-variant bg-surface-container text-on-surface",
                   )}
                 >
-                  {chip.label}
+                  {chip.booking ? <ExternalMark>{chip.label}</ExternalMark> : chip.label}
                 </button>
               ))}
             </div>

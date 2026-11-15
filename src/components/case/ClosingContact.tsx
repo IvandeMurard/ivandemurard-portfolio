@@ -72,7 +72,7 @@ export const ClosingContact = ({ room }: { room: keyof typeof CLOSING_ROOMS }) =
               {a.internal ? (
                 <Link to={a.href}>{a.icon && <Icon name={a.icon} />}{a.label}</Link>
               ) : (
-                <a href={a.href} {...(a.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{a.icon && <Icon name={a.icon} />}{a.label}{a.href.startsWith("http") && <ExternalMark />}</a>
+                <a href={a.href} {...(a.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{a.icon && <Icon name={a.icon} />}{a.href.startsWith("http") ? <ExternalMark>{a.label}</ExternalMark> : a.label}</a>
               )}
             </Button>
           ))}

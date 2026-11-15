@@ -6,7 +6,7 @@ import { Github, Linkedin, type LucideIcon } from "lucide-react";
 import { SOCIAL_LINKS } from "@/content/site";
 import { useHaptic } from "@/hooks/useHaptic";
 import { useTrackClick, type ClickKind } from "@/hooks/useTrackClick";
-import { ExternalMark, EXTERNAL_SUFFIX } from "@/components/ui/ExternalMark";
+import { ExternalSign, EXTERNAL_SUFFIX } from "@/components/ui/ExternalMark";
 
 const CHANNELS: Array<{
   label: string;
@@ -32,9 +32,9 @@ const CHANNELS: Array<{
     kind: "contact",
   },
   {
-    label: "Schedule",
+    label: "Book a call",
     desc: "Book a 30-minute discovery call.",
-    cta: "Book a slot",
+    cta: "Book a call",
     href: SOCIAL_LINKS.schedule,
     icon: "calendar_month",
     external: true,
@@ -116,7 +116,7 @@ const Contact = () => {
                 <span className="font-headline italic text-2xl md:text-3xl text-primary group-hover:text-secondary transition-colors">{c.label}</span>
                 <span className="hidden md:block text-on-surface-variant leading-relaxed">{c.desc}</span>
                 {c.external ? (
-                  <ExternalMark className="inline-block text-secondary text-base group-hover:translate-x-1 transition-transform" />
+                  <ExternalSign className="inline-block text-secondary text-base group-hover:translate-x-1 transition-transform" />
                 ) : (
                   <Icon name="arrow_forward" className="text-secondary text-base group-hover:translate-x-1 transition-transform" />
                 )}

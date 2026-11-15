@@ -112,8 +112,7 @@ const Journal = () => (
                 </p>
                 <p className="text-on-surface-variant font-normal leading-relaxed">{r.take}</p>
                 <div className="mt-6 flex items-center gap-2 text-secondary text-sm font-headline italic">
-                  Read
-                  <ExternalMark className="inline-block text-sm group-hover:translate-x-1 transition-transform duration-500" />
+                  <ExternalMark className="inline-block text-sm group-hover:translate-x-1 transition-transform duration-500">Read</ExternalMark>
                 </div>
               </a>
             ))}

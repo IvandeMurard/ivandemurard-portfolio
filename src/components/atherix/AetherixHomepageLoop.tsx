@@ -181,7 +181,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
       <div className="mt-4 flex items-start justify-between gap-4">
         <a href={LOOP_SOURCE_URL} target="_blank" rel="noopener noreferrer"
           className="font-mono text-[11px] text-on-surface-variant underline underline-offset-2 hover:text-on-surface">
-          Sandbox hotel · synthetic data · real services · seed {LOOP.provenance.seed}<ExternalMark />
+          <ExternalMark>Sandbox hotel · synthetic data · real services · seed {LOOP.provenance.seed}</ExternalMark>
         </a>
         <button type="button" onClick={() => setRun((r) => r + 1)}
           className="font-mono text-[11px] text-on-surface-variant border-b border-outline-variant hover:text-on-surface shrink-0">

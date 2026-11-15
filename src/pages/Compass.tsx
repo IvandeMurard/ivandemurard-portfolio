@@ -87,9 +87,9 @@ const Compass = () => {
               <dt className="text-secondary">Status</dt><dd>{COMPASS.status}</dd>
             </dl>
             <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <a href={COMPASS.demo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>Open the demo<ExternalMark /></a>
-              <a href={COMPASS.repo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>GitHub<ExternalMark /></a>
-              <a href={COMPASS.mcp} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}>Live MCP<ExternalMark /></a>
+              <a href={COMPASS.demo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}><ExternalMark>Open the demo</ExternalMark></a>
+              <a href={COMPASS.repo} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}><ExternalMark>GitHub</ExternalMark></a>
+              <a href={COMPASS.mcp} target="_blank" rel="noopener noreferrer" className={`${linkCls} whitespace-nowrap`}><ExternalMark>Live MCP</ExternalMark></a>
             </div>
             <div data-reveal-child className="mt-12 md:mt-14"><EntryActions title="Compass" markdownPath="/compass.md" variant="case" /></div>
           </div>
@@ -118,7 +118,7 @@ const Compass = () => {
                           excerpt="Every address has a story. Compass reads it before you sign: open data turned into traceable, address-level context for commercial location decisions in Paris."
                           mirror="/compass.md"
                         />
-                        <p className="mt-8"><a href={COMPASS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}>Schedule a conversation<ExternalMark /></a></p>
+                        <p className="mt-8"><a href={COMPASS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>Book a call</ExternalMark></a></p>
                         <p className="mt-5 font-body font-normal text-sm text-on-surface-variant">© Ivan de Murard. All rights reserved.</p>
                       </div>}
                     </div>

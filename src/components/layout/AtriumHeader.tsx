@@ -48,7 +48,7 @@ const ClockMood = ({ compact = false }: { compact?: boolean }) => {
 
 const UTILITY_ICON_NAV: { label: string; href: string; Icon: LucideIcon; kind: "contact" | "social" }[] = [
   { label: "Email", href: SOCIAL_LINKS.email, Icon: Mail, kind: "contact" },
-  { label: "Book a Call", href: SOCIAL_LINKS.schedule, Icon: Calendar, kind: "contact" },
+  { label: "Book a call", href: SOCIAL_LINKS.schedule, Icon: Calendar, kind: "contact" },
   { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: Linkedin, kind: "social" },
   { label: "GitHub", href: SOCIAL_LINKS.github, Icon: Github, kind: "social" },
 ];

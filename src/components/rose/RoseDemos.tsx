@@ -104,7 +104,7 @@ export const DesignDemo = ({ reduced, loop }: { reduced: boolean; loop: DemoLoop
                   <li key={l.href}>
                     <span className="font-label text-xs opacity-80">{l.kind} · </span>
                     {l.external
-                      ? <a href={l.href} target="_blank" rel="noopener noreferrer" className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}<ExternalMark /></a>
+                      ? <a href={l.href} target="_blank" rel="noopener noreferrer" className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}><ExternalMark>{l.text}</ExternalMark></a>
                       : <Link to={l.href} className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}</Link>}
                   </li>
                 ))}

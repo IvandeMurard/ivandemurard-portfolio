@@ -147,8 +147,7 @@ const Lore = () => (
                     title={info.hint}
                     className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
                   >
-                    {info.value}
-                    <ExternalMark className="text-xs" />
+                    <ExternalMark className="text-xs">{info.value}</ExternalMark>
                   </a>
                 ) : (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
@@ -504,8 +503,7 @@ const Lore = () => (
                 rel="noopener noreferrer"
                 className="text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
               >
-                AUTHORS.md
-                <ExternalMark className="text-xs" />
+                <ExternalMark className="text-xs">AUTHORS.md</ExternalMark>
               </a>
             </p>
           </div>
@@ -580,7 +578,7 @@ const Lore = () => (
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
             >
               <Icon name="code" className="text-base" />
-              Repository<ExternalMark />
+              <ExternalMark>Repository</ExternalMark>
             </a>
             <Link
               to="/aetherix"
@@ -603,7 +601,7 @@ const Lore = () => (
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
             >
               <Icon name="event" className="text-base" />
-              Contact<ExternalMark />
+              <ExternalMark>Book a call</ExternalMark>
             </a>
           </div>
         </div>

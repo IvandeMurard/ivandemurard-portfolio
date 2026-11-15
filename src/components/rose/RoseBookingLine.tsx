@@ -1,3 +1,4 @@
+import { externalName } from "@/components/ui/ExternalMark";
 import { CompassMark } from "./CompassMark";
 
 /**
@@ -18,7 +19,7 @@ export const RoseBookingLine = ({ onBook }: { onBook: () => void }) => (
         <button
           type="button"
           onClick={onBook}
-          aria-label="Book a call with Ivan (opens cal.com in a new tab)"
+          aria-label={externalName("Book a call with Ivan")}
           className="rounded-sm text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
         >
           {BOOKING_LINE_LINK}

@@ -41,7 +41,7 @@ export const PRIMARY_NAV: NavItem[] = [
 
 export const UTILITY_NAV: { label: string; href: string }[] = [
   { label: "Email", href: SOCIAL_LINKS.email },
-  { label: "Schedule", href: SOCIAL_LINKS.schedule },
+  { label: "Book a call", href: SOCIAL_LINKS.schedule },
   { label: "LinkedIn", href: SOCIAL_LINKS.linkedin },
   { label: "GitHub", href: SOCIAL_LINKS.github },
 ];

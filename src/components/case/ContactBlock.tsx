@@ -44,7 +44,7 @@ export const ContactBlock = ({ number }: { number?: string }) => {
           <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"
             onClick={() => track({ label: "Book a call", href: SOCIAL_LINKS.schedule, kind: "contact" })}
             className="bg-primary text-on-primary px-8 py-4 rounded-xl font-medium tracking-wide hover:bg-secondary hover:text-on-secondary transition-colors">
-            {CONTACT.buttons.book}<ExternalMark />
+            <ExternalMark>{CONTACT.buttons.book}</ExternalMark>
           </a>
           <a href={SOCIAL_LINKS.email} className="font-headline text-[22px] text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">
             {CONTACT.buttons.email}
@@ -52,7 +52,7 @@ export const ContactBlock = ({ number }: { number?: string }) => {
           <a href={PERPLEXITY_HREF} target="_blank" rel="noopener noreferrer"
             onClick={() => track({ label: "Ask Perplexity", href: PERPLEXITY_HREF, kind: "contact" })}
             className="text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors">
-            {CONTACT.buttons.askAi}<ExternalMark />
+            <ExternalMark>{CONTACT.buttons.askAi}</ExternalMark>
           </a>
         </div>
         <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2" data-reveal-child>
