@@ -13,7 +13,9 @@ export const ROSE_FOLLOWUPS_TOOL_DESCRIPTION =
  * only when the visitor explicitly asks for a call, a meeting or a way to talk to Ivan.
  */
 export const isRoseExplicitMeetingRequest = (question: string): boolean =>
-  /\b(?:call|calls|meeting|meet|book|booking|schedule|appointment|calendar|talk to (?:ivan|him)|speak (?:to|with) (?:ivan|him)|chat with (?:ivan|him)|get in touch|contact (?:ivan|him)|reach (?:ivan|him)|interview)\b/i.test(question);
+  /\b(?:call|calls|meeting|meet|book|booking|schedule|appointment|calendar|talk to (?:ivan|him)|speak (?:to|with) (?:ivan|him)|chat with (?:ivan|him)|get in touch|contact (?:ivan|him)|reach (?:ivan|him)|interview)\b/i.test(question)
+  // The same request in French: an appel, a rendez-vous, a réservation, an entretien, a way to talk to or contact Ivan.
+  || /(?<![\p{L}])(?:appel|appeler|rendez-vous|réserver|réservation|entretien|échanger avec (?:ivan|lui)|parler (?:à|avec) (?:ivan|lui)|contacter (?:ivan|lui)|prendre contact)(?![\p{L}])/iu.test(question);
 
 export const ROSE_NO_BOOKING_NOTICE =
   "For this turn the propose_booking tool is not available. The interface adds a booking line under your answer itself: do not invite a call or mention booking in the answer.";

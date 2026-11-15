@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { getRoseSystemPrompt } from "../../supabase/functions/_shared/rose-context";
+import { getRoseSystemPrompt, isRoseCareerQuestion, shouldShowRoseBookingLine } from "../../supabase/functions/_shared/rose-context";
 import { isFrenchQuestion, ROSE_FRENCH_RULE, roseLanguageRule } from "../../supabase/functions/_shared/rose-language";
-import { addressesIvanAsYou, isRoseFollowupAllowed, roseFollowupRejection } from "../../supabase/functions/_shared/rose-tool-contract";
+import { addressesIvanAsYou, isRoseExplicitMeetingRequest, isRoseFollowupAllowed, roseFollowupRejection } from "../../supabase/functions/_shared/rose-tool-contract";
 
 // The visitor's language: Rose answers in the language of the question (English or French). The interface stays English.
 
@@ -36,6 +36,31 @@ describe("the language rule in the prompt", () => {
     const q = "What does Ivan measure?";
     const en = await getRoseSystemPrompt({ page: { path: "/aetherix" }, question: q });
     expect(en).not.toContain(ROSE_FRENCH_RULE);
+  });
+});
+
+describe("a profile question in French is routed like the English one", () => {
+  const QUESTIONS = [FR, "Ivan est-il ouvert à un poste de Head of Product ?"];
+  for (const q of QUESTIONS) {
+    it(`loads the CV and the Contact text, and withholds the booking card: ${q}`, async () => {
+      expect(isRoseCareerQuestion(q)).toBe(true);
+      expect(shouldShowRoseBookingLine(q)).toBe(true);
+      const prompt = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: q });
+      expect(prompt).toContain("--- BEGIN CASE STUDY: cv ---");
+      expect(prompt).toContain("Open to AI Product Manager and Product Builder roles");
+      expect(prompt).toContain("Answer only from the CV reference and the Contact text");
+      expect(prompt).toContain("never confirm openness to any other role");
+      expect(prompt).toContain("propose_booking tool is not available");
+    });
+  }
+  it("still offers the booking card when a French profile question asks for a call", () => {
+    for (const q of ["Je cherche un poste pour Ivan, peut-on prendre un rendez-vous ?", "Quel est son parcours ? Je voudrais un appel avec Ivan."]) {
+      expect(isRoseExplicitMeetingRequest(q), q).toBe(true);
+      expect(shouldShowRoseBookingLine(q), q).toBe(false);
+    }
+  });
+  it("does not turn an ordinary French question into a profile question", () => {
+    for (const q of ["Comment Ivan mesure-t-il Aetherix ?", "Que dit la page sur les relances ?"]) expect(isRoseCareerQuestion(q), q).toBe(false);
   });
 });
 

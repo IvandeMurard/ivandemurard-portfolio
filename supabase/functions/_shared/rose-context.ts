@@ -326,8 +326,12 @@ function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
  * Matches on any page, including Rose's own, where no CV is otherwise loaded.
  */
 export function isRoseCareerQuestion(question: string): boolean {
-  return /\b(?:roles?|looking for|hiring|hire|jobs?|positions?|open to|available|background|experience|skills?|cv|resume|résumé|what does (?:he|ivan) do|work with (?:him|ivan)|describe (?:his|ivan.s) work)\b/i.test(question);
+  return /\b(?:roles?|looking for|hiring|hire|jobs?|positions?|open to|available|background|experience|skills?|cv|resume|résumé|what does (?:he|ivan) do|work with (?:him|ivan)|describe (?:his|ivan.s) work)\b/i.test(question)
+    || FRENCH_CAREER.test(question);
 }
+
+/** The same profile questions in French (the visitor's language, 15 Nov): poste, rôle, parcours, ouvert à, son travail... */
+const FRENCH_CAREER = /(?<![\p{L}])(?:postes?|rôles?|emplois?|embauch\p{L}*|recrut\p{L}*|parcours|expériences?|compétences?|disponibles?|ouverte?s? à|ouverte?s? aux|que fait (?:ivan|il)|(?:son|ses) (?:travail|métier|profil)|décrit-il|recherche-t-il|cherche-t-il)(?![\p{L}])/iu;
 
 /** Booking is offered unless the turn is a profile question without an explicit call or meeting request. */
 export const shouldOfferRoseBooking = (question: string): boolean =>
