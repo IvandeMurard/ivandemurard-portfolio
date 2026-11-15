@@ -85,7 +85,8 @@ describe("Rose canonical knowledge", () => {
       question: "What does Ivan measure?",
     });
     expect(rose).toContain("Rose's own design, operation and evaluation");
-    expect(rose).toContain('Does Rose actually help?');
+    expect(rose).toContain('#ch-learn');
+    expect(rose).not.toContain('Does Rose actually help?');
     expect(rose).toContain("most likely interpretation");
     expect(rose).not.toContain("Aetherix");
 

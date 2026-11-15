@@ -425,6 +425,15 @@ export type RoseTurnContext = {
 /** Sanitise: page and chip data come from the browser, so they are quoted, never trusted as instructions. */
 const clean = (value: unknown, max = 160): string =>
   typeof value === "string" ? value.replace(/[\r\n`]/g, " ").trim().slice(0, max) : "";
+/** Server-owned allowlists: only structural tokens from the browser reach the prompt, never free text. */
+const safePath = (value: unknown): string => {
+  const v = clean(value, 120).split(/[?#]/)[0];
+  return /^\/[a-z0-9\-\/]*$/i.test(v) ? v : "";
+};
+const safeToken = (value: unknown, max = 80): string => {
+  const v = clean(value, max);
+  return /^[a-z0-9_-]+$/i.test(v) ? v : "";
+};
 
 const REFERENT_GUIDANCE = [
   "",
@@ -445,9 +454,8 @@ const REFERENT_GUIDANCE = [
 export function turnReferentContext(ctx?: RoseTurnContext): string {
   const question = clean(ctx?.question, 2000);
   if (!question) return "";
-  const path = clean(ctx?.page?.path, 120).split(/[?#]/)[0].replace(/\/+$/, "") || "/";
-  const heading = clean(ctx?.page?.section_heading, 120);
-  const sectionId = clean(ctx?.page?.section_id, 80);
+  const path = safePath(ctx?.page?.path).replace(/\/+$/, "") || "/";
+  const sectionId = safeToken(ctx?.page?.section_id, 80);
   const named = CASE_STUDY_SLUGS.filter(slug =>
     new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question),
   );
@@ -474,7 +482,7 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
   }
 
   const inViewText = pageSubject
-    ? `The current page concerns ${pageSubject}${heading ? `, in the section "${heading}"${sectionId ? ` (#${sectionId})` : ""}` : ""}.`
+    ? `The current page concerns ${pageSubject}${sectionId ? `, in section #${sectionId}` : ""}.`
     : "The current page does not establish a narrow subject.";
 
   if (isRoseCareerQuestion(question) && !careerNamesProject(question)) {
@@ -505,19 +513,13 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
 function contextLayer(ctx?: RoseTurnContext): string {
   if (!ctx) return "";
   const lines: string[] = [];
-  const path = clean(ctx.page?.path, 120);
-  const title = clean(ctx.page?.title);
+  const path = safePath(ctx.page?.path);
   if (path) {
-    lines.push(
-      title
-        ? `The visitor is currently reading "${title}" at ${path}.`
-        : `The visitor is currently on ${path}.`,
-    );
-    const heading = clean(ctx.page?.section_heading, 120);
-    const sectionId = clean(ctx.page?.section_id, 80);
-    if (heading) {
+    lines.push(`The visitor is currently on ${path}.`);
+    const sectionId = safeToken(ctx.page?.section_id, 80);
+    if (sectionId) {
       lines.push(
-        `The section in view is "${heading}"${sectionId ? ` (${path}#${sectionId})` : ""}. Answer from that section first when it is relevant, and link to its anchor when pointing them back.`,
+        `The section in view is ${path}#${sectionId}. Answer from that section first when it is relevant, and link to its anchor when pointing them back.`,
       );
     }
     lines.push(
@@ -526,9 +528,9 @@ function contextLayer(ctx?: RoseTurnContext): string {
   }
   const label = clean(ctx.suggested?.label, 120);
   if (label) {
-    const intent = clean(ctx.suggested?.intent, 20);
+    const intent = safeToken(ctx.suggested?.intent, 20);
     lines.push(
-      `This turn came from a suggested question ("${label}")${intent ? `, intent: ${intent}` : ""}. Answer the question directly from the page and evidence; ask about their situation only if necessary.`,
+      `This turn came from a suggested question chip${intent ? `, intent: ${intent}` : ""}. Answer the question directly from the page and evidence; ask about their situation only if necessary.`,
     );
   }
   if (!lines.length) return "";
