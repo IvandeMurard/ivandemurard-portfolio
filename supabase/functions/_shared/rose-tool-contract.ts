@@ -48,7 +48,15 @@ export const ROSE_NO_FOLLOWUPS_NOTICE =
  * "your role" address Ivan as if he were the reader: rejected. "Would you tell me more about his..." is allowed.
  */
 const IVAN_AS_YOU = /\b(?:your|yours|yourself)\b|\byou\s+(?:built|build|designed|design|worked|work|shipped|ship|led|lead|founded|co-?founded|studied|learned|measured|measure|tested|test|chose|choose|decided|decide|managed|manage|delivered|deliver|are looking|looking)\b|\b(?:did|have|were|are)\s+you\s+(?:build|built|design|designed|work|worked|ship|shipped|lead|led|found|founded|study|studied|test|tested|choose|chose|decide|decided|deliver|delivered|open|looking)\b/i;
-export const addressesIvanAsYou = (item: string): boolean => IVAN_AS_YOU.test(item);
+/**
+ * French chips follow the same rule: "vous", "tu", "votre", "ton", "tes", "vos" address Ivan as the reader. The one
+ * exception mirrors "Would you tell me more about his...": a polite request to Rose in the first person
+ * ("Pourriez-vous m'en dire plus sur ses projets ?"). Only that opening is set aside; "...sur vos projets" is still refused.
+ */
+const FR_POLITE_TO_ROSE = /(?<![\p{L}])(?:pourriez|pouvez|voudriez|voulez|auriez|sauriez)-vous\s+(?:me|m['’])/giu;
+const FR_IVAN_AS_YOU = /(?<![\p{L}])(?:vous|tu|votre|ton|tes|vos)(?![\p{L}])/iu;
+export const addressesIvanAsYou = (item: string): boolean =>
+  IVAN_AS_YOU.test(item) || FR_IVAN_AS_YOU.test(item.replace(FR_POLITE_TO_ROSE, " "));
 
 /** Shared policy for live tool validation, client rendering, and offline review. */
 export function roseFollowupRejection(item: string, context: RoseFollowupContext): RoseFollowupRejection | null {

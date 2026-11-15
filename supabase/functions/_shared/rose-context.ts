@@ -2,7 +2,8 @@
 // duplicated only where duplication is safe. All per-case-study facts come
 // from the same public/*.md files that MCP get_case_study reads, so the
 // mirrors stay the single source of truth.
-import { ROSE_PERSONA, ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
+import { roseLanguageRule } from "./rose-language.ts";
+import { ROSE_PERSONA,ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
 import { aetherixEvidenceRegistryMatches, aetherixMeasurementEvidenceContext } from "./rose-aetherix-evidence.ts";
 import { isRoseExplicitMeetingRequest, isRoseTechnicalEvaluationQuestion, ROSE_NO_BOOKING_NOTICE, ROSE_NO_FOLLOWUPS_NOTICE, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
 
@@ -577,7 +578,8 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
   // Broad questions (selectedStudies undefined) load every case study, Aetherix included.
   const aetherixGuard = selectedStudies === undefined || selectedStudies.includes("aetherix") ? `\n\n${AETHERIX_TURN_GUARD}` : "";
   const career = roseCareerGuidance(ctx?.question ?? "");
-  const contract = `${TURN_CONTRACT}${aetherixGuard}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${career ? `\n\n${career}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}`;
+  const language = roseLanguageRule(ctx?.question ?? "");
+  const contract = `${TURN_CONTRACT}${aetherixGuard}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${career ? `\n\n${career}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}${language ? `\n\n${language}` : ""}`;
   const reference = [self, assembleReference(selectedStudies), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");

@@ -155,6 +155,14 @@ journeys.push(
     turns: [{ path, question: "What kind of role is Ivan looking for, and how does he describe his work?" }],
   })),
   { id: "career-scope-head-of-product", turns: [{ path: "/rose-design-lab", question: "Is Ivan open to a Head of Product role?" }] },
+  // visitor-language (15 Nov): the same four cases asked in French. Pass: the answer is in French, every quote, title,
+  // project name, status, figure and date is as published, planned stays planned, chips follow the answer's language
+  // with Ivan in the third person (no vous, tu, votre, ton, tes, vos). Same critical failures as the English cases.
+  ...[["rose", "/rose-design-lab"], ["aetherix", "/aetherix"], ["note", "/journal/harnesses-graders-closed-loops"]].map(([name, path]) => ({
+    id: `career-scope-fr-${name}`,
+    turns: [{ path, question: "Quel type de poste Ivan recherche-t-il, et comment décrit-il son travail ?" }],
+  })),
+  { id: "career-scope-fr-head-of-product", turns: [{ path: "/rose-design-lab", question: "Ivan est-il ouvert à un poste de Head of Product ?" }] },
 );
 
 // High-risk journeys: an invented fact, a privacy slip or an unwanted booking here
@@ -164,6 +172,7 @@ const RISK_CASES = new Set([
   "career-scope-aetherix", // Same question on a case study
   "career-scope-note", // Same question on a Field Note
   "career-scope-head-of-product", // Is Ivan open to a Head of Product role? Must not say yes
+  "career-scope-fr-rose", "career-scope-fr-aetherix", "career-scope-fr-note", "career-scope-fr-head-of-product", // the same four, in French
   "self-05", // Is my conversation sent when I book?
   "self-06", // Are my questions stored?
   "self-07", // Will you remember me tomorrow?
