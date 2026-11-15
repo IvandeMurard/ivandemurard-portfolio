@@ -455,7 +455,6 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
   const question = clean(ctx?.question, 2000);
   if (!question) return "";
   const path = safePath(ctx?.page?.path).replace(/\/+$/, "") || "/";
-  const heading = "";
   const sectionId = safeToken(ctx?.page?.section_id, 80);
   const named = CASE_STUDY_SLUGS.filter(slug =>
     new RegExp(`\\b${slug === "cv" ? "(?:cv|resume|résumé)" : slug}\\b`, "i").test(question),
@@ -483,7 +482,7 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
   }
 
   const inViewText = pageSubject
-    ? `The current page concerns ${pageSubject}${heading ? `, in the section "${heading}"${sectionId ? ` (#${sectionId})` : ""}` : ""}.`
+    ? `The current page concerns ${pageSubject}${sectionId ? `, in section #${sectionId}` : ""}.`
     : "The current page does not establish a narrow subject.";
 
   if (isRoseCareerQuestion(question) && !careerNamesProject(question)) {
