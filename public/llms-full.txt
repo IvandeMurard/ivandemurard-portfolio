@@ -219,7 +219,7 @@ Case study · Rose
 
 Status: Live, text only
 
-Last updated 2026-11-13.
+Last updated 2026-11-15.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.
 
@@ -514,9 +514,9 @@ How Rose works. Solid lines are built; dashed lines are design.
 - Compass
   Standalone project.
 
-What Rose can relate. I write this map by hand, and each link carries a one-line reason.
+What Rose can relate. I write these links by hand, and each carries a one-line reason.
 
-Rose links the site's content, not the projects' code. A dashed line marks an indirect link.
+Rose links what the site's pages say about each project. A dashed label marks an indirect link.
 
 ## Trust has two separate contracts.
 
