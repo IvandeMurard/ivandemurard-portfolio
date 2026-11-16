@@ -343,7 +343,7 @@ It is true and cited, but the reader still has to work out what it means.
 
 **Useful answer**
 
-"No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot."
+"No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet."
 
 It uses the same sources and answers the decision behind the question.
 

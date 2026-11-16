@@ -133,7 +133,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "aetherix.md",
     title: "Aetherix, the F&B execution agent for boutique hotels · Ivan de Murard",
     description:
-      "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
+      "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",
@@ -142,7 +142,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       "@type": "CreativeWork",
       name: "Aetherix",
       headline: "Aetherix, the F&B agent for boutique hotels",
-      description: "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
+      description: "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.",
       url: `${BASE_URL}/aetherix`,
       about: ["Agentic AI", "Hospitality Operations", "Model Context Protocol", "Boutique Hotels"],
       creator: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },

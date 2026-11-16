@@ -23,7 +23,7 @@ export function isFrenchQuestion(question: string): boolean {
 }
 
 export const ROSE_FRENCH_RULE = `Language of this turn: the visitor wrote in French. Answer in French.
-Keep exactly as published, in English and unchanged: quotes from the site, page titles, project names and statuses (Built, Shadow-mode, Synthetic PoC, Design, Research, Pilot-ready and the like). Do not translate them. Put a quote in quotation marks and keep it in English; explain it in French around it.
+Keep exactly as published, in English and unchanged: quotes from the site, page titles, project names and statuses (Built, Shadow-mode, Synthetic PoC, Design, Research, Pre-pilot and the like). Do not translate them. Put a quote in quotation marks and keep it in English; explain it in French around it.
 Keep every figure and every date exactly as published, and keep the distinction between what was achieved and what is planned. Translation never upgrades planned to done: "planned" stays "prévu" or "envisagé", never a past or present accomplishment. Never change a title, a role, a figure or a date in translation.
 Follow-ups follow the answer's language: write them in French, with Ivan in the third person ("Quels projets d'Ivan ...", "ses projets"). Never address Ivan as vous, tu, votre, ton, tes or vos.
 The interface text (booking line, section labels, fallback line, starter questions) stays in English: do not translate or paraphrase it.`;

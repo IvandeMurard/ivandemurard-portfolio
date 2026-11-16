@@ -19,14 +19,14 @@ CV: https://ivandemurard.com/cv. PDF: https://ivandemurard.com/Ivan_de_Murard_CV
 ## How he works
 
 1. Reading the ground. Field-level fluency in operations: boutique hotels, F&B, design partners, open-data ecosystems. He learns an environment before he designs for it.
-2. From insight to product decisions. Aetherix is the proof: built, tested on historical data, and staged for a 30-day pilot.
+2. From insight to product decisions. Aetherix is the proof: built, tested on historical data, and being made pilot-ready.
 3. Right tool for the problem. Sometimes a workflow, sometimes a checklist, sometimes an agentic system. The lightest mechanism that solves the job, with the human in the loop.
 
 ## Aetherix
 
 URL: https://ivandemurard.com/aetherix. Meta-repo (public): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture.
 
-Aetherix. The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. Full narrative: https://ivandemurard.com/aetherix.md
+Aetherix. The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet. Full narrative: https://ivandemurard.com/aetherix.md
 
 Roadmap. Phase 0 Validation done · Phase 1 Observability done · Phase 2 Receipts done · Phase 3 Pilot current · Phase 4 Scale planned (Mews, POS, Federated HiveMemory, Context Graph, Anima) · Phase 5 Vision planned (Revenue Orchestrator).
 
@@ -109,7 +109,7 @@ Q: Who is Ivan de Murard?
 A: A Paris-based product builder with five years across start-ups, scale-ups and large groups, plus two years co-founding Sonor. He focuses on product management, service design, and agentic AI for operations.
 
 Q: What is Aetherix?
-A: The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
+A: The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.
 
 Q: What is Lore?
 A: A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask. Used by a junior technician on the shop floor, hands busy. Prototype, built at a Speechmatics hackathon in early 2026.
@@ -558,7 +558,7 @@ It is true and cited, but the reader still has to work out what it means.
 
 **Useful answer**
 
-"No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot."
+"No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet."
 
 It uses the same sources and answers the decision behind the question.
 
@@ -752,7 +752,7 @@ One message a day in WhatsApp. The manager replies. The outcome is recorded next
 
 - Type: AI agent · Boutique hotel operations · 2026
 - Role: Product Builder and AI Agent Designer, solo
-- Status: Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
+- Status: Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.
 - The architecture: https://ivandemurard.com/architecture
 - GitHub: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 - Book a call: https://cal.com/ivandemurard/discussion-and-introduction
@@ -901,7 +901,7 @@ Aetherix is one of five agents. Each owns one job and talks to the others only t
 
 | Agent | Role | Status |
 | --- | --- | --- |
-| Aetherix | F&B execution: forecast, staffing, Operational Memory, Daily Receipt | Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. |
+| Aetherix | F&B execution: forecast, staffing, Operational Memory, Daily Receipt | Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet. |
 | Tacet | Sensory: weather, noise, open data, risk | Built, maintenance mode since July 2026 |
 | Anima | Guest memory node | Synthetic PoC, production DPIA-gated |
 | Peritia | House knowledge | Design |
@@ -1639,7 +1639,7 @@ Ask about a project that stopped. The answer says it stopped.
 
 - Pages, Markdown mirrors, llms-full.txt and MCP answers are generated from the same content files at build time. /llms.txt and Rose's instructions are written by hand and checked by tests; Rose reads the published Markdown mirrors.
 - The /journal landing page has no Markdown mirror; list_journal_entries and /llms.txt carry its index.
-- Every project carries its status: Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
+- Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.
 - Nothing an agent sends to the MCP server is stored.
@@ -1665,7 +1665,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 
 ## Where this sits
 
-- **Aetherix** (Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.). The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply. https://ivandemurard.com/aetherix
+- **Aetherix** (Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.). The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply. https://ivandemurard.com/aetherix
 - **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
@@ -1703,7 +1703,7 @@ most in memory.
 
 | Agent | Status | Owns | Does not own |
 | --- | --- | --- | --- |
-| Aetherix | Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
+| Aetherix | Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet. | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
 | Tacet | Built, maintenance mode since July 2026 | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Synthetic PoC, production DPIA-gated | Guest memory: what a guest said and what happened, four layers, each claim with source, confidence and age | Acting on it, or returning a whole person: every query declares one layer |
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |

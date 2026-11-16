@@ -8,7 +8,7 @@ export type ProjectStatus = { signal: Signal; word: string; note: string };
 export const STATUSES = {
   sonor: { signal: "dark", word: "MVP shipped · stopped 2022", note: "0→1 with 4 co-founders, backed by Banque des Territoires. No contract closed; we stopped in 2022." },
   rose: { signal: "go", word: "Live, text only", note: "Rose is live and text only. She knows the page and section in view, answers from the site's own text and sends nothing when you book." },
-  aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
+  aetherix: { signal: "warn", word: "Pre-pilot", note: "Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
   anima: { signal: "stop", word: "Compliance Gated", note: "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears." },

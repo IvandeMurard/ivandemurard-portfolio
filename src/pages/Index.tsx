@@ -29,8 +29,8 @@ const AetherixStatus = () => (
   <div className="flex flex-col gap-2">
     <SignalLamp state={PROJECTS.atherix.status.signal} label={PROJECTS.atherix.status.word} />
     <p className="font-mono text-[12.5px] leading-relaxed text-on-surface-variant max-w-[560px]">
-      Built and evaluated on historical data. <Tip label="Staged" explain="what this means">Deployed on a pre-production server (Fly.io, Paris): the same setup a pilot hotel would get, before any real hotel data.</Tip> on Fly.io, connected to the{" "}
-      <Tip label="Apaleo sandbox" explain="what this means">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline"><ExternalMark>apaleo.com</ExternalMark></a></Tip>. Ready for a 30-day pilot.
+      Built and tested on the{" "}
+      <Tip label="Apaleo sandbox" explain="what this means">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline"><ExternalMark>apaleo.com</ExternalMark></a></Tip> and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.
     </p>
   </div>
 );

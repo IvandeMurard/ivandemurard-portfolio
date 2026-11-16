@@ -28,7 +28,7 @@ type Act = {
 
 /** The five agents of the mesh, in the order they exist. */
 const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
-  { name: "Aetherix", role: "F&B execution", status: "Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.", to: "/aetherix" },
+  { name: "Aetherix", role: "F&B execution", status: "Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.", to: "/aetherix" },
   { name: "Tacet", role: "Environmental signal", status: "Built", to: "/tacet" },
   { name: "Anima", role: "Guest memory", status: "Synthetic PoC", to: "/anima" },
   { name: "Peritia", role: "House knowledge", status: "Design" },
@@ -41,7 +41,7 @@ const ACTS: Act[] = [
     kicker: "The Hospitality Multi-Agent Architecture",
     slug: "aetherix",
     name: PROJECTS.atherix.name,
-    body: "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
+    body: "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.",
     note: "The food and beverage agent of the architecture.",
     image: PROJECTS.atherix.image,
     cta: "Trace the Path",

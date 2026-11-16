@@ -29,8 +29,8 @@ The hero says one thing and shows Rose answering. The kicker chain, the meta lin
 | Headline | A portfolio you can question. (the page's only italic) |
 | Lead | Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn. |
 | Demo, exchange 1 | Reformulation. Visitor: Say it more simply. Rose: When you ask me something, I also receive the page you are on, so I answer about what you are reading. Source: chapter 03. |
-| Demo, exchange 2 | Sourced answer. Visitor: Is Aetherix in production? Rose: No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot. Link: /aetherix. |
-| Demo, exchange 3 | Follow-up questions. Visitor: What has Ivan built? Rose: Six projects, each with its status. Aetherix is ready for a 30-day pilot, Tacet is built and in maintenance, and Anima is a synthetic proof of concept. Suggested: What happens when it's wrong? Which ones are live? Every exchange in the hero shows a built behaviour; the formats in design are shown in chapter 06 with their marker. |
+| Demo, exchange 2 | Sourced answer. Visitor: Is Aetherix in production? Rose: No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet. Link: /aetherix. |
+| Demo, exchange 3 | Follow-up questions. Visitor: What has Ivan built? Rose: Six projects, each with its status. Aetherix is pre-pilot, Tacet is built and in maintenance, and Anima is a synthetic proof of concept. Suggested: What happens when it's wrong? Which ones are live? Every exchange in the hero shows a built behaviour; the formats in design are shown in chapter 06 with their marker. |
 | Demo behaviour | The three exchanges play in a loop. The input opens the real dock. |
 
 TL;DR, four short rows under the hero:
@@ -165,7 +165,7 @@ The two contracts keep their validated wording. The intro's chiasmus and the max
 | Answer rule, intro | She answers the decision first, states the limit of the evidence, and gives implementation detail only when asked. |
 | Example question | Is Aetherix in production? |
 | Source-correct answer | "Aetherix is staged on Fly.io and connected to the Apaleo sandbox." Note: It is true and cited, but the reader still has to work out what it means. |
-| Useful answer | "No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot." Note: It uses the same sources and answers the decision behind the question. |
+| Useful answer | "No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet." Note: It uses the same sources and answers the decision behind the question. |
 | Caption | From Rose's answer contract: "A verifiable fact unrelated to the question is still a poor answer." (validated) |
 
 ## Chapter 08: What she got wrong
