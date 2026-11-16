@@ -49,7 +49,7 @@ export type InsideStep = {
 export const INSIDE = {
   heading: "Inside the agent",
   anchor: "inside-the-agent",
-  intro: "One pass a day, on the sandbox hotel's first evening: the same figures as the demo at the top. Pick a step.",
+  intro: "One pass a day, on Maison Lumen's first evening: the same figures as the demo at the top. Pick a step.",
   figureLabel: "Inside the agent: five steps, from the hotel's data to the recorded outcome",
   steps: [
     { n: "01", label: "Reads", title: "Reads the hotel", description: "Apaleo, read-only, plus weather and local events. Nothing is written back.", from: { who: "Apaleo", text: "Tomorrow: hotel 98% full. New Year's Day." }, says: "Read. Weather is poor, and there are no local events.", badge: "Read-only" },

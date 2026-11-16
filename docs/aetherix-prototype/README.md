@@ -35,4 +35,5 @@ The HTML files in this folder keep the copy as validated on 16 Nov 2026. The pag
   - "Inside the agent" caption: "Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real services, seed 42. The figures come from the run; the bubbles word them for display." (the dots between the three facts are commas).
   - Architecture figure caption: "Every exchange goes through the orchestrator, over MCP. A solid line is Built, long dashes are Synthetic PoC, dots are Design."
 - Architecture figure, page and Markdown: the statuses are written as in the reference. In `public/aetherix.md` each is in brackets after the role (for example "Tacet: Sensory: weather, noise, open data (Built · maintenance)").
-- Hero button "How it decides, and when it refuses" now points to "Inside the agent" (`#inside-the-agent`).
+- Hero button "How it decides, and when it refuses" is now "How it decides" and points to "Inside the agent" (`#inside-the-agent`): the five steps show how it decides, the refusal is shown by day 10 of the demo and by "Already working".
+- "Inside the agent" intro: "on Maison Lumen's first evening" (was "on the sandbox hotel's first evening").

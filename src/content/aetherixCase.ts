@@ -26,7 +26,7 @@ export const HERO = {
   role: "AI Product Manager and Product Builder, solo · 2026",
   /** Never written here: the status line is the one in src/content/statuses.ts. */
   status: STATUSES.aetherix.note,
-  primary: "How it decides, and when it refuses",
+  primary: "How it decides",
 };
 
 export const TLDR = [

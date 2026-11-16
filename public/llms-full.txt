@@ -890,7 +890,7 @@ Built in Aetherix on 1 August 2026, no real user yet. The shared layer is design
 
 ### Inside the agent
 
-One pass a day, on the sandbox hotel's first evening: the same figures as the demo at the top. Pick a step.
+One pass a day, on Maison Lumen's first evening: the same figures as the demo at the top. Pick a step.
 
 1. 01 Reads the hotel: Apaleo, read-only, plus weather and local events. Nothing is written back. Apaleo: "Tomorrow: hotel 98% full. New Year's Day." Aetherix: "Read. Weather is poor, and there are no local events." [Read-only]
 2. 02 Forecasts the covers: A statistical forecast that comes with its range. Aetherix: "101 covers. 94 to 109 on 4 nights out of 5." [High confidence]
