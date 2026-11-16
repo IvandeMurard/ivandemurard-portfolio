@@ -1,0 +1,57 @@
+[
+ [
+  "01",
+  "Reads",
+  "Reads the hotel",
+  "Apaleo, read-only, plus weather and local events. Nothing is written back.",
+  "true",
+  "Apaleo",
+  "Tomorrow: hotel 98% full. New Year's Day.",
+  "Read. Weather: poor. Local events: none.",
+  "Read-only"
+ ],
+ [
+  "02",
+  "Forecasts",
+  "Forecasts the covers",
+  "A statistical forecast with its range, not a single number.",
+  "false",
+  "",
+  "",
+  "101 covers. 94 to 109 on 4 nights out of 5.",
+  "High confidence"
+ ],
+ [
+  "03",
+  "Remembers",
+  "Remembers this hotel",
+  "Its own past days. Shared patterns across hotels stay research.",
+  "false",
+  "",
+  "",
+  "A usual Thursday here: 87 covers.",
+  "This hotel only"
+ ],
+ [
+  "04",
+  "Explains",
+  "Explains in plain words",
+  "The message carries its reasons, so the manager can disagree with one of them.",
+  "false",
+  "",
+  "",
+  "Why 101: usual level 87; hotel 98% full +9, New Year's Day +8, season +7, weather −6.",
+  "Reasons attached"
+ ],
+ [
+  "05",
+  "Records",
+  "Records what happened",
+  "The reply and the real outcome sit next to the recommendation. That record is the ledger.",
+  "true",
+  "Manager",
+  "I'd say 79 covers instead.",
+  "Actual: 95. Forecast 101: 6% off, inside the range. Your estimate: 17% off.",
+  "Outcome recorded"
+ ]
+]
