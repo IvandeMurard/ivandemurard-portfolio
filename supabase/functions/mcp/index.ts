@@ -12,7 +12,7 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 var STATUSES = {
   sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with 4 co-founders, backed by Banque des Territoires. No contract closed; we stopped in 2022." },
   rose: { signal: "go", word: "Live, text only", note: "Rose is live and text only. She knows the page and section in view, answers from the site's own text and sends nothing when you book." },
-  aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
+  aetherix: { signal: "warn", word: "Pre-pilot", note: "Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
   anima: { signal: "stop", word: "Compliance Gated", note: "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears." },
@@ -35,7 +35,7 @@ var BASE = [
     slug: "aetherix",
     name: "Aetherix",
     label: "AI Agent \xB7 Boutique Hotel Operations \xB7 2026",
-    tagline: "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
+    tagline: "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.",
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md"
   },
@@ -111,7 +111,7 @@ var PAGES = { rose: "/rose-design-lab" };
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",
-  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'rose', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pilot-ready \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
+  description: "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'rose', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pre-pilot \xB7 ...); the rest covers vision, architecture, stack and outcomes.",
   inputSchema: {
     slug: z.enum(["sonor", "aetherix", "tacet", "lore", "anima", "rose", "compass"]).describe("Case study slug: sonor, aetherix, tacet, lore, anima, rose, or compass.")
   },
@@ -1841,9 +1841,9 @@ var mcp_default = defineMcp({
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",
     "2. Ground every claim. Use the tools to retrieve the actual text. Never invent metrics, pilot agreements, clients or capabilities beyond what the case studies and Field Notes state.",
-    "Aetherix: The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
+    "Aetherix: The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.",
     "Compass is a standalone, agent-ready data product, not a node, agent or part of the Hospitality Multi-Agent Architecture. Group it under Standalone projects. Agent-ready means its published, read-only MCP server gives AI agents the same figures, sources and confidence levels as a person sees on the map; the product itself contains no AI yet. Its narrative begins with One address, read in context, then Product strategy, Where AI sits, Built for people and AI agents, How sure is it?, and Where it stands. Its corpus: APUR BDCom 2023 shopfront census \xB7 BODACC legal notices \xB7 INSEE Sirene \xB7 85,418 units \xB7 every figure with its source, licence and date. Earlier census records and any figures derived from them remain withheld until their licence is cleared.",
-    "Every case study carries a status (Pilot-ready, Maintenance, Evaluated, Compliance Gated, Partial, MVP shipped \xB7 stopped 2022). Quote it; never upgrade it.",
+    "Every case study carries a status (Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial, MVP shipped \xB7 stopped 2022). Quote it; never upgrade it.",
     "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),
