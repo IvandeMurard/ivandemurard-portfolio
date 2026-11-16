@@ -12,7 +12,7 @@ import { defineTool } from "npm:@lovable.dev/mcp-js@0.24.0";
 var STATUSES = {
   sonor: { signal: "dark", word: "MVP shipped \xB7 stopped 2022", note: "0\u21921 with 4 co-founders, backed by Banque des Territoires. No contract closed; we stopped in 2022." },
   rose: { signal: "go", word: "Live, text only", note: "Rose is live and text only. She knows the page and section in view, answers from the site's own text and sends nothing when you book." },
-  aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
+  aetherix: { signal: "warn", word: "Pilot-ready", note: "Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." },
   tacet: { signal: "warn", word: "Maintenance", note: "Headless environmental twin with an MCP server. Built; in maintenance mode since July 2026." },
   lore: { signal: "go", word: "Evaluated", note: "Voice mentor for aviation maintenance. 64-case harness, pure-function graders, hard safety tier." },
   anima: { signal: "stop", word: "Compliance Gated", note: "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears." },
@@ -1539,8 +1539,8 @@ var BLUEPRINT = {
       id: "learn",
       name: "Learn",
       when: "After service",
-      floor: { text: "The manager glances at a short receipt: forecast against actual, and the gap.", status: "illustrative" },
-      touchpoint: { text: "Daily receipt: actual covers, forecast, delta, confidence.", status: "built" },
+      floor: { text: "The manager glances at the Daily Receipt: forecast against actual, and the gap.", status: "illustrative" },
+      touchpoint: { text: "Daily Receipt: actual covers, forecast, delta, confidence.", status: "built" },
       behind: { text: "Actual covers ingested from the till; forecast error computed; decision logged for audit. Live till ingestion needs a connected hotel.", status: "planned" },
       boundary: { text: "Observed: the covers, so the forecast can be scored. Not observed: whether the staffing was right. That stays a judgement." }
     }
