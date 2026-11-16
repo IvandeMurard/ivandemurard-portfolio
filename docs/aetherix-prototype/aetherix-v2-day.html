@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aetherix case study v2 (day)</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&amp;family=Manrope:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid #b06a3b;outline-offset:3px}
+.kick{margin:0;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
+.cap{margin:0;font:400 12px/1.5 'IBM Plex Mono',monospace}
+.wrap{display:flex;gap:56px;max-width:1312px;margin:0 auto;padding:0 40px}
+.rail{flex:0 0 200px;position:sticky;top:24px;align-self:flex-start}
+.main{flex:1 1 auto;min-width:0;max-width:900px}
+.col{max-width:640px}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl td,.tbl th{text-align:left;vertical-align:top;padding:12px 14px}
+.acc{display:flex;gap:12px;height:430px}
+.acc-card{position:relative;overflow:hidden;border-radius:16px;min-width:0;padding:18px 20px 20px;display:flex;flex-direction:column;color:#faf9f4;transition:flex .5s ease}
+.acc-hit{position:absolute;inset:0;z-index:2;background:none;border:0;cursor:pointer;border-radius:16px}
+.acc-hit:focus-visible{outline:2px solid #e0a77c;outline-offset:-3px}
+.acc-body{position:relative;margin-top:44px}
+@media (prefers-reduced-motion:reduce){.acc-card{transition:none}}
+@media (max-width:760px){.acc{flex-direction:column;height:auto}.acc-card{min-height:72px}}
+@media (max-width:760px){.who{display:flex!important;flex-direction:column;align-items:stretch!important;gap:6px!important}.who>div:empty{display:none}.who>svg{align-self:center;transform:rotate(90deg)}}
+.arch{position:relative;width:900px;height:640px}
+.arch-bg{position:absolute;inset:0;width:900px;height:600px}
+.arch .an,.arch .ao{position:absolute;transform:translate(-50%,-50%);box-sizing:border-box;border-radius:12px;padding:10px 14px;width:220px}
+.arch .ao{width:200px;border-radius:999px;text-align:center;padding:18px 14px}
+.arch .ad,.arch .am{position:absolute;margin:0;white-space:nowrap;font-size:13.5px}
+.foot a{color:inherit}
+@media (max-width:980px){.arch{width:auto;height:auto;display:flex;flex-direction:column;gap:12px}.arch-bg{display:none}.arch .an,.arch .ao,.arch .ad,.arch .am{position:static;transform:none!important;width:auto;white-space:normal;text-align:left}}
+@media (max-width:900px){.rail{display:none}.tl{grid-template-columns:1fr 1fr}.wrap{padding:0 20px}}
+@media (max-width:560px){.tl{grid-template-columns:1fr}}
+
+body{margin:0}</style></head><body>
+<!-- Design reference only: canvas board "G · Aetherix case study v2" (16 Nov 2026). Copy validated by Ivan on 16 Nov. Static export: the "Inside the agent" accordion is shown with step 05 open; on the page it is interactive. -->
+
+
+<div style="background: linear-gradient(180deg, #faf9f4 0%, #faf9f4 10%, #f3e7d6 100%); color: #16170f; font-family: Manrope, 'Helvetica Neue', sans-serif; font-size: 16px; line-height: 1.6; position: relative">
+
+  <!-- Reading thread, left margin, as on Rose -->
+  <div aria-hidden="true" style="position: absolute; left: 16px; top: 0; bottom: 0; width: 1px; background: #dcd7cb"><div style="height: 38%; width: 1px; background: #6b5420"></div></div>
+
+  <!-- HERO -->
+  <section style="max-width: 1312px; margin: 0 auto; padding: 72px 40px 56px; display: flex; flex-wrap: wrap; gap: 48px 64px; align-items: flex-start">
+    <div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <p class="kick" style="color: #6b5420; display: flex; flex-wrap: wrap; gap: 12px; align-items: center">Case study · Aetherix <span style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid #001738; border-radius: 999px; padding: 2px 10px; color: #001738; letter-spacing: .04em; text-transform: none; font: 500 12px Manrope, sans-serif"><i aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #a87a1c; display: block"></i>Pilot-ready</span></p>
+      <h1 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 64px; line-height: 1.02; letter-spacing: -0.02em; color: #001738">The F&amp;B agent for <em style="color: #6b5420">boutique hotels.</em></h1>
+      <p style="margin: 0; max-width: 560px; font-size: 19px; line-height: 1.55; color: #2e3040">It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs.</p>
+      <dl style="margin: 8px 0 0; display: grid; grid-template-columns: 72px 1fr; gap: 6px 16px; font-size: 14px; color: #2e3040">
+        <dt style="color: #6b5420">Role</dt><dd style="margin: 0">AI Product Manager and Product Builder, solo · 2026</dd>
+        <dt style="color: #6b5420">Status</dt><dd style="margin: 0">Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.</dd>
+      </dl>
+      <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 8px">
+        <a href="#ch-how" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border: 1px solid #001738; border-radius: 8px; color: #001738; text-decoration: none; font-weight: 500">How it decides, and when it refuses</a>
+        <a href="#book" style="color: #001738; border-bottom: 1px solid #6b5420; text-decoration: none">Book a call ↗</a>
+        <a href="#gh" style="color: #001738; border-bottom: 1px solid #6b5420; text-decoration: none">GitHub ↗</a>
+      </div>
+    </div>
+    <!-- The homepage demo, reused as is -->
+    <figure style="flex: 1 1 400px; max-width: 480px; margin: 0">
+      <div role="tablist" aria-label="Three days of the closed loop" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border: 1px solid #dcd7cb; border-radius: 8px; background: #f3f1ea; font-size: 12.5px">
+        <button type="button" role="tab" aria-selected="true" style="text-align: left; padding: 8px 10px; border: 1px solid #001738; border-radius: 6px; background: #ffffff; color: #001738; font: inherit">Day 1<br>Who's right?</button>
+        <button type="button" role="tab" aria-selected="false" style="text-align: left; padding: 8px 10px; border: 0; background: none; color: #2e3040; font: inherit">Day 10<br>It refuses</button>
+        <button type="button" role="tab" aria-selected="false" style="text-align: left; padding: 8px 10px; border: 0; background: none; color: #2e3040; font: inherit">Day 17<br>It sees it coming</button>
+      </div>
+      <div style="margin-top: 12px; border-radius: 10px; overflow: hidden; border: 1px solid #dcd7cb">
+        <div style="background: #075e54; color: #fff; padding: 10px 14px; font-size: 14px">Aetherix <span style="opacity: .75; font-size: 12px">· sandbox demo</span></div>
+        <div style="background: #efe7dc; padding: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; line-height: 1.45; color: #111">
+          <div style="align-self: flex-start; max-width: 88%; background: #fff; border-radius: 0 8px 8px 8px; padding: 8px 10px"><span style="color: #128c7e; font-size: 12px">Aetherix</span><br>Covers expected: 101<br>Why 101: usual level 87; hotel 98% full +9, New Year's Day +8, season +7, weather −6; other factors −4.<br>Staffing: 7 servers, 2 hosts, 3 runners, 5 kitchen staff.</div>
+          <div style="align-self: flex-end; max-width: 80%; background: #dcf8c6; border-radius: 8px 0 8px 8px; padding: 8px 10px">I'd say 79 covers instead.</div>
+          <div style="align-self: flex-start; max-width: 88%; background: #fff; border-radius: 0 8px 8px 8px; padding: 8px 10px"><span style="color: #128c7e; font-size: 12px">Aetherix · next morning</span><br>Actual: 95 covers. Forecast 101: 6% off, inside the 94–109 range. Your estimate 79: 17% off.</div>
+        </div>
+      </div>
+      <figcaption class="cap" style="margin-top: 8px; color: #555a68">Sandbox hotel · synthetic data · real services · seed 42 (the homepage demo, unchanged)</figcaption>
+    </figure>
+  </section>
+
+  <!-- TL;DR, as on Rose -->
+  <section style="max-width: 1312px; margin: 0 auto; padding: 0 40px">
+    <div style="border-top: 1px solid #001738; padding-top: 16px">
+      <p class="cap" style="color: #2e3040">TL;DR</p>
+      <div class="tl" style="margin-top: 14px">
+        <div style="border-bottom: 1px solid #001738; padding-bottom: 16px"><p style="margin: 0; font-size: 13px; color: #6b5420">The problem</p><p style="margin: 6px 0 0; font-size: 15px">What a hotel knows about its own service lives in a manager's head, and leaves with them.</p></div>
+        <div style="border-bottom: 1px solid #001738; padding-bottom: 16px"><p style="margin: 0; font-size: 13px; color: #6b5420">The bet</p><p style="margin: 6px 0 0; font-size: 15px">One recommendation a day in WhatsApp, checked against what happened the next morning.</p></div>
+        <div style="border-bottom: 1px solid #001738; padding-bottom: 16px"><p style="margin: 0; font-size: 13px; color: #6b5420">Today</p><p style="margin: 6px 0 0; font-size: 15px">The loop runs daily on a sandbox hotel connected to Apaleo. Ready for a 30-day pilot.</p></div>
+        <div style="border-bottom: 1px solid #001738; padding-bottom: 16px"><p style="margin: 0; font-size: 13px; color: #6b5420">Still open</p><p style="margin: 6px 0 0; font-size: 15px">The forecast is not yet proven on hotels. No pilot hotel has signed.</p></div>
+      </div>
+      <div style="margin-top: 28px; display: grid; grid-template-columns: 120px 1fr; gap: 6px 20px; font-size: 14px; max-width: 760px">
+        <span style="color: #6b5420">● Built</span><span>Implemented behaviour that can be inspected in the product or repository.</span>
+        <span style="color: #001738">◐ Validation</span><span>A bounded test, audit or measurement. It does not prove every outcome.</span>
+        <span style="color: #2e3040">○ Design</span><span>A proposed direction or a prototype.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="margin-top: 64px">
+    <!-- Rail, as on Rose -->
+    <nav class="rail" aria-label="On this page">
+      <svg viewBox="0 0 40 40" width="48" height="48" aria-hidden="true" fill="none" stroke="#6b5420" stroke-width="1.2"><circle cx="20" cy="20" r="17"></circle><path d="M20 3l4 13 13 4-13 4-4 13-4-13-13-4 13-4z"></path></svg>
+      <p style="margin: 14px 0 10px; font-size: 13px; color: #2e3040">On this page</p>
+      <ol style="list-style: none; margin: 0; padding: 0; font-size: 13px; display: flex; flex-direction: column; gap: 8px">
+        <li style="border-left: 2px solid #6b5420; padding-left: 12px; color: #001738">01 The problem</li>
+        <li style="padding-left: 14px; color: #2e3040">02 How it works</li>
+        <li style="padding-left: 14px; color: #2e3040">03 Product strategy</li>
+        <li style="padding-left: 14px; color: #2e3040">04 What is proven</li>
+        <li style="padding-left: 14px; color: #2e3040">05 The Decision Ledger</li>
+        <li style="padding-left: 14px; color: #2e3040">06 How it's built</li>
+      </ol>
+    </nav>
+
+    <div class="main">
+      <!-- 01 -->
+      <section aria-labelledby="h1x" class="col">
+        <p class="kick" style="color: #6b5420">01 · The problem</p>
+        <h2 id="h1x" style="margin: 10px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.1; color: #001738">The knowledge leaves with the manager</h2>
+        <p style="margin: 18px 0 0; font-size: 17px">Tomorrow's covers and staffing depend on what one person remembers: last year's conference week, the regulars, the weather. The result is over or under-staffing, avoidable waste and decisions made on the day.</p>
+        <p style="margin: 14px 0 0; font-size: 17px">The data exists. What is missing is the synthesis: occupancy, sales history, weather and local events turned into one recommendation for this property.</p>
+        <p style="margin: 18px 0 0; padding: 12px 14px; border: 1px dashed #2e3040; border-radius: 8px; font-size: 14.5px; color: #2e3040"><strong style="color: #001738; font-weight: 600">Where this comes from.</strong> Informal conversations with product managers who built staffing and scheduling software for restaurants and hotels. No F&amp;B manager has been interviewed yet; that is part of the pilot.</p>
+      </section>
+
+      <!-- 02 -->
+      <section aria-labelledby="h2x" style="margin-top: 112px">
+        <p class="kick" style="color: #6b5420">02 · How it works <span style="margin-left: 10px">● Built</span></p>
+        <h2 id="h2x" style="margin: 10px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.1; color: #001738">One record a day</h2>
+        <p class="col" style="margin: 18px 0 0; font-size: 17px">What was recommended, what the manager said, what happened. The message in the demo above is real sandbox output.</p>
+        <ol style="list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0; border-top: 1px solid #001738">
+          <li style="padding: 16px 18px 16px 0; border-right: 1px solid #dcd7cb"><p class="cap" style="color: #6b5420">1 · Evening</p><p style="margin: 6px 0 0; font-size: 15px">Tomorrow's covers and staffing, with the reasons.</p></li>
+          <li style="padding: 16px 18px; border-right: 1px solid #dcd7cb"><p class="cap" style="color: #6b5420">2 · Reply</p><p style="margin: 6px 0 0; font-size: 15px">The manager accepts, rejects, or gives the right figure.</p></li>
+          <li style="padding: 16px 18px; border-right: 1px solid #dcd7cb"><p class="cap" style="color: #6b5420">3 · Next morning</p><p style="margin: 6px 0 0; font-size: 15px">The real outcome is stored next to the recommendation.</p></li>
+          <li style="padding: 16px 0 16px 18px"><p class="cap" style="color: #6b5420">4 · Adjust</p><p style="margin: 6px 0 0; font-size: 15px">The agent recalibrates on the gap.</p></li>
+        </ol>
+        <p class="col" style="margin: 16px 0 0; font-size: 14.5px; color: #2e3040">Free-text replies are not used yet. Whether the agent gets sharper over time is what a pilot would test.</p>
+      </section>
+
+      <!-- 03 -->
+      <section aria-labelledby="h3x" style="margin-top: 112px">
+        <p class="kick" style="color: #6b5420">03 · Product strategy <span style="margin-left: 10px">○ Design</span></p>
+        <h2 id="h3x" style="margin: 10px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.1; color: #001738">Understand a property the way its manager does</h2>
+        <p class="col" style="margin: 18px 0 0; font-size: 17px">And measure every recommendation against what happened. Five decisions follow from that.</p>
+        <table class="tbl" style="margin-top: 24px; border-top: 1px solid #001738">
+          <tbody>
+            <tr style="border-bottom: 1px solid #dcd7cb"><td style="width: 34px; color: #6b5420">1</td><td style="width: 210px; font-weight: 600; color: #001738"><span style="border-bottom: 1.5px solid #b06a3b">Distribution before design</span></td><td>A hotel floor has no time for a new tool. So the product plugs into the PMS and is built to be listed where hotels already pick their integrations.</td></tr>
+            <tr style="border-bottom: 1px solid #dcd7cb"><td style="color: #6b5420">2</td><td style="font-weight: 600; color: #001738">F&amp;B first</td><td>A covers forecast has a result the next morning. It can be checked.</td></tr>
+            <tr style="border-bottom: 1px solid #dcd7cb"><td style="color: #6b5420">3</td><td style="font-weight: 600; color: #001738">WhatsApp as the only surface</td><td>It shows the recommendation, keeps a human line to the manager, and records the reply the agent learns from.</td></tr>
+            <tr style="border-bottom: 1px solid #dcd7cb"><td style="color: #6b5420">4</td><td style="font-weight: 600; color: #001738">Three parties, not one customer</td><td>The F&amp;B manager uses it. Hotel management pays. The PMS distributes.</td></tr>
+            <tr style="border-bottom: 1px solid #dcd7cb"><td style="color: #6b5420">5</td><td style="font-weight: 600; color: #001738">Pricing on results, to start</td><td>With no track record, the builder carries the adoption risk. The later model is undecided.</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Who uses, who pays, who distributes: redrawn -->
+        <figure style="margin: 40px 0 0" aria-label="Who uses, who pays, who distributes">
+          <div class="who" style="display: grid; grid-template-columns: 1fr 64px 1fr 64px 1fr; align-items: center; gap: 0; max-width: 860px">
+            <div style="border: 1.5px solid #001738; border-radius: 12px; padding: 12px 14px; background: #ffffff"><p class="cap" style="color: #6b5420">Distributes</p><p style="margin: 4px 0 0; font-family: Newsreader, Georgia, serif; font-size: 22px; color: #001738">The PMS</p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">Apaleo. Data, read-only. The integration listing.</p></div>
+            <svg viewBox="0 0 64 20" aria-hidden="true" style="width: 64px"><path d="M2 10h56M52 5l6 5-6 5" fill="none" stroke="#b06a3b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <div style="border: 1.5px solid #b06a3b; border-radius: 12px; padding: 14px; background: #f3f1ea; text-align: center"><p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 26px; color: #001738">Aetherix</p></div>
+            <svg viewBox="0 0 64 28" aria-hidden="true" style="width: 64px"><path d="M2 8h56M52 3l6 5-6 5M62 20H6M12 15l-6 5 6 5" fill="none" stroke="#b06a3b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <div style="border: 1.5px solid #001738; border-radius: 12px; padding: 12px 14px; background: #ffffff"><p class="cap" style="color: #6b5420">Uses</p><p style="margin: 4px 0 0; font-family: Newsreader, Georgia, serif; font-size: 22px; color: #001738">The F&amp;B manager</p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">Gets the daily message. Sends the reply.</p></div>
+            <div></div><div></div>
+            <div style="display: flex; justify-content: center"><svg viewBox="0 0 20 44" aria-hidden="true" style="height: 44px"><path d="M10 42V4M5 10l5-6 5 6" fill="none" stroke="#b06a3b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+            <div></div><div></div>
+            <div></div><div></div>
+            <div style="border: 1.5px solid #001738; border-radius: 12px; padding: 12px 14px; background: #ffffff"><p class="cap" style="color: #6b5420">Pays</p><p style="margin: 4px 0 0; font-family: Newsreader, Georgia, serif; font-size: 22px; color: #001738">Hotel management</p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">The contract.</p></div>
+            <div></div><div></div>
+          </div>
+          <figcaption class="cap" style="margin-top: 12px; color: #555a68">Who uses, who pays, who distributes.</figcaption>
+        </figure>
+
+        <div class="col" style="margin-top: 32px; padding: 14px 16px; border: 1px dashed #2e3040; border-radius: 8px">
+          <p style="margin: 0; font-weight: 600; color: #001738">Unproven</p>
+          <ul style="margin: 6px 0 0; padding-left: 18px; font-size: 15px">
+            <li>No hotel or PMS has validated this route yet.</li>
+            <li>The platform could build the same thing.</li>
+            <li>Pricing on labor cost needs payroll data the PMS does not hold.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 04 -->
+      <section aria-labelledby="h4x" style="margin-top: 112px">
+        <p class="kick" style="color: #6b5420">04 · What is proven, what is not <span style="margin-left: 10px">◐ Validation</span></p>
+        <h2 id="h4x" style="margin: 10px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.1; color: #001738">The loop is built. The forecast is not yet proven on hotels.</h2>
+        <div style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px">
+          <div>
+            <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 22px; color: #001738">Already working</p>
+            <ul style="margin: 10px 0 0; padding-left: 18px; font-size: 15px; display: flex; flex-direction: column; gap: 6px">
+              <li>States its drivers the evening before, then reports its own miss the next morning.</li>
+              <li>Rejected an implausible POS figure (850 covers, injected as a test) instead of learning from it.</li>
+              <li>When recent data diverges sharply from history, says so and asks the manager to double-check.</li>
+              <li>After a simulated 25% jump in demand, weekly recalibration cut the forecast error from <span style="border: 1.5px solid #b06a3b; border-radius: 999px; padding: 0 6px">15.9% to 12.3%</span>.</li>
+              <li>Stores every recommendation next to what happened, with the manager's override beside it.</li>
+            </ul>
+            <p class="cap" style="margin-top: 10px; color: #555a68">Sandbox data, real mechanics, deterministic reruns.</p>
+          </div>
+          <div>
+            <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 22px; color: #001738">The forecast test</p>
+            <p style="margin: 10px 0 0; font-size: 15px">Public data, 30 restaurants. Against a naive same-weekday baseline (the mean of the last four same weekdays): mean error <span style="border: 1.5px solid #b06a3b; border-radius: 999px; padding: 0 6px">49.71% vs 55.86%</span>, ahead on average. For next-day forecasts, the horizon the product uses, <span style="border: 1.5px solid #b06a3b; border-radius: 999px; padding: 0 6px">28.5% vs 27.9%</span>, slightly behind.</p>
+            <p style="margin: 10px 0 0; font-size: 15px; color: #2e3040">Restaurants, not hotels: no occupancy data, the signal the product relies on. The protocol was not pre-registered.</p>
+            <p class="cap" style="margin-top: 10px; color: #555a68">▸ The numbers (Kaggle Recruit, 1,193 scored points, MdAPE, gradient-boosted comparison), collapsed</p>
+          </div>
+        </div>
+        <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-top: 1px solid #001738">
+          <div style="padding: 12px 12px 12px 0"><p class="cap" style="color: #6b5420">● Phase 0–2</p><p style="margin: 4px 0 0; font-size: 14px">Validation, observability, receipts. Done.</p></div>
+          <div style="padding: 12px; background: #f3f1ea"><p class="cap" style="color: #6b5420">◐ Phase 3 · now</p><p style="margin: 4px 0 0; font-size: 14px">Pilot. Recruiting a pilot partner.</p></div>
+          <div style="padding: 12px"><p class="cap" style="color: #2e3040">○ Phase 4</p><p style="margin: 4px 0 0; font-size: 14px">Scale: Mews, POS, Anima.</p></div>
+          <div style="padding: 12px"><p class="cap" style="color: #2e3040">○ Phase 5</p><p style="margin: 4px 0 0; font-size: 14px">Revenue Orchestrator. HiveMemory, research.</p></div>
+        </div>
+      </section>
+
+      <!-- 05 Decision Ledger -->
+      <section aria-labelledby="h5l" style="margin-top: 112px">
+        <p class="kick" style="color: #6b5420">05 · The Decision Ledger <span style="margin-left: 10px">● Built in Aetherix</span><span style="margin-left: 10px">○ Design as a shared layer</span></p>
+        <h2 id="h5l" style="margin: 10px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.1; color: #001738">The outcomes layer the others do not have</h2>
+        <p class="col" style="margin: 18px 0 0; font-size: 17px">Every recommendation Aetherix sends becomes one row: the context, what it recommended, what the manager said, what happened. That ledger is built, with no real user yet. <span style="border-bottom: 1.5px solid #b06a3b">The bet is to make it a layer: every agent of the architecture writes its rows there, and agents built by others read it through MCP.</span></p>
+        <div style="margin-top: 28px; position: relative; overflow: hidden; border-radius: 20px; background: #15110d; color: #faf9f4; padding: 32px 36px">
+          <div aria-hidden="true" style="position: absolute; inset: -20%; filter: blur(40px); background: radial-gradient(40% 50% at 70% 25%, rgba(176,106,59,.5), transparent 70%), radial-gradient(35% 45% at 15% 80%, rgba(200,160,100,.3), transparent 70%)"></div>
+          <div style="position: relative">
+            <p class="kick" style="color: rgba(250,249,244,.7)">The ledger, one row per decision</p>
+            <div role="table" aria-label="Decision Ledger rows" style="margin-top: 16px; font-size: 14px">
+              <div role="row" style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(250,249,244,.2); font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: rgba(250,249,244,.7)"><span role="columnheader">Agent</span><span role="columnheader">Recommended</span><span role="columnheader">Human said</span><span role="columnheader">What happened</span><span role="columnheader">Gap</span></div>
+              <div role="row" style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(250,249,244,.12)"><span role="cell">Aetherix · built</span><span role="cell">101</span><span role="cell">79</span><span role="cell">95</span><span role="cell"><span style="border: 1.5px solid #e0a77c; border-radius: 999px; padding: 0 8px">6% vs 17%</span></span></div>
+              <div role="row" style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px dashed rgba(250,249,244,.25); color: rgba(250,249,244,.6)"><span role="cell">Tacet, Anima, Peritia</span><span role="cell" style="grid-column: span 4">Same row, written by every agent of the architecture · designed</span></div>
+              <div role="row" style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 12px; padding: 12px 0; color: rgba(250,249,244,.6)"><span role="cell">Agents built by others</span><span role="cell" style="grid-column: span 4">Read and written through MCP · designed</span></div>
+            </div>
+            <p class="cap" style="margin-top: 14px; color: rgba(250,249,244,.65)">First row: built, shown on the sandbox run at the top of the page. The other rows are design.</p>
+          </div>
+        </div>
+        <div style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px">
+          <div>
+            <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 22px; color: #001738">Why it matters</p>
+            <p style="margin: 8px 0 0; font-size: 15.5px">Agents on marketplaces such as Apaleo's Agent Hub recommend. The ledger is the part that records what happened next, for Aetherix's own agents and for others'.</p>
+            <p class="cap" style="margin-top: 10px; color: #555a68">Built in Aetherix on 1 August 2026, no real user yet. The shared layer is design.</p>
+          </div>
+          <div style="padding: 14px 16px; border: 1px dashed #2e3040; border-radius: 8px">
+            <p style="margin: 0; font-weight: 600; color: #001738">The shared layer: designed, not built</p>
+            <ul style="margin: 6px 0 0; padding-left: 18px; font-size: 15px">
+              <li>The ledger has no real user yet, and Aetherix no pilot hotel.</li>
+              <li>Other agents would need consent, a shared format and access to outcomes.</li>
+              <li>The platform could build the same layer.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 -->
+      <section aria-labelledby="h5x" style="margin-top: 112px">
+        <p class="kick" style="color: #6b5420">06 · How it's built <span style="margin-left: 10px">● Built</span></p>
+        <h2 id="h5x" style="margin: 10px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1.1; color: #001738">Specified, reviewed and tested before anything ships</h2>
+        <ul class="col" style="margin: 20px 0 0; padding-left: 18px; font-size: 16px; display: flex; flex-direction: column; gap: 10px">
+          <li><strong style="color: #001738">Spec before code, with the BMAD method.</strong> Requirements, architecture, epics, then one written story per change. Code comes last.</li>
+          <li><strong style="color: #001738">I direct the agents; I own the result.</strong> AI agents build from those stories, inside 34 decisions I set. I review and decide what ships.</li>
+          <li><strong style="color: #001738">Nothing merges without passing its tests.</strong> A fixed set of scenarios checks every change; a drop in quality blocks it.</li>
+          <li><strong style="color: #001738">A weekly self-audit.</strong> An agent checks that what the project claims still matches what it does.</li>
+        </ul>
+        <!-- Agent architecture: Ada-style horizontal accordion on sandbox data -->
+        <h3 style="margin: 48px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 26px; color: #001738">Inside the agent</h3>
+        <p class="col" style="margin: 8px 0 0; font-size: 15.5px; color: #2e3040">One pass a day, on the sandbox hotel's first evening: the same figures as the demo at the top. Pick a step.</p>
+        <figure aria-label="Inside the agent: five steps, from the hotel's data to the recorded outcome" style="margin: 20px 0 0; max-width: 900px">
+          <div class="acc">
+            <div class="acc-card" style="flex: 1 1 0; background: #15110d"><div aria-hidden="true" style="position: absolute; inset: -25%; filter: blur(34px); background: radial-gradient(45% 55% at 30% 25%, rgba(176,106,59,.6), transparent 70%), radial-gradient(40% 50% at 70% 80%, rgba(90,70,50,.6), transparent 70%)"></div><button type="button" aria-expanded="false" class="acc-hit" aria-label="01 Reads the hotel"></button><p class="cap" style="position: relative; color: rgba(250,249,244,.7)">01</p><div style="position: relative; margin-top: auto"><p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 18px; line-height: 1.2; color: #faf9f4">Reads</p></div></div><div class="acc-card" style="flex: 1 1 0; background: #15110d"><div aria-hidden="true" style="position: absolute; inset: -25%; filter: blur(34px); background: radial-gradient(45% 55% at 60% 30%, rgba(200,150,90,.55), transparent 70%), radial-gradient(40% 50% at 20% 75%, rgba(70,60,45,.6), transparent 70%)"></div><button type="button" aria-expanded="false" class="acc-hit" aria-label="02 Forecasts the covers"></button><p class="cap" style="position: relative; color: rgba(250,249,244,.7)">02</p><div style="position: relative; margin-top: auto"><p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 18px; line-height: 1.2; color: #faf9f4">Forecasts</p></div></div><div class="acc-card" style="flex: 1 1 0; background: #15110d"><div aria-hidden="true" style="position: absolute; inset: -25%; filter: blur(34px); background: radial-gradient(45% 55% at 40% 40%, rgba(150,110,70,.55), transparent 70%), radial-gradient(40% 50% at 80% 70%, rgba(60,70,80,.5), transparent 70%)"></div><button type="button" aria-expanded="false" class="acc-hit" aria-label="03 Remembers this hotel"></button><p class="cap" style="position: relative; color: rgba(250,249,244,.7)">03</p><div style="position: relative; margin-top: auto"><p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 18px; line-height: 1.2; color: #faf9f4">Remembers</p></div></div><div class="acc-card" style="flex: 1 1 0; background: #15110d"><div aria-hidden="true" style="position: absolute; inset: -25%; filter: blur(34px); background: radial-gradient(45% 55% at 70% 20%, rgba(210,140,80,.55), transparent 70%), radial-gradient(40% 50% at 30% 80%, rgba(80,55,35,.6), transparent 70%)"></div><button type="button" aria-expanded="false" class="acc-hit" aria-label="04 Explains in plain words"></button><p class="cap" style="position: relative; color: rgba(250,249,244,.7)">04</p><div style="position: relative; margin-top: auto"><p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 18px; line-height: 1.2; color: #faf9f4">Explains</p></div></div><div class="acc-card" style="flex: 4 1 0; background: #15110d"><div aria-hidden="true" style="position: absolute; inset: -25%; filter: blur(34px); background: radial-gradient(45% 55% at 35% 30%, rgba(120,140,110,.45), transparent 70%), radial-gradient(40% 50% at 75% 75%, rgba(176,106,59,.5), transparent 70%)"></div><button type="button" aria-expanded="true" class="acc-hit" aria-label="05 Records what happened"></button><p class="cap" style="position: relative; color: rgba(250,249,244,.7)">05</p><div class="acc-body"><p style="margin: 0 0 4px; text-align: right; font-size: 12px; color: rgba(250,249,244,.8)">Manager</p><p style="margin: 0 0 14px auto; max-width: 78%; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(250,249,244,.2); background: rgba(250,249,244,.08); font-size: 14px; line-height: 1.45; color: #faf9f4">I'd say 79 covers instead.</p><p style="margin: 0 0 4px; font-size: 12px; color: rgba(250,249,244,.8)">Aetherix</p><p style="margin: 0; max-width: 82%; padding: 10px 14px; border-radius: 12px; background: #f2efe9; font-size: 14px; line-height: 1.45; color: #16170f">Actual: 95. Forecast 101: 6% off, inside the range. Your estimate: 17% off.</p><p style="margin: 12px 0 0; display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(160,200,150,.35); background: rgba(60,90,55,.35); font-size: 12.5px; color: #b9dcae">✓ Outcome recorded</p></div><div style="position: relative; margin-top: auto"><p style="margin: 0; display: flex; gap: 12px; align-items: baseline"><span class="cap" style="color: rgba(250,249,244,.7)">05</span><span style="font-family: Newsreader, Georgia, serif; font-size: 24px; color: #faf9f4">Records what happened</span></p><p style="margin: 6px 0 0 34px; max-width: 360px; font-size: 14px; line-height: 1.5; color: rgba(250,249,244,.78)">The reply and the real outcome sit next to the recommendation. That record is the ledger.</p></div></div>
+          </div>
+          <p style="margin: 12px 0 0; padding: 8px 14px; border: 1px solid #dcd7cb; border-radius: 8px; font-size: 13.5px; color: #2e3040"><strong style="color: #001738; font-weight: 600">Around every step:</strong> evaluation gates that block a change, one hotel's data never visible to another, data kept in the EU.</p>
+          <figcaption class="cap" style="margin-top: 8px; color: #555a68">Sandbox hotel · synthetic data · real services · seed 42. The figures come from the run; the bubbles word them for display.</figcaption>
+        </figure>
+
+        <!-- Global architecture -->
+        <h3 style="margin: 48px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 26px; color: #001738">Where it sits</h3>
+        <p class="col" style="margin: 8px 0 0; font-size: 15.5px; color: #2e3040">Aetherix is one agent of the <a href="#arch" style="color: #001738; border-bottom: 1px solid #6b5420; text-decoration: none">Hospitality Multi-Agent Architecture</a>. It executes F&amp;B; it does not orchestrate. Every exchange goes through MCP.</p>
+        <figure aria-label="The Hospitality Multi-Agent Architecture: four agents around an orchestrator, inside the Decision Ledger" style="margin: 56px 0 0; max-width: 900px">
+          <div class="arch">
+            <svg class="arch-bg" viewBox="0 0 900 600" aria-hidden="true">
+              <circle cx="450" cy="290" r="288" fill="none" stroke="#6b5420" stroke-width="1.25" stroke-dasharray="2 5"></circle>
+              <circle cx="450" cy="290" r="250" fill="none" stroke="#dcd7cb" stroke-width="1"></circle>
+              <line x1="450" y1="290" x2="273" y2="113" stroke="#001738" stroke-width="1.25"></line><line x1="450" y1="290" x2="627" y2="113" stroke="#001738" stroke-width="1.25"></line><line x1="450" y1="290" x2="273" y2="467" stroke="#001738" stroke-width="1.25" stroke-dasharray="8 5"></line><line x1="450" y1="290" x2="627" y2="467" stroke="#001738" stroke-width="1.25" stroke-dasharray="2 4"></line>
+              <path d="M373 67 L527 67" fill="none" stroke="#b06a3b" stroke-width="1.25" stroke-dasharray="6 5"></path>
+              <path d="M381 67 l8 -5 M381 67 l8 5" fill="none" stroke="#b06a3b" stroke-width="1.25" stroke-linecap="round"></path>
+            </svg>
+            <p class="am" style="left: 752px; top: 262px; transform: none; white-space: normal; width: 148px; font-size: 13px; line-height: 1.4; color: #2e3040">← Third-party agents read it, through MCP · designed</p>
+            <p class="cap ad" style="left: 450px; top: -34px; transform: translateX(-50%); color: #2e3040">Tacet → Aetherix: direct, until the orchestrator exists</p>
+            <div class="ao" style="left: 450px; top: 290px; border: 1.5px dotted #001738; background: #ffffff"><p style="margin: 0; font-family: Newsreader, Georgia, serif; font-size: 23px; color: #001738">Orchestrator</p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">Routing and business rules</p><p style="margin: 4px 0 0; font-size: 13px; font-weight: 600; color: #001738">Design, proto-stub</p></div>
+            <div class="an" style="left: 273px; top: 113px; border: 1.5px solid #b06a3b; background: #f3f1ea"><p style="margin: 0; display: flex; justify-content: space-between; gap: 8px; align-items: baseline"><span style="font-family: Newsreader, Georgia, serif; font-size: 21px; color: #001738">Aetherix</span><span class="cap" style="color: #6b5420">this page</span></p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">F&amp;B execution</p><p style="margin: 4px 0 0; font-size: 13px; font-weight: 600; color: #001738">Built · forecast in shadow mode</p></div>
+            <div class="an" style="left: 627px; top: 113px; border: 1.5px solid #001738; background: #ffffff"><p style="margin: 0; display: flex; justify-content: space-between; gap: 8px; align-items: baseline"><span style="font-family: Newsreader, Georgia, serif; font-size: 21px; color: #001738">Tacet</span></p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">Sensory: weather, noise, open data</p><p style="margin: 4px 0 0; font-size: 13px; font-weight: 600; color: #001738">Built · maintenance</p></div>
+            <div class="an" style="left: 273px; top: 467px; border: 1.5px dashed #001738; background: #ffffff"><p style="margin: 0; display: flex; justify-content: space-between; gap: 8px; align-items: baseline"><span style="font-family: Newsreader, Georgia, serif; font-size: 21px; color: #001738">Anima</span></p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">Guest memory</p><p style="margin: 4px 0 0; font-size: 13px; font-weight: 600; color: #001738">Synthetic PoC · DPIA-gated</p></div>
+            <div class="an" style="left: 627px; top: 467px; border: 1.5px dotted #001738; background: #ffffff"><p style="margin: 0; display: flex; justify-content: space-between; gap: 8px; align-items: baseline"><span style="font-family: Newsreader, Georgia, serif; font-size: 21px; color: #001738">Peritia</span></p><p style="margin: 2px 0 0; font-size: 13.5px; color: #2e3040">House knowledge</p><p style="margin: 4px 0 0; font-size: 13px; font-weight: 600; color: #001738">Design · pattern tested in Lore</p></div>
+            <p class="am" style="left: 450px; top: 588px; transform: translateX(-50%); color: #001738"><span style="font-weight: 600">Decision Ledger</span> <span style="color: #2e3040">· built in Aetherix; shared across agents: Design</span></p>
+          </div>
+          <figcaption class="cap" style="margin-top: 12px; color: #555a68">Every exchange goes through the orchestrator, over MCP. Solid: Built. Long dashes: Synthetic PoC. Dots: Design.</figcaption>
+        </figure>
+
+        <div style="margin-top: 32px; border-top: 1px solid #dcd7cb; border-bottom: 1px solid #dcd7cb; padding: 12px 0; display: flex; justify-content: space-between; max-width: 900px"><span class="cap" style="color: #2e3040">For the technical reader: stack, evaluation contract, observability, multi-tenant security</span><span aria-hidden="true" style="color: #6b5420">▾</span></div>
+      </section>
+      <div style="height: 120px"></div>
+    </div>
+  </div>
+
+  <!-- Next: Ada-style card, the architecture -->
+  <section style="max-width: 1312px; margin: 0 auto; padding: 0 40px 96px" aria-label="Next">
+    <div style="position: relative; overflow: hidden; border-radius: 22px; background: #15110d; color: #faf9f4; padding: 56px 64px 40px">
+      <div aria-hidden="true" style="position: absolute; inset: -20%; filter: blur(40px); background: radial-gradient(40% 50% at 60% 30%, rgba(176,106,59,.5), transparent 70%), radial-gradient(35% 45% at 85% 65%, rgba(90,110,130,.45), transparent 70%), radial-gradient(30% 40% at 25% 80%, rgba(200,160,100,.3), transparent 70%)"></div>
+      <div style="position: relative">
+        <p class="kick" style="color: rgba(250,249,244,.7)">Next · where Aetherix sits</p>
+        <p style="margin: 14px 0 0; font-family: Newsreader, Georgia, serif; font-size: 48px; line-height: 1.05">Hospitality Multi-Agent Architecture</p>
+        <p style="margin: 18px 0 0; max-width: 720px; font-size: 21px; line-height: 1.45; color: rgba(250,249,244,.92)">Five specialised agents, each owning one bounded context, talking only through MCP. The page says which is built and which is design.</p>
+        <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(250,249,244,.18); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+          <p style="margin: 0; font-size: 14px; color: rgba(250,249,244,.85)">Aetherix, Tacet, Anima, Peritia and the orchestrator</p>
+          <a href="#arch" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(250,249,244,.35); color: #faf9f4; text-decoration: none; font-size: 14.5px">Read the architecture</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Close: navy, as on Rose -->
+  <div aria-hidden="true" style="height: 120px; background: linear-gradient(to bottom, #f3e7d6, #001738)"></div>
+  <section style="background: #001738; color: #faf9f4; padding: 56px 40px 96px; text-align: center">
+    <p class="kick" style="color: #e0a77c">07 · Talk</p>
+    <h2 style="margin: 14px 0 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 44px">About a pilot, or a role</h2>
+    <p style="margin: 14px auto 0; max-width: 620px; font-size: 18px; color: rgba(250,249,244,.85)">Open to a first pilot hotel running Apaleo, and to AI Product Manager and Product Builder roles.</p>
+    <div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center">
+      <a href="#book" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: 10px; background: #faf9f4; color: #001738; text-decoration: none; font-weight: 500">Book a call ↗</a>
+      <a href="#repo" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 4px; color: #faf9f4; border-bottom: 1px solid rgba(250,249,244,.4); text-decoration: none">Architecture repo ↗</a>
+    </div>
+  </section>
+</div>
+  <footer class="foot" style="background: #faf9f4; font-family: Manrope, sans-serif; border-top: 1px solid #dcd7cb">
+    <div style="max-width: 1312px; margin: 0 auto; padding: 28px 40px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between">
+      <a href="#agents" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border: 1px solid #dcd7cb; border-radius: 6px; text-decoration: none; font: 400 12px 'IBM Plex Mono', monospace; color: #2e3040">For agents · MCP and Markdown</a>
+      <p class="cap" style="color: #2e3040">© 2026 Ivan de Murard · <a href="#cv">CV</a> · <a href="#arch">Architecture</a> · <a href="#privacy">Privacy</a></p>
+      <p style="margin: 0; display: flex; gap: 20px; font-size: 13px; color: #2e3040"><a href="#mail">Email</a><a href="#book">Book a call ↗</a><a href="#li">LinkedIn ↗</a><a href="#gh">GitHub ↗</a></p>
+    </div>
+  </footer>
+
+</body></html>
