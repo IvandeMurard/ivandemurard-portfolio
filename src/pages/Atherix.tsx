@@ -190,7 +190,7 @@ const Atherix = () => {
           <dl data-reveal-child className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
             <dt className="text-secondary">Type</dt><dd>AI agent · Boutique hotel operations · 2026</dd>
             <dt className="text-secondary">Role</dt><dd>Product Builder and AI Agent Designer, solo</dd>
-            <dt className="text-secondary">Status</dt><dd>Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.</dd>
+            <dt className="text-secondary">Status</dt><dd>Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.</dd>
           </dl>
           <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link to="/architecture" className={linkCls}>The architecture</Link>

@@ -28,7 +28,7 @@ type Act = {
 
 /** The five agents of the mesh, in the order they exist. */
 const MESH_AGENTS: { name: string; role: string; status: string; to?: string }[] = [
-  { name: "Aetherix", role: "F&B execution", status: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.", to: "/aetherix" },
+  { name: "Aetherix", role: "F&B execution", status: "Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.", to: "/aetherix" },
   { name: "Tacet", role: "Environmental signal", status: "Built", to: "/tacet" },
   { name: "Anima", role: "Guest memory", status: "Synthetic PoC", to: "/anima" },
   { name: "Peritia", role: "House knowledge", status: "Design" },
