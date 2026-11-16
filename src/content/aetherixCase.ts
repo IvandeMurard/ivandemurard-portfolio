@@ -71,7 +71,7 @@ export const STRATEGY = {
   ],
   underlined: "Distribution before design",
   who: [
-    { role: "Distributes", name: "The PMS", text: "Shares read-only data through Apaleo, and lists the integration." },
+    { role: "Distributes", name: "The PMS", text: "Apaleo shares read-only data and lists the integration." },
     { role: "Uses", name: "The F&B manager", text: "Gets the daily message. Sends the reply." },
     { role: "Pays", name: "Hotel management", text: "Signs the contract." },
   ],
@@ -105,7 +105,7 @@ export const PROVEN = {
   testLimit: "The test used restaurant data, without hotel occupancy, the signal the product relies on. The protocol was not pre-registered. Maison Lumen uses occupancy from Apaleo; how accurate the forecast is on a real hotel is what a pilot will measure.",
   phases: [
     ["●", "Phase 0–2", "Validation, observability and the Daily Receipt are done."],
-    ["◐", "Phase 3 · now", "Pilot. Recruiting a pilot partner."],
+    ["◐", "Phase 3 · now", "Pilot readiness. No hotel yet."],
     ["○", "Phase 4", "Scale: Mews, POS, Anima."],
     ["○", "Phase 5", "Revenue Orchestrator. Hive Memory stays research."],
   ] as const,

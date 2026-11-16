@@ -23,7 +23,8 @@ The HTML files in this folder keep the copy as validated on 16 Nov 2026. The pag
 - TL;DR "Today": "The loop runs daily on Maison Lumen, a fictional hotel in the Apaleo sandbox. The product is being made ready for a first pilot; no hotel yet." (The brief says "Hotel Lumen"; the configured name is "Maison Lumen".)
 - Phase 0–2: "Validation, observability and the Daily Receipt are done."
 - Phase 5: "Revenue Orchestrator. Hive Memory stays research."
-- Who figure, PMS: "Shares read-only data through Apaleo, and lists the integration."
+- Who figure, PMS: "Apaleo shares read-only data and lists the integration."
+- Phase 3: "Pilot readiness. No hotel yet."
 - Who figure, hotel management: "Signs the contract."
 - Decision 4 title: "Three parties: who uses, who pays, who distributes".
 - Forecast test, last paragraph: "The test used restaurant data, without hotel occupancy, the signal the product relies on. The protocol was not pre-registered. Maison Lumen uses occupancy from Apaleo; how accurate the forecast is on a real hotel is what a pilot will measure."

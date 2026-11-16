@@ -808,7 +808,7 @@ And measure every recommendation against what happened. Five decisions follow fr
 
 Who uses, who pays, who distributes.
 
-- Distributes: The PMS. Shares read-only data through Apaleo, and lists the integration.
+- Distributes: The PMS. Apaleo shares read-only data and lists the integration.
 - Uses: The F&B manager. Gets the daily message. Sends the reply.
 - Pays: Hotel management. Signs the contract.
 
@@ -847,7 +847,7 @@ Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, determi
 #### Phases
 
 - ● Phase 0–2: Validation, observability and the Daily Receipt are done.
-- ◐ Phase 3 · now: Pilot. Recruiting a pilot partner.
+- ◐ Phase 3 · now: Pilot readiness. No hotel yet.
 - ○ Phase 4: Scale: Mews, POS, Anima.
 - ○ Phase 5: Revenue Orchestrator. Hive Memory stays research.
 
