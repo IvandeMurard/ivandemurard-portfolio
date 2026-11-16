@@ -10,18 +10,17 @@ export type PageSection = { id: string; label: string; heading?: string; within?
 
 const same = (id: string, label: string): PageSection => ({ id, label, heading: label });
 
+// Chapter 04 keeps the id "where-it-stands" (its old anchor, still named in Rose's instructions and in links already shared).
 export const AETHERIX_SECTIONS: PageSection[] = [
-  same("in-one-minute", "In one minute"),
-  same("the-problem", "The problem"),
-  same("product-strategy", "Product strategy"),
-  same("how-it-works", "How it works"),
-  same("what-it-does-today", "What it does today"),
-  same("where-it-stands", "Where it stands"),
+  { id: "the-problem", label: "The problem", heading: "The knowledge leaves with the manager" },
+  { id: "how-it-works", label: "How it works", heading: "One record a day" },
+  { id: "product-strategy", label: "Product strategy", heading: "Understand a property the way its manager does" },
+  { id: "where-it-stands", label: "What is proven", heading: "The loop is built. The forecast is not yet proven on hotels." },
   // A collapsible panel: its own summary text is its heading.
   { id: "the-numbers", label: "The numbers", heading: "The numbers", within: "where-it-stands" },
-  same("how-its-built", "How it's built"),
-  same("under-the-hood", "Under the hood"),
-  same("talk-about-a-pilot", "Talk about a pilot"),
+  { id: "decision-ledger", label: "The Decision Ledger", heading: "The outcomes layer the others do not have" },
+  { id: "how-its-built", label: "How it's built", heading: "Specified, reviewed and tested before anything ships" },
+  { id: "talk", label: "Talk", heading: "About a pilot, or a role" },
 ];
 
 export const TACET_SECTIONS: PageSection[] = [

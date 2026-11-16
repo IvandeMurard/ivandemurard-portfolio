@@ -51,6 +51,7 @@ export default {
         },
         "rose-copper": "hsl(var(--rose-copper))",
         "rose-copper-on-navy": "hsl(var(--rose-copper-on-navy))",
+        "aetherix-warm": "hsl(var(--aetherix-warm))",
         "secondary-fixed": "hsl(var(--secondary-fixed))",
         "secondary-fixed-dim": "hsl(var(--secondary-fixed-dim))",
         "on-secondary": "hsl(var(--on-secondary))",

@@ -4,10 +4,7 @@
     "italic": 6
   },
   "public/aetherix.md": {
-    "contrast-reflex": 5,
-    "dot-chain": 1,
-    "mood-word": 2,
-    "theatrical-fragment": 1
+    "contrast-reflex": 2
   },
   "public/agent-boundaries-aetherix.md": {
     "colon-reveal": 1,
@@ -354,10 +351,8 @@
     "theatrical-fragment": 2
   },
   "src/pages/Atherix.tsx": {
-    "contrast-reflex": 6,
-    "italic": 4,
-    "mood-word": 2,
-    "theatrical-fragment": 3
+    "contrast-reflex": 3,
+    "theatrical-fragment": 1
   },
   "src/pages/Atrium.tsx": {
     "contrast-reflex": 3,

@@ -15,6 +15,7 @@
     --rose-copper: 22 58% 32%;                /* Rose's colour, Rose case study only */
     --rose-cool: 212 32% 93%;                 /* end of the case-study gradient */
     --rose-copper-on-navy: 22 62% 66%;        /* the Night value of --rose-copper, for the navy close in both moods */
+    --aetherix-warm: 35 55% 90%;              /* #f3e7d6, end of the Aetherix case-study gradient */
     --surface-bright: 42 41% 97%;
     --surface-dim: 45 7% 85%;                 /* #dbdad5 */
     --surface-container-lowest: 0 0% 100%;    /* #ffffff */
@@ -119,6 +120,7 @@
     --surface: 32 14% 11%;                    /* warm taupe room */
     --rose-copper: 22 62% 66%;
     --rose-cool: 215 24% 12%;
+    --aetherix-warm: 30 31% 10%;              /* #221a12 */
     --surface-bright: 32 14% 14%;
     --surface-dim: 32 14% 8%;
     --surface-container-lowest: 32 14% 9%;
@@ -1072,6 +1074,46 @@
 /* Rose case study: one continuous gradient from the July page colour to cool tones. */
 .rose-case-bg {
   background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 12%, hsl(var(--rose-cool)) 100%);
+}
+
+/* Aetherix case study: the same continuous gradient, from the site surface to the project's warm tint. */
+.aetherix-case-bg {
+  background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 10%, hsl(var(--aetherix-warm)) 100%);
+}
+
+/* Aetherix case study: the dark cards (ledger, "Inside the agent", Next). The same warm dark in Day and Night.
+   Tokens are re-scoped locally so the children keep using semantic classes, as .section-inverse does. */
+.aetherix-dark {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: hsl(30 24% 7%);
+  color: hsl(50 33% 97%);
+  --primary: 50 33% 97%;
+  --secondary: 27 63% 67%;
+  --on-surface: 50 33% 97%;
+  --on-surface-variant: 45 14% 80%;
+  --outline-variant: 45 12% 36%;
+  --signal-go: 105 35% 78%;
+  --dark-ink: 30 24% 7%;
+}
+.aetherix-dark-glow {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(40px);
+  background:
+    radial-gradient(40% 50% at var(--gx, 70%) var(--gy, 25%), hsl(24 40% 48% / 0.5), transparent 70%),
+    radial-gradient(35% 45% at 15% 80%, hsl(36 47% 60% / 0.3), transparent 70%);
+}
+
+/* "Inside the agent": from md up the open card is wider (flex-grow 4 against 1). With reduced motion it does not animate. */
+@media (min-width: 768px) {
+  .aetherix-acc-card { flex: var(--g, 1) 1 0%; transition: flex-grow 500ms ease; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aetherix-acc-card { transition: none; }
 }
 
 /* The passage a Rose source link points at: the colour of RoseMark kind="highlight", one meaning only. */

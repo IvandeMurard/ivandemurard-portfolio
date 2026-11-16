@@ -39,8 +39,8 @@ afterEach(() => {
 describe("Source link labels", () => {
   it("renders an internal link with a #section as § and the section's heading, named without the §", () => {
     md("See [the status](/aetherix#where-it-stands).");
-    const a = screen.getByRole("link", { name: "Where it stands, in Aetherix" });
-    expect(a.textContent).toBe("§ Where it stands");
+    const a = screen.getByRole("link", { name: "The loop is built. The forecast is not yet proven on hotels, in Aetherix" });
+    expect(a.textContent).toBe("§ The loop is built. The forecast is not yet proven on hotels");
     expect(a).toHaveAttribute("href", "/aetherix#where-it-stands");
   });
 
@@ -105,12 +105,12 @@ describe("Source link labels", () => {
 
   it("opens an internal link in the same tab", () => {
     md("See [the status](/aetherix#where-it-stands).");
-    expect(screen.getByRole("link", { name: "Where it stands, in Aetherix" })).not.toHaveAttribute("target");
+    expect(screen.getByRole("link", { name: "The loop is built. The forecast is not yet proven on hotels, in Aetherix" })).not.toHaveAttribute("target");
   });
 });
 
 describe("Origin of a source link", () => {
-  const status = () => screen.getByRole("link", { name: "Where it stands, in Aetherix" });
+  const status = () => screen.getByRole("link", { name: "The loop is built. The forecast is not yet proven on hotels, in Aetherix" });
 
   it("keeps the origin (path, section, scroll position) and the target in sessionStorage", () => {
     md("See [the status](/aetherix#where-it-stands).", "/rose-design-lab");
@@ -242,7 +242,7 @@ describe("Context line", () => {
     saveJump(jump());
     line("/aetherix#where-it-stands");
     const nav = screen.getByRole("navigation", { name: "Return to where you were" });
-    expect(nav.textContent).toContain("Aetherix · Where it stands");
+    expect(nav.textContent).toContain("Aetherix · The loop is built. The forecast is not yet proven on hotels");
     expect(screen.getByRole("button", { name: "← Back to Rose, Chapter 08" })).toBeTruthy();
   });
 
