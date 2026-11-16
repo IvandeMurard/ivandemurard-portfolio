@@ -326,7 +326,7 @@ export const TRUST = {
     // Printed inside quotation marks.
     answers: [
       { label: "Source-correct answer", text: "Aetherix is staged on Fly.io and connected to the Apaleo sandbox.", note: "It is true and cited, but the reader still has to work out what it means." },
-      { label: "Useful answer", text: "No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.", note: "It uses the same sources and answers the decision behind the question." },
+      { label: "Useful answer", text: "No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet.", note: "It uses the same sources and answers the decision behind the question." },
     ],
     caption: "From Rose’s answer contract: “A verifiable fact unrelated to the question is still a poor answer.”",
   },

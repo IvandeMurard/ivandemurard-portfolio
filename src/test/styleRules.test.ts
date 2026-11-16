@@ -49,7 +49,7 @@ describe("style checker: it finds the examples in docs/style.md §2", () => {
 describe("style checker: what is not a theatrical fragment", () => {
   const fragments = (source: string) => scanSource("src/content/x.ts", source).filter((h) => h.pattern === "theatrical-fragment");
   it("excludes a project status label", () => {
-    expect(fragments('const a = "Pilot-ready. Staged on Fly.io and connected to the Apaleo sandbox.";')).toEqual([]);
+    expect(fragments('const a = "Pre-pilot. Staged on Fly.io and connected to the Apaleo sandbox.";')).toEqual([]);
     expect(fragments('const a = "Compliance Gated. Deployment is frozen until the assessment clears.";')).toEqual([]);
   });
   it("excludes an evidence marker and the Synthetic PoC opener", () => {

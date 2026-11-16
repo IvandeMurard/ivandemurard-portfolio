@@ -47,11 +47,11 @@ Names
 
 ## What the site says that differs from the table (16 Nov 2026)
 
-Nothing below was changed. The portfolio's project statuses (`src/content/statuses.ts`) are a second vocabulary (Pilot-ready, Maintenance, Compliance Gated...) that the MCP server and Rose quote as written. Aligning them word for word means replacing that vocabulary, which is a decision for Ivan.
+Nothing below was changed. The portfolio's project statuses (`src/content/statuses.ts`) are a second vocabulary (Pre-pilot, Maintenance, Compliance Gated...) that the MCP server and Rose quote as written. Aligning them word for word means replacing that vocabulary, which is a decision for Ivan.
 
 | Where | Site says | llms.txt says |
 |---|---|---|
-| `statuses.ts` aetherix | "Pilot-ready". "Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot." (note changed on 16 Nov 2026, with the same sentence on the Aetherix page and its mirrors) | "Built: private repo, 0 real users, staging on Fly.io." |
+| `statuses.ts` aetherix | "Pre-pilot". "Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet." (note changed on 16 Nov 2026, with the same sentence on the Aetherix page and its mirrors) | "Built: private repo, 0 real users, staging on Fly.io." |
 | `statuses.ts` tacet | "Maintenance". "...Built; in maintenance mode since July 2026." | "Built: public repo, paused / maintenance mode since July 2026." |
 | `statuses.ts` anima | "Compliance Gated". "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears." | "Synthetic PoC: DPIA-gated, never run on a real guest." |
 | `statuses.ts` sonor, rose, lore, compass | Own labels (MVP shipped, Live text only, Evaluated, Partial) | Not in the table: these are portfolio projects, not nodes of the architecture. |

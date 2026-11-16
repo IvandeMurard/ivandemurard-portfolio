@@ -42,7 +42,7 @@ Each is banned in site copy and in Rose's answers. The checker in §5 flags the 
 - **Italic: one use only.** One phrase in the hero headline of a page, at most. No italic in section headings, transitions, captions, notes or body text.
 - **Rose's notes:** Rose's notes are recognised by their bubble (dock surface and border), the compass and the name Rose in roman. Their text is ink, not copper. No italic in notes.
 - **Serif** for headings, **sans** for body text, **mono** only for data, code and source lines.
-- **Uppercase mono labels (kickers, tags, pills):** at most one per section, and no decorative pills or badges. The one status badge per project stays (Built, Pilot-ready, and so on).
+- **Uppercase mono labels (kickers, tags, pills):** at most one per section, and no decorative pills or badges. The one status badge per project stays (Built, Pre-pilot, and so on).
 - No new fonts or display effects.
 
 ## 4. Layout

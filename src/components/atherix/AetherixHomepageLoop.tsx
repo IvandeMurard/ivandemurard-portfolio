@@ -76,7 +76,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
 
   return (
     <div className="w-full">
-      <div role="tablist" aria-label="Three days in the sandbox hotel"
+      <div role="tablist" aria-label="Three days at Maison Lumen, a fictional hotel in the Apaleo sandbox"
         className="grid grid-cols-3 gap-1 p-1 mb-5 rounded-md bg-surface-container border border-outline-variant">
         {LOOP_TABS.map((label, i) => {
           const [day, title] = label.split(" · ");
@@ -181,7 +181,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
       <div className="mt-4 flex items-start justify-between gap-4">
         <a href={LOOP_SOURCE_URL} target="_blank" rel="noopener noreferrer"
           className="font-mono text-[11px] text-on-surface-variant underline underline-offset-2 hover:text-on-surface">
-          <ExternalMark>Sandbox hotel · synthetic data · real services · seed {LOOP.provenance.seed}</ExternalMark>
+          <ExternalMark>Maison Lumen, a fictional hotel in the Apaleo sandbox · synthetic data · real services · seed {LOOP.provenance.seed}</ExternalMark>
         </a>
         <button type="button" onClick={() => setRun((r) => r + 1)}
           className="font-mono text-[11px] text-on-surface-variant border-b border-outline-variant hover:text-on-surface shrink-0">

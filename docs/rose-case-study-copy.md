@@ -167,7 +167,7 @@ var V5 = {
   - Intro: "So Rose answers the decision behind the question first, keeps the evidence limit, and leaves implementation detail for when it is asked."
   - Example question: "Is Aetherix in production?"
   - Source-correct: "\"Aetherix is staged on Fly.io and connected to the Apaleo sandbox.\"" · note "True, cited. The reader still has to work out what it means."
-  - Useful: "\"No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.\"" · note "Same sources. It answers the decision behind the question."
+  - Useful: "\"No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet.\"" · note "Same sources. It answers the decision behind the question."
   - Caption: "From Rose’s answer contract: “A verifiable fact unrelated to the question is still a poor answer.”" (no file name and no link: the prompt will leave the repository)
 - Transition: "Contracts are only as good as the checks behind them."
 

@@ -9,8 +9,8 @@ export type HeroExchange = { where: string; q: string; a: string; src: string; l
 
 export const HERO_EXCHANGES: HeroExchange[] = [
   { where: "Reading: /rose · 03 · Know where you are", q: "Say it more simply.", a: "When you ask me something, I also receive the page you are on, so I answer about what you are reading.", src: "Source: chapter 03" },
-  { where: "Reading: /aetherix", q: "Is Aetherix in production?", a: "No. It was built and evaluated on historical data, staged against a sandbox, and is ready for a 30-day pilot.", src: "Source: /aetherix, status", link: { label: "Aetherix, the case study", to: "/aetherix" } },
-  { where: "Reading: /journeys", q: "What has Ivan built?", a: "Six projects, each with its status. Aetherix is ready for a 30-day pilot, Tacet is built and in maintenance, and Anima is a synthetic proof of concept.", src: "Source: case studies, /journeys", chips: ["What happens when it's wrong?", "Which ones are live?"] },
+  { where: "Reading: /aetherix", q: "Is Aetherix in production?", a: "No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet.", src: "Source: /aetherix, status", link: { label: "Aetherix, the case study", to: "/aetherix" } },
+  { where: "Reading: /journeys", q: "What has Ivan built?", a: "Six projects, each with its status. Aetherix is pre-pilot, Tacet is built and in maintenance, and Anima is a synthetic proof of concept.", src: "Source: case studies, /journeys", chips: ["What happens when it's wrong?", "Which ones are live?"] },
 ];
 
 /* ---------------------------------------------------------------- Chapter 06: three formats in design */
