@@ -74,7 +74,7 @@ const TRUST = [
   {
     icon: "lock",
     title: "Multi-tenant security",
-    body: "hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.",
+    body: "hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, Hive Memory is anonymized aggregates only.",
   },
 ];
 
@@ -97,7 +97,7 @@ const FAQ = [
   },
   {
     q: "How is multi-tenant security handled?",
-    a: "hotel_id is scoped at every layer (Postgres RLS, Python guards, MCP token binding), resolved server-side, never accepted as a tool input. PMS access is read-only. Data residency: Supabase EU. HiveMemory holds anonymized aggregates only, no cross-tenant raw data.",
+    a: "hotel_id is scoped at every layer (Postgres RLS, Python guards, MCP token binding), resolved server-side, never accepted as a tool input. PMS access is read-only. Data residency: Supabase EU. Hive Memory holds anonymized aggregates only, no cross-tenant raw data.",
   },
   {
     q: "How do I pilot Aetherix?",
@@ -190,7 +190,7 @@ const Atherix = () => {
           <dl data-reveal-child className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
             <dt className="text-secondary">Type</dt><dd>AI agent · Boutique hotel operations · 2026</dd>
             <dt className="text-secondary">Role</dt><dd>Product Builder and AI Agent Designer, solo</dd>
-            <dt className="text-secondary">Status</dt><dd>Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.</dd>
+            <dt className="text-secondary">Status</dt><dd>Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.</dd>
           </dl>
           <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link to="/architecture" className={linkCls}>The architecture</Link>
@@ -261,7 +261,7 @@ const Atherix = () => {
       <Reveal as="section" id="how-it-works" className={sectionCls}>
         <div className="max-w-screen-2xl mx-auto">
           <SectionHeading id="how-it-works-heading" title="How it works" />
-          <p className={leadCls}>Every day adds one record: what was recommended, what the manager said, what happened.</p>
+          <p className={leadCls}>Every day adds one row to the Decision Ledger: what was recommended, what the manager said, what happened. Built inside Aetherix, 0 real users.</p>
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
           <div id="the-daily-loop" className={`min-w-0 lg:col-span-7 scroll-mt-24 rounded-sm transition-shadow duration-700 ${focus === "the-daily-loop" ? "ring-2 ring-secondary ring-offset-8 ring-offset-surface" : ""}`}>
           <h3 className={subheadCls}>The daily loop</h3>
@@ -316,7 +316,7 @@ const Atherix = () => {
           </div>
           <div className="min-w-0">
           <h3 className={subheadCls}>Product vision</h3>
-          <p className="max-w-3xl text-on-surface-variant leading-relaxed">Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through HiveMemory, a layer of shared anonymised patterns, and get the reach of a group without joining one.</p>
+          <p className="max-w-3xl text-on-surface-variant leading-relaxed">Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through Hive Memory, a layer of shared anonymised patterns, and get the reach of a group without joining one.</p>
           <span className="mt-5 inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Research, not built</span>
           </div>
           </div>
@@ -344,7 +344,7 @@ const Atherix = () => {
           <AetherixMeshDiagram />
           <p className="my-8 text-sm text-on-surface-variant"><Link to="/anima" className={linkCls}>Anima, the guest memory node, has its own case study</Link>.</p>
           <AetherixDisclosure title="Pipeline and stack">
-            <p className="mb-6 max-w-3xl text-sm leading-relaxed text-on-surface-variant">Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning → WhatsApp or Email.</p>
+            <p className="mb-6 max-w-3xl text-sm leading-relaxed text-on-surface-variant">Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (Operational Memory + Cold-start prior, research) → Claude Sonnet reasoning → WhatsApp or Email.</p>
             <div className="mb-8 overflow-hidden rounded-sm border border-outline-variant bg-surface"><AetherixArchitectureDiagram /></div>
             <AetherixStackChips />
           </AetherixDisclosure>

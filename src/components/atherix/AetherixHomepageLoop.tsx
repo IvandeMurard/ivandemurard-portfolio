@@ -76,7 +76,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
 
   return (
     <div className="w-full">
-      <div role="tablist" aria-label="Three days of the closed loop"
+      <div role="tablist" aria-label="Three days in the sandbox hotel"
         className="grid grid-cols-3 gap-1 p-1 mb-5 rounded-md bg-surface-container border border-outline-variant">
         {LOOP_TABS.map((label, i) => {
           const [day, title] = label.split(" · ");

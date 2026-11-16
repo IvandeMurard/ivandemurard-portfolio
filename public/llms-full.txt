@@ -752,7 +752,7 @@ One message a day in WhatsApp. The manager replies. The outcome is recorded next
 
 - Type: AI agent · Boutique hotel operations · 2026
 - Role: Product Builder and AI Agent Designer, solo
-- Status: Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
+- Status: Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
 - The architecture: https://ivandemurard.com/architecture
 - GitHub: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
 - Book a call: https://cal.com/ivandemurard/discussion-and-introduction
@@ -804,7 +804,7 @@ Who uses, who pays, who distributes: PMS (Apaleo) → Aetherix, data, read-only 
 
 ## Sec. 04 · How it works
 
-**Every day adds one record: what was recommended, what the manager said, what happened.**
+**Every day adds one row to the Decision Ledger: what was recommended, what the manager said, what happened. Built inside Aetherix, 0 real users.**
 
 ### The daily loop
 
@@ -870,14 +870,14 @@ Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, determi
 
 - Phase 0: Validation, done
 - Phase 1: Observability, done
-- Phase 2: Receipts, done
+- Phase 2: Daily Receipt, done
 - Phase 3: Pilot, current. Recruiting pilot partner.
-- Phase 4: Scale, planned. Mews · POS · Federated HiveMemory · Context Graph · Anima
+- Phase 4: Scale, planned. Mews · POS · Hive Memory · Context Graph · Anima
 - Phase 5: Vision, planned. Revenue Orchestrator
 
 ### Product vision
 
-Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through HiveMemory, a layer of shared anonymised patterns, and get the reach of a group without joining one.
+Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through Hive Memory, a layer of shared anonymised patterns, and get the reach of a group without joining one.
 
 Status: Research, not built.
 
@@ -901,7 +901,7 @@ Aetherix is one of five agents. Each owns one job and talks to the others only t
 
 | Agent | Role | Status |
 | --- | --- | --- |
-| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. |
+| Aetherix | F&B execution: forecast, staffing, Operational Memory, Daily Receipt | Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. |
 | Tacet | Sensory: weather, noise, open data, risk | Built, maintenance mode since July 2026 |
 | Anima | Guest memory node | Synthetic PoC, production DPIA-gated |
 | Peritia | House knowledge | Design |
@@ -911,7 +911,7 @@ Anima, the guest memory node, has its own case study: https://ivandemurard.com/a
 
 ### Pipeline and stack
 
-Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning → WhatsApp or Email.
+Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (Operational Memory + Cold-start prior, research) → Claude Sonnet reasoning → WhatsApp or Email.
 
 Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris).
 
@@ -919,7 +919,7 @@ Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Son
 
 - Evaluation as a contract: Qonto-inspired. Versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge. A hard CI gate, not a habit.
 - Observability & metering: Every MCP tool call is one structured event. Auditable, queryable, priceable. The product is operable, not opaque.
-- Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.
+- Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, Hive Memory is anonymized aggregates only.
 
 ### More
 
@@ -1665,7 +1665,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 
 ## Where this sits
 
-- **Aetherix** (Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.). The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply. https://ivandemurard.com/aetherix
+- **Aetherix** (Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.). The F&B agent for boutique hotels: one WhatsApp message a day with tomorrow's covers and staffing, and the outcome recorded next to the manager's reply. https://ivandemurard.com/aetherix
 - **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
@@ -1703,7 +1703,7 @@ most in memory.
 
 | Agent | Status | Owns | Does not own |
 | --- | --- | --- | --- |
-| Aetherix | Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
+| Aetherix | Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. | F&B execution: covers forecast, staffing grid, waste risk, per-property memory | Orchestration, pricing, guest-facing anything |
 | Tacet | Built, maintenance mode since July 2026 | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Synthetic PoC, production DPIA-gated | Guest memory: what a guest said and what happened, four layers, each claim with source, confidence and age | Acting on it, or returning a whole person: every query declares one layer |
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
@@ -1856,8 +1856,8 @@ A table of owners says who does what. It does not say what a manager lives throu
 - Authority and evidence: The action reaches people here. It cannot be replayed: the plan not chosen is never seen.
 
 **Stage 4, Learn** (After service)
-- On the floor: The manager glances at a short receipt: forecast against actual, and the gap. [Illustrative]
-- What the manager sees: Daily receipt: actual covers, forecast, delta, confidence. [Built, sandbox data]
+- On the floor: The manager glances at the Daily Receipt: forecast against actual, and the gap. [Illustrative]
+- What the manager sees: Daily Receipt: actual covers, forecast, delta, confidence. [Built, sandbox data]
 - Behind the scenes: Actual covers ingested from the till; forecast error computed; decision logged for audit. Live till ingestion needs a connected hotel. [Planned]
 - Authority and evidence: Observed: the covers, so the forecast can be scored. Not observed: whether the staffing was right. That stays a judgement.
 

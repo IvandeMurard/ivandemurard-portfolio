@@ -12,7 +12,7 @@ The F&B agent for boutique hotels. It works inside the tools the hotel already r
 
 [Read the Aetherix case](https://ivandemurard.com/aetherix)
 
-Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
+Built and evaluated on historical data, 0 real users. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
 
 Hero: Aetherix · WhatsApp · mock-up. Three days from a sandbox hotel (synthetic data, real services, seed 42): https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/tree/096509806333661409ab682b7d9e498ca7a67bcd/demo/closed-loop
 
