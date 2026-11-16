@@ -2,6 +2,8 @@
 // structure: docs/aetherix-prototype/aetherix-v2-day.html (validated by Ivan on 16 Nov 2026).
 // The page (src/pages/Atherix.tsx) renders these constants; src/test/aetherixMirror.test.ts checks that
 // public/aetherix.md carries the same words. Asset-free on purpose.
+// Copy changed after validation on 16 Nov 2026: see docs/aetherix-prototype/README.md.
+import { STATUSES } from "./statuses";
 
 export type Mark = "Built" | "Validation" | "Design";
 
@@ -22,14 +24,15 @@ export const HERO = {
   headline: ["The F&B agent for ", "boutique hotels."],
   lead: "It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs.",
   role: "AI Product Manager and Product Builder, solo · 2026",
-  status: "Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.",
+  /** Never written here: the status line is the one in src/content/statuses.ts. */
+  status: STATUSES.aetherix.note,
   primary: "How it decides, and when it refuses",
 };
 
 export const TLDR = [
   ["The problem", "What a hotel knows about its own service lives in a manager's head, and leaves with them."],
   ["The bet", "One recommendation a day in WhatsApp, checked against what happened the next morning."],
-  ["Today", "The loop runs daily on a sandbox hotel connected to Apaleo. Ready for a 30-day pilot."],
+  ["Today", "The loop runs daily on Maison Lumen, a fictional hotel in the Apaleo sandbox. The product is being made ready for a first pilot; no hotel yet."],
   ["Still open", "The forecast is not yet proven on hotels. No pilot hotel has signed."],
 ] as const;
 
@@ -63,14 +66,14 @@ export const STRATEGY = {
     ["1", "Distribution before design", "A hotel floor has no time for a new tool. So the product plugs into the PMS and is built to be listed where hotels already pick their integrations."],
     ["2", "F&B first", "A covers forecast has a result the next morning. It can be checked."],
     ["3", "WhatsApp as the only surface", "It shows the recommendation, keeps a human line to the manager, and records the reply the agent learns from."],
-    ["4", "Three parties, not one customer", "The F&B manager uses it. Hotel management pays. The PMS distributes."],
+    ["4", "Three parties: who uses, who pays, who distributes", "The F&B manager uses it. Hotel management pays. The PMS distributes."],
     ["5", "Pricing on results, to start", "With no track record, the builder carries the adoption risk. The later model is undecided."],
   ],
   underlined: "Distribution before design",
   who: [
-    { role: "Distributes", name: "The PMS", text: "Apaleo. Data, read-only. The integration listing." },
+    { role: "Distributes", name: "The PMS", text: "Shares read-only data through Apaleo, and lists the integration." },
     { role: "Uses", name: "The F&B manager", text: "Gets the daily message. Sends the reply." },
-    { role: "Pays", name: "Hotel management", text: "The contract." },
+    { role: "Pays", name: "Hotel management", text: "Signs the contract." },
   ],
   whoCaption: "Who uses, who pays, who distributes.",
   unprovenLabel: "Unproven",
@@ -99,12 +102,12 @@ export const PROVEN = {
     "28.5% vs 27.9%",
     ", slightly behind.",
   ] as const,
-  testLimit: "Restaurants, not hotels: no occupancy data, the signal the product relies on. The protocol was not pre-registered.",
+  testLimit: "The test used restaurant data, without hotel occupancy, the signal the product relies on. The protocol was not pre-registered. Maison Lumen uses occupancy from Apaleo; how accurate the forecast is on a real hotel is what a pilot will measure.",
   phases: [
-    ["●", "Phase 0–2", "Validation, observability, receipts. Done."],
+    ["●", "Phase 0–2", "Validation, observability and the Daily Receipt are done."],
     ["◐", "Phase 3 · now", "Pilot. Recruiting a pilot partner."],
     ["○", "Phase 4", "Scale: Mews, POS, Anima."],
-    ["○", "Phase 5", "Revenue Orchestrator. HiveMemory, research."],
+    ["○", "Phase 5", "Revenue Orchestrator. Hive Memory stays research."],
   ] as const,
 };
 

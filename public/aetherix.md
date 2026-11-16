@@ -4,7 +4,7 @@ The F&B agent for boutique hotels.
 
 It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs.
 
-- Status: Pilot-ready. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.
+- Status: Pre-pilot. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.
 - Role: AI Product Manager and Product Builder, solo · 2026
 - The architecture: https://ivandemurard.com/architecture
 - GitHub: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
@@ -14,7 +14,7 @@ It works inside the tools the hotel already runs, its PMS and WhatsApp: one reco
 
 - The problem: What a hotel knows about its own service lives in a manager's head, and leaves with them.
 - The bet: One recommendation a day in WhatsApp, checked against what happened the next morning.
-- Today: The loop runs daily on a sandbox hotel connected to Apaleo. Ready for a 30-day pilot.
+- Today: The loop runs daily on Maison Lumen, a fictional hotel in the Apaleo sandbox. The product is being made ready for a first pilot; no hotel yet.
 - Still open: The forecast is not yet proven on hotels. No pilot hotel has signed.
 
 How to read the status marks:
@@ -57,14 +57,14 @@ And measure every recommendation against what happened. Five decisions follow fr
 | 1 | Distribution before design | A hotel floor has no time for a new tool. So the product plugs into the PMS and is built to be listed where hotels already pick their integrations. |
 | 2 | F&B first | A covers forecast has a result the next morning. It can be checked. |
 | 3 | WhatsApp as the only surface | It shows the recommendation, keeps a human line to the manager, and records the reply the agent learns from. |
-| 4 | Three parties, not one customer | The F&B manager uses it. Hotel management pays. The PMS distributes. |
+| 4 | Three parties: who uses, who pays, who distributes | The F&B manager uses it. Hotel management pays. The PMS distributes. |
 | 5 | Pricing on results, to start | With no track record, the builder carries the adoption risk. The later model is undecided. |
 
 Who uses, who pays, who distributes.
 
-- Distributes: The PMS. Apaleo. Data, read-only. The integration listing.
+- Distributes: The PMS. Shares read-only data through Apaleo, and lists the integration.
 - Uses: The F&B manager. Gets the daily message. Sends the reply.
-- Pays: Hotel management. The contract.
+- Pays: Hotel management. Signs the contract.
 
 ### Unproven
 
@@ -90,7 +90,7 @@ Sandbox data, real mechanics, deterministic reruns.
 
 Public data, 30 restaurants. Against a naive same-weekday baseline (the mean of the last four same weekdays): mean error 49.71% vs 55.86%, ahead on average. For next-day forecasts, the horizon the product uses, 28.5% vs 27.9%, slightly behind.
 
-Restaurants, not hotels: no occupancy data, the signal the product relies on. The protocol was not pre-registered.
+The test used restaurant data, without hotel occupancy, the signal the product relies on. The protocol was not pre-registered. Maison Lumen uses occupancy from Apaleo; how accurate the forecast is on a real hotel is what a pilot will measure.
 
 #### The numbers
 
@@ -100,10 +100,10 @@ Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, determi
 
 #### Phases
 
-- ● Phase 0–2: Validation, observability, receipts. Done.
+- ● Phase 0–2: Validation, observability and the Daily Receipt are done.
 - ◐ Phase 3 · now: Pilot. Recruiting a pilot partner.
 - ○ Phase 4: Scale: Mews, POS, Anima.
-- ○ Phase 5: Revenue Orchestrator. HiveMemory, research.
+- ○ Phase 5: Revenue Orchestrator. Hive Memory stays research.
 
 ## 05 · The Decision Ledger (Built in Aetherix, Design as a shared layer)
 

@@ -21,7 +21,7 @@ import { AetherixWhatRemainsPrivate } from "@/components/atherix/AetherixWhatRem
 import { AetherixWhoFigure } from "@/components/atherix/AetherixWhoFigure";
 import { ExternalMark } from "@/components/ui/ExternalMark";
 
-const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.";
+const DESCRIPTION = `Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. ${STATUSES.aetherix.note}`;
 
 const TRUST = [
   {
