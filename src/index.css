@@ -1081,6 +1081,41 @@
   background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 10%, hsl(var(--aetherix-warm)) 100%);
 }
 
+/* Aetherix case study: the dark cards (ledger, "Inside the agent", Next). The same warm dark in Day and Night.
+   Tokens are re-scoped locally so the children keep using semantic classes, as .section-inverse does. */
+.aetherix-dark {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: hsl(30 24% 7%);
+  color: hsl(50 33% 97%);
+  --primary: 50 33% 97%;
+  --secondary: 27 63% 67%;
+  --on-surface: 50 33% 97%;
+  --on-surface-variant: 45 14% 80%;
+  --outline-variant: 45 12% 36%;
+  --signal-go: 105 35% 78%;
+  --dark-ink: 30 24% 7%;
+}
+.aetherix-dark-glow {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(40px);
+  background:
+    radial-gradient(40% 50% at var(--gx, 70%) var(--gy, 25%), hsl(24 40% 48% / 0.5), transparent 70%),
+    radial-gradient(35% 45% at 15% 80%, hsl(36 47% 60% / 0.3), transparent 70%);
+}
+
+/* "Inside the agent": from md up the open card is wider (flex-grow 4 against 1). With reduced motion it does not animate. */
+@media (min-width: 768px) {
+  .aetherix-acc-card { flex: var(--g, 1) 1 0%; transition: flex-grow 500ms ease; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aetherix-acc-card { transition: none; }
+}
+
 /* The passage a Rose source link points at: the colour of RoseMark kind="highlight", one meaning only. */
 [data-passage-cited] { border-radius: 3px; transition: background-color 500ms ease; }
 [data-passage-cited="on"] { background-color: hsl(var(--rose-copper) / 0.22); }

@@ -14,7 +14,7 @@ export const AETHERIX_CHAPTERS: AetherixChapter[] = [
   { id: "how-it-works", toc: "02 How it works", kicker: "02 · How it works", heading: "One record a day", marks: ["Built"] },
   { id: "product-strategy", toc: "03 Product strategy", kicker: "03 · Product strategy", heading: "Understand a property the way its manager does", marks: ["Design"] },
   { id: "where-it-stands", toc: "04 What is proven", kicker: "04 · What is proven, what is not", heading: "The loop is built. The forecast is not yet proven on hotels.", marks: ["Validation"] },
-  // Chapters 05 and 06 are placeholders until the next branch: kicker and heading only.
+  // Chapters 05 and 06: their copy is in aetherixInside.ts.
   { id: "decision-ledger", toc: "05 The Decision Ledger", kicker: "05 · The Decision Ledger", heading: "The outcomes layer the others do not have", marks: ["Built", "Design"], markNote: { Built: "Built in Aetherix", Design: "Design as a shared layer" } },
   { id: "how-its-built", toc: "06 How it's built", kicker: "06 · How it's built", heading: "Specified, reviewed and tested before anything ships", marks: ["Built"] },
 ];

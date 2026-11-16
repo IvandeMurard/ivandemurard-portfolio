@@ -20,6 +20,10 @@ import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { AetherixWhatRemainsPrivate } from "@/components/atherix/AetherixWhatRemainsPrivate";
 import { AetherixWhoFigure } from "@/components/atherix/AetherixWhoFigure";
 import { ExternalMark } from "@/components/ui/ExternalMark";
+import { AetherixLedger } from "@/components/atherix/AetherixLedger";
+import { AetherixAgentAccordion } from "@/components/atherix/AetherixAgentAccordion";
+import { AetherixArchitectureFigure } from "@/components/atherix/AetherixArchitectureFigure";
+import { ARCH, INSIDE, LEDGER, METHOD, NEXT } from "@/content/aetherixInside";
 
 const DESCRIPTION = `Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. ${STATUSES.aetherix.note}`;
 
@@ -120,7 +124,7 @@ const Hero = () => (
           <dt className="text-secondary">Status</dt><dd>{HERO.status}</dd>
         </dl>
         <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button asChild variant="outline" className="min-h-12"><a href="#how-its-built">{HERO.primary}</a></Button>
+          <Button asChild variant="outline" className="min-h-12"><a href={`#${INSIDE.anchor}`}>{HERO.primary}</a></Button>
           <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>Book a call</ExternalMark></a>
           <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>GitHub</ExternalMark></a>
         </div>
@@ -223,7 +227,7 @@ const Proven = () => (
   </>
 );
 
-/** The page's existing technical content, collapsed. Chapter 06 and the architecture come in the next branches. */
+/** The page's existing technical content, collapsed, at the end of chapter 06. */
 const Technical = () => (
   <div className="mt-10">
     <AetherixDisclosure id="technical-reader" title={TECH_LABEL}>
@@ -244,12 +248,65 @@ const Technical = () => (
   </div>
 );
 
+const Ledger = () => (
+  <>
+    <p className={cn(bodyCls, "mt-5 max-w-2xl")}>{LEDGER.intro} <span className="border-b-[1.5px] border-secondary">{LEDGER.bet}</span></p>
+    <AetherixLedger />
+    <div className="mt-7 grid gap-7 md:grid-cols-2 md:gap-8">
+      <div className="min-w-0">
+        <h3 className={subheadCls}>{LEDGER.whyLabel}</h3>
+        <p className="mt-2 font-body text-[15.5px] text-on-surface">{LEDGER.why}</p>
+        <p className="mt-2.5 font-label text-xs text-on-surface-variant">{LEDGER.whyNote}</p>
+      </div>
+      <div className={cn(noteBoxCls, "min-w-0 self-start")}>
+        <p className="font-semibold text-primary">{LEDGER.sharedLabel}</p>
+        <ul className="mt-1.5 list-disc space-y-1 pl-5 text-[15px] marker:text-secondary">{LEDGER.shared.map((u) => <li key={u}>{u}</li>)}</ul>
+      </div>
+    </div>
+  </>
+);
+
+const Built = () => (
+  <>
+    <ul className="mt-5 flex max-w-2xl list-disc flex-col gap-2.5 pl-5 font-body text-base text-on-surface marker:text-secondary">
+      {METHOD.map(([lead, rest]) => <li key={lead}><strong className="font-semibold text-primary">{lead}</strong> {rest}</li>)}
+    </ul>
+    <h3 id={INSIDE.anchor} className={cn(subheadCls, "mt-12 scroll-mt-28")}>{INSIDE.heading}</h3>
+    <p className="mt-2 max-w-2xl font-body text-[15.5px] text-on-surface-variant">{INSIDE.intro}</p>
+    <AetherixAgentAccordion />
+    <h3 id={ARCH.anchor} className={cn(subheadCls, "mt-12 scroll-mt-28")}>{ARCH.heading}</h3>
+    <p className="mt-2 max-w-2xl font-body text-[15.5px] text-on-surface-variant">{ARCH.intro[0]}<Link to="/architecture" className={linkCls}>{ARCH.intro[1]}</Link>{ARCH.intro[2]}</p>
+    <AetherixArchitectureFigure />
+    <Technical />
+  </>
+);
+
 const BODIES: Record<string, () => JSX.Element> = {
   "the-problem": Problem,
   "how-it-works": How,
   "product-strategy": Strategy,
   "where-it-stands": Proven,
+  "decision-ledger": Ledger,
+  "how-its-built": Built,
 };
+
+/** The way on: the architecture page, as a dark card before the close. */
+const Next = () => (
+  <section aria-label={NEXT.label} className="mx-auto max-w-7xl px-8 pb-16 md:px-12 md:pb-24">
+    <div className="aetherix-dark rounded-[22px] px-7 pb-8 pt-12 md:px-16 md:pb-10 md:pt-14">
+      <div aria-hidden="true" className="aetherix-dark-glow" />
+      <div className="relative">
+        <p className="font-label text-[11px] uppercase tracking-[0.12em] text-on-surface-variant">{NEXT.kicker}</p>
+        <p className="mt-3.5 font-headline text-4xl leading-[1.05] text-primary md:text-5xl">{NEXT.title}</p>
+        <p className="mt-4 max-w-3xl font-body text-lg leading-snug text-on-surface md:text-[21px]">{NEXT.text}</p>
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-outline-variant pt-5">
+          <p className="font-body text-sm text-on-surface-variant">{NEXT.agents}</p>
+          <Link to="/architecture" className="inline-flex min-h-11 items-center rounded-full border border-primary px-5 font-body text-[14.5px] text-primary hover:bg-[hsl(var(--primary)/0.1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">{NEXT.cta}</Link>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const Close = () => (
   <>
@@ -321,13 +378,13 @@ const Atherix = () => {
               <Fragment key={c.id}>
                 <Chapter c={c} i={i}>
                   {Body && <Body />}
-                  {c.id === "how-its-built" && <Technical />}
                 </Chapter>
               </Fragment>
             );
           })}
         </div>
       </div>
+      <Next />
       <Close />
     </div>
   </SiteLayout>

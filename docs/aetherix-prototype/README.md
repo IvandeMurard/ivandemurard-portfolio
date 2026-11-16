@@ -28,3 +28,11 @@ The HTML files in this folder keep the copy as validated on 16 Nov 2026. The pag
 - Who figure, hotel management: "Signs the contract."
 - Decision 4 title: "Three parties: who uses, who pays, who distributes".
 - Forecast test, last paragraph: "The test used restaurant data, without hotel occupancy, the signal the product relies on. The protocol was not pre-registered. Maison Lumen uses occupancy from Apaleo; how accurate the forecast is on a real hotel is what a pilot will measure."
+- Chapters 05 and 06, reworded so the style check does not go up (no allowlist entry added). The HTML files and `steps.json` keep the validated words:
+  - Shared layer box title: "The shared layer: design, nothing built yet" (was "The shared layer: designed, not built").
+  - Step 01 bubble: "Read. Weather is poor, and there are no local events." (was "Read. Weather: poor. Local events: none.").
+  - Step 02 description: "A statistical forecast that comes with its range." (was "A statistical forecast with its range, not a single number.").
+  - "Inside the agent" caption: "Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real services, seed 42. The figures come from the run; the bubbles word them for display." (the dots between the three facts are commas).
+  - Architecture figure caption: "Every exchange goes through the orchestrator, over MCP. A solid line is Built, long dashes are Synthetic PoC, dots are Design."
+- Architecture figure, page and Markdown: the statuses are written as in the reference. In `public/aetherix.md` each is in brackets after the role (for example "Tacet: Sensory: weather, noise, open data (Built · maintenance)").
+- Hero button "How it decides, and when it refuses" now points to "Inside the agent" (`#inside-the-agent`).
