@@ -72,7 +72,7 @@ Nothing below was changed. The portfolio's project statuses (`src/content/status
 | `AetherixArchitectureDiagram.tsx` | HiveMemory | Hive Memory |
 | `AetherixPhaseTimeline.tsx` | Phase 2 "Receipts"; "Federated HiveMemory" | "Daily Receipt"; "Hive Memory" |
 | `AetherixMeshDiagram.tsx` | "memory, receipts" | "Operational Memory, Daily Receipt" |
-| `AetherixHomepageLoop.tsx` | aria-label "Three days of the closed loop" | "Three days of the Decision Ledger" |
+| `AetherixHomepageLoop.tsx` | aria-label "Three days of the closed loop" | "Three days in the sandbox hotel" |
 | `Atherix.tsx` | HiveMemory (x3); "OperationalMemory + HiveMemory cold-start" | Hive Memory (x3); "Operational Memory + Cold-start prior" |
 | `Atherix.tsx`, `public/aetherix.md` | "Every day adds one record" | "Every day adds one row to the Decision Ledger: ... Built inside Aetherix, 0 real users." |
 | `public/aetherix.md` | The same names as the page | The same canonical names |
