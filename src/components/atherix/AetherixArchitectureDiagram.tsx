@@ -23,7 +23,7 @@ export const AetherixArchitectureDiagram = () => {
   const intelligence = [
     { icon: "dns", title: "Supabase", sub: "Operational data" },
     { icon: "memory", title: "pgvector", sub: "Per-hotel memory" },
-    { icon: "hive", title: "HiveMemory", sub: "Anonymized peers" },
+    { icon: "hive", title: "Hive Memory", sub: "Anonymized peers" },
     { icon: "model_training", title: "LLMProvider", sub: "Claude Sonnet · Gemini · GPT" },
   ];
   const delivery = [

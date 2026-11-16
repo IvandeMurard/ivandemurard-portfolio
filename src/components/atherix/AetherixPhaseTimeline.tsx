@@ -5,7 +5,7 @@ type State = "done" | "current" | "planned";
 const PHASES: { n: string; label: string; state: State; sub?: string }[] = [
   { n: "Phase 0", label: "Validation", state: "done" },
   { n: "Phase 1", label: "Observability", state: "done" },
-  { n: "Phase 2", label: "Receipts", state: "done" },
+  { n: "Phase 2", label: "Daily Receipt", state: "done" },
   {
     n: "Phase 3",
     label: "Pilot",
@@ -16,7 +16,7 @@ const PHASES: { n: string; label: string; state: State; sub?: string }[] = [
     n: "Phase 4",
     label: "Scale",
     state: "planned",
-    sub: "Mews · POS · Federated HiveMemory · Context Graph · Anima",
+    sub: "Mews · POS · Hive Memory · Context Graph · Anima",
   },
   { n: "Phase 5", label: "Vision", state: "planned", sub: "Revenue Orchestrator" },
 ];

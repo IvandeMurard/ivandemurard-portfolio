@@ -73,8 +73,8 @@ A table of owners says who does what. It does not say what a manager lives throu
 - Authority and evidence: The action reaches people here. It cannot be replayed: the plan not chosen is never seen.
 
 **Stage 4, Learn** (After service)
-- On the floor: The manager glances at a short receipt: forecast against actual, and the gap. [Illustrative]
-- What the manager sees: Daily receipt: actual covers, forecast, delta, confidence. [Built, sandbox data]
+- On the floor: The manager glances at the Daily Receipt: forecast against actual, and the gap. [Illustrative]
+- What the manager sees: Daily Receipt: actual covers, forecast, delta, confidence. [Built, sandbox data]
 - Behind the scenes: Actual covers ingested from the till; forecast error computed; decision logged for audit. Live till ingestion needs a connected hotel. [Planned]
 - Authority and evidence: Observed: the covers, so the forecast can be scored. Not observed: whether the staffing was right. That stays a judgement.
 

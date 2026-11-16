@@ -58,7 +58,7 @@ Who uses, who pays, who distributes: PMS (Apaleo) → Aetherix, data, read-only 
 
 ## Sec. 04 · How it works
 
-**Every day adds one record: what was recommended, what the manager said, what happened.**
+**Every day adds one row to the Decision Ledger: what was recommended, what the manager said, what happened. Built inside Aetherix, 0 real users.**
 
 ### The daily loop
 
@@ -124,14 +124,14 @@ Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, determi
 
 - Phase 0: Validation, done
 - Phase 1: Observability, done
-- Phase 2: Receipts, done
+- Phase 2: Daily Receipt, done
 - Phase 3: Pilot, current. Recruiting pilot partner.
-- Phase 4: Scale, planned. Mews · POS · Federated HiveMemory · Context Graph · Anima
+- Phase 4: Scale, planned. Mews · POS · Hive Memory · Context Graph · Anima
 - Phase 5: Vision, planned. Revenue Orchestrator
 
 ### Product vision
 
-Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through HiveMemory, a layer of shared anonymised patterns, and get the reach of a group without joining one.
+Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through Hive Memory, a layer of shared anonymised patterns, and get the reach of a group without joining one.
 
 Status: Research, not built.
 
@@ -155,7 +155,7 @@ Aetherix is one of five agents. Each owns one job and talks to the others only t
 
 | Agent | Role | Status |
 | --- | --- | --- |
-| Aetherix | F&B execution: forecast, staffing, memory, receipts | Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. |
+| Aetherix | F&B execution: forecast, staffing, Operational Memory, Daily Receipt | Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot. |
 | Tacet | Sensory: weather, noise, open data, risk | Built, maintenance mode since July 2026 |
 | Anima | Guest memory node | Synthetic PoC, production DPIA-gated |
 | Peritia | House knowledge | Design |
@@ -165,7 +165,7 @@ Anima, the guest memory node, has its own case study: https://ivandemurard.com/a
 
 ### Pipeline and stack
 
-Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (OperationalMemory + HiveMemory cold-start, research) → Claude Sonnet reasoning → WhatsApp or Email.
+Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (Operational Memory + Cold-start prior, research) → Claude Sonnet reasoning → WhatsApp or Email.
 
 Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Sonnet (Gemini/GPT fallback), Redis (Upstash), Supabase (PostgreSQL, RLS, EU), Fly.io (Paris).
 
@@ -173,7 +173,7 @@ Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Son
 
 - Evaluation as a contract: Qonto-inspired. Versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge. A hard CI gate, not a habit.
 - Observability & metering: Every MCP tool call is one structured event. Auditable, queryable, priceable. The product is operable, not opaque.
-- Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, HiveMemory is anonymized aggregates only.
+- Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, Hive Memory is anonymized aggregates only.
 
 ### More
 
