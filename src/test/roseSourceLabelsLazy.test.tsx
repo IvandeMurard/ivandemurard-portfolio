@@ -34,6 +34,6 @@ describe("The label registry is loaded on demand", () => {
     // A link that renders after the load is labelled.
     cleanup();
     render(view(text));
-    expect(screen.getByRole("link").textContent).toBe("§ Where it stands");
+    expect(screen.getByRole("link").textContent).toBe("§ The loop is built. The forecast is not yet proven on hotels");
   });
 });

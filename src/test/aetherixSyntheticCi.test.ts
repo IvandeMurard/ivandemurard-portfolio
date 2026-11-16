@@ -2,13 +2,14 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 
 // The Aetherix CI gate runs on synthetic scenarios; only the public restaurant benchmark is real data.
-const SENTENCE = "A fixed set of synthetic scenarios checks every change.";
-
+// The v2 case study moved the sentence "A fixed set of synthetic scenarios checks every change." out with the old
+// "How it's built" list (chapter 06 comes back in the next branch with the reference copy, which words it
+// "A fixed set of scenarios checks every change"). Until then the test keeps the part that still holds on the
+// page and the markdown: the gate is never described as real-world.
 describe("Aetherix CI gate wording", () => {
-  it("says synthetic on the markdown and the page, never real-world", () => {
-    for (const file of ["public/aetherix.md", "src/pages/Atherix.tsx"]) {
+  it("never calls the gate's scenarios real-world", () => {
+    for (const file of ["public/aetherix.md", "src/pages/Atherix.tsx", "src/content/aetherixCase.ts"]) {
       const text = readFileSync(file, "utf8");
-      expect(text).toContain(SENTENCE);
       expect(text).not.toContain("fixed set of real-world scenarios");
     }
   });

@@ -1,7 +1,7 @@
-import { Fragment, memo, useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { Fragment, memo, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { registerRail } from "@/lib/railRegistry";
-import { CompassRose } from "@/components/rose/CompassRose";
+import { ChapterBar, ChapterRail, KICKER, LABEL, LEGEND_TONE, MARK_GLYPH, ReadingThread, useActiveChapter } from "@/components/case/reading";
 import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
 import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
@@ -39,12 +39,9 @@ export const CHAPTER_MARK: Record<string, "Built" | "Validation" | "Design"> = {
   "ch-01": "Built", "ch-02": "Built", "ch-03": "Built", "ch-04": "Built", "ch-05": "Built",
   "ch-06": "Design", "ch-07": "Built", "ch-08": "Validation", "ch-09": "Design",
 };
-const MARK_GLYPH = { Built: "●", Validation: "◐", Design: "○" } as const;
 
 /** Rose's notes come from co-existence.ai's AI cursor. Printed above chapter 01. */
 export const NOTES_INTRO = "Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on.";
-
-const LEGEND_TONE: Record<string, string> = { Built: "text-secondary", Validation: "text-primary", Design: "text-on-surface-variant" };
 
 export const LEGEND = [
   ["●", "Built", "Implemented behaviour that can be inspected in the product or repository."],
@@ -164,10 +161,6 @@ const QUIET_LINK = "underline decoration-on-surface-variant/50 underline-offset-
 const ExternalLink = ({ href, children }: { href: string; children: string }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className={QUIET_LINK}><ExternalMark>{children}</ExternalMark></a>
 );
-
-/* Uppercase mono is for the one kicker of a section. Every other label is sentence case. */
-const LABEL = "font-label text-xs";
-const KICKER = "font-label text-[10px] uppercase tracking-[0.18em] text-secondary";
 
 const IdeaBody = ({ reduced }: { reduced: boolean }) => {
   const { p1, p2, p3, note } = IDEA;
@@ -653,35 +646,6 @@ const RoseClose = () => (
   </>
 );
 
-/** Runs `work` at most once per frame on scroll and resize. */
-const useFrameScroll = (work: () => void) => {
-  useEffect(() => {
-    let raf = 0;
-    const on = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; work(); }); };
-    work();
-    window.addEventListener("scroll", on, { passive: true });
-    window.addEventListener("resize", on);
-    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
-  }, [work]);
-};
-
-/** Copper reading thread, left margin. Owns its scroll state so the page does not re-render with it. */
-const ReadingThread = ({ rootRef, reduced }: { rootRef: RefObject<HTMLElement>; reduced: boolean }) => {
-  const [progress, setProgress] = useState(0);
-  const measure = useCallback(() => {
-    const r = rootRef.current?.getBoundingClientRect();
-    if (!r) return;
-    const total = r.height - window.innerHeight;
-    setProgress(total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1);
-  }, [rootRef]);
-  useFrameScroll(measure);
-  return (
-    <div aria-hidden="true" className="pointer-events-none fixed bottom-0 left-2 top-0 z-20 w-px bg-outline-variant md:left-4">
-      <div className="h-full w-px origin-top bg-rose-copper" style={{ transform: `scaleY(${progress})`, transition: reduced ? "none" : "transform 120ms linear" }} />
-    </div>
-  );
-};
-
 /** Chapter bodies never depend on scroll state, so they are memoised against the active-chapter updates. */
 const Chapters = memo(({ reduced }: { reduced: boolean }) => (
   <>
@@ -708,49 +672,18 @@ const Chapters = memo(({ reduced }: { reduced: boolean }) => (
 ));
 
 export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
-  const [active, setActive] = useState(-1);
+  const root = useRef<HTMLDivElement>(null);
+  const active = useActiveChapter(root);
   // The chapter list is this page's rail: its active chapter is what a source link calls "where the reader is".
   const activeRef = useRef(-1);
   activeRef.current = active;
   useEffect(() => registerRail(() => { const c = ROSE_CHAPTERS[activeRef.current]; return c ? { id: c.id, label: c.toc } : null; }), []);
-  const root = useRef<HTMLDivElement>(null);
-  const details = useRef<HTMLDetailsElement>(null);
-
-  // Active chapter: the last one whose top crossed 40% of the viewport; none before chapter 00.
-  const measureActive = useCallback(() => {
-    let next = -1;
-    root.current?.querySelectorAll<HTMLElement>("[data-ch]").forEach((c) => { if (c.getBoundingClientRect().top <= window.innerHeight * 0.4) next = Number(c.dataset.ch); });
-    setActive(next);
-  }, []);
-  useFrameScroll(measureActive);
-
-  const current = ROSE_CHAPTERS[active];
-  const needleTurn = Math.max(0, active) * (300 / (ROSE_CHAPTERS.length - 1));
-  const toc = (onPick?: () => void) => (
-    <ol className="list-none space-y-1 p-0">
-      {ROSE_CHAPTERS.map((c, i) => (
-        <li key={c.id}>
-          <a href={`#${c.id}`} onClick={onPick} aria-current={i === active ? "location" : undefined}
-            className={cn("block border-l-2 py-1 pl-3 font-label text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary",
-              i === active ? "border-secondary text-primary" : "border-transparent text-on-surface-variant hover:text-primary")}>
-            {c.toc}
-          </a>
-        </li>
-      ))}
-    </ol>
-  );
 
   return (
     <div ref={root} className="rose-case-bg relative">
       <ReadingThread rootRef={root} reduced={reduced} />
 
-      {/* Mobile: one-line sticky bar. */}
-      <details ref={details} className="sticky top-[76px] z-30 border-b border-outline-variant bg-surface/95 px-6 py-3 backdrop-blur-sm lg:hidden">
-        <summary className="cursor-pointer list-none font-label text-xs text-primary [&::-webkit-details-marker]:hidden">
-          {current ? `${current.toc} · ` : ""}On this page <span aria-hidden="true">▾</span>
-        </summary>
-        <nav aria-label="On this page" className="mt-3">{toc(() => details.current?.removeAttribute("open"))}</nav>
-      </details>
+      <ChapterBar chapters={ROSE_CHAPTERS} active={active} />
 
       <div className="mx-auto max-w-7xl px-8 pt-16 md:px-12">
         <RoseHero reduced={reduced} />
@@ -766,11 +699,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-12 px-8 pb-16 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
-        <aside className="hidden self-start lg:sticky lg:top-28 lg:block">
-          <CompassRose heading={needleTurn} reduced={reduced} className="h-16 w-16 text-secondary" />
-          <p className={cn("mt-4", LABEL, "text-on-surface-variant")}>On this page</p>
-          <nav aria-label="On this page" className="mt-3">{toc()}</nav>
-        </aside>
+        <ChapterRail chapters={ROSE_CHAPTERS} active={active} reduced={reduced} />
 
         <div className="min-w-0">
           <Chapters reduced={reduced} />

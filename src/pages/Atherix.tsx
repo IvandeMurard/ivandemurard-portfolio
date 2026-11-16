@@ -1,64 +1,27 @@
-import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { JournalToc } from "@/components/reading/JournalToc";
-import { useHeadingToc } from "@/components/reading/useHeadingToc";
-import { ReadingProgress } from "@/components/reading/ReadingProgress";
-import { AETHERIX_ANCHORS } from "@/content/systems";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
-import { CaseAnchors } from "@/components/case/CaseAnchors";
 import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { Button } from "@/components/ui/button";
-import { Reveal } from "@/components/Reveal";
-import { SectionDivider } from "@/components/SectionDivider";
 import { SOCIAL_LINKS } from "@/content/site";
+import { STATUSES } from "@/content/statuses";
+import { cn } from "@/lib/utils";
+import { registerRail } from "@/lib/railRegistry";
+import {
+  AETHERIX_CHAPTERS, CLOSE, HERO, HOW, LEGEND, PROBLEM, PROVEN, STRATEGY, TECH_LABEL, TLDR, type AetherixChapter, type Mark,
+} from "@/content/aetherixCase";
+import { ChapterBar, ChapterRail, KICKER, LABEL, LEGEND_TONE, MARK_GLYPH, ReadingThread, useActiveChapter } from "@/components/case/reading";
 import { Term } from "@/components/Term";
-import { EntryActions } from "@/components/journal/EntryActions";
 import { AetherixArchitectureDiagram } from "@/components/atherix/AetherixArchitectureDiagram";
-import { AetherixDailyReceipt } from "@/components/atherix/AetherixDailyReceipt";
 import { AetherixDisclosure } from "@/components/atherix/AetherixDisclosure";
-import { AetherixLoopCards } from "@/components/atherix/AetherixLoopCards";
-import { AetherixMeshDiagram } from "@/components/atherix/AetherixMeshDiagram";
-import { AetherixPhaseTimeline } from "@/components/atherix/AetherixPhaseTimeline";
-import { AetherixRelationshipFigure } from "@/components/atherix/AetherixRelationshipFigure";
+import { AetherixHomepageLoop } from "@/components/atherix/AetherixHomepageLoop";
 import { AetherixStackChips } from "@/components/atherix/AetherixStackChips";
 import { AetherixWhatRemainsPrivate } from "@/components/atherix/AetherixWhatRemainsPrivate";
+import { AetherixWhoFigure } from "@/components/atherix/AetherixWhoFigure";
 import { ExternalMark } from "@/components/ui/ExternalMark";
 
-const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.";
-
-const ALREADY_DOES = [
-  "States its drivers the evening before, then reports its own miss the next morning, in plain language.",
-  "Rejected an implausible POS figure (850 covers, injected as a test) instead of learning from it.",
-  "When recent data diverges sharply from history, says so in the message and asks the manager to double-check, instead of sending a confident number.",
-  "After a simulated 25% jump in demand, weekly recalibration cut the forecast error from 15.9% to 12.3%.",
-  "Stores every recommendation next to what actually happened, with the manager's override recorded beside it.",
-  "Blocks its own merges on evaluation exit codes; every guardrail trip carries a machine-readable reason.",
-];
-
-const HOW_BUILT = [
-  ["Spec before code, with the BMAD method.", "Every feature follows the path of a real product team: product requirements, architecture, epics, then one written story per change. Each step is run by a dedicated AI role: analyst, product manager, architect, scrum master, developer, QA. Code comes last."],
-  ["I direct the agents; I own the result.", "AI agents build from those stories, inside the decisions I set for them (34 so far). I review what they deliver and decide what ships."],
-  ["Nothing merges without passing its tests.", "A fixed set of synthetic scenarios checks every change. If quality drops, the change is blocked automatically."],
-  ["A weekly self-audit.", "Every Monday, an agent checks that what the project claims still matches what it does, and proposes corrections for me to approve."],
-  ["Honest about what is unfinished.", "Every component is labelled Built, Synthetic PoC, Design or Research. No demo dressed up as a product."],
-];
-
-const PROBLEM_PAINS = [
-  "Persistent over or under-staffing",
-  "Avoidable food waste",
-  "Reactive decision-making instead of anticipation",
-  "Slow onboarding and inconsistent execution across properties",
-];
-
-const DECISIONS = [
-  ["1", "Distribution before design", "A hotel floor has no time for a new tool. So the product plugs into the PMS and is built to be listed where hotels already pick their integrations"],
-  ["2", "F&B first", "A covers forecast has a result the next morning. It can be checked"],
-  ["3", "WhatsApp as the only surface", "It shows the recommendation, keeps a human line to the manager, and records the reply the agent learns from"],
-  ["4", "Three parties, not one customer", "The F&B manager uses it. Hotel management pays. The PMS distributes"],
-  ["5", "Pricing on results, to start", "With no track record, the builder carries the adoption risk. The later model is undecided"],
-];
+const DESCRIPTION = "Aetherix is an F&B agent for boutique hotels: one WhatsApp message a day, the manager's reply, and the outcome recorded next to it. Built and evaluated on historical data. Staged on Fly.io, connected to the Apaleo sandbox. Ready for a 30-day pilot.";
 
 const TRUST = [
   {
@@ -105,50 +68,217 @@ const FAQ = [
   },
 ];
 
-const linkCls = "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity";
-const sectionCls = "px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24";
-const titleCls = "font-headline italic text-3xl md:text-4xl text-primary leading-tight mb-6";
-const leadCls = "font-body font-semibold text-primary text-lg md:text-xl leading-relaxed max-w-3xl mb-8";
-const subheadCls = "font-headline italic text-2xl md:text-3xl text-primary leading-tight mb-5";
-const tableWrapCls = "max-w-5xl overflow-x-auto rounded-sm border border-outline-variant bg-surface-container-lowest";
-const thCls = "px-4 py-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary text-left";
-const tdCls = "px-4 py-4 text-sm text-on-surface-variant leading-relaxed align-top";
+const linkCls = "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+const subheadCls = "font-headline text-2xl md:text-3xl text-primary leading-tight";
+const h2Cls = "mt-3 font-headline text-4xl leading-tight text-primary md:text-5xl";
+const bodyCls = "font-body text-base text-on-surface md:text-[17px]";
+const noteBoxCls = "rounded-lg border border-dashed border-on-surface-variant px-4 py-3 font-body text-[15px] text-on-surface-variant";
+/** One circled comparison. A drawn ring, not a pill: it marks the two figures that are compared. */
+const Circled = ({ children }: { children: string }) => <span className="whitespace-nowrap rounded-full border-[1.5px] border-secondary px-1.5">{children}</span>;
 
-const SectionHeading = ({ id, title }: { id: string; title: string }) => (
-  <h2 id={id} className={titleCls}>{title}</h2>
-);
-
-const FOCUS_TARGETS = ["daily-receipt", "the-daily-loop"] as const;
-type FocusTarget = (typeof FOCUS_TARGETS)[number];
-
-/** Allowlisted ?focus= deep link: scroll to a figure and ring it briefly. No storage, no tracking. */
-const useFocusTarget = (): FocusTarget | null => {
-  const [params] = useSearchParams();
-  const raw = params.get("focus");
-  const valid = (FOCUS_TARGETS as readonly string[]).includes(raw ?? "") ? (raw as FocusTarget) : null;
-  const [active, setActive] = useState<FocusTarget | null>(null);
+const usePrefersReducedMotion = () => {
+  const [reduced, setReduced] = useState(() => typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
   useEffect(() => {
-    if (!valid) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const t0 = window.setTimeout(() => {
-      document.getElementById(valid)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-      setActive(valid);
-    }, 350);
-    const clear = () => setActive(null);
-    const t1 = window.setTimeout(clear, 4500);
-    window.addEventListener("pointerdown", clear, { once: true });
-    return () => { window.clearTimeout(t0); window.clearTimeout(t1); window.removeEventListener("pointerdown", clear); };
-  }, [valid]);
-  return active;
+    const m = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!m) return;
+    const on = () => setReduced(m.matches);
+    m.addEventListener?.("change", on);
+    return () => m.removeEventListener?.("change", on);
+  }, []);
+  return reduced;
 };
 
+const MarkLabel = ({ mark, note }: { mark: Mark; note?: string }) => (
+  <span className="ml-3"><span aria-hidden="true">{MARK_GLYPH[mark]} </span>{note ?? mark}</span>
+);
+
+/** One chapter: kicker with its status marks, then the h2 in roman. The id is the anchor Rose's source links use. */
+const Chapter = ({ c, i, children }: { c: AetherixChapter; i: number; children?: React.ReactNode }) => (
+  <section id={c.id} data-ch={i} aria-labelledby={`${c.id}-heading`} className="scroll-mt-32 pt-24 first:pt-0 md:pt-32 md:first:pt-0">
+    <p className={KICKER}>{c.kicker}{c.marks?.map((m) => <MarkLabel key={m} mark={m} note={c.markNote?.[m]} />)}</p>
+    <h2 id={`${c.id}-heading`} className={h2Cls}>{c.heading}</h2>
+    {children}
+  </section>
+);
+
+const Hero = () => (
+  <header aria-labelledby="aetherix-hero-h" className="px-8 pb-12 pt-32 md:px-12">
+    <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] lg:items-start lg:gap-16">
+      <div className="flex min-w-0 flex-col gap-5">
+        <p className={cn("flex flex-wrap items-center gap-3", KICKER)}>
+          {HERO.label}
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary px-2.5 py-0.5 font-body text-xs normal-case tracking-normal text-primary">
+            <span aria-hidden="true" className="block h-[7px] w-[7px] rounded-full bg-signal-warn" />{STATUSES.aetherix.word}
+          </span>
+        </p>
+        <h1 id="aetherix-hero-h" className="font-headline text-5xl leading-[1.02] tracking-tight text-primary md:text-6xl lg:text-[64px]">
+          {HERO.headline[0]}<em className="text-secondary">{HERO.headline[1]}</em>
+        </h1>
+        <p className="max-w-xl font-body text-lg leading-relaxed text-on-surface-variant md:text-[19px]">{HERO.lead}</p>
+        <dl className="mt-2 grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-4 gap-y-1.5 font-body text-sm text-on-surface-variant">
+          <dt className="text-secondary">Role</dt><dd>{HERO.role}</dd>
+          <dt className="text-secondary">Status</dt><dd>{HERO.status}</dd>
+        </dl>
+        <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button asChild variant="outline" className="min-h-12"><a href="#how-its-built">{HERO.primary}</a></Button>
+          <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>Book a call</ExternalMark></a>
+          <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>GitHub</ExternalMark></a>
+        </div>
+      </div>
+      <div className="min-w-0 max-w-[30rem]"><AetherixHomepageLoop /></div>
+    </div>
+    <section aria-labelledby="aetherix-tldr" className="mx-auto mt-14 max-w-7xl border-t border-primary pt-4">
+      <h2 id="aetherix-tldr" className={cn(LABEL, "text-on-surface-variant")}>TL;DR</h2>
+      <dl className="mt-4 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {TLDR.map(([t, d]) => (
+          <div key={t} className="border-b border-primary pb-4">
+            <dt className="font-body text-[13px] text-secondary">{t}</dt>
+            <dd className="mt-1.5 font-body text-[15px] text-on-surface">{d}</dd>
+          </div>
+        ))}
+      </dl>
+      <dl className="mt-7 max-w-3xl space-y-1 font-body text-sm text-on-surface">
+        {LEGEND.map(([term, def]) => (
+          <div key={term} className="flex gap-2"><dt className={cn("w-28 shrink-0 font-label text-xs", LEGEND_TONE[term])}><span aria-hidden="true">{MARK_GLYPH[term]} </span>{term}</dt><dd>{def}</dd></div>
+        ))}
+      </dl>
+    </section>
+  </header>
+);
+
+const Problem = () => (
+  <div className="mt-5 max-w-2xl space-y-4">
+    <p className={bodyCls}>{PROBLEM.p1}</p>
+    <p className={bodyCls}>{PROBLEM.p2}</p>
+    <p className={cn(noteBoxCls, "mt-5")}><strong className="font-semibold text-primary">{PROBLEM.originLabel}</strong> {PROBLEM.origin}</p>
+  </div>
+);
+
+const How = () => (
+  <>
+    <p className={cn(bodyCls, "mt-5 max-w-2xl")}>{HOW.intro}</p>
+    <ol className="mt-7 grid list-none grid-cols-1 border-t border-primary p-0 sm:grid-cols-2 lg:grid-cols-4">
+      {HOW.steps.map(([label, text]) => (
+        <li key={label} className="border-b border-outline-variant py-4 pr-5 lg:border-b-0 lg:border-r lg:px-5 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
+          <p className={cn(LABEL, "text-secondary")}>{label}</p>
+          <p className="mt-1.5 font-body text-[15px] text-on-surface">{text}</p>
+        </li>
+      ))}
+    </ol>
+    <p className="mt-4 max-w-2xl font-body text-[14.5px] text-on-surface-variant">{HOW.note}</p>
+  </>
+);
+
+const Strategy = () => (
+  <>
+    <p className={cn(bodyCls, "mt-5 max-w-2xl")}>{STRATEGY.intro}</p>
+    <ol className="mt-6 list-none border-t border-primary p-0">
+      {STRATEGY.decisions.map(([n, title, why]) => (
+        <li key={n} className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-x-3 gap-y-1 border-b border-outline-variant py-3 md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:gap-x-4">
+          <span className="font-body text-[15px] text-secondary">{n}</span>
+          <h3 className="font-body text-[15px] font-semibold text-primary">
+            {title === STRATEGY.underlined ? <span className="border-b-[1.5px] border-secondary">{title}</span> : title}
+          </h3>
+          <p className="col-start-2 font-body text-[15px] text-on-surface md:col-start-auto">{why}</p>
+        </li>
+      ))}
+    </ol>
+    <AetherixWhoFigure />
+    <div className={cn(noteBoxCls, "mt-8 max-w-xl")}>
+      <p className="font-semibold text-primary">{STRATEGY.unprovenLabel}</p>
+      <ul className="mt-1.5 list-disc space-y-1 pl-5 text-[15px] marker:text-secondary">{STRATEGY.unproven.map((u) => <li key={u}>{u}</li>)}</ul>
+    </div>
+  </>
+);
+
+const Proven = () => (
+  <>
+    <div className="mt-7 grid gap-8 md:grid-cols-2 md:gap-10">
+      <div className="min-w-0">
+        <h3 className={subheadCls}>{PROVEN.workingLabel}</h3>
+        <ul className="mt-3 list-disc space-y-1.5 pl-5 font-body text-[15px] text-on-surface marker:text-secondary">
+          {PROVEN.working.map((w) => (
+            <li key={typeof w === "string" ? w : w.join("")}>{typeof w === "string" ? w : <>{w[0]}<Circled>{w[1]}</Circled>{w[2]}</>}</li>
+          ))}
+        </ul>
+        <p className="mt-3 font-label text-xs text-on-surface-variant">{PROVEN.workingNote}</p>
+      </div>
+      <div className="min-w-0">
+        <h3 className={subheadCls}>{PROVEN.testLabel}</h3>
+        <p className="mt-3 font-body text-[15px] text-on-surface">{PROVEN.test[0]}<Circled>{PROVEN.test[1]}</Circled>{PROVEN.test[2]}<Circled>{PROVEN.test[3]}</Circled>{PROVEN.test[4]}</p>
+        <p className="mt-3 font-body text-[15px] text-on-surface-variant">{PROVEN.testLimit}</p>
+        <div className="mt-4">
+          <AetherixDisclosure id="the-numbers" title="The numbers"><p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.</p><p className="mt-3 max-w-3xl text-sm leading-relaxed text-on-surface-variant"><strong className="font-semibold text-on-surface">MAPE.</strong> Mean absolute percentage error. The average gap between a forecast and what actually happened, expressed as a percentage, which makes errors comparable across covers, revenue, or volumes.</p></AetherixDisclosure>
+        </div>
+      </div>
+    </div>
+    <ol className="mt-9 grid list-none grid-cols-2 border-t border-primary p-0 lg:grid-cols-4">
+      {PROVEN.phases.map(([glyph, label, text], i) => (
+        <li key={label} className={cn("p-3 first:pl-0", i === 1 && "bg-surface-container-low")}>
+          <p className={cn(LABEL, i < 2 ? "text-secondary" : "text-on-surface-variant")}><span aria-hidden="true">{glyph} </span>{label}</p>
+          <p className="mt-1 font-body text-sm text-on-surface">{text}</p>
+        </li>
+      ))}
+    </ol>
+  </>
+);
+
+/** The page's existing technical content, collapsed. Chapter 06 and the architecture come in the next branches. */
+const Technical = () => (
+  <div className="mt-10">
+    <AetherixDisclosure id="technical-reader" title={TECH_LABEL}>
+      <h3 className={subheadCls}>Pipeline and stack</h3>
+      <p className="mb-6 mt-3 max-w-3xl text-sm leading-relaxed text-on-surface-variant">Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (Operational Memory + Cold-start prior, research) → Claude Sonnet reasoning → WhatsApp or Email.</p>
+      <div className="mb-8 overflow-hidden rounded-sm border border-outline-variant bg-surface"><AetherixArchitectureDiagram /></div>
+      <AetherixStackChips />
+      <h3 className={cn(subheadCls, "mt-12")}>Built to be trusted</h3>
+      <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-3">{TRUST.map((item) => <div key={item.title} className="flex flex-col gap-4 rounded-sm border border-outline-variant bg-surface-container-low p-6"><Icon name={item.icon} className="text-3xl text-secondary" /><h4 className="font-headline text-2xl leading-tight text-primary">{item.title}</h4><p className="text-sm leading-relaxed text-on-surface-variant">{item.body}</p></div>)}</div>
+      <h3 className={cn(subheadCls, "mt-12")}>More</h3>
+      <div className="mt-5"><AetherixWhatRemainsPrivate /></div>
+      <div className="mt-8 max-w-3xl text-sm leading-relaxed text-on-surface-variant">
+        <p><Link to="/lore" className={linkCls}>Lore</Link>, in aviation maintenance, shares this architecture and cannot close the same loop. Nothing there tells the system whether an observation was right, and the moment a technician escalates the counterfactual disappears. Aetherix has an outcome to compare against; that difference decides how much each product is allowed to learn on its own.</p>
+        <p className="mt-5">The evaluation vocabulary behind these gates, harnesses, graders, acceptance tiers and closed loops is in <Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents</Link></p>
+        <p className="mt-5">Aetherix is one of five agents that talk to each other only through <Term id="mcp">MCP</Term>. <Link to="/architecture" className={linkCls}>The architecture note</Link> says which are built and which are design. <Link to="/anima" className={linkCls}>Anima, the guest memory node, has its own case study</Link>.</p>
+      </div>
+    </AetherixDisclosure>
+  </div>
+);
+
+const BODIES: Record<string, () => JSX.Element> = {
+  "the-problem": Problem,
+  "how-it-works": How,
+  "product-strategy": Strategy,
+  "where-it-stands": Proven,
+};
+
+const Close = () => (
+  <>
+    {/* The gradient fades from the page's warm end colour into the section-inverse colour, which this band supplies underneath. */}
+    <div aria-hidden="true" className="section-inverse relative h-32 md:h-[7.5rem]">
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(var(--aetherix-warm)), hsl(var(--aetherix-warm) / 0))" }} />
+    </div>
+    <section id="talk" aria-labelledby="talk-heading" className="section-inverse scroll-mt-24 px-8 pb-24 pt-4 text-center md:px-12 md:pb-28">
+      <p className={KICKER}>{CLOSE.kicker}</p>
+      <h2 id="talk-heading" className="mt-3.5 font-headline text-4xl text-primary md:text-[44px]">{CLOSE.heading}</h2>
+      <p className="mx-auto mt-3.5 max-w-xl font-body text-lg text-on-surface">{CLOSE.text}</p>
+      <div className="mt-7 flex flex-wrap justify-center gap-4">
+        <Button asChild><a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"><Icon name="event" /><ExternalMark>Book a call</ExternalMark></a></Button>
+        <Button asChild variant="outline"><a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer"><Icon name="hub" /><ExternalMark>Architecture repo</ExternalMark></a></Button>
+      </div>
+    </section>
+  </>
+);
+
 const Atherix = () => {
-  const focus = useFocusTarget();
-  const articleRef = useRef<HTMLElement>(null);
-  const toc = useHeadingToc(articleRef);
+  const reduced = usePrefersReducedMotion();
+  const root = useRef<HTMLDivElement>(null);
+  const active = useActiveChapter(root);
+  // The chapter list is this page's rail: its active chapter is what a source link calls "where the reader is".
+  const activeRef = useRef(-1);
+  activeRef.current = active;
+  useEffect(() => registerRail(() => { const c = AETHERIX_CHAPTERS[activeRef.current]; return c ? { id: c.id, label: c.toc } : null; }), []);
   return (
   <SiteLayout title="Aetherix, the F&B agent for boutique hotels">
-    <ReadingProgress targetRef={articleRef} />
     <Seo
       title="Aetherix, the F&B agent for boutique hotels"
       description={DESCRIPTION}
@@ -164,7 +294,7 @@ const Atherix = () => {
           url: "https://ivandemurard.com/aetherix",
           creator: { "@type": "Person", name: "Ivan de Murard", url: "https://ivandemurard.com" },
           dateCreated: "2026-01-01",
-          dateModified: "2026-10-07",
+          dateModified: "2026-11-16",
           codeRepository: "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture",
         },
         {
@@ -178,206 +308,27 @@ const Atherix = () => {
         },
       ]}
     />
-    <div className="pt-32">
-      <Reveal as="header" className="px-6 md:px-12 mb-12 md:mb-16">
-        <div className="max-w-screen-2xl mx-auto">
-          <div data-reveal-child className="mb-10 md:mb-12">
-            <span className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-5 block">Case study · Hospitality Multi-Agent Architecture</span>
-            <h1 className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-primary italic leading-[0.98] mb-5">Aetherix</h1>
-            <p className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight">The F&amp;B agent for boutique hotels.</p>
-          </div>
-          <p data-reveal-child className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed mb-10 md:mb-12">One message a day in WhatsApp. The manager replies. The outcome is recorded next to it.</p>
-          <dl data-reveal-child className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
-            <dt className="text-secondary">Type</dt><dd>AI agent · Boutique hotel operations · 2026</dd>
-            <dt className="text-secondary">Role</dt><dd>Product Builder and AI Agent Designer, solo</dd>
-            <dt className="text-secondary">Status</dt><dd>Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.</dd>
-          </dl>
-          <div data-reveal-child className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Link to="/architecture" className={linkCls}>The architecture</Link>
-            <a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>GitHub</ExternalMark></a>
-            <a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer" className={linkCls}><ExternalMark>Book a call</ExternalMark></a>
-          </div>
-          <div data-reveal-child className="mt-12 md:mt-14"><EntryActions title="Aetherix" markdownPath="/aetherix.md" variant="case" /></div>
+    <div ref={root} className="aetherix-case-bg relative">
+      <ReadingThread rootRef={root} reduced={reduced} tone="bg-secondary" />
+      <ChapterBar chapters={AETHERIX_CHAPTERS} active={active} />
+      <Hero />
+      <div className="mx-auto grid max-w-7xl gap-12 px-8 pb-24 pt-8 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
+        <ChapterRail chapters={AETHERIX_CHAPTERS} active={active} reduced={reduced} />
+        <div className="min-w-0 max-w-[56rem]">
+          {AETHERIX_CHAPTERS.map((c, i) => {
+            const Body = BODIES[c.id];
+            return (
+              <Fragment key={c.id}>
+                <Chapter c={c} i={i}>
+                  {Body && <Body />}
+                  {c.id === "how-its-built" && <Technical />}
+                </Chapter>
+              </Fragment>
+            );
+          })}
         </div>
-      </Reveal>
-      <div className="px-6 md:px-12">
-      <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_14rem] gap-12">
-      <article ref={articleRef} className="min-w-0 -mx-6 md:-mx-12">
-      <SectionDivider label="In one minute" index="01" />
-      <Reveal as="section" id="in-one-minute" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="in-one-minute-heading" title="In one minute" />
-          <div className={tableWrapCls}>
-            <table className="w-full border-collapse"><tbody>
-              {[
-                ["For", "F&B managers in independent boutique hotels"],
-                ["Does", <>Sends tomorrow's <Term id="covers">covers</Term> and staffing the evening before, then records what happened</>],
-                ["Where", "WhatsApp. No dashboard, no training"],
-                ["Plugs into", <>The <Term id="pms">PMS</Term>, through Apaleo's open API</>],
-                ["Next", "A first pilot hotel running Apaleo"],
-              ].map(([label, value]) => <tr key={String(label)} className="border-b border-outline-variant last:border-b-0"><th scope="row" className={`${thCls} w-32`}>{label}</th><td className={tdCls}>{value}</td></tr>)}
-            </tbody></table>
-          </div>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="The problem" index="02" />
-      <Reveal as="section" id="the-problem" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="the-problem-heading" title="The problem" />
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
-          <div className="min-w-0 lg:col-span-6">
-          <p className={leadCls}>What a hotel knows about its own service lives in a manager's head, and leaves with them.</p>
-          <p className="max-w-3xl text-on-surface-variant leading-relaxed">The bottleneck is not data, it is synthesis: combining occupancy and sales history with weather and local events into one recommendation for this property.</p>
-          </div>
-          <div className="min-w-0 lg:col-span-6">
-          <p className="mb-4 text-on-surface-variant">The result, day to day:</p>
-          <ul className="max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">{PROBLEM_PAINS.map((item) => <li key={item}>{item}</li>)}</ul>
-          </div>
-          </div>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="Product strategy" index="03" />
-      <Reveal as="section" id="product-strategy" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="product-strategy-heading" title="Product strategy" />
-          <p className={leadCls}>Understand a property the way its manager does, and measure every recommendation against what happened.</p>
-          <p className="mb-6 max-w-3xl text-on-surface-variant">Five decisions follow from that.</p>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="min-w-0 lg:col-span-7"><div className={tableWrapCls}><table className="w-full border-collapse"><thead><tr className="border-b border-outline"><th className={thCls}>#</th><th className={thCls}>Decision</th><th className={thCls}>Why</th></tr></thead><tbody>{DECISIONS.map(([n, decision, why]) => <tr key={n} className="border-b border-outline-variant last:border-b-0"><td className={tdCls}>{n}</td><th scope="row" className={`${tdCls} font-semibold text-primary text-left`}>{decision}</th><td className={tdCls}>{why}</td></tr>)}</tbody></table></div></div>
-          <div className="min-w-0 lg:col-span-5"><AetherixRelationshipFigure /></div>
-          </div>
-          <h3 className={`${subheadCls} mt-10`}>Unproven</h3>
-          <ul className="max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">
-            <li>No hotel or PMS has validated this route yet.</li>
-            <li>The platform could build the same thing.</li>
-            <li>Pricing on labor cost needs payroll data the PMS does not hold.</li>
-          </ul>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="How it works" index="04" />
-      <Reveal as="section" id="how-it-works" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="how-it-works-heading" title="How it works" />
-          <p className={leadCls}>Every day adds one row to the Decision Ledger: what was recommended, what the manager said, what happened. Built inside Aetherix, 0 real users.</p>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          <div id="the-daily-loop" className={`min-w-0 lg:col-span-7 scroll-mt-24 rounded-sm transition-shadow duration-700 ${focus === "the-daily-loop" ? "ring-2 ring-secondary ring-offset-8 ring-offset-surface" : ""}`}>
-          <h3 className={subheadCls}>The daily loop</h3>
-          <AetherixLoopCards />
-          <p className="mt-8 max-w-3xl text-sm text-on-surface-variant">Free-text replies are not used yet. Whether the agent gets sharper over time is what a pilot would test.</p>
-          </div>
-          <div id="daily-receipt" className={`min-w-0 lg:col-span-5 scroll-mt-24 rounded-sm transition-shadow duration-700 ${focus === "daily-receipt" ? "ring-2 ring-secondary ring-offset-8 ring-offset-surface" : ""}`}>
-          <h3 className={subheadCls}>What the manager receives</h3>
-          <AetherixDailyReceipt />
-          </div>
-          </div>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="What it does today" index="05" />
-      <Reveal as="section" id="what-it-does-today" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="what-it-does-today-heading" title="What it does today" />
-          <p className={leadCls}>One output runs daily. Two are hypotheses a pilot would test.</p>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
-          <div className="min-w-0">
-          <h3 className={subheadCls}>Already working</h3>
-          <ul className="max-w-3xl list-disc space-y-3 pl-5 text-on-surface-variant marker:text-secondary">{ALREADY_DOES.map((item) => <li key={item}>{item}</li>)}</ul>
-          <p className="mt-8 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Sandbox data, real mechanics, deterministic reruns.</p>
-          </div>
-          <div className="min-w-0">
-          <h3 className={subheadCls}>Three outputs</h3>
-          <div className={tableWrapCls}><table className="w-full border-collapse"><thead><tr className="border-b border-outline"><th className={thCls}>Output</th><th className={thCls}>State</th></tr></thead><tbody>{[
-            ["Tomorrow's covers, with confidence and reasons", "Running daily on sandbox data"],
-            ["Staffing that fits, approved or overridden by the manager", "Pilot hypothesis"],
-            ["Less waste, by flagging over-ordering before purchase", "Target outcome"],
-          ].map(([output, state]) => <tr key={output} className="border-b border-outline-variant last:border-b-0"><th scope="row" className={`${tdCls} font-semibold text-primary text-left`}>{output}</th><td className={tdCls}>{state}</td></tr>)}</tbody></table></div>
-          </div>
-          </div>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="Where it stands" index="06" />
-      <Reveal as="section" id="where-it-stands" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="where-it-stands-heading" title="Where it stands" />
-          <p className={leadCls}>The loop is built and testable. The forecast is not yet proven on hotels.</p>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
-          <div className="min-w-0">
-          <div className={`${tableWrapCls} mb-8`}><table className="w-full border-collapse"><tbody>{[
-            ["Hotels connected", "None. No pilot partner signed, no go-live date"],
-            ["Forecast test", "Public data, 30 restaurants. Beats a naive same-weekday baseline (the mean of the last four same weekdays) on average. Matches it on a typical day. Slightly behind it for next-day forecasts, the horizon the product uses"],
-            ["Limit of that test", "Restaurants, not hotels. No occupancy data, the signal the product relies on"],
-            ["What is solid today", "The loop: recommendation, reply, outcome, and the checks that guard them"],
-          ].map(([label, value]) => <tr key={label} className="border-b border-outline-variant last:border-b-0"><th scope="row" className={`${thCls} w-40`}>{label}</th><td className={tdCls}>{value}</td></tr>)}</tbody></table></div>
-          <AetherixDisclosure id="the-numbers" title="The numbers"><p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.</p><p className="mt-3 max-w-3xl text-sm leading-relaxed text-on-surface-variant"><strong className="font-semibold text-on-surface">MAPE.</strong> Mean absolute percentage error. The average gap between a forecast and what actually happened, expressed as a percentage, which makes errors comparable across covers, revenue, or volumes.</p></AetherixDisclosure>
-          </div>
-          <div className="min-w-0">
-          <h3 className={subheadCls}>Product vision</h3>
-          <p className="max-w-3xl text-on-surface-variant leading-relaxed">Today each hotel learns from its own history. The longer-term idea is that independent hotels learn from each other through Hive Memory, a layer of shared anonymised patterns, and get the reach of a group without joining one.</p>
-          <span className="mt-5 inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Research, not built</span>
-          </div>
-          </div>
-          <h3 className={`${subheadCls} mt-12`}>Roadmap</h3>
-          <AetherixPhaseTimeline />
-        </div>
-      </Reveal>
-
-      <SectionDivider label="How it's built" index="07" />
-      <Reveal as="section" id="how-its-built" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="how-its-built-heading" title="How it's built" />
-          <p className={leadCls}>Not vibe-coded. Specified, reviewed and tested before anything ships.</p>
-          <ul className="max-w-3xl list-disc space-y-4 pl-5 text-on-surface-variant leading-relaxed marker:text-secondary">{HOW_BUILT.map(([label, body]) => <li key={label}><strong className="font-semibold text-primary">{label}</strong> {body}</li>)}</ul>
-        </div>
-      </Reveal>
-
-      <SectionDivider label="Under the hood" index="08" />
-      <Reveal as="section" id="under-the-hood" className={sectionCls}>
-        <div className="max-w-screen-2xl mx-auto">
-          <SectionHeading id="under-the-hood-heading" title="Under the hood" />
-          <p className={leadCls}>For the technical reader: how it is built, and how it is kept honest.</p>
-          <h3 className={subheadCls}>Architecture</h3>
-          <p className="mb-8 max-w-3xl text-on-surface-variant leading-relaxed">Aetherix is one of five agents. Each owns one job and talks to the others only through <Term id="mcp">MCP</Term>. Aetherix executes F&amp;B. It does not orchestrate.</p>
-          <AetherixMeshDiagram />
-          <p className="my-8 text-sm text-on-surface-variant"><Link to="/anima" className={linkCls}>Anima, the guest memory node, has its own case study</Link>.</p>
-          <AetherixDisclosure title="Pipeline and stack">
-            <p className="mb-6 max-w-3xl text-sm leading-relaxed text-on-surface-variant">Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (Operational Memory + Cold-start prior, research) → Claude Sonnet reasoning → WhatsApp or Email.</p>
-            <div className="mb-8 overflow-hidden rounded-sm border border-outline-variant bg-surface"><AetherixArchitectureDiagram /></div>
-            <AetherixStackChips />
-          </AetherixDisclosure>
-          <h3 className={`${subheadCls} mt-10`}>Built to be trusted</h3>
-          <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">{TRUST.map((item) => <div key={item.title} className="flex flex-col gap-4 rounded-sm border border-outline-variant bg-surface-container-low p-6 md:p-8"><Icon name={item.icon} className="text-3xl text-secondary" /><h4 className="font-headline text-2xl italic leading-tight text-primary">{item.title}</h4><p className="text-sm leading-relaxed text-on-surface-variant">{item.body}</p></div>)}</div>
-          <AetherixDisclosure title="More">
-            <AetherixWhatRemainsPrivate />
-            <div className="mt-8 max-w-3xl text-sm leading-relaxed text-on-surface-variant">
-              <p><Link to="/lore" className={linkCls}>Lore</Link>, in aviation maintenance, shares this architecture and cannot close the same loop. Nothing there tells the system whether an observation was right, and the moment a technician escalates the counterfactual disappears. Aetherix has an outcome to compare against; that difference decides how much each product is allowed to learn on its own.</p>
-              <p className="mt-5">The evaluation vocabulary behind these gates, harnesses, graders, acceptance tiers and closed loops is in <Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents</Link></p>
-            </div>
-          </AetherixDisclosure>
-        </div>
-      </Reveal>
-
-      <CaseAnchors current="atherix" entries={AETHERIX_ANCHORS} columns={4} more={{ to: "/architecture", text: "How these systems fit together: the architecture note" }} />
-
-      </article>
-      <div className="hidden lg:block"><JournalToc items={toc} /></div>
       </div>
-      </div>
-      <Reveal as="section" id="talk-about-a-pilot" className="section-inverse px-6 md:px-12 py-24 md:py-32 scroll-mt-24">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-4">09</span>
-          <SectionHeading id="talk-about-a-pilot-heading" title="Talk about a pilot" />
-          <p className="text-on-surface-variant leading-relaxed">Solo builder. Open to a first pilot hotel running Apaleo, and to product conversations.</p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button asChild><a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"><Icon name="event" /><ExternalMark>Book a call</ExternalMark></a></Button>
-            <Button asChild variant="outline"><a href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture" target="_blank" rel="noopener noreferrer"><Icon name="hub" /><ExternalMark>Architecture repo</ExternalMark></a></Button>
-            <Button asChild variant="outline"><Link to="/tacet"><Icon name="arrow_forward" />Read Tacet</Link></Button>
-          </div>
-        </div>
-      </Reveal>
+      <Close />
     </div>
   </SiteLayout>
   );
