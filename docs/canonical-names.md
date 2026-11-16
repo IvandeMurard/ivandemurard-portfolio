@@ -2,7 +2,7 @@
 
 The site follows the meta-repo's `llms.txt`, which is canonical. This file is a **copy** of its three sections (status vocabulary, current component status, names), so a change here can be checked against it without leaving the repository. When the two disagree, `llms.txt` wins and this file is corrected.
 
-**Copied on 16 November 2026 from `llms.txt` on the meta-repo branch `docs/canonical-names` (commit 5ee384d), which was not yet pushed or merged.** The copy below is a draft of the canonical file until that branch is merged; re-copy it from `main` then.
+**Copied on 16 November 2026 from `llms.txt` on `main` of the meta-repo (commit 7830742, merge of pull request #25).**
 
 ```text
 ## Status vocabulary
