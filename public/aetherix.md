@@ -62,7 +62,7 @@ And measure every recommendation against what happened. Five decisions follow fr
 
 Who uses, who pays, who distributes.
 
-- Distributes: The PMS. Shares read-only data through Apaleo, and lists the integration.
+- Distributes: The PMS. Apaleo shares read-only data and lists the integration.
 - Uses: The F&B manager. Gets the daily message. Sends the reply.
 - Pays: Hotel management. Signs the contract.
 
@@ -101,7 +101,7 @@ Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, determi
 #### Phases
 
 - ● Phase 0–2: Validation, observability and the Daily Receipt are done.
-- ◐ Phase 3 · now: Pilot. Recruiting a pilot partner.
+- ◐ Phase 3 · now: Pilot readiness. No hotel yet.
 - ○ Phase 4: Scale: Mews, POS, Anima.
 - ○ Phase 5: Revenue Orchestrator. Hive Memory stays research.
 
@@ -109,13 +109,69 @@ Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, determi
 
 ### The outcomes layer the others do not have
 
-This chapter is being rebuilt and is not yet written.
+Every recommendation Aetherix sends becomes one row: the context, what it recommended, what the manager said, what happened. That ledger is built, with no real user yet. The bet is to make it a layer: every agent of the architecture writes its rows there, and agents built by others read it through MCP.
+
+The ledger, one row per decision:
+
+| Agent | Recommended | Human said | What happened | Gap |
+| --- | --- | --- | --- | --- |
+| Aetherix · built | 101 | 79 | 95 | 6% vs 17% |
+| Tacet, Anima, Peritia | Same row, written by every agent of the architecture · designed | | | |
+| Agents built by others | Read and written through MCP · designed | | | |
+
+First row: built, shown on the sandbox run at the top of the page. The other rows are design.
+
+#### Why it matters
+
+Agents on marketplaces such as Apaleo's Agent Hub recommend. The ledger is the part that records what happened next, for Aetherix's own agents and for others'.
+
+Built in Aetherix on 1 August 2026, no real user yet. The shared layer is design.
+
+#### The shared layer: design, nothing built yet
+
+- The ledger has no real user yet, and Aetherix no pilot hotel.
+- Other agents would need consent, a shared format and access to outcomes.
+- The platform could build the same layer.
 
 ## 06 · How it's built (Built)
 
 ### Specified, reviewed and tested before anything ships
 
-This chapter is being rebuilt and is not yet written. The technical content below stays public.
+- **Spec before code, with the BMAD method.** Requirements, architecture, epics, then one written story per change. Code comes last.
+- **I direct the agents; I own the result.** AI agents build from those stories, inside 34 decisions I set. I review and decide what ships.
+- **Nothing merges without passing its tests.** A fixed set of scenarios checks every change; a drop in quality blocks it.
+- **A weekly self-audit.** An agent checks that what the project claims still matches what it does.
+
+### Inside the agent
+
+One pass a day, on Maison Lumen's first evening: the same figures as the demo at the top. Pick a step.
+
+1. 01 Reads the hotel: Apaleo, read-only, plus weather and local events. Nothing is written back. Apaleo: "Tomorrow: hotel 98% full. New Year's Day." Aetherix: "Read. Weather is poor, and there are no local events." [Read-only]
+2. 02 Forecasts the covers: A statistical forecast that comes with its range. Aetherix: "101 covers. 94 to 109 on 4 nights out of 5." [High confidence]
+3. 03 Remembers this hotel: Its own past days. Shared patterns across hotels stay research. Aetherix: "A usual Thursday here: 87 covers." [This hotel only]
+4. 04 Explains in plain words: The message carries its reasons, so the manager can disagree with one of them. Aetherix: "Why 101: usual level 87; hotel 98% full +9, New Year's Day +8, season +7, weather −6." [Reasons attached]
+5. 05 Records what happened: The reply and the real outcome sit next to the recommendation. That record is the ledger. Manager: "I'd say 79 covers instead." Aetherix: "Actual: 95. Forecast 101: 6% off, inside the range. Your estimate: 17% off." [Outcome recorded]
+
+Around every step: evaluation gates that block a change, one hotel's data never visible to another, data kept in the EU.
+
+Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real services, seed 42. The figures come from the run; the bubbles word them for display.
+
+### Where it sits
+
+Aetherix is one agent of the Hospitality Multi-Agent Architecture (https://ivandemurard.com/architecture). It executes F&B; it does not orchestrate. Every exchange goes through MCP.
+
+- Orchestrator: Routing and business rules (Design, proto-stub).
+- Aetherix (this page): F&B execution (Built · forecast in shadow mode).
+- Tacet: Sensory: weather, noise, open data (Built · maintenance).
+- Anima: Guest memory (Synthetic PoC · DPIA-gated).
+- Peritia: House knowledge (Design · pattern tested in Lore).
+- Decision Ledger: built in Aetherix; shared across agents: Design.
+
+Tacet → Aetherix: direct, until the orchestrator exists.
+
+Third-party agents read it, through MCP · designed.
+
+Every exchange goes through the orchestrator, over MCP. A solid line is Built, long dashes are Synthetic PoC, dots are Design.
 
 ### For the technical reader: stack, evaluation contract, observability, multi-tenant security
 
@@ -140,6 +196,14 @@ Lore, in aviation maintenance, shares this architecture and cannot close the sam
 Field Note: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 
 Aetherix is one of five agents that talk to each other only through MCP. The architecture note says which are built and which are design: https://ivandemurard.com/architecture. Anima, the guest memory node, has its own case study: https://ivandemurard.com/anima
+
+## Next · where Aetherix sits
+
+### Hospitality Multi-Agent Architecture
+
+Five specialised agents, each owning one bounded context, talking only through MCP. The page says which is built and which is design.
+
+Aetherix, Tacet, Anima, Peritia and the orchestrator. Read the architecture: https://ivandemurard.com/architecture
 
 ## 07 · Talk
 

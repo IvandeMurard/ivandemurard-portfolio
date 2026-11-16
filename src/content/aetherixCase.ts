@@ -14,7 +14,7 @@ export const AETHERIX_CHAPTERS: AetherixChapter[] = [
   { id: "how-it-works", toc: "02 How it works", kicker: "02 · How it works", heading: "One record a day", marks: ["Built"] },
   { id: "product-strategy", toc: "03 Product strategy", kicker: "03 · Product strategy", heading: "Understand a property the way its manager does", marks: ["Design"] },
   { id: "where-it-stands", toc: "04 What is proven", kicker: "04 · What is proven, what is not", heading: "The loop is built. The forecast is not yet proven on hotels.", marks: ["Validation"] },
-  // Chapters 05 and 06 are placeholders until the next branch: kicker and heading only.
+  // Chapters 05 and 06: their copy is in aetherixInside.ts.
   { id: "decision-ledger", toc: "05 The Decision Ledger", kicker: "05 · The Decision Ledger", heading: "The outcomes layer the others do not have", marks: ["Built", "Design"], markNote: { Built: "Built in Aetherix", Design: "Design as a shared layer" } },
   { id: "how-its-built", toc: "06 How it's built", kicker: "06 · How it's built", heading: "Specified, reviewed and tested before anything ships", marks: ["Built"] },
 ];
@@ -26,7 +26,7 @@ export const HERO = {
   role: "AI Product Manager and Product Builder, solo · 2026",
   /** Never written here: the status line is the one in src/content/statuses.ts. */
   status: STATUSES.aetherix.note,
-  primary: "How it decides, and when it refuses",
+  primary: "How it decides",
 };
 
 export const TLDR = [
@@ -71,7 +71,7 @@ export const STRATEGY = {
   ],
   underlined: "Distribution before design",
   who: [
-    { role: "Distributes", name: "The PMS", text: "Shares read-only data through Apaleo, and lists the integration." },
+    { role: "Distributes", name: "The PMS", text: "Apaleo shares read-only data and lists the integration." },
     { role: "Uses", name: "The F&B manager", text: "Gets the daily message. Sends the reply." },
     { role: "Pays", name: "Hotel management", text: "Signs the contract." },
   ],
@@ -105,7 +105,7 @@ export const PROVEN = {
   testLimit: "The test used restaurant data, without hotel occupancy, the signal the product relies on. The protocol was not pre-registered. Maison Lumen uses occupancy from Apaleo; how accurate the forecast is on a real hotel is what a pilot will measure.",
   phases: [
     ["●", "Phase 0–2", "Validation, observability and the Daily Receipt are done."],
-    ["◐", "Phase 3 · now", "Pilot. Recruiting a pilot partner."],
+    ["◐", "Phase 3 · now", "Pilot readiness. No hotel yet."],
     ["○", "Phase 4", "Scale: Mews, POS, Anima."],
     ["○", "Phase 5", "Revenue Orchestrator. Hive Memory stays research."],
   ] as const,
