@@ -19,6 +19,9 @@ const MARKDOWN_ROUTES: readonly string[] = [
   "/architecture",
   "/journal/agent-boundaries-aetherix",
   "/journal/harnesses-graders-closed-loops",
+  "/journal/whose-truth-is-the-ground-truth",
+  "/compass",
+  "/agents",
 ];
 
 type SeoProps = {

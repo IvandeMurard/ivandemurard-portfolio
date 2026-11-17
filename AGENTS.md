@@ -23,3 +23,4 @@
 - Rose case-study kinetic primitives (sticky scroll scenes, pencil marks, Rose asides) live in src/components/rose/RoseKinetic.tsx and read only semantic tokens, so motion stays reusable and degrades to static content under reduced motion.
 - The Rose case study single page lives in src/components/rose/RoseCaseStudy.tsx and is the default of /rose; old concepts stay behind ?concept= until removed, so each §6 section can be built in place without a new variant.
 - The generated MCP bundle is type-stripped JS checked by Deno, so `supabase/functions/mcp/deno.json` , the shared `supabase/functions/deno.json` and the root `deno.json` (used when functions are checked from the project root) relax implicit-any and MCP tool sources must not rely on stripped annotations to widen literal note types.
+- /.well-known/llms.txt is a prebuild copy of public/llms.txt (scripts/copy-wellknown-llms.ts); edit only the root file so both stay identical.

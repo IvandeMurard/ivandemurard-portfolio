@@ -33,3 +33,6 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://ivandemurard.com/sitemap.xml
+
+# Index for language models: https://ivandemurard.com/llms.txt
+# Whole site as text: https://ivandemurard.com/llms-full.txt
