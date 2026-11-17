@@ -26,10 +26,8 @@ describe("Hero demo: three built exchanges in a loop", () => {
     for (const e of HERO_EXCHANGES) {
       expect(deck, e.q).toContain(norm(e.q));
       expect(deck, e.a).toContain(norm(e.a));
-      // The prototype predates the route rename (17 Nov 2026): /journeys became /case-studies, and the demo says so.
-      const asInPrototype = (s: string) => s.replace("/case-studies", "/journeys");
-      expect(prototype, e.where).toContain(asInPrototype(e.where));
-      expect(prototype, e.src).toContain(asInPrototype(e.src));
+      expect(prototype, e.where).toContain(e.where);
+      expect(prototype, e.src).toContain(e.src);
     }
     expect(deck).toContain("Source: chapter 03");
     expect(HERO_EXCHANGES[1].link).toEqual({ label: "Aetherix, the case study", to: "/aetherix" });

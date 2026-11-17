@@ -869,15 +869,6 @@
     }
   }
 
-  html.journeys-snap {
-    scroll-snap-type: y proximity;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html.journeys-snap {
-      scroll-snap-type: none;
-    }
-  }
-
   .journey-act-media {
     position: relative;
     overflow: hidden;

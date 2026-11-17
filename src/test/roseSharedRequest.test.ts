@@ -22,7 +22,7 @@ const toolsOf = (question: string, pagePath: string) => asRoseChat(question, pag
 describe("Tool definitions: rose-chat and the evaluation script build the same", () => {
   const cases: Array<[string, string, string]> = [
     ["a booking request", "I changed my mind. I would like to book a call with Ivan.", "/contact"],
-    ["an ordinary question", "What has Ivan built?", "/journeys"],
+    ["an ordinary question", "What has Ivan built?", "/case-studies"],
     ["a profile question", "What kind of role is Ivan looking for?", "/rose-design-lab"],
   ];
 
@@ -48,21 +48,21 @@ describe("Tool definitions: rose-chat and the evaluation script build the same",
 
   it("the follow-up tool carries the policy description, the size limits and the safety check", async () => {
     const question = "What has Ivan built?";
-    const followups = toolsOf(question, "/journeys").suggest_followups;
+    const followups = toolsOf(question, "/case-studies").suggest_followups;
     expect(followups.description).toBe(ROSE_FOLLOWUPS_TOOL_DESCRIPTION);
     const schema = (await jsonSchema(followups)) as { properties: { items: { minItems: number; maxItems: number; items: { description: string; minLength: number; maxLength: number } } } };
     expect(schema.properties.items.minItems).toBe(1);
     expect(schema.properties.items.maxItems).toBe(2);
     expect(schema.properties.items.items.minLength).toBe(3);
     expect(schema.properties.items.items.maxLength).toBe(80);
-    expect(schema.properties.items.items.description).toBe(roseFollowupPolicyDescription({ question, pagePath: "/journeys" }));
+    expect(schema.properties.items.items.description).toBe(roseFollowupPolicyDescription({ question, pagePath: "/case-studies" }));
     expect(followups.inputSchema.safeParse({ items: ["Would you tell me more about his work?"] }).success).toBe(true);
     expect(followups.inputSchema.safeParse({ items: ["What is your role?"] }).success).toBe(false);
   });
 
   it("withholds the booking tool from a profile question that does not ask for a meeting", () => {
     expect(Object.keys(toolsOf("What kind of role is Ivan looking for?", "/rose-design-lab"))).not.toContain("propose_booking");
-    expect(Object.keys(toolsOf("What has Ivan built?", "/journeys"))).toContain("propose_booking");
+    expect(Object.keys(toolsOf("What has Ivan built?", "/case-studies"))).toContain("propose_booking");
     expect(Object.keys(toolsOf("Is Ivan open to a call about a role?", "/rose-design-lab"))).toContain("propose_booking");
   });
 });
