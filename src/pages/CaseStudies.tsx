@@ -38,13 +38,13 @@ const Card = ({ card }: { card: IndexCard }) => {
       {photo && (
         <>
           <img src={photo} alt="" loading="lazy" decoding="async" className="absolute inset-0 -z-10 h-full w-full object-cover" />
-          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-case-card/90 via-case-card/70 to-case-card/15" />
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-case-card/95 via-case-card/85 to-case-card/70" />
         </>
       )}
       {/* A soft floor under the text, so the tint never lowers its contrast. */}
       {card.tint && <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-case-card/75 via-case-card/30 to-transparent" />}
       <div className="px-5 py-[22px] md:px-[30px] md:pb-[26px] md:pt-7">
-        <p className={cn(kicker, "text-case-ink/80")}>{card.kicker}</p>
+        <p className={cn(kicker, photo ? "text-case-ink" : "text-case-ink/80")}>{card.kicker}</p>
         <div className="mt-[10px] flex flex-wrap items-baseline gap-x-4 gap-y-2">
           <h3 className="font-headline text-[44px] font-normal leading-none">{project.name}</h3>
           <span className="inline-flex items-center gap-[7px] text-[13px] text-case-ink/90">
@@ -54,7 +54,7 @@ const Card = ({ card }: { card: IndexCard }) => {
         </div>
         <p className="mt-[14px] max-w-[560px] text-[16.5px] leading-[1.5] text-case-ink/[0.92]">{card.line}</p>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-t border-case-ink/20 pt-4">
-          <p className="max-w-[420px] text-[13.5px] text-case-ink/80"><span className="mr-1.5 text-case-ink/70">{CASE_INDEX.shows}</span>{card.shows}</p>
+          <p className="max-w-[420px] text-[13.5px] text-case-ink/80"><span className={photo ? undefined : "text-case-ink/70"}>{CASE_INDEX.shows}{" "}</span>{card.shows}</p>
           {/* The one link of the card. Its ::after stretches over the whole card, so there is a single focus stop. */}
           <Link to={href} onClick={() => track({ label: project.name, href, kind: "project" })}
             className="inline-flex min-h-10 items-center rounded-full border border-case-ink/40 px-[18px] text-sm after:absolute after:inset-0 after:content-[''] group-hover:border-case-ink focus-visible:outline-none">

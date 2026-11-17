@@ -26,8 +26,10 @@ describe("Hero demo: three built exchanges in a loop", () => {
     for (const e of HERO_EXCHANGES) {
       expect(deck, e.q).toContain(norm(e.q));
       expect(deck, e.a).toContain(norm(e.a));
-      expect(prototype, e.where).toContain(e.where);
-      expect(prototype, e.src).toContain(e.src);
+      // The prototype predates the route rename (17 Nov 2026): /journeys became /case-studies, and the demo says so.
+      const asInPrototype = (s: string) => s.replace("/case-studies", "/journeys");
+      expect(prototype, e.where).toContain(asInPrototype(e.where));
+      expect(prototype, e.src).toContain(asInPrototype(e.src));
     }
     expect(deck).toContain("Source: chapter 03");
     expect(HERO_EXCHANGES[1].link).toEqual({ label: "Aetherix, the case study", to: "/aetherix" });
@@ -59,7 +61,7 @@ describe("Hero demo: three built exchanges in a loop", () => {
     const chips = screen.getByRole("list", { name: "Suggested questions" });
     expect(chips.textContent).toContain("What happens when it's wrong?");
     expect(chips.textContent).toContain("Which ones are live?");
-    expect(screen.getByText("Source: case studies, /journeys")).toBeTruthy();
+    expect(screen.getByText("Source: case studies, /case-studies")).toBeTruthy();
 
     ticks(9); // back to the first
     expect(screen.getByText("Say it more simply.")).toBeTruthy();

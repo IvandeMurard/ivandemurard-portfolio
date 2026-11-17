@@ -12,7 +12,7 @@ export const CASE_INDEX = {
   line: "Each project states what runs today, what was tested and what is not proven yet.",
   startWith: "Start with",
   readCase: "Read the case",
-  shows: "What it shows",
+  shows: "What it shows:",
 } as const;
 
 /** The lamp legend. Each project's signal (statuses.ts) picks one of these four. */

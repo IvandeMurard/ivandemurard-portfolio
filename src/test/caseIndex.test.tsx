@@ -115,6 +115,29 @@ describe("Case studies: the page", () => {
   });
 });
 
+describe("Case studies: review fixes", () => {
+  it("reads 'What it shows:' with the colon and one space, as in the reference", () => {
+    expect(ref("day")).toContain("What it shows: </span>");
+    page();
+    for (const c of CARDS) expect(document.getElementById(c.id)!.textContent).toContain(`${CASE_INDEX.shows} ${c.shows}`);
+    expect(CASE_INDEX.shows).toBe("What it shows:");
+  });
+
+  it("gives a photo card a veil over the whole text block and a full-ink kicker", () => {
+    const src = readFileSync("src/pages/CaseStudies.tsx", "utf8");
+    expect(src).toContain("from-case-card/95 via-case-card/85 to-case-card/70");
+    expect(src).toContain('photo ? "text-case-ink" : "text-case-ink/80"');
+  });
+
+  it("names /case-studies in the Rose demo and as a reference route", async () => {
+    const { HERO_EXCHANGES } = await import("@/components/rose/roseDemoData");
+    const { referencePath } = await import("@/components/rose/roseMeasurement");
+    expect(HERO_EXCHANGES.some((e) => e.where === "Reading: /case-studies" && e.src === "Source: case studies, /case-studies")).toBe(true);
+    expect(referencePath("/case-studies?x=1")).toBe("/case-studies");
+    expect(referencePath("/journeys")).toBeNull();
+  });
+});
+
 describe("Case studies: tokens", () => {
   it("defines a tint per project for Day and Night, and no colour is written in the page", () => {
     const css = readFileSync("src/index.css", "utf8");
