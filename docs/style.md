@@ -1,6 +1,6 @@
 # Site style: words, type and layout
 
-Status: v1, validated by Ivan on 2 Nov 2026. Applies to every page of ivandemurard.com and to Rose. Pilot: the Rose case study (`/rose-design-lab`). When this file and an older brief disagree, this file wins for style; the brief still wins for facts.
+Status: v1, validated by Ivan on 2 Nov 2026. Applies to every page of ivandemurard.com and to Rose. Pilot: the Rose case study (`/rose`). When this file and an older brief disagree, this file wins for style; the brief still wins for facts.
 
 Principles. Simple purpose, simple architecture, simple implementation. Cut taglines, helper text and secondary labels that explain the interface: if a screen needs them to make sense, fix the layout. Keep, as short as possible, what commits you: status, sources, honesty markers and the data notice where data is collected. Every decision should serve the reader (UX), the builder (DX) and agents (AX). When one gains at another’s expense, say so and measure it. A change ships only when tests show nothing else broke.
 

@@ -68,8 +68,8 @@ var BASE = [
     name: "Rose",
     label: "AI service \xB7 Portfolio agent \xB7 2026",
     tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.",
-    url: "https://ivandemurard.com/rose-design-lab",
-    markdown_path: "/rose-design-lab.md"
+    url: "https://ivandemurard.com/rose",
+    markdown_path: "/rose.md"
   },
   {
     slug: "compass",
@@ -104,10 +104,10 @@ var SLUGS = {
   tacet: "/tacet.md",
   lore: "/lore.md",
   anima: "/anima.md",
-  rose: "/rose-design-lab.md",
+  rose: "/rose.md",
   compass: "/compass.md"
 };
-var PAGES = { rose: "/rose-design-lab" };
+var PAGES = { rose: "/rose" };
 var get_case_study_default = defineTool2({
   name: "get_case_study",
   title: "Get case study",

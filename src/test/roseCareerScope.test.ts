@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { getRoseSystemPrompt, isRoseCareerQuestion } from "../../supabase/functions/_shared/rose-context";
 
-// Live bug, 3 Nov: on /rose-design-lab a question about the roles Ivan wants loaded neither the CV nor the Contact
+// Live bug, 3 Nov: on /rose a question about the roles Ivan wants loaded neither the CV nor the Contact
 // text, and Rose invented roles. A profile question now loads the CV and the Contact facts on any page.
 const QUESTION = "What kind of role is Ivan looking for, and how does he describe his work?";
 const CV_BLOCK = "--- BEGIN CASE STUDY: cv ---";
@@ -14,7 +14,7 @@ beforeAll(() => {
 afterAll(() => vi.unstubAllGlobals());
 
 describe("Rose career scope", () => {
-  for (const [name, path] of [["Rose's page", "/rose-design-lab"], ["a case study", "/aetherix"], ["a Field Note", "/journal/harnesses-graders-closed-loops"]]) {
+  for (const [name, path] of [["Rose's page", "/rose"], ["a case study", "/aetherix"], ["a Field Note", "/journal/harnesses-graders-closed-loops"]]) {
     it(`loads the CV and the Contact text for the profile question on ${name}`, async () => {
       const prompt = await getRoseSystemPrompt({ page: { path }, question: QUESTION });
       expect(prompt).toContain(CV_BLOCK);
@@ -32,14 +32,14 @@ describe("Rose career scope", () => {
   });
 
   it("does not load the whole portfolio for a profile question on Rose's page", async () => {
-    const prompt = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: "Is Ivan open to a Head of Product role?" });
+    const prompt = await getRoseSystemPrompt({ page: { path: "/rose" }, question: "Is Ivan open to a Head of Product role?" });
     expect(prompt).toContain(CV_BLOCK);
     for (const slug of ["sonor", "tacet", "lore", "anima", "compass"]) expect(prompt).not.toContain(`--- BEGIN CASE STUDY: ${slug} ---`);
     expect(prompt).toContain("never confirm openness to any other role");
   });
 
   it("a question about Rose herself still does not load the CV or the Contact text", async () => {
-    const prompt = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: "Why were you built?" });
+    const prompt = await getRoseSystemPrompt({ page: { path: "/rose" }, question: "Why were you built?" });
     expect(prompt).not.toContain(CV_BLOCK);
     expect(prompt).not.toContain(CONTACT_LINE);
   });

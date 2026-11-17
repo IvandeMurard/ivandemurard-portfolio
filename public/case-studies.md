@@ -66,7 +66,7 @@ Rose answers questions about the page you are reading, from the site's own text.
 
 Shows: an AI assistant shipped, evaluated and changed in public.
 
-[Read the case](https://ivandemurard.com/rose-design-lab)
+[Read the case](https://ivandemurard.com/rose)
 
 ### Lore
 

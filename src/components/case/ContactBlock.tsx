@@ -27,7 +27,7 @@ const CopyPrompt = () => {
   );
 };
 
-/** The one Contact block, used on the homepage ("04 · Contact") and on /rose-design-lab ("Contact"). Copy lives in src/content/site.ts. */
+/** The one Contact block, used on the homepage ("04 · Contact") and on /rose ("Contact"). Copy lives in src/content/site.ts. */
 export const ContactBlock = ({ number }: { number?: string }) => {
   const track = useTrackClick();
   return (

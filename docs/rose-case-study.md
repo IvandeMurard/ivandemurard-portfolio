@@ -8,7 +8,7 @@ Status: v3, 2026-10-29. This file replaces every earlier prompt about Rose and t
 
 ## 0. How to use this file (for the builder)
 
-- Read this whole file before any change related to Rose or `/rose-design-lab`.
+- Read this whole file before any change related to Rose or `/rose`.
 - Do not create a new concept, prototype or variant. There is one page, built section by section.
 - Each request names one section of this file (for example "§6.1 Hero"). Change only that section of the page.
 - If something here is ambiguous, ask a question in chat. Do not invent a direction.
@@ -20,7 +20,7 @@ Status: v3, 2026-10-29. This file replaces every earlier prompt about Rose and t
 | Track | What it is | Where it lives |
 |---|---|---|
 | A. Rose v1 (product) | What Rose can actually do on the site | The dock, `rose-chat`, page anchors |
-| B. Case study (page) | The story of how Rose was designed, and a live demonstration of track A | `/rose-design-lab` (unlinked until approved) |
+| B. Case study (page) | The story of how Rose was designed, and a live demonstration of track A | `/rose` (unlinked until approved) |
 
 Rule: the case study only shows capabilities that exist in track A. It never mocks or fakes a capability. Anything not built goes in the "Next steps" chapter.
 
@@ -155,7 +155,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 ### 6.4 Chapter 06: What Rose can do now (Design)
 - Architecture diagram (reader context → dock → rose-chat → tools → site text). Solid = built, dashed = design.
 - One marked passage, four suggested questions (Locate, Reformulate, Connect, Sketch); answers only in the dock.
-- Relations graph from `src/content/portfolio-graph.json`, edges written by Ivan; the map is one of the three consumers of that file (§2.2). Rose links the site's content (Field Notes, Path · CV, /agents · MCP, case studies), never the projects' code. Hospitality multi-agent architecture: Aetherix, Tacet and Anima are part of the Orchestrator (built), Peritia is part of it (design), and Tacet reaches Aetherix directly until the orchestrator exists (dashed). Sonor inspired Tacet (dashed) and Lore shares Aetherix's thesis (dashed); both stay outside the architecture. Compass has no link. The edges and reasons are those of "Relations, decided 3 Nov" in the v2 deck (decided again 13 Nov: v2 wins over the earlier "Lore adapted into Peritia"). Evaluation (`/rose-design-lab/evaluation`) is a site-content node with two edges: Rose → Evaluation, label "how she is tested", reason "The evaluation page shows how every change to Rose is tested before it reaches visitors."; Evaluation → Field Notes, label "applies “Evaluate”", reason "The campaign applies the harness and grading method this Field Note describes." No invented analogies ("same principle", "same lesson" removed).
+- Relations graph from `src/content/portfolio-graph.json`, edges written by Ivan; the map is one of the three consumers of that file (§2.2). Rose links the site's content (Field Notes, Path · CV, /agents · MCP, case studies), never the projects' code. Hospitality multi-agent architecture: Aetherix, Tacet and Anima are part of the Orchestrator (built), Peritia is part of it (design), and Tacet reaches Aetherix directly until the orchestrator exists (dashed). Sonor inspired Tacet (dashed) and Lore shares Aetherix's thesis (dashed); both stay outside the architecture. Compass has no link. The edges and reasons are those of "Relations, decided 3 Nov" in the v2 deck (decided again 13 Nov: v2 wins over the earlier "Lore adapted into Peritia"). Evaluation (`/rose/evaluation`) is a site-content node with two edges: Rose → Evaluation, label "how she is tested", reason "The evaluation page shows how every change to Rose is tested before it reaches visitors."; Evaluation → Field Notes, label "applies “Evaluate”", reason "The campaign applies the harness and grading method this Field Note describes." No invented analogies ("same principle", "same lesson" removed).
 - "In use": the whole block stays hidden below 33 conversations (no placeholder line). From 33: count since a date, plus a few real questions chosen by Ivan from the logs, personal details removed.
 
 ### 6.5 Chapter 07: Trust (Built)
@@ -198,7 +198,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 - Contact for recruiters: "Hiring for AI product? I design the whole loop: the people on the ground, the software, and the outcome it's judged on." Subline: "Operations, product, business and tech, in one service. I ship, I evaluate, and I say what isn't proven yet. I am looking for an AI Product Manager or Product Builder role." Book 30 minutes · Email · CV.
 
 ### 6.10 Cleanup
-- Remove the `/rose-design-lab` `chapter-06` / `ch-next` "Aetherix receipt demo" rule from `rose-context.ts` and any leftover component.
+- Remove the `/rose` `chapter-06` / `ch-next` "Aetherix receipt demo" rule from `rose-context.ts` and any leftover component.
 
 ---
 

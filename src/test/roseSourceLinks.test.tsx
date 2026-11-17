@@ -16,7 +16,7 @@ class NoopObserver { observe() {} unobserve() {} disconnect() {} }
 
 beforeAll(async () => { await loadSourceLabels(); });
 
-const md = (text: string, at = "/rose-design-lab") => {
+const md = (text: string, at = "/rose") => {
   window.history.pushState({}, "", at);
   return render(<MemoryRouter initialEntries={[at]}><RoseMarkdown text={text} /></MemoryRouter>);
 };
@@ -113,14 +113,14 @@ describe("Origin of a source link", () => {
   const status = () => screen.getByRole("link", { name: "The loop is built. The forecast is not yet proven on hotels, in Aetherix" });
 
   it("keeps the origin (path, section, scroll position) and the target in sessionStorage", () => {
-    md("See [the status](/aetherix#where-it-stands).", "/rose-design-lab");
+    md("See [the status](/aetherix#where-it-stands).", "/rose");
     setScrollY(640);
     fireEvent.click(status());
     expect(window.sessionStorage.getItem("rose-source-jump")).toBeTruthy();
     const jump = readJump() as Jump;
     expect(jump.target).toEqual({ path: "/aetherix", hash: "where-it-stands" });
     expect(jump.samePage).toBe(false);
-    expect(jump.origin.path).toBe("/rose-design-lab");
+    expect(jump.origin.path).toBe("/rose");
     expect(jump.origin.scrollY).toBe(640);
     expect(jump.origin).toHaveProperty("section");
   });
@@ -162,7 +162,7 @@ describe("Origin section", () => {
   it("is the active item of the page's rail, with its number, when the page has one", () => {
     withRects({ a: -500, b: 900 });
     const off = registerRail(() => ({ id: "ch-02", label: "02 Listen to the page" }));
-    window.history.pushState({}, "", "/rose-design-lab");
+    window.history.pushState({}, "", "/rose");
     expect(captureOrigin()).toMatchObject({ section: "02 Listen to the page", sectionId: "ch-02" });
     off();
   });
@@ -203,7 +203,7 @@ describe("Return name of the origin page", () => {
   afterEach(() => { document.body.innerHTML = ""; });
 
   it("is Rose's case study for the Rose page", () => {
-    expect(at("/rose-design-lab")).toBe("Rose's case study");
+    expect(at("/rose")).toBe("Rose's case study");
   });
   it("is 'the {Name} case study' for a case study", () => {
     expect(at("/aetherix")).toBe("the Aetherix case study");
@@ -222,7 +222,7 @@ describe("Return name of the origin page", () => {
     expect(at("/", "SaaS product manager and co-founder. Now I build AI services")).toBe("the homepage");
   });
   it("reads: ← Back to Rose's case study, 02 Listen to the page", () => {
-    const origin = { path: "/rose-design-lab", title: "Rose's case study", section: "02 Listen to the page", sectionId: "ch-02", scrollY: 10 };
+    const origin = { path: "/rose", title: "Rose's case study", section: "02 Listen to the page", sectionId: "ch-02", scrollY: 10 };
     saveJump({ target: { path: "/aetherix", hash: "where-it-stands" }, samePage: false, origin });
     render(<MemoryRouter initialEntries={["/aetherix#where-it-stands"]}><SourceContextLine /></MemoryRouter>);
     expect(screen.getByRole("button", { name: "← Back to Rose's case study, 02 Listen to the page" })).toBeTruthy();
@@ -233,7 +233,7 @@ describe("Context line", () => {
   const jump = (over: Partial<Jump> = {}): Jump => ({
     target: { path: "/aetherix", hash: "where-it-stands" },
     samePage: false,
-    origin: { path: "/rose-design-lab", title: "Rose", section: "Chapter 08", sectionId: null, scrollY: 640 },
+    origin: { path: "/rose", title: "Rose", section: "Chapter 08", sectionId: null, scrollY: 640 },
     ...over,
   });
   const line = (at: string) => render(<MemoryRouter initialEntries={[at]}><SourceContextLine /></MemoryRouter>);

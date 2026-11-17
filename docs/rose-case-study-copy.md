@@ -141,7 +141,7 @@ var V5 = {
   - Connect: "SAME SOURCE · /agents: pages, Markdown mirrors, MCP and Rose read the same content." / "READS · The case studies and Field Notes: I answer from the page you are on first."
   - Sketch: Page → Section in view → Marked passage → Answer
   - Source line under answers: "Source: commit b236ff3"
-- Relations graph, caption "What Rose can relate · a map I write by hand". Nodes: Rose, Field Notes, Path · CV, /agents · MCP, Evaluation (/rose-design-lab/evaluation), Aetherix, Tacet, Anima, Peritia, Sonor, Lore, Compass. Edge labels: reads, reads, same source, reads the case studies, same architecture, adapted into, inspired, how she is tested, applies “Evaluate”. Group labels "Hospitality multi-agent architecture" and "Standalone".
+- Relations graph, caption "What Rose can relate · a map I write by hand". Nodes: Rose, Field Notes, Path · CV, /agents · MCP, Evaluation (/rose/evaluation), Aetherix, Tacet, Anima, Peritia, Sonor, Lore, Compass. Edge labels: reads, reads, same source, reads the case studies, same architecture, adapted into, inspired, how she is tested, applies “Evaluate”. Group labels "Hospitality multi-agent architecture" and "Standalone".
   - Evaluation edges (one-line reasons):
     - Rose → Evaluation · "how she is tested": "The evaluation page shows how every change to Rose is tested before it reaches visitors."
     - Evaluation → Field Notes · "applies “Evaluate”": "The campaign applies the harness and grading method this Field Note describes."

@@ -72,14 +72,14 @@ describe("The answer itself stays free of any booking invitation", () => {
   });
 
   it("is in the prompt of a profile question, and not in the prompt of an explicit request for a call", async () => {
-    const profile = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: "Is Ivan open to a Head of Product role?" });
+    const profile = await getRoseSystemPrompt({ page: { path: "/rose" }, question: "Is Ivan open to a Head of Product role?" });
     expect(profile).toContain(ROSE_NO_BOOKING_NOTICE);
     const call = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "Can I book a call with Ivan about a product role?" });
     expect(call).not.toContain(ROSE_NO_BOOKING_NOTICE);
   });
 
   it("the booking tool is still withheld on a profile question", () => {
-    const tools = createRoseTools({ tool, z } as never, { question: "What kind of role is Ivan looking for?", pagePath: "/rose-design-lab" });
+    const tools = createRoseTools({ tool, z } as never, { question: "What kind of role is Ivan looking for?", pagePath: "/rose" });
     expect(Object.keys(tools)).not.toContain("propose_booking");
   });
 });

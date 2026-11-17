@@ -58,7 +58,7 @@ describe("maskPii: links to this site", () => {
     "see http://ivandemurard.com",
     "see www.ivandemurard.com/cv",
     "see ivandemurard.com/aetherix",
-    "see https://ivandemurard.com/rose-design-lab#ch-learn.",
+    "see https://ivandemurard.com/rose#ch-learn.",
   ])("keeps %s", (input) => {
     expect(maskPii(input)).toBe(input);
   });

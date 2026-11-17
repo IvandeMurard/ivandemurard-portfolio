@@ -45,7 +45,7 @@ describe("a profile question in French is routed like the English one", () => {
     it(`loads the CV and the Contact text, and withholds the booking card: ${q}`, async () => {
       expect(isRoseCareerQuestion(q)).toBe(true);
       expect(shouldShowRoseBookingLine(q)).toBe(true);
-      const prompt = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: q });
+      const prompt = await getRoseSystemPrompt({ page: { path: "/rose" }, question: q });
       expect(prompt).toContain("--- BEGIN CASE STUDY: cv ---");
       expect(prompt).toContain("Open to AI Product Manager and Product Builder roles");
       expect(prompt).toContain("Answer only from the CV reference and the Contact text");

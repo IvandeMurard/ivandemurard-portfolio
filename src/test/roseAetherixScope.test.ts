@@ -5,7 +5,7 @@ import { getRoseSystemPrompt } from "../../supabase/functions/_shared/rose-conte
 const AETHERIX_FIGURES = ["49.71", "55.86", "28.5%", "27.9%", "15.9%", "12.3%", "MAPE"];
 
 const roseOnly = () => getRoseSystemPrompt({
-  page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+  page: { path: "/rose", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
   question: "What does Ivan measure about Rose?",
 });
 
@@ -17,7 +17,7 @@ describe("Rose prompt scope (§11.4, §11.6, §11.7)", () => {
   });
 
   it("the Chapter 06 section no longer pulls Aetherix into scope", async () => {
-    const prompt = await getRoseSystemPrompt({ page: { path: "/rose-design-lab", section_id: "ch-next" }, question: "What does Ivan measure here?" });
+    const prompt = await getRoseSystemPrompt({ page: { path: "/rose", section_id: "ch-next" }, question: "What does Ivan measure here?" });
     for (const figure of AETHERIX_FIGURES) expect(prompt).not.toContain(figure);
   });
 

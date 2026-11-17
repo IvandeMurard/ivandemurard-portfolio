@@ -1,4 +1,4 @@
-// Renders public/rose-design-lab.md, the Markdown mirror of the Rose case study, from the page's own content
+// Renders public/rose.md, the Markdown mirror of the Rose case study, from the page's own content
 // constants (src/components/rose/RoseCaseStudy.tsx and roseDemoData.ts), so the page and the mirror cannot say
 // different things. The runner is scripts/generate-rose-mirror.ts (prebuild).
 //

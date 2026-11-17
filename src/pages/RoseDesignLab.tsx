@@ -13,8 +13,8 @@ import { EvidenceKey, EvidenceStatus } from "@/components/EvidenceStatus";
 import { ContextualLab, DockScene, HeroAgent, KineticBridge, RoseCue, RoseMark, ToneField, useScrollProgress } from "@/components/rose/RoseKinetic";
 
 /**
- * Temporary, unlinked design lab for the Rose case study. Not in nav, sitemap
- * or pre-render. Every milestone below is sourced from the repository history
+ * Unlinked design lab for the Rose case study, at /rose/lab (the case study
+ * itself is /rose). Not in nav, sitemap or pre-render. Every milestone below is sourced from the repository history
  * (commit dates, archived plans, original prompt). "Design reading" lines are
  * Ivan's interpretation, not user research.
  */
@@ -612,6 +612,21 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
+/** /rose: the Rose case study, indexable, with its Markdown mirror. No lab banner, no concept tabs. */
+export const RoseCasePage = () => {
+  const reduced = useReducedMotion();
+  return (
+    <SiteLayout showFooter={false}>
+      <Seo title="Rose, a portfolio you can question" description={HERO_LEAD} type="article" path="/rose" />
+      {/* The lab banner used to clear the fixed header (mt-20); without it the page clears it itself. */}
+      <div className="pt-10">
+        <RoseCaseStudy reduced={reduced} />
+      </div>
+    </SiteLayout>
+  );
+};
+
+/** /rose/lab: the concepts A to E, and the case study as the lab shows it. Unlinked, noindex, not in the sitemap. */
 const RoseDesignLab = () => {
   const [params, setParams] = useSearchParams();
   const raw = params.get("concept");
@@ -619,10 +634,7 @@ const RoseDesignLab = () => {
   const reduced = useReducedMotion();
   return (
     <SiteLayout showFooter={false}>
-      {/* The case study is indexed and has a Markdown mirror; the lab's other concepts stay out of the index. */}
-      {concept === "page"
-        ? <Seo title="Rose, a portfolio you can question" description={HERO_LEAD} type="article" path="/rose-design-lab" />
-        : <Seo title="Rose design lab" description="An unlinked prototype for Rose's evidence-led case study." noIndex path="/rose-design-lab" />}
+      <Seo title="Rose design lab" description="An unlinked prototype for Rose's evidence-led case study." noIndex path="/rose/lab" />
       <div className="mt-20 border-b border-outline-variant bg-surface-container-low">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3 font-label text-xs">
           <span className="uppercase tracking-[0.2em] text-on-surface-variant">Design lab · unlinked prototype</span>
