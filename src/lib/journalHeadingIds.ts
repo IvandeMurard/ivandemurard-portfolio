@@ -11,11 +11,12 @@ export const slugifyHeading = (text: string): string =>
     .replace(/^-+|-+$/g, "") || "section";
 
 /** For each block of the body: the id of its heading (h2, h3), undefined for any other block. Repeats get -2, -3. */
-export const journalHeadingIds = (body: ReadonlyArray<{ kind: string; text?: string }>): Array<string | undefined> => {
+export const journalHeadingIds = (body: ReadonlyArray<{ kind: string; text?: string; id?: string }>): Array<string | undefined> => {
   const used = new Map<string, number>();
   return body.map((b) => {
     if ((b.kind !== "h2" && b.kind !== "h3") || b.text === undefined) return undefined;
-    const base = slugifyHeading(b.text);
+    // A fixed id (set when a heading was renamed) wins over the slug of its text.
+    const base = b.id ?? slugifyHeading(b.text);
     const n = used.get(base) ?? 0;
     used.set(base, n + 1);
     return n === 0 ? base : `${base}-${n + 1}`;

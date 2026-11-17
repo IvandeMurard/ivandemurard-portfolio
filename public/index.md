@@ -72,4 +72,4 @@ Open to AI Product Manager and Product Builder roles.
 
 - Book a call: https://cal.com/ivandemurard/discussion-and-introduction
 - Email Ivan: ivandemurard@gmail.com
-- Ask your AI: Perplexity (https://www.perplexity.ai/search?q=...), prefilled with: "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used." A "Copy prompt for Claude or ChatGPT" button copies the same prompt.
+- Ask your AI: a menu with Perplexity (https://www.perplexity.ai/search?q=...), ChatGPT (https://chatgpt.com/?q=...) and Claude (https://claude.ai/new?q=...), each opening a new tab prefilled with: "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used." "Copy the prompt" copies the same prompt for any other assistant.

@@ -23,9 +23,8 @@ export const CONTACT = {
   heading: "I design, build and evaluate AI services for operations.",
   subline: "Open to AI Product Manager and Product Builder roles.",
   buttons: { book: "Book a call", email: "Email Ivan", askAi: "Ask your AI" },
-  copyPrompt: "Copy prompt for Claude or ChatGPT",
   allWays: "All ways to reach me",
-  // Perplexity documents a prefill URL; ChatGPT and Claude block or ignore one, so the prompt is copied instead.
+  // The prompt behind "Ask your AI" (src/components/AskAiMenu.tsx): prefilled in Perplexity, ChatGPT and Claude, or copied.
   aiPrompt: "Read https://ivandemurard.com/llms.txt and summarise what Ivan de Murard has built and shipped, and which roles he would be strong in. Cite the pages you used.",
 };
 

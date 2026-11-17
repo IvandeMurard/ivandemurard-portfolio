@@ -4,7 +4,7 @@ Case study · Rose
 
 Status: Live, text only
 
-Last updated 2026-11-15.
+Last updated 2026-11-17.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.
 
@@ -520,4 +520,8 @@ Open to AI Product Manager and Product Builder roles.
 
 - [Book a call](https://cal.com/ivandemurard/discussion-and-introduction)
 - [Email Ivan](mailto:ivandemurard@gmail.com)
-- [Ask your AI](https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fivandemurard.com%2Fllms.txt%20and%20summarise%20what%20Ivan%20de%20Murard%20has%20built%20and%20shipped%2C%20and%20which%20roles%20he%20would%20be%20strong%20in.%20Cite%20the%20pages%20you%20used.)
+- Ask your AI
+- [Perplexity](https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fivandemurard.com%2Fllms.txt%20and%20summarise%20what%20Ivan%20de%20Murard%20has%20built%20and%20shipped%2C%20and%20which%20roles%20he%20would%20be%20strong%20in.%20Cite%20the%20pages%20you%20used.)
+- [ChatGPT](https://chatgpt.com/?q=Read%20https%3A%2F%2Fivandemurard.com%2Fllms.txt%20and%20summarise%20what%20Ivan%20de%20Murard%20has%20built%20and%20shipped%2C%20and%20which%20roles%20he%20would%20be%20strong%20in.%20Cite%20the%20pages%20you%20used.)
+- [Claude](https://claude.ai/new?q=Read%20https%3A%2F%2Fivandemurard.com%2Fllms.txt%20and%20summarise%20what%20Ivan%20de%20Murard%20has%20built%20and%20shipped%2C%20and%20which%20roles%20he%20would%20be%20strong%20in.%20Cite%20the%20pages%20you%20used.)
+- Copy the prompt

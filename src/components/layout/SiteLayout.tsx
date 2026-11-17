@@ -48,9 +48,10 @@ export const SiteLayout = ({ children, title, sections, showFooter = true }: Sit
       <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}
       </main>
-      {showFooter && <div style={{ viewTransitionName: "site-footer" }}>
-        <Footer />
-      </div>}
+      {showFooter
+        ? <div style={{ viewTransitionName: "site-footer" }}><Footer /></div>
+        // No footer to carry the reserve for the Rose dock (set in RoseDock): a spacer keeps the last lines clear of it.
+        : <div aria-hidden="true" style={{ height: "var(--rose-dock-reserve, 0px)" }} />}
       <RoseDock />
     </div>
   );

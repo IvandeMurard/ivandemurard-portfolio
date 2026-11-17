@@ -1,4 +1,5 @@
 import { Icon } from "@/components/ui/Icon";
+import { renderBold } from "@/lib/inlineBold";
 
 export type EntryGlance = {
   /** Who should read this. */
@@ -49,7 +50,7 @@ export const EntryOpening = ({
                   {row.term}
                 </span>
               </dt>
-              <dd className="font-body text-sm leading-relaxed text-on-surface-variant">{row.def}</dd>
+              <dd className="font-body text-sm leading-relaxed text-on-surface-variant">{renderBold(row.def)}</dd>
             </div>
           ))}
         </dl>
@@ -73,7 +74,7 @@ export const EntryOpening = ({
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="font-body text-sm leading-relaxed text-on-surface-variant">
-                  {point}
+                  {renderBold(point)}
                 </span>
               </li>
             ))}
@@ -83,7 +84,7 @@ export const EntryOpening = ({
 
       {punch && (
         <p className="mt-6 md:mt-8 border-l-2 border-secondary pl-5 font-headline italic text-lg md:text-xl text-primary leading-snug">
-          {punch}
+          {renderBold(punch)}
         </p>
       )}
     </div>
