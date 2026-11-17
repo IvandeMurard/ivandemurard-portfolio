@@ -101,7 +101,7 @@ Every address has a story. Compass reads it before you sign. Open data turned in
 Index: https://ivandemurard.com/journal. Three complementary questions: 01 Evaluate (how do you know an agent is working?), 02 Set boundaries (where should an agent's responsibility end?), 03 Learn (whose truth should an agent learn from?). Notes teach methods; case studies and public repositories hold the evidence. Each note ends with a checklist and a copyable brief for the reader's own agent. Preferred Markdown form: /journal/<slug>.md.
 
 - What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents (2026-07-31). URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops. A working vocabulary for building evaluation into AI products from day one: case set, grader, harness, protocol, open loop, closed loop. Covers the three arms of evaluation, "working" against "reliable" across five dimensions, the reliability pyramid, evaluation as a contract, acceptance criteria and tiered severity, confidence, human in the loop by design or by default, and what a harness finds that no unit test sees. Tested on Aetherix and Lore.
-- A wrong forecast is absorbed. A wrong action reaches a guest. (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
+- Where should an agent's responsibility end? (2026-04-20). URL: https://ivandemurard.com/journal/agent-boundaries-aetherix. Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
 ## Frequently asked questions
 
@@ -1911,11 +1911,15 @@ claude mcp add ivandemurard --transport http https://lzzlepzecynpztipkdcu.supaba
 --- END DOCUMENT: architecture ---
 
 --- BEGIN DOCUMENT: journal/agent-boundaries-aetherix ---
-# A wrong forecast is absorbed. A wrong action reaches a guest.
+# Where should an agent's responsibility end?
 URL: https://ivandemurard.com/journal/agent-boundaries-aetherix
 Markdown: https://ivandemurard.com/journal/agent-boundaries-aetherix.md
 
-# A wrong forecast is absorbed. A wrong action reaches a guest.
+# Where should an agent's responsibility end?
+
+A wrong forecast is absorbed. A wrong action reaches a guest.
+
+So the line between components is drawn where the consequence changes, and the technology does not set it.
 
 Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
@@ -1968,6 +1972,14 @@ The manager replies accept, reject, or the right figure. That reply is not polit
 | Measured outcome | the till, next day | real covers | forecast error computes itself | not yet: needs a connected hotel |
 
 A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it.
+
+**Tomorrow's breakfast, the evening before, illustrative scenario**
+
+The evening before, Aetherix suggests tomorrow's breakfast staffing to the hotel's F&B manager. The manager has the last word: from that reply on, the system decides nothing.
+
+**The message the manager reads** How many guests to expect at breakfast tomorrow, how sure it is, and how many staff to plan. "I'd say 79 covers instead."
+
+**What the reply is** A decision, recorded next to the recommendation. The manager weighs what the system cannot see: a sick waiter, a group check-in. Anticipate, Decide, Operate, Learn
 
 **Figure. Tomorrow's breakfast, from forecast to feedback.** Illustrative scenario: a hotel F&B manager preparing tomorrow's breakfast service. No hotel is connected yet; no manager, guest outcome or metric here is observed.
 
@@ -2043,7 +2055,7 @@ A claim about behaviour has to be held by something other than a prompt. The bou
 **Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
 
 ```text
-Apply a method to my own AI project. Method source: "A wrong forecast is absorbed. A wrong action reaches a guest." by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
+Apply a method to my own AI project. Method source: "Where should an agent's responsibility end?" by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
 
 Method: Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.
 
@@ -2102,7 +2114,9 @@ Markdown: https://ivandemurard.com/journal/whose-truth-is-the-ground-truth.md
 
 # Whose truth is the ground truth?
 
-An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.
+An AI product is only as honest as the answer it learns from.
+
+Choosing that answer is a product decision, made before the data arrives.
 
 Product · 2026-10-11 · 6 min read
 
@@ -2172,6 +2186,16 @@ Who was right on Tuesday?
 Why can the forecast learn and the staffing not?
 
 ## 3. A "yes" is not a "right"
+
+**The easiest number to collect**
+
+A yes is not a right.
+
+**Same evening · declared** The manager approves. It measures agreement. A manager can approve a wrong forecast and reject a right one.
+
+**Next day · observed** The real number of guests arrives. Only this says which forecast was right.
+
+A product that simply repeated last Tuesday's numbers would be approved often, and teach nothing.
 
 **SEC. 3** The easiest number to collect is the easiest to game. Concrete case: Acceptance rate.
 
@@ -2305,7 +2329,7 @@ It can prove its method today. It can only sell results once outcomes are measur
 ## Continue exploring
 
 - Read the method: [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) - How reliable reference data becomes an acceptance criterion a release can fail.
-- Understand the design decision: [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) - The architecture that keeps the forecast's truth and the manager's reply apart.
+- Understand the design decision: [Where should an agent's responsibility end?](https://ivandemurard.com/journal/agent-boundaries-aetherix) - The architecture that keeps the forecast's truth and the manager's reply apart.
 - Inspect implementation evidence: [Aetherix case study](https://ivandemurard.com/aetherix) - A product that gets an observed truth back the next day, once a hotel is connected.
 - Inspect implementation evidence: [Lore case study](https://ivandemurard.com/lore) - A product whose realised truth never returns, and how it compensates upstream.
 
@@ -2327,6 +2351,10 @@ URL: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 Markdown: https://ivandemurard.com/journal/harnesses-graders-closed-loops.md
 
 # What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents
+
+61 answers out of 64 were right. The run was declared a failure.
+
+Two of the three misses sat in the safety tier. A pass rate with no threshold attached is only a number. This note explains what turns it into a decision.
 
 A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
@@ -2361,6 +2389,18 @@ The numbers below come from those two repositories, not from a whitepaper. Where
 - **Synthetic test**: a mechanism exercised on fabricated data, such as Aetherix's forecast gate. It proves the machinery works, not that the product is right.
 - **Deterministic guarantee**: a rule held in code, which a test can break. It holds whatever the model says.
 - **Proposed**: designed and written down, not yet run, such as the arm C metrics. Named so it can be checked later.
+
+**The proof in ten seconds · recorded run, Lore**
+
+An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.
+
+**1 · The answer** Lore answers that the reading is "considered NORMAL" and that "no further action is required". Fluent, confident, and wrong.
+
+**2 · The graders** The first harness passed it. Reading the answers caught it; the graders now fail it and block the release. No unit test sees this: the code ran perfectly.
+
+**3 · The code** If an answer contradicts the manual, one correction; if it still does, the manual's verdict ships. The rule is held by code. A prompt only asks for it.
+
+Replay it in section 12 (#12-what-a-harness-finds-that-no-unit-test-sees)
 
 ## 1. The vocabulary, through the driving test
 
@@ -2759,7 +2799,7 @@ A note on where it came from. I wrote the first version for myself, before inter
 
 ## Continue exploring
 
-- Understand the design decision: [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) - Why Aetherix splits forecasting from action, so each failure gets its own check.
+- Understand the design decision: [Where should an agent's responsibility end?](https://ivandemurard.com/journal/agent-boundaries-aetherix) - Why Aetherix splits forecasting from action, so each failure gets its own check.
 - Read the method: [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) - Arm C in depth: which answer a product may learn from, and when it arrives.
 - Inspect implementation evidence: [Lore case study](https://ivandemurard.com/lore) - The harness whose case set, graders and canary this note quotes.
 - Inspect implementation evidence: [Aetherix case study](https://ivandemurard.com/aetherix) - Where the gate, baselines and thresholds were first built.

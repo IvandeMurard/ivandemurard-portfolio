@@ -48,6 +48,8 @@ export type JournalBlock =
   | { kind: "code"; lang?: string; text: string }
   | {
       kind: "table"; head: string[]; rows: string[][]; caption?: string;
+      /** An id for links to the table (not a heading id). */
+      anchor?: string;
       /** Column whose verdict word (PASS, WARN, FAIL, ERROR) gets a signal lamp. */
       lampCol?: number;
       /** Column collapsed after its first sentence on screen; full text kept in mirrors. */
@@ -98,12 +100,52 @@ export type JournalBlock =
     }
   | { kind: "mcp"; label?: string; note?: string }
   | { kind: "blueprint" }
-  | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] };
+  | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] }
+  /** The one peak moment of a note: a full-viewport section, page colour to navy and back. Copy: docs/field-notes-prototype (board J). */
+  | PeakBlock;
+
+export type PeakBox = {
+  label: string;
+  text: string;
+  /** Smaller line under the text. */
+  note?: string;
+  /** "fail" draws the box in the stop colour. */
+  tone?: "fail";
+  /** A reply shown as a speech bubble. */
+  bubble?: string;
+  /** A chain of steps with one in bold. */
+  chain?: { steps: string[]; strong: string };
+  /** The text is set larger. */
+  big?: boolean;
+};
+
+export type PeakBlock = {
+  kind: "peak";
+  /** The accessible name of the section. */
+  aria: string;
+  kicker: string;
+  lead: string;
+  /** The lead is set as a single short statement. */
+  leadBig?: boolean;
+  cols: 2 | 3;
+  boxes: PeakBox[];
+  /** A closing line under the boxes. */
+  after?: string;
+  /** Link to where the full replay lives (heading id). */
+  link?: { text: string; to: string };
+  /** Render right after the "Read this if" card, before the self-diagnostic. */
+  afterGlance?: boolean;
+};
 
 
 
 export type JournalEntry = {
   slug: string;
+  /** The decision the note helps with, as a kicker: "For deciding ...". Used on the index, the cards and the note's meta line. */
+  decision: string;
+  /** One sentence in display serif under the title, then one line of intro. Copy: docs/field-notes-prototype (board J). */
+  hook: string;
+  intro: string;
   title: string;
   subtitle?: string;
   date: string; // ISO yyyy-mm-dd
@@ -152,7 +194,11 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
   {
     slug: "agent-boundaries-aetherix",
     homeHook: { title: "Keep the forecaster and the actor apart.", text: "One model that predicts and acts looks elegant on a slide. Why I split Prophet and Claude in two, and everything that single choice decided next." },
-    title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
+    // Retitled 17 Nov 2026. Slug, URL and every heading id are unchanged. The former title is now the hook.
+    title: "Where should an agent's responsibility end?",
+    decision: "For deciding what a model may do on its own",
+    hook: "A wrong forecast is absorbed. A wrong action reaches a guest.",
+    intro: "So the line between components is drawn where the consequence changes, and the technology does not set it.",
     subtitle:
       "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
@@ -249,6 +295,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       },
       {
         kind: "table",
+        anchor: "who-owns-which-job",
         caption: "Five jobs in one loop. Each has its own owner, its own check, and its own state of evidence today.",
         head: ["Job", "Owner", "What it produces", "How it is checked", "Evidence today"],
         rows: [
@@ -262,6 +309,25 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       {
         kind: "p",
         text: "A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it.",
+      },
+      {
+        kind: "peak",
+        aria: "Peak moment: authority changes hands",
+        kicker: "Tomorrow's breakfast, the evening before, illustrative scenario",
+        lead: "The evening before, Aetherix suggests tomorrow's breakfast staffing to the hotel's F&B manager. The manager has the last word: from that reply on, the system decides nothing.",
+        cols: 2,
+        boxes: [
+          {
+            label: "The message the manager reads",
+            text: "How many guests to expect at breakfast tomorrow, how sure it is, and how many staff to plan.",
+            bubble: "\"I'd say 79 covers instead.\"",
+          },
+          {
+            label: "What the reply is",
+            text: "A decision, recorded next to the recommendation. The manager weighs what the system cannot see: a sick waiter, a group check-in.",
+            chain: { steps: ["Anticipate", "Decide", "Operate", "Learn"], strong: "Decide" },
+          },
+        ],
       },
       { kind: "blueprint" },
       { kind: "h2", text: "4. What the split buys", id: "what-the-split-buys" },
@@ -310,8 +376,8 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
   TRUTH_ENTRY,
 ];
 
-// The min-read label, counted the same way as for the harnesses note (what a reader sees by default).
-Object.assign(JOURNAL_ENTRIES[0], { readingMinutes: visibleMinutes(JOURNAL_ENTRIES[0].body) });
+// The min-read label of every note, counted the same way for all three (what a reader sees by default).
+for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body) });
 
 
 /** Editorial curation for /journal: three questions mapped to existing slugs. Not auto-assigned. */

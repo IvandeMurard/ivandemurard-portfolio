@@ -5,11 +5,16 @@ import { EvalConsole } from "@/components/console/EvalConsole";
  * 64 cases and is still a failure, because two of the three misses sit in tier 1.
  * Source: the live state recorded in Lore commit c6a5561.
  */
-export const HarnessConsole = ({ label = "The run that failed at 61 out of 64" }: { label?: string }) => (
+export const HarnessConsole = ({
+  label = "The run that failed at 61 out of 64",
+  runLabel = "Run the harness",
+  inverse = false,
+}: { label?: string; runLabel?: string; inverse?: boolean }) => (
   <EvalConsole
     label={label}
+    inverse={inverse}
     intro="One recorded Lore run, replayed. Press run and read the exit code rather than the pass rate."
-    runLabel="Run the harness"
+    runLabel={runLabel}
     groups={[
       {
         id: "lore-64",

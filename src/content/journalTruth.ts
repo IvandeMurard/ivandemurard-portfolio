@@ -4,19 +4,20 @@ const PROOF = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architect
 
 export const TRUTH_ENTRY: JournalEntry = {
   slug: "whose-truth-is-the-ground-truth",
+  decision: "For deciding what your product learns from",
+  hook: "An AI product is only as honest as the answer it learns from.",
+  intro: "Choosing that answer is a product decision, made before the data arrives.",
   homeHook: { text: "Your agent learns from something: a forecast, a manager's yes, or what really happened the next morning. Pick the wrong one and you build a very confident yes-man." },
   title: "Whose truth is the ground truth?",
-  subtitle:
-    "An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.",
+  // No subtitle: it said what the hook and the intro now say, in the same words.
   date: "2026-10-11",
   category: "Product",
   lang: "en",
-  readingMinutes: 6,
   mirror: "/whose-truth-is-the-ground-truth.md",
   license: { label: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
   related: [
     { role: "method", label: "What is an LLM evaluation harness?", to: "/journal/harnesses-graders-closed-loops", why: "How reliable reference data becomes an acceptance criterion a release can fail." },
-    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "The architecture that keeps the forecast's truth and the manager's reply apart." },
+    { role: "decision", label: "Where should an agent's responsibility end?", to: "/journal/agent-boundaries-aetherix", why: "The architecture that keeps the forecast's truth and the manager's reply apart." },
     { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "A product that gets an observed truth back the next day, once a hotel is connected." },
     { role: "evidence", label: "Lore case study", to: "/lore", why: "A product whose realised truth never returns, and how it compensates upstream." },
   ],
@@ -106,6 +107,29 @@ export const TRUTH_ENTRY: JournalEntry = {
     { kind: "askRose", prompts: ["Who was right on Tuesday?", "Why can the forecast learn and the staffing not?"] },
 
     { kind: "h2", text: "3. A \"yes\" is not a \"right\"" },
+    {
+      kind: "peak",
+      aria: "Peak moment: a yes is not a right",
+      kicker: "The easiest number to collect",
+      lead: "A yes is not a right.",
+      leadBig: true,
+      cols: 2,
+      boxes: [
+        {
+          label: "Same evening · declared",
+          text: "The manager approves.",
+          note: "It measures agreement. A manager can approve a wrong forecast and reject a right one.",
+          big: true,
+        },
+        {
+          label: "Next day · observed",
+          text: "The real number of guests arrives.",
+          note: "Only this says which forecast was right.",
+          big: true,
+        },
+      ],
+      after: "A product that simply repeated last Tuesday's numbers would be approved often, and teach nothing.",
+    },
     { kind: "key", sigil: "SEC. 3", icon: "thumb_up", oneLine: "The easiest number to collect is the easiest to game.", concrete: "Acceptance rate." },
     { kind: "list", items: [
       "**The trap (Goodhart's law):** when a measure becomes a target, it stops measuring. A product optimised on acceptance learns to send recommendations that cost nothing to approve.",

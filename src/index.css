@@ -60,6 +60,7 @@
     --signal-warn: 37 100% 39%;
     --signal-stop: 4 65% 47%;
     --signal-dark: 228 6% 53%;                /* Stopped: neutral grey, never a colour of alarm */
+    --inverse-ground: 215 100% 11%;           /* the navy of the inverted rooms; the ramps of a note's peak moment end on it */
 
     /* Case cards (/case-studies, reusable by case pages): a dark card in both moods, so the ink is fixed too. */
     --case-card: 30 24% 7%;
@@ -180,6 +181,7 @@
     --signal-warn: 37 87% 62%;
     --signal-stop: 4 85% 65%;
     --signal-dark: 225 7% 62%;
+    --inverse-ground: 32 14% 7%;              /* Night: the dark of the inverted rooms */
     --tint-aetherix-hi: 31 58% 58%;
     --tint-aetherix-lo: 28 42% 28%;
     --tint-tacet-hi: 108 18% 52%;
@@ -520,7 +522,7 @@
   /* Inverted closing room (homepage Contact). Day: Picasso ink; Dusk: deepest taupe.
      Tokens are re-scoped locally so children keep using semantic classes. */
   .section-inverse {
-    background-color: hsl(215 100% 11%);
+    background-color: hsl(var(--inverse-ground));
     --primary: 42 41% 97%;
     --primary-container: 39 96% 82%;
     --on-primary: 215 100% 11%;
@@ -531,7 +533,7 @@
     --outline-variant: 42 15% 60%;
   }
   [data-mood="dusk"] .section-inverse .accent-ink { color: hsl(var(--secondary)); }
-  [data-mood="dusk"] .section-inverse { background-color: hsl(32 14% 7%); --primary-container: 39 80% 70%; --secondary: 39 80% 70%; }
+  [data-mood="dusk"] .section-inverse { --primary-container: 39 80% 70%; --secondary: 39 80% 70%; }
 
   /* "Let's talk!" flourish: gold underline draws after the line has risen. */
   .talk-flourish { position: relative; display: inline-block; }

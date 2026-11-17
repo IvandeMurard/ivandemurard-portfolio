@@ -132,7 +132,8 @@ describe("4. One template for the three Field Notes", () => {
   it("shows the min-read label and the same ids in the page", () => {
     expect(entry.readingMinutes).toBeGreaterThan(0);
     entryRoute("agent-boundaries-aetherix");
-    expect(screen.getAllByText(`${entry.readingMinutes} min read`).length).toBeGreaterThan(0);
+    // Since the note pattern (17 Nov 2026) the page says it in the meta line above the title: "5 min".
+    expect(screen.getAllByText(`${entry.readingMinutes} min`).length).toBeGreaterThan(0);
     for (const id of BOUNDARIES_IDS) expect(document.getElementById(id), id).not.toBeNull();
   });
 

@@ -73,6 +73,14 @@ export function renderBlock(block: JournalBlock): string {
     case "console":
     case "mcp":
       return "";
+    case "peak":
+      return [
+        `**${block.kicker}**`,
+        block.lead,
+        ...block.boxes.map((x) => [`**${x.label}**`, x.text, x.bubble ?? "", x.chain ? x.chain.steps.join(", ") : "", x.note ?? ""].filter(Boolean).join(" ")),
+        block.after ?? "",
+        block.link ? `${block.link.text} (#${block.link.to})` : "",
+      ].filter(Boolean).join("\n\n");
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n");
     case "callout":
@@ -154,7 +162,9 @@ export function renderEntryBody(entry: JournalEntry): string {
 export function renderEntryMarkdown(entry: JournalEntry): string {
     return [
       `# ${entry.title}`,
-      entry.subtitle ?? "",
+      entry.hook,
+      entry.intro,
+      entry.subtitle && !entry.subtitle.includes(entry.hook) ? entry.subtitle : "",
       `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${entry.readingMinutes} min read` : ""}`,
       renderEntryBody(entry),
     ]

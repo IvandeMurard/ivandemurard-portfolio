@@ -1,5 +1,9 @@
 # What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents
 
+61 answers out of 64 were right. The run was declared a failure.
+
+Two of the three misses sat in the safety tier. A pass rate with no threshold attached is only a number. This note explains what turns it into a decision.
+
 A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
 Evaluation · 2026-07-31 · 18 min read
@@ -33,6 +37,18 @@ The numbers below come from those two repositories, not from a whitepaper. Where
 - **Synthetic test**: a mechanism exercised on fabricated data, such as Aetherix's forecast gate. It proves the machinery works, not that the product is right.
 - **Deterministic guarantee**: a rule held in code, which a test can break. It holds whatever the model says.
 - **Proposed**: designed and written down, not yet run, such as the arm C metrics. Named so it can be checked later.
+
+**The proof in ten seconds · recorded run, Lore**
+
+An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.
+
+**1 · The answer** Lore answers that the reading is "considered NORMAL" and that "no further action is required". Fluent, confident, and wrong.
+
+**2 · The graders** The first harness passed it. Reading the answers caught it; the graders now fail it and block the release. No unit test sees this: the code ran perfectly.
+
+**3 · The code** If an answer contradicts the manual, one correction; if it still does, the manual's verdict ships. The rule is held by code. A prompt only asks for it.
+
+Replay it in section 12 (#12-what-a-harness-finds-that-no-unit-test-sees)
 
 ## 1. The vocabulary, through the driving test
 
@@ -431,7 +447,7 @@ A note on where it came from. I wrote the first version for myself, before inter
 
 ## Continue exploring
 
-- Understand the design decision: [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) - Why Aetherix splits forecasting from action, so each failure gets its own check.
+- Understand the design decision: [Where should an agent's responsibility end?](https://ivandemurard.com/journal/agent-boundaries-aetherix) - Why Aetherix splits forecasting from action, so each failure gets its own check.
 - Read the method: [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) - Arm C in depth: which answer a product may learn from, and when it arrives.
 - Inspect implementation evidence: [Lore case study](https://ivandemurard.com/lore) - The harness whose case set, graders and canary this note quotes.
 - Inspect implementation evidence: [Aetherix case study](https://ivandemurard.com/aetherix) - Where the gate, baselines and thresholds were first built.

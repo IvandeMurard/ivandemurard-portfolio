@@ -1,5 +1,4 @@
 import type { JournalEntry } from "./journal";
-import { visibleMinutes } from "./readingTime";
 
 /**
  * "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents".
@@ -10,6 +9,9 @@ import { visibleMinutes } from "./readingTime";
  */
 export const HARNESSES_ENTRY: JournalEntry = {
   slug: "harnesses-graders-closed-loops",
+  decision: "For deciding whether an agent is ready to ship",
+  hook: "61 answers out of 64 were right. The run was declared a failure.",
+  intro: "Two of the three misses sat in the safety tier. A pass rate with no threshold attached is only a number. This note explains what turns it into a decision.",
   homeHook: { text: "Agents rarely fail loudly. They drift, quietly, until a customer notices. How to find out first: graders, harnesses, and the gaps I have not closed yet." },
   title: "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents",
   subtitle: "A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
@@ -23,7 +25,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
     note: "Reuse and adapt with attribution to Ivan de Murard.",
   },
   related: [
-    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "Why Aetherix splits forecasting from action, so each failure gets its own check." },
+    { role: "decision", label: "Where should an agent's responsibility end?", to: "/journal/agent-boundaries-aetherix", why: "Why Aetherix splits forecasting from action, so each failure gets its own check." },
     { role: "method", label: "Whose truth is the ground truth?", to: "/journal/whose-truth-is-the-ground-truth", why: "Arm C in depth: which answer a product may learn from, and when it arrives." },
     { role: "evidence", label: "Lore case study", to: "/lore", why: "The harness whose case set, graders and canary this note quotes." },
     { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "Where the gate, baselines and thresholds were first built." },
@@ -140,6 +142,34 @@ export const HARNESSES_ENTRY: JournalEntry = {
       ],
     },
 
+    {
+      kind: "peak",
+      aria: "Peak moment: the replay",
+      kicker: "The proof in ten seconds · recorded run, Lore",
+      lead: "An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.",
+      cols: 3,
+      boxes: [
+        {
+          label: "1 · The answer",
+          // Verbatim fragments of the recorded answer in section 12 only, never a paraphrase in quotation marks.
+          text: "Lore answers that the reading is \"considered NORMAL\" and that \"no further action is required\".",
+          note: "Fluent, confident, and wrong.",
+        },
+        {
+          label: "2 · The graders",
+          text: "The first harness passed it. Reading the answers caught it; the graders now fail it and block the release.",
+          note: "No unit test sees this: the code ran perfectly.",
+          tone: "fail",
+        },
+        {
+          label: "3 · The code",
+          text: "If an answer contradicts the manual, one correction; if it still does, the manual's verdict ships.",
+          note: "The rule is held by code. A prompt only asks for it.",
+        },
+      ],
+      afterGlance: true,
+      link: { text: "Replay it in section 12", to: "12-what-a-harness-finds-that-no-unit-test-sees" },
+    },
     { kind: "h2", text: "1. The vocabulary, through the driving test" },
     {
       kind: "key",
@@ -742,4 +772,3 @@ export const HARNESSES_ENTRY: JournalEntry = {
   ],
 };
 
-Object.assign(HARNESSES_ENTRY, { readingMinutes: visibleMinutes(HARNESSES_ENTRY.body) });

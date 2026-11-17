@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 
 export type TocItem = { id: string; text: string };
 
@@ -17,9 +18,11 @@ interface JournalTocProps {
   label?: string;
   variant?: "mobile" | "desktop";
   meta?: string;
+  /** A link above the list, e.g. back to the index: "All Field Notes · 3". */
+  topLink?: { to: string; label: string };
 }
 
-export const JournalToc = ({ items, label = "Contents", variant = "desktop", meta }: JournalTocProps) => {
+export const JournalToc = ({ items, label = "Contents", variant = "desktop", meta, topLink }: JournalTocProps) => {
   const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);
   const [open, setOpen] = useState(false);
   // The sidebar list stays out of the way until the reader has actually
@@ -76,6 +79,12 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
     setActiveId(id);
     setOpen(false);
   };
+
+  const top = topLink && (
+    <Link to={topLink.to} className="mb-3 inline-block border-b border-secondary/60 pb-0.5 text-sm text-primary hover:border-secondary">
+      {topLink.label}
+    </Link>
+  );
 
   const list = (
     <ol className="space-y-1 list-none p-0 m-0">
@@ -145,6 +154,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
           </span>
         </button>
         <div id="journal-toc-mobile" hidden={!open} className="px-3 pb-4 pt-1">
+          {top}
           {list}
         </div>
       </nav>
@@ -163,6 +173,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
         {label}
         {meta && <span className="text-on-surface-variant"> · {meta}</span>}
       </div>
+      {top}
       {list}
     </nav>
   );

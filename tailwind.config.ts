@@ -81,6 +81,7 @@ export default {
         "signal-warn": "hsl(var(--signal-warn))",
         "signal-stop": "hsl(var(--signal-stop))",
         "signal-dark": "hsl(var(--signal-dark))",
+        "inverse-ground": "hsl(var(--inverse-ground))",
         "case-card": "hsl(var(--case-card))",
         "case-ink": "hsl(var(--case-card-ink))",
         "lamp-go-on-card": "hsl(var(--lamp-go-on-card))",

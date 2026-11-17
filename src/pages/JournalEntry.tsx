@@ -1,7 +1,9 @@
 import { AetherixServiceBlueprint } from "@/components/journal/AetherixServiceBlueprint";
 import { ArticleUpdates } from "@/components/journal/ArticleUpdates";
 import { ApplyMethod } from "@/components/journal/ApplyMethod";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, type ReactNode } from "react";
+import { ContinueCards, NoteHook, NoteIntro, NoteMeta, NotePeak, ReferenceZone } from "@/components/journal/NotePattern";
+import { REFERENCE_ZONE, otherNotes } from "@/content/journalIndex";
 import { useParams } from "react-router-dom";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
@@ -12,7 +14,7 @@ import { JournalToc, type TocItem } from "@/components/reading/JournalToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
 
-import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
+import { JOURNAL_ENTRIES, type JournalBlock, type PeakBlock } from "@/content/journal";
 import { journalHeadingIds } from "@/lib/journalHeadingIds";
 import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
@@ -455,6 +457,56 @@ const JournalEntry = () => {
     );
   }
 
+
+  // The note, as a pattern (board J): hook, argument with one peak moment, "Continue exploring", reference zone.
+  const reference = REFERENCE_ZONE[entry.slug];
+  const refStart = reference ? headingIds.findIndex((id) => id === reference.from) : -1;
+  const splitAt = refStart >= 0 ? refStart : entry.body.length;
+  const early = entry.body.find((b): b is PeakBlock => b.kind === "peak" && !!b.afterGlance);
+  const mainIdx = entry.body.map((_, i) => i).filter((i) => i < splitAt && entry.body[i] !== early);
+  const refIdx = entry.body.map((_, i) => i).filter((i) => i >= splitAt);
+  const others = otherNotes(entry.slug);
+  const also = (entry.related ?? []).filter((r) => !r.to.startsWith("/journal/"));
+  const chips = [
+    ...(reference?.chips ?? []),
+    ...(entry.updates?.length ? [{ label: `Updates · ${entry.updates.length}`, id: "updates" }] : []),
+  ];
+
+  const renderBlockAt = (i: number) => {
+    const block = entry.body[i];
+    return (
+      <Reveal key={i} id={block.kind === "table" ? block.anchor : undefined}>
+        <Block block={block} labels={labels} headingId={headingIds[i]} marks={blockMarks[i]} />
+      </Reveal>
+    );
+  };
+
+  /** Runs of blocks at body width, with each peak moment as a band between them. */
+  const renderRun = (indexes: number[]) => {
+    const out: ReactNode[] = [];
+    let run: number[] = [];
+    const flush = () => {
+      if (!run.length) return;
+      out.push(
+        <div key={`run-${run[0]}`} className="max-w-[42rem] space-y-8 text-lg text-on-surface-variant font-normal leading-relaxed">
+          {run.map(renderBlockAt)}
+        </div>,
+      );
+      run = [];
+    };
+    for (const i of indexes) {
+      const block = entry.body[i];
+      if (block.kind === "peak") {
+        flush();
+        out.push(<NotePeak key={`peak-${i}`} block={block} />);
+      } else run.push(i);
+    }
+    flush();
+    return out;
+  };
+
+  const topLink = { to: "/journal", label: `All Field Notes · ${JOURNAL_ENTRIES.length}` };
+
   return (
     <SiteLayout title={entry.title}>
       <Seo
@@ -477,126 +529,79 @@ const JournalEntry = () => {
         }}
       />
       <ReadingProgress targetRef={articleRef} />
-      <div className="pt-32 md:pt-40 pb-32 md:pb-48 px-6 md:px-12">
-        <div className="max-w-3xl lg:max-w-6xl mx-auto lg:grid lg:grid-cols-[minmax(0,42rem)_minmax(0,15rem)] lg:gap-16 lg:justify-center">
-        <article ref={articleRef} lang={lang} className="min-w-0">
-          <div className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{entry.category}</span>
-            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-              {formatDate(entry.date, labels.locale)}
-            </span>
-            {entry.readingMinutes && (
-              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
-                {labels.readTime(entry.readingMinutes)}
-              </span>
-            )}
-          </div>
-          <h1 className="font-headline text-4xl md:text-6xl italic text-primary leading-[1.1] mb-6">
-            {entry.title}
-          </h1>
-          {entry.subtitle && (
-            <p className="font-body text-lg text-on-surface-variant mb-8">{entry.subtitle}</p>
-          )}
-          <EntryActions title={entry.title} markdownPath={`/journal/${entry.slug}.md`} />
-          {entry.glance || entry.takeaways?.length ? (
-            <EntryOpening
-              glance={entry.glance}
-              takeaways={entry.takeaways}
-              punch={entry.takeawayPunch}
-            />
-          ) : null}
-          {entry.diagnostic && (
-            <SelfDiagnostic
-              label={entry.diagnostic.label}
-              intro={entry.diagnostic.intro}
-              caveat={entry.diagnostic.caveat}
-              allYes={entry.diagnostic.allYes}
-              questions={entry.diagnostic.questions}
-            />
-          )}
-          {!entry.glance && !entry.takeaways?.length ? (
-            <>
-              {entry.tldr && (
-                <div className="mb-10">
-                  <SectionKey sigil="TL;DR" icon="summarize" oneLine={entry.tldr} />
-                </div>
-              )}
-              <p className="text-xl md:text-2xl font-headline italic text-on-surface-variant leading-relaxed mb-16">
-                {entry.excerpt}
-              </p>
-            </>
-          ) : null}
+      <div className="overflow-x-clip px-6 pb-32 pt-32 md:px-12 md:pb-48 md:pt-40">
+        <div className="relative mx-auto max-w-[61rem]">
+          <header>
+            <NoteMeta entry={entry} date={formatDate(entry.date, labels.locale)} />
+            <h1 className="mb-6 font-headline text-4xl italic leading-[1.1] text-primary md:text-6xl">{entry.title}</h1>
+            <NoteHook entry={entry} />
+          </header>
           {tocItems.length > 1 && (
-            <JournalToc
-              items={tocItems}
-              label={tocLabel}
-              variant="mobile"
-              meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
-            />
+            <aside className="absolute bottom-0 right-0 top-0 hidden w-[15rem] lg:block">
+              <JournalToc
+                items={tocItems}
+                label={tocLabel}
+                topLink={topLink}
+                meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+              />
+            </aside>
           )}
-          <div className="space-y-8 text-lg text-on-surface-variant font-normal leading-relaxed">
-            {entry.body.map((block, i) => (
-              <Reveal key={i}>
-                <Block block={block} labels={labels} headingId={headingIds[i]} marks={blockMarks[i]} />
-              </Reveal>
-            ))}
-          </div>
-          {entry.related && entry.related.length > 0 && (
-            <nav aria-labelledby="continue-exploring" className="mt-20 pt-10 border-t border-outline-variant">
-              <h2 id="continue-exploring" className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6">
-                {lang === "fr" ? labels.related : "Continue exploring"}
-              </h2>
-              <ul className="space-y-5">
-                {entry.related.map((r, i) => (
-                  <li key={i}>
-                    {r.role && (
-                      <span className="block font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant mb-1">
-                        {RELATED_ROLE[r.role]}
-                      </span>
-                    )}
-                    <Link
-                      to={r.to}
-                      className="font-headline italic text-lg text-primary border-b border-secondary/60 pb-0.5 hover:text-secondary hover:border-secondary transition-colors"
-                    >
-                      {r.label}
-                    </Link>
-                    {r.why && <p className="mt-1 text-base text-on-surface-variant font-normal">{r.why}</p>}
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          )}
+          <article ref={articleRef} lang={lang} className="min-w-0">
+            <div className="max-w-[42rem]">
+              <NoteIntro entry={entry} />
+              <div className="mt-8">
+                <EntryActions title={entry.title} markdownPath={`/journal/${entry.slug}.md`} />
+              </div>
+              {entry.glance || entry.takeaways?.length ? (
+                <EntryOpening glance={entry.glance} takeaways={entry.takeaways} punch={entry.takeawayPunch} />
+              ) : null}
+            </div>
+            {early && <NotePeak block={early} />}
+            <div className="max-w-[42rem]">
+              {entry.diagnostic && (
+                <SelfDiagnostic
+                  label={entry.diagnostic.label}
+                  intro={entry.diagnostic.intro}
+                  caveat={entry.diagnostic.caveat}
+                  allYes={entry.diagnostic.allYes}
+                  questions={entry.diagnostic.questions}
+                />
+              )}
+              {tocItems.length > 1 && (
+                <JournalToc
+                  items={tocItems}
+                  label={tocLabel}
+                  topLink={topLink}
+                  variant="mobile"
+                  meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+                />
+              )}
+            </div>
 
-          <ArticleUpdates updates={entry.updates} />
+            {renderRun(mainIdx)}
 
-          <ShareRow
-            title={entry.title}
-            excerpt={entry.excerpt}
-            mirror={entry.mirror}
-            license={entry.license}
-          />
+            <div className="max-w-[42rem]">
+              <ContinueCards notes={others} also={also} />
+            </div>
 
+            <ReferenceZone chips={chips}>
+              <div className="space-y-8 text-lg text-on-surface-variant font-normal leading-relaxed">{refIdx.map(renderBlockAt)}</div>
+              <ArticleUpdates updates={entry.updates} />
+            </ReferenceZone>
 
-
-          <div className="mt-24 pt-12 border-t border-outline-variant flex items-center justify-between">
-            <Link
-              to="/journal"
-              className="font-headline italic text-secondary border-b border-secondary pb-1 hover:opacity-70 transition-opacity inline-flex items-center gap-2"
-            >
-              <Icon name="arrow_back" className="text-sm" />
-              All Field Notes
-            </Link>
-          </div>
-        </article>
-        {tocItems.length > 1 && (
-          <aside className="hidden lg:block">
-            <JournalToc
-              items={tocItems}
-              label={tocLabel}
-              meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
-            />
-          </aside>
-        )}
+            <div className="max-w-[42rem]">
+              <ShareRow title={entry.title} excerpt={entry.excerpt} mirror={entry.mirror} license={entry.license} />
+              <div className="mt-24 flex items-center justify-between border-t border-outline-variant pt-12">
+                <Link
+                  to="/journal"
+                  className="inline-flex items-center gap-2 border-b border-secondary pb-1 font-headline italic text-secondary transition-opacity hover:opacity-70"
+                >
+                  <Icon name="arrow_back" className="text-sm" />
+                  All Field Notes
+                </Link>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </SiteLayout>

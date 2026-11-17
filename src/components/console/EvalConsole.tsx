@@ -43,17 +43,44 @@ const buildLines = (groups: EvalGroup[]): Line[] => {
   return lines;
 };
 
-const TONE: Record<Line["tone"], string> = {
-  muted: "text-on-surface-variant",
-  pass: "text-primary",
-  fail: "text-error",
-  gate: "text-error",
-};
+/** The console on the page's own surface (a case study, a note), and on a navy room (the peak moment of a note). */
+const STYLE = {
+  page: {
+    section: "not-italic rounded-sm border border-outline bg-surface-container-low p-5 md:p-6",
+    label: "font-label uppercase tracking-[0.2em] text-[10px] text-secondary",
+    count: "font-mono text-[11px] text-on-surface-variant",
+    intro: "font-body text-sm leading-relaxed text-on-surface-variant mb-4",
+    button: "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:border-secondary hover:text-primary disabled:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary",
+    log: "mt-4 rounded-sm border border-outline-variant bg-surface-container-lowest p-4 font-mono text-xs leading-relaxed min-h-[9rem]",
+    verdictPass: "border-secondary bg-secondary/15",
+    verdictFail: "border-error bg-error/10",
+    passLabel: "font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant mb-1",
+    detail: "font-body text-sm leading-relaxed text-on-surface-variant mt-1",
+    footnote: "mt-3 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant",
+    tone: { muted: "text-on-surface-variant", pass: "text-primary", fail: "text-error", gate: "text-error" },
+  },
+  // On a navy room every colour is a token of that room, and no text is under 13 px.
+  inverse: {
+    section: "not-italic rounded-sm border border-primary/30 bg-primary/10 p-5 md:p-6",
+    label: "font-label uppercase tracking-[0.16em] text-[13px] text-secondary",
+    count: "font-mono text-[13px] text-on-surface-variant",
+    intro: "font-body text-[15px] leading-relaxed text-on-surface-variant mb-4",
+    button: "inline-flex min-h-11 items-center gap-2 rounded-full border border-primary/60 bg-transparent px-5 py-2 font-body text-[15px] text-on-surface transition-colors duration-300 hover:border-primary hover:bg-primary/10 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+    log: "mt-4 rounded-sm border border-primary/25 bg-inverse-ground p-4 font-mono text-[13px] leading-relaxed min-h-[9rem]",
+    verdictPass: "border-secondary bg-primary/10",
+    verdictFail: "border-lamp-stop-on-card bg-primary/10",
+    passLabel: "font-label uppercase tracking-[0.16em] text-[13px] text-on-surface-variant mb-1",
+    detail: "font-body text-[15px] leading-relaxed text-on-surface-variant mt-1",
+    footnote: "mt-3 font-body text-[13px] text-on-surface-variant",
+    tone: { muted: "text-on-surface-variant", pass: "text-primary", fail: "text-lamp-stop-on-card", gate: "text-lamp-stop-on-card" },
+  },
+} as const;
 
 /**
  * A harness run, played back rather than tabulated. The reader presses run and
  * watches the suite reach its verdict: the number of passes is not the answer,
- * the tier the miss lands in is.
+ * the tier the miss lands in is. It never plays by itself: only the button starts it,
+ * and under prefers-reduced-motion the result appears at once.
  */
 export const EvalConsole = ({
   label,
@@ -62,6 +89,7 @@ export const EvalConsole = ({
   groups,
   verdict,
   footnote,
+  inverse = false,
 }: {
   label: string;
   intro?: string;
@@ -69,8 +97,10 @@ export const EvalConsole = ({
   groups: EvalGroup[];
   verdict: EvalVerdict;
   footnote?: string;
+  /** For a navy room: tokens of that room, text at 13 px or more. */
+  inverse?: boolean;
 }) => {
-
+  const k = inverse ? STYLE.inverse : STYLE.page;
   const [shown, setShown] = useState(0);
   const [running, setRunning] = useState(false);
   const timers = useRef<number[]>([]);
@@ -107,33 +137,20 @@ export const EvalConsole = ({
   };
 
   return (
-    <section
-      aria-label={label}
-      className="not-italic rounded-sm border border-outline bg-surface-container-low p-5 md:p-6"
-    >
+    <section aria-label={label} className={k.section}>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-        <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{label}</span>
-        <span className="font-mono text-[11px] text-on-surface-variant">{total} cases</span>
+        <span className={k.label}>{label}</span>
+        <span className={k.count}>{total} cases</span>
       </div>
 
-      {intro && (
-        <p className="font-body text-sm leading-relaxed text-on-surface-variant mb-4">{intro}</p>
-      )}
+      {intro && <p className={k.intro}>{intro}</p>}
 
-      <button
-        type="button"
-        onClick={run}
-        disabled={running}
-        className="inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:border-secondary hover:text-primary disabled:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary"
-      >
+      <button type="button" onClick={run} disabled={running} className={k.button}>
         <Icon name={running ? "pending" : done ? "restart_alt" : "play_arrow"} className="text-[14px]" />
         {running ? "Running" : done ? "Run again" : runLabel}
       </button>
 
-      <div
-        aria-live="polite"
-        className="mt-4 rounded-sm border border-outline-variant bg-surface-container-lowest p-4 font-mono text-xs leading-relaxed min-h-[9rem]"
-      >
+      <div aria-live="polite" className={k.log}>
         {shown === 0 ? (
           <p className="text-on-surface-variant">$ eval run --suite {groups.map((g) => g.id).join(",")}</p>
         ) : (
@@ -142,7 +159,7 @@ export const EvalConsole = ({
               $ eval run --suite {groups.map((g) => g.id).join(",")}
             </p>
             {lines.slice(0, shown).map((line, i) => (
-              <p key={i} className={`${TONE[line.tone]} whitespace-pre-wrap`}>
+              <p key={i} className={`${k.tone[line.tone]} whitespace-pre-wrap`}>
                 {line.text}
               </p>
             ))}
@@ -151,25 +168,16 @@ export const EvalConsole = ({
       </div>
 
       {done && (
-        <div
-          className={`mt-4 rounded-sm border p-4 ${
-            verdict.passed ? "border-secondary bg-secondary/15" : "border-error bg-error/10"
-          }`}
-        >
-          <p className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant mb-1">
+        <div className={`mt-4 rounded-sm border p-4 ${verdict.passed ? k.verdictPass : k.verdictFail}`}>
+          <p className={k.passLabel}>
             {total - failed}/{total} pass
           </p>
           <p className="font-headline italic text-lg text-primary">{verdict.headline}</p>
-          <p className="font-body text-sm leading-relaxed text-on-surface-variant mt-1">{verdict.detail}</p>
+          <p className={k.detail}>{verdict.detail}</p>
         </div>
       )}
 
-      {footnote && (
-        <p className="mt-3 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
-          {footnote}
-        </p>
-      )}
-
+      {footnote && <p className={k.footnote}>{footnote}</p>}
     </section>
   );
 };
