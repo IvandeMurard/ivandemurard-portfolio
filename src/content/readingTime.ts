@@ -17,6 +17,7 @@ const visibleText = (b: JournalBlock): string[] => {
     case "key": return [b.oneLine, b.concrete ?? ""];
     case "cards": return b.items.map((i) => `${i.title} ${i.body}`);
     case "recoLine": return [b.caption];
+    case "peak": return [b.kicker, b.lead, ...b.boxes.flatMap((x) => [x.label, x.text, x.note ?? "", x.bubble ?? ""]), b.after ?? ""];
     default: return [];
   }
 };

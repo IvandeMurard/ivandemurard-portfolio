@@ -1,6 +1,8 @@
 # Whose truth is the ground truth?
 
-An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.
+An AI product is only as honest as the answer it learns from.
+
+Choosing that answer is a product decision, made before the data arrives.
 
 Product · 2026-10-11 · 6 min read
 
@@ -70,6 +72,16 @@ Who was right on Tuesday?
 Why can the forecast learn and the staffing not?
 
 ## 3. A "yes" is not a "right"
+
+**Peak · the easiest number to collect**
+
+A yes is not a right.
+
+**Same evening · declared** The manager approves. It measures agreement. A manager can approve a wrong forecast and reject a right one.
+
+**Next day · observed** The real covers arrive. Only this says which forecast was right.
+
+A product that simply repeated last Tuesday's numbers would be approved often, and teach nothing.
 
 **SEC. 3** The easiest number to collect is the easiest to game. Concrete case: Acceptance rate.
 
@@ -203,7 +215,7 @@ It can prove its method today. It can only sell results once outcomes are measur
 ## Continue exploring
 
 - Read the method: [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) - How reliable reference data becomes an acceptance criterion a release can fail.
-- Understand the design decision: [A wrong forecast is absorbed. A wrong action reaches a guest.](https://ivandemurard.com/journal/agent-boundaries-aetherix) - The architecture that keeps the forecast's truth and the manager's reply apart.
+- Understand the design decision: [Where should an agent's responsibility end?](https://ivandemurard.com/journal/agent-boundaries-aetherix) - The architecture that keeps the forecast's truth and the manager's reply apart.
 - Inspect implementation evidence: [Aetherix case study](https://ivandemurard.com/aetherix) - A product that gets an observed truth back the next day, once a hotel is connected.
 - Inspect implementation evidence: [Lore case study](https://ivandemurard.com/lore) - A product whose realised truth never returns, and how it compensates upstream.
 

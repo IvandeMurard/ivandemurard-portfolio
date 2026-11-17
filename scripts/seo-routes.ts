@@ -309,7 +309,7 @@ export const SEO_ROUTES: SeoRoute[] = [
   {
     path: "/journal/agent-boundaries-aetherix",
     markdown: "agent-boundaries-aetherix.md",
-    title: "A wrong forecast is absorbed. A wrong action reaches a guest. · Ivan de Murard",
+    title: "Where should an agent's responsibility end? · Ivan de Murard",
     description:
       "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     type: "article",
@@ -318,7 +318,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: "A wrong forecast is absorbed. A wrong action reaches a guest.",
+      headline: "Where should an agent's responsibility end?",
       datePublished: "2026-04-20",
       dateModified: "2026-04-20",
       author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },

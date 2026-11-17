@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case studies index v2</title>
+<style>
+body{margin:0}
+a{color:inherit}
+.kick{margin:0;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
+.cap{margin:0;font:400 12.5px/1.5 'IBM Plex Mono',monospace}
+.serif{font-family:Newsreader,Georgia,serif;font-weight:400}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+.col{max-width:672px}
+.peak{min-height:620px;display:flex;align-items:center;background:#001738;color:#faf9f4}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.box{border:1px solid rgba(250,249,244,.25);border-radius:14px;padding:22px 22px 20px}
+.ref{display:flex;flex-wrap:wrap;gap:10px}
+.ref span{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;font-size:14.5px}
+.divider{height:56px;display:flex;align-items:center;justify-content:center}
+@media (max-width:900px){.cols3,.cols2{grid-template-columns:1fr}}
+</style></head><body>
+<!-- Design reference only: canvas board "H · Case studies index v2" (17 Nov 2026). Copy validated by Ivan on 17 Nov. -->
+
+
+<div style="font-family: Manrope, 'Helvetica Neue', sans-serif; font-size: 16px; line-height: 1.6; color: #16170f; background: #faf9f4">
+
+  <!-- legend for the board -->
+  <section class="wrap" style="padding-top: 48px; padding-bottom: 32px">
+    <p class="kick" style="color: #6b5420">Board J · the pattern, three slices</p>
+    <p style="margin: 12px 0 0; max-width: 820px; font-size: 16px; color: #2e3040">Each note keeps its argument and reference material. What changes: the hook is one sentence in display serif; one peak moment gets a full screen, where the background runs from cream to navy; the reference part (vocabulary, checklist, FAQ, sources) closes the note on a flat neutral ground. The body column stays at 672 px.</p>
+  </section>
+
+  <!-- ============ SLICE 1 · HARNESS ============ -->
+  <section style="background: linear-gradient(180deg, #faf9f4 0%, #ecebe5 100%); padding: 56px 0 72px">
+    <div class="wrap">
+      <p class="cap" style="color: #2e3040">Field Notes · For deciding whether an agent is ready to ship · 18 min · revised 7 times</p>
+      <h2 class="serif" style="margin: 16px 0 0; font-size: 56px; line-height: 1.04; letter-spacing: -0.015em; color: #001738">What is an LLM evaluation harness?</h2>
+      <p class="serif" style="margin: 28px 0 0; max-width: 1000px; font-size: 38px; line-height: 1.2; color: #001738">61 answers out of 64 were right. The run was declared a failure.</p>
+      <div class="col" style="margin-top: 28px; font-size: 17px; color: #16170f">Two of the three misses sat in the safety tier. A pass rate with no threshold attached is a number, not a decision. This note explains what turns it into one.</div>
+    </div>
+  </section>
+  <div aria-hidden="true" style="height: 140px; background: linear-gradient(180deg, #ecebe5, #001738)"></div>
+  <section class="peak" aria-label="Peak moment: the replay">
+    <div class="wrap" style="width: 100%">
+      <p class="kick" style="color: #e0a77c">Peak · the proof in ten seconds · recorded run, Lore</p>
+      <p class="serif" style="margin: 18px 0 0; max-width: 900px; font-size: 40px; line-height: 1.15">An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.</p>
+      <div class="cols3" style="margin-top: 36px">
+        <div class="box"><p class="cap" style="color: #e0a77c">1 · The answer</p><p style="margin: 10px 0 0; font-size: 17px">"Normal. Record it, no further action required."</p><p style="margin: 10px 0 0; font-size: 14.5px; color: rgba(250,249,244,.75)">Fluent, confident, and wrong.</p></div>
+        <div class="box" style="border-color: #f0a090"><p class="cap" style="color: #f0a090">2 · The graders</p><p style="margin: 10px 0 0; font-size: 17px"><b>FAIL</b>. It contradicts the manual. The release is blocked.</p><p style="margin: 10px 0 0; font-size: 14.5px; color: rgba(250,249,244,.75)">No unit test sees this: the code ran perfectly.</p></div>
+        <div class="box"><p class="cap" style="color: #e0a77c">3 · The code</p><p style="margin: 10px 0 0; font-size: 17px">If an answer contradicts the manual, one correction; if it still does, the manual's verdict ships.</p><p style="margin: 10px 0 0; font-size: 14.5px; color: rgba(250,249,244,.75)">The rule is held by code, not asked for in a prompt.</p></div>
+      </div>
+      <div style="margin-top: 28px; display: flex; gap: 20px; align-items: center"><span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid rgba(250,249,244,.5); font-size: 15px">Replay the run</span><p class="cap" style="color: rgba(250,249,244,.72)">The technical detail (the oil-consumption band) stays one click away, for readers who want it.</p></div>
+    </div>
+  </section>
+  <div aria-hidden="true" style="height: 120px; background: linear-gradient(180deg, #001738, #faf9f4)"></div>
+  <section style="padding: 8px 0 40px">
+    <div class="wrap"><div class="col"><p class="cap" style="color: #2e3040">The argument continues at normal weight: three arms of evaluation, acceptance criteria, the canary…</p></div></div>
+  </section>
+  <section aria-label="Reference" style="background: #f2f0ea; border-top: 1px solid #dcd7cb; padding: 40px 0 48px">
+    <div class="wrap">
+      <p class="kick" style="color: #2e3040">Reference · for when you apply it</p>
+      <div class="ref" style="margin-top: 16px">
+        <span style="border: 1px solid #dcd7cb; color: #001738">Vocabulary</span><span style="border: 1px solid #dcd7cb; color: #001738">Checklist</span><span style="border: 1px solid #dcd7cb; color: #001738">Apply this to your project</span><span style="border: 1px solid #dcd7cb; color: #001738">FAQ</span><span style="border: 1px solid #dcd7cb; color: #001738">Sources</span><span style="border: 1px solid #dcd7cb; color: #001738">Updates · 7</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="background: #faf9f4"><p class="cap" style="color: #2e3040">· · ·</p></div>
+
+  <!-- ============ SLICE 2 · BOUNDARIES ============ -->
+  <section style="background: linear-gradient(180deg, #faf9f4 0%, #ecebe5 100%); padding: 56px 0 72px">
+    <div class="wrap">
+      <p class="cap" style="color: #2e3040">Field Notes · For deciding what a model may do on its own · 6 min · revised 5 times</p>
+      <h2 class="serif" style="margin: 16px 0 0; font-size: 56px; line-height: 1.04; letter-spacing: -0.015em; color: #001738">Where should an agent's responsibility end?</h2>
+      <p class="serif" style="margin: 28px 0 0; max-width: 1000px; font-size: 38px; line-height: 1.2; color: #001738">A wrong forecast is absorbed. A wrong action reaches a guest.</p>
+      <div class="col" style="margin-top: 28px; font-size: 17px; color: #16170f">So the line between components is drawn where the consequence changes, not where the technology does.</div>
+    </div>
+  </section>
+  <div aria-hidden="true" style="height: 140px; background: linear-gradient(180deg, #ecebe5, #001738)"></div>
+  <section class="peak" aria-label="Peak moment: authority changes hands">
+    <div class="wrap" style="width: 100%">
+      <p class="kick" style="color: #e0a77c">Peak · tomorrow's breakfast, the evening before · illustrative scenario</p>
+      <p class="serif" style="margin: 18px 0 0; max-width: 900px; font-size: 40px; line-height: 1.15">The evening before, Aetherix suggests tomorrow's breakfast staffing to the hotel's F&B manager. The manager has the last word: from that reply on, the system decides nothing.</p>
+      <div class="cols2" style="margin-top: 36px; align-items: start">
+        <div class="box" style="background: rgba(250,249,244,.06)">
+          <p class="cap" style="color: #e0a77c">The message the manager reads</p>
+          <p style="margin: 10px 0 0; font-size: 17px">How many guests to expect at breakfast tomorrow, how sure it is, and how many staff to plan.</p>
+          <p style="margin: 14px 0 0; display: inline-flex; padding: 8px 14px; border-radius: 12px; background: #d7f2d0; color: #10301a; font-size: 15px">"I'd say 79 covers instead."</p>
+        </div>
+        <div class="box">
+          <p class="cap" style="color: #e0a77c">What the reply is</p>
+          <p style="margin: 10px 0 0; font-size: 17px">A decision, recorded next to the recommendation. The manager weighs what the system cannot see: a sick waiter, a group check-in.</p>
+          <p style="margin: 10px 0 0; font-size: 14.5px; color: rgba(250,249,244,.75)">Anticipate · <b style="color: #faf9f4">Decide</b> · Operate · Learn</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div aria-hidden="true" style="height: 120px; background: linear-gradient(180deg, #001738, #faf9f4)"></div>
+  <section aria-label="Reference" style="background: #f2f0ea; border-top: 1px solid #dcd7cb; padding: 40px 0 48px">
+    <div class="wrap">
+      <p class="kick" style="color: #2e3040">Reference · for when you apply it</p>
+      <div class="ref" style="margin-top: 16px">
+        <span style="border: 1px solid #dcd7cb; color: #001738">Who owns which job</span><span style="border: 1px solid #dcd7cb; color: #001738">Apply this to your project</span><span style="border: 1px solid #dcd7cb; color: #001738">Updates · 5</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="background: #faf9f4"><p class="cap" style="color: #2e3040">· · ·</p></div>
+
+  <!-- ============ SLICE 3 · TRUTH ============ -->
+  <section style="background: linear-gradient(180deg, #faf9f4 0%, #ecebe5 100%); padding: 56px 0 72px">
+    <div class="wrap">
+      <p class="cap" style="color: #2e3040">Field Notes · For deciding what your product learns from · 6 min · revised once</p>
+      <h2 class="serif" style="margin: 16px 0 0; font-size: 56px; line-height: 1.04; letter-spacing: -0.015em; color: #001738">Whose truth is the ground truth?</h2>
+      <p class="serif" style="margin: 28px 0 0; max-width: 1000px; font-size: 38px; line-height: 1.2; color: #001738">An AI product is only as honest as the answer it learns from.</p>
+      <div class="col" style="margin-top: 28px; font-size: 17px; color: #16170f">Choosing that answer is a product decision, made before the data arrives.</div>
+    </div>
+  </section>
+  <div aria-hidden="true" style="height: 140px; background: linear-gradient(180deg, #ecebe5, #001738)"></div>
+  <section class="peak" aria-label="Peak moment: a yes is not a right">
+    <div class="wrap" style="width: 100%">
+      <p class="kick" style="color: #e0a77c">Peak · the easiest number to collect</p>
+      <p class="serif" style="margin: 18px 0 0; max-width: 900px; font-size: 48px; line-height: 1.1">A yes is not a right.</p>
+      <div class="cols2" style="margin-top: 36px">
+        <div class="box"><p class="cap" style="color: #e0a77c">Same evening · declared</p><p style="margin: 10px 0 0; font-size: 19px">The manager approves.</p><p style="margin: 10px 0 0; font-size: 14.5px; color: rgba(250,249,244,.75)">It measures agreement. A manager can approve a wrong forecast and reject a right one.</p></div>
+        <div class="box"><p class="cap" style="color: #e0a77c">Next day · observed</p><p style="margin: 10px 0 0; font-size: 19px">The real covers arrive.</p><p style="margin: 10px 0 0; font-size: 14.5px; color: rgba(250,249,244,.75)">Only this says which forecast was right.</p></div>
+      </div>
+      <p style="margin: 28px 0 0; max-width: 760px; font-size: 18px; color: rgba(250,249,244,.9)">A product that simply repeated last Tuesday's numbers would be approved often, and teach nothing.</p>
+    </div>
+  </section>
+  <div aria-hidden="true" style="height: 120px; background: linear-gradient(180deg, #001738, #faf9f4)"></div>
+  <section aria-label="Reference" style="background: #f2f0ea; border-top: 1px solid #dcd7cb; padding: 40px 0 64px">
+    <div class="wrap">
+      <p class="kick" style="color: #2e3040">Reference · for when you apply it</p>
+      <div class="ref" style="margin-top: 16px">
+        <span style="border: 1px solid #dcd7cb; color: #001738">Checklist</span><span style="border: 1px solid #dcd7cb; color: #001738">Apply this to your project</span><span style="border: 1px solid #dcd7cb; color: #001738">FAQ</span><span style="border: 1px solid #dcd7cb; color: #001738">Sources</span><span style="border: 1px solid #dcd7cb; color: #001738">Updates · 1</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+</body></html>

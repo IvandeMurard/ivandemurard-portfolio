@@ -6,7 +6,7 @@ export type SectionIndexEntry = { path: string; title: string; short: string; se
 export const SECTION_INDEX: SectionIndexEntry[] = [
   {
     path: "/journal/agent-boundaries-aetherix",
-    title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
+    title: "Where should an agent's responsibility end?",
     short: "Keep the forecaster and the actor apart.",
     sections: [
       { id: "the-asymmetry", heading: "1. The asymmetry" },

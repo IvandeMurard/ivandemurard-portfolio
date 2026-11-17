@@ -1,4 +1,8 @@
-# A wrong forecast is absorbed. A wrong action reaches a guest.
+# Where should an agent's responsibility end?
+
+A wrong forecast is absorbed. A wrong action reaches a guest.
+
+So the line between components is drawn where the consequence changes, and the technology does not set it.
 
 Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.
 
@@ -51,6 +55,14 @@ The manager replies accept, reject, or the right figure. That reply is not polit
 | Measured outcome | the till, next day | real covers | forecast error computes itself | not yet: needs a connected hotel |
 
 A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it.
+
+**Peak · tomorrow's breakfast, the evening before, illustrative scenario**
+
+The evening before, Aetherix suggests tomorrow's breakfast staffing to the hotel's F&B manager. The manager has the last word: from that reply on, the system decides nothing.
+
+**The message the manager reads** How many guests to expect at breakfast tomorrow, how sure it is, and how many staff to plan. "I'd say 79 covers instead."
+
+**What the reply is** A decision, recorded next to the recommendation. The manager weighs what the system cannot see: a sick waiter, a group check-in. Anticipate, Decide, Operate, Learn
 
 **Figure. Tomorrow's breakfast, from forecast to feedback.** Illustrative scenario: a hotel F&B manager preparing tomorrow's breakfast service. No hotel is connected yet; no manager, guest outcome or metric here is observed.
 
@@ -126,7 +138,7 @@ A claim about behaviour has to be held by something other than a prompt. The bou
 **Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.
 
 ```text
-Apply a method to my own AI project. Method source: "A wrong forecast is absorbed. A wrong action reaches a guest." by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
+Apply a method to my own AI project. Method source: "Where should an agent's responsibility end?" by Ivan de Murard, https://ivandemurard.com/agent-boundaries-aetherix.md (markdown).
 
 Method: Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.
 

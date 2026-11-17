@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { Reveal } from "@/components/Reveal";
 import { CONTACT, SOCIAL_LINKS } from "@/content/site";
@@ -6,7 +7,7 @@ import { ExternalMark } from "@/components/ui/ExternalMark";
 import { AskAiMenu } from "@/components/AskAiMenu";
 
 /** The one Contact block, used on the homepage ("04 · Contact") and on /rose ("Contact"). Copy lives in src/content/site.ts. */
-export const ContactBlock = ({ number }: { number?: string }) => {
+export const ContactBlock = ({ number, after }: { number?: string; after?: ReactNode }) => {
   const track = useTrackClick();
   return (
     <section id="contact" aria-labelledby="contact-h" className="section-inverse">
@@ -33,6 +34,8 @@ export const ContactBlock = ({ number }: { number?: string }) => {
         <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2" data-reveal-child>
           <Link to="/contact" className="text-primary border-b border-primary/40 hover:border-primary">{CONTACT.allWays} →</Link>
         </p>
+        {/* A line only some pages add under the shared block (the Field Notes index). */}
+        {after && <p className="mt-7 text-[15px] text-on-surface-variant" data-reveal-child>{after}</p>}
       </Reveal>
     </section>
   );
