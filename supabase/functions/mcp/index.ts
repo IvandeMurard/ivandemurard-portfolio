@@ -313,45 +313,12 @@ var get_about_default = defineTool3({
 // src/lib/mcp/tools/list-journal.ts
 import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
 
-// src/content/readingTime.ts
-var firstSentence = (t) => {
-  const m = t.match(/^.*?[.!?](?=\s|$)/);
-  return m ? m[0] : t;
-};
-var visibleText = (b) => {
-  switch (b.kind) {
-    case "p":
-    case "h2":
-    case "h3":
-    case "quote":
-    case "code":
-      return [b.text];
-    case "list":
-      return b.items;
-    case "table":
-      return [...b.head, ...b.rows.flatMap((r) => r.map((c, i) => i === b.foldCol ? firstSentence(c) : c))];
-    case "defs":
-      return b.items.map((i) => `${i.term} ${i.def}`);
-    case "lines":
-      return b.items.flatMap((i) => [i.q, i.a]);
-    case "key":
-      return [b.oneLine, b.concrete ?? ""];
-    case "cards":
-      return b.items.map((i) => `${i.title} ${i.body}`);
-    case "recoLine":
-      return [b.caption];
-    default:
-      return [];
-  }
-};
-var visibleMinutes = (body, wpm = 230) => {
-  const words = body.flatMap(visibleText).join(" ").split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / wpm));
-};
-
 // src/content/journalHarnesses.ts
 var HARNESSES_ENTRY = {
   slug: "harnesses-graders-closed-loops",
+  decision: "For deciding whether an agent is ready to ship",
+  hook: "61 answers out of 64 were right. The run was declared a failure.",
+  intro: "Two of the three misses sat in the safety tier. A pass rate with no threshold attached is only a number. This note explains what turns it into a decision.",
   homeHook: { text: "Agents rarely fail loudly. They drift, quietly, until a customer notices. How to find out first: graders, harnesses, and the gaps I have not closed yet." },
   title: "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents",
   subtitle: "A working vocabulary for building evaluation into AI products from day one, tested on two real systems.",
@@ -365,7 +332,7 @@ var HARNESSES_ENTRY = {
     note: "Reuse and adapt with attribution to Ivan de Murard."
   },
   related: [
-    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "Why Aetherix splits forecasting from action, so each failure gets its own check." },
+    { role: "decision", label: "Where should an agent's responsibility end?", to: "/journal/agent-boundaries-aetherix", why: "Why Aetherix splits forecasting from action, so each failure gets its own check." },
     { role: "method", label: "Whose truth is the ground truth?", to: "/journal/whose-truth-is-the-ground-truth", why: "Arm C in depth: which answer a product may learn from, and when it arrives." },
     { role: "evidence", label: "Lore case study", to: "/lore", why: "The harness whose case set, graders and canary this note quotes." },
     { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "Where the gate, baselines and thresholds were first built." }
@@ -476,6 +443,34 @@ var HARNESSES_ENTRY = {
         "**Deterministic guarantee**: a rule held in code, which a test can break. It holds whatever the model says.",
         "**Proposed**: designed and written down, not yet run, such as the arm C metrics. Named so it can be checked later."
       ]
+    },
+    {
+      kind: "peak",
+      aria: "Peak moment: the replay",
+      kicker: "The proof in ten seconds \xB7 recorded run, Lore",
+      lead: "An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.",
+      cols: 3,
+      boxes: [
+        {
+          label: "1 \xB7 The answer",
+          // Verbatim fragments of the recorded answer in section 12 only, never a paraphrase in quotation marks.
+          text: 'Lore answers that the reading is "considered NORMAL" and that "no further action is required".',
+          note: "Fluent, confident, and wrong."
+        },
+        {
+          label: "2 \xB7 The graders",
+          text: "The first harness passed it. Reading the answers caught it; the graders now fail it and block the release.",
+          note: "No unit test sees this: the code ran perfectly.",
+          tone: "fail"
+        },
+        {
+          label: "3 \xB7 The code",
+          text: "If an answer contradicts the manual, one correction; if it still does, the manual's verdict ships.",
+          note: "The rule is held by code. A prompt only asks for it."
+        }
+      ],
+      afterGlance: true,
+      link: { text: "Replay it in section 12", to: "12-what-a-harness-finds-that-no-unit-test-sees" }
     },
     { kind: "h2", text: "1. The vocabulary, through the driving test" },
     {
@@ -1057,24 +1052,25 @@ var HARNESSES_ENTRY = {
     }
   ]
 };
-Object.assign(HARNESSES_ENTRY, { readingMinutes: visibleMinutes(HARNESSES_ENTRY.body) });
 
 // src/content/journalTruth.ts
 var PROOF = "https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/PROOF_PROTOCOL.md";
 var TRUTH_ENTRY = {
   slug: "whose-truth-is-the-ground-truth",
+  decision: "For deciding what your product learns from",
+  hook: "An AI product is only as honest as the answer it learns from.",
+  intro: "Choosing that answer is a product decision, made before the data arrives.",
   homeHook: { text: "Your agent learns from something: a forecast, a manager's yes, or what really happened the next morning. Pick the wrong one and you build a very confident yes-man." },
   title: "Whose truth is the ground truth?",
-  subtitle: "An AI product is only as honest as the answer it learns from. Choosing that answer is a product decision, made before the data arrives.",
+  // No subtitle: it said what the hook and the intro now say, in the same words.
   date: "2026-10-11",
   category: "Product",
   lang: "en",
-  readingMinutes: 6,
   mirror: "/whose-truth-is-the-ground-truth.md",
   license: { label: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
   related: [
     { role: "method", label: "What is an LLM evaluation harness?", to: "/journal/harnesses-graders-closed-loops", why: "How reliable reference data becomes an acceptance criterion a release can fail." },
-    { role: "decision", label: "A wrong forecast is absorbed. A wrong action reaches a guest.", to: "/journal/agent-boundaries-aetherix", why: "The architecture that keeps the forecast's truth and the manager's reply apart." },
+    { role: "decision", label: "Where should an agent's responsibility end?", to: "/journal/agent-boundaries-aetherix", why: "The architecture that keeps the forecast's truth and the manager's reply apart." },
     { role: "evidence", label: "Aetherix case study", to: "/aetherix", why: "A product that gets an observed truth back the next day, once a hotel is connected." },
     { role: "evidence", label: "Lore case study", to: "/lore", why: "A product whose realised truth never returns, and how it compensates upstream." }
   ],
@@ -1160,6 +1156,29 @@ var TRUTH_ENTRY = {
     ] },
     { kind: "askRose", prompts: ["Who was right on Tuesday?", "Why can the forecast learn and the staffing not?"] },
     { kind: "h2", text: '3. A "yes" is not a "right"' },
+    {
+      kind: "peak",
+      aria: "Peak moment: a yes is not a right",
+      kicker: "The easiest number to collect",
+      lead: "A yes is not a right.",
+      leadBig: true,
+      cols: 2,
+      boxes: [
+        {
+          label: "Same evening \xB7 declared",
+          text: "The manager approves.",
+          note: "It measures agreement. A manager can approve a wrong forecast and reject a right one.",
+          big: true
+        },
+        {
+          label: "Next day \xB7 observed",
+          text: "The real number of guests arrives.",
+          note: "Only this says which forecast was right.",
+          big: true
+        }
+      ],
+      after: "A product that simply repeated last Tuesday's numbers would be approved often, and teach nothing."
+    },
     { kind: "key", sigil: "SEC. 3", icon: "thumb_up", oneLine: "The easiest number to collect is the easiest to game.", concrete: "Acceptance rate." },
     { kind: "list", items: [
       "**The trap (Goodhart's law):** when a measure becomes a target, it stops measuring. A product optimised on acceptance learns to send recommendations that cost nothing to approve.",
@@ -1252,12 +1271,54 @@ var TRUTH_ENTRY = {
   ]
 };
 
+// src/content/readingTime.ts
+var firstSentence = (t) => {
+  const m = t.match(/^.*?[.!?](?=\s|$)/);
+  return m ? m[0] : t;
+};
+var visibleText = (b) => {
+  switch (b.kind) {
+    case "p":
+    case "h2":
+    case "h3":
+    case "quote":
+    case "code":
+      return [b.text];
+    case "list":
+      return b.items;
+    case "table":
+      return [...b.head, ...b.rows.flatMap((r) => r.map((c, i) => i === b.foldCol ? firstSentence(c) : c))];
+    case "defs":
+      return b.items.map((i) => `${i.term} ${i.def}`);
+    case "lines":
+      return b.items.flatMap((i) => [i.q, i.a]);
+    case "key":
+      return [b.oneLine, b.concrete ?? ""];
+    case "cards":
+      return b.items.map((i) => `${i.title} ${i.body}`);
+    case "recoLine":
+      return [b.caption];
+    case "peak":
+      return [b.kicker, b.lead, ...b.boxes.flatMap((x) => [x.label, x.text, x.note ?? "", x.bubble ?? ""]), b.after ?? ""];
+    default:
+      return [];
+  }
+};
+var visibleMinutes = (body, wpm = 230) => {
+  const words = body.flatMap(visibleText).join(" ").split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / wpm));
+};
+
 // src/content/journal.ts
 var JOURNAL_ENTRIES = [
   {
     slug: "agent-boundaries-aetherix",
     homeHook: { title: "Keep the forecaster and the actor apart.", text: "One model that predicts and acts looks elegant on a slide. Why I split Prophet and Claude in two, and everything that single choice decided next." },
-    title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
+    // Retitled 17 Nov 2026. Slug, URL and every heading id are unchanged. The former title is now the hook.
+    title: "Where should an agent's responsibility end?",
+    decision: "For deciding what a model may do on its own",
+    hook: "A wrong forecast is absorbed. A wrong action reaches a guest.",
+    intro: "So the line between components is drawn where the consequence changes, and the technology does not set it.",
     subtitle: "Prophet is a statistical forecasting library. Claude is a large language model. Keeping them as two components, rather than letting one model both predict and act, is the decision that shaped everything after it.",
     date: "2026-04-20",
     glance: {
@@ -1315,7 +1376,7 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "I split it in two. Prophet, an open-source forecasting library built for time series with strong seasonality, reads what is about to happen: how many covers tomorrow, with an uncertainty range. Claude, a large language model, decides what to say about it and to whom. Neither does the other's job, and almost every later decision in the system inherits from that line."
       },
-      { kind: "h2", text: "The asymmetry" },
+      { kind: "h2", text: "1. The asymmetry", id: "the-asymmetry" },
       {
         kind: "p",
         text: "The line is not drawn where the technology changes. It is drawn where the consequence changes."
@@ -1328,7 +1389,7 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "That is the argument for the boundary, and it is not really about Prophet or Claude. It is about which failures you are willing to let a model resolve on its own."
       },
-      { kind: "h2", text: "Why one model collapses" },
+      { kind: "h2", text: "2. Why one model collapses", id: "why-one-model-collapses" },
       {
         kind: "p",
         text: "Give one component both jobs and it arbitrates between them privately. That is the cost, and it is not a performance cost. A node that owns two domains stops being reviewable: when the recommendation is wrong you cannot tell whether the read of the situation was wrong, or the response to a correct read was wrong. There is one output and one prompt, and the trace tells you nothing you did not already know."
@@ -1337,7 +1398,7 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "Forecasting and acting also want different feedback. Forecast error computes itself: tomorrow's covers are known the day after, so the number arrives whether or not anyone asks for it. Whether a recommendation should have been made at all is a judgement, and the only thing that returns it is a human. One loop is arithmetic, the other is an opinion. A single component blends them and you lose the ability to measure either. Why a manager's approval and the next day's covers are different signals, and which one a system may learn from, is [the ground-truth note](/journal/whose-truth-is-the-ground-truth)."
       },
-      { kind: "h2", text: "Where the line landed" },
+      { kind: "h2", text: "3. Where the line landed", id: "where-the-line-landed" },
       {
         kind: "p",
         text: "Prophet reads the environment: occupancy, F&B demand, staffing pressure. It produces a number and an error bar and nothing else. It never phrases anything, never recommends, never talks to a manager."
@@ -1352,6 +1413,7 @@ var JOURNAL_ENTRIES = [
       },
       {
         kind: "table",
+        anchor: "who-owns-which-job",
         caption: "Five jobs in one loop. Each has its own owner, its own check, and its own state of evidence today.",
         head: ["Job", "Owner", "What it produces", "How it is checked", "Evidence today"],
         rows: [
@@ -1366,8 +1428,27 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it."
       },
+      {
+        kind: "peak",
+        aria: "Peak moment: authority changes hands",
+        kicker: "Tomorrow's breakfast, the evening before, illustrative scenario",
+        lead: "The evening before, Aetherix suggests tomorrow's breakfast staffing to the hotel's F&B manager. The manager has the last word: from that reply on, the system decides nothing.",
+        cols: 2,
+        boxes: [
+          {
+            label: "The message the manager reads",
+            text: "How many guests to expect at breakfast tomorrow, how sure it is, and how many staff to plan.",
+            bubble: `"I'd say 79 covers instead."`
+          },
+          {
+            label: "What the reply is",
+            text: "A decision, recorded next to the recommendation. The manager weighs what the system cannot see: a sick waiter, a group check-in.",
+            chain: { steps: ["Anticipate", "Decide", "Operate", "Learn"], strong: "Decide" }
+          }
+        ]
+      },
       { kind: "blueprint" },
-      { kind: "h2", text: "What the split buys" },
+      { kind: "h2", text: "4. What the split buys", id: "what-the-split-buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
         kind: "p",
@@ -1381,7 +1462,7 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: "The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it rejected an implausible point-of-sale figure, injected as a test, rather than training on it. After a simulated 25% jump in demand, weekly recalibration cut its forecast error from 15.9% to 12.3%. Neither is possible when one component owns the whole path, because there is no seam at which to check."
       },
-      { kind: "h2", text: "What it cost" },
+      { kind: "h2", text: "5. What it cost", id: "what-it-cost" },
       {
         kind: "p",
         text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline (the mean of the last four same weekdays) on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet."
@@ -1390,7 +1471,7 @@ var JOURNAL_ENTRIES = [
         kind: "p",
         text: 'And a limit I have to keep restating. The comparison runs on its own, but the truth it compares against is still declared by a human. That is a closed loop on a declared truth, which is an engineering statement. "Dual autonomous loop" would be a brochure statement.'
       },
-      { kind: "h2", text: "What I would have lost" },
+      { kind: "h2", text: "6. What I would have lost", id: "what-i-would-have-lost" },
       {
         kind: "p",
         text: 'The guarantee. In a single-model design, "never act on a low-confidence forecast" is a sentence in a prompt, which is a request. Requests are not enforced, they are usually honoured. With the boundary in place the rule lives between the components, in code, where it can be checked and where a violation is a failing test rather than a disappointing output. How such a test is written, graded and allowed to block a release is the subject of [the evaluation note](/journal/harnesses-graders-closed-loops).'
@@ -1412,6 +1493,7 @@ var JOURNAL_ENTRIES = [
   HARNESSES_ENTRY,
   TRUTH_ENTRY
 ];
+for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body) });
 var JOURNAL_KNOWLEDGE_QUESTIONS = [
   { number: "01", label: "Evaluate", question: "How do you know an agent is working?", description: "Learn what correct behavior means and how to test it.", slug: "harnesses-graders-closed-loops", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
   { number: "02", label: "Set boundaries", question: "Where should an agent's responsibility end?", description: "Separate prediction, recommendation and authority.", slug: "agent-boundaries-aetherix", cases: [{ label: "Aetherix", to: "/aetherix" }] },
@@ -1596,7 +1678,7 @@ var APPLY_GUIDES = {
   },
   "agent-boundaries-aetherix": {
     slug: "agent-boundaries-aetherix",
-    title: "A wrong forecast is absorbed. A wrong action reaches a guest.",
+    title: "Where should an agent's responsibility end?",
     method: "Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.",
     decision: "Which decisions the system may take alone, which it may only recommend, and which require a named human's approval.",
     inputs: ["An inventory of the decisions the application makes or recommends", "Who is accountable for each one", "What it costs to undo each one", "The current prompts and the code paths that act on outputs"],
@@ -1725,6 +1807,14 @@ A: ${i.a}`).join("\n\n");
     case "console":
     case "mcp":
       return "";
+    case "peak":
+      return [
+        `**${block.kicker}**`,
+        block.lead,
+        ...block.boxes.map((x) => [`**${x.label}**`, x.text, x.bubble ?? "", x.chain ? x.chain.steps.join(", ") : "", x.note ?? ""].filter(Boolean).join(" ")),
+        block.after ?? "",
+        block.link ? `${block.link.text} (#${block.link.to})` : ""
+      ].filter(Boolean).join("\n\n");
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n");
     case "callout":
