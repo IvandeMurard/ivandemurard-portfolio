@@ -376,10 +376,6 @@
   "src/pages/JournalEntry.tsx": {
     "italic": 9
   },
-  "src/pages/Journeys.tsx": {
-    "italic": 7,
-    "mood-word": 1
-  },
   "src/pages/Lore.tsx": {
     "contrast-reflex": 1,
     "italic": 23,

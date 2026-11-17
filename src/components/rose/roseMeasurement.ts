@@ -2,7 +2,7 @@ import { logRoseEvent } from "./roseEvents";
 
 export const REFERENCE_ROUTES = new Set([
   "/", "/aetherix", "/tacet", "/anima", "/compass", "/sonor", "/lore",
-  "/architecture", "/cv", "/atrium", "/journal", "/contact", "/agents",
+  "/case-studies", "/architecture", "/cv", "/atrium", "/journal", "/contact", "/agents",
   "/journal/harnesses-graders-closed-loops", "/journal/agent-boundaries-aetherix",
   "/journal/whose-truth-is-the-ground-truth",
 ]);

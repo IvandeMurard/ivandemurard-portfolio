@@ -88,7 +88,8 @@ export const SEO_ROUTES: SeoRoute[] = [
     jsonLd: personJsonLd,
   },
   {
-    path: "/journeys",
+    path: "/case-studies",
+    markdown: "case-studies.md",
     title: "Case Studies, Selected Work by Ivan de Murard · Ivan de Murard",
     description:
       "The Hospitality Multi-Agent Architecture: Aetherix (F&B agent), Tacet (environmental agent), Anima (guest agent). Standalone systems: Lore (voice AI for aviation maintenance), Sonor (urban noise SaaS). Product and AI work shipped 0 to 1.",
@@ -99,7 +100,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       name: "Case Studies",
-      url: `${BASE_URL}/journeys`,
+      url: `${BASE_URL}/case-studies`,
       hasPart: [
         { "@type": "CreativeWork", name: "Aetherix", url: `${BASE_URL}/aetherix` },
         { "@type": "CreativeWork", name: "Sonor", url: `${BASE_URL}/sonor` },
