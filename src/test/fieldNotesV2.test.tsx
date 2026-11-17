@@ -7,7 +7,6 @@ import { MoodProvider } from "@/components/MoodProvider";
 import { AmbienceProvider } from "@/components/AmbienceProvider";
 import Journal from "@/pages/Journal";
 import JournalEntry from "@/pages/JournalEntry";
-import { HarnessConsole } from "@/components/journal/HarnessConsole";
 import { JOURNAL_ENTRIES, type JournalBlock, type PeakBlock } from "@/content/journal";
 import { CARDS, INDEX_COPY, INDEX_HERO, LEAD, REFERENCE_ZONE, heroMeta, metaLine, revisedLabel, testedOn, joinNames } from "@/content/journalIndex";
 import { visibleMinutes } from "@/content/readingTime";
@@ -122,7 +121,7 @@ describe("The index", () => {
   it("has the copy of the reference, in Day and Night", () => {
     const strings = [
       INDEX_HERO.kicker, INDEX_HERO.title, INDEX_HERO.line, INDEX_COPY.startHere, INDEX_COPY.readNote, INDEX_COPY.systems, INDEX_COPY.allCases,
-      INDEX_COPY.compare.lead, INDEX_COPY.compare.link, LEAD.pitch, LEAD.why, LEAD.proof.kicker, LEAD.proof.lead, LEAD.proof.steps[1].text.replace(/\*\*/g, ""), LEAD.proof.steps[2].text,
+      INDEX_COPY.compare.lead, INDEX_COPY.compare.link, LEAD.pitch, LEAD.why, LEAD.proof.kicker, LEAD.proof.lead, LEAD.proof.steps[2].text, // step 2 and the first step were reworded on the PR 53 review
       ...Object.values(CARDS).flatMap((c) => [c.pitch.replace(/"/g, "&quot;").length ? c.pitch : "", c.moment.label, c.moment.text]),
       ...JOURNAL_ENTRIES.map((e) => e.decision),
       ...JOURNAL_ENTRIES.filter((e) => e.slug !== HARNESS).map((e) => e.title),
@@ -205,8 +204,9 @@ describe("The note pattern", () => {
       cleanup();
       return pos & Node.DOCUMENT_POSITION_FOLLOWING ? "before" : "after";
     };
-    // Harness: after the opening, before the first section. Boundaries: just before the service blueprint. Truth: in section 3.
+    // Harness: right after the "Read this if" card, before "Check your own system". Boundaries: just before the service blueprint. Truth: in section 3.
     expect(order(HARNESS, "[data-peak]", "[id='1-the-vocabulary-through-the-driving-test']")).toBe("before");
+    expect(order(HARNESS, "[data-peak]", "[data-self-diagnostic], section[aria-label='Check your own system'], #check-your-own-system")).toBe("before");
     expect(order(HARNESS, "[data-peak]", "#apply-this-to-your-project")).toBe("before");
     expect(order(BOUNDARIES, "[data-peak]", "#what-the-split-buys")).toBe("before");
     expect(order(BOUNDARIES, "#where-the-line-landed", "[data-peak]")).toBe("before");
@@ -222,28 +222,34 @@ describe("The note pattern", () => {
     const html = board.replace(/&amp;/g, "&");
     for (const slug of [BOUNDARIES, TRUTH]) {
       const p = entry(slug).body.find((b): b is PeakBlock => b.kind === "peak")!;
+      // Reviewed on PR 53: the board's "Peak · " annotation is not copy, and one box says "guests" instead of "covers".
+      const reviewed = ["The real number of guests arrives."];
+      const lower = (x: string) => x.charAt(0).toLowerCase() + x.slice(1);
       for (const s of [p.kicker, p.lead, ...p.boxes.flatMap((b) => [b.label, b.text, b.note ?? ""])]) {
-        if (s) expect(html.replace(/&quot;/g, '"'), s).toContain(s.replace(/,\s+illustrative/, " · illustrative"));
+        if (!s || reviewed.includes(s)) continue;
+        const h = html.replace(/&quot;/g, '"');
+        const t = s.replace(/,\s+illustrative/, " · illustrative");
+        expect(h.includes(t) || h.includes(lower(t)), s).toBe(true);
       }
+      expect(p.kicker).not.toMatch(/^Peak/);
     }
     for (const e of JOURNAL_ENTRIES) expect(html, e.hook).toContain(e.hook);
   });
 
-  it("the replay plays from the peak on click only, and never by itself", () => {
-    const { container } = render(<HarnessConsole inverse runLabel="Replay the run" />);
-    expect(container.textContent).toContain("$ eval run --suite lore-64");
-    expect(container.textContent).not.toContain("FAIL");
-    expect(screen.getByRole("button", { name: "Replay the run" })).toBeTruthy();
-    // Under prefers-reduced-motion the result appears at once, still only after the click.
-    vi.stubGlobal("matchMedia", (q: string) => ({ matches: q.includes("reduce"), media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, dispatchEvent: () => false }));
-    fireEvent.click(screen.getByRole("button", { name: "Replay the run" }));
-    expect(container.textContent).toContain("FAIL · exit 1");
+  it("the harness peak tells the section 12 story, without the 61/64 console, and the console stays in section 6", () => {
+    const p = entry(HARNESS).body.find((b): b is PeakBlock => b.kind === "peak")!;
+    expect(p.kicker).toBe("The proof in ten seconds \u00b7 recorded run, Lore");
+    expect(p.boxes[0].text).not.toMatch(/0\.30/);
+    expect(p.boxes[1].text).toBe("The first harness passed it. Reading the answers caught it; the graders now fail it and block the release.");
+    expect(entry(HARNESS).body.some((x) => x.kind === "console")).toBe(true);
+    const { container } = note(HARNESS);
+    expect(container.querySelector("[data-peak]")!.querySelector("button")).toBeNull();
   });
 
-  it("links the peak to the technical detail in section 12", () => {
+  it("links the peak to the replay in section 12", () => {
     const { container } = note(HARNESS);
     const peak = container.querySelector("[data-peak]")!;
-    const link = within(peak as HTMLElement).getByRole("link", { name: /oil-consumption band/ });
+    const link = within(peak as HTMLElement).getByRole("link", { name: "Replay it in section 12" });
     expect(link.getAttribute("href")).toBe("#12-what-a-harness-finds-that-no-unit-test-sees");
     expect(document.getElementById("12-what-a-harness-finds-that-no-unit-test-sees")).not.toBeNull();
   });

@@ -110,7 +110,7 @@ export const TRUTH_ENTRY: JournalEntry = {
     {
       kind: "peak",
       aria: "Peak moment: a yes is not a right",
-      kicker: "Peak · the easiest number to collect",
+      kicker: "The easiest number to collect",
       lead: "A yes is not a right.",
       leadBig: true,
       cols: 2,
@@ -123,7 +123,7 @@ export const TRUTH_ENTRY: JournalEntry = {
         },
         {
           label: "Next day · observed",
-          text: "The real covers arrive.",
+          text: "The real number of guests arrives.",
           note: "Only this says which forecast was right.",
           big: true,
         },

@@ -56,7 +56,7 @@ The manager replies accept, reject, or the right figure. That reply is not polit
 
 A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it.
 
-**Peak · tomorrow's breakfast, the evening before, illustrative scenario**
+**Tomorrow's breakfast, the evening before, illustrative scenario**
 
 The evening before, Aetherix suggests tomorrow's breakfast staffing to the hotel's F&B manager. The manager has the last word: from that reply on, the system decides nothing.
 

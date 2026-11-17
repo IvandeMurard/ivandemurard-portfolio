@@ -14,7 +14,7 @@ import { JournalToc, type TocItem } from "@/components/reading/JournalToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
 
-import { JOURNAL_ENTRIES, type JournalBlock } from "@/content/journal";
+import { JOURNAL_ENTRIES, type JournalBlock, type PeakBlock } from "@/content/journal";
 import { journalHeadingIds } from "@/lib/journalHeadingIds";
 import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
@@ -462,7 +462,8 @@ const JournalEntry = () => {
   const reference = REFERENCE_ZONE[entry.slug];
   const refStart = reference ? headingIds.findIndex((id) => id === reference.from) : -1;
   const splitAt = refStart >= 0 ? refStart : entry.body.length;
-  const mainIdx = entry.body.map((_, i) => i).filter((i) => i < splitAt);
+  const early = entry.body.find((b): b is PeakBlock => b.kind === "peak" && !!b.afterGlance);
+  const mainIdx = entry.body.map((_, i) => i).filter((i) => i < splitAt && entry.body[i] !== early);
   const refIdx = entry.body.map((_, i) => i).filter((i) => i >= splitAt);
   const others = otherNotes(entry.slug);
   const also = (entry.related ?? []).filter((r) => !r.to.startsWith("/journal/"));
@@ -554,6 +555,9 @@ const JournalEntry = () => {
               {entry.glance || entry.takeaways?.length ? (
                 <EntryOpening glance={entry.glance} takeaways={entry.takeaways} punch={entry.takeawayPunch} />
               ) : null}
+            </div>
+            {early && <NotePeak block={early} />}
+            <div className="max-w-[42rem]">
               {entry.diagnostic && (
                 <SelfDiagnostic
                   label={entry.diagnostic.label}

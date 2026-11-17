@@ -34,11 +34,11 @@ export const LEAD = {
     lead: "An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.",
     // Lore's answer is quoted only in verbatim fragments of the recorded answer in section 12 of the note.
     steps: [
-      { text: "Lore answers that this is **\"considered NORMAL\"** and that **\"no further action is required\"**. Fluent, and wrong.", tone: "plain" },
-      { text: "The graders fail it: **FAIL**, the release is blocked.", tone: "fail" },
+      { text: "Lore answers that the reading is **\"considered NORMAL\"** and that **\"no further action is required\"**. Fluent, and wrong.", tone: "plain" },
+      { text: "The first harness passed it. Reading the answers caught it; the graders now fail it and block the release.", tone: "fail" },
       { text: "The code now holds the rule: when Lore contradicts the manual, the manual's verdict ships.", tone: "plain" },
     ],
-    caption: "The replay opens the note. The technical detail is in section 12.",
+    caption: "The replay of this case is in section 12.",
   },
 } as const;
 

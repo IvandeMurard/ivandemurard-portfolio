@@ -38,17 +38,17 @@ The numbers below come from those two repositories, not from a whitepaper. Where
 - **Deterministic guarantee**: a rule held in code, which a test can break. It holds whatever the model says.
 - **Proposed**: designed and written down, not yet run, such as the arm C metrics. Named so it can be checked later.
 
-**Peak · the proof in ten seconds, recorded run, Lore**
+**The proof in ten seconds · recorded run, Lore**
 
 An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.
 
-**1 · The answer** Lore answers that exactly 0.30 qt/hr is "considered NORMAL" and that "no further action is required". Fluent, confident, and wrong.
+**1 · The answer** Lore answers that the reading is "considered NORMAL" and that "no further action is required". Fluent, confident, and wrong.
 
-**2 · The graders** FAIL: it contradicts the manual, so the release is blocked. No unit test sees this: the code ran perfectly.
+**2 · The graders** The first harness passed it. Reading the answers caught it; the graders now fail it and block the release. No unit test sees this: the code ran perfectly.
 
 **3 · The code** If an answer contradicts the manual, one correction; if it still does, the manual's verdict ships. The rule is held by code. A prompt only asks for it.
 
-Replay the run: a recorded run of Lore's harness, played in the page. The technical detail (the oil-consumption band) stays one click away, for readers who want it. (#12-what-a-harness-finds-that-no-unit-test-sees)
+Replay it in section 12 (#12-what-a-harness-finds-that-no-unit-test-sees)
 
 ## 1. The vocabulary, through the driving test
 

@@ -79,7 +79,7 @@ export function renderBlock(block: JournalBlock): string {
         block.lead,
         ...block.boxes.map((x) => [`**${x.label}**`, x.text, x.bubble ?? "", x.chain ? x.chain.steps.join(", ") : "", x.note ?? ""].filter(Boolean).join(" ")),
         block.after ?? "",
-        block.replay ? `${block.replay.cta}: a recorded run of Lore's harness, played in the page. ${block.replay.detailLead}${block.replay.detailTail} (#${block.replay.detailTo})` : "",
+        block.link ? `${block.link.text} (#${block.link.to})` : "",
       ].filter(Boolean).join("\n\n");
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n");

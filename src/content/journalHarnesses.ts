@@ -145,19 +145,19 @@ export const HARNESSES_ENTRY: JournalEntry = {
     {
       kind: "peak",
       aria: "Peak moment: the replay",
-      kicker: "Peak · the proof in ten seconds, recorded run, Lore",
+      kicker: "The proof in ten seconds · recorded run, Lore",
       lead: "An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.",
       cols: 3,
       boxes: [
         {
           label: "1 · The answer",
           // Verbatim fragments of the recorded answer in section 12 only, never a paraphrase in quotation marks.
-          text: "Lore answers that exactly 0.30 qt/hr is \"considered NORMAL\" and that \"no further action is required\".",
+          text: "Lore answers that the reading is \"considered NORMAL\" and that \"no further action is required\".",
           note: "Fluent, confident, and wrong.",
         },
         {
           label: "2 · The graders",
-          text: "FAIL: it contradicts the manual, so the release is blocked.",
+          text: "The first harness passed it. Reading the answers caught it; the graders now fail it and block the release.",
           note: "No unit test sees this: the code ran perfectly.",
           tone: "fail",
         },
@@ -167,12 +167,8 @@ export const HARNESSES_ENTRY: JournalEntry = {
           note: "The rule is held by code. A prompt only asks for it.",
         },
       ],
-      replay: {
-        cta: "Replay the run",
-        detailLead: "The technical detail (the oil-consumption band)",
-        detailTo: "12-what-a-harness-finds-that-no-unit-test-sees",
-        detailTail: " stays one click away, for readers who want it.",
-      },
+      afterGlance: true,
+      link: { text: "Replay it in section 12", to: "12-what-a-harness-finds-that-no-unit-test-sees" },
     },
     { kind: "h2", text: "1. The vocabulary, through the driving test" },
     {
@@ -458,7 +454,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
         ["3", "WARN", "Thresholds met but a tier is not clean. Not a synonym for \"fine\""],
       ],
     },
-    // The recorded replay (the console) plays from the peak at the top of the note.
+    { kind: "console", preset: "harness" },
 
     {
       kind: "p",

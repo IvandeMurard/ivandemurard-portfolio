@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { cn } from "@/lib/utils";
-import { HarnessConsole } from "@/components/journal/HarnessConsole";
 import type { JournalEntry, PeakBlock } from "@/content/journal";
 import { metaLine, readLabel, revisedLabel, revisionCount } from "@/content/journalIndex";
 
@@ -92,16 +91,12 @@ export const NotePeak = ({ block }: { block: PeakBlock }) => (
           ))}
         </div>
         {block.after && <p className="mt-7 max-w-[760px] text-[18px] leading-relaxed text-on-surface">{block.after}</p>}
-        {block.replay && (
-          <div className="mt-7 max-w-3xl">
-            <HarnessConsole inverse runLabel={block.replay.cta} />
-            <p className="mt-4 text-[14px] leading-snug text-on-surface-variant">
-              <a href={`#${block.replay.detailTo}`} className="text-on-surface underline decoration-secondary underline-offset-4 hover:text-primary">
-                {block.replay.detailLead}
-              </a>
-              {block.replay.detailTail}
-            </p>
-          </div>
+        {block.link && (
+          <p className="mt-7 text-[15px] leading-snug">
+            <a href={`#${block.link.to}`} className="text-on-surface underline decoration-secondary underline-offset-4 hover:text-primary">
+              {block.link.text}
+            </a>
+          </p>
         )}
       </div>
     </section>

@@ -73,13 +73,13 @@ Why can the forecast learn and the staffing not?
 
 ## 3. A "yes" is not a "right"
 
-**Peak · the easiest number to collect**
+**The easiest number to collect**
 
 A yes is not a right.
 
 **Same evening · declared** The manager approves. It measures agreement. A manager can approve a wrong forecast and reject a right one.
 
-**Next day · observed** The real covers arrive. Only this says which forecast was right.
+**Next day · observed** The real number of guests arrives. Only this says which forecast was right.
 
 A product that simply repeated last Tuesday's numbers would be approved often, and teach nothing.
 

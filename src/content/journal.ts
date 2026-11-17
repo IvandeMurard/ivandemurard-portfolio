@@ -131,8 +131,10 @@ export type PeakBlock = {
   boxes: PeakBox[];
   /** A closing line under the boxes. */
   after?: string;
-  /** The harness note: the existing recorded replay plays here, on click, and the technical detail is one link away. */
-  replay?: { cta: string; detailLead: string; detailTo: string; detailTail: string };
+  /** Link to where the full replay lives (heading id). */
+  link?: { text: string; to: string };
+  /** Render right after the "Read this if" card, before the self-diagnostic. */
+  afterGlance?: boolean;
 };
 
 
@@ -311,7 +313,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
       {
         kind: "peak",
         aria: "Peak moment: authority changes hands",
-        kicker: "Peak · tomorrow's breakfast, the evening before, illustrative scenario",
+        kicker: "Tomorrow's breakfast, the evening before, illustrative scenario",
         lead: "The evening before, Aetherix suggests tomorrow's breakfast staffing to the hotel's F&B manager. The manager has the last word: from that reply on, the system decides nothing.",
         cols: 2,
         boxes: [
