@@ -246,6 +246,19 @@ describe("The note pattern", () => {
     expect(container.querySelector("[data-peak]")!.querySelector("button")).toBeNull();
   });
 
+  it("renders the failing peak box and the lead proof panel with no FAIL prefix before the sentence", () => {
+    const { container } = note(HARNESS);
+    const peak = container.querySelector("[data-peak]")!;
+    const box = Array.from(peak.querySelectorAll("p")).find((el) => el.textContent === entry(HARNESS).body.find((b): b is PeakBlock => b.kind === "peak")!.boxes[1].text);
+    expect(box, "the box text renders as the sentence alone").toBeTruthy();
+    expect(box!.querySelector("strong")).toBeNull();
+    expect(peak.textContent).not.toMatch(/FAILThe/);
+    // the box keeps its title and its red border
+    expect(within(peak as HTMLElement).getByText("2 · The graders").parentElement!.className).toContain("border-lamp-stop-on-card");
+    const idx = index();
+    expect(idx.container.textContent).not.toMatch(/FAIL[A-Z]/);
+  });
+
   it("links the peak to the replay in section 12", () => {
     const { container } = note(HARNESS);
     const peak = container.querySelector("[data-peak]")!;

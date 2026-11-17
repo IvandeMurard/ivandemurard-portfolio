@@ -73,7 +73,7 @@ export const NotePeak = ({ block }: { block: PeakBlock }) => (
             <div key={box.label} className={cn("rounded-[14px] border p-5 md:p-[22px]", box.tone === "fail" ? "border-lamp-stop-on-card" : "border-primary/30")}>
               <p className={cn("font-mono text-[13px] leading-snug", box.tone === "fail" ? "text-lamp-stop-on-card" : "text-secondary")}>{box.label}</p>
               <p className={cn("mt-2.5 text-on-surface", box.big ? "text-[19px]" : "text-[17px]")}>
-                {box.tone === "fail" ? <><strong className="font-semibold">FAIL</strong>{box.text.replace(/^FAIL/, "")}</> : box.text}
+                {box.text}
               </p>
               {box.bubble && <p className="mt-3.5 inline-flex rounded-xl bg-primary px-3.5 py-2 text-[15px] text-on-primary">{box.bubble}</p>}
               {box.chain && (
