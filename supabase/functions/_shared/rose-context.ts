@@ -468,7 +468,7 @@ export function turnReferentContext(ctx?: RoseTurnContext): string {
   const broad = /\b(?:across (?:his |the |all |different )?projects?|in general|overall|career|professional experience|professional background|work experience|who is ivan|what does ivan do|ivan.s (?:background|experience|skills)|what (?:has|did) ivan (?:built|build|shipped|ship)|which roles|what roles|what kind of roles|job fit|professional skills|about ivan)\b/i.test(question);
   const inView = /\b(?:here|this page|this section|this chapter|on this page)\b/i.test(question);
   const referential = /\b(?:ivan|he|his|him|you|your|it|this|that|those|here|there|metrics?|measure(?:s|d|ment|ments)?|results?|outcomes?|performance)\b/i.test(question);
-  const pageSubject = path === "/rose"
+  const pageSubject = path === "/rose" || path === "/rose/lab"
     ? "Rose's own design, operation and evaluation"
     : path === "/cv" ? "Ivan's professional outcomes described in his CV"
     : path === "/journal/harnesses-graders-closed-loops" ? "the Field Note's evaluation method, not a claim of deployed metrics"

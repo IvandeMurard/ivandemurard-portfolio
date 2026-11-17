@@ -6,6 +6,10 @@
 <title>Aetherix, the F&amp;B execution agent for boutique hotels · Ivan de Murard</title>
 <link rel="canonical" href="https://ivandemurard.com/aetherix" />
 <meta name="robots" content="noindex" />
+<!-- This stub, not React Router, handles first loads of /atherix: the host serves it to every client. The hash is kept. -->
+<script>
+location.replace("/aetherix" + location.hash);
+</script>
 <meta http-equiv="refresh" content="0; url=/aetherix" />
 </head>
 <body>
