@@ -163,12 +163,28 @@ describe("Case studies: route, redirect and mirrors", () => {
   });
 
   it("leaves no /journeys in the snapshots, the public files or the source", () => {
+    // The old route has no snapshot of its own: a static stub in public/ answers a client without JavaScript.
     expect(existsSync("prerendered/journeys.html")).toBe(false);
     expect(existsSync("prerendered/case-studies.html")).toBe(true);
     for (const f of readdirSync("prerendered")) expect(readFileSync(`prerendered/${f}`, "utf8"), f).not.toContain("/journeys");
     for (const f of ["public/sitemap.xml", "public/llms.txt", "public/llms-full.txt", "public/case-studies.md"]) expect(readFileSync(f, "utf8"), f).not.toContain("/journeys");
     expect(readFileSync("public/sitemap.xml", "utf8")).toContain("https://ivandemurard.com/case-studies");
     expect(readFileSync("public/llms.txt", "utf8")).toContain("https://ivandemurard.com/case-studies");
+  });
+
+  it.each([["journeys", "/case-studies"], ["atherix", "/aetherix"]])("has a static stub for /%s that a client without JavaScript follows to %s", (old, target) => {
+    const html = readFileSync(`public/${old}/index.html`, "utf8");
+    const route = SEO_ROUTES.find((r) => r.path === target)!;
+    expect(html.startsWith("<!doctype html>")).toBe(true);
+    expect(html).toContain(`<title>${route.title.replace(/&/g, "&amp;")}</title>`);
+    expect(html).toContain(`<link rel="canonical" href="https://ivandemurard.com${target}" />`);
+    expect(html).toContain('<meta name="robots" content="noindex" />');
+    expect(html).toContain(`<meta http-equiv="refresh" content="0; url=${target}" />`);
+    expect(html).toContain(`<a href="${target}">`);
+    // Not an indexed route, so no postbuild script writes over the stub.
+    expect(SEO_ROUTES.some((r) => r.path === `/${old}`)).toBe(false);
+    // The React redirects stay.
+    expect(readFileSync("src/App.tsx", "utf8")).toContain(`<Route path="/${old}" element={<Navigate to="${target}" replace />} />`);
   });
 
   it("is in the Markdown mirror, status words included, and in llms-full.txt", () => {
