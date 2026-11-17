@@ -47,13 +47,13 @@ export const Footer = () => {
             </Link>
             <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
               © {new Date().getFullYear()} Ivan de Murard · Curated with Care ·{" "}
-              <Link to="/cv" className="hover:text-primary transition-colors">
+              <Link to="/cv" className="underline decoration-outline-variant underline-offset-4 hover:text-primary hover:decoration-primary transition-colors">
                 Curriculum Vitae
               </Link>{" "}·{" "}
-              <Link to="/architecture" className="hover:text-primary transition-colors">
+              <Link to="/architecture" className="underline decoration-outline-variant underline-offset-4 hover:text-primary hover:decoration-primary transition-colors">
                 Architecture
               </Link>{" "}·{" "}
-              <Link to="/privacy" className="hover:text-primary transition-colors">
+              <Link to="/privacy" className="underline decoration-outline-variant underline-offset-4 hover:text-primary hover:decoration-primary transition-colors">
                 Privacy
               </Link>
             </p>
