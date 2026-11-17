@@ -16,8 +16,8 @@ describe("Rose canonical knowledge", () => {
     expect(output).toContain("v1 verified");
   });
   it("selects only the exact lab route, including its query", () => {
-    expect(selectRoseHistory("/rose-design-lab?concept=narrative", "Explain this")).toBe(true);
-    expect(selectRoseHistory("/rose-design-lab-other", "Explain this")).toBe(false);
+    expect(selectRoseHistory("/rose?concept=narrative", "Explain this")).toBe(true);
+    expect(selectRoseHistory("/rose-other", "Explain this")).toBe(false);
   });
   it("selects self-history on ordinary routes", () => {
     expect(selectRoseHistory("/aetherix", "Why were you built around booking first?")).toBe(true);
@@ -48,7 +48,7 @@ describe("Rose canonical knowledge", () => {
     expect(layer).toContain("page-context (2026-08-10, implemented)");
   });
   it("offers lab self-reflection with the existing booking action intact", () => {
-    const prompts = getRosePrompts("/rose-design-lab");
+    const prompts = getRosePrompts("/rose");
     expect(prompts[0].message).toBe("Why were you built around booking first?");
     expect(prompts.at(-1)?.booking).toBe(true);
   });
@@ -69,7 +69,7 @@ describe("Rose canonical knowledge", () => {
   it("prioritizes Rose evidence over unrelated case studies on the lab route", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
     const answer = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab", section_id: "scene-c", section_heading: "Start with the work." },
+      page: { path: "/rose", section_id: "scene-c", section_heading: "Start with the work." },
       question: "What does Ivan measure?",
     });
     expect(answer).toContain("BEGIN ROSE FACTUAL REFERENCE");
@@ -81,7 +81,7 @@ describe("Rose canonical knowledge", () => {
 
   it("uses the current case-study and section as a working interpretation", () => {
     const rose = turnReferentContext({
-      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      page: { path: "/rose", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
       question: "What does Ivan measure?",
     });
     expect(rose).toContain("Rose's own design, operation and evaluation");
@@ -111,7 +111,7 @@ describe("Rose canonical knowledge", () => {
 
   it("resolves explicit, earlier and in-view references without forcing a single page", () => {
     const ctx = {
-      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      page: { path: "/rose", section_id: "ch-learn" },
       previousQuestions: ["How does Ivan evaluate Aetherix?"],
     };
     expect(turnReferentContext({ ...ctx, question: "What does Ivan measure?" }))
@@ -129,7 +129,7 @@ describe("Rose canonical knowledge", () => {
   it("makes the working referent the final prompt guidance, not a rigid source fact", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const system = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      page: { path: "/rose", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
       question: "What does Ivan measure?",
     });
     expect(system).toContain("BEGIN ROSE FACTUAL REFERENCE");
@@ -141,7 +141,7 @@ describe("Rose canonical knowledge", () => {
   it("resolves an underspecified measurement question from its current page", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const rose = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      page: { path: "/rose", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
       question: "What does Ivan measure?",
     });
     expect(rose).toContain("BEGIN ROSE FACTUAL REFERENCE");
@@ -182,7 +182,7 @@ describe("Rose canonical knowledge", () => {
   it("preserves a recent explicit topic despite navigation to another page", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const continuing = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      page: { path: "/rose", section_id: "ch-learn" },
       question: "What does Ivan measure?",
       previousQuestions: ["How does Aetherix measure forecast quality?"],
     });
@@ -191,7 +191,7 @@ describe("Rose canonical knowledge", () => {
     expect(continuing).toContain("BEGIN ROSE FACTUAL REFERENCE");
 
     const switched = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" },
+      page: { path: "/rose" },
       question: "What does Ivan measure about Rose?",
       previousQuestions: ["How does Aetherix measure forecast quality?"],
     });
@@ -201,14 +201,14 @@ describe("Rose canonical knowledge", () => {
   it("respects explicit page references and later conversation topic changes", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const here = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab", section_id: "ch-learn" },
+      page: { path: "/rose", section_id: "ch-learn" },
       question: "What does Ivan measure here?",
       previousQuestions: ["How does Aetherix measure its forecast accuracy?"],
     });
     expect(here).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
 
     const changedTopic = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" },
+      page: { path: "/rose" },
       question: "What does Ivan measure?",
       previousQuestions: ["How does Aetherix measure its forecasts?", "Explain Rose's design"],
     });
@@ -225,12 +225,12 @@ describe("Rose canonical knowledge", () => {
   it("does not override an explicitly named project or broad comparison", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const named = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" },
+      page: { path: "/rose" },
       question: "What does Ivan measure in Aetherix?",
     });
     expect(named).toContain("--- BEGIN CASE STUDY: aetherix ---");
     const broad = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" },
+      page: { path: "/rose" },
       question: "What does Ivan measure across his projects?",
     });
     expect(broad).toContain("--- BEGIN CASE STUDY: aetherix ---");
@@ -239,7 +239,7 @@ describe("Rose canonical knowledge", () => {
   it("keeps named external project evidence available from Rose's case study", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Project fact", { status: 200 })));
     const answer = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" },
+      page: { path: "/rose" },
       question: "How is Rose's approach different from Aetherix?",
     });
     expect(answer).toContain("--- BEGIN CASE STUDY: aetherix ---");
@@ -272,7 +272,7 @@ describe("Rose canonical knowledge", () => {
   it("keeps unrelated career and cross-project facts out of focused Rose and Aetherix turns", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const rose = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
+      page: { path: "/rose", section_id: "ch-learn", section_heading: "Does Rose actually help?" },
       question: "What does Ivan measure?",
     });
     expect(rose).toContain("## measurement (2026-10-24, implemented)");
@@ -293,7 +293,7 @@ describe("Rose canonical knowledge", () => {
   it("preserves portfolio-wide context for cross-project and recruiting questions", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const broad = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" }, question: "What does Ivan measure across his projects?",
+      page: { path: "/rose" }, question: "What does Ivan measure across his projects?",
     });
     expect(broad).toContain("Track record:");
     expect(broad).toContain("Bouygues Telecom");
@@ -309,7 +309,7 @@ describe("Rose canonical knowledge", () => {
   it("loads exact specialist instructions only when requested on a focused page", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const mcp = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" }, question: "How do I use this portfolio MCP?",
+      page: { path: "/rose" }, question: "How do I use this portfolio MCP?",
     });
     expect(mcp).toContain("claude mcp add ivandemurard --transport http");
     expect(mcp).toContain("MCP questions:");
@@ -319,23 +319,23 @@ describe("Rose canonical knowledge", () => {
   it("keeps explicit contact details and broad career help available from Rose's page", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("Published reference", { status: 200 })));
     const contact = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" }, question: "What's Ivan's email?",
+      page: { path: "/rose" }, question: "What's Ivan's email?",
     });
     expect(contact).toContain("Contact channels: email");
     expect(contact).not.toContain("Track record:");
     expect(contact).not.toContain("30 public Japanese restaurants");
     const contactQuestion = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" }, question: "How can I contact Ivan?",
+      page: { path: "/rose" }, question: "How can I contact Ivan?",
     });
     expect(contactQuestion).toContain("Contact channels: email");
 
     const roles = await getRoseSystemPrompt({
-      page: { path: "/rose-design-lab" }, question: "What roles would Ivan be strong in?",
+      page: { path: "/rose" }, question: "What roles would Ivan be strong in?",
     });
     expect(roles).toContain("Track record:");
     expect(roles).toContain("--- BEGIN CASE STUDY: cv ---");
     expect(roles).toContain("Recruiter questions:");
-    const profile = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: "Who is Ivan?" });
+    const profile = await getRoseSystemPrompt({ page: { path: "/rose" }, question: "Who is Ivan?" });
     expect(profile).toContain("Track record:");
     expect(profile).toContain("--- BEGIN CASE STUDY: cv ---");
   });
@@ -414,7 +414,7 @@ describe("Rose canonical knowledge", () => {
     expect(named).not.toContain("--- BEGIN CASE STUDY: aetherix ---");
 
     const previous = await freshPrompt({
-      page: { path: "/rose-design-lab" },
+      page: { path: "/rose" },
       previousQuestions: ["How are Aetherix's forecasts measured?"],
       question: "How could Ivan verify that the outcome evidence improves over time without implying that the results are proven in real hotels?",
     });
@@ -472,7 +472,7 @@ describe("Rose canonical knowledge", () => {
   });
 
   it("keeps follow-ups available off /aetherix and tells the model when the tool is removed", async () => {
-    const generic = { question: "What does Ivan measure?", pagePath: "/rose-design-lab" };
+    const generic = { question: "What does Ivan measure?", pagePath: "/rose" };
     expect(shouldSuppressRoseFollowups(generic)).toBe(false);
     expect(await getRoseSystemPrompt({ page: { path: generic.pagePath }, question: generic.question })).not.toContain("suggest_followups tool is not available");
     const suppressed = { question: "What does Ivan measure?", pagePath: "/aetherix" };

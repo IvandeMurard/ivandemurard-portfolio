@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rose, a portfolio you can question · Ivan de Murard</title>
+<link rel="canonical" href="https://ivandemurard.com/rose" />
+<meta name="robots" content="noindex" />
+<!-- This stub, not React Router, handles first loads of /rose-design-lab: the host serves it to every client.
+     Same mapping as RoseDesignLabRedirect (src/App.tsx): ?concept= goes to the lab, anything else to /rose; the hash is kept. -->
+<script>
+var q = new URLSearchParams(location.search), c = q.get("concept");
+location.replace(c !== null ? "/rose/lab?concept=" + encodeURIComponent(c) + location.hash : "/rose" + location.hash);
+</script>
+<meta http-equiv="refresh" content="0; url=/rose" />
+</head>
+<body>
+<p>This page has moved to <a href="/rose">Rose</a>.</p>
+</body>
+</html>

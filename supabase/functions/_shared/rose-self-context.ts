@@ -23,7 +23,7 @@ const selfTopic = /\brose\b|\byou(?:r|rs|rself)?\b.*\b(built|design|chang|evol|b
  */
 export function selectRoseHistory(path: string, question: string, previousQuestions: string[] = []): boolean {
   const route = path.split(/[?#]/)[0].replace(/\/+$/, "");
-  if (route === "/rose-design-lab") return true;
+  if (route === "/rose" || route === "/rose/lab") return true;
   if (selfTopic.test(question.slice(0, 2000))) return true;
   const refersBack = /\b(you|your|yours|yourself|that|those|this)\b/i.test(question);
   return refersBack && previousQuestions.slice(-4).some(q => selfTopic.test(q.slice(0, 2000)));

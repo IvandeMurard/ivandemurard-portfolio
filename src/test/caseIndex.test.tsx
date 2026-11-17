@@ -22,6 +22,8 @@ afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 const page = () => render(<MoodProvider><AmbienceProvider><MemoryRouter><CaseStudies /></MemoryRouter></AmbienceProvider></MoodProvider>);
 const ref = (n: "day" | "night") => readFileSync(`docs/case-index-prototype/case-index-${n}.html`, "utf8");
 const md = readFileSync("public/case-studies.md", "utf8");
+/** The inline script of a static stub, to run it with a stand-in `location`. */
+const scriptOf = (html: string) => html.slice(html.indexOf("<script>") + 8, html.indexOf("</script>"));
 const CARDS = [...GROUP_ARCH.cards, ...GROUP_SOLO.cards];
 
 describe("Case studies: the copy is the reference's", () => {
@@ -181,10 +183,53 @@ describe("Case studies: route, redirect and mirrors", () => {
     expect(html).toContain('<meta name="robots" content="noindex" />');
     expect(html).toContain(`<meta http-equiv="refresh" content="0; url=${target}" />`);
     expect(html).toContain(`<a href="${target}">`);
+    // The host serves the stub to every client, so it handles first loads: a script first, keeping the hash; the meta refresh is the no-JS fallback.
+    expect(html).toContain("location.replace");
+    expect(html).toContain("location.hash");
+    expect(html.indexOf("<script>")).toBeLessThan(html.indexOf('http-equiv="refresh"'));
+    const seen: string[] = [];
+    new Function("location", scriptOf(html))({ search: "", hash: "#section", replace: (u: string) => seen.push(u) });
+    expect(seen).toEqual([`${target}#section`]);
     // Not an indexed route, so no postbuild script writes over the stub.
     expect(SEO_ROUTES.some((r) => r.path === `/${old}`)).toBe(false);
     // The React redirects stay.
     expect(readFileSync("src/App.tsx", "utf8")).toContain(`<Route path="/${old}" element={<Navigate to="${target}" replace />} />`);
+  });
+
+  it("moves the Rose case study to /rose: a static stub and a React redirect for /rose-design-lab, the lab at /rose/lab", () => {
+    const html = readFileSync("public/rose-design-lab/index.html", "utf8");
+    const route = SEO_ROUTES.find((r) => r.path === "/rose")!;
+    expect(route.markdown).toBe("rose.md");
+    expect(html.startsWith("<!doctype html>")).toBe(true);
+    expect(html).toContain(`<title>${route.title}</title>`);
+    expect(html).toContain('<link rel="canonical" href="https://ivandemurard.com/rose" />');
+    expect(html).toContain('<meta name="robots" content="noindex" />');
+    expect(html).toContain('<meta http-equiv="refresh" content="0; url=/rose" />');
+    expect(html).toContain('<a href="/rose">');
+    // Same mapping as RoseDesignLabRedirect, run by the stub on a first load, hash kept.
+    expect(html).toContain("location.replace");
+    expect(html).toContain("location.hash");
+    expect(html.indexOf("<script>")).toBeLessThan(html.indexOf('http-equiv="refresh"'));
+    const go = (search: string, hash: string) => {
+      const seen: string[] = [];
+      new Function("location", scriptOf(html))({ search, hash, replace: (u: string) => seen.push(u) });
+      return seen;
+    };
+    expect(go("?concept=d", "")).toEqual(["/rose/lab?concept=d"]);
+    expect(go("?concept=narrative", "#ch-trust")).toEqual(["/rose/lab?concept=narrative#ch-trust"]);
+    expect(go("?concept=", "")).toEqual(["/rose/lab?concept="]);
+    expect(go("", "")).toEqual(["/rose"]);
+    expect(go("", "#ch-learn")).toEqual(["/rose#ch-learn"]);
+    expect(go("?x=1", "#a")).toEqual(["/rose#a"]);
+    expect(SEO_ROUTES.some((r) => r.path === "/rose-design-lab" || r.path === "/rose/lab")).toBe(false);
+    const app = readFileSync("src/App.tsx", "utf8");
+    expect(app).toContain('<Route path="/rose" element={<RoseCasePage />} />');
+    expect(app).toContain('<Route path="/rose/lab" element={<RoseDesignLab />} />');
+    expect(app).toContain('<Route path="/rose-design-lab" element={<RoseDesignLabRedirect />} />');
+    expect(app).toContain("`/rose/lab?concept=${encodeURIComponent(concept)}${hash}`");
+    expect(existsSync("prerendered/rose-design-lab.html")).toBe(false);
+    expect(existsSync("prerendered/rose.html")).toBe(true);
+    expect(existsSync("public/rose-design-lab.md")).toBe(false);
   });
 
   it("is in the Markdown mirror, status words included, and in llms-full.txt", () => {

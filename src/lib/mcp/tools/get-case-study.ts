@@ -10,12 +10,12 @@ const SLUGS = {
   tacet: "/tacet.md",
   lore: "/lore.md",
   anima: "/anima.md",
-  rose: "/rose-design-lab.md",
+  rose: "/rose.md",
   compass: "/compass.md",
 } as const;
 
 /** The page of a case study is its mirror's path without ".md", except Rose, whose slug is shorter than her route. */
-const PAGES: Partial<Record<keyof typeof SLUGS, string>> = { rose: "/rose-design-lab" };
+const PAGES: Partial<Record<keyof typeof SLUGS, string>> = { rose: "/rose" };
 
 export default defineTool({
   name: "get_case_study",

@@ -12,7 +12,7 @@ afterAll(() => vi.unstubAllGlobals());
 
 describe("Rose career scope 2: CV claim guard on every career path", () => {
   const paths: [string, string][] = [
-    ["/rose-design-lab", "Is Ivan open to a Head of Product role?"], // cv added by isRoseCareerQuestion
+    ["/rose", "Is Ivan open to a Head of Product role?"], // cv added by isRoseCareerQuestion
     ["/aetherix", "What kind of role is Ivan looking for, and how does he describe his work?"],
     ["/journal/harnesses-graders-closed-loops", "What is his background?"],
     ["/cv", "What is his experience?"],
@@ -31,7 +31,7 @@ describe("Rose career scope 2: no unrequested booking on profile questions", () 
   it("does not offer booking for a profile question", async () => {
     expect(shouldOfferRoseBooking("Is Ivan open to a Head of Product role?")).toBe(false);
     expect(shouldOfferRoseBooking("What kind of role is Ivan looking for?")).toBe(false);
-    const prompt = await getRoseSystemPrompt({ page: { path: "/rose-design-lab" }, question: "Is Ivan open to a Head of Product role?" });
+    const prompt = await getRoseSystemPrompt({ page: { path: "/rose" }, question: "Is Ivan open to a Head of Product role?" });
     expect(prompt).toContain(NO_BOOKING);
   });
   it("keeps booking for an explicit call or meeting request", async () => {
@@ -46,7 +46,7 @@ describe("Rose career scope 2: no unrequested booking on profile questions", () 
 });
 
 describe("Rose career scope 2: follow-ups name Ivan in the third person", () => {
-  const ctx = { question: "What kind of role is Ivan looking for?", pagePath: "/rose-design-lab" };
+  const ctx = { question: "What kind of role is Ivan looking for?", pagePath: "/rose" };
   it("allows polite third-person questions", () => {
     expect(isRoseFollowupAllowed("Would you tell me more about his AI-native projects?", ctx)).toBe(true);
     expect(isRoseFollowupAllowed("Could you show me how he evaluates Aetherix?", ctx)).toBe(true);

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,11 +21,18 @@ import NotFound from "./pages/NotFound.tsx";
 import Privacy from "./pages/Privacy.tsx";
 import AdminRose from "./pages/AdminRose.tsx";
 import Agents from "./pages/Agents.tsx";
-import RoseDesignLab from "./pages/RoseDesignLab.tsx";
+import RoseDesignLab, { RoseCasePage } from "./pages/RoseDesignLab.tsx";
 import { MoodProvider } from "./components/MoodProvider";
 import { AmbienceProvider } from "./components/AmbienceProvider";
 
 const queryClient = new QueryClient();
+
+/** The old URL of the Rose case study. A ?concept= link goes to the lab, anything else to /rose; the hash is kept. */
+export const RoseDesignLabRedirect = () => {
+  const { search, hash } = useLocation();
+  const concept = new URLSearchParams(search).get("concept");
+  return <Navigate to={concept === null ? `/rose${hash}` : `/rose/lab?concept=${encodeURIComponent(concept)}${hash}`} replace />;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -51,7 +58,9 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/cv" element={<Cv />} />
               <Route path="/agents" element={<Agents />} />
-              <Route path="/rose-design-lab" element={<RoseDesignLab />} />
+              <Route path="/rose" element={<RoseCasePage />} />
+              <Route path="/rose/lab" element={<RoseDesignLab />} />
+              <Route path="/rose-design-lab" element={<RoseDesignLabRedirect />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/admin/rose" element={<AdminRose />} />
               <Route path="/journal" element={<Journal />} />

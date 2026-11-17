@@ -90,7 +90,7 @@ describe("02 · Selected projects", () => {
     expect(rose.getByText("Live, text only")).toBeTruthy();
     expect(rose.getByText(FRAGMENT)).toBeTruthy();
     expect(rose.getByText(LINE)).toBeTruthy();
-    expect(rose.getByRole("link", { name: "Read the case" }).getAttribute("href")).toBe("/rose-design-lab");
+    expect(rose.getByRole("link", { name: "Read the case" }).getAttribute("href")).toBe("/rose");
   });
 });
 
@@ -102,7 +102,7 @@ describe("Status and project entries", () => {
   });
 
   it("adds PROJECTS.rose with the slug of the case study and the same status", () => {
-    expect(PROJECTS.rose.slug).toBe("rose-design-lab");
+    expect(PROJECTS.rose.slug).toBe("rose");
     expect(PROJECTS.rose.name).toBe("Rose");
     expect(PROJECTS.rose.status).toBe(STATUSES.rose);
     expect(PROJECTS.rose.tagline).toBe(LINE);

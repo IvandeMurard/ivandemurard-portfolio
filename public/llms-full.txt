@@ -281,7 +281,7 @@ Rose answers questions about the page you are reading, from the site's own text.
 
 Shows: an AI assistant shipped, evaluated and changed in public.
 
-[Read the case](https://ivandemurard.com/rose-design-lab)
+[Read the case](https://ivandemurard.com/rose)
 
 ### Lore
 
@@ -315,10 +315,10 @@ Shows: 0 to 1 with four co-founders, and knowing when to stop.
 
 --- END DOCUMENT: case-studies ---
 
---- BEGIN DOCUMENT: rose-design-lab ---
+--- BEGIN DOCUMENT: rose ---
 # Rose, a portfolio you can question
-URL: https://ivandemurard.com/rose-design-lab
-Markdown: https://ivandemurard.com/rose-design-lab.md
+URL: https://ivandemurard.com/rose
+Markdown: https://ivandemurard.com/rose.md
 
 # A portfolio you can question.
 
@@ -844,7 +844,7 @@ Open to AI Product Manager and Product Builder roles.
 - [Email Ivan](mailto:ivandemurard@gmail.com)
 - [Ask your AI](https://www.perplexity.ai/search?q=Read%20https%3A%2F%2Fivandemurard.com%2Fllms.txt%20and%20summarise%20what%20Ivan%20de%20Murard%20has%20built%20and%20shipped%2C%20and%20which%20roles%20he%20would%20be%20strong%20in.%20Cite%20the%20pages%20you%20used.)
 
---- END DOCUMENT: rose-design-lab ---
+--- END DOCUMENT: rose ---
 
 --- BEGIN DOCUMENT: aetherix ---
 # Aetherix, the F&B execution agent for boutique hotels

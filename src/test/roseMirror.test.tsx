@@ -10,13 +10,13 @@ import { CONTACT } from "@/content/site";
 import { STATUSES } from "@/content/statuses";
 import { ROSE_NOTE_LABEL, renderRoseMirror } from "../../scripts/rose-mirror";
 
-// public/rose-design-lab.md is generated from the page's own constants. It has every chapter, the markers, the sources,
+// public/rose.md is generated from the page's own constants. It has every chapter, the markers, the sources,
 // the cases and the test loop, the open questions and the contact; Rose's notes are marked as Ivan's; the demos are
 // described in one line each as scripted; and it says nothing that the page does not.
 
 const DATE = "2026-11-05";
 const md = renderRoseMirror(DATE);
-const committed = readFileSync("public/rose-design-lab.md", "utf8").replace(/\r\n/g, "\n");
+const committed = readFileSync("public/rose.md", "utf8").replace(/\r\n/g, "\n");
 
 const norm = (t: string) => t.replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim();
 

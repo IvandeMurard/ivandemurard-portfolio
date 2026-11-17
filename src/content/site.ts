@@ -17,7 +17,7 @@ export const SOCIAL_LINKS = {
   cv: "/cv/Ivan_de_Murard_CV.pdf",
 };
 
-/** The shared Contact block (homepage and /rose-design-lab). Copy from docs/rose-case-study-copy-v2.md. */
+/** The shared Contact block (homepage and /rose). Copy from docs/rose-case-study-copy-v2.md. */
 export const CONTACT = {
   kicker: "Contact",
   heading: "I design, build and evaluate AI services for operations.",
@@ -58,7 +58,7 @@ export const PROJECTS = {
   },
   rose: {
     status: STATUSES.rose,
-    slug: "rose-design-lab",
+    slug: "rose",
     name: "Rose",
     tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.",
     label: "AI service · Portfolio agent · 2026",

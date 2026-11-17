@@ -111,8 +111,8 @@ export const SEO_ROUTES: SeoRoute[] = [
     },
   },
   {
-    path: "/rose-design-lab",
-    markdown: "rose-design-lab.md",
+    path: "/rose",
+    markdown: "rose.md",
     title: "Rose, a portfolio you can question · Ivan de Murard",
     description:
       "Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.",
@@ -124,7 +124,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       "@type": "CreativeWork",
       name: "Rose",
       headline: "Rose, a portfolio you can question",
-      url: `${BASE_URL}/rose-design-lab`,
+      url: `${BASE_URL}/rose`,
       about: ["AI service design", "Evaluation", "Conversational interfaces"],
       creator: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
     },

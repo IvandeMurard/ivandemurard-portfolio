@@ -551,7 +551,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                   ["left-0 top-0", "/aetherix#where-it-stands", "Case study", "Status and limits"],
                   ["right-0 top-0 text-right", "/journal/harnesses-graders-closed-loops", "Field Note", "How grading works"],
                   ["left-0 bottom-0", "/compass", "Compass", "Another bounded claim"],
-                  ["right-0 bottom-0 text-right", "/rose-design-lab?concept=d#ch-trust", "Rose", "Chapter 03, trust"],
+                  ["right-0 bottom-0 text-right", "/rose/lab?concept=d#ch-trust", "Rose", "Chapter 03, trust"],
                 ].map(([pos, to, label, detail]) => (
                   <Link key={to} to={to} className={cn("absolute max-w-[9rem] border border-outline-variant bg-surface px-3 py-2 transition-colors hover:border-secondary", pos)}>
                     <span className="block font-label text-[10px] uppercase tracking-[0.16em] text-secondary">{label}</span>

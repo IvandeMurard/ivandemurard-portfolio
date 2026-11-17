@@ -132,7 +132,7 @@ describe("In chapter 06 and in the mirror", () => {
       expect(at, m).toBeGreaterThan(-1);
       from = at;
     }
-    expect(readFileSync("public/rose-design-lab.md", "utf8")).toContain(R.note);
+    expect(readFileSync("public/rose.md", "utf8")).toContain(R.note);
   });
 
   it("the case study doc no longer says Lore was adapted into Peritia", () => {

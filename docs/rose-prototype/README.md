@@ -1,6 +1,6 @@
 # Rose case study: reference prototype
 
-Visual reference for `/rose-design-lab`, exported from the Design canvas (artboards D1 and D2). v2 export: 3 Nov 2026, after copy deck v2 and docs/style.md.
+Visual reference for `/rose`, exported from the Design canvas (artboards D1 and D2). v2 export: 3 Nov 2026, after copy deck v2 and docs/style.md.
 
 Order of authority when they disagree:
 1. `docs/rose-case-study-copy-v2.md` (exact words; wins over `docs/rose-case-study.md` for wording, and replaces the v1 deck)

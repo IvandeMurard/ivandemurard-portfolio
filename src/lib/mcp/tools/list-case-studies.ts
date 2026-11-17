@@ -52,8 +52,8 @@ const BASE = [
     name: "Rose",
     label: "AI service · Portfolio agent · 2026",
     tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.",
-    url: "https://ivandemurard.com/rose-design-lab",
-    markdown_path: "/rose-design-lab.md",
+    url: "https://ivandemurard.com/rose",
+    markdown_path: "/rose.md",
   },
   {
     slug: "compass",

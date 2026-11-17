@@ -8,7 +8,7 @@ import {
 const instructions = () => [
   ROSE_FOLLOWUPS_TOOL_DESCRIPTION,
   ROSE_FOLLOWUP_VOICE,
-  roseFollowupPolicyDescription({ question: "What kind of role is Ivan looking for?", pagePath: "/rose-design-lab" }),
+  roseFollowupPolicyDescription({ question: "What kind of role is Ivan looking for?", pagePath: "/rose" }),
   roseFollowupPolicyDescription({ question: "What does Ivan measure?", pagePath: "/aetherix" }),
   roseFollowupPolicyDescription({ question: "How do evaluation gates protect Aetherix changes to forecasting, providers, memory or prompts before merge?", pagePath: "/aetherix" }),
 ];
@@ -40,7 +40,7 @@ describe("Rose follow-up instructions", () => {
   });
 
   it("leave isRoseFollowupAllowed as it was: third person allowed, addressing Ivan as you rejected", () => {
-    const ctx = { question: "What kind of role is Ivan looking for?", pagePath: "/rose-design-lab" };
+    const ctx = { question: "What kind of role is Ivan looking for?", pagePath: "/rose" };
     expect(isRoseFollowupAllowed("Would you tell me more about his AI-native projects?", ctx)).toBe(true);
     expect(isRoseFollowupAllowed("What is your role?", ctx)).toBe(false);
   });

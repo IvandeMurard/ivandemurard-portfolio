@@ -60,7 +60,7 @@ describe("two builds in a row with no content change leave the tracked files as 
   };
 
   const TRACKED = ["public/agents.md", "public/llms-full.txt", "public/sitemap.xml", "src/content/agents.generated.ts",
-    "public/agent-boundaries-aetherix.md", "public/harnesses-graders-closed-loops.md", "public/whose-truth-is-the-ground-truth.md", "public/rose-design-lab.md", "src/content/sectionIndex.generated.ts"];
+    "public/agent-boundaries-aetherix.md", "public/harnesses-graders-closed-loops.md", "public/whose-truth-is-the-ground-truth.md", "public/rose.md", "src/content/sectionIndex.generated.ts"];
   const snapshot = () => Object.fromEntries(TRACKED.map((f) => [f, normalizeEol(readFileSync(join(work, f), "utf8"))]));
 
   beforeAll(() => {

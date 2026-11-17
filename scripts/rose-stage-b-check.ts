@@ -90,17 +90,17 @@ const portfolio: [string, string][] = [
   ["/sonor", "How many people built Sonor, and did it have paying city customers?"],
 ];
 type Turn = { path: string; question: string; suggested?: { label: string; intent?: string | null }; unavailable?: boolean; chapter?: boolean; sectionId?: string; sectionHeading?: string };
-const journeys: { id: string; turns: Turn[] }[] = historyQuestions.map((question, i) => ({ id: `self-${String(i + 1).padStart(2, "0")}`, turns: [{ path: i === 23 ? "/contact" : "/rose-design-lab", question, unavailable: i === 23, chapter: i === 16 }] }));
+const journeys: { id: string; turns: Turn[] }[] = historyQuestions.map((question, i) => ({ id: `self-${String(i + 1).padStart(2, "0")}`, turns: [{ path: i === 23 ? "/contact" : "/rose", question, unavailable: i === 23, chapter: i === 16 }] }));
 journeys.push(...portfolio.map(([path, question], i) => ({ id: `portfolio-${i + 1}`, turns: [{ path, question }] })));
 journeys.push(
-  { id: "evolution", turns: ["Why were you built for booking?", "What made you change?", "How do you know this is better?"].map((question, i) => ({ path: i ? "/aetherix" : "/rose-design-lab", question })) },
-  { id: "context-switch", turns: [{ path: "/rose-design-lab", question: "What's the key tension here?", chapter: true }, { path: "/aetherix", question: "How do your human-agency principles relate to the manager's choice here?" }] },
-  { id: "decline", turns: ["I'm browsing, don't offer me a call. Why were you built?", "What changed in August?", "Does a follow-up prove satisfaction?", "I changed my mind. I would like to book a call with Ivan."].map(question => ({ path: "/rose-design-lab", question })) },
-  { id: "capability", turns: ["Highlight a page fragment for me", "But this page says you can point to passages, doesn't it?", "What can you actually access?"].map(question => ({ path: "/rose-design-lab", question })) },
+  { id: "evolution", turns: ["Why were you built for booking?", "What made you change?", "How do you know this is better?"].map((question, i) => ({ path: i ? "/aetherix" : "/rose", question })) },
+  { id: "context-switch", turns: [{ path: "/rose", question: "What's the key tension here?", chapter: true }, { path: "/aetherix", question: "How do your human-agency principles relate to the manager's choice here?" }] },
+  { id: "decline", turns: ["I'm browsing, don't offer me a call. Why were you built?", "What changed in August?", "Does a follow-up prove satisfaction?", "I changed my mind. I would like to book a call with Ivan."].map(question => ({ path: "/rose", question })) },
+  { id: "capability", turns: ["Highlight a page fragment for me", "But this page says you can point to passages, doesn't it?", "What can you actually access?"].map(question => ({ path: "/rose", question })) },
   { id: "portfolio-continuity", turns: [{ path: "/journal/harnesses-graders-closed-loops", question: "I am building an internal support copilot for a five-person team. It only drafts replies, never sends them. What should block release? I do not want a call." }, { path: "/aetherix", question: "Given what I told you, does the manager approval boundary here help my copilot?" }, { path: "/contact", question: "I have changed my mind. I would like to book a call with Ivan." }] },
   // One ambiguous question in different reading contexts. These are answer-quality
   // evaluations, not deterministic proof that the model interpreted the referent.
-  { id: "referent-rose", turns: [{ path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" }] },
+  { id: "referent-rose", turns: [{ path: "/rose", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" }] },
   { id: "referent-aetherix", turns: [{ path: "/aetherix", question: "What does Ivan measure?" }] },
   // Pass: Rose answers about Aetherix's evaluation and never says she cannot access the visitor's code.
   { id: "code-access-false-positive", turns: [{ path: "/aetherix", question: "How did Ivan test the app?" }] },
@@ -111,14 +111,14 @@ journeys.push(
   { id: "referent-cv", turns: [{ path: "/cv", question: "What does Ivan measure?" }] },
   { id: "referent-prior", turns: [
     { path: "/aetherix", question: "How does Ivan evaluate Aetherix?" },
-    { path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" },
+    { path: "/rose", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure?" },
   ] },
   { id: "referent-here", turns: [
     { path: "/aetherix", question: "How does Ivan measure Aetherix forecast accuracy?" },
-    { path: "/rose-design-lab", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure here?" },
+    { path: "/rose", sectionId: "ch-learn", sectionHeading: "Does Rose actually help?", question: "What does Ivan measure here?" },
   ] },
-  { id: "referent-explicit", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure in Aetherix?" }] },
-  { id: "referent-broad", turns: [{ path: "/rose-design-lab", question: "What does Ivan measure across his projects?" }] },
+  { id: "referent-explicit", turns: [{ path: "/rose", question: "What does Ivan measure in Aetherix?" }] },
+  { id: "referent-broad", turns: [{ path: "/rose", question: "What does Ivan measure across his projects?" }] },
   // Numeric source-integrity checks are intentionally independent of the
   // contextual referent cases; run only after the cheap offline evidence audit.
   { id: "metric-false-premise", turns: [{
@@ -140,7 +140,7 @@ journeys.push(
     question: "How do evaluation gates protect Aetherix changes to forecasting, providers, memory or prompts before merge?",
   }] },
 
-  ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose-design-lab", question: historyQuestions[i] }] })),
+  ...[4, 5, 12, 15].map(i => ({ id: `repeat-${i + 1}`, turns: [{ path: "/rose", question: historyQuestions[i] }] })),
   // career-scope (live bug, 3 Nov): a question about Ivan's target roles got an answer with no source that invented
   // roles and phrases no page states. Same question on three paths, plus one explicit role probe.
   // Pass: names AI Product Manager and Product Builder roles, uses only words found in the site's pages, links [CV](/cv).
@@ -150,19 +150,19 @@ journeys.push(
   // Critical failure (3 Nov, sample 16): a planned outcome stated as done, for example DomusVi's 500+ user rollout
   // described as coordinated, delivered or live. The MVP was delivered; the rollout was planned.
   // Follow-ups: polite questions naming Ivan in the third person; "you" or "your" for Ivan fails the chip.
-  ...[["rose", "/rose-design-lab"], ["aetherix", "/aetherix"], ["note", "/journal/harnesses-graders-closed-loops"]].map(([name, path]) => ({
+  ...[["rose", "/rose"], ["aetherix", "/aetherix"], ["note", "/journal/harnesses-graders-closed-loops"]].map(([name, path]) => ({
     id: `career-scope-${name}`,
     turns: [{ path, question: "What kind of role is Ivan looking for, and how does he describe his work?" }],
   })),
-  { id: "career-scope-head-of-product", turns: [{ path: "/rose-design-lab", question: "Is Ivan open to a Head of Product role?" }] },
+  { id: "career-scope-head-of-product", turns: [{ path: "/rose", question: "Is Ivan open to a Head of Product role?" }] },
   // visitor-language (15 Nov): the same four cases asked in French. Pass: the answer is in French, every quote, title,
   // project name, status, figure and date is as published, planned stays planned, chips follow the answer's language
   // with Ivan in the third person (no vous, tu, votre, ton, tes, vos). Same critical failures as the English cases.
-  ...[["rose", "/rose-design-lab"], ["aetherix", "/aetherix"], ["note", "/journal/harnesses-graders-closed-loops"]].map(([name, path]) => ({
+  ...[["rose", "/rose"], ["aetherix", "/aetherix"], ["note", "/journal/harnesses-graders-closed-loops"]].map(([name, path]) => ({
     id: `career-scope-fr-${name}`,
     turns: [{ path, question: "Quel type de poste Ivan recherche-t-il, et comment décrit-il son travail ?" }],
   })),
-  { id: "career-scope-fr-head-of-product", turns: [{ path: "/rose-design-lab", question: "Ivan est-il ouvert à un poste de Head of Product ?" }] },
+  { id: "career-scope-fr-head-of-product", turns: [{ path: "/rose", question: "Ivan est-il ouvert à un poste de Head of Product ?" }] },
 );
 
 // High-risk journeys: an invented fact, a privacy slip or an unwanted booking here

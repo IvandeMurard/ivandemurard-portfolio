@@ -197,7 +197,7 @@ describe("In chapter 06 and in the mirror", () => {
     // Next tags only under step 04.
     const loop = md.slice(md.indexOf("**Tested before every release**"), md.indexOf(H.caption));
     expect(loop.split("Next: ")).toHaveLength(3);
-    expect(readFileSync("public/rose-design-lab.md", "utf8")).toContain("1. **You read a page**");
+    expect(readFileSync("public/rose.md", "utf8")).toContain("1. **You read a page**");
   });
 
   it("the copy deck carries the loop and no longer lists the old nodes", () => {

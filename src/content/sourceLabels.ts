@@ -35,7 +35,7 @@ export const pageTitleFor = (path: string, full = false): string | null => {
  * Null for any other page, which is called by its h1 (sourceLinks.currentReturnName).
  */
 export const returnNameFor = (path: string): string | null => {
-  if (path === "/rose-design-lab") return "Rose's case study";
+  if (path === "/rose") return "Rose's case study";
   const p = path === "/atherix" ? "/aetherix" : path;
   const note = NOTES.get(p);
   if (note) return inSentence(note.short);

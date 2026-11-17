@@ -15,7 +15,7 @@ const MARKDOWN_ROUTES: readonly string[] = [
   "/tacet",
   "/lore",
   "/anima",
-  "/rose-design-lab",
+  "/rose",
   "/architecture",
   "/journal/agent-boundaries-aetherix",
   "/journal/harnesses-graders-closed-loops",

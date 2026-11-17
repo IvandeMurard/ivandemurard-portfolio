@@ -23,7 +23,7 @@ describe("Tool definitions: rose-chat and the evaluation script build the same",
   const cases: Array<[string, string, string]> = [
     ["a booking request", "I changed my mind. I would like to book a call with Ivan.", "/contact"],
     ["an ordinary question", "What has Ivan built?", "/case-studies"],
-    ["a profile question", "What kind of role is Ivan looking for?", "/rose-design-lab"],
+    ["a profile question", "What kind of role is Ivan looking for?", "/rose"],
   ];
 
   it.each(cases)("%s: identical tool names, descriptions and JSON schemas", async (_n, question, path) => {
@@ -61,9 +61,9 @@ describe("Tool definitions: rose-chat and the evaluation script build the same",
   });
 
   it("withholds the booking tool from a profile question that does not ask for a meeting", () => {
-    expect(Object.keys(toolsOf("What kind of role is Ivan looking for?", "/rose-design-lab"))).not.toContain("propose_booking");
+    expect(Object.keys(toolsOf("What kind of role is Ivan looking for?", "/rose"))).not.toContain("propose_booking");
     expect(Object.keys(toolsOf("What has Ivan built?", "/case-studies"))).toContain("propose_booking");
-    expect(Object.keys(toolsOf("Is Ivan open to a call about a role?", "/rose-design-lab"))).toContain("propose_booking");
+    expect(Object.keys(toolsOf("Is Ivan open to a call about a role?", "/rose"))).toContain("propose_booking");
   });
 });
 
