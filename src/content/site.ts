@@ -32,7 +32,7 @@ export const CONTACT = {
 export type NavItem = { label: string; to: string };
 
 export const PRIMARY_NAV: NavItem[] = [
-  { label: "Case Studies", to: "/journeys" },
+  { label: "Case Studies", to: "/case-studies" },
   { label: "About", to: "/atrium" },
   { label: "CV", to: "/cv" },
   { label: "Field Notes", to: "/journal" },
