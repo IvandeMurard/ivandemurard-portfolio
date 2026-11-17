@@ -132,7 +132,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const [inputValue, setInputValue] = useState("");
   const [focusWithin, setFocusWithin] = useState(false);
   const [pastHero, setPastHero] = useState(false);
-  const [lift, setLift] = useState(0);
+  const dockRef = useRef<HTMLDivElement>(null);
   // Echo from the homepage Rose card: the same compass, answering from the dock.
   const [echo, setEcho] = useState(false);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
@@ -194,22 +194,32 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     return () => io.disconnect();
   }, [isHome, pathname, search]);
 
-  // Lift above the footer so its links stay reachable.
+  // The dock never hides the end of a page. It floats at the bottom of the viewport, so the page reserves, below its
+  // last line, the space the COLLAPSED dock takes: its measured height, its distance from the edge (16 px, 24 px from
+  // md up) and 16 px of air. The value is published as --rose-dock-reserve and used by SiteLayout (the footer's padding,
+  // or a spacer when a page has no footer). It is measured, not guessed: the dock wraps differently at each width.
+  // While the dock is open it overlays the page, and the reserve keeps its collapsed value.
   useEffect(() => {
-    const onScroll = () => {
-      const footer = document.querySelector("footer");
-      if (!footer) return setLift(0);
-      const overlap = window.innerHeight - footer.getBoundingClientRect().top;
-      setLift(overlap > 0 ? overlap : 0);
+    const el = dockRef.current;
+    if (!el) return;
+    const root = document.documentElement;
+    const measure = () => {
+      if (open) return;
+      // Hidden on the homepage until the hero is past (the same rule as `hidden` below): nothing to clear then.
+      if (!pastHero) { root.style.removeProperty("--rose-dock-reserve"); return; }
+      const bottom = parseFloat(getComputedStyle(el).bottom) || 0;
+      root.style.setProperty("--rose-dock-reserve", `${Math.ceil(el.offsetHeight + bottom + 16)}px`);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    measure();
+    const ro = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
+    ro?.observe(el);
+    window.addEventListener("resize", measure);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      ro?.disconnect();
+      window.removeEventListener("resize", measure);
+      root.style.removeProperty("--rose-dock-reserve");
     };
-  }, [pathname]);
+  }, [open, pastHero]);
 
   const wasOpen = useRef(open);
   useEffect(() => {
@@ -371,9 +381,10 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       ) : null}
 
       <div
+        ref={dockRef}
         data-rose-dock
         aria-hidden={hidden || undefined}
-        style={{ transform: `translateY(${hidden ? "160%" : `-${lift}px`})` }}
+        style={{ transform: hidden ? "translateY(160%)" : "none" }}
         className={cn(
           "fixed z-50 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none",
           "bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-ml-[min(280px,calc(50vw-1.5rem))] md:bottom-6 md:w-[min(560px,calc(100vw-3rem))]",

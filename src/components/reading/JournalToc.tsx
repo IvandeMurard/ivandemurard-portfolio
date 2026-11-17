@@ -5,6 +5,13 @@ export type TocItem = { id: string; text: string };
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/** The heading being read: the last one whose top is above 30% of the viewport, or the first before any is. */
+export const activeHeadingId = (tops: { id: string; top: number }[], viewportHeight: number): string | null => {
+  let current: string | null = tops[0]?.id ?? null;
+  for (const t of tops) if (t.top <= viewportHeight * 0.3) current = t.id;
+  return current;
+};
+
 interface JournalTocProps {
   items: TocItem[];
   label?: string;
@@ -26,17 +33,29 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
       .filter((el): el is HTMLElement => Boolean(el));
     if (!elements.length) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-15% 0px -70% 0px", threshold: [0, 0.25, 0.5, 1] }
-    );
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    // The section being read is the last heading whose top is above 30% of the viewport. It is computed from the
+    // headings' positions on every scroll (one frame at most), not from which heading crossed a band: a jump, a
+    // restored scroll position or a find-in-page skips the band, and the highlight stayed on an earlier section.
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setActiveId(activeHeadingId(elements.map((el) => ({ id: el.id, top: el.getBoundingClientRect().top })), window.innerHeight));
+    };
+    const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update); };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("load", schedule);
+    // Images and figures above can still move the headings after the first paint.
+    const settle = window.setTimeout(schedule, 800);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("load", schedule);
+      window.clearTimeout(settle);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, [items]);
 
   useEffect(() => {

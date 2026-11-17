@@ -22,7 +22,7 @@ export const Footer = () => {
   const showColophon = pathname !== "/" && !pathname.startsWith("/contact") && !CLOSING_ROOMS.includes(pathname);
 
   return (
-    <footer className="w-full border-t border-outline-variant bg-surface-container-low py-8 md:py-10">
+    <footer className="w-full border-t border-outline-variant bg-surface-container-low pt-8 pb-[max(2rem,var(--rose-dock-reserve,0px))] md:pt-10 md:pb-[max(2.5rem,var(--rose-dock-reserve,0px))]">
       <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12">
         {showColophon && (
           <div className="group mx-auto max-w-xl pb-10 mb-8 border-b border-outline-variant text-center md:pb-14 md:mb-10">
@@ -30,12 +30,8 @@ export const Footer = () => {
             <p className="mt-6 font-display text-xl italic text-on-surface md:text-2xl">
               Thank you for your time.
             </p>
-            <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
-              In a crowded field, sustained attention is the rarest courtesy. I hope this work
-              offered both enlightenment and quiet clarity.
-            </p>
             <p className="mt-5 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
-              Conceived and crafted in Paris · Built 0→1 · Verified through open specifications
+              Conceived and crafted in Paris · Built 0→1
             </p>
           </div>
         )}

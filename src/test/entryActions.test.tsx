@@ -7,7 +7,9 @@ describe("article reading prompt", () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
     render(<EntryActions title="Harnesses" markdownPath="/journal/harnesses-graders-closed-loops.md" />);
-    fireEvent.click(screen.getByRole("button", { name: "Copy prompt for Claude or ChatGPT" }));
+    // One "Ask your AI" entry: a disclosure that holds the assistants and "Copy the prompt".
+    fireEvent.click(screen.getByRole("button", { name: /Ask your AI/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Copy the prompt" }));
     await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
     expect(writeText.mock.calls[0][0]).toContain("Read https://ivandemurard.com/journal/harnesses-graders-closed-loops.md");
     expect(writeText.mock.calls[0][0]).not.toContain("localhost");

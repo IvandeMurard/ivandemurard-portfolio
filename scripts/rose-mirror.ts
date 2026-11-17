@@ -11,6 +11,7 @@ import {
 } from "../src/components/rose/RoseCaseStudy";
 import { DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "../src/components/rose/roseDemoData";
 import { CONTACT, SOCIAL_LINKS } from "../src/content/site";
+import { ASK_AI, ASSISTANTS } from "../src/content/askAi";
 import { HOW_ROSE_WORKS } from "../src/content/howRoseWorks";
 import { GRAPH_STANDALONE, RELATIONS_MAP, nodeLabel, relationRows, relationSentence } from "../src/content/relationsMap";
 
@@ -163,7 +164,10 @@ export function renderRoseMirror(date: string): string {
     bullets([
       link(CONTACT.buttons.book, SOCIAL_LINKS.schedule),
       link(CONTACT.buttons.email, SOCIAL_LINKS.email),
-      link(CONTACT.buttons.askAi, `https://www.perplexity.ai/search?q=${encodeURIComponent(CONTACT.aiPrompt)}`),
+      // "Ask your AI" opens a menu: the three assistants (each prefilled with the prompt) and a copy action.
+      CONTACT.buttons.askAi,
+      ...ASSISTANTS.map((a) => link(a.name, a.href(CONTACT.aiPrompt))),
+      ASK_AI.copy,
     ]),
   );
   return blocks.join("\n\n") + "\n";

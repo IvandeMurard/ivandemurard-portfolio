@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { Button } from "@/components/ui/button";
+import { AskAiMenu } from "@/components/AskAiMenu";
 import { ExternalMark } from "@/components/ui/ExternalMark";
 
 type EntryActionsProps = {
@@ -26,9 +26,8 @@ const BTN =
  * canonical thing an agent should read, not the rendered page.
  */
 export const EntryActions = ({ title, markdownPath, variant = "note", ask }: EntryActionsProps) => {
-  const [copied, setCopied] = useState<"context" | "link" | null>(null);
+  const [copied, setCopied] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
-  const [copyFailed, setCopyFailed] = useState(false);
   const shareRef = useRef<HTMLDivElement | null>(null);
 
   const origin = "https://ivandemurard.com";
@@ -58,15 +57,14 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
     };
   }, [shareOpen]);
 
-  const copy = async (text: string, kind: "context" | "link") => {
+  // The prompt is copied by the "Ask your AI" menu; this only copies the link.
+  const copyLink = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopyFailed(false);
-      setCopied(kind);
-      window.setTimeout(() => setCopied(null), 2000);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
     } catch {
-      setCopied(null);
-      if (kind === "context") setCopyFailed(true);
+      setCopied(false);
     }
   };
 
@@ -94,10 +92,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
         <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mr-1">
           Read with AI
         </span>
-        <Button type="button" variant="ghost" className={`${BTN} h-auto whitespace-normal text-left`} onClick={() => copy(prompt, "context")}>
-          <Icon name={copied === "context" ? "check" : "content_copy"} className="text-[16px] leading-none" />
-          {copied === "context" ? "Prompt copied" : "Copy prompt for Claude or ChatGPT"}
-        </Button>
+        <AskAiMenu prompt={prompt} triggerClassName={BTN} />
         {markdownPath && variant === "note" && (
           <a className={BTN} href={markdownPath}>
             <Icon name="description" className="text-[16px] leading-none" />
@@ -136,7 +131,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
               <button
                 type="button"
                 onClick={() => {
-                  copy(pageUrl, "link");
+                  copyLink(pageUrl);
                   setShareOpen(false);
                 }}
                 className="w-full flex items-center gap-2 px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
@@ -148,14 +143,8 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
           )}
         </div>
       </div>
-      {copyFailed && (
-        <div className="mt-3">
-          <label htmlFor="ai-reading-prompt" className="font-body text-sm text-on-surface-variant">Copy this prompt</label>
-          <textarea id="ai-reading-prompt" readOnly value={prompt} onFocus={(event) => event.currentTarget.select()} className="mt-2 block min-h-28 w-full rounded-sm border border-outline-variant bg-surface-container-lowest p-3 font-body text-sm text-on-surface" />
-        </div>
-      )}
       <p aria-live="polite" className="sr-only">
-        {copied === "link" ? "Link copied" : copied === "context" ? "Context copied" : ""}
+        {copied ? "Link copied" : ""}
       </p>
     </div>
   );

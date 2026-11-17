@@ -209,9 +209,8 @@
     "italic": 3
   },
   "src/components/layout/Footer.tsx": {
-    "dot-chain": 2,
-    "italic": 1,
-    "mood-word": 1
+    "dot-chain": 1,
+    "italic": 1
   },
   "src/components/layout/SectionRail.tsx": {
     "italic": 1

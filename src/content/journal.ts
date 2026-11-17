@@ -1,5 +1,6 @@
 import { HARNESSES_ENTRY } from "./journalHarnesses";
 import { TRUTH_ENTRY } from "./journalTruth";
+import { visibleMinutes } from "./readingTime";
 import type { MatrixRow } from "@/components/journal/CoverageMatrix";
 
 
@@ -41,7 +42,8 @@ export type StepperStep = {
 };
 
 export type JournalBlock =
-  | { kind: "p" | "h2" | "h3" | "quote"; text: string; aliases?: string[] }
+  /** `id` fixes a heading's anchor when its text changes (a number added), so links already shared and Rose's source links still land. */
+  | { kind: "p" | "h2" | "h3" | "quote"; text: string; aliases?: string[]; id?: string }
   | { kind: "list"; items: string[] }
   | { kind: "code"; lang?: string; text: string }
   | {
@@ -210,7 +212,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "I split it in two. Prophet, an open-source forecasting library built for time series with strong seasonality, reads what is about to happen: how many covers tomorrow, with an uncertainty range. Claude, a large language model, decides what to say about it and to whom. Neither does the other's job, and almost every later decision in the system inherits from that line.",
       },
-      { kind: "h2", text: "The asymmetry" },
+      { kind: "h2", text: "1. The asymmetry", id: "the-asymmetry" },
       {
         kind: "p",
         text: "The line is not drawn where the technology changes. It is drawn where the consequence changes.",
@@ -223,7 +225,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "That is the argument for the boundary, and it is not really about Prophet or Claude. It is about which failures you are willing to let a model resolve on its own.",
       },
-      { kind: "h2", text: "Why one model collapses" },
+      { kind: "h2", text: "2. Why one model collapses", id: "why-one-model-collapses" },
       {
         kind: "p",
         text: "Give one component both jobs and it arbitrates between them privately. That is the cost, and it is not a performance cost. A node that owns two domains stops being reviewable: when the recommendation is wrong you cannot tell whether the read of the situation was wrong, or the response to a correct read was wrong. There is one output and one prompt, and the trace tells you nothing you did not already know.",
@@ -232,7 +234,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "Forecasting and acting also want different feedback. Forecast error computes itself: tomorrow's covers are known the day after, so the number arrives whether or not anyone asks for it. Whether a recommendation should have been made at all is a judgement, and the only thing that returns it is a human. One loop is arithmetic, the other is an opinion. A single component blends them and you lose the ability to measure either. Why a manager's approval and the next day's covers are different signals, and which one a system may learn from, is [the ground-truth note](/journal/whose-truth-is-the-ground-truth).",
       },
-      { kind: "h2", text: "Where the line landed" },
+      { kind: "h2", text: "3. Where the line landed", id: "where-the-line-landed" },
       {
         kind: "p",
         text: "Prophet reads the environment: occupancy, F&B demand, staffing pressure. It produces a number and an error bar and nothing else. It never phrases anything, never recommends, never talks to a manager.",
@@ -262,7 +264,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         text: "A table of owners says who does what. It does not say what a manager lives through. Here is one illustrative breakfast, read across the four moments of a service and the layers that carry it.",
       },
       { kind: "blueprint" },
-      { kind: "h2", text: "What the split buys" },
+      { kind: "h2", text: "4. What the split buys", id: "what-the-split-buys" },
       { kind: "p", text: "Two things I could not have had otherwise." },
       {
         kind: "p",
@@ -276,7 +278,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "The seam is also what lets the system be honest about itself. In a simulated 30-day scenario, it rejected an implausible point-of-sale figure, injected as a test, rather than training on it. After a simulated 25% jump in demand, weekly recalibration cut its forecast error from 15.9% to 12.3%. Neither is possible when one component owns the whole path, because there is no seam at which to check.",
       },
-      { kind: "h2", text: "What it cost" },
+      { kind: "h2", text: "5. What it cost", id: "what-it-cost" },
       {
         kind: "p",
         text: "Two systems instead of one, and a contract between them that has to be maintained, versioned and tested. A forecast that is good and not magic: on a public benchmark of 30 restaurants (Kaggle Recruit data), Prophet beats a naive same-weekday baseline (the mean of the last four same weekdays) on mean error, ties it on the median, and loses the median to a gradient-boosted baseline. Both readings are published. The forecast runs in shadow mode: no manager decision has been delivered on it yet.",
@@ -285,7 +287,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
         kind: "p",
         text: "And a limit I have to keep restating. The comparison runs on its own, but the truth it compares against is still declared by a human. That is a closed loop on a declared truth, which is an engineering statement. \"Dual autonomous loop\" would be a brochure statement.",
       },
-      { kind: "h2", text: "What I would have lost" },
+      { kind: "h2", text: "6. What I would have lost", id: "what-i-would-have-lost" },
       {
         kind: "p",
         text: "The guarantee. In a single-model design, \"never act on a low-confidence forecast\" is a sentence in a prompt, which is a request. Requests are not enforced, they are usually honoured. With the boundary in place the rule lives between the components, in code, where it can be checked and where a violation is a failing test rather than a disappointing output. How such a test is written, graded and allowed to block a release is the subject of [the evaluation note](/journal/harnesses-graders-closed-loops).",
@@ -307,6 +309,9 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
   HARNESSES_ENTRY,
   TRUTH_ENTRY,
 ];
+
+// The min-read label, counted the same way as for the harnesses note (what a reader sees by default).
+Object.assign(JOURNAL_ENTRIES[0], { readingMinutes: visibleMinutes(JOURNAL_ENTRIES[0].body) });
 
 
 /** Editorial curation for /journal: three questions mapped to existing slugs. Not auto-assigned. */
