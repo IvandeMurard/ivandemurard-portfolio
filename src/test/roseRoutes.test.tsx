@@ -29,6 +29,14 @@ describe("/rose is the case study", () => {
   });
 });
 
+describe("/rose as a reference route", () => {
+  it("is a known portfolio destination for Rose's measurement, and the old path is not", async () => {
+    const { referencePath } = await import("@/components/rose/roseMeasurement");
+    expect(referencePath("/rose?x=1#ch-learn")).toBe("/rose");
+    expect(referencePath("/rose-design-lab")).toBeNull();
+  });
+});
+
 describe("/rose/lab is the lab", () => {
   it("keeps the banner and the six tabs, and is noindex", () => {
     at("/rose/lab", <RoseDesignLab />);
