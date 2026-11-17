@@ -9,6 +9,7 @@ const DEFAULT_OG = `${SITE_URL}/og/ivan-default.jpg`;
  * Kept in sync with scripts/seo-routes.ts (route.markdown), which emits the files.
  */
 const MARKDOWN_ROUTES: readonly string[] = [
+  "/case-studies",
   "/aetherix",
   "/sonor",
   "/tacet",

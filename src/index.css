@@ -59,6 +59,26 @@
     --signal-go: 148 65% 33%;
     --signal-warn: 37 100% 39%;
     --signal-stop: 4 65% 47%;
+    --signal-dark: 228 6% 53%;                /* Stopped: neutral grey, never a colour of alarm */
+
+    /* Case cards (/case-studies, reusable by case pages): a dark card in both moods, so the ink is fixed too. */
+    --case-card: 30 24% 7%;
+    --case-card-ink: 60 33% 97%;
+    --lamp-go-on-card: 140 37% 56%;
+    --lamp-warn-on-card: 42 71% 61%;
+    --lamp-stop-on-card: 8 66% 68%;
+    --lamp-dark-on-card: 225 7% 69%;
+    /* Per-project tint: -hi lights the top right of a blurred card, -lo the bottom left. */
+    --tint-aetherix-hi: 31 62% 63%;           /* warm sand, the hue of --aetherix-warm lifted to glow on a dark card */
+    --tint-aetherix-lo: 28 45% 33%;
+    --tint-tacet-hi: 108 20% 57%;             /* sage */
+    --tint-tacet-lo: 120 14% 28%;
+    --tint-anima-hi: 352 33% 66%;             /* powder rose */
+    --tint-anima-lo: 340 20% 29%;
+    --tint-rose-hi: 217 24% 61%;              /* cool blue-grey */
+    --tint-rose-lo: 223 23% 31%;
+    --tint-lore-hi: 214 11% 53%;              /* steel grey */
+    --tint-lore-lo: 211 20% 34%;
 
 
     /* Text selection */
@@ -159,6 +179,17 @@
     --signal-go: 148 59% 57%;
     --signal-warn: 37 87% 62%;
     --signal-stop: 4 85% 65%;
+    --signal-dark: 225 7% 62%;
+    --tint-aetherix-hi: 31 58% 58%;
+    --tint-aetherix-lo: 28 42% 28%;
+    --tint-tacet-hi: 108 18% 52%;
+    --tint-tacet-lo: 120 14% 24%;
+    --tint-anima-hi: 352 30% 61%;
+    --tint-anima-lo: 340 20% 25%;
+    --tint-rose-hi: 217 24% 56%;
+    --tint-rose-lo: 223 23% 27%;
+    --tint-lore-hi: 214 11% 49%;
+    --tint-lore-lo: 211 20% 30%;
 
     /* Text selection: dark ink on lamplight */
     --selection-bg: 39 90% 74%;

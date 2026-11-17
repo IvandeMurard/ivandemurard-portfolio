@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
-import Journeys from "./pages/Journeys.tsx";
+import CaseStudies from "./pages/CaseStudies.tsx";
 import Sonor from "./pages/Sonor.tsx";
 import Atherix from "./pages/Atherix.tsx";
 import Tacet from "./pages/Tacet.tsx";
@@ -37,7 +37,8 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/journeys" element={<Journeys />} />
+              <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/journeys" element={<Navigate to="/case-studies" replace />} />
               <Route path="/sonor" element={<Sonor />} />
               <Route path="/aetherix" element={<Atherix />} />
               <Route path="/atherix" element={<Navigate to="/aetherix" replace />} />
