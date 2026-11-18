@@ -47,6 +47,27 @@ export type Database = {
         }
         Relationships: []
       }
+      mcp_events: {
+        Row: {
+          created_at: string
+          id: string
+          slug: string | null
+          tool: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          slug?: string | null
+          tool: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          slug?: string | null
+          tool?: string
+        }
+        Relationships: []
+      }
       rose_events: {
         Row: {
           booking_source: string | null
@@ -148,6 +169,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_mcp_metrics: { Args: { days_window?: number }; Returns: Json }
       get_rose_metrics: { Args: { days_window?: number }; Returns: Json }
       has_role: {
         Args: {
@@ -155,6 +177,10 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      log_mcp_call: {
+        Args: { _slug?: string; _tool: string }
+        Returns: undefined
       }
     }
     Enums: {

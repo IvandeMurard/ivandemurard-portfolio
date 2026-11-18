@@ -1921,6 +1921,34 @@ ${renderEntryBody(entry)}` }]
   }
 });
 
+// src/lib/mcp/track.ts
+var env = (k) => globalThis.Deno?.env?.get?.(k);
+function logMcpCall(tool, slug) {
+  try {
+    const url = env("SUPABASE_URL");
+    const key = env("SUPABASE_ANON_KEY");
+    if (!url || !key) return;
+    const body = JSON.stringify({ _tool: tool, _slug: typeof slug === "string" ? slug : null });
+    void fetch(`${url}/rest/v1/rpc/log_mcp_call`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body
+    }).catch(() => {
+    });
+  } catch {
+  }
+}
+function tracked(tool) {
+  return {
+    ...tool,
+    // deno-lint-ignore no-explicit-any
+    handler: (args, ...rest) => {
+      logMcpCall(tool.name, args?.slug);
+      return tool.handler(args, ...rest);
+    }
+  };
+}
+
 // src/lib/mcp/index.ts
 var mcp_default = defineMcp({
   name: "ivan-de-murard-portfolio",
@@ -1937,7 +1965,7 @@ var mcp_default = defineMcp({
     "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),
-  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default]
+  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default].map(tracked)
 });
 
 // lovable-mcp-supabase-entry.ts
