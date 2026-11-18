@@ -26,7 +26,8 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
 
   if (!available) return null;
   const playing = !muted;
-  const disc = size === "sm" ? 30 : 33;
+  // The plain paper-label record: 40 px on a desktop, 36 px on a phone, in a hit area of 44 x 44 px.
+  const disc = size === "sm" ? 36 : 40;
 
   const toggle = () => {
     haptic("toggle");
@@ -34,7 +35,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
   };
 
   return (
-    <div className="inline-flex h-9 items-center gap-0.5">
+    <div className="inline-flex h-11 items-center gap-0.5">
       <button
         type="button"
         role="switch"
@@ -42,7 +43,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
         aria-label={playing ? "Stop the record" : "Play the record"}
         title={playing ? "Stop the record" : "Play the record"}
         onClick={toggle}
-        className="inline-flex items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
       >
         <span className={["transition-opacity duration-300", playing ? "opacity-100" : "opacity-70"].join(" ")}>
           <VinylRecord size={disc} playing={playing} pitch={pitch} />
@@ -64,7 +65,6 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
           <div className="mb-3 flex items-baseline justify-between">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
-              <p className="font-mono text-[10px] text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
             </div>
           </div>
 
