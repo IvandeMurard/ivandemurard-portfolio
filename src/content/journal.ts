@@ -1,6 +1,6 @@
 import { HARNESSES_ENTRY } from "./journalHarnesses";
 import { TRUTH_ENTRY } from "./journalTruth";
-import { visibleMinutes } from "./readingTime";
+import { fullMinutes, visibleMinutes } from "./readingTime";
 import type { MatrixRow } from "@/components/journal/CoverageMatrix";
 
 
@@ -60,7 +60,16 @@ export type JournalBlock =
   | { kind: "defs"; items: { term: string; def: string; note?: string }[] }
   | { kind: "pyramid"; layers: PyramidLayer[] }
   | { kind: "deployed"; items: { project: "Aetherix" | "Lore"; to: string; text: string }[] }
-  | { kind: "lines"; items: { q: string; a: string }[] }
+  | {
+      kind: "lines";
+      items: { q: string; a: string }[];
+      /** The questions (their exact text) shown by default; the others fold into one disclosure. Mirrors and structured data keep every question. */
+      visible?: string[];
+      /** The summary of that disclosure. */
+      foldSummary?: string;
+    }
+  /** Where the note's self-diagnostic is set when it sits in the body (inside a fold) and not before the argument. */
+  | { kind: "diagnostic" }
   | { kind: "arms"; label?: string; link?: { to: string; text: string } }
   | { kind: "vocab"; label?: string; items: { id: string; label: string; type?: string }[] }
   | {
@@ -135,6 +144,21 @@ export type PeakBlock = {
   link?: { text: string; to: string };
   /** Render right after the "Read this if" card, before the self-diagnostic. */
   afterGlance?: boolean;
+  /**
+   * A question before the answer. Until the reader answers, the peak shows the lead, the rule and the question with two
+   * buttons; after an answer it shows one line (`reveal`, by the answer) and the boxes. Without JavaScript, in the
+   * prerendered HTML and in the Markdown mirror, the question is text and the boxes are visible.
+   */
+  challenge?: {
+    rule: string;
+    question: string;
+    /** The two answers, in the order of the buttons. */
+    choices: [string, string];
+    /** The line before the boxes, by answer. */
+    reveal: [string, string];
+  };
+  /** One line right after the peak, on the page ground. Markdown links to anchors ("[6](#id)") are allowed. */
+  contract?: string;
 };
 
 
@@ -155,6 +179,16 @@ export type JournalEntry = {
   /** Homepage-only excerpt (and optional display title); the note itself is unchanged. */
   homeHook?: { text: string; title?: string };
   readingMinutes?: number;
+  /** The same count with every fold open (see readingTime.ts). The label shows it when it is at least 5 minutes longer. */
+  readingMinutesFull?: number;
+  /**
+   * Display order, when a section reads better elsewhere than where it sits in `body`: the section whose heading id is
+   * `section` is shown right after the section `after`. Heading ids and their order in `body` do not change, so links,
+   * the section index and Rose's source labels stay as they are.
+   */
+  moves?: { section: string; after: string }[];
+  /** Each section's one-line verdict ("SEC. n") is set as a standfirst under its heading. */
+  standfirst?: boolean;
   /** Public path to the plain markdown mirror, offered as a download. */
   mirror?: string;
   license?: { label: string; url: string; note?: string };
@@ -376,8 +410,12 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
   TRUTH_ENTRY,
 ];
 
-// The min-read label of every note, counted the same way for all three (what a reader sees by default).
-for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body) });
+/** The text of a note's self-diagnostic, for the full reading time when it sits in the body (a `diagnostic` block). */
+const diagnosticText = (e: JournalEntry): string[] =>
+  e.diagnostic ? [e.diagnostic.label, e.diagnostic.intro, e.diagnostic.caveat, e.diagnostic.allYes, ...e.diagnostic.questions.flatMap((q) => [q.ask, q.gap, q.toLabel])] : [];
+
+// The reading time of every note, counted the same way for all three: what a reader sees by default, and with every fold open.
+for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body), readingMinutesFull: fullMinutes(entry.body, 230, diagnosticText(entry)) });
 
 
 /** Editorial curation for /journal: three questions mapped to existing slugs. Not auto-assigned. */

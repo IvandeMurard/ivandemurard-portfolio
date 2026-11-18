@@ -243,12 +243,14 @@ describe("The note pattern", () => {
     expect(p.boxes[1].text).toBe("The first harness passed it. Reading the answers caught it; the graders now fail it and block the release.");
     expect(entry(HARNESS).body.some((x) => x.kind === "console")).toBe(true);
     const { container } = note(HARNESS);
-    expect(container.querySelector("[data-peak]")!.querySelector("button")).toBeNull();
+    // Since harness/phase-1 the peak asks a question first: two answer buttons, and no other control.
+    expect([...container.querySelector("[data-peak]")!.querySelectorAll("button")].map((b) => b.textContent)).toEqual(["Normal", "Too high"]);
   });
 
   it("renders the failing peak box and the lead proof panel with no FAIL prefix before the sentence", () => {
     const { container } = note(HARNESS);
     const peak = container.querySelector("[data-peak]")!;
+    fireEvent.click(within(peak as HTMLElement).getByRole("button", { name: "Normal" })); // the boxes come after an answer
     const box = Array.from(peak.querySelectorAll("p")).find((el) => el.textContent === entry(HARNESS).body.find((b): b is PeakBlock => b.kind === "peak")!.boxes[1].text);
     expect(box, "the box text renders as the sentence alone").toBeTruthy();
     expect(box!.querySelector("strong")).toBeNull();
@@ -288,7 +290,7 @@ describe("The note pattern", () => {
     expect(zone.contains(document.getElementById("updates"))).toBe(true);
     // An argument section is never moved into the zone.
     const nums = [...container.querySelectorAll("h2[id]")].filter((h) => /^\d+\./.test(text(h)) && zone.contains(h)).map((h) => h.id);
-    const refNums = slug === HARNESS ? ["14-frequently-asked-questions", "15-closing-note"] : slug === TRUTH ? ["7-checklist", "8-faq", "9-sources"] : [];
+    const refNums = slug === HARNESS ? ["14-frequently-asked-questions"] : slug === TRUTH ? ["7-checklist", "8-faq", "9-sources"] : [];
     expect(nums).toEqual(refNums);
   });
 

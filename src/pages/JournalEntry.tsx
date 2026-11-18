@@ -3,7 +3,8 @@ import { ArticleUpdates } from "@/components/journal/ArticleUpdates";
 import { ApplyMethod } from "@/components/journal/ApplyMethod";
 import { useMemo, useRef, type ReactNode } from "react";
 import { ContinueCards, NoteHook, NoteIntro, NoteMeta, NotePeak, ReferenceZone } from "@/components/journal/NotePattern";
-import { REFERENCE_ZONE, otherNotes } from "@/content/journalIndex";
+import { REFERENCE_ZONE, otherNotes, readLabel } from "@/content/journalIndex";
+import { displayOrder } from "@/lib/journalOrder";
 import { useParams } from "react-router-dom";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
@@ -14,7 +15,7 @@ import { JournalToc, type TocItem } from "@/components/reading/JournalToc";
 import { ReadingProgress } from "@/components/reading/ReadingProgress";
 import { HeadingAnchor } from "@/components/reading/HeadingAnchor";
 
-import { JOURNAL_ENTRIES, type JournalBlock, type PeakBlock } from "@/content/journal";
+import { JOURNAL_ENTRIES, type JournalBlock, type JournalEntry as Entry, type PeakBlock } from "@/content/journal";
 import { journalHeadingIds } from "@/lib/journalHeadingIds";
 import { getJournalTerms, type TermMark } from "@/content/journalTerms";
 import { createTermTaker } from "@/components/journal/TermText";
@@ -123,11 +124,17 @@ const Block = ({
   labels,
   headingId,
   marks = [],
+  standfirst = false,
+  diagnostic,
 }: {
   block: JournalBlock;
   labels: (typeof LABELS)[Lang];
   headingId?: string;
   marks?: TermMark[];
+  /** Each section's verdict line is set as a standfirst (the harness note). */
+  standfirst?: boolean;
+  /** The note's self-diagnostic, for a `diagnostic` block. */
+  diagnostic?: Entry["diagnostic"];
 }) => {
   const t = createTermTaker(marks);
   switch (block.kind) {
@@ -297,20 +304,31 @@ const Block = ({
           </div>
         </div>
       );
-    case "lines":
-      return (
-        <dl className="grid gap-4 sm:grid-cols-2">
-          {block.items.map((item, i) => (
-            <div
-              key={i}
-              className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5"
-            >
-              <dt className="font-headline italic text-lg text-heading mb-2">{item.q}</dt>
-              <dd className="font-body font-normal text-sm text-on-surface-variant">{t(item.a)}</dd>
-            </div>
-          ))}
-        </dl>
+    case "lines": {
+      const shown = block.visible ? block.items.filter((i) => block.visible!.includes(i.q)) : block.items;
+      const folded = block.visible ? block.items.filter((i) => !block.visible!.includes(i.q)) : [];
+      const card = (item: { q: string; a: string }, i: number) => (
+        <div key={i} className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5">
+          <dt className="font-headline italic text-lg text-heading mb-2">{item.q}</dt>
+          <dd className="font-body font-normal text-sm text-on-surface-variant">{t(item.a)}</dd>
+        </div>
       );
+      return (
+        <>
+          <dl className="grid gap-4 sm:grid-cols-2">{shown.map(card)}</dl>
+          {folded.length > 0 && (
+            <details data-more-questions className="mt-4 rounded-sm border border-outline-variant px-4 py-3">
+              <summary className="cursor-pointer font-label text-[11px] uppercase tracking-[0.14em] text-primary">{block.foldSummary ?? "More questions"}</summary>
+              <dl className="mt-4 grid gap-4 sm:grid-cols-2">{folded.map(card)}</dl>
+            </details>
+          )}
+        </>
+      );
+    }
+    case "diagnostic":
+      return diagnostic ? (
+        <SelfDiagnostic label={diagnostic.label} intro={diagnostic.intro} caveat={diagnostic.caveat} allYes={diagnostic.allYes} questions={diagnostic.questions} />
+      ) : null;
     case "arms":
       return (
         <>
@@ -337,6 +355,7 @@ const Block = ({
           minutes={block.minutes}
           oneLine={block.oneLine}
           concrete={block.concrete}
+          standfirst={standfirst}
         />
       );
     case "anchors":
@@ -364,7 +383,7 @@ const Block = ({
         <details className="rounded-sm border border-outline-variant px-4 py-3">
           <summary className="cursor-pointer font-label text-[11px] uppercase tracking-[0.14em] text-primary">{block.summary}</summary>
           <div className="mt-4 space-y-6">
-            {block.blocks.map((b, i) => <Block key={i} block={b} labels={labels} marks={marks} />)}
+            {block.blocks.map((b, i) => <Block key={i} block={b} labels={labels} marks={marks} standfirst={standfirst} diagnostic={diagnostic} />)}
           </div>
         </details>
       );
@@ -405,12 +424,16 @@ const JournalEntry = () => {
 
   const headingIds = useMemo(() => journalHeadingIds(entry?.body ?? []), [entry]);
 
+  // The order the sections are read in: the body's own, unless the note moves a section (heading ids do not change).
+  const order = useMemo(() => displayOrder(entry?.body ?? [], entry?.moves), [entry]);
+
   const tocItems = useMemo<TocItem[]>(
     () =>
-      (entry?.body ?? []).flatMap((b, i) =>
-        b.kind === "h2" && headingIds[i] ? [{ id: headingIds[i] as string, text: b.text }] : []
-      ),
-    [entry, headingIds]
+      order.flatMap((i) => {
+        const b = entry?.body[i];
+        return b && b.kind === "h2" && headingIds[i] ? [{ id: headingIds[i] as string, text: b.text }] : [];
+      }),
+    [entry, headingIds, order]
   );
 
   const tocLabel = lang === "fr" ? "Sommaire" : "Contents";
@@ -418,20 +441,21 @@ const JournalEntry = () => {
   const blockMarks = useMemo<TermMark[][]>(() => {
     const body = entry?.body ?? [];
     const pending = [...getJournalTerms(entry?.slug)];
-    return body.map((b) => {
-      if (!pending.length) return [];
-      const strings = blockStrings(b);
-      const taken: TermMark[] = [];
+    const marks: TermMark[][] = body.map(() => []);
+    // In the order the reader meets the blocks, so a term is marked where it first appears on the page.
+    for (const i of order) {
+      if (!pending.length) break;
+      const strings = blockStrings(body[i]);
       for (const mark of [...pending]) {
         const re = new RegExp(`\\b${mark.phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
         if (strings.some((s) => re.test(s))) {
-          taken.push(mark);
+          marks[i].push(mark);
           pending.splice(pending.indexOf(mark), 1);
         }
       }
-      return taken;
-    });
-  }, [entry]);
+    }
+    return marks;
+  }, [entry, order]);
 
 
 
@@ -460,11 +484,14 @@ const JournalEntry = () => {
 
   // The note, as a pattern (board J): hook, argument with one peak moment, "Continue exploring", reference zone.
   const reference = REFERENCE_ZONE[entry.slug];
-  const refStart = reference ? headingIds.findIndex((id) => id === reference.from) : -1;
-  const splitAt = refStart >= 0 ? refStart : entry.body.length;
+  const refPos = reference ? order.findIndex((i) => headingIds[i] === reference.from) : -1;
+  const splitAt = refPos >= 0 ? refPos : order.length;
   const early = entry.body.find((b): b is PeakBlock => b.kind === "peak" && !!b.afterGlance);
-  const mainIdx = entry.body.map((_, i) => i).filter((i) => i < splitAt && entry.body[i] !== early);
-  const refIdx = entry.body.map((_, i) => i).filter((i) => i >= splitAt);
+  const mainIdx = order.slice(0, splitAt).filter((i) => entry.body[i] !== early);
+  const refIdx = order.slice(splitAt);
+  // The self-diagnostic sits before the argument unless the note sets it in its body (a `diagnostic` block, in a fold).
+  const hasDiagnosticBlock = (blocks: JournalBlock[]): boolean => blocks.some((b) => b.kind === "diagnostic" || (b.kind === "fold" && hasDiagnosticBlock(b.blocks)));
+  const diagnosticInBody = hasDiagnosticBlock(entry.body);
   const others = otherNotes(entry.slug);
   const also = (entry.related ?? []).filter((r) => !r.to.startsWith("/journal/"));
   const chips = [
@@ -476,7 +503,7 @@ const JournalEntry = () => {
     const block = entry.body[i];
     return (
       <Reveal key={i} id={block.kind === "table" ? block.anchor : undefined}>
-        <Block block={block} labels={labels} headingId={headingIds[i]} marks={blockMarks[i]} />
+        <Block block={block} labels={labels} headingId={headingIds[i]} marks={blockMarks[i]} standfirst={entry.standfirst} diagnostic={entry.diagnostic} />
       </Reveal>
     );
   };
@@ -542,7 +569,7 @@ const JournalEntry = () => {
                 items={tocItems}
                 label={tocLabel}
                 topLink={topLink}
-                meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+                meta={entry.readingMinutes ? readLabel(entry) : undefined}
               />
             </aside>
           )}
@@ -558,7 +585,7 @@ const JournalEntry = () => {
             </div>
             {early && <NotePeak block={early} />}
             <div className="max-w-[42rem]">
-              {entry.diagnostic && (
+              {entry.diagnostic && !diagnosticInBody && (
                 <SelfDiagnostic
                   label={entry.diagnostic.label}
                   intro={entry.diagnostic.intro}
@@ -573,7 +600,7 @@ const JournalEntry = () => {
                   label={tocLabel}
                   topLink={topLink}
                   variant="mobile"
-                  meta={entry.readingMinutes ? labels.readTime(entry.readingMinutes) : undefined}
+                  meta={entry.readingMinutes ? readLabel(entry) : undefined}
                 />
               )}
             </div>

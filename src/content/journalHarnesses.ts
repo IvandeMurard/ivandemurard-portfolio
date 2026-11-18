@@ -9,6 +9,9 @@ import type { JournalEntry } from "./journal";
  */
 export const HARNESSES_ENTRY: JournalEntry = {
   slug: "harnesses-graders-closed-loops",
+  // The closing note (id 15-closing-note) is read right after section 13. The body, its heading ids and their order are unchanged.
+  moves: [{ section: "15-closing-note", after: "13-two-harnesses-and-which-one-this-is" }],
+  standfirst: true,
   decision: "For deciding whether an agent is ready to ship",
   hook: "61 answers out of 64 were right. The run was declared a failure.",
   intro: "Two of the three misses sat in the safety tier. A pass rate with no threshold attached is only a number. This note explains what turns it into a decision.",
@@ -104,32 +107,39 @@ export const HARNESSES_ENTRY: JournalEntry = {
       text: "**An LLM evaluation harness is the machinery that runs a fixed set of test cases through your model, scores each answer with graders, and returns a verdict a release can depend on.** Think of a driving test: the route is the case set, each line of the examiner's sheet is a grader, the whole exam is the harness. Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision.",
     },
     {
-      kind: "anchors",
-      label: "The two systems referenced here",
-      items: [
+      kind: "fold",
+      summary: "Before you start: the two systems, where the numbers come from, and a check of your own system",
+      blocks: [
         {
-          project: "Aetherix",
-          to: "/aetherix",
-          what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
-          who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-          feedback: "Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.",
-        },
-        {
-          project: "Lore",
-          to: "/lore",
-          what: "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask.",
-          who: "A junior technician on the shop floor, hands busy.",
-          feedback: "The procedure (SOP) is known upfront and wins any conflict. The signed work record, the outcome of the operation actually performed, never returns to Lore, so it cannot learn from outcomes.",
-        },
+        kind: "anchors",
+        label: "The two systems referenced here",
+        items: [
+          {
+            project: "Aetherix",
+            to: "/aetherix",
+            what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
+            who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
+            feedback: "Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself.",
+          },
+          {
+            project: "Lore",
+            to: "/lore",
+            what: "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask.",
+            who: "A junior technician on the shop floor, hands busy.",
+            feedback: "The procedure (SOP) is known upfront and wins any conflict. The signed work record, the outcome of the operation actually performed, never returns to Lore, so it cannot learn from outcomes.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so.",
+      },
+      {
+        kind: "p",
+        text: "**Provenance.** The case set, graders and live numbers below are Lore's, because its runs are recorded and can be replayed. Most of the surrounding machinery was built first in [Aetherix](https://github.com/IvandeMurard/aetherix-hospitality-ai), whose repository is now public too: the exit-code contract, the diff against a frozen baseline, the path-triggered gate with a hash cache, and per-layer thresholds. [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) documents it. Aetherix's own measurements run on a synthetic series and a stand-in parser, as section 2 states.",
+      },
+        { kind: "diagnostic" },
       ],
-    },
-    {
-      kind: "p",
-      text: "The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so.",
-    },
-    {
-      kind: "p",
-      text: "**Provenance.** The case set, graders and live numbers below are Lore's, because its runs are recorded and can be replayed. Most of the surrounding machinery was built first in [Aetherix](https://github.com/IvandeMurard/aetherix-hospitality-ai), whose repository is now public too: the exit-code contract, the diff against a frozen baseline, the path-triggered gate with a hash cache, and per-layer thresholds. [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) documents it. Aetherix's own measurements run on a synthetic series and a stand-in parser, as section 2 states.",
     },
     {
       kind: "list",
@@ -146,7 +156,18 @@ export const HARNESSES_ENTRY: JournalEntry = {
       kind: "peak",
       aria: "Peak moment: the replay",
       kicker: "The proof in ten seconds · recorded run, Lore",
-      lead: "An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.",
+      lead: "An engine is burning oil exactly at the limit set by the maintenance manual.",
+      leadBig: true,
+      challenge: {
+        rule: "The manual: normal below the limit, too high from the limit up.",
+        question: "The reading is exactly at the limit. Normal or too high?",
+        choices: ["Normal", "Too high"],
+        reveal: [
+          "That is what Lore said, and what the first harness accepted. The manual says too high.",
+          "Right. Lore said normal, and the first harness accepted it.",
+        ],
+      },
+      contract: "If you only read three minutes: sections [6](#6-acceptance-criteria-the-part-everyone-skips) and [12](#12-what-a-harness-finds-that-no-unit-test-sees) are the story; the rest is the reference.",
       cols: 3,
       boxes: [
         {
@@ -318,7 +339,6 @@ export const HARNESSES_ENTRY: JournalEntry = {
     },
 
     { kind: "h2", text: "3. \"Working\" against \"Reliable\", five dimensions" },
-    { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. — Qonto" },
     {
       kind: "key",
       sigil: "SEC. 3",
@@ -327,6 +347,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
       oneLine: "Five named dimensions separate a demo from a system you can leave running.",
       concrete: "Lore meets one of the five, is partial on two, absent on two.",
     },
+    { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. — Qonto" },
     {
       kind: "table",
       caption: "Five reliability dimensions, and where Lore stands",
@@ -727,9 +748,12 @@ export const HARNESSES_ENTRY: JournalEntry = {
     {"kind": "p", "text": "Neither is worth reading without the other. Acceptance rate alone is a Goodhart target, and a system optimised on it learns to emit bland, agreeable outputs that cost nothing to approve - the same shape as a support bot that drives its ticket-resolution rate up by closing tickets instead of solving them."},
     {"kind": "p", "text": "And arm C data only compounds if the correction is routed. An override reports that *some layer* was wrong, and which layer decides what the fix is: a stale fact belongs in memory, an unwritten rule belongs in a recorded decision, a preference seen three times belongs in a policy, an unseen pattern belongs in the case set, and an output that should never have been surfaced belongs in the filter upstream. Only the fourth is a retrain. Recording the override as free text - which is what both systems do today - collapses all five into one undifferentiated pile."},
     {"kind": "list", "items": ["**Aetherix**: arm A built, with the forecast gated on synthetic data and the reply parser on a stand-in; arm B partial; arm C recorded on sandbox data after the capture redesign, and not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).", "**Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase."]},
-    { kind: "h2", text: "14. Frequently asked questions", aliases: ["13-frequently-asked-questions"] },
+    // Numbered 15 on the page since the closing note moved up; its id is the one it always had.
+    { kind: "h2", text: "15. Frequently asked questions", id: "14-frequently-asked-questions", aliases: ["13-frequently-asked-questions"] },
     {
       kind: "lines",
+      visible: ["Why not just write tests?", "Can an LLM judge another LLM's output?", "How do you prevent hallucinations?"],
+      foldSummary: "More questions",
       items: [
         { q: "What is a grader?", a: "One line of a marking sheet: a single criterion, pass or fail, plus the reason. Kept deterministic, because a model judging a model fails the same way as the thing it judges." },
         { q: "Harness or protocol, what is the difference?", a: "The protocol says what passing means. The harness is the machinery that applies it. Neither decides anything without the other." },
@@ -753,7 +777,8 @@ export const HARNESSES_ENTRY: JournalEntry = {
 
     { kind: "h2", text: "Apply this to your project" },
     { kind: "apply", slug: "harnesses-graders-closed-loops" },
-    { kind: "h2", text: "15. Closing note", aliases: ["closing-note"] },
+    // Shown right after section 13 (see `moves`), so numbered 14; its id is the one it always had.
+    { kind: "h2", text: "14. Closing note", id: "15-closing-note", aliases: ["closing-note"] },
     {
       kind: "p",
       text: "Sources: the \"evaluation by design\" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. \"Eval as a contract\" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 10 graders, 21 reference answers, 19 regressions, 90 tests.",
