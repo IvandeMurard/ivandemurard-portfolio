@@ -27,11 +27,35 @@ export const useRevealHash = () => {
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
     let tries = 0;
     let timer = 0;
+    const settleTimers: number[] = [];
+    // A page opened on a hash lays out again after the first scroll (the pre-rendered body, then the page itself), and
+    // that scroll can land short or not at all. Twice, shortly after, put the target back at the top, unless the
+    // reader has already moved the page themselves.
+    let moved = false;
+    const stop = () => { moved = true; };
+    const settle = () => {
+      for (const ev of ["wheel", "touchstart", "keydown", "mousedown"]) window.addEventListener(ev, stop, { once: true, passive: true });
+      for (const ms of [600, 1600]) {
+        settleTimers.push(window.setTimeout(() => {
+          if (moved) return;
+          const el = document.getElementById(id);
+          if (!el) return;
+          const top = el.getBoundingClientRect().top;
+          if (top < -4 || top > window.innerHeight * 0.5) el.scrollIntoView({ behavior: "auto", block: "start" });
+        }, ms));
+      }
+    };
     const attempt = () => {
-      if ((fromRose ? !!arriveAtSource(id, reduced || prefersReduced()) : revealAnchor(id, reduced)) || ++tries > 10) return;
+      const found = fromRose ? !!arriveAtSource(id, reduced || prefersReduced()) : revealAnchor(id, reduced);
+      if (found && !fromRose) settle();
+      if (found || ++tries > 10) return;
       timer = window.setTimeout(attempt, 100);
     };
     attempt();
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.clearTimeout(timer);
+      settleTimers.forEach((t) => window.clearTimeout(t));
+      for (const ev of ["wheel", "touchstart", "keydown", "mousedown"]) window.removeEventListener(ev, stop);
+    };
   }, [pathname, hash]);
 };

@@ -305,7 +305,7 @@ const Anima = () => {
                 <AnimaClaimCard />
                 <P>
                   Weights fall over time unless something renews them.{" "}
-                  <Link to="/journal/harnesses-graders-closed-loops#confidence" className={linkCls}>
+                  <Link to="/journal/harnesses-graders-closed-loops#9-confidence-three-things-people-conflate" className={linkCls}>
                     A system that reports a confidence it did not measure is worse than one that reports
                     none
                   </Link>

@@ -1,0 +1,30 @@
+name: Journeys
+
+# Builds the site, crawls the build for broken links and anchors (scripts/check-journeys.ts), then runs the Playwright
+# journey tests at 1440 and 390 px (tests/journeys). Nothing here deploys or publishes.
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  journeys:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - name: Link and anchor checker
+        run: bun run check:journeys
+      - run: bunx playwright install --with-deps chromium
+      - name: Journey tests
+        run: bunx playwright test
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

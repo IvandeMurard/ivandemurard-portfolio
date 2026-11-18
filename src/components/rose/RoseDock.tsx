@@ -139,6 +139,21 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   // Echo from the homepage Rose card: the same compass, answering from the dock.
   const [echo, setEcho] = useState(false);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
+  // A visible acknowledgement when Rose is asked to open while the dock is already open: a short pulse (400 ms).
+  const [pulse, setPulse] = useState(false);
+  const pulseTimer = useRef<number | undefined>(undefined);
+  const acknowledge = () => {
+    setPulse(true);
+    window.clearTimeout(pulseTimer.current);
+    pulseTimer.current = window.setTimeout(() => setPulse(false), 400);
+    const el = dockRef.current;
+    if (el && window.matchMedia?.("(max-width: 767px)").matches) {
+      const r = el.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) el.scrollIntoView({ block: "nearest" });
+    }
+    requestAnimationFrame(() => expandedInputRef.current?.focus());
+  };
+  useEffect(() => () => window.clearTimeout(pulseTimer.current), []);
   const returnFocusRef = useRef<HTMLElement | null>(null);
   const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   const sessionId = useMemo(() => getSessionId(), []);
@@ -292,7 +307,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       const text = (event as CustomEvent<{ text?: string }>).detail?.text;
       if (!text) {
         // No text: open the dock and focus its input without sending anything (paused: the notice opens instead).
-        if (!open) returnFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
+        if (open) { acknowledge(); return; }
+        returnFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
         setOpen(true);
         requestAnimationFrame(() => expandedInputRef.current?.focus());
         return;
@@ -300,13 +316,28 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       setOpen(true);
       submit(text);
     };
-    const onOpen = () => setOpen(true);
+    // A prefill is not a question: the input receives the text, selected, and nothing is sent or logged.
+    const onPrefill = (event: Event) => {
+      const text = (event as CustomEvent<{ text?: string }>).detail?.text;
+      if (!text) return;
+      if (!open) returnFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
+      setOpen(true);
+      if (paused) return;
+      setInputValue(text);
+      setPulse(true);
+      window.clearTimeout(pulseTimer.current);
+      pulseTimer.current = window.setTimeout(() => setPulse(false), 400);
+      const select = () => { const el = expandedInputRef.current; if (el) { el.focus(); el.select(); } };
+      requestAnimationFrame(() => requestAnimationFrame(select));
+    };
+    const onOpen = () => { if (open) acknowledge(); else setOpen(true); };
     const onAskLoad = () => { void loadSourceLabels(); };
     // A source link was followed: on a narrow screen the dock folds to its bar so the page it points to is in view.
     const onMinimise = () => { if (window.matchMedia?.("(max-width: 767px)").matches) setOpen(false); };
     const onEcho = (e: Event) => setEcho(Boolean((e as CustomEvent<boolean>).detail));
     window.addEventListener("rose:ask", onAsk as EventListener);
     window.addEventListener("rose:open", onOpen);
+    window.addEventListener("rose:prefill", onPrefill);
     window.addEventListener("rose:ask", onAskLoad);
     window.addEventListener("rose:minimise", onMinimise);
     window.addEventListener("rose:echo", onEcho);
@@ -314,6 +345,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       window.removeEventListener("rose:echo", onEcho);
       window.removeEventListener("rose:ask", onAsk as EventListener);
       window.removeEventListener("rose:open", onOpen);
+      window.removeEventListener("rose:prefill", onPrefill);
       window.removeEventListener("rose:ask", onAskLoad);
       window.removeEventListener("rose:minimise", onMinimise);
     };
@@ -397,6 +429,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
       >
         {welcome.candidate ? <RoseWelcome welcome={welcome} /> : null}
         <div
+          data-rose-panel
+          data-pulse={pulse ? "true" : "false"}
           onFocusCapture={() => setFocusWithin(true)}
           onBlurCapture={(e) => {
             if (!e.currentTarget.contains(e.relatedTarget as Node)) setFocusWithin(false);
@@ -405,7 +439,10 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             "flex flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest",
             open ? "max-h-[min(600px,80vh)] shadow-xl shadow-primary/10" : "shadow-md shadow-primary/5",
             "transition-[border-color,box-shadow] duration-500 motion-reduce:transition-none",
+            pulse && "duration-[150ms]",
             echo && !open && "border-secondary shadow-lg shadow-secondary/20",
+            // The pulse: 400 ms, a stronger border and shadow; none under prefers-reduced-motion.
+            pulse && "border-secondary shadow-2xl shadow-secondary/30 motion-reduce:border-outline-variant motion-reduce:shadow-xl motion-reduce:shadow-primary/10",
           )}
         >
           {open ? (

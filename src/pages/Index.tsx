@@ -173,7 +173,7 @@ const Index = () => {
                 <Link to={href ?? `/${p.slug}`} onClick={() => track({ label: p.name, href: href ?? `/${p.slug}`, kind: "project" })}
                   className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors">Read the case</Link>
                 {isRose && (
-                  <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask"))}
+                  <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:prefill", { detail: { text: "How were you built?" } }))}
                     className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">Ask Rose</button>
                 )}
               </div>
