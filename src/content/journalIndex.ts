@@ -7,6 +7,7 @@
 // and in JSON-LD; they are not on the cards.
 
 import { JOURNAL_ENTRIES, JOURNAL_KNOWLEDGE_QUESTIONS, type JournalEntry } from "./journal";
+import { readingLabel } from "./readingTime";
 
 export const INDEX_HERO = {
   kicker: "Field Notes",
@@ -116,7 +117,8 @@ export const revisionCount = (entry: JournalEntry): number => entry.updates?.len
 export const testedOn = (slug: string): string[] =>
   (JOURNAL_KNOWLEDGE_QUESTIONS.find((q) => q.slug === slug)?.cases ?? []).map((c) => c.label);
 
-export const readLabel = (entry: JournalEntry): string => `${entry.readingMinutes} min`;
+/** "16 min", or "16 min · 22 with every detail open" when every fold open is at least 5 minutes longer. Computed, never typed. */
+export const readLabel = (entry: JournalEntry): string => readingLabel(entry.readingMinutes ?? 0, entry.readingMinutesFull);
 
 /** "18 min · tested on Aetherix and Lore · revised 7 times". */
 export const metaLine = (entry: JournalEntry): string => {

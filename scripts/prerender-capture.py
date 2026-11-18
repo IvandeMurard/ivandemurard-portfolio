@@ -80,6 +80,9 @@ async def capture():
         )
         # Rose's welcome is scripted UI for a visitor's first page view: it is not page content, so a snapshot never holds it.
         await context.add_init_script("try { sessionStorage.setItem('rose_welcome', 'seen'); } catch (e) {}")
+        # A snapshot is the version without JavaScript: a question that waits for an answer (the harness note's peak) is
+        # captured as text with its answers visible.
+        await context.add_init_script("window.__prerender = true;")
         page = await context.new_page()
         for path in paths:
             url = f"http://127.0.0.1:{PORT}{path}"

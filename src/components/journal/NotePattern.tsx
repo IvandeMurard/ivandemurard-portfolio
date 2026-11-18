@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { cn } from "@/lib/utils";
 import type { JournalEntry, PeakBlock } from "@/content/journal";
@@ -58,51 +58,110 @@ const Ramp = ({ toNavy }: { toNavy: boolean }) => (
   />
 );
 
-/** The peak moment: page colour, a ramp to navy, a full-viewport section, a ramp back. Static: nothing animates. */
-export const NotePeak = ({ block }: { block: PeakBlock }) => (
-  <>
-    <Ramp toNavy />
-    <section aria-label={block.aria} data-peak className={cn(BLEED, "section-inverse flex min-h-[620px] items-center px-6 py-16 md:px-12")}>
-      <div className="mx-auto w-full max-w-6xl">
-        <p className="font-mono text-[13px] uppercase leading-snug tracking-[0.12em] text-secondary">{block.kicker}</p>
-        <p className={cn("mt-5 max-w-[900px] font-headline font-normal text-heading", block.leadBig ? "text-[38px] leading-[1.1] md:text-[48px]" : "text-[28px] leading-[1.18] md:text-[40px]")}>
-          {block.lead}
-        </p>
-        <div className={cn("mt-9 grid items-start gap-5", block.cols === 3 ? "md:grid-cols-3" : "md:grid-cols-2")}>
-          {block.boxes.map((box) => (
-            <div key={box.label} className={cn("rounded-[14px] border p-5 md:p-[22px]", box.tone === "fail" ? "border-lamp-stop-on-card" : "border-primary/30")}>
-              <p className={cn("font-mono text-[13px] leading-snug", box.tone === "fail" ? "text-lamp-stop-on-card" : "text-secondary")}>{box.label}</p>
-              <p className={cn("mt-2.5 text-on-surface", box.big ? "text-[19px]" : "text-[17px]")}>
-                {box.text}
-              </p>
-              {box.bubble && <p className="mt-3.5 inline-flex rounded-xl bg-primary px-3.5 py-2 text-[15px] text-on-primary">{box.bubble}</p>}
-              {box.chain && (
-                <p className="mt-2.5 text-[14.5px] text-on-surface-variant">
-                  {box.chain.steps.map((s, i) => (
-                    <span key={s}>
-                      {i > 0 && " · "}
-                      {s === box.chain!.strong ? <strong className="font-semibold text-primary">{s}</strong> : s}
-                    </span>
+/** Text with Markdown links to anchors ("[6](#id)"): the plain text stays the sentence, the numbers become links. */
+const withLinks = (text: string): ReactNode[] =>
+  text.split(/(\[[^\]]+\]\(#[^)]+\))/).map((part, i) => {
+    const m = /^\[([^\]]+)\]\(#([^)]+)\)$/.exec(part);
+    return m ? (
+      <a key={i} href={`#${m[2]}`} className="text-primary underline decoration-secondary underline-offset-4 hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">{m[1]}</a>
+    ) : part;
+  });
+
+/**
+ * The prerender capture (scripts/prerender-capture.py) sets this before the page runs, so the snapshot holds the version
+ * without JavaScript: the question as text and the boxes visible.
+ */
+const capturing = () => typeof window !== "undefined" && (window as unknown as { __prerender?: boolean }).__prerender === true;
+
+const CHOICE = "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border px-6 text-[16px] font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+
+/** The peak moment: page colour, a ramp to navy, a full-viewport section, a ramp back. Nothing animates. */
+export const NotePeak = ({ block }: { block: PeakBlock }) => {
+  const challenge = block.challenge;
+  const [answer, setAnswer] = useState<number | null>(null);
+  const [asText] = useState(capturing);
+  const questionId = useId();
+  // With a question, the boxes come after the answer. In the capture (the version without JavaScript) they are all there.
+  const showBoxes = !challenge || asText || answer !== null;
+  return (
+    <>
+      <Ramp toNavy />
+      <section aria-label={block.aria} data-peak className={cn(BLEED, "section-inverse flex min-h-[620px] items-center px-6 py-16 md:px-12")}>
+        <div className="mx-auto w-full max-w-6xl">
+          <p className="font-mono text-[13px] uppercase leading-snug tracking-[0.12em] text-secondary">{block.kicker}</p>
+          <p className={cn("mt-5 max-w-[900px] font-headline font-normal text-heading", block.leadBig ? "text-[38px] leading-[1.1] md:text-[48px]" : "text-[28px] leading-[1.18] md:text-[40px]")}>
+            {block.lead}
+          </p>
+          {challenge && (
+            <div data-peak-challenge className="mt-8 max-w-[760px]">
+              <p className="font-mono text-[14px] leading-snug text-on-surface-variant">{challenge.rule}</p>
+              <p id={questionId} className="mt-4 font-headline text-[26px] font-normal leading-[1.2] text-heading md:text-[30px]">{challenge.question}</p>
+              {!asText && (
+                <div role="group" aria-labelledby={questionId} className="mt-5 flex flex-wrap gap-3">
+                  {challenge.choices.map((label, i) => (
+                    <button
+                      key={label}
+                      type="button"
+                      aria-pressed={answer === i}
+                      onClick={() => setAnswer(i)}
+                      className={cn(CHOICE, answer === i ? "border-primary bg-primary text-on-primary" : "border-primary/50 text-primary hover:border-primary")}
+                    >
+                      {label}
+                    </button>
                   ))}
+                </div>
+              )}
+              {/* Present before the answer so a screen reader announces the line when it arrives. */}
+              {!asText && (
+                <p role="status" aria-live="polite" data-peak-reveal className={cn("max-w-[640px] text-[19px] leading-snug text-on-surface", answer === null ? "mt-0" : "mt-6")}>
+                  {answer === null ? "" : challenge.reveal[answer]}
                 </p>
               )}
-              {box.note && <p className="mt-2.5 text-[14.5px] leading-snug text-on-surface-variant">{box.note}</p>}
             </div>
-          ))}
+          )}
+          {showBoxes && (
+            <div className={cn("mt-9 grid items-start gap-5", block.cols === 3 ? "md:grid-cols-3" : "md:grid-cols-2")}>
+              {block.boxes.map((box) => (
+                <div key={box.label} className={cn("rounded-[14px] border p-5 md:p-[22px]", box.tone === "fail" ? "border-lamp-stop-on-card" : "border-primary/30")}>
+                  <p className={cn("font-mono text-[13px] leading-snug", box.tone === "fail" ? "text-lamp-stop-on-card" : "text-secondary")}>{box.label}</p>
+                  <p className={cn("mt-2.5 text-on-surface", box.big ? "text-[19px]" : "text-[17px]")}>
+                    {box.text}
+                  </p>
+                  {box.bubble && <p className="mt-3.5 inline-flex rounded-xl bg-primary px-3.5 py-2 text-[15px] text-on-primary">{box.bubble}</p>}
+                  {box.chain && (
+                    <p className="mt-2.5 text-[14.5px] text-on-surface-variant">
+                      {box.chain.steps.map((s, i) => (
+                        <span key={s}>
+                          {i > 0 && " · "}
+                          {s === box.chain!.strong ? <strong className="font-semibold text-primary">{s}</strong> : s}
+                        </span>
+                      ))}
+                    </p>
+                  )}
+                  {box.note && <p className="mt-2.5 text-[14.5px] leading-snug text-on-surface-variant">{box.note}</p>}
+                </div>
+              ))}
+            </div>
+          )}
+          {block.after && <p className="mt-7 max-w-[760px] text-[18px] leading-relaxed text-on-surface">{block.after}</p>}
+          {block.link && (
+            <p className="mt-7 text-[15px] leading-snug">
+              <a href={`#${block.link.to}`} className="text-on-surface underline decoration-secondary underline-offset-4 hover:text-primary">
+                {block.link.text}
+              </a>
+            </p>
+          )}
         </div>
-        {block.after && <p className="mt-7 max-w-[760px] text-[18px] leading-relaxed text-on-surface">{block.after}</p>}
-        {block.link && (
-          <p className="mt-7 text-[15px] leading-snug">
-            <a href={`#${block.link.to}`} className="text-on-surface underline decoration-secondary underline-offset-4 hover:text-primary">
-              {block.link.text}
-            </a>
-          </p>
-        )}
-      </div>
-    </section>
-    <Ramp toNavy={false} />
-  </>
-);
+      </section>
+      <Ramp toNavy={false} />
+      {block.contract && (
+        <div className="max-w-[42rem]">
+          <p data-contract className="mt-10 font-body text-[18px] leading-relaxed text-on-surface">{withLinks(block.contract)}</p>
+        </div>
+      )}
+    </>
+  );
+};
 
 export type ReferenceChip = { label: string; id: string };
 

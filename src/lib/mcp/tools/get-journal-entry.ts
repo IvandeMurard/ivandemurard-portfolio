@@ -4,6 +4,8 @@ import { JOURNAL_ENTRIES, type JournalBlock, type JournalEntry } from "../../../
 import { recoLineMarkdown } from "../../../content/recoLine";
 import { blueprintMarkdown } from "../../../content/serviceBlueprint";
 import { APPLY_GUIDES, applyMarkdown } from "../../../content/journalApply";
+import { readingLabel } from "../../../content/readingTime";
+import { displayOrder } from "../../journalOrder";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -72,14 +74,18 @@ export function renderBlock(block: JournalBlock): string {
       return blueprintMarkdown();
     case "console":
     case "mcp":
+    case "diagnostic":
       return "";
     case "peak":
       return [
         `**${block.kicker}**`,
         block.lead,
+        // The question is text here, and the boxes are all shown: this is the version without JavaScript.
+        block.challenge ? `${block.challenge.rule} ${block.challenge.question} (${block.challenge.choices.join(" or ")}) If you answer ${block.challenge.choices[0]}: ${block.challenge.reveal[0]} If you answer ${block.challenge.choices[1]}: ${block.challenge.reveal[1]}` : "",
         ...block.boxes.map((x) => [`**${x.label}**`, x.text, x.bubble ?? "", x.chain ? x.chain.steps.join(", ") : "", x.note ?? ""].filter(Boolean).join(" ")),
         block.after ?? "",
         block.link ? `${block.link.text} (#${block.link.to})` : "",
+        block.contract ?? "",
       ].filter(Boolean).join("\n\n");
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n");
@@ -132,7 +138,9 @@ export function renderEntryBody(entry: JournalEntry): string {
     const related = entry.related?.length
       ? `## Continue exploring\n\n${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}`
       : "";
-    const bodyText = absolutize([...renderBlocks(entry.body), related].filter(Boolean).join("\n\n"));
+    // In the order the page shows the sections (a note can move one; its heading ids do not change).
+    const shown = displayOrder(entry.body, entry.moves).map((i) => entry.body[i]);
+    const bodyText = absolutize([...renderBlocks(shown), related].filter(Boolean).join("\n\n"));
     const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
     return [
       entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
@@ -158,6 +166,12 @@ export function renderEntryBody(entry: JournalEntry): string {
       .join("\n\n");
 }
 
+/** "16 min read", or "16 min · 22 with every detail open" when every fold open is at least 5 minutes longer. */
+const readLine = (entry: JournalEntry): string => {
+  const label = readingLabel(entry.readingMinutes ?? 0, entry.readingMinutesFull);
+  return label === `${entry.readingMinutes} min` ? `${label} read` : label;
+};
+
 /** The full Markdown of an entry, as published on the site and in the .md mirror. */
 export function renderEntryMarkdown(entry: JournalEntry): string {
     return [
@@ -165,7 +179,7 @@ export function renderEntryMarkdown(entry: JournalEntry): string {
       entry.hook,
       entry.intro,
       entry.subtitle && !entry.subtitle.includes(entry.hook) ? entry.subtitle : "",
-      `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${entry.readingMinutes} min read` : ""}`,
+      `${entry.category} · ${entry.date}${entry.readingMinutes ? ` · ${readLine(entry)}` : ""}`,
       renderEntryBody(entry),
     ]
       .filter(Boolean)
