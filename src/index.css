@@ -32,7 +32,7 @@
        every interactive mark keep --primary, so blue still says "clickable" at dusk. Explicit values, not var(--primary):
        a dark room that re-scopes --primary must re-scope --heading too, as .section-inverse and .aetherix-dark do. */
     --heading: 215 100% 11%;
-    /* Hero light, one gradient per hour of Paris (HSL channels, alpha applied where used). */
+    /* Hero light, one gradient per period of the sun over Paris (HSL channels, alpha applied where used). */
     --glow-morning: 39 88% 90%;
     --glow-midday: 42 67% 94%;
     --glow-late-hi: 36 81% 77%;
@@ -1122,7 +1122,8 @@
   [data-passage-cited] { transition: none; }
 }
 
-/* Homepage hero light (v2). One layer per hour of Paris, stacked; the active one is shown, a change crossfades over
+/* Homepage hero light (v2). One layer per period of the sun over Paris (morning, midday, late afternoon; dusk for the
+   Dusk mood), stacked; the active one is shown, a change crossfades over
    2400 ms. The whole glow warms in once, 1.2 s, on arrival. Off with prefers-reduced-motion. It sits behind the
    text, so it never moves the layout nor the LCP text. Values: docs/homepage-prototype (board K v2). */
 .hero-glow { position: absolute; inset: 0; pointer-events: none; }

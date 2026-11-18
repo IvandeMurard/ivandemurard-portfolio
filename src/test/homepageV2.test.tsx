@@ -7,7 +7,7 @@ import { HeroGlow, resetHeroArrival } from "@/components/home/HeroGlow";
 import { MoodProvider, useMood } from "@/components/MoodProvider";
 import { AmbienceProvider } from "@/components/AmbienceProvider";
 import { INDEX_HERO, INDEX_COPY, notesInOrder } from "@/content/journalIndex";
-import { heroLight, hourOf, resetParisClock } from "@/lib/parisClock";
+import { resetParisClock } from "@/lib/parisClock";
 
 // Homepage v2 (18 Nov 2026), part A: warm rooms, a hero lit by the hour in Paris, the Field Notes block read from /journal.
 
@@ -32,21 +32,10 @@ const glow = (c: HTMLElement) => c.querySelector("[data-hero-glow]") as HTMLElem
 const activeLayers = (c: HTMLElement) => [...c.querySelectorAll("[data-light][data-active]")].map((l) => l.getAttribute("data-light"));
 const wrap = (ui: React.ReactNode) => <MoodProvider><AmbienceProvider><MemoryRouter>{ui}</MemoryRouter></AmbienceProvider></MoodProvider>;
 
-describe("The hero light follows the hour in Paris", () => {
-  it.each([
-    [5, "midday"], [6, "morning"], [10, "morning"], [11, "midday"], [14, "midday"],
-    [15, "late"], [20, "late"], [21, "midday"], [23, "midday"], [0, "midday"],
-  ])("day, %s h: %s", (h, expected) => expect(heroLight(h, "day")).toBe(expected));
-
-  it.each([0, 9, 13, 16, 22])("dusk, %s h: always the lamp glow", (h) => expect(heroLight(h, "dusk")).toBe("dusk"));
-
-  it("reads the hour from a HH:MM string, midnight included", () => {
-    expect(hourOf("09:10")).toBe(9);
-    expect(hourOf("16:40")).toBe(16);
-    expect(hourOf("24:05")).toBe(0);
-  });
-
-  it.each([["08:10", "morning"], ["12:30", "midday"], ["15:40", "late"], ["22:30", "midday"]])("at %s UTC the day glow is %s", (utc, expected) => {
+// The pure periods and the sun times are tested in parisSun.test.ts. Here: the glow on the page, on 18 Nov 2026
+// (sunrise 08:04, sunset 17:07 in Paris).
+describe("The hero light follows the sun over Paris", () => {
+  it.each([["08:10", "morning"], ["12:30", "midday"], ["15:40", "late"], ["22:30", "midday"]])("at %s UTC (Paris +1) the day glow is %s", (utc, expected) => {
     at(utc);
     const { container } = render(wrap(<HeroGlow />));
     expect(glow(container).getAttribute("data-hero-glow")).toBe(expected);
@@ -68,11 +57,11 @@ describe("The hero light follows the hour in Paris", () => {
   });
 
   it("crossfades when the period changes while the page is open, and never touches the mood", () => {
-    at("09:55"); // 10:55 in Paris
+    at("09:55"); // 10:55 in Paris: the morning lasts until sunrise + 3 h, 11:04
     window.localStorage.setItem("mood", "day");
     const { container } = render(wrap(<HeroGlow />));
     expect(activeLayers(container)).toEqual(["morning"]);
-    act(() => { vi.setSystemTime(new Date("2026-11-18T10:01:00Z")); vi.advanceTimersByTime(15000); }); // 11:01 in Paris
+    act(() => { vi.setSystemTime(new Date("2026-11-18T10:10:00Z")); vi.advanceTimersByTime(15000); }); // 11:10 in Paris
     expect(activeLayers(container)).toEqual(["midday"]);
     expect(document.documentElement.dataset.mood).toBe("day");
     // The 2400 ms crossfade is a CSS transition on the layers' opacity; nothing else is added.
