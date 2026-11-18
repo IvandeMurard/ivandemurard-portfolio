@@ -65,6 +65,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
           <div className="mb-3 flex items-baseline justify-between">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
+              <p className="font-mono text-[10px] text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
             </div>
           </div>
 
