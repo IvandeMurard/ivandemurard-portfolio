@@ -490,7 +490,8 @@ const JournalEntry = () => {
   const mainIdx = order.slice(0, splitAt).filter((i) => entry.body[i] !== early);
   const refIdx = order.slice(splitAt);
   // The self-diagnostic sits before the argument unless the note sets it in its body (a `diagnostic` block, in a fold).
-  const diagnosticInBody = entry.body.some((b) => b.kind === "diagnostic");
+  const hasDiagnosticBlock = (blocks: JournalBlock[]): boolean => blocks.some((b) => b.kind === "diagnostic" || (b.kind === "fold" && hasDiagnosticBlock(b.blocks)));
+  const diagnosticInBody = hasDiagnosticBlock(entry.body);
   const others = otherNotes(entry.slug);
   const also = (entry.related ?? []).filter((r) => !r.to.startsWith("/journal/"));
   const chips = [

@@ -6,7 +6,7 @@ Two of the three misses sat in the safety tier. A pass rate with no threshold at
 
 A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
-Evaluation · 2026-07-31 · 17 min read
+Evaluation · 2026-07-31 · 17 min · 31 with every detail open
 
 **TL;DR** - A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
 

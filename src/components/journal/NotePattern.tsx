@@ -94,7 +94,7 @@ export const NotePeak = ({ block }: { block: PeakBlock }) => {
           </p>
           {challenge && (
             <div data-peak-challenge className="mt-8 max-w-[760px]">
-              <p className="font-mono text-[14px] leading-snug text-on-surface-variant">{challenge.rule}</p>
+              <p data-peak-rule className="font-body text-[18px] leading-snug text-heading">{challenge.rule}</p>
               <p id={questionId} className="mt-4 font-headline text-[26px] font-normal leading-[1.2] text-heading md:text-[30px]">{challenge.question}</p>
               {!asText && (
                 <div role="group" aria-labelledby={questionId} className="mt-5 flex flex-wrap gap-3">

@@ -140,3 +140,40 @@ describe("Standfirsts, order, FAQ and reading time", () => {
     for (const e of JOURNAL_ENTRIES) expect(e.readingMinutesFull!).toBeGreaterThanOrEqual(e.readingMinutes!);
   });
 });
+
+describe("Review fixes on PR 57", () => {
+  it("sets the self-diagnostic once, inside the 'Before you start' disclosure, and not after the contract", () => {
+    const { container } = page();
+    const all = container.querySelectorAll("[data-self-diagnostic], section[aria-label='Check your own system']");
+    expect(all).toHaveLength(1);
+    const fold = [...container.querySelectorAll("details")].find((d) => d.querySelector("summary")?.textContent?.startsWith("Before you start"))!;
+    expect(fold.contains(all[0])).toBe(true);
+    // The two systems, the provenance paragraph and the quiz share that one disclosure.
+    expect(fold.textContent).toContain("Provenance.");
+    expect(fold.textContent).toContain("The two systems referenced here");
+  });
+
+  it("sets the rule line in the body font at body size or more, in the lead's ink", () => {
+    const { container } = page();
+    const rule = container.querySelector("[data-peak-rule]")!;
+    expect(rule.textContent).toBe("The manual: normal below the limit, too high from the limit up.");
+    expect(rule.className).toContain("font-body");
+    expect(rule.className).not.toContain("font-mono");
+    expect(Number(/text-\[(\d+)px\]/.exec(rule.className)![1])).toBeGreaterThanOrEqual(17);
+    const lead = [...container.querySelectorAll("[data-peak] p")].find((p) => p.textContent === peakBlock.lead)!;
+    expect(lead.className).toContain("text-heading");
+    expect(rule.className).toContain("text-heading");
+  });
+
+  it("counts the full reading time within 15% of the words of the mirror, less the copy-paste brief and the Updates log", () => {
+    let md = readFileSync("public/harnesses-graders-closed-loops.md", "utf8").replace(/\r\n/g, "\n");
+    md = md.replace(/```text\n[\s\S]*?\n```/, "");
+    const upd = md.indexOf("## Updates");
+    const end = md.indexOf("\nLicence:", upd);
+    if (upd >= 0) md = md.slice(0, upd) + (end >= 0 ? md.slice(end) : "");
+    const mirrorWords = md.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
+    const full = entry.readingMinutesFull! * 230;
+    expect(Math.abs(full - mirrorWords) / mirrorWords, `full ${full} words, mirror ${mirrorWords}`).toBeLessThanOrEqual(0.15);
+    expect(entry.readingMinutes!).toBeLessThan(entry.readingMinutesFull!);
+  });
+});

@@ -410,8 +410,12 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
   TRUTH_ENTRY,
 ];
 
+/** The text of a note's self-diagnostic, for the full reading time when it sits in the body (a `diagnostic` block). */
+const diagnosticText = (e: JournalEntry): string[] =>
+  e.diagnostic ? [e.diagnostic.label, e.diagnostic.intro, e.diagnostic.caveat, e.diagnostic.allYes, ...e.diagnostic.questions.flatMap((q) => [q.ask, q.gap, q.toLabel])] : [];
+
 // The reading time of every note, counted the same way for all three: what a reader sees by default, and with every fold open.
-for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body), readingMinutesFull: fullMinutes(entry.body) });
+for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body), readingMinutesFull: fullMinutes(entry.body, 230, diagnosticText(entry)) });
 
 
 /** Editorial curation for /journal: three questions mapped to existing slugs. Not auto-assigned. */
