@@ -118,38 +118,36 @@ describe("The record", () => {
   beforeEach(() => { window.localStorage.clear(); });
   afterEach(() => cleanup());
 
-  it("has no artwork image and no asset import: a paper label instead", () => {
-    const src = read("src/components/VinylDeck.tsx");
-    expect(src).not.toMatch(/asset\.json|<image|cover|atcq-low-end|Low End Theory/);
-    expect(existsSync("src/assets/atcq-low-end-theory.png.asset.json")).toBe(false);
-    const { container } = render(<VinylRecord size={146} playing={false} />);
-    expect(container.querySelector("image")).toBeNull();
-    expect(container.querySelector("[href], [src]")).toBeNull();
-    expect(container.innerHTML).toContain("--paper-label");
-  });
-
-  it("the large disc carries two lines of IBM Plex Mono on the label, decorative, centred, in the label ink", () => {
-    const { container } = render(<VinylRecord size={146} playing={false} />);
-    const svg = container.querySelector("svg")!;
-    expect(svg.getAttribute("aria-hidden")).toBe("true");
-    const lines = [...svg.querySelectorAll("text")];
-    expect(lines.map((t) => t.textContent)).toEqual(["Odetta · ATCQ Tribute", "Side A · 33⅓"]);
-    for (const t of lines) {
-      expect(t.getAttribute("text-anchor")).toBe("middle");
-      expect(t.getAttribute("x")).toBe("50");
-      expect(t.getAttribute("font-family")).toContain("IBM Plex Mono");
-      expect(t.getAttribute("fill")).toBe("hsl(var(--label-ink))");
-    }
+  it("the deck's record shows the sleeve image on its label, clipped to the label circle, with no text on it", () => {
+    const { container } = render(<VinylRecord size={146} playing={false} sleeve />);
+    const img = container.querySelector("image")!;
+    expect(img).not.toBeNull();
+    expect(img.getAttribute("href")).toContain("atcq-low-end-theory.png");
+    expect(img.getAttribute("clip-path")).toMatch(/^url\(#l-/);
+    const clip = container.querySelector("clipPath circle")!;
     // About 60 px across on the 146 px disc: a radius of 20.5 of 100, i.e. 59.9 px.
-    const label = [...svg.querySelectorAll("circle")].find((c) => c.getAttribute("fill") === "hsl(var(--paper-label))")!;
-    expect(Math.round(Number(label.getAttribute("r")) * 2 * 1.46)).toBeGreaterThanOrEqual(58);
-    expect(Math.round(Number(label.getAttribute("r")) * 2 * 1.46)).toBeLessThanOrEqual(62);
+    expect(Math.round(Number(clip.getAttribute("r")) * 2 * 1.46)).toBeGreaterThanOrEqual(58);
+    expect(Math.round(Number(clip.getAttribute("r")) * 2 * 1.46)).toBeLessThanOrEqual(62);
+    // Under the sleeve: the original red, not the cream paper.
+    expect(container.innerHTML).toContain("hsl(var(--sleeve-red))");
+    expect(near(tok(dayBlock, "--sleeve-red"), "#ae3129", 6)).toBe(true); // the original red, hsl(4 62% 42%)
+    expect(duskBlock).not.toContain("--sleeve-red"); // one red in both moods
+    expect(container.innerHTML).not.toContain("--paper-label");
+    expect(container.querySelectorAll("text")).toHaveLength(0);
+    expect(existsSync("src/assets/atcq-low-end-theory.png.asset.json")).toBe(true);
+    const deck = render(<VinylDeck playing={false} pitch={1} />).container;
+    expect(deck.querySelector("image")).not.toBeNull();
+    expect(deck.querySelectorAll("text")).toHaveLength(0);
   });
 
-  it("the small disc is the plain paper label: no text", () => {
-    const { container } = render(<VinylRecord size={40} playing={false} />);
-    expect(container.querySelectorAll("text")).toHaveLength(0);
-    expect(container.innerHTML).toContain("--paper-label");
+  it("the header record (40 px and 36 px) is the plain paper label: no image, no text", () => {
+    for (const size of [40, 36]) {
+      const { container } = render(<VinylRecord size={size} playing={false} />);
+      expect(container.querySelector("image")).toBeNull();
+      expect(container.querySelector("[href], [src]")).toBeNull();
+      expect(container.querySelectorAll("text")).toHaveLength(0);
+      expect(container.innerHTML).toContain("--paper-label");
+    }
   });
 
   it("has no rim and no outline: the only strokes are the grooves", () => {
@@ -210,19 +208,18 @@ describe("The header record and the popover", () => {
     expect(phone.className).toContain("w-11");
   });
 
-  it("the popover names the track as text above the deck, without the sleeve line, and the label is decoration", async () => {
+  it("the header button renders no image; the popover names the track and the sleeve as text, and the deck shows the sleeve", async () => {
     await mount();
+    expect(screen.getByRole("switch").querySelector("image")).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Open turntable controls" }));
     await act(async () => { await Promise.resolve(); });
     const body = document.body.textContent!;
     expect(body).toContain("Odetta · ATCQ Tribute");
-    expect(body).not.toMatch(/Sleeve|Low End Theory|1991/);
-    // The name is on the page as text once; the two lines on the label are SVG text inside an aria-hidden svg.
+    expect(body).toContain("Sleeve: The Low End Theory, 1991");
     const texts = [...document.querySelectorAll("p")].filter((p) => p.textContent === "Odetta · ATCQ Tribute");
     expect(texts).toHaveLength(1);
-    const labelText = [...document.querySelectorAll("svg text")];
-    expect(labelText.length).toBe(2);
-    for (const t of labelText) expect(t.closest("svg")!.getAttribute("aria-hidden")).toBe("true");
+    expect(document.querySelectorAll("svg text")).toHaveLength(0);
+    expect(document.querySelectorAll("svg image")).toHaveLength(1);
     // The popover is on the surface-container ground the contrasts above are measured on.
     expect(read("src/components/AmbienceControl.tsx")).toContain("bg-surface-container");
   });

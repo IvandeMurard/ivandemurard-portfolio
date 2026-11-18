@@ -1,32 +1,31 @@
 import { useId } from "react";
 import { useMoodOptional } from "@/components/MoodProvider";
+import cover from "@/assets/atcq-low-end-theory.png.asset.json";
 
 /**
  * VinylDeck: an SVG turntable platter + tonearm (board L, option 1: no rims, no outlines).
  * Rotation speed follows pitch (33⅓ rpm nominal = 1.8s per turn).
  *
- * The record carries a plain paper label in warm cream. At the size of the popover's deck the label is bigger and
- * carries two lines of the track's name; they are decoration (aria-hidden), the name stays as text above the deck.
+ * The header record carries a plain paper label in warm cream, no image. The deck's record (the large disc in the
+ * popover, `sleeve`) shows the album sleeve on its label, clipped to the label circle; the popover names the sleeve as text.
  * In the Dusk mood the two reflections take a warm lamplight tint and are lit from the top right.
  */
-const LABEL_LINES = {
-  track: "Odetta · ATCQ Tribute",
-  side: "Side A · 33⅓",
-} as const;
-/** A disc this wide (px) or wider gets the large label with its two lines. */
+/** A disc this wide (px) or wider gets the large label. */
 const LARGE_DISC = 60;
-const MONO = "'IBM Plex Mono', ui-monospace, monospace";
 
 export const VinylRecord = ({
   size,
   playing,
   pitch = 1,
   label = true,
+  sleeve = false,
 }: {
   size: number;
   playing: boolean;
   pitch?: number;
   label?: boolean;
+  /** Show the album sleeve on the label (the deck only). */
+  sleeve?: boolean;
 }) => {
   const id = useId().replace(/:/g, "");
   const mood = useMoodOptional();
@@ -53,6 +52,11 @@ export const VinylRecord = ({
           {stop("62%", "var(--sheen-b)")}
           {stop("100%", "0")}
         </linearGradient>
+        {sleeve && (
+          <clipPath id={`l-${id}`}>
+            <circle cx="50" cy="50" r={labelR} />
+          </clipPath>
+        )}
       </defs>
       <g
         className="vinyl-spin"
@@ -72,12 +76,18 @@ export const VinylRecord = ({
             opacity={i % 5 === 4 ? 0.9 : 0.6}
           />
         ))}
-        {label && <circle cx="50" cy="50" r={labelR} fill="hsl(var(--paper-label))" />}
-        {label && large && (
-          <>
-            <text x="50" y="46.8" textAnchor="middle" dominantBaseline="middle" fontFamily={MONO} fontSize="2.7" textLength="33" lengthAdjust="spacingAndGlyphs" fill="hsl(var(--label-ink))">{LABEL_LINES.track}</text>
-            <text x="50" y="53.4" textAnchor="middle" dominantBaseline="middle" fontFamily={MONO} fontSize="2.7" fill="hsl(var(--label-ink))">{LABEL_LINES.side}</text>
-          </>
+        {/* Under the sleeve (deck only): the original red; the header record keeps the cream paper */}
+        {label && <circle cx="50" cy="50" r={labelR} fill={sleeve ? "hsl(var(--sleeve-red))" : "hsl(var(--paper-label))"} />}
+        {label && sleeve && (
+          <image
+            href={cover.url}
+            x={50 - labelR}
+            y={50 - labelR}
+            width={labelR * 2}
+            height={labelR * 2}
+            preserveAspectRatio="xMidYMid slice"
+            clipPath={`url(#l-${id})`}
+          />
         )}
       </g>
       <circle cx="50" cy="50" r="50" fill={`url(#s-${id})`} pointerEvents="none" />
@@ -100,7 +110,7 @@ export const VinylDeck = ({ playing, pitch }: { playing: boolean; pitch: number 
     >
       {/* The record sits straight on the plinth: no platter rim */}
       <div className="absolute left-[13px] top-[13px] h-[146px] w-[146px] rounded-full shadow-[0_6px_14px_-6px_hsl(var(--vinyl)/0.9)]">
-        <VinylRecord size={146} playing={playing} pitch={pitch} />
+        <VinylRecord size={146} playing={playing} pitch={pitch} sleeve />
       </div>
 
       {/* Tonearm: pivots from top-right; rests off the record when stopped */}

@@ -722,6 +722,7 @@
   --sheen-b: 0.12;
   --paper-label: 40 54.9% 86.1%;           /* warm cream paper, #efe2c8 */
   --label-ink: 30 18.4% 19.2%;             /* warm dark ink, #3a3128 */
+  --sleeve-red: 4 62% 42%;                 /* red under the sleeve image on the deck's record */
   --plinth-from: 25.3 36.3% 30.8%;         /* walnut, #6b4a32 */
   --plinth-to: 24 37% 21.2%;               /* walnut, #4a3222 */
   --brush-hi: 0 0% 100%;                   /* fine vertical brushing of the plinth, none by day */
