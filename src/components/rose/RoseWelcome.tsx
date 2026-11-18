@@ -11,7 +11,7 @@ import { ROSE_WELCOME } from "@/content/roseWelcome";
  *
  * It shows once, on the first page view of a browser session, on any page, and never when Page notes are off. After a
  * button, Escape or the opening of the dock it is gone for the rest of the session. It sits in the dock, above the bar.
- * When it would cover the hero's call to action (a phone), it waits for the first scroll.
+ * On a phone (under 768 px), or when it would cover the hero's call to action, it waits for the first scroll.
  */
 export const WELCOME_KEY = "rose_welcome";
 
@@ -33,6 +33,11 @@ const claimWelcome = (): boolean => {
 export const resetRoseWelcome = () => { taken = false; };
 
 const markSeen = () => { try { window.sessionStorage.setItem(WELCOME_KEY, "seen"); } catch { /* ignore */ } };
+
+/** Under this width the welcome waits for a scroll; from it up, only if it would cover the call to action. */
+const PHONE_WIDTH = 768;
+/** A visitor who has scrolled this far (px) has had the call to action pass; the welcome may show. */
+const SCROLL_RELEASE = 200;
 
 const overlaps = (a: DOMRect, b: { left: number; right: number; top: number; bottom: number }) =>
   a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
@@ -65,21 +70,29 @@ export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
     return () => window.removeEventListener("keydown", onKey);
   }, [candidate]);
 
-  // Would the welcome, with the bar under it, cover the hero's primary call to action? Then it waits for the first scroll,
-  // and shows once the scroll has moved the call to action clear of it (a first scroll of a few pixels is not enough).
+  // On a phone (under 768 px), or wherever the welcome, with the bar under it, would intersect the hero's primary call to
+  // action, it shows only after the first scroll: once the call to action has left the viewport, or the visitor has
+  // scrolled at least 200 px. A page with no such call to action has nothing to leave: it shows at the first scroll.
+  // The desktop, where it clears the call to action, is unchanged: it shows on arrival.
   useEffect(() => {
-    if (!candidate) return;
+    if (!candidate || window.scrollY > 0) return;
     const cta = document.querySelector<HTMLElement>('[data-cta="primary"]');
     const dock = dockRef.current;
-    if (!cta || !dock || window.scrollY > 0) return;
-    const covers = () => {
+    const intersects = () => {
+      if (!cta || !dock) return false;
       const bottomGap = parseFloat(getComputedStyle(dock).bottom) || 0;
       const d = dock.getBoundingClientRect();
       return overlaps(cta.getBoundingClientRect(), { left: d.left, right: d.right, top: window.innerHeight - bottomGap - dock.offsetHeight - 8, bottom: window.innerHeight });
     };
-    if (!covers()) return;
+    if (window.innerWidth >= PHONE_WIDTH && !intersects()) return;
+    const released = () => {
+      if (window.scrollY >= SCROLL_RELEASE) return true;
+      if (!cta) return window.scrollY > 0;
+      const r = cta.getBoundingClientRect();
+      return r.bottom <= 0 || r.top >= window.innerHeight;
+    };
     setWaitForScroll(true);
-    const onScroll = () => { if (window.scrollY > 0 && !covers()) { setWaitForScroll(false); window.removeEventListener("scroll", onScroll); } };
+    const onScroll = () => { if (released()) { setWaitForScroll(false); window.removeEventListener("scroll", onScroll); } };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [candidate, dockRef]);

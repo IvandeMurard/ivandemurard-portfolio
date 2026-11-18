@@ -236,25 +236,75 @@ describe("Where it sits, and the phone", () => {
     expect(dock.getAttribute("aria-hidden")).toBe("true");
   });
 
-  it("waits for the first scroll when it would cover the hero's primary call to action", async () => {
+  const scrollTo = (y: number) => { Object.defineProperty(window, "scrollY", { value: y, configurable: true }); act(() => { window.dispatchEvent(new Event("scroll")); }); };
+  /** The top of the dock's footprint (dock height 240, 16 px from the bottom, 8 px of air) on an 844 px viewport. */
+  const FOOTPRINT_TOP = 844 - 16 - 240 - 8;
+
+  it("at 390: not shown on arrival, not covering the call to action, and shown after a scroll of 200 px", async () => {
+    vi.stubGlobal("innerWidth", 390);
+    const cta = { top: 538, bottom: 590, left: 24, right: 220 }; // the button as measured at 390 x 844
+    rects(cta);
+    render(wrap(<Index />));
+    await flush();
+    // Arrival: the welcome's footprint and the button would overlap, so it is not there.
+    expect(cta.bottom).toBeGreaterThan(FOOTPRINT_TOP);
+    expect(shown()).toBe(false);
+    expect(welcome()!.getAttribute("aria-hidden")).toBe("true");
+    // A first scroll that leaves the button on screen is not enough.
+    Object.assign(cta, { top: 538 - 100, bottom: 590 - 100 });
+    scrollTo(100);
+    expect(shown()).toBe(false);
+    // 200 px: it shows, and the button is clear of it.
+    Object.assign(cta, { top: 538 - 200, bottom: 590 - 200 });
+    scrollTo(200);
+    expect(shown()).toBe(true);
+    expect(cta.bottom).toBeLessThanOrEqual(FOOTPRINT_TOP);
+  });
+
+  it("at 390: shows as soon as the call to action has left the viewport, before 200 px", async () => {
+    vi.stubGlobal("innerWidth", 390);
+    const cta = { top: 40, bottom: 92, left: 24, right: 220 };
+    rects(cta);
+    render(wrap(<Index />));
+    await flush();
+    expect(shown()).toBe(false);
+    Object.assign(cta, { top: -60, bottom: -8 });
+    scrollTo(120);
+    expect(shown()).toBe(true);
+  });
+
+  it("under 768 px it waits even when the call to action is clear; from 768 px it shows on arrival", async () => {
+    rects({ top: 300, bottom: 352, left: 24, right: 220 });
+    vi.stubGlobal("innerWidth", 767);
+    const phone = render(wrap(<Index />));
+    await flush();
+    expect(shown()).toBe(false);
+    phone.unmount();
+    resetRoseWelcome();
+    window.sessionStorage.removeItem(WELCOME_KEY);
+    vi.stubGlobal("innerWidth", 768);
+    render(wrap(<Index />));
+    await flush();
+    expect(shown()).toBe(true);
+  });
+
+  it("on a desktop it waits only if it would cover the call to action, and then by the same rule", async () => {
+    vi.stubGlobal("innerWidth", 1280);
     const cta = { top: 700, bottom: 752, left: 24, right: 220 };
     rects(cta);
     render(wrap(<Index />));
     await flush();
     expect(shown()).toBe(false);
-    expect(welcome()!.getAttribute("aria-hidden")).toBe("true");
-    // A first scroll of a few pixels leaves the call to action under it: it keeps waiting.
-    Object.defineProperty(window, "scrollY", { value: 40, configurable: true });
-    act(() => { window.dispatchEvent(new Event("scroll")); });
+    Object.assign(cta, { top: 660, bottom: 712 });
+    scrollTo(40);
     expect(shown()).toBe(false);
-    // Once the scroll has moved the call to action clear of it, it shows.
-    Object.assign(cta, { top: 300, bottom: 352 });
-    Object.defineProperty(window, "scrollY", { value: 400, configurable: true });
-    act(() => { window.dispatchEvent(new Event("scroll")); });
+    Object.assign(cta, { top: 500, bottom: 552 });
+    scrollTo(200);
     expect(shown()).toBe(true);
   });
 
-  it("does not wait when the call to action is clear of it", async () => {
+  it("on a desktop, with the call to action clear of it, it shows on arrival: unchanged", async () => {
+    vi.stubGlobal("innerWidth", 1440);
     rects({ top: 300, bottom: 352, left: 24, right: 220 });
     render(wrap(<Index />));
     await flush();
