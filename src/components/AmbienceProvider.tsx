@@ -218,6 +218,9 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+/** The ambience context if there is one (a dock rendered alone has none). */
+export const useAmbienceOptional = () => useContext(AmbienceContext);
+
 export const useAmbience = () => {
   const ctx = useContext(AmbienceContext);
   if (!ctx) throw new Error("useAmbience must be used within AmbienceProvider");

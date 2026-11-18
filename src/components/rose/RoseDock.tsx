@@ -22,6 +22,7 @@ import { ROSE_EMPTY_ANSWER, ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/
 import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose-provider";
 import { ROSE_BOOKING_LINE_PART } from "../../../supabase/functions/_shared/rose-booking-line";
 import { ExternalMark } from "@/components/ui/ExternalMark";
+import { RoseWelcome, useRoseWelcome } from "./RoseWelcome";
 
 const SESSION_KEY = "rose_session";
 
@@ -133,6 +134,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const [focusWithin, setFocusWithin] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const dockRef = useRef<HTMLDivElement>(null);
+  // Rose's welcome: scripted, once per session, above the bar. It is not part of the conversation.
+  const welcome = useRoseWelcome({ dockOpen: open, dockRef });
   // Echo from the homepage Rose card: the same compass, answering from the dock.
   const [echo, setEcho] = useState(false);
   const expandedInputRef = useRef<HTMLTextAreaElement>(null);
@@ -359,7 +362,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   // The labels of source links come from a registry kept in its own chunk: it starts loading when the dock opens.
   useEffect(() => { if (open) void loadSourceLabels(); }, [open]);
 
-  const hidden = !open && !pastHero;
+  // On the homepage the dock waits for the hero to scroll away, except while the welcome is shown above its bar.
+  const hidden = !open && !pastHero && !welcome.visible;
   const showChips = open ? messages.length === 0 : focusWithin;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
   const askedTexts = new Set(messages.filter((m) => m.role === "user").map((m) => renderText(m)));
@@ -391,6 +395,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           hidden ? "pointer-events-none opacity-0" : "opacity-100",
         )}
       >
+        {welcome.candidate ? <RoseWelcome welcome={welcome} /> : null}
         <div
           onFocusCapture={() => setFocusWithin(true)}
           onBlurCapture={(e) => {

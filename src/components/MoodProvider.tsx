@@ -55,6 +55,9 @@ export const MoodProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+/** The mood context if there is one (a dock rendered alone, in a test or a lab, has none). */
+export const useMoodOptional = () => useContext(MoodContext);
+
 export const useMood = () => {
   const ctx = useContext(MoodContext);
   if (!ctx) throw new Error("useMood must be used within MoodProvider");
