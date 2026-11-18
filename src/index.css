@@ -25,6 +25,17 @@
     --surface-container-highest: 43 11% 88%;  /* #e4e2dd */
     --surface-variant: 43 11% 88%;            /* #e4e2dd */
 
+    /* Homepage rooms (v2): warm neutrals only. Stone and peach tint the Flagship and Field Notes grounds. */
+    --surface-stone: 35 33% 93%;              /* #f3eee7 */
+    --surface-peach: 31 74% 94%;              /* #fbf0e4 */
+    /* Hero light, one gradient per hour of Paris (HSL channels, alpha applied where used). */
+    --glow-morning: 39 88% 90%;
+    --glow-midday: 42 67% 94%;
+    --glow-late-hi: 36 81% 77%;
+    --glow-late-lo: 36 80% 85%;
+    --glow-dusk-hi: 39 80% 70%;
+    --glow-dusk-lo: 32 83% 65%;
+
     /* Primary: Picasso Blue Era */
     --primary: 215 100% 11%;                  /* #001b3a */
     --primary-container: 215 56% 20%;         /* #163052 */
@@ -150,7 +161,8 @@
     --surface-container-high: 32 13% 17%;
     --surface-container-highest: 32 12% 20%;
     --surface-variant: 32 12% 20%;
-
+    --surface-stone: 32 13% 14%;              /* the dusk surface-container, #28241f */
+    --surface-peach: 28 25% 13%;              /* a warmer taupe, #2a2119 */
     --primary: 217 71% 82%;                   /* invert: blue becomes the light source */
     --primary-container: 215 56% 28%;
     --primary-fixed: 217 60% 78%;
@@ -523,8 +535,7 @@
      Tokens are re-scoped locally so children keep using semantic classes. */
   .section-inverse {
     background-color: hsl(var(--inverse-ground));
-    --primary: 42 41% 97%;
-    --primary-container: 39 96% 82%;
+    --primary: 42 41% 97%;    --primary-container: 39 96% 82%;
     --on-primary: 215 100% 11%;
     --secondary: 39 96% 82%;
     --on-secondary: 38 45% 12%;
@@ -1071,8 +1082,7 @@
   isolation: isolate;
   background-color: hsl(30 24% 7%);
   color: hsl(50 33% 97%);
-  --primary: 50 33% 97%;
-  --secondary: 27 63% 67%;
+  --primary: 50 33% 97%;  --secondary: 27 63% 67%;
   --on-surface: 50 33% 97%;
   --on-surface-variant: 45 14% 80%;
   --outline-variant: 45 12% 36%;
@@ -1104,3 +1114,32 @@
 @media (prefers-reduced-motion: reduce) {
   [data-passage-cited] { transition: none; }
 }
+
+/* Homepage hero light (v2). One layer per hour of Paris, stacked; the active one is shown, a change crossfades over
+   2400 ms. The whole glow warms in once, 1.2 s, on arrival. Off with prefers-reduced-motion. It sits behind the
+   text, so it never moves the layout nor the LCP text. Values: docs/homepage-prototype (board K v2). */
+.hero-glow { position: absolute; inset: 0; pointer-events: none; }
+.hero-glow[data-arrive] { animation: hero-glow-arrive 1200ms ease-out both; }
+.hero-glow-layer { position: absolute; inset: 0; opacity: 0; transition: opacity 2400ms cubic-bezier(0.22, 1, 0.36, 1); }
+.hero-glow-layer[data-active] { opacity: 1; }
+.hero-glow-layer[data-light="morning"] {
+  background: radial-gradient(60% 80% at 92% 0%, hsl(var(--glow-morning) / 0.85), hsl(var(--glow-morning) / 0) 70%);
+}
+.hero-glow-layer[data-light="midday"] {
+  background: radial-gradient(55% 70% at 92% 0%, hsl(var(--glow-midday) / 0.7), hsl(var(--glow-midday) / 0) 70%);
+}
+.hero-glow-layer[data-light="late"] {
+  background: radial-gradient(65% 90% at 95% 5%, hsl(var(--glow-late-hi) / 0.75), hsl(var(--glow-late-lo) / 0.35) 40%, hsl(var(--glow-late-lo) / 0) 75%);
+}
+.hero-glow-layer[data-light="dusk"] {
+  background: radial-gradient(45% 75% at 92% 8%, hsl(var(--glow-dusk-hi) / 0.3), hsl(var(--glow-dusk-lo) / 0.1) 45%, hsl(var(--glow-dusk-lo) / 0) 72%);
+}
+@keyframes hero-glow-arrive { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow[data-arrive] { animation: none; }
+  .hero-glow-layer { transition: none; }
+}
+
+/* Field Notes cards on the homepage (v2): a pale veil on the peach room by day, a faint lift at dusk. Tokens only. */
+.field-card { background-color: hsl(var(--surface-container-lowest) / 0.6); }
+[data-mood="dusk"] .field-card { background-color: hsl(var(--on-surface) / 0.04); }
