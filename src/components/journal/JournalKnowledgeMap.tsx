@@ -13,7 +13,7 @@ export const JournalKnowledgeMap = () => (
         return (
           <li key={q.slug} className="flex flex-col gap-5 py-10 lg:py-12 lg:px-8 first:lg:pl-0 last:lg:pr-0 border-b lg:border-b-0 border-outline-variant">
             <span className={`${label} text-on-surface-variant`}>{q.number} · {q.label}</span>
-            <h3 className="font-headline italic text-2xl md:text-3xl text-primary leading-tight">{q.question}</h3>
+            <h3 className="font-headline italic text-2xl md:text-3xl text-heading leading-tight">{q.question}</h3>
             <p className="text-on-surface-variant leading-relaxed font-normal">{q.description}</p>
             <Link to={`/journal/${entry.slug}`}
               className="mt-auto min-h-[44px] inline-flex items-center self-start font-headline italic text-lg text-secondary border-b border-secondary/40 hover:border-secondary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">

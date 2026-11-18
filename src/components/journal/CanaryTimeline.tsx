@@ -24,7 +24,7 @@ export const CanaryTimeline = ({ steps, label }: { steps: Step[]; label?: string
             {i < steps.length - 1 && <span aria-hidden="true" className="w-px flex-1 bg-outline-variant" />}
           </div>
           <div className={i < steps.length - 1 ? "pb-6" : ""}>
-            <div className="font-headline italic text-xl text-primary">{step.value}</div>
+            <div className="font-headline italic text-xl text-heading">{step.value}</div>
             <div className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mt-1">
               {step.label}
             </div>

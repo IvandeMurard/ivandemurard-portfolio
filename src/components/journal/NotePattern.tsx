@@ -39,7 +39,7 @@ export const NoteMeta = ({ entry, date }: { entry: JournalEntry; date: string })
 
 /** The hook, one sentence in display serif at the full content width, then the intro line at body width. */
 export const NoteHook = ({ entry }: { entry: JournalEntry }) => (
-  <p className="mt-2 max-w-[1000px] font-headline text-[30px] font-normal leading-[1.2] text-primary md:text-[38px]">{entry.hook}</p>
+  <p className="mt-2 max-w-[1000px] font-headline text-[30px] font-normal leading-[1.2] text-heading md:text-[38px]">{entry.hook}</p>
 );
 
 export const NoteIntro = ({ entry }: { entry: JournalEntry }) => (
@@ -65,7 +65,7 @@ export const NotePeak = ({ block }: { block: PeakBlock }) => (
     <section aria-label={block.aria} data-peak className={cn(BLEED, "section-inverse flex min-h-[620px] items-center px-6 py-16 md:px-12")}>
       <div className="mx-auto w-full max-w-6xl">
         <p className="font-mono text-[13px] uppercase leading-snug tracking-[0.12em] text-secondary">{block.kicker}</p>
-        <p className={cn("mt-5 max-w-[900px] font-headline font-normal text-primary", block.leadBig ? "text-[38px] leading-[1.1] md:text-[48px]" : "text-[28px] leading-[1.18] md:text-[40px]")}>
+        <p className={cn("mt-5 max-w-[900px] font-headline font-normal text-heading", block.leadBig ? "text-[38px] leading-[1.1] md:text-[48px]" : "text-[28px] leading-[1.18] md:text-[40px]")}>
           {block.lead}
         </p>
         <div className={cn("mt-9 grid items-start gap-5", block.cols === 3 ? "md:grid-cols-3" : "md:grid-cols-2")}>
@@ -135,7 +135,7 @@ export const ContinueCards = ({ notes, also }: { notes: JournalEntry[]; also?: {
       {notes.map((n) => (
         <li key={n.slug} className="relative flex flex-col gap-3 rounded-[20px] border border-outline-variant bg-surface-container-lowest p-6 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-secondary">
           <p className="font-mono text-[11px] uppercase leading-snug tracking-[0.12em] text-on-surface-variant">{n.decision}</p>
-          <p className="font-headline text-[24px] font-normal leading-[1.15] text-primary">{n.title}</p>
+          <p className="font-headline text-[24px] font-normal leading-[1.15] text-heading">{n.title}</p>
           <p className="mt-auto font-mono text-[12.5px] text-on-surface-variant">{metaLine(n)}</p>
           <Link to={`/journal/${n.slug}`} className="text-sm font-medium text-primary underline decoration-secondary underline-offset-4 after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
             Read the note<span className="sr-only">: {n.title}</span>

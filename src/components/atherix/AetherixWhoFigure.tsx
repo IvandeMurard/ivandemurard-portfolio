@@ -9,7 +9,7 @@ const Arrow = ({ d, className = "", viewBox = "0 0 64 20", w = "w-16" }: { d: st
 const Party = ({ role, name, text }: { role: string; name: string; text: string }) => (
   <div className="rounded-xl border-[1.5px] border-primary bg-surface-container-lowest px-4 py-3">
     <p className="font-label text-xs text-secondary">{role}</p>
-    <p className="mt-1 font-headline text-[22px] leading-tight text-primary">{name}</p>
+    <p className="mt-1 font-headline text-[22px] leading-tight text-heading">{name}</p>
     <p className="mt-0.5 text-[13.5px] text-on-surface-variant">{text}</p>
   </div>
 );
@@ -27,7 +27,7 @@ export const AetherixWhoFigure = () => {
         <Party {...pms} />
         <Arrow d="M2 10h56M52 5l6 5-6 5" className="self-center rotate-90 md:rotate-0" />
         <div className="rounded-xl border-[1.5px] border-secondary bg-surface-container-low px-4 py-4 text-center">
-          <p className="font-headline text-[26px] leading-tight text-primary">Aetherix</p>
+          <p className="font-headline text-[26px] leading-tight text-heading">Aetherix</p>
         </div>
         <Arrow d="M2 8h56M52 3l6 5-6 5M62 20H6M12 15l-6 5 6 5" viewBox="0 0 64 28" className="self-center rotate-90 md:rotate-0" />
         <Party {...manager} />

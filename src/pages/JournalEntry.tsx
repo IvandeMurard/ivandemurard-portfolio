@@ -138,7 +138,7 @@ const Block = ({
         <h2
           id={headingId}
           tabIndex={-1}
-          className="group scroll-mt-32 font-headline italic text-2xl md:text-3xl text-primary pt-8"
+          className="group scroll-mt-32 font-headline italic text-2xl md:text-3xl text-heading pt-8"
         >
           {block.aliases?.map((alias) => <span key={alias} id={alias} className="block scroll-mt-32" />)}
           {block.text}
@@ -174,7 +174,7 @@ const Block = ({
       );
     case "quote":
       return (
-        <blockquote className="border-l border-secondary pl-6 font-headline italic text-xl md:text-2xl text-primary leading-relaxed">
+        <blockquote className="border-l border-secondary pl-6 font-headline italic text-xl md:text-2xl text-heading leading-relaxed">
           {t(block.text)}
         </blockquote>
       );
@@ -305,7 +305,7 @@ const Block = ({
               key={i}
               className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5"
             >
-              <dt className="font-headline italic text-lg text-primary mb-2">{item.q}</dt>
+              <dt className="font-headline italic text-lg text-heading mb-2">{item.q}</dt>
               <dd className="font-body font-normal text-sm text-on-surface-variant">{t(item.a)}</dd>
             </div>
           ))}
@@ -442,7 +442,7 @@ const JournalEntry = () => {
           <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block">
             Field Notes
           </span>
-          <h1 className="font-headline text-4xl md:text-6xl italic text-primary mb-8">Entry not found.</h1>
+          <h1 className="font-headline text-4xl md:text-6xl italic text-heading mb-8">Entry not found.</h1>
           <p className="text-on-surface-variant font-normal mb-12">
             That note may have been moved, renamed, or is still in draft.
           </p>
@@ -533,7 +533,7 @@ const JournalEntry = () => {
         <div className="relative mx-auto max-w-[61rem]">
           <header>
             <NoteMeta entry={entry} date={formatDate(entry.date, labels.locale)} />
-            <h1 className="mb-6 font-headline text-4xl italic leading-[1.1] text-primary md:text-6xl">{entry.title}</h1>
+            <h1 className="mb-6 font-headline text-4xl italic leading-[1.1] text-heading md:text-6xl">{entry.title}</h1>
             <NoteHook entry={entry} />
           </header>
           {tocItems.length > 1 && (

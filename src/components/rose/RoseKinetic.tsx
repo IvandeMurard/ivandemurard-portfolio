@@ -101,7 +101,7 @@ const GestureNote = ({ on, reduced, children, tip = true }: { on: boolean; reduc
       <div className="min-w-0 flex-1 rounded-[14px] border border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-md shadow-primary/5">
         <div className="flex items-center gap-1.5">
           <CompassMark className="h-[18px] w-[18px] shrink-0 text-primary" />
-          <span className="font-headline text-base leading-none text-primary">Rose</span>
+          <span className="font-headline text-base leading-none text-heading">Rose</span>
         </div>
         <p className="mt-2 font-headline text-lg leading-snug text-on-surface">{children}</p>
         {firstId === id && (
@@ -372,11 +372,11 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
             ))}
           </ol>
           <div key={step} aria-live="polite" className={cn(!reduced && "animate-in fade-in slide-in-from-bottom-2 duration-700")}>
-            <h3 className="mt-8 font-headline text-3xl leading-tight text-primary md:text-4xl">{it.title}</h3>
+            <h3 className="mt-8 font-headline text-3xl leading-tight text-heading md:text-4xl">{it.title}</h3>
             <dl className="mt-6 space-y-4 font-body text-sm leading-relaxed text-on-surface md:text-base">
               <div><dt className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Problem</dt><dd className="mt-1">{it.problem}</dd></div>
               <div><dt className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">What changed</dt><dd className="mt-1">{it.decision}</dd></div>
-              <div><dt className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Decision</dt><dd className="mt-1 font-headline text-lg italic text-primary">{it.result}</dd></div>
+              <div><dt className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Decision</dt><dd className="mt-1 font-headline text-lg italic text-heading">{it.result}</dd></div>
             </dl>
             <p className="mt-5 font-label text-[10px] text-on-surface-variant">Commit {it.source}</p>
           </div>
@@ -385,7 +385,7 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
         {/* A miniature page: the reading surface stays still while the dock changes shape. */}
         <div aria-hidden="true" className="relative aspect-[4/3] overflow-hidden rounded-xl border border-outline-variant bg-surface" style={{ transition: t }}>
           <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
-            <span className="font-headline text-sm italic text-primary">Ivan de Murard</span>
+            <span className="font-headline text-sm italic text-heading">Ivan de Murard</span>
             <div className="flex items-center gap-4 font-label text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">
               <span>Work</span><span>Field Notes</span>
               <span className="rounded-full border border-secondary px-2.5 py-1 text-secondary"
@@ -394,7 +394,7 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
           </div>
           <div className="px-8 pt-7">
             <p className="font-label text-[9px] uppercase tracking-[0.18em] text-secondary">Case study · Aetherix</p>
-            <p className="mt-2 font-headline text-2xl leading-tight text-primary">Forecasting tomorrow's workload.</p>
+            <p className="mt-2 font-headline text-2xl leading-tight text-heading">Forecasting tomorrow's workload.</p>
             <p className="mt-3 font-body text-[11px] leading-relaxed text-on-surface">
               Aetherix estimates demand so a manager can staff ahead. It is evaluated against{" "}
               <span className="bg-no-repeat" style={{ backgroundImage: "linear-gradient(hsl(var(--secondary) / .7), hsl(var(--secondary) / .7))", backgroundPosition: "0 100%", backgroundSize: step >= 1 ? "100% 1px" : "0% 1px", transition: reduced ? "none" : `background-size 900ms ${EASE} 300ms` }}>a simple baseline</span>
@@ -565,7 +565,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                 {[["Forecast vs baseline", "49.71% · 55.86%"], ["Next day, J+1", "28.5% · 27.9%"], ["Sandbox, +25% shift", "15.9% → 12.3%"]].map(([k, v], i) => (
                   <div key={k} className="flex items-baseline justify-between gap-4 border-b border-outline-variant pb-3" style={{ opacity: reduced ? 1 : Math.min(1, local * 3 - i * 0.5 + 0.5), transition: "opacity 300ms ease" }}>
                     <span className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">{k}</span>
-                    <span className="font-headline text-2xl text-primary">{v}</span>
+                    <span className="font-headline text-2xl text-heading">{v}</span>
                   </div>
                 ))}
                 <p className="font-body text-xs text-on-surface-variant">Values quoted from the published Aetherix page. The reformulation changes the sentence, never the figure.</p>
@@ -638,7 +638,7 @@ export const HeroAgent = ({ reduced, compass }: { reduced: boolean; compass: (he
       </div>
       <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="border-b border-outline-variant p-6 md:border-b-0 md:border-r">
-          <p className="font-headline text-2xl leading-tight text-primary">Where it stands</p>
+          <p className="font-headline text-2xl leading-tight text-heading">Where it stands</p>
           <p className="mt-4 font-body text-sm leading-relaxed text-on-surface">
             Aetherix is evaluated against{" "}
             <RoseMark active={markA} reduced={reduced} delay={0}>a simple baseline</RoseMark>{" "}

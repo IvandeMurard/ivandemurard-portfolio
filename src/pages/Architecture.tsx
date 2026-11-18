@@ -32,7 +32,7 @@ const P = ({ children }: { children: ReactNode }) => (
 );
 
 const Pull = ({ children }: { children: ReactNode }) => (
-  <p className="font-headline italic text-primary text-xl md:text-2xl leading-snug my-8 max-w-3xl border-l border-secondary pl-6">
+  <p className="font-headline italic text-heading text-xl md:text-2xl leading-snug my-8 max-w-3xl border-l border-secondary pl-6">
     {children}
   </p>
 );
@@ -60,7 +60,7 @@ const Section = ({
       <h2
         id={id}
         tabIndex={-1}
-        className="group font-headline italic text-primary text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32"
+        className="group font-headline italic text-heading text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32"
       >
         {title}
         <HeadingAnchor id={id} text={title} />
@@ -133,7 +133,7 @@ const Table = ({
           <tr key={row[0]} className="border-b border-outline-variant last:border-b-0 align-top">
             <th
               scope="row"
-              className="px-4 py-4 font-headline italic text-primary text-base whitespace-nowrap"
+              className="px-4 py-4 font-headline italic text-heading text-base whitespace-nowrap"
             >
               {row[0]}
             </th>
@@ -197,14 +197,14 @@ const Architecture = () => {
             <h1
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
-              className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-primary italic leading-[0.98] tracking-tight mb-6"
+              className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-heading italic leading-[0.98] tracking-tight mb-6"
             >
               Hospitality Multi-Agent Architecture
             </h1>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "200ms" }}
-              className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
+              className="font-headline italic text-heading text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
               Five specialised agents, each owning one bounded context, talking only through MCP.
             </p>
@@ -313,7 +313,7 @@ const Architecture = () => {
                       key={name}
                       className="flex flex-col sm:flex-row sm:gap-6 border-b border-outline-variant py-3"
                     >
-                      <span className="font-headline italic text-primary text-lg sm:w-32 shrink-0">
+                      <span className="font-headline italic text-heading text-lg sm:w-32 shrink-0">
                         {name}
                       </span>
                       <span className="font-body text-sm text-on-surface-variant leading-relaxed">
@@ -343,7 +343,7 @@ const Architecture = () => {
               >
                 <MeshBlueprint />
 
-                <p className="font-headline italic text-primary text-xl md:text-2xl max-w-3xl">
+                <p className="font-headline italic text-heading text-xl md:text-2xl max-w-3xl">
                   Aetherix executes. It does not orchestrate.
                 </p>
               </Section>
@@ -357,7 +357,7 @@ const Architecture = () => {
               >
                 <div className="space-y-6 max-w-3xl">
                   <div>
-                    <h3 className="font-headline italic text-primary text-xl mb-2">
+                    <h3 className="font-headline italic text-heading text-xl mb-2">
                       One bounded context per node
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">
@@ -369,7 +369,7 @@ const Architecture = () => {
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-headline italic text-primary text-xl mb-2">
+                    <h3 className="font-headline italic text-heading text-xl mb-2">
                       MCP is the only doorway
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">
@@ -385,7 +385,7 @@ const Architecture = () => {
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-headline italic text-primary text-xl mb-2">
+                    <h3 className="font-headline italic text-heading text-xl mb-2">
                       Tenancy is resolved server-side, never passed as an argument
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">
@@ -396,7 +396,7 @@ const Architecture = () => {
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-headline italic text-primary text-xl mb-2">
+                    <h3 className="font-headline italic text-heading text-xl mb-2">
                       Memory is local first, federated second, and never raw
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">
@@ -415,7 +415,7 @@ const Architecture = () => {
                     </p>
                   </div>
                   <div>
-                    <h3 className="font-headline italic text-primary text-xl mb-2">
+                    <h3 className="font-headline italic text-heading text-xl mb-2">
                       A fifth agent is an addition, not a redesign
                     </h3>
                     <p className="font-body text-on-surface-variant leading-relaxed">

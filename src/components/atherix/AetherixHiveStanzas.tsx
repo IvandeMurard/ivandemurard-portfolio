@@ -28,7 +28,7 @@ export const AetherixHiveStanzas = () => (
     <Reveal as="div" className="relative max-w-4xl mx-auto flex flex-col gap-16 md:gap-20">
       <div data-reveal-child className="text-center">
         <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The Hive</span>
-        <h2 className="font-headline italic text-4xl md:text-6xl text-primary mt-4 leading-[1.05]">
+        <h2 className="font-headline italic text-4xl md:text-6xl text-heading mt-4 leading-[1.05]">
           Scaling soul through collective intelligence.
         </h2>
       </div>
@@ -55,7 +55,7 @@ export const AetherixHiveStanzas = () => (
         style={{ ["--reveal-delay" as string]: "400ms" }}
         className="border-l-2 border-secondary pl-6 md:pl-10 max-w-3xl mx-auto"
       >
-        <p className="font-headline italic text-2xl md:text-3xl text-primary leading-snug">
+        <p className="font-headline italic text-2xl md:text-3xl text-heading leading-snug">
           A boutique hotel can now anticipate a surge in specific guest needs, or right-size F&amp;B inventory, by
           tapping into the shared wisdom of the network. Without ever sharing data.
         </p>
@@ -68,7 +68,7 @@ export const AetherixHiveStanzas = () => (
         className="text-center"
       >
         <span aria-hidden="true" className="block divider-fall h-12 mx-auto mb-6" />
-        <p className="font-headline text-2xl md:text-3xl text-primary leading-relaxed max-w-3xl mx-auto">
+        <p className="font-headline text-2xl md:text-3xl text-heading leading-relaxed max-w-3xl mx-auto">
           Scale stops being a corporate privilege. It becomes a distributed technological asset, available to every
           independent operator.
         </p>

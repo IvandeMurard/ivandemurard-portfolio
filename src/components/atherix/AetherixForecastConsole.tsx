@@ -87,7 +87,7 @@ export const AetherixForecastConsole = ({
                   : "border-outline-variant bg-surface-container-lowest hover:border-secondary"
               }`}
             >
-              <span className="block font-headline italic text-base text-primary">{scenario.label}</span>
+              <span className="block font-headline italic text-base text-heading">{scenario.label}</span>
               <span className="block font-body text-xs text-on-surface-variant mt-1">{scenario.context}</span>
             </button>
           );
@@ -106,19 +106,19 @@ export const AetherixForecastConsole = ({
             <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
               Forecast
             </dt>
-            <dd className="font-headline italic text-2xl text-primary">{current.forecast}</dd>
+            <dd className="font-headline italic text-2xl text-heading">{current.forecast}</dd>
           </div>
           <div>
             <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
               Actual
             </dt>
-            <dd className="font-headline italic text-2xl text-primary">{current.actual}</dd>
+            <dd className="font-headline italic text-2xl text-heading">{current.actual}</dd>
           </div>
           <div>
             <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
               Variance
             </dt>
-            <dd className={`font-headline italic text-2xl ${pct > 10 ? "text-error" : "text-primary"}`}>
+            <dd className={`font-headline italic text-2xl ${pct > 10 ? "text-error" : "text-heading"}`}>
               {delta > 0 ? "+" : ""}
               {delta} · {pct}%
             </dd>

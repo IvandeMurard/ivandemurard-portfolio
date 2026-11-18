@@ -82,7 +82,7 @@ const SourceNote = ({ title, children, note }: { title: string; children: ReactN
           className="absolute -top-12 -right-12 w-32 h-32 rounded-full gold-halo opacity-20 pointer-events-none"
         />
         <div className="relative p-4 space-y-2">
-          <p id={headingId} className="font-headline italic text-primary text-base leading-tight">
+          <p id={headingId} className="font-headline italic text-heading text-base leading-tight">
             {title}
           </p>
           <p className="font-body text-sm text-on-surface-variant leading-relaxed">{note}</p>
@@ -147,7 +147,7 @@ export const LoreStatBand = () => (
     <p
       data-reveal-child
       style={{ ["--reveal-delay" as string]: "360ms" }}
-      className="mt-10 font-headline italic text-primary text-xl md:text-2xl leading-snug max-w-3xl"
+      className="mt-10 font-headline italic text-heading text-xl md:text-2xl leading-snug max-w-3xl"
     >
       The pipeline replaces the headcount. It does not replace the experience.
     </p>

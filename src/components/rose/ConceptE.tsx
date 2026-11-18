@@ -79,7 +79,7 @@ const CanvasState = ({ s, reduced }: { s: number; reduced: boolean }) => {
         <p className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Published, technical</p>
         <p className="mt-1 font-body text-xs leading-relaxed text-on-surface-variant line-through decoration-secondary/60">Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%. At J+1, 28.5% vs 27.9%.</p>
         <p className="mt-4 font-label text-[10px] uppercase tracking-[0.16em] text-secondary">For the reader</p>
-        <p className="mt-1 font-headline text-lg leading-snug text-primary">On 30 restaurants, the forecast beats "the mean of the last four same weekdays" on average (49.71% vs 55.86% error), but is slightly behind it for next-day forecasts (28.5% vs 27.9%).</p>
+        <p className="mt-1 font-headline text-lg leading-snug text-heading">On 30 restaurants, the forecast beats "the mean of the last four same weekdays" on average (49.71% vs 55.86% error), but is slightly behind it for next-day forecasts (28.5% vs 27.9%).</p>
       </div>
       <aside className="border-l-2 border-secondary pl-3">
         <p className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">Scope kept beside it</p>
@@ -116,7 +116,7 @@ const ReadingCanvas = ({ reduced }: { reduced: boolean }) => {
       <div className="mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-16 lg:sticky lg:top-20 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center">
         <div>
           <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="design" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Design direction · not a shipped capability</span></div>
-          <h1 id="e-hero" className="mt-5 font-headline text-5xl leading-[1.05] text-primary md:text-6xl">Rose makes the evidence legible, in the moment.</h1>
+          <h1 id="e-hero" className="mt-5 font-headline text-5xl leading-[1.05] text-heading md:text-6xl">Rose makes the evidence legible, in the moment.</h1>
           <p className="mt-6 max-w-md font-body text-base leading-relaxed text-on-surface md:text-lg">She points to where a claim lives, says it plainly, shows what it connects to, and stops where the evidence stops.</p>
           <div role="tablist" aria-label="Canvas state" className="mt-8 flex flex-wrap gap-2">
             {STATES.map((l, i) => (
@@ -133,7 +133,7 @@ const ReadingCanvas = ({ reduced }: { reduced: boolean }) => {
             <span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">ivandemurard.com/aetherix</span>
             <span className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{STATES[s]}</span>
           </div>
-          <div className="px-5 py-3"><p className="font-headline text-xl text-primary">The loop is built and testable. The forecast is not yet proven on hotels.</p></div>
+          <div className="px-5 py-3"><p className="font-headline text-xl text-heading">The loop is built and testable. The forecast is not yet proven on hotels.</p></div>
           <div key={s} className="min-h-[17rem] px-5 pb-6 pt-2"><CanvasState s={s} reduced={reduced} /></div>
           <div className="hidden md:block"><Tip x={TIP_AT[s][0]} y={TIP_AT[s][1]} reduced={reduced} /></div>
           <div className="flex gap-1 px-5 pb-4" aria-hidden="true">{STATES.map((_, i) => <span key={i} className={cn("h-0.5 flex-1", i <= s ? "bg-secondary" : "bg-outline-variant")} />)}</div>
@@ -146,7 +146,7 @@ const ReadingCanvas = ({ reduced }: { reduced: boolean }) => {
 const Chapter = ({ id, n, kicker, title, children }: { id: string; n: string; kicker: string; title: string; children: ReactNode }) => (
   <section id={id} aria-labelledby={`${id}-h`} className="mx-auto max-w-5xl scroll-mt-28 px-6 py-24 md:py-32">
     <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">{n} · {kicker}</p>
-    <h2 id={`${id}-h`} className="mt-4 max-w-3xl font-headline text-4xl leading-tight text-primary md:text-5xl">{title}</h2>
+    <h2 id={`${id}-h`} className="mt-4 max-w-3xl font-headline text-4xl leading-tight text-heading md:text-5xl">{title}</h2>
     <div className="mt-10">{children}</div>
   </section>
 );
@@ -169,7 +169,7 @@ export const ConceptE = ({ reduced }: { reduced: boolean }) => {
         <Chapter id="e-direction" n="01" kicker="Product direction" title="A generic intent became a question about the page.">
           <div className="grid gap-px bg-outline-variant md:grid-cols-2">
             <div className="bg-surface-container-low p-6"><p className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Before</p><p className="mt-3 font-headline text-2xl text-on-surface-variant">"Hiring? Partnership? Just curious?"</p></div>
-            <div className="bg-surface p-6"><p className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">After</p><p className="mt-3 font-headline text-2xl text-primary">"How is Aetherix measured?"</p></div>
+            <div className="bg-surface p-6"><p className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">After</p><p className="mt-3 font-headline text-2xl text-heading">"How is Aetherix measured?"</p></div>
           </div>
           <RoseCue id="e-dir" className="mt-8" note="I used to ask who you were. Now I ask what you are reading." />
         </Chapter>

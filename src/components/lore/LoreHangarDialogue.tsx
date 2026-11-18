@@ -36,7 +36,7 @@ export const LoreHangarDialogue = () => (
         </span>
         <p
           className={`font-headline text-lg md:text-xl leading-relaxed ${
-            line.speaker === "Lore" ? "text-primary italic" : "text-on-surface"
+            line.speaker === "Lore" ? "text-heading italic" : "text-on-surface"
           }`}
         >
           {line.text}

@@ -44,7 +44,7 @@ export const LoreTierTable = () => (
               key={t.tier}
               className={`align-top ${i === 0 ? "border-b-2 border-outline" : "border-b border-outline last:border-0"}`}
             >
-              <td className={`px-6 py-5 font-headline italic text-xl ${i === 0 ? "text-primary" : "text-on-surface"}`}>
+              <td className={`px-6 py-5 font-headline italic text-xl ${i === 0 ? "text-heading" : "text-on-surface"}`}>
                 {t.tier}
               </td>
               <td className={`px-6 py-5 tabular-nums ${t.weight}`}>

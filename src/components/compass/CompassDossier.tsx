@@ -28,7 +28,7 @@ export const CompassDossier = ({ section }: { section: CompassSection }) => {
           {/* The address: timeline */}
           <section aria-labelledby={address?.id} className="p-4 md:p-6 lg:border-r lg:border-outline-variant">
             <h3 id={address?.id} tabIndex={-1} className={`${label} mb-2 scroll-mt-32`}>{address?.title}</h3>
-            <p className="font-headline italic text-2xl text-primary leading-tight mb-5">{bold(address)?.text}</p>
+            <p className="font-headline italic text-2xl text-heading leading-tight mb-5">{bold(address)?.text}</p>
             <ol className="relative m-0 list-none p-0 before:absolute before:bottom-2 before:left-[4.6rem] before:top-2 before:w-px before:bg-outline-variant">
               {COMPASS_TIMELINE.map((item) => (
                 <li key={`${item.date}-${item.event}`} className="relative grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-5 py-1.5">
@@ -79,7 +79,7 @@ export const CompassDossier = ({ section }: { section: CompassSection }) => {
                             <span className="block h-1 bg-outline" style={{ width: `${b}%` }} />
                           </span>
                         </th>
-                        <td className="py-2.5 pl-3 text-right align-top font-headline italic text-lg text-primary">{a}</td>
+                        <td className="py-2.5 pl-3 text-right align-top font-headline italic text-lg text-heading">{a}</td>
                         <td className="py-2.5 pl-3 text-right align-top font-headline italic text-lg text-on-surface-variant">{b}</td>
                       </tr>
                     ))}

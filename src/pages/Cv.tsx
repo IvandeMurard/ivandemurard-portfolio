@@ -26,7 +26,7 @@ const LinkedText = ({ text }: { text: string }) => {
 const Role = ({ role }: { role: CvRole }) => (
   <article className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_12rem] gap-x-10 gap-y-3 border-t border-outline-variant py-8 md:py-10">
     <div>
-      <h3 className="font-headline italic text-xl md:text-2xl text-primary leading-tight">
+      <h3 className="font-headline italic text-xl md:text-2xl text-heading leading-tight">
         <LinkedText text={role.title} />
       </h3>
       <p className="mt-3 font-body italic text-on-surface-variant leading-relaxed max-w-3xl">{role.context}</p>
@@ -57,7 +57,7 @@ const Cv = () => (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           <div className="lg:col-span-8">
             <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-6 block">Curriculum vitae</span>
-            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl italic text-primary leading-[1.05]">{CV.name}</h1>
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl italic text-heading leading-[1.05]">{CV.name}</h1>
             <p className="mt-6 font-headline italic text-2xl md:text-3xl text-on-surface-variant">{CV.title}</p>
             <p className="mt-3 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">{CV.location}</p>
           </div>
@@ -80,19 +80,19 @@ const Cv = () => (
 
       <SectionDivider label="Founder & Builder" />
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16" aria-labelledby="founder-builder">
-        <h2 id="founder-builder" className="font-headline italic text-3xl md:text-5xl text-primary mb-8">Founder & Builder</h2>
+        <h2 id="founder-builder" className="font-headline italic text-3xl md:text-5xl text-heading mb-8">Founder & Builder</h2>
         {CV.founder.map((role) => <Role key={role.title} role={role} />)}
       </section>
 
       <SectionDivider label="Product & Customer Roles" />
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16" aria-labelledby="product-roles">
-        <h2 id="product-roles" className="font-headline italic text-3xl md:text-5xl text-primary mb-8">Product & Customer Roles</h2>
+        <h2 id="product-roles" className="font-headline italic text-3xl md:text-5xl text-heading mb-8">Product & Customer Roles</h2>
         {CV.product.map((role) => <Role key={role.title} role={role} />)}
       </section>
 
       <SectionDivider label="Skills" />
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16" aria-labelledby="skills">
-        <h2 id="skills" className="font-headline italic text-3xl md:text-5xl text-primary mb-10">Skills</h2>
+        <h2 id="skills" className="font-headline italic text-3xl md:text-5xl text-heading mb-10">Skills</h2>
         <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-outline-variant">
           {CV.skills.map((skill) => (
             <div key={skill.label} className="border-r border-b border-outline-variant p-6 md:p-8">
@@ -105,7 +105,7 @@ const Cv = () => (
 
       <SectionDivider label="Education" />
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto" aria-labelledby="education">
-        <h2 id="education" className="font-headline italic text-3xl md:text-5xl text-primary mb-10">Education</h2>
+        <h2 id="education" className="font-headline italic text-3xl md:text-5xl text-heading mb-10">Education</h2>
         <ul className="border-t border-outline-variant">
           {CV.education.map((item) => <li key={item} className="border-b border-outline-variant py-6 font-body text-lg text-on-surface-variant">{item}</li>)}
         </ul>

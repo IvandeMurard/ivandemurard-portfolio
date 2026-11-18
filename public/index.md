@@ -58,11 +58,11 @@ A two-year B2G SaaS I co-founded with three partners, to help cities reduce nois
 
 ## 03 · Field Notes
 
-The decisions behind the products. Written to be reused. [All notes](https://ivandemurard.com/journal)
+Methods, tested on systems I built. [All notes](https://ivandemurard.com/journal)
 
-- [Keep the forecaster and the actor apart.](https://ivandemurard.com/journal/agent-boundaries-aetherix) One model that predicts and acts looks elegant on a slide. Why I split Prophet and Claude in two, and everything that single choice decided next.
-- [Harnesses, graders and closed loops](https://ivandemurard.com/journal/harnesses-graders-closed-loops) Agents rarely fail loudly. They drift, quietly, until a customer notices. How to find out first: graders, harnesses, and the gaps I have not closed yet.
-- [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) Your agent learns from something: a forecast, a manager's yes, or what really happened the next morning. Pick the wrong one and you build a very confident yes-man.
+- [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) For deciding whether an agent is ready to ship. Read the note.
+- [Where should an agent's responsibility end?](https://ivandemurard.com/journal/agent-boundaries-aetherix) For deciding what a model may do on its own. Read the note.
+- [Whose truth is the ground truth?](https://ivandemurard.com/journal/whose-truth-is-the-ground-truth) For deciding what your product learns from. Read the note.
 
 ## 04 · Contact
 

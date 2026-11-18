@@ -172,7 +172,7 @@ export const EvalConsole = ({
           <p className={k.passLabel}>
             {total - failed}/{total} pass
           </p>
-          <p className="font-headline italic text-lg text-primary">{verdict.headline}</p>
+          <p className="font-headline italic text-lg text-heading">{verdict.headline}</p>
           <p className={k.detail}>{verdict.detail}</p>
         </div>
       )}

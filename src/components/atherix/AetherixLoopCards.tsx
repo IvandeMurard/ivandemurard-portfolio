@@ -38,7 +38,7 @@ export const AetherixLoopCards = () => (
           </span>
           <Icon name={step.icon} className="text-secondary text-xl" />
         </div>
-        <h3 className="font-headline italic text-xl text-primary leading-tight">{step.title}</h3>
+        <h3 className="font-headline italic text-xl text-heading leading-tight">{step.title}</h3>
         <p className="text-on-surface-variant text-sm leading-relaxed">{step.body}</p>
       </div>
     ))}

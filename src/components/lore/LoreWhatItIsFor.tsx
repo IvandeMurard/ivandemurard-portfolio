@@ -11,7 +11,7 @@ export const LoreWhatItIsFor = () => (
   <div className="space-y-12 md:space-y-16">
     {/* Accompanied autonomy */}
     <div data-reveal-child>
-      <h3 className="font-headline italic text-2xl md:text-3xl text-primary leading-tight">Accompanied autonomy</h3>
+      <h3 className="font-headline italic text-2xl md:text-3xl text-heading leading-tight">Accompanied autonomy</h3>
       <div className="mt-5 space-y-5 text-on-surface-variant leading-relaxed max-w-3xl">
         <p>
           Lore does not shorten certification and does not sign anything. It shortens the distance between being
@@ -35,7 +35,7 @@ export const LoreWhatItIsFor = () => (
 
     {/* Three modes, one circuit */}
     <div data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }}>
-      <h3 className="font-headline italic text-2xl md:text-3xl text-primary leading-tight">Three modes, one circuit</h3>
+      <h3 className="font-headline italic text-2xl md:text-3xl text-heading leading-tight">Three modes, one circuit</h3>
       <div className="mt-5 space-y-5 text-on-surface-variant leading-relaxed max-w-3xl">
         <p>
           Capture, query and log are not three features. They are one circuit, and the third decides whether the other
@@ -51,7 +51,7 @@ export const LoreWhatItIsFor = () => (
           the same outcome, it is something the shop knows. And when an outcome contradicts it, the vibration that did
           escalate at 2.4 NU, that has to surface too, rather than sit buried under twelve confirmations.
         </p>
-        <p className="font-headline italic text-primary text-lg md:text-xl leading-snug">
+        <p className="font-headline italic text-heading text-lg md:text-xl leading-snug">
           Knowledge that is only ever read decays. Knowledge that is used and measured gets sharper, and the reason to
           trust it stops being who said it and becomes what happened next.
         </p>
@@ -77,7 +77,7 @@ export const LoreWhatItIsFor = () => (
 
     {/* An aircraft keeps its own reasoning */}
     <div data-reveal-child style={{ ["--reveal-delay" as string]: "240ms" }}>
-      <h3 className="font-headline italic text-2xl md:text-3xl text-primary leading-tight">
+      <h3 className="font-headline italic text-2xl md:text-3xl text-heading leading-tight">
         An aircraft keeps its own reasoning
       </h3>
       <p className="mt-5 text-on-surface-variant leading-relaxed max-w-3xl">
@@ -89,7 +89,7 @@ export const LoreWhatItIsFor = () => (
 
     {/* What it opens elsewhere */}
     <div data-reveal-child style={{ ["--reveal-delay" as string]: "360ms" }}>
-      <h3 className="font-headline italic text-2xl md:text-3xl text-primary leading-tight">What it opens elsewhere</h3>
+      <h3 className="font-headline italic text-2xl md:text-3xl text-heading leading-tight">What it opens elsewhere</h3>
       <div className="mt-5 space-y-5 text-on-surface-variant leading-relaxed max-w-3xl">
         <p>
           Aviation is the most demanding case, not the only one. Wherever expertise is oral, specific to one machine,

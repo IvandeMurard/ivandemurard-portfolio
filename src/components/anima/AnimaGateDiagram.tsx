@@ -20,7 +20,7 @@ const Box = ({
     <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary block mb-1">
       {kicker}
     </span>
-    <p className="font-headline italic text-primary text-lg leading-tight mb-1">{title}</p>
+    <p className="font-headline italic text-heading text-lg leading-tight mb-1">{title}</p>
     <p className="font-body text-sm text-on-surface-variant leading-relaxed">{line}</p>
   </div>
 );
@@ -61,7 +61,7 @@ export const AnimaGateDiagram = () => (
           Blocked by protocol
         </span>
       </div>
-      <p className="mt-2 font-headline italic text-primary text-lg leading-tight line-through decoration-outline">
+      <p className="mt-2 font-headline italic text-heading text-lg leading-tight line-through decoration-outline">
         "Everything about this guest"
       </p>
       <p className="mt-1 font-body text-sm text-on-surface-variant leading-relaxed">

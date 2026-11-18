@@ -87,7 +87,7 @@ const Atrium = () => (
             <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
               About
             </span>
-            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl text-primary leading-[1.05] tracking-tight italic mb-10">
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl text-heading leading-[1.05] tracking-tight italic mb-10">
               I'm Ivan, <br />
               <span className="text-on-primary-container opacity-90">a Product Builder.</span>
             </h1>
@@ -123,7 +123,7 @@ const Atrium = () => (
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Origin
           </span>
-          <h2 className="font-headline text-4xl md:text-6xl text-primary mb-10 italic">
+          <h2 className="font-headline text-4xl md:text-6xl text-heading mb-10 italic">
             Where I come from
           </h2>
           <div className="space-y-6 font-body text-lg text-on-surface-variant leading-relaxed">
@@ -166,7 +166,7 @@ const Atrium = () => (
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Track record
           </span>
-          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+          <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
             Last Experiences
           </h2>
           <p className="text-on-surface-variant font-normal leading-relaxed">
@@ -185,7 +185,7 @@ const Atrium = () => (
               <span className="font-label italic text-secondary text-sm tracking-[0.18em] block mb-6">
                 {entry.range}
               </span>
-              <h3 className="font-headline italic text-2xl text-primary mb-2 leading-tight">
+              <h3 className="font-headline italic text-2xl text-heading mb-2 leading-tight">
                 {entry.role}
               </h3>
               <p className="font-label uppercase tracking-[0.18em] text-[11px] text-on-surface-variant mb-6">
@@ -202,7 +202,7 @@ const Atrium = () => (
       {/* Milestones, moved here from the homepage: a track record belongs with the track record. */}
       <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
         <div className="max-w-2xl mb-10 md:mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-4 md:mb-6">
+          <h2 className="font-headline text-4xl md:text-5xl italic text-heading mb-4 md:mb-6">
             Milestones
           </h2>
           <p className="text-on-surface-variant font-normal leading-relaxed">
@@ -217,7 +217,7 @@ const Atrium = () => (
               style={{ ["--reveal-delay" as string]: `${200 + i * 70}ms` }}
               className="px-2 md:px-8 text-center"
             >
-              <p className="font-headline italic text-4xl md:text-5xl text-primary mb-3">
+              <p className="font-headline italic text-4xl md:text-5xl text-heading mb-3">
                 {m.kind === "count" ? <CountUp value={m.value} suffix={m.suffix ?? ""} /> : m.value}
               </p>
               <span
@@ -241,7 +241,7 @@ const Atrium = () => (
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Now
           </span>
-          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+          <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
             What I'm building
           </h2>
           <p className="text-on-surface-variant font-normal leading-relaxed">
@@ -263,7 +263,7 @@ const Atrium = () => (
                 style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
                 className="atrium-card group p-10 bg-surface-container-low border border-outline-variant rounded-lg hover:border-outline-variant transition-all duration-500 flex flex-col"
               >
-                <h3 className="font-headline italic text-2xl text-primary mb-4">{p.name}</h3>
+                <h3 className="font-headline italic text-2xl text-heading mb-4">{p.name}</h3>
                 <p className="text-on-surface-variant font-normal leading-relaxed mb-8 flex-1">
                   {p.blurb}
                 </p>
@@ -321,7 +321,7 @@ const Atrium = () => (
           <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
             Method
           </span>
-          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+          <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
             How I work
           </h2>
           <p className="text-on-surface-variant font-normal leading-relaxed">
@@ -339,7 +339,7 @@ const Atrium = () => (
               <span className="font-headline italic text-secondary text-sm tracking-[0.2em] block mb-6">
                 {m.n}
               </span>
-              <h3 className="font-headline italic text-xl text-primary mb-4">{m.title}</h3>
+              <h3 className="font-headline italic text-xl text-heading mb-4">{m.title}</h3>
               <p className="text-on-surface-variant font-normal leading-relaxed text-[15px]">
                 {m.body}
               </p>
@@ -356,7 +356,7 @@ const Atrium = () => (
           <span className="font-label uppercase tracking-[0.3em] text-[11px] text-secondary mb-6 block opacity-80">
             Let's talk
           </span>
-          <h2 className="font-headline text-4xl md:text-6xl italic text-primary mb-6">
+          <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
             Ready to build the future?
           </h2>
           <p className="text-on-surface font-normal mb-12 max-w-xl mx-auto leading-relaxed">

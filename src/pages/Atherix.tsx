@@ -73,8 +73,8 @@ const FAQ = [
 ];
 
 const linkCls = "text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
-const subheadCls = "font-headline text-2xl md:text-3xl text-primary leading-tight";
-const h2Cls = "mt-3 font-headline text-4xl leading-tight text-primary md:text-5xl";
+const subheadCls = "font-headline text-2xl md:text-3xl text-heading leading-tight";
+const h2Cls = "mt-3 font-headline text-4xl leading-tight text-heading md:text-5xl";
 const bodyCls = "font-body text-base text-on-surface md:text-[17px]";
 const noteBoxCls = "rounded-lg border border-dashed border-on-surface-variant px-4 py-3 font-body text-[15px] text-on-surface-variant";
 /** One circled comparison. A drawn ring, not a pill: it marks the two figures that are compared. */
@@ -115,7 +115,7 @@ const Hero = () => (
             <span aria-hidden="true" className="block h-[7px] w-[7px] rounded-full bg-signal-warn" />{STATUSES.aetherix.word}
           </span>
         </p>
-        <h1 id="aetherix-hero-h" className="font-headline text-5xl leading-[1.02] tracking-tight text-primary md:text-6xl lg:text-[64px]">
+        <h1 id="aetherix-hero-h" className="font-headline text-5xl leading-[1.02] tracking-tight text-heading md:text-6xl lg:text-[64px]">
           {HERO.headline[0]}<em className="text-secondary">{HERO.headline[1]}</em>
         </h1>
         <p className="max-w-xl font-body text-lg leading-relaxed text-on-surface-variant md:text-[19px]">{HERO.lead}</p>
@@ -180,7 +180,7 @@ const Strategy = () => (
       {STRATEGY.decisions.map(([n, title, why]) => (
         <li key={n} className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-x-3 gap-y-1 border-b border-outline-variant py-3 md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:gap-x-4">
           <span className="font-body text-[15px] text-secondary">{n}</span>
-          <h3 className="font-body text-[15px] font-semibold text-primary">
+          <h3 className="font-body text-[15px] font-semibold text-heading">
             {title === STRATEGY.underlined ? <span className="border-b-[1.5px] border-secondary">{title}</span> : title}
           </h3>
           <p className="col-start-2 font-body text-[15px] text-on-surface md:col-start-auto">{why}</p>
@@ -236,7 +236,7 @@ const Technical = () => (
       <div className="mb-8 overflow-hidden rounded-sm border border-outline-variant bg-surface"><AetherixArchitectureDiagram /></div>
       <AetherixStackChips />
       <h3 className={cn(subheadCls, "mt-12")}>Built to be trusted</h3>
-      <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-3">{TRUST.map((item) => <div key={item.title} className="flex flex-col gap-4 rounded-sm border border-outline-variant bg-surface-container-low p-6"><Icon name={item.icon} className="text-3xl text-secondary" /><h4 className="font-headline text-2xl leading-tight text-primary">{item.title}</h4><p className="text-sm leading-relaxed text-on-surface-variant">{item.body}</p></div>)}</div>
+      <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-3">{TRUST.map((item) => <div key={item.title} className="flex flex-col gap-4 rounded-sm border border-outline-variant bg-surface-container-low p-6"><Icon name={item.icon} className="text-3xl text-secondary" /><h4 className="font-headline text-2xl leading-tight text-heading">{item.title}</h4><p className="text-sm leading-relaxed text-on-surface-variant">{item.body}</p></div>)}</div>
       <h3 className={cn(subheadCls, "mt-12")}>More</h3>
       <div className="mt-5"><AetherixWhatRemainsPrivate /></div>
       <div className="mt-8 max-w-3xl text-sm leading-relaxed text-on-surface-variant">
@@ -297,7 +297,7 @@ const Next = () => (
       <div aria-hidden="true" className="aetherix-dark-glow" />
       <div className="relative">
         <p className="font-label text-[11px] uppercase tracking-[0.12em] text-on-surface-variant">{NEXT.kicker}</p>
-        <p className="mt-3.5 font-headline text-4xl leading-[1.05] text-primary md:text-5xl">{NEXT.title}</p>
+        <p className="mt-3.5 font-headline text-4xl leading-[1.05] text-heading md:text-5xl">{NEXT.title}</p>
         <p className="mt-4 max-w-3xl font-body text-lg leading-snug text-on-surface md:text-[21px]">{NEXT.text}</p>
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-outline-variant pt-5">
           <p className="font-body text-sm text-on-surface-variant">{NEXT.agents}</p>
@@ -316,7 +316,7 @@ const Close = () => (
     </div>
     <section id="talk" aria-labelledby="talk-heading" className="section-inverse scroll-mt-24 px-8 pb-24 pt-4 text-center md:px-12 md:pb-28">
       <p className={KICKER}>{CLOSE.kicker}</p>
-      <h2 id="talk-heading" className="mt-3.5 font-headline text-4xl text-primary md:text-[44px]">{CLOSE.heading}</h2>
+      <h2 id="talk-heading" className="mt-3.5 font-headline text-4xl text-heading md:text-[44px]">{CLOSE.heading}</h2>
       <p className="mx-auto mt-3.5 max-w-xl font-body text-lg text-on-surface">{CLOSE.text}</p>
       <div className="mt-7 flex flex-wrap justify-center gap-4">
         <Button asChild><a href={SOCIAL_LINKS.schedule} target="_blank" rel="noopener noreferrer"><Icon name="event" /><ExternalMark>Book a call</ExternalMark></a></Button>

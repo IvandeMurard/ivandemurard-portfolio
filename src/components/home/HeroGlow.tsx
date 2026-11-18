@@ -1,0 +1,33 @@
+import { useEffect, useState } from "react";
+import { useMood } from "@/components/MoodProvider";
+import { heroLight, sunTimes, useParisNow, type HeroLight } from "@/lib/parisClock";
+
+const LIGHTS: HeroLight[] = ["morning", "midday", "late", "dusk"];
+
+// The glow warms in once per page load. A later visit to the homepage in the same load (a route change) does not replay it.
+let arrived = false;
+/** Test helper: a new page load. */
+export const resetHeroArrival = () => { arrived = false; };
+
+/**
+ * The light of the homepage hero: a soft radial glow from the top right, warmer or paler with the sun over Paris
+ * (sunrise and sunset computed in parisClock.ts, from the nav clock's own source), always the lamp glow in the Dusk
+ * mood. The hour never changes the mood.
+ * All four layers are mounted and only the active one is visible, so a change of period (or of mood) is a crossfade.
+ */
+export const HeroGlow = () => {
+  const { mood, preview } = useMood();
+  const { date, minutes } = useParisNow();
+  const active = heroLight(minutes, preview ?? mood, sunTimes(date));
+  const [arrive] = useState(() => !arrived);
+  useEffect(() => { arrived = true; }, []);
+  return (
+    <div aria-hidden="true" className="hero-glow" data-hero-glow={active} {...(arrive ? { "data-arrive": "" } : {})}>
+      {LIGHTS.map((l) => (
+        <div key={l} className="hero-glow-layer" data-light={l} {...(l === active ? { "data-active": "" } : {})} />
+      ))}
+    </div>
+  );
+};
+
+export default HeroGlow;

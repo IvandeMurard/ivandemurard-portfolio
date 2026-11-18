@@ -261,7 +261,7 @@ const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
           {HERO.label}
           <span className="rounded-full border border-outline-variant px-2 py-0.5 font-body text-xs normal-case tracking-normal text-on-surface">● {HERO.status}</span>
         </p>
-        <h1 id="rose-hero-h" className="mt-5 font-headline text-5xl leading-[1.05] text-primary [[data-mood=dusk]_&]:text-on-surface md:text-7xl">
+        <h1 id="rose-hero-h" className="mt-5 font-headline text-5xl leading-[1.05] text-heading [[data-mood=dusk]_&]:text-on-surface md:text-7xl">
           {HERO.headline[0]}<em className="text-secondary">{HERO.headline[1]}</em>
         </h1>
         <p className="mt-6 max-w-xl font-body text-lg text-on-surface">{HERO_LEAD}</p>
@@ -343,7 +343,7 @@ const TrustBody = () => {
         {t.contracts.map((c, ci) => (
           <section key={c.kicker} aria-labelledby={`trust-contract-${ci}`} className="flex flex-col rounded-xl border border-outline-variant bg-surface-container-lowest p-5">
             <p className={cn(LABEL, "text-secondary")}>{c.kicker}</p>
-            <h3 id={`trust-contract-${ci}`} className="mt-2 font-headline text-2xl leading-snug text-primary [[data-mood=dusk]_&]:text-on-surface">{c.title}</h3>
+            <h3 id={`trust-contract-${ci}`} className="mt-2 font-headline text-2xl leading-snug text-heading [[data-mood=dusk]_&]:text-on-surface">{c.title}</h3>
             <ul className="mt-4 list-none space-y-3 p-0 font-body text-base text-on-surface">
               {c.items.map((it) => (
                 <li key={it.parts.join("")} className="flex">
@@ -369,7 +369,7 @@ const TrustBody = () => {
       </div>
 
       <section aria-labelledby="trust-rule" className="mt-14">
-        <h3 id="trust-rule" className="font-headline text-3xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-4xl">
+        <h3 id="trust-rule" className="font-headline text-3xl leading-tight text-heading [[data-mood=dusk]_&]:text-on-surface md:text-4xl">
           {t.rule.heading}
         </h3>
         <p className="mt-4 max-w-2xl font-body text-base text-on-surface">{t.rule.intro}</p>
@@ -495,7 +495,7 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
       </div>
 
       <div className="mt-12 border-t border-on-surface-variant/60 pt-8">
-        <h3 className="font-headline text-3xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-4xl">{g.judgedLabel}</h3>
+        <h3 className="font-headline text-3xl leading-tight text-heading [[data-mood=dusk]_&]:text-on-surface md:text-4xl">{g.judgedLabel}</h3>
         <p className="mt-3 max-w-2xl font-body text-base text-on-surface">{g.judged}</p>
         <TestLoop steps={g.loop} caption={g.loopCaption} />
         <p className="mt-6 max-w-2xl font-body text-base text-on-surface">Eight dimensions: {g.dimensions.map((d) => d.toLowerCase()).join(", ")}.</p>
@@ -604,7 +604,7 @@ const QuestionsBody = () => (
     {QUESTIONS.map((q) => (
       <li key={q.n} className="border-t border-outline-variant pt-6">
         <p className={cn(LABEL, "text-secondary")}>{q.n} · {q.title}</p>
-        <h3 className="mt-2 font-headline text-2xl leading-snug text-primary [[data-mood=dusk]_&]:text-on-surface">{q.question}</h3>
+        <h3 className="mt-2 font-headline text-2xl leading-snug text-heading [[data-mood=dusk]_&]:text-on-surface">{q.question}</h3>
         <dl className="mt-5 space-y-3 font-body text-base text-on-surface">
           {([["Hypothesis", q.hypothesis], ["Signal", q.signal], ["Decision", q.decision], ["Cost of being wrong", q.cost]] as const).map(([t, d]) => (
             <div key={t}><dt className={cn(LABEL, "text-on-surface-variant")}>{t}</dt><dd className="mt-0.5">{d}</dd></div>
@@ -656,7 +656,7 @@ const Chapters = memo(({ reduced }: { reduced: boolean }) => (
           {c.id === "ch-01" && <p className="max-w-2xl pt-20 font-body text-base text-on-surface md:pt-24 xl:max-w-[40rem]">{NOTES_INTRO}</p>}
           <section id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : c.id === "ch-07" || c.id === "ch-08" ? "max-w-none" : "max-w-3xl")}>
             <p className={KICKER}>{c.kicker}{mark && <span className="ml-3"><span aria-hidden="true">{MARK_GLYPH[mark]} </span>{mark}</span>}</p>
-            <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-primary [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
+            <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-heading [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
             {c.id === "ch-00" && <IdeaBody reduced={reduced} />}
             {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
             {c.id === "ch-06" && <SixBody reduced={reduced} />}

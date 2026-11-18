@@ -88,14 +88,14 @@ const Lore = () => (
             <h1
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
-              className="headline-ink font-headline text-5xl md:text-7xl lg:text-8xl text-primary italic leading-[0.95] tracking-tight mb-6"
+              className="headline-ink font-headline text-5xl md:text-7xl lg:text-8xl text-heading italic leading-[0.95] tracking-tight mb-6"
             >
               Lore
             </h1>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "200ms" }}
-              className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
+              className="font-headline italic text-heading text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
               The knowledge retiring technicians carry isn't in any manual.
             </p>
@@ -170,7 +170,7 @@ const Lore = () => (
           <h2
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "120ms" }}
-            className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+            className="font-headline italic text-3xl md:text-5xl text-heading mt-4 leading-tight"
           >
             Not retrieval, elicitation.
           </h2>
@@ -190,7 +190,7 @@ const Lore = () => (
                 None of them capture what a senior never thought to write.
               </span>
             </p>
-            <p className="font-headline italic text-primary text-lg leading-snug">
+            <p className="font-headline italic text-heading text-lg leading-snug">
               That is the gap. Not retrieval, elicitation.
             </p>
             <p className="text-sm">
@@ -207,7 +207,7 @@ const Lore = () => (
       <Reveal as="section" id="modes" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-2xl mb-10">
-            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+            <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-heading leading-tight">
               Capture, query, log. All by voice.
             </h2>
           </div>
@@ -222,7 +222,7 @@ const Lore = () => (
         <div className="max-w-4xl mx-auto">
           <h2
             data-reveal-child
-            className="font-headline italic text-3xl md:text-5xl text-primary leading-tight"
+            className="font-headline italic text-3xl md:text-5xl text-heading leading-tight"
           >
             The hangar, 23:00.
           </h2>
@@ -244,7 +244,7 @@ const Lore = () => (
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "700ms" }}
-            className="mt-8 font-headline italic text-primary text-xl md:text-2xl leading-snug"
+            className="mt-8 font-headline italic text-heading text-xl md:text-2xl leading-snug"
           >
             Marc has been retired for four months. He answered anyway.
           </p>
@@ -263,7 +263,7 @@ const Lore = () => (
             <h2
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
-              className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+              className="font-headline italic text-3xl md:text-5xl text-heading mt-4 leading-tight"
             >
               The same thesis as Aetherix, one industry over.
             </h2>
@@ -287,7 +287,7 @@ const Lore = () => (
       {/* HAZARD */}
       <Reveal as="section" id="hazard" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-4xl mx-auto">
-          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-heading leading-tight">
             The hazard nobody else has.
           </h2>
           <div
@@ -332,7 +332,7 @@ const Lore = () => (
       {/* ADMISSIBLE */}
       <Reveal as="section" id="admissible" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-3xl mx-auto">
-          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-heading leading-tight">
             What makes an answer admissible.
           </h2>
           <p
@@ -350,7 +350,7 @@ const Lore = () => (
             style={{ ["--reveal-delay" as string]: "260ms" }}
             className="mt-10 border-t border-outline-variant pt-8"
           >
-            <h3 className="font-headline italic text-2xl text-primary leading-tight">The refusal contract.</h3>
+            <h3 className="font-headline italic text-2xl text-heading leading-tight">The refusal contract.</h3>
             <p className="mt-4 text-on-surface-variant leading-relaxed">
               Eight rules, written because "say so honestly" was not enough: early on the model refused correctly and
               then volunteered "36 fan blades" anyway, and elsewhere answered about one tail number using a different
@@ -365,12 +365,12 @@ const Lore = () => (
             style={{ ["--reveal-delay" as string]: "380ms" }}
             className="mt-8 border-t border-outline-variant pt-8"
           >
-            <h3 className="font-headline italic text-2xl text-primary leading-tight">
+            <h3 className="font-headline italic text-2xl text-heading leading-tight">
               The closing sentence is enforced in code, not in the prompt.
             </h3>
             <p className="mt-4 text-on-surface-variant leading-relaxed">
               Every maintenance answer ends with{" "}
-              <span className="font-headline italic text-primary">
+              <span className="font-headline italic text-heading">
                 "Always verify the AMM procedure before intervening."
               </span>{" "}
               Asked to close with it and also ask a follow-up, the model reliably ordered them the wrong way round, so
@@ -386,7 +386,7 @@ const Lore = () => (
       {/* EVALUATION */}
       <Reveal as="section" id="evaluation" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-4xl mx-auto">
-          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-heading leading-tight">
             How we know it holds.
           </h2>
           <div
@@ -415,7 +415,7 @@ const Lore = () => (
           <p
             data-reveal-child
             style={{ ["--reveal-delay" as string]: "320ms" }}
-            className="mt-10 font-headline italic text-primary text-xl md:text-2xl leading-snug max-w-3xl"
+            className="mt-10 font-headline italic text-heading text-xl md:text-2xl leading-snug max-w-3xl"
           >
             One live run scored 61 out of 64, 95 percent, and was declared a failure, because two of its three misses were in tier 1.
           </p>
@@ -453,7 +453,7 @@ const Lore = () => (
             <h2
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
-              className="font-headline italic text-3xl md:text-5xl text-primary mt-4 leading-tight"
+              className="font-headline italic text-3xl md:text-5xl text-heading mt-4 leading-tight"
             >
               What it is for.
             </h2>
@@ -467,7 +467,7 @@ const Lore = () => (
       {/* HONESTY */}
       <Reveal as="section" id="honesty" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-4xl mx-auto">
-          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight mb-10">
+          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-heading leading-tight mb-10">
             Where it stands.
           </h2>
           <LoreHonestyBlock />
@@ -479,7 +479,7 @@ const Lore = () => (
       {/* ROLE & TEAM */}
       <Reveal as="section" className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-3xl mx-auto">
-          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight">
+          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-heading leading-tight">
             Role and team.
           </h2>
           <div
@@ -530,7 +530,7 @@ const Lore = () => (
       {/* STACK & LINKS */}
       <Reveal as="section" id="contact" className="px-6 md:px-12 mb-24 md:mb-32 scroll-mt-24">
         <div className="max-w-4xl mx-auto">
-          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-primary leading-tight mb-10">
+          <h2 data-reveal-child className="font-headline italic text-3xl md:text-5xl text-heading leading-tight mb-10">
             Stack and links.
           </h2>
           <div

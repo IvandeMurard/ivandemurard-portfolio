@@ -165,7 +165,7 @@ const Tacet = () => (
           <p data-reveal-child className="font-label text-secondary uppercase tracking-[0.3em] text-xs mb-8">
             Selected Work / 2026, Hospitality
           </p>
-          <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-9xl italic leading-tight text-primary mb-12">
+          <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-9xl italic leading-tight text-heading mb-12">
             Tacet: The <br />
             Environmental <br />
             Twin.
@@ -219,7 +219,7 @@ const Tacet = () => (
       {/* 1. Overview */}
       <section id="overview" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-12 md:mb-16 grid md:grid-cols-12 gap-12 scroll-mt-24">
         <div className="md:col-start-2 md:col-span-4 self-start">
-          <h2 className="font-headline text-3xl md:text-4xl italic text-primary mb-8 leading-snug">
+          <h2 className="font-headline text-3xl md:text-4xl italic text-heading mb-8 leading-snug">
             From dashboard <br />
             to anticipation
           </h2>
@@ -241,7 +241,7 @@ const Tacet = () => (
       {/* 2. The Problem */}
       <section id="problem" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
+          <h2 className="font-headline text-3xl md:text-5xl italic text-heading mb-8 leading-snug">
             RMS and PMS run on history.
           </h2>
           <p className="text-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
@@ -278,7 +278,7 @@ const Tacet = () => (
       {/* 3. Solution, three steps */}
       <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="text-center mb-16 md:mb-24">
-          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-6">
+          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-heading mb-6">
             An environmental twin, exposed via MCP
           </h2>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
@@ -297,7 +297,7 @@ const Tacet = () => (
               <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary">
                 <Icon name={s.icon} className="text-sm" />
               </div>
-              <h5 className="font-headline text-2xl italic mb-4 text-primary">{s.title}</h5>
+              <h5 className="font-headline text-2xl italic mb-4 text-heading">{s.title}</h5>
               <p className="text-sm text-on-surface-variant leading-relaxed">{s.body}</p>
             </div>
           ))}
@@ -319,7 +319,7 @@ const Tacet = () => (
       {/* The Intelligence Pipeline diagram */}
       <Reveal as="section" id="architecture" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-12 md:mb-16">
-          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-primary mb-4">
+          <h2 data-reveal-child className="headline-ink font-headline text-4xl md:text-5xl italic text-heading mb-4">
             The intelligence pipeline
           </h2>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-xl mx-auto">
@@ -336,7 +336,7 @@ const Tacet = () => (
       {/* 5. Architectural Pillars */}
       <Reveal as="section" id="pillars" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-16">
-          <h2 data-reveal-child className="font-headline text-4xl md:text-5xl italic text-primary mb-6">
+          <h2 data-reveal-child className="font-headline text-4xl md:text-5xl italic text-heading mb-6">
             Four pillars give Tacet its edge
           </h2>
           <p data-reveal-child style={{ ["--reveal-delay" as string]: "200ms" }} className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
@@ -357,7 +357,7 @@ const Tacet = () => (
                   <Icon name={p.icon} className="text-sm" />
                 </div>
               </div>
-              <h3 className="font-headline text-2xl md:text-3xl italic text-primary mb-4 leading-snug">{p.title}</h3>
+              <h3 className="font-headline text-2xl md:text-3xl italic text-heading mb-4 leading-snug">{p.title}</h3>
               <p className="text-sm md:text-base text-on-surface-variant leading-relaxed">{p.body}</p>
             </div>
           ))}
@@ -369,7 +369,7 @@ const Tacet = () => (
       {/* 6. Impact & ESG */}
       <section id="impact" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">
+          <h2 className="font-headline text-4xl md:text-5xl italic text-heading mb-6">
             Impact, beyond yield
           </h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
@@ -382,7 +382,7 @@ const Tacet = () => (
               <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary">
                 <Icon name={it.icon} className="text-sm" />
               </div>
-              <h3 className="font-headline italic text-2xl text-primary mb-4 leading-snug">{it.title}</h3>
+              <h3 className="font-headline italic text-2xl text-heading mb-4 leading-snug">{it.title}</h3>
               <p className="text-sm text-on-surface-variant leading-relaxed">{it.body}</p>
             </div>
           ))}
@@ -394,7 +394,7 @@ const Tacet = () => (
       {/* 7. Synergy with Aetherix */}
       <section id="synergy" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-24 scroll-mt-24">
         <div className="text-center mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl italic text-primary mb-6">Tacet and Aetherix</h2>
+          <h2 className="font-headline text-4xl md:text-5xl italic text-heading mb-6">Tacet and Aetherix</h2>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
             Tacet exposes its rules and reasoning through <Term id="mcp">MCP</Term>.{" "}
             <Link to="/aetherix" className="text-secondary border-b border-secondary hover:border-secondary transition-colors">
@@ -417,14 +417,14 @@ const Tacet = () => (
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
           <div className="p-10 bg-surface-container-low border border-outline-variant rounded-2xl">
             <Icon name="hub" className="text-secondary text-2xl mb-6" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">Aetherix, internal context</h3>
+            <h3 className="font-headline italic text-2xl text-heading mb-4">Aetherix, internal context</h3>
             <p className="text-on-surface-variant leading-relaxed">
               Anticipates operational needs, F&B demand and staffing, based on occupancy and historical trends.
             </p>
           </div>
           <div className="p-10 bg-surface-container-low border border-outline-variant rounded-2xl">
             <Icon name="public" className="text-secondary text-2xl mb-6" />
-            <h3 className="font-headline italic text-2xl text-primary mb-4">Tacet, external context</h3>
+            <h3 className="font-headline italic text-2xl text-heading mb-4">Tacet, external context</h3>
             <p className="text-on-surface-variant leading-relaxed">
               Reads street, weather and event signals, ray-traces their impact, and publishes yield rules on MCP.
             </p>
@@ -440,7 +440,7 @@ const Tacet = () => (
       {/* 8. Horizon */}
       <section id="horizon" className="px-6 md:px-12 max-w-screen-2xl mx-auto py-8 md:py-12 mb-8 md:mb-10 scroll-mt-24">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-headline text-3xl md:text-5xl italic text-primary mb-8 leading-snug">
+          <h2 className="font-headline text-3xl md:text-5xl italic text-heading mb-8 leading-snug">
             Where Tacet is going
           </h2>
           <p className="text-lg text-on-surface-variant leading-relaxed">
@@ -465,7 +465,7 @@ const Tacet = () => (
       {/* CTA / Explore */}
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="bg-surface-container-low rounded-3xl p-12 md:p-24 flex flex-col items-center text-center relative overflow-hidden">
-          <h2 className="font-headline text-3xl md:text-4xl italic text-primary mb-6 relative z-10">
+          <h2 className="font-headline text-3xl md:text-4xl italic text-heading mb-6 relative z-10">
             Pilot Tacet with your hotel
           </h2>
           <p className="text-on-surface-variant mb-12 max-w-xl relative z-10">
@@ -511,7 +511,7 @@ const Tacet = () => (
 
       {/* FAQ */}
       <section id="faq" className="px-6 md:px-12 max-w-3xl mx-auto mb-16 md:mb-24 scroll-mt-24">
-        <h3 className="font-headline text-2xl md:text-3xl italic text-primary mb-12 text-center">
+        <h3 className="font-headline text-2xl md:text-3xl italic text-heading mb-12 text-center">
           Frequently Asked Questions
         </h3>
         <div className="space-y-8">

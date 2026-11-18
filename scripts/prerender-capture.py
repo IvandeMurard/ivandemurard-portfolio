@@ -78,6 +78,8 @@ async def capture():
             reduced_motion="reduce",
             color_scheme="light",
         )
+        # Rose's welcome is scripted UI for a visitor's first page view: it is not page content, so a snapshot never holds it.
+        await context.add_init_script("try { sessionStorage.setItem('rose_welcome', 'seen'); } catch (e) {}")
         page = await context.new_page()
         for path in paths:
             url = f"http://127.0.0.1:{PORT}{path}"

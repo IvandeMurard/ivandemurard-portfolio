@@ -7,18 +7,17 @@ import { Icon } from "@/components/ui/Icon";
 import { useMood } from "@/components/MoodProvider";
 import { AmbienceControl } from "@/components/AmbienceControl";
 import { useHaptic } from "@/hooks/useHaptic";
+import { useParisTime } from "@/lib/parisClock";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { Button } from "@/components/ui/button";
 import { externalName } from "@/components/ui/ExternalMark";
 
 /** Live Paris time and the Day/Dusk ambience, one control. */
 const ClockMood = ({ compact = false }: { compact?: boolean }) => {
-  const fmt = () => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", hour: "2-digit", minute: "2-digit" }).format(new Date());
-  const [t, setT] = useState(fmt);
+  const t = useParisTime();
   const { mood, toggle } = useMood();
   const haptic = useHaptic();
   const isDusk = mood === "dusk";
-  useEffect(() => { const id = window.setInterval(() => setT(fmt()), 15000); return () => window.clearInterval(id); }, []);
   return (
     <button
       type="button"

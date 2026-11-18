@@ -46,7 +46,7 @@ export const AetherixServiceBlueprint = () => {
       className="m-0 rounded-sm border border-outline-variant bg-surface-container-lowest p-5 md:p-6"
     >
       <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Service blueprint</p>
-      <h3 id="blueprint-title" className="mt-2 font-headline italic text-xl md:text-2xl text-primary">
+      <h3 id="blueprint-title" className="mt-2 font-headline italic text-xl md:text-2xl text-heading">
         {BLUEPRINT.title}
       </h3>
       <p className="mt-2 font-body text-sm text-on-surface-variant">{BLUEPRINT.scenario}</p>
@@ -61,7 +61,7 @@ export const AetherixServiceBlueprint = () => {
                 <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
                   0{i + 1} · {s.when}
                 </span>
-                <span className="block font-headline italic text-lg text-primary">{s.name}</span>
+                <span className="block font-headline italic text-lg text-heading">{s.name}</span>
               </div>
             ))}
           </div>
@@ -107,7 +107,7 @@ export const AetherixServiceBlueprint = () => {
             <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
               0{i + 1} · {s.when}
             </p>
-            <h4 className="font-headline italic text-lg text-primary">{s.name}</h4>
+            <h4 className="font-headline italic text-lg text-heading">{s.name}</h4>
             {s.handoff && (
               <p className="mt-1 font-label uppercase tracking-[0.14em] text-[10px] text-secondary">→ {s.handoff}</p>
             )}
@@ -134,7 +134,7 @@ export const AetherixServiceBlueprint = () => {
         ))}
       </ol>
 
-      <p className="mt-6 border-l-2 border-secondary pl-4 font-headline italic text-lg text-primary leading-relaxed">
+      <p className="mt-6 border-l-2 border-secondary pl-4 font-headline italic text-lg text-heading leading-relaxed">
         {BLUEPRINT.insight}
       </p>
       <figcaption className="mt-4 font-body text-sm text-on-surface-variant">{BLUEPRINT.caption}</figcaption>

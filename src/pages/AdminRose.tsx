@@ -130,7 +130,7 @@ const AdminRose = () => {
 
   return (
     <main className="min-h-screen bg-surface text-on-surface px-6 md:px-12 py-16 max-w-5xl mx-auto">
-      <h1 className="font-headline text-3xl text-primary mb-8">Rose · private view</h1>
+      <h1 className="font-headline text-3xl text-heading mb-8">Rose · private view</h1>
       {!session ? (
         <form onSubmit={signIn} className="max-w-sm space-y-3">
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" aria-label="Email" className="w-full rounded-md border border-outline-variant bg-surface-container-lowest px-3 py-2 text-sm" />
@@ -168,7 +168,7 @@ const AdminRose = () => {
                 ["Empty answers recovered", metrics.empty_retries_recovered ?? 0, metrics.empty_retries ?? 0, "Answers the model first left with no text and gave on a second try / retries. For the rest, the dock shows its fallback line. Counted from the date the retry went live."],
               ].map(([label, numerator, denominator, definition]) => <div key={String(label)} className="rounded-md border border-outline-variant p-4">
                 <h2 className="font-mono text-xs uppercase text-secondary">{label}</h2>
-                <p className="my-2 font-headline text-2xl text-primary tabular-nums">{String(numerator)} / {String(denominator)}</p>
+                <p className="my-2 font-headline text-2xl text-heading tabular-nums">{String(numerator)} / {String(denominator)}</p>
                 <p className="text-sm text-on-surface">{rateLabel(Number(numerator), Number(denominator))}</p>
                 <details className="mt-3 text-xs text-on-surface-variant"><summary className="cursor-pointer">Definition</summary><p className="mt-2">{definition}</p></details>
               </div>)}
@@ -184,7 +184,7 @@ const AdminRose = () => {
             <p className="text-sm text-on-surface-variant">Confirmed meetings (Cal.com), professional outcomes, visitor satisfaction, factual correctness, booking relevance and reading completion. General site traffic is outside this dashboard. Continuity and answer quality are assessed with synthetic scenarios. Trends await a sufficient clean baseline.</p>
           </section>
           <section className="mb-10">
-            <h2 className="font-headline text-2xl text-primary mb-2">Agents &amp; MCP</h2>
+            <h2 className="font-headline text-2xl text-heading mb-2">Agents &amp; MCP</h2>
             <p className="mb-6 text-sm text-on-surface-variant">Calls to the public MCP server in the selected window: {mcp?.total ?? 0}. Each call is one tool use by an agent; it does not identify a person or confirm a reading. Only the tool and requested slug are stored, purged after 90 days. Raw Markdown and llms.txt downloads are served by hosting and are not counted here.</p>
             <div className="grid md:grid-cols-3 gap-10">
               <Table title="Calls per tool" rows={(mcp?.per_tool ?? []).map((r) => [r.label, r.count])} />

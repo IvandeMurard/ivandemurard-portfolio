@@ -103,7 +103,7 @@ export const Term = ({ id, children, className }: TermProps) => {
         <div className="relative p-4 space-y-2">
           <p
             id={headingId}
-            className="font-headline italic text-primary text-base leading-tight"
+            className="font-headline italic text-heading text-base leading-tight"
           >
             {entry.term}
           </p>

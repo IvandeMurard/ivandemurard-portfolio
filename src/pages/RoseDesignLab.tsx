@@ -176,7 +176,7 @@ const RoseIntervention = ({ children, heading = 0, className }: { children: stri
       </span>
       <span className="font-label text-[10px] uppercase tracking-[0.18em]">Rose, on this decision <span aria-hidden="true" className="ml-1 normal-case group-open/rose:hidden">+</span><span aria-hidden="true" className="ml-1 normal-case hidden group-open/rose:inline">−</span></span>
     </summary>
-    <p className="mt-3 border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-primary">{children}</p>
+    <p className="mt-3 border-l border-secondary/50 pl-4 font-headline text-lg italic leading-snug text-heading">{children}</p>
   </details>
 );
 
@@ -241,14 +241,14 @@ const ConceptA = ({ reduced }: { reduced: boolean }) => {
       <section className="relative overflow-hidden border-b border-outline-variant">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 pb-20 pt-16 md:grid-cols-12 md:pt-24">
           <p className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary md:col-span-12">Case study · AI service design · Rose</p>
-          <h1 className="font-headline text-[clamp(3rem,9vw,8.5rem)] font-light leading-[0.9] tracking-tight text-primary md:col-span-7">
+          <h1 className="font-headline text-[clamp(3rem,9vw,8.5rem)] font-light leading-[0.9] tracking-tight text-heading md:col-span-7">
             A portfolio
             <span className="block pl-[0.6em] italic text-secondary">you can</span>
             <span className="block">question.</span>
           </h1>
           <div className="flex flex-col justify-end gap-6 md:col-span-5">
             <div className="grid grid-cols-2 gap-px bg-outline-variant font-label text-xs">
-              <div className="bg-surface p-4"><span className="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">July</span><span className="mt-1 block font-headline text-xl text-primary">Qualify, then book</span></div>
+              <div className="bg-surface p-4"><span className="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">July</span><span className="mt-1 block font-headline text-xl text-heading">Qualify, then book</span></div>
               <div className="bg-surface p-4"><span className="block text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">October</span><span className="mt-1 block font-headline text-xl italic text-secondary">Explore, then decide</span></div>
             </div>
             <p className="font-body text-base text-on-surface md:text-lg">
@@ -276,7 +276,7 @@ const ConceptA = ({ reduced }: { reduced: boolean }) => {
                 </div>
                 <div className="relative flex flex-col items-center md:w-64">
                   <span className={cn("hidden h-px w-full origin-center bg-secondary transition-transform duration-700 md:block", on ? "scale-x-100" : "scale-x-0")} />
-                  <h3 className={cn("mt-2 text-center font-headline leading-none transition-all duration-700", on ? "text-4xl text-primary md:text-5xl" : "text-2xl text-on-surface-variant md:text-3xl")}>{m.title}</h3>
+                  <h3 className={cn("mt-2 text-center font-headline leading-none transition-all duration-700", on ? "text-4xl text-heading md:text-5xl" : "text-2xl text-on-surface-variant md:text-3xl")}>{m.title}</h3>
                   <p className={cn("mt-3 max-w-xs text-center font-body text-sm transition-opacity duration-700", on ? "opacity-100" : "md:opacity-0")}>
                     <span className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Decision </span>{m.decision}
                   </p>
@@ -336,7 +336,7 @@ const ConceptB = ({ reduced }: { reduced: boolean }) => {
             </div>
             <div className="md:mt-6">
               <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">{m.date} · heading {m.heading}°</p>
-              <p className="font-headline text-2xl text-primary md:text-4xl">{m.title}</p>
+              <p className="font-headline text-2xl text-heading md:text-4xl">{m.title}</p>
             </div>
           </div>
           <nav aria-label="Milestones" className="mt-4 hidden gap-2 md:flex">
@@ -354,11 +354,11 @@ const ConceptB = ({ reduced }: { reduced: boolean }) => {
             <li key={x.date} ref={(el) => (refs.current[i] = el)} data-idx={i}
               className={cn("border-l py-12 pl-6 transition-colors duration-500 md:min-h-[70vh] md:pl-10", i === active ? "border-secondary" : "border-outline-variant")}>
               <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">{x.date}</p>
-              <h3 className="mt-2 font-headline text-4xl text-primary md:text-6xl">{x.title}</h3>
+              <h3 className="mt-2 font-headline text-4xl text-heading md:text-6xl">{x.title}</h3>
               <dl className="mt-6 space-y-4 font-body text-base">
                 <div><dt className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Original intention</dt><dd className="text-on-surface-variant line-through decoration-outline-variant">{x.intention}</dd></div>
                 <div><dt className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Tension</dt><dd>{x.tension}</dd></div>
-                <div><dt className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Decision</dt><dd className="font-headline text-xl italic text-primary">{x.decision}</dd></div>
+                <div><dt className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Decision</dt><dd className="font-headline text-xl italic text-heading">{x.decision}</dd></div>
                 <div><dt className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Experience</dt><dd>{x.result}</dd></div>
               </dl>
               <p className="mt-4 font-label text-[10px] text-on-surface-variant">Source: {x.evidence}</p>
@@ -379,7 +379,7 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => (
       <div className="mx-auto flex max-w-5xl flex-col justify-center px-6 py-16 md:py-20">
         <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Rose · The story of a conversational portfolio</p>
         <div className="mt-8 flex flex-col gap-10 md:flex-row md:items-center">
-          <h1 id="scene-a" className="min-w-0 font-headline text-5xl font-normal leading-[1.02] text-primary sm:text-6xl lg:text-7xl">A portfolio <span className="italic text-secondary">you can question.</span></h1>
+          <h1 id="scene-a" className="min-w-0 font-headline text-5xl font-normal leading-[1.02] text-heading sm:text-6xl lg:text-7xl">A portfolio <span className="italic text-secondary">you can question.</span></h1>
           <CompassRose heading={0} reduced={reduced} className="h-32 w-32 shrink-0 text-secondary md:h-48 md:w-48" />
         </div>
         <p className="mt-8 max-w-2xl font-body text-lg leading-relaxed text-on-surface">The story behind Rose: why I built her, how the experience evolved, the decisions and trade-offs that shaped it, and what comes next.</p>
@@ -388,7 +388,7 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => (
     <section aria-labelledby="rose-idea" className="mx-auto max-w-5xl px-6 py-20 md:py-24">
       <p className="font-label text-xs text-on-surface-variant">July–October 2026 · From qualification to exploration</p>
       <p className="mt-8 font-label text-xs uppercase tracking-[0.2em] text-secondary">01 · The idea</p>
-      <h2 id="rose-idea" className="mt-4 max-w-2xl font-headline text-3xl leading-tight text-primary md:text-4xl">What if the portfolio could answer back?</h2>
+      <h2 id="rose-idea" className="mt-4 max-w-2xl font-headline text-3xl leading-tight text-heading md:text-4xl">What if the portfolio could answer back?</h2>
       <div className="mt-6 max-w-2xl space-y-4 font-body text-base leading-relaxed text-on-surface md:text-lg">
         <p>A case study shows the work. It cannot anticipate every question someone brings to it. I built Rose to explore another way in: a conversation alongside the evidence.</p>
         <p>The first version shipped on 21 July 2026. Its brief was narrower than that possibility: help a visitor decide whether to book a conversation with me.</p>
@@ -398,7 +398,7 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => (
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-2 lg:gap-16 md:py-32">
         <div className="max-w-2xl">
           <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">02 · The first direction</p>
-          <h2 id="scene-b" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">First, an invitation to book.</h2>
+          <h2 id="scene-b" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">First, an invitation to book.</h2>
           <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">The July prompt aimed to help visitors decide, in two or three exchanges, whether to book 30 minutes. Four starters framed the opening around recruitment intentions.</p>
           <p className="mt-4 font-body text-base leading-relaxed text-on-surface md:text-lg">That objective shaped the experience: establish the visitor’s intention, then move toward a call. But someone could want to understand a product decision without being ready to meet.</p>
           <p className="mt-6 font-headline text-2xl italic text-secondary">A conversation is not necessarily a lead.</p>
@@ -413,7 +413,7 @@ const ConceptC = ({ reduced }: { reduced: boolean }) => (
       <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
         <div className="max-w-2xl">
           <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">03 · The change in direction</p>
-          <h2 id="scene-c" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Start with the work.</h2>
+          <h2 id="scene-c" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">Start with the work.</h2>
           <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">Instead of beginning by classifying the visitor, Rose increasingly began with the work they were exploring. A question about a product could lead into its decisions, limits and evidence, with contact still available.</p>
         </div>
         <RoseHistoryTransition reduced={reduced} renderCompass={(heading) => <CompassRose heading={heading} reduced={reduced} className="aspect-square w-full text-secondary" />} />
@@ -447,7 +447,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
         <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-20 md:pb-24 md:pt-28">
           <div className="mx-auto max-w-4xl text-center">
             <p className={cn("font-label text-xs uppercase tracking-[0.24em] text-secondary", !reduced && "animate-in fade-in duration-700")}>Rose · Case study · Product and service design</p>
-            <h1 id="scene-a" className={cn("mt-6 font-headline text-5xl font-normal leading-[0.98] text-primary sm:text-7xl lg:text-8xl", !reduced && "animate-in fade-in slide-in-from-bottom-3 duration-1000")}>
+            <h1 id="scene-a" className={cn("mt-6 font-headline text-5xl font-normal leading-[0.98] text-heading sm:text-7xl lg:text-8xl", !reduced && "animate-in fade-in slide-in-from-bottom-3 duration-1000")}>
               A portfolio <span className="italic text-secondary">you can question.</span>
             </h1>
             <p className={cn("mx-auto mt-8 max-w-2xl font-body text-lg leading-relaxed text-on-surface md:text-xl", !reduced && "animate-in fade-in duration-1000 delay-300 fill-mode-both")}>
@@ -504,7 +504,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
           <section ref={(el) => { refs.current[0] = el; }} data-idx={0} aria-labelledby="rose-idea" className="max-w-3xl">
             <p className="font-label text-xs text-on-surface-variant">July–October 2026 · From qualification to exploration</p>
             <div className="mt-8 flex flex-wrap items-center gap-3"><EvidenceStatus state="design" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Product direction</span></div>
-            <h2 id="rose-idea" className="mt-4 font-headline text-4xl leading-[1.05] text-primary md:text-6xl">What if the portfolio could answer back?</h2>
+            <h2 id="rose-idea" className="mt-4 font-headline text-4xl leading-[1.05] text-heading md:text-6xl">What if the portfolio could answer back?</h2>
             <div className="mt-6 max-w-2xl space-y-4 font-body text-base leading-relaxed text-on-surface md:text-lg">
               <p>A case study shows the work. It cannot anticipate <RoseMark cue="idea" reduced={reduced}>every question someone brings to it</RoseMark>. I built Rose to create another way in: a conversation alongside the evidence.</p>
               <p>The first version shipped on 21 July 2026. Its brief was narrower: help a visitor decide whether to book a conversation with me.</p>
@@ -516,7 +516,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
               <div className="max-w-2xl">
                 <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">21 July 2026 · 4 starters · 2–3 exchanges · 30 min call</span></div>
-                <h2 id="scene-b" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">First, an invitation to book.</h2>
+                <h2 id="scene-b" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">First, an invitation to book.</h2>
                 <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">The July prompt framed four starters around recruitment intent and aimed to reach a booking decision within two or three exchanges.</p>
                 <p className="mt-4 font-body text-base leading-relaxed text-on-surface md:text-lg">That was a deliberate starting point. I changed it because a visitor can need useful evidence before deciding whether a conversation with me would add anything.</p>
                 <p className="mt-6 font-headline text-2xl italic text-secondary"><RoseMark kind="circle" cue="booking" reduced={reduced}>Offer proof</RoseMark> before asking for commitment.</p>
@@ -542,7 +542,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
           <section ref={(el) => { refs.current[1] = el; }} data-idx={1} aria-labelledby="ux-evolution" className="border-y border-outline-variant px-6 py-16 md:py-20">
             <div className="max-w-3xl">
               <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">UX/UI · Interface evolution</p>
-              <h2 id="ux-evolution" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-6xl">The interface had to carry the new direction.</h2>
+              <h2 id="ux-evolution" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-6xl">The interface had to carry the new direction.</h2>
               <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">This was interface work, not a cosmetic sequence. Each version tested <RoseMark cue="dock" reduced={reduced}>where help could live without asking the reader to stop reading</RoseMark>, choose a funnel, or mistake Rose for the point of the page.</p>
               <RoseCue id="dock" className="mt-6" note="Four versions of me. Watch the reading surface: it never moves. That was the point." />
             </div>
@@ -552,7 +552,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
           <section aria-labelledby="scene-c" className="max-w-5xl py-24 md:py-32">
             <div className="max-w-2xl">
               <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">7 August 2026 · route-specific starters</span></div>
-              <h2 id="scene-c" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Make the page the starting point.</h2>
+              <h2 id="scene-c" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">Make the page the starting point.</h2>
               <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">I replaced fixed intents with questions tied to the page being read, then passed the page address and selected starter into Rose’s context. These are two mechanisms of one decision: <RoseMark cue="page" reduced={reduced}>start from the work, not from a guessed visitor profile</RoseMark>.</p>
               <RoseCue id="page" className="mt-6" note="He stopped asking who you are. I started asking what you were reading." />
             </div>
@@ -565,7 +565,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
           <section aria-labelledby="scene-d" className="border-y border-outline-variant px-6 py-16 md:py-20">
             <div className="max-w-2xl">
               <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">10 August 2026 · page address + selected starter</span></div>
-              <h2 id="scene-d" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Know where you are.</h2>
+              <h2 id="scene-d" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">Know where you are.</h2>
               <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">Rose receives the page address and the intent behind a selected starter. That is enough to ground an answer in <RoseMark cue="context" reduced={reduced}>the work in front of the visitor</RoseMark>, without pretending to see their screen, cursor or private browser state.</p>
               <RoseCue id="context" className="mt-6" note="Everything I know about you fits in one address bar. I find that restful." />
             </div>
@@ -585,7 +585,7 @@ const ConceptD = ({ reduced }: { reduced: boolean }) => {
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
               <div className="max-w-2xl">
                 <div className="flex flex-wrap items-center gap-3"><EvidenceStatus state="built" /><span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">7 August 2026 · quiet at rest, present on request</span></div>
-                <h2 id="scene-e" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">One quiet dock.</h2>
+                <h2 id="scene-e" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">One quiet dock.</h2>
                 <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">The dock became a translucent veil at rest and returned to full contrast on hover, focus or use. Its job is to remain available without competing with the case study.</p>
                 <RoseCue id="quiet" className="mt-8" note="I learned to wait until I was invited. Now I point, briefly, and let go." />
                 <p className="mt-8 font-body text-xs text-on-surface-variant">Source · quiet-dock plan and implementation, commit 4efe2b8, 7 August.</p>

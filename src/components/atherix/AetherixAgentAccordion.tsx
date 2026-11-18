@@ -56,7 +56,7 @@ export const AetherixAgentAccordion = () => {
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "font-headline leading-tight text-primary",
+                      "font-headline leading-tight text-heading",
                       isOpen ? "text-2xl" : "text-lg md:[writing-mode:vertical-rl] md:rotate-180",
                     )}
                   >
