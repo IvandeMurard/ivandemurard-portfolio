@@ -16,8 +16,9 @@ type Props = {
   valueText?: string;
 };
 
-const CAP = "linear-gradient(180deg, hsl(var(--metal-light)) 0%, hsl(var(--metal-dark)) 48%, hsl(var(--metal-light)) 52%, hsl(var(--metal-dark)) 100%)";
-const BRUSH = "repeating-linear-gradient(90deg, hsl(var(--metal-light)/0.18) 0 1px, transparent 1px 2px)";
+// Dark steel on the day popover, aluminium on the dusk one: the cap stays at 3:1 or more against its ground in both moods.
+const CAP = "linear-gradient(180deg, hsl(var(--fader-light)) 0%, hsl(var(--fader-dark)) 48%, hsl(var(--fader-light)) 52%, hsl(var(--fader-dark)) 100%)";
+const BRUSH = "repeating-linear-gradient(90deg, hsl(var(--fader-mark)/0.18) 0 1px, transparent 1px 2px)";
 
 export const SteelFader = ({ label, min, max, step, value, onChange, orientation = "horizontal", length, ticks = [], valueText }: Props) => {
   const v = orientation === "vertical";
@@ -33,20 +34,20 @@ export const SteelFader = ({ label, min, max, step, value, onChange, orientation
         {/* felt slot */}
         <div
           aria-hidden="true"
-          className="absolute rounded-full bg-[hsl(var(--vinyl))] shadow-[inset_0_1px_2px_hsl(var(--vinyl)),0_1px_0_hsl(var(--metal-light)/0.25)]"
+          className="absolute rounded-full bg-[hsl(var(--vinyl))] shadow-[inset_0_1px_2px_hsl(var(--vinyl))]"
           style={v ? { left: capLong / 2 - 2, width: 4, top: 4, bottom: 4 } : { top: capLong / 2 - 2, height: 4, left: 4, right: 4 }}
         />
         {/* brushed steel cap */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute rounded-[2px] shadow-[0_3px_4px_-1px_hsl(var(--vinyl)/0.8),inset_0_1px_0_hsl(var(--metal-light))] transition-[top,left] duration-75"
+          className="pointer-events-none absolute rounded-[2px] shadow-[0_3px_4px_-1px_hsl(var(--vinyl)/0.8)] transition-[top,left] duration-75"
           style={{
             background: `${BRUSH}, ${CAP}`,
             ...(v ? { left: 0, width: capLong, height: capShort, top: offset } : { top: 0, height: capLong, width: capShort, left: offset }),
           }}
         >
           <span
-            className="absolute bg-[hsl(var(--vinyl))]"
+            className="absolute bg-[hsl(var(--fader-mark))]"
             style={v ? { left: 2, right: 2, top: capShort / 2 - 0.5, height: 1 } : { top: 2, bottom: 2, left: capShort / 2 - 0.5, width: 1 }}
           />
         </div>

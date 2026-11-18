@@ -710,15 +710,42 @@
   50%      { opacity: 1; }
 }
 
-/* Vinyl deck: physical materials, identical in both moods (a record is black). */
+/* Vinyl deck (board L, option 1). The record is black in both moods; the rest reads against the popover it sits in.
+   Day: a walnut plinth, a pale tonearm, dark steel faders. Dusk: a brushed aluminium plinth, a dark tonearm, aluminium
+   faders, warm lamplight on the record. Every pair is checked in src/test/vinylDeck.test.tsx (3:1 for parts, 4.5:1 for text).
+   No rims and no outlines anywhere on the record or the deck. */
 :root {
   --vinyl: 220 8% 7%;
   --vinyl-groove: 220 6% 14%;
-  --vinyl-sheen: 40 30% 92%;
-  --metal-light: 40 8% 86%;
-  --metal-dark: 220 6% 42%;
-  --plinth-light: 30 10% 22%;
-  --plinth-dark: 30 12% 12%;
+  --vinyl-sheen: 40 30% 92%;               /* the two reflections: day light, as before */
+  --sheen-a: 0.16;
+  --sheen-b: 0.12;
+  --paper-label: 40 54.9% 86.1%;           /* warm cream paper, #efe2c8 */
+  --label-ink: 30 18.4% 19.2%;             /* warm dark ink, #3a3128 */
+  --plinth-from: 25.3 36.3% 30.8%;         /* walnut, #6b4a32 */
+  --plinth-to: 24 37% 21.2%;               /* walnut, #4a3222 */
+  --brush-hi: 0 0% 100%;                   /* fine vertical brushing of the plinth, none by day */
+  --brush-lo: 0 0% 0%;
+  --brush-a: 0;
+  --arm-edge: 40 10% 76.5%;                /* the tonearm, light on walnut: #c9c5bd */
+  --arm-mid: 40 19.1% 90.8%;               /* #ece9e3 */
+  --fader-light: 218.6 6.1% 45.1%;         /* the fader caps, dark steel on the day popover: #6c717a */
+  --fader-dark: 218.2 8.1% 26.5%;          /* #3e4249 */
+  --fader-mark: 40 15.3% 88.4%;            /* the line on the cap */
+}
+[data-mood="dusk"] {
+  --vinyl-groove: 220 9.3% 19%;            /* grooves slightly lighter: #2c2f35 */
+  --vinyl-sheen: 37.3 82% 80.4%;           /* lamplight, #f6d7a4, lit from the top right */
+  --sheen-a: 0.42;
+  --sheen-b: 0.3;
+  --plinth-from: 40 3.9% 54.3%;            /* brushed aluminium, #8f8c86 */
+  --plinth-to: 42 4.7% 58.4%;              /* #9a9790 */
+  --brush-a: 0.12;
+  --arm-edge: 222.9 11.5% 12%;             /* the tonearm, dark on aluminium: #1b1d22 */
+  --arm-mid: 222 8.2% 23.9%;               /* #383b42 */
+  --fader-light: 40 6% 70.8%;              /* the fader caps, aluminium on the dusk popover: #b9b6b0 */
+  --fader-dark: 40 3.9% 54.3%;             /* #8f8c86 */
+  --fader-mark: 222.9 11.5% 12%;
 }
 @keyframes vinyl-spin { to { transform: rotate(360deg); } }
 .vinyl-spin {
