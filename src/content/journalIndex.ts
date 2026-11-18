@@ -73,7 +73,6 @@ export const REFERENCE_ZONE: Record<string, { from: string; chips: { label: stri
       { label: "Vocabulary", id: "1-the-vocabulary-through-the-driving-test" },
       { label: "FAQ", id: "14-frequently-asked-questions" },
       { label: "Apply this to your project", id: "apply-this-to-your-project" },
-      { label: "Closing note", id: "15-closing-note" },
     ],
   },
   "agent-boundaries-aetherix": {
