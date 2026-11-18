@@ -56,7 +56,7 @@ export const AnimaStayTimeline = () => (
             </span>
             <span className="h-px flex-1 bg-outline-variant" aria-hidden="true" />
           </div>
-          <p className="font-headline italic text-primary text-lg leading-tight mb-3">
+          <p className="font-headline italic text-heading text-lg leading-tight mb-3">
             {col.phase} {col.design && <DesignTag />}
           </p>
           <ul className="m-0 list-none p-0 space-y-1 mb-4 flex-1">

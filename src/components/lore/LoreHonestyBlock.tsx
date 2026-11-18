@@ -12,7 +12,7 @@ const LIMITS = [
  */
 export const LoreHonestyBlock = () => (
   <div data-reveal-child className="border-t border-b border-outline-variant py-10">
-    <p className="font-headline italic text-primary text-2xl md:text-3xl leading-tight">
+    <p className="font-headline italic text-heading text-2xl md:text-3xl leading-tight">
       This is a prototype, not production software.
     </p>
     <ul className="mt-8 space-y-4 max-w-3xl">
@@ -25,7 +25,7 @@ export const LoreHonestyBlock = () => (
         </li>
       ))}
     </ul>
-    <p className="mt-8 font-headline italic text-primary text-lg leading-snug max-w-3xl">
+    <p className="mt-8 font-headline italic text-heading text-lg leading-snug max-w-3xl">
       The last two lines are the honest ones, and they are why the evaluation write-up exists.
     </p>
   </div>

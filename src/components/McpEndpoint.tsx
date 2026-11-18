@@ -52,7 +52,7 @@ export const McpEndpoint = ({
               Public · read-only · {TOOLS.length} tools
             </span>
           </div>
-          <h2 className="font-headline text-2xl italic leading-tight text-primary md:text-3xl">{label}</h2>
+          <h2 className="font-headline text-2xl italic leading-tight text-heading md:text-3xl">{label}</h2>
           <p className="mt-3 max-w-2xl font-body text-sm leading-relaxed text-on-surface-variant md:text-base">
             {note ??
               "Give an agent structured access to my case studies, Field Notes and professional profile, from its own working environment."}

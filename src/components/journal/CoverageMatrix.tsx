@@ -70,7 +70,7 @@ export const CoverageMatrix = ({
       {rows.map((row) => (
         <div key={row.arm} className="contents">
           <div className="pt-1">
-            <div className="font-headline italic text-lg text-primary leading-tight">{row.arm}</div>
+            <div className="font-headline italic text-lg text-heading leading-tight">{row.arm}</div>
             <div className="font-body font-normal text-xs text-on-surface-variant mt-1">{row.when}</div>
           </div>
           {row.cells.map((cell, i) => (
@@ -85,7 +85,7 @@ export const CoverageMatrix = ({
     <div className="md:hidden flex flex-col gap-6">
       {rows.map((row) => (
         <div key={row.arm}>
-          <div className="font-headline italic text-lg text-primary leading-tight">{row.arm}</div>
+          <div className="font-headline italic text-lg text-heading leading-tight">{row.arm}</div>
           <div className="font-body font-normal text-xs text-on-surface-variant mt-1 mb-3">{row.when}</div>
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
             {row.cells.map((cell, i) => (

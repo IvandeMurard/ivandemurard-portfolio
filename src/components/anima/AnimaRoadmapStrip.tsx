@@ -55,7 +55,7 @@ export const AnimaRoadmapStrip = () => (
           <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary block mb-1">
             {step.mark}
           </span>
-          <p className="font-headline italic text-primary text-lg leading-tight mb-2">
+          <p className="font-headline italic text-heading text-lg leading-tight mb-2">
             {step.title} {step.design && <DesignTag />}
           </p>
           <ul className="m-0 list-none p-0 space-y-1">

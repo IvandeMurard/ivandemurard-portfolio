@@ -58,7 +58,7 @@ const NodeCard = ({
         : "border border-outline-variant bg-surface-container-low"
     }`}
   >
-    <p className="font-headline italic text-primary text-base md:text-lg leading-tight">{title}</p>
+    <p className="font-headline italic text-heading text-base md:text-lg leading-tight">{title}</p>
     {sub && (
       <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">{sub}</p>
     )}
@@ -96,7 +96,7 @@ export const AetherixMeshDiagram = () => (
         <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant bg-surface-container-low">
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
-            <p className="font-headline italic text-primary text-base leading-tight">Manager</p>
+            <p className="font-headline italic text-heading text-base leading-tight">Manager</p>
             <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">
               WhatsApp
             </p>
@@ -122,7 +122,7 @@ export const AetherixMeshDiagram = () => (
         <div className="flex items-center gap-3 px-5 py-4 rounded-2xl border border-outline-variant bg-surface-container-low">
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
-            <p className="font-headline italic text-primary text-base leading-tight">Manager</p>
+            <p className="font-headline italic text-heading text-base leading-tight">Manager</p>
             <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">
               WhatsApp
             </p>
@@ -155,7 +155,7 @@ export const AetherixMeshDiagram = () => (
               className="border-b border-outline-variant last:border-b-0 align-top"
             >
               <td className="px-5 py-4 whitespace-nowrap">
-                <span className="font-headline italic text-primary text-base">
+                <span className="font-headline italic text-heading text-base">
                   <span aria-hidden="true" className="mr-2">{n.emoji}</span>
                   {n.name}
                 </span>

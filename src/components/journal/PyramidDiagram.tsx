@@ -41,7 +41,7 @@ export const PyramidDiagram = ({
               </div>
               <div
                 className={`font-headline italic text-lg ${
-                  layer.base || isActive ? "text-primary" : "text-on-surface-variant"
+                  layer.base || isActive ? "text-heading" : "text-on-surface-variant"
                 }`}
               >
                 {layer.name}

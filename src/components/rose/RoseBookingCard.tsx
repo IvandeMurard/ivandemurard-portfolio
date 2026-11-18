@@ -46,7 +46,7 @@ export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardPr
         <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
           Book a call
         </span>
-        <span className="mt-1 font-headline italic text-lg text-primary">
+        <span className="mt-1 font-headline italic text-lg text-heading">
           30 minutes with Ivan
         </span>
         {reason ? (

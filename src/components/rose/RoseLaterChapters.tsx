@@ -82,7 +82,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
           <div className="max-w-2xl">
             <Kicker>03 · Trust and answer quality</Kicker>
             <div className="mt-5"><EvidenceStatus state="built" /></div>
-            <h2 id="ch-trust" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Trust has two separate contracts.</h2>
+            <h2 id="ch-trust" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">Trust has two separate contracts.</h2>
             <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
               One concerns data: what is retained and transmitted. The other concerns knowledge: what Rose may assert or infer. Mixing them would make privacy sound like proof, or proof sound like privacy.
             </p>
@@ -97,7 +97,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
             ["90 days", "interaction-record retention in the private admin view"],
           ].map(([value, label]) => (
             <div key={value} className="border-b border-outline-variant p-5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
-              <dt className="font-headline text-3xl text-primary">{value}</dt>
+              <dt className="font-headline text-3xl text-heading">{value}</dt>
               <dd className="mt-2 font-body text-sm leading-relaxed text-on-surface-variant">{label}</dd>
             </div>
           ))}
@@ -184,7 +184,7 @@ export const ChapterLearning = ({ learningRef, learningIndex, compass, reduced }
     <div className="mx-auto max-w-6xl px-6 pt-24 md:pt-32">
       <div className="max-w-3xl">
         <Kicker>05 · Open questions</Kicker>
-        <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-6xl">What has Rose not earned the right to claim?</h2>
+        <h2 id="ch-learn" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-6xl">What has Rose not earned the right to claim?</h2>
         <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-xl">
           The product can demonstrate defined behaviour and observe bounded signals. It cannot yet claim that a source-correct answer helps someone decide, that a contextual assistant is the right role, or that voice makes navigation easier.
         </p>
@@ -197,7 +197,7 @@ export const ChapterLearning = ({ learningRef, learningIndex, compass, reduced }
             <li key={l.title} className="grid gap-4 border-b border-outline-variant py-10 md:grid-cols-[4rem_minmax(0,1fr)] md:gap-8">
               <span aria-hidden className="font-headline text-4xl italic leading-none text-outline-variant md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <h3 className="font-headline text-2xl text-primary md:text-3xl">{l.title}</h3>
+                <h3 className="font-headline text-2xl text-heading md:text-3xl">{l.title}</h3>
                 {l.evidence ? <div className="mt-3"><EvidenceStatus state={l.evidence} /></div> : <p className="mt-3 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Open question</p>}
                 <p className={cn("mt-2 font-headline text-lg italic", i === 2 ? "text-on-surface-variant" : "text-secondary")}>{l.status}</p>
                 <p className="mt-5 max-w-prose font-body text-base leading-relaxed text-on-surface">{l.shows}</p>
@@ -214,7 +214,7 @@ export const ChapterLearning = ({ learningRef, learningIndex, compass, reduced }
               {compass && <span aria-hidden="true" className={cn("w-10 text-secondary", !reduced && "motion-safe:animate-pulse")}>{compass(300, "h-10 w-10")}</span>}
               <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Where the evidence runs out</p>
             </div>
-            <h3 id="ch-learn-invite" className="mt-4 font-headline text-3xl leading-snug text-primary">
+            <h3 id="ch-learn-invite" className="mt-4 font-headline text-3xl leading-snug text-heading">
               There's one question I can't answer alone.
             </h3>
             <p className="mt-4 font-body text-base leading-relaxed text-on-surface">
@@ -243,7 +243,7 @@ export const ChapterQualityAssurance = () => (
     <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
       <div className="max-w-3xl">
         <Kicker>Quality assurance · Answer quality</Kicker>
-        <h2 id="ch-qa" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">
+        <h2 id="ch-qa" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">
           A correct answer can still be the wrong answer.
         </h2>
         <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
@@ -255,7 +255,7 @@ export const ChapterQualityAssurance = () => (
       <figure aria-labelledby="qa-matrix-title" className="mt-12 max-w-5xl">
         <figcaption id="qa-matrix-title" className="max-w-3xl">
           <p className="font-label text-xs uppercase tracking-[0.18em] text-secondary">Answer review</p>
-          <h3 className="mt-3 font-headline text-3xl text-primary">Source check, then reader check.</h3>
+          <h3 className="mt-3 font-headline text-3xl text-heading">Source check, then reader check.</h3>
           <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
             “Useful to this reader” means that the answer addresses this question in this context. It is not a claim of measured visitor value.
           </p>
@@ -275,13 +275,13 @@ export const ChapterQualityAssurance = () => (
                 <th scope="row" className="align-top border-b border-outline-variant p-4 font-body text-sm font-normal leading-relaxed text-on-surface">An exact internal release-process detail, offered when the reader asked what Ivan measures.</th>
                 <td className="align-top border-b border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-secondary">Pass</td>
                 <td className="align-top border-b border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-on-surface-variant">Fail</td>
-                <td className="align-top border-b border-l border-outline-variant p-4 font-headline text-xl text-primary">Rewrite</td>
+                <td className="align-top border-b border-l border-outline-variant p-4 font-headline text-xl text-heading">Rewrite</td>
               </tr>
               <tr>
                 <th scope="row" className="align-top p-4 font-body text-sm font-normal leading-relaxed text-on-surface">A source-backed forecast comparison, its scope and its limit, offered to that same reader.</th>
                 <td className="align-top border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-secondary">Pass</td>
                 <td className="align-top border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-secondary">Pass</td>
-                <td className="align-top border-l border-outline-variant p-4 font-headline text-xl text-primary">Keep and link</td>
+                <td className="align-top border-l border-outline-variant p-4 font-headline text-xl text-heading">Keep and link</td>
               </tr>
             </tbody>
           </table>
@@ -303,7 +303,7 @@ const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: C
           <div className="max-w-2xl">
             <Kicker>04 · Contextual assistant · Work in progress</Kicker>
             <div className="mt-5"><EvidenceStatus state="design" /></div>
-            <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-primary md:text-5xl">Make the whole site easier to navigate, not just one reply.</h2>
+            <h2 id="ch-next" className="mt-4 font-headline text-4xl leading-tight text-heading md:text-5xl">Make the whole site easier to navigate, not just one reply.</h2>
             <p className="mt-6 font-body text-base leading-relaxed text-on-surface md:text-lg">
               Contextual assistant is the direction; adaptive reading is one possible behaviour inside it. Rose could locate, reformulate and visualise the relationships between pages while preserving the original sources and their limits. Rose remains text-based today.
             </p>
@@ -325,7 +325,7 @@ const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: C
           ))}
         </div>
         <div className="mt-8 max-w-3xl border-l-2 border-secondary pl-5">
-          <p className="font-headline text-2xl text-primary">Voice, only if it removes work.</p>
+          <p className="font-headline text-2xl text-heading">Voice, only if it removes work.</p>
           <p className="mt-3 font-body text-base leading-relaxed text-on-surface">This is work in progress, not an announced capability. Voice would need an explicit start, a readable text alternative and the same inspectable evidence. It is a modality inside the contextual-assistant direction, not an ambient narrator.</p>
         </div>
       </div>
@@ -344,7 +344,7 @@ const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
   <section aria-labelledby="ch-close">
     <div className="mx-auto flex max-w-3xl flex-col items-center px-6 py-28 text-center md:py-36">
       <div className="w-20 text-secondary">{compass(0)}</div>
-      <h2 id="ch-close" className="mt-10 font-headline text-3xl leading-tight text-primary md:text-5xl">
+      <h2 id="ch-close" className="mt-10 font-headline text-3xl leading-tight text-heading md:text-5xl">
         Questions I am leaving open, <span className="italic text-secondary">rather than calling them features.</span>
       </h2>
       <ol className="mt-12 grid w-full gap-6 text-left md:grid-cols-3">

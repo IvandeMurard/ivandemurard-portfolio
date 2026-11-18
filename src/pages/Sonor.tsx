@@ -136,7 +136,7 @@ const Sonor = () => {
             <span data-reveal-child className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
               Case Study: Sonor (2020-2022)
             </span>
-            <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink text-5xl md:text-8xl font-headline italic text-primary leading-[1.1] mb-8">
+            <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink text-5xl md:text-8xl font-headline italic text-heading leading-[1.1] mb-8">
               Sonor: The Quiet Art of <br />
               Urban Intelligence.
             </h1>
@@ -183,7 +183,7 @@ const Sonor = () => {
           <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
             The Hypothesis
           </span>
-          <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">
+          <h2 className="text-4xl md:text-5xl font-headline italic text-heading mb-12">
             Our first 2020 prototype
           </h2>
           <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant">
@@ -208,7 +208,7 @@ const Sonor = () => {
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
               The Product
             </span>
-            <h2 className="text-4xl md:text-5xl font-headline italic text-primary">
+            <h2 className="text-4xl md:text-5xl font-headline italic text-heading">
               From prototype to MVP.
             </h2>
           </div>
@@ -232,7 +232,7 @@ const Sonor = () => {
               </div>
             </div>
             <div className="order-1 lg:order-2 space-y-8">
-              <h3 className="text-4xl font-headline italic text-primary">What it is</h3>
+              <h3 className="text-4xl font-headline italic text-heading">What it is</h3>
               <p className="text-on-surface-variant leading-relaxed text-lg">
                 A SaaS platform built to turn open noise data into cartography and recommendations for city teams: map exposure, prioritise interventions, justify policy with evidence.
               </p>
@@ -240,7 +240,7 @@ const Sonor = () => {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="space-y-8">
-              <h3 className="text-4xl font-headline italic text-primary">A loop between a city and its residents</h3>
+              <h3 className="text-4xl font-headline italic text-heading">A loop between a city and its residents</h3>
               <p className="text-on-surface-variant leading-relaxed text-lg">
                 Residents leave alerts and field surveys collect what they experience. Findings are reported to the city, and the city's actions are communicated back to residents.
               </p>
@@ -275,7 +275,7 @@ const Sonor = () => {
           {NARRATIVE.map((n) => (
             <div key={n.id} id={n.id} className="flex flex-col md:flex-row gap-6 md:gap-20 scroll-mt-24">
               <div className="w-full md:w-1/3">
-                <h2 className="text-3xl md:text-4xl font-headline italic text-primary">{n.title}</h2>
+                <h2 className="text-3xl md:text-4xl font-headline italic text-heading">{n.title}</h2>
               </div>
               <p className="w-full md:w-2/3 text-lg md:text-xl text-on-surface-variant leading-relaxed">{n.body}</p>
             </div>
@@ -287,7 +287,7 @@ const Sonor = () => {
       <section id="platform" className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Explore the Platform</h2>
+            <h2 className="text-4xl md:text-5xl font-headline italic text-heading">Explore the Platform</h2>
           </div>
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="relative w-full pt-[56.25%] bg-surface-container-high rounded-xl overflow-hidden shadow-2xl border border-outline-variant">
@@ -315,7 +315,7 @@ const Sonor = () => {
       {/* Acknowledgments */}
       <section className="py-16 md:py-28 bg-surface border-t border-outline-variant">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-12">Acknowledgments</h2>
+          <h2 className="text-4xl md:text-5xl font-headline italic text-heading mb-12">Acknowledgments</h2>
           <p className="text-xl md:text-2xl font-headline text-on-surface-variant leading-relaxed mb-12 md:mb-20 max-w-3xl mx-auto">
             This project would not have been possible without the support of Banque des Territoires and Matrice
             association, and the collaboration of my three co-founders: Émilie, Majda and Benjamin.
@@ -350,7 +350,7 @@ const Sonor = () => {
             <p className="font-label uppercase tracking-[0.3em] text-xs text-secondary mb-4">
               Further Reading
             </p>
-            <h2 className="text-4xl md:text-5xl font-headline italic text-primary">Go Further</h2>
+            <h2 className="text-4xl md:text-5xl font-headline italic text-heading">Go Further</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
             {GO_FURTHER.map((item) => (

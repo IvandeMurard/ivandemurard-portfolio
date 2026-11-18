@@ -51,7 +51,7 @@ export const LoreThreeModes = () => (
         >
           <Icon name={m.icon} className="text-secondary text-3xl" />
           <div>
-            <h3 className="font-headline italic text-2xl text-primary leading-tight">{m.title}</h3>
+            <h3 className="font-headline italic text-2xl text-heading leading-tight">{m.title}</h3>
             <p className="text-on-surface-variant not-italic font-body text-base mt-1">{m.lead}</p>
           </div>
           <p className="text-on-surface-variant leading-relaxed">{m.body}</p>
@@ -61,7 +61,7 @@ export const LoreThreeModes = () => (
     <p
       data-reveal-child
       style={{ ["--reveal-delay" as string]: "600ms" }}
-      className="mt-10 font-headline italic text-primary text-xl md:text-2xl leading-snug max-w-3xl"
+      className="mt-10 font-headline italic text-heading text-xl md:text-2xl leading-snug max-w-3xl"
     >
       Rule number one: Lore never contradicts a procedure. It completes it.
     </p>

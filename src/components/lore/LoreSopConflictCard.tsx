@@ -64,7 +64,7 @@ export const LoreSopConflictCard = () => (
             <tr key={i} className="border-b border-outline last:border-0 align-top">
               <td className="px-6 py-5 text-on-surface-variant leading-relaxed">{r.expert}</td>
               <td className="px-6 py-5 text-on-surface leading-relaxed">{r.manual}</td>
-              <td className="px-6 py-5 font-headline italic text-primary text-base md:text-lg leading-relaxed">
+              <td className="px-6 py-5 font-headline italic text-heading text-base md:text-lg leading-relaxed">
                 {r.lore}
               </td>
             </tr>
@@ -72,7 +72,7 @@ export const LoreSopConflictCard = () => (
         </tbody>
       </table>
     </div>
-    <p className="px-6 py-6 border-t border-outline-variant font-headline italic text-primary text-lg md:text-xl leading-snug">
+    <p className="px-6 py-6 border-t border-outline-variant font-headline italic text-heading text-lg md:text-xl leading-snug">
       The manual sets the limit. The senior tells you what you are looking at. Lore is the only place both arrive in
       the same answer, in that order.
     </p>

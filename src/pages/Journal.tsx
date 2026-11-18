@@ -46,7 +46,7 @@ const Journal = () => {
       <div className="bg-gradient-to-b from-surface from-35% to-surface-container-high">
         <section className="mx-auto max-w-[1240px] px-6 pb-7 pt-24 md:px-10 md:pt-28">
           <p className={cn(KICK, "text-secondary")}>{INDEX_HERO.kicker}</p>
-          <h1 className="mt-3.5 max-w-[900px] font-headline text-[clamp(44px,5.4vw,72px)] font-normal leading-[1.02] tracking-[-0.02em] text-primary">{INDEX_HERO.title}</h1>
+          <h1 className="mt-3.5 max-w-[900px] font-headline text-[clamp(44px,5.4vw,72px)] font-normal leading-[1.02] tracking-[-0.02em] text-heading">{INDEX_HERO.title}</h1>
           <p className="mt-[18px] max-w-[660px] text-[19px] text-on-surface-variant">{INDEX_HERO.line}</p>
           <p className="mt-[22px] font-mono text-[12.5px] leading-snug text-on-surface-variant">{heroMeta()}</p>
         </section>
@@ -56,7 +56,7 @@ const Journal = () => {
           <div className="mt-3.5 grid overflow-hidden rounded-[20px] border border-outline-variant lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative flex flex-col gap-[18px] bg-surface-container-lowest p-6 md:p-10">
               <p className={cn(KICK, "text-on-surface-variant")}>{lead.decision}</p>
-              <h2 id="lead" className="font-headline text-[34px] font-normal leading-[1.06] text-primary md:text-[44px]">{noteTitle(lead.title)}</h2>
+              <h2 id="lead" className="font-headline text-[34px] font-normal leading-[1.06] text-heading md:text-[44px]">{noteTitle(lead.title)}</h2>
               <p className="text-[17.5px] text-on-surface">{LEAD.pitch}</p>
               <p className="text-[15px] text-on-surface-variant">{LEAD.why}</p>
               <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -70,7 +70,7 @@ const Journal = () => {
             </div>
             <div className="section-inverse flex flex-col gap-4 p-6 md:p-10">
               <p className="font-mono text-[13px] font-medium uppercase leading-snug tracking-[0.12em] text-secondary">{LEAD.proof.kicker}</p>
-              <p className="font-headline text-[24px] font-normal leading-[1.25] text-primary md:text-[28px]">{LEAD.proof.lead}</p>
+              <p className="font-headline text-[24px] font-normal leading-[1.25] text-heading md:text-[28px]">{LEAD.proof.lead}</p>
               <ol className="m-0 mt-1 flex list-none flex-col gap-3 p-0">
                 {LEAD.proof.steps.map((s, i) => (
                   <li key={i} className="grid grid-cols-[28px_1fr] items-baseline gap-x-3">
@@ -91,11 +91,11 @@ const Journal = () => {
               return (
                 <article key={e.slug} className="relative flex flex-col gap-4 rounded-[20px] border border-outline-variant bg-surface-container-lowest p-6 md:p-8 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-[3px] has-[:focus-visible]:outline-secondary">
                   <p className={cn(KICK, "text-on-surface-variant")}>{e.decision}</p>
-                  <h2 className="font-headline text-[28px] font-normal leading-[1.1] text-primary md:text-[34px]">{e.title}</h2>
+                  <h2 className="font-headline text-[28px] font-normal leading-[1.1] text-heading md:text-[34px]">{e.title}</h2>
                   <p className="text-[16.5px] text-on-surface">{c.pitch}</p>
                   <div className="border-l-[3px] border-secondary py-1 pl-4">
                     <p className={cn(KICK, "text-secondary")}>{c.moment.label}</p>
-                    <p className="mt-2 font-headline text-[19px] font-normal leading-[1.3] text-primary md:text-[21px]">{c.moment.text}</p>
+                    <p className="mt-2 font-headline text-[19px] font-normal leading-[1.3] text-heading md:text-[21px]">{c.moment.text}</p>
                   </div>
                   <div className="mt-auto flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-t border-outline-variant pt-3.5">
                     <p className="font-mono text-[12.5px] text-on-surface-variant">{metaLine(e)}</p>

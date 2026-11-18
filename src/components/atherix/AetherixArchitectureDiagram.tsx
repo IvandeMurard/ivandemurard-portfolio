@@ -82,7 +82,7 @@ export const AetherixArchitectureDiagram = () => {
               <Icon name="hub" className="text-on-surface-variant text-lg" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-headline italic text-primary text-base md:text-lg leading-tight">MCP server</p>
+              <p className="font-headline italic text-heading text-base md:text-lg leading-tight">MCP server</p>
               <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">Three atomic tools, multi-tenant</p>
             </div>
             <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">Three atomic tools</span>
@@ -117,7 +117,7 @@ export const AetherixArchitectureDiagram = () => {
               <div className="w-9 h-9 rounded-full border border-secondary flex items-center justify-center">
                 <Icon name={d.icon} className="text-on-surface-variant text-lg" />
               </div>
-              <span className="font-headline italic text-primary text-base md:text-lg">{d.title}</span>
+              <span className="font-headline italic text-heading text-base md:text-lg">{d.title}</span>
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ const Column = ({
           <Icon name={it.icon} className="text-on-surface-variant text-base" />
         </div>
         <div className="min-w-0">
-          <p className="font-headline italic text-primary text-sm md:text-base leading-tight truncate">{it.title}</p>
+          <p className="font-headline italic text-heading text-sm md:text-base leading-tight truncate">{it.title}</p>
           <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5 truncate">{it.sub}</p>
         </div>
       </div>

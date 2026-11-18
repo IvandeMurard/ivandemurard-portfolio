@@ -56,7 +56,7 @@ export const AnimaClaimCard = () => (
           <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary block mb-2">
             {c.regime}
           </span>
-          <p className="font-headline italic text-primary text-lg leading-tight mb-3">
+          <p className="font-headline italic text-heading text-lg leading-tight mb-3">
             Prefers a high floor
           </p>
           <dl className="m-0 space-y-1 text-sm flex-1">

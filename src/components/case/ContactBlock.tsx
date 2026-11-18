@@ -13,7 +13,7 @@ export const ContactBlock = ({ number, after }: { number?: string; after?: React
     <section id="contact" aria-labelledby="contact-h" className="section-inverse">
       <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
         <p className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-8" data-reveal-child>{number ? `${number} · ${CONTACT.kicker}` : CONTACT.kicker}</p>
-        <h2 id="contact-h" className="font-headline font-normal text-primary text-[clamp(32px,4.2vw,60px)] leading-[1.06] tracking-[-0.02em]" data-reveal-child>
+        <h2 id="contact-h" className="font-headline font-normal text-heading text-[clamp(32px,4.2vw,60px)] leading-[1.06] tracking-[-0.02em]" data-reveal-child>
           {CONTACT.heading}
         </h2>
         <p className="mt-6 text-[19px] md:text-[21px] leading-relaxed text-on-surface max-w-2xl" data-reveal-child>

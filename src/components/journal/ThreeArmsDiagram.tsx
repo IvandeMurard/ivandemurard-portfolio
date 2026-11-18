@@ -83,7 +83,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
                       : "bg-surface-container-high border-secondary"
                   }`}
                 >
-                  <span className="font-headline italic text-sm text-primary truncate">{arm.name}</span>
+                  <span className="font-headline italic text-sm text-heading truncate">{arm.name}</span>
                 </span>
               </button>
             </div>

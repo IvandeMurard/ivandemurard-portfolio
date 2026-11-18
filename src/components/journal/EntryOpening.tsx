@@ -83,7 +83,7 @@ export const EntryOpening = ({
       )}
 
       {punch && (
-        <p className="mt-6 md:mt-8 border-l-2 border-secondary pl-5 font-headline italic text-lg md:text-xl text-primary leading-snug">
+        <p className="mt-6 md:mt-8 border-l-2 border-secondary pl-5 font-headline italic text-lg md:text-xl text-heading leading-snug">
           {renderBold(punch)}
         </p>
       )}

@@ -28,6 +28,10 @@
     /* Homepage rooms (v2): warm neutrals only. Stone and peach tint the Flagship and Field Notes grounds. */
     --surface-stone: 35 33% 93%;              /* #f3eee7 */
     --surface-peach: 31 74% 94%;              /* #fbf0e4 */
+    /* Headings (h1-h3 and display-serif titles): the navy of --primary by day, a warm cream at dusk. Links, buttons and
+       every interactive mark keep --primary, so blue still says "clickable" at dusk. Explicit values, not var(--primary):
+       a dark room that re-scopes --primary must re-scope --heading too, as .section-inverse and .aetherix-dark do. */
+    --heading: 215 100% 11%;
     /* Hero light, one gradient per hour of Paris (HSL channels, alpha applied where used). */
     --glow-morning: 39 88% 90%;
     --glow-midday: 42 67% 94%;
@@ -163,6 +167,7 @@
     --surface-variant: 32 12% 20%;
     --surface-stone: 32 13% 14%;              /* the dusk surface-container, #28241f */
     --surface-peach: 28 25% 13%;              /* a warmer taupe, #2a2119 */
+    --heading: 39 39% 93%;                    /* warm cream, #f4efe6 */
     --primary: 217 71% 82%;                   /* invert: blue becomes the light source */
     --primary-container: 215 56% 28%;
     --primary-fixed: 217 60% 78%;
@@ -535,7 +540,8 @@
      Tokens are re-scoped locally so children keep using semantic classes. */
   .section-inverse {
     background-color: hsl(var(--inverse-ground));
-    --primary: 42 41% 97%;    --primary-container: 39 96% 82%;
+    --primary: 42 41% 97%;
+    --heading: 42 41% 97%;    --primary-container: 39 96% 82%;
     --on-primary: 215 100% 11%;
     --secondary: 39 96% 82%;
     --on-secondary: 38 45% 12%;
@@ -1082,7 +1088,8 @@
   isolation: isolate;
   background-color: hsl(30 24% 7%);
   color: hsl(50 33% 97%);
-  --primary: 50 33% 97%;  --secondary: 27 63% 67%;
+  --primary: 50 33% 97%;
+  --heading: 50 33% 97%;  --secondary: 27 63% 67%;
   --on-surface: 50 33% 97%;
   --on-surface-variant: 45 14% 80%;
   --outline-variant: 45 12% 36%;

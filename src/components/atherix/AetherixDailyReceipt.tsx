@@ -13,7 +13,7 @@ export const AetherixDailyReceipt = () => (
         <Icon name="chat" className="text-secondary text-lg" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-headline italic text-primary text-sm leading-tight">Aetherix</p>
+        <p className="font-headline italic text-heading text-sm leading-tight">Aetherix</p>
         <p className="text-[10px] uppercase tracking-widest text-on-surface-variant">today · 18:42</p>
       </div>
       <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">Daily Receipt</span>

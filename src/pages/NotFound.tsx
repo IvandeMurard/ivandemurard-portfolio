@@ -19,7 +19,7 @@ const NotFound = () => {
           <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block opacity-80">
             A quiet detour
           </span>
-          <h1 className="font-headline italic text-6xl md:text-8xl text-primary leading-[1.1] mb-8">
+          <h1 className="font-headline italic text-6xl md:text-8xl text-heading leading-[1.1] mb-8">
             This room <br />
             is empty.
           </h1>

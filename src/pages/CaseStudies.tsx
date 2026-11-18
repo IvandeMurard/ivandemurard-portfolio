@@ -94,7 +94,7 @@ const CaseStudies = () => {
       <div className="bg-gradient-to-b from-surface from-30% to-surface-container-high">
         <section className="mx-auto max-w-[1240px] px-6 pb-8 pt-24 md:px-10 md:pt-28">
           <p className={cn(kicker, "text-secondary")}>{CASE_INDEX.kicker}</p>
-          <h1 className="mt-[14px] font-headline text-[clamp(48px,6vw,80px)] font-normal leading-none tracking-[-0.02em] text-primary">{CASE_INDEX.title}</h1>
+          <h1 className="mt-[14px] font-headline text-[clamp(48px,6vw,80px)] font-normal leading-none tracking-[-0.02em] text-heading">{CASE_INDEX.title}</h1>
           <p className="mt-[18px] max-w-[620px] text-[19px] text-on-surface-variant">{CASE_INDEX.line}</p>
           <ul className="mt-[18px] flex flex-wrap gap-x-[22px] gap-y-2 text-[13.5px] text-on-surface-variant" aria-label="Status lamps">
             {LEGEND.map((l) => (
@@ -119,7 +119,7 @@ const CaseStudies = () => {
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-3">
             <div className="max-w-[640px]">
               <p className={cn(kicker, "text-secondary")}>{GROUP_ARCH.kicker}</p>
-              <h2 id="g1" className="mt-2 font-headline text-[32px] font-normal leading-[1.1] text-primary md:text-[40px]">{GROUP_ARCH.heading}</h2>
+              <h2 id="g1" className="mt-2 font-headline text-[32px] font-normal leading-[1.1] text-heading md:text-[40px]">{GROUP_ARCH.heading}</h2>
               <p className="mt-3 text-[16.5px] text-on-surface-variant">{GROUP_ARCH.line}</p>
             </div>
             <Link to={GROUP_ARCH.linkTo} onClick={() => track({ label: GROUP_ARCH.link, href: GROUP_ARCH.linkTo, kind: "project" })}
@@ -129,7 +129,7 @@ const CaseStudies = () => {
             <div className="flex flex-col justify-center gap-[14px] rounded-[20px] border-[1.5px] border-dotted border-primary/35 px-[26px] py-6">
               <p className={cn(kicker, "text-secondary")}>{GROUP_ARCH.noPage.kicker}</p>
               {GROUP_ARCH.noPage.items.map((i) => (
-                <p key={i.name}><span className="font-headline text-2xl text-primary">{i.name}</span> <span className="text-sm text-on-surface-variant">· {i.role} · {i.status}</span></p>
+                <p key={i.name}><span className="font-headline text-2xl text-heading">{i.name}</span> <span className="text-sm text-on-surface-variant">· {i.role} · {i.status}</span></p>
               ))}
               <p className="text-sm text-on-surface-variant">{GROUP_ARCH.noPage.note}</p>
             </div>
@@ -139,7 +139,7 @@ const CaseStudies = () => {
         <section aria-labelledby="g2" className="mx-auto max-w-[1240px] px-6 pt-20 md:px-10">
           <div className="max-w-[640px]">
             <p className={cn(kicker, "text-secondary")}>{GROUP_SOLO.kicker}</p>
-            <h2 id="g2" className="mt-2 font-headline text-[32px] font-normal leading-[1.1] text-primary md:text-[40px]">{GROUP_SOLO.heading}</h2>
+            <h2 id="g2" className="mt-2 font-headline text-[32px] font-normal leading-[1.1] text-heading md:text-[40px]">{GROUP_SOLO.heading}</h2>
             <p className="mt-3 text-[16.5px] text-on-surface-variant">{GROUP_SOLO.line}</p>
           </div>
           <CardList cards={GROUP_SOLO.cards} />

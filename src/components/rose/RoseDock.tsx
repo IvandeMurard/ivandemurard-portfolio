@@ -413,7 +413,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
               <div className="flex items-center gap-2.5">
                 <CompassMark className="h-7 w-7 text-primary" />
                 <div className="flex flex-col">
-                  <span className="font-headline italic text-base text-primary leading-none">Rose</span>
+                  <span className="font-headline italic text-base text-heading leading-none">Rose</span>
                   <span className="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Ivan's site agent</span>
                 </div>
               </div>

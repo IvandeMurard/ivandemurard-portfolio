@@ -50,7 +50,7 @@ const Block = ({ block, title }: { block: CompassBlock; title: string }) => {
         <caption className="sr-only">{title}</caption>
         <thead><tr className="border-b border-outline">{block.head.map((h) => <th key={h} scope="col" className="px-4 py-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary">{h}</th>)}</tr></thead>
         <tbody>{block.rows.map((row) => <tr key={row[0]} className="border-b border-outline-variant last:border-b-0 align-top">
-          <th scope="row" className={`px-4 py-4 text-primary text-base ${block.monospaceFirstColumn ? "font-mono not-italic text-sm" : "font-headline italic"}`}>{row[0]}</th>
+          <th scope="row" className={`px-4 py-4 text-heading text-base ${block.monospaceFirstColumn ? "font-mono not-italic text-sm" : "font-headline italic"}`}>{row[0]}</th>
           {row.slice(1).map((cell, i) => <td key={i} className="px-4 py-4 font-body font-normal text-sm text-on-surface-variant leading-relaxed">{cell}</td>)}
         </tr>)}</tbody>
       </table>
@@ -75,8 +75,8 @@ const Compass = () => {
           <div className="max-w-screen-2xl mx-auto">
             <div data-reveal-child className="mb-10 md:mb-12">
               <span className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-5 block">Case study · Standalone project</span>
-              <h1 className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-primary italic leading-[0.98] mb-5">Compass</h1>
-              <p className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight">{COMPASS.headline}</p>
+              <h1 className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-heading italic leading-[0.98] mb-5">Compass</h1>
+              <p className="font-headline italic text-heading text-2xl md:text-3xl max-w-3xl leading-tight">{COMPASS.headline}</p>
             </div>
             <div data-reveal-child className="mb-10 md:mb-12">
               <p className="text-on-surface-variant font-body font-normal text-lg max-w-2xl leading-relaxed">{COMPASS.subhead}</p>
@@ -103,12 +103,12 @@ const Compass = () => {
                   <Reveal as="section" aria-labelledby={section.id} className="px-6 md:px-12 mb-12 md:mb-16">
                     <div className="max-w-screen-2xl mx-auto">
                       <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-3">Sec. {String(i + 1).padStart(2, "0")}</span>
-                      <h2 id={section.id} tabIndex={-1} className="group font-headline italic text-primary text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32">{section.title}<HeadingAnchor id={section.id} text={section.title} /></h2>
+                      <h2 id={section.id} tabIndex={-1} className="group font-headline italic text-heading text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32">{section.title}<HeadingAnchor id={section.id} text={section.title} /></h2>
                       {section.status && <p className="mb-8"><span className={chipCls}>{section.status}</span></p>}
                       {section.blocks.map((block, index) => <Block key={index} block={block} title={section.title} />)}
                       {section.id === "one-address-three-questions" ? <CompassDossier section={section} /> : section.subsections?.map((subsection) => (
                         <section key={subsection.id} aria-labelledby={subsection.id} className="mt-10 md:mt-12">
-                          <h3 id={subsection.id} tabIndex={-1} className="group font-headline italic text-primary text-2xl md:text-3xl leading-tight mb-5 scroll-mt-32">{subsection.title}<HeadingAnchor id={subsection.id} text={subsection.title} /></h3>
+                          <h3 id={subsection.id} tabIndex={-1} className="group font-headline italic text-heading text-2xl md:text-3xl leading-tight mb-5 scroll-mt-32">{subsection.title}<HeadingAnchor id={subsection.id} text={subsection.title} /></h3>
                           {subsection.blocks.map((block, index) => <Block key={index} block={block} title={subsection.title} />)}
                         </section>
                       ))}

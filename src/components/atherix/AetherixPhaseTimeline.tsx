@@ -48,7 +48,7 @@ export const AetherixPhaseTimeline = () => (
               />
               <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{p.n}</span>
             </div>
-            <p className="font-headline italic text-primary text-lg leading-tight">{p.label}</p>
+            <p className="font-headline italic text-heading text-lg leading-tight">{p.label}</p>
             {p.sub && <p className="text-xs text-on-surface-variant leading-relaxed">{p.sub}</p>}
             {emphasized && (
               <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-auto">

@@ -52,7 +52,7 @@ export const AetherixArchitectureFigure = () => (
               )}
             >
               <p className="flex items-baseline justify-between gap-2 xl:justify-between">
-                <span className={cn("font-headline leading-tight text-primary", orch ? "text-[23px] xl:mx-auto" : "text-[21px]")}>{n.name}</span>
+                <span className={cn("font-headline leading-tight text-heading", orch ? "text-[23px] xl:mx-auto" : "text-[21px]")}>{n.name}</span>
                 {here && <span className="font-label text-xs text-secondary">{ARCH.thisPage}</span>}
               </p>
               <p className="mt-0.5 text-[13.5px] text-on-surface-variant">{n.role}</p>

@@ -13,7 +13,7 @@ export const LoreMemoryThread = () => (
       className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8"
     >
       <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Hospitality</span>
-      <h3 className="font-headline italic text-2xl text-primary mt-3 leading-tight">A manager resigns.</h3>
+      <h3 className="font-headline italic text-2xl text-heading mt-3 leading-tight">A manager resigns.</h3>
       <p className="mt-4 text-on-surface-variant leading-relaxed">
         Aetherix exists because most hotels lose critical knowledge every time a manager leaves. A bad forecast wastes
         food and overstaffs a Tuesday.
@@ -32,7 +32,7 @@ export const LoreMemoryThread = () => (
       className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 md:p-8"
     >
       <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">Aviation maintenance</span>
-      <h3 className="font-headline italic text-2xl text-primary mt-3 leading-tight">A technician retires.</h3>
+      <h3 className="font-headline italic text-2xl text-heading mt-3 leading-tight">A technician retires.</h3>
       <p className="mt-4 text-on-surface-variant leading-relaxed">
         Lore exists because the same thing happens when a senior retires. A bad answer touches{" "}
         <Term id="airworthiness">airworthiness</Term>.
@@ -45,7 +45,7 @@ export const LoreMemoryThread = () => (
     <p
       data-reveal-child
       style={{ ["--reveal-delay" as string]: "280ms" }}
-      className="lg:col-span-2 font-headline italic text-primary text-xl md:text-2xl leading-snug"
+      className="lg:col-span-2 font-headline italic text-heading text-xl md:text-2xl leading-snug"
     >
       A manager who resigns and a technician who retires are the same loss wearing different clothes: institutional
       memory that lives in one head and leaves with it.

@@ -68,7 +68,7 @@ export const MeshRail = () => (
                     {item.name}
                   </Link>
                 ) : (
-                  <span className="font-headline italic text-xl text-primary">{item.name}</span>
+                  <span className="font-headline italic text-xl text-heading">{item.name}</span>
                 )}
 
                 <p className="font-body text-sm text-on-surface-variant leading-relaxed mt-2">

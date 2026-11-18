@@ -31,7 +31,7 @@ const P = ({ children }: { children: ReactNode }) => (
 );
 
 const Pull = ({ children }: { children: ReactNode }) => (
-  <p className="font-headline italic text-primary text-xl md:text-2xl leading-snug my-8 max-w-3xl border-l border-secondary pl-6">
+  <p className="font-headline italic text-heading text-xl md:text-2xl leading-snug my-8 max-w-3xl border-l border-secondary pl-6">
     {children}
   </p>
 );
@@ -59,7 +59,7 @@ const Section = ({
       <h2
         id={id}
         tabIndex={-1}
-        className="group font-headline italic text-primary text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32"
+        className="group font-headline italic text-heading text-3xl md:text-4xl leading-tight mb-6 scroll-mt-32"
       >
         {title}
         <HeadingAnchor id={id} text={title} />
@@ -118,7 +118,7 @@ const Table = ({
           <tr key={row[0]} className="border-b border-outline-variant last:border-b-0 align-top">
             <th
               scope="row"
-              className="px-4 py-4 font-headline italic text-primary text-base whitespace-nowrap"
+              className="px-4 py-4 font-headline italic text-heading text-base whitespace-nowrap"
             >
               {row[0]}
             </th>
@@ -197,14 +197,14 @@ const Anima = () => {
             <h1
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "120ms" }}
-              className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-primary italic leading-[0.98] tracking-tight mb-6"
+              className="headline-ink font-headline text-4xl md:text-6xl lg:text-7xl text-heading italic leading-[0.98] tracking-tight mb-6"
             >
               Anima
             </h1>
             <p
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "200ms" }}
-              className="font-headline italic text-primary text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
+              className="font-headline italic text-heading text-2xl md:text-3xl max-w-3xl leading-tight mb-6"
             >
               Memory that means no guest has to ask twice.
             </p>
@@ -244,7 +244,7 @@ const Anima = () => {
                   {OPENING_QUESTIONS.map((q) => (
                     <li
                       key={q}
-                      className="font-headline italic text-primary text-lg md:text-xl leading-snug border-l border-secondary pl-6"
+                      className="font-headline italic text-heading text-lg md:text-xl leading-snug border-l border-secondary pl-6"
                     >
                       {q}
                     </li>

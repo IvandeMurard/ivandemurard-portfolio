@@ -61,11 +61,11 @@ export const RoseHistoryTransition = ({ reduced, renderCompass }: {
           </div>
           <div className="grid min-h-44 sm:min-h-32" aria-live="polite">
             <div className={cn("col-start-1 row-start-1", !august ? "visible" : "invisible")} aria-hidden={august}>
-              <p className="font-headline text-2xl text-primary">Who are you here as?</p>
+              <p className="font-headline text-2xl text-heading">Who are you here as?</p>
               <p className="mt-3 max-w-prose font-body text-base text-on-surface">Four recruitment intentions shaped the opening. The prompt aimed to help visitors decide, in two or three exchanges, whether to book a call.</p>
             </div>
             <div className={cn("col-start-1 row-start-1", august ? "visible" : "invisible")} aria-hidden={!august}>
-              <p className="font-headline text-2xl text-primary">What are you exploring?</p>
+              <p className="font-headline text-2xl text-heading">What are you exploring?</p>
               <p className="mt-3 max-w-prose font-body text-base text-on-surface">On 7 August, content pages gained route-specific starters. On 10 August, page context and intent were added to Rose's inputs. Booking remained an option, not the subject of every question.</p>
             </div>
           </div>

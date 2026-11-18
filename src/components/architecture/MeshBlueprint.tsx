@@ -353,7 +353,7 @@ export const MeshBlueprint = () => {
         {selected ? (
           <div className="space-y-2">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="font-headline italic text-primary text-lg">{selected.node}</span>
+              <span className="font-headline italic text-heading text-lg">{selected.node}</span>
               <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
                 {selected.status}
               </span>

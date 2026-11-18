@@ -85,7 +85,7 @@ const Contact = () => {
     <div className="pt-36 md:pt-44 pb-24">
       <section className="px-6 md:px-12 max-w-4xl mx-auto">
         <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-8 block">Contact</span>
-        <h1 className="font-headline font-normal text-primary text-[clamp(40px,5vw,72px)] leading-[1.04] tracking-[-0.02em]">
+        <h1 className="font-headline font-normal text-heading text-[clamp(40px,5vw,72px)] leading-[1.04] tracking-[-0.02em]">
           I ship prototypes fast.
         </h1>
         <p className="mt-5 font-headline italic accent-ink text-[clamp(24px,2.4vw,34px)] leading-snug">
@@ -113,7 +113,7 @@ const Contact = () => {
                 ) : (
                   <Icon name={c.icon ?? ""} className="text-secondary text-xl" />
                 )}
-                <span className="font-headline italic text-2xl md:text-3xl text-primary group-hover:text-secondary transition-colors">{c.label}</span>
+                <span className="font-headline italic text-2xl md:text-3xl text-heading group-hover:text-secondary transition-colors">{c.label}</span>
                 <span className="hidden md:block text-on-surface-variant leading-relaxed">{c.desc}</span>
                 {c.external ? (
                   <ExternalSign className="inline-block text-secondary text-base group-hover:translate-x-1 transition-transform" />
@@ -131,7 +131,7 @@ const Contact = () => {
       </section>
 
       <section className="mt-16 md:mt-20 px-6 md:px-12 max-w-4xl mx-auto">
-        <p className="font-headline italic text-2xl md:text-3xl text-primary leading-relaxed border-l border-secondary/60 pl-6">
+        <p className="font-headline italic text-2xl md:text-3xl text-heading leading-relaxed border-l border-secondary/60 pl-6">
           "Every journey begins with a single conversation."
         </p>
       </section>

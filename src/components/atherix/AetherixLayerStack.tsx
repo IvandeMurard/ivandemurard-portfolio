@@ -105,7 +105,7 @@ export const AetherixLayerStack = () => {
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-col md:flex-row md:items-baseline md:gap-6">
-                      <h3 className="font-headline italic text-2xl md:text-3xl text-primary leading-tight">
+                      <h3 className="font-headline italic text-2xl md:text-3xl text-heading leading-tight">
                         {layer.name}
                       </h3>
                       <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant mt-1 md:mt-0">

@@ -34,6 +34,7 @@ export default {
         "surface-container-highest": "hsl(var(--surface-container-highest))",
         "surface-stone": "hsl(var(--surface-stone))",
         "surface-peach": "hsl(var(--surface-peach))",
+        heading: "hsl(var(--heading))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--on-primary))",
