@@ -1,4 +1,5 @@
 import { dockInput, expect, expectNoHorizontalScroll, openDock, scrollClearOfDock, test } from "./helpers";
+import { ROSE_HOME_PREFILL } from "../../src/content/roseWelcome";
 
 // The buttons that open Rose always do something visible, also when the dock is already open.
 //
@@ -7,7 +8,7 @@ import { dockInput, expect, expectNoHorizontalScroll, openDock, scrollClearOfDoc
 // "dock closed" variant that runs at both widths.
 
 const isPhone = (page: import("@playwright/test").Page) => (page.viewportSize()?.width ?? 1440) < 768;
-const PREFILL = "How were you built?";
+const PREFILL = ROSE_HOME_PREFILL;
 const COMPASS = "Open Rose, the same compass as the dock below";
 const panel = (page: import("@playwright/test").Page) => page.locator("[data-rose-panel]");
 

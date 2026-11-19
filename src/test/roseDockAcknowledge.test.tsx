@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { RoseDock } from "@/components/rose/RoseDock";
+import { ROSE_HOME_PREFILL } from "@/content/roseWelcome";
 import { resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
 
 // Buttons that open Rose always do something visible: when the dock is already open, a short pulse and the input focused;
@@ -67,11 +68,11 @@ describe("rose:prefill", () => {
     mount(open);
     await frames();
     fetchMock.mockClear();
-    fire("rose:prefill", { text: "How were you built?" });
+    fire("rose:prefill", { text: ROSE_HOME_PREFILL });
     await act(async () => { await new Promise((r) => setTimeout(r, 120)); });
-    expect(input().value).toBe("How were you built?");
+    expect(input().value).toBe(ROSE_HOME_PREFILL);
     expect(document.activeElement).toBe(input());
-    expect([input().selectionStart, input().selectionEnd]).toEqual([0, "How were you built?".length]);
+    expect([input().selectionStart, input().selectionEnd]).toEqual([0, ROSE_HOME_PREFILL.length]);
     expect(fetchMock).not.toHaveBeenCalled();
     expect(screen.queryByRole("button", { name: "Stop" })).toBeNull();
   });
