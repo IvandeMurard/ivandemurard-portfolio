@@ -164,7 +164,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
         choices: ["Normal", "Too high"],
         reveal: [
           "That is what Lore said, and what the first harness accepted. The manual says too high.",
-          "Right. Lore said normal, and the first harness accepted it.",
+          "Too high is correct. Lore said normal, and the first harness accepted it.",
         ],
       },
       contract: "If you only read three minutes: sections [6](#6-acceptance-criteria-the-part-everyone-skips) and [12](#12-what-a-harness-finds-that-no-unit-test-sees) are the story; the rest is the reference.",
@@ -518,14 +518,14 @@ export const HARNESSES_ENTRY: JournalEntry = {
       choices: ["Yes", "Not yet"],
       reveal: [
         "That is the trap. Eight cases flipped between two identical runs: the gate would have blocked or passed on luck.",
-        "Right. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs. The score was a draw, not a measurement.",
+        "Not yet is correct. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs: the score depended on the draw.",
       ],
     },
     {
       kind: "timeline",
       label: "Lore harness scores, live runs",
       steps: [
-        { value: "38 / 36", label: "Two runs, same 53 cases", note: "Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement." },
+        { value: "38 / 36", label: "Two runs, same 53 cases", note: "Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate depended on the draw." },
         { value: "36 → 53", label: "Temperature 0, defects fixed", note: "Progression 36, 48, 48, 52, then 53 out of 53." },
         { value: "4×", label: "Four consecutive runs, no variance", note: "Baselines frozen only after that. The protocol required 0.00 points of variance before a threshold could block." },
         { value: "61 / 62", label: "After enforcement, 64 cases", note: "Structural enforcement adds a conditional second model call on corrected answers: two chances to diverge. Disjoint failure sets." },

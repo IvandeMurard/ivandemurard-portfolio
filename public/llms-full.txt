@@ -2396,7 +2396,7 @@ The numbers below come from those two repositories, not from a whitepaper. Where
 
 An engine is burning oil exactly at the limit set by the maintenance manual.
 
-The manual: normal below the limit, too high from the limit up. The reading is exactly at the limit. Normal or too high? (Normal or Too high) If you answer Normal: That is what Lore said, and what the first harness accepted. The manual says too high. If you answer Too high: Right. Lore said normal, and the first harness accepted it.
+The manual: normal below the limit, too high from the limit up. The reading is exactly at the limit. Normal or too high? (Normal or Too high) If you answer Normal: That is what Lore said, and what the first harness accepted. The manual says too high. If you answer Too high: Too high is correct. Lore said normal, and the first harness accepted it.
 
 **1 · The answer** Lore answers that the reading is "considered NORMAL" and that "no further action is required". Fluent, confident, and wrong.
 
@@ -2565,9 +2565,9 @@ Separating ERROR from FAIL is not fussiness. The runner emitted only 0 and 1, so
 
 The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on.
 
-Two runs of the same 53 cases scored 38, then 36. Is the gate ready to block a release? (Yes or Not yet) If you answer Yes: That is the trap. Eight cases flipped between two identical runs: the gate would have blocked or passed on luck. If you answer Not yet: Right. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs. The score was a draw, not a measurement.
+Two runs of the same 53 cases scored 38, then 36. Is the gate ready to block a release? (Yes or Not yet) If you answer Yes: That is the trap. Eight cases flipped between two identical runs: the gate would have blocked or passed on luck. If you answer Not yet: Not yet is correct. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs: the score depended on the draw.
 
-38 / 36: Two runs, same 53 cases (Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement.)
+38 / 36: Two runs, same 53 cases (Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate depended on the draw.)
 36 → 53: Temperature 0, defects fixed (Progression 36, 48, 48, 52, then 53 out of 53.)
 4×: Four consecutive runs, no variance (Baselines frozen only after that. The protocol required 0.00 points of variance before a threshold could block.)
 61 / 62: After enforcement, 64 cases (Structural enforcement adds a conditional second model call on corrected answers: two chances to diverge. Disjoint failure sets.)

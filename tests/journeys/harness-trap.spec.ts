@@ -5,7 +5,7 @@ import { expect, expectNoHorizontalScroll, scrollClearOfDock, test } from "./hel
 
 const NOTE = "/journal/harnesses-graders-closed-loops";
 const QUESTION = "Two runs of the same 53 cases scored 38, then 36. Is the gate ready to block a release?";
-const NOT_YET = "Right. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs. The score was a draw, not a measurement.";
+const NOT_YET = "Not yet is correct. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs: the score depended on the draw.";
 const YES = "That is the trap. Eight cases flipped between two identical runs: the gate would have blocked or passed on luck.";
 
 test("section 7: the trap asks first, with the figures visible below in every case", async ({ page }) => {

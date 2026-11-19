@@ -60,7 +60,7 @@ test("harness note: answering the trap reveals the three boxes", async ({ page }
   for (const label of ["1 · The answer", "2 · The graders", "3 · The code"]) {
     await expect(peak.getByText(label)).toBeVisible();
   }
-  await expect(peak.getByRole("status")).toContainText("Right. Lore said normal");
+  await expect(peak.getByRole("status")).toContainText("Too high is correct. Lore said normal");
   await expectNoHorizontalScroll(page);
 });
 
