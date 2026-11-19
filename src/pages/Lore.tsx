@@ -45,7 +45,7 @@ const STACK: { layer: string; tech: string }[] = [
 ];
 
 const Lore = () => (
-  <SiteLayout title="Lore: A Living Memory for Aviation Maintenance" sections={LORE_SECTIONS}>
+  <SiteLayout title="Lore: A Living Memory for Aviation Maintenance" sections={LORE_SECTIONS} caseTint="lore">
     <Seo
       title="Lore, Voice AI Mentor for Aviation Maintenance"
       description="The knowledge retiring technicians carry isn't in any manual. Lore captures a senior's oral expertise by voice and gives it back to a junior on the shop floor, never contradicting the procedure."

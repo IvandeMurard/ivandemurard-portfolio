@@ -123,7 +123,7 @@ const FAQ = [
 
 
 const Tacet = () => (
-  <SiteLayout title="Tacet: The Environmental Twin" sections={TACET_SECTIONS}>
+  <SiteLayout title="Tacet: The Environmental Twin" sections={TACET_SECTIONS} caseTint="tacet">
     <Seo
       title="Tacet, Environmental Twin for Hospitality"
       description="Headless MCP server that turns street, weather and crowd signals into yield rules and Chain of Thought payloads for RMS, PMS and orchestration agents."

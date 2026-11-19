@@ -62,7 +62,7 @@ const Compass = () => {
   const articleRef = useRef<HTMLElement>(null);
   const toc = useHeadingToc(articleRef);
   return (
-    <SiteLayout title="Compass">
+    <SiteLayout title="Compass" caseTint="compass">
       <Seo title="Compass" description={COMPASS.subhead} path="/compass" type="article" jsonLd={{
         "@context": "https://schema.org", "@type": "CreativeWork", name: COMPASS.name,
         headline: COMPASS.headline, description: COMPASS.subhead, url: "https://ivandemurard.com/compass",
