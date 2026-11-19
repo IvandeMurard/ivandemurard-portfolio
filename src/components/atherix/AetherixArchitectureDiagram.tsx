@@ -42,20 +42,20 @@ export const AetherixArchitectureDiagram = () => {
       <div className="relative z-10 flex flex-col gap-6">
         {/* Caption row */}
         <div className="grid grid-cols-3 gap-6 text-center">
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Context inputs</span>
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Fat backend, FastAPI</span>
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Intelligence layers</span>
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">Context inputs</span>
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">Fat backend, FastAPI</span>
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">Intelligence layers</span>
         </div>
 
         {/* Three columns */}
         <div className="grid grid-cols-3 gap-4 md:gap-6 items-stretch">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant">Internal context</span>
+              <span className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant">Internal context</span>
               <Column items={internalContext} delay={0} />
             </div>
             <div className="flex flex-col gap-2">
-              <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant">External context</span>
+              <span className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant">External context</span>
               <Column items={externalContext} delay={80} />
             </div>
           </div>
@@ -83,9 +83,9 @@ export const AetherixArchitectureDiagram = () => {
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-headline italic text-heading text-base md:text-lg leading-tight">MCP server</p>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">Three atomic tools, multi-tenant</p>
+              <p className="text-kicker uppercase tracking-widest text-secondary mt-0.5">Three atomic tools, multi-tenant</p>
             </div>
-            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">Three atomic tools</span>
+            <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary shrink-0">Three atomic tools</span>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export const AetherixArchitectureDiagram = () => {
           ))}
         </div>
 
-        <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant text-center pt-2">
+        <p className="font-label uppercase tracking-[0.25em] text-kicker text-on-surface-variant text-center pt-2">
           Numerical · Semantic · Cognitive · Reasoning · Action
         </p>
       </div>
@@ -156,7 +156,7 @@ const Column = ({
         </div>
         <div className="min-w-0">
           <p className="font-headline italic text-heading text-sm md:text-base leading-tight truncate">{it.title}</p>
-          <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5 truncate">{it.sub}</p>
+          <p className="text-kicker uppercase tracking-widest text-secondary mt-0.5 truncate">{it.sub}</p>
         </div>
       </div>
     ))}

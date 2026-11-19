@@ -17,7 +17,7 @@ type EntryActionsProps = {
 };
 
 const BTN =
-  "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:bg-transparent hover:border-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary";
+  "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant transition-colors duration-300 hover:bg-transparent hover:border-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary";
 
 /**
  * Action bar under the title of a long-form piece.
@@ -89,7 +89,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
   return (
     <div className="mb-10 not-italic print:hidden">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mr-1">
+        <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mr-1">
           Read with AI
         </span>
         <AskAiMenu prompt={prompt} triggerClassName={BTN} />
@@ -122,7 +122,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setShareOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
                 >
                   <Icon name={l.icon} className="text-[16px] leading-none" />
                   <ExternalMark>{l.label}</ExternalMark>
@@ -134,7 +134,7 @@ export const EntryActions = ({ title, markdownPath, variant = "note", ask }: Ent
                   copyLink(pageUrl);
                   setShareOpen(false);
                 }}
-                className="w-full flex items-center gap-2 px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-2 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
               >
                 <Icon name="link" className="text-[16px] leading-none" />
                 Copy link

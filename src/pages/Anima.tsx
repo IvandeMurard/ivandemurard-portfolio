@@ -53,7 +53,7 @@ const Section = ({
 }) => (
   <Reveal as="section" aria-labelledby={id} className="px-6 md:px-12 mb-14 md:mb-20">
     <div className="max-w-screen-2xl mx-auto">
-      <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-3">
+      <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary block mb-3">
         Sec. {number}
       </span>
       <h2
@@ -106,7 +106,7 @@ const Table = ({
             <th
               key={h}
               scope="col"
-              className="px-4 py-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary whitespace-nowrap"
+              className="px-4 py-3 font-label uppercase tracking-[0.16em] text-kicker text-secondary whitespace-nowrap"
             >
               {h}
             </th>
@@ -190,7 +190,7 @@ const Anima = () => {
           <div className="max-w-screen-2xl mx-auto">
             <span
               data-reveal-child
-              className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block"
+              className="text-secondary font-label uppercase tracking-[0.2em] text-kicker mb-6 block"
             >
               Case study
             </span>
@@ -218,7 +218,7 @@ const Anima = () => {
             <span
               data-reveal-child
               style={{ ["--reveal-delay" as string]: "360ms" }}
-              className="inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant"
+              className="inline-block rounded-sm border border-outline bg-surface-container-low px-4 py-2 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant"
             >
               Synthetic proof of concept · deployment frozen until the data-protection impact assessment (DPIA) clears
             </span>

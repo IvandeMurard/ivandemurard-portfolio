@@ -26,7 +26,7 @@ const STATES: Record<EvidenceState, { mark: string; label: string; description: 
 export const EvidenceStatus = ({ state, className }: { state: EvidenceState; className?: string }) => {
   const item = STATES[state];
   return (
-    <span title={item.description} className={cn("inline-flex items-center gap-1.5 font-label text-[10px] uppercase tracking-[0.18em]", item.tone, className)}>
+    <span title={item.description} className={cn("inline-flex items-center gap-1.5 font-label text-kicker uppercase tracking-[0.18em]", item.tone, className)}>
       <span aria-hidden="true">{item.mark}</span>
       {item.label}
     </span>
@@ -35,7 +35,7 @@ export const EvidenceStatus = ({ state, className }: { state: EvidenceState; cla
 
 export const EvidenceKey = ({ className }: { className?: string }) => (
   <aside aria-label="How to read evidence status" className={cn("border-l border-outline-variant pl-4", className)}>
-    <p className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">How to read this case study</p>
+    <p className="font-label text-kicker uppercase tracking-[0.18em] text-on-surface-variant">How to read this case study</p>
     <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
       {(Object.keys(STATES) as EvidenceState[]).map((state) => {
         const item = STATES[state];

@@ -15,7 +15,7 @@ type Ask = (text: string) => ReactNode;
 type Compass = (heading: number, className?: string) => ReactNode;
 
 const Kicker = ({ children }: { children: ReactNode }) => (
-  <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">{children}</p>
+  <p className="font-label text-kicker uppercase tracking-[0.2em] text-on-surface-variant">{children}</p>
 );
 
 /* Rose speaks through the ambient reader, not an expandable widget. */
@@ -24,7 +24,7 @@ const RoseIntervention = ({ id, note }: { id: string; note: string }) => <RoseCu
 const ChapterBridge = ({ from, to }: { from: string; to: string }) => (
   <div aria-hidden="true" className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-12 text-on-surface-variant md:py-16">
     <span className="h-px flex-1 bg-outline-variant" />
-    <span className="font-label text-[10px] uppercase tracking-[0.18em]">{from} <span className="mx-2 text-secondary">→</span> {to}</span>
+    <span className="font-label text-kicker uppercase tracking-[0.18em]">{from} <span className="mx-2 text-secondary">→</span> {to}</span>
     <span className="h-px flex-1 bg-outline-variant" />
   </div>
 );
@@ -104,20 +104,20 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
         </dl>
 
         <div className="mt-14 max-w-4xl">
-          <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Data integrity · retain and transmit</p>
+          <p className="font-label text-kicker uppercase tracking-[0.2em] text-secondary">Data integrity · retain and transmit</p>
           <p className="mt-3 font-body text-base leading-relaxed text-on-surface">The tab keeps a bounded conversation for continuity. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage. A booking sends no conversation or summary.</p>
         </div>
         <figure aria-label="What leaves the tab when a visitor books" className="mt-8 rounded-sm border border-outline-variant bg-surface p-5 md:p-8">
           <Tabs id="trust" label="Booking behaviour" options={TRUST} value={v} onChange={setV} />
           <div id="trust-panel" role="tabpanel" aria-labelledby={`trust-tab-${v}`} aria-live="polite" className="mt-8 grid gap-8 md:grid-cols-2">
             <div>
-              <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Leaves the tab</p>
+              <p className="font-label text-kicker uppercase tracking-[0.2em] text-secondary">Leaves the tab</p>
               <ul className="mt-4 space-y-3">
                 {s.leaves.map((t) => <li key={t} className={cn("border-l-2 border-secondary pl-3 font-body text-base text-on-surface", !reduced && "animate-in fade-in duration-500")}>{t}</li>)}
               </ul>
             </div>
             <div>
-              <p className="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">Browser boundary</p>
+              <p className="font-label text-kicker uppercase tracking-[0.2em] text-on-surface-variant">Browser boundary</p>
               <ul className="mt-4 space-y-3">
                 {s.stays.map((t) => <li key={t} className={cn("border-l-2 border-outline-variant pl-3 font-body text-base text-on-surface", !reduced && "animate-in fade-in duration-500")}>{t}</li>)}
               </ul>
@@ -128,7 +128,7 @@ const ChapterTrust = ({ ask, compass, reduced, trustRef, trustIndex }: { ask: As
         </figure>
 
         <div className="mt-14 max-w-4xl">
-          <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Epistemic integrity · assert and infer</p>
+          <p className="font-label text-kicker uppercase tracking-[0.2em] text-secondary">Epistemic integrity · assert and infer</p>
           <p className="mt-3 font-body text-base leading-relaxed text-on-surface">Rose can ground an answer in published pages, the page address and an optional selected starter. She cannot turn hidden browser state into knowledge, or turn a plausible paraphrase into an established fact.</p>
         </div>
         <div className="mt-8 grid max-w-5xl gap-8 lg:grid-cols-3">
@@ -198,10 +198,10 @@ export const ChapterLearning = ({ learningRef, learningIndex, compass, reduced }
               <span aria-hidden className="font-headline text-4xl italic leading-none text-outline-variant md:text-5xl">{String(i + 1).padStart(2, "0")}</span>
               <div>
                 <h3 className="font-headline text-2xl text-heading md:text-3xl">{l.title}</h3>
-                {l.evidence ? <div className="mt-3"><EvidenceStatus state={l.evidence} /></div> : <p className="mt-3 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Open question</p>}
+                {l.evidence ? <div className="mt-3"><EvidenceStatus state={l.evidence} /></div> : <p className="mt-3 font-label text-kicker uppercase tracking-[0.18em] text-on-surface-variant">Open question</p>}
                 <p className={cn("mt-2 font-headline text-lg italic", i === 2 ? "text-on-surface-variant" : "text-secondary")}>{l.status}</p>
                 <p className="mt-5 max-w-prose font-body text-base leading-relaxed text-on-surface">{l.shows}</p>
-                <p className="mt-3 max-w-prose font-body text-sm leading-relaxed text-on-surface-variant"><span className="font-label text-xs uppercase tracking-[0.2em]">Limits · </span>{l.limits}</p>
+                <p className="mt-3 max-w-prose font-body text-sm leading-relaxed text-on-surface-variant"><span className="font-label text-kicker uppercase tracking-[0.2em]">Limits · </span>{l.limits}</p>
               </div>
             </li>
           ))}
@@ -212,7 +212,7 @@ export const ChapterLearning = ({ learningRef, learningIndex, compass, reduced }
           <div className="border-l-2 border-secondary pl-5">
             <div className="flex items-center gap-3">
               {compass && <span aria-hidden="true" className={cn("w-10 text-secondary", !reduced && "motion-safe:animate-pulse")}>{compass(300, "h-10 w-10")}</span>}
-              <p className="font-label text-xs uppercase tracking-[0.2em] text-secondary">Where the evidence runs out</p>
+              <p className="font-label text-kicker uppercase tracking-[0.2em] text-secondary">Where the evidence runs out</p>
             </div>
             <h3 id="ch-learn-invite" className="mt-4 font-headline text-3xl leading-snug text-heading">
               There's one question I can't answer alone.
@@ -254,7 +254,7 @@ export const ChapterQualityAssurance = () => (
 
       <figure aria-labelledby="qa-matrix-title" className="mt-12 max-w-5xl">
         <figcaption id="qa-matrix-title" className="max-w-3xl">
-          <p className="font-label text-xs uppercase tracking-[0.18em] text-secondary">Answer review</p>
+          <p className="font-label text-kicker uppercase tracking-[0.18em] text-secondary">Answer review</p>
           <h3 className="mt-3 font-headline text-3xl text-heading">Source check, then reader check.</h3>
           <p className="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
             “Useful to this reader” means that the answer addresses this question in this context. It is not a claim of measured visitor value.
@@ -264,23 +264,23 @@ export const ChapterQualityAssurance = () => (
           <table aria-label="Correctness and reader usefulness review" className="min-w-[42rem] w-full border-collapse text-left">
             <thead className="bg-surface-container">
               <tr>
-                <th scope="col" className="w-[42%] border-b border-outline-variant p-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Answer under review</th>
-                <th scope="col" className="w-[18%] border-b border-l border-outline-variant p-4 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Factually correct</th>
-                <th scope="col" className="w-[22%] border-b border-l border-outline-variant p-4 font-label text-[10px] uppercase tracking-[0.18em] text-secondary">Useful to this reader</th>
-                <th scope="col" className="w-[18%] border-b border-l border-outline-variant p-4 font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Reviewer action</th>
+                <th scope="col" className="w-[42%] border-b border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.18em] text-on-surface-variant">Answer under review</th>
+                <th scope="col" className="w-[18%] border-b border-l border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.18em] text-secondary">Factually correct</th>
+                <th scope="col" className="w-[22%] border-b border-l border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.18em] text-secondary">Useful to this reader</th>
+                <th scope="col" className="w-[18%] border-b border-l border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.18em] text-on-surface-variant">Reviewer action</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row" className="align-top border-b border-outline-variant p-4 font-body text-sm font-normal leading-relaxed text-on-surface">An exact internal release-process detail, offered when the reader asked what Ivan measures.</th>
-                <td className="align-top border-b border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-secondary">Pass</td>
-                <td className="align-top border-b border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-on-surface-variant">Fail</td>
+                <td className="align-top border-b border-l border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.16em] text-secondary">Pass</td>
+                <td className="align-top border-b border-l border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.16em] text-on-surface-variant">Fail</td>
                 <td className="align-top border-b border-l border-outline-variant p-4 font-headline text-xl text-heading">Rewrite</td>
               </tr>
               <tr>
                 <th scope="row" className="align-top p-4 font-body text-sm font-normal leading-relaxed text-on-surface">A source-backed forecast comparison, its scope and its limit, offered to that same reader.</th>
-                <td className="align-top border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-secondary">Pass</td>
-                <td className="align-top border-l border-outline-variant p-4 font-label text-xs uppercase tracking-[0.16em] text-secondary">Pass</td>
+                <td className="align-top border-l border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.16em] text-secondary">Pass</td>
+                <td className="align-top border-l border-outline-variant p-4 font-label text-kicker uppercase tracking-[0.16em] text-secondary">Pass</td>
                 <td className="align-top border-l border-outline-variant p-4 font-headline text-xl text-heading">Keep and link</td>
               </tr>
             </tbody>
@@ -318,7 +318,7 @@ const ChapterNext = ({ compass, reduced, nextRef, nextIndex, lab }: { compass: C
             ["Voice", "A hands-free request or answer only when it removes a real navigation task."],
           ].map(([modeTitle, copy]) => (
             <div key={modeTitle} className="bg-surface p-5">
-              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-secondary">{modeTitle}</p>
+              <p className="font-label text-kicker uppercase tracking-[0.18em] text-secondary">{modeTitle}</p>
               {modeTitle === "Voice" && <div aria-hidden="true" className="mt-4 flex h-8 items-center gap-1 text-secondary">{[35, 70, 45, 100, 55, 75, 30].map((height, index) => <span key={index} className={cn("w-1 rounded-full bg-current", !reduced && "motion-safe:animate-pulse")} style={{ height: `${height}%`, animationDelay: `${index * 90}ms` }} />)}</div>}
               <p className={cn("font-body text-sm leading-relaxed text-on-surface", modeTitle === "Voice" ? "mt-3" : "mt-4")}>{copy}</p>
             </div>
@@ -350,7 +350,7 @@ const Closing = ({ ask, compass }: { ask: Ask; compass: Compass }) => (
       <ol className="mt-12 grid w-full gap-6 text-left md:grid-cols-3">
         {PATHS.map((p, i) => (
           <li key={p.t} className="border-t border-outline-variant pt-4">
-            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">{String(i + 1).padStart(2, "0")} · {p.t}</p>
+            <p className="font-label text-kicker uppercase tracking-[0.2em] text-secondary">{String(i + 1).padStart(2, "0")} · {p.t}</p>
             <p className="mt-2 font-body text-base leading-relaxed text-on-surface">{p.d}</p>
           </li>
         ))}

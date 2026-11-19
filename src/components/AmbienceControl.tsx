@@ -64,8 +64,8 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
         <PopoverContent align="end" sideOffset={10} className="w-[300px] p-4 bg-surface-container border-outline-variant">
           <div className="mb-3 flex items-baseline justify-between">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
-              <p className="font-mono text-[10px] text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
+              <p className="font-mono text-kicker uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
+              <p className="font-mono text-meta text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
             </div>
           </div>
 
@@ -81,7 +81,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
 
             {/* Pitch fader, vertical, + at top like a Technics */}
             <div className="flex flex-1 flex-col items-center justify-between py-1">
-              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">Pitch</span>
+              <span className="font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant">Pitch</span>
               <SteelFader
                 label="Pitch"
                 orientation="vertical"
@@ -94,7 +94,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
                 onChange={(v) => setPitch(1 - v / 100)}
                 ticks={[{ at: -8, label: "+8" }, { at: -4, label: "+4" }, { at: 0, label: "0" }, { at: 4, label: "-4" }, { at: 8, label: "-8" }]}
               />
-              <span className="font-mono text-[10px] tabular-nums text-on-surface">
+              <span className="font-mono text-meta tabular-nums text-on-surface">
                 {pct > 0 ? "+" : ""}
                 {pct.toFixed(1)}%
               </span>
@@ -104,7 +104,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
                   haptic("select");
                   setPitch(1);
                 }}
-                className="mt-1 inline-flex items-center gap-1 rounded-sm border border-outline-variant px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-on-surface-variant hover:border-secondary hover:text-secondary"
+                className="mt-1 inline-flex items-center gap-1 rounded-sm border border-outline-variant px-1.5 py-0.5 font-mono text-kicker uppercase tracking-[0.1em] text-on-surface-variant hover:border-secondary hover:text-secondary"
                 title="Quartz lock: back to 0%"
               >
                 <span className={["h-[5px] w-[5px] rounded-full", Math.abs(pct) < 0.05 ? "bg-secondary" : "bg-outline-variant"].join(" ")} />
@@ -114,7 +114,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
           </div>
 
           <label className="mt-4 flex items-center gap-3">
-            <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-on-surface-variant w-12">Volume</span>
+            <span className="font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant w-12">Volume</span>
             <span className="flex-1"><SteelFader
               label="Volume"
               length={170}
@@ -124,10 +124,10 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
               value={Math.round(volume * 100)}
               onChange={(v) => setVolume(v / 100)}
             /></span>
-            <span className="font-mono text-[10px] tabular-nums text-on-surface w-8 text-right">{Math.round(volume * 100)}</span>
+            <span className="font-mono text-meta tabular-nums text-on-surface w-8 text-right">{Math.round(volume * 100)}</span>
           </label>
 
-          <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">
+          <p className="mt-3 font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant">
             33⅓ rpm · analog pitch, speed and key move together
           </p>
         </PopoverContent>

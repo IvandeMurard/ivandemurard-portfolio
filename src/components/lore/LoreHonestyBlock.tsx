@@ -18,7 +18,7 @@ export const LoreHonestyBlock = () => (
     <ul className="mt-8 space-y-4 max-w-3xl">
       {LIMITS.map((l, i) => (
         <li key={l} className="flex items-baseline gap-4 text-on-surface-variant leading-relaxed">
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums shrink-0">
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary tabular-nums shrink-0">
             0{i + 1}
           </span>
           <span>{l}</span>

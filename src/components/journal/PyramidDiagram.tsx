@@ -35,7 +35,7 @@ export const PyramidDiagram = ({
           const note = layer.note && renderNote && !interactive ? renderNote(layer.note) : layer.note;
           const body = (
             <>
-              <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
+              <div className="font-label uppercase tracking-[0.18em] text-kicker text-secondary">
                 {layer.level}
                 {layer.base && <span className="sr-only"> (foundation)</span>}
               </div>
@@ -91,14 +91,14 @@ export const PyramidDiagram = ({
         >
           {current?.detail ? (
             <>
-              <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mb-2">
+              <div className="font-label uppercase tracking-[0.18em] text-kicker text-secondary mb-2">
                 {current.level} · {current.name}
               </div>
               <p className="font-body font-normal text-sm text-on-surface-variant">{current.detail}</p>
               <dl className="mt-3 grid gap-2 sm:grid-cols-2">
                 {current.product && (
                   <div>
-                    <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                    <dt className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                       Where it runs
                     </dt>
                     <dd className="font-body font-normal text-sm text-on-surface-variant">
@@ -108,7 +108,7 @@ export const PyramidDiagram = ({
                 )}
                 {current.signal && (
                   <div>
-                    <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                    <dt className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                       Signal emitted
                     </dt>
                     <dd className="font-body font-normal text-sm text-on-surface-variant">

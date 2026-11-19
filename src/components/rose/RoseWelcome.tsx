@@ -126,7 +126,7 @@ export const RoseWelcome = ({ welcome }: WelcomeProps) => (
     {...(welcome.visible ? {} : { "aria-hidden": true, style: { visibility: "hidden" as const } })}
     className="mb-2 rounded-2xl border border-outline-variant bg-surface-container-lowest px-[18px] py-4 shadow-xl shadow-primary/10"
   >
-    <p className="font-mono text-[12.5px] leading-normal text-secondary">Rose</p>
+    <p className="font-mono text-meta leading-normal text-secondary">Rose</p>
     <p className="mt-1.5 font-headline text-[20px] leading-[1.3] text-on-surface">{ROSE_WELCOME.text}</p>
     <div className="mt-3.5 flex flex-wrap items-center gap-2.5">
       <button type="button" onClick={welcome.dim} className={button} tabIndex={welcome.visible ? undefined : -1}>

@@ -55,7 +55,7 @@ export const SourceContextLine = () => {
       aria-label="Return to where you were"
       data-source-context
       style={{ top }}
-      className="fixed inset-x-0 z-40 flex items-start gap-3 border-b border-outline-variant bg-surface-container px-4 md:px-10 py-2 text-[12.5px] text-on-surface md:items-center"
+      className="fixed inset-x-0 z-40 flex items-start gap-3 border-b border-outline-variant bg-surface-container px-4 md:px-10 py-2 text-meta text-on-surface md:items-center"
     >
       <p className="flex min-w-0 flex-1 flex-col gap-0.5 md:block md:truncate">
         <span data-context-where className="order-2 block truncate font-mono md:order-none md:inline md:overflow-visible">{section ? `${title} \u00b7 ${section}` : title}</span>

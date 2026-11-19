@@ -9,7 +9,7 @@ import { CARDS, INDEX_COPY, INDEX_HERO, LEAD, heroMeta, metaLine, noteBySlug, no
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import type { Signal } from "@/content/statuses";
 
-const KICK = "font-mono text-[11px] font-medium uppercase leading-snug tracking-[0.12em]";
+const KICK = "font-mono text-kicker font-medium uppercase leading-snug tracking-[0.12em]";
 const RING = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-secondary";
 const GO = "inline-flex min-h-11 items-center rounded-full px-5 text-[15px] font-medium";
 const LAMP: Record<Signal, string> = { go: "bg-signal-go", warn: "bg-signal-warn", stop: "bg-signal-stop", dark: "bg-signal-dark" };
@@ -48,7 +48,7 @@ const Journal = () => {
           <p className={cn(KICK, "text-secondary")}>{INDEX_HERO.kicker}</p>
           <h1 className="mt-3.5 max-w-[900px] font-headline text-[clamp(44px,5.4vw,72px)] font-normal leading-[1.02] tracking-[-0.02em] text-heading">{INDEX_HERO.title}</h1>
           <p className="mt-[18px] max-w-[660px] text-[19px] text-on-surface-variant">{INDEX_HERO.line}</p>
-          <p className="mt-[22px] font-mono text-[12.5px] leading-snug text-on-surface-variant">{heroMeta()}</p>
+          <p className="mt-[22px] font-mono text-meta leading-snug text-on-surface-variant">{heroMeta()}</p>
         </section>
 
         <section aria-labelledby="lead" className="mx-auto max-w-[1240px] px-6 pt-5 md:px-10">
@@ -65,7 +65,7 @@ const Journal = () => {
                   className={cn(GO, "bg-primary text-on-primary after:absolute after:inset-0 after:content-[''] focus-visible:outline-none")}>
                   {INDEX_COPY.readNote}<span className="sr-only">: {lead.title}</span>
                 </Link>
-                <p className="font-mono text-[12.5px] text-on-surface-variant">{metaLine(lead)}</p>
+                <p className="font-mono text-meta text-on-surface-variant">{metaLine(lead)}</p>
               </div>
             </div>
             <div className="section-inverse flex flex-col gap-4 p-6 md:p-10">
@@ -98,7 +98,7 @@ const Journal = () => {
                     <p className="mt-2 font-headline text-[19px] font-normal leading-[1.3] text-heading md:text-[21px]">{c.moment.text}</p>
                   </div>
                   <div className="mt-auto flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-t border-outline-variant pt-3.5">
-                    <p className="font-mono text-[12.5px] text-on-surface-variant">{metaLine(e)}</p>
+                    <p className="font-mono text-meta text-on-surface-variant">{metaLine(e)}</p>
                     <Link to={`/journal/${e.slug}`} onClick={open(e.slug, e.title)}
                       className={cn(GO, "border border-primary/35 text-primary after:absolute after:inset-0 after:content-[''] focus-visible:outline-none")}>
                       {INDEX_COPY.readNote}<span className="sr-only">: {e.title}</span>
@@ -112,7 +112,7 @@ const Journal = () => {
 
         <section aria-label={INDEX_COPY.systems} className="mx-auto max-w-[1240px] px-6 pb-24 pt-12 md:px-10">
           <div className="flex flex-wrap items-center gap-x-7 gap-y-3 border-y border-outline-variant py-[18px]">
-            <p className="font-mono text-[12.5px] text-on-surface-variant">{INDEX_COPY.systems}</p>
+            <p className="font-mono text-meta text-on-surface-variant">{INDEX_COPY.systems}</p>
             {systems.map((p) => (
               <Link key={p.slug} to={`/${p.slug}`} onClick={() => track({ label: p.name, href: `/${p.slug}`, kind: "project" })}
                 className={cn("inline-flex items-center gap-2 text-primary", RING)}>

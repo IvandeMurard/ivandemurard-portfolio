@@ -33,7 +33,7 @@ export const AetherixLoopCards = () => (
         className="bg-surface-container-low border border-outline-variant rounded-2xl p-6 flex flex-col gap-4"
       >
         <div className="flex items-center gap-3">
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary tabular-nums">
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary tabular-nums">
             0{i + 1}
           </span>
           <Icon name={step.icon} className="text-secondary text-xl" />

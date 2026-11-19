@@ -60,10 +60,10 @@ const NodeCard = ({
   >
     <p className="font-headline italic text-heading text-base md:text-lg leading-tight">{title}</p>
     {sub && (
-      <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">{sub}</p>
+      <p className="font-label uppercase tracking-[0.18em] text-kicker text-secondary mt-1">{sub}</p>
     )}
     {emphasized && (
-      <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px] whitespace-nowrap">
+      <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-kicker whitespace-nowrap">
         this node
       </span>
     )}
@@ -85,7 +85,7 @@ export const AetherixMeshDiagram = () => (
           <NodeCard title="Orchestrator" sub="Supervisory" />
           <div className="flex flex-col items-center gap-1">
             <NodeCard title="Anima" sub="Guest memory" />
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px]">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-kicker">
               Synthetic PoC
             </span>
           </div>
@@ -97,7 +97,7 @@ export const AetherixMeshDiagram = () => (
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
             <p className="font-headline italic text-heading text-base leading-tight">Manager</p>
-            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">
+            <p className="font-label uppercase tracking-[0.18em] text-kicker text-secondary mt-1">
               WhatsApp
             </p>
           </div>
@@ -112,7 +112,7 @@ export const AetherixMeshDiagram = () => (
         </div>
         <div className="w-full flex flex-col items-center gap-1">
           <NodeCard title="Anima" sub="Guest memory" />
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-[10px]">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label uppercase tracking-[0.18em] text-kicker">
             Synthetic PoC
           </span>
         </div>
@@ -123,7 +123,7 @@ export const AetherixMeshDiagram = () => (
           <Icon name="chat" className="text-secondary text-lg" />
           <div>
             <p className="font-headline italic text-heading text-base leading-tight">Manager</p>
-            <p className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-1">
+            <p className="font-label uppercase tracking-[0.18em] text-kicker text-secondary mt-1">
               WhatsApp
             </p>
           </div>
@@ -137,13 +137,13 @@ export const AetherixMeshDiagram = () => (
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-outline-variant text-left">
-            <th className="px-5 py-3 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+            <th className="px-5 py-3 font-label uppercase tracking-[0.2em] text-kicker text-secondary">
               Node
             </th>
-            <th className="px-5 py-3 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+            <th className="px-5 py-3 font-label uppercase tracking-[0.2em] text-kicker text-secondary">
               Role
             </th>
-            <th className="px-5 py-3 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+            <th className="px-5 py-3 font-label uppercase tracking-[0.2em] text-kicker text-secondary">
               Status
             </th>
           </tr>
@@ -162,7 +162,7 @@ export const AetherixMeshDiagram = () => (
               </td>
               <td className="px-5 py-4 text-on-surface leading-relaxed">{n.role}</td>
               <td className="px-5 py-4">
-                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-label uppercase tracking-[0.18em] bg-secondary text-on-secondary">
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-kicker font-label uppercase tracking-[0.18em] bg-secondary text-on-secondary">
 
                   {n.status}
                 </span>

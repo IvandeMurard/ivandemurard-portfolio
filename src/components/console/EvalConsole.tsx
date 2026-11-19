@@ -47,16 +47,16 @@ const buildLines = (groups: EvalGroup[]): Line[] => {
 const STYLE = {
   page: {
     section: "not-italic rounded-sm border border-outline bg-surface-container-low p-5 md:p-6",
-    label: "font-label uppercase tracking-[0.2em] text-[10px] text-secondary",
-    count: "font-mono text-[11px] text-on-surface-variant",
+    label: "font-label uppercase tracking-[0.2em] text-kicker text-secondary",
+    count: "font-mono text-meta text-on-surface-variant",
     intro: "font-body text-sm leading-relaxed text-on-surface-variant mb-4",
-    button: "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:border-secondary hover:text-primary disabled:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary",
+    button: "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant transition-colors duration-300 hover:border-secondary hover:text-primary disabled:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary",
     log: "mt-4 rounded-sm border border-outline-variant bg-surface-container-lowest p-4 font-mono text-xs leading-relaxed min-h-[9rem]",
     verdictPass: "border-secondary bg-secondary/15",
     verdictFail: "border-error bg-error/10",
-    passLabel: "font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant mb-1",
+    passLabel: "font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant mb-1",
     detail: "font-body text-sm leading-relaxed text-on-surface-variant mt-1",
-    footnote: "mt-3 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant",
+    footnote: "mt-3 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant",
     tone: { muted: "text-on-surface-variant", pass: "text-primary", fail: "text-error", gate: "text-error" },
   },
   // On a navy room every colour is a token of that room, and no text is under 13 px.

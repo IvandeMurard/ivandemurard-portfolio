@@ -120,7 +120,7 @@ const Atrium = () => (
       {/* Origin */}
       <section className="mb-12 md:mb-16">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
-          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-kicker block">
             Origin
           </span>
           <h2 className="font-headline text-4xl md:text-6xl text-heading mb-10 italic">
@@ -163,7 +163,7 @@ const Atrium = () => (
       {/* Track record */}
       <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
         <div className="max-w-2xl mb-16 md:mb-20">
-          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-kicker block">
             Track record
           </span>
           <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
@@ -188,7 +188,7 @@ const Atrium = () => (
               <h3 className="font-headline italic text-2xl text-heading mb-2 leading-tight">
                 {entry.role}
               </h3>
-              <p className="font-label uppercase tracking-[0.18em] text-[11px] text-on-surface-variant mb-6">
+              <p className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant mb-6">
                 {entry.company}
               </p>
               <p className="text-on-surface-variant font-normal leading-relaxed">{entry.outcome}</p>
@@ -224,7 +224,7 @@ const Atrium = () => (
                 className="underline-grow mx-auto mb-4 w-10"
                 style={{ ["--reveal-delay" as string]: `${360 + i * 70}ms` }}
               />
-              <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant leading-relaxed">
+              <p className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant leading-relaxed">
                 {m.label}
               </p>
             </div>
@@ -238,7 +238,7 @@ const Atrium = () => (
       {/* Now */}
       <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
         <div className="max-w-2xl mb-16 md:mb-20">
-          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-kicker block">
             Now
           </span>
           <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
@@ -267,7 +267,7 @@ const Atrium = () => (
                 <p className="text-on-surface-variant font-normal leading-relaxed mb-8 flex-1">
                   {p.blurb}
                 </p>
-                <span className="inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+                <span className="inline-flex items-center gap-2 font-label uppercase tracking-[0.2em] text-kicker text-secondary">
                   {p.external ? (
                     <ExternalMark className="inline-block text-sm group-hover:translate-x-1 transition-transform">{p.meta}</ExternalMark>
                   ) : (
@@ -318,7 +318,7 @@ const Atrium = () => (
       {/* Method */}
       <Reveal as="section" className="mb-12 md:mb-16 px-6 md:px-12 max-w-screen-2xl mx-auto">
         <div className="max-w-2xl mb-16 md:mb-20">
-          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-xs block">
+          <span className="font-label text-secondary mb-6 tracking-widest uppercase text-kicker block">
             Method
           </span>
           <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
@@ -353,7 +353,7 @@ const Atrium = () => (
       {/* Let's talk */}
       <Reveal as="section" className="relative px-6 md:px-12 max-w-5xl mx-auto text-center">
         <div className="farewell-card relative z-10 bg-gradient-to-br from-primary-fixed-dim/70 via-primary-fixed/60 to-surface-container-low p-12 md:p-20 rounded-2xl overflow-hidden ambient-shadow ring-1 ring-primary-fixed-dim/40">
-          <span className="font-label uppercase tracking-[0.3em] text-[11px] text-secondary mb-6 block opacity-80">
+          <span className="font-label uppercase tracking-[0.3em] text-kicker text-secondary mb-6 block opacity-80">
             Let's talk
           </span>
           <h2 className="font-headline text-4xl md:text-6xl italic text-heading mb-6">
@@ -392,7 +392,7 @@ const Atrium = () => (
               href={SOCIAL_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
+              className="font-label uppercase tracking-[0.2em] text-kicker text-on-surface-variant hover:text-primary transition-colors"
             >
               <ExternalMark>LinkedIn</ExternalMark>
             </a>
@@ -400,7 +400,7 @@ const Atrium = () => (
               href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
+              className="font-label uppercase tracking-[0.2em] text-kicker text-on-surface-variant hover:text-primary transition-colors"
             >
               <ExternalMark>GitHub</ExternalMark>
             </a>
@@ -408,7 +408,7 @@ const Atrium = () => (
               href={SOCIAL_LINKS.x}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-colors"
+              className="font-label uppercase tracking-[0.2em] text-kicker text-on-surface-variant hover:text-primary transition-colors"
             >
               <ExternalMark>X</ExternalMark>
             </a>

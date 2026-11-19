@@ -53,19 +53,19 @@ export const GraderStepper = ({
       aria-label={label}
     >
       {label && (
-        <figcaption className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+        <figcaption className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">
           {label}
         </figcaption>
       )}
 
       <div className="rounded-sm border border-outline-variant bg-surface-container-low p-4">
-        <p className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">Technician</p>
+        <p className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">Technician</p>
         <p className="font-body text-primary mt-1">{question}</p>
         <p className="font-body font-normal text-sm text-on-surface-variant mt-2">{rule}</p>
       </div>
 
       <div className="mt-4">
-        <p className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">Model answer, verbatim</p>
+        <p className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">Model answer, verbatim</p>
         <blockquote className="border-l border-secondary pl-4 mt-2 font-body font-normal text-sm text-on-surface-variant">
           {answer}
         </blockquote>
@@ -81,7 +81,7 @@ export const GraderStepper = ({
             type="button"
             aria-pressed={guess === g}
             onClick={() => setGuess(g)}
-            className={`font-label uppercase tracking-[0.16em] text-[10px] px-3 py-1.5 rounded-sm border transition-colors ${
+            className={`font-label uppercase tracking-[0.16em] text-kicker px-3 py-1.5 rounded-sm border transition-colors ${
               guess === g ? "border-secondary text-primary bg-surface-container-low" : "border-outline-variant text-on-surface-variant hover:border-outline"
             }`}
           >
@@ -114,7 +114,7 @@ export const GraderStepper = ({
                 active ? "border-secondary bg-surface-container-low" : "border-outline-variant hover:border-outline"
               }`}
             >
-              <span className="block font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+              <span className="block font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                 Step {i + 1}
               </span>
               <span className="block font-body font-normal text-sm text-primary mt-1">{s.tab}</span>
@@ -131,9 +131,9 @@ export const GraderStepper = ({
         className="mt-4 pt-4 border-t border-outline-variant"
       >
         <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">Harness verdict</span>
+          <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">Harness verdict</span>
           <span
-            className={`font-label uppercase tracking-[0.16em] text-[10px] px-2 py-1 rounded-sm border ${tone.badge}`}
+            className={`font-label uppercase tracking-[0.16em] text-kicker px-2 py-1 rounded-sm border ${tone.badge}`}
           >
             {step.verdict}
           </span>
@@ -147,7 +147,7 @@ export const GraderStepper = ({
         </ul>
         {step.answer && (
           <div className="mt-3">
-            <p className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">What ships instead</p>
+            <p className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">What ships instead</p>
             <blockquote className="border-l border-secondary pl-4 mt-2 font-body text-sm text-primary">
               {step.answer}
             </blockquote>

@@ -51,12 +51,12 @@ const Bubble = ({ who, time, children, mine = false, visible }: { who: string; t
   >
     <span aria-hidden className={cn("absolute top-0 h-0 w-0 border-t-[8px] border-t-current",
       mine ? "-right-2 border-r-[8px] border-r-transparent wa-tail-out" : "-left-2 border-l-[8px] border-l-transparent wa-tail-in")} />
-    {!mine && <div className="text-[12px] font-medium wa-name mb-0.5">{who}</div>}
+    {!mine && <div className="text-meta font-medium wa-name mb-0.5">{who}</div>}
     {mine && <span className="sr-only">{who}</span>}
     {children}
-    <div className="flex justify-end items-center gap-1 text-[10.5px] wa-muted mt-0.5">
+    <div className="flex justify-end items-center gap-1 text-meta wa-muted mt-0.5">
       <span>{time}</span>
-      {mine && <span aria-label="read" className="text-[11px] tracking-[-3px] pr-1 wa-tick">✓✓</span>}
+      {mine && <span aria-label="read" className="text-meta tracking-[-3px] pr-1 wa-tick">✓✓</span>}
     </div>
   </div>
 );
@@ -91,13 +91,13 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
                   ? "bg-surface border-on-surface/60 shadow-sm"
                   : "border-transparent hover:bg-surface/60 hover:border-outline-variant",
               )}>
-              <span className="flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wider text-on-surface-variant">
+              <span className="flex items-center gap-1.5 font-mono text-kicker uppercase tracking-wider text-on-surface-variant">
                 <span aria-hidden className={cn("inline-block h-1.5 w-1.5 rounded-full",
                   sig === "stop" ? "bg-signal-stop" : sig === "warn" ? "bg-signal-warn" : "bg-signal-go",
                   !active && "opacity-60")} />
                 {day}
               </span>
-              <span className={cn("block mt-0.5 text-[12.5px] leading-snug transition-colors",
+              <span className={cn("block mt-0.5 text-meta leading-snug transition-colors",
                 active ? "text-on-surface" : "text-on-surface-variant group-hover:text-on-surface")}>
                 {title}
               </span>
@@ -112,29 +112,29 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         <span aria-hidden className="grid place-items-center h-9 w-9 rounded-full bg-[hsl(0_0%_100%/0.2)] font-display text-[15px]">A</span>
         <div className="flex-1 min-w-0">
           <div className="text-[15px] font-medium leading-tight">Aetherix</div>
-          <div className="text-[11.5px] opacity-80">sandbox demo · online</div>
+          <div className="text-meta opacity-80">sandbox demo · online</div>
         </div>
         <svg aria-hidden width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="opacity-90"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg>
         <svg aria-hidden width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="opacity-90"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
         <span aria-hidden className="text-lg leading-none opacity-90">⋮</span>
       </div>
       <div role="tabpanel" aria-label={LOOP_TABS[tab]} aria-live="polite" className="flex flex-col gap-2 min-h-[380px] px-4 py-4 wa-wall">
-        <span className="self-center mb-1 px-2.5 py-0.5 rounded-md text-[11px] wa-date shadow-sm">{d.date}</span>
+        <span className="self-center mb-1 px-2.5 py-0.5 rounded-md text-meta wa-date shadow-sm">{d.date}</span>
         <Bubble who="Aetherix" time={`${d.date} · evening before`} visible={step >= 1}>
           <p className="text-[13.5px] leading-[1.55] whitespace-pre-wrap">{eveningText(d)}</p>
           <details className="mt-1.5 group/why">
-            <summary className="cursor-pointer list-none font-mono text-[11px] text-on-surface-variant underline decoration-dotted underline-offset-2 hover:text-on-surface">
+            <summary className="cursor-pointer list-none font-mono text-meta text-on-surface-variant underline decoration-dotted underline-offset-2 hover:text-on-surface">
               Why {d.evening.predicted}? <span aria-hidden className="inline-block transition-transform group-open/why:rotate-90">›</span>
             </summary>
-            <dl className="mt-2 font-mono text-[11.5px] text-on-surface">
+            <dl className="mt-2 font-mono text-meta text-on-surface">
               <div className="flex justify-between gap-4 border-b border-outline-variant pb-1 mb-1"><dt>Usual level</dt><dd>{d.evening.baseline}</dd></div>
               {d.evening.drivers.map((x) => (
                 <div key={x.label} className="flex justify-between gap-4"><dt className="text-on-surface-variant">{x.label}</dt><dd>{signed(x.covers)}</dd></div>
               ))}
               <div className="flex justify-between gap-4 border-t border-outline-variant pt-1 mt-1 font-medium"><dt>Forecast</dt><dd>{d.evening.predicted}</dd></div>
             </dl>
-            <p className="mt-2 text-[11.5px] leading-relaxed text-on-surface-variant">{d.evening.confidence_detail}</p>
-            <p className="mt-1.5 text-[11.5px] leading-relaxed text-on-surface-variant">{d.evening.staffing.basis}</p>
+            <p className="mt-2 text-meta leading-relaxed text-on-surface-variant">{d.evening.confidence_detail}</p>
+            <p className="mt-1.5 text-meta leading-relaxed text-on-surface-variant">{d.evening.staffing.basis}</p>
           </details>
         </Bubble>
         <Bubble who="F&B Manager" time="reply" mine visible={step >= 2}>
@@ -143,7 +143,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
             <SignalLamp state={d.reply.signal as "go" | "warn" | "stop"} label={d.reply.kind} />
           </div>
           {"basis" in d.reply && d.reply.basis && (
-            <p className="mt-1 text-[11.5px] leading-relaxed text-on-surface-variant">{d.reply.basis}</p>
+            <p className="mt-1 text-meta leading-relaxed text-on-surface-variant">{d.reply.basis}</p>
           )}
         </Bubble>
         <Bubble who="Aetherix" time="next morning" visible={step >= 3}>
@@ -155,11 +155,11 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button type="button"
-                      className="font-mono text-[11px] text-signal-stop underline decoration-dotted underline-offset-2 cursor-help">
+                      className="font-mono text-meta text-signal-stop underline decoration-dotted underline-offset-2 cursor-help">
                       Outlier guard <span aria-hidden>ⓘ</span>
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-[260px] font-mono text-[11px] leading-relaxed">
+                  <TooltipContent side="top" className="max-w-[260px] font-mono text-meta leading-relaxed">
                     The figure exceeds what the restaurant can seat. It was set aside before it could reach learning.
                   </TooltipContent>
                 </Tooltip>
@@ -180,11 +180,11 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
 
       <div className="mt-4 flex items-start justify-between gap-4">
         <a href={LOOP_SOURCE_URL} target="_blank" rel="noopener noreferrer"
-          className="font-mono text-[11px] text-on-surface-variant underline underline-offset-2 hover:text-on-surface">
+          className="font-mono text-meta text-on-surface-variant underline underline-offset-2 hover:text-on-surface">
           <ExternalMark>Maison Lumen, a fictional hotel in the Apaleo sandbox · synthetic data · real services · seed {LOOP.provenance.seed}</ExternalMark>
         </a>
         <button type="button" onClick={() => setRun((r) => r + 1)}
-          className="font-mono text-[11px] text-on-surface-variant border-b border-outline-variant hover:text-on-surface shrink-0">
+          className="font-mono text-meta text-on-surface-variant border-b border-outline-variant hover:text-on-surface shrink-0">
           Replay
         </button>
       </div>

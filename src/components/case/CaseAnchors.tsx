@@ -69,7 +69,7 @@ export const CaseAnchors = ({
                   </Link>
                 )}
                 {isCurrent && (
-                  <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary shrink-0">
+                  <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary shrink-0">
                     You are here
                   </span>
                 )}
@@ -77,11 +77,11 @@ export const CaseAnchors = ({
               <p className="font-body text-sm text-on-surface-variant leading-relaxed mb-3">{item.what}</p>
               <dl className="space-y-1.5">
                 <div>
-                  <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">For</dt>
+                  <dt className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">For</dt>
                   <dd className="font-body text-sm text-on-surface-variant">{item.who}</dd>
                 </div>
                 <div>
-                  <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">Status</dt>
+                  <dt className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">Status</dt>
                   <dd className="font-body text-sm text-on-surface-variant">{item.status}</dd>
                 </div>
               </dl>

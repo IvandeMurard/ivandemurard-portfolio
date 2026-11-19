@@ -133,14 +133,14 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
             >
               list
             </span>
-            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary truncate">
+            <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary truncate">
               {label}
               <span className="text-on-surface-variant"> · {items.length} sections</span>
               {meta && <span className="text-on-surface-variant"> · {meta}</span>}
             </span>
           </span>
           <span className="flex items-center gap-1 shrink-0">
-            <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+            <span className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
               {open ? "Hide" : "Show"}
             </span>
             <span
@@ -169,7 +169,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
         revealed ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
-      <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+      <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">
         {label}
         {meta && <span className="text-on-surface-variant"> · {meta}</span>}
       </div>

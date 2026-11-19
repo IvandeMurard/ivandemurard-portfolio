@@ -28,7 +28,7 @@ const NotFound = () => {
           </p>
           <Link
             to="/"
-            className="inline-block bg-primary text-on-primary px-10 py-5 rounded-xl font-label uppercase tracking-[0.2em] text-[11px] hover:bg-primary-container transition-all duration-500 ambient-shadow"
+            className="inline-block bg-primary text-on-primary px-10 py-5 rounded-xl font-label uppercase tracking-[0.2em] text-kicker hover:bg-primary-container transition-all duration-500 ambient-shadow"
           >
             Return to the Atrium
           </Link>

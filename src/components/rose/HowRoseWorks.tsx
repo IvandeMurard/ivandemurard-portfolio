@@ -114,7 +114,7 @@ export const HowRoseWorks = () => {
                 <p className="m-0 mt-[5px] font-body text-[15.5px] leading-normal text-on-surface-variant">{s.text}</p>
                 {"tags" in s && (
                   <p className="hrw-tags m-0 mt-2">
-                    {s.tags.map((t) => <span key={t} className="rounded-full border border-dashed border-primary px-[9px] py-0.5 font-mono text-[12.5px] text-on-surface-variant [[data-mood=dusk]_&]:border-on-surface">{t}</span>)}
+                    {s.tags.map((t) => <span key={t} className="rounded-full border border-dashed border-primary px-[9px] py-0.5 font-mono text-meta text-on-surface-variant [[data-mood=dusk]_&]:border-on-surface">{t}</span>)}
                   </p>
                 )}
               </div>

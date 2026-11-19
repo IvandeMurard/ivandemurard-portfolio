@@ -6,7 +6,7 @@ const bold = (s: CompassSection | undefined, i = 0) =>
 const plain = (s: CompassSection | undefined) =>
   (s?.blocks.filter((b) => b.kind === "paragraph" && !b.bold) ?? []) as { text: string }[];
 
-const label = "font-label uppercase tracking-[0.18em] text-[10px] text-secondary";
+const label = "font-label uppercase tracking-[0.18em] text-kicker text-secondary";
 
 /** Sec. 01 as one address dossier: timeline on one side, context and comparison on the other. */
 export const CompassDossier = ({ section }: { section: CompassSection }) => {
@@ -21,7 +21,7 @@ export const CompassDossier = ({ section }: { section: CompassSection }) => {
       <div className="rounded-sm border border-outline-variant bg-surface-container-lowest">
         <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-outline-variant px-4 py-3 md:px-6">
           <span className={label}>Fig. 1.1 · Address dossier</span>
-          <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">Server output · 7 October 2026</span>
+          <span className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">Server output · 7 October 2026</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
@@ -32,7 +32,7 @@ export const CompassDossier = ({ section }: { section: CompassSection }) => {
             <ol className="relative m-0 list-none p-0 before:absolute before:bottom-2 before:left-[4.6rem] before:top-2 before:w-px before:bg-outline-variant">
               {COMPASS_TIMELINE.map((item) => (
                 <li key={`${item.date}-${item.event}`} className="relative grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-5 py-1.5">
-                  <time className="text-right font-label text-[10px] uppercase tracking-[0.12em] text-secondary">{item.date}</time>
+                  <time className="text-right font-label text-kicker uppercase tracking-[0.12em] text-secondary">{item.date}</time>
                   <span aria-hidden="true" className={`absolute left-[4.33rem] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full border bg-surface-container-lowest ${item.withheld ? "border-dashed border-outline" : "border-secondary"}`} />
                   <div className={`flex min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-sm border px-3 py-2 ${item.withheld ? "border-dashed border-outline-variant bg-[repeating-linear-gradient(135deg,transparent_0_6px,hsl(var(--outline-variant)/0.35)_6px_7px)] opacity-80" : "border-outline-variant"}`}>
                     <p className="min-w-0 font-body text-sm text-primary">
@@ -64,9 +64,9 @@ export const CompassDossier = ({ section }: { section: CompassSection }) => {
                   <caption className="sr-only">{compare?.title}</caption>
                   <thead>
                     <tr className="border-b border-outline">
-                      <th scope="col" className="pb-2 font-label text-[9px] uppercase tracking-[0.14em] text-secondary font-normal">{table.head[0]}</th>
-                      <th scope="col" className="pb-2 pl-3 text-right font-label text-[9px] uppercase tracking-[0.14em] text-primary font-normal"><span className="mr-1.5 inline-block h-1.5 w-3 bg-secondary align-middle" />{table.head[1]}</th>
-                      <th scope="col" className="pb-2 pl-3 text-right font-label text-[9px] uppercase tracking-[0.14em] text-on-surface-variant font-normal"><span className="mr-1.5 inline-block h-1.5 w-3 bg-outline align-middle" />{table.head[2]}</th>
+                      <th scope="col" className="pb-2 font-label text-kicker uppercase tracking-[0.14em] text-secondary font-normal">{table.head[0]}</th>
+                      <th scope="col" className="pb-2 pl-3 text-right font-label text-kicker uppercase tracking-[0.14em] text-primary font-normal"><span className="mr-1.5 inline-block h-1.5 w-3 bg-secondary align-middle" />{table.head[1]}</th>
+                      <th scope="col" className="pb-2 pl-3 text-right font-label text-kicker uppercase tracking-[0.14em] text-on-surface-variant font-normal"><span className="mr-1.5 inline-block h-1.5 w-3 bg-outline align-middle" />{table.head[2]}</th>
                     </tr>
                   </thead>
                   <tbody>

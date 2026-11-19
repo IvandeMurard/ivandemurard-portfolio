@@ -31,9 +31,9 @@ export const LoreTierTable = () => (
         <caption className="sr-only">Acceptance tiers, thresholds and what each tier covers</caption>
         <thead>
           <tr className="border-b-2 border-outline">
-            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Tier</th>
-            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">Threshold</th>
-            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4">Tier</th>
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4">Threshold</th>
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4">
               What it covers
             </th>
           </tr>
@@ -50,7 +50,7 @@ export const LoreTierTable = () => (
               <td className={`px-6 py-5 tabular-nums ${t.weight}`}>
                 {t.threshold}
                 {t.note && (
-                  <span className="block font-label uppercase tracking-[0.2em] text-[10px] text-secondary mt-1">
+                  <span className="block font-label uppercase tracking-[0.2em] text-kicker text-secondary mt-1">
                     {t.note}
                   </span>
                 )}

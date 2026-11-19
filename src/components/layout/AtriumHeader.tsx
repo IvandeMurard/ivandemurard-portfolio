@@ -25,7 +25,7 @@ const ClockMood = ({ compact = false }: { compact?: boolean }) => {
       aria-label={isDusk ? `Paris ${t}, Dusk mode. Switch to Day mode` : `Paris ${t}, Day mode. Switch to Dusk mode`}
       title={isDusk ? "Dusk mode · switch to Day mode" : "Day mode · switch to Dusk mode"}
       onClick={() => { haptic("toggle"); toggle(); }}
-      className={`inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.04em] tabular-nums whitespace-nowrap text-on-surface-variant border border-outline-variant rounded-full ${compact ? "px-2.5 py-1" : "px-3 py-1.5"} hover:border-secondary hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary`}
+      className={`inline-flex items-center gap-1.5 font-mono text-meta tracking-[0.04em] tabular-nums whitespace-nowrap text-on-surface-variant border border-outline-variant rounded-full ${compact ? "px-2.5 py-1" : "px-3 py-1.5"} hover:border-secondary hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary`}
     >
       <span aria-hidden>{compact ? null : "Paris "}{t}</span>
       <svg aria-hidden width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" className="text-secondary">

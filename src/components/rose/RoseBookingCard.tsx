@@ -43,7 +43,7 @@ export const RoseBookingCard = ({ intent, reason, sessionId }: RoseBookingCardPr
       aria-label={externalName("Book a 30 minute call with Ivan on cal.com")}
     >
       <div className="flex flex-col">
-        <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+        <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">
           Book a call
         </span>
         <span className="mt-1 font-headline italic text-lg text-heading">

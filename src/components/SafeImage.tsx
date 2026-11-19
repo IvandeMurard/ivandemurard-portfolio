@@ -34,13 +34,13 @@ export const SafeImage = ({ src, alt, className, fallbackLabel, ...rest }: SafeI
         className={`relative flex flex-col items-center justify-center gap-3 bg-surface-container text-on-surface-variant ${className ?? ""}`}
       >
         <ImageOff size={28} strokeWidth={1.25} aria-hidden="true" className="opacity-60" />
-        <p className="font-label uppercase tracking-[0.2em] text-[10px] text-center px-4 max-w-[80%] truncate">
+        <p className="font-label uppercase tracking-[0.2em] text-kicker text-center px-4 max-w-[80%] truncate">
           {fallbackLabel ?? alt}
         </p>
         <button
           type="button"
           onClick={retry}
-          className="inline-flex items-center gap-1.5 font-label uppercase tracking-[0.2em] text-[10px] text-secondary hover:text-primary transition-colors"
+          className="inline-flex items-center gap-1.5 font-label uppercase tracking-[0.2em] text-kicker text-secondary hover:text-primary transition-colors"
         >
           <RotateCw size={12} strokeWidth={1.5} aria-hidden="true" />
           Retry

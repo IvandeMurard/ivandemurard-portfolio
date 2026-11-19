@@ -336,9 +336,9 @@ export const KineticBridge = ({ from, to, heading, compass, reduced }: { from: s
     <div ref={ref} aria-hidden="true" className="mx-auto flex max-w-5xl items-center gap-4 py-14 text-on-surface-variant md:py-20">
       {line("origin-right")}
       <div className="flex items-center gap-3">
-        <span className="font-label text-[10px] uppercase tracking-[0.16em]">{from}</span>
+        <span className="font-label text-kicker uppercase tracking-[0.16em]">{from}</span>
         <span className="h-8 w-8 text-secondary">{compass(on ? heading : heading - 90)}</span>
-        <span className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary" style={{ opacity: on ? 1 : 0.2, transition: "opacity 900ms ease 500ms" }}>{to}</span>
+        <span className="font-label text-kicker uppercase tracking-[0.16em] text-secondary" style={{ opacity: on ? 1 : 0.2, transition: "opacity 900ms ease 500ms" }}>{to}</span>
       </div>
       {line("origin-left")}
     </div>
@@ -359,14 +359,14 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
     <figure ref={wrap} aria-labelledby="ux-evolution-caption" className="relative mt-10" style={{ height: `${iterations.length * 50 + 40}vh` }}>
       <div className="sticky top-24 grid min-h-[calc(100vh-8rem)] content-center gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center">
         <div>
-          <figcaption id="ux-evolution-caption" className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Code-led interface reconstruction · scroll to replay four versions</figcaption>
+          <figcaption id="ux-evolution-caption" className="font-label text-kicker uppercase tracking-[0.18em] text-on-surface-variant">Code-led interface reconstruction · scroll to replay four versions</figcaption>
           <ol className="mt-5 flex gap-2" aria-label="Versions">
             {iterations.map((x, i) => (
               <li key={x.source} className="flex-1">
                 <button type="button" onClick={() => scrollToFraction(wrap.current, (i + 0.5) / iterations.length)} aria-current={i === step ? "step" : undefined}
                   className="group block w-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">
                   <span className="block h-px w-full bg-outline-variant"><span className="block h-px origin-left bg-secondary" style={{ transform: `scaleX(${i < step ? 1 : i === step ? Math.min(1, p * iterations.length - i) : 0})`, transition: reduced ? "none" : "transform 200ms linear" }} /></span>
-                  <span className={cn("mt-2 block font-label text-[10px] uppercase tracking-[0.16em] transition-colors", i === step ? "text-secondary" : "text-on-surface-variant group-hover:text-primary")}>{x.date}</span>
+                  <span className={cn("mt-2 block font-label text-kicker uppercase tracking-[0.16em] transition-colors", i === step ? "text-secondary" : "text-on-surface-variant group-hover:text-primary")}>{x.date}</span>
                 </button>
               </li>
             ))}
@@ -374,11 +374,11 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
           <div key={step} aria-live="polite" className={cn(!reduced && "animate-in fade-in slide-in-from-bottom-2 duration-700")}>
             <h3 className="mt-8 font-headline text-3xl leading-tight text-heading md:text-4xl">{it.title}</h3>
             <dl className="mt-6 space-y-4 font-body text-sm leading-relaxed text-on-surface md:text-base">
-              <div><dt className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Problem</dt><dd className="mt-1">{it.problem}</dd></div>
-              <div><dt className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">What changed</dt><dd className="mt-1">{it.decision}</dd></div>
-              <div><dt className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Decision</dt><dd className="mt-1 font-headline text-lg italic text-heading">{it.result}</dd></div>
+              <div><dt className="font-label text-kicker uppercase tracking-[0.16em] text-on-surface-variant">Problem</dt><dd className="mt-1">{it.problem}</dd></div>
+              <div><dt className="font-label text-kicker uppercase tracking-[0.16em] text-on-surface-variant">What changed</dt><dd className="mt-1">{it.decision}</dd></div>
+              <div><dt className="font-label text-kicker uppercase tracking-[0.16em] text-on-surface-variant">Decision</dt><dd className="mt-1 font-headline text-lg italic text-heading">{it.result}</dd></div>
             </dl>
-            <p className="mt-5 font-label text-[10px] text-on-surface-variant">Commit {it.source}</p>
+            <p className="mt-5 font-label text-meta text-on-surface-variant">Commit {it.source}</p>
           </div>
         </div>
 
@@ -386,16 +386,16 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
         <div aria-hidden="true" className="relative aspect-[4/3] overflow-hidden rounded-xl border border-outline-variant bg-surface" style={{ transition: t }}>
           <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
             <span className="font-headline text-sm italic text-heading">Ivan de Murard</span>
-            <div className="flex items-center gap-4 font-label text-[9px] uppercase tracking-[0.14em] text-on-surface-variant">
+            <div className="flex items-center gap-4 font-label text-kicker uppercase tracking-[0.14em] text-on-surface-variant">
               <span>Work</span><span>Field Notes</span>
               <span className="rounded-full border border-secondary px-2.5 py-1 text-secondary"
                 style={{ opacity: step === 2 ? 1 : 0, transform: step === 2 ? "none" : "translateY(-6px) scale(.9)", transition: t }}>Ask Rose</span>
             </div>
           </div>
           <div className="px-8 pt-7">
-            <p className="font-label text-[9px] uppercase tracking-[0.18em] text-secondary">Case study · Aetherix</p>
+            <p className="font-label text-kicker uppercase tracking-[0.18em] text-secondary">Case study · Aetherix</p>
             <p className="mt-2 font-headline text-2xl leading-tight text-heading">Forecasting tomorrow's workload.</p>
-            <p className="mt-3 font-body text-[11px] leading-relaxed text-on-surface">
+            <p className="mt-3 font-body text-meta leading-relaxed text-on-surface">
               Aetherix estimates demand so a manager can staff ahead. It is evaluated against{" "}
               <span className="bg-no-repeat" style={{ backgroundImage: "linear-gradient(hsl(var(--secondary) / .7), hsl(var(--secondary) / .7))", backgroundPosition: "0 100%", backgroundSize: step >= 1 ? "100% 1px" : "0% 1px", transition: reduced ? "none" : `background-size 900ms ${EASE} 300ms` }}>a simple baseline</span>
               {" "}on public data and in a controlled sandbox, and the page states where that comparison stops.
@@ -406,9 +406,9 @@ export const DockScene = ({ iterations, reduced }: { iterations: Iteration[]; re
               step === 1 ? "rounded-2xl border-secondary/40 bg-surface/60 backdrop-blur-sm" : step === 3 ? "rounded-2xl border-outline-variant bg-surface-container-lowest" : "rounded-xl border-outline-variant bg-surface")}
               style={{ opacity: step === 2 ? 0.25 : 1, transform: step === 2 ? "translateY(10px) scale(.92)" : step === 1 ? "scale(.96)" : "none", width: step === 0 ? "88%" : "62%", transition: t }}>
               <div className="flex flex-wrap justify-center gap-1.5">
-                {chips.map((c) => <span key={c} className={cn("rounded-full border px-2 py-0.5 font-label text-[9px]", step === 0 ? "border-outline-variant text-on-surface-variant" : "border-secondary/60 text-primary")}>{c}</span>)}
+                {chips.map((c) => <span key={c} className={cn("rounded-full border px-2 py-0.5 font-label text-meta", step === 0 ? "border-outline-variant text-on-surface-variant" : "border-secondary/60 text-primary")}>{c}</span>)}
               </div>
-              <div className="flex w-full items-center gap-2"><span className="flex-1 font-body text-[10px] text-on-surface-variant">{step === 0 ? "Tell me who you are…" : "Ask about this page…"}</span><span className="font-label text-[9px] uppercase tracking-[0.14em] text-secondary">Rose</span></div>
+              <div className="flex w-full items-center gap-2"><span className="flex-1 font-body text-kicker text-on-surface-variant">{step === 0 ? "Tell me who you are…" : "Ask about this page…"}</span><span className="font-label text-kicker uppercase tracking-[0.14em] text-secondary">Rose</span></div>
             </div>
           </div>
         </div>
@@ -434,7 +434,7 @@ const WORD_STARTS = VOICE_WORDS.reduce<number[]>((acc, w, i) => { acc.push(i ===
 const DiagramNode = ({ label, detail, on, delay, reduced, emphasis }: { label: string; detail: string; on: boolean; delay: number; reduced: boolean; emphasis?: boolean }) => (
   <div className={cn("border bg-surface p-3", emphasis ? "border-secondary" : "border-outline-variant")}
     style={{ opacity: on ? 1 : 0, transform: on ? "none" : "translateY(10px)", transition: reduced ? "none" : `opacity 600ms ease ${delay}ms, transform 800ms ${EASE} ${delay}ms` }}>
-    <p className="font-label text-[10px] uppercase tracking-[0.16em] text-secondary">{label}</p>
+    <p className="font-label text-kicker uppercase tracking-[0.16em] text-secondary">{label}</p>
     <p className="mt-1 font-body text-xs leading-snug text-on-surface">{detail}</p>
   </div>
 );
@@ -497,7 +497,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
       <RoseCue id="lab" note="Scroll, or pick a gesture. I will not hold the page hostage." className="mb-6" />
       <div className={cn("sticky top-20 flex min-h-[calc(100vh-6rem)] flex-col justify-center rounded-sm border border-outline-variant px-5 py-8 md:px-10", tones[phase])} style={{ transition: reduced ? "none" : "background-color 900ms ease" }}>
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Design exercise · scroll or choose a gesture · not a working feature</p>
+          <p className="font-label text-kicker uppercase tracking-[0.2em] text-secondary">Design exercise · scroll or choose a gesture · not a working feature</p>
           <div role="tablist" aria-label="Contextual gesture" className="inline-flex flex-wrap rounded-full border border-outline-variant bg-surface p-0.5 font-label text-xs">
             {PHASES.map((ph, i) => (
               <button key={ph.key} role="tab" type="button" aria-selected={phase === i} onClick={() => scrollToFraction(wrap.current, (i + 0.5) / PHASES.length)}
@@ -511,7 +511,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
           {/* The page passage. Rose works on it, never replaces it. */}
           <article className="relative">
-            <p className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix · Where it stands</p>
+            <p className="font-label text-kicker uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix · Where it stands</p>
             <div className="relative mt-5 min-h-[11rem]">
               <p className="font-body text-base leading-relaxed text-on-surface md:text-lg" style={{ opacity: phase === 1 ? 0 : 1, transition: reduced ? "none" : "opacity 500ms ease", position: phase === 1 ? "absolute" : "relative" }}>
                 Aetherix is tested on{" "}
@@ -554,7 +554,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
                   ["right-0 bottom-0 text-right", "/rose/lab?concept=d#ch-trust", "Rose", "Chapter 03, trust"],
                 ].map(([pos, to, label, detail]) => (
                   <Link key={to} to={to} className={cn("absolute max-w-[9rem] border border-outline-variant bg-surface px-3 py-2 transition-colors hover:border-secondary", pos)}>
-                    <span className="block font-label text-[10px] uppercase tracking-[0.16em] text-secondary">{label}</span>
+                    <span className="block font-label text-kicker uppercase tracking-[0.16em] text-secondary">{label}</span>
                     <span className="block font-body text-xs text-on-surface">{detail}</span>
                   </Link>
                 ))}
@@ -564,7 +564,7 @@ export const ContextualLab = ({ reduced }: { reduced: boolean }) => {
               <div className={cn("flex h-full min-h-[18rem] flex-col justify-center gap-4", !reduced && "animate-in fade-in duration-700")}>
                 {[["Forecast vs baseline", "49.71% · 55.86%"], ["Next day, J+1", "28.5% · 27.9%"], ["Sandbox, +25% shift", "15.9% → 12.3%"]].map(([k, v], i) => (
                   <div key={k} className="flex items-baseline justify-between gap-4 border-b border-outline-variant pb-3" style={{ opacity: reduced ? 1 : Math.min(1, local * 3 - i * 0.5 + 0.5), transition: "opacity 300ms ease" }}>
-                    <span className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">{k}</span>
+                    <span className="font-label text-kicker uppercase tracking-[0.16em] text-on-surface-variant">{k}</span>
                     <span className="font-headline text-2xl text-heading">{v}</span>
                   </div>
                 ))}
@@ -633,8 +633,8 @@ export const HeroAgent = ({ reduced, compass }: { reduced: boolean; compass: (he
   return (
     <div ref={ref} aria-label="Illustration: Rose answering on the Aetherix page" className="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest">
       <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
-        <span className="font-label text-[10px] uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix</span>
-        <button type="button" onClick={() => setRun((r) => r + 1)} disabled={!done} className="font-label text-[10px] uppercase tracking-[0.14em] text-secondary disabled:opacity-0" style={{ transition: "opacity 500ms ease" }}>Replay</button>
+        <span className="font-label text-kicker uppercase tracking-[0.18em] text-on-surface-variant">Reading now · /aetherix</span>
+        <button type="button" onClick={() => setRun((r) => r + 1)} disabled={!done} className="font-label text-kicker uppercase tracking-[0.14em] text-secondary disabled:opacity-0" style={{ transition: "opacity 500ms ease" }}>Replay</button>
       </div>
       <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="border-b border-outline-variant p-6 md:border-b-0 md:border-r">
@@ -654,13 +654,13 @@ export const HeroAgent = ({ reduced, compass }: { reduced: boolean; compass: (he
           <div className="flex items-start gap-3">
             <span className="mt-0.5 h-6 w-6 shrink-0 text-secondary">{compass(thinking ? 90 : words * 6)}</span>
             <p className="font-body text-sm leading-relaxed text-on-surface">
-              {thinking && <span className="font-label text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Reading the page…</span>}
+              {thinking && <span className="font-label text-kicker uppercase tracking-[0.16em] text-on-surface-variant">Reading the page…</span>}
               {HERO_A.slice(0, words).map((w, i) => <span key={i} className={cn(!reduced && "animate-in fade-in duration-500")}>{w} </span>)}
             </p>
           </div>
           <div className="mt-auto flex flex-wrap gap-2">
             {HERO_CHIPS.map((c, i) => (
-              <span key={c} className="rounded-full border border-outline-variant px-3 py-1 font-label text-[11px] text-primary"
+              <span key={c} className="rounded-full border border-outline-variant px-3 py-1 font-label text-meta text-primary"
                 style={{ opacity: done ? 1 : 0, transform: done ? "none" : "translateY(6px)", transition: reduced ? "none" : `opacity 500ms ease ${i * 120}ms, transform 700ms ${EASE} ${i * 120}ms` }}>{c}</span>
             ))}
           </div>

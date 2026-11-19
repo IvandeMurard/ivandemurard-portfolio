@@ -7,7 +7,7 @@ type Step = { value: string; label: string; note?: string; accent?: boolean };
 export const CanaryTimeline = ({ steps, label }: { steps: Step[]; label?: string }) => (
   <figure className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5 md:p-6 not-italic m-0">
     {label && (
-      <figcaption className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-5">
+      <figcaption className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-5">
         {label}
       </figcaption>
     )}
@@ -25,7 +25,7 @@ export const CanaryTimeline = ({ steps, label }: { steps: Step[]; label?: string
           </div>
           <div className={i < steps.length - 1 ? "pb-6" : ""}>
             <div className="font-headline italic text-xl text-heading">{step.value}</div>
-            <div className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mt-1">
+            <div className="font-label uppercase tracking-[0.16em] text-kicker text-secondary mt-1">
               {step.label}
             </div>
             {step.note && (

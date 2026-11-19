@@ -10,7 +10,7 @@ type Card = { icon: string; title: string; body: string };
 export const CardGrid = ({ items, label }: { items: Card[]; label?: string }) => (
   <section aria-label={label} className="not-italic">
     {label && (
-      <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">{label}</div>
+      <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">{label}</div>
     )}
     <div className="grid gap-4 md:grid-cols-2">
       {items.map((card) => (

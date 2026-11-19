@@ -26,9 +26,9 @@ export const SectionKey = ({
   const meta = (
     <div className={standfirst ? "mt-3 flex items-center gap-3" : "flex items-center gap-3 mb-4"}>
       <Icon name={icon} className="text-secondary text-[20px] leading-none" />
-      <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{sigil}</span>
+      <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">{sigil}</span>
       {minutes ? (
-        <span className={standfirst ? "font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant" : "ml-auto font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant"}>
+        <span className={standfirst ? "font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant" : "ml-auto font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant"}>
           {minutes} min
         </span>
       ) : null}
@@ -36,7 +36,7 @@ export const SectionKey = ({
   );
   const practice = concrete && (
     <p className="mt-3 font-body font-normal text-sm text-on-surface-variant">
-      <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mr-2">
+      <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary mr-2">
         In practice
       </span>
       {concrete}

@@ -10,7 +10,7 @@ import { useTrackClick } from "@/hooks/useTrackClick";
 import sonorPhoto from "@/assets/case-sonor.png";
 import compassPhoto from "@/assets/case-paris-compass.jpg";
 
-const kicker = "font-mono text-[11px] font-medium uppercase tracking-[0.12em]";
+const kicker = "font-mono text-kicker font-medium uppercase tracking-[0.12em]";
 const RING = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-secondary";
 
 /** Lamp colour on the page (legend) and on a dark card. One signal, one colour, in both moods. */

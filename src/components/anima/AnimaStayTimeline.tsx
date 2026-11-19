@@ -51,7 +51,7 @@ export const AnimaStayTimeline = () => (
       {COLUMNS.map((col, i) => (
         <li key={col.phase} className="bg-surface-container-lowest p-4 flex flex-col">
           <div className="flex items-center gap-2 mb-3">
-            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant tabular-nums">
+            <span className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant tabular-nums">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="h-px flex-1 bg-outline-variant" aria-hidden="true" />
@@ -67,7 +67,7 @@ export const AnimaStayTimeline = () => (
             ))}
           </ul>
           <div className="border-t border-outline-variant pt-3">
-            <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary block mb-1">
+            <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary block mb-1">
               {col.layer}
             </span>
             <p className="font-body text-xs text-on-surface-variant leading-relaxed">
@@ -79,7 +79,7 @@ export const AnimaStayTimeline = () => (
     </ol>
 
     <div className="mt-4 border border-outline-variant border-l-2 border-l-secondary bg-surface-container-low p-4">
-      <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary block mb-2">
+      <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary block mb-2">
         Marker on the stay <DesignTag />
       </span>
       <p className="font-body text-sm text-on-surface-variant leading-relaxed">
@@ -89,7 +89,7 @@ export const AnimaStayTimeline = () => (
     </div>
 
     <div className="mt-4 flex flex-col sm:flex-row sm:items-baseline gap-2 border-t border-outline-variant pt-3">
-      <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary sm:w-32 shrink-0">
+      <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary sm:w-32 shrink-0">
         Segment layer
       </span>
       <span className="font-body text-sm text-on-surface-variant leading-relaxed">

@@ -86,11 +86,11 @@ export const SelfDiagnostic = ({
       className="mb-12 md:mb-16 not-italic rounded-sm border border-outline bg-surface-container-low p-5 md:p-6"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+        <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">
           {label}
         </div>
         {open && (
-          <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+          <span className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
             {answered}/{questions.length} answered
           </span>
         )}
@@ -120,7 +120,7 @@ export const SelfDiagnostic = ({
                     aria-hidden="true"
                     className="font-body text-sm text-primary"
                   >
-                    <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mr-2">
+                    <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary mr-2">
                       Arm {q.arm}
                     </span>
                     {q.ask}
@@ -131,7 +131,7 @@ export const SelfDiagnostic = ({
                       return (
                         <label
                           key={a.value}
-                          className={`cursor-pointer font-label uppercase tracking-[0.16em] text-[10px] px-3 py-1.5 rounded-sm border transition-colors focus-within:ring-2 focus-within:ring-secondary ${
+                          className={`cursor-pointer font-label uppercase tracking-[0.16em] text-kicker px-3 py-1.5 rounded-sm border transition-colors focus-within:ring-2 focus-within:ring-secondary ${
                             checked
                               ? "border-secondary text-primary bg-secondary/15"
                               : "border-outline-variant text-on-surface-variant hover:border-outline"
@@ -164,7 +164,7 @@ export const SelfDiagnostic = ({
             aria-live="polite"
             className="mt-5 rounded-sm border border-outline-variant bg-surface-container-lowest p-4 md:p-5"
           >
-            <p className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+            <p className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
               Your system, by arm
             </p>
             <ul className="list-none p-0 mt-3 space-y-2">
@@ -187,7 +187,7 @@ export const SelfDiagnostic = ({
                         aria-hidden="true"
                         className={`h-2 w-2 rounded-full shrink-0 ${STATE[state].dot}`}
                       />
-                      <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                      <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                         {STATE[state].label}
                       </span>
                     </span>
@@ -198,7 +198,7 @@ export const SelfDiagnostic = ({
 
             {start && (
               <div className="mt-4 pt-4 border-t border-outline-variant">
-                <p className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                <p className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                   Start here
                 </p>
                 <p className="font-body text-sm text-on-surface-variant mt-2">

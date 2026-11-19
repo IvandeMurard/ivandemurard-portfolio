@@ -23,7 +23,7 @@ const countBy = <T,>(rows: T[], key: (r: T) => string) => {
 
 const Table = ({ title, rows }: { title: string; rows: [string, number][] }) => (
   <section className="mb-10">
-    <h2 className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-3">{title}</h2>
+    <h2 className="font-mono uppercase tracking-[0.12em] text-kicker text-secondary mb-3">{title}</h2>
     {rows.length === 0 ? <p className="text-sm text-on-surface-variant">No data yet.</p> : (
       <ul className="divide-y divide-outline-variant border-y border-outline-variant">
         {rows.map(([k, n]) => (
@@ -178,12 +178,12 @@ const AdminRose = () => {
           </section>
           <Button variant="outline" onClick={() => setShowQuestions((v) => !v)}>{showQuestions ? "Hide recent questions" : "Show recent questions"}</Button>
           {showQuestions ? <section className="mt-5">
-            <h2 className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-3">Recent questions</h2>
+            <h2 className="font-mono uppercase tracking-[0.12em] text-kicker text-secondary mb-3">Recent questions</h2>
             <ul className="divide-y divide-outline-variant border-y border-outline-variant">
               {stats.recent.map((e) => (
                 <li key={e.id} className="py-3 text-sm">
                   <p className="text-on-surface">{e.label_or_question}</p>
-                  <p className="mt-1 font-mono text-[11px] text-on-surface-variant">
+                  <p className="mt-1 font-mono text-meta text-on-surface-variant">
                     {new Date(e.created_at).toLocaleString("en-GB")} · {e.path}{e.section_id ? `#${e.section_id}` : ""} · {e.kind}{e.used_chip ? " · chip" : ""}
                   </p>
                 </li>

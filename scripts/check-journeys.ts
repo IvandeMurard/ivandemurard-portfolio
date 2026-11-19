@@ -7,7 +7,9 @@
 //    a link to a route that only redirects (/journeys, /atherix, /rose-design-lab);
 // b. every URL in llms.txt and llms-full.txt resolves to a route or a file in dist;
 // c. every Rose source label (pageSections.ts) and every section index entry (sectionIndex.generated.ts) points to an
-//    existing id on its page.
+//    existing id on its page;
+// d. no visible text under the site's floor on any route, at 1440, 768 and 390 px: 13 px, or 12 px for an uppercase tracked
+//    label (scripts/check-text-size.ts opens each route in a browser; set PW_CHANNEL=msedge on Windows ARM64).
 //
 // Exit 1 on any failure. Nothing here touches supabase/ and nothing is written.
 
@@ -16,6 +18,7 @@ import { join, relative, resolve } from "path";
 import { BASE_URL, SEO_ROUTES } from "./seo-routes";
 import { PAGE_SECTIONS } from "../src/content/pageSections";
 import { SECTION_INDEX } from "../src/content/sectionIndex.generated";
+import { MIN_KICKER_PX, MIN_TEXT_PX, measureTextSizes, VIEWPORTS } from "./check-text-size";
 
 const DIST = resolve("dist");
 const SRC = resolve("src");
@@ -192,9 +195,21 @@ for (const e of SECTION_INDEX) {
   for (const s of e.sections) checkSection("sectionIndex.generated.ts", e.path, s.id);
 }
 
+// ---------- text size ------------------------------------------------------------------------------------------------
+
+try {
+  for (const r of await measureTextSizes()) {
+    if (!r.small.length) continue;
+    const worst = r.small.slice(0, 3).map((s) => `"${s.text}" ${s.size}px ${s.where}`).join("; ");
+    fail("small-text", `${r.path} at ${r.viewport}px`, `${r.small.length} text node(s)`, `under ${MIN_TEXT_PX}px (${MIN_KICKER_PX}px for uppercase tracked labels), e.g. ${worst}`);
+  }
+} catch (e) {
+  fail("text-size-check", "scripts/check-text-size.ts", "-", (e as Error).message);
+}
+
 // ---------- report --------------------------------------------------------------------------------------------------
 
-console.log(`[check-journeys] ${SEO_ROUTES.length} routes, ${checked} internal links, ${labelled} source-label and section-index entries.`);
+console.log(`[check-journeys] ${SEO_ROUTES.length} routes, ${checked} internal links, ${labelled} source-label and section-index entries, text size on ${SEO_ROUTES.length} routes at ${VIEWPORTS.map((v) => v.name).join("/")} px.`);
 if (unverifiable.size) {
   console.log(`[check-journeys] ${unverifiable.size} anchor(s) on pages whose body is not in the build (not checkable here):`);
   for (const u of [...unverifiable].sort()) console.log(`  ? ${u}`);

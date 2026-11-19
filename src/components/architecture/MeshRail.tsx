@@ -35,10 +35,10 @@ export const MeshRail = () => (
   <section aria-label="The five nodes of the architecture" className="px-6 md:px-12 mb-12 md:mb-16">
     <div className="max-w-screen-2xl mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-4">
-        <h2 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+        <h2 className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">
           Where this sits
         </h2>
-        <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+        <span className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
           Five nodes · one contract
         </span>
       </div>
@@ -50,12 +50,12 @@ export const MeshRail = () => (
             return (
               <li key={item.slug} className="px-0 py-5 lg:px-5 lg:first:pl-0 lg:last:pr-0">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant tabular-nums">
+                  <span className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="h-px flex-1 bg-outline-variant" aria-hidden="true" />
                   <Pip state={state} />
-                  <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                  <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                     {STATE_LABEL[state]}
                   </span>
                 </div>

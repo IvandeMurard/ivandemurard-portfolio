@@ -162,7 +162,7 @@ const Tacet = () => (
       {/* Hero */}
       <Reveal as="section" className="relative min-h-[80vh] md:min-h-[800px] flex flex-col justify-center px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 overflow-hidden">
         <div className="relative z-10 max-w-4xl">
-          <p data-reveal-child className="font-label text-secondary uppercase tracking-[0.3em] text-xs mb-8">
+          <p data-reveal-child className="font-label text-secondary uppercase tracking-[0.3em] text-kicker mb-8">
             Selected Work / 2026, Hospitality
           </p>
           <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink font-headline text-5xl md:text-9xl italic leading-tight text-heading mb-12">
@@ -188,12 +188,12 @@ const Tacet = () => (
       <section className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-12 md:mb-16">
         <div className="grid md:grid-cols-5 gap-8 py-12 border-y border-outline-variant">
           <div className="md:col-span-1">
-            <h4 className="font-label text-xs uppercase tracking-[0.2em] text-secondary mb-2">Project Info</h4>
+            <h4 className="font-label text-kicker uppercase tracking-[0.2em] text-secondary mb-2">Project Info</h4>
           </div>
           <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-2 gap-8">
             {PROJECT_INFO.map((info) => (
               <div key={info.label}>
-                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">
+                <p className="font-label text-kicker uppercase tracking-widest text-on-surface-variant mb-2">
                   {info.label}
                 </p>
                 {info.href ? (
@@ -263,7 +263,7 @@ const Tacet = () => (
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary mb-2">
+            <p className="font-label text-kicker uppercase tracking-[0.25em] text-on-primary mb-2">
               Environmental twin, isometric view
             </p>
             <p className="font-headline italic text-on-primary text-xl md:text-2xl max-w-md leading-snug">
@@ -293,7 +293,7 @@ const Tacet = () => (
               style={{ ["--reveal-delay" as string]: `${300 + i * 80}ms` }}
               className="lift-card p-8 bg-surface-container-low rounded-lg hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
-              <span className="font-label text-[10px] text-secondary mb-8 block tracking-widest">{s.n}</span>
+              <span className="font-label text-meta text-secondary mb-8 block tracking-widest">{s.n}</span>
               <div className="w-12 h-12 rounded-full bg-surface-container-highest/50 mb-6 flex items-center justify-center text-primary">
                 <Icon name={s.icon} className="text-sm" />
               </div>
@@ -305,7 +305,7 @@ const Tacet = () => (
 
         {/* Example workflow pull-quote */}
         <div className="max-w-3xl mx-auto bg-primary text-on-primary rounded-2xl p-8 md:p-12 relative overflow-hidden">
-          <span className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary mb-4 block">
+          <span className="font-label text-kicker uppercase tracking-[0.25em] text-on-primary mb-4 block">
             Example workflow
           </span>
           <p className="font-headline italic text-xl md:text-2xl leading-relaxed">
@@ -352,7 +352,7 @@ const Tacet = () => (
               className="lift-card p-8 md:p-10 bg-surface-container-low border border-outline-variant rounded-2xl hover:bg-surface-container-lowest hover:shadow-2xl hover:shadow-primary/5 group relative overflow-hidden"
             >
               <div className="flex items-center justify-between mb-6">
-                <span className="font-label text-[10px] text-secondary tracking-[0.25em]">PILLAR {p.letter}</span>
+                <span className="font-label text-meta text-secondary tracking-[0.25em]">PILLAR {p.letter}</span>
                 <div className="w-10 h-10 rounded-full bg-surface-container-highest/50 flex items-center justify-center text-primary">
                   <Icon name={p.icon} className="text-sm" />
                 </div>
@@ -449,7 +449,7 @@ const Tacet = () => (
             Over time, Tacet becomes the environmental layer of an agentic OS for hospitality: each property reads its surroundings with its own context, and responds faster because of it. A Quiet Certification standard is a likely side-effect, not the goal.
           </p>
           <div className="mt-8 mx-auto max-w-2xl border border-outline-variant bg-surface-container-lowest p-5 text-left">
-            <span className="inline-flex items-center border border-outline px-2 py-0.5 font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant">
+            <span className="inline-flex items-center border border-outline px-2 py-0.5 font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant">
               Design
             </span>
             <p className="mt-3 font-body text-sm text-on-surface-variant leading-relaxed">
@@ -486,7 +486,7 @@ const Tacet = () => (
               className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
               <ExternalMark className="text-xs">
-                <span className="font-label text-xs uppercase tracking-widest mr-3">
+                <span className="font-label text-kicker uppercase tracking-widest mr-3">
                   Original B2C dashboard, visual reference
                 </span>
               </ExternalMark>
@@ -498,7 +498,7 @@ const Tacet = () => (
               className="inline-flex items-center text-secondary border-b border-secondary pb-1 hover:border-secondary transition-colors"
             >
               <ExternalMark className="text-xs">
-                <span className="font-label text-xs uppercase tracking-widest mr-3">
+                <span className="font-label text-kicker uppercase tracking-widest mr-3">
                   View source on GitHub
                 </span>
               </ExternalMark>
@@ -529,7 +529,7 @@ const Tacet = () => (
       <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">
         <a
           href="/tacet.md"
-          className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
+          className="font-label text-kicker uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
         >
           View as markdown
         </a>

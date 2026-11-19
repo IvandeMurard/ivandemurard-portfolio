@@ -9,7 +9,7 @@ import { CompassRose } from "@/components/rose/CompassRose";
  */
 
 export const LABEL = "font-label text-xs";
-export const KICKER = "font-label text-[10px] uppercase tracking-[0.18em] text-secondary";
+export const KICKER = "font-label text-kicker uppercase tracking-[0.18em] text-secondary";
 
 /** Runs `work` at most once per frame on scroll and resize. */
 export const useFrameScroll = (work: () => void) => {

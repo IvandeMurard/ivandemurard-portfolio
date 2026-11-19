@@ -12,7 +12,7 @@ const badgeTone: Record<Confidence, string> = {
 export const ConfidenceBadge = ({ confidence }: { confidence: Confidence }) => (
   <Tooltip delayDuration={80}>
     <TooltipTrigger asChild>
-      <span tabIndex={0} className={`inline-flex cursor-help rounded-sm border underline decoration-dotted decoration-1 underline-offset-[3px] px-2 py-1 font-label text-[9px] uppercase tracking-[0.16em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${badgeTone[confidence]}`}>
+      <span tabIndex={0} className={`inline-flex cursor-help rounded-sm border underline decoration-dotted decoration-1 underline-offset-[3px] px-2 py-1 font-label text-kicker uppercase tracking-[0.16em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${badgeTone[confidence]}`}>
         {confidence}
       </span>
     </TooltipTrigger>
@@ -27,7 +27,7 @@ export const CompassTimeline = ({ caption }: { caption: string }) => (
     <ol className="relative list-none p-0 m-0 before:absolute before:bottom-3 before:left-[5.2rem] before:top-3 before:w-px before:bg-outline-variant md:before:left-[7.2rem]">
       {COMPASS_TIMELINE.map((item) => (
         <li key={`${item.date}-${item.event}`} className={`relative grid grid-cols-[4.25rem_minmax(0,1fr)] gap-5 py-3 md:grid-cols-[6rem_minmax(0,1fr)] md:gap-7 ${item.withheld ? "opacity-75" : ""}`}>
-          <time className="pt-1 text-right font-label text-[10px] uppercase tracking-[0.12em] text-secondary">{item.date}</time>
+          <time className="pt-1 text-right font-label text-kicker uppercase tracking-[0.12em] text-secondary">{item.date}</time>
           <span aria-hidden="true" className={`absolute left-[4.9rem] top-[1.15rem] h-2.5 w-2.5 rounded-full border bg-surface-container-lowest md:left-[6.9rem] ${item.withheld ? "border-dashed border-outline" : "border-secondary"}`} />
           <div className={`min-w-0 rounded-sm border px-3 py-3 md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-4 ${item.withheld ? "border-dashed border-outline-variant bg-surface-container-low" : "border-outline-variant"}`}>
             <div className="min-w-0">
@@ -67,7 +67,7 @@ export const CompassConfidence = ({ caption }: { caption: string }) => (
     <dl className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
       {[["Established", "51%"], ["Corroborated", "6%"], ["Probable", "37%"], ["Undetermined", "6%"]].map(([label, value], i) => (
         <div key={label} className="min-w-0 border-l border-outline-variant pl-3">
-          <dt className="font-body text-sm text-on-surface-variant break-words"><span className="text-secondary mr-2 font-label text-[10px]">{String(i + 1).padStart(2, "0")}</span>{label}</dt>
+          <dt className="font-body text-sm text-on-surface-variant break-words"><span className="text-secondary mr-2 font-label text-meta">{String(i + 1).padStart(2, "0")}</span>{label}</dt>
           <dd className="font-headline italic text-xl text-heading mt-1">{value}</dd>
         </div>
       ))}

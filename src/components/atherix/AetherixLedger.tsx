@@ -1,7 +1,7 @@
 import { LEDGER } from "@/content/aetherixInside";
 import { cn } from "@/lib/utils";
 
-const head = "font-label text-[11px] uppercase tracking-[0.08em] text-on-surface-variant";
+const head = "font-label text-kicker uppercase tracking-[0.08em] text-on-surface-variant";
 /** From md up a row is one line of five columns; below md it is a small card, "label: value" per line. */
 const rowCls = "block border-b border-outline-variant py-3 md:grid md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] md:gap-3";
 
@@ -16,7 +16,7 @@ export const AetherixLedger = () => {
     <div className="aetherix-dark mt-7 rounded-[20px] px-5 py-7 md:px-9 md:py-8">
       <div aria-hidden="true" className="aetherix-dark-glow" />
       <div className="relative">
-        <p className="font-label text-[11px] uppercase tracking-[0.12em] text-on-surface-variant">{LEDGER.tableLabel}</p>
+        <p className="font-label text-kicker uppercase tracking-[0.12em] text-on-surface-variant">{LEDGER.tableLabel}</p>
         <table role="table" aria-label={LEDGER.tableAria} className="mt-4 block w-full text-left font-body text-sm">
           <thead role="rowgroup" className="sr-only md:not-sr-only md:block">
             <tr role="row" className={cn(rowCls, "py-2")}>
