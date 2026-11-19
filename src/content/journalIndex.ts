@@ -6,8 +6,10 @@
 // so a new revision or a new project moves them everywhere at once. Dates stay on the note pages, in the Markdown mirror
 // and in JSON-LD; they are not on the cards.
 
-import { JOURNAL_ENTRIES, JOURNAL_KNOWLEDGE_QUESTIONS, type JournalEntry } from "./journal";
-import { readingLabel } from "./readingTime";
+// Reads the generated index data only (scripts/generate-journal-meta.ts), never journal.ts: no note body reaches the homepage or /journal.
+import { JOURNAL_META as JOURNAL_ENTRIES, KNOWLEDGE_QUESTIONS as JOURNAL_KNOWLEDGE_QUESTIONS, type JournalMeta as JournalEntry } from "./journalMeta.generated";
+export type { JournalMeta } from "./journalMeta.generated";
+import { readingLabel } from "./readingLabel";
 
 export const INDEX_HERO = {
   kicker: "Field Notes",

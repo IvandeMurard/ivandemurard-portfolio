@@ -7,6 +7,7 @@ import { HeroGlow, resetHeroArrival } from "@/components/home/HeroGlow";
 import { MoodProvider, useMood } from "@/components/MoodProvider";
 import { AmbienceProvider } from "@/components/AmbienceProvider";
 import { INDEX_HERO, INDEX_COPY, notesInOrder } from "@/content/journalIndex";
+import { JOURNAL_ENTRIES } from "@/content/journal";
 import { resetParisClock } from "@/lib/parisClock";
 
 // Homepage v2 (18 Nov 2026), part A: warm rooms, a hero lit by the hour in Paris, the Field Notes block read from /journal.
@@ -179,7 +180,8 @@ describe("03 · Field Notes on the homepage", () => {
     const t = block().textContent!;
     expect(t).not.toMatch(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) 20\d\d\b/);
     expect(t).not.toContain("Keep the forecaster and the actor apart.");
-    for (const e of notesInOrder()) {
+    // The full entries: the old excerpts and hooks live only in the note bodies, not in the index data.
+    for (const e of JOURNAL_ENTRIES) {
       expect(t).not.toContain(e.excerpt);
       if (e.homeHook) expect(t).not.toContain(e.homeHook.text);
       expect(t).not.toContain(`${e.category} ·`);

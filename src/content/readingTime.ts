@@ -86,12 +86,4 @@ export const visibleMinutes = (body: JournalBlock[], wpm = 230) => Math.max(1, M
 /** Minutes with every fold open. */
 export const fullMinutes = (body: JournalBlock[], wpm = 230, extra: string[] = []) => Math.max(1, Math.round(fullWords(body, extra) / wpm));
 
-/** The full count is worth saying when it is at least this many minutes longer than the default one. */
-export const FULL_GAP_MINUTES = 5;
-
-/**
- * The reading-time label, computed: "18 min", or "18 min · 36 with every detail open" when the full count is at least
- * five minutes longer. Never typed.
- */
-export const readingLabel = (visible: number, full?: number): string =>
-  full !== undefined && full - visible >= FULL_GAP_MINUTES ? `${visible} min · ${full} with every detail open` : `${visible} min`;
+export { FULL_GAP_MINUTES, readingLabel } from "./readingLabel";

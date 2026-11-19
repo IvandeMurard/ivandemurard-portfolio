@@ -2,6 +2,7 @@ import { useId, useState, type ReactNode } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { cn } from "@/lib/utils";
 import type { JournalBlock, JournalEntry, PeakBlock } from "@/content/journal";
+import type { JournalMeta } from "@/content/journalMeta.generated";
 import { metaLine, readLabel, revisedLabel, revisionCount } from "@/content/journalIndex";
 
 /**
@@ -212,7 +213,7 @@ export const ReferenceZone = ({ chips, children }: { chips: ReferenceChip[]; chi
 );
 
 /** Between the end of the argument and the reference zone: the other two notes, framed by the decision they help with. */
-export const ContinueCards = ({ notes, also }: { notes: JournalEntry[]; also?: { label: string; to: string; why?: string }[] }) => (
+export const ContinueCards = ({ notes, also }: { notes: JournalMeta[]; also?: { label: string; to: string; why?: string }[] }) => (
   <nav aria-labelledby="continue-exploring" className="mt-20">
     <h2 id="continue-exploring" className="mb-5 font-label text-kicker uppercase tracking-[0.2em] text-secondary">Continue exploring</h2>
     <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
