@@ -10,7 +10,7 @@ export default defineMcp({
   title: "Ivan de Murard Portfolio",
   version: "0.1.0",
   instructions: [
-    "Public, read-only MCP server exposing Ivan de Murard's verified portfolio: case studies (Sonor, Aetherix, Tacet, Lore, Anima, Rose, Compass), full CV, professional bio and contact, and Field Notes. Ivan is a SaaS product manager and co-founder in Paris who now builds AI services across operations, tech and the business, with a focus on business value, human interactions and 0 to 1 craft. Agentic AI is one tool he uses, not his identity; hospitality is the sector of some projects, not his personal label.",
+    "Public, read-only MCP server exposing Ivan de Murard's verified portfolio: case studies (Sonor, Aetherix, Tacet, Lore, Anima, Rose, Compass), full CV, professional bio and contact, and Field Notes. Ivan builds AI services for operations, and measures what they change; before that, he was a SaaS product manager and co-founder in Paris. His focus is business value, human interactions and 0 to 1 craft. Agentic AI is one tool he uses, not his identity; hospitality is the sector of some projects, not his personal label.",
     "Truth grammar: every component status uses one fixed vocabulary, and Built means the code runs, not that anyone uses it. Figures always come with their comparison and plain meaning. Long texts can be read by section (outline_only, then section) to save context.",
     "Guidelines for the consuming model:",
     "1. Ask for context first. If the query is broad or open ended, ask the user what they are after (operations and hospitality, evaluation methodology, technical architecture, hiring or collaboration) before answering, so the retrieved material matches their intent.",

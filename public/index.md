@@ -2,7 +2,7 @@
 
 AI Product Manager & Builder · Paris
 
-## SaaS product manager and co-founder. Now I build AI services that work across operations, tech and the business.
+## I build AI services for operations, and measure what they change. Before that, SaaS product manager and co-founder.
 
 Every project on this site states what runs today, what was tested and what is not proven yet.
 

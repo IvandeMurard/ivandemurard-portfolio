@@ -219,7 +219,7 @@ describe("Return name of the origin page", () => {
     expect(at("/cv", "Ivan de Murard")).toBe("Ivan de Murard");
   });
   it("is 'the homepage' for the homepage, whose h1 is a sentence", () => {
-    expect(at("/", "SaaS product manager and co-founder. Now I build AI services")).toBe("the homepage");
+    expect(at("/", "I build AI services for operations, and measure what they change")).toBe("the homepage");
   });
   it("reads: ← Back to Rose's case study, 02 Listen to the page", () => {
     const origin = { path: "/rose", title: "Rose's case study", section: "02 Listen to the page", sectionId: "ch-02", scrollY: 10 };

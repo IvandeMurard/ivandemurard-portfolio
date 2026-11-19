@@ -76,7 +76,7 @@ const Index = () => {
       <Seo
         title="Ivan de Murard, AI Product Manager & Builder, Paris"
         rawTitle
-        description="AI Product Manager & Builder in Paris. Front-of-house, co-founder, product manager. Now I build AI workflows for operations, bridging operations, tech and real business value."
+        description="AI Product Manager & Builder in Paris. I build AI services for operations, and measure what they change. Before that, SaaS product manager and co-founder."
         path="/"
         jsonLd={[personJsonLd, { "@context": "https://schema.org", "@type": "WebSite", name: "Ivan de Murard", url: SITE.url, inLanguage: "en" }]}
       />
@@ -89,7 +89,7 @@ const Index = () => {
           <div className="max-w-[760px]" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
             <h1 className="font-headline font-normal text-heading text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
-              SaaS product manager and co-founder. Now I build AI services that work across operations, tech and the business.
+              I build AI services for operations, and measure what they change. Before that, SaaS product manager and co-founder.
             </h1>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
               Every project on this site states what runs today, what was tested and what is not proven yet.
