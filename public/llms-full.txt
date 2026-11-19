@@ -68,7 +68,7 @@ Confidence. Nothing is stored as a fact. Every claim carries a weight, a source 
 
 Ethics in the data model. Edmondo Grassi (The Remains of the Stay: Memory, Identity, and the Afterlife of the Guest, Hotel Yearbook 2026 Technology Edition) notes that the stay no longer ends at check-out, it merely changes form, and asks whether remembering is an act of care or an exercise of power. The answer here is decay on every claim, layers that expire by design, inference marked as inference, and a scope gate that makes total recall impossible rather than discouraged.
 
-Boundaries. Any consumer declares which layer it queries; there is no call returning everything known about a person. Anima answers who a guest is right now and never what to do about it: that belongs to the orchestrator, with a human validating. Guest experience is not a node, it is a cross-cutting signal, which is why guest.* lives in the shared contract.
+Boundaries. Any consumer declares which layer it queries; there is no call returning everything known about a person. Anima answers who a guest is right now and never what to do about it: that is meant to belong to the orchestrator (Design), with a human validating. Guest experience is not a node, it is a cross-cutting signal, which is why guest.* lives in the shared contract.
 
 Status. Synthetic PoC. Four-layer memory implemented, working MCP server, evaluated on a synthetic cohort. Never run on a real guest, and it will not until a formal data-protection assessment is complete. Shipped as a prototype at an Anthropic hackathon, June 2026. Production is phase 4.
 
@@ -326,7 +326,7 @@ Case study · Rose
 
 Status: Live, text only
 
-Last updated 2026-11-17.
+Last updated 2026-11-19.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.
 
@@ -612,8 +612,8 @@ How Rose works. Solid lines are built; dashed lines are design.
   One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP.
 - Peritia part of, design Orchestrator
   The trade agent, named in the contract, with no code yet. Links to /architecture.
-- Tacet direct, until the orchestrator exists Aetherix
-  Until the orchestrator is built, Tacet's output reaches Aetherix directly: non-personal, read-only, logged.
+- Tacet direct, while the orchestrator is not the way through Aetherix
+  While the orchestrator is not the way through, Tacet's output reaches Aetherix directly: non-personal, read-only, logged.
 - Sonor inspired Tacet
   Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels.
 - Lore same thesis Aetherix
@@ -1018,7 +1018,7 @@ Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real serv
 
 Aetherix is one agent of the Hospitality Multi-Agent Architecture (https://ivandemurard.com/architecture). It executes F&B; it does not orchestrate. Every exchange goes through MCP.
 
-- Orchestrator: Routing and business rules (Synthetic PoC · in shadow).
+- Orchestrator: Routing and business rules (Synthetic PoC, in shadow).
 - Aetherix (this page): F&B execution (Built · forecast in shadow mode).
 - Tacet: Sensory: weather, noise, open data (Built · maintenance).
 - Anima: Guest memory (Synthetic PoC · DPIA-gated).
@@ -1029,7 +1029,7 @@ Tacet → Aetherix: direct, while the orchestrator is not the way through.
 
 Third-party agents read it, through MCP · designed.
 
-Every exchange goes through the orchestrator, over MCP. A solid line is Built, long dashes are Synthetic PoC, dots are Design.
+Every exchange goes over MCP; going through the orchestrator is the target (Design). A solid line is Built, long dashes are Synthetic PoC, dots are Design.
 
 ### For the technical reader: stack, evaluation contract, observability, multi-tenant security
 
@@ -1144,7 +1144,7 @@ Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer
 
 Rather than overwhelming staff with another dashboard of raw data, Tacet mathematically calculates the real-world impact of external events. It exposes this intelligence via an MCP (Model Context Protocol) server so that operational agents like Aetherix can adjust F&B and staffing, while Tacet pushes actionable yield rules directly to the RMS (Atomize, Duetto and similar) for human approval.
 
-Three steps: Sense (proxy signals), Reason (ray-tracing physics + dual memory), Expose (MCP server with yield rules and Chain of Thought for the RMS, the PMS, or the orchestrator (Synthetic PoC)).
+Three steps: Sense (proxy signals), Reason (ray-tracing physics + dual memory), Expose (MCP server with yield rules and Chain of Thought for the RMS, the PMS, or, later, the orchestrator (Design)).
 
 Example workflow:
 
@@ -1160,14 +1160,14 @@ Example workflow:
 
 **C. Human-in-the-Loop Guardrail.** Tacet never executes autonomous, destructive actions like changing a price blindly. It formulates a precise Price Modifier Rule (for example, minus 15% on street-facing suites between June 12 and 14) and pushes it to the RMS for human approval. Accountability stays with the team.
 
-**D. Conversational Explainability.** To guarantee transparency without a GUI, Tacet embeds a mathematical Chain of Thought in every JSON response. The orchestrator (Synthetic PoC) parses it and explains the calculation (base noise, distance attenuation, ray-tracing penalty, final impact) to the Revenue Manager in natural language.
+**D. Conversational Explainability.** To guarantee transparency without a GUI, Tacet embeds a mathematical Chain of Thought in every JSON response. An orchestration agent parses it and explains the calculation (base noise, distance attenuation, ray-tracing penalty, final impact) to the Revenue Manager in natural language.
 
 ## 4. Impact and ESG Alignment
 
 Embedded in an agentic OS, properties shift from reactive to proactive yield and operational management.
 
 - **Yield protection.** Pricing noisy inventory ahead of time prevents costly post-stay refunds and protects the average daily rate of the rest of the building.
-- **Operational excellence.** When a heatwave overlaps with a transport strike, the orchestrator (Synthetic PoC; the only way to the manager is Design) proposes F&B supply and staffing buffers before the day starts, for a manager to approve.
+- **Operational excellence.** When a heatwave overlaps with a transport strike, the orchestrator would propose F&B supply and staffing buffers before the day starts, for a manager to approve (Design: combining several nodes' outputs).
 - **Sustainability.** Less energy waste through proactive HVAC optimisation, measurable improvement in guest well-being through proactive mitigation of urban noise pollution.
 
 ## 5. Synergy with Aetherix
@@ -1477,17 +1477,17 @@ Fig. 6.1, the scope gate, one layer per call:
 - Request that passes: semantic layer, room assignment. Scoped, logged, answerable.
 - Anima answers: who this guest is right now. Nothing more.
 - Request that does not pass: "everything about this guest". Blocked by protocol. There is no call that returns a whole person. It is a structural choice, not a policy one.
-- After the answer: a human validates what the orchestrator proposes. Anima never decides.
+- After the answer: a human would validate what the orchestrator proposes (Design). Anima never decides.
 
 A boundary that depends on people asking politely is not a boundary.
 
-Anima answers one question, which is who this guest is right now. What to do about it belongs to the orchestrator, with a human validating, the same separation between perception and decision the F&B node (/aetherix) enforces.
+Anima answers one question, which is who this guest is right now. What to do about it is meant to belong to the orchestrator (Design), with a human validating, the same separation between perception and decision the F&B node (/aetherix) enforces.
 
 ## 7. Where it sits in the architecture
 
 One of four domain nodes, five agents with the orchestrator.
 
-What Anima knows reaches other nodes only through the orchestrator, one layer at a time. Guest experience itself is not a node, which is why `guest.*` lives in the shared contract rather than behind this one service.
+What Anima knows is meant to reach other nodes only through the orchestrator (Design), one layer at a time. Guest experience itself is not a node, which is why `guest.*` lives in the shared contract rather than behind this one service.
 
 The whole picture: /architecture.
 
@@ -1806,7 +1806,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 - **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
-- **Orchestrator** (Synthetic PoC). The supervisory agent: a stateless router with no memory of its own. It routes between the others and holds the decision.
+- **Orchestrator** (Synthetic PoC). The supervisory agent: a stateless router with no memory of its own. In Design, it routes between the others and holds the decision.
 
 ## 1. Why several agents and not one
 

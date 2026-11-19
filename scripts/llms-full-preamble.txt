@@ -68,7 +68,7 @@ Confidence. Nothing is stored as a fact. Every claim carries a weight, a source 
 
 Ethics in the data model. Edmondo Grassi (The Remains of the Stay: Memory, Identity, and the Afterlife of the Guest, Hotel Yearbook 2026 Technology Edition) notes that the stay no longer ends at check-out, it merely changes form, and asks whether remembering is an act of care or an exercise of power. The answer here is decay on every claim, layers that expire by design, inference marked as inference, and a scope gate that makes total recall impossible rather than discouraged.
 
-Boundaries. Any consumer declares which layer it queries; there is no call returning everything known about a person. Anima answers who a guest is right now and never what to do about it: that belongs to the orchestrator, with a human validating. Guest experience is not a node, it is a cross-cutting signal, which is why guest.* lives in the shared contract.
+Boundaries. Any consumer declares which layer it queries; there is no call returning everything known about a person. Anima answers who a guest is right now and never what to do about it: that is meant to belong to the orchestrator (Design), with a human validating. Guest experience is not a node, it is a cross-cutting signal, which is why guest.* lives in the shared contract.
 
 Status. Synthetic PoC. Four-layer memory implemented, working MCP server, evaluated on a synthetic cohort. Never run on a real guest, and it will not until a formal data-protection assessment is complete. Shipped as a prototype at an Anthropic hackathon, June 2026. Production is phase 4.
 

@@ -53,7 +53,7 @@ const HOW = [
     n: "03",
     icon: "hub",
     title: "Expose",
-    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or the orchestrator (Synthetic PoC).",
+    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or, later, the orchestrator (Design).",
   },
 ];
 
@@ -93,7 +93,7 @@ const IMPACT = [
   {
     icon: "restaurant",
     title: "Operational excellence",
-    body: "When a heatwave overlaps with a transport strike, the orchestrator (Synthetic PoC; the only way to the manager is Design) proposes F&B supply and staffing buffers before the day starts, for a manager to approve.",
+    body: "When a heatwave overlaps with a transport strike, the orchestrator would propose F&B supply and staffing buffers before the day starts, for a manager to approve (Design: combining several nodes' outputs).",
   },
   {
     icon: "eco",

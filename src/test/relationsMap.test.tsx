@@ -26,7 +26,7 @@ describe("portfolio-graph.json, the one source", () => {
       "Tacet | part of, built | Orchestrator",
       "Anima | part of, built | Orchestrator",
       "Peritia | part of, design | Orchestrator",
-      "Tacet | direct, until the orchestrator exists | Aetherix",
+      "Tacet | direct, while the orchestrator is not the way through | Aetherix",
       "Sonor | inspired | Tacet",
       "Lore | same thesis | Aetherix",
     ]);
@@ -74,7 +74,7 @@ describe("The list, which is the reading order", () => {
   it("draws dashed link pills for the indirect rows only", () => {
     const { container } = render(<RelationsMap />);
     const dashed = [...container.querySelectorAll(".rm-link[data-indirect]")].map((n) => n.textContent);
-    expect(dashed).toEqual(["direct, until the orchestrator exists", "inspired", "same thesis"]);
+    expect(dashed).toEqual(["direct, while the orchestrator is not the way through", "inspired", "same thesis"]);
     expect([...container.querySelectorAll(".rm-link")].find((n) => n.textContent === "part of, design")?.hasAttribute("data-indirect")).toBe(false);
   });
 

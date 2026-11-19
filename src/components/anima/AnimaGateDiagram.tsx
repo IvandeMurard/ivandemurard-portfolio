@@ -74,7 +74,7 @@ export const AnimaGateDiagram = () => (
         After the answer
       </span>
       <span className="font-body text-sm text-on-surface-variant leading-relaxed">
-        A human validates what the orchestrator proposes. Anima never decides.
+        A human would validate what the orchestrator proposes (Design). Anima never decides.
       </span>
     </div>
   </AnimaFigure>

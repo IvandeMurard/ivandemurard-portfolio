@@ -4,7 +4,7 @@ Case study · Rose
 
 Status: Live, text only
 
-Last updated 2026-11-17.
+Last updated 2026-11-19.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.
 
@@ -290,8 +290,8 @@ How Rose works. Solid lines are built; dashed lines are design.
   One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP.
 - Peritia part of, design Orchestrator
   The trade agent, named in the contract, with no code yet. Links to /architecture.
-- Tacet direct, until the orchestrator exists Aetherix
-  Until the orchestrator is built, Tacet's output reaches Aetherix directly: non-personal, read-only, logged.
+- Tacet direct, while the orchestrator is not the way through Aetherix
+  While the orchestrator is not the way through, Tacet's output reaches Aetherix directly: non-personal, read-only, logged.
 - Sonor inspired Tacet
   Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels.
 - Lore same thesis Aetherix

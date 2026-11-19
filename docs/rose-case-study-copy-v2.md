@@ -140,7 +140,7 @@ One source, portfolio-graph.json, read by the case studies index (projects only)
 | Evaluation | uses the method of | Field Notes (evaluation harness) | The campaign applies the harness and grading method this Field Note describes. | Validated |
 | Aetherix, Tacet, Anima | part of, built | Orchestrator | One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP. | architecture.md |
 | Peritia | part of, design (not dashed: the label carries the status, decided 15 Nov) | Orchestrator | The trade agent, named in the contract, with no code yet. Links to /architecture. | architecture.md |
-| Tacet | direct, until the orchestrator exists (dashed) | Aetherix | Until the orchestrator is built, Tacet's output reaches Aetherix directly: non-personal, read-only, logged. | architecture.md, tacet.md |
+| Tacet | direct, while the orchestrator is not the way through (dashed) | Aetherix | While the orchestrator is not the way through, Tacet's output reaches Aetherix directly: non-personal, read-only, logged. | architecture.md, tacet.md |
 | Sonor | inspired (dashed) | Tacet | Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels. | sonor.md |
 | Lore | same thesis (dashed) | Aetherix | The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project. | lore.md |
 | Compass | none |  | Standalone project. | MCP instructions |

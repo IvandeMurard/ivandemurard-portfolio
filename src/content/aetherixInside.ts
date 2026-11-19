@@ -79,7 +79,7 @@ export const ARCH = {
   intro: ["Aetherix is one agent of the ", "Hospitality Multi-Agent Architecture", ". It executes F&B; it does not orchestrate. Every exchange goes through MCP."],
   figureLabel: "The Hospitality Multi-Agent Architecture: four agents around an orchestrator, inside the Decision Ledger",
   nodes: [
-    { id: "orchestrator", name: "Orchestrator", role: "Routing and business rules", status: "Synthetic PoC · in shadow", line: "dashed" },
+    { id: "orchestrator", name: "Orchestrator", role: "Routing and business rules", status: "Synthetic PoC, in shadow", line: "dashed" },
     { id: "aetherix", name: "Aetherix", role: "F&B execution", status: "Built · forecast in shadow mode", line: "solid" },
     { id: "tacet", name: "Tacet", role: "Sensory: weather, noise, open data", status: "Built · maintenance", line: "solid" },
     { id: "anima", name: "Anima", role: "Guest memory", status: "Synthetic PoC · DPIA-gated", line: "dashed" },
@@ -90,7 +90,7 @@ export const ARCH = {
   ledgerText: "built in Aetherix; shared across agents: Design",
   link: "Tacet → Aetherix: direct, while the orchestrator is not the way through",
   thirdParty: "Third-party agents read it, through MCP · designed",
-  caption: "Every exchange goes through the orchestrator, over MCP. A solid line is Built, long dashes are Synthetic PoC, dots are Design.",
+  caption: "Every exchange goes over MCP; going through the orchestrator is the target (Design). A solid line is Built, long dashes are Synthetic PoC, dots are Design.",
 };
 
 export const NEXT = {

@@ -134,7 +134,7 @@ describe("Where it sits", () => {
     expect(STATUSES.anima.note).toContain("DPIA");
     expect(status.anima).toBe("Synthetic PoC · DPIA-gated");
     expect(status.aetherix).toBe("Built · forecast in shadow mode");
-    expect(status.orchestrator).toBe("Synthetic PoC · in shadow");
+    expect(status.orchestrator).toBe("Synthetic PoC, in shadow");
     expect(MESH_ANCHORS.find((a) => a.slug === "orchestrator")!.status.startsWith("Synthetic PoC")).toBe(true);
     expect(status.peritia.startsWith("Design")).toBe(true);
     expect(MESH_ANCHORS.find((a) => a.slug === "peritia")!.status.startsWith("Design")).toBe(true);

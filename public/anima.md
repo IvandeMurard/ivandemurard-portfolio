@@ -87,17 +87,17 @@ Fig. 6.1, the scope gate, one layer per call:
 - Request that passes: semantic layer, room assignment. Scoped, logged, answerable.
 - Anima answers: who this guest is right now. Nothing more.
 - Request that does not pass: "everything about this guest". Blocked by protocol. There is no call that returns a whole person. It is a structural choice, not a policy one.
-- After the answer: a human validates what the orchestrator proposes. Anima never decides.
+- After the answer: a human would validate what the orchestrator proposes (Design). Anima never decides.
 
 A boundary that depends on people asking politely is not a boundary.
 
-Anima answers one question, which is who this guest is right now. What to do about it belongs to the orchestrator, with a human validating, the same separation between perception and decision the F&B node (/aetherix) enforces.
+Anima answers one question, which is who this guest is right now. What to do about it is meant to belong to the orchestrator (Design), with a human validating, the same separation between perception and decision the F&B node (/aetherix) enforces.
 
 ## 7. Where it sits in the architecture
 
 One of four domain nodes, five agents with the orchestrator.
 
-What Anima knows reaches other nodes only through the orchestrator, one layer at a time. Guest experience itself is not a node, which is why `guest.*` lives in the shared contract rather than behind this one service.
+What Anima knows is meant to reach other nodes only through the orchestrator (Design), one layer at a time. Guest experience itself is not a node, which is why `guest.*` lives in the shared contract rather than behind this one service.
 
 The whole picture: /architecture.
 

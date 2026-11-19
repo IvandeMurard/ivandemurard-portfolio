@@ -12,7 +12,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 - **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
-- **Orchestrator** (Synthetic PoC). The supervisory agent: a stateless router with no memory of its own. It routes between the others and holds the decision.
+- **Orchestrator** (Synthetic PoC). The supervisory agent: a stateless router with no memory of its own. In Design, it routes between the others and holds the decision.
 
 ## 1. Why several agents and not one
 

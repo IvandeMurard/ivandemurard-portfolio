@@ -21,7 +21,7 @@ Tacet is a headless, predictive Environmental Twin. It acts as the sensory layer
 
 Rather than overwhelming staff with another dashboard of raw data, Tacet mathematically calculates the real-world impact of external events. It exposes this intelligence via an MCP (Model Context Protocol) server so that operational agents like Aetherix can adjust F&B and staffing, while Tacet pushes actionable yield rules directly to the RMS (Atomize, Duetto and similar) for human approval.
 
-Three steps: Sense (proxy signals), Reason (ray-tracing physics + dual memory), Expose (MCP server with yield rules and Chain of Thought for the RMS, the PMS, or the orchestrator (Synthetic PoC)).
+Three steps: Sense (proxy signals), Reason (ray-tracing physics + dual memory), Expose (MCP server with yield rules and Chain of Thought for the RMS, the PMS, or, later, the orchestrator (Design)).
 
 Example workflow:
 
@@ -37,14 +37,14 @@ Example workflow:
 
 **C. Human-in-the-Loop Guardrail.** Tacet never executes autonomous, destructive actions like changing a price blindly. It formulates a precise Price Modifier Rule (for example, minus 15% on street-facing suites between June 12 and 14) and pushes it to the RMS for human approval. Accountability stays with the team.
 
-**D. Conversational Explainability.** To guarantee transparency without a GUI, Tacet embeds a mathematical Chain of Thought in every JSON response. The orchestrator (Synthetic PoC) parses it and explains the calculation (base noise, distance attenuation, ray-tracing penalty, final impact) to the Revenue Manager in natural language.
+**D. Conversational Explainability.** To guarantee transparency without a GUI, Tacet embeds a mathematical Chain of Thought in every JSON response. An orchestration agent parses it and explains the calculation (base noise, distance attenuation, ray-tracing penalty, final impact) to the Revenue Manager in natural language.
 
 ## 4. Impact and ESG Alignment
 
 Embedded in an agentic OS, properties shift from reactive to proactive yield and operational management.
 
 - **Yield protection.** Pricing noisy inventory ahead of time prevents costly post-stay refunds and protects the average daily rate of the rest of the building.
-- **Operational excellence.** When a heatwave overlaps with a transport strike, the orchestrator (Synthetic PoC; the only way to the manager is Design) proposes F&B supply and staffing buffers before the day starts, for a manager to approve.
+- **Operational excellence.** When a heatwave overlaps with a transport strike, the orchestrator would propose F&B supply and staffing buffers before the day starts, for a manager to approve (Design: combining several nodes' outputs).
 - **Sustainability.** Less energy waste through proactive HVAC optimisation, measurable improvement in guest well-being through proactive mitigation of urban noise pollution.
 
 ## 5. Synergy with Aetherix
