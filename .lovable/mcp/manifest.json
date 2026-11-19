@@ -31,7 +31,7 @@
       {
         "name": "get_case_study",
         "title": "Get case study",
-        "description": "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'rose', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pre-pilot · ...); the rest covers vision, architecture, stack and outcomes.",
+        "description": "Fetch the full Markdown narrative for one case study by slug. Slugs: 'sonor', 'aetherix', 'tacet', 'lore', 'anima', 'rose', 'compass'. The text starts with fixed 'Key: value' lines (Slug, Group when present, Source URL, Canonical URL), a blank line, then the Markdown once. The Markdown's first line states the project status (for example Status: Pre-pilot · ...); the rest covers vision, architecture, stack and outcomes. To save context, pass outline_only to get the section titles, then section to fetch one section (status line kept).",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -52,6 +52,16 @@
                 "compass"
               ],
               "description": "Case study slug: sonor, aetherix, tacet, lore, anima, rose, or compass."
+            },
+            "outline_only": {
+              "type": "boolean",
+              "description": "Return only the status line and the list of section titles."
+            },
+            "section": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "description": "Part of a section title, from outline_only; returns that section only."
             }
           },
           "required": [

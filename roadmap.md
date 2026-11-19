@@ -108,3 +108,6 @@
 - [x] Kinetic storytelling: sticky dock scene, Rose pencil marks and margin notes, drawn bridges, continuous compass and progress spine.
 - [x] Chapter 04 contextual lab: Locate, Reformulate, Visualise, Voice (scroll-driven and clickable, design exercise only).
 - [ ] Review Dusk theme, mobile and reduced motion for the new scenes.
+- [x] MCP: case studies readable section by section (outline_only, section).
+- [ ] MCP Resources and Prompts: blocked, the MCP toolkit (up to 3.6) does not support them.
+- [ ] Publish to put the section reading live.
