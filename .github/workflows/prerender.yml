@@ -1,0 +1,48 @@
+name: Prerender snapshots
+
+# Manual only. Builds the site, recaptures prerendered/*.html with headless Chromium (scripts/prerender-capture.py),
+# then opens a pull request with the changed snapshots. Nothing here deploys or publishes, and it never merges.
+# The capture needs a Chromium that Windows ARM64 with Smart App Control refuses to launch, hence this runner.
+# A pull request opened with GITHUB_TOKEN does not start other workflows: close and reopen it to run Journeys.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prerender:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - name: Capture the snapshots
+        run: python scripts/prerender-capture.py
+      - name: Open a pull request with the changed snapshots only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Only prerendered/ is committed: the build also rewrites generated files that must stay out of Git.
+          if git diff --quiet -- prerendered; then
+            echo "No snapshot changed, nothing to open."
+            exit 0
+          fi
+          branch="content/prerender-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add prerendered
+          git commit -m "Prerendered snapshots recaptured from the current build"
+          git push origin "$branch"
+          gh pr create --base "${{ github.event.repository.default_branch }}" --head "$branch" \
+            --title "Prerendered snapshots recaptured" \
+            --body "Recaptured by the Prerender snapshots workflow from the current main. Only prerendered/ changed. Review the diff before merging: it is page markup, so other recent page changes may appear too."
