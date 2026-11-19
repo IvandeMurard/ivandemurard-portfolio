@@ -8,3 +8,6 @@ export const ROSE_WELCOME = {
   record: "Put on a record",
   decline: "No thanks",
 } as const;
+
+// The homepage card's "Ask Rose": a text put in the dock's input and selected, never sent. The reader decides.
+export const ROSE_HOME_PREFILL = "How were you built?";

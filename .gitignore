@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 qa/
+playwright-report/
+test-results/

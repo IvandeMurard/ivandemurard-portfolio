@@ -7,6 +7,7 @@ import { COMPASS_SOURCES_LINE } from "@/content/statuses";
 import { SignalLamp } from "@/components/journal/SignalLamp";
 import { AetherixHomepageLoop } from "@/components/atherix/AetherixHomepageLoop";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
+import { ROSE_HOME_PREFILL } from "@/content/roseWelcome";
 import { ContactBlock } from "@/components/case/ContactBlock";
 import { INDEX_HERO, INDEX_COPY, notesInOrder } from "@/content/journalIndex";
 import { HeroGlow } from "@/components/home/HeroGlow";
@@ -173,7 +174,7 @@ const Index = () => {
                 <Link to={href ?? `/${p.slug}`} onClick={() => track({ label: p.name, href: href ?? `/${p.slug}`, kind: "project" })}
                   className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors">Read the case</Link>
                 {isRose && (
-                  <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask"))}
+                  <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:prefill", { detail: { text: ROSE_HOME_PREFILL } }))}
                     className="text-secondary font-medium border-b border-secondary/40 pb-1 hover:border-secondary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">Ask Rose</button>
                 )}
               </div>
