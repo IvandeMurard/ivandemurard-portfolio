@@ -83,6 +83,7 @@ Who uses, who pays, who distributes.
 - When recent data diverges sharply from history, says so and asks the manager to double-check.
 - After a simulated 25% jump in demand, weekly recalibration cut the forecast error from 15.9% to 12.3%.
 - Stores every recommendation next to what happened, with the manager's override beside it.
+- Daily recommendation, automatic path (Built). A demand anomaly becomes a stored recommendation and a WhatsApp message, no human step. Checked once on staging (19 Nov 2026), anomaly injected by hand on a fictional hotel; no live signals yet.
 
 Sandbox data, real mechanics, deterministic reruns.
 
@@ -160,14 +161,14 @@ Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real serv
 
 Aetherix is one agent of the Hospitality Multi-Agent Architecture (https://ivandemurard.com/architecture). It executes F&B; it does not orchestrate. Every exchange goes through MCP.
 
-- Orchestrator: Routing and business rules (Design, proto-stub).
+- Orchestrator: Routing and business rules (Synthetic PoC · in shadow).
 - Aetherix (this page): F&B execution (Built · forecast in shadow mode).
 - Tacet: Sensory: weather, noise, open data (Built · maintenance).
 - Anima: Guest memory (Synthetic PoC · DPIA-gated).
 - Peritia: House knowledge (Design · pattern tested in Lore).
 - Decision Ledger: built in Aetherix; shared across agents: Design.
 
-Tacet → Aetherix: direct, until the orchestrator exists.
+Tacet → Aetherix: direct, while the orchestrator is not the way through.
 
 Third-party agents read it, through MCP · designed.
 

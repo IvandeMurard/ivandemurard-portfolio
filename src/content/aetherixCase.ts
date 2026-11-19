@@ -92,6 +92,7 @@ export const PROVEN = {
     "When recent data diverges sharply from history, says so and asks the manager to double-check.",
     ["After a simulated 25% jump in demand, weekly recalibration cut the forecast error from ", "15.9% to 12.3%", "."],
     "Stores every recommendation next to what happened, with the manager's override beside it.",
+    "Daily recommendation, automatic path (Built). A demand anomaly becomes a stored recommendation and a WhatsApp message, no human step. Checked once on staging (19 Nov 2026), anomaly injected by hand on a fictional hotel; no live signals yet.",
   ] as Array<string | readonly [string, string, string]>,
   workingNote: "Sandbox data, real mechanics, deterministic reruns.",
   testLabel: "The forecast test",

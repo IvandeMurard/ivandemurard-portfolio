@@ -53,7 +53,7 @@ const HOW = [
     n: "03",
     icon: "hub",
     title: "Expose",
-    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or the orchestrator (Design).",
+    body: "Yield rules and a mathematical Chain of Thought are published on an MCP server, ready for the RMS, the PMS, or the orchestrator (Synthetic PoC).",
   },
 ];
 
@@ -93,7 +93,7 @@ const IMPACT = [
   {
     icon: "restaurant",
     title: "Operational excellence",
-    body: "When a heatwave overlaps with a transport strike, the orchestrator (Design) proposes F&B supply and staffing buffers before the day starts, for a manager to approve.",
+    body: "When a heatwave overlaps with a transport strike, the orchestrator (Synthetic PoC; the only way to the manager is Design) proposes F&B supply and staffing buffers before the day starts, for a manager to approve.",
   },
   {
     icon: "eco",
@@ -117,7 +117,7 @@ const FAQ = [
   },
   {
     q: "How does Tacet relate to Aetherix?",
-    a: "Aetherix reads the internal context (occupancy, F&B, staffing). Tacet reads the external context (street, weather, events) and exposes it through MCP. Until the orchestrator is built (Design), this exchange is direct: the one documented exception, non-personal, read-only, logged.",
+    a: "Aetherix reads the internal context (occupancy, F&B, staffing). Tacet reads the external context (street, weather, events) and exposes it through MCP. While the orchestrator is not the way through (Synthetic PoC, in shadow), this exchange is direct: the one documented exception, non-personal, read-only, logged.",
   },
 ];
 
@@ -403,7 +403,7 @@ const Tacet = () => (
             {" "}consumes them as one more tool in the multi-agent architecture.
           </p>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-4">
-            Until the orchestrator is built (Design), this exchange is direct: the one documented exception,
+            While the orchestrator is not the way through (Synthetic PoC, in shadow), this exchange is direct: the one documented exception,
             non-personal, read-only, logged.
           </p>
           <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed mt-4">

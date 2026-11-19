@@ -1,7 +1,7 @@
 # Hospitality Multi-Agent Architecture
 
 Architecture note. Five specialised agents, each owning one bounded context, talking only through MCP.
-Two are Built, one is a Synthetic PoC, two are Design. This page says which is which, using one shared status vocabulary: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/llms.txt
+Two are Built, two are a Synthetic PoC, one is Design. This page says which is which, using one shared status vocabulary: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/llms.txt
 
 Canonical page: https://ivandemurard.com/architecture
 Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture
@@ -12,7 +12,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 - **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
-- **Orchestrator** (Design, a proto-stub exists). The supervisory agent: a stateless router with no memory of its own. It routes between the others and holds the decision.
+- **Orchestrator** (Synthetic PoC). The supervisory agent: a stateless router with no memory of its own. It routes between the others and holds the decision.
 
 ## 1. Why several agents and not one
 
@@ -50,9 +50,9 @@ most in memory.
 | Tacet | Built, maintenance mode since July 2026 | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Synthetic PoC, production DPIA-gated | Guest memory: what a guest said and what happened, four layers, each claim with source, confidence and age | Acting on it, or returning a whole person: every query declares one layer |
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
-| Orchestrator | Design, stateless router, no memory | Supervisory routing and business rules across agents | Domain logic and memory. It routes, it does not compute and it stores nothing |
+| Orchestrator | Runs in the shadow of the F&B node's daily recommendation and never changes or sends it. Run once on staging, on synthetic input: its model step failed yet the run reported success. Becoming the only way to the manager is Design. | Supervisory routing and business rules across agents | Domain logic and memory. It routes, it does not compute and it stores nothing |
 
-Fig. 3.1, on the web page, wires the four domain agents to the orchestrator at the centre: a solid spoke for what is built, a dashed spoke for what is designed and not written. The orchestrator holds no memory of its own; state stays with the agent that owns it, and no agent talks to another. Selecting a mark shows what that agent owns and what it does not own, with the same wording as the table above.
+Fig. 3.1, on the web page, wires the four domain agents to the orchestrator at the centre: a solid spoke for what is built, a dashed spoke for what is a Synthetic PoC or designed and not written. The orchestrator holds no memory of its own; state stays with the agent that owns it, and no agent talks to another. Selecting a mark shows what that agent owns and what it does not own, with the same wording as the table above.
 
 Aetherix executes. It does not orchestrate.
 
@@ -63,7 +63,7 @@ Aetherix executes. It does not orchestrate.
    and the arbitration stops being reviewable.
 2. **MCP is the only doorway.** Nodes do not import each other. Every exchange is a tool call, so
    every exchange is loggable, auditable and priceable, and a node can be replaced without its
-   neighbours knowing. Until the orchestrator is built (Design), Tacet's output reaches Aetherix
+   neighbours knowing. While the orchestrator is not the way through (it is a Synthetic PoC, in shadow), Tacet's output reaches Aetherix
    directly: the one documented exception, non-personal, read-only, logged. Target: every exchange
    goes through the orchestrator.
 3. **Tenancy is resolved server-side, never passed as an argument.** The property identifier is

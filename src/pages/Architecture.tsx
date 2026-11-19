@@ -164,7 +164,7 @@ const Architecture = () => {
     <SiteLayout title="Hospitality Multi-Agent Architecture">
       <Seo
         title="Hospitality Multi-Agent Architecture, an Architecture Note"
-        description="Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design. This note says which is which, using one shared status vocabulary."
+        description="Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, two are a Synthetic PoC, one is Design. This note says which is which, using one shared status vocabulary."
         path="/architecture"
         type="article"
         jsonLd={[
@@ -213,7 +213,7 @@ const Architecture = () => {
               style={{ ["--reveal-delay" as string]: "280ms" }}
               className="text-on-surface-variant font-body text-lg max-w-2xl leading-relaxed"
             >
-              Two are Built, one is a Synthetic PoC, two are Design. This page says which is which,
+              Two are Built, two are a Synthetic PoC, one is Design. This page says which is which,
               using one shared status vocabulary:{" "}
               <a
                 href="https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/llms.txt"
@@ -379,7 +379,7 @@ const Architecture = () => {
                       with a timestamp and a source, not as a shared table.
                     </p>
                     <p className="mt-3 border-l-2 border-outline-variant pl-4 font-body text-sm text-on-surface-variant leading-relaxed">
-                      Until the orchestrator is built (Design), Tacet's output reaches Aetherix
+                      While the orchestrator is not the way through (it is a Synthetic PoC, in shadow), Tacet's output reaches Aetherix
                       directly: the one documented exception, non-personal, read-only, logged. Target:
                       every exchange goes through the orchestrator.
                     </p>
@@ -519,7 +519,7 @@ const Architecture = () => {
                 <div className="max-w-3xl">
                   <ShareRow
                     title="Hospitality Multi-Agent Architecture"
-                    excerpt="Specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design."
+                    excerpt="Specialised agents, each owning one bounded context, talking only through MCP. Two are Built, two are a Synthetic PoC, one is Design."
                     mirror="/architecture.md"
                   />
                 </div>

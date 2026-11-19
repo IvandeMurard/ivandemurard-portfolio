@@ -281,7 +281,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "architecture.md",
     title: "Hospitality Multi-Agent Architecture, an Architecture Note · Ivan de Murard",
     description:
-      "Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, one is a Synthetic PoC, two are Design. This note says which is which, using one shared status vocabulary.",
+      "Five specialised agents, each owning one bounded context, talking only through MCP. Two are Built, two are a Synthetic PoC, one is Design. This note says which is which, using one shared status vocabulary.",
     type: "article",
     changefreq: "monthly",
     priority: "0.9",

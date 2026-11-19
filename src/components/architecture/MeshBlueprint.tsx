@@ -108,7 +108,7 @@ export const MeshBlueprint = () => {
           Fig. 3.1 · The architecture, as wired
         </span>
         <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
-          Solid: built · Dashed: designed
+          Solid: built · Dashed: synthetic PoC or designed
         </span>
       </figcaption>
 
@@ -207,7 +207,7 @@ export const MeshBlueprint = () => {
             role="button"
             tabIndex={0}
             aria-pressed={coreActive}
-            aria-label="Orchestrator, Design, stateless router with no memory. Show details."
+            aria-label="Orchestrator, Synthetic PoC, in shadow, stateless router with no memory. Show details."
             className="cursor-pointer focus:outline-none [&:focus-visible_.mesh-core]:stroke-secondary"
             onMouseEnter={() => setHovered(ORCHESTRATOR)}
             onMouseLeave={() => setHovered(null)}
