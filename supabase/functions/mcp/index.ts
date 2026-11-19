@@ -316,6 +316,9 @@ import { defineTool as defineTool4 } from "npm:@lovable.dev/mcp-js@0.24.0";
 // src/content/journalHarnesses.ts
 var HARNESSES_ENTRY = {
   slug: "harnesses-graders-closed-loops",
+  // The closing note (id 15-closing-note) is read right after section 13. The body, its heading ids and their order are unchanged.
+  moves: [{ section: "15-closing-note", after: "13-two-harnesses-and-which-one-this-is" }],
+  standfirst: true,
   decision: "For deciding whether an agent is ready to ship",
   hook: "61 answers out of 64 were right. The run was declared a failure.",
   intro: "Two of the three misses sat in the safety tier. A pass rate with no threshold attached is only a number. This note explains what turns it into a decision.",
@@ -407,32 +410,39 @@ var HARNESSES_ENTRY = {
       text: "**An LLM evaluation harness is the machinery that runs a fixed set of test cases through your model, scores each answer with graders, and returns a verdict a release can depend on.** Think of a driving test: the route is the case set, each line of the examiner's sheet is a grader, the whole exam is the harness. Most teams building with language models can describe what their system does. Far fewer can say how they would know it had stopped working. This is the vocabulary for that second question, and the frameworks that turn it into a decision."
     },
     {
-      kind: "anchors",
-      label: "The two systems referenced here",
-      items: [
+      kind: "fold",
+      summary: "Before you start: the two systems, where the numbers come from, and a check of your own system",
+      blocks: [
         {
-          project: "Aetherix",
-          to: "/aetherix",
-          what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
-          who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
-          feedback: "Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself."
+          kind: "anchors",
+          label: "The two systems referenced here",
+          items: [
+            {
+              project: "Aetherix",
+              to: "/aetherix",
+              what: "A food & beverage execution agent for hotels. It tells a manager how many covers to expect, how to staff for them, and how to cut food waste.",
+              who: "Other agents via MCP, or a hotel / F&B manager with WhatsApp.",
+              feedback: "Reality answers fast. Tomorrow's covers are known the day after, so forecast error computes itself."
+            },
+            {
+              project: "Lore",
+              to: "/lore",
+              what: "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask.",
+              who: "A junior technician on the shop floor, hands busy.",
+              feedback: "The procedure (SOP) is known upfront and wins any conflict. The signed work record, the outcome of the operation actually performed, never returns to Lore, so it cannot learn from outcomes."
+            }
+          ]
         },
         {
-          project: "Lore",
-          to: "/lore",
-          what: "A voice AI mentor that captures, qualifies, and leverages the tacit expertise from senior to junior collaborators. Just ask.",
-          who: "A junior technician on the shop floor, hands busy.",
-          feedback: "The procedure (SOP) is known upfront and wins any conflict. The signed work record, the outcome of the operation actually performed, never returns to Lore, so it cannot learn from outcomes."
-        }
+          kind: "p",
+          text: "The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so."
+        },
+        {
+          kind: "p",
+          text: "**Provenance.** The case set, graders and live numbers below are Lore's, because its runs are recorded and can be replayed. Most of the surrounding machinery was built first in [Aetherix](https://github.com/IvandeMurard/aetherix-hospitality-ai), whose repository is now public too: the exit-code contract, the diff against a frozen baseline, the path-triggered gate with a hash cache, and per-layer thresholds. [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) documents it. Aetherix's own measurements run on a synthetic series and a stand-in parser, as section 2 states."
+        },
+        { kind: "diagnostic" }
       ]
-    },
-    {
-      kind: "p",
-      text: "The numbers below come from those two repositories, not from a whitepaper. Where something is not yet built, it says so."
-    },
-    {
-      kind: "p",
-      text: "**Provenance.** The case set, graders and live numbers below are Lore's, because its runs are recorded and can be replayed. Most of the surrounding machinery was built first in [Aetherix](https://github.com/IvandeMurard/aetherix-hospitality-ai), whose repository is now public too: the exit-code contract, the diff against a frozen baseline, the path-triggered gate with a hash cache, and per-layer thresholds. [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md) documents it. Aetherix's own measurements run on a synthetic series and a stand-in parser, as section 2 states."
     },
     {
       kind: "list",
@@ -448,7 +458,18 @@ var HARNESSES_ENTRY = {
       kind: "peak",
       aria: "Peak moment: the replay",
       kicker: "The proof in ten seconds \xB7 recorded run, Lore",
-      lead: "An engine was burning oil exactly at the limit set by the maintenance manual. The manual says that is already too high. Lore said it was normal.",
+      lead: "An engine is burning oil exactly at the limit set by the maintenance manual.",
+      leadBig: true,
+      challenge: {
+        rule: "The manual: normal below the limit, too high from the limit up.",
+        question: "The reading is exactly at the limit. Normal or too high?",
+        choices: ["Normal", "Too high"],
+        reveal: [
+          "That is what Lore said, and what the first harness accepted. The manual says too high.",
+          "Too high is correct. Lore said normal, and the first harness accepted it."
+        ]
+      },
+      contract: "If you only read three minutes: sections [6](#6-acceptance-criteria-the-part-everyone-skips) and [12](#12-what-a-harness-finds-that-no-unit-test-sees) are the story; the rest is the reference.",
       cols: 3,
       boxes: [
         {
@@ -483,17 +504,21 @@ var HARNESSES_ENTRY = {
     },
     {
       kind: "p",
-      text: "A driving test contains every piece of the machinery. It is worth one pass to fix the words, and the rest of this piece will not need it again."
+      text: "A candidate drives the whole route without a fault. Mirrors checked, signals on time, a clean parallel park. Then, once, they roll through a stop sign on an empty street, and the examiner fails them. Nobody calls it unfair: one major fault outweighs a perfect route, and everyone agreed on that rule before the engine started. [Section 6](/journal/harnesses-graders-closed-loops#6-acceptance-criteria-the-part-everyone-skips) is the same scene with a model: 61 answers right out of 64, and a fail."
+    },
+    {
+      kind: "p",
+      text: "Every part of an evaluation harness is already in that scene."
     },
     {
       kind: "defs",
       items: [
-        { term: "Case set", def: "The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset." },
-        { term: "Grader", def: `One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.` },
-        { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.", note: "The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13." },
-        { term: "Protocol", def: "The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code." },
-        { term: "Open loop", def: "You measure, a human reads it, they may act. The measurement changes nothing by itself." },
-        { term: "Closed loop", def: "The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case." }
+        { term: "Case set", def: "The route. Chosen in advance, every situation with a known right answer. Also called a golden dataset." },
+        { term: "Grader", def: `One line on the examiner's sheet. "Stopped at the stop sign?" Yes or no, and why. One criterion, nothing more.` },
+        { term: "Harness", def: "The whole examination: route, examiner, sheet, pass mark, report. It runs the test and returns a verdict.", note: "The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13." },
+        { term: "Protocol", def: "The rule, written before the test, that a stop sign is a major fault: what counts, above what threshold it fails, who decides. A document and a decision, not code." },
+        { term: "Open loop", def: "The examiner writes a report; someone may read it." },
+        { term: "Closed loop", def: "The result is wired back in: the licence is not issued, and next time the route includes that stop sign." }
       ]
     },
     {
@@ -616,7 +641,6 @@ var HARNESSES_ENTRY = {
       link: { to: "/journal/agent-boundaries-aetherix", text: "Explore the Aetherix architecture" }
     },
     { kind: "h2", text: '3. "Working" against "Reliable", five dimensions' },
-    { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. \u2014 Qonto" },
     {
       kind: "key",
       sigil: "SEC. 3",
@@ -625,6 +649,7 @@ var HARNESSES_ENTRY = {
       oneLine: "Five named dimensions separate a demo from a system you can leave running.",
       concrete: "Lore meets one of the five, is partial on two, absent on two."
     },
+    { kind: "quote", text: "Working is proven on a test set. Reliable is proven in production. \u2014 Qonto" },
     {
       kind: "table",
       caption: "Five reliability dimensions, and where Lore stands",
@@ -779,10 +804,19 @@ var HARNESSES_ENTRY = {
       text: "The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on."
     },
     {
+      kind: "trap",
+      question: "Two runs of the same 53 cases scored 38, then 36. Is the gate ready to block a release?",
+      choices: ["Yes", "Not yet"],
+      reveal: [
+        "That is the trap. Eight cases flipped between two identical runs: the gate would have blocked or passed on luck.",
+        "Not yet is correct. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs: the score depended on the draw."
+      ]
+    },
+    {
       kind: "timeline",
       label: "Lore harness scores, live runs",
       steps: [
-        { value: "38 / 36", label: "Two runs, same 53 cases", note: "Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement." },
+        { value: "38 / 36", label: "Two runs, same 53 cases", note: "Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate depended on the draw." },
         { value: "36 \u2192 53", label: "Temperature 0, defects fixed", note: "Progression 36, 48, 48, 52, then 53 out of 53." },
         { value: "4\xD7", label: "Four consecutive runs, no variance", note: "Baselines frozen only after that. The protocol required 0.00 points of variance before a threshold could block." },
         { value: "61 / 62", label: "After enforcement, 64 cases", note: "Structural enforcement adds a conditional second model call on corrected answers: two chances to diverge. Disjoint failure sets." },
@@ -998,7 +1032,9 @@ var HARNESSES_ENTRY = {
       { "kind": "p", "text": "Three limits, named because they are the ones this piece exists to name:" },
       { "kind": "list", "items": ["**One run is a draw.** Each version of the harness ran once, and the success came on the sixth iteration, with the guardrail set to stop the run beyond six. Section 7 exists because a single run cannot tell a fix from a good draw. The talk's word is reliability; the evidence is one run.", "**The verify step reads the trace, not the world.** It checks that an upvote click was logged as successful, which is the tool's claim about itself. The final check was Kumar opening Hacker News and removing the vote by hand. On a binary task whose outcome sits in the page, that is cheap. On Lore, whose outcome never comes back (section 2), there is no page to open.", "**The verify was written by the person who had just watched the agent fail**, and it covers the two failure modes he saw. That is section 8's author bias in its purest form."] },
       { "kind": "p", "text": "Kumar closes on a wish for 2027: agents that generate their own harness before doing the work, guardrails and verification included. On evaluation grounds, that is the direction to resist. A harness the agent writes for itself includes the verify step that grades it. Section 8 asks who grades the grader; here the grader would be written by the one being graded." },
-      { "kind": "quote", "text": "An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet." },
+      { "kind": "quote", "text": "An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet." }
+    ] },
+    { "kind": "fold", "summary": "Read what that literature adds to this one", "blocks": [
       { "kind": "h3", "text": "What that literature adds to this one" },
       { "kind": "p", "text": "Three things worth taking, none of which this piece specified well enough:" },
       { "kind": "list", "items": [`**The tool gateway as its own layer.** Validate the schema, authorize against policy, execute in a sandbox, and return a *structured observation* - status, reason, evidence, retryable - rather than a wall of terminal output. That is arm B infrastructure, and section 11's "typed emissions at every layer" is the same claim without the mechanism.`, "**A permission ladder matched to consequence.** Reading a public document and deleting customer records should not travel the same approval path. Uniform friction gets routed around.", "**Gating on reversibility rather than on confidence.** Sort work by how expensive the mistake is to undo, and treat the irreversible lane as a lane that does not open rather than a threshold set very high - because thresholds get adjusted under pressure and closed lanes do not. This is section 9's argument arriving from the other direction: a model's confidence is the only input to that decision the model itself can influence, which makes it the weakest variable in the gate."] }
@@ -1010,9 +1046,12 @@ var HARNESSES_ENTRY = {
     { "kind": "p", "text": "Neither is worth reading without the other. Acceptance rate alone is a Goodhart target, and a system optimised on it learns to emit bland, agreeable outputs that cost nothing to approve - the same shape as a support bot that drives its ticket-resolution rate up by closing tickets instead of solving them." },
     { "kind": "p", "text": "And arm C data only compounds if the correction is routed. An override reports that *some layer* was wrong, and which layer decides what the fix is: a stale fact belongs in memory, an unwritten rule belongs in a recorded decision, a preference seen three times belongs in a policy, an unseen pattern belongs in the case set, and an output that should never have been surfaced belongs in the filter upstream. Only the fourth is a retrain. Recording the override as free text - which is what both systems do today - collapses all five into one undifferentiated pile." },
     { "kind": "list", "items": ["**Aetherix**: arm A built, with the forecast gated on synthetic data and the reply parser on a stand-in; arm B partial; arm C recorded on sandbox data after the capture redesign, and not yet measured. The gate described in section 7 is written up in full, with its own canary and the environment-drift diagnosis, at [EVAL_GATE.md](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture/blob/main/EVAL_GATE.md).", "**Lore**: arm A only, and the missing outcome loop is still why its evaluation harness weighs close to a third of its codebase."] },
-    { kind: "h2", text: "14. Frequently asked questions", aliases: ["13-frequently-asked-questions"] },
+    // Numbered 15 on the page since the closing note moved up; its id is the one it always had.
+    { kind: "h2", text: "15. Frequently asked questions", id: "14-frequently-asked-questions", aliases: ["13-frequently-asked-questions"] },
     {
       kind: "lines",
+      visible: ["Why not just write tests?", "Can an LLM judge another LLM's output?", "How do you prevent hallucinations?"],
+      foldSummary: "More questions",
       items: [
         { q: "What is a grader?", a: "One line of a marking sheet: a single criterion, pass or fail, plus the reason. Kept deterministic, because a model judging a model fails the same way as the thing it judges." },
         { q: "Harness or protocol, what is the difference?", a: "The protocol says what passing means. The harness is the machinery that applies it. Neither decides anything without the other." },
@@ -1035,7 +1074,8 @@ var HARNESSES_ENTRY = {
     },
     { kind: "h2", text: "Apply this to your project" },
     { kind: "apply", slug: "harnesses-graders-closed-loops" },
-    { kind: "h2", text: "15. Closing note", aliases: ["closing-note"] },
+    // Shown right after section 13 (see `moves`), so numbered 14; its id is the one it always had.
+    { kind: "h2", text: "14. Closing note", id: "15-closing-note", aliases: ["closing-note"] },
     {
       kind: "p",
       text: `Sources: the "evaluation by design" architecture decision and [Aetherix](https://github.com/IvandeMurard/Hospitality-Multi-agent-Architecture)'s reliability plan. "Eval as a contract" comes from Qonto's engineering. The agent sense of the word, and the Hacker News demo in section 13, come from [Tejas Kumar's talk at IBM](https://www.youtube.com/watch?v=C_GG5g38vLU). Figures and examples come from Lore's harness: 64 cases across 12 categories, 10 graders, 21 reference answers, 19 regressions, 90 tests.`
@@ -1271,12 +1311,211 @@ var TRUTH_ENTRY = {
   ]
 };
 
+// src/content/journalApply.ts
+var ORIGIN = "https://ivandemurard.com";
+var APPLY_GUIDES = {
+  "harnesses-graders-closed-loops": {
+    slug: "harnesses-graders-closed-loops",
+    title: "What is an LLM evaluation harness?",
+    method: "Evaluation by design: offline, runtime and outcome evaluation (arms A, B, C), deterministic graders, frozen acceptance criteria and a release gate.",
+    decision: "Which failures must block a release, and which arm (offline, runtime or outcome) is responsible for catching each one.",
+    inputs: ["The agent's architecture and current tests", "Known failures or incident history", "Input and output contracts", "The error budget you can tolerate per category"],
+    artifact: "A coverage map of failure modes against the three arms, plus test cases, graders and pass/fail thresholds written before the first run.",
+    verify: "Seed one known regression and confirm the gate fails the release. Rerun and confirm the verdict is identical.",
+    task: [
+      "Inspect the agent architecture and the current tests, if I have shared them.",
+      "List the major failure modes.",
+      "Map existing evaluation coverage against them.",
+      "Separate offline, runtime and outcome evaluation.",
+      "Define test cases, grading methods and acceptance criteria for the uncovered failures.",
+      "Identify which of the project's claims can actually be verified, and which cannot yet."
+    ],
+    deliverables: ["A coverage matrix (failure mode \xD7 arm)", "Prioritised implementation tasks", "Reproducible test cases with their graders and thresholds"]
+  },
+  "agent-boundaries-aetherix": {
+    slug: "agent-boundaries-aetherix",
+    title: "Where should an agent's responsibility end?",
+    method: "Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.",
+    decision: "Which decisions the system may take alone, which it may only recommend, and which require a named human's approval.",
+    inputs: ["An inventory of the decisions the application makes or recommends", "Who is accountable for each one", "What it costs to undo each one", "The current prompts and the code paths that act on outputs"],
+    artifact: "A decision register classified by impact, reversibility and required authority, with an approval point, a fallback and an audit record for each.",
+    verify: 'For every rule marked "enforced", show the code location and a test that fails when the rule is violated. A rule that only exists in a prompt is not enforced.',
+    task: [
+      "Inventory the decisions the application makes or recommends.",
+      "Classify each by impact, reversibility and required authority.",
+      "Locate the boundaries between prediction, recommendation and execution.",
+      "Distinguish constraints written as prompt instructions from constraints enforced in code.",
+      "Propose approval points, fallback behaviour and audit records where they are missing."
+    ],
+    deliverables: ["A decision register", "A list of prompt-only rules that should move into code", "An enforceable architecture improvement plan, with one test per boundary"]
+  },
+  "whose-truth-is-the-ground-truth": {
+    slug: "whose-truth-is-the-ground-truth",
+    title: "Whose truth is the ground truth?",
+    method: "Distinguishing documented, declared and observed truth in a feedback loop, and refusing to read approval as correctness.",
+    decision: "Which signals the product may learn from without a human, and which only show agreement.",
+    inputs: ["The feedback and learning loop as it runs today", "Every signal that comes back, who owns it and when it arrives", "How outcomes are recorded, including for rejected recommendations"],
+    artifact: "A truth-signal map: each signal labelled documented, declared or observed, with its owner, its delay and the threshold it is judged against.",
+    verify: "Check on historical data whether approval rate and outcome correctness diverge. If outcomes are never recorded for rejected recommendations, name the missing counterfactual.",
+    task: [
+      "Map the application's feedback and learning loop.",
+      "Classify each signal as documented, declared or observed truth.",
+      "Determine who owns each signal and when it becomes available.",
+      "Identify missing counterfactuals and potential selection bias.",
+      "Check whether approval is anywhere treated as correctness."
+    ],
+    deliverables: ["A truth-signal map", "A list of places where approval stands in for correctness", "Measurable learning and evaluation improvements, each with a pass and a fail threshold"]
+  }
+};
+var applyBrief = (g) => [
+  `Apply a method to my own AI project. Method source: "${g.title}" by Ivan de Murard, ${ORIGIN}/${g.slug}.md (markdown).`,
+  "",
+  `Method: ${g.method}`,
+  "",
+  "Task:",
+  ...g.task.map((t) => `- ${t}`),
+  "",
+  "Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):",
+  ...g.inputs.map((t) => `- ${t}`),
+  "",
+  "Deliverables:",
+  ...g.deliverables.map((t) => `- ${t}`),
+  "",
+  `Verification: ${g.verify}`,
+  "",
+  'Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").',
+  "Do not bypass approvals and do not change production systems without my explicit authorisation."
+].join("\n");
+var applyMarkdown = (g) => [
+  `**The decision.** ${g.decision}`,
+  `**Inputs.**
+${g.inputs.map((i) => `- ${i}`).join("\n")}`,
+  `**The artifact.** ${g.artifact}`,
+  `**Verification.** ${g.verify}`,
+  "**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.",
+  "```text\n" + applyBrief(g) + "\n```"
+].join("\n\n");
+
+// src/content/recoLine.ts
+var SIGNAL_WORD = { go: "GO", warn: "WARN", stop: "STOP", dark: "DARK" };
+var RECO_LINES = {
+  aetherix: {
+    label: "Aetherix",
+    stations: [
+      { name: "Before release", checks: ["warn", "Arm A \xB7 eval gate", "synthetic data, stand-in parser"], truth: ["Documented", "known answers in the case set", "before release"] },
+      { name: "Recommendation sent", checks: ["warn", "Arm B \xB7 runtime guardrails", "typed reason on every trip"], truth: ["None yet", "a forecast is a claim", "not a truth"] },
+      { name: "Manager replies", checks: ["warn", "Decision captured", "model quality not measured"], truth: ["Declared", "the manager\u2019s reply", "same day"] },
+      { name: "Next day", checks: ["warn", "Arm C \xB7 outcome", "against a declared count"], truth: ["Observed", "real covers", "next day"] },
+      { name: "Other staffing", ghost: true, checks: ["dark", "No signal", "never observed"], truth: ["Counterfactual", "another plan\u2019s outcome", "never"] }
+    ],
+    rose: { checks: "Why does a dark signal mean stop?", truth: "Why is a manager\u2019s reply not the truth?" }
+  },
+  lore: {
+    label: "Lore",
+    stations: [
+      { name: "Before release", checks: ["go", "Arm A \xB7 10 graders", "3 tiers, 64 cases"], truth: ["Documented", "the procedure (AMM)", "wins any conflict"] },
+      { name: "Answer given", checks: ["dark", "Arm B \xB7 absent", "no production signals"], truth: ["Enforced", "checked against the band table", "at answer time"] },
+      { name: "Technician acts", checks: ["dark", "Not captured", "-"], truth: ["Not captured", "what the technician did", "-"] },
+      { name: "Work signed", ghost: true, checks: ["dark", "Arm C \xB7 absent", "record never returns"], truth: ["Realized", "the signed work record", "never returns"] }
+    ],
+    rose: { checks: "Why is Lore checked only before release?", truth: "Who decides that the procedure wins?" }
+  }
+};
+var viewOf = (s, layer) => layer === "checks" ? [SIGNAL_WORD[s.checks[0]], s.checks[1], s.checks[2]] : s.truth;
+var recoLineMarkdown = (layer) => {
+  const head = layer === "checks" ? "FIG | What checks a recommendation, station by station\n\n| Line | Station | Signal | Check | Detail |\n|---|---|---|---|---|\n" : "FIG | What comes back at each station, who holds it, and when\n\n| Line | Station | Kind of truth | What it is | When |\n|---|---|---|---|---|\n";
+  const rows = [];
+  for (const k of ["aetherix", "lore"])
+    for (const q of RECO_LINES[k].stations) {
+      const d = viewOf(q, layer);
+      rows.push(`| ${RECO_LINES[k].label} | ${q.name}${q.ghost ? " (never reached)" : ""} | ${d[0]} | ${d[1]} | ${d[2]} |`);
+    }
+  return head + rows.join("\n") + (layer === "checks" ? "\n\nSignals: GO covered, WARN partial, STOP failing, DARK no information (treated as stop)." : "\n\nLamps in this layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.");
+};
+
+// src/content/serviceBlueprint.ts
+var BLUEPRINT_STATUS_LABEL = {
+  built: "Built, sandbox data",
+  planned: "Planned",
+  illustrative: "Illustrative"
+};
+var BLUEPRINT = {
+  title: "Tomorrow's breakfast, from forecast to feedback",
+  scenario: "Illustrative scenario: a hotel F&B manager preparing tomorrow's breakfast service. No hotel is connected yet; no manager, guest outcome or metric here is observed.",
+  stages: [
+    {
+      id: "anticipate",
+      name: "Anticipate",
+      when: "The day before",
+      floor: { text: "The manager is drafting tomorrow's breakfast rota between two other tasks.", status: "illustrative" },
+      touchpoint: { text: "Nothing yet. The system works before it speaks.", status: "built" },
+      behind: { text: "Prophet forecasts covers from occupancy and history, with a range. Code refuses an implausible or low-confidence input.", status: "built" },
+      boundary: { text: "The forecast is a claim with an error bar. No authority: it decides nothing." }
+    },
+    {
+      id: "decide",
+      name: "Decide",
+      when: "Evening",
+      floor: { text: "The manager reads one message, weighs what the system cannot see (a sick waiter, a group check-in), and replies.", status: "illustrative" },
+      touchpoint: { text: "One WhatsApp message: expected covers, confidence, suggested staff. Reply accept, reject or the right figure.", status: "built" },
+      behind: { text: "Claude composes the message and never predicts. The reply is parsed and stored next to the recommendation.", status: "built" },
+      boundary: { text: "Authority passes to the manager. Their reply is declared feedback: a preference, not a fact." },
+      handoff: "Authority changes hands"
+    },
+    {
+      id: "operate",
+      name: "Operate",
+      when: "Breakfast service",
+      floor: { text: "The team serves breakfast on the plan the manager chose. Guests feel the staffing, right or wrong.", status: "illustrative" },
+      touchpoint: { text: "No screen. The decision now lives in the rota and on the floor.", status: "illustrative" },
+      behind: { text: "Nothing acts. The system does not change the rota or contact staff.", status: "built" },
+      boundary: { text: "The action reaches people here. It cannot be replayed: the plan not chosen is never seen." },
+      handoff: "The action reaches people"
+    },
+    {
+      id: "learn",
+      name: "Learn",
+      when: "After service",
+      floor: { text: "The manager glances at the Daily Receipt: forecast against actual, and the gap.", status: "illustrative" },
+      touchpoint: { text: "Daily Receipt: actual covers, forecast, delta, confidence.", status: "built" },
+      behind: { text: "Actual covers ingested from the till; forecast error computed; decision logged for audit. Live till ingestion needs a connected hotel.", status: "planned" },
+      boundary: { text: "Observed: the covers, so the forecast can be scored. Not observed: whether the staffing was right. That stays a judgement." }
+    }
+  ],
+  insight: "A prediction can be evaluated against a later observed number. A recommendation has operational consequences and does not automatically receive an equally definitive verdict.",
+  caption: "Read down a column for one moment of the service, across a row for one layer. The forecast gets a score the next day; the staffing decision gets the manager's word and a service that already happened.",
+  qualifications: [
+    "Built on sandbox and public data (Apaleo sandbox, synthetic series, Kaggle Recruit benchmark): forecast, guard in code, WhatsApp message, reply parser, daily receipt.",
+    "Planned: live ingestion of till data from a connected hotel, which is what would let forecast error be measured on real covers.",
+    "Unproven: that recorded replies improve recommendations, and that any staffing decision improved a real service. No manager has used it yet."
+  ]
+};
+function blueprintMarkdown() {
+  const cell = (c) => `${c.text}${c.status ? ` [${BLUEPRINT_STATUS_LABEL[c.status]}]` : ""}`;
+  return [
+    `**Figure. ${BLUEPRINT.title}.** ${BLUEPRINT.scenario}`,
+    ...BLUEPRINT.stages.map(
+      (s, i) => [
+        `**Stage ${i + 1}, ${s.name}** (${s.when})${s.handoff ? `. ${s.handoff}.` : ""}`,
+        `- On the floor: ${cell(s.floor)}`,
+        `- What the manager sees: ${cell(s.touchpoint)}`,
+        `- Behind the scenes: ${cell(s.behind)}`,
+        `- Authority and evidence: ${cell(s.boundary)}`
+      ].join("\n")
+    ),
+    `**Key distinction.** ${BLUEPRINT.insight}`,
+    BLUEPRINT.caption,
+    `Evidence status:
+${BLUEPRINT.qualifications.map((q) => `- ${q}`).join("\n")}`
+  ].join("\n\n");
+}
+
 // src/content/readingTime.ts
 var firstSentence = (t) => {
   const m = t.match(/^.*?[.!?](?=\s|$)/);
   return m ? m[0] : t;
 };
-var visibleText = (b) => {
+var shownText = (b) => {
   switch (b.kind) {
     case "p":
     case "h2":
@@ -1291,23 +1530,86 @@ var visibleText = (b) => {
     case "defs":
       return b.items.map((i) => `${i.term} ${i.def}`);
     case "lines":
-      return b.items.flatMap((i) => [i.q, i.a]);
+      return (b.visible ? b.items.filter((i) => b.visible.includes(i.q)) : b.items).flatMap((i) => [i.q, i.a]);
     case "key":
       return [b.oneLine, b.concrete ?? ""];
     case "cards":
       return b.items.map((i) => `${i.title} ${i.body}`);
     case "recoLine":
       return [b.caption];
-    case "peak":
-      return [b.kicker, b.lead, ...b.boxes.flatMap((x) => [x.label, x.text, x.note ?? "", x.bubble ?? ""]), b.after ?? ""];
+    case "peak": {
+      const c = b.challenge;
+      return [b.kicker, b.lead, c?.rule ?? "", c?.question ?? "", c ? [...c.reveal].sort((x, y) => y.length - x.length)[0] : "", ...b.boxes.flatMap((x) => [x.label, x.text, x.note ?? "", x.bubble ?? ""]), b.after ?? "", b.contract ?? ""];
+    }
     default:
       return [];
   }
 };
-var visibleMinutes = (body, wpm = 230) => {
-  const words = body.flatMap(visibleText).join(" ").split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / wpm));
+var fullText = (b, extra) => {
+  switch (b.kind) {
+    case "table":
+      return [b.caption ?? "", ...b.head, ...b.rows.flat()];
+    case "defs":
+      return b.items.flatMap((i) => [i.term, i.def, i.note ?? ""]);
+    case "lines":
+      return b.items.flatMap((i) => [i.q, i.a]);
+    case "recoLine":
+      return [b.caption, recoLineMarkdown(b.layer), b.link?.text ?? ""];
+    case "fold":
+      return [b.summary, ...b.blocks.flatMap((x) => fullText(x, extra))];
+    case "anchors":
+      return [b.label ?? "", ...b.items.flatMap((i) => [i.project, i.what, i.who, i.feedback])];
+    case "timeline":
+      return [b.label ?? "", ...b.steps.flatMap((s) => [s.value, s.label, s.note ?? ""])];
+    case "matrix":
+      return [b.label ?? "", ...b.columns, ...b.rows.flatMap((r) => [r.arm, r.when, ...r.cells.flatMap((c) => [c.state, c.instance, c.cost ?? ""])])];
+    case "pyramid":
+      return b.layers.flatMap((l) => [l.level, l.name, l.note ?? "", l.detail ?? "", l.product ?? "", l.signal ?? ""]);
+    case "deployed":
+      return b.items.flatMap((i) => [i.project, i.text]);
+    case "stepper":
+      return [
+        b.label ?? "",
+        b.question,
+        b.rule,
+        b.answer,
+        b.note ?? "",
+        b.reveal.pass,
+        b.reveal.fail,
+        ...b.steps.flatMap((s) => [s.tab, s.verdict, ...s.checks.flatMap((c) => [c.grader, c.result]), s.reading, s.answer ?? ""])
+      ];
+    case "vocab":
+      return [b.label ?? "", ...b.items.map((i) => i.label)];
+    case "arms":
+      return [b.label ?? "", "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", b.link?.text ?? ""];
+    case "callout":
+      return [b.title, b.text, b.link.text];
+    case "askRose":
+      return [b.label ?? "", b.note ?? "", ...b.prompts];
+    case "mcp":
+      return [b.label ?? "", b.note ?? ""];
+    case "trap":
+      return [b.question, ...b.choices, ...b.reveal];
+    case "blueprint":
+      return [blueprintMarkdown()];
+    case "apply": {
+      const g = APPLY_GUIDES[b.slug];
+      return g ? [g.decision, ...g.inputs, g.artifact, g.verify] : [];
+    }
+    case "diagnostic":
+      return extra;
+    // The console is generated by the page, not authored prose.
+    case "console":
+      return [];
+    default:
+      return shownText(b);
+  }
 };
+var words = (texts) => texts.join(" ").split(/\s+/).filter(Boolean).length;
+var fullWords = (body, extra = []) => words(body.flatMap((b) => fullText(b, extra)));
+var visibleWords = (body) => words(body.flatMap(shownText));
+var visibleMinutes = (body, wpm = 230) => Math.max(1, Math.round(visibleWords(body) / wpm));
+var fullMinutes = (body, wpm = 230, extra = []) => Math.max(1, Math.round(fullWords(body, extra) / wpm));
 
 // src/content/journal.ts
 var JOURNAL_ENTRIES = [
@@ -1493,7 +1795,8 @@ var JOURNAL_ENTRIES = [
   HARNESSES_ENTRY,
   TRUTH_ENTRY
 ];
-for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body) });
+var diagnosticText = (e) => e.diagnostic ? [e.diagnostic.label, e.diagnostic.intro, e.diagnostic.caveat, e.diagnostic.allYes, ...e.diagnostic.questions.flatMap((q) => [q.ask, q.gap, q.toLabel])] : [];
+for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body), readingMinutesFull: fullMinutes(entry.body, 230, diagnosticText(entry)) });
 var JOURNAL_KNOWLEDGE_QUESTIONS = [
   { number: "01", label: "Evaluate", question: "How do you know an agent is working?", description: "Learn what correct behavior means and how to test it.", slug: "harnesses-graders-closed-loops", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
   { number: "02", label: "Set boundaries", question: "Where should an agent's responsibility end?", description: "Separate prediction, recommendation and authority.", slug: "agent-boundaries-aetherix", cases: [{ label: "Aetherix", to: "/aetherix" }] },
@@ -1541,204 +1844,45 @@ ${JSON.stringify(entries, null, 2)}` }],
 import { defineTool as defineTool5 } from "npm:@lovable.dev/mcp-js@0.24.0";
 import { z as z2 } from "npm:zod@^3.25.76";
 
-// src/content/recoLine.ts
-var SIGNAL_WORD = { go: "GO", warn: "WARN", stop: "STOP", dark: "DARK" };
-var RECO_LINES = {
-  aetherix: {
-    label: "Aetherix",
-    stations: [
-      { name: "Before release", checks: ["warn", "Arm A \xB7 eval gate", "synthetic data, stand-in parser"], truth: ["Documented", "known answers in the case set", "before release"] },
-      { name: "Recommendation sent", checks: ["warn", "Arm B \xB7 runtime guardrails", "typed reason on every trip"], truth: ["None yet", "a forecast is a claim", "not a truth"] },
-      { name: "Manager replies", checks: ["warn", "Decision captured", "model quality not measured"], truth: ["Declared", "the manager\u2019s reply", "same day"] },
-      { name: "Next day", checks: ["warn", "Arm C \xB7 outcome", "against a declared count"], truth: ["Observed", "real covers", "next day"] },
-      { name: "Other staffing", ghost: true, checks: ["dark", "No signal", "never observed"], truth: ["Counterfactual", "another plan\u2019s outcome", "never"] }
-    ],
-    rose: { checks: "Why does a dark signal mean stop?", truth: "Why is a manager\u2019s reply not the truth?" }
-  },
-  lore: {
-    label: "Lore",
-    stations: [
-      { name: "Before release", checks: ["go", "Arm A \xB7 10 graders", "3 tiers, 64 cases"], truth: ["Documented", "the procedure (AMM)", "wins any conflict"] },
-      { name: "Answer given", checks: ["dark", "Arm B \xB7 absent", "no production signals"], truth: ["Enforced", "checked against the band table", "at answer time"] },
-      { name: "Technician acts", checks: ["dark", "Not captured", "-"], truth: ["Not captured", "what the technician did", "-"] },
-      { name: "Work signed", ghost: true, checks: ["dark", "Arm C \xB7 absent", "record never returns"], truth: ["Realized", "the signed work record", "never returns"] }
-    ],
-    rose: { checks: "Why is Lore checked only before release?", truth: "Who decides that the procedure wins?" }
-  }
-};
-var viewOf = (s, layer) => layer === "checks" ? [SIGNAL_WORD[s.checks[0]], s.checks[1], s.checks[2]] : s.truth;
-var recoLineMarkdown = (layer) => {
-  const head = layer === "checks" ? "FIG | What checks a recommendation, station by station\n\n| Line | Station | Signal | Check | Detail |\n|---|---|---|---|---|\n" : "FIG | What comes back at each station, who holds it, and when\n\n| Line | Station | Kind of truth | What it is | When |\n|---|---|---|---|---|\n";
-  const rows = [];
-  for (const k of ["aetherix", "lore"])
-    for (const q of RECO_LINES[k].stations) {
-      const d = viewOf(q, layer);
-      rows.push(`| ${RECO_LINES[k].label} | ${q.name}${q.ghost ? " (never reached)" : ""} | ${d[0]} | ${d[1]} | ${d[2]} |`);
-    }
-  return head + rows.join("\n") + (layer === "checks" ? "\n\nSignals: GO covered, WARN partial, STOP failing, DARK no information (treated as stop)." : "\n\nLamps in this layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.");
+// src/lib/journalHeadingIds.ts
+var slugifyHeading = (text) => text.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "section";
+var journalHeadingIds = (body) => {
+  const used = /* @__PURE__ */ new Map();
+  return body.map((b) => {
+    if (b.kind !== "h2" && b.kind !== "h3" || b.text === void 0) return void 0;
+    const base = b.id ?? slugifyHeading(b.text);
+    const n = used.get(base) ?? 0;
+    used.set(base, n + 1);
+    return n === 0 ? base : `${base}-${n + 1}`;
+  });
 };
 
-// src/content/serviceBlueprint.ts
-var BLUEPRINT_STATUS_LABEL = {
-  built: "Built, sandbox data",
-  planned: "Planned",
-  illustrative: "Illustrative"
+// src/lib/journalOrder.ts
+var sectionEnd = (body, from) => {
+  for (let i = from + 1; i < body.length; i++) if (body[i].kind === "h2") return i;
+  return body.length;
 };
-var BLUEPRINT = {
-  title: "Tomorrow's breakfast, from forecast to feedback",
-  scenario: "Illustrative scenario: a hotel F&B manager preparing tomorrow's breakfast service. No hotel is connected yet; no manager, guest outcome or metric here is observed.",
-  stages: [
-    {
-      id: "anticipate",
-      name: "Anticipate",
-      when: "The day before",
-      floor: { text: "The manager is drafting tomorrow's breakfast rota between two other tasks.", status: "illustrative" },
-      touchpoint: { text: "Nothing yet. The system works before it speaks.", status: "built" },
-      behind: { text: "Prophet forecasts covers from occupancy and history, with a range. Code refuses an implausible or low-confidence input.", status: "built" },
-      boundary: { text: "The forecast is a claim with an error bar. No authority: it decides nothing." }
-    },
-    {
-      id: "decide",
-      name: "Decide",
-      when: "Evening",
-      floor: { text: "The manager reads one message, weighs what the system cannot see (a sick waiter, a group check-in), and replies.", status: "illustrative" },
-      touchpoint: { text: "One WhatsApp message: expected covers, confidence, suggested staff. Reply accept, reject or the right figure.", status: "built" },
-      behind: { text: "Claude composes the message and never predicts. The reply is parsed and stored next to the recommendation.", status: "built" },
-      boundary: { text: "Authority passes to the manager. Their reply is declared feedback: a preference, not a fact." },
-      handoff: "Authority changes hands"
-    },
-    {
-      id: "operate",
-      name: "Operate",
-      when: "Breakfast service",
-      floor: { text: "The team serves breakfast on the plan the manager chose. Guests feel the staffing, right or wrong.", status: "illustrative" },
-      touchpoint: { text: "No screen. The decision now lives in the rota and on the floor.", status: "illustrative" },
-      behind: { text: "Nothing acts. The system does not change the rota or contact staff.", status: "built" },
-      boundary: { text: "The action reaches people here. It cannot be replayed: the plan not chosen is never seen." },
-      handoff: "The action reaches people"
-    },
-    {
-      id: "learn",
-      name: "Learn",
-      when: "After service",
-      floor: { text: "The manager glances at the Daily Receipt: forecast against actual, and the gap.", status: "illustrative" },
-      touchpoint: { text: "Daily Receipt: actual covers, forecast, delta, confidence.", status: "built" },
-      behind: { text: "Actual covers ingested from the till; forecast error computed; decision logged for audit. Live till ingestion needs a connected hotel.", status: "planned" },
-      boundary: { text: "Observed: the covers, so the forecast can be scored. Not observed: whether the staffing was right. That stays a judgement." }
-    }
-  ],
-  insight: "A prediction can be evaluated against a later observed number. A recommendation has operational consequences and does not automatically receive an equally definitive verdict.",
-  caption: "Read down a column for one moment of the service, across a row for one layer. The forecast gets a score the next day; the staffing decision gets the manager's word and a service that already happened.",
-  qualifications: [
-    "Built on sandbox and public data (Apaleo sandbox, synthetic series, Kaggle Recruit benchmark): forecast, guard in code, WhatsApp message, reply parser, daily receipt.",
-    "Planned: live ingestion of till data from a connected hotel, which is what would let forecast error be measured on real covers.",
-    "Unproven: that recorded replies improve recommendations, and that any staffing decision improved a real service. No manager has used it yet."
-  ]
-};
-function blueprintMarkdown() {
-  const cell = (c) => `${c.text}${c.status ? ` [${BLUEPRINT_STATUS_LABEL[c.status]}]` : ""}`;
-  return [
-    `**Figure. ${BLUEPRINT.title}.** ${BLUEPRINT.scenario}`,
-    ...BLUEPRINT.stages.map(
-      (s, i) => [
-        `**Stage ${i + 1}, ${s.name}** (${s.when})${s.handoff ? `. ${s.handoff}.` : ""}`,
-        `- On the floor: ${cell(s.floor)}`,
-        `- What the manager sees: ${cell(s.touchpoint)}`,
-        `- Behind the scenes: ${cell(s.behind)}`,
-        `- Authority and evidence: ${cell(s.boundary)}`
-      ].join("\n")
-    ),
-    `**Key distinction.** ${BLUEPRINT.insight}`,
-    BLUEPRINT.caption,
-    `Evidence status:
-${BLUEPRINT.qualifications.map((q) => `- ${q}`).join("\n")}`
-  ].join("\n\n");
-}
-
-// src/content/journalApply.ts
-var ORIGIN = "https://ivandemurard.com";
-var APPLY_GUIDES = {
-  "harnesses-graders-closed-loops": {
-    slug: "harnesses-graders-closed-loops",
-    title: "What is an LLM evaluation harness?",
-    method: "Evaluation by design: offline, runtime and outcome evaluation (arms A, B, C), deterministic graders, frozen acceptance criteria and a release gate.",
-    decision: "Which failures must block a release, and which arm (offline, runtime or outcome) is responsible for catching each one.",
-    inputs: ["The agent's architecture and current tests", "Known failures or incident history", "Input and output contracts", "The error budget you can tolerate per category"],
-    artifact: "A coverage map of failure modes against the three arms, plus test cases, graders and pass/fail thresholds written before the first run.",
-    verify: "Seed one known regression and confirm the gate fails the release. Rerun and confirm the verdict is identical.",
-    task: [
-      "Inspect the agent architecture and the current tests, if I have shared them.",
-      "List the major failure modes.",
-      "Map existing evaluation coverage against them.",
-      "Separate offline, runtime and outcome evaluation.",
-      "Define test cases, grading methods and acceptance criteria for the uncovered failures.",
-      "Identify which of the project's claims can actually be verified, and which cannot yet."
-    ],
-    deliverables: ["A coverage matrix (failure mode \xD7 arm)", "Prioritised implementation tasks", "Reproducible test cases with their graders and thresholds"]
-  },
-  "agent-boundaries-aetherix": {
-    slug: "agent-boundaries-aetherix",
-    title: "Where should an agent's responsibility end?",
-    method: "Separating prediction, recommendation and execution, with constraints enforced in code between components rather than requested in a prompt.",
-    decision: "Which decisions the system may take alone, which it may only recommend, and which require a named human's approval.",
-    inputs: ["An inventory of the decisions the application makes or recommends", "Who is accountable for each one", "What it costs to undo each one", "The current prompts and the code paths that act on outputs"],
-    artifact: "A decision register classified by impact, reversibility and required authority, with an approval point, a fallback and an audit record for each.",
-    verify: 'For every rule marked "enforced", show the code location and a test that fails when the rule is violated. A rule that only exists in a prompt is not enforced.',
-    task: [
-      "Inventory the decisions the application makes or recommends.",
-      "Classify each by impact, reversibility and required authority.",
-      "Locate the boundaries between prediction, recommendation and execution.",
-      "Distinguish constraints written as prompt instructions from constraints enforced in code.",
-      "Propose approval points, fallback behaviour and audit records where they are missing."
-    ],
-    deliverables: ["A decision register", "A list of prompt-only rules that should move into code", "An enforceable architecture improvement plan, with one test per boundary"]
-  },
-  "whose-truth-is-the-ground-truth": {
-    slug: "whose-truth-is-the-ground-truth",
-    title: "Whose truth is the ground truth?",
-    method: "Distinguishing documented, declared and observed truth in a feedback loop, and refusing to read approval as correctness.",
-    decision: "Which signals the product may learn from without a human, and which only show agreement.",
-    inputs: ["The feedback and learning loop as it runs today", "Every signal that comes back, who owns it and when it arrives", "How outcomes are recorded, including for rejected recommendations"],
-    artifact: "A truth-signal map: each signal labelled documented, declared or observed, with its owner, its delay and the threshold it is judged against.",
-    verify: "Check on historical data whether approval rate and outcome correctness diverge. If outcomes are never recorded for rejected recommendations, name the missing counterfactual.",
-    task: [
-      "Map the application's feedback and learning loop.",
-      "Classify each signal as documented, declared or observed truth.",
-      "Determine who owns each signal and when it becomes available.",
-      "Identify missing counterfactuals and potential selection bias.",
-      "Check whether approval is anywhere treated as correctness."
-    ],
-    deliverables: ["A truth-signal map", "A list of places where approval stands in for correctness", "Measurable learning and evaluation improvements, each with a pass and a fail threshold"]
+var displayOrder = (body, moves = []) => {
+  let order = body.map((_, i) => i);
+  if (!moves.length) return order;
+  const ids = journalHeadingIds(body);
+  const at = (id) => {
+    const i = ids.findIndex((x, k) => x === id && body[k].kind === "h2");
+    if (i < 0) throw new Error(`journalOrder: no section "${id}"`);
+    return i;
+  };
+  for (const m of moves) {
+    const from = at(m.section);
+    const to = sectionEnd(body, from);
+    const moved = order.filter((i) => i >= from && i < to);
+    const rest = order.filter((i) => i < from || i >= to);
+    const last = sectionEnd(body, at(m.after)) - 1;
+    const pos = rest.indexOf(last);
+    if (pos < 0) throw new Error(`journalOrder: "${m.after}" cannot be followed by "${m.section}"`);
+    order = [...rest.slice(0, pos + 1), ...moved, ...rest.slice(pos + 1)];
   }
+  return order;
 };
-var applyBrief = (g) => [
-  `Apply a method to my own AI project. Method source: "${g.title}" by Ivan de Murard, ${ORIGIN}/${g.slug}.md (markdown).`,
-  "",
-  `Method: ${g.method}`,
-  "",
-  "Task:",
-  ...g.task.map((t) => `- ${t}`),
-  "",
-  "Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):",
-  ...g.inputs.map((t) => `- ${t}`),
-  "",
-  "Deliverables:",
-  ...g.deliverables.map((t) => `- ${t}`),
-  "",
-  `Verification: ${g.verify}`,
-  "",
-  'Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").',
-  "Do not bypass approvals and do not change production systems without my explicit authorisation."
-].join("\n");
-var applyMarkdown = (g) => [
-  `**The decision.** ${g.decision}`,
-  `**Inputs.**
-${g.inputs.map((i) => `- ${i}`).join("\n")}`,
-  `**The artifact.** ${g.artifact}`,
-  `**Verification.** ${g.verify}`,
-  "**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.",
-  "```text\n" + applyBrief(g) + "\n```"
-].join("\n\n");
 
 // src/lib/mcp/tools/get-journal-entry.ts
 var SITE_ORIGIN3 = "https://ivandemurard.com";
@@ -1806,14 +1950,20 @@ A: ${i.a}`).join("\n\n");
       return blueprintMarkdown();
     case "console":
     case "mcp":
+    case "diagnostic":
       return "";
+    case "trap":
+      return `${block.question} (${block.choices.join(" or ")}) If you answer ${block.choices[0]}: ${block.reveal[0]} If you answer ${block.choices[1]}: ${block.reveal[1]}`;
     case "peak":
       return [
         `**${block.kicker}**`,
         block.lead,
+        // The question is text here, and the boxes are all shown: this is the version without JavaScript.
+        block.challenge ? `${block.challenge.rule} ${block.challenge.question} (${block.challenge.choices.join(" or ")}) If you answer ${block.challenge.choices[0]}: ${block.challenge.reveal[0]} If you answer ${block.challenge.choices[1]}: ${block.challenge.reveal[1]}` : "",
         ...block.boxes.map((x) => [`**${x.label}**`, x.text, x.bubble ?? "", x.chain ? x.chain.steps.join(", ") : "", x.note ?? ""].filter(Boolean).join(" ")),
         block.after ?? "",
-        block.link ? `${block.link.text} (#${block.link.to})` : ""
+        block.link ? `${block.link.text} (#${block.link.to})` : "",
+        block.contract ?? ""
       ].filter(Boolean).join("\n\n");
     case "arms":
       return [block.label, "Arm A: offline before the merge. Arm B: runtime in production. Arm C: outcome after the fact.", block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n");
@@ -1857,7 +2007,8 @@ function renderEntryBody(entry) {
   const related = entry.related?.length ? `## Continue exploring
 
 ${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.label}](${SITE_ORIGIN3}${r.to})${r.why ? ` - ${r.why}` : ""}`).join("\n")}` : "";
-  const bodyText = absolutize([...renderBlocks(entry.body), related].filter(Boolean).join("\n\n"));
+  const shown = displayOrder(entry.body, entry.moves).map((i) => entry.body[i]);
+  const bodyText = absolutize([...renderBlocks(shown), related].filter(Boolean).join("\n\n"));
   const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
   return [
     entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
