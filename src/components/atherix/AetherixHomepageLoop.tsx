@@ -109,7 +109,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
       <div className="wa rounded-xl overflow-hidden border border-outline-variant shadow-md">
       <div className="wa-head flex items-center gap-3 px-3 py-2.5">
         <span aria-hidden className="text-[18px] leading-none opacity-90">‹</span>
-        <span aria-hidden className="grid place-items-center h-9 w-9 rounded-full bg-[hsl(0_0%_100%/0.2)] font-display text-[15px]">A</span>
+        <span aria-hidden className="grid place-items-center h-9 w-9 rounded-full bg-[hsl(0_0%_100%/0.12)] font-display text-[15px]">A</span>
         <div className="flex-1 min-w-0">
           <div className="text-[15px] font-medium leading-tight">Aetherix</div>
           <div className="text-[11.5px] opacity-80">sandbox demo · online</div>
@@ -123,18 +123,18 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
         <Bubble who="Aetherix" time={`${d.date} · evening before`} visible={step >= 1}>
           <p className="text-[13.5px] leading-[1.55] whitespace-pre-wrap">{eveningText(d)}</p>
           <details className="mt-1.5 group/why">
-            <summary className="cursor-pointer list-none font-mono text-[11px] text-on-surface-variant underline decoration-dotted underline-offset-2 hover:text-on-surface">
+            <summary className="cursor-pointer list-none font-mono text-[11px] wa-note underline decoration-dotted underline-offset-2 hover:text-[hsl(var(--wa-fg))]">
               Why {d.evening.predicted}? <span aria-hidden className="inline-block transition-transform group-open/why:rotate-90">›</span>
             </summary>
-            <dl className="mt-2 font-mono text-[11.5px] text-on-surface">
+            <dl className="mt-2 font-mono text-[11.5px] wa-fg">
               <div className="flex justify-between gap-4 border-b border-outline-variant pb-1 mb-1"><dt>Usual level</dt><dd>{d.evening.baseline}</dd></div>
               {d.evening.drivers.map((x) => (
-                <div key={x.label} className="flex justify-between gap-4"><dt className="text-on-surface-variant">{x.label}</dt><dd>{signed(x.covers)}</dd></div>
+                <div key={x.label} className="flex justify-between gap-4"><dt className="wa-note">{x.label}</dt><dd>{signed(x.covers)}</dd></div>
               ))}
               <div className="flex justify-between gap-4 border-t border-outline-variant pt-1 mt-1 font-medium"><dt>Forecast</dt><dd>{d.evening.predicted}</dd></div>
             </dl>
-            <p className="mt-2 text-[11.5px] leading-relaxed text-on-surface-variant">{d.evening.confidence_detail}</p>
-            <p className="mt-1.5 text-[11.5px] leading-relaxed text-on-surface-variant">{d.evening.staffing.basis}</p>
+            <p className="mt-2 text-[11.5px] leading-relaxed wa-note">{d.evening.confidence_detail}</p>
+            <p className="mt-1.5 text-[11.5px] leading-relaxed wa-note">{d.evening.staffing.basis}</p>
           </details>
         </Bubble>
         <Bubble who="F&B Manager" time="reply" mine visible={step >= 2}>
@@ -143,7 +143,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
             <SignalLamp state={d.reply.signal as "go" | "warn" | "stop"} label={d.reply.kind} />
           </div>
           {"basis" in d.reply && d.reply.basis && (
-            <p className="mt-1 text-[11.5px] leading-relaxed text-on-surface-variant">{d.reply.basis}</p>
+            <p className="mt-1 text-[11.5px] leading-relaxed wa-note">{d.reply.basis}</p>
           )}
         </Bubble>
         <Bubble who="Aetherix" time="next morning" visible={step >= 3}>
@@ -155,7 +155,7 @@ export const AetherixHomepageLoop = ({ initialTab = 0 }: { initialTab?: number }
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button type="button"
-                      className="font-mono text-[11px] text-signal-stop underline decoration-dotted underline-offset-2 cursor-help">
+                      className="font-mono text-[11px] wa-stop underline decoration-dotted underline-offset-2 cursor-help">
                       Outlier guard <span aria-hidden>ⓘ</span>
                     </button>
                   </TooltipTrigger>
