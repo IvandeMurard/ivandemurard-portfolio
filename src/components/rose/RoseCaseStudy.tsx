@@ -156,7 +156,9 @@ export const IDEA = {
   note: "He gave me a name before he gave me a job.",
 };
 
-const QUIET_LINK = "underline decoration-on-surface-variant/50 underline-offset-4 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+// The underline is the only thing that sets a link apart from the line around it: at 75% it is 4.5:1 or more against every
+// case tint in both moods (at 50% it measured 2.6:1 in Day and 3.0:1 in Dusk; see caseTintContrast.test.ts).
+const QUIET_LINK = "underline decoration-on-surface-variant/75 underline-offset-4 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
 const ExternalLink = ({ href, children }: { href: string; children: string }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className={QUIET_LINK}><ExternalMark>{children}</ExternalMark></a>

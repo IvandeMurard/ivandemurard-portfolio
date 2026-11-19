@@ -58,3 +58,40 @@ describe(".case-bg", () => {
     expect(css).toContain("linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 10%, hsl(var(--case-tint)) 100%)");
   });
 });
+
+// Links and small text at the bottom of a case page sit on the end colour. Their text colours are the four tokens above
+// (links inherit the colour of the line they are in or use --primary; small labels use --on-surface-variant or --secondary).
+// What the tokens alone do not say is the underline of a link that has no colour of its own: it is
+// --on-surface-variant at the alpha written in RoseCaseStudy.tsx (QUIET_LINK), and it is the only thing that sets such a link apart.
+const blend = (fg: Hsl, bg: Hsl, alpha: number): Hsl => {
+  const rgb = ([h, s, l]: Hsl) => { const a = s * Math.min(l, 1 - l); const f = (n: number) => { const k = (n + h / 30) % 12; return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); }; return [f(0), f(8), f(4)]; };
+  const [r, g, b] = rgb(fg).map((v, i) => v * alpha + rgb(bg)[i] * (1 - alpha));
+  const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2, d = max - min;
+  if (!d) return [0, 0, l];
+  const s = d / (1 - Math.abs(2 * l - 1));
+  const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, s, l];
+};
+
+describe("links and small text on the end colour of each case page", () => {
+  const quiet = readFileSync("src/components/rose/RoseCaseStudy.tsx", "utf8").match(/const QUIET_LINK = "[^"]*decoration-on-surface-variant\/(\d+)/);
+  it("the quiet link's underline alpha is written in the source", () => {
+    expect(quiet, "QUIET_LINK with decoration-on-surface-variant/NN").not.toBeNull();
+  });
+  for (const tint of TINTS) {
+    for (const mood of ["day", "night"] as const) {
+      const block = blocks[mood];
+      const fgOf = (token: string) => { try { return hsl(block, token); } catch { return hsl(blocks.day, token); } };
+      for (const token of ["on-surface", "on-surface-variant", "primary", "secondary"]) {
+        it(`${tint}, ${mood}: link and small text in --${token}`, () => {
+          expect(ratio(fgOf(token), hsl(block, `case-tint-${tint}`))).toBeGreaterThanOrEqual(4.5);
+        });
+      }
+      it(`${tint}, ${mood}: the quiet link's underline`, () => {
+        const alpha = Number(quiet![1]) / 100;
+        const bg = hsl(block, `case-tint-${tint}`);
+        expect(ratio(blend(fgOf("on-surface-variant"), bg, alpha), bg)).toBeGreaterThanOrEqual(4.5);
+      });
+    }
+  }
+});
