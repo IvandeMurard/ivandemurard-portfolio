@@ -13,9 +13,17 @@
     /* Surfaces: warm creams */
     --surface: 42 41% 97%;                    /* #fbf9f4 */
     --rose-copper: 22 58% 32%;                /* Rose's colour, Rose case study only */
-    --rose-cool: 212 32% 93%;                 /* end of the case-study gradient */
     --rose-copper-on-navy: 22 62% 66%;        /* the Night value of --rose-copper, for the navy close in both moods */
-    --aetherix-warm: 35 55% 90%;              /* #f3e7d6, end of the Aetherix case-study gradient */
+    /* Case-study tints (board N, 19 Nov 2026): the colour a case-study page ends on (see .case-bg). One per project.
+       Day values; hex in the comment is the board's, the HSL is rounded to whole numbers (one step of a channel at most). */
+    --case-tint-aetherix: 35 55% 90%;         /* #f3e7d6, warm sand */
+    --aetherix-warm: var(--case-tint-aetherix); /* the earlier name, kept as an alias */
+    --case-tint-tacet: 78 25% 90%;            /* #e8ecdf, sage */
+    --case-tint-anima: 10 45% 92%;            /* #f4e5e2, powder rose */
+    --case-tint-rose: 26 67% 89%;             /* #f6e1d1, copper, Rose's own accent */
+    --case-tint-lore: 208 21% 88%;            /* #d9e0e6, steel */
+    --case-tint-compass: 40 52% 88%;          /* #f0e5cf, Paris limestone */
+    --case-tint-sonor: 255 19% 92%;           /* #e8e6ee, dusk sky */
     --surface-bright: 42 41% 97%;
     --surface-dim: 45 7% 85%;                 /* #dbdad5 */
     --surface-container-lowest: 0 0% 100%;    /* #ffffff */
@@ -155,8 +163,13 @@
 
     --surface: 32 14% 11%;                    /* warm taupe room */
     --rose-copper: 22 62% 66%;
-    --rose-cool: 215 24% 12%;
-    --aetherix-warm: 30 31% 10%;              /* #221a12 */
+    --case-tint-aetherix: 30 31% 10%;         /* #221a12 */
+    --case-tint-tacet: 94 12% 12%;            /* #1d211a */
+    --case-tint-anima: 0 14% 13%;             /* #251c1c */
+    --case-tint-rose: 24 30% 13%;             /* #2b1f17 */
+    --case-tint-lore: 208 30% 12%;            /* #162029 */
+    --case-tint-compass: 36 26% 11%;          /* #241e15 */
+    --case-tint-sonor: 257 11% 13%;           /* #1f1d24 */
     --surface-bright: 32 14% 14%;
     --surface-dim: 32 14% 8%;
     --surface-container-lowest: 32 14% 9%;
@@ -1098,15 +1111,18 @@
 .wa-send { background: hsl(var(--wa-send)); color: hsl(0 0% 100%); }
 .wa-date { background: hsl(var(--wa-in)); color: hsl(var(--wa-muted)); }
 
-/* Rose case study: one continuous gradient from the July page colour to cool tones. */
-.rose-case-bg {
-  background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 12%, hsl(var(--rose-cool)) 100%);
+/* A case-study page: one continuous gradient from the site surface to the project's tint. The page names its project
+   with data-case; --case-tint is also what a band that continues the page ground (Rose's close) reads. */
+.case-bg {
+  background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 10%, hsl(var(--case-tint)) 100%);
 }
-
-/* Aetherix case study: the same continuous gradient, from the site surface to the project's warm tint. */
-.aetherix-case-bg {
-  background: linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface)) 10%, hsl(var(--aetherix-warm)) 100%);
-}
+.case-bg[data-case="aetherix"] { --case-tint: var(--case-tint-aetherix); }
+.case-bg[data-case="tacet"] { --case-tint: var(--case-tint-tacet); }
+.case-bg[data-case="anima"] { --case-tint: var(--case-tint-anima); }
+.case-bg[data-case="rose"] { --case-tint: var(--case-tint-rose); }
+.case-bg[data-case="lore"] { --case-tint: var(--case-tint-lore); }
+.case-bg[data-case="compass"] { --case-tint: var(--case-tint-compass); }
+.case-bg[data-case="sonor"] { --case-tint: var(--case-tint-sonor); }
 
 /* Aetherix case study: the dark cards (ledger, "Inside the agent", Next). The same warm dark in Day and Night.
    Tokens are re-scoped locally so the children keep using semantic classes, as .section-inverse does. */

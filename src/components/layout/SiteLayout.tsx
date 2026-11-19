@@ -9,14 +9,19 @@ import { SourceContextLine } from "./SourceContextLine";
 import { usePreviewMode } from "@/hooks/usePreviewMode";
 import { useRevealHash } from "@/hooks/useRevealHash";
 
+/** The case studies that end on a tint of their own (see .case-bg in index.css). */
+export type CaseTint = "tacet" | "anima" | "lore" | "compass" | "sonor";
+
 interface SiteLayoutProps {
   children: React.ReactNode;
+  /** Puts the page's content on the gradient from the surface to this project's tint. */
+  caseTint?: CaseTint;
   title?: string;
   sections?: RailSection[];
   showFooter?: boolean;
 }
 
-export const SiteLayout = ({ children, title, sections, showFooter = true }: SiteLayoutProps) => {
+export const SiteLayout = ({ children, title, sections, showFooter = true, caseTint }: SiteLayoutProps) => {
   const { pathname } = useLocation();
   usePreviewMode();
 
@@ -46,7 +51,7 @@ export const SiteLayout = ({ children, title, sections, showFooter = true }: Sit
       <SourceContextLine />
       <SectionRail sections={sections} />
       <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
-        {children}
+        {caseTint ? <div className="case-bg" data-case={caseTint}>{children}</div> : children}
       </main>
       {showFooter
         ? <div style={{ viewTransitionName: "site-footer" }}><Footer /></div>

@@ -109,7 +109,7 @@ const Sonor = () => {
   const { mood } = useMood();
 
   return (
-  <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS}>
+  <SiteLayout title="Sonor: The Quiet Art of Urban Intelligence" sections={SONOR_SECTIONS} caseTint="sonor">
     <Seo
       title="Sonor, Urban Noise Intelligence for Cities"
       description="B2G SaaS that turned acoustic open data into a decision tool for cities. Taken from discovery to MVP; stopped in 2022 after discovery concluded no contract would clear."

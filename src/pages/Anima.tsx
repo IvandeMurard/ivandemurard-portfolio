@@ -153,7 +153,7 @@ const Anima = () => {
   const toc = useHeadingToc(articleRef);
 
   return (
-    <SiteLayout title="Anima">
+    <SiteLayout title="Anima" caseTint="anima">
       <Seo
         title="Anima, the Guest Memory Node of the Hospitality Multi-Agent Architecture"
         description="Memory that means no guest has to ask twice. A guest memory node that keeps what a guest said and what happened, so nobody asks twice, without watching."

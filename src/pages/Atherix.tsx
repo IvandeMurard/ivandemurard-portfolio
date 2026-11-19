@@ -365,7 +365,7 @@ const Atherix = () => {
         },
       ]}
     />
-    <div ref={root} className="aetherix-case-bg relative">
+    <div ref={root} className="case-bg relative" data-case="aetherix">
       <ReadingThread rootRef={root} reduced={reduced} tone="bg-secondary" />
       <ChapterBar chapters={AETHERIX_CHAPTERS} active={active} />
       <Hero />

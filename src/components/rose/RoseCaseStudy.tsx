@@ -156,7 +156,9 @@ export const IDEA = {
   note: "He gave me a name before he gave me a job.",
 };
 
-const QUIET_LINK = "underline decoration-on-surface-variant/50 underline-offset-4 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+// The underline is the only thing that sets a link apart from the line around it: at 75% it is 4.5:1 or more against every
+// case tint in both moods (at 50% it measured 2.6:1 in Day and 3.0:1 in Dusk; see caseTintContrast.test.ts).
+const QUIET_LINK = "underline decoration-on-surface-variant/75 underline-offset-4 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
 const ExternalLink = ({ href, children }: { href: string; children: string }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className={QUIET_LINK}><ExternalMark>{children}</ExternalMark></a>
@@ -632,7 +634,7 @@ const RoseClose = () => (
   <>
     {/* The gradient fades from the page into the section-inverse colour, which this band supplies underneath. */}
     <div aria-hidden="true" className="section-inverse relative h-32 md:h-40">
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(var(--rose-cool)), hsl(var(--rose-cool) / 0))" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(var(--case-tint)), hsl(var(--case-tint) / 0))" }} />
     </div>
     <section aria-label={CLOSE.askLabel} className="section-inverse px-8 pb-10 pt-4 text-center md:px-12">
       <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
@@ -680,7 +682,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
   useEffect(() => registerRail(() => { const c = ROSE_CHAPTERS[activeRef.current]; return c ? { id: c.id, label: c.toc } : null; }), []);
 
   return (
-    <div ref={root} className="rose-case-bg relative">
+    <div ref={root} className="case-bg relative" data-case="rose">
       <ReadingThread rootRef={root} reduced={reduced} />
 
       <ChapterBar chapters={ROSE_CHAPTERS} active={active} />
