@@ -6,6 +6,7 @@ import {
   type NavigateOptions,
   type To,
 } from "react-router-dom";
+import { preloadRoute } from "@/routes";
 
 /**
  * Wraps react-router navigation in document.startViewTransition when supported,
@@ -29,9 +30,10 @@ export function useViewTransitionNavigate() {
         navigate(to, options);
         return;
       }
-      start(() => {
-        navigate(to, options);
-      });
+      // The new page's chunk first: the transition then captures the page, not a loading state.
+      const search = typeof to === "string" ? (to.split("#")[0].split("?")[1] ?? "") : (to.search ?? "");
+      const go = () => start(() => { navigate(to, options); });
+      preloadRoute(destination ?? "/", search ? `?${search.replace(/^\?/, "")}` : "").then(go, go);
     },
     [navigate],
   );
