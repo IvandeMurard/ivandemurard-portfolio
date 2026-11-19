@@ -287,7 +287,7 @@ How Rose works. Solid lines are built; dashed lines are design.
 - Evaluation uses the method of Field Notes (evaluation harness)
   The campaign applies the harness and grading method this Field Note describes.
 - Aetherix, Tacet, Anima part of, built Orchestrator
-  One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes through the orchestrator, over MCP.
+  One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes over MCP; going through the orchestrator is the target (Design).
 - Peritia part of, design Orchestrator
   The trade agent, named in the contract, with no code yet. Links to /architecture.
 - Tacet direct, while the orchestrator is not the way through Aetherix
