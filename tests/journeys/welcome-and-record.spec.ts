@@ -9,27 +9,31 @@ const showWelcome = async (page: import("@playwright/test").Page) => {
   await expect(page.locator("[data-rose-welcome]")).toBeVisible();
 };
 
-test("Rose's welcome: 'Dim the lights' switches the mood to dusk", async ({ page }) => {
+test("Rose's welcome: dim, then record, then stop, all from the welcome, which stays after each", async ({ page }) => {
   await showWelcome(page);
-  await expect(page.locator("html")).not.toHaveAttribute("data-mood", "dusk");
-  await page.getByRole("button", { name: "Dim the lights" }).click();
+  const w = page.locator("[data-rose-welcome]");
+  await w.getByRole("button", { name: "Dim the lights" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-mood", "dusk");
+  await expect(w).toBeVisible();
+  await w.getByRole("button", { name: "Put on a record" }).click();
+  await expect(record(page)).toHaveAttribute("aria-checked", "true");
+  await expect(w).toContainText("Now playing: Odetta, ATCQ Tribute.");
+  await w.getByRole("button", { name: "Stop the record" }).click();
+  await expect(record(page)).toHaveAttribute("aria-checked", "false");
+  await expect(w).toBeVisible();
+  await expect(w.getByRole("button", { name: "Put on a record" })).toBeVisible();
+});
+
+test("Rose's welcome: 'No thanks' dismisses it", async ({ page }) => {
+  await showWelcome(page);
+  await page.getByRole("button", { name: "No thanks" }).click();
   await expect(page.locator("[data-rose-welcome]")).toHaveCount(0);
 });
 
-test("Rose's welcome: 'Put on a record' shows the playing confirmation, and Stop mutes", async ({ page }) => {
+test("Rose's welcome: typing a question dismisses it", async ({ page }) => {
   await showWelcome(page);
-  await expect(record(page)).toHaveAttribute("aria-checked", "false");
-  await page.getByRole("button", { name: "Put on a record" }).click();
-  // The confirmation: the header record is playing (switch on, labelled "Stop the record", disc spinning).
-  await expect(record(page)).toHaveAttribute("aria-checked", "true");
-  await expect(record(page)).toHaveAccessibleName("Stop the record");
-  await expect(record(page).locator(".vinyl-spin")).toHaveAttribute("data-playing", "true");
-  // Stop: muted again.
-  await record(page).click();
-  await expect(record(page)).toHaveAttribute("aria-checked", "false");
-  await expect(record(page)).toHaveAccessibleName("Play the record");
-  await expect(record(page).locator(".vinyl-spin")).toHaveAttribute("data-playing", "false");
+  await page.locator("[data-rose-dock] input, [data-rose-dock] textarea").first().pressSequentially("Hi");
+  await expect(page.locator("[data-rose-welcome]")).toHaveCount(0);
 });
 
 for (const mood of ["day", "dusk"] as const) {

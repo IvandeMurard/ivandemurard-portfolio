@@ -83,7 +83,7 @@ Every address has a story. Compass reads it before you sign. Open data turned in
 
 ## Track record
 
-- 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Delivered the MVP; rollout planned for 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.
+- 2024 to 2025, Consultant Product Manager, FORTIL for DomusVi. Led the information-system overhaul across 3 business lines: 10+ legacy tools consolidated and migrated onto one SaaS platform; no-code POC (Airtable, Make) before deployment. Outcome: key users trained; deployment planned for 500+ users across 100+ establishments and 20 agencies.
 - 2023 to 2024, Product Manager, Data & Operations, ALTEN for Bouygues Telecom. Built a data-driven dashboard to track and recover 1.9M EUR of receivables. 40% recovered, adopted by ops teams.
 - 2022 to 2023, Customer Success Manager, Public Sector SaaS, Opendatasoft. Owned 22 European city and metropolitan clients from onboarding to production. 2 launches, zero churn.
 - 2020 to 2022, Co-founder & Product Manager, Sonor. 0 to 1 B2G SaaS for urban noise mapping, backed by Matrice and Banque des Territoires.

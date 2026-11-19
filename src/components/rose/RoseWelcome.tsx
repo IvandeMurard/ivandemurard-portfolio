@@ -9,8 +9,9 @@ import { ROSE_WELCOME } from "@/content/roseWelcome";
  * history, no event, nothing sent to the server. It offers two things the page can do by itself, dimming the lights and
  * putting on the record, and each button does it.
  *
- * It shows once, on the first page view of a browser session, on any page, and never when Page notes are off. After a
- * button, Escape or the opening of the dock it is gone for the rest of the session. It sits in the dock, above the bar.
+ * It shows once, on the first page view of a browser session, on any page, and never when Page notes are off. The two
+ * buttons are toggles that show the current state and never dismiss it. "No thanks", Escape, typing a question to Rose or
+ * the opening of the dock end it for the rest of the session. It is the dock's first row, above the bar.
  * On a phone (under 768 px), or when it would cover the hero's call to action, it waits for the first scroll.
  */
 export const WELCOME_KEY = "rose_welcome";
@@ -62,6 +63,18 @@ export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
 
   const candidate = claimed && !dismissed && notesOn && !dockOpen;
 
+  // Typing a question to Rose ends it: any text typed in the dock, outside the welcome itself.
+  useEffect(() => {
+    const dock = dockRef.current;
+    if (!candidate || !dock) return;
+    const onInput = (e: Event) => {
+      const t = e.target as HTMLElement | null;
+      if (t && !t.closest("[data-rose-welcome]") && (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement)) { setDismissed(true); markSeen(); }
+    };
+    dock.addEventListener("input", onInput);
+    return () => dock.removeEventListener("input", onInput);
+  }, [candidate, dockRef]);
+
   // Escape closes it. It never takes focus, so it listens on the window.
   useEffect(() => {
     if (!candidate) return;
@@ -100,7 +113,8 @@ export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
   const dismiss = useCallback(() => { setDismissed(true); markSeen(); }, []);
 
   const isDusk = mood?.mood === "dusk";
-  const canPlay = !!ambience && ambience.available && ambience.muted;
+  const canPlay = !!ambience && ambience.available;
+  const playing = canPlay && !ambience!.muted;
 
   return {
     /** Rendered inside the dock (so it can be measured); `visible` is when the visitor can see it. */
@@ -108,37 +122,49 @@ export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
     visible: candidate && !waitForScroll,
     isDusk,
     canPlay,
+    playing,
     dismiss,
-    dim: () => { mood?.setMood(isDusk ? "day" : "dusk"); dismiss(); },
-    record: () => { if (ambience?.muted) ambience.toggleMute(); dismiss(); },
+    // Toggles: each follows the current state and leaves the welcome up.
+    dim: () => { mood?.setMood(isDusk ? "day" : "dusk"); },
+    record: () => { ambience?.toggleMute(); },
   };
 };
 
 type WelcomeProps = { welcome: ReturnType<typeof useRoseWelcome> };
 
-const button = "inline-flex min-h-[44px] items-center rounded-full border border-outline-variant px-4 text-[14px] text-on-surface transition-colors hover:border-secondary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
+const button = "inline-flex min-h-[44px] items-center rounded-full border border-outline-variant px-3.5 text-[14px] text-on-surface transition-colors hover:border-secondary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
-export const RoseWelcome = ({ welcome }: WelcomeProps) => (
-  <div
-    role="status"
-    aria-live="polite"
-    data-rose-welcome
-    {...(welcome.visible ? {} : { "aria-hidden": true, style: { visibility: "hidden" as const } })}
-    className="mb-2 rounded-2xl border border-outline-variant bg-surface-container-lowest px-[18px] py-4 shadow-xl shadow-primary/10"
-  >
-    <p className="font-mono text-meta leading-normal text-secondary">Rose</p>
-    <p className="mt-1.5 font-headline text-[20px] leading-[1.3] text-on-surface">{ROSE_WELCOME.text}</p>
-    <div className="mt-3.5 flex flex-wrap items-center gap-2.5">
-      <button type="button" onClick={welcome.dim} className={button} tabIndex={welcome.visible ? undefined : -1}>
-        {welcome.isDusk ? ROSE_WELCOME.up : ROSE_WELCOME.dim}
-      </button>
-      {welcome.canPlay ? (
-        <button type="button" onClick={welcome.record} className={button} tabIndex={welcome.visible ? undefined : -1}>{ROSE_WELCOME.record}</button>
-      ) : null}
-      <button type="button" onClick={welcome.dismiss} tabIndex={welcome.visible ? undefined : -1}
-        className="ml-auto inline-flex min-h-[44px] items-center border-b border-outline-variant px-1 text-[14px] text-on-surface transition-colors hover:border-secondary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
-        {ROSE_WELCOME.decline}
-      </button>
+// A pointer press must not focus the dock: focusing it reflows the bar under the pointer and the click would be lost.
+const keepLayout = (e: React.MouseEvent) => e.preventDefault();
+
+export const RoseWelcome = ({ welcome }: WelcomeProps) => {
+  const tab = welcome.visible ? undefined : -1;
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      data-rose-welcome
+      {...(welcome.visible ? {} : { "aria-hidden": true, style: { visibility: "hidden" as const } })}
+      className="border-b border-outline-variant px-4 py-3"
+    >
+      <p className="font-body text-[14px] leading-snug text-on-surface">
+        <span className="font-mono text-meta text-secondary">Rose · </span>
+        {welcome.playing ? ROSE_WELCOME.playing : ROSE_WELCOME.text}
+      </p>
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <button type="button" onMouseDown={keepLayout} onClick={welcome.dim} aria-pressed={welcome.isDusk} className={button} tabIndex={tab}>
+          {welcome.isDusk ? ROSE_WELCOME.up : ROSE_WELCOME.dim}
+        </button>
+        {welcome.canPlay ? (
+          <button type="button" onMouseDown={keepLayout} onClick={welcome.record} aria-pressed={welcome.playing} className={button} tabIndex={tab}>
+            {welcome.playing ? ROSE_WELCOME.stop : ROSE_WELCOME.record}
+          </button>
+        ) : null}
+        <button type="button" onMouseDown={keepLayout} onClick={welcome.dismiss} tabIndex={tab}
+          className="ml-auto inline-flex min-h-[44px] items-center border-b border-outline-variant px-1 text-[14px] text-on-surface transition-colors hover:border-secondary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
+          {ROSE_WELCOME.decline}
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};

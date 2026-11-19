@@ -83,7 +83,7 @@ Every address has a story. Compass reads it before you sign. Open data turned in
 
 ## Track record
 
-- 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi. Delivered the MVP; rollout planned for 500+ users across 100 care homes. Led the full lifecycle from discovery and POC (Airtable, Make) to specs, IT mapping and field training.
+- 2024 to 2025, Consultant Product Manager, FORTIL for DomusVi. Led the information-system overhaul across 3 business lines: 10+ legacy tools consolidated and migrated onto one SaaS platform; no-code POC (Airtable, Make) before deployment. Outcome: key users trained; deployment planned for 500+ users across 100+ establishments and 20 agencies.
 - 2023 to 2024, Product Manager, Data & Operations, ALTEN for Bouygues Telecom. Built a data-driven dashboard to track and recover 1.9M EUR of receivables. 40% recovered, adopted by ops teams.
 - 2022 to 2023, Customer Success Manager, Public Sector SaaS, Opendatasoft. Owned 22 European city and metropolitan clients from onboarding to production. 2 launches, zero churn.
 - 2020 to 2022, Co-founder & Product Manager, Sonor. 0 to 1 B2G SaaS for urban noise mapping, backed by Matrice and Banque des Territoires.
@@ -164,15 +164,17 @@ Product builder with 5 years in B2B SaaS: co-founded a SaaS company, led product
 
 ## Product & Customer Roles
 
-### Consultant Product Manager, DomusVi
+### Consultant Product Manager · DomusVi
 
-**2024 – 2025**
+**2024 to 2025**
 
-*France's 2nd-largest private nursing-home group (Planète Grise 2026), highly regulated.*
+*France's 2nd-largest private group in health and social care: 100+ establishments, a regulated health sector.*
 
-- Owned discovery, specs and a no-code POC (Airtable, Make) to consolidate 10+ legacy tools onto one SaaS platform across 3 business lines.
-- Aligned 7 C-level stakeholders and coordinated IT, business teams, legal, marketing and an external SaaS vendor.
-- Prepared deployment and training; rollout planned for 500+ users across 100 care homes.
+- Led the information-system overhaul across 3 business lines: 10+ legacy tools consolidated and migrated onto one SaaS platform.
+- Framing, functional specifications and a no-code POC (Airtable, Make) to validate the choices before deployment.
+- Coordinated the external SaaS vendor; interoperability and data governance.
+- Aligned 7 C-level executives; coordinated the IT department, IT, business teams, legal, marketing and the vendor.
+- Outcome: key users trained; deployment planned for 500+ users across 100+ establishments and 20 agencies.
 
 ### Consultant Product Manager, Objenious (Bouygues Telecom IoT)
 

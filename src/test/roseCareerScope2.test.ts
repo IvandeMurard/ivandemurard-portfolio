@@ -22,7 +22,7 @@ describe("Rose career scope 2: CV claim guard on every career path", () => {
     it(`includes the CV claim guard on ${path}`, async () => {
       const prompt = await getRoseSystemPrompt({ page: { path }, question });
       expect(prompt).toContain(CV_GUARD);
-      expect(prompt).toContain("its 500+ user rollout was planned");
+      expect(prompt).toContain("the deployment to 500+ users was planned, not live when Ivan left");
     });
   }
 });

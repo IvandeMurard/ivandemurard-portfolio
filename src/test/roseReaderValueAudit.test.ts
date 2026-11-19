@@ -64,10 +64,13 @@ describe("Rose reader-value QA (offline advisory)", () => {
       "/cv",
     );
     expect(inflated.map(warning => warning.code)).toContain("inflated_delivery_status");
+    for (const claim of ["He delivered the MVP at DomusVi.", "The DomusVi platform is operational.", "It is in production at DomusVi."]) {
+      expect(flagRoseReaderValue("What did Ivan deliver at DomusVi?", claim, "/cv").map(w => w.code)).toContain("inflated_delivery_status");
+    }
 
     expect(flagRoseReaderValue(
       "What did Ivan deliver at DomusVi?",
-      "He delivered the MVP and prepared deployment and training. The rollout was planned for 500+ users across 100 care homes.",
+      "The POC and the migration were done and key users trained. The deployment was planned for 500+ users across 100+ establishments, not live when Ivan left.",
       "/cv",
     ).map(warning => warning.code)).not.toContain("inflated_delivery_status");
   });

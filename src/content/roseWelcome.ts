@@ -6,6 +6,8 @@ export const ROSE_WELCOME = {
   dim: "Dim the lights",
   up: "Turn the lights up",
   record: "Put on a record",
+  stop: "Stop the record",
+  playing: "Now playing: Odetta, ATCQ Tribute.",
   decline: "No thanks",
 } as const;
 

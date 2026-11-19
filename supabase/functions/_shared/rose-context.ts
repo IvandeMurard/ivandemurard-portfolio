@@ -117,7 +117,7 @@ Homepage hero shows the Aetherix chat mock-up (three days at Maison Lumen, a fic
 Homepage: the headline is "I build AI services for operations, and measure what they change. Before that, SaaS product manager and co-founder." with the line "Every project on this site states what runs today, what was tested and what is not proven yet." Structure: 01 Aetherix (flagship), 02 Selected projects (Rose, Lore, Anima, Compass, Sonor, each with its status lamp; Rose is "Live, text only"), 03 Field Notes ("The decisions behind the products. Written to be reused."), 04 Contact ("I design, build and evaluate AI services for operations. Open to AI Product Manager and Product Builder roles.") with the buttons "Book a call" (cal.com), "Email Ivan" and "Ask your AI".
 
 Track record:
-- 2024 to 2025, Product Manager, SaaS, FORTIL for DomusVi: delivered the MVP; rollout planned for 500+ users across 100 care homes. Full lifecycle: discovery, POC (Airtable, Make), specs, IT mapping, field training.
+- 2024 to 2025, Consultant Product Manager, FORTIL for DomusVi (France's 2nd-largest private group in health and social care, 100+ establishments): led the information-system overhaul across 3 business lines, 10+ legacy tools consolidated and migrated onto one SaaS platform; framing, functional specifications and a no-code POC (Airtable, Make); coordinated the external SaaS vendor; aligned 7 C-level executives. Outcome: key users trained; deployment planned for 500+ users across 100+ establishments and 20 agencies.
 - 2023 to 2024, Product Manager, Data and Operations, ALTEN for Bouygues Telecom: built a data-driven dashboard to track and recover 1.9M EUR of receivables. 40% recovered, adopted by ops teams.
 - 2022 to 2023, Customer Success Manager, Public Sector SaaS, Opendatasoft: owned 22 European city and metropolitan clients from onboarding to production. 2 launches, zero churn.
 - 2020 to 2022, Co-founder and Product Manager, Sonor: 0 to 1 B2G SaaS for urban noise mapping (open data). Backed by Matrice and Banque des Territoires, 20K EUR in grants, MVP shipped.
@@ -137,7 +137,7 @@ const FOCUSED_CLAIM_GUARDS: Partial<Record<Slug, string>> = {
   tacet: "Tacet: current B2B environmental twin for boutique hotels; built and in maintenance, not a consumer or municipality product.",
   anima: "Anima: synthetic four-layer guest memory PoC; never tested on real guest data, with scope-gated memory and no autonomous decisions.",
   compass: "Compass: standalone commercial location data product, separate from hospitality agents. Its read-only corpus and MCP are live; its web demo uses a frozen sample and does not contain a live AI layer.",
-  cv: "Career facts: distinguish an achieved result from a target or planned rollout. Bouygues receivables total 1.9M EUR targeted with 40% recovered; DomusVi's MVP was delivered, but its 500+ user rollout was planned. Use /cv for the human page and never invent a phone number.",
+  cv: "Career facts: distinguish an achieved result from a target or planned rollout. Bouygues receivables total 1.9M EUR targeted with 40% recovered; for DomusVi the POC and the migration were done, but the deployment to 500+ users was planned, not live when Ivan left. Use /cv for the human page and never invent a phone number.",
 };
 
 /** A request for Rose to access, inspect, review or test the visitor's code, files, repositories or systems. */
@@ -147,9 +147,14 @@ export function isRoseCodeAccessRequest(question: string): boolean {
   return verb.test(question) && target.test(question);
 }
 
+export const ROSE_SITE_TRUTH_RULES = `Sources on graders: when a source says a grader was too weak, say exactly that and nothing more specific than the source. The Evaluate note, section 12, says three cases were "graded too weakly to fail" (for example the 0.30 qt/hr oil case, where the required pattern accepted the answer because the word NORMAL appeared in it). Never invent a mechanism (thresholds, rounding, parsing, tolerances) the source does not state.
+Project statuses, quoted never paraphrased: asked which projects are live, built or working, name each project with its exact status word: Aetherix "Pre-pilot", Tacet "Maintenance", Anima "Compliance Gated", Rose "Live, text only", Lore "Evaluated", Compass "Partial", Sonor "MVP shipped · stopped 2022". Only Rose is live. Never call Compass "live"; Lore is "Evaluated".
+Site controls: the header (top right) has an ambient record, off by default, and the sun/moon toggle for the lights (Day and Dusk). You cannot play music or change the lights from the chat. Asked to play music, put on a record or dim the lights, say you cannot do it from the chat and point to those header controls (and to the welcome's buttons while it is shown). In that context "record" means the music record, never a Decision Ledger record.
+Orchestrator vocabulary: it "runs in the shadow of the daily recommendation"; never write "shadow mode" for the orchestrator (Shadow-mode is a different status label).`;
+
 function focusedContextGuidance(selected: readonly Slug[] | undefined, question: string): string {
   if (selected === undefined) {
-    return [ROSE_PORTFOLIO_REFERENCE_GUIDANCE, ROSE_PORTFOLIO_TRUTH_GUARDS].join("\n\n");
+    return [ROSE_PORTFOLIO_REFERENCE_GUIDANCE, ROSE_PORTFOLIO_TRUTH_GUARDS, ROSE_SITE_TRUTH_RULES].join("\n\n");
   }
   const blocks = selected.map(slug => FOCUSED_CLAIM_GUARDS[slug]).filter((s): s is string => Boolean(s));
   // The portfolio MCP and external-AI tools need their exact instructions
@@ -166,6 +171,7 @@ function focusedContextGuidance(selected: readonly Slug[] | undefined, question:
     const m = ROSE_PORTFOLIO_REFERENCE_GUIDANCE.match(/Three ways to use AI on this site[\s\S]*?(?=\nMCP questions:)/);
     if (m) blocks.push(m[0]);
   }
+  blocks.push(ROSE_SITE_TRUTH_RULES);
   return blocks.join("\n\n");
 }
 
@@ -210,7 +216,7 @@ Aetherix benchmark figures ("The numbers", a collapsed section that opens on arr
 Keep claims within their evidence: Aetherix's historical benchmark uses 30 public Japanese restaurants, never historical hotel data. Its outcomes and recalibration are sandbox-tested, not hotel-proven. Lore is a synthetic prototype, not certified software, and does not receive signed work records. Bouygues Telecom's 1.9M EUR is the targeted debt, 40% recovered, not 1.9M EUR recovered. Sonor's team is five people total: 4 co-founders, plus one person who was both developer and data scientist (5 people), with no paying city customer. Use the CV reference for professional delivery facts; do not replace it with older bio shorthand.
 Follow-ups must not introduce false premises: Lore has manuals, and Aetherix does not learn correctness from approval alone. A harness guards known failures; it does not replace missing outcome evidence. Never suggest that a harness replaces Lore's missing outcome loop.
 Compass has six tools on its own server; the portfolio server has five. Do not transfer tool counts between products. Aetherix's sandbox demand-shift experiment is not evidence that Apaleo supplies real POS outcomes. Do not invent a confidence threshold that blocks messages; cite only guards described in the source. Aetherix's manager overrides are declared decisions, not forecast ground truth; actual outcomes supply observed truth. When discussing the loop, name its sandbox scope explicitly.
-Aetherix scope: every sentence about Aetherix operating, learning or the Learning loop must carry its scope in the same sentence: "in sandbox", "on the Apaleo sandbox" or "on the 30-restaurant public benchmark". This applies equally to recruiter answers and summaries of Ivan's skills. Never describe it acting in a real hotel; no hotel is connected yet. Never write that Aetherix "refines", "learns", "improves" or "adapts" without that scope in the same sentence. Its public benchmark measures forecast error only, never the correctness of staffing or other agent recommendations. DomusVi: the MVP was delivered and a rollout was planned for 500+ users across 100 care homes; use that wording or an equivalent. Never label it "Delivery at Scale", say users were live, or describe it as a "100-facility" delivery. Aetherix has no real outcomes yet: say "sandbox outcomes" or "simulated outcomes", never "real outcomes". Sonor's team: 4 co-founders, plus one person who was both developer and data scientist (5 people). Never imply the public benchmark validates outcome learning.
+Aetherix scope: every sentence about Aetherix operating, learning or the Learning loop must carry its scope in the same sentence: "in sandbox", "on the Apaleo sandbox" or "on the 30-restaurant public benchmark". This applies equally to recruiter answers and summaries of Ivan's skills. Never describe it acting in a real hotel; no hotel is connected yet. Never write that Aetherix "refines", "learns", "improves" or "adapts" without that scope in the same sentence. Its public benchmark measures forecast error only, never the correctness of staffing or other agent recommendations. DomusVi: the POC and the migration were done; the deployment to 500+ users across 100+ establishments and 20 agencies was planned, not live when Ivan left. Never use "MVP", "operational", "live" or "in production" for DomusVi, never label it "Delivery at Scale" or describe it as a "100-facility" delivery. Aetherix has no real outcomes yet: say "sandbox outcomes" or "simulated outcomes", never "real outcomes". Sonor's team: 4 co-founders, plus one person who was both developer and data scientist (5 people). Never imply the public benchmark validates outcome learning.
 CV links: in recruiter answers, include [CV](/cv) as the professional evidence link. The fetched Markdown is reference material, not the human reading destination. Never use /cv.md, which does not exist. Use /Ivan_de_Murard_CV.md or /Ivan_de_Murard_CV.pdf only when the visitor explicitly asks for a download.`;
 
 const CASE_STUDY_SLUGS = [

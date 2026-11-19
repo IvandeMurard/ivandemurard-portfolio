@@ -3,6 +3,10 @@ import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { z } from 'zod';
 import { getRoseSystemPrompt } from '../supabase/functions/_shared/rose-context.ts';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { LIVE_FIX_CASES } from '../src/lib/roseLiveTestGraders.ts';
+// ROSE_QA_SET=live-fixes runs only the graded cases of the 20 Nov live test, ROSE_QA_SAMPLES times each (default 5).
+const liveFixes=process.env.ROSE_QA_SET==='live-fixes';
+const samples=Number(process.env.ROSE_QA_SAMPLES ?? 5);
 const output = process.env.ROSE_QA_OUTPUT ?? '/tmp/browser/rose-p5';
 mkdirSync(output, { recursive: true });
 const key=process.env.LOVABLE_API_KEY;
@@ -25,8 +29,9 @@ const cases=[
 ['multi-2','/aetherix','Given what I told you, does the manager approval boundary here help my copilot?'],
 ['multi-3','/contact','I have changed my mind. I would like to book a call with Ivan.'],
 ];
+const allCases:[string,string,string][] = liveFixes ? LIVE_FIX_CASES.flatMap(c=>Array.from({length:samples},(_,i)=>[`${c.id}#${i+1}`,c.path,c.question] as [string,string,string])) : cases as [string,string,string][];
 let history:any[]=[]; const results:any[]=[];
-for(const [id,path,question] of cases){
+for(const [id,path,question] of allCases){
  if(!id.startsWith('multi-') || id==='multi-1') history=[];
  history.push({id:id+'-user',role:'user',parts:[{type:'text',text:question}]});
  try{
@@ -43,4 +48,12 @@ for(const [id,path,question] of cases){
  console.log(id,results.at(-1).words,tools.map(t=>t.toolName).join(','));
  }catch(e){results.push({id,path,question,error:String(e)}); console.log(id,'ERROR');}
  writeFileSync(`${output}/answers.json`,JSON.stringify(results,null,2));
+}
+if(liveFixes){
+ for(const c of LIVE_FIX_CASES){
+  const runs=results.filter(r=>String(r.id).startsWith(c.id+'#'));
+  const fails=runs.map(r=>r.error?['error']:c.grade(r.text??''));
+  const passed=fails.filter(f=>f.length===0).length;
+  console.log(`${c.id}: ${passed}/${runs.length} pass`, fails.flat().filter((v,i,a)=>a.indexOf(v)===i).join('; '));
+ }
 }

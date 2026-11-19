@@ -50,13 +50,15 @@ export const CV = {
   ] satisfies CvRole[],
   product: [
     {
-      title: "Consultant Product Manager, DomusVi",
-      dates: "2024 – 2025",
-      context: "France's 2nd-largest private nursing-home group (Planète Grise 2026), highly regulated.",
+      title: "Consultant Product Manager · DomusVi",
+      dates: "2024 to 2025",
+      context: "France's 2nd-largest private group in health and social care: 100+ establishments, a regulated health sector.",
       bullets: [
-        "Owned discovery, specs and a no-code POC (Airtable, Make) to consolidate 10+ legacy tools onto one SaaS platform across 3 business lines.",
-        "Aligned 7 C-level stakeholders and coordinated IT, business teams, legal, marketing and an external SaaS vendor.",
-        "Prepared deployment and training; rollout planned for 500+ users across 100 care homes.",
+        "Led the information-system overhaul across 3 business lines: 10+ legacy tools consolidated and migrated onto one SaaS platform.",
+        "Framing, functional specifications and a no-code POC (Airtable, Make) to validate the choices before deployment.",
+        "Coordinated the external SaaS vendor; interoperability and data governance.",
+        "Aligned 7 C-level executives; coordinated the IT department, IT, business teams, legal, marketing and the vendor.",
+        "Outcome: key users trained; deployment planned for 500+ users across 100+ establishments and 20 agencies.",
       ],
     },
     {

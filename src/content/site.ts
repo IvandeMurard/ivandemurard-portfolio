@@ -125,7 +125,7 @@ export const TRACK_RECORD: TrackRecordEntry[] = [
     role: "Product Manager, SaaS",
     company: "FORTIL for DomusVi",
     outcome:
-      "Delivered the MVP; rollout planned for 500+ users across 100 care homes. Led the full lifecycle, from discovery and POC (Airtable, Make) to specs, IT mapping and field training.",
+      "Key users trained; deployment planned for 500+ users across 100+ establishments and 20 agencies. Led the information-system overhaul across 3 business lines: 10+ legacy tools consolidated and migrated onto one SaaS platform; no-code POC (Airtable, Make) before deployment.",
   },
   {
     range: "2023 to 2024",

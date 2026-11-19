@@ -99,13 +99,14 @@ describe("When Rose's welcome shows", () => {
 });
 
 describe("What the buttons do", () => {
-  it("'Dim the lights' switches the mood to dusk itself, then the welcome is gone for the session", async () => {
+  it("'Dim the lights' switches the mood to dusk itself and the welcome stays, now offering 'Turn the lights up'", async () => {
     render(wrap(<Index />));
     await flush();
     fireEvent.click(within(welcome()!).getByRole("button", { name: "Dim the lights" }));
     expect(document.documentElement.dataset.mood).toBe("dusk");
     expect(window.localStorage.getItem("mood")).toBe("dusk");
-    expect(welcome()).toBeNull();
+    expect(shown()).toBe(true);
+    expect(within(welcome()!).getByRole("button", { name: "Turn the lights up" })).toBeTruthy();
   });
 
   it("in dusk the button reads 'Turn the lights up' and switches to day", async () => {
@@ -115,7 +116,7 @@ describe("What the buttons do", () => {
     expect(within(welcome()!).queryByRole("button", { name: "Dim the lights" })).toBeNull();
     fireEvent.click(within(welcome()!).getByRole("button", { name: "Turn the lights up" }));
     expect(document.documentElement.dataset.mood).toBe("day");
-    expect(welcome()).toBeNull();
+    expect(shown()).toBe(true);
   });
 
   it("'Put on a record' is hidden when the ambience is unavailable (missing files)", async () => {
@@ -125,7 +126,7 @@ describe("What the buttons do", () => {
     expect(within(welcome()!).queryByRole("button", { name: "Put on a record" })).toBeNull();
   });
 
-  it("'Put on a record' unmutes the existing ambience, then the welcome is gone", async () => {
+  it("'Put on a record' toggles the ambience: Now playing, then Stop, and the welcome stays throughout", async () => {
     stubAudio(true);
     render(wrap(<Index />));
     await flush();
@@ -136,6 +137,33 @@ describe("What the buttons do", () => {
     await flush();
     expect(window.localStorage.getItem("ambience-muted")).toBe("false");
     expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
+    expect(shown()).toBe(true);
+    expect(within(welcome()!).getByText(ROSE_WELCOME.playing)).toBeTruthy();
+    expect(ROSE_WELCOME.playing).toBe("Now playing: Odetta, ATCQ Tribute.");
+    fireEvent.click(within(welcome()!).getByRole("button", { name: "Stop the record" }));
+    await flush();
+    expect(window.localStorage.getItem("ambience-muted")).toBe("true");
+    expect(shown()).toBe(true);
+    expect(within(welcome()!).getByRole("button", { name: "Put on a record" })).toBeTruthy();
+  });
+
+  it("dim, then record, then stop: the welcome is still shown after each", async () => {
+    stubAudio(true);
+    render(wrap(<Index />));
+    await flush(); await flush();
+    for (const name of ["Dim the lights", "Put on a record", "Stop the record"]) {
+      fireEvent.click(within(welcome()!).getByRole("button", { name }));
+      await flush();
+      expect(shown()).toBe(true);
+    }
+    expect(document.documentElement.dataset.mood).toBe("dusk");
+  });
+
+  it("typing a question to Rose dismisses it", async () => {
+    render(wrap(<Index />));
+    await flush();
+    const input = document.querySelector("[data-rose-dock] input, [data-rose-dock] textarea") as HTMLInputElement;
+    fireEvent.input(input, { target: { value: "H" } });
     expect(welcome()).toBeNull();
   });
 

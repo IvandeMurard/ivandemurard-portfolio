@@ -427,7 +427,6 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           hidden ? "pointer-events-none opacity-0" : "opacity-100",
         )}
       >
-        {welcome.candidate ? <RoseWelcome welcome={welcome} /> : null}
         <div
           data-rose-panel
           data-pulse={pulse ? "true" : "false"}
@@ -445,6 +444,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             pulse && "border-secondary shadow-2xl shadow-secondary/30 motion-reduce:border-outline-variant motion-reduce:shadow-xl motion-reduce:shadow-primary/10",
           )}
         >
+          {welcome.candidate ? <RoseWelcome welcome={welcome} /> : null}
           {open ? (
             <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
               <div className="flex items-center gap-2.5">

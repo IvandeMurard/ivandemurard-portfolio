@@ -110,11 +110,11 @@ export function flagRoseReaderValue(question: string, answer: string, pagePath =
   }
 
   if (/\bdomusvi\b/i.test(`${question} ${answer}`)) {
-    const mention = /\b(?:delivery at scale|(?:live|adopted|rolled out|deployed)\s+(?:to|across)\s+(?:500\+?\s+users|100\s+care homes)|(?:500\+?\s+users|100\s+care homes)\s+(?:were|are)\s+(?:live|adopted))\b/i.exec(answer);
+    const mention = /\b(?:MVP|operational|in production|delivery at scale|(?:live|adopted|rolled out|deployed)\s+(?:to|across)\s+(?:500\+?\s+users|100\s+care homes)|(?:500\+?\s+users|100\s+care homes)\s+(?:were|are)\s+(?:live|adopted)|is\s+live|went\s+live)\b/i.exec(answer);
     if (mention) warnings.push({
       code: "inflated_delivery_status",
       excerpt: excerptAround(answer, mention.index, mention[0].length),
-      reason: "For DomusVi, the MVP was delivered and the rollout was planned for 500+ users across 100 care homes. Planned reach is not live adoption or delivery at scale.",
+      reason: "For DomusVi, the POC and the migration were done; the deployment to 500+ users was planned, not live. Never MVP, operational, live or in production.",
     });
   }
 
