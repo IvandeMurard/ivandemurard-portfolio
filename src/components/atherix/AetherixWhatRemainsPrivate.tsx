@@ -23,7 +23,7 @@ export const AetherixWhatRemainsPrivate = () => (
       {EVIDENCE.map((e) => (
         <li
           key={e}
-          className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant font-label uppercase tracking-[0.18em] text-[10px] text-secondary"
+          className="inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant font-label uppercase tracking-[0.18em] text-kicker text-secondary"
         >
           {e}
         </li>

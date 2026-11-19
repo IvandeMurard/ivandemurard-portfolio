@@ -54,7 +54,7 @@ const Section = ({
 }) => (
   <Reveal as="section" aria-labelledby={id} className="px-6 md:px-12 mb-14 md:mb-20">
     <div className="max-w-screen-2xl mx-auto">
-      <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-3">
+      <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary block mb-3">
         Sec. {number}
       </span>
       <h2
@@ -121,7 +121,7 @@ const Table = ({
             <th
               key={h}
               scope="col"
-              className="px-4 py-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary whitespace-nowrap"
+              className="px-4 py-3 font-label uppercase tracking-[0.16em] text-kicker text-secondary whitespace-nowrap"
             >
               {h}
             </th>
@@ -190,7 +190,7 @@ const Architecture = () => {
           <div className="max-w-screen-2xl mx-auto">
             <span
               data-reveal-child
-              className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block"
+              className="text-secondary font-label uppercase tracking-[0.2em] text-kicker mb-6 block"
             >
               Architecture note
             </span>
@@ -289,7 +289,7 @@ const Architecture = () => {
                 concrete="Check-in: occupancy, a transit strike outside, a returning guest's last request, and who is on the desk."
               >
                 <div className="rounded-sm border border-outline bg-surface-container-low p-5 mb-8 max-w-3xl">
-                  <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-2">
+                  <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary block mb-2">
                     Illustration, not a capability
                   </span>
                   <p className="font-body text-sm text-on-surface-variant leading-relaxed">
@@ -406,7 +406,7 @@ const Architecture = () => {
                       its own covers, guests or prices leaving the building.
                     </p>
                     <p className="mt-3 flex flex-wrap items-baseline gap-2">
-                      <span className="inline-flex items-center rounded-sm border border-dashed border-outline px-2 py-0.5 font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                      <span className="inline-flex items-center rounded-sm border border-dashed border-outline px-2 py-0.5 font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                         Research
                       </span>
                       <span className="font-body text-sm text-on-surface-variant leading-relaxed">

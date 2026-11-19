@@ -15,11 +15,11 @@ export const AnimaFigure = ({
   <figure className="mb-8 max-w-3xl">
     <div className="rounded-sm border border-outline-variant bg-surface-container-lowest">
       <div className="flex items-baseline justify-between gap-4 border-b border-outline-variant px-4 py-3">
-        <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+        <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">
           {label}
         </span>
         {note && (
-          <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+          <span className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
             {note}
           </span>
         )}
@@ -36,7 +36,7 @@ export const AnimaFigure = ({
 
 /** Tag for anything in a figure that is not built. */
 export const DesignTag = ({ children = "Design" }: { children?: ReactNode }) => (
-  <span className="inline-flex items-center rounded-sm border border-dashed border-outline px-1.5 py-0.5 font-label uppercase tracking-[0.16em] text-[9px] text-secondary align-middle">
+  <span className="inline-flex items-center rounded-sm border border-dashed border-outline px-1.5 py-0.5 font-label uppercase tracking-[0.16em] text-kicker text-secondary align-middle">
     {children}
   </span>
 );

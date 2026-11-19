@@ -133,7 +133,7 @@ const Sonor = () => {
       <Reveal as="section" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-16 md:mb-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
           <div className="lg:col-span-7">
-            <span data-reveal-child className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
+            <span data-reveal-child className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-6 block">
               Case Study: Sonor (2020-2022)
             </span>
             <h1 data-reveal-child style={{ ["--reveal-delay" as string]: "120ms" }} className="headline-ink text-5xl md:text-8xl font-headline italic text-heading leading-[1.1] mb-8">
@@ -146,7 +146,7 @@ const Sonor = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-8 border-t border-outline-variant">
               {META.map((m, i) => (
                 <div key={m.label} data-reveal-child style={{ ["--reveal-delay" as string]: `${440 + i * 60}ms` }}>
-                  <h4 className="font-label uppercase tracking-widest text-[10px] text-secondary mb-2">{m.label}</h4>
+                  <h4 className="font-label uppercase tracking-widest text-kicker text-secondary mb-2">{m.label}</h4>
                   <p className="text-on-surface-variant font-medium">{m.value}</p>
                 </div>
               ))}
@@ -180,7 +180,7 @@ const Sonor = () => {
       {/* The Hypothesis (Figma prototype) */}
       <section id="hypothesis" className="py-16 md:py-28 bg-surface scroll-mt-24">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-6 block">
             The Hypothesis
           </span>
           <h2 className="text-4xl md:text-5xl font-headline italic text-heading mb-12">
@@ -205,7 +205,7 @@ const Sonor = () => {
       <section id="product" className="py-16 md:py-28 overflow-hidden bg-surface-container scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-24">
-            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-6 block">
+            <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-6 block">
               The Product
             </span>
             <h2 className="text-4xl md:text-5xl font-headline italic text-heading">
@@ -347,7 +347,7 @@ const Sonor = () => {
       <section className="py-16 md:py-28 bg-surface-container-lowest border-t border-outline-variant">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
-            <p className="font-label uppercase tracking-[0.3em] text-xs text-secondary mb-4">
+            <p className="font-label uppercase tracking-[0.3em] text-kicker text-secondary mb-4">
               Further Reading
             </p>
             <h2 className="text-4xl md:text-5xl font-headline italic text-heading">Go Further</h2>
@@ -374,7 +374,7 @@ const Sonor = () => {
                 <p className="text-base text-on-surface-variant leading-relaxed mb-8 flex-1">
                   {item.description}
                 </p>
-                <span className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-xs text-primary">
+                <span className="inline-flex items-center gap-2 font-label uppercase tracking-widest text-kicker text-primary">
                   <ExternalMark className="text-sm">{item.cta}</ExternalMark>
                 </span>
               </a>
@@ -387,7 +387,7 @@ const Sonor = () => {
       <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">
         <a
           href="/sonor.md"
-          className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
+          className="font-label text-kicker uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
         >
           View as markdown
         </a>

@@ -26,7 +26,7 @@ const Cell = ({ cell }: { cell: MatrixCell }) => (
   <div>
     <div className="flex items-center gap-2">
       <span aria-hidden="true" className={`h-2 w-2 rounded-full shrink-0 ${STATE[cell.state].dot}`} />
-      <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+      <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
         {STATE[cell.state].label}
       </span>
     </div>
@@ -53,7 +53,7 @@ export const CoverageMatrix = ({
 }) => (
   <figure className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5 md:p-6 not-italic m-0">
     {label && (
-      <figcaption className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-5 flex items-center gap-2">
+      <figcaption className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-5 flex items-center gap-2">
         <Icon name="grid_view" className="text-[16px] leading-none" aria-hidden="true" />
         {label}
       </figcaption>
@@ -63,7 +63,7 @@ export const CoverageMatrix = ({
     <div className="hidden md:grid gap-x-6 gap-y-5" style={{ gridTemplateColumns: `10rem repeat(${columns.length}, minmax(0,1fr))` }}>
       <div />
       {columns.map((c) => (
-        <div key={c} className="font-label uppercase tracking-[0.2em] text-[10px] text-primary pb-2 border-b border-outline-variant">
+        <div key={c} className="font-label uppercase tracking-[0.2em] text-kicker text-primary pb-2 border-b border-outline-variant">
           {c}
         </div>
       ))}
@@ -90,7 +90,7 @@ export const CoverageMatrix = ({
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
             {row.cells.map((cell, i) => (
               <div key={i} className="rounded-sm border border-outline-variant bg-surface-container-low p-4">
-                <div className="font-label uppercase tracking-[0.2em] text-[10px] text-primary mb-2">
+                <div className="font-label uppercase tracking-[0.2em] text-kicker text-primary mb-2">
                   {columns[i]}
                 </div>
                 <Cell cell={cell} />

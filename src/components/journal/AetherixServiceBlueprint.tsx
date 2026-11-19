@@ -9,7 +9,7 @@ import {
 const Status = ({ cell }: { cell: BlueprintCell }) =>
   cell.status ? (
     <span
-      className={`mt-2 inline-block font-label uppercase tracking-[0.14em] text-[9px] px-1.5 py-0.5 rounded-sm border ${
+      className={`mt-2 inline-block font-label uppercase tracking-[0.14em] text-kicker px-1.5 py-0.5 rounded-sm border ${
         cell.status === "built"
           ? "border-secondary/60 text-secondary"
           : "border-dashed border-outline text-on-surface-variant"
@@ -45,7 +45,7 @@ export const AetherixServiceBlueprint = () => {
       aria-labelledby="blueprint-title"
       className="m-0 rounded-sm border border-outline-variant bg-surface-container-lowest p-5 md:p-6"
     >
-      <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Service blueprint</p>
+      <p className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">Service blueprint</p>
       <h3 id="blueprint-title" className="mt-2 font-headline italic text-xl md:text-2xl text-heading">
         {BLUEPRINT.title}
       </h3>
@@ -58,7 +58,7 @@ export const AetherixServiceBlueprint = () => {
             <span role="columnheader" className="sr-only">Layer</span>
             {stages.map((s, i) => (
               <div role="columnheader" key={s.id}>
-                <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+                <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">
                   0{i + 1} · {s.when}
                 </span>
                 <span className="block font-headline italic text-lg text-heading">{s.name}</span>
@@ -79,10 +79,10 @@ export const AetherixServiceBlueprint = () => {
                     : "border-t border-outline-variant first:border-t-0"
               }`}
             >
-              <div role="rowheader" className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary pt-0.5">
+              <div role="rowheader" className="font-label uppercase tracking-[0.16em] text-kicker text-secondary pt-0.5">
                 {layer.label}
                 {layer.key === "behind" && (
-                  <span className="block mt-1 normal-case tracking-normal text-[11px] text-on-surface-variant font-body">
+                  <span className="block mt-1 normal-case tracking-normal text-meta text-on-surface-variant font-body">
                     below the line of visibility
                   </span>
                 )}
@@ -91,7 +91,7 @@ export const AetherixServiceBlueprint = () => {
                 <div role="cell" key={s.id}>
                   <Cell stage={s} layer={layer} />
                   {layer.key === "boundary" && s.handoff && (
-                    <p className="mt-2 font-label uppercase tracking-[0.14em] text-[10px] text-secondary">→ {s.handoff}</p>
+                    <p className="mt-2 font-label uppercase tracking-[0.14em] text-kicker text-secondary">→ {s.handoff}</p>
                   )}
                 </div>
               ))}
@@ -104,12 +104,12 @@ export const AetherixServiceBlueprint = () => {
       <ol className="lg:hidden mt-6 space-y-6">
         {stages.map((s, i) => (
           <li key={s.id} className="border-t border-outline pt-4">
-            <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">
+            <p className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">
               0{i + 1} · {s.when}
             </p>
             <h4 className="font-headline italic text-lg text-heading">{s.name}</h4>
             {s.handoff && (
-              <p className="mt-1 font-label uppercase tracking-[0.14em] text-[10px] text-secondary">→ {s.handoff}</p>
+              <p className="mt-1 font-label uppercase tracking-[0.14em] text-kicker text-secondary">→ {s.handoff}</p>
             )}
             <dl className="mt-3 space-y-3">
               {BLUEPRINT_LAYERS.map((layer) => (
@@ -123,7 +123,7 @@ export const AetherixServiceBlueprint = () => {
                         : "border-outline-variant"
                   }`}
                 >
-                  <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">{layer.label}</dt>
+                  <dt className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">{layer.label}</dt>
                   <dd>
                     <Cell stage={s} layer={layer} />
                   </dd>
@@ -139,7 +139,7 @@ export const AetherixServiceBlueprint = () => {
       </p>
       <figcaption className="mt-4 font-body text-sm text-on-surface-variant">{BLUEPRINT.caption}</figcaption>
       <div className="mt-5 border-t border-outline-variant pt-4">
-        <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-2">Evidence status</p>
+        <p className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-2">Evidence status</p>
         <ul className="space-y-1.5 font-body text-sm text-on-surface-variant">
           {BLUEPRINT.qualifications.map((q) => (
             <li key={q}>{q}</li>

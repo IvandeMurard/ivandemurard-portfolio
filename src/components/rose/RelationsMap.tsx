@@ -14,7 +14,7 @@ const BOX: Record<string, Box> = {
   rose: { x: 58, y: 70, w: 96, h: 40 },
   "every-page": { x: 196, y: 70, w: 120, h: 40 },
   evaluation: { x: 58, y: 190, w: 96, h: 40 },
-  "field-notes": { x: 196, y: 190, w: 120, h: 52, lines: ["Field Notes", "evaluation harness"] },
+  "field-notes": { x: 196, y: 190, w: 150, h: 56, lines: ["Field Notes", "evaluation harness"] },
   orchestrator: { x: 520, y: 100, w: 150, h: 40 },
   aetherix: { x: 340, y: 220, w: 96, h: 44 },
   tacet: { x: 460, y: 220, w: 96, h: 44 },
@@ -49,7 +49,7 @@ const Drawing = () => (
         <g key={n.id}>
           <rect x={b.x - b.w / 2} y={b.y - b.h / 2} width={b.w} height={b.h} rx="12" className="rm-node" strokeWidth="1.5" />
           {lines.map((l, i) => (
-            <text key={l} x={b.x} y={b.y + (i - (lines.length - 1) / 2) * 16 + 5} textAnchor="middle" className={i === 0 ? "rm-text font-body" : "rm-small font-label"}>{l}</text>
+            <text key={l} x={b.x} y={b.y + (i - (lines.length - 1) / 2) * 18 + 5} textAnchor="middle" className={i === 0 ? "rm-text font-body" : "rm-small font-label"}>{l}</text>
           ))}
         </g>
       );
@@ -66,7 +66,7 @@ export const RelationsMap = () => (
           <li key={`${r.from.join()}-${r.to}`} className="rm-row">
             <p className="m-0 flex flex-wrap items-baseline gap-x-2 gap-y-1 font-body text-base text-on-surface">
               <span className="font-semibold">{r.from.join(", ")}</span>{" "}
-              <span className="rm-link font-mono text-[12.5px] text-on-surface-variant" data-indirect={r.indirect ? "" : undefined}>{r.link}</span>{" "}
+              <span className="rm-link font-mono text-meta text-on-surface-variant" data-indirect={r.indirect ? "" : undefined}>{r.link}</span>{" "}
               <span className="font-semibold">{r.to}</span>
             </p>{" "}
             <p className="m-0 mt-1 font-body text-[15px] leading-normal text-on-surface-variant">{r.reason}</p>

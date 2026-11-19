@@ -37,7 +37,7 @@ const Decay = ({ value }: { value: number }) => (
     <div className="h-1.5 w-full border border-outline-variant" aria-hidden="true">
       <div className="h-full bg-secondary" style={{ width: `${Math.round(value * 100)}%` }} />
     </div>
-    <span className="mt-1 block font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant tabular-nums">
+    <span className="mt-1 block font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant tabular-nums">
       Confidence {value.toFixed(2)} · illustrative
     </span>
   </div>
@@ -53,7 +53,7 @@ export const AnimaClaimCard = () => (
     <ol className="m-0 list-none p-0 grid grid-cols-1 sm:grid-cols-3 gap-px bg-outline-variant border border-outline-variant">
       {CLAIMS.map((c) => (
         <li key={c.regime} className="bg-surface-container-lowest p-4 flex flex-col">
-          <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary block mb-2">
+          <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary block mb-2">
             {c.regime}
           </span>
           <p className="font-headline italic text-heading text-lg leading-tight mb-3">
@@ -61,7 +61,7 @@ export const AnimaClaimCard = () => (
           </p>
           <dl className="m-0 space-y-1 text-sm flex-1">
             <div className="flex gap-2">
-              <dt className="font-label uppercase tracking-[0.14em] text-[10px] text-on-surface-variant w-16 shrink-0 pt-0.5">
+              <dt className="font-label uppercase tracking-[0.14em] text-kicker text-on-surface-variant w-16 shrink-0 pt-0.5">
                 Source
               </dt>
               <dd className="m-0 font-body text-sm text-on-surface-variant leading-relaxed">
@@ -69,7 +69,7 @@ export const AnimaClaimCard = () => (
               </dd>
             </div>
             <div className="flex gap-2">
-              <dt className="font-label uppercase tracking-[0.14em] text-[10px] text-on-surface-variant w-16 shrink-0 pt-0.5">
+              <dt className="font-label uppercase tracking-[0.14em] text-kicker text-on-surface-variant w-16 shrink-0 pt-0.5">
                 Age
               </dt>
               <dd className="m-0 font-body text-sm text-on-surface-variant leading-relaxed">

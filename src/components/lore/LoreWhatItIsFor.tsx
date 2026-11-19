@@ -58,7 +58,7 @@ export const LoreWhatItIsFor = () => (
       </div>
 
       <div className="mt-8 max-w-3xl rounded-2xl border border-outline-variant bg-surface-container-low p-6 md:p-8">
-        <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The honest state</span>
+        <span className="font-label uppercase tracking-[0.25em] text-kicker text-secondary">The honest state</span>
         <div className="mt-4 space-y-4 text-on-surface-variant leading-relaxed">
           <p>
             The circuit is open today. All three modes work; nothing yet weights an observation by what happened after

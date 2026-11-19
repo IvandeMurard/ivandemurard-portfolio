@@ -73,7 +73,7 @@ export const AetherixAgentAccordion = () => {
                 )}
                 <p className={cn("text-xs text-on-surface-variant", s.from && "mt-3.5")}>Aetherix</p>
                 <p className="mt-1 max-w-[88%] rounded-xl bg-primary px-3.5 py-2.5 text-sm leading-snug text-[hsl(var(--dark-ink))]">{s.says}</p>
-                <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full border border-signal-go bg-[hsl(var(--signal-go)/0.12)] px-3 py-1 text-[12.5px] text-signal-go"><span aria-hidden="true">✓</span>{s.badge}</p>
+                <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full border border-signal-go bg-[hsl(var(--signal-go)/0.12)] px-3 py-1 text-meta text-signal-go"><span aria-hidden="true">✓</span>{s.badge}</p>
                 <p className="mt-auto max-w-[22.5rem] pt-6 text-sm leading-relaxed text-on-surface-variant">{s.description}</p>
               </div>
             </div>

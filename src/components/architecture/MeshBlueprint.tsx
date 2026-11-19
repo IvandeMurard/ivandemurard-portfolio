@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { MESH_NODES, type MeshNode } from "@/content/meshNodes";
 
 /**
@@ -11,7 +10,7 @@ import { MESH_NODES, type MeshNode } from "@/content/meshNodes";
  */
 
 const DESKTOP = { w: 900, h: 440, cx: 450, cy: 220, rx: 320, ry: 150, core: 74 };
-const MOBILE = { w: 360, h: 560, cx: 180, cy: 290, rx: 112, ry: 222, core: 62 };
+const MOBILE = { w: 360, h: 560, cx: 180, cy: 290, rx: 112, ry: 222, core: 70 };
 
 const ORCHESTRATOR = "Orchestrator";
 const SPECIALISTS = MESH_NODES.filter((n) => n.node !== ORCHESTRATOR);
@@ -88,9 +87,48 @@ const CornerMarks = ({ g }: { g: typeof DESKTOP }) => {
   );
 };
 
+/** Below this width of the figure's frame the orbit stacks into the tall layout. */
+const STACK_BELOW = 760;
+/** The stacked layout stops growing here, so its labels do not balloon on a tablet. */
+const STACK_MAX_W = 440;
+/** No label of the figure renders below this many screen pixels (site floor, scripts/check-text-size.ts). */
+const MIN_LABEL_PX = 13;
+
+/** The content width of an element (padding left out), kept up to date. 0 until it is measured. */
+const useContentWidth = (ref: React.RefObject<HTMLElement>) => {
+  const [w, setW] = useState(0);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const read = () => {
+      const cs = getComputedStyle(el);
+      setW(el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight));
+    };
+    read();
+    const ro = new ResizeObserver(read);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+  return w;
+};
+
 export const MeshBlueprint = () => {
-  const isMobile = useIsMobile();
+  const frame = useRef<HTMLDivElement>(null);
+  const frameW = useContentWidth(frame);
+  const isMobile = frameW > 0 && frameW < STACK_BELOW;
   const g = isMobile ? MOBILE : DESKTOP;
+  // How many screen pixels one unit of the figure is. A label is sized in figure units, so it is given
+  // at least MIN_LABEL_PX / scale of them: the text stays readable however far the figure is scaled down.
+  const figureW = frameW > 0 ? (isMobile ? Math.min(frameW, STACK_MAX_W) : frameW) : g.w;
+  const scale = figureW / g.w;
+  const label = (designUnits: number) => Math.max(designUnits, MIN_LABEL_PX / scale);
+  const nameSize = label(isMobile ? 13 : 15);
+  const smallSize = label(11);
+  const lineGap = smallSize * 0.8 + nameSize * 0.3 + 3; // from a name's baseline to the baseline of its state line
+  // The core's three lines, centred on the core.
+  const coreY1 = g.cy - (nameSize * 0.9 + smallSize * 2.6) / 2 + nameSize * 0.75;
+  const coreY2 = coreY1 + nameSize * 0.3 + smallSize * 0.8 + 4;
+  const coreY3 = coreY2 + smallSize * 1.25;
   const [active, setActive] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -104,18 +142,19 @@ export const MeshBlueprint = () => {
   return (
     <figure className="mb-8 rounded-sm border border-outline-variant bg-surface-container-lowest">
       <figcaption className="flex items-center justify-between gap-4 border-b border-outline-variant px-4 py-3">
-        <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
+        <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary">
           Fig. 3.1 · The architecture, as wired
         </span>
-        <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+        <span className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
           Solid: built · Dashed: synthetic PoC or designed
         </span>
       </figcaption>
 
-      <div className="px-3 py-4 md:px-6 md:py-6">
+      <div ref={frame} className="px-3 py-4 md:px-6 md:py-6">
         <svg
           viewBox={`0 0 ${g.w} ${g.h}`}
-          className="w-full h-auto mesh-blueprint"
+          className="w-full h-auto mesh-blueprint mx-auto"
+          style={isMobile ? { maxWidth: STACK_MAX_W } : undefined}
           role="group"
           aria-label="Four domain agents wired to a central supervisory orchestrator that holds no memory"
         >
@@ -165,9 +204,9 @@ export const MeshBlueprint = () => {
             y={orbit(g, 42, 1.1).y}
             textAnchor="middle"
             className="fill-on-surface-variant"
-            style={{ fontSize: isMobile ? 7 : 8, letterSpacing: "0.22em", opacity: 0.85 }}
+            style={{ fontSize: label(10) }}
           >
-            MCP SURFACE
+            MCP surface
           </text>
 
           {/* Spokes, drawn under the marks */}
@@ -243,30 +282,30 @@ export const MeshBlueprint = () => {
             />
             <text
               x={g.cx}
-              y={g.cy - 6}
+              y={coreY1}
               textAnchor="middle"
               className="fill-primary"
-              style={{ fontSize: isMobile ? 13 : 15, fontStyle: "italic" }}
+              style={{ fontSize: nameSize, fontStyle: "italic" }}
             >
               Orchestrator
             </text>
             <text
               x={g.cx}
-              y={g.cy + 9}
+              y={coreY2}
               textAnchor="middle"
               className={coreLit ? "fill-secondary" : "fill-on-surface-variant"}
-              style={{ fontSize: isMobile ? 7.5 : 9, letterSpacing: "0.16em" }}
+              style={{ fontSize: smallSize }}
             >
-              STATELESS ROUTER
+              Stateless router
             </text>
             <text
               x={g.cx}
-              y={g.cy + 22}
+              y={coreY3}
               textAnchor="middle"
               className="fill-secondary"
-              style={{ fontSize: isMobile ? 7.5 : 9, letterSpacing: "0.16em" }}
+              style={{ fontSize: smallSize }}
             >
-              NO MEMORY
+              No memory
             </text>
           </g>
 
@@ -278,14 +317,18 @@ export const MeshBlueprint = () => {
             const right = !isMobile && p.x > g.cx + 8;
             const anchor = left ? "end" : right ? "start" : "middle";
             const tx = left ? p.x - 14 : right ? p.x + 14 : p.x;
-            const ty = anchor === "middle" ? (p.y < g.cy ? p.y - 22 : p.y + 30) : p.y - 2;
+            const above = anchor === "middle" && p.y < g.cy;
+            const ty = anchor !== "middle" ? p.y - 2 : above ? p.y - 12 - lineGap : p.y + 18 + nameSize * 0.8;
+            const stateY = ty + lineGap;
             // Transparent hit area over the mark and its label.
-            const charW = (isMobile ? 13 : 15) * 0.62;
-            const hitW = Math.max(n.node.length, STATE_LABEL[n.state].length) * charW + 34;
-            const hitH = 46;
+            const nameW = n.node.length * nameSize * 0.55;
+            const stateW = STATE_LABEL[n.state].length * smallSize * 0.6;
+            const hitW = Math.max(nameW, stateW) + 34;
+            const hitTop = Math.min(ty - nameSize * 0.9, p.y - 8) - 4;
+            const hitH = Math.max(stateY + smallSize * 0.35, p.y + 8) + 2 - hitTop;
             const hitX =
               anchor === "end" ? tx + 8 - hitW : anchor === "start" ? p.x - 12 : tx - hitW / 2;
-            const hitY = anchor === "middle" ? (p.y < g.cy ? p.y - 40 : p.y - 8) : p.y - 20;
+            const hitY = hitTop;
 
             return (
               <g
@@ -326,18 +369,18 @@ export const MeshBlueprint = () => {
                   y={ty}
                   textAnchor={anchor}
                   className="fill-primary"
-                  style={{ fontSize: isMobile ? 13 : 15, fontStyle: "italic" }}
+                  style={{ fontSize: nameSize, fontStyle: "italic" }}
                 >
                   {n.node}
                 </text>
                 <text
                   x={tx}
-                  y={ty + (isMobile ? 13 : 15)}
+                  y={stateY}
                   textAnchor={anchor}
                   className={isLit ? "fill-secondary" : "fill-on-surface-variant"}
-                  style={{ fontSize: isMobile ? 8 : 9, letterSpacing: "0.16em" }}
+                  style={{ fontSize: smallSize }}
                 >
-                  {STATE_LABEL[n.state].toUpperCase()}
+                  {STATE_LABEL[n.state]}
                 </text>
               </g>
             );
@@ -354,7 +397,7 @@ export const MeshBlueprint = () => {
           <div className="space-y-2">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="font-headline italic text-heading text-lg">{selected.node}</span>
-              <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+              <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                 {selected.status}
               </span>
             </div>
@@ -367,12 +410,12 @@ export const MeshBlueprint = () => {
             {selected.to ? (
               <Link
                 to={selected.to}
-                className="inline-block font-label uppercase tracking-[0.16em] text-[10px] text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
+                className="inline-block font-label uppercase tracking-[0.16em] text-kicker text-primary border-b border-secondary pb-0.5 hover:opacity-70 transition-opacity"
               >
                 Read the {selected.node} case study
               </Link>
             ) : (
-              <p className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+              <p className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
                 No page yet: a named slot in the contract, and no code
               </p>
             )}

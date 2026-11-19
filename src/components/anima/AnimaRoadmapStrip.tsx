@@ -39,7 +39,7 @@ export const AnimaRoadmapStrip = () => (
       {STEPS.map((step, i) => (
         <li key={step.mark} className="bg-surface-container-lowest p-4">
           <div className="flex items-center gap-2 mb-3">
-            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant tabular-nums">
+            <span className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant tabular-nums">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="h-px flex-1 bg-outline-variant" aria-hidden="true" />
@@ -52,7 +52,7 @@ export const AnimaRoadmapStrip = () => (
               )}
             </svg>
           </div>
-          <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary block mb-1">
+          <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary block mb-1">
             {step.mark}
           </span>
           <p className="font-headline italic text-heading text-lg leading-tight mb-2">

@@ -27,7 +27,7 @@ export const AetherixHiveStanzas = () => (
 
     <Reveal as="div" className="relative max-w-4xl mx-auto flex flex-col gap-16 md:gap-20">
       <div data-reveal-child className="text-center">
-        <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">The Hive</span>
+        <span className="font-label uppercase tracking-[0.25em] text-kicker text-secondary">The Hive</span>
         <h2 className="font-headline italic text-4xl md:text-6xl text-heading mt-4 leading-[1.05]">
           Scaling soul through collective intelligence.
         </h2>
@@ -39,7 +39,7 @@ export const AetherixHiveStanzas = () => (
         style={{ ["--reveal-delay" as string]: "200ms" }}
         className="flex flex-col md:flex-row gap-6 md:gap-10 items-start"
       >
-        <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary md:pt-2 shrink-0 md:w-16">
+        <span className="font-label uppercase tracking-[0.25em] text-kicker text-secondary md:pt-2 shrink-0 md:w-16">
           01
         </span>
         <p className="text-on-surface text-lg md:text-xl leading-relaxed">

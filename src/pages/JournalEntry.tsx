@@ -159,7 +159,7 @@ const Block = ({
         <h3
           id={headingId}
           tabIndex={-1}
-          className="group scroll-mt-32 font-label uppercase tracking-[0.2em] text-[11px] text-secondary pt-6"
+          className="group scroll-mt-32 font-label uppercase tracking-[0.2em] text-kicker text-secondary pt-6"
         >
           {block.text}
           {headingId && <HeadingAnchor id={headingId} text={block.text} />}
@@ -170,7 +170,7 @@ const Block = ({
     case "callout":
       return (
         <aside className="border-y border-outline-variant py-6">
-          <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-3">{block.title}</p>
+          <p className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-3">{block.title}</p>
           <p className="font-body text-base">{t(block.text)}</p>
           <Link
             to={block.link.to}
@@ -229,7 +229,7 @@ const Block = ({
                   <th
                     key={i}
                     scope="col"
-                    className="px-4 py-3 font-label uppercase tracking-[0.16em] text-[10px] text-secondary"
+                    className="px-4 py-3 font-label uppercase tracking-[0.16em] text-kicker text-secondary"
                   >
                     {h}
                   </th>
@@ -255,7 +255,7 @@ const Block = ({
                         <details className="group">
                           <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                             {t(firstSentence(cell))}{" "}
-                            <span className="font-label text-[11px] uppercase tracking-[0.12em] text-primary group-open:hidden">Read more</span>
+                            <span className="font-label text-kicker uppercase tracking-[0.12em] text-primary group-open:hidden">Read more</span>
                           </summary>
                           {t(cell.slice(firstSentence(cell).length).trim())}
                         </details>
@@ -275,7 +275,7 @@ const Block = ({
         <dl className="space-y-6">
           {block.items.map((item, i) => (
             <div key={i} className="border-l border-outline-variant pl-5">
-              <dt className="font-label uppercase tracking-[0.16em] text-[11px] text-primary mb-1">
+              <dt className="font-label uppercase tracking-[0.16em] text-kicker text-primary mb-1">
                 {item.term}
               </dt>
               <dd className="font-body font-normal text-base text-on-surface-variant">{t(item.def)}{item.note && <em className="block mt-2">{item.note}</em>}</dd>
@@ -288,7 +288,7 @@ const Block = ({
     case "deployed":
       return (
         <div className="border-t border-outline-variant pt-5">
-          <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+          <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">
             {labels.deployed}
           </div>
           <div className="space-y-3">
@@ -320,7 +320,7 @@ const Block = ({
           <dl className="grid gap-4 sm:grid-cols-2">{shown.map(card)}</dl>
           {folded.length > 0 && (
             <details data-more-questions className="mt-4 rounded-sm border border-outline-variant px-4 py-3">
-              <summary className="cursor-pointer font-label text-[11px] uppercase tracking-[0.14em] text-primary">{block.foldSummary ?? "More questions"}</summary>
+              <summary className="cursor-pointer font-label text-kicker uppercase tracking-[0.14em] text-primary">{block.foldSummary ?? "More questions"}</summary>
               <dl className="mt-4 grid gap-4 sm:grid-cols-2">{folded.map(card)}</dl>
             </details>
           )}
@@ -383,7 +383,7 @@ const Block = ({
     case "fold":
       return (
         <details className="rounded-sm border border-outline-variant px-4 py-3">
-          <summary className="cursor-pointer font-label text-[11px] uppercase tracking-[0.14em] text-primary">{block.summary}</summary>
+          <summary className="cursor-pointer font-label text-kicker uppercase tracking-[0.14em] text-primary">{block.summary}</summary>
           <div className="mt-4 space-y-6">
             {block.blocks.map((b, i) => <Block key={i} block={b} labels={labels} marks={marks} standfirst={standfirst} diagnostic={diagnostic} />)}
           </div>

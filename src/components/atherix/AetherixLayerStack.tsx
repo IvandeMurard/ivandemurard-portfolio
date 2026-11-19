@@ -100,7 +100,7 @@ export const AetherixLayerStack = () => {
                 />
 
                 <div className="flex items-start gap-6 md:gap-10">
-                  <span className="font-label uppercase tracking-[0.25em] text-[11px] text-secondary shrink-0 pt-1">
+                  <span className="font-label uppercase tracking-[0.25em] text-kicker text-secondary shrink-0 pt-1">
                     {layer.numeral}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -108,7 +108,7 @@ export const AetherixLayerStack = () => {
                       <h3 className="font-headline italic text-2xl md:text-3xl text-heading leading-tight">
                         {layer.name}
                       </h3>
-                      <p className="font-label uppercase tracking-[0.18em] text-[10px] text-on-surface-variant mt-1 md:mt-0">
+                      <p className="font-label uppercase tracking-[0.18em] text-kicker text-on-surface-variant mt-1 md:mt-0">
                         {layer.component}
                       </p>
                     </div>
@@ -132,7 +132,7 @@ export const AetherixLayerStack = () => {
                           className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant bg-surface/70"
                         >
                           <Icon name={s.icon} className="text-on-surface-variant text-sm" />
-                          <span className="text-[11px] uppercase tracking-widest text-secondary">{s.label}</span>
+                          <span className="text-kicker uppercase tracking-widest text-secondary">{s.label}</span>
                         </div>
                       ))}
                     </div>
@@ -144,7 +144,7 @@ export const AetherixLayerStack = () => {
         })}
       </ol>
 
-      <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface-variant text-center pt-8 md:pt-10">
+      <p className="font-label uppercase tracking-[0.25em] text-kicker text-on-surface-variant text-center pt-8 md:pt-10">
         Zero-UI Action Layer · Native Workflow Injection
       </p>
     </div>

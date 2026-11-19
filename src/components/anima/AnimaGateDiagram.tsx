@@ -17,7 +17,7 @@ const Box = ({
   line: string;
 }) => (
   <div className="flex-1 min-w-0 border border-outline-variant bg-surface-container-lowest p-4">
-    <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary block mb-1">
+    <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary block mb-1">
       {kicker}
     </span>
     <p className="font-headline italic text-heading text-lg leading-tight mb-1">{title}</p>
@@ -54,10 +54,10 @@ export const AnimaGateDiagram = () => (
 
     <div className="mt-4 border border-dashed border-outline bg-surface-container-low p-4">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
+        <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary">
           Request that does not pass
         </span>
-        <span className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+        <span className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
           Blocked by protocol
         </span>
       </div>
@@ -70,7 +70,7 @@ export const AnimaGateDiagram = () => (
     </div>
 
     <div className="mt-4 border-t border-outline-variant pt-3 flex flex-col sm:flex-row sm:items-baseline gap-2">
-      <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary sm:w-40 shrink-0">
+      <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary sm:w-40 shrink-0">
         After the answer
       </span>
       <span className="font-body text-sm text-on-surface-variant leading-relaxed">

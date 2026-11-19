@@ -1,7 +1,7 @@
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { JOURNAL_ENTRIES, JOURNAL_KNOWLEDGE_QUESTIONS } from "@/content/journal";
 
-const label = "font-label uppercase tracking-[0.2em] text-[10px]";
+const label = "font-label uppercase tracking-[0.2em] text-kicker";
 
 export const JournalKnowledgeMap = () => (
   <section aria-labelledby="explore-by-question" className="px-6 md:px-12 max-w-screen-2xl mx-auto mb-24 md:mb-32">

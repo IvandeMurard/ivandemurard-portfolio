@@ -42,12 +42,12 @@ export const RecommendationLine = ({ id = "fig-reco-line", initialLayer = "check
     else return;
     e.preventDefault();
   };
-  const btn = (on: boolean) => cn("rounded-sm border px-2.5 py-1 font-label text-[11px] uppercase tracking-[0.14em] transition-colors",
+  const btn = (on: boolean) => cn("rounded-sm border px-2.5 py-1 font-label text-kicker uppercase tracking-[0.14em] transition-colors",
     on ? "border-on-surface text-on-surface" : "border-outline-variant text-on-surface-variant hover:text-on-surface");
 
   return (
     <figure ref={ref} id={id} className="my-8 rounded-sm border border-outline-variant bg-surface-container-lowest">
-      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-outline-variant px-4 py-3 font-label text-[10px] uppercase tracking-[0.2em]">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-outline-variant px-4 py-3 font-label text-kicker uppercase tracking-[0.2em]">
         <span className="text-secondary">{figLabel}</span><span className="text-on-surface-variant">Recommendation line</span>
       </div>
       <div tabIndex={0} onKeyDown={onKey} aria-label={`Recommendation line. ${L.label}, ${layer === "checks" ? "what checks it" : "what truth comes back"}. Keys: 1 to 5 or arrows for stations, L line, T layer, P play or pause.`}
@@ -61,13 +61,13 @@ export const RecommendationLine = ({ id = "fig-reco-line", initialLayer = "check
               <span className={cn("rounded-[5px] bg-surface-container-lowest p-0.5", q.ghost && "border border-dashed border-outline-variant", k === i && !q.ghost && "ring-1 ring-on-surface")}>
                 <SignalLamp state={lampOf(q, layer)} hideWord />
               </span>
-              <span className="nm font-body text-[11px] leading-tight text-on-surface [overflow-wrap:anywhere] underline-offset-2">{q.name}</span>
-              <span className="hidden font-label text-[10px] uppercase tracking-[0.06em] text-on-surface-variant sm:block">{viewOf(q, layer)[0]}</span>
+              <span className="nm font-body text-meta leading-tight text-on-surface [overflow-wrap:anywhere] underline-offset-2">{q.name}</span>
+              <span className="hidden font-label text-kicker uppercase tracking-[0.06em] text-on-surface-variant sm:block">{viewOf(q, layer)[0]}</span>
             </button>
           ))}
         </div>
         <div aria-live="polite" className="rounded-sm border border-outline-variant bg-surface-container px-4 py-3 font-mono">
-          <p className="text-[10px] uppercase tracking-[0.14em] text-on-surface-variant">{L.label} line · {layer === "checks" ? "What checks it" : "What truth comes back"}</p>
+          <p className="text-kicker uppercase tracking-[0.14em] text-on-surface-variant">{L.label} line · {layer === "checks" ? "What checks it" : "What truth comes back"}</p>
           <p className="mt-1 font-headline text-xl text-on-surface">{p.name}{p.ghost ? " (never reached)" : ""}</p>
           <p className="mt-1 text-sm text-on-surface"><SignalLamp state={lampOf(p, layer)} label={v[0]} /></p>
           <p className="mt-1 text-sm text-on-surface">{v[1]}</p>
@@ -88,7 +88,7 @@ export const RecommendationLine = ({ id = "fig-reco-line", initialLayer = "check
         Lamps: green top GO (covered), amber middle WARN (partial), red bottom STOP (failing), none lit DARK (no information, treated as stop). In the Truth layer: green, a truth you can rely on comes back; amber, a declared truth (a preference); none lit, nothing comes back.
         <details className="mt-3">
           <summary className="cursor-pointer text-on-surface">What an agent and Rose read</summary>
-          <pre className="mt-2 overflow-x-auto font-mono text-[11px] leading-relaxed text-on-surface">{recoLineMarkdown(layer)}</pre>
+          <pre className="mt-2 overflow-x-auto font-mono text-meta leading-relaxed text-on-surface">{recoLineMarkdown(layer)}</pre>
         </details>
         <p className="mt-2">Ask Rose: “{L.rose[layer]}”</p>
       </figcaption>

@@ -63,7 +63,7 @@ export const ClosingContact = ({ room }: { room: keyof typeof CLOSING_ROOMS }) =
   return (
     <Reveal as="section" id="contact" aria-labelledby="closing-contact-heading" className="section-inverse px-6 md:px-12 py-24 md:py-32 scroll-mt-24">
       <div className="max-w-3xl mx-auto text-center">
-        <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary block mb-4">Contact</span>
+        <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary block mb-4">Contact</span>
         <h2 id="closing-contact-heading" className="font-headline italic text-heading text-3xl md:text-5xl leading-tight mb-6">{r.title}</h2>
         <p className="text-on-surface-variant leading-relaxed">{r.body}</p>
         <div className="mt-10 flex flex-wrap justify-center gap-4">

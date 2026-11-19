@@ -24,14 +24,14 @@ const Tip = ({ label, explain, children }: { label: string; explain: string; chi
     <PopoverTrigger asChild>
       <button type="button" aria-label={`${label}: ${explain}`} className="underline decoration-dotted underline-offset-2 cursor-help text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">{label}</button>
     </PopoverTrigger>
-    <PopoverContent side="top" className="max-w-[300px] font-mono text-[11.5px] leading-relaxed">{children}</PopoverContent>
+    <PopoverContent side="top" className="max-w-[300px] font-mono text-meta leading-relaxed">{children}</PopoverContent>
   </Popover>
 );
 
 const AetherixStatus = () => (
   <div className="flex flex-col gap-2">
     <SignalLamp state={PROJECTS.atherix.status.signal} label={PROJECTS.atherix.status.word} />
-    <p className="font-mono text-[12.5px] leading-relaxed text-on-surface-variant max-w-[560px]">
+    <p className="font-mono text-meta leading-relaxed text-on-surface-variant max-w-[560px]">
       Built and tested on the{" "}
       <Tip label="Apaleo sandbox" explain="what this means">Apaleo is a cloud property-management system (PMS) used by hotels. Its sandbox is a test hotel with realistic bookings: the agent runs on the real API without touching real guests.{" "}<a href="https://apaleo.com" target="_blank" rel="noopener noreferrer" className="underline"><ExternalMark>apaleo.com</ExternalMark></a></Tip> and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.
     </p>
@@ -60,7 +60,7 @@ const SELECTED = [
   { p: PROJECTS.sonor, fragment: PROJECTS.sonor.status.note, line: "A two-year B2G SaaS I co-founded with three partners, to help cities reduce noise pollution with open data.", href: "/sonor#what-id-change" },
 ];
 
-const kicker = "font-mono uppercase tracking-[0.12em] text-[11px]";
+const kicker = "font-mono uppercase tracking-[0.12em] text-kicker";
 const rule = "border-t border-primary";
 const hair = "border-t border-outline-variant";
 
@@ -111,7 +111,7 @@ const Index = () => {
                 className="h-full w-full object-cover grayscale" loading="eager" fetchPriority="high" />
               <div aria-hidden className="absolute inset-3 border border-secondary/60 pointer-events-none" />
             </div>
-            <figcaption className={`${hair} mt-3 pt-2 font-mono text-[11.5px] text-on-surface-variant`}>Ivan de Murard · Paris</figcaption>
+            <figcaption className={`${hair} mt-3 pt-2 font-mono text-meta text-on-surface-variant`}>Ivan de Murard · Paris</figcaption>
           </figure>
         </div>
       </Reveal>
@@ -168,7 +168,7 @@ const Index = () => {
                 </h3>
                 <SignalLamp state={p.status.signal} label={p.status.word} />
               </div>
-              <p className={`${hair} mt-6 pt-3 font-mono text-[12.5px] leading-relaxed text-on-surface`}>{fragment}</p>
+              <p className={`${hair} mt-6 pt-3 font-mono text-meta leading-relaxed text-on-surface`}>{fragment}</p>
               <p className="mt-6 text-on-surface-variant leading-relaxed flex-1">{line}</p>
               <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
                 <Link to={href ?? `/${p.slug}`} onClick={() => track({ label: p.name, href: href ?? `/${p.slug}`, kind: "project" })}

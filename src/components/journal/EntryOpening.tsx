@@ -46,7 +46,7 @@ export const EntryOpening = ({
             <div key={row.term} className="min-w-0">
               <dt className="flex items-center gap-2 mb-2">
                 <Icon name={row.icon} className="text-secondary text-[18px] leading-none" />
-                <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary">
+                <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary">
                   {row.term}
                 </span>
               </dt>
@@ -58,7 +58,7 @@ export const EntryOpening = ({
 
       {takeaways && takeaways.length > 0 && (
         <section aria-label={takeawaysLabel} className="mt-6 md:mt-8">
-          <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+          <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">
             {takeawaysLabel}
           </div>
           <ol className="grid gap-3 sm:grid-cols-2 list-none p-0 m-0">
@@ -69,7 +69,7 @@ export const EntryOpening = ({
               >
                 <span
                   aria-hidden="true"
-                  className="font-label text-[11px] text-secondary pt-0.5 tabular-nums"
+                  className="font-label text-meta text-secondary pt-0.5 tabular-nums"
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>

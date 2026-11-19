@@ -11,6 +11,14 @@ export default {
       screens: { "2xl": "1400px" },
     },
     extend: {
+      // One floor for text on the site (board N, 19 Nov 2026; scripts/check-text-size.ts fails below it).
+      // meta: running text, captions, table cells, figure labels, meta lines. kicker: uppercase tracked labels.
+      // text-xs is the same 13px as meta, so a plain text-xs is never below the floor. Size only: no line-height, as text-[Npx] had none.
+      fontSize: {
+        meta: "0.8125rem",
+        kicker: "0.75rem",
+        xs: ["0.8125rem", { lineHeight: "1.125rem" }],
+      },
       fontFamily: {
         headline: ['"Newsreader"', "serif"],
         body: ['"Manrope"', "sans-serif"],

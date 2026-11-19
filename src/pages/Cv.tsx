@@ -39,7 +39,7 @@ const Role = ({ role }: { role: CvRole }) => (
         ))}
       </ul>
     </div>
-    <p className="md:text-right font-label uppercase tracking-[0.16em] text-[10px] text-secondary md:pt-1">{role.dates}</p>
+    <p className="md:text-right font-label uppercase tracking-[0.16em] text-kicker text-secondary md:pt-1">{role.dates}</p>
   </article>
 );
 
@@ -59,7 +59,7 @@ const Cv = () => (
             <span className="font-label uppercase tracking-[0.3em] text-[12px] text-secondary mb-6 block">Curriculum vitae</span>
             <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl italic text-heading leading-[1.05]">{CV.name}</h1>
             <p className="mt-6 font-headline italic text-2xl md:text-3xl text-on-surface-variant">{CV.title}</p>
-            <p className="mt-3 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">{CV.location}</p>
+            <p className="mt-3 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">{CV.location}</p>
           </div>
           <div className="lg:col-span-4 flex flex-wrap lg:justify-end gap-3">
             <Button asChild variant="outline">
@@ -96,7 +96,7 @@ const Cv = () => (
         <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-outline-variant">
           {CV.skills.map((skill) => (
             <div key={skill.label} className="border-r border-b border-outline-variant p-6 md:p-8">
-              <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mb-3">{skill.label}</dt>
+              <dt className="font-label uppercase tracking-[0.16em] text-kicker text-secondary mb-3">{skill.label}</dt>
               <dd className="font-body text-on-surface-variant leading-relaxed">{skill.text}</dd>
             </div>
           ))}

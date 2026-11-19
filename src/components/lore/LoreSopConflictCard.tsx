@@ -48,13 +48,13 @@ export const LoreSopConflictCard = () => (
         </caption>
         <thead>
           <tr className="border-b border-outline">
-            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/4">
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4 w-1/4">
               Marc, from experience
             </th>
-            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/4">
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4 w-1/4">
               The AMM
             </th>
-            <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4 w-1/2">
+            <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4 w-1/2">
               What Lore answers
             </th>
           </tr>

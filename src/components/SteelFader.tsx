@@ -74,7 +74,7 @@ export const SteelFader = ({ label, min, max, step, value, onChange, orientation
             return (
               <span key={k.label} className="absolute left-0 flex items-center gap-1 -translate-y-1/2" style={{ top: y }}>
                 <span className={["h-px", zero ? "w-2.5 bg-secondary" : "w-1.5 bg-on-surface-variant"].join(" ")} />
-                <span className={["font-mono text-[8px] tabular-nums leading-none", zero ? "text-secondary" : "text-on-surface-variant"].join(" ")}>{k.label}</span>
+                <span className={["font-mono text-meta tabular-nums leading-none", zero ? "text-secondary" : "text-on-surface-variant"].join(" ")}>{k.label}</span>
               </span>
             );
           })}

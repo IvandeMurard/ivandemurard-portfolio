@@ -22,7 +22,7 @@ export const SignalLamp = ({
               k === lit && state !== "dark" && LIT[state])} />
         ))}
       </span>
-      <span className={cn("font-label text-[11px] uppercase tracking-[0.12em] text-on-surface", hideWord && "sr-only")}>{word}</span>
+      <span className={cn("font-label text-kicker uppercase tracking-[0.12em] text-on-surface", hideWord && "sr-only")}>{word}</span>
     </span>
   );
 };

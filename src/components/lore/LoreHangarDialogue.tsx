@@ -28,7 +28,7 @@ export const LoreHangarDialogue = () => (
         className="grid grid-cols-1 md:grid-cols-[9rem_1fr] gap-2 md:gap-8 border-b border-outline-variant py-6 md:py-8"
       >
         <span
-          className={`font-label uppercase tracking-[0.25em] text-[10px] pt-2 ${
+          className={`font-label uppercase tracking-[0.25em] text-kicker pt-2 ${
             line.speaker === "Lore" ? "text-secondary" : "text-on-surface-variant"
           }`}
         >

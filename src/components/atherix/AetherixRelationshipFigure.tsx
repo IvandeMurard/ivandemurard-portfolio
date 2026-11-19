@@ -14,7 +14,7 @@ export const AetherixRelationshipFigure = () => (
       {relations.map((relation) => (
         <div key={`${relation.title}-${relation.line}`} className={`flex min-h-24 flex-col justify-center rounded-sm border border-outline-variant bg-surface-container-low p-4 ${relation.position}`}>
           <span className="font-headline text-lg italic text-heading">{relation.title}</span>
-          <span className="mt-2 font-label text-[10px] uppercase tracking-[0.16em] text-secondary">
+          <span className="mt-2 font-label text-kicker uppercase tracking-[0.16em] text-secondary">
             {relation.line}
           </span>
         </div>

@@ -46,8 +46,8 @@ export const McpEndpoint = ({
       <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.9fr)] md:items-end md:gap-12">
         <div>
           <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">MCP access</span>
-            <span className="inline-flex items-center gap-1.5 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+            <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">MCP access</span>
+            <span className="inline-flex items-center gap-1.5 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
               <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-secondary" />
               Public · read-only · {TOOLS.length} tools
             </span>
@@ -60,14 +60,14 @@ export const McpEndpoint = ({
         </div>
 
         <div className="min-w-0">
-          <code className="block break-all border-l-2 border-secondary bg-surface-container-low px-4 py-3 font-mono text-[11px] leading-relaxed text-on-surface md:text-xs">
+          <code className="block break-all border-l-2 border-secondary bg-surface-container-low px-4 py-3 font-mono text-meta leading-relaxed text-on-surface md:text-xs">
             {COMMAND}
           </code>
           <Button
             type="button"
             onClick={() => copy(COMMAND, "cmd")}
             aria-label="Copy the MCP install command"
-            className="mt-3 w-full rounded-sm font-label text-[10px] uppercase tracking-[0.16em] sm:w-auto"
+            className="mt-3 w-full rounded-sm font-label text-kicker uppercase tracking-[0.16em] sm:w-auto"
           >
             <Icon name={copied === "cmd" ? "check" : "content_copy"} className="text-[14px]" />
             {copied === "cmd" ? "Command copied" : "Copy MCP command"}
@@ -80,7 +80,7 @@ export const McpEndpoint = ({
           {TOOLS.map((tool) => (
             <li
               key={tool}
-              className="font-mono text-[11px] text-on-surface-variant"
+              className="font-mono text-meta text-on-surface-variant"
             >
               {tool}
             </li>

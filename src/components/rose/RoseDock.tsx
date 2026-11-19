@@ -451,7 +451,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                 <CompassMark className="h-7 w-7 text-primary" />
                 <div className="flex flex-col">
                   <span className="font-headline italic text-base text-heading leading-none">Rose</span>
-                  <span className="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Ivan's site agent</span>
+                  <span className="text-kicker uppercase tracking-[0.18em] text-on-surface-variant">Ivan's site agent</span>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -686,14 +686,14 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
               <Icon name="arrow_upward" className="text-lg" />
             </button>}
             {!open ? (
-              <kbd aria-label={isMac ? "Shortcut: Command K" : "Shortcut: Control K"} className="hidden shrink-0 rounded border border-outline-variant px-1.5 py-0.5 font-label text-[10px] text-on-surface-variant md:inline">
+              <kbd aria-label={isMac ? "Shortcut: Command K" : "Shortcut: Control K"} className="hidden shrink-0 rounded border border-outline-variant px-1.5 py-0.5 font-label text-meta text-on-surface-variant md:inline">
                 {isMac ? "⌘K" : "Ctrl+K"}
               </kbd>
             ) : null}
           </form>
           )}
           {/* Wherever the bar or the input is rendered (open or at rest), under it and on one line. */}
-          <div className={cn("whitespace-nowrap px-5 text-[11px] text-on-surface-variant max-[380px]:whitespace-normal", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
+          <div className={cn("whitespace-nowrap px-5 text-meta text-on-surface-variant max-[380px]:whitespace-normal", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
             <p className="inline whitespace-nowrap">
               {ROSE_DATA_SHORT.text} ·{" "}
               <Link

@@ -296,7 +296,7 @@ const Next = () => (
     <div className="aetherix-dark rounded-[22px] px-7 pb-8 pt-12 md:px-16 md:pb-10 md:pt-14">
       <div aria-hidden="true" className="aetherix-dark-glow" />
       <div className="relative">
-        <p className="font-label text-[11px] uppercase tracking-[0.12em] text-on-surface-variant">{NEXT.kicker}</p>
+        <p className="font-label text-kicker uppercase tracking-[0.12em] text-on-surface-variant">{NEXT.kicker}</p>
         <p className="mt-3.5 font-headline text-4xl leading-[1.05] text-heading md:text-5xl">{NEXT.title}</p>
         <p className="mt-4 max-w-3xl font-body text-lg leading-snug text-on-surface md:text-[21px]">{NEXT.text}</p>
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-outline-variant pt-5">

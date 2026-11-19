@@ -31,9 +31,9 @@ export const TacetPipelineDiagram = () => {
       <div className="relative z-10 flex flex-col gap-6">
         {/* Caption row */}
         <div className="grid grid-cols-3 gap-6 text-center">
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Proxy data sources</span>
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Tacet engine</span>
-          <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">Hotel operations</span>
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">Proxy data sources</span>
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">Tacet engine</span>
+          <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">Hotel operations</span>
         </div>
 
         {/* Three columns */}
@@ -65,17 +65,17 @@ export const TacetPipelineDiagram = () => {
               <p className="font-headline italic text-heading text-base md:text-lg leading-tight">
                 MCP server: rules and Chain of Thought
               </p>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5">
+              <p className="text-kicker uppercase tracking-widest text-secondary mt-0.5">
                 Consumed by RMS, PMS and orchestration agents
               </p>
             </div>
-            <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary shrink-0">
+            <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary shrink-0">
               MCP
             </span>
           </div>
         </div>
 
-        <p className="font-label uppercase tracking-[0.25em] text-[10px] text-on-surface text-center pt-2">
+        <p className="font-label uppercase tracking-[0.25em] text-kicker text-on-surface text-center pt-2">
           Proxy signals · Ray-traced physics · Dual memory · MCP rules
         </p>
       </div>
@@ -109,7 +109,7 @@ const Column = ({
         </div>
         <div className="min-w-0">
           <p className="font-headline italic text-heading text-sm md:text-base leading-tight truncate">{it.title}</p>
-          <p className="text-[10px] uppercase tracking-widest text-secondary mt-0.5 truncate">{it.sub}</p>
+          <p className="text-kicker uppercase tracking-widest text-secondary mt-0.5 truncate">{it.sub}</p>
         </div>
       </div>
     ))}

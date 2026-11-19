@@ -54,7 +54,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
 
   return (
     <figure className="rounded-sm border border-outline-variant bg-surface-container-lowest p-5 md:p-6 not-italic m-0">
-      <figcaption className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-5">
+      <figcaption className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-5">
         {label}
       </figcaption>
       <div className="space-y-3">
@@ -62,7 +62,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
           const isActive = active === i;
           return (
             <div key={arm.key} className="grid grid-cols-[3.5rem_1fr] items-center gap-3">
-              <div className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+              <div className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                 {arm.key}
               </div>
               <button
@@ -92,7 +92,7 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
       </div>
       <div className="mt-4 grid grid-cols-[3.5rem_1fr] gap-3">
         <div />
-        <div className="flex justify-between font-label uppercase tracking-[0.14em] text-[10px] text-on-surface-variant">
+        <div className="flex justify-between font-label uppercase tracking-[0.14em] text-kicker text-on-surface-variant">
           {MARKERS.map((m) => (
             <span key={m}>{m}</span>
           ))}
@@ -105,12 +105,12 @@ export const ThreeArmsDiagram = ({ label = "When each arm fires" }: { label?: st
       >
         {current ? (
           <>
-            <div className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mb-2">
+            <div className="font-label uppercase tracking-[0.18em] text-kicker text-secondary mb-2">
               Arm {current.key} · {current.name} · {current.when}
             </div>
             <p className="font-body font-normal text-sm text-on-surface-variant">{current.proves}</p>
             <p className="font-body font-normal text-sm text-on-surface-variant mt-2">
-              <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mr-2">
+              <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary mr-2">
                 {current.products}
               </span>
               {current.example}

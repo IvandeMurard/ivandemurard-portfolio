@@ -27,7 +27,7 @@ export const SystemAnchors = ({
   label?: string;
 }) => (
   <section aria-label={label} className="not-italic">
-    <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">{label}</div>
+    <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">{label}</div>
     <div className="grid gap-4 md:grid-cols-2">
       {items.map((item) => (
         <div
@@ -45,7 +45,7 @@ export const SystemAnchors = ({
               <div key={row.key} className="flex gap-3">
                 <Icon name={row.icon} className="text-secondary text-[16px] leading-6 shrink-0" />
                 <div>
-                  <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary">
+                  <dt className="font-label uppercase tracking-[0.16em] text-kicker text-secondary">
                     {row.label}
                   </dt>
                   <dd className="font-body font-normal text-sm text-on-surface-variant">{item[row.key]}</dd>

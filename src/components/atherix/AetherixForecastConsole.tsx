@@ -66,7 +66,7 @@ export const AetherixForecastConsole = ({
       aria-label={label}
       className="rounded-sm border border-outline bg-surface-container-low p-5 md:p-6"
     >
-      <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">{label}</div>
+      <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">{label}</div>
 
       <div role="tablist" aria-label={label} className="grid gap-2 sm:grid-cols-3">
         {SCENARIOS.map((scenario, i) => {
@@ -103,19 +103,19 @@ export const AetherixForecastConsole = ({
       >
         <dl className="grid grid-cols-3 gap-4 mb-4">
           <div>
-            <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+            <dt className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
               Forecast
             </dt>
             <dd className="font-headline italic text-2xl text-heading">{current.forecast}</dd>
           </div>
           <div>
-            <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+            <dt className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
               Actual
             </dt>
             <dd className="font-headline italic text-2xl text-heading">{current.actual}</dd>
           </div>
           <div>
-            <dt className="font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+            <dt className="font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
               Variance
             </dt>
             <dd className={`font-headline italic text-2xl ${pct > 10 ? "text-error" : "text-heading"}`}>
@@ -136,13 +136,13 @@ export const AetherixForecastConsole = ({
         </div>
 
         <p className="font-body text-sm leading-relaxed text-on-surface-variant">
-          <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mr-2">
+          <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary mr-2">
             Decision
           </span>
           {current.action}
         </p>
         <p className="font-body text-sm leading-relaxed text-on-surface-variant mt-2">
-          <span className="font-label uppercase tracking-[0.16em] text-[10px] text-secondary mr-2">
+          <span className="font-label uppercase tracking-[0.16em] text-kicker text-secondary mr-2">
             Reading
           </span>
           {current.reading}
@@ -153,7 +153,7 @@ export const AetherixForecastConsole = ({
             {current.alert}
           </p>
         )}
-        <p className="mt-4 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant">
+        <p className="mt-4 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant">
           Illustrative figures from shadow-mode runs, not a signed pilot
         </p>
       </div>

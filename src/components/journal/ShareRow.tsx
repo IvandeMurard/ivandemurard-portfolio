@@ -32,11 +32,11 @@ export const ShareRow = ({ title, excerpt, mirror, license }: ShareRowProps) => 
   )}`;
 
   const cls =
-    "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-4 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:border-secondary hover:text-primary";
+    "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-4 py-2 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant transition-colors duration-300 hover:border-secondary hover:text-primary";
 
   return (
     <div className="mt-16 pt-10 border-t border-outline-variant not-italic print:hidden">
-      <div className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-4">
+      <div className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-4">
         Share and reuse
       </div>
       <div className="flex flex-wrap gap-3">

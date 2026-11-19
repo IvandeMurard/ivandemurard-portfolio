@@ -46,7 +46,7 @@ export const SectionDivider = ({
         <span
           data-reveal-child
           style={{ ["--reveal-delay" as string]: "200ms" }}
-          className={`mt-4 font-label text-[10px] uppercase tracking-[0.25em] text-secondary ${
+          className={`mt-4 font-label text-kicker uppercase tracking-[0.25em] text-secondary ${
             variant === "center" ? "text-center" : "text-left"
           }`}
         >

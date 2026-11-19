@@ -14,7 +14,8 @@
 .rm-node { fill: hsl(var(--surface-container-lowest)); stroke: var(--rm-ink); }
 .rm-line { stroke: var(--rm-line); }
 .rm-text { fill: var(--rm-ink); font-size: 14px; }
-.rm-small { fill: hsl(var(--on-surface-variant)); font-size: 12px; }
+/* The drawing shows from 720px of room, a scale of 0.947 of its 760 units: 14 units render at 13.3px, the site floor. */
+.rm-small { fill: hsl(var(--on-surface-variant)); font-size: 14px; }
 
 .rm-list { display: flex; flex-direction: column; gap: 16px; }
 .rm-row { padding-top: 16px; border-top: 1px solid hsl(var(--outline-variant)); }

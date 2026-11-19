@@ -13,7 +13,7 @@ import { metaLine, readLabel, revisedLabel, revisionCount } from "@/content/jour
  */
 const BLEED = "relative ml-[calc(50%-50vw)] w-screen max-w-none";
 
-const CAP = "font-mono text-[12.5px] leading-snug text-on-surface-variant";
+const CAP = "font-mono text-meta leading-snug text-on-surface-variant";
 
 /** Above the title: where the note sits, what it helps decide, how long it takes, how often it was revised. */
 export const NoteMeta = ({ entry, date }: { entry: JournalEntry; date: string }) => {
@@ -214,13 +214,13 @@ export const ReferenceZone = ({ chips, children }: { chips: ReferenceChip[]; chi
 /** Between the end of the argument and the reference zone: the other two notes, framed by the decision they help with. */
 export const ContinueCards = ({ notes, also }: { notes: JournalEntry[]; also?: { label: string; to: string; why?: string }[] }) => (
   <nav aria-labelledby="continue-exploring" className="mt-20">
-    <h2 id="continue-exploring" className="mb-5 font-label text-[11px] uppercase tracking-[0.2em] text-secondary">Continue exploring</h2>
+    <h2 id="continue-exploring" className="mb-5 font-label text-kicker uppercase tracking-[0.2em] text-secondary">Continue exploring</h2>
     <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
       {notes.map((n) => (
         <li key={n.slug} className="relative flex flex-col gap-3 rounded-[20px] border border-outline-variant bg-surface-container-lowest p-6 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-secondary">
-          <p className="font-mono text-[11px] uppercase leading-snug tracking-[0.12em] text-on-surface-variant">{n.decision}</p>
+          <p className="font-mono text-kicker uppercase leading-snug tracking-[0.12em] text-on-surface-variant">{n.decision}</p>
           <p className="font-headline text-[24px] font-normal leading-[1.15] text-heading">{n.title}</p>
-          <p className="mt-auto font-mono text-[12.5px] text-on-surface-variant">{metaLine(n)}</p>
+          <p className="mt-auto font-mono text-meta text-on-surface-variant">{metaLine(n)}</p>
           <Link to={`/journal/${n.slug}`} className="text-sm font-medium text-primary underline decoration-secondary underline-offset-4 after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
             Read the note<span className="sr-only">: {n.title}</span>
           </Link>

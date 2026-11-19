@@ -81,7 +81,7 @@ const Lore = () => (
           <div className="flex-1">
             <span
               data-reveal-child
-              className="text-secondary font-label uppercase tracking-[0.2em] text-[10px] mb-6 block"
+              className="text-secondary font-label uppercase tracking-[0.2em] text-kicker mb-6 block"
             >
               Case Study / Voice AI
             </span>
@@ -134,11 +134,11 @@ const Lore = () => (
       {/* Project Info */}
       <section className="px-6 md:px-12 mb-12 md:mb-16">
         <div className="max-w-screen-2xl mx-auto border-t border-b border-outline-variant py-10">
-          <h2 className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-8">Project Info</h2>
+          <h2 className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-8">Project Info</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {PROJECT_INFO.map((info) => (
               <div key={info.label} className={info.wide ? "lg:col-span-2" : ""}>
-                <h3 className="text-xs text-on-surface-variant mb-2">{info.label}</h3>
+                <h3 className="text-meta text-on-surface-variant mb-2">{info.label}</h3>
                 {info.href ? (
                   <a
                     href={info.href}
@@ -147,12 +147,12 @@ const Lore = () => (
                     title={info.hint}
                     className="text-sm font-medium text-primary inline-flex items-center gap-1.5 border-b border-secondary hover:border-secondary transition-colors"
                   >
-                    <ExternalMark className="text-xs">{info.value}</ExternalMark>
+                    <ExternalMark className="text-meta">{info.value}</ExternalMark>
                   </a>
                 ) : (
                   <p className="text-sm font-medium text-primary">{info.value}</p>
                 )}
-                {info.hint && <p className="mt-1 text-[10px] text-on-surface-variant italic">{info.hint}</p>}
+                {info.hint && <p className="mt-1 text-meta text-on-surface-variant italic">{info.hint}</p>}
               </div>
             ))}
           </div>
@@ -164,7 +164,7 @@ const Lore = () => (
       {/* THE LOSS */}
       <Reveal as="section" id="loss" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-3xl mx-auto">
-          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+          <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-kicker text-secondary">
             Why it exists
           </span>
           <h2
@@ -257,7 +257,7 @@ const Lore = () => (
       <Reveal as="section" id="thesis" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-3xl mb-10">
-            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-kicker text-secondary">
               The thread
             </span>
             <h2
@@ -426,7 +426,7 @@ const Lore = () => (
           >
             <Icon name="arrow_forward" className="text-secondary text-base mt-1" />
             <span className="text-primary">
-              <span className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary block mb-2">
+              <span className="font-label uppercase tracking-[0.25em] text-kicker text-secondary block mb-2">
                 Field note
               </span>
               <span className="font-headline italic text-xl md:text-2xl leading-snug block">
@@ -447,7 +447,7 @@ const Lore = () => (
       <Reveal as="section" id="purpose" className="px-6 md:px-12 mb-12 md:mb-16 scroll-mt-24">
         <div className="max-w-screen-2xl mx-auto">
           <div className="max-w-3xl mb-10 md:mb-12">
-            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary">
+            <span data-reveal-child className="font-label uppercase tracking-[0.25em] text-kicker text-secondary">
               The vision
             </span>
             <h2
@@ -490,7 +490,7 @@ const Lore = () => (
             <p>
               V1 was built in <span className="text-on-surface font-medium">24 hours by a team of four</span>, 43
               commits, from the first line of code to the demo on stage. That build is frozen at the{" "}
-              <span className="font-label uppercase tracking-[0.15em] text-xs text-secondary">v0.1-hackathon</span> tag.
+              <span className="font-label uppercase tracking-[0.15em] text-kicker text-secondary">v0.1-hackathon</span> tag.
             </p>
             <p>
               Everything since, the evaluation harness, the refusal contract, the acceptance tiers, the CI gate, is
@@ -542,10 +542,10 @@ const Lore = () => (
                 <caption className="sr-only">Lore technical stack by layer and technology</caption>
                 <thead>
                   <tr className="border-b border-outline-variant">
-                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4">
                       Layer
                     </th>
-                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-[10px] text-secondary px-6 py-4">
+                    <th scope="col" className="font-label uppercase tracking-[0.25em] text-kicker text-secondary px-6 py-4">
                       Technology
                     </th>
                   </tr>
@@ -575,21 +575,21 @@ const Lore = () => (
               href={REPO}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-kicker hover:opacity-90 transition-opacity"
             >
               <Icon name="code" className="text-base" />
               <ExternalMark>Repository</ExternalMark>
             </a>
             <Link
               to="/aetherix"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-kicker hover:bg-surface-container-low transition-colors"
             >
               <Icon name="arrow_forward" className="text-base" />
               Read Aetherix
             </Link>
             <Link
               to="/journal/harnesses-graders-closed-loops"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-kicker hover:bg-surface-container-low transition-colors"
             >
               <Icon name="rule" className="text-base" />
               Evaluation protocol
@@ -598,7 +598,7 @@ const Lore = () => (
               href={SOCIAL_LINKS.schedule}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-xs hover:bg-surface-container-low transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-outline-variant text-primary font-label uppercase tracking-[0.2em] text-kicker hover:bg-surface-container-low transition-colors"
             >
               <Icon name="event" className="text-base" />
               <ExternalMark>Book a call</ExternalMark>

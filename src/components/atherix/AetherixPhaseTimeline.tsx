@@ -46,12 +46,12 @@ export const AetherixPhaseTimeline = () => (
                 name={ICON[p.state]}
                 className={emphasized ? "text-secondary text-lg" : "text-on-surface-variant text-lg"}
               />
-              <span className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary">{p.n}</span>
+              <span className="font-label uppercase tracking-[0.2em] text-kicker text-secondary">{p.n}</span>
             </div>
             <p className="font-headline italic text-heading text-lg leading-tight">{p.label}</p>
             {p.sub && <p className="text-xs text-on-surface-variant leading-relaxed">{p.sub}</p>}
             {emphasized && (
-              <span className="font-label uppercase tracking-[0.18em] text-[10px] text-secondary mt-auto">
+              <span className="font-label uppercase tracking-[0.18em] text-kicker text-secondary mt-auto">
                 Current
               </span>
             )}

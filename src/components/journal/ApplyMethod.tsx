@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { APPLY_GUIDES, applyBrief } from "@/content/journalApply";
 
 const BTN =
-  "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-[10px] text-on-surface-variant transition-colors duration-300 hover:bg-transparent hover:border-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary h-auto whitespace-normal text-left";
+  "inline-flex items-center gap-2 rounded-sm border border-outline-variant bg-surface-container-lowest px-3 py-2 font-label uppercase tracking-[0.16em] text-kicker text-on-surface-variant transition-colors duration-300 hover:bg-transparent hover:border-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary h-auto whitespace-normal text-left";
 
 /** Human checklist first; the agent brief is the secondary action. Rose stays for questioning the article. */
 export const ApplyMethod = ({ slug }: { slug: string }) => {
@@ -34,13 +34,13 @@ export const ApplyMethod = ({ slug }: { slug: string }) => {
       <dl className="grid gap-5 sm:grid-cols-[9rem_1fr]">
         {rows.map(([k, v]) => (
           <div key={k} className="contents">
-            <dt className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary pt-1">{k}</dt>
+            <dt className="font-label uppercase tracking-[0.2em] text-kicker text-secondary pt-1">{k}</dt>
             <dd className="font-body text-base">{v}</dd>
           </div>
         ))}
       </dl>
       <div>
-        <p className="font-label uppercase tracking-[0.2em] text-[10px] text-secondary mb-2">Ask your agent to apply this method</p>
+        <p className="font-label uppercase tracking-[0.2em] text-kicker text-secondary mb-2">Ask your agent to apply this method</p>
         <p className="font-body text-sm text-on-surface-variant mb-3">
           A brief for your own coding or research agent, applied to your project. To question this article instead, ask Rose.
         </p>

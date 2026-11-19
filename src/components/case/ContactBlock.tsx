@@ -12,7 +12,7 @@ export const ContactBlock = ({ number, after }: { number?: string; after?: React
   return (
     <section id="contact" aria-labelledby="contact-h" className="section-inverse">
       <Reveal className="py-16 md:py-28 px-6 md:px-10 max-w-[980px] mx-auto">
-        <p className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-8" data-reveal-child>{number ? `${number} · ${CONTACT.kicker}` : CONTACT.kicker}</p>
+        <p className="font-mono uppercase tracking-[0.12em] text-kicker text-secondary mb-8" data-reveal-child>{number ? `${number} · ${CONTACT.kicker}` : CONTACT.kicker}</p>
         <h2 id="contact-h" className="font-headline font-normal text-heading text-[clamp(32px,4.2vw,60px)] leading-[1.06] tracking-[-0.02em]" data-reveal-child>
           {CONTACT.heading}
         </h2>
@@ -31,7 +31,7 @@ export const ContactBlock = ({ number, after }: { number?: string; after?: React
           <AskAiMenu prompt={CONTACT.aiPrompt} label={CONTACT.buttons.askAi}
             triggerClassName="text-primary border-b border-primary/40 pb-0.5 hover:border-primary transition-colors" />
         </div>
-        <p className="mt-10 font-mono text-[12px] text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2" data-reveal-child>
+        <p className="mt-10 font-mono text-meta text-on-surface-variant flex flex-wrap items-center gap-x-3 gap-y-2" data-reveal-child>
           <Link to="/contact" className="text-primary border-b border-primary/40 hover:border-primary">{CONTACT.allWays} →</Link>
         </p>
         {/* A line only some pages add under the shared block (the Field Notes index). */}

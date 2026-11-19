@@ -16,7 +16,7 @@ const Privacy = () => (
       path="/privacy"
     />
     <div className="pt-40 md:pt-48 pb-32 px-6 md:px-12 max-w-2xl mx-auto">
-      <p className="font-mono uppercase tracking-[0.12em] text-[11px] text-secondary mb-6">Privacy</p>
+      <p className="font-mono uppercase tracking-[0.12em] text-kicker text-secondary mb-6">Privacy</p>
       <h1 className="font-headline text-4xl md:text-5xl text-heading mb-10">What this site keeps</h1>
 
       <H2 id="rose">Talking to Rose</H2>

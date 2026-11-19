@@ -30,7 +30,7 @@ export const Footer = () => {
             <p className="mt-6 font-display text-xl italic text-on-surface md:text-2xl">
               Thank you for your time.
             </p>
-            <p className="mt-5 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
+            <p className="mt-5 font-label text-kicker uppercase tracking-[0.2em] text-on-surface-variant">
               Conceived and crafted in Paris · Built 0→1
             </p>
           </div>
@@ -39,13 +39,13 @@ export const Footer = () => {
           <div className="flex flex-col items-center gap-3 md:items-start">
             <Link
               to="/agents"
-              className="group inline-flex items-center gap-2 rounded-sm border border-outline-variant px-3 py-1.5 font-mono text-[11px] tracking-[0.04em] text-primary hover:border-secondary hover:text-secondary transition-colors"
+              className="group inline-flex items-center gap-2 rounded-sm border border-outline-variant px-3 py-1.5 font-mono text-meta tracking-[0.04em] text-primary hover:border-secondary hover:text-secondary transition-colors"
             >
               <span aria-hidden className="text-secondary">&gt;</span>
               For agents · MCP and Markdown
               <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
-            <p className="font-label uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">
+            <p className="font-label uppercase tracking-[0.2em] text-kicker text-on-surface-variant">
               © {new Date().getFullYear()} Ivan de Murard · Curated with Care ·{" "}
               <Link to="/cv" className="underline decoration-outline-variant underline-offset-4 hover:text-primary hover:decoration-primary transition-colors">
                 Curriculum Vitae

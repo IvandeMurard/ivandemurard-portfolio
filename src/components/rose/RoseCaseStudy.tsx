@@ -223,7 +223,7 @@ const MilestoneVignette = ({ v }: { v: Vignette }) => {
       </div>
       <p className="sr-only" role="status" aria-live="polite">Showing {label}: {meta}</p>
       <div className={cn("mt-4 flex min-h-[9rem] max-w-md flex-col gap-3 rounded-2xl p-4", DOCK_PANEL)}>
-        <p className="font-label text-[10px] opacity-80">{meta}</p>
+        <p className="font-label text-meta opacity-80">{meta}</p>
         {(after ? v.after : v.before).map((it, i) => <VignetteItem key={`${label}-${i}`} item={it} />)}
       </div>
     </figure>
@@ -638,7 +638,7 @@ const RoseClose = () => (
     </div>
     <section aria-label={CLOSE.askLabel} className="section-inverse px-8 pb-10 pt-4 text-center md:px-12">
       <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
-        <span className="border-b border-primary/30 pb-0.5 font-label text-[11px] uppercase tracking-[0.12em] text-secondary">{CLOSE.askLabel}</span>
+        <span className="border-b border-primary/30 pb-0.5 font-label text-kicker uppercase tracking-[0.12em] text-secondary">{CLOSE.askLabel}</span>
         <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask", { detail: { text: CLOSE.askQuestion } }))}
           className={cn("font-headline text-xl text-primary underline underline-offset-4 hover:opacity-80", CLOSE_RING)}>{CLOSE.askQuestion}</button>
       </p>
