@@ -2077,12 +2077,14 @@ function renderEntryHeader(entry) {
 var get_journal_entry_default = defineTool5({
   name: "get_journal_entry",
   title: "Get Field Note",
-  description: "Fetch one Field Notes entry in full by slug. Returns one text content: a metadata header of fixed 'Key: value' lines (Title, Subtitle, Date, Category, Reading time, URL, Markdown URL), a blank line, then the complete entry as Markdown, once. There is no structured content. Use list_journal_entries to discover valid slugs.",
+  description: "Fetch one Field Notes entry in full by slug. Returns one text content: a metadata header of fixed 'Key: value' lines (Title, Subtitle, Date, Category, Reading time, URL, Markdown URL), a blank line, then the complete entry as Markdown, once. There is no structured content. Use list_journal_entries to discover valid slugs. To save context, pass outline_only to get the section titles, then section to fetch one section (header kept).",
   inputSchema: {
-    slug: z2.string().describe("Field Note slug, as returned by list_journal_entries.")
+    slug: z2.string().describe("Field Note slug, as returned by list_journal_entries."),
+    outline_only: z2.boolean().optional().describe("Return only the metadata header and the list of section titles."),
+    section: z2.string().min(1).max(80).optional().describe("Part of a section title, from outline_only; returns that section only.")
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: ({ slug }) => {
+  handler: ({ slug, outline_only, section: section2 }) => {
     const found = JOURNAL_ENTRIES.find((e) => e.slug === slug);
     const entry = found ? JSON.parse(JSON.stringify(found)) : void 0;
     if (!entry) {
@@ -2097,10 +2099,24 @@ var get_journal_entry_default = defineTool5({
         isError: true
       };
     }
+    const full = renderEntryBody(entry);
+    let body = full;
+    if (outline_only) body = `Sections:
+${outline(full).map((t) => `- ${t}`).join("\n")}`;
+    else if (section2) {
+      const part = section(full, section2);
+      if (!part) {
+        return {
+          content: [{ type: "text", text: `No section matching "${section2}" in ${slug}. Sections: ${outline(full).join("; ")}` }],
+          isError: true
+        };
+      }
+      body = part;
+    }
     return {
       content: [{ type: "text", text: `${renderEntryHeader(entry)}
 
-${renderEntryBody(entry)}` }]
+${body}` }]
     };
   }
 });

@@ -59,7 +59,7 @@ export const PROJECTS = {
     status: STATUSES.rose,
     slug: "rose",
     name: "Rose",
-    tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.",
+    tagline: "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made. Agents can read the same site through a public MCP endpoint and native Markdown.",
     label: "AI service · Portfolio agent · 2026",
     cta: "Read the case",
   },

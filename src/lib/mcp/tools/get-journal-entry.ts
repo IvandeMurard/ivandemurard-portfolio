@@ -6,6 +6,7 @@ import { blueprintMarkdown } from "../../../content/serviceBlueprint";
 import { APPLY_GUIDES, applyMarkdown } from "../../../content/journalApply";
 import { readingLabel } from "../../../content/readingTime";
 import { displayOrder } from "../../journalOrder";
+import { outline, section as pickSection } from "../sections";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -206,12 +207,14 @@ export default defineTool({
   name: "get_journal_entry",
   title: "Get Field Note",
   description:
-    "Fetch one Field Notes entry in full by slug. Returns one text content: a metadata header of fixed 'Key: value' lines (Title, Subtitle, Date, Category, Reading time, URL, Markdown URL), a blank line, then the complete entry as Markdown, once. There is no structured content. Use list_journal_entries to discover valid slugs.",
+    "Fetch one Field Notes entry in full by slug. Returns one text content: a metadata header of fixed 'Key: value' lines (Title, Subtitle, Date, Category, Reading time, URL, Markdown URL), a blank line, then the complete entry as Markdown, once. There is no structured content. Use list_journal_entries to discover valid slugs. To save context, pass outline_only to get the section titles, then section to fetch one section (header kept).",
   inputSchema: {
     slug: z.string().describe("Field Note slug, as returned by list_journal_entries."),
+    outline_only: z.boolean().optional().describe("Return only the metadata header and the list of section titles."),
+    section: z.string().min(1).max(80).optional().describe("Part of a section title, from outline_only; returns that section only."),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: ({ slug }) => {
+  handler: ({ slug, outline_only, section }) => {
     // JSON round-trip gives the stripped Deno bundle a loose entry instead of a union of
     // literal note shapes (which fails strict type checking); the source stays typed.
     const found = JOURNAL_ENTRIES.find((e) => e.slug === slug);
@@ -230,8 +233,21 @@ export default defineTool({
     }
 
     // Text only, no structuredContent: the metadata header and the body are the whole payload, once.
+    const full = renderEntryBody(entry);
+    let body = full;
+    if (outline_only) body = `Sections:\n${outline(full).map((t) => `- ${t}`).join("\n")}`;
+    else if (section) {
+      const part = pickSection(full, section);
+      if (!part) {
+        return {
+          content: [{ type: "text" as const, text: `No section matching "${section}" in ${slug}. Sections: ${outline(full).join("; ")}` }],
+          isError: true,
+        };
+      }
+      body = part;
+    }
     return {
-      content: [{ type: "text" as const, text: `${renderEntryHeader(entry)}\n\n${renderEntryBody(entry)}` }],
+      content: [{ type: "text" as const, text: `${renderEntryHeader(entry)}\n\n${body}` }],
     };
   },
 });
