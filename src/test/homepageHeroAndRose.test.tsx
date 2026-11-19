@@ -13,7 +13,7 @@ import { scanSource } from "../../scripts/style-check";
 const HEADLINE = "SaaS product manager and co-founder. Now I build AI services that work across operations, tech and the business.";
 const SUBLINE = "Every project on this site states what runs today, what was tested and what is not proven yet.";
 const FRAGMENT = "Contextual assistant · knows the page you are reading · answers from the site's own text · text only today";
-const LINE = "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made.";
+const LINE = "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made. Agents can read the same site through a public MCP endpoint and native Markdown.";
 
 class NoopObserver { observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } }
 
