@@ -47,9 +47,9 @@ export const MESH_NODES: MeshNode[] = [
   },
   {
     node: "Orchestrator",
-    status: "Design · stateless router, no memory",
+    status: "Runs in the shadow of the F&B node's daily recommendation and never changes or sends it. Run once on staging, on synthetic input: its model step failed yet the run reported success. Becoming the only way to the manager is Design.",
     owns: "Supervisory routing and business rules across agents",
     not: "Domain logic and memory. It routes, it does not compute and it stores nothing",
-    state: "design",
+    state: "poc",
   },
 ];

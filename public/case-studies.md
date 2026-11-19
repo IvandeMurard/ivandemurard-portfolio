@@ -13,7 +13,7 @@ Start with:
 
 ## The Hospitality Multi-Agent Architecture
 
-Five agents, each owning one job, talking only through MCP. Three have a page; the orchestrator and Peritia are design.
+Five agents, each owning one job, talking only through MCP. Three have a page; Peritia is design and the orchestrator a synthetic PoC.
 
 [Read the architecture note](https://ivandemurard.com/architecture)
 
@@ -49,7 +49,7 @@ Shows: privacy by design: consent, decay, and a data-protection gate before laun
 
 ### No page yet
 
-- Orchestrator · routing and business rules · Status: Design, proto-stub
+- Orchestrator · routing and business rules · Status: Synthetic PoC, in shadow
 - Peritia · house knowledge · Status: Design
 
 Both are described in the architecture note.

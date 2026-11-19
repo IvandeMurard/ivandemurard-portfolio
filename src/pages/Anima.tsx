@@ -334,12 +334,12 @@ const Anima = () => {
                 number="06"
                 title="Scope-gated, and it never decides"
                 keyLine="Every consumer declares which layer it is querying, and no call returns a whole person."
-                concrete="The orchestrator asks for semantic-layer preferences relevant to a room assignment, and nothing else."
+                concrete="The orchestrator would ask for semantic-layer preferences relevant to a room assignment, and nothing else (Design)."
               >
                 <AnimaGateDiagram />
                 <P>
                   Anima answers one question, which is who this guest is right now. What to do about it
-                  belongs to the orchestrator, with a human validating, the same separation between
+                  is meant to belong to the orchestrator (Design), with a human validating, the same separation between
                   perception and decision the{" "}
                   <Link to="/aetherix" className={linkCls}>
                     F&amp;B node
@@ -356,7 +356,7 @@ const Anima = () => {
                 concrete="Guest experience is not a node: guest.* lives in the shared contract, not behind this one service."
               >
                 <P>
-                  What Anima knows reaches other nodes only through the orchestrator, one layer at a
+                  What Anima knows is meant to reach other nodes only through the orchestrator (Design), one layer at a
                   time. Guest experience itself is not a node, which is why{" "}
                   <code className="font-mono text-sm text-primary">guest.*</code> lives in the shared
                   contract rather than behind this one service.

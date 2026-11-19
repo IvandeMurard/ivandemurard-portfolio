@@ -47,7 +47,7 @@ export type IndexCard = {
 export const GROUP_ARCH = {
   kicker: "Group 1",
   heading: "The Hospitality Multi-Agent Architecture",
-  line: "Five agents, each owning one job, talking only through MCP. Three have a page; the orchestrator and Peritia are design.",
+  line: "Five agents, each owning one job, talking only through MCP. Three have a page; Peritia is design and the orchestrator a synthetic PoC.",
   link: "Read the architecture note",
   linkTo: "/architecture",
   cards: [
@@ -74,7 +74,7 @@ export const GROUP_ARCH = {
   noPage: {
     kicker: "No page yet",
     items: [
-      { name: "Orchestrator", role: "routing and business rules", status: "Design, proto-stub" },
+      { name: "Orchestrator", role: "routing and business rules", status: "Synthetic PoC, in shadow" },
       { name: "Peritia", role: "house knowledge", status: "Design" },
     ],
     note: "Both are described in the architecture note.",

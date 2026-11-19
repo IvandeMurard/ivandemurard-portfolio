@@ -111,9 +111,9 @@ export const MESH_ANCHORS: SystemAnchor[] = [
   {
     slug: "orchestrator",
     name: "Orchestrator",
-    what: "The supervisory agent. Routes between the others and holds the decision.",
+    what: "The supervisory agent. In Design: routes between the others and holds the decision.",
     who: "The architecture itself.",
-    status: "Design. A proto-stub exists.",
+    status: "Synthetic PoC. Runs in the shadow of the F&B node's daily recommendation and never changes or sends it. Run once on staging, on synthetic input: its model step failed yet the run reported success. Becoming the only way to the manager is Design.",
   },
 ];
 
