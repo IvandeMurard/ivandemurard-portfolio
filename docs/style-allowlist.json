@@ -70,11 +70,5 @@
     "pattern": "theatrical-fragment",
     "text": "Tell me.",
     "reason": "validated copy, 3 Nov 2026: the chapter 10 heading of the page"
-  },
-  {
-    "file": "src/content/journalHarnesses.ts",
-    "pattern": "theatrical-fragment",
-    "text": "Right.",
-    "reason": "copy dictated by Ivan, 18 Nov 2026: the line after the right answer in the harness note's peak"
   }
 ]

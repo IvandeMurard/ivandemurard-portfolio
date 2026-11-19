@@ -76,6 +76,9 @@ export function renderBlock(block: JournalBlock): string {
     case "mcp":
     case "diagnostic":
       return "";
+    case "trap":
+      // The version without JavaScript: the question and both lines as text.
+      return `${block.question} (${block.choices.join(" or ")}) If you answer ${block.choices[0]}: ${block.reveal[0]} If you answer ${block.choices[1]}: ${block.reveal[1]}`;
     case "peak":
       return [
         `**${block.kicker}**`,

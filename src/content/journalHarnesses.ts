@@ -164,7 +164,7 @@ export const HARNESSES_ENTRY: JournalEntry = {
         choices: ["Normal", "Too high"],
         reveal: [
           "That is what Lore said, and what the first harness accepted. The manual says too high.",
-          "Right. Lore said normal, and the first harness accepted it.",
+          "Too high is correct. Lore said normal, and the first harness accepted it.",
         ],
       },
       contract: "If you only read three minutes: sections [6](#6-acceptance-criteria-the-part-everyone-skips) and [12](#12-what-a-harness-finds-that-no-unit-test-sees) are the story; the rest is the reference.",
@@ -203,17 +203,21 @@ export const HARNESSES_ENTRY: JournalEntry = {
     },
     {
       kind: "p",
-      text: "A driving test contains every piece of the machinery. It is worth one pass to fix the words, and the rest of this piece will not need it again.",
+      text: "A candidate drives the whole route without a fault. Mirrors checked, signals on time, a clean parallel park. Then, once, they roll through a stop sign on an empty street, and the examiner fails them. Nobody calls it unfair: one major fault outweighs a perfect route, and everyone agreed on that rule before the engine started. [Section 6](/journal/harnesses-graders-closed-loops#6-acceptance-criteria-the-part-everyone-skips) is the same scene with a model: 61 answers right out of 64, and a fail.",
+    },
+    {
+      kind: "p",
+      text: "Every part of an evaluation harness is already in that scene.",
     },
     {
       kind: "defs",
       items: [
-        { term: "Case set", def: "The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset." },
-        { term: "Grader", def: "One line of the examiner's marking sheet. \"Did they check the mirror?\" Yes or no, plus the reason. One criterion, nothing more." },
-        { term: "Harness", def: "The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.", note: "The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13." },
-        { term: "Protocol", def: "The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code." },
-        { term: "Open loop", def: "You measure, a human reads it, they may act. The measurement changes nothing by itself." },
-        { term: "Closed loop", def: "The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case." },
+        { term: "Case set", def: "The route. Chosen in advance, every situation with a known right answer. Also called a golden dataset." },
+        { term: "Grader", def: "One line on the examiner's sheet. \"Stopped at the stop sign?\" Yes or no, and why. One criterion, nothing more." },
+        { term: "Harness", def: "The whole examination: route, examiner, sheet, pass mark, report. It runs the test and returns a verdict.", note: "The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13." },
+        { term: "Protocol", def: "The rule, written before the test, that a stop sign is a major fault: what counts, above what threshold it fails, who decides. A document and a decision, not code." },
+        { term: "Open loop", def: "The examiner writes a report; someone may read it." },
+        { term: "Closed loop", def: "The result is wired back in: the licence is not issued, and next time the route includes that stop sign." },
       ],
     },
     {
@@ -509,10 +513,19 @@ export const HARNESSES_ENTRY: JournalEntry = {
       text: "The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on.",
     },
     {
+      kind: "trap",
+      question: "Two runs of the same 53 cases scored 38, then 36. Is the gate ready to block a release?",
+      choices: ["Yes", "Not yet"],
+      reveal: [
+        "That is the trap. Eight cases flipped between two identical runs: the gate would have blocked or passed on luck.",
+        "Not yet is correct. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs: the score depended on the draw.",
+      ],
+    },
+    {
       kind: "timeline",
       label: "Lore harness scores, live runs",
       steps: [
-        { value: "38 / 36", label: "Two runs, same 53 cases", note: "Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement." },
+        { value: "38 / 36", label: "Two runs, same 53 cases", note: "Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate depended on the draw." },
         { value: "36 → 53", label: "Temperature 0, defects fixed", note: "Progression 36, 48, 48, 52, then 53 out of 53." },
         { value: "4×", label: "Four consecutive runs, no variance", note: "Baselines frozen only after that. The protocol required 0.00 points of variance before a threshold could block." },
         { value: "61 / 62", label: "After enforcement, 64 cases", note: "Structural enforcement adds a conditional second model call on corrected answers: two chances to diverge. Disjoint failure sets." },
@@ -737,6 +750,8 @@ export const HARNESSES_ENTRY: JournalEntry = {
       {"kind": "list", "items": ["**One run is a draw.** Each version of the harness ran once, and the success came on the sixth iteration, with the guardrail set to stop the run beyond six. Section 7 exists because a single run cannot tell a fix from a good draw. The talk's word is reliability; the evidence is one run.", "**The verify step reads the trace, not the world.** It checks that an upvote click was logged as successful, which is the tool's claim about itself. The final check was Kumar opening Hacker News and removing the vote by hand. On a binary task whose outcome sits in the page, that is cheap. On Lore, whose outcome never comes back (section 2), there is no page to open.", "**The verify was written by the person who had just watched the agent fail**, and it covers the two failure modes he saw. That is section 8's author bias in its purest form."]},
       {"kind": "p", "text": "Kumar closes on a wish for 2027: agents that generate their own harness before doing the work, guardrails and verification included. On evaluation grounds, that is the direction to resist. A harness the agent writes for itself includes the verify step that grades it. Section 8 asks who grades the grader; here the grader would be written by the one being graded."},
       {"kind": "quote", "text": "An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet."},
+    ]},
+    {"kind": "fold", "summary": "Read what that literature adds to this one", "blocks": [
       {"kind": "h3", "text": "What that literature adds to this one"},
       {"kind": "p", "text": "Three things worth taking, none of which this piece specified well enough:"},
       {"kind": "list", "items": ["**The tool gateway as its own layer.** Validate the schema, authorize against policy, execute in a sandbox, and return a *structured observation* - status, reason, evidence, retryable - rather than a wall of terminal output. That is arm B infrastructure, and section 11's \"typed emissions at every layer\" is the same claim without the mechanism.", "**A permission ladder matched to consequence.** Reading a public document and deleting customer records should not travel the same approval path. Uniform friction gets routed around.", "**Gating on reversibility rather than on confidence.** Sort work by how expensive the mistake is to undo, and treat the irreversible lane as a lane that does not open rather than a threshold set very high - because thresholds get adjusted under pressure and closed lanes do not. This is section 9's argument arriving from the other direction: a model's confidence is the only input to that decision the model itself can influence, which makes it the weakest variable in the gate."]}

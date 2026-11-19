@@ -2,7 +2,7 @@ import { AetherixServiceBlueprint } from "@/components/journal/AetherixServiceBl
 import { ArticleUpdates } from "@/components/journal/ArticleUpdates";
 import { ApplyMethod } from "@/components/journal/ApplyMethod";
 import { useMemo, useRef, type ReactNode } from "react";
-import { ContinueCards, NoteHook, NoteIntro, NoteMeta, NotePeak, ReferenceZone } from "@/components/journal/NotePattern";
+import { ContinueCards, NoteHook, NoteIntro, NoteMeta, NotePeak, NoteTrap, ReferenceZone } from "@/components/journal/NotePattern";
 import { REFERENCE_ZONE, otherNotes, readLabel } from "@/content/journalIndex";
 import { displayOrder } from "@/lib/journalOrder";
 import { useParams } from "react-router-dom";
@@ -109,6 +109,8 @@ const blockStrings = (block: JournalBlock): string[] => {
       return [block.question, ...block.steps.map((s) => s.reading)];
     case "fold":
       return block.blocks.flatMap(blockStrings);
+    case "trap":
+      return [block.question, ...block.reveal];
     case "recoLine":
       return [block.caption];
     case "callout":
@@ -406,6 +408,8 @@ const Block = ({
       return <HarnessConsole label={block.label} />;
     case "mcp":
       return <McpEndpoint label={block.label} note={block.note} />;
+    case "trap":
+      return <NoteTrap block={block} />;
     case "matrix":
       return <CoverageMatrix label={block.label} columns={block.columns} rows={block.rows} />;
 

@@ -40,7 +40,7 @@ describe("The peak asks first", () => {
 
   it.each([
     ["Normal", "That is what Lore said, and what the first harness accepted. The manual says too high."],
-    ["Too high", "Right. Lore said normal, and the first harness accepted it."],
+    ["Too high", "Too high is correct. Lore said normal, and the first harness accepted it."],
   ])("after %s: one polite status line, then the three boxes", (name, line) => {
     const { container } = page();
     const peak = container.querySelector("[data-peak]") as HTMLElement;

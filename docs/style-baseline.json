@@ -30,7 +30,7 @@
   },
   "public/harnesses-graders-closed-loops.md": {
     "colon-reveal": 1,
-    "contrast-reflex": 31,
+    "contrast-reflex": 30,
     "dot-chain": 1,
     "em-dash": 13,
     "italic": 5,
@@ -297,7 +297,7 @@
     "theatrical-fragment": 1
   },
   "src/content/journalHarnesses.ts": {
-    "contrast-reflex": 31,
+    "contrast-reflex": 30,
     "dot-chain": 1,
     "em-dash": 13,
     "mood-word": 9,
