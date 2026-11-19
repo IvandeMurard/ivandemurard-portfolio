@@ -8,6 +8,7 @@
 - Compass subsections live in the shared content tree and retain their heading IDs; its TOC lists top-level sections only because the shared TOC has no nesting support.
 - Register new case studies in the route, SEO/Markdown, listing and MCP sources, then regenerate derived corpus and pre-rendered bodies; this keeps human and agent readers on the same content.
 - The MCP function and manifest are plugin-generated from `src/lib/mcp`; edit their source tools rather than taking ownership of generated bundles.
+- MCP call tracking is disabled and public execution of its logging RPC is revoked; do not add privileged credentials to MCP sources or present legacy counters as usage evidence, because public submissions could inflate them.
 - Aetherix uses an eight-section evidence-led case-study structure; keep its human page, Markdown mirror, status references, MCP summary and Rose guardrail factually aligned.
 - The CV content is centralized in `src/content/cv.ts`; keep the human page, downloadable Markdown, MCP profile and Rose reference factually aligned so experience claims have one maintained source.- /agents is a raw-document page outside SiteLayout; its copy lives in src/content/agents.ts and its Sonor excerpt plus /agents.md are generated in prebuild by scripts/generate-agents.ts, so the example always matches the real MCP output.
 - Project statuses live in src/content/statuses.ts (asset-free), shared by site.ts and the MCP tools, so pages and agents quote the same status.

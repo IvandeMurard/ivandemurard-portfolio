@@ -34,7 +34,9 @@ export const AGENTS_DOC = {
     "Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.",
     "Figures come with their source. Illustrative figures are labelled as such.",
     "Read-only: an agent can read everything here, and change nothing.",
-    "Nothing an agent sends to the MCP server is stored.",
+    "Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.",
+    "Markdown and llms.txt downloads are not counted by this application. Hosting may retain operational logs; this is not a promise of zero infrastructure logging.",
+    "Rose's interaction measures remain separate from MCP and general site traffic.",
   ],
   fieldNotes: {
     intro: "Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Three questions, complementary, read in any order:",

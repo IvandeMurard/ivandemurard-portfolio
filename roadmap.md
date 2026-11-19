@@ -1,3 +1,9 @@
+# MCP tracking suspension
+- [x] Revoke public tracking permissions and verify anon/authenticated denial without inserting events.
+- [x] Remove MCP logging, document limits on /agents and in Rose, and withhold legacy counters in the private dashboard.
+- [x] Regenerate derived agent content and MCP catalog: 967 tests pass, preview page checked at desktop/mobile, build OK; authenticated dashboard and live model answers not checked.
+- [ ] Release updated /agents, dashboard and MCP through republish, and Rose guidance through an explicitly authorized rose-chat deployment. Public tracking writes are already blocked; release awaits Ivan's approval.
+
 # Rose self-knowledge Stage B
 - [x] Generate private, versioned history/persona artifacts with drift and provenance checks.
 - [x] Integrate bounded history selection, cross-page follow-ups and lab starters locally.

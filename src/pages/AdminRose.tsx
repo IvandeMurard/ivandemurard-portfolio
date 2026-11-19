@@ -46,7 +46,6 @@ const AdminRose = () => {
   const [metrics, setMetrics] = useState<RoseMetrics | null>(null);
   const [loading, setLoading] = useState(false);
   const [showQuestions, setShowQuestions] = useState(false);
-  const [mcp, setMcp] = useState<{ total: number; per_tool: { label: string; count: number }[]; per_slug: { label: string; count: number }[]; per_day: { label: string; count: number }[] } | null>(null);
 
   useEffect(() => {
     const meta = document.createElement("meta");
@@ -78,16 +77,6 @@ const AdminRose = () => {
       setLoading(false);
       if (error) { setMsg("Metrics could not be loaded. Please retry."); setMetrics(null); return; }
       setMetrics(data as unknown as RoseMetrics);
-    });
-    return () => { active = false; };
-  }, [isAdmin, days]);
-
-  useEffect(() => {
-    if (!isAdmin) { setMcp(null); return; }
-    let active = true;
-    supabase.rpc("get_mcp_metrics", { days_window: days }).then(({ data, error }) => {
-      if (!active) return;
-      setMcp(error ? null : (data as unknown as typeof mcp));
     });
     return () => { active = false; };
   }, [isAdmin, days]);
@@ -185,12 +174,7 @@ const AdminRose = () => {
           </section>
           <section className="mb-10">
             <h2 className="font-headline text-2xl text-heading mb-2">Agents &amp; MCP</h2>
-            <p className="mb-6 text-sm text-on-surface-variant">Calls to the public MCP server in the selected window: {mcp?.total ?? 0}. Each call is one tool use by an agent; it does not identify a person or confirm a reading. Only the tool and requested slug are stored, purged after 90 days. Raw Markdown and llms.txt downloads are served by hosting and are not counted here.</p>
-            <div className="grid md:grid-cols-3 gap-10">
-              <Table title="Calls per tool" rows={(mcp?.per_tool ?? []).map((r) => [r.label, r.count])} />
-              <Table title="Content requested" rows={(mcp?.per_slug ?? []).map((r) => [r.label, r.count])} />
-              <Table title="Calls per day" rows={(mcp?.per_day ?? []).map((r) => [r.label, r.count])} />
-            </div>
+            <p className="mb-6 text-sm text-on-surface-variant">MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are withheld as usage evidence; existing records remain private and are purged after 90 days. Markdown and llms.txt downloads are not counted here. Rose's measures above remain separate and unchanged.</p>
           </section>
           <Button variant="outline" onClick={() => setShowQuestions((v) => !v)}>{showQuestions ? "Hide recent questions" : "Show recent questions"}</Button>
           {showQuestions ? <section className="mt-5">

@@ -57,6 +57,13 @@
       "when": 1794962471933,
       "tag": "0007_mcp_events_tracking",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1795051588238,
+      "tag": "0008_suspend_public_mcp_tracking",
+      "breakpoints": true
     }
   ]
 }
