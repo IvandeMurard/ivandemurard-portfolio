@@ -1,7 +1,7 @@
 import { useId, useState, type ReactNode } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { cn } from "@/lib/utils";
-import type { JournalEntry, PeakBlock } from "@/content/journal";
+import type { JournalBlock, JournalEntry, PeakBlock } from "@/content/journal";
 import { metaLine, readLabel, revisedLabel, revisionCount } from "@/content/journalIndex";
 
 /**
@@ -75,6 +75,51 @@ const capturing = () => typeof window !== "undefined" && (window as unknown as {
 
 const CHOICE = "inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border px-6 text-[16px] font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
+/**
+ * The two buttons and the line that answers them, shared by the peak's question and by a trap inside a section.
+ * The colours are semantic tokens, so the same markup reads on the peak's navy ground and on the page ground. The status
+ * line is present before the answer, so a screen reader announces it when it arrives.
+ */
+const ChallengeAnswer = ({ question, choices, reveal, answer, onAnswer }: { question: string; choices: [string, string]; reveal: [string, string]; answer: number | null; onAnswer: (i: number) => void }) => (
+  <>
+    <div role="group" aria-labelledby={question} className="mt-5 flex flex-wrap gap-3">
+      {choices.map((label, i) => (
+        <button
+          key={label}
+          type="button"
+          aria-pressed={answer === i}
+          onClick={() => onAnswer(i)}
+          className={cn(CHOICE, answer === i ? "border-primary bg-primary text-on-primary" : "border-primary/50 text-primary hover:border-primary")}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+    <p role="status" aria-live="polite" data-peak-reveal className={cn("max-w-[640px] text-[19px] leading-snug text-on-surface", answer === null ? "mt-0" : "mt-6")}>
+      {answer === null ? "" : reveal[answer]}
+    </p>
+  </>
+);
+
+/** A question inside a section, answered by one of two buttons. Without JavaScript (the prerender capture): the question and both lines as text. */
+export const NoteTrap = ({ block }: { block: Extract<JournalBlock, { kind: "trap" }> }) => {
+  const [answer, setAnswer] = useState<number | null>(null);
+  const [asText] = useState(capturing);
+  const questionId = useId();
+  return (
+    <div data-trap className="rounded-sm border border-outline-variant px-5 py-6 md:px-7">
+      <p id={questionId} className="font-headline text-[22px] font-normal leading-[1.25] text-heading md:text-[26px]">{block.question}</p>
+      {asText ? (
+        <ul className="mt-4 space-y-2 font-body text-on-surface">
+          {block.choices.map((c, i) => <li key={c}><strong className="font-semibold">If you answer {c}:</strong> {block.reveal[i]}</li>)}
+        </ul>
+      ) : (
+        <ChallengeAnswer question={questionId} choices={block.choices} reveal={block.reveal} answer={answer} onAnswer={setAnswer} />
+      )}
+    </div>
+  );
+};
+
 /** The peak moment: page colour, a ramp to navy, a full-viewport section, a ramp back. Nothing animates. */
 export const NotePeak = ({ block }: { block: PeakBlock }) => {
   const challenge = block.challenge;
@@ -96,27 +141,7 @@ export const NotePeak = ({ block }: { block: PeakBlock }) => {
             <div data-peak-challenge className="mt-8 max-w-[760px]">
               <p data-peak-rule className="font-body text-[18px] leading-snug text-heading">{challenge.rule}</p>
               <p id={questionId} className="mt-4 font-headline text-[26px] font-normal leading-[1.2] text-heading md:text-[30px]">{challenge.question}</p>
-              {!asText && (
-                <div role="group" aria-labelledby={questionId} className="mt-5 flex flex-wrap gap-3">
-                  {challenge.choices.map((label, i) => (
-                    <button
-                      key={label}
-                      type="button"
-                      aria-pressed={answer === i}
-                      onClick={() => setAnswer(i)}
-                      className={cn(CHOICE, answer === i ? "border-primary bg-primary text-on-primary" : "border-primary/50 text-primary hover:border-primary")}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              )}
-              {/* Present before the answer so a screen reader announces the line when it arrives. */}
-              {!asText && (
-                <p role="status" aria-live="polite" data-peak-reveal className={cn("max-w-[640px] text-[19px] leading-snug text-on-surface", answer === null ? "mt-0" : "mt-6")}>
-                  {answer === null ? "" : challenge.reveal[answer]}
-                </p>
-              )}
+              {!asText && <ChallengeAnswer question={questionId} choices={challenge.choices} reveal={challenge.reveal} answer={answer} onAnswer={setAnswer} />}
             </div>
           )}
           {showBoxes && (

@@ -76,5 +76,17 @@
     "pattern": "theatrical-fragment",
     "text": "Right.",
     "reason": "copy dictated by Ivan, 18 Nov 2026: the line after the right answer in the harness note's peak"
+  },
+  {
+    "file": "src/content/journalHarnesses.ts",
+    "pattern": "contrast-reflex",
+    "text": "draw, not a measurement",
+    "reason": "copy validated by Ivan, 19 Nov 2026: the reveal of the section 7 trap, word for word"
+  },
+  {
+    "file": "public/harnesses-graders-closed-loops.md",
+    "pattern": "contrast-reflex",
+    "text": "draw, not a measurement",
+    "reason": "the Markdown mirror of the same validated line, generated from the content file"
   }
 ]

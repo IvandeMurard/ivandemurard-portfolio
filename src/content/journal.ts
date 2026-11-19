@@ -108,6 +108,8 @@ export type JournalBlock =
       note?: string;
     }
   | { kind: "mcp"; label?: string; note?: string }
+  /** A question inside a section, answered by one of two buttons, with one line by answer. Without JavaScript, in the prerender and in the Markdown mirror: the question and both lines as text. Same component as the peak's challenge. */
+  | { kind: "trap"; question: string; choices: [string, string]; reveal: [string, string] }
   | { kind: "blueprint" }
   | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] }
   /** The one peak moment of a note: a full-viewport section, page colour to navy and back. Copy: docs/field-notes-prototype (board J). */

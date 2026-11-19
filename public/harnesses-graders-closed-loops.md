@@ -6,7 +6,7 @@ Two of the three misses sat in the safety tier. A pass rate with no threshold at
 
 A working vocabulary for building evaluation into AI products from day one, tested on two real systems.
 
-Evaluation · 2026-07-31 · 17 min · 31 with every detail open
+Evaluation · 2026-07-31 · 18 min · 31 with every detail open
 
 **TL;DR** - A grader judges one criterion, a harness runs the exam, a protocol decides what passing means. Evaluation splits into three arms that do not substitute for one another: offline before the merge, runtime in production, outcome after the fact. Acceptance criteria need tiers with budgets, because 61 out of 64 is a failure when a miss is in the safety tier. And before a threshold may block a merge, prove the measurement holds still - then expect enforcement to move it again. Built from two real systems, Aetherix and Lore, with the gaps named rather than skipped.
 
@@ -60,15 +60,17 @@ If you only read three minutes: sections [6](#6-acceptance-criteria-the-part-eve
 
 **SEC. 1** A grader judges one criterion, a harness runs the exam, a protocol says what passing means. Concrete case: Lore has 10 graders, one harness, and one protocol document that decides when CI goes red.
 
-A driving test contains every piece of the machinery. It is worth one pass to fix the words, and the rest of this piece will not need it again.
+A candidate drives the whole route without a fault. Mirrors checked, signals on time, a clean parallel park. Then, once, they roll through a stop sign on an empty street, and the examiner fails them. Nobody calls it unfair: one major fault outweighs a perfect route, and everyone agreed on that rule before the engine started. [Section 6](https://ivandemurard.com/journal/harnesses-graders-closed-loops#6-acceptance-criteria-the-part-everyone-skips) is the same scene with a model: 61 answers right out of 64, and a fail.
 
-**Case set**: The test route. The situations you put the system through, chosen in advance, whose correct answer you already know. Also called a golden dataset.
-**Grader**: One line of the examiner's marking sheet. "Did they check the mirror?" Yes or no, plus the reason. One criterion, nothing more.
-**Harness**: The whole examination. The route, the examiner, the sheet, the pass mark, the report. The machinery that runs the test and returns a verdict.
+Every part of an evaluation harness is already in that scene.
+
+**Case set**: The route. Chosen in advance, every situation with a known right answer. Also called a golden dataset.
+**Grader**: One line on the examiner's sheet. "Stopped at the stop sign?" Yes or no, and why. One criterion, nothing more.
+**Harness**: The whole examination: route, examiner, sheet, pass mark, report. It runs the test and returns a verdict.
 *The word has a second meaning, now the more common one - the runtime environment around a model. The two are complements, and they are separated in section 13.*
-**Protocol**: The rules. What to measure, on what data, above what threshold it is unacceptable, who decides, when it blocks. A document and a decision, not code.
-**Open loop**: You measure, a human reads it, they may act. The measurement changes nothing by itself.
-**Closed loop**: The measurement is wired back in and changes the system on its own. The merge is blocked, the release pulled, the failure becomes a new test case.
+**Protocol**: The rule, written before the test, that a stop sign is a major fault: what counts, above what threshold it fails, who decides. A document and a decision, not code.
+**Open loop**: The examiner writes a report; someone may read it.
+**Closed loop**: The result is wired back in: the licence is not issued, and next time the route includes that stop sign.
 
 > A protocol without a harness is an intention. A harness without a protocol is a number with no decision attached.
 
@@ -211,6 +213,8 @@ Separating ERROR from FAIL is not fussiness. The runner emitted only 0 and 1, so
 
 The order matters more than the numbers: prove the instrument holds still, then let it judge. A canary is the same input replayed on purpose, and until three replays return the same score there is nothing a threshold can legitimately block on.
 
+Two runs of the same 53 cases scored 38, then 36. Is the gate ready to block a release? (Yes or Not yet) If you answer Yes: That is the trap. Eight cases flipped between two identical runs: the gate would have blocked or passed on luck. If you answer Not yet: Right. Only 12 of the 17 failures were the same, and eight cases flipped between two identical runs. The score was a draw, not a measurement.
+
 38 / 36: Two runs, same 53 cases (Only 12 of the 17 failures in common. Eight cases flipped. At temperature 0.5 the rate is a draw, not a measurement.)
 36 → 53: Temperature 0, defects fixed (Progression 36, 48, 48, 52, then 53 out of 53.)
 4×: Four consecutive runs, no variance (Baselines frozen only after that. The protocol required 0.00 points of variance before a threshold could block.)
@@ -343,6 +347,8 @@ Three limits, named because they are the ones this piece exists to name:
 Kumar closes on a wish for 2027: agents that generate their own harness before doing the work, guardrails and verification included. On evaluation grounds, that is the direction to resist. A harness the agent writes for itself includes the verify step that grades it. Section 8 asks who grades the grader; here the grader would be written by the one being graded.
 
 > An agent that writes its own verify step has not been harnessed. It has been handed the marking sheet.
+
+**Read what that literature adds to this one**
 
 ### What that literature adds to this one
 

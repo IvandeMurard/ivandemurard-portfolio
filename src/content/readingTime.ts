@@ -59,6 +59,7 @@ const fullText = (b: JournalBlock, extra: string[]): string[] => {
     case "callout": return [b.title, b.text, b.link.text];
     case "askRose": return [b.label ?? "", b.note ?? "", ...b.prompts];
     case "mcp": return [b.label ?? "", b.note ?? ""];
+    case "trap": return [b.question, ...b.choices, ...b.reveal];
     case "blueprint": return [blueprintMarkdown()];
     case "apply": {
       const g = APPLY_GUIDES[b.slug];
