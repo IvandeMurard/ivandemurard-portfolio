@@ -173,7 +173,7 @@ describe("03 · Field Notes on the homepage", () => {
     });
     expect(INDEX_COPY.readNote).toBe("Read the note");
     expect(cards.map((c) => c.querySelector(".font-headline")!.textContent)).toEqual([
-      "What is an LLM evaluation harness?", "Where should an agent's responsibility end?", "Whose truth is the ground truth?", "One text, three readers",
+      "What is an LLM evaluation harness?", "Where should an agent's responsibility end?", "Whose truth is the ground truth?", "What is agent experience (AX)?",
     ]);
   });
 
