@@ -15,7 +15,7 @@ export const AetherixWhatRemainsPrivate = () => (
       <h3 className="font-headline italic text-2xl text-heading leading-tight">What remains private</h3>
     </div>
     <p className="mt-4 text-on-surface-variant text-sm leading-relaxed max-w-3xl">
-      The project includes proprietary research on cross-domain operational context and cold-start learning. Public
+      The project includes private work on the Context Graph (Design) and the Cold-start prior (Research). Public
       materials focus on the engineering evidence: evaluation gates, traceability, safety guardrails, privacy
       boundaries, and outcome measurement.
     </p>

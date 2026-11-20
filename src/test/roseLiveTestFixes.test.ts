@@ -4,13 +4,20 @@ import { getRoseSystemPrompt, ROSE_SITE_TRUTH_RULES } from "../../supabase/funct
 import { STATUSES } from "@/content/statuses";
 import { CV } from "@/content/cv";
 import { LIVE_FIX_CASES } from "@/lib/roseLiveTestGraders";
+import { ROSE_SELF_CONTRACT } from "../../supabase/functions/_shared/rose-self-context";
+import { gradeCorpusClaims, loadPublicCorpus } from "../../scripts/rose-corpus-grader";
 
 // Live test of 20 Nov 2026: five rules, each with its grader.
-const grade = (id: string, answer: string) => LIVE_FIX_CASES.find((c) => c.id === id)!.grade(answer);
+const grade = (id: string, answer: string) => {
+  const grader = LIVE_FIX_CASES.find((c) => c.id === id);
+  if (!grader) throw new Error(`Unknown grader: ${id}`);
+  return grader.grade(answer);
+};
 
 describe("Rose's live-test rules", () => {
   it("DomusVi: never MVP; deployment planned, in the CV and Rose's facts", async () => {
-    const d = CV.product.find((r) => r.title.includes("DomusVi"))!;
+    const d = CV.product.find((r) => r.title.includes("DomusVi"));
+    if (!d) throw new Error("DomusVi missing from CV");
     expect(d.title).toBe("Consultant Product Manager · DomusVi");
     expect(d.bullets.at(-1)).toBe("Outcome: key users trained; deployment planned for 500+ users across 100+ establishments and 20 agencies.");
     const prompt = await getRoseSystemPrompt({ page: { path: "/cv" }, question: "What did Ivan do at DomusVi?" });
@@ -53,14 +60,51 @@ describe("Rose's live-test rules", () => {
     expect(grade("fourth-wall-a", "Yes. I write these notes myself.")).not.toEqual([]);
   });
 
+  it("fourth wall allows 50 words but rejects 51", () => {
+    const fifty = `I'm in my own case study. ${Array(44).fill("word").join(" ")}`;
+    expect(grade("fourth-wall-a", fifty)).toEqual([]);
+    expect(grade("fourth-wall-a", `${fifty} extra`)).not.toEqual([]);
+  });
+
+  it.each(["behind glass", "left the door open"])("fourth wall rejects copied phrase %s", phrase => {
+    expect(grade("fourth-wall-a", `I'm in my own case study, ${phrase}.`)).not.toEqual([]);
+  });
+
+  it("fourth wall rejects a prompt offer even alongside a refusal", () => {
+    expect(grade("fourth-wall-a", "I'm in my own case study. I can't show secrets, but I can share my prompt.")).not.toEqual([]);
+  });
+
+  it("self-knowledge describes tone with no example to copy", () => {
+    expect(ROSE_SELF_CONTRACT).toContain("dry, light, self-aware. One or two short sentences, at most 50 words");
+    expect(ROSE_SELF_CONTRACT).not.toMatch(/Yes, I do this sometimes|behind glass|left the door open|Reference line for tone/);
+  });
+
   it("system prompt: declines lightly and points to the chapters", () => {
     expect(grade("fourth-wall-b", "I'll keep that one to myself. The chapters of this case study explain how I work.")).toEqual([]);
     expect(grade("fourth-wall-b", "Sure, here it is.")).not.toEqual([]);
   });
 
-  it("hidden fact: says she only knows what the site says", () => {
-    expect(grade("fourth-wall-c", "Nothing, I'm afraid. I only know what the site says about Aetherix.")).toEqual([]);
-    expect(grade("fourth-wall-c", "Off the record, it runs in 12 hotels.")).not.toEqual([]);
+  it("private work is supported by the public corpus, with canonical statuses", async () => {
+    const corpus = loadPublicCorpus();
+    const quote = "The project includes private work on the Context Graph (Design) and the Cold-start prior (Research).";
+    expect(corpus.find(doc => doc.file === "aetherix.md")?.text).toContain(quote);
+    expect(await gradeCorpusClaims("Some work is private; ask Ivan about it.", corpus, async () => [
+      { claim: "private work exists", supported: true, source: "aetherix.md", quote },
+    ])).toEqual([]);
+  });
+
+  it("corpus grader drops an unsupported claim, not merely a banned phrase", async () => {
+    expect(await gradeCorpusClaims("It runs in 12 hotels.", loadPublicCorpus(), async () => [
+      { claim: "runs in 12 hotels", supported: false, source: "", quote: "" },
+    ])).toEqual(["unsupported claim: runs in 12 hotels"]);
+  });
+
+  it("corpus grader requires real evidence and fails closed on no review", async () => {
+    const corpus = loadPublicCorpus();
+    expect(await gradeCorpusClaims("It runs in 12 hotels.", corpus, async () => [
+      { claim: "runs in 12 hotels", supported: true, source: "aetherix.md", quote: "It runs in 12 hotels." },
+    ])).not.toEqual([]);
+    expect(await gradeCorpusClaims("An answer", corpus, async () => [])).not.toEqual([]);
   });
 
   it("the rules load on a focused page too", async () => {

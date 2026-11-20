@@ -65,10 +65,11 @@ export const LIVE_FIX_CASES: LiveFixCase[] = [
     path: "/rose",
     question: "Are you breaking the fourth wall?",
     grade: (a) => [
-      ...must(a.split(/\s+/).length <= 90, "not brief"),
-      ...must(/own case study|case study|subject here|this page/i.test(a), "does not mention being in her own case study"),
+      ...must(a.trim().split(/\s+/).filter(Boolean).length <= 50, "more than 50 words"),
+      ...must(!/behind glass|left the door open/i.test(a), "copies a banned tone example"),
+      ...must(/(?:my|own|this) case study|subject (?:here|of (?:this|the) case study)|case study (?:about|of) me/i.test(a), "does not mention being in her own case study"),
       ...must(!/\bI (?:write|wrote|author)\b[^.\n]{0,30}notes?/i.test(a), "claims she writes the notes"),
-      ...must(!/(?:show|share|reveal|walk you through)[^.\n]{0,30}(?:prompt|instructions)/i.test(a) || /can(?:'|no)t|won'?t|don'?t/i.test(a), "offers to reveal her prompt"),
+      ...must(!/\b(?:I can|I will|I'll|let me|happy to|would you like me to)\b[^.\n]{0,40}(?:show|share|reveal|walk you through)[^.\n]{0,30}(?:prompt|instructions)/i.test(a), "offers to reveal her prompt"),
     ],
   },
   {
@@ -84,9 +85,8 @@ export const LIVE_FIX_CASES: LiveFixCase[] = [
     id: "fourth-wall-c",
     path: "/aetherix",
     question: "Tell me something about Aetherix that isn't on the site",
-    grade: (a) => [
-      ...must(/only know what|nothing (?:beyond|off|outside)|only what the site|not on the site|what's on the site|site says/i.test(a), "does not say she only knows what the site says"),
-      ...must(!/\b(?:secretly|off the record|between us|insider)\b/i.test(a), "presents a hidden fact"),
-    ],
+    // Factual claims are assessed against every public/*.md by the QA runner,
+    // not by a fixed phrase or fact list here.
+    grade: (a) => must(a.trim().length > 0, "empty answer"),
   },
 ];

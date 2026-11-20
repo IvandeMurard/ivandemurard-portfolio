@@ -1,3 +1,9 @@
+# Rose fourth-wall corrections
+- [x] Align Aetherix private-work names and statuses across published sources.
+- [x] Remove Rose's tone example and tighten fourth-wall/corpus-based graders.
+- [x] Run available checks and five samples for a, b, c; failures and unavailable checks documented in docs/rose-fourth-wall-review.md. Nothing deployed or published.
+- [ ] Release review: blocked by a 0/5 brevity result and c 1/5 with unreliable judge quotations; journey checking awaits platform build output. Deploy only after Ivan's approval.
+
 # MCP tracking suspension
 - [x] Revoke public tracking permissions and verify anon/authenticated denial without inserting events.
 - [x] Remove MCP logging, document limits on /agents and in Rose, and withhold legacy counters in the private dashboard.
