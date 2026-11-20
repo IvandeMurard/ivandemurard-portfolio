@@ -11,7 +11,7 @@ export const RELATIONS_MAP = {
 } as const;
 
 export type GraphEdge = { from: string; link: string; to: string; reason: string; indirect: boolean };
-export type RelationRow = { from: string[]; link: string; to: string; reason: string; indirect: boolean };
+export type RelationRow = { from: string[]; link: string; to: string; toId: string; reason: string; indirect: boolean };
 
 export const GRAPH_NODES = graph.nodes as { id: string; label: string }[];
 export const GRAPH_EDGES = graph.edges as GraphEdge[];
@@ -31,7 +31,7 @@ export const relationRows = (): RelationRow[] => {
     if (last && last.link === e.link && last.to === nodeLabel(e.to) && last.reason === e.reason && last.indirect === e.indirect) {
       last.from.push(nodeLabel(e.from));
     } else {
-      rows.push({ from: [nodeLabel(e.from)], link: e.link, to: nodeLabel(e.to), reason: e.reason, indirect: e.indirect });
+      rows.push({ from: [nodeLabel(e.from)], link: e.link, to: nodeLabel(e.to), toId: e.to, reason: e.reason, indirect: e.indirect });
     }
   }
   return rows;
