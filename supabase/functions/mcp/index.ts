@@ -1346,6 +1346,344 @@ var TRUTH_ENTRY = {
   ]
 };
 
+// src/content/agents.ts
+var MCP_URL = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp";
+var MCP_TRACKING_SINCE = "2026-11-21";
+var MCP_TRACKING_COPY = MCP_TRACKING_SINCE ? `Application-level MCP call tracking resumed on ${MCP_TRACKING_SINCE}, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.` : "Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.";
+var AGENTS_DOC = {
+  title: "ivandemurard.com \xB7 for agents",
+  meta: (date) => `Public. Read-only. No key. Last updated ${date}.`,
+  lead: "Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.",
+  connect: [
+    { label: "Claude Code:", command: `claude mcp add ivandemurard --transport http ${MCP_URL}` },
+    { label: "Any MCP client, over HTTP:", command: MCP_URL }
+  ],
+  tools: [
+    ["list_case_studies", "every case study: slug, label, tagline, status, URL"],
+    ["get_case_study", "one case study in full, as Markdown; pass outline_only for its section titles, then section to read one part"],
+    ["get_about", "bio, CV and contact links"],
+    ["list_journal_entries", "every Field Note: title, date, category, excerpt"],
+    ["get_journal_entry", "one Field Note in full, as Markdown; pass outline_only for its section titles, then section to read one part"]
+  ],
+  files: [
+    ["/llms.txt", "short index of the site, for language models"],
+    ["/llms-full.txt", "the whole site in one text file"],
+    ["/index.md", "the homepage, statuses included"],
+    ["/<page>.md", "the mirror of any page, e.g. /aetherix.md"],
+    ["/journal/<slug>.md", "the preferred mirror of a Field Note (legacy /<slug>.md still works)"]
+  ],
+  exampleIntro: "Ask about a project that stopped. The answer says it stopped.",
+  exampleCall: '\u2192 get_case_study { "slug": "sonor" }',
+  highlight: "stopped in 2022 after discovery concluded no contract would clear.",
+  guarantees: [
+    "Pages, Markdown mirrors, llms-full.txt and MCP answers are generated from the same content files at build time. /llms.txt and Rose's instructions are written by hand and checked by tests; Rose reads the published Markdown mirrors.",
+    "The /journal landing page has no Markdown mirror; list_journal_entries and /llms.txt carry its index.",
+    "Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped \xB7 stopped 2022.",
+    "Figures come with their source. Illustrative figures are labelled as such.",
+    "Read-only: an agent can read everything here, and change nothing.",
+    MCP_TRACKING_COPY,
+    "Markdown and llms.txt downloads are not counted by this application. Hosting may retain operational logs; this is not a promise of zero infrastructure logging.",
+    "Rose's interaction measures remain separate from MCP and general site traffic."
+  ],
+  fieldNotes: {
+    intro: "Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Four questions, complementary, read in any order:",
+    items: [
+      ["01 Evaluate", "How do you know an agent is working?", "/journal/harnesses-graders-closed-loops"],
+      ["02 Set boundaries", "Where should an agent's responsibility end?", "/journal/agent-boundaries-aetherix"],
+      ["03 Learn", "Whose truth should an agent learn from?", "/journal/whose-truth-is-the-ground-truth"],
+      ["04 Be read", "What does each reader of your product actually get?", "/journal/one-text-three-readers"]
+    ],
+    modes: [
+      "Browse summaries: list_journal_entries, or /llms.txt.",
+      "Read a method in full: get_journal_entry, or /journal/<slug>.md.",
+      "Check the evidence: get_case_study for aetherix or lore, then the public repositories.",
+      "Apply a method to another project: each note ends with a copyable brief. Reading this site does not authorise an agent to inspect or change anyone's project; the reader decides."
+    ]
+  },
+  contactText: "For a human conversation: book 30 minutes or email. The tool get_about returns the same links."
+};
+
+// src/content/journalAxFigures.ts
+var AX_NOTE_MCP_CALLS = null;
+var SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var axShortDate = (iso) => {
+  const [y, m, d] = iso.split("-").map(Number);
+  return `${d} ${SHORT_MONTHS[m - 1]} ${y}`;
+};
+var AX_COUNTER = {
+  label: MCP_TRACKING_SINCE ? `MCP calls since ${axShortDate(MCP_TRACKING_SINCE)}` : "MCP calls",
+  /** The dash the figure shows while the count is null (code 8212, written as a code so no source file carries the character). */
+  empty: String.fromCharCode(8212)
+};
+var AX_PEAK_PANES = {
+  person: { label: "What a person saw", via: "In the browser", card: "Aetherix", badge: "Pre-pilot" },
+  machine: {
+    label: "What a machine got",
+    via: "In curl, the prerendered snapshot",
+    code: ['<article class="project-card">', "  <h3>Aetherix</h3>", '  <span class="status">Pilot-ready</span>', "</article>"],
+    highlight: "Pilot-ready"
+  },
+  caption: "Reconstruction: the status words are the real ones; the surrounding markup is illustrative."
+};
+var AX_BRICKS = [
+  { date: "2026-05-05", short: "5 May", text: "`llms.txt`, `llms-full.txt` and a `robots.txt` open to AI crawlers" },
+  { date: "2026-07-21", short: "21 Jul", text: "The public MCP server and Rose's first dock" },
+  { date: "2026-09-14", short: "14 Sep", text: "The Markdown mirrors" },
+  { date: "2026-10-14", short: "14 Oct", text: "/agents" },
+  { date: "2026-11-17", short: "17 Nov", text: "The static stubs" },
+  { date: "2026-11-19", short: "19 Nov", text: "Reading by section" },
+  { date: "2026-11-20", short: "20 Nov", text: "Rose's signed history" }
+];
+var AX_BRICKS_CAPTION = "Source: the site's commit history.";
+var AX_READERS_HEAD = ["Reader", "What it reads", "What it needs", "How it fails"];
+var AX_READERS_ROWS = [
+  ["The visitor", "The rendered page, in a browser", "Layout, tone, a reason to keep reading", "Gets bored, leaves"],
+  ["Rose", "The site's own Markdown, nothing else", "The same facts, in plain text, with their status", "Says something the site does not say"],
+  ["An outside agent", "Whatever the server returns: HTML, Markdown, llms.txt, the MCP server", "Clean text, small enough to fit its context", "Repeats a wrong page with full confidence"]
+];
+var AX_FANOUT = {
+  source: { label: "One source", files: "`src/content` \xB7 `statuses.ts`" },
+  surfaces: ["The page", "The .md mirror", "llms.txt and llms-full.txt", "The MCP server", "Rose"],
+  journeys: { name: "check:journeys", does: "follows every link and anchor, including those in llms.txt" },
+  freshness: { name: "mcpBundleFreshness", does: "fails when the MCP bundle is older than the content it serves", on: "The MCP server" }
+};
+var AX_SIZES_DATE = "20 Nov 2026";
+var AX_SIZES = [
+  { label: "llms-full.txt", kb: 192.2, shown: "192.2", group: "whole" },
+  { label: "/rose, as HTML", kb: 118.6, shown: "118.6", group: "whole" },
+  { label: "rose.md", kb: 19.6, shown: "19.6", group: "part" },
+  { label: "aetherix.md", kb: 13.1, shown: "13.1", group: "part" },
+  { label: "llms.txt", kb: 10.1, shown: "10.1", group: "part" },
+  { label: "One section of aetherix.md", kb: 2.5, shown: "\u2248 2.5", group: "part" },
+  { label: "The outline of aetherix.md", kb: 1, shown: "< 1", group: "part" }
+];
+var AX_SIZES_CAPTION = "Sizes as downloaded with curl; the outline and the section through the MCP server.";
+var table = (head, rows) => [`| ${head.join(" | ")} |`, `| ${head.map(() => "---").join(" | ")} |`, ...rows.map((r) => `| ${r.join(" | ")} |`)].join("\n");
+var axCounterText = () => `${AX_COUNTER.label}: ${AX_NOTE_MCP_CALLS === null ? "not filled in yet" : AX_NOTE_MCP_CALLS.toLocaleString("en-US")}`;
+var axFigureMarkdown = (id) => {
+  switch (id) {
+    case "bricks":
+      return [AX_BRICKS.map((b) => `${b.short}: ${b.text}`).join("\n"), AX_BRICKS_CAPTION].join("\n\n");
+    case "readers":
+      return table(AX_READERS_HEAD, AX_READERS_ROWS);
+    case "fanout":
+      return [
+        `${AX_FANOUT.source.label}: ${AX_FANOUT.source.files}. Five surfaces: ${AX_FANOUT.surfaces.join("; ")}.`,
+        `Two checks guard the gap. \`${AX_FANOUT.journeys.name}\` ${AX_FANOUT.journeys.does}. \`${AX_FANOUT.freshness.name}\` ${AX_FANOUT.freshness.does}, on the branch to ${AX_FANOUT.freshness.on}.`
+      ].join("\n\n");
+    case "sizes":
+      return [
+        table(["Document", "Size in KB"], AX_SIZES.map((s) => [s.label, s.shown])),
+        `Measured on ${AX_SIZES_DATE}. ${AX_SIZES_CAPTION}`
+      ].join("\n\n");
+    case "counter":
+      return axCounterText();
+  }
+};
+
+// src/content/journalAx.ts
+var AX_ENTRY = {
+  slug: "one-text-three-readers",
+  decision: "For deciding what each reader of your product gets",
+  hook: "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines.",
+  intro: "What does each reader actually get?",
+  title: "One text, three readers",
+  // TODO: date de publication à fixer par Ivan (le jour J). Tant que ce n'est pas fait, 2026-11-20 est provisoire.
+  date: "2026-11-20",
+  category: "Product",
+  lang: "en",
+  mirror: "/one-text-three-readers.md",
+  excerpt: 'The site said Pre-pilot. The browser showed Pre-pilot. A machine reading the raw homepage got "Pilot-ready".',
+  glance: {
+    audience: "want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that people, assistants and AI agents all read; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares."
+  },
+  takeaways: [
+    "**Check what a machine actually receives, byte by byte.** What the browser shows proves nothing.",
+    "**One source per fact, every surface generated from it,** and a test that fails when a surface drifts.",
+    "**Count only what you can verify,** and show what it counts and since when."
+  ],
+  related: [
+    { role: "method", label: "What is an LLM evaluation harness?", to: "/journal/harnesses-graders-closed-loops", why: "The method behind Rose's release tests." },
+    { role: "evidence", label: "Rose, the case study", to: "/rose", why: "Her five decisions, trust contracts, tests and relation map." },
+    { role: "evidence", label: "/agents, how agents can read this site", to: "/agents", why: "The tools, the files and what each one guarantees." }
+  ],
+  body: [
+    { kind: "h2", text: "The day a machine read an old promise" },
+    {
+      kind: "peak",
+      aria: "Peak moment: a machine read an old promise",
+      kicker: "Pre-pilot on screen, Pilot-ready in the snapshot",
+      lead: 'The site said Pre-pilot. The browser showed Pre-pilot. A machine reading the raw homepage got "Pilot-ready".',
+      cols: 2,
+      boxes: [
+        { label: AX_PEAK_PANES.person.label, text: `${AX_PEAK_PANES.person.via}: the ${AX_PEAK_PANES.person.card} card, with the badge "${AX_PEAK_PANES.person.badge}".` },
+        { label: AX_PEAK_PANES.machine.label, text: `${AX_PEAK_PANES.machine.via}: the status "${AX_PEAK_PANES.machine.highlight}".` }
+      ],
+      panes: AX_PEAK_PANES
+    },
+    {
+      kind: "p",
+      text: "It came from a prerendered snapshot, a frozen copy of the homepage made for readers that do not run JavaScript. Nobody had regenerated it after the status changed. People never saw it: the app replaced it as soon as it booted. Machines kept it."
+    },
+    {
+      kind: "p",
+      text: "That is the one thing this site promises never to do: round a status up. A stale file did it on its own. The fix was simple, regenerate the snapshot. The question it left was not: what does each reader actually get?"
+    },
+    { kind: "h2", text: "From one text file to a protocol" },
+    {
+      kind: "p",
+      text: "The first brick went in on 5 May 2026, a week after the site's first commits: an `llms.txt`, its full version, and a `robots.txt` that names AI crawlers and lets them in. Everything since has been built on that one decision, to treat machines as readers."
+    },
+    { kind: "axFigure", figure: "bricks" },
+    { kind: "h2", text: "1. Three readers at once" },
+    {
+      kind: "p",
+      text: "This site is read by three kinds of reader, and they do not read alike. The visitor scans. Rose, the assistant on the site, quotes. An outside agent fetches, trims and summarises for someone I will never meet."
+    },
+    { kind: "axFigure", figure: "readers" },
+    {
+      kind: "p",
+      text: "The visitor forgives a lot. The other two forgive nothing, because they cannot see what you meant, only what you sent."
+    },
+    { kind: "h2", text: "2. Read it like a machine" },
+    {
+      kind: "p",
+      text: "The stale snapshot was not a one-off. Each time I checked the raw response instead of the screen, something was off."
+    },
+    {
+      kind: "list",
+      items: [
+        "**Markdown on request.** Asking the server for Markdown (`Accept: text/markdown`) worked, sort of. The hosting layer converted the page itself: 38,003 bytes for one journal article, menus and footer included, links mangled into strings like `%20[Case%20Studies]`. It was Markdown, and mostly noise.",
+        "**Plain .md files.** Served as `application/octet-stream`, which browsers and some agents treat as a file to download. Some agents read it, some give up. Fixed since: the curated mirrors now come back as `text/markdown`.",
+        "**A route that pointed elsewhere.** Asking for the projects index, /journeys, without JavaScript returned the homepage. The browser corrected it on boot; an agent got no projects at all. A static stub per route fixed it ([PR #50](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/50), then [#51](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/51) to keep the anchors)."
+      ]
+    },
+    {
+      kind: "p",
+      text: "The fix in each case: stop trusting the conversion and write the machine version deliberately. Curated Markdown mirrors are now generated at `.md` addresses for every page, from the same content as the site, without the chrome."
+    },
+    { kind: "p", text: "The habit that came out of it: fetch your own pages with `curl`, not a browser, at least once per release." },
+    { kind: "h2", text: "3. One source, every surface" },
+    {
+      kind: "p",
+      text: "Three readers means at least five surfaces saying the same thing: the page, its `.md` mirror, `llms.txt` and `llms-full.txt`, the MCP server, and Rose. Five copies of a fact is four chances to be wrong."
+    },
+    { kind: "p", text: "So each fact lives in one place and every surface is generated from it." },
+    { kind: "axFigure", figure: "fanout" },
+    {
+      kind: "list",
+      items: [
+        '**Statuses** come from one file, `statuses.ts`. Sonor is "MVP shipped \xB7 stopped 2022" on the page, in the Markdown, in the MCP answer and in Rose\'s mouth. Aetherix is Pre-pilot everywhere. No surface may round a status up.',
+        "**Names** are canonical. One name per thing, the same on the page, in the Markdown and in the MCP answers.",
+        "**Rose and the MCP server read the same Markdown.** If Rose says it, an agent can fetch it, and the other way round.",
+        "**Links carry a reason.** The map of how projects relate is written by hand, one line of reason per link ([What Rose can relate](/rose#ch-06)). A visitor sees a diagram; the Markdown carries the same links as sentences an agent can quote."
+      ]
+    },
+    {
+      kind: "p",
+      text: "Generated is not the same as fresh, so two checks guard the gap. `check:journeys` follows every link and anchor, including those in `llms.txt`. `mcpBundleFreshness` fails when the MCP bundle is older than the content it serves. When it fails, it is doing its job."
+    },
+    { kind: "h2", text: "4. Rose lives in the page" },
+    {
+      kind: "p",
+      text: "Most site assistants live in an airlock: a chat bubble sealed off from the page, unaware of what you are reading. Rose is built the other way round. She lives in the page, and she reads the same text as the other two readers. [Her case study](/rose) tells how she got there, decision by decision. Here is only what it means for agent experience."
+    },
+    { kind: "p", text: "Four things make that work." },
+    {
+      kind: "list",
+      items: [
+        "**The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.",
+        "**Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](/rose#ch-08).",
+        "**A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.",
+        "**A character with rules.** She breaks the fourth wall, as [her notes](/rose#ch-00) show. Her jokes are tone, never hidden facts, and her instructions stay hers."
+      ]
+    },
+    {
+      kind: "p",
+      text: "The character taught one lesson the hard way. Her self-description once held a sample line, to show the tone. She said it word for word in a live answer. Models copy examples. The sample went; the tone is now described by its qualities, with a word limit."
+    },
+    { kind: "h2", text: "5. Map, outline, section" },
+    {
+      kind: "p",
+      text: "An agent pays for every word it reads, in context it cannot spend twice. Handing it everything is not generosity."
+    },
+    {
+      kind: "p",
+      text: "`llms-full.txt` holds the whole site in one file: 192 KB. Useful for an agent that wants it all, too heavy for one that needs a single answer. So the site offers three sizes:"
+    },
+    {
+      kind: "list",
+      items: [
+        "**The map.** `llms.txt` lists what exists, with links and statuses, and nothing more.",
+        "**The outline.** The MCP tool `get_case_study` with `outline_only` returns the headings of a case study, so the agent can choose.",
+        "**The section.** The same tool with `section` returns only the part it asked for."
+      ]
+    },
+    { kind: "axFigure", figure: "sizes" },
+    {
+      kind: "p",
+      text: "A visitor does this without thinking: scroll, skim, stop. An agent needs the page to be cut along its joints first. Good headings turn out to be an API."
+    },
+    { kind: "h2", text: "6. What this site counts, and from when" },
+    { kind: "p", text: "A number about agents is only worth what it counts. So each figure here says what it counts, and since when." },
+    {
+      kind: "list",
+      items: [
+        "**MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. The unit is the call: one script can make many."
+      ]
+    },
+    { kind: "axFigure", figure: "counter" },
+    {
+      kind: "p",
+      text: "The first counter did not survive a review: it could be written through the site's public key, by anyone. Its numbers are not used here or anywhere else. Counting moved to the server, where a visitor cannot reach it."
+    },
+    {
+      kind: "p",
+      text: "The Markdown mirrors and `llms.txt` are served straight by the hosting, so the site never sees those reads and does not count them. Rose's own measures, what she keeps and for how long, are on [her trust contracts](/rose#ch-07)."
+    },
+    {
+      kind: "p",
+      text: '"Agents read my site" is a lovely line for a portfolio. Here it comes with a date, a scope and a number, or it does not come at all.'
+    },
+    { kind: "h2", text: "Apply this to your project" },
+    {
+      kind: "list",
+      items: [
+        "Fetch three of your pages with `curl`. Read the response itself.",
+        "Ask for `text/markdown` and look at the size. If the menu is in there, write the Markdown yourself.",
+        "List every surface that states a fact (page, mirror, llms.txt, API, assistant). Pick one source per fact.",
+        "Add one test that fails when a generated surface is older than its source.",
+        "Offer a map, an outline and a section alongside the whole thing.",
+        "If your assistant talks about itself, describe its tone by qualities: sample lines get copied.",
+        "Before you publish an agent-traffic number, ask who could have written it."
+      ]
+    },
+    { kind: "h2", text: "FAQ" },
+    {
+      kind: "lines",
+      items: [
+        { q: "Is this SEO with a new name?", a: "It overlaps with SEO. SEO asks whether you are found. This asks whether what is found is true and usable once fetched." },
+        { q: "Do I need an MCP server?", a: "No. Clean Markdown at a stable address and an accurate `llms.txt` cover most of it. The MCP server earns its place when agents need to read in pieces." },
+        { q: "Should I count agent visits?", a: "Count what you can verify, and say what it is. Here: MCP calls, counted on the server, shown with their start date. A call says nothing about who made it or why." }
+      ]
+    },
+    { kind: "h2", text: "Credit" },
+    { kind: "p", text: "Writing these notes ahead, then publishing them as the work moves, is an idea borrowed from co-existence.ai." },
+    { kind: "h2", text: "Sources" },
+    {
+      kind: "list",
+      items: [
+        "[Rose, the case study](/rose): her five decisions, trust contracts, tests and relation map",
+        "[What is an LLM evaluation harness?](/journal/harnesses-graders-closed-loops), the method behind Rose's release tests",
+        "[/agents, how agents can read this site](/agents)",
+        "[llms.txt](https://ivandemurard.com/llms.txt) and [llms-full.txt](https://ivandemurard.com/llms-full.txt)",
+        "[PR #50, static stubs for /journeys](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/50) and [PR #51, keeping anchors](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/51)",
+        "[The site's repository](https://github.com/IvandeMurard/ivandemurard-portfolio)"
+      ]
+    }
+  ]
+};
+
 // src/content/journalApply.ts
 var ORIGIN = "https://ivandemurard.com";
 var APPLY_GUIDES = {
@@ -1572,6 +1910,8 @@ var shownText = (b) => {
       return b.items.map((i) => `${i.title} ${i.body}`);
     case "recoLine":
       return [b.caption];
+    case "axFigure":
+      return [axFigureMarkdown(b.figure)];
     case "peak": {
       const c = b.challenge;
       return [b.kicker, b.lead, c?.rule ?? "", c?.question ?? "", c ? [...c.reveal].sort((x, y) => y.length - x.length)[0] : "", ...b.boxes.flatMap((x) => [x.label, x.text, x.note ?? "", x.bubble ?? ""]), b.after ?? "", b.contract ?? ""];
@@ -1828,14 +2168,16 @@ var JOURNAL_ENTRIES = [
     ]
   },
   HARNESSES_ENTRY,
-  TRUTH_ENTRY
+  TRUTH_ENTRY,
+  AX_ENTRY
 ];
 var diagnosticText = (e) => e.diagnostic ? [e.diagnostic.label, e.diagnostic.intro, e.diagnostic.caveat, e.diagnostic.allYes, ...e.diagnostic.questions.flatMap((q) => [q.ask, q.gap, q.toLabel])] : [];
 for (const entry of JOURNAL_ENTRIES) Object.assign(entry, { readingMinutes: visibleMinutes(entry.body), readingMinutesFull: fullMinutes(entry.body, 230, diagnosticText(entry)) });
 var JOURNAL_KNOWLEDGE_QUESTIONS = [
   { number: "01", label: "Evaluate", question: "How do you know an agent is working?", description: "Learn what correct behavior means and how to test it.", slug: "harnesses-graders-closed-loops", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
   { number: "02", label: "Set boundaries", question: "Where should an agent's responsibility end?", description: "Separate prediction, recommendation and authority.", slug: "agent-boundaries-aetherix", cases: [{ label: "Aetherix", to: "/aetherix" }] },
-  { number: "03", label: "Learn", question: "Whose truth should an agent learn from?", description: "Distinguish approval, prediction and observed truth.", slug: "whose-truth-is-the-ground-truth", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] }
+  { number: "03", label: "Learn", question: "Whose truth should an agent learn from?", description: "Distinguish approval, prediction and observed truth.", slug: "whose-truth-is-the-ground-truth", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
+  { number: "04", label: "Be read", question: "What does each reader of your product actually get?", description: "Serve people, your own assistant and outside agents from one source.", slug: "one-text-three-readers", cases: [{ label: "Rose", to: "/rose" }] }
 ];
 
 // src/lib/mcp/tools/list-journal.ts
@@ -1864,7 +2206,7 @@ var list_journal_default = defineTool4({
     }).sort((a, b) => b.date.localeCompare(a.date));
     const indexUrl = `${SITE_ORIGIN2}/journal`;
     const corpusUrl = `${SITE_ORIGIN2}/llms-full.txt`;
-    const readingNote = "The three notes answer complementary questions and can be read in any order. Notes teach methods; case studies hold implementation evidence.";
+    const readingNote = "The notes answer complementary questions and can be read in any order. Notes teach methods; case studies hold implementation evidence.";
     const header = [`Index URL: ${indexUrl}`, `Corpus URL: ${corpusUrl}`, `Reading note: ${readingNote}`].join("\n");
     return {
       content: [{ type: "text", text: `${header}
@@ -1983,6 +2325,8 @@ A: ${i.a}`).join("\n\n");
       return [`**Figure.** ${block.caption}`, recoLineMarkdown(block.layer), block.link ? `${block.link.text}: ${SITE_ORIGIN3}${block.link.to}` : ""].filter(Boolean).join("\n\n");
     case "blueprint":
       return blueprintMarkdown();
+    case "axFigure":
+      return axFigureMarkdown(block.figure);
     case "console":
     case "mcp":
     case "diagnostic":
@@ -1997,6 +2341,7 @@ A: ${i.a}`).join("\n\n");
         block.challenge ? `${block.challenge.rule} ${block.challenge.question} (${block.challenge.choices.join(" or ")}) If you answer ${block.challenge.choices[0]}: ${block.challenge.reveal[0]} If you answer ${block.challenge.choices[1]}: ${block.challenge.reveal[1]}` : "",
         ...block.boxes.map((x) => [`**${x.label}**`, x.text, x.bubble ?? "", x.chain ? x.chain.steps.join(", ") : "", x.note ?? ""].filter(Boolean).join(" ")),
         block.after ?? "",
+        block.panes?.caption ?? "",
         block.link ? `${block.link.text} (#${block.link.to})` : "",
         block.contract ?? ""
       ].filter(Boolean).join("\n\n");
@@ -2025,7 +2370,7 @@ function tableRuns(md) {
   if (run.length) runs.push(run.join("\n"));
   return runs;
 }
-var tableKey = (table) => table.replace(/\s+/g, "").replace(/[‘’]/g, "'");
+var tableKey = (table2) => table2.replace(/\s+/g, "").replace(/[‘’]/g, "'");
 function renderBlocks(blocks) {
   const seen = /* @__PURE__ */ new Set();
   return blocks.map((block) => {
@@ -2047,7 +2392,11 @@ ${entry.related.map((r) => `- ${r.role ? `${RELATED_ROLE[r.role]}: ` : ""}[${r.l
   const url = `${SITE_ORIGIN3}/journal/${entry.slug}`;
   return [
     entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
-    entry.glance ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}` : "",
+    entry.glance ? [
+      `**Read this if** ${entry.glance.audience}`,
+      entry.glance.promise ? `**What it gives you**: ${entry.glance.promise}` : "",
+      entry.glance.proof ? `**Tested on**: ${entry.glance.proof}` : ""
+    ].filter(Boolean).join(" ") : "",
     entry.takeaways?.length ? `What you will decide differently:
 ${entry.takeaways.map((t) => `- ${t}`).join("\n")}` : "",
     entry.takeawayPunch ?? "",
@@ -2122,62 +2471,6 @@ ${body}` }]
     };
   }
 });
-
-// src/content/agents.ts
-var MCP_URL = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp";
-var MCP_TRACKING_SINCE = "2026-11-21";
-var MCP_TRACKING_COPY = MCP_TRACKING_SINCE ? `Application-level MCP call tracking resumed on ${MCP_TRACKING_SINCE}, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.` : "Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.";
-var AGENTS_DOC = {
-  title: "ivandemurard.com \xB7 for agents",
-  meta: (date) => `Public. Read-only. No key. Last updated ${date}.`,
-  lead: "Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.",
-  connect: [
-    { label: "Claude Code:", command: `claude mcp add ivandemurard --transport http ${MCP_URL}` },
-    { label: "Any MCP client, over HTTP:", command: MCP_URL }
-  ],
-  tools: [
-    ["list_case_studies", "every case study: slug, label, tagline, status, URL"],
-    ["get_case_study", "one case study in full, as Markdown; pass outline_only for its section titles, then section to read one part"],
-    ["get_about", "bio, CV and contact links"],
-    ["list_journal_entries", "every Field Note: title, date, category, excerpt"],
-    ["get_journal_entry", "one Field Note in full, as Markdown; pass outline_only for its section titles, then section to read one part"]
-  ],
-  files: [
-    ["/llms.txt", "short index of the site, for language models"],
-    ["/llms-full.txt", "the whole site in one text file"],
-    ["/index.md", "the homepage, statuses included"],
-    ["/<page>.md", "the mirror of any page, e.g. /aetherix.md"],
-    ["/journal/<slug>.md", "the preferred mirror of a Field Note (legacy /<slug>.md still works)"]
-  ],
-  exampleIntro: "Ask about a project that stopped. The answer says it stopped.",
-  exampleCall: '\u2192 get_case_study { "slug": "sonor" }',
-  highlight: "stopped in 2022 after discovery concluded no contract would clear.",
-  guarantees: [
-    "Pages, Markdown mirrors, llms-full.txt and MCP answers are generated from the same content files at build time. /llms.txt and Rose's instructions are written by hand and checked by tests; Rose reads the published Markdown mirrors.",
-    "The /journal landing page has no Markdown mirror; list_journal_entries and /llms.txt carry its index.",
-    "Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped \xB7 stopped 2022.",
-    "Figures come with their source. Illustrative figures are labelled as such.",
-    "Read-only: an agent can read everything here, and change nothing.",
-    MCP_TRACKING_COPY,
-    "Markdown and llms.txt downloads are not counted by this application. Hosting may retain operational logs; this is not a promise of zero infrastructure logging.",
-    "Rose's interaction measures remain separate from MCP and general site traffic."
-  ],
-  fieldNotes: {
-    intro: "Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Three questions, complementary, read in any order:",
-    items: [
-      ["01 Evaluate", "How do you know an agent is working?", "/journal/harnesses-graders-closed-loops"],
-      ["02 Set boundaries", "Where should an agent's responsibility end?", "/journal/agent-boundaries-aetherix"],
-      ["03 Learn", "Whose truth should an agent learn from?", "/journal/whose-truth-is-the-ground-truth"]
-    ],
-    modes: [
-      "Browse summaries: list_journal_entries, or /llms.txt.",
-      "Read a method in full: get_journal_entry, or /journal/<slug>.md.",
-      "Check the evidence: get_case_study for aetherix or lore, then the public repositories.",
-      "Apply a method to another project: each note ends with a copyable brief. Reading this site does not authorise an agent to inspect or change anyone's project; the reader decides."
-    ]
-  },
-  contactText: "For a human conversation: book 30 minutes or email. The tool get_about returns the same links."
-};
 
 // src/lib/mcp/track.ts
 var MCP_WRITES_PER_MINUTE = 60;
