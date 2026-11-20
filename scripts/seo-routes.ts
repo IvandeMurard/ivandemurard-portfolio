@@ -351,9 +351,9 @@ export const SEO_ROUTES: SeoRoute[] = [
   {
     path: "/journal/one-text-three-readers",
     markdown: "one-text-three-readers.md",
-    title: "One text, three readers · Ivan de Murard",
+    title: "What is agent experience (AX)? One text, three readers · Ivan de Murard",
     description:
-      "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines. What does each reader actually get?",
+      "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines. What a person, an assistant and an outside agent each get from the same page.",
     type: "article",
     changefreq: "monthly",
     priority: "0.7",
@@ -361,7 +361,7 @@ export const SEO_ROUTES: SeoRoute[] = [
       {
         "@context": "https://schema.org",
         "@type": "Article",
-        headline: "One text, three readers",
+        headline: "What is agent experience (AX)? One text, three readers",
         inLanguage: "en",
         datePublished: "2026-11-20",
         author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },

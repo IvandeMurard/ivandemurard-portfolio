@@ -79,7 +79,7 @@ export const JOURNAL_META: JournalMeta[] = [
   },
   {
     "slug": "one-text-three-readers",
-    "title": "One text, three readers",
+    "title": "What is agent experience (AX)? One text, three readers",
     "decision": "For deciding what each reader of your product gets",
     "hook": "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines.",
     "date": "2026-11-20",

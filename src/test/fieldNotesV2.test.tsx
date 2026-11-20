@@ -297,11 +297,13 @@ describe("The note pattern", () => {
     expect(nums).toEqual(refNums);
   });
 
-  it("one-text-three-readers: the hook, the intro, one peak with two panes, and a reference zone whose chips reach real ids", () => {
+  it("one-text-three-readers: the hook and the subtitle (no intro line), one peak with two panes, and a reference zone whose chips reach real ids", () => {
     const { container } = note(AX);
     const e = entry(AX);
     expect(text(container)).toContain(e.hook);
-    expect(text(container)).toContain(e.intro);
+    expect(e.intro).toBeUndefined();
+    expect(text(container)).toContain(e.subtitle!);
+    expect(text(container)).not.toContain("What does each reader actually get?");
     expect(container.querySelectorAll("[data-peak]")).toHaveLength(1);
     expect(container.querySelectorAll("[data-peak] [data-ax-panes]")).toHaveLength(1);
     expect(container.querySelectorAll("section[data-reference]")).toHaveLength(1);

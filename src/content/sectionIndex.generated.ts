@@ -69,8 +69,8 @@ export const SECTION_INDEX: SectionIndexEntry[] = [
   },
   {
     path: "/journal/one-text-three-readers",
-    title: "One text, three readers",
-    short: "One text, three readers",
+    title: "What is agent experience (AX)? One text, three readers",
+    short: "What is agent experience (AX)?",
     sections: [
       { id: "the-day-a-machine-read-an-old-promise", heading: "The day a machine read an old promise" },
       { id: "from-one-text-file-to-a-protocol", heading: "From one text file to a protocol" },

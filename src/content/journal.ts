@@ -177,7 +177,8 @@ export type JournalEntry = {
   decision: string;
   /** One sentence in display serif under the title, then one line of intro. Copy: docs/field-notes-prototype (board J). */
   hook: string;
-  intro: string;
+  /** One line of intro under the hook. A note may leave it out (the subtitle then follows the hook directly). */
+  intro?: string;
   title: string;
   subtitle?: string;
   date: string; // ISO yyyy-mm-dd
