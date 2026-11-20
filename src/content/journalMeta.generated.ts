@@ -76,6 +76,16 @@ export const JOURNAL_META: JournalMeta[] = [
         "date": "2026-10-23"
       }
     ]
+  },
+  {
+    "slug": "one-text-three-readers",
+    "title": "One text, three readers",
+    "decision": "For deciding what each reader of your product gets",
+    "hook": "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines.",
+    "date": "2026-11-20",
+    "readingMinutes": 8,
+    "readingMinutesFull": 8,
+    "updates": []
   }
 ];
 
@@ -124,6 +134,19 @@ export const KNOWLEDGE_QUESTIONS: KnowledgeQuestion[] = [
       {
         "label": "Lore",
         "to": "/lore"
+      }
+    ]
+  },
+  {
+    "number": "04",
+    "label": "Be read",
+    "question": "What does each reader of your product actually get?",
+    "description": "Serve people, your own assistant and outside agents from one source.",
+    "slug": "one-text-three-readers",
+    "cases": [
+      {
+        "label": "Rose",
+        "to": "/rose"
       }
     ]
   }

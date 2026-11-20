@@ -1,5 +1,7 @@
 import { HARNESSES_ENTRY } from "./journalHarnesses";
 import { TRUTH_ENTRY } from "./journalTruth";
+import { AX_ENTRY } from "./journalAx";
+import type { AxFigureId, AxPeakPanes } from "./journalAxFigures";
 import { fullMinutes, visibleMinutes } from "./readingTime";
 import type { MatrixRow } from "@/components/journal/CoverageMatrix";
 
@@ -111,6 +113,8 @@ export type JournalBlock =
   /** A question inside a section, answered by one of two buttons, with one line by answer. Without JavaScript, in the prerender and in the Markdown mirror: the question and both lines as text. Same component as the peak's challenge. */
   | { kind: "trap"; question: string; choices: [string, string]; reveal: [string, string] }
   | { kind: "blueprint" }
+  /** A figure of "One text, three readers": the data and its text version live in journalAxFigures.ts; the page draws it, the mirror and the MCP tool print the text. */
+  | { kind: "axFigure"; figure: AxFigureId }
   | { kind: "matrix"; label?: string; columns: string[]; rows: MatrixRow[] }
   /** The one peak moment of a note: a full-viewport section, page colour to navy and back. Copy: docs/field-notes-prototype (board J). */
   | PeakBlock;
@@ -134,6 +138,8 @@ export type PeakBlock = {
   kind: "peak";
   /** The accessible name of the section. */
   aria: string;
+  /** Two panes (what a person saw, what a machine got) drawn in place of the boxes. The boxes stay as their text version for the mirror, the MCP tool and the prerender. */
+  panes?: AxPeakPanes;
   kicker: string;
   lead: string;
   /** The lead is set as a single short statement. */
@@ -198,7 +204,7 @@ export type JournalEntry = {
   related?: { label: string; to: string; role?: "method" | "decision" | "evidence"; why?: string }[];
   tldr?: string;
   /** Qualification card at the top: who it is for, what it gives, what it is tested on. */
-  glance?: { audience: string; promise: string; proof: string };
+  glance?: { audience: string; promise?: string; proof?: string };
   /** Three or four short decisions the piece changes, read in twenty seconds. */
   takeaways?: string[];
   /** One line that carries the argument, set apart under the takeaways. */
@@ -410,6 +416,7 @@ export const JOURNAL_ENTRIES: JournalEntry[] = [
   },
   HARNESSES_ENTRY,
   TRUTH_ENTRY,
+  AX_ENTRY,
 ];
 
 /** The text of a note's self-diagnostic, for the full reading time when it sits in the body (a `diagnostic` block). */
@@ -428,6 +435,7 @@ export const JOURNAL_KNOWLEDGE_QUESTIONS: {
   { number: "01", label: "Evaluate", question: "How do you know an agent is working?", description: "Learn what correct behavior means and how to test it.", slug: "harnesses-graders-closed-loops", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
   { number: "02", label: "Set boundaries", question: "Where should an agent's responsibility end?", description: "Separate prediction, recommendation and authority.", slug: "agent-boundaries-aetherix", cases: [{ label: "Aetherix", to: "/aetherix" }] },
   { number: "03", label: "Learn", question: "Whose truth should an agent learn from?", description: "Distinguish approval, prediction and observed truth.", slug: "whose-truth-is-the-ground-truth", cases: [{ label: "Aetherix", to: "/aetherix" }, { label: "Lore", to: "/lore" }] },
+  { number: "04", label: "Be read", question: "What does each reader of your product actually get?", description: "Serve people, your own assistant and outside agents from one source.", slug: "one-text-three-readers", cases: [{ label: "Rose", to: "/rose" }] },
 ];
 
 // TODO: replace with real reading list

@@ -38,7 +38,7 @@ const AetherixStatus = () => (
   </div>
 );
 
-// The three Field Notes, in the order of the /journal index (harness, boundaries, ground truth). Read from the same data
+// The Field Notes, in the order of the /journal index (harness, boundaries, ground truth, one text three readers). Read from the same data
 // as that page: the decision kicker and the current title are never typed again here.
 const NOTES = notesInOrder();
 
@@ -199,7 +199,7 @@ const Index = () => {
             </div>
             <Link to="/journal" className={`${kicker} text-secondary border-b border-secondary pb-1 self-start md:self-end`}>All notes</Link>
           </div>
-          <ol className="m-0 grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-3">
+          <ol className="m-0 grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 xl:grid-cols-4">
             {NOTES.map((e, i) => (
               <li key={e.slug} data-reveal-child style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}>
                 <Link to={`/journal/${e.slug}`} onClick={() => track({ label: e.title, href: `/journal/${e.slug}`, kind: "nav" })}

@@ -51,8 +51,8 @@ const ROUTES: Array<{ match: string; prefix?: boolean; prompts: RosePrompt[] }> 
   { match: "/cv", prompts: PROFILE },
   { match: "/atrium", prompts: PROFILE },
   { match: "/journal", prompts: [
-    p("Which Field Note should I read?", "On Field Notes: which of the three notes should I read, given what I am working on?", "technical"),
-    p("Show me how the notes connect to the projects.", "Show me how the three Field Notes connect to the projects on this site.", "technical"),
+    p("Which Field Note should I read?", "On Field Notes: which of the four notes should I read, given what I am working on?", "technical"),
+    p("Show me how the notes connect to the projects.", "Show me how the four Field Notes connect to the projects on this site.", "technical"),
   ] },
   { match: "/journal/harnesses-graders-closed-loops", prompts: [
     p("What should block an agent release?", "On the evaluation note: what should block an agent release?", "technical"),
@@ -65,6 +65,10 @@ const ROUTES: Array<{ match: string; prefix?: boolean; prompts: RosePrompt[] }> 
   { match: "/journal/whose-truth-is-the-ground-truth", prompts: [
     p("Why isn't approval ground truth?", "On the ground-truth note: why isn't approval ground truth?", "technical"),
     p("What can Aetherix actually learn from?", "On the ground-truth note: what can Aetherix actually learn from today?", "technical"),
+  ] },
+  { match: "/journal/one-text-three-readers", prompts: [
+    p("What does each reader of a page get?", "On the three-readers note: what does each reader of a page actually get?", "technical"),
+    p("How does Rose read the same text as agents?", "On the three-readers note: how does Rose read the same text as outside agents?", "technical"),
   ] },
   { match: "/journal/", prefix: true, prompts: [
     p("Summarise this note in 3 points", "Summarise this field note in 3 points.", "exploring"),

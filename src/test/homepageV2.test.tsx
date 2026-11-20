@@ -9,6 +9,7 @@ import { AmbienceProvider } from "@/components/AmbienceProvider";
 import { INDEX_HERO, INDEX_COPY, notesInOrder } from "@/content/journalIndex";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import { resetParisClock } from "@/lib/parisClock";
+import { shortNoteTitle } from "@/lib/shortTitle";
 
 // Homepage v2 (18 Nov 2026), part A: warm rooms, a hero lit by the hour in Paris, the Field Notes block read from /journal.
 
@@ -147,15 +148,16 @@ describe("03 · Field Notes on the homepage", () => {
     expect(screen.queryByText(/The decisions behind the products/)).toBeNull();
   });
 
-  it("shows three cards in the index order: harness, boundaries, ground truth", () => {
+  it("shows four cards in the index order: harness, boundaries, ground truth, one text three readers", () => {
     render(wrap(<Index />));
     const cards = within(block()).getAllByRole("listitem");
-    expect(cards).toHaveLength(3);
+    expect(cards).toHaveLength(4);
     const links = cards.map((c) => within(c).getByRole("link").getAttribute("href"));
     expect(links).toEqual([
       "/journal/harnesses-graders-closed-loops",
       "/journal/agent-boundaries-aetherix",
       "/journal/whose-truth-is-the-ground-truth",
+      "/journal/one-text-three-readers",
     ]);
     expect(links).toEqual(notesInOrder().map((e) => `/journal/${e.slug}`));
   });
@@ -166,12 +168,12 @@ describe("03 · Field Notes on the homepage", () => {
     notesInOrder().forEach((e, i) => {
       const t = cards[i].textContent!;
       // The title is the one /journal shows for its lead: up to the first "?" (the harness note's title has a subtitle).
-      expect(t).toBe(`${e.decision}${e.title.slice(0, e.title.indexOf("?") + 1)}${INDEX_COPY.readNote}`);
+      expect(t).toBe(`${e.decision}${shortNoteTitle(e.title)}${INDEX_COPY.readNote}`);
       expect(e.decision).toMatch(/^For deciding /);
     });
     expect(INDEX_COPY.readNote).toBe("Read the note");
     expect(cards.map((c) => c.querySelector(".font-headline")!.textContent)).toEqual([
-      "What is an LLM evaluation harness?", "Where should an agent's responsibility end?", "Whose truth is the ground truth?",
+      "What is an LLM evaluation harness?", "Where should an agent's responsibility end?", "Whose truth is the ground truth?", "One text, three readers",
     ]);
   });
 

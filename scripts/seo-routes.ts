@@ -349,6 +349,28 @@ export const SEO_ROUTES: SeoRoute[] = [
     ],
   },
   {
+    path: "/journal/one-text-three-readers",
+    markdown: "one-text-three-readers.md",
+    title: "One text, three readers · Ivan de Murard",
+    description:
+      "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines. What does each reader actually get?",
+    type: "article",
+    changefreq: "monthly",
+    priority: "0.7",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "One text, three readers",
+        inLanguage: "en",
+        datePublished: "2026-11-20",
+        author: { "@type": "Person", name: "Ivan de Murard", url: BASE_URL },
+        articleSection: "Product",
+        url: `${BASE_URL}/journal/one-text-three-readers`,
+      },
+    ],
+  },
+  {
     path: "/journal/harnesses-graders-closed-loops",
     markdown: "harnesses-graders-closed-loops.md",
     title: "What is an LLM evaluation harness? Graders, protocols and closed loops for AI agents · Ivan de Murard",

@@ -67,4 +67,23 @@ export const SECTION_INDEX: SectionIndexEntry[] = [
       { id: "9-sources", heading: "9. Sources" },
     ],
   },
+  {
+    path: "/journal/one-text-three-readers",
+    title: "One text, three readers",
+    short: "One text, three readers",
+    sections: [
+      { id: "the-day-a-machine-read-an-old-promise", heading: "The day a machine read an old promise" },
+      { id: "from-one-text-file-to-a-protocol", heading: "From one text file to a protocol" },
+      { id: "1-three-readers-at-once", heading: "1. Three readers at once" },
+      { id: "2-read-it-like-a-machine", heading: "2. Read it like a machine" },
+      { id: "3-one-source-every-surface", heading: "3. One source, every surface" },
+      { id: "4-rose-lives-in-the-page", heading: "4. Rose lives in the page" },
+      { id: "5-map-outline-section", heading: "5. Map, outline, section" },
+      { id: "6-what-this-site-counts-and-from-when", heading: "6. What this site counts, and from when" },
+      { id: "apply-this-to-your-project", heading: "Apply this to your project" },
+      { id: "faq", heading: "FAQ" },
+      { id: "credit", heading: "Credit" },
+      { id: "sources", heading: "Sources" },
+    ],
+  },
 ];

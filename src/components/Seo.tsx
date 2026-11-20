@@ -20,6 +20,7 @@ const MARKDOWN_ROUTES: readonly string[] = [
   "/journal/agent-boundaries-aetherix",
   "/journal/harnesses-graders-closed-loops",
   "/journal/whose-truth-is-the-ground-truth",
+  "/journal/one-text-three-readers",
   "/compass",
   "/agents",
 ];

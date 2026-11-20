@@ -11,6 +11,7 @@ const SLUGS = [
   "agent-boundaries-aetherix",
   "harnesses-graders-closed-loops",
   "whose-truth-is-the-ground-truth",
+  "one-text-three-readers",
 ];
 
 for (const slug of SLUGS) {

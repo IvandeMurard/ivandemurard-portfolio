@@ -61,6 +61,13 @@ export const CARDS: Record<string, { pitch: string; moment: { label: string; tex
       text: "A manager can approve a wrong forecast and reject a right one. A product that repeated last Tuesday's numbers would be approved often and teach nothing.",
     },
   },
+  "one-text-three-readers": {
+    pitch: "A stale snapshot told machines a project was further along than it was. What each reader of a page actually receives, and how to make it the same truth.",
+    moment: {
+      label: "The day a machine read an old promise",
+      text: 'The site said Pre-pilot. The browser showed Pre-pilot. A machine reading the raw homepage got "Pilot-ready".',
+    },
+  },
 };
 
 /**
@@ -91,6 +98,14 @@ export const REFERENCE_ZONE: Record<string, { from: string; chips: { label: stri
       { label: "Apply this to your project", id: "apply-this-to-your-project" },
       { label: "FAQ", id: "8-faq" },
       { label: "Sources", id: "9-sources" },
+    ],
+  },
+  "one-text-three-readers": {
+    from: "apply-this-to-your-project",
+    chips: [
+      { label: "Apply this to your project", id: "apply-this-to-your-project" },
+      { label: "FAQ", id: "faq" },
+      { label: "Sources", id: "sources" },
     ],
   },
 };

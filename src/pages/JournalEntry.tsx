@@ -1,4 +1,5 @@
 import { AetherixServiceBlueprint } from "@/components/journal/AetherixServiceBlueprint";
+import { AxFigure } from "@/components/journal/AxFigures";
 import { ArticleUpdates } from "@/components/journal/ArticleUpdates";
 import { ApplyMethod } from "@/components/journal/ApplyMethod";
 import { useMemo, useRef, type ReactNode } from "react";
@@ -378,6 +379,8 @@ const Block = ({
       );
     case "blueprint":
       return <AetherixServiceBlueprint />;
+    case "axFigure":
+      return <AxFigure id={block.figure} />;
     case "cards":
       return <CardGrid items={block.items} label={block.label} />;
     case "fold":

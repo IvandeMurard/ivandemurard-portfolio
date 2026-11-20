@@ -29,7 +29,7 @@ export default defineTool({
 
     const indexUrl = `${SITE_ORIGIN}/journal`;
     const corpusUrl = `${SITE_ORIGIN}/llms-full.txt`;
-    const readingNote = "The three notes answer complementary questions and can be read in any order. Notes teach methods; case studies hold implementation evidence.";
+    const readingNote = "The notes answer complementary questions and can be read in any order. Notes teach methods; case studies hold implementation evidence.";
 
     // The fields other than the entries are fixed "Key: value" lines, then the entries as JSON.
     const header = [`Index URL: ${indexUrl}`, `Corpus URL: ${corpusUrl}`, `Reading note: ${readingNote}`].join("\n");
