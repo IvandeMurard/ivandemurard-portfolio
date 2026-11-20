@@ -19,7 +19,7 @@ const importKey = (key: string) =>
 const payload = (sessionId: string, messageId: string, texts: string[], issuedAt: number) =>
   enc.encode(JSON.stringify([sessionId, messageId, texts, issuedAt]));
 const toB64 = (buf: ArrayBuffer) => btoa(String.fromCharCode(...new Uint8Array(buf)));
-const fromB64 = (s: string): Uint8Array | null => {
+const fromB64 = (s: string): Uint8Array<ArrayBuffer> | null => {
   try { return Uint8Array.from(atob(s), (c) => c.charCodeAt(0)); } catch { return null; }
 };
 
