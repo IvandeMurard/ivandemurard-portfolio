@@ -51,4 +51,13 @@ export const LIVE_FIX_CASES: LiveFixCase[] = [
     question: "What does the orchestrator do today?",
     grade: (a) => must(!/shadow mode/i.test(a), "uses 'shadow mode' for the orchestrator"),
   },
+  {
+    id: "fix-6-orchestrator-status",
+    path: "/architecture",
+    question: "What is the orchestrator's status?",
+    grade: (a) => [
+      ...must(/Synthetic PoC/i.test(a), "status not quoted as Synthetic PoC"),
+      ...must(!/(?:is|currently|status)[^.\n]{0,40}\bin Design\b(?![^.\n]{0,80}(?:only way|manager|combin))/i.test(a) && !/Synthetic PoC and is currently in Design/i.test(a), "calls the orchestrator as a whole Design"),
+    ],
+  },
 ];

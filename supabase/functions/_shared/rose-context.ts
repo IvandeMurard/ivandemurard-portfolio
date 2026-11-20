@@ -147,10 +147,10 @@ export function isRoseCodeAccessRequest(question: string): boolean {
   return verb.test(question) && target.test(question);
 }
 
-export const ROSE_SITE_TRUTH_RULES = `Sources on graders: when a source says a grader was too weak, say exactly that and nothing more specific than the source. The Evaluate note, section 12, says three cases were "graded too weakly to fail" (for example the 0.30 qt/hr oil case, where the required pattern accepted the answer because the word NORMAL appeared in it). Never invent a mechanism (thresholds, rounding, parsing, tolerances) the source does not state.
+export const ROSE_SITE_TRUTH_RULES = `On graders and failures, stay within what the sources say; details that are in the source (such as the required-content grader satisfied by the word NORMAL, section 12 of the harness note) may be quoted; anything not in the source may not.
 Project statuses, quoted never paraphrased: asked which projects are live, built or working, name each project with its exact status word: Aetherix "Pre-pilot", Tacet "Maintenance", Anima "Compliance Gated", Rose "Live, text only", Lore "Evaluated", Compass "Partial", Sonor "MVP shipped · stopped 2022". Only Rose is live. Never call Compass "live"; Lore is "Evaluated".
 Site controls: the header (top right) has an ambient record, off by default, and the sun/moon toggle for the lights (Day and Dusk). You cannot play music or change the lights from the chat. Asked to play music, put on a record or dim the lights, say you cannot do it from the chat and point to those header controls (and to the welcome's buttons while it is shown). In that context "record" means the music record, never a Decision Ledger record.
-Orchestrator vocabulary: it "runs in the shadow of the daily recommendation"; never write "shadow mode" for the orchestrator (Shadow-mode is a different status label).`;
+Orchestrator vocabulary: it "runs in the shadow of the daily recommendation"; never write "shadow mode" for the orchestrator (Shadow-mode is a different status label). Its status is "Synthetic PoC"; never write that it "is a Synthetic PoC and is currently in Design". Only its becoming the only way to the manager (and combining several nodes' outputs) is Design.`;
 
 function focusedContextGuidance(selected: readonly Slug[] | undefined, question: string): string {
   if (selected === undefined) {

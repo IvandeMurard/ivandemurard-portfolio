@@ -22,8 +22,9 @@ describe("Rose's live-test rules", () => {
   });
 
   it("the oil grader: says 'too weak', invents no mechanism", () => {
-    expect(ROSE_SITE_TRUTH_RULES).toContain('"graded too weakly to fail"');
+    expect(ROSE_SITE_TRUTH_RULES).toContain("required-content grader satisfied by the word NORMAL");
     expect(grade("fix-2-oil-grader", "The grader was too weak: it passed because the word NORMAL appeared.")).toEqual([]);
+    expect(grade("fix-2-oil-grader", "Section 12: the required-content grader was satisfied by the word NORMAL, so it was graded too weakly to fail.")).toEqual([]);
     expect(grade("fix-2-oil-grader", "It was graded too weakly, a floating-point rounding issue.")).not.toEqual([]);
   });
 
@@ -39,6 +40,12 @@ describe("Rose's live-test rules", () => {
 
   it("orchestrator: never 'shadow mode'", () => {
     expect(grade("fix-5-orchestrator", "It runs in shadow mode.")).not.toEqual([]);
+  });
+
+  it("orchestrator status: Synthetic PoC; only the manager path is Design", () => {
+    expect(ROSE_SITE_TRUTH_RULES).toContain('"Synthetic PoC"');
+    expect(grade("fix-6-orchestrator-status", "It is a Synthetic PoC and is currently in Design.")).not.toEqual([]);
+    expect(grade("fix-6-orchestrator-status", "Its status is Synthetic PoC. Becoming the only way to the manager, combining several nodes' outputs, is Design.")).toEqual([]);
   });
 
   it("the rules load on a focused page too", async () => {
