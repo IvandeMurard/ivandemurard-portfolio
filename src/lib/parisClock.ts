@@ -143,3 +143,16 @@ export const heroLight = (minutes: number, mood: "day" | "dusk", sun: SunTimes):
   const p = heroPeriod(minutes, mood, sun);
   return p === "neutral" ? "midday" : p;
 };
+
+export type SunPath = { up: boolean; progress: number; elevation: number };
+
+/**
+ * Where the sun is on its arc over Paris, continuously: progress 0 at sunrise, 1 at sunset; elevation 0 at the horizon,
+ * 1 at solar noon (a sine of the day's arc, enough for a light on a wall). Below the horizon, up is false.
+ */
+export const sunPath = (minutes: number, sun: SunTimes): SunPath => {
+  const span = sun.sunset - sun.sunrise;
+  if (span <= 0 || minutes < sun.sunrise || minutes >= sun.sunset) return { up: false, progress: 0, elevation: 0 };
+  const progress = (minutes - sun.sunrise) / span;
+  return { up: true, progress, elevation: Math.sin(Math.PI * progress) };
+};
