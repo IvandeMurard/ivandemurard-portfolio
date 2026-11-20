@@ -41,7 +41,7 @@ export const CHAPTER_MARK: Record<string, "Built" | "Validation" | "Design"> = {
 };
 
 /** Rose's notes come from co-existence.ai's AI cursor. Printed above chapter 01. */
-export const NOTES_INTRO = "Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on.";
+export const NOTES_INTRO = "Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Yes, they break the fourth wall. Rose knows she's the subject here, and has opinions about it.";
 
 export const LEGEND = [
   ["●", "Built", "Implemented behaviour that can be inspected in the product or repository."],

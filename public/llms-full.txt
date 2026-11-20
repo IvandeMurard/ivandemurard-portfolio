@@ -328,7 +328,7 @@ Case study · Rose
 
 Status: Live, text only
 
-Last updated 2026-11-19.
+Last updated 2026-11-20.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.
 
@@ -363,7 +363,7 @@ The dock is modelled on [userose.ai's website agent](https://userose.ai), and th
 
 He gave me a name before he gave me a job.
 
-Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on.
+Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Yes, they break the fourth wall. Rose knows she's the subject here, and has opinions about it.
 
 ## Qualify
 
