@@ -15,7 +15,7 @@ const anchorsIn = (text: string): string[] =>
   [...text.matchAll(/\/rose#([A-Za-z0-9_-]+)/g)].map((m) => m[1]);
 
 const MEANING: Record<string, string> = {
-  "ch-01": "Rose's notes: they are printed from chapter 01 on, under the line that credits co-existence.ai",
+  "ch-00": "Rose's notes: the first one is in chapter 00, and the line that credits co-existence.ai follows it",
   "ch-06": "Answer formats, where the map 'What Rose can relate' sits",
   "ch-07": "Trust has two separate contracts.",
   "ch-08": "Caught in testing",
@@ -25,7 +25,7 @@ describe("One text, three readers: links into /rose", () => {
   const anchors = [...new Set(anchorsIn(JSON.stringify(entry)))].sort();
 
   it("uses the four chapters it points to", () => {
-    expect(anchors).toEqual(["ch-01", "ch-06", "ch-07", "ch-08"]);
+    expect(anchors).toEqual(["ch-00", "ch-06", "ch-07", "ch-08"]);
   });
 
   it("every /rose#... anchor of the note is a chapter id the page renders", () => {
@@ -46,9 +46,10 @@ describe("One text, three readers: links into /rose", () => {
     expect(heading("ch-07")).toBe("Trust has two separate contracts.");
     expect(heading("ch-08")).toBe("Caught in testing");
     expect(heading("ch-06")).toBe("Answers that point into the page");
-    // The relation map sits in chapter 06 (it has no id of its own), and Rose's notes follow their intro line above chapter 01.
+    // The relation map sits in chapter 06 (it has no id of its own). Rose's notes start in chapter 00, which carries the first one.
+    expect(heading("ch-00")).toBe("A portfolio that can answer questions");
     expect(page).toMatch(/c\.id === "ch-06" && <SixBody/);
-    expect(page).toMatch(/NOTES_INTRO[^\n]*<\/p>\}\s*\n\s*<section id=\{c\.id\}/);
+    expect(page).toContain('<RoseCue id="ch-00"');
     expect(NOTES_INTRO).toContain("Rose's notes");
     for (const a of anchors) expect(MEANING[a], a).toBeTruthy();
   });
@@ -58,7 +59,7 @@ describe("One text, three readers: links into /rose", () => {
     expect(text).toContain("[Caught in testing](/rose#ch-08)");
     expect(text).toContain("[her trust contracts](/rose#ch-07)");
     expect(text).toContain("[What Rose can relate](/rose#ch-06)");
-    expect(text).toContain("[her notes](/rose#ch-01)");
+    expect(text).toContain("[her notes](/rose#ch-00)");
   });
 
   it("no link to /rose is left without a chapter where a chapter is named", () => {

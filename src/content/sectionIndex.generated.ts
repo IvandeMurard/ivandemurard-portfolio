@@ -77,7 +77,7 @@ export const SECTION_INDEX: SectionIndexEntry[] = [
       { id: "1-three-readers-at-once", heading: "1. Three readers at once" },
       { id: "2-read-it-like-a-machine", heading: "2. Read it like a machine" },
       { id: "3-one-source-every-surface", heading: "3. One source, every surface" },
-      { id: "4-rose-not-a-chat-bubble", heading: "4. Rose, not a chat bubble" },
+      { id: "4-rose-lives-in-the-page", heading: "4. Rose lives in the page" },
       { id: "5-map-outline-section", heading: "5. Map, outline, section" },
       { id: "6-what-this-site-counts-and-from-when", heading: "6. What this site counts, and from when" },
       { id: "apply-this-to-your-project", heading: "Apply this to your project" },

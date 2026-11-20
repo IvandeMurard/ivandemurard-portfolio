@@ -11,6 +11,7 @@ export const AX_ENTRY: JournalEntry = {
   hook: "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines.",
   intro: "What does each reader actually get?",
   title: "One text, three readers",
+  // TODO: date de publication à fixer par Ivan (le jour J). Tant que ce n'est pas fait, 2026-11-20 est provisoire.
   date: "2026-11-20",
   category: "Product",
   lang: "en",
@@ -19,7 +20,7 @@ export const AX_ENTRY: JournalEntry = {
     'The site said Pre-pilot. The browser showed Pre-pilot. A machine reading the raw homepage got "Pilot-ready".',
   glance: {
     audience:
-      "want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that AI agents and assistants will read, not only people; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares.",
+      "want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that people, assistants and AI agents all read; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares.",
   },
   takeaways: [
     "**Check what a machine actually receives, byte by byte.** What the browser shows proves nothing.",
@@ -51,7 +52,7 @@ export const AX_ENTRY: JournalEntry = {
     },
     {
       kind: "p",
-      text: "That is the one thing this site promises never to do: round a status up. Not me, not Rose, a stale file did it. The fix was simple, regenerate the snapshot. The question it left was not: what does each reader actually get?",
+      text: "That is the one thing this site promises never to do: round a status up. A stale file did it on its own. The fix was simple, regenerate the snapshot. The question it left was not: what does each reader actually get?",
     },
 
     { kind: "h2", text: "From one text file to a protocol" },
@@ -80,14 +81,14 @@ export const AX_ENTRY: JournalEntry = {
     {
       kind: "list",
       items: [
-        "**Markdown on request.** Asking the server for Markdown (`Accept: text/markdown`) worked, sort of. The hosting layer converted the page itself: 38,003 bytes for one journal article, menus and footer included, links mangled into strings like `%20[Case%20Studies]`. Technically Markdown. Practically noise.",
-        "**Plain .md files.** Served as `application/octet-stream`, a download, not a text page. Some agents read it, some give up. Fixed since: the curated mirrors now come back as `text/markdown`.",
+        "**Markdown on request.** Asking the server for Markdown (`Accept: text/markdown`) worked, sort of. The hosting layer converted the page itself: 38,003 bytes for one journal article, menus and footer included, links mangled into strings like `%20[Case%20Studies]`. It was Markdown, and mostly noise.",
+        "**Plain .md files.** Served as `application/octet-stream`, which browsers and some agents treat as a file to download. Some agents read it, some give up. Fixed since: the curated mirrors now come back as `text/markdown`.",
         "**A route that pointed elsewhere.** Asking for the projects index, /journeys, without JavaScript returned the homepage. The browser corrected it on boot; an agent got no projects at all. A static stub per route fixed it ([PR #50](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/50), then [#51](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/51) to keep the anchors).",
       ],
     },
     {
       kind: "p",
-      text: "The fix in each case: stop trusting the conversion and write the machine version on purpose. Curated Markdown mirrors are now generated at `.md` addresses for every page, from the same content as the site, without the chrome.",
+      text: "The fix in each case: stop trusting the conversion and write the machine version deliberately. Curated Markdown mirrors are now generated at `.md` addresses for every page, from the same content as the site, without the chrome.",
     },
     { kind: "p", text: "The habit that came out of it: fetch your own pages with `curl`, not a browser, at least once per release." },
 
@@ -112,7 +113,7 @@ export const AX_ENTRY: JournalEntry = {
       text: "Generated is not the same as fresh, so two checks guard the gap. `check:journeys` follows every link and anchor, including those in `llms.txt`. `mcpBundleFreshness` fails when the MCP bundle is older than the content it serves. When it fails, it is doing its job.",
     },
 
-    { kind: "h2", text: "4. Rose, not a chat bubble" },
+    { kind: "h2", text: "4. Rose lives in the page" },
     {
       kind: "p",
       text: "Most site assistants live in an airlock: a chat bubble sealed off from the page, unaware of what you are reading. Rose is built the other way round. She lives in the page, and she reads the same text as the other two readers. [Her case study](/rose) tells how she got there, decision by decision. Here is only what it means for agent experience.",
@@ -124,7 +125,7 @@ export const AX_ENTRY: JournalEntry = {
         "**The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.",
         "**Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](/rose#ch-08).",
         "**A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.",
-        "**A character with rules.** She breaks the fourth wall, as [her notes](/rose#ch-01) show. Her jokes are tone, never hidden facts, and her instructions stay hers.",
+        "**A character with rules.** She breaks the fourth wall, as [her notes](/rose#ch-00) show. Her jokes are tone, never hidden facts, and her instructions stay hers.",
       ],
     },
     {
@@ -160,7 +161,7 @@ export const AX_ENTRY: JournalEntry = {
     {
       kind: "list",
       items: [
-        "**MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. Calls, not agents: one script can make many.",
+        "**MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. The unit is the call: one script can make many.",
       ],
     },
     { kind: "axFigure", figure: "counter" },
@@ -181,12 +182,12 @@ export const AX_ENTRY: JournalEntry = {
     {
       kind: "list",
       items: [
-        "Fetch three of your pages with `curl`. Read what comes back, not what the browser draws.",
+        "Fetch three of your pages with `curl`. Read the response itself.",
         "Ask for `text/markdown` and look at the size. If the menu is in there, write the Markdown yourself.",
         "List every surface that states a fact (page, mirror, llms.txt, API, assistant). Pick one source per fact.",
         "Add one test that fails when a generated surface is older than its source.",
-        "Offer a map, an outline and a section, not only the whole thing.",
-        "If your assistant talks about itself, give it qualities, not sample lines.",
+        "Offer a map, an outline and a section alongside the whole thing.",
+        "If your assistant talks about itself, describe its tone by qualities: sample lines get copied.",
         "Before you publish an agent-traffic number, ask who could have written it.",
       ],
     },
@@ -195,9 +196,9 @@ export const AX_ENTRY: JournalEntry = {
     {
       kind: "lines",
       items: [
-        { q: "Is this SEO with a new name?", a: "Partly. SEO asks whether you are found. This asks whether what is found is true and usable once fetched." },
-        { q: "Do I need an MCP server?", a: "No. Clean Markdown at a stable address and an honest `llms.txt` cover most of it. The MCP server earns its place when agents need to read in pieces." },
-        { q: "Should I count agent visits?", a: "Count what you can verify, and say what it is. Here: MCP calls, counted on the server, shown with their start date. Not agents, not intent." },
+        { q: "Is this SEO with a new name?", a: "It overlaps with SEO. SEO asks whether you are found. This asks whether what is found is true and usable once fetched." },
+        { q: "Do I need an MCP server?", a: "No. Clean Markdown at a stable address and an accurate `llms.txt` cover most of it. The MCP server earns its place when agents need to read in pieces." },
+        { q: "Should I count agent visits?", a: "Count what you can verify, and say what it is. Here: MCP calls, counted on the server, shown with their start date. A call says nothing about who made it or why." },
       ],
     },
 

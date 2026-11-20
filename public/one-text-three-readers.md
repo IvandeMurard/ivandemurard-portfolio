@@ -6,7 +6,7 @@ What does each reader actually get?
 
 Product · 2026-11-20 · 8 min read
 
-**Read this if** want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that AI agents and assistants will read, not only people; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares.
+**Read this if** want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that people, assistants and AI agents all read; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares.
 
 What you will decide differently:
 - **Check what a machine actually receives, byte by byte.** What the browser shows proves nothing.
@@ -29,7 +29,7 @@ Reconstruction: the status words are the real ones; the surrounding markup is il
 
 It came from a prerendered snapshot, a frozen copy of the homepage made for readers that do not run JavaScript. Nobody had regenerated it after the status changed. People never saw it: the app replaced it as soon as it booted. Machines kept it.
 
-That is the one thing this site promises never to do: round a status up. Not me, not Rose, a stale file did it. The fix was simple, regenerate the snapshot. The question it left was not: what does each reader actually get?
+That is the one thing this site promises never to do: round a status up. A stale file did it on its own. The fix was simple, regenerate the snapshot. The question it left was not: what does each reader actually get?
 
 ## From one text file to a protocol
 
@@ -61,11 +61,11 @@ The visitor forgives a lot. The other two forgive nothing, because they cannot s
 
 The stale snapshot was not a one-off. Each time I checked the raw response instead of the screen, something was off.
 
-- **Markdown on request.** Asking the server for Markdown (`Accept: text/markdown`) worked, sort of. The hosting layer converted the page itself: 38,003 bytes for one journal article, menus and footer included, links mangled into strings like `%20[Case%20Studies]`. Technically Markdown. Practically noise.
-- **Plain .md files.** Served as `application/octet-stream`, a download, not a text page. Some agents read it, some give up. Fixed since: the curated mirrors now come back as `text/markdown`.
+- **Markdown on request.** Asking the server for Markdown (`Accept: text/markdown`) worked, sort of. The hosting layer converted the page itself: 38,003 bytes for one journal article, menus and footer included, links mangled into strings like `%20[Case%20Studies]`. It was Markdown, and mostly noise.
+- **Plain .md files.** Served as `application/octet-stream`, which browsers and some agents treat as a file to download. Some agents read it, some give up. Fixed since: the curated mirrors now come back as `text/markdown`.
 - **A route that pointed elsewhere.** Asking for the projects index, /journeys, without JavaScript returned the homepage. The browser corrected it on boot; an agent got no projects at all. A static stub per route fixed it ([PR #50](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/50), then [#51](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/51) to keep the anchors).
 
-The fix in each case: stop trusting the conversion and write the machine version on purpose. Curated Markdown mirrors are now generated at `.md` addresses for every page, from the same content as the site, without the chrome.
+The fix in each case: stop trusting the conversion and write the machine version deliberately. Curated Markdown mirrors are now generated at `.md` addresses for every page, from the same content as the site, without the chrome.
 
 The habit that came out of it: fetch your own pages with `curl`, not a browser, at least once per release.
 
@@ -86,7 +86,7 @@ Two checks guard the gap. `check:journeys` follows every link and anchor, includ
 
 Generated is not the same as fresh, so two checks guard the gap. `check:journeys` follows every link and anchor, including those in `llms.txt`. `mcpBundleFreshness` fails when the MCP bundle is older than the content it serves. When it fails, it is doing its job.
 
-## 4. Rose, not a chat bubble
+## 4. Rose lives in the page
 
 Most site assistants live in an airlock: a chat bubble sealed off from the page, unaware of what you are reading. Rose is built the other way round. She lives in the page, and she reads the same text as the other two readers. [Her case study](https://ivandemurard.com/rose) tells how she got there, decision by decision. Here is only what it means for agent experience.
 
@@ -95,7 +95,7 @@ Four things make that work.
 - **The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.
 - **Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](https://ivandemurard.com/rose#ch-08).
 - **A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.
-- **A character with rules.** She breaks the fourth wall, as [her notes](https://ivandemurard.com/rose#ch-01) show. Her jokes are tone, never hidden facts, and her instructions stay hers.
+- **A character with rules.** She breaks the fourth wall, as [her notes](https://ivandemurard.com/rose#ch-00) show. Her jokes are tone, never hidden facts, and her instructions stay hers.
 
 The character taught one lesson the hard way. Her self-description once held a sample line, to show the tone. She said it word for word in a live answer. Models copy examples. The sample went; the tone is now described by its qualities, with a word limit.
 
@@ -127,7 +127,7 @@ A visitor does this without thinking: scroll, skim, stop. An agent needs the pag
 
 A number about agents is only worth what it counts. So each figure here says what it counts, and since when.
 
-- **MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. Calls, not agents: one script can make many.
+- **MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. The unit is the call: one script can make many.
 
 MCP calls since 21 Nov 2026: not filled in yet
 
@@ -139,24 +139,24 @@ The Markdown mirrors and `llms.txt` are served straight by the hosting, so the s
 
 ## Apply this to your project
 
-- Fetch three of your pages with `curl`. Read what comes back, not what the browser draws.
+- Fetch three of your pages with `curl`. Read the response itself.
 - Ask for `text/markdown` and look at the size. If the menu is in there, write the Markdown yourself.
 - List every surface that states a fact (page, mirror, llms.txt, API, assistant). Pick one source per fact.
 - Add one test that fails when a generated surface is older than its source.
-- Offer a map, an outline and a section, not only the whole thing.
-- If your assistant talks about itself, give it qualities, not sample lines.
+- Offer a map, an outline and a section alongside the whole thing.
+- If your assistant talks about itself, describe its tone by qualities: sample lines get copied.
 - Before you publish an agent-traffic number, ask who could have written it.
 
 ## FAQ
 
 Q: Is this SEO with a new name?
-A: Partly. SEO asks whether you are found. This asks whether what is found is true and usable once fetched.
+A: It overlaps with SEO. SEO asks whether you are found. This asks whether what is found is true and usable once fetched.
 
 Q: Do I need an MCP server?
-A: No. Clean Markdown at a stable address and an honest `llms.txt` cover most of it. The MCP server earns its place when agents need to read in pieces.
+A: No. Clean Markdown at a stable address and an accurate `llms.txt` cover most of it. The MCP server earns its place when agents need to read in pieces.
 
 Q: Should I count agent visits?
-A: Count what you can verify, and say what it is. Here: MCP calls, counted on the server, shown with their start date. Not agents, not intent.
+A: Count what you can verify, and say what it is. Here: MCP calls, counted on the server, shown with their start date. A call says nothing about who made it or why.
 
 ## Credit
 
