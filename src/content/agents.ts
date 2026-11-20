@@ -7,7 +7,7 @@ export const MCP_URL = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mc
  * ISO date (YYYY-MM-DD) on which server-side MCP call counting went live. Set it when the `mcp` function and the
  * mcp_calls migration are deployed, not before: until then the copy says tracking is suspended.
  */
-export const MCP_TRACKING_SINCE: string | null = null;
+export const MCP_TRACKING_SINCE: string | null = "2026-11-21";
 
 export const MCP_TRACKING_COPY = MCP_TRACKING_SINCE
   ? `Application-level MCP call tracking resumed on ${MCP_TRACKING_SINCE}, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.`
