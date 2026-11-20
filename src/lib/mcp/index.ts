@@ -4,6 +4,7 @@ import getCaseStudy from "./tools/get-case-study";
 import getAbout from "./tools/get-about";
 import listJournal from "./tools/list-journal";
 import getJournalEntry from "./tools/get-journal-entry";
+import { tracked } from "./track";
 
 export default defineMcp({
   name: "ivan-de-murard-portfolio",
@@ -22,6 +23,6 @@ export default defineMcp({
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about.",
   ].join("\n"),
 
-  tools: [listCaseStudies, getCaseStudy, getAbout, listJournal, getJournalEntry],
+  tools: [listCaseStudies, getCaseStudy, getAbout, listJournal, getJournalEntry].map(tracked),
 });
 
