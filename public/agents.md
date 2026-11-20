@@ -36,11 +36,12 @@ https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
 
 ## Field Notes
 
-Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Three questions, complementary, read in any order:
+Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Four questions, complementary, read in any order:
 
 - 01 Evaluate · How do you know an agent is working? · /journal/harnesses-graders-closed-loops (markdown: /journal/harnesses-graders-closed-loops.md)
 - 02 Set boundaries · Where should an agent's responsibility end? · /journal/agent-boundaries-aetherix (markdown: /journal/agent-boundaries-aetherix.md)
 - 03 Learn · Whose truth should an agent learn from? · /journal/whose-truth-is-the-ground-truth (markdown: /journal/whose-truth-is-the-ground-truth.md)
+- 04 Be read · What does each reader of your product actually get? · /journal/one-text-three-readers (markdown: /journal/one-text-three-readers.md)
 
 - Browse summaries: list_journal_entries, or /llms.txt.
 - Read a method in full: get_journal_entry, or /journal/<slug>.md.

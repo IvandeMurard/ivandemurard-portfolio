@@ -34,6 +34,7 @@ const ROSE_CANONICAL_PATHS: Record<string, string> = {
   "/agent-boundaries-aetherix": "/journal/agent-boundaries-aetherix",
   "/harnesses-graders-closed-loops": "/journal/harnesses-graders-closed-loops",
   "/whose-truth-is-the-ground-truth": "/journal/whose-truth-is-the-ground-truth",
+  "/one-text-three-readers": "/journal/one-text-three-readers",
 };
 
 /** Correct only verified path aliases; never rewrite arbitrary model-supplied URLs. */

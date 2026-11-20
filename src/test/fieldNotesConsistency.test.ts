@@ -4,20 +4,20 @@ import { JOURNAL_ENTRIES, JOURNAL_KNOWLEDGE_QUESTIONS } from "@/content/journal"
 import { getRosePrompts } from "@/content/rosePrompts";
 import { selectNotes } from "../../supabase/functions/_shared/rose-context";
 
-const NOTES = ["harnesses-graders-closed-loops", "agent-boundaries-aetherix", "whose-truth-is-the-ground-truth"];
+const NOTES = ["harnesses-graders-closed-loops", "agent-boundaries-aetherix", "whose-truth-is-the-ground-truth", "one-text-three-readers"];
 const read = (p: string) => readFileSync(p, "utf8");
 // Current text only: drop dated correction logs, which may quote an old claim.
 const current = (p: string) => read(p).split(/^## Updates|^## Update log/m)[0];
 
 describe("Field Notes corpus", () => {
-  it("has exactly the three current notes, each with a Markdown mirror", () => {
+  it("has exactly the four current notes, each with a Markdown mirror", () => {
     expect(JOURNAL_ENTRIES.map((e) => e.slug).sort()).toEqual([...NOTES].sort());
     for (const s of NOTES) expect(existsSync(`public/${s}.md`)).toBe(true);
   });
   it("knowledge map points to real notes and real case studies", () => {
     for (const q of JOURNAL_KNOWLEDGE_QUESTIONS) {
       expect(NOTES).toContain(q.slug);
-      for (const c of q.cases) expect(["/aetherix", "/lore"]).toContain(c.to);
+      for (const c of q.cases) expect(["/aetherix", "/lore", "/rose"]).toContain(c.to);
     }
   });
   it("no current text says Lore receives its signed work record", () => {
@@ -33,10 +33,10 @@ describe("Field Notes corpus", () => {
     expect(rose).toContain("list_journal_entries");
     expect(rose).not.toMatch(/list_journal[,\s]/);
   });
-  it("llms.txt lists the three questions with route-shaped Markdown URLs", () => {
+  it("llms.txt lists the four questions with route-shaped Markdown URLs", () => {
     const t = read("public/llms.txt");
     for (const s of NOTES) expect(t).toContain(`/journal/${s}.md`);
-    for (const q of ["01 Evaluate", "02 Set boundaries", "03 Learn"]) expect(t).toContain(q);
+    for (const q of ["01 Evaluate", "02 Set boundaries", "03 Learn", "04 Be read"]) expect(t).toContain(q);
   });
 });
 
@@ -47,6 +47,7 @@ describe("Rose starters per route", () => {
     ["/journal/harnesses-graders-closed-loops", "What should block an agent release?"],
     ["/journal/agent-boundaries-aetherix", "Where should human approval sit?"],
     ["/journal/whose-truth-is-the-ground-truth", "Why isn't approval ground truth?"],
+    ["/journal/one-text-three-readers", "What does each reader of a page get?"],
     ["/aetherix", "What has actually been built?"],
     ["/lore", "What does the voice mentor actually do?"],
   ])("%s", (path, first) => {
@@ -62,6 +63,11 @@ describe("Rose loads the right note", () => {
   it("loads a companion note named in a free-text question", () => {
     expect(selectNotes("/journal/harnesses-graders-closed-loops", "Does manager approval prove it was right?"))
       .toContain("whose-truth-is-the-ground-truth");
+  });
+  it("loads the fourth note on its page, and when a question names what it covers", () => {
+    expect(selectNotes("/journal/one-text-three-readers", "Summarise this")).toEqual(["one-text-three-readers"]);
+    expect(selectNotes("/aetherix", "What is in llms.txt?")).toContain("one-text-three-readers");
+    expect(selectNotes("/aetherix", "What do the three readers get?")).toContain("one-text-three-readers");
   });
   it("loads nothing extra for an unrelated question", () => {
     expect(selectNotes("/sonor", "When did Sonor stop?")).toEqual([]);

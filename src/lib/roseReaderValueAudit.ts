@@ -15,6 +15,7 @@ const ALIASED_FIELD_NOTES = [
   "/agent-boundaries-aetherix",
   "/harnesses-graders-closed-loops",
   "/whose-truth-is-the-ground-truth",
+  "/one-text-three-readers",
 ];
 
 function excerptAround(text: string, index: number, length: number): string {

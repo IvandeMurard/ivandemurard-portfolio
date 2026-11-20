@@ -4,7 +4,7 @@ export const REFERENCE_ROUTES = new Set([
   "/", "/aetherix", "/tacet", "/anima", "/compass", "/sonor", "/lore",
   "/case-studies", "/rose", "/architecture", "/cv", "/atrium", "/journal", "/contact", "/agents",
   "/journal/harnesses-graders-closed-loops", "/journal/agent-boundaries-aetherix",
-  "/journal/whose-truth-is-the-ground-truth",
+  "/journal/whose-truth-is-the-ground-truth", "/journal/one-text-three-readers",
 ]);
 
 /** Only known portfolio destinations, never query strings, external URLs or free text. */

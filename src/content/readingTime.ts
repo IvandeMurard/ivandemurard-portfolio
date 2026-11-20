@@ -1,5 +1,6 @@
 import type { JournalBlock } from "./journal";
 import { APPLY_GUIDES } from "./journalApply";
+import { axFigureMarkdown } from "./journalAxFigures";
 import { recoLineMarkdown } from "./recoLine";
 import { blueprintMarkdown } from "./serviceBlueprint";
 
@@ -23,6 +24,7 @@ const shownText = (b: JournalBlock): string[] => {
     case "key": return [b.oneLine, b.concrete ?? ""];
     case "cards": return b.items.map((i) => `${i.title} ${i.body}`);
     case "recoLine": return [b.caption];
+    case "axFigure": return [axFigureMarkdown(b.figure)];
     case "peak": {
       // The boxes come after one answer: they are part of the peak a reader goes through, not a fold. One reveal line is read.
       const c = b.challenge;

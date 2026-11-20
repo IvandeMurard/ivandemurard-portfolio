@@ -27,7 +27,10 @@ afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 const BOUNDARIES = "agent-boundaries-aetherix";
 const HARNESS = "harnesses-graders-closed-loops";
 const TRUTH = "whose-truth-is-the-ground-truth";
+const AX = "one-text-three-readers";
+// The three notes the reference boards (docs/field-notes-prototype) cover; the fourth note has its own board (board O of the canvas), which is not in the repository.
 const SLUGS = [HARNESS, BOUNDARIES, TRUTH];
+const ALL = [...SLUGS, AX];
 const OLD_TITLE = "A wrong forecast is absorbed. A wrong action reaches a guest.";
 const NEW_TITLE = "Where should an agent's responsibility end?";
 
@@ -101,8 +104,8 @@ describe("The retitled note", () => {
 });
 
 describe("Computed meta lines", () => {
-  it("counts the read time the same way for all three notes", () => {
-    for (const slug of SLUGS) expect(entry(slug).readingMinutes, slug).toBe(visibleMinutes(entry(slug).body));
+  it("counts the read time the same way for every note", () => {
+    for (const slug of ALL) expect(entry(slug).readingMinutes, slug).toBe(visibleMinutes(entry(slug).body));
   });
 
   it("builds the hero line, and each note's line, from the content", () => {
@@ -111,7 +114,7 @@ describe("Computed meta lines", () => {
     expect(revisedLabel(7)).toBe("revised 7 times");
     expect(joinNames(["Aetherix", "Lore"])).toBe("Aetherix and Lore");
     const revisions = JOURNAL_ENTRIES.reduce((n, e) => n + (e.updates?.length ?? 0), 0);
-    expect(heroMeta()).toBe(`3 notes · revised ${revisions} times · tested on Aetherix and Lore`);
+    expect(heroMeta()).toBe(`4 notes · revised ${revisions} times · tested on Aetherix, Lore and Rose`);
     expect(revisions).toBe(13);
     expect(metaLine(entry(TRUTH))).toBe(`${entry(TRUTH).readingMinutes} min · tested on ${joinNames(testedOn(TRUTH))} · revised once`);
   });
@@ -122,9 +125,9 @@ describe("The index", () => {
     const strings = [
       INDEX_HERO.kicker, INDEX_HERO.title, INDEX_HERO.line, INDEX_COPY.startHere, INDEX_COPY.readNote, INDEX_COPY.systems, INDEX_COPY.allCases,
       INDEX_COPY.compare.lead, INDEX_COPY.compare.link, LEAD.pitch, LEAD.why, LEAD.proof.kicker, LEAD.proof.lead, LEAD.proof.steps[2].text, // step 2 and the first step were reworded on the PR 53 review
-      ...Object.values(CARDS).flatMap((c) => [c.pitch.replace(/"/g, "&quot;").length ? c.pitch : "", c.moment.label, c.moment.text]),
-      ...JOURNAL_ENTRIES.map((e) => e.decision),
-      ...JOURNAL_ENTRIES.filter((e) => e.slug !== HARNESS).map((e) => e.title),
+      ...Object.entries(CARDS).filter(([slug]) => slug !== AX).map(([, c]) => c).flatMap((c) => [c.pitch.replace(/"/g, "&quot;").length ? c.pitch : "", c.moment.label, c.moment.text]),
+      ...JOURNAL_ENTRIES.filter((e) => e.slug !== AX).map((e) => e.decision),
+      ...JOURNAL_ENTRIES.filter((e) => e.slug !== HARNESS && e.slug !== AX).map((e) => e.title),
       "What is an LLM evaluation harness?",
     ];
     // The reference marks some words up (<b>): compare its text, with the tags and the entities removed.
@@ -137,7 +140,7 @@ describe("The index", () => {
     expect(screen.queryByText("All entries")).toBeNull();
     expect(screen.queryByText(/Explore by question/)).toBeNull();
     const links = screen.getAllByRole("link").filter((l) => l.getAttribute("href")?.startsWith("/journal/"));
-    expect(links.map((l) => l.getAttribute("href")).sort()).toEqual(SLUGS.map((s) => `/journal/${s}`).sort());
+    expect(links.map((l) => l.getAttribute("href")).sort()).toEqual(ALL.map((s) => `/journal/${s}`).sort());
     for (const l of links) expect(l.textContent).toContain(INDEX_COPY.readNote);
     for (const e of JOURNAL_ENTRIES) expect(document.body.textContent).not.toContain(e.date);
     expect(document.body.textContent).not.toMatch(/\b(January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, 20\d\d/);
@@ -233,7 +236,7 @@ describe("The note pattern", () => {
       }
       expect(p.kicker).not.toMatch(/^Peak/);
     }
-    for (const e of JOURNAL_ENTRIES) expect(html, e.hook).toContain(e.hook);
+    for (const e of JOURNAL_ENTRIES.filter((x) => x.slug !== AX)) expect(html, e.hook).toContain(e.hook);
   });
 
   it("the harness peak tells the section 12 story, without the 61/64 console, and the console stays in section 6", () => {
@@ -269,13 +272,13 @@ describe("The note pattern", () => {
     expect(document.getElementById("12-what-a-harness-finds-that-no-unit-test-sees")).not.toBeNull();
   });
 
-  it.each(SLUGS)("%s: Continue exploring comes after the argument and before the reference zone, as the two other notes", (slug) => {
+  it.each(ALL)("%s: Continue exploring comes after the argument and before the reference zone, as the other notes", (slug) => {
     const { container } = note(slug);
     const nav = container.querySelector("nav[aria-labelledby='continue-exploring']")!;
     const zone = container.querySelector("section[data-reference]")!;
     expect(nav.compareDocumentPosition(zone) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     const cards = within(nav as HTMLElement).getAllByRole("link").filter((l) => l.getAttribute("href")!.startsWith("/journal/"));
-    expect(cards.map((l) => l.getAttribute("href")).sort()).toEqual(SLUGS.filter((s) => s !== slug).map((s) => `/journal/${s}`).sort());
+    expect(cards.map((l) => l.getAttribute("href")).sort()).toEqual(ALL.filter((s) => s !== slug).map((s) => `/journal/${s}`).sort());
     for (const n of JOURNAL_ENTRIES.filter((e) => e.slug !== slug)) expect(text(nav)).toContain(n.decision);
   });
 
@@ -294,7 +297,24 @@ describe("The note pattern", () => {
     expect(nums).toEqual(refNums);
   });
 
-  it("puts 'All Field Notes · 3' at the top of the contents rail", () => {
+  it("one-text-three-readers: the hook, the intro, one peak with two panes, and a reference zone whose chips reach real ids", () => {
+    const { container } = note(AX);
+    const e = entry(AX);
+    expect(text(container)).toContain(e.hook);
+    expect(text(container)).toContain(e.intro);
+    expect(container.querySelectorAll("[data-peak]")).toHaveLength(1);
+    expect(container.querySelectorAll("[data-peak] [data-ax-panes]")).toHaveLength(1);
+    expect(container.querySelectorAll("section[data-reference]")).toHaveLength(1);
+    // It is new: no revision yet, so no "revised N times" link and no updates list.
+    expect(e.updates ?? []).toHaveLength(0);
+    const zone = container.querySelector("section[data-reference]") as HTMLElement;
+    for (const c of REFERENCE_ZONE[AX].chips) expect(document.getElementById(c.id), c.id).not.toBeNull();
+    expect(zone.contains(document.getElementById(REFERENCE_ZONE[AX].from))).toBe(true);
+    const nums = [...container.querySelectorAll("h2[id]")].filter((h) => /^\d+\./.test(text(h)) && zone.contains(h));
+    expect(nums).toEqual([]);
+  });
+
+  it("puts 'All Field Notes · N' at the top of the contents rail", () => {
     const { container } = note(HARNESS);
     const links = [...container.querySelectorAll("a")].filter((a) => text(a) === `All Field Notes · ${JOURNAL_ENTRIES.length}`);
     expect(links.length).toBeGreaterThanOrEqual(1);

@@ -168,8 +168,12 @@ describe("Case studies: route, redirect and mirrors", () => {
     // The old route has no snapshot of its own: a static stub in public/ answers a client without JavaScript.
     expect(existsSync("prerendered/journeys.html")).toBe(false);
     expect(existsSync("prerendered/case-studies.html")).toBe(true);
-    for (const f of readdirSync("prerendered")) expect(readFileSync(`prerendered/${f}`, "utf8"), f).not.toContain("/journeys");
-    for (const f of ["public/sitemap.xml", "public/llms.txt", "public/llms-full.txt", "public/case-studies.md"]) expect(readFileSync(f, "utf8"), f).not.toContain("/journeys");
+    // The Field Note "One text, three readers" tells the story of that stub (PR 50 and 51) and names the old route as history.
+    // Its own page and its document in llms-full.txt are left out of this scan; every other file stays covered.
+    const NOTE_PAGE = "journal__one-text-three-readers.html";
+    const NOTE_DOC = /--- BEGIN DOCUMENT: journal\/one-text-three-readers ---[\s\S]*?--- END DOCUMENT: journal\/one-text-three-readers ---/;
+    for (const f of readdirSync("prerendered").filter((n) => n !== NOTE_PAGE)) expect(readFileSync(`prerendered/${f}`, "utf8"), f).not.toContain("/journeys");
+    for (const f of ["public/sitemap.xml", "public/llms.txt", "public/llms-full.txt", "public/case-studies.md"]) expect(readFileSync(f, "utf8").replace(NOTE_DOC, ""), f).not.toContain("/journeys");
     expect(readFileSync("public/sitemap.xml", "utf8")).toContain("https://ivandemurard.com/case-studies");
     expect(readFileSync("public/llms.txt", "utf8")).toContain("https://ivandemurard.com/case-studies");
   });

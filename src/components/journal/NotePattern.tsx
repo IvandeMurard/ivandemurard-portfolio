@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import type { JournalBlock, JournalEntry, PeakBlock } from "@/content/journal";
 import type { JournalMeta } from "@/content/journalMeta.generated";
 import { metaLine, readLabel, revisedLabel, revisionCount } from "@/content/journalIndex";
+import { AxPeakPanes } from "@/components/journal/AxPeakPanes";
 
 /**
  * The pattern every Field Note follows (board J of docs/field-notes-prototype): a hook in display serif, one peak moment
@@ -145,7 +146,8 @@ export const NotePeak = ({ block }: { block: PeakBlock }) => {
               {!asText && <ChallengeAnswer question={questionId} choices={challenge.choices} reveal={challenge.reveal} answer={answer} onAnswer={setAnswer} />}
             </div>
           )}
-          {showBoxes && (
+          {showBoxes && block.panes && <AxPeakPanes panes={block.panes} />}
+          {showBoxes && !block.panes && (
             <div className={cn("mt-9 grid items-start gap-5", block.cols === 3 ? "md:grid-cols-3" : "md:grid-cols-2")}>
               {block.boxes.map((box) => (
                 <div key={box.label} className={cn("rounded-[14px] border p-5 md:p-[22px]", box.tone === "fail" ? "border-lamp-stop-on-card" : "border-primary/30")}>

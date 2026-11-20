@@ -17,7 +17,7 @@ const EventSchema = z.object({
   label_or_question: z.string().max(2000).nullable().optional(),
   used_chip: z.boolean().optional(),
   request_id: z.string().min(1).max(128).optional(),
-  target_path: z.enum(["/", "/aetherix", "/tacet", "/anima", "/compass", "/sonor", "/lore", "/architecture", "/cv", "/atrium", "/journal", "/contact", "/agents", "/journal/harnesses-graders-closed-loops", "/journal/agent-boundaries-aetherix", "/journal/whose-truth-is-the-ground-truth"]).optional(),
+  target_path: z.enum(["/", "/aetherix", "/tacet", "/anima", "/compass", "/sonor", "/lore", "/architecture", "/cv", "/atrium", "/journal", "/contact", "/agents", "/journal/harnesses-graders-closed-loops", "/journal/agent-boundaries-aetherix", "/journal/whose-truth-is-the-ground-truth", "/journal/one-text-three-readers"]).optional(),
   booking_source: z.enum(["card", "chip"]).optional(),
 });
 

@@ -5,6 +5,7 @@ import { recoLineMarkdown } from "../../../content/recoLine";
 import { blueprintMarkdown } from "../../../content/serviceBlueprint";
 import { APPLY_GUIDES, applyMarkdown } from "../../../content/journalApply";
 import { readingLabel } from "../../../content/readingTime";
+import { axFigureMarkdown } from "../../../content/journalAxFigures";
 import { displayOrder } from "../../journalOrder";
 import { outline, section as pickSection } from "../sections";
 
@@ -73,6 +74,9 @@ export function renderBlock(block: JournalBlock): string {
       return [`**Figure.** ${block.caption}`, recoLineMarkdown(block.layer), block.link ? `${block.link.text}: ${SITE_ORIGIN}${block.link.to}` : ""].filter(Boolean).join("\n\n");
     case "blueprint":
       return blueprintMarkdown();
+    case "axFigure":
+      // The text version of a figure: a list, a table or a sentence, the same data the page draws.
+      return axFigureMarkdown(block.figure);
     case "console":
     case "mcp":
     case "diagnostic":
@@ -88,6 +92,7 @@ export function renderBlock(block: JournalBlock): string {
         block.challenge ? `${block.challenge.rule} ${block.challenge.question} (${block.challenge.choices.join(" or ")}) If you answer ${block.challenge.choices[0]}: ${block.challenge.reveal[0]} If you answer ${block.challenge.choices[1]}: ${block.challenge.reveal[1]}` : "",
         ...block.boxes.map((x) => [`**${x.label}**`, x.text, x.bubble ?? "", x.chain ? x.chain.steps.join(", ") : "", x.note ?? ""].filter(Boolean).join(" ")),
         block.after ?? "",
+        block.panes?.caption ?? "",
         block.link ? `${block.link.text} (#${block.link.to})` : "",
         block.contract ?? "",
       ].filter(Boolean).join("\n\n");
@@ -149,7 +154,11 @@ export function renderEntryBody(entry: JournalEntry): string {
     return [
       entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",
       entry.glance
-        ? `**Read this if** ${entry.glance.audience} **What it gives you**: ${entry.glance.promise} **Tested on**: ${entry.glance.proof}`
+        ? [
+            `**Read this if** ${entry.glance.audience}`,
+            entry.glance.promise ? `**What it gives you**: ${entry.glance.promise}` : "",
+            entry.glance.proof ? `**Tested on**: ${entry.glance.proof}` : "",
+          ].filter(Boolean).join(" ")
         : "",
       entry.takeaways?.length
         ? `What you will decide differently:\n${entry.takeaways.map((t) => `- ${t}`).join("\n")}`

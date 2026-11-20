@@ -49,11 +49,12 @@ export const AGENTS_DOC = {
     "Rose's interaction measures remain separate from MCP and general site traffic.",
   ],
   fieldNotes: {
-    intro: "Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Three questions, complementary, read in any order:",
+    intro: "Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Four questions, complementary, read in any order:",
     items: [
       ["01 Evaluate", "How do you know an agent is working?", "/journal/harnesses-graders-closed-loops"],
       ["02 Set boundaries", "Where should an agent's responsibility end?", "/journal/agent-boundaries-aetherix"],
       ["03 Learn", "Whose truth should an agent learn from?", "/journal/whose-truth-is-the-ground-truth"],
+      ["04 Be read", "What does each reader of your product actually get?", "/journal/one-text-three-readers"],
     ],
     modes: [
       "Browse summaries: list_journal_entries, or /llms.txt.",

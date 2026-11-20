@@ -4,10 +4,10 @@ import { renderBold } from "@/lib/inlineBold";
 export type EntryGlance = {
   /** Who should read this. */
   audience: string;
-  /** What the piece lets the reader do. */
-  promise: string;
-  /** What the claims are tested on. */
-  proof: string;
+  /** What the piece lets the reader do. A note may leave it out; its row is then not drawn. */
+  promise?: string;
+  /** What the claims are tested on. A note may leave it out; its row is then not drawn. */
+  proof?: string;
 };
 
 /**
@@ -31,17 +31,17 @@ export const EntryOpening = ({
   if (!glance && !takeaways?.length) return null;
 
   const rows = glance
-    ? ([
+    ? [
         { icon: "person_search", term: "Read this if", def: glance.audience },
         { icon: "target", term: "What it gives you", def: glance.promise },
         { icon: "science", term: "Tested on", def: glance.proof },
-      ] as const)
+      ].filter((r): r is { icon: string; term: string; def: string } => Boolean(r.def))
     : [];
 
   return (
     <div className="mb-12 md:mb-16 not-italic">
       {glance && (
-        <dl className="rounded-sm border border-outline bg-surface-container-low p-5 md:p-6 grid gap-4 sm:grid-cols-3">
+        <dl className={`rounded-sm border border-outline bg-surface-container-low p-5 md:p-6 grid gap-4 ${rows.length === 3 ? "sm:grid-cols-3" : ""}`}>
           {rows.map((row) => (
             <div key={row.term} className="min-w-0">
               <dt className="flex items-center gap-2 mb-2">
