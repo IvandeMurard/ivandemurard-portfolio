@@ -3,6 +3,16 @@ import { SOCIAL_LINKS_PLAIN } from "./links";
 
 export const MCP_URL = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp";
 
+/**
+ * ISO date (YYYY-MM-DD) on which server-side MCP call counting went live. Set it when the `mcp` function and the
+ * mcp_calls migration are deployed, not before: until then the copy says tracking is suspended.
+ */
+export const MCP_TRACKING_SINCE: string | null = "2026-11-21";
+
+export const MCP_TRACKING_COPY = MCP_TRACKING_SINCE
+  ? `Application-level MCP call tracking resumed on ${MCP_TRACKING_SINCE}, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.`
+  : "Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.";
+
 export const AGENTS_DOC = {
   title: "ivandemurard.com · for agents",
   meta: (date: string) => `Public. Read-only. No key. Last updated ${date}.`,
@@ -13,10 +23,10 @@ export const AGENTS_DOC = {
   ],
   tools: [
     ["list_case_studies", "every case study: slug, label, tagline, status, URL"],
-    ["get_case_study", "one case study in full, as Markdown"],
+    ["get_case_study", "one case study in full, as Markdown; pass outline_only for its section titles, then section to read one part"],
     ["get_about", "bio, CV and contact links"],
     ["list_journal_entries", "every Field Note: title, date, category, excerpt"],
-    ["get_journal_entry", "one Field Note in full, as Markdown"],
+    ["get_journal_entry", "one Field Note in full, as Markdown; pass outline_only for its section titles, then section to read one part"],
   ],
   files: [
     ["/llms.txt", "short index of the site, for language models"],
@@ -34,7 +44,7 @@ export const AGENTS_DOC = {
     "Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.",
     "Figures come with their source. Illustrative figures are labelled as such.",
     "Read-only: an agent can read everything here, and change nothing.",
-    "Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.",
+    MCP_TRACKING_COPY,
     "Markdown and llms.txt downloads are not counted by this application. Hosting may retain operational logs; this is not a promise of zero infrastructure logging.",
     "Rose's interaction measures remain separate from MCP and general site traffic.",
   ],

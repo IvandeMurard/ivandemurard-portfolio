@@ -1,6 +1,6 @@
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-11-19.
+Public. Read-only. No key. Last updated 2026-11-20.
 
 > Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
@@ -21,10 +21,10 @@ https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
 ## Tools
 
 - list_case_studies · every case study: slug, label, tagline, status, URL
-- get_case_study · one case study in full, as Markdown
+- get_case_study · one case study in full, as Markdown; pass outline_only for its section titles, then section to read one part
 - get_about · bio, CV and contact links
 - list_journal_entries · every Field Note: title, date, category, excerpt
-- get_journal_entry · one Field Note in full, as Markdown
+- get_journal_entry · one Field Note in full, as Markdown; pass outline_only for its section titles, then section to read one part
 
 ## Files
 
@@ -67,7 +67,7 @@ Ask about a project that stopped. The answer says it stopped.
 - Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.
-- Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.
+- Application-level MCP call tracking resumed on 2026-11-21, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.
 - Markdown and llms.txt downloads are not counted by this application. Hosting may retain operational logs; this is not a promise of zero infrastructure logging.
 - Rose's interaction measures remain separate from MCP and general site traffic.
 
