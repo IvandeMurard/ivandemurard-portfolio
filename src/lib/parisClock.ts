@@ -76,7 +76,7 @@ const julianDay = (y: number, m: number, d: number): number => {
 };
 
 /** Sunrise or sunset, in minutes after 0 h UT, for a Julian day, one pass. */
-const sunEventUtc = (rise: boolean, jd: number): number => {
+const sunEventUtc = (rise: boolean, jd: number, zenith = ZENITH): number => {
   const t = (jd - 2451545) / 36525;
   const l0 = (280.46646 + t * (36000.76983 + 0.0003032 * t)) % 360;
   const m = 357.52911 + t * (35999.05029 - 0.0001537 * t);
@@ -88,12 +88,28 @@ const sunEventUtc = (rise: boolean, jd: number): number => {
   const decl = Math.asin(Math.sin(rad(obliquity)) * Math.sin(rad(apparent)));
   const y = Math.tan(rad(obliquity) / 2) ** 2;
   const eqTime = 4 * deg(y * Math.sin(2 * rad(l0)) - 2 * e * Math.sin(rad(m)) + 4 * e * y * Math.sin(rad(m)) * Math.cos(2 * rad(l0)) - 0.5 * y * y * Math.sin(4 * rad(l0)) - 1.25 * e * e * Math.sin(2 * rad(m)));
-  let ha = Math.acos(Math.cos(rad(ZENITH)) / (Math.cos(rad(PARIS.lat)) * Math.cos(decl)) - Math.tan(rad(PARIS.lat)) * Math.tan(decl));
+  let ha = Math.acos(Math.cos(rad(zenith)) / (Math.cos(rad(PARIS.lat)) * Math.cos(decl)) - Math.tan(rad(PARIS.lat)) * Math.tan(decl));
   if (!rise) ha = -ha;
   return 720 - 4 * (PARIS.lon + deg(ha)) - eqTime;
 };
 
-export type SunTimes = { sunrise: number; sunset: number };
+/** Solar declination in degrees for a Julian day (same series as sunEventUtc). */
+const declination = (jd: number): number => {
+  const t = (jd - 2451545) / 36525;
+  const l0 = (280.46646 + t * (36000.76983 + 0.0003032 * t)) % 360;
+  const m = 357.52911 + t * (35999.05029 - 0.0001537 * t);
+  const c = Math.sin(rad(m)) * (1.914602 - t * (0.004817 + 0.000014 * t)) + Math.sin(rad(2 * m)) * (0.019993 - 0.000101 * t);
+  const omega = 125.04 - 1934.136 * t;
+  const apparent = l0 + c - 0.00569 - 0.00478 * Math.sin(rad(omega));
+  const obliquity = 23 + (26 + (21.448 - t * (46.815 + t * (0.00059 - t * 0.001813))) / 60) / 60 + 0.00256 * Math.cos(rad(omega));
+  return deg(Math.asin(Math.sin(rad(obliquity)) * Math.sin(rad(apparent))));
+};
+
+/** Civil twilight: the sun 6 degrees below the horizon. */
+const CIVIL = 96;
+
+/** Times in minutes after midnight in Paris; dawn and dusk are civil twilight; noonAltitude is the sun's height at solar noon, in degrees (about 18 in December, 65 in June). */
+export type SunTimes = { sunrise: number; sunset: number; dawn?: number; dusk?: number; noonAltitude?: number };
 
 const sunCache = new Map<string, SunTimes>();
 
@@ -109,12 +125,15 @@ export const sunTimes = (date: string): SunTimes => {
   if (cached) return cached;
   const [y, mo, d] = date.split("-").map(Number);
   const jd = julianDay(y, mo, d);
-  const at = (rise: boolean) => {
+  const at = (rise: boolean, zenith = ZENITH) => {
     // The second pass, at the time the first one found, as the NOAA calculator does.
-    const utc = sunEventUtc(rise, jd + sunEventUtc(rise, jd) / 1440);
+    const utc = sunEventUtc(rise, jd + sunEventUtc(rise, jd, zenith) / 1440, zenith);
     return parisMinutes(new Date(Date.UTC(y, mo - 1, d) + Math.round(utc) * 60000));
   };
-  const result = { sunrise: at(true), sunset: at(false) };
+  const result = {
+    sunrise: at(true), sunset: at(false), dawn: at(true, CIVIL), dusk: at(false, CIVIL),
+    noonAltitude: 90 - PARIS.lat + declination(jd + 0.5),
+  };
   sunCache.set(date, result);
   return result;
 };
@@ -155,4 +174,26 @@ export const sunPath = (minutes: number, sun: SunTimes): SunPath => {
   if (span <= 0 || minutes < sun.sunrise || minutes >= sun.sunset) return { up: false, progress: 0, elevation: 0 };
   const progress = (minutes - sun.sunrise) / span;
   return { up: true, progress, elevation: Math.sin(Math.PI * progress) };
+};
+
+/** The highest noon altitude over Paris (summer solstice), in degrees: the seasonal scale of the light. */
+export const MAX_NOON_ALTITUDE = 90 - PARIS.lat + 23.44;
+
+export type SunPhase = "day" | "dawn" | "dusk" | "night";
+export type SunLight = { phase: SunPhase; progress: number; height: number; glow: number };
+
+/**
+ * The light on the wall, with the seasons and the twilights: by day, height is the sun's real altitude relative to the
+ * June noon (a December noon stays low, about 0.28); during civil dawn and dusk, glow rises from 0 (sun 6 degrees
+ * below) to 1 at the horizon; at night, nothing.
+ */
+export const sunLight = (minutes: number, sun: SunTimes): SunLight => {
+  const dawn = sun.dawn ?? sun.sunrise - 35;
+  const dusk = sun.dusk ?? sun.sunset + 35;
+  const noon = sun.noonAltitude ?? MAX_NOON_ALTITUDE;
+  const p = sunPath(minutes, sun);
+  if (p.up) return { phase: "day", progress: p.progress, height: p.elevation * (noon / MAX_NOON_ALTITUDE), glow: 1 };
+  if (minutes >= dawn && minutes < sun.sunrise) return { phase: "dawn", progress: 0, height: 0, glow: (minutes - dawn) / Math.max(1, sun.sunrise - dawn) };
+  if (minutes >= sun.sunset && minutes < dusk) return { phase: "dusk", progress: 1, height: 0, glow: 1 - (minutes - sun.sunset) / Math.max(1, dusk - sun.sunset) };
+  return { phase: "night", progress: minutes >= sun.sunset ? 1 : 0, height: 0, glow: 0 };
 };
