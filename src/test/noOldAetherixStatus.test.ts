@@ -21,6 +21,7 @@ const NOTE_FILES = [
   join("src", "content", "journalIndex.ts"), // the card of the note on /journal carries its moment
   join("public", "one-text-three-readers.md"),
   join("prerendered", "journal__one-text-three-readers.html"),
+  join("prerendered", "journal.html"), // the card of the note on /journal carries its moment
 ];
 const NOTE_DOC = /--- BEGIN DOCUMENT: journal\/one-text-three-readers ---[\s\S]*?--- END DOCUMENT: journal\/one-text-three-readers ---/;
 

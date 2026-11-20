@@ -22,7 +22,7 @@ const Highlighted = ({ line, word }: { line: string; word: string }) => {
 export const AxPeakPanes = ({ panes }: { panes: Panes }) => (
   <figure data-ax-panes className="m-0 mt-9">
     <div className="grid items-stretch gap-5 md:grid-cols-2">
-      <div className="rounded-[14px] border border-primary/30 p-5 md:p-[22px]">
+      <div className="min-w-0 rounded-[14px] border border-primary/30 p-5 md:p-[22px]">
         <p className={LABEL}>{panes.person.label}</p>
         <p className="m-0 mt-1 font-body text-sm text-on-surface-variant">{panes.person.via}</p>
         <div className="mt-4 rounded-xl border border-primary/30 bg-primary/10 p-4">
@@ -33,7 +33,7 @@ export const AxPeakPanes = ({ panes }: { panes: Panes }) => (
           </p>
         </div>
       </div>
-      <div className="rounded-[14px] border border-primary/30 p-5 md:p-[22px]">
+      <div className="min-w-0 rounded-[14px] border border-primary/30 p-5 md:p-[22px]">
         <p className={LABEL}>{panes.machine.label}</p>
         <p className="m-0 mt-1 font-body text-sm text-on-surface-variant">{panes.machine.via}</p>
         <div

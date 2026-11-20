@@ -109,22 +109,22 @@ export const AxReaders = () => {
 export const AxFanout = () => (
   <Fig name="fanout">
     <div className="flex flex-col gap-5 md:flex-row md:items-stretch">
-      <div className="flex flex-col justify-center rounded-sm border border-primary bg-surface-container-low p-4 md:w-56 md:shrink-0">
+      <div className="flex flex-col justify-center rounded-sm border border-primary bg-surface-container-low p-4 md:w-40 md:shrink-0">
         <p className={KICKER}>{AX_FANOUT.source.label}</p>
-        <p className="m-0 mt-2 font-body text-base text-heading"><Inline text={AX_FANOUT.source.files} /></p>
+        <p className="m-0 mt-2 break-words font-body text-base text-heading"><Inline text={AX_FANOUT.source.files} /></p>
       </div>
-      <div className="flex items-center md:w-44 md:shrink-0 md:flex-col md:justify-center">
-        <span aria-hidden="true" className="mr-2 text-secondary md:mb-2 md:mr-0">&darr;</span>
+      <div className="flex flex-wrap items-center gap-y-1 md:w-36 md:shrink-0 md:flex-col md:justify-center">
+        <span aria-hidden="true" className="mr-2 text-secondary md:mr-0">&darr;</span>
         <p className="m-0 rounded-full border border-outline px-3 py-1 font-mono text-meta text-primary">{AX_FANOUT.journeys.name}</p>
         <span className="ml-2 font-mono text-meta text-on-surface-variant md:ml-0 md:mt-2">on the links</span>
       </div>
-      <ul className="m-0 flex-1 list-none space-y-3 border-l border-outline-variant p-0 pl-5">
+      <ul className="m-0 min-w-0 flex-1 list-none space-y-3 border-l border-outline-variant p-0 pl-5">
         {AX_FANOUT.surfaces.map((s) => {
           const mcp = s === AX_FANOUT.freshness.on;
           return (
             <li
               key={s}
-              className={`relative flex flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-sm border px-4 py-3 before:absolute before:-left-5 before:top-1/2 before:h-px before:w-5 before:bg-outline-variant before:content-[''] ${
+              className={`relative flex min-w-0 flex-col items-start gap-y-2 rounded-sm border px-4 py-3 before:absolute before:-left-5 before:top-1/2 before:h-px before:w-5 before:bg-outline-variant before:content-[''] ${
                 mcp ? "border-2 border-secondary bg-surface-container-low" : "border-outline-variant"
               }`}
             >
