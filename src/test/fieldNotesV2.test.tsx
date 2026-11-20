@@ -115,7 +115,7 @@ describe("Computed meta lines", () => {
     expect(joinNames(["Aetherix", "Lore"])).toBe("Aetherix and Lore");
     const revisions = JOURNAL_ENTRIES.reduce((n, e) => n + (e.updates?.length ?? 0), 0);
     expect(heroMeta()).toBe(`4 notes · revised ${revisions} times · tested on Aetherix, Lore and Rose`);
-    expect(revisions).toBe(13);
+    expect(revisions).toBe(14);
     expect(metaLine(entry(TRUTH))).toBe(`${entry(TRUTH).readingMinutes} min · tested on ${joinNames(testedOn(TRUTH))} · revised once`);
   });
 });
@@ -307,8 +307,11 @@ describe("The note pattern", () => {
     expect(container.querySelectorAll("[data-peak]")).toHaveLength(1);
     expect(container.querySelectorAll("[data-peak] [data-ax-panes]")).toHaveLength(1);
     expect(container.querySelectorAll("section[data-reference]")).toHaveLength(1);
-    // It is new: no revision yet, so no "revised N times" link and no updates list.
-    expect(e.updates ?? []).toHaveLength(0);
+    // One revision so far (21 Nov: the counter was emptied): the meta line links to it, and the Updates list says it.
+    expect(e.updates).toHaveLength(1);
+    expect(e.updates![0].summary + " " + e.updates![0].reason).toBe("Counter emptied: its first value included a test call and had no reading date. It will be filled with a dated count.");
+    expect(screen.getByRole("link", { name: "revised once" }).getAttribute("href")).toBe("#updates");
+    expect(document.getElementById("updates")).not.toBeNull();
     const zone = container.querySelector("section[data-reference]") as HTMLElement;
     for (const c of REFERENCE_ZONE[AX].chips) expect(document.getElementById(c.id), c.id).not.toBeNull();
     expect(zone.contains(document.getElementById(REFERENCE_ZONE[AX].from))).toBe(true);
