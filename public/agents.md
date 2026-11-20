@@ -68,7 +68,7 @@ Ask about a project that stopped. The answer says it stopped.
 - Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped · stopped 2022.
 - Figures come with their source. Illustrative figures are labelled as such.
 - Read-only: an agent can read everything here, and change nothing.
-- Application-level MCP call tracking resumed on 2026-11-21, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.
+- Application-level MCP call tracking resumed on 2026-11-20, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.
 - Markdown and llms.txt downloads are not counted by this application. Hosting may retain operational logs; this is not a promise of zero infrastructure logging.
 - Rose's interaction measures remain separate from MCP and general site traffic.
 

@@ -127,9 +127,9 @@ A visitor does this without thinking: scroll, skim, stop. An agent needs the pag
 
 A number about agents is only worth what it counts. So each figure here says what it counts, and since when.
 
-- **MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. The unit is the call: one script can make many.
+- **MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 20 November 2026. The unit is the call: one script can make many.
 
-MCP calls since 21 Nov 2026: not filled in yet
+MCP calls since 20 Nov 2026: 2
 
 The first counter did not survive a review: it could be written through the site's public key, by anyone. Its numbers are not used here or anywhere else. Counting moved to the server, where a visitor cannot reach it.
 
