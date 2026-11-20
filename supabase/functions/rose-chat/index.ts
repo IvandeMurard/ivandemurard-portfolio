@@ -17,6 +17,7 @@ import { withRoseBookingLine } from "../_shared/rose-booking-line.ts";
 import { retryIfEmpty, type RoseRetryInfo } from "../_shared/rose-empty-retry.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
+import { filterSignedHistory, withRoseSignature } from "../_shared/rose-history-signature.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -26,7 +27,7 @@ const corsHeaders = {
 };
 
 /** Send a narrow source-backed answer through the same UI-message protocol as streamText. */
-const curatedRoseResponse = (text: string): Response => {
+const curatedRoseResponse = (text: string, sign: (s: ReadableStream<any>) => ReadableStream<any>): Response => {
   const id = `rose-curated-${crypto.randomUUID()}`;
   const stream = createUIMessageStream({
     execute: ({ writer }) => {
@@ -39,7 +40,7 @@ const curatedRoseResponse = (text: string): Response => {
       writer.write({ type: "finish", finishReason: "stop" });
     },
   });
-  const response = createUIMessageStreamResponse({ stream });
+  const response = createUIMessageStreamResponse({ stream: sign(stream) });
   const headers = new Headers(response.headers);
   for (const [key, value] of Object.entries(corsHeaders)) {
     headers.set(key, value);
@@ -49,6 +50,23 @@ const curatedRoseResponse = (text: string): Response => {
 
 /** Same origins as rose-event: only the real site is measured, never a local or preview run. */
 const MEASURED_ORIGINS = ["https://ivandemurard.com", "https://www.ivandemurard.com", "https://ivandemurard.lovable.app"];
+
+/** One row per dropped assistant turn: kind "history_rejected" and the page path. Content-free. */
+const logHistoryRejected = (req: Request, body: { session_id?: unknown; page?: { path?: string } | null }, count: number) => {
+  const origin = req.headers.get("origin");
+  const sessionId = typeof body.session_id === "string" ? body.session_id : "";
+  const path = body.page?.path;
+  if (!origin || !MEASURED_ORIGINS.includes(origin) || sessionId.length < 1 || sessionId.length > 64 || !path || path.length > 200) return;
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) return;
+  const write = Promise.resolve(createClient(url, key)
+    .from("rose_events")
+    .insert(Array.from({ length: Math.min(count, 40) }, () => ({ session_id: sessionId, path, kind: "history_rejected" }))))
+    .then(({ error }) => { if (error) console.error("[rose-chat] history_rejected not recorded", error.code); })
+    .catch(() => {});
+  (globalThis as unknown as { EdgeRuntime?: { waitUntil?: (p: Promise<unknown>) => void } }).EdgeRuntime?.waitUntil?.(write);
+};
 
 /**
  * Records one empty-answer retry in rose_events: kind "empty_retry", outcome "recovered" or "still_empty", with the
@@ -122,6 +140,11 @@ Deno.serve(async (req) => {
       z.object({
         id: z.string().max(128).optional(),
         role: z.enum(["user", "assistant"]),
+        // Only the signature fields are read; anything else in metadata is discarded.
+        metadata: z.preprocess(
+          (v) => (v && typeof v === "object" ? { rose_sig: (v as Record<string, unknown>).rose_sig, rose_issued_at: (v as Record<string, unknown>).rose_issued_at } : undefined),
+          z.object({ rose_sig: z.string().max(200).optional(), rose_issued_at: z.number().optional() }).optional(),
+        ),
         // Earlier assistant turns also carry tool and step parts (suggest_followups,
         // propose_booking, step-start). Drop them and keep only text, so tool output
         // stays server-owned and multi-turn history validates.
@@ -157,7 +180,14 @@ Deno.serve(async (req) => {
       ? { ...m, parts: m.parts.slice(0, 4).map((p) => ({ ...p, text: p.text.slice(0, 1500) })) }
       : m,
   );
-  const safeMessages = boundedMessages as unknown as UIMessage[];
+  // Every assistant turn must carry a valid rose-chat signature less than 60 minutes old; others are dropped.
+  const historyKey = Deno.env.get("ROSE_HISTORY_KEY");
+  const sessionId = typeof body.session_id === "string" ? body.session_id.slice(0, 64) : "";
+  const { kept, rejected } = await filterSignedHistory(historyKey, sessionId, boundedMessages);
+  if (rejected > 0) logHistoryRejected(req, body, rejected);
+  // Signature metadata never reaches the model.
+  const safeMessages = kept.map(({ metadata: _m, ...m }) => m) as unknown as UIMessage[];
+  const sign = <T extends { type: string }>(s: ReadableStream<T>) => withRoseSignature(s as never, historyKey, sessionId);
   if (safeMessages[safeMessages.length - 1].role !== "user") {
     return new Response(JSON.stringify({ error: "last message must be from the user" }), {
       status: 400,
@@ -175,7 +205,7 @@ Deno.serve(async (req) => {
     const last = safeMessages[safeMessages.length - 1] as unknown as { parts: { text: string }[] };
     const question = last.parts.map((p) => p.text).join(" ");
     const curatedAnswer = getRoseCuratedAnswer({ question, pagePath: body?.page?.path });
-    if (curatedAnswer) return curatedRoseResponse(curatedAnswer);
+    if (curatedAnswer) return curatedRoseResponse(curatedAnswer, sign);
     const previousQuestions = roseHistoryQuestions(safeMessages);
     const baseSystem = await getRoseSystemPrompt({ page: body?.page, suggested: body?.suggested, question, previousQuestions });
     // History is held only in the visitor's browser, so earlier assistant turns are unverified.
@@ -197,11 +227,11 @@ Deno.serve(async (req) => {
     // nothing else changes. Other turns stream exactly as before.
     // A model call that ends with no text is made once more before anything is streamed (retryIfEmpty).
     const uiStream = retryIfEmpty(
-      () => callModel().toUIMessageStream({ onError: roseStreamErrorText }),
+      () => callModel().toUIMessageStream({ onError: roseStreamErrorText, generateMessageId: () => `rose-${crypto.randomUUID()}` }),
       { onRetry: (info) => logEmptyRetry(req, body, info) },
     );
     const streamResponse = createUIMessageStreamResponse({
-      stream: shouldShowRoseBookingLine(question) ? withRoseBookingLine(uiStream) : uiStream,
+      stream: sign(shouldShowRoseBookingLine(question) ? withRoseBookingLine(uiStream) : uiStream) as never,
     });
     const streamHeaders = new Headers(streamResponse.headers);
     for (const [key, value] of Object.entries(corsHeaders)) {
