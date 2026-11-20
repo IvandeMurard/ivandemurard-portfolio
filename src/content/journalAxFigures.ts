@@ -8,9 +8,9 @@ import { MCP_TRACKING_SINCE } from "./agents";
 export type AxFigureId = "bricks" | "readers" | "fanout" | "sizes" | "counter";
 
 /** The value shown in the counter figure. Ivan fills it at publication. While it is null the figure shows a dash. No live read of the database. */
-export const AX_NOTE_MCP_CALLS: number | null = null;
+export const AX_NOTE_MCP_CALLS: number | null = 2;
 
-/** "21 Nov 2026" from the one tracking date of the site (agents.ts), so the figure and the guarantees say the same day. */
+/** "20 Nov 2026" from the one tracking date of the site (agents.ts), so the figure and the guarantees say the same day. */
 const SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 export const axShortDate = (iso: string): string => {
   const [y, m, d] = iso.split("-").map(Number);

@@ -1348,7 +1348,7 @@ var TRUTH_ENTRY = {
 
 // src/content/agents.ts
 var MCP_URL = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp";
-var MCP_TRACKING_SINCE = "2026-11-21";
+var MCP_TRACKING_SINCE = "2026-11-20";
 var MCP_TRACKING_COPY = MCP_TRACKING_SINCE ? `Application-level MCP call tracking resumed on ${MCP_TRACKING_SINCE}, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.` : "Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.";
 var AGENTS_DOC = {
   title: "ivandemurard.com \xB7 for agents",
@@ -1404,7 +1404,7 @@ var AGENTS_DOC = {
 };
 
 // src/content/journalAxFigures.ts
-var AX_NOTE_MCP_CALLS = null;
+var AX_NOTE_MCP_CALLS = 2;
 var SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var axShortDate = (iso) => {
   const [y, m, d] = iso.split("-").map(Number);
@@ -1488,7 +1488,6 @@ var AX_ENTRY = {
   hook: "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines.",
   intro: "What does each reader actually get?",
   title: "One text, three readers",
-  // TODO: date de publication à fixer par Ivan (le jour J). Tant que ce n'est pas fait, 2026-11-20 est provisoire.
   date: "2026-11-20",
   category: "Product",
   lang: "en",
@@ -1629,7 +1628,7 @@ var AX_ENTRY = {
     {
       kind: "list",
       items: [
-        "**MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. The unit is the call: one script can make many."
+        "**MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 20 November 2026. The unit is the call: one script can make many."
       ]
     },
     { kind: "axFigure", figure: "counter" },

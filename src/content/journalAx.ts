@@ -11,7 +11,6 @@ export const AX_ENTRY: JournalEntry = {
   hook: "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines.",
   intro: "What does each reader actually get?",
   title: "One text, three readers",
-  // TODO: date de publication à fixer par Ivan (le jour J). Tant que ce n'est pas fait, 2026-11-20 est provisoire.
   date: "2026-11-20",
   category: "Product",
   lang: "en",
@@ -161,7 +160,7 @@ export const AX_ENTRY: JournalEntry = {
     {
       kind: "list",
       items: [
-        "**MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 21 November 2026. The unit is the call: one script can make many.",
+        "**MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 20 November 2026. The unit is the call: one script can make many.",
       ],
     },
     { kind: "axFigure", figure: "counter" },
