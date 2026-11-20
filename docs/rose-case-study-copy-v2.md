@@ -136,14 +136,14 @@ One source, portfolio-graph.json, read by the case studies index (projects only)
 | From | Link | To | Reason | Source |
 |---|---|---|---|---|
 | Rose | answers from | Every page | Rose answers from the page you are on first, then from the rest of the site. | Chapter 06 |
-| Rose | how she is tested | Evaluation | The evaluation page shows how every change to Rose is tested before it reaches visitors. | Validated |
+| Rose | how she is tested | Evaluation | Caught in testing shows how every change to Rose is tested before it reaches visitors. | Validated |
 | Evaluation | uses the method of | Field Notes (evaluation harness) | The campaign applies the harness and grading method this Field Note describes. | Validated |
 | Aetherix, Tacet, Anima | part of, built | Orchestrator | One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes over MCP; going through the orchestrator is the target (Design). | architecture.md |
 | Peritia | part of, design (not dashed: the label carries the status, decided 15 Nov) | Orchestrator | The trade agent, named in the contract, with no code yet. Links to /architecture. | architecture.md |
 | Tacet | direct, while the orchestrator is not the way through (dashed) | Aetherix | While the orchestrator is not the way through, Tacet's output reaches Aetherix directly: non-personal, read-only, logged. | architecture.md, tacet.md |
 | Sonor | inspired (dashed) | Tacet | Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels. | sonor.md |
 | Lore | same thesis (dashed) | Aetherix | The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project. | lore.md |
-| Rose | how she reads the site | Field Notes (one text, three readers) | This Field Note shows how one source serves Rose, visitors and outside agents, each in the form they need. | one-text-three-readers.md |
+| Rose | how she reads the site | Field Notes (agent experience) | This Field Note shows how one source serves Rose, visitors and outside agents, each in the form they need. | one-text-three-readers.md |
 | Compass | none |  | Standalone project. | MCP instructions |
 
 ## Chapter 07: Trust

@@ -11,9 +11,11 @@ export const RELATIONS_MAP = {
 } as const;
 
 export type GraphEdge = { from: string; link: string; to: string; reason: string; indirect: boolean };
-export type RelationRow = { from: string[]; link: string; to: string; toId: string; reason: string; indirect: boolean };
+export type RelationRow = { from: string[]; fromIds: string[]; link: string; to: string; toId: string; reason: string; indirect: boolean };
 
-export const GRAPH_NODES = graph.nodes as { id: string; label: string }[];
+/** A node. `url` is an internal path (with an optional anchor) of the page it stands for; rose and every-page have none. */
+export type GraphNode = { id: string; label: string; url?: string };
+export const GRAPH_NODES = graph.nodes as GraphNode[];
 export const GRAPH_EDGES = graph.edges as GraphEdge[];
 export const GRAPH_STANDALONE = graph.standalone as { node: string; reason: string }[];
 
@@ -23,6 +25,15 @@ export const nodeLabel = (id: string) => {
   return n.label;
 };
 
+export const nodeUrl = (id: string): string | undefined => GRAPH_NODES.find((x) => x.id === id)?.url;
+
+const SITE = "https://ivandemurard.com";
+/** A node's name for the Markdown mirror: a link with an absolute URL when the node has a page, its label otherwise. */
+export const nodeMarkdown = (id: string): string => {
+  const url = nodeUrl(id);
+  return url ? `[${nodeLabel(id)}](${SITE}${url})` : nodeLabel(id);
+};
+
 /** Consecutive edges with the same link, target and reason become one row ("Aetherix, Tacet, Anima part of, built Orchestrator"). */
 export const relationRows = (): RelationRow[] => {
   const rows: RelationRow[] = [];
@@ -30,12 +41,13 @@ export const relationRows = (): RelationRow[] => {
     const last = rows[rows.length - 1];
     if (last && last.link === e.link && last.to === nodeLabel(e.to) && last.reason === e.reason && last.indirect === e.indirect) {
       last.from.push(nodeLabel(e.from));
+      last.fromIds.push(e.from);
     } else {
-      rows.push({ from: [nodeLabel(e.from)], link: e.link, to: nodeLabel(e.to), toId: e.to, reason: e.reason, indirect: e.indirect });
+      rows.push({ from: [nodeLabel(e.from)], fromIds: [e.from], link: e.link, to: nodeLabel(e.to), toId: e.to, reason: e.reason, indirect: e.indirect });
     }
   }
   return rows;
 };
 
 /** One row for the Markdown mirror: a bullet with from, link and to (as on the page), the reason on the next line. */
-export const relationSentence = (r: RelationRow) => `- ${r.from.join(", ")} ${r.link} ${r.to}\n  ${r.reason}`;
+export const relationSentence = (r: RelationRow) => `- ${r.fromIds.map(nodeMarkdown).join(", ")} ${r.link} ${nodeMarkdown(r.toId)}\n  ${r.reason}`;
