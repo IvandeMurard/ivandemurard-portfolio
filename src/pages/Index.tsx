@@ -89,7 +89,10 @@ const Index = () => {
           <div className="max-w-[760px]" data-reveal-child>
             <p className={`${kicker} text-secondary mb-5`}>AI Product Manager & Builder · Paris</p>
             <h1 className="font-headline font-normal text-heading text-[38px] md:text-[54px] lg:text-[46px] xl:text-[50px] leading-[1.04] tracking-normal">
-              I build AI services for operations, and measure what they change. Before that, SaaS product manager and co-founder.
+              I build AI services for operations, and measure what they change.{" "}
+              <span className="mt-3 block text-[22px] md:text-[28px] lg:text-[26px] xl:text-[28px] leading-[1.2] text-on-surface-variant">
+                Before that, SaaS product manager and co-founder.
+              </span>
             </h1>
             <p className="mt-6 text-[17px] md:text-[19px] lg:text-[17px] leading-[1.6] text-on-surface max-w-[600px]">
               Every project on this site states what runs today, what was tested and what is not proven yet.
