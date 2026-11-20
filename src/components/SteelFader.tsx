@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useHaptic } from "@/hooks/useHaptic";
 /**
  * SteelFader: Technics SL-1200 style fader.
  * A native range input (transparent, on top) keeps keyboard, screen reader
@@ -14,19 +16,61 @@ type Props = {
   length: number;
   ticks?: { at: number; label: string }[];
   valueText?: string;
+  /** A light haptic notch every `detentEvery` units of travel. */
+  detentEvery?: number;
+  /** A magnetic point: values within `radius` of `at` snap to it and must be pushed out of. */
+  snap?: { at: number; radius: number };
 };
+
+/** Finger travel is scaled down so the cap moves less than the finger: perceived resistance. */
+const DAMPING = 0.8;
 
 // Dark steel on the day popover, aluminium on the dusk one: the cap stays at 3:1 or more against its ground in both moods.
 const CAP = "linear-gradient(180deg, hsl(var(--fader-light)) 0%, hsl(var(--fader-dark)) 48%, hsl(var(--fader-light)) 52%, hsl(var(--fader-dark)) 100%)";
 const BRUSH = "repeating-linear-gradient(90deg, hsl(var(--fader-mark)/0.18) 0 1px, transparent 1px 2px)";
 
-export const SteelFader = ({ label, min, max, step, value, onChange, orientation = "horizontal", length, ticks = [], valueText }: Props) => {
+export const SteelFader = ({ label, min, max, step, value, onChange, orientation = "horizontal", length, ticks = [], valueText, detentEvery, snap }: Props) => {
+  const haptic = useHaptic();
+  const drag = useRef<{ start: number; origin: number; id: number } | null>(null);
+  const lastNotch = useRef<number | null>(null);
   const v = orientation === "vertical";
   const t = (value - min) / (max - min); // 0..1
   const capLong = 22, capShort = 14;
   const travel = length - capShort;
   // Vertical: min value at top (Technics: + at the bottom is faster; we show + at top of scale via ticks)
   const offset = t * travel;
+
+  const clamp = (n: number) => Math.min(max, Math.max(min, n));
+  const quantize = (n: number) => Math.round(n / step) * step;
+  const emit = (raw: number) => {
+    let next = quantize(clamp(raw));
+    if (snap && Math.abs(next - snap.at) <= snap.radius) next = snap.at;
+    if (detentEvery) {
+      const notch = Math.round(next / detentEvery);
+      if (lastNotch.current !== null && notch !== lastNotch.current) haptic("detent");
+      lastNotch.current = notch;
+    }
+    if (next !== value) onChange(next);
+  };
+
+  // Pointer drags are relative and damped: no jump to the finger, a heavier cap.
+  const onPointerDown = (e: React.PointerEvent<HTMLInputElement>) => {
+    if (e.pointerType === "mouse") return; // desktop keeps the native behaviour
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    e.currentTarget.focus();
+    drag.current = { start: v ? e.clientY : e.clientX, origin: value, id: e.pointerId };
+    lastNotch.current = detentEvery ? Math.round(value / detentEvery) : null;
+  };
+  const onPointerMove = (e: React.PointerEvent<HTMLInputElement>) => {
+    const d = drag.current;
+    if (!d || d.id !== e.pointerId) return;
+    const px = (v ? e.clientY : e.clientX) - d.start;
+    emit(d.origin + (px / travel) * (max - min) * DAMPING);
+  };
+  const onPointerEnd = () => {
+    drag.current = null;
+  };
 
   return (
     <div className={v ? "relative flex gap-1.5" : "relative"} style={v ? { height: length } : { width: length, height: capLong }}>
@@ -59,8 +103,16 @@ export const SteelFader = ({ label, min, max, step, value, onChange, orientation
           max={max}
           step={step}
           value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
+          onChange={(e) => {
+            if (!drag.current) emit(Number(e.target.value));
+          }}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerEnd}
+          onPointerCancel={onPointerEnd}
+          data-vaul-no-drag
           className={[
+            "touch-none",
             "absolute inset-0 m-0 h-full w-full cursor-pointer opacity-0 peer",
             v ? "[writing-mode:vertical-lr] cursor-ns-resize" : "cursor-ew-resize",
           ].join(" ")}

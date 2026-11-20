@@ -8,12 +8,14 @@
  *
  * Use sparingly: only on deliberate actions (toggles, primary CTAs).
  */
-type Pattern = "tap" | "toggle" | "select";
+type Pattern = "tap" | "toggle" | "select" | "detent";
 
 const PATTERNS: Record<Pattern, number | number[]> = {
   tap: 10,
   toggle: [6, 40, 6],
   select: 12,
+  // A fader notch: barely there, felt rather than heard.
+  detent: 5,
 };
 
 export const useHaptic = () => {

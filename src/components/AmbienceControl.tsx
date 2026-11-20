@@ -5,6 +5,8 @@ import { useAmbience, PITCH_RANGE } from "./AmbienceProvider";
 import { useHaptic } from "@/hooks/useHaptic";
 import { VinylDeck, VinylRecord } from "./VinylDeck";
 import { SteelFader } from "./SteelFader";
+import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 /**
  * AmbienceControl: a mini record in the header.
@@ -15,6 +17,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
   const { muted, available, toggleMute, pitch, setPitch, volume, setVolume } = useAmbience();
   const haptic = useHaptic();
   const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
   const wasZero = useRef(true);
 
   const pct = Math.round((pitch - 1) * 1000) / 10;
@@ -29,39 +32,8 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
   // The plain paper-label record: 40 px on a desktop, 36 px on a phone, in a hit area of 44 x 44 px.
   const disc = size === "sm" ? 36 : 40;
 
-  const toggle = () => {
-    haptic("toggle");
-    toggleMute();
-  };
-
-  return (
-    <div className="inline-flex h-11 items-center gap-0.5">
-      <button
-        type="button"
-        role="switch"
-        aria-checked={playing}
-        aria-label={playing ? "Stop the record" : "Play the record"}
-        title={playing ? "Stop the record" : "Play the record"}
-        onClick={toggle}
-        className="inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
-      >
-        <span className={["transition-opacity duration-300", playing ? "opacity-100" : "opacity-70"].join(" ")}>
-          <VinylRecord size={disc} playing={playing} pitch={pitch} />
-        </span>
-      </button>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <button
-            type="button"
-            aria-label="Open turntable controls"
-            title="Turntable"
-            onClick={() => haptic("tap")}
-            className="inline-flex h-8 items-center justify-center px-0.5 rounded text-on-surface-variant hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
-          >
-            <ChevronDown size={12} strokeWidth={1.5} className={["transition-transform duration-300", open ? "rotate-180" : ""].join(" ")} />
-          </button>
-        </PopoverTrigger>
-        <PopoverContent align="end" sideOffset={10} className="w-[300px] p-4 bg-surface-container border-outline-variant">
+  const panel = isMobile ? null : (
+        <>
           <div className="mb-3 flex items-baseline justify-between">
             <div>
               <p className="font-mono text-kicker uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
@@ -92,6 +64,8 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
                 value={-pct}
                 valueText={`${pct > 0 ? "+" : ""}${pct.toFixed(1)}%`}
                 onChange={(v) => setPitch(1 - v / 100)}
+                detentEvery={2}
+                snap={{ at: 0, radius: 0.4 }}
                 ticks={[{ at: -8, label: "+8" }, { at: -4, label: "+4" }, { at: 0, label: "0" }, { at: 4, label: "-4" }, { at: 8, label: "-8" }]}
               />
               <span className="font-mono text-meta tabular-nums text-on-surface">
@@ -123,6 +97,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
               step={1}
               value={Math.round(volume * 100)}
               onChange={(v) => setVolume(v / 100)}
+              detentEvery={10}
             /></span>
             <span className="font-mono text-meta tabular-nums text-on-surface w-8 text-right">{Math.round(volume * 100)}</span>
           </label>
@@ -130,8 +105,128 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
           <p className="mt-3 font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant">
             33⅓ rpm · analog pitch, speed and key move together
           </p>
+        </>
+  );
+
+  function toggle() {
+    haptic("toggle");
+    toggleMute();
+  };
+
+  return (
+    <div className="inline-flex h-11 items-center gap-0.5">
+      <button
+        type="button"
+        role="switch"
+        aria-checked={playing}
+        aria-label={playing ? "Stop the record" : "Play the record"}
+        title={playing ? "Stop the record" : "Play the record"}
+        onClick={toggle}
+        className="inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+      >
+        <span className={["transition-opacity duration-300", playing ? "opacity-100" : "opacity-70"].join(" ")}>
+          <VinylRecord size={disc} playing={playing} pitch={pitch} />
+        </span>
+      </button>
+      {isMobile ? (
+        <Drawer open={open} onOpenChange={setOpen} shouldScaleBackground={false}>
+          <DrawerTrigger asChild>
+          <button
+            type="button"
+            aria-label="Open turntable controls"
+            title="Turntable"
+            onClick={() => haptic("tap")}
+            className="inline-flex h-8 items-center justify-center px-0.5 rounded text-on-surface-variant hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+          >
+            <ChevronDown size={12} strokeWidth={1.5} className={["transition-transform duration-300", open ? "rotate-180" : ""].join(" ")} />
+          </button>
+          </DrawerTrigger>
+          <DrawerContent className="border-outline-variant bg-surface-container px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-2">
+          <DrawerTitle className="sr-only">Turntable controls</DrawerTitle>
+          <div className="mb-3 flex items-baseline justify-between">
+            <div>
+              <p className="font-mono text-kicker uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
+              <p className="font-mono text-meta text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label={playing ? "Lift the needle" : "Drop the needle"}
+              className="shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+            >
+              <VinylRecord size={88} playing={playing} pitch={pitch} sleeve />
+            </button>
+            <div className="flex flex-1 flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <span className="w-12 font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant">Pitch</span>
+                <span className="flex-1">
+                  <SteelFader
+                    label="Pitch"
+                    length={150}
+                    min={-PITCH_RANGE * 100}
+                    max={PITCH_RANGE * 100}
+                    step={0.1}
+                    value={pct}
+                    valueText={`${pct > 0 ? "+" : ""}${pct.toFixed(1)}%`}
+                    onChange={(v) => setPitch(1 + v / 100)}
+                    detentEvery={2}
+                    snap={{ at: 0, radius: 0.4 }}
+                  />
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    haptic("select");
+                    setPitch(1);
+                  }}
+                  className="inline-flex h-8 min-w-[3.25rem] items-center justify-center gap-1 rounded-sm border border-outline-variant px-1.5 font-mono text-meta tabular-nums text-on-surface"
+                  aria-label="Quartz lock: back to 0%"
+                >
+                  <span className={["h-[5px] w-[5px] rounded-full", Math.abs(pct) < 0.05 ? "bg-secondary" : "bg-outline-variant"].join(" ")} />
+                  {pct > 0 ? "+" : ""}
+                  {pct.toFixed(1)}
+                </button>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="w-12 font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant">Volume</span>
+                <span className="flex-1">
+                  <SteelFader
+                    label="Volume"
+                    length={150}
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={Math.round(volume * 100)}
+                    onChange={(v) => setVolume(v / 100)}
+                    detentEvery={10}
+                  />
+                </span>
+                <span className="w-[3.25rem] text-right font-mono text-meta tabular-nums text-on-surface">{Math.round(volume * 100)}</span>
+              </div>
+            </div>
+          </div>
+          </DrawerContent>
+        </Drawer>
+      ) : (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            aria-label="Open turntable controls"
+            title="Turntable"
+            onClick={() => haptic("tap")}
+            className="inline-flex h-8 items-center justify-center px-0.5 rounded text-on-surface-variant hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
+          >
+            <ChevronDown size={12} strokeWidth={1.5} className={["transition-transform duration-300", open ? "rotate-180" : ""].join(" ")} />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent align="end" sideOffset={10} className="w-[300px] p-4 bg-surface-container border-outline-variant">
+          {panel}
         </PopoverContent>
       </Popover>
+      )}
     </div>
   );
 };
