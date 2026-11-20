@@ -11,6 +11,7 @@ import { Seo } from "@/components/Seo";
 import { Icon } from "@/components/ui/Icon";
 import { ExternalMark } from "@/components/ui/ExternalMark";
 import { Reveal } from "@/components/Reveal";
+import { Blend } from "@/components/layout/Blend";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PROJECTS } from "@/content/site";
 import { SONOR_NARRATIVE, sonorSections } from "@/content/pageSections";
@@ -202,6 +203,7 @@ const Sonor = () => {
       </section>
 
       {/* Product interfaces */}
+      <Blend from="surface" to="surface-container" />
       <section id="product" className="py-16 md:py-28 overflow-hidden bg-surface-container scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-16 md:mb-24">
@@ -270,6 +272,7 @@ const Sonor = () => {
         </div>
       </section>
       {/* Narrative */}
+      <Blend from="surface-container" to="surface-container-low" />
       <section className="py-16 md:py-28 bg-surface-container-low scroll-mt-24">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto space-y-16 md:space-y-20">
           {NARRATIVE.map((n) => (
@@ -313,7 +316,8 @@ const Sonor = () => {
       </section>
 
       {/* Acknowledgments */}
-      <section className="py-16 md:py-28 bg-surface border-t border-outline-variant">
+      <Blend from="surface-container-low" to="surface" />
+      <section className="py-16 md:py-28 bg-surface">
         <div className="px-6 md:px-12 max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-headline italic text-heading mb-12">Acknowledgments</h2>
           <p className="text-xl md:text-2xl font-headline text-on-surface-variant leading-relaxed mb-12 md:mb-20 max-w-3xl mx-auto">
@@ -344,7 +348,8 @@ const Sonor = () => {
       </section>
 
       {/* Go Further */}
-      <section className="py-16 md:py-28 bg-surface-container-lowest border-t border-outline-variant">
+      <Blend from="surface" to="surface-container-lowest" />
+      <section className="py-16 md:py-28 bg-surface-container-lowest">
         <div className="px-6 md:px-12 max-w-screen-2xl mx-auto">
           <div className="text-center mb-12 md:mb-20">
             <p className="font-label uppercase tracking-[0.3em] text-kicker text-secondary mb-4">
@@ -382,6 +387,7 @@ const Sonor = () => {
           </div>
         </div>
       </section>
+      <Blend from="surface-container-lowest" to="inverse-ground" />
       <ClosingContact room="sonor" />
 
       <div className="px-6 md:px-12 max-w-screen-2xl mx-auto pb-12 text-right">

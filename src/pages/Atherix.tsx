@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
+import { Blend } from "@/components/layout/Blend";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Seo } from "@/components/Seo";
@@ -310,10 +311,7 @@ const Next = () => (
 
 const Close = () => (
   <>
-    {/* The gradient fades from the page's warm end colour into the section-inverse colour, which this band supplies underneath. */}
-    <div aria-hidden="true" className="section-inverse relative h-32 md:h-[7.5rem]">
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(var(--aetherix-warm)), hsl(var(--aetherix-warm) / 0))" }} />
-    </div>
+    <Blend from="aetherix-warm" to="inverse-ground" />
     <section id="talk" aria-labelledby="talk-heading" className="section-inverse scroll-mt-24 px-8 pb-24 pt-4 text-center md:px-12 md:pb-28">
       <p className={KICKER}>{CLOSE.kicker}</p>
       <h2 id="talk-heading" className="mt-3.5 font-headline text-4xl text-heading md:text-[44px]">{CLOSE.heading}</h2>
