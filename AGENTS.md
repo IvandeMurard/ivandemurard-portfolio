@@ -27,3 +27,4 @@
 - The generated MCP bundle is type-stripped JS checked by Deno, so `supabase/functions/mcp/deno.json` , the shared `supabase/functions/deno.json` and the root `deno.json` (used when functions are checked from the project root) relax implicit-any and MCP tool sources must not rely on stripped annotations to widen literal note types.
 - /.well-known/llms.txt is a prebuild copy of public/llms.txt (scripts/copy-wellknown-llms.ts); edit only the root file so both stay identical.
 - Field Notes index data (titles, decisions, dates, read times, revision dates, knowledge map) is generated into `src/content/journalMeta.generated.ts` by scripts/generate-journal-meta.ts; journalIndex.ts reads only that file so the homepage and /journal never bundle note bodies.
+- Full-width grounds never meet on a hard edge: use the shared Blend (src/components/layout/Blend.tsx, eased, token-based); ContactBlock draws its own entry unless blendFrom is null, so Day and Dusk stay continuous.

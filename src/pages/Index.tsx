@@ -18,6 +18,7 @@ import { CompassMark } from "@/components/rose/CompassMark";
 import { RoseMark } from "@/components/rose/RoseKinetic";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ExternalMark } from "@/components/ui/ExternalMark";
+import { Blend } from "@/components/layout/Blend";
 
 const Tip = ({ label, explain, children }: { label: string; explain: string; children: React.ReactNode }) => (
   <Popover>
@@ -64,10 +65,6 @@ const kicker = "font-mono uppercase tracking-[0.12em] text-kicker";
 const rule = "border-t border-primary";
 const hair = "border-t border-outline-variant";
 
-/** A soft blend between two rooms: no hard edge between sections. */
-const Blend = ({ from, to, height }: { from: string; to: string; height: number }) => (
-  <div aria-hidden="true" data-blend className={`bg-gradient-to-b ${from} ${to}`} style={{ height }} />
-);
 
 const Index = () => {
   const track = useTrackClick();
@@ -120,7 +117,7 @@ const Index = () => {
       </Reveal>
       </div>
 
-      <Blend from="from-surface" to="to-surface-stone" height={120} />
+      <Blend from="surface" to="surface-stone" />
 
       {/* 01 · Flagship teaser, on stone */}
       <section id="work" className="bg-surface-stone scroll-mt-24">
@@ -143,7 +140,7 @@ const Index = () => {
         </Reveal>
       </section>
 
-      <Blend from="from-surface-stone" to="to-surface" height={120} />
+      <Blend from="surface-stone" to="surface" />
 
       {/* 02 · Selected projects, on cream */}
       <section className="bg-surface">
@@ -187,7 +184,7 @@ const Index = () => {
       </Reveal>
       </section>
 
-      <Blend from="from-surface" to="to-surface-peach" height={120} />
+      <Blend from="surface" to="surface-peach" />
 
       {/* 03 · Field Notes, on pale peach */}
       <section className="bg-surface-peach" data-field-notes>
@@ -214,9 +211,9 @@ const Index = () => {
         </Reveal>
       </section>
 
-      <Blend from="from-surface-peach" to="to-inverse-ground" height={160} />
+      <Blend from="surface-peach" to="inverse-ground" />
 
-      <ContactBlock number="04" />
+      <ContactBlock number="04" blendFrom={null} />
     </SiteLayout>
   );
 };

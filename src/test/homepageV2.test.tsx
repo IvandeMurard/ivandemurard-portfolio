@@ -123,13 +123,13 @@ describe("The rooms of the homepage", () => {
     const { container } = render(wrap(<Index />));
     const main = container.querySelector("main") ?? container;
     const kids = [...main.children].filter((el) => el.tagName !== "SCRIPT");
-    const sig = kids.map((el) => (el.hasAttribute("data-blend") ? `blend:${(el as HTMLElement).style.height}` : el.hasAttribute("data-hero") ? "hero:surface" : el.id === "work" ? "flagship:stone" : el.hasAttribute("data-field-notes") ? "notes:peach" : el.id === "contact" ? "contact" : el.className.includes("bg-surface") ? "selected:surface" : "?"));
-    expect(sig).toEqual(["hero:surface", "blend:120px", "flagship:stone", "blend:120px", "selected:surface", "blend:120px", "notes:peach", "blend:160px", "contact"]);
+    const sig = kids.map((el) => (el.hasAttribute("data-blend") ? "blend" : el.hasAttribute("data-hero") ? "hero:surface" : el.id === "work" ? "flagship:stone" : el.hasAttribute("data-field-notes") ? "notes:peach" : el.id === "contact" ? "contact" : el.className.includes("bg-surface") ? "selected:surface" : "?"));
+    expect(sig).toEqual(["hero:surface", "blend", "flagship:stone", "blend", "selected:surface", "blend", "notes:peach", "blend", "contact"]);
     expect(container.querySelector("[data-hero]")!.className).toContain("bg-surface");
     expect(container.querySelector("#work")!.className).toContain("bg-surface-stone");
     expect(container.querySelector("[data-field-notes]")!.className).toContain("bg-surface-peach");
-    const blends = [...container.querySelectorAll("[data-blend]")].map((b) => b.className.replace("bg-gradient-to-b ", ""));
-    expect(blends).toEqual(["from-surface to-surface-stone", "from-surface-stone to-surface", "from-surface to-surface-peach", "from-surface-peach to-inverse-ground"]);
+    const blends = [...container.querySelectorAll("[data-blend]")].map((b) => b.getAttribute("data-blend"));
+    expect(blends).toEqual(["surface>surface-stone", "surface-stone>surface", "surface>surface-peach", "surface-peach>inverse-ground"]);
   });
 
   it("keeps the hero kicker as it was, without a clock in it", () => {

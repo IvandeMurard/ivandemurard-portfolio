@@ -1176,6 +1176,16 @@
    2400 ms. The whole glow warms in once, 1.2 s, on arrival. Off with prefers-reduced-motion. It sits behind the
    text, so it never moves the layout nor the LCP text. Values: docs/homepage-prototype (board K v2). */
 .hero-glow { position: absolute; inset: 0; pointer-events: none; }
+.hero-glow { -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); }
+/* Site-wide passage between two grounds: an eased gradient (see components/layout/Blend.tsx). */
+.room-blend { background: linear-gradient(to bottom,
+  hsl(var(--blend-from)) 0%,
+  color-mix(in oklab, hsl(var(--blend-to)) 6%, hsl(var(--blend-from))) 18%,
+  color-mix(in oklab, hsl(var(--blend-to)) 22%, hsl(var(--blend-from))) 34%,
+  color-mix(in oklab, hsl(var(--blend-to)) 50%, hsl(var(--blend-from))) 50%,
+  color-mix(in oklab, hsl(var(--blend-to)) 78%, hsl(var(--blend-from))) 66%,
+  color-mix(in oklab, hsl(var(--blend-to)) 94%, hsl(var(--blend-from))) 82%,
+  hsl(var(--blend-to)) 100%); }
 .hero-glow[data-arrive] { animation: hero-glow-arrive 1200ms ease-out both; }
 .hero-glow-layer { position: absolute; inset: 0; opacity: 0; transition: opacity 2400ms cubic-bezier(0.22, 1, 0.36, 1); }
 .hero-glow-layer[data-active] { opacity: 1; }
