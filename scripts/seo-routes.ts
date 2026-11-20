@@ -353,7 +353,7 @@ export const SEO_ROUTES: SeoRoute[] = [
     markdown: "one-text-three-readers.md",
     title: "What is agent experience (AX)? One text, three readers · Ivan de Murard",
     description:
-      "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines. What does each reader actually get?",
+      "Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines. What a person, an assistant and an outside agent each get from the same page.",
     type: "article",
     changefreq: "monthly",
     priority: "0.7",

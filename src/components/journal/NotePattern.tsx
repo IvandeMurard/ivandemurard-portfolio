@@ -46,9 +46,9 @@ export const NoteHook = ({ entry }: { entry: JournalEntry }) => (
 
 export const NoteIntro = ({ entry }: { entry: JournalEntry }) => (
   <>
-    <p className="mt-7 font-body text-[17px] leading-relaxed text-on-surface">{entry.intro}</p>
+    {entry.intro && <p className="mt-7 font-body text-[17px] leading-relaxed text-on-surface">{entry.intro}</p>}
     {entry.subtitle && !entry.subtitle.includes(entry.hook) && (
-      <p className="mt-4 font-body text-base leading-relaxed text-on-surface-variant">{entry.subtitle}</p>
+      <p className={cn(entry.intro ? "mt-4" : "mt-7", "font-body text-base leading-relaxed text-on-surface-variant")}>{entry.subtitle}</p>
     )}
   </>
 );

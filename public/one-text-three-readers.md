@@ -2,8 +2,6 @@
 
 Every page on this site has three readers, you, Rose and whatever agent fetched it this morning, and only one of them can read between the lines.
 
-What does each reader actually get?
-
 What a person, an assistant and an outside agent each get from the same page.
 
 Product · 2026-11-20 · 8 min read
