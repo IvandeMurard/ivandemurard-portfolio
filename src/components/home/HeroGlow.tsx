@@ -24,7 +24,7 @@ export const HeroGlow = () => {
   const sun = sunTimes(date);
   const active = heroLight(minutes, m, sun);
   const light = sunLight(minutes, sun);
-  // Day mood: the real sun by day, a low rosy light at civil dawn and dusk, and a faint persistent twilight at night.
+  // Day mood: the real sun by day, a low blue-violet light at civil dawn and dusk, and a faint persistent twilight at night.
   // Dusk mood: the beam appears only at civil dawn and dusk, fainter, under the lamp.
   const twilight = light.phase !== "day";
   const strength = m === "day"
@@ -46,7 +46,7 @@ export const HeroGlow = () => {
       {LIGHTS.map((l) => (
         <div key={l} className="hero-glow-layer" data-light={l} {...(l === active ? { "data-active": "" } : {})} />
       ))}
-      <div className="hero-sun" style={style} {...(lit ? { "data-lit": "" } : {})} {...(lit && twilight ? { "data-twilight": "" } : {})}><div className="hero-sun-pane" /></div>
+      <div className="hero-sun" style={style} {...(lit ? { "data-lit": "" } : {})} {...(lit && twilight ? { "data-twilight": light.phase } : {})}><div className="hero-sun-pane" /></div>
       <div className="hero-grain" />
     </div>
   );
