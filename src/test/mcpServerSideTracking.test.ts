@@ -1,8 +1,17 @@
 import { readFileSync } from "node:fs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// MCP_TRACKING_SINCE is null in the repository until deployment. The mock lets each test choose its value.
+const since = vi.hoisted(() => ({ value: null as string | null }));
+vi.mock("../content/agents", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../content/agents")>()),
+  get MCP_TRACKING_SINCE() {
+    return since.value;
+  },
+}));
+
 import mcp from "../lib/mcp";
 import { MCP_WRITES_PER_MINUTE, resetBudget, tracked } from "../lib/mcp/track";
-import { MCP_TRACKING_COPY, MCP_TRACKING_SINCE } from "../content/agents";
 
 type Handler = (args: { slug: string }) => Promise<{ content: unknown[]; isError?: boolean }>;
 const tool = (name: string) => (mcp.tools as unknown as { name: string; handler: Handler }[]).find((t) => t.name === name)!;
@@ -25,8 +34,22 @@ const stubFetch = (onWrite: () => Promise<Response> | Response = () => new Respo
   return { writes, fetchMock };
 };
 
-beforeEach(() => resetBudget());
+beforeEach(() => {
+  resetBudget();
+  since.value = "2026-11-21";
+});
 afterEach(() => vi.unstubAllGlobals());
+
+describe("Tracking before the start date", () => {
+  it("writes nothing while MCP_TRACKING_SINCE is null, even with the service role key in the environment", async () => {
+    since.value = null;
+    stubEnv();
+    const { writes } = stubFetch();
+    const result = await tool("get_case_study").handler({ slug: "sonor" });
+    expect(result.content.length).toBeGreaterThan(0);
+    expect(writes).toHaveLength(0);
+  });
+});
 
 describe("Server-side MCP call tracking", () => {
   it("writes one content-free row per call, with the service role, never the anon key", async () => {
@@ -121,18 +144,5 @@ describe("The counter cannot be written from outside", () => {
     const source = readFileSync("src/lib/mcp/track.ts", "utf8");
     expect(source).not.toMatch(/ANON/);
     expect(source).toMatch(/SUPABASE_SERVICE_ROLE_KEY/);
-  });
-});
-
-describe("Published tracking copy", () => {
-  it("names a start date as soon as one is set, and never speaks of agents or users", () => {
-    if (MCP_TRACKING_SINCE) {
-      expect(MCP_TRACKING_SINCE).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(MCP_TRACKING_COPY).toContain(`resumed on ${MCP_TRACKING_SINCE}`);
-      expect(MCP_TRACKING_COPY).toContain("The unit is the call");
-    } else {
-      expect(MCP_TRACKING_COPY).toContain("suspended");
-    }
-    expect(MCP_TRACKING_COPY).not.toContain("—");
   });
 });

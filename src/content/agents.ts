@@ -23,10 +23,10 @@ export const AGENTS_DOC = {
   ],
   tools: [
     ["list_case_studies", "every case study: slug, label, tagline, status, URL"],
-    ["get_case_study", "one case study in full, as Markdown"],
+    ["get_case_study", "one case study in full, as Markdown; pass outline_only for its section titles, then section to read one part"],
     ["get_about", "bio, CV and contact links"],
     ["list_journal_entries", "every Field Note: title, date, category, excerpt"],
-    ["get_journal_entry", "one Field Note in full, as Markdown"],
+    ["get_journal_entry", "one Field Note in full, as Markdown; pass outline_only for its section titles, then section to read one part"],
   ],
   files: [
     ["/llms.txt", "short index of the site, for language models"],

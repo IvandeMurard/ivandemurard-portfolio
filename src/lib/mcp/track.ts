@@ -10,6 +10,8 @@
  * and the call still succeeds. The count is per instance (in memory), so it bounds the damage of a flood without
  * being a global quota.
  */
+import { MCP_TRACKING_SINCE } from "../../content/agents";
+
 export const MCP_WRITES_PER_MINUTE = 60;
 export const MCP_TRACKED_TOOLS = [
   "list_case_studies",
@@ -45,6 +47,8 @@ export function resetBudget(): void {
 
 export function logMcpCall(tool: string, ok: boolean): void {
   try {
+    // Counting starts on the date set at deployment; until then nothing is written, whatever the environment holds.
+    if (!MCP_TRACKING_SINCE) return;
     if (!(MCP_TRACKED_TOOLS as readonly string[]).includes(tool)) return;
     const url = env("SUPABASE_URL");
     const key = env("SUPABASE_SERVICE_ROLE_KEY");

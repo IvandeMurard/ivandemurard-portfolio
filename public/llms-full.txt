@@ -1712,7 +1712,7 @@ Markdown: https://ivandemurard.com/agents.md
 
 # ivandemurard.com · for agents
 
-Public. Read-only. No key. Last updated 2026-11-19.
+Public. Read-only. No key. Last updated 2026-11-20.
 
 > Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.
 
@@ -1733,10 +1733,10 @@ https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp
 ## Tools
 
 - list_case_studies · every case study: slug, label, tagline, status, URL
-- get_case_study · one case study in full, as Markdown
+- get_case_study · one case study in full, as Markdown; pass outline_only for its section titles, then section to read one part
 - get_about · bio, CV and contact links
 - list_journal_entries · every Field Note: title, date, category, excerpt
-- get_journal_entry · one Field Note in full, as Markdown
+- get_journal_entry · one Field Note in full, as Markdown; pass outline_only for its section titles, then section to read one part
 
 ## Files
 
