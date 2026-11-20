@@ -11,7 +11,8 @@
     { "id": "peritia", "label": "Peritia" },
     { "id": "sonor", "label": "Sonor" },
     { "id": "lore", "label": "Lore" },
-    { "id": "compass", "label": "Compass" }
+    { "id": "compass", "label": "Compass" },
+    { "id": "field-note-readers", "label": "Field Notes (one text, three readers)" }
   ],
   "edges": [
     { "from": "rose", "link": "answers from", "to": "every-page", "reason": "Rose answers from the page you are on first, then from the rest of the site.", "indirect": false },
@@ -23,7 +24,8 @@
     { "from": "peritia", "link": "part of, design", "to": "orchestrator", "reason": "The trade agent, named in the contract, with no code yet. Links to /architecture.", "indirect": false },
     { "from": "tacet", "link": "direct, while the orchestrator is not the way through", "to": "aetherix", "reason": "While the orchestrator is not the way through, Tacet's output reaches Aetherix directly: non-personal, read-only, logged.", "indirect": true },
     { "from": "sonor", "link": "inspired", "to": "tacet", "reason": "Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels.", "indirect": true },
-    { "from": "lore", "link": "same thesis", "to": "aetherix", "reason": "The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project.", "indirect": true }
+    { "from": "lore", "link": "same thesis", "to": "aetherix", "reason": "The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project.", "indirect": true },
+    { "from": "rose", "link": "how she reads the site", "to": "field-note-readers", "reason": "This Field Note shows how one source serves Rose, visitors and outside agents, each in the form they need.", "indirect": false }
   ],
   "standalone": [
     { "node": "compass", "reason": "Standalone project." }

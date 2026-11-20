@@ -1,4 +1,5 @@
 import { GRAPH_EDGES, GRAPH_NODES, GRAPH_STANDALONE, RELATIONS_MAP as R, nodeLabel, relationRows } from "@/content/relationsMap";
+import { TransitionLink as Link } from "@/hooks/useViewTransition";
 import "./relationsMap.css";
 
 /**
@@ -15,6 +16,7 @@ const BOX: Record<string, Box> = {
   "every-page": { x: 196, y: 70, w: 120, h: 40 },
   evaluation: { x: 58, y: 190, w: 96, h: 40 },
   "field-notes": { x: 196, y: 190, w: 150, h: 56, lines: ["Field Notes", "evaluation harness"] },
+  "field-note-readers": { x: 196, y: 126, w: 150, h: 44, lines: ["Field Notes", "three readers"] },
   orchestrator: { x: 520, y: 100, w: 150, h: 40 },
   aetherix: { x: 340, y: 220, w: 96, h: 44 },
   tacet: { x: 460, y: 220, w: 96, h: 44 },
@@ -24,6 +26,9 @@ const BOX: Record<string, Box> = {
   sonor: { x: 460, y: 380, w: 96, h: 40 },
   compass: { x: 700, y: 380, w: 96, h: 40 },
 };
+
+/** The nodes that open a page. Layout-side only: the label and the reason stay in portfolio-graph.json. */
+const HREF: Record<string, string> = { "field-note-readers": "/journal/one-text-three-readers" };
 
 /** Where the segment between two box centres leaves the first box and enters the second, with a 3px gap. */
 const clip = (a: Box, b: Box) => {
@@ -45,7 +50,7 @@ const Drawing = () => (
     {GRAPH_NODES.map((n) => {
       const b = BOX[n.id];
       const lines = b.lines ?? [n.label];
-      return (
+      const node = (
         <g key={n.id}>
           <rect x={b.x - b.w / 2} y={b.y - b.h / 2} width={b.w} height={b.h} rx="12" className="rm-node" strokeWidth="1.5" />
           {lines.map((l, i) => (
@@ -53,6 +58,8 @@ const Drawing = () => (
           ))}
         </g>
       );
+      // The drawing is aria-hidden: its link is for a pointer only (tabIndex -1). The list below has the keyboard and screen reader link.
+      return HREF[n.id] ? <a key={n.id} href={HREF[n.id]} tabIndex={-1} className="rm-node-link">{node}</a> : node;
     })}
   </svg>
 );
@@ -67,7 +74,11 @@ export const RelationsMap = () => (
             <p className="m-0 flex flex-wrap items-baseline gap-x-2 gap-y-1 font-body text-base text-on-surface">
               <span className="font-semibold">{r.from.join(", ")}</span>{" "}
               <span className="rm-link font-mono text-meta text-on-surface-variant" data-indirect={r.indirect ? "" : undefined}>{r.link}</span>{" "}
-              <span className="font-semibold">{r.to}</span>
+              {HREF[r.toId] ? (
+                <Link to={HREF[r.toId]} className="font-semibold text-primary underline decoration-secondary underline-offset-4 hover:text-secondary">{r.to}</Link>
+              ) : (
+                <span className="font-semibold">{r.to}</span>
+              )}
             </p>{" "}
             <p className="m-0 mt-1 font-body text-[15px] leading-normal text-on-surface-variant">{r.reason}</p>
           </li>

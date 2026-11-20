@@ -621,6 +621,8 @@ How Rose works. Solid lines are built; dashed lines are design.
   Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels.
 - Lore same thesis Aetherix
   The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project.
+- Rose how she reads the site Field Notes (one text, three readers)
+  This Field Note shows how one source serves Rose, visitors and outside agents, each in the form they need.
 - Compass
   Standalone project.
 

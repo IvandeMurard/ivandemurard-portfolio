@@ -143,6 +143,7 @@ One source, portfolio-graph.json, read by the case studies index (projects only)
 | Tacet | direct, while the orchestrator is not the way through (dashed) | Aetherix | While the orchestrator is not the way through, Tacet's output reaches Aetherix directly: non-personal, read-only, logged. | architecture.md, tacet.md |
 | Sonor | inspired (dashed) | Tacet | Tacet carries Sonor's acoustic thesis forward, as an environmental twin for boutique hotels. | sonor.md |
 | Lore | same thesis (dashed) | Aetherix | The same thesis, one industry over: a manager who leaves and a technician who retires take the same knowledge with them. Lore stays a standalone project. | lore.md |
+| Rose | how she reads the site | Field Notes (one text, three readers) | This Field Note shows how one source serves Rose, visitors and outside agents, each in the form they need. | one-text-three-readers.md |
 | Compass | none |  | Standalone project. | MCP instructions |
 
 ## Chapter 07: Trust

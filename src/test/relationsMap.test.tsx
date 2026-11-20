@@ -29,6 +29,7 @@ describe("portfolio-graph.json, the one source", () => {
       "Tacet | direct, while the orchestrator is not the way through | Aetherix",
       "Sonor | inspired | Tacet",
       "Lore | same thesis | Aetherix",
+      "Rose | how she reads the site | Field Notes (one text, three readers)",
     ]);
     for (const e of GRAPH_EDGES) expect(deck, e.reason).toContain(e.reason);
     expect(GRAPH_STANDALONE).toEqual([{ node: "compass", reason: "Standalone project." }]);
@@ -60,11 +61,12 @@ describe("portfolio-graph.json, the one source", () => {
 
 describe("The list, which is the reading order", () => {
   it("has one row per group of edges: from, link, to, then the reason, and Compass last", () => {
-    render(<RelationsMap />);
+    render(<MemoryRouter><RelationsMap /></MemoryRouter>);
     const items = screen.getAllByRole("listitem");
-    expect(items).toHaveLength(8 + 1);
+    expect(items).toHaveLength(9 + 1);
     expect(items[3].textContent).toBe(`Aetherix, Tacet, Anima part of, built Orchestrator ${GRAPH_EDGES[3].reason}`);
-    expect(items[8].textContent).toBe("Compass Standalone project.");
+    expect(items[8].textContent).toBe(`Rose how she reads the site Field Notes (one text, three readers) ${GRAPH_EDGES[10].reason}`);
+    expect(items[9].textContent).toBe("Compass Standalone project.");
     relationRows().forEach((r, i) => {
       expect(items[i].textContent).toContain(r.from.join(", "));
       expect(items[i].textContent).toContain(r.reason);
@@ -72,14 +74,14 @@ describe("The list, which is the reading order", () => {
   });
 
   it("draws dashed link pills for the indirect rows only", () => {
-    const { container } = render(<RelationsMap />);
+    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
     const dashed = [...container.querySelectorAll(".rm-link[data-indirect]")].map((n) => n.textContent);
     expect(dashed).toEqual(["direct, while the orchestrator is not the way through", "inspired", "same thesis"]);
     expect([...container.querySelectorAll(".rm-link")].find((n) => n.textContent === "part of, design")?.hasAttribute("data-indirect")).toBe(false);
   });
 
   it("says the caption, then the note, in the v2 words", () => {
-    const { container } = render(<RelationsMap />);
+    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
     const fig = container.querySelector("figure") as HTMLElement;
     expect(fig.querySelector("figcaption")?.textContent).toBe("What Rose can relate. I write these links by hand, and each carries a one-line reason.");
     expect(fig.lastElementChild?.textContent).toBe("Rose links what the site's pages say about each project. A dashed label marks an indirect link.");
@@ -90,13 +92,22 @@ describe("The list, which is the reading order", () => {
 
 describe("The drawing", () => {
   it("is aria-hidden, one line per edge and one box per node, dashed lines for the indirect edges", () => {
-    const { container } = render(<RelationsMap />);
+    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
     const svg = container.querySelector("svg.rm-bg") as SVGElement;
     expect(svg.getAttribute("aria-hidden")).toBe("true");
     const lines = [...svg.querySelectorAll("line")];
     expect(lines).toHaveLength(GRAPH_EDGES.length);
     expect(lines.filter((l) => l.hasAttribute("stroke-dasharray"))).toHaveLength(3);
     expect(svg.querySelectorAll("rect.rm-node")).toHaveLength(GRAPH_NODES.length);
+  });
+
+  it("links the Field Note node to its page: in the list for the keyboard, in the drawing for a pointer only", () => {
+    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
+    const inList = [...container.querySelectorAll(".rm-list a")].map((a) => a.getAttribute("href"));
+    expect(inList).toEqual(["/journal/one-text-three-readers"]);
+    const inDrawing = container.querySelector("svg.rm-bg a");
+    expect(inDrawing?.getAttribute("href")).toBe("/journal/one-text-three-readers");
+    expect(inDrawing?.getAttribute("tabindex")).toBe("-1");
   });
 
   it("switches on a container query of 720px, never on the viewport, and uses tokens only", () => {
