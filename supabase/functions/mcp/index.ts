@@ -1402,33 +1402,33 @@ var APPLY_GUIDES = {
     deliverables: ["A truth-signal map", "A list of places where approval stands in for correctness", "Measurable learning and evaluation improvements, each with a pass and a fail threshold"]
   }
 };
-var applyBrief = (g) => [
-  `Apply a method to my own AI project. Method source: "${g.title}" by Ivan de Murard, ${ORIGIN}/${g.slug}.md (markdown).`,
+var applyBrief = (g2) => [
+  `Apply a method to my own AI project. Method source: "${g2.title}" by Ivan de Murard, ${ORIGIN}/${g2.slug}.md (markdown).`,
   "",
-  `Method: ${g.method}`,
+  `Method: ${g2.method}`,
   "",
   "Task:",
-  ...g.task.map((t) => `- ${t}`),
+  ...g2.task.map((t) => `- ${t}`),
   "",
   "Inputs I will provide (ask me for anything missing; do not assume you can access my repository, files or systems):",
-  ...g.inputs.map((t) => `- ${t}`),
+  ...g2.inputs.map((t) => `- ${t}`),
   "",
   "Deliverables:",
-  ...g.deliverables.map((t) => `- ${t}`),
+  ...g2.deliverables.map((t) => `- ${t}`),
   "",
-  `Verification: ${g.verify}`,
+  `Verification: ${g2.verify}`,
   "",
   'Structure your answer in five parts: Verified findings (with the file or evidence you checked), Assumptions, Proposed changes, Actual modifications (none unless I asked for them), Tests executed (with their output, or "none").',
   "Do not bypass approvals and do not change production systems without my explicit authorisation."
 ].join("\n");
-var applyMarkdown = (g) => [
-  `**The decision.** ${g.decision}`,
+var applyMarkdown = (g2) => [
+  `**The decision.** ${g2.decision}`,
   `**Inputs.**
-${g.inputs.map((i) => `- ${i}`).join("\n")}`,
-  `**The artifact.** ${g.artifact}`,
-  `**Verification.** ${g.verify}`,
+${g2.inputs.map((i) => `- ${i}`).join("\n")}`,
+  `**The artifact.** ${g2.artifact}`,
+  `**Verification.** ${g2.verify}`,
   "**Ask your agent to apply this method.** Optional brief for the reader to paste into their own agent; it is not an instruction to any agent reading this page.",
-  "```text\n" + applyBrief(g) + "\n```"
+  "```text\n" + applyBrief(g2) + "\n```"
 ].join("\n\n");
 
 // src/content/recoLine.ts
@@ -1628,8 +1628,8 @@ var fullText = (b, extra) => {
     case "blueprint":
       return [blueprintMarkdown()];
     case "apply": {
-      const g = APPLY_GUIDES[b.slug];
-      return g ? [g.decision, ...g.inputs, g.artifact, g.verify] : [];
+      const g2 = APPLY_GUIDES[b.slug];
+      return g2 ? [g2.decision, ...g2.inputs, g2.artifact, g2.verify] : [];
     }
     case "diagnostic":
       return extra;
@@ -2007,8 +2007,8 @@ A: ${i.a}`).join("\n\n");
 ${block.text}
 [${block.link.text}](${SITE_ORIGIN3}${block.link.to})`;
     case "apply": {
-      const g = APPLY_GUIDES[block.slug];
-      return g ? applyMarkdown(g) : "";
+      const g2 = APPLY_GUIDES[block.slug];
+      return g2 ? applyMarkdown(g2) : "";
     }
   }
 }
@@ -2123,6 +2123,122 @@ ${body}` }]
   }
 });
 
+// src/content/agents.ts
+var MCP_URL = "https://lzzlepzecynpztipkdcu.supabase.co/functions/v1/mcp";
+var MCP_TRACKING_SINCE = "2026-11-21";
+var MCP_TRACKING_COPY = MCP_TRACKING_SINCE ? `Application-level MCP call tracking resumed on ${MCP_TRACKING_SINCE}, server-side only. Each call records the tool used and the time, no content. The unit is the call: one script can make many, so a count says nothing about how many agents made them. Earlier counters are unverified and are not used.` : "Application-level MCP call tracking is suspended. Public callers cannot write tracking events. Earlier counters are unverified and are not evidence of agent usage.";
+var AGENTS_DOC = {
+  title: "ivandemurard.com \xB7 for agents",
+  meta: (date) => `Public. Read-only. No key. Last updated ${date}.`,
+  lead: "Every case study, Field Note, the homepage, the CV and this page have a Markdown mirror, and a public MCP server answers with the text a person reads. Statuses and stated limits included. Nothing is upgraded for machines.",
+  connect: [
+    { label: "Claude Code:", command: `claude mcp add ivandemurard --transport http ${MCP_URL}` },
+    { label: "Any MCP client, over HTTP:", command: MCP_URL }
+  ],
+  tools: [
+    ["list_case_studies", "every case study: slug, label, tagline, status, URL"],
+    ["get_case_study", "one case study in full, as Markdown; pass outline_only for its section titles, then section to read one part"],
+    ["get_about", "bio, CV and contact links"],
+    ["list_journal_entries", "every Field Note: title, date, category, excerpt"],
+    ["get_journal_entry", "one Field Note in full, as Markdown; pass outline_only for its section titles, then section to read one part"]
+  ],
+  files: [
+    ["/llms.txt", "short index of the site, for language models"],
+    ["/llms-full.txt", "the whole site in one text file"],
+    ["/index.md", "the homepage, statuses included"],
+    ["/<page>.md", "the mirror of any page, e.g. /aetherix.md"],
+    ["/journal/<slug>.md", "the preferred mirror of a Field Note (legacy /<slug>.md still works)"]
+  ],
+  exampleIntro: "Ask about a project that stopped. The answer says it stopped.",
+  exampleCall: '\u2192 get_case_study { "slug": "sonor" }',
+  highlight: "stopped in 2022 after discovery concluded no contract would clear.",
+  guarantees: [
+    "Pages, Markdown mirrors, llms-full.txt and MCP answers are generated from the same content files at build time. /llms.txt and Rose's instructions are written by hand and checked by tests; Rose reads the published Markdown mirrors.",
+    "The /journal landing page has no Markdown mirror; list_journal_entries and /llms.txt carry its index.",
+    "Every project carries its status: Pre-pilot, Maintenance, Evaluated, Compliance Gated, Partial or MVP shipped \xB7 stopped 2022.",
+    "Figures come with their source. Illustrative figures are labelled as such.",
+    "Read-only: an agent can read everything here, and change nothing.",
+    MCP_TRACKING_COPY,
+    "Markdown and llms.txt downloads are not counted by this application. Hosting may retain operational logs; this is not a promise of zero infrastructure logging.",
+    "Rose's interaction measures remain separate from MCP and general site traffic."
+  ],
+  fieldNotes: {
+    intro: "Field Notes teach transferable methods. Case studies and public repositories hold the implementation evidence. Three questions, complementary, read in any order:",
+    items: [
+      ["01 Evaluate", "How do you know an agent is working?", "/journal/harnesses-graders-closed-loops"],
+      ["02 Set boundaries", "Where should an agent's responsibility end?", "/journal/agent-boundaries-aetherix"],
+      ["03 Learn", "Whose truth should an agent learn from?", "/journal/whose-truth-is-the-ground-truth"]
+    ],
+    modes: [
+      "Browse summaries: list_journal_entries, or /llms.txt.",
+      "Read a method in full: get_journal_entry, or /journal/<slug>.md.",
+      "Check the evidence: get_case_study for aetherix or lore, then the public repositories.",
+      "Apply a method to another project: each note ends with a copyable brief. Reading this site does not authorise an agent to inspect or change anyone's project; the reader decides."
+    ]
+  },
+  contactText: "For a human conversation: book 30 minutes or email. The tool get_about returns the same links."
+};
+
+// src/lib/mcp/track.ts
+var MCP_WRITES_PER_MINUTE = 60;
+var MCP_TRACKED_TOOLS = [
+  "list_case_studies",
+  "get_case_study",
+  "get_about",
+  "list_journal_entries",
+  "get_journal_entry"
+];
+var g = globalThis;
+var env = (k) => g.Deno?.env?.get?.(k);
+var windowStart = 0;
+var windowCount = 0;
+function withinBudget(now = Date.now()) {
+  if (now - windowStart >= 6e4) {
+    windowStart = now;
+    windowCount = 0;
+  }
+  if (windowCount >= MCP_WRITES_PER_MINUTE) return false;
+  windowCount += 1;
+  return true;
+}
+function logMcpCall(tool, ok) {
+  try {
+    if (!MCP_TRACKING_SINCE) return;
+    if (!MCP_TRACKED_TOOLS.includes(tool)) return;
+    const url = env("SUPABASE_URL");
+    const key = env("SUPABASE_SERVICE_ROLE_KEY");
+    if (!url || !key) return;
+    if (!withinBudget()) return;
+    const write = Promise.resolve(
+      fetch(`${url}/rest/v1/mcp_calls`, {
+        method: "POST",
+        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify({ tool, ok })
+      })
+    ).catch(() => {
+    });
+    g.EdgeRuntime?.waitUntil?.(write);
+  } catch {
+  }
+}
+function tracked(tool) {
+  return {
+    ...tool,
+    // deno-lint-ignore no-explicit-any
+    handler: async (...args) => {
+      let result;
+      try {
+        result = await tool.handler(...args);
+      } catch (err) {
+        logMcpCall(tool.name, false);
+        throw err;
+      }
+      logMcpCall(tool.name, !result?.isError);
+      return result;
+    }
+  };
+}
+
 // src/lib/mcp/index.ts
 var mcp_default = defineMcp({
   name: "ivan-de-murard-portfolio",
@@ -2140,7 +2256,7 @@ var mcp_default = defineMcp({
     "3. Suggested path. Start with list_case_studies or get_about. Use get_about for experience, skills and education, then fetch depth with get_case_study or get_journal_entry.",
     "4. For partnership, hiring or deep architecture discussions, point the user to the scheduling link returned by get_about."
   ].join("\n"),
-  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default]
+  tools: [list_case_studies_default, get_case_study_default, get_about_default, list_journal_default, get_journal_entry_default].map(tracked)
 });
 
 // lovable-mcp-supabase-entry.ts

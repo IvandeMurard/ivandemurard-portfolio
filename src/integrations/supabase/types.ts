@@ -47,6 +47,27 @@ export type Database = {
         }
         Relationships: []
       }
+      mcp_calls: {
+        Row: {
+          created_at: string
+          id: string
+          ok: boolean
+          tool: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ok: boolean
+          tool: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ok?: boolean
+          tool?: string
+        }
+        Relationships: []
+      }
       mcp_events: {
         Row: {
           created_at: string

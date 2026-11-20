@@ -1,0 +1,1 @@
+COMMENT ON TABLE public.mcp_calls IS 'Server-side MCP call counter: tool, time, ok. Service role only.';
