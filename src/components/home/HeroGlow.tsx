@@ -23,14 +23,17 @@ export const HeroGlow = () => {
   const m = preview ?? mood;
   const sun = sunTimes(date);
   const active = heroLight(minutes, m, sun);
-  const path = sunPath(minutes, sun);
-  const lit = m === "day" && path.up;
+  const live = sunPath(minutes, sun);
+  // Twilight persistence: by day mood with the sun down, the last (or first) low light stays on the wall, faint,
+  // on the horizon side the sun left by (sunset before midnight, sunrise after).
+  const path = live.up ? live : { up: false, progress: minutes >= sun.sunset ? 1 : 0, elevation: 0.08 };
+  const lit = m === "day";
   const style = {
     "--sun-x": `${(82 - 52 * path.progress).toFixed(2)}%`,
     "--sun-y": `${(4 + 14 * path.elevation).toFixed(2)}%`,
     "--sun-skew": `${(-28 + 56 * path.progress).toFixed(2)}deg`,
     "--sun-len": `${(1.7 - 0.7 * path.elevation).toFixed(3)}`,
-    "--sun-strength": `${(0.35 + 0.4 * Math.min(1, path.elevation * 2.2)).toFixed(3)}`,
+    "--sun-strength": `${(live.up ? 0.55 + 0.4 * Math.min(1, path.elevation * 2.2) : 0.45).toFixed(3)}`,
   } as CSSProperties;
   const [arrive] = useState(() => !arrived);
   useEffect(() => { arrived = true; }, []);
@@ -39,7 +42,7 @@ export const HeroGlow = () => {
       {LIGHTS.map((l) => (
         <div key={l} className="hero-glow-layer" data-light={l} {...(l === active ? { "data-active": "" } : {})} />
       ))}
-      <div className="hero-sun" style={style} {...(lit ? { "data-lit": "" } : {})}><div className="hero-sun-pane" /></div>
+      <div className="hero-sun" style={style} {...(lit ? { "data-lit": "" } : {})} {...(lit && !live.up ? { "data-twilight": "" } : {})}><div className="hero-sun-pane" /></div>
       <div className="hero-grain" />
     </div>
   );
