@@ -45,7 +45,7 @@ describe("Listen model strategy", () => {
   const urls = (f: ReturnType<typeof vi.fn>) => f.mock.calls.map((c) => String(c[0]));
 
   it("uses text-to-speech with eleven_v4 first, with this voice and its timestamps", async () => {
-    const f = vi.fn(async () => ok("Hi there."));
+    const f = vi.fn(async (_url: string, _init?: RequestInit) => ok("Hi there."));
     const r = await synthesizeListen("Hi there.", "k", f as never, null);
     expect(r.plan).toBe("tts-v4");
     expect(r.model).toBe("eleven_v4");
