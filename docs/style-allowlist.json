@@ -70,5 +70,11 @@
     "pattern": "theatrical-fragment",
     "text": "Tell me.",
     "reason": "validated copy, 3 Nov 2026: the chapter 10 heading of the page"
+  },
+  {
+    "file": "src/content/listenSummaries.ts",
+    "pattern": "mood-word",
+    "text": "quietly",
+    "reason": "validated spoken summary, 21 Nov 2026: the recorded take says this word, so the text cannot change without a new recording"
   }
 ]

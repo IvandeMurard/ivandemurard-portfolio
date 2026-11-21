@@ -39,7 +39,7 @@ TL;DR, four short rows under the hero:
 |---|---|
 | The problem | A case study shows the work, but it cannot answer a visitor's own question. |
 | Five decisions | Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust. |
-| Today | Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book. |
+| Today | Rose is live. She answers in text and, in pilot, reads two page summaries and her factual answers aloud. She sends nothing when you book. |
 | Still open | Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle. |
 
 Chapter 04 changes title from "One quiet dock" to "One dock", because "quiet" is on the banned mood-word list.
