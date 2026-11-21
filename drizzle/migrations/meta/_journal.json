@@ -85,6 +85,13 @@
       "when": 1795193289975,
       "tag": "0011_confirm_mcp_calls",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1795280000000,
+      "tag": "0012_rose_listen",
+      "breakpoints": true
     }
   ]
 }

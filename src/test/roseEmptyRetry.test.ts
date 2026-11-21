@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { retryIfEmpty, isRoseAnswerChunk, type RoseRetryInfo } from "../../supabase/functions/_shared/rose-empty-retry";
 import { withRoseBookingLine, ROSE_BOOKING_LINE_PART } from "../../supabase/functions/_shared/rose-booking-line";
 
@@ -151,7 +151,10 @@ describe("rose-chat, the runner and the database agree", () => {
   });
 
   it("every kind the dock and rose-chat send is in the table's list (a refused insert is silent)", () => {
-    const listed = [...migration.slice(migration.indexOf("CHECK (kind IN (")).matchAll(/'([a-z_]+)'/g)].map((m) => m[1]);
+    // The table's list is the one set by the newest migration that defines it (0005, then 0009, then 0012 for Listen).
+    const latest = readdirSync("drizzle/migrations").filter((f) => f.endsWith(".sql")).sort()
+      .map((f) => readFileSync(`drizzle/migrations/${f}`, "utf8")).filter((sql) => sql.includes("CHECK (kind IN (")).pop()!;
+    const listed = [...latest.slice(latest.indexOf("CHECK (kind IN (")).matchAll(/'([a-z_]+)'/g)].map((m) => m[1]);
     const sent = [...readFileSync("src/components/rose/roseEvents.ts", "utf8").matchAll(/^\s*\| "([a-z_]+)"/gm)].map((m) => m[1]);
     expect(sent.length).toBeGreaterThan(8);
     for (const kind of sent) expect(listed, kind).toContain(kind);

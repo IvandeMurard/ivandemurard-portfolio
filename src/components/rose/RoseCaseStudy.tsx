@@ -302,6 +302,8 @@ export const TRUST = {
         { mark: "Built", parts: ["Your conversation stays in this tab for 60 minutes, or until you reload the page."] },
         { mark: "Built", parts: ["Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage."] },
         { mark: "Built", parts: ["Booking opens the calendar and nothing else. No transcript travels with it."] },
+        // Listen (voice). Wording given by Ivan on 21 Nov 2026; keep it identical on /privacy and in docs/rose-case-study-copy-v2.md.
+        { mark: "Built", parts: ["Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files."] },
       ] as TrustItem[],
       sourcesLead: "Retention and masking: ",
       sources: [

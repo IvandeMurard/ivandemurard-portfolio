@@ -326,6 +326,7 @@ One contract covers data: what is kept and what is sent. The other covers knowle
 - (Built) Your conversation stays in this tab for 60 minutes, or until you reload the page.
 - (Built) Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
 - (Built) Booking opens the calendar and nothing else. No transcript travels with it.
+- (Built) Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files.
 
 Retention and masking: [mask-pii.ts](https://github.com/IvandeMurard/ivandemurard-portfolio/blob/main/supabase/functions/_shared/mask-pii.ts) and [the purge migration](https://github.com/IvandeMurard/ivandemurard-portfolio/blob/main/drizzle/migrations/0004_rose_retention_cron.sql)
 

@@ -23,6 +23,10 @@ import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose
 import { ROSE_BOOKING_LINE_PART } from "../../../supabase/functions/_shared/rose-booking-line";
 import { ExternalMark } from "@/components/ui/ExternalMark";
 import { RoseWelcome, useRoseWelcome } from "./RoseWelcome";
+import { ListenPlayer } from "./listen/ListenPlayer";
+import { canListen, loadSummaryAudio, requestAnswerAudio } from "./listen/listenClient";
+import { estimateListenSeconds, formatListenDuration, listenSummaryFor } from "@/content/listenSummaries";
+import { textToSend } from "../../../supabase/functions/_shared/listen-core";
 
 const SESSION_KEY = "rose_session";
 
@@ -162,6 +166,14 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const sectionRef = useSectionInView(pathname);
   const isHome = pathname === "/";
 
+  // Listen: the page summary (pilot: the Harness note) and Rose's factual answers. The written answer stays shown.
+  const summary = useMemo(() => listenSummaryFor(pathname), [pathname]);
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [listening, setListening] = useState<string[]>([]);
+  useEffect(() => { setSummaryOpen(false); }, [pathname]);
+  const logListen = (kind: "listen" | "listen_complete", source: "summary" | "answer") =>
+    !paused && logRoseEvent({ session_id: sessionId, path: pathname, kind, listen_source: source });
+
   const [chat, setChat] = useState(() => getRoseChat(sessionId));
   const { messages, status, error } = useChat({ chat });
   const isLoading = status === "submitted" || status === "streaming";
@@ -181,6 +193,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const clearConversation = () => {
     log("rose_conversation_cleared");
     setChat(resetRoseChat(sessionId));
+    setListening([]);
     setDetectedIntent(null);
     setInputValue("");
     setConfirmClear(false);
@@ -500,8 +513,17 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           ) : null}
 
           {open && !paused ? (
-            <div className={cn("flex-1 overflow-y-auto", (hasConversation || isLoading || error) && "px-5 py-4")} role="log" aria-live="polite">
+            <div className={cn("flex-1 overflow-y-auto", (hasConversation || isLoading || error || summaryOpen) && "px-5 py-4")} role="log" aria-live="polite">
               <div className="flex flex-col gap-4">
+                {summary && summaryOpen ? (
+                  <ListenPlayer
+                    label="summary of this page"
+                    load={() => loadSummaryAudio(summary.slug)}
+                    fallbackText={summary.summary.text}
+                    onStart={() => logListen("listen", "summary")}
+                    onComplete={() => logListen("listen_complete", "summary")}
+                  />
+                ) : null}
                 {messages.map((m, messageIndex) => {
                   const text = renderText(m);
                   if (m.role === "user") {
@@ -542,6 +564,29 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                         return shown ? <RoseMarkdown text={shown} streaming={streaming}
                           onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} /> : null;
                       })()}
+                      {/* Listen: only on a finished, signed, factual answer. A booking answer is an action, not a text to read. */}
+                      {!paused && !booking && text.trim() && !(isLoading && m.id === lastAssistantId) && canListen(m) ? (
+                        listening.includes(m.id) ? (
+                          <div className="mt-3">
+                            <ListenPlayer
+                              label="answer"
+                              load={() => requestAnswerAudio(sessionId, m)}
+                              fallbackText={textToSend(m.parts.flatMap((p) => (p.type === "text" ? [p.text] : [])))}
+                              onStart={() => logListen("listen", "answer")}
+                              onComplete={() => logListen("listen_complete", "answer")}
+                            />
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setListening((ids) => [...ids, m.id])}
+                            className="mt-2 inline-flex items-center gap-1 rounded-full border border-outline-variant px-3 py-1 text-xs text-on-surface hover:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                          >
+                            <Icon name="play_arrow" className="text-base" />
+                            Listen
+                          </button>
+                        )
+                      ) : null}
                       {/* Once per answer, on a profile question only, and not while the answer is still streaming. */}
                       {!paused && !booking && !(isLoading && m.id === lastAssistantId) && m.parts.some((p) => p.type === ROSE_BOOKING_LINE_PART)
                         ? <RoseBookingLine onBook={openBooking} /> : null}
@@ -589,6 +634,18 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
 
           {showChips && !paused ? (
             <div className={cn("flex flex-wrap gap-2 px-4", open ? "py-3" : "pt-3")}>
+              {/* The starter question of a page that has a validated summary. It opens the audiogram, it asks Rose nothing. */}
+              {summary && !summaryOpen ? (
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => { if (!open) setOpen(true); setSummaryOpen(true); }}
+                  className="inline-flex items-center gap-1 rounded-full border border-secondary bg-surface-container-lowest px-3.5 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                >
+                  <Icon name="play_arrow" className="text-base" />
+                  Listen to a summary of this page · {formatListenDuration(estimateListenSeconds(summary.summary.text))}
+                </button>
+              ) : null}
               {prompts.map((chip) => (
                 <button
                   key={chip.label}

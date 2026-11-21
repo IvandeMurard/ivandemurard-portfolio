@@ -86,6 +86,11 @@ export const ROSE_HISTORY: RoseHistoryEntry[] = [
     notThis: "Nothing you type is stored.",
   },
   {
+    id: "listen", date: "2026-11-21", claim: "implemented",
+    text: "In the repository, Listen reads a validated page summary and Rose's own factual answers aloud, with the written answer always shown. Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files. Only genuine, signed answers of the same session, less than 60 minutes old, are read; a per-session and a daily limit apply, and beyond them the browser reads with its own voice. This entry does not say that Listen is deployed or open to visitors.",
+    provenance: { commits: [], plans: [], files: ["supabase/functions/rose-listen/index.ts", "supabase/functions/_shared/listen-handler.ts", "src/components/rose/listen/ListenPlayer.tsx", "drizzle/migrations/0012_rose_listen.sql"] },
+  },
+  {
     id: "dom-integrity", date: "2026-10-24", claim: "implemented",
     text: "Nested buttons in a diagram corrupted pre-rendered pages and produced a phantom dock; they were removed and guarded by a regression test.",
     provenance: { commits: ["26daa5d"], plans: [], files: ["src/test/prerenderDomIntegrity.test.ts"] },
