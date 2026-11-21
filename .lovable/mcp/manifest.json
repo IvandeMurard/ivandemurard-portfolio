@@ -91,7 +91,7 @@
       {
         "name": "list_journal_entries",
         "title": "List Field Notes",
-        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. The text starts with fixed 'Key: value' lines (Index URL, Corpus URL, Reading note), a blank line, then the entries as JSON. Use get_journal_entry with a slug from this list to read the full body.",
+        "description": "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn), evidence case studies, and listen_summary (true when a recorded summary exists, returned by get_journal_entry as the section 'Listen summary'). The text starts with fixed 'Key: value' lines (Index URL, Corpus URL, Reading note), a blank line, then the entries as JSON. Use get_journal_entry with a slug from this list to read the full body.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
