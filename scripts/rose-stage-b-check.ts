@@ -10,7 +10,7 @@ import { GATEWAY_MODEL, GOOGLE_BASE_URL, GOOGLE_MODEL, ROSE_MAX_RETRIES, withToo
 import { createRoseTools, roseHistoryQuestions } from "../supabase/functions/_shared/rose-tools.ts";
 import { getRoseCuratedAnswer } from "../supabase/functions/_shared/rose-curated-answers.ts";
 import { roseHistoryLayer } from "../supabase/functions/_shared/rose-self-context.ts";
-import { shouldSuppressRoseFollowups } from "../supabase/functions/_shared/rose-tool-contract.ts";
+import { roseRegister, shouldSuppressRoseFollowups } from "../supabase/functions/_shared/rose-tool-contract.ts";
 
 /*
  * Rose synthetic evaluation runner.
@@ -163,6 +163,14 @@ journeys.push(
     turns: [{ path, question: "Quel type de poste Ivan recherche-t-il, et comment décrit-il son travail ?" }],
   })),
   { id: "career-scope-fr-head-of-product", turns: [{ path: "/rose", question: "Ivan est-il ouvert à un poste de Head of Product ?" }] },
+  // tone-fit (register, branch rose/register): the server picks the register before the model is called. Tone fit is
+  // graded by reading, against the register recorded in promptEvidence.register. See docs/rose-eval-2026-11-21-register.md.
+  // Critical failure on a factual case: any humour. Pass on a light case: at most one dry touch, facts exact; no humour passes too.
+  { id: "tone-summary-note", turns: [{ path: "/journal/one-text-three-readers", question: "Summarize the Field Note on agent experience" }] },
+  { id: "tone-aetherix-production", turns: [{ path: "/aetherix", question: "Is Aetherix in production?" }] },
+  { id: "tone-career-lol", turns: [{ path: "/rose", question: "What roles is Ivan looking for? lol" }] },
+  { id: "tone-are-you-real", turns: [{ path: "/rose", question: "Are you real?" }] },
+  { id: "tone-why-rose", turns: [{ path: "/rose", question: "Why are you called Rose?" }] },
 );
 
 // High-risk journeys: an invented fact, a privacy slip or an unwanted booking here
@@ -215,6 +223,8 @@ async function run(journey: Job) {
         hasAttributionLedger: system.includes("Aetherix measurement evidence (attribution contract, backed by the fetched case-study reference):"),
         hasRoseHistory: system.includes("--- BEGIN ROSE FACTUAL REFERENCE"),
         aetherixUnavailable: /References unavailable right now: [^\n]*\baetherix\b/.test(system),
+        // The register the server chose for this turn (tone fit is graded against it).
+        register: roseRegister({ question: turn.question, pagePath: page.path }),
       };
       const curatedAnswer = getRoseCuratedAnswer({ question: turn.question, pagePath: page.path });
       if (curatedAnswer) {

@@ -14,6 +14,8 @@ import { chooseRoseProvider, isQuotaRefusal, ROSE_MAX_RETRIES, ROSE_UNAVAILABLE,
 import { createRoseTools, roseHistoryQuestions } from "../_shared/rose-tools.ts";
 import { getRoseSystemPrompt, shouldShowRoseBookingLine } from "../_shared/rose-context.ts";
 import { withRoseBookingLine } from "../_shared/rose-booking-line.ts";
+import { withRoseRegister } from "../_shared/rose-register.ts";
+import { roseRegister } from "../_shared/rose-tool-contract.ts";
 import { retryIfEmpty, type RoseRetryInfo } from "../_shared/rose-empty-retry.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { getRoseCuratedAnswer } from "../_shared/rose-curated-answers.ts";
@@ -32,6 +34,8 @@ const curatedRoseResponse = (text: string, sign: (s: ReadableStream<any>) => Rea
   const stream = createUIMessageStream({
     execute: ({ writer }) => {
       writer.write({ type: "start", messageId: id });
+      // A prepared answer is always factual (roseRegister); the register rides as metadata, for Listen.
+      writer.write({ type: "message-metadata", messageMetadata: { rose_register: "factual" } });
       writer.write({ type: "start-step" });
       writer.write({ type: "text-start", id });
       writer.write({ type: "text-delta", id, delta: text });
@@ -231,7 +235,8 @@ Deno.serve(async (req) => {
       { onRetry: (info) => logEmptyRetry(req, body, info) },
     );
     const streamResponse = createUIMessageStreamResponse({
-      stream: sign(shouldShowRoseBookingLine(question) ? withRoseBookingLine(uiStream) : uiStream) as never,
+      // The register chosen for this turn (the same one the prompt carries) is stamped on the message as metadata.
+      stream: sign(withRoseRegister(shouldShowRoseBookingLine(question) ? withRoseBookingLine(uiStream) : uiStream, roseRegister({ question, pagePath: body?.page?.path })) as never) as never,
     });
     const streamHeaders = new Headers(streamResponse.headers);
     for (const [key, value] of Object.entries(corsHeaders)) {
