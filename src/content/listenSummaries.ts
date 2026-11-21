@@ -101,3 +101,9 @@ export const estimateListenSeconds = (text: string): number =>
 /** "45 sec" under a minute, then whole minutes: the length is a promise to the reader, so it is rounded, not precise. */
 export const formatListenDuration = (seconds: number): string =>
   seconds < 55 ? `${Math.max(5, Math.round(seconds / 5) * 5)} sec` : `${Math.max(1, Math.round(seconds / 60))} min`;
+
+/** "1:04": a recording's length as the row and the index badge print it. */
+export const formatClockLength = (ms: number): string => {
+  const s = Math.max(0, Math.round(ms / 1000));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+};

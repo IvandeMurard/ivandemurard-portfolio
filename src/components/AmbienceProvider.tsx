@@ -21,6 +21,9 @@ type AmbienceContextValue = {
   muted: boolean;
   /** True when both audio elements are confirmed available. Hide the UI when false. */
   available: boolean;
+  /** True while another sound (Rose reading aloud) holds the record. Not persisted: `muted` is untouched, so the record comes back as it was. */
+  suspended: boolean;
+  setSuspended: (s: boolean) => void;
   /** Toggle mute. First call also acts as the user-gesture unlock. */
   toggleMute: () => void;
   /** Playback rate, 1 = nominal. Pitch follows speed (no timestretch). */
@@ -94,6 +97,7 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
   const { mood } = useMood();
   const [muted, setMuted] = useState<boolean>(() => readInitialMuted());
   const [available, setAvailable] = useState<boolean>(false);
+  const [suspended, setSuspended] = useState(false);
   const [pitch, setPitchState] = useState(1);
   const [volume, setVolumeState] = useState(TARGET_VOLUME);
   const volumeRef = useRef(TARGET_VOLUME);
@@ -154,7 +158,7 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
     const inactive = day;
 
     const run = async () => {
-      if (muted) {
+      if (muted || suspended) {
         // Fade everything down, then pause.
         await Promise.all([fadeVolume(day, 0, FADE_MS), fadeVolume(dusk, 0, FADE_MS)]);
         day.pause();
@@ -181,7 +185,7 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
     };
 
     run();
-  }, [mood, muted, available]);
+  }, [mood, muted, suspended, available]);
 
   // Live volume while playing.
   useEffect(() => {
@@ -212,7 +216,7 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
   const setVolume = useCallback((v: number) => setVolumeState(Math.max(0, Math.min(1, v))), []);
 
   return (
-    <AmbienceContext.Provider value={{ muted, available, toggleMute, pitch, setPitch, volume, setVolume }}>
+    <AmbienceContext.Provider value={{ muted, suspended, setSuspended, available, toggleMute, pitch, setPitch, volume, setVolume }}>
       {children}
     </AmbienceContext.Provider>
   );

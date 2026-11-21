@@ -14,7 +14,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
  * (platter, tonearm, pitch fader with quartz lock, volume).
  */
 export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
-  const { muted, available, toggleMute, pitch, setPitch, volume, setVolume } = useAmbience();
+  const { muted, suspended, available, toggleMute, pitch, setPitch, volume, setVolume } = useAmbience();
   const haptic = useHaptic();
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
@@ -28,7 +28,9 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
   }, [pct, haptic]);
 
   if (!available) return null;
-  const playing = !muted;
+  // Rose speaking holds the record: it stops turning, and says why. It comes back by itself when she is done.
+  const playing = !muted && !suspended;
+  const heldCaption = suspended && !muted ? "record paused · Rose is speaking" : null;
   // The plain paper-label record: 40 px on a desktop, 36 px on a phone, in a hit area of 44 x 44 px.
   const disc = size === "sm" ? 36 : 40;
 
@@ -37,7 +39,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
           <div className="mb-3 flex items-baseline justify-between">
             <div>
               <p className="font-mono text-kicker uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
-              <p className="font-mono text-meta text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
+              <p className="font-mono text-meta text-on-surface-variant" data-ambience-caption>{heldCaption ?? "Sleeve: The Low End Theory, 1991"}</p>
             </div>
           </div>
 
@@ -119,8 +121,8 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
         type="button"
         role="switch"
         aria-checked={playing}
-        aria-label={playing ? "Stop the record" : "Play the record"}
-        title={playing ? "Stop the record" : "Play the record"}
+        aria-label={heldCaption ?? (playing ? "Stop the record" : "Play the record")}
+        title={heldCaption ?? (playing ? "Stop the record" : "Play the record")}
         onClick={toggle}
         className="inline-flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/60"
       >
@@ -146,7 +148,7 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
           <div className="mb-3 flex items-baseline justify-between">
             <div>
               <p className="font-mono text-kicker uppercase tracking-[0.14em] text-on-surface">Odetta · ATCQ Tribute</p>
-              <p className="font-mono text-meta text-on-surface-variant">Sleeve: The Low End Theory, 1991</p>
+              <p className="font-mono text-meta text-on-surface-variant" data-ambience-caption>{heldCaption ?? "Sleeve: The Low End Theory, 1991"}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">

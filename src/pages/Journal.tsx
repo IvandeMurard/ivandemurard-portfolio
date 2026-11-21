@@ -5,7 +5,10 @@ import { Seo } from "@/components/Seo";
 import { ContactBlock } from "@/components/case/ContactBlock";
 import { useTrackClick } from "@/hooks/useTrackClick";
 import { renderBold } from "@/lib/inlineBold";
-import { CARDS, INDEX_COPY, INDEX_HERO, LEAD, heroMeta, metaLine, noteBySlug, notesInOrder, systemNames } from "@/content/journalIndex";
+import { CARDS, INDEX_COPY, INDEX_HERO, LEAD, heroMeta, noteBySlug, notesInOrder, systemNames } from "@/content/journalIndex";
+import { listenSummaryFor } from "@/content/listenSummaries";
+import { metaLineWithListen } from "@/content/listenMeta";
+import { ListenBadge } from "@/components/listen/ListenBadge";
 import { PROJECTS, SOCIAL_LINKS } from "@/content/site";
 import type { Signal } from "@/content/statuses";
 
@@ -13,6 +16,8 @@ const KICK = "font-mono text-kicker font-medium uppercase leading-snug tracking-
 const RING = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-secondary";
 const GO = "inline-flex min-h-11 items-center rounded-full px-5 text-[15px] font-medium";
 const LAMP: Record<Signal, string> = { go: "bg-signal-go", warn: "bg-signal-warn", stop: "bg-signal-stop", dark: "bg-signal-dark" };
+
+const listenSlugOf = (slug: string) => listenSummaryFor(`/journal/${slug}`)?.slug;
 
 const project = (name: string) => Object.values(PROJECTS).find((p) => p.name === name);
 
@@ -65,7 +70,8 @@ const Journal = () => {
                   className={cn(GO, "bg-primary text-on-primary after:absolute after:inset-0 after:content-[''] focus-visible:outline-none")}>
                   {INDEX_COPY.readNote}<span className="sr-only">: {lead.title}</span>
                 </Link>
-                <p className="font-mono text-meta text-on-surface-variant">{metaLine(lead)}</p>
+                {listenSlugOf(lead.slug) ? <ListenBadge slug={listenSlugOf(lead.slug)!} title={lead.title} /> : null}
+                <p className="font-mono text-meta text-on-surface-variant">{metaLineWithListen(lead)}</p>
               </div>
             </div>
             <div className="section-inverse flex flex-col gap-4 p-6 md:p-10">
@@ -98,7 +104,8 @@ const Journal = () => {
                     <p className="mt-2 font-headline text-[19px] font-normal leading-[1.3] text-heading md:text-[21px]">{c.moment.text}</p>
                   </div>
                   <div className="mt-auto flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-t border-outline-variant pt-3.5">
-                    <p className="font-mono text-meta text-on-surface-variant">{metaLine(e)}</p>
+                    <p className="font-mono text-meta text-on-surface-variant">{metaLineWithListen(e)}</p>
+                    {listenSlugOf(e.slug) ? <ListenBadge slug={listenSlugOf(e.slug)!} title={e.title} /> : null}
                     <Link to={`/journal/${e.slug}`} onClick={open(e.slug, e.title)}
                       className={cn(GO, "border border-primary/35 text-primary after:absolute after:inset-0 after:content-[''] focus-visible:outline-none")}>
                       {INDEX_COPY.readNote}<span className="sr-only">: {e.title}</span>

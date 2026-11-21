@@ -1,8 +1,10 @@
 /** Where the audio of a reading comes from: a static file (page summaries) or the rose-listen function (Rose's answers). */
 import type { UIMessage } from "ai";
+import { isBars } from "../../../../supabase/functions/_shared/listen-core";
 import type { ListenWord } from "./listenAlign";
 
-export type ListenData = { text: string; words: ListenWord[]; audioUrl: string; durationMs: number };
+/** `bars`: the 72-bar waveform of the real take. Absent, the player draws a progress line. */
+export type ListenData = { text: string; words: ListenWord[]; audioUrl: string; durationMs: number; bars?: number[] };
 
 /** No audio for this reading (file missing, cap reached, provider down): the browser reads it with its own voice. */
 export class ListenUnavailable extends Error {
@@ -32,12 +34,12 @@ const summaryWords = (raw: unknown): ListenWord[] | null => {
 export const loadSummaryAudio = async (slug: string, doFetch: typeof fetch = fetch): Promise<ListenData> => {
   const res = await doFetch(`/listen/${slug}.json`).catch(() => null);
   if (!res || !res.ok) throw new ListenUnavailable(res?.status ?? 0);
-  const j = await res.json().catch(() => null) as { text?: unknown; words?: unknown; durationMs?: unknown; audio?: unknown } | null;
+  const j = await res.json().catch(() => null) as { text?: unknown; words?: unknown; durationMs?: unknown; audio?: unknown; bars?: unknown } | null;
   const words = summaryWords(j?.words);
   // A dev server answers unknown files with the app shell: anything that is not the expected JSON counts as missing.
   if (!j || !words || typeof j.durationMs !== "number") throw new ListenUnavailable(404);
   const audio = typeof j.audio === "string" && /^[\w.-]+\.mp3$/.test(j.audio) ? j.audio : `${slug}.mp3`;
-  return { text: typeof j.text === "string" ? j.text : words.map((w) => w.w).join(" "), words, audioUrl: `/listen/${audio}`, durationMs: j.durationMs };
+  return { text: typeof j.text === "string" ? j.text : words.map((w) => w.w).join(" "), words, audioUrl: `/listen/${audio}`, durationMs: j.durationMs, ...(isBars(j.bars) ? { bars: j.bars } : {}) };
 };
 
 /** The message exactly as the browser keeps it: only the text parts and the signature metadata the server checks. */
@@ -66,7 +68,7 @@ export const requestAnswerAudio = async (sessionId: string, m: UIMessage, doFetc
     body: JSON.stringify(listenPayload(sessionId, m)),
   }).catch(() => null);
   if (!res || !res.ok) throw new ListenUnavailable(res?.status ?? 0);
-  const j = await res.json().catch(() => null) as { text?: unknown; words?: unknown; audio_url?: unknown; duration_ms?: unknown } | null;
+  const j = await res.json().catch(() => null) as { text?: unknown; words?: unknown; audio_url?: unknown; duration_ms?: unknown; bars?: unknown } | null;
   if (!j || typeof j.text !== "string" || !isWords(j.words) || typeof j.audio_url !== "string" || typeof j.duration_ms !== "number") throw new ListenUnavailable(502);
-  return { text: j.text, words: j.words, audioUrl: j.audio_url, durationMs: j.duration_ms };
+  return { text: j.text, words: j.words, audioUrl: j.audio_url, durationMs: j.duration_ms, ...(isBars(j.bars) ? { bars: j.bars } : {}) };
 };

@@ -39,7 +39,7 @@ import { McpEndpoint } from "@/components/McpEndpoint";
 import { RecommendationLine } from "@/components/journal/RecommendationLine";
 import { SignalLamp } from "@/components/journal/SignalLamp";
 import { firstSentence } from "@/content/readingTime";
-import { ListenSummaryBlock } from "@/components/listen/ListenSummaryBlock";
+import { ListenRow } from "@/components/listen/ListenRow";
 import { listenSummaryFor } from "@/content/listenSummaries";
 import type { Signal } from "@/content/recoLine";
 
@@ -571,6 +571,7 @@ const JournalEntry = () => {
             <NoteMeta entry={entry} date={formatDate(entry.date, labels.locale)} />
             <h1 className="mb-6 font-headline text-4xl italic leading-[1.1] text-heading md:text-6xl">{entry.title}</h1>
             <NoteHook entry={entry} />
+            {listenSummaryFor(`/journal/${entry.slug}`) ? <ListenRow slug={listenSummaryFor(`/journal/${entry.slug}`)!.slug} className="mt-6 max-w-[42rem]" /> : null}
           </header>
           {tocItems.length > 1 && (
             <aside className="absolute bottom-0 right-0 top-0 hidden w-[15rem] lg:block">
@@ -578,6 +579,7 @@ const JournalEntry = () => {
                 items={tocItems}
                 label={tocLabel}
                 topLink={topLink}
+                listenSlug={listenSummaryFor(`/journal/${entry.slug}`)?.slug}
                 meta={entry.readingMinutes ? readLabel(entry) : undefined}
               />
             </aside>
@@ -588,7 +590,6 @@ const JournalEntry = () => {
               <div className="mt-8">
                 <EntryActions title={entry.title} markdownPath={`/journal/${entry.slug}.md`} />
               </div>
-              {listenSummaryFor(`/journal/${entry.slug}`) ? <ListenSummaryBlock slug={listenSummaryFor(`/journal/${entry.slug}`)!.slug} className="mt-8" /> : null}
               {entry.glance || entry.takeaways?.length ? (
                 <EntryOpening glance={entry.glance} takeaways={entry.takeaways} punch={entry.takeawayPunch} />
               ) : null}

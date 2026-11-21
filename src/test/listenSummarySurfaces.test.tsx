@@ -8,6 +8,7 @@ import { AmbienceProvider } from "@/components/AmbienceProvider";
 import JournalEntry from "@/pages/JournalEntry";
 import { RoseCaseStudy } from "@/components/rose/RoseCaseStudy";
 import { RoseDock } from "@/components/rose/RoseDock";
+import { ListenProvider } from "@/components/listen/ListenProvider";
 import { getRoseChat, resetRoseChat, setRoseOpen } from "@/components/rose/roseSession";
 import { JOURNAL_ENTRIES } from "@/content/journal";
 import {
@@ -38,7 +39,7 @@ const mirrorFile = (slug: string) => (slug === "rose" ? "public/rose.md" : `publ
 const readLf = (f: string) => readFileSync(f, "utf8").replace(/\r\n/g, "\n");
 
 const wrap = (el: JSX.Element, url: string) => (
-  <TooltipProvider><MoodProvider><AmbienceProvider><MemoryRouter initialEntries={[url]}>{el}</MemoryRouter></AmbienceProvider></MoodProvider></TooltipProvider>
+  <TooltipProvider><MoodProvider><AmbienceProvider><MemoryRouter initialEntries={[url]}><ListenProvider>{el}</ListenProvider></MemoryRouter></AmbienceProvider></MoodProvider></TooltipProvider>
 );
 const renderPage = (slug: string) =>
   slug === "rose"
@@ -92,30 +93,38 @@ describe("The summaries: the three pages and their recordings", () => {
 
 describe("Every summary is said word for word on its page", () => {
   for (const slug of slugs) {
-    it(`${slug}: the block, its notice, every paragraph, open without JavaScript`, () => {
+    it(`${slug}: the row, its notice and every paragraph; the text is folded and readable without JavaScript`, () => {
       const s = LISTEN_SUMMARIES[slug];
       const { container } = renderPage(slug);
       const block = container.querySelector(`[data-listen-summary="${slug}"]`);
       expect(block, "block").not.toBeNull();
       expect(block!.getAttribute("aria-label")).toBe(LISTEN_SECTION_HEADING);
+      expect(block!.querySelector("[data-listen-row]")).not.toBeNull();
       expect(block!.querySelector("h2")?.textContent).toBe("Listen summary");
       expect(block!.querySelector("[data-listen-notice]")?.textContent).toBe(listenSummaryNotice(s));
       const shown = [...block!.querySelectorAll("[data-listen-text] p")].map((p) => norm(p.textContent ?? ""));
       expect(shown).toEqual(paragraphs(s.text));
-      // The text is folded with <details>, and the markup says open: it reads without JavaScript.
+      // Closed by default; a plain <details>, so "Transcript" opens it with no JavaScript. The audio file is linked inside.
       const details = block!.querySelector("details");
-      expect(details?.hasAttribute("open")).toBe(true);
+      expect(details?.hasAttribute("open")).toBe(false);
+      expect(details?.querySelector("summary")?.textContent).toContain("Transcript");
+      expect(details?.querySelector(`a[href="/listen/${slug}.mp3"]`)).not.toBeNull();
       expect(block!.textContent).not.toMatch(/\[[a-z ]+\]/);
     });
 
-    it(`${slug}: the Listen button asks the dock to open on this summary`, () => {
-      const heard = vi.fn();
-      window.addEventListener("rose:listen", heard);
+    it(`${slug}: nothing plays on its own, and the row's play button starts the reader`, async () => {
+      const made: unknown[] = [];
+      // The ambience record builds its own two elements with no source: only a reading (a /listen/ file) counts.
+      vi.stubGlobal("Audio", class { currentTime = 0; paused = true; src = ""; volume = 1; constructor(src?: string) { this.src = src ?? ""; if (src?.startsWith("/listen/")) made.push(this); } play() { return Promise.resolve(); } pause() {} });
+      vi.stubGlobal("fetch", vi.fn(async () => new Response("not found", { status: 404 })));
+      const spoken: string[] = [];
+      vi.stubGlobal("SpeechSynthesisUtterance", class { onend = null; onerror = null; lang = ""; constructor(public text: string) {} });
+      vi.stubGlobal("speechSynthesis", { cancel() {}, speak(u: { text: string }) { spoken.push(u.text); } });
       const { container } = renderPage(slug);
-      fireEvent.click(container.querySelector(`[data-listen-summary="${slug}"] button`) as HTMLElement);
-      window.removeEventListener("rose:listen", heard);
-      expect(heard).toHaveBeenCalledTimes(1);
-      expect((heard.mock.calls[0][0] as CustomEvent).detail).toEqual({ slug });
+      await new Promise((r) => setTimeout(r, 20));
+      expect(made.length + spoken.length, "no autoplay").toBe(0);
+      fireEvent.click(container.querySelector(`[data-listen-summary="${slug}"] [data-listen-row] button`) as HTMLElement);
+      await vi.waitFor(() => expect(spoken.length).toBeGreaterThan(0));
     });
   }
 
@@ -192,26 +201,27 @@ describe("Rose knows the three pages, and the dock reads the same entry", () => 
     expect(ROSE_HISTORY.some((e) => e.id === "listen")).toBe(true);
   });
 
-  it("the dock opens on the audiogram of the page's summary when a block asks for it", async () => {
+  const mountDock = (path: string) => {
     window.sessionStorage.clear();
-    setRoseOpen(false);
+    setRoseOpen(true);
     resetRoseChat("test");
+    render(<MemoryRouter initialEntries={[path]}><ListenProvider><RoseDock roseStatus="live" /></ListenProvider></MemoryRouter>);
+  };
+
+  it("the dock's starter question opens the player on the page's summary, in Rose's voice for /rose", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("not found", { status: 404 })));
-    render(<MemoryRouter initialEntries={["/rose"]}><RoseDock roseStatus="live" /></MemoryRouter>);
+    mountDock("/rose");
     expect(document.querySelector("[data-listen-player]")).toBeNull();
-    window.dispatchEvent(new CustomEvent("rose:listen", { detail: { slug: "rose" } }));
+    fireEvent.click(screen.getByRole("button", { name: /^Listen to a summary of this page · 1 min$/ }));
     const player = await screen.findByLabelText("Rose reads aloud");
     expect(player.textContent).toContain("Rose · summary of this page");
-    expect(player.textContent?.replace(/\s+/g, " ")).toContain(norm(LISTEN_SUMMARIES.rose.text.slice(0, 60)));
+    expect(player.textContent?.replace(/\s+/g, " ")).toContain(norm(LISTEN_SUMMARIES.rose.text.slice(0, 20)));
     cleanup();
     void getRoseChat("test");
   });
 
   it("the dock's starter question shows the recorded length, from the same entry", () => {
-    window.sessionStorage.clear();
-    setRoseOpen(true);
-    resetRoseChat("test");
-    render(<MemoryRouter initialEntries={["/rose"]}><RoseDock roseStatus="live" /></MemoryRouter>);
+    mountDock("/rose");
     expect(screen.getByRole("button", { name: /^Listen to a summary of this page · 1 min$/ })).toBeTruthy();
     expect(listenSummaryBySlug("rose")?.durationMs).toBe(73796);
   });

@@ -6,17 +6,33 @@
 //   bun scripts/generate-listen-audio.ts            generate what changed
 //   bun scripts/generate-listen-audio.ts --force    regenerate everything
 //   bun scripts/generate-listen-audio.ts --dry      list what would be generated and the characters it would bill
+//   bun scripts/generate-listen-audio.ts --bars     add the 72-bar waveform ("bars") to the takes already in public/listen, no call to ElevenLabs
+//
+// Every json carries `bars`: 72 RMS values from 0 to 1 of the real take, drawn by the player. Decoding the mp3 needs
+// the dev dependency mpg123-decoder (WASM, no native binary). Without it a take has no bars and the player draws a progress line.
 //
 // Run by Ivan, locally, with ELEVENLABS_API_KEY set in the session's environment (never in a file). It never runs in CI
 // or in the Lovable build, and nothing calls it from package.json. Strategy for the model: _shared/listen-core.ts.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { LISTEN_SUMMARIES } from "../src/content/listenSummaries";
-import { LISTEN_MODEL, LISTEN_PINNED_PLAN, LISTEN_VOICE_ID, ListenProviderError, listenCacheKey, synthesizeListen } from "../supabase/functions/_shared/listen-core";
+import { LISTEN_MODEL, LISTEN_PINNED_PLAN, LISTEN_VOICE_ID, ListenProviderError, barsFromAudio, listenCacheKey, synthesizeListen, type ListenDecoder } from "../supabase/functions/_shared/listen-core";
 
 const OUT = join(process.cwd(), "public", "listen");
 const force = process.argv.includes("--force");
 const dry = process.argv.includes("--dry");
+const onlyBars = process.argv.includes("--bars");
+
+const decode: ListenDecoder = async (mp3) => {
+  const { MPEGDecoder } = await import("mpg123-decoder");
+  const d = new MPEGDecoder();
+  try {
+    await d.ready;
+    return d.decode(mp3).channelData[0] ?? null;
+  } finally {
+    d.free();
+  }
+};
 
 const apiKey = process.env.ELEVENLABS_API_KEY;
 if (!apiKey && !dry) {
@@ -25,6 +41,20 @@ if (!apiKey && !dry) {
 }
 
 mkdirSync(OUT, { recursive: true });
+
+if (onlyBars) {
+  for (const slug of Object.keys(LISTEN_SUMMARIES)) {
+    const jsonPath = join(OUT, `${slug}.json`);
+    const mp3Path = join(OUT, `${slug}.mp3`);
+    if (!existsSync(jsonPath) || !existsSync(mp3Path)) { console.log(`${slug}: no take yet`); continue; }
+    const bars = await barsFromAudio(new Uint8Array(readFileSync(mp3Path)), decode);
+    if (!bars) { console.error(`${slug}: could not decode the mp3 (is mpg123-decoder installed?). No bars written.`); process.exitCode = 1; continue; }
+    const j = JSON.parse(readFileSync(jsonPath, "utf8")) as Record<string, unknown>;
+    writeFileSync(jsonPath, JSON.stringify({ ...j, bars }, null, 1) + "\n");
+    console.log(`${slug}: ${bars.length} bars written. The text, the timings and the audio are untouched.`);
+  }
+  process.exit(process.exitCode ?? 0);
+}
 let billed = 0;
 let generated = 0;
 
@@ -51,9 +81,11 @@ for (const [slug, summary] of Object.entries(LISTEN_SUMMARIES)) {
   try {
     const r = await synthesizeListen(summary.text, apiKey!, fetch, LISTEN_PINNED_PLAN);
     writeFileSync(mp3Path, r.audio);
+    const bars = await barsFromAudio(r.audio, decode);
+    if (!bars) console.log(`  No bars: the mp3 could not be decoded. Run with --bars once mpg123-decoder is installed.`);
     writeFileSync(jsonPath, JSON.stringify({
       slug, hash, voice: LISTEN_VOICE_ID, model: r.model, plan: r.plan, durationMs: r.durationMs, billedChars: r.billedChars,
-      validatedOn: summary.validatedOn, text: summary.text, words: r.words,
+      validatedOn: summary.validatedOn, text: summary.text, words: r.words, ...(bars ? { bars } : {}),
     }, null, 1) + "\n");
     billed += r.billedChars;
     generated += 1;

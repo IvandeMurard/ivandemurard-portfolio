@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
+import { ListenTocLine } from "@/components/listen/ListenTocLine";
 
 /**
  * Reading furniture shared by the long case studies (Rose, Aetherix): the reading thread in the left
@@ -69,12 +70,13 @@ const TocList = ({ chapters, active, onPick }: { chapters: readonly RailChapter[
 );
 
 /** Desktop rail: the compass turns with the active chapter. */
-export const ChapterRail = ({ chapters, active, reduced }: { chapters: readonly RailChapter[]; active: number; reduced: boolean }) => {
+export const ChapterRail = ({ chapters, active, reduced, listenSlug }: { chapters: readonly RailChapter[]; active: number; reduced: boolean; listenSlug?: string }) => {
   const needleTurn = Math.max(0, active) * (300 / Math.max(1, chapters.length - 1));
   return (
     <aside className="hidden self-start lg:sticky lg:top-28 lg:block">
       <CompassRose heading={needleTurn} reduced={reduced} className="h-16 w-16 text-secondary" />
       <p className={cn("mt-4", LABEL, "text-on-surface-variant")}>On this page</p>
+      {listenSlug ? <ListenTocLine slug={listenSlug} className="mt-3 -mb-1" /> : null}
       <nav aria-label="On this page" className="mt-3"><TocList chapters={chapters} active={active} /></nav>
     </aside>
   );

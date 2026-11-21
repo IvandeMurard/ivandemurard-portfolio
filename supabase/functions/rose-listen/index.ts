@@ -3,7 +3,7 @@
 // (session id, time, characters) for the caps. Secrets: ELEVENLABS_API_KEY, LISTEN_DAILY_CHAR_CAP, ROSE_HISTORY_KEY.
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { handleListen, type ListenStore } from "../_shared/listen-handler.ts";
-import { purgeExpiredListenCache, type ListenWord } from "../_shared/listen-core.ts";
+import { purgeExpiredListenCache, type ListenDecoder, type ListenWord } from "../_shared/listen-core.ts";
 
 const BUCKET = "rose-listen";
 const SIGNED_URL_SECONDS = 60 * 60;
@@ -19,15 +19,15 @@ const storeFor = (url: string, serviceKey: string): ListenStore => {
     async getCached(key) {
       const meta = await db.storage.from(BUCKET).download(`${key}.json`);
       if (meta.error || !meta.data) return null;
-      const m = JSON.parse(await meta.data.text()) as { text: string; words: ListenWord[]; durationMs: number; model: string };
-      return { audioUrl: await sign(`${key}.mp3`), text: m.text, words: m.words, durationMs: m.durationMs, model: m.model };
+      const m = JSON.parse(await meta.data.text()) as { text: string; words: ListenWord[]; durationMs: number; model: string; bars?: number[] };
+      return { audioUrl: await sign(`${key}.mp3`), text: m.text, words: m.words, durationMs: m.durationMs, model: m.model, bars: m.bars };
     },
-    async putCached(key, text, s) {
+    async putCached(key, text, s, bars) {
       const audio = await db.storage.from(BUCKET).upload(`${key}.mp3`, s.audio, { contentType: "audio/mpeg", upsert: true });
       if (audio.error) throw new Error("audio upload failed");
       const meta = await db.storage.from(BUCKET).upload(
         `${key}.json`,
-        new Blob([JSON.stringify({ text, words: s.words, durationMs: s.durationMs, model: s.model, plan: s.plan })], { type: "application/json" }),
+        new Blob([JSON.stringify({ text, words: s.words, durationMs: s.durationMs, model: s.model, plan: s.plan, ...(bars ? { bars } : {}) })], { type: "application/json" }),
         { upsert: true },
       );
       if (meta.error) throw new Error("timing upload failed");
@@ -64,6 +64,20 @@ const storeFor = (url: string, serviceKey: string): ListenStore => {
   };
 };
 
+
+// The waveform of an answer is computed from its audio. The decoder is loaded only when a new text was generated, and any
+// failure (package not resolvable, odd stream) gives no `bars`: the player then draws a progress line. Not run by the tests.
+const decode: ListenDecoder = async (mp3) => {
+  const { MPEGDecoder } = await import("npm:mpg123-decoder@1.0.1");
+  const d = new MPEGDecoder();
+  try {
+    await d.ready;
+    const out = d.decode(mp3);
+    return out.channelData[0] ?? null;
+  } finally {
+    d.free();
+  }
+};
 // Supabase Edge Runtime: keeps a promise running after the response has been sent.
 declare const EdgeRuntime: { waitUntil(task: Promise<unknown>): void } | undefined;
 
@@ -74,6 +88,7 @@ Deno.serve((req) => {
   return handleListen(req, {
     env: (n) => Deno.env.get(n),
     store: storeFor(url, key),
+    decode,
     background: (task) => { if (typeof EdgeRuntime !== "undefined") EdgeRuntime.waitUntil(task); },
   });
 });

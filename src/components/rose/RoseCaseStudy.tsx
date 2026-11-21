@@ -10,7 +10,7 @@ import { AnswerFormats, HeroDock, TestLoop } from "@/components/rose/RoseDemos";
 import { HowRoseWorks } from "@/components/rose/HowRoseWorks";
 import { RelationsMap } from "@/components/rose/RelationsMap";
 import { ExternalMark } from "@/components/ui/ExternalMark";
-import { ListenSummaryBlock } from "@/components/listen/ListenSummaryBlock";
+import { ListenRow } from "@/components/listen/ListenRow";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -730,7 +730,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
 
       <div className="mx-auto max-w-7xl px-8 pt-16 md:px-12">
         <RoseHero reduced={reduced} />
-        <ListenSummaryBlock slug="rose" className="mt-12 max-w-3xl" />
+        <ListenRow slug="rose" className="mt-10 max-w-3xl" />
         <section aria-labelledby="rose-legend" className="mt-16 max-w-3xl">
           <h2 id="rose-legend" className={cn(LABEL, "text-on-surface-variant")}>How to read this case study</h2>
           <dl className="mt-3 space-y-1 font-body text-sm text-on-surface">
@@ -743,7 +743,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-12 px-8 pb-16 md:px-12 lg:grid-cols-[13rem_minmax(0,1fr)]">
-        <ChapterRail chapters={ROSE_CHAPTERS} active={active} reduced={reduced} />
+        <ChapterRail chapters={ROSE_CHAPTERS} active={active} reduced={reduced} listenSlug="rose" />
 
         <div className="min-w-0">
           <Chapters reduced={reduced} />

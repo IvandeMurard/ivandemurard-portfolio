@@ -162,3 +162,43 @@ export const synthesizeListen = async (text: string, apiKey: string, doFetch: Fe
   }
   throw last ?? new ListenProviderError(500, "No Listen plan available");
 };
+
+export const LISTEN_BAR_COUNT = 72;
+
+/**
+ * The waveform of a reading: `n` bars, each the RMS of its slice of the decoded samples, scaled so the loudest is 1.
+ * Three decimals keep the JSON small. Shared by scripts/generate-listen-audio.ts and the rose-listen function.
+ */
+export const rmsBars = (samples: ArrayLike<number>, n: number = LISTEN_BAR_COUNT): number[] => {
+  if (!samples.length) return [];
+  const size = samples.length / n;
+  const rms: number[] = [];
+  for (let i = 0; i < n; i++) {
+    const a = Math.floor(i * size), b = Math.max(a + 1, Math.floor((i + 1) * size));
+    let sum = 0;
+    for (let j = a; j < b && j < samples.length; j++) sum += samples[j] * samples[j];
+    rms.push(Math.sqrt(sum / (b - a)));
+  }
+  const top = Math.max(...rms);
+  if (!(top > 0)) return [];
+  return rms.map((v) => Math.round((v / top) * 1000) / 1000);
+};
+
+/** A well-formed `bars` field: the right count, numbers from 0 to 1. Anything else is ignored and the player draws a progress line. */
+export const isBars = (b: unknown): b is number[] =>
+  Array.isArray(b) && b.length === LISTEN_BAR_COUNT && b.every((v) => typeof v === "number" && v >= 0 && v <= 1);
+
+/** Decodes an mp3 to mono samples. Injected: the script and the function each bring their own decoder. */
+export type ListenDecoder = (mp3: Uint8Array) => Promise<Float32Array | null>;
+
+/** Bars for an mp3, or null when it cannot be decoded (the player then shows a progress line). Never throws. */
+export const barsFromAudio = async (mp3: Uint8Array, decode: ListenDecoder | undefined): Promise<number[] | null> => {
+  if (!decode) return null;
+  try {
+    const samples = await decode(mp3);
+    const bars = samples ? rmsBars(samples) : [];
+    return isBars(bars) ? bars : null;
+  } catch {
+    return null;
+  }
+};

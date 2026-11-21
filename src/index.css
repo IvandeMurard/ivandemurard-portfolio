@@ -14,6 +14,19 @@
     --surface: 42 41% 97%;                    /* #fbf9f4 */
     --rose-copper: 22 58% 32%;                /* Rose's colour, Rose case study only */
     --rose-copper-on-navy: 22 62% 66%;        /* the Night value of --rose-copper, for the navy close in both moods */
+    /* Listen: one reading component for the whole site (board R). Rose's tint, in raw colours (not HSL triplets).
+       Every text pair is checked in src/test/listenComponentContrast.test.tsx. Three values differ from the board on purpose:
+       its 30 % upcoming and ghost words measure 1.8:1 and its 20 % unplayed bars 1.5:1, under the site's 4.5:1 (text) and 3:1 (bars). */
+    --listen-surface: #f4dfcf;                 /* the player, on every page */
+    --listen-ink: #2b1f17;                     /* spoken words, play button */
+    --listen-upcoming: rgba(43, 31, 23, .66);  /* words to come (board: .30) */
+    --listen-ghost: rgba(43, 31, 23, .66);     /* the previous sentence (board: .30) */
+    --listen-soft: #5e4a3d;                    /* time, captions */
+    --listen-kicker: #8a4a26;                  /* the capitals label */
+    --listen-played: rgba(43, 31, 23, .9);     /* waveform already heard */
+    --listen-unplayed: rgba(43, 31, 23, .52);  /* waveform to come (board: .20) */
+    --listen-row: #f6ece3;                     /* the ListenRow on the page */
+    --listen-line: rgba(168, 88, 46, .28);     /* edges of the row and the player */
     /* Case-study tints (board N, 19 Nov 2026): the colour a case-study page ends on (see .case-bg). One per project.
        Day values; hex in the comment is the board's, the HSL is rounded to whole numbers (one step of a channel at most). */
     --case-tint-aetherix: 35 55% 90%;         /* #f3e7d6, warm sand */
@@ -165,6 +178,16 @@
     --on-error: 0 40% 12%;
 
     --surface: 32 14% 11%;                    /* warm taupe room */
+    --listen-surface: #33241c;
+    --listen-ink: #f6e8dc;
+    --listen-upcoming: rgba(246, 232, 220, .54);  /* board: .34 */
+    --listen-ghost: rgba(246, 232, 220, .54);     /* board: .32 */
+    --listen-soft: #cdb6a6;
+    --listen-kicker: #f0c9a6;
+    --listen-played: rgba(246, 232, 220, .92);
+    --listen-unplayed: rgba(246, 232, 220, .42);  /* board: .22 */
+    --listen-row: rgba(224, 167, 124, .10);
+    --listen-line: rgba(224, 167, 124, .35);
     --rose-copper: 22 62% 66%;
     --case-tint-aetherix: 30 31% 10%;         /* #221a12 */
     --case-tint-tacet: 94 12% 12%;            /* #1d211a */

@@ -64,3 +64,49 @@ export const seekFromKey = (key: string, ms: number, durationMs: number): number
   if (key === "End") return durationMs;
   return null;
 };
+
+/** A phrase shown alone in the player: first and last word index, inclusive. */
+export type Segment = { from: number; to: number };
+
+export const SEGMENT_MAX_WORDS = 16;
+/** A sentence longer than this is cut at a comma or a colon. */
+export const SEGMENT_CUT_OVER = 9;
+/** A cut never leaves fewer words than this on either side ("First," stays with what follows). */
+export const SEGMENT_MIN_PIECE = 3;
+
+const endsSentence = (w: string) => /[.!?…]["'”’)]*$/.test(w);
+const endsClause = (w: string) => /[,:;]["'”’)]*$/.test(w);
+
+/**
+ * The phrases the player shows one at a time. A phrase is a whole sentence. A sentence over 9 words is cut after its
+ * commas and colons (a piece never under 3 words), and no phrase runs over 16 words: a longer piece is cut in equal parts.
+ */
+export const segmentsOf = (words: string[]): Segment[] => {
+  const out: Segment[] = [];
+  const push = (from: number, to: number) => {
+    const n = to - from + 1;
+    const parts = Math.ceil(n / SEGMENT_MAX_WORDS);
+    const size = Math.ceil(n / parts);
+    for (let a = from; a <= to; a += size) out.push({ from: a, to: Math.min(to, a + size - 1) });
+  };
+  let start = 0;
+  const sentence = (from: number, to: number) => {
+    if (to - from + 1 <= SEGMENT_CUT_OVER) return push(from, to);
+    let pieceStart = from;
+    for (let i = from; i < to; i++) {
+      if (!endsClause(words[i])) continue;
+      if (i - pieceStart + 1 >= SEGMENT_MIN_PIECE && to - i >= SEGMENT_MIN_PIECE) { push(pieceStart, i); pieceStart = i + 1; }
+    }
+    push(pieceStart, to);
+  };
+  for (let i = 0; i < words.length; i++) {
+    if (endsSentence(words[i]) || i === words.length - 1) { sentence(start, i); start = i + 1; }
+  }
+  return out;
+};
+
+/** Index of the phrase that holds the word; the first phrase when none does. */
+export const segmentIndexOfWord = (segments: Segment[], word: number): number => {
+  const i = segments.findIndex((s) => word >= s.from && word <= s.to);
+  return i < 0 ? 0 : i;
+};

@@ -16,7 +16,7 @@ import { isRoseFollowupAllowed, shouldSuppressRoseFollowups } from "../../../sup
 import { logRoseEvent } from "./roseEvents";
 import { finishRoseRequest, startRoseRequest } from "./roseMeasurement";
 import { CompassMark } from "./CompassMark";
-import { expireIfIdle, getRoseChat, getRoseOpen, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
+import { expireIfIdle, getRoseChat, getRoseOpen, getSessionId, resetRoseChat, saveMessages, setRoseOpen } from "./roseSession";
 import { ROSE_DATA_SHORT } from "@/content/roseDataContract";
 import { ROSE_EMPTY_ANSWER, ROSE_PAUSED, ROSE_STATUS, type RoseStatus } from "@/content/roseStatus";
 import { isRoseUnavailableError } from "../../../supabase/functions/_shared/rose-provider";
@@ -24,26 +24,13 @@ import { ROSE_BOOKING_LINE_PART } from "../../../supabase/functions/_shared/rose
 import { ExternalMark } from "@/components/ui/ExternalMark";
 import { RoseWelcome, useRoseWelcome } from "./RoseWelcome";
 import { ListenPlayer } from "./listen/ListenPlayer";
-import { canListen, loadSummaryAudio, requestAnswerAudio } from "./listen/listenClient";
+import { ListenMini } from "./listen/ListenMini";
+import { useListenOptional } from "@/components/listen/ListenProvider";
+import { summaryRequest } from "@/components/listen/summaryRequest";
+import { canListen, requestAnswerAudio } from "./listen/listenClient";
 import { formatListenDuration, listenSummaryFor } from "@/content/listenSummaries";
 import { textToSend } from "../../../supabase/functions/_shared/listen-core";
 
-const SESSION_KEY = "rose_session";
-
-const getSessionId = (): string => {
-  if (typeof window === "undefined") return "";
-  try {
-    let id = window.sessionStorage.getItem(SESSION_KEY);
-    if (!id) {
-      id = (crypto.randomUUID?.() ??
-        `s_${Date.now()}_${Math.random().toString(36).slice(2)}`).slice(0, 64);
-      window.sessionStorage.setItem(SESSION_KEY, id);
-    }
-    return id;
-  } catch {
-    return "";
-  }
-};
 
 const renderText = (m: UIMessage): string =>
   Array.isArray(m.parts)
@@ -168,11 +155,13 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
 
   // Listen: the page summary (pilot: the Harness note) and Rose's factual answers. The written answer stays shown.
   const summary = useMemo(() => listenSummaryFor(pathname), [pathname]);
-  const [summaryOpen, setSummaryOpen] = useState(false);
-  const [listening, setListening] = useState<string[]>([]);
-  useEffect(() => { setSummaryOpen(false); }, [pathname]);
-  const logListen = (kind: "listen" | "listen_complete", source: "summary" | "answer") =>
-    !paused && logRoseEvent({ session_id: sessionId, path: pathname, kind, listen_source: source });
+  // The reader is one for the whole site (ListenProvider): the dock shows it and drives it. Without a provider, no Listen.
+  const L = useListenOptional();
+  const listenRef = useRef(L);
+  listenRef.current = L;
+  const listenActive = !!L && L.current !== null && !paused;
+  const playerView = listenActive && L!.playerOpen;
+  const miniView = listenActive && !playerView && !open;
 
   const [chat, setChat] = useState(() => getRoseChat(sessionId));
   const { messages, status, error } = useChat({ chat });
@@ -193,7 +182,6 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const clearConversation = () => {
     log("rose_conversation_cleared");
     setChat(resetRoseChat(sessionId));
-    setListening([]);
     setDetectedIntent(null);
     setInputValue("");
     setConfirmClear(false);
@@ -348,9 +336,6 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     // A source link was followed: on a narrow screen the dock folds to its bar so the page it points to is in view.
     const onMinimise = () => { if (window.matchMedia?.("(max-width: 767px)").matches) setOpen(false); };
     const onEcho = (e: Event) => setEcho(Boolean((e as CustomEvent<boolean>).detail));
-    // The "Listen summary" block of a page: open the dock on the audiogram of that page's summary (never when Rose is paused).
-    const onListen = () => { if (paused || !summary) return; setOpen(true); setSummaryOpen(true); };
-    window.addEventListener("rose:listen", onListen);
     window.addEventListener("rose:ask", onAsk as EventListener);
     window.addEventListener("rose:open", onOpen);
     window.addEventListener("rose:prefill", onPrefill);
@@ -359,7 +344,6 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     window.addEventListener("rose:echo", onEcho);
     return () => {
       window.removeEventListener("rose:echo", onEcho);
-      window.removeEventListener("rose:listen", onListen);
       window.removeEventListener("rose:ask", onAsk as EventListener);
       window.removeEventListener("rose:open", onOpen);
       window.removeEventListener("rose:prefill", onPrefill);
@@ -392,6 +376,10 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
         if (!open) returnFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
         setOpen(true);
         requestAnimationFrame(() => expandedInputRef.current?.focus());
+      } else if (e.key === "Escape" && listenRef.current?.playerOpen) {
+        // The player closes first: back to the mini-player, the sound goes on.
+        e.preventDefault();
+        listenRef.current.setPlayerOpen(false);
       } else if (e.key === "Escape" && open) {
         e.preventDefault();
         const back = returnFocusRef.current;
@@ -412,7 +400,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   useEffect(() => { if (open) void loadSourceLabels(); }, [open]);
 
   // On the homepage the dock waits for the hero to scroll away, except while the welcome is shown above its bar.
-  const hidden = !open && !pastHero && !welcome.visible;
+  const hidden = !open && !pastHero && !welcome.visible && !listenActive;
   const showChips = open ? messages.length === 0 : focusWithin;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
   const askedTexts = new Set(messages.filter((m) => m.role === "user").map((m) => renderText(m)));
@@ -440,10 +428,13 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
         style={{ transform: hidden ? "translateY(160%)" : "none" }}
         className={cn(
           "fixed z-50 transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none",
-          "bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-ml-[min(280px,calc(50vw-1.5rem))] md:bottom-6 md:w-[min(560px,calc(100vw-3rem))]",
+          playerView
+            ? "bottom-0 left-0 right-0 md:bottom-6 md:left-1/2 md:right-auto md:-ml-[220px] md:w-[440px]"
+            : "bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-ml-[min(280px,calc(50vw-1.5rem))] md:bottom-6 md:w-[min(560px,calc(100vw-3rem))]",
           hidden ? "pointer-events-none opacity-0" : "opacity-100",
         )}
       >
+        {playerView ? <ListenPlayer /> : null}
         <div
           data-rose-panel
           data-pulse={pulse ? "true" : "false"}
@@ -453,6 +444,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           }}
           className={cn(
             "flex flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest",
+            playerView && "hidden",
             open ? "max-h-[min(600px,80vh)] shadow-xl shadow-primary/10" : "shadow-md shadow-primary/5",
             "transition-[border-color,box-shadow] duration-500 motion-reduce:transition-none",
             pulse && "duration-[150ms]",
@@ -510,6 +502,12 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             </div>
           ) : null}
 
+          {open && listenActive && !playerView ? (
+            <div className="border-b border-outline-variant">
+              <ListenMini onAsk={() => expandedInputRef.current?.focus()} />
+            </div>
+          ) : null}
+
           {open && paused ? (
             <div role="status" className="flex-1 overflow-y-auto px-5 py-5 text-sm text-on-surface">
               <RosePausedNotice />
@@ -517,17 +515,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           ) : null}
 
           {open && !paused ? (
-            <div className={cn("flex-1 overflow-y-auto", (hasConversation || isLoading || error || summaryOpen) && "px-5 py-4")} role="log" aria-live="polite">
+            <div className={cn("flex-1 overflow-y-auto", (hasConversation || isLoading || error) && "px-5 py-4")} role="log" aria-live="polite">
               <div className="flex flex-col gap-4">
-                {summary && summaryOpen ? (
-                  <ListenPlayer
-                    label="summary of this page"
-                    load={() => loadSummaryAudio(summary.slug)}
-                    fallbackText={summary.summary.text}
-                    onStart={() => logListen("listen", "summary")}
-                    onComplete={() => logListen("listen_complete", "summary")}
-                  />
-                ) : null}
                 {messages.map((m, messageIndex) => {
                   const text = renderText(m);
                   if (m.role === "user") {
@@ -569,28 +558,24 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                           onReferenceClick={(target_path) => logRoseEvent({ session_id: sessionId, path: pathname, kind: "rose_link_clicked", target_path })} /> : null;
                       })()}
                       {/* Listen: only on a finished, signed, factual answer. A booking answer is an action, not a text to read. */}
-                      {!paused && !booking && text.trim() && !(isLoading && m.id === lastAssistantId) && canListen(m) ? (
-                        listening.includes(m.id) ? (
-                          <div className="mt-3">
-                            <ListenPlayer
-                              label="answer"
-                              load={() => requestAnswerAudio(sessionId, m)}
-                              fallbackText={textToSend(m.parts.flatMap((p) => (p.type === "text" ? [p.text] : [])))}
-                              onStart={() => logListen("listen", "answer")}
-                              onComplete={() => logListen("listen_complete", "answer")}
-                            />
-                          </div>
-                        ) : (
+                      {!paused && L && !booking && text.trim() && !(isLoading && m.id === lastAssistantId) && canListen(m) ? (() => {
+                        const id = `answer:${m.id}`;
+                        const mine = L.current?.id === id && L.phase !== "idle";
+                        return (
                           <button
                             type="button"
-                            onClick={() => setListening((ids) => [...ids, m.id])}
-                            className="mt-2 inline-flex items-center gap-1 rounded-full border border-outline-variant px-3 py-1 text-xs text-on-surface hover:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                            onClick={() => (mine ? L.toggle() : L.start({
+                              id, kind: "answer", title: "Rose · answer", entry: "answer", openPlayer: true,
+                              load: () => requestAnswerAudio(sessionId, m),
+                              fallbackText: textToSend(m.parts.flatMap((p) => (p.type === "text" ? [p.text] : []))),
+                            }))}
+                            className="mt-2 inline-flex min-h-11 items-center gap-1 rounded-full border border-outline-variant px-3.5 text-xs text-on-surface hover:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
                           >
-                            <Icon name="play_arrow" className="text-base" />
-                            Listen
+                            <Icon name={mine && L.playing ? "pause" : mine && L.ended ? "replay" : "play_arrow"} className="text-base" />
+                            {mine && L.playing ? "Pause" : mine && L.ended ? "Replay" : "Listen"}
                           </button>
-                        )
-                      ) : null}
+                        );
+                      })() : null}
                       {/* Once per answer, on a profile question only, and not while the answer is still streaming. */}
                       {!paused && !booking && !(isLoading && m.id === lastAssistantId) && m.parts.some((p) => p.type === ROSE_BOOKING_LINE_PART)
                         ? <RoseBookingLine onBook={openBooking} /> : null}
@@ -636,14 +621,14 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             </div>
           ) : null}
 
-          {showChips && !paused ? (
+          {showChips && !paused && !miniView ? (
             <div className={cn("flex flex-wrap gap-2 px-4", open ? "py-3" : "pt-3")}>
               {/* The starter question of a page that has a validated summary. It opens the audiogram, it asks Rose nothing. */}
-              {summary && !summaryOpen ? (
+              {summary && L && L.current?.id !== `summary:${summary.slug}` ? (
                 <button
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => { if (!open) setOpen(true); setSummaryOpen(true); }}
+                  onClick={() => { L.start(summaryRequest(summary.slug, "dock_starter", { openPlayer: true })); setOpen(false); }}
                   className="inline-flex items-center gap-1 rounded-full border border-secondary bg-surface-container-lowest px-3.5 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
                 >
                   <Icon name="play_arrow" className="text-base" />
@@ -671,7 +656,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             </div>
           ) : null}
 
-          {paused && open ? null : (
+          {miniView ? <ListenMini onAsk={() => setOpen(true)} tabIndex={hidden ? -1 : undefined} /> : null}
+          {(paused && open) || miniView ? null : (
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -754,7 +740,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           </form>
           )}
           {/* Wherever the bar or the input is rendered (open or at rest), under it and on one line. */}
-          <div className={cn("whitespace-nowrap px-5 text-meta text-on-surface-variant max-[380px]:whitespace-normal", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
+          <div className={cn("whitespace-nowrap px-5 text-meta text-on-surface-variant max-[380px]:whitespace-normal", miniView && "hidden", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
             <p className="inline whitespace-nowrap">
               {ROSE_DATA_SHORT.text} ·{" "}
               <Link

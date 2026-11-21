@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import { pages } from "./routes";
 import { MoodProvider } from "./components/MoodProvider";
 import { AmbienceProvider } from "./components/AmbienceProvider";
+import { ListenProvider } from "./components/listen/ListenProvider";
 
 // Every page but the homepage loads on demand (see routes.ts). main.tsx fetches the chunk of the first route before it
 // renders, so the prerendered HTML in #root is never replaced by a fallback.
@@ -52,6 +53,8 @@ const App = () => (
           <Sonner />
           {/* v7_startTransition: a navigation to a page whose chunk is still loading keeps the current page on screen. */}
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            {/* One reader for the whole site: a page change never cuts the sound (it lives above the routes). */}
+            <ListenProvider>
             <Suspense fallback={<RouteFallback />}>
               <Routes>
                 <Route path="/" element={<Index />} />
@@ -84,6 +87,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
+            </ListenProvider>
           </BrowserRouter>
         </TooltipProvider>
       </AmbienceProvider>

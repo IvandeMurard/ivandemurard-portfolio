@@ -7,6 +7,8 @@ import { PROJECTS } from "@/content/site";
 import { STATUSES, type Signal } from "@/content/statuses";
 import { CASE_INDEX, GROUP_ARCH, GROUP_SOLO, LEGEND, START_WITH, type CardTint, type IndexCard } from "@/content/caseIndex";
 import { useTrackClick } from "@/hooks/useTrackClick";
+import { listenSummaryFor } from "@/content/listenSummaries";
+import { ListenBadge } from "@/components/listen/ListenBadge";
 import sonorPhoto from "@/assets/case-sonor.png";
 import compassPhoto from "@/assets/case-paris-compass.jpg";
 
@@ -55,7 +57,8 @@ const Card = ({ card }: { card: IndexCard }) => {
         <p className="mt-[14px] max-w-[560px] text-[16.5px] leading-[1.5] text-case-ink/[0.92]">{card.line}</p>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-t border-case-ink/20 pt-4">
           <p className="max-w-[420px] text-[13.5px] text-case-ink/80"><span className={photo ? undefined : "text-case-ink/70"}>{CASE_INDEX.shows}{" "}</span>{card.shows}</p>
-          {/* The one link of the card. Its ::after stretches over the whole card, so there is a single focus stop. */}
+          {listenSummaryFor(href) ? <ListenBadge slug={listenSummaryFor(href)!.slug} title={project.name} tone="card" /> : null}
+          {/* The one link of the card. Its ::after stretches over the whole card; the badge sits above it, as its own focus stop. */}
           <Link to={href} onClick={() => track({ label: project.name, href, kind: "project" })}
             className="inline-flex min-h-10 items-center rounded-full border border-case-ink/40 px-[18px] text-sm after:absolute after:inset-0 after:content-[''] group-hover:border-case-ink focus-visible:outline-none">
             {CASE_INDEX.readCase}<span className="sr-only">: {project.name}</span>
