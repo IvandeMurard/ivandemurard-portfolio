@@ -85,7 +85,11 @@ export const JOURNAL_META: JournalMeta[] = [
     "date": "2026-11-20",
     "readingMinutes": 8,
     "readingMinutesFull": 8,
-    "updates": []
+    "updates": [
+      {
+        "date": "2026-11-21"
+      }
+    ]
   }
 ];
 

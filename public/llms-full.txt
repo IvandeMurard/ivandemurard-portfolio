@@ -2367,7 +2367,7 @@ What a person, an assistant and an outside agent each get from the same page.
 
 Product · 2026-11-20 · 8 min read
 
-**Read this if** want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that people, assistants and AI agents all read; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares.
+**Read this if** you want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that people, assistants and AI agents all read; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares.
 
 What you will decide differently:
 - **Check what a machine actually receives, byte by byte.** What the browser shows proves nothing.
@@ -2490,7 +2490,7 @@ A number about agents is only worth what it counts. So each figure here says wha
 
 - **MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 20 November 2026. The unit is the call: one script can make many.
 
-MCP calls since 20 Nov 2026: 2
+MCP calls since 20 Nov 2026: not filled in yet
 
 The first counter did not survive a review: it could be written through the site's public key, by anyone. Its numbers are not used here or anywhere else. Counting moved to the server, where a visitor cannot reach it.
 
@@ -2537,6 +2537,12 @@ Writing these notes ahead, then publishing them as the work moves, is an idea bo
 - Read the method: [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) - The method behind Rose's release tests.
 - Inspect implementation evidence: [Rose, the case study](https://ivandemurard.com/rose) - Her five decisions, trust contracts, tests and relation map.
 - Inspect implementation evidence: [/agents, how agents can read this site](https://ivandemurard.com/agents) - The tools, the files and what each one guarantees.
+
+## Updates
+
+This piece is revised when something it claims stops being true. Each revision says what changed and why.
+
+2026-11-21 · Counter emptied: its first value included a test call and had no reading date. It will be filled with a dated count.
 
 Source: https://ivandemurard.com/journal/one-text-three-readers
 
