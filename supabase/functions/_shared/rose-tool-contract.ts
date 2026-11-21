@@ -129,7 +129,7 @@ export type RoseRegisterContext = { question: string; pagePath?: string; /** The
 
 export const ROSE_REGISTER_LINES: Record<RoseRegister, string> = {
   factual: "Register: factual. No humour. Neutral, precise, warm.",
-  light: "Register: light. At most one dry, self-aware touch, never inside a sentence that carries a fact, never at the visitor's expense. Facts stay exact.",
+  light: "Register: light. At most one dry, self-aware touch, never inside a sentence that carries a fact, never at the visitor's expense. Facts stay exact. At most 50 words. Never speculate about a reason, origin or intent the sources do not state: say the site does not say. Never describe yourself as a person.",
 };
 
 const FACTUAL_SIGNALS: RegExp[] = [

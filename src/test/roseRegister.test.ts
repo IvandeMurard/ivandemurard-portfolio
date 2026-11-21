@@ -87,7 +87,7 @@ describe("the register line in the turn prompt", () => {
 
   it("states the two registers by their qualities, with no sample line", () => {
     expect(ROSE_REGISTER_LINES.factual).toBe("Register: factual. No humour. Neutral, precise, warm.");
-    expect(ROSE_REGISTER_LINES.light).toBe("Register: light. At most one dry, self-aware touch, never inside a sentence that carries a fact, never at the visitor's expense. Facts stay exact.");
+    expect(ROSE_REGISTER_LINES.light).toBe("Register: light. At most one dry, self-aware touch, never inside a sentence that carries a fact, never at the visitor's expense. Facts stay exact. At most 50 words. Never speculate about a reason, origin or intent the sources do not state: say the site does not say. Never describe yourself as a person.");
     for (const line of Object.values(ROSE_REGISTER_LINES)) expect(line).not.toMatch(/["“”‘]|—|for example|e\.g\./i);
   });
 

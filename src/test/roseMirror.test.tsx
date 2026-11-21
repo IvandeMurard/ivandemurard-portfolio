@@ -70,8 +70,8 @@ describe("Rose mirror: what it contains", () => {
     expect(md).toContain(MILESTONES["ch-01"].tradeoff);
   });
 
-  it("marks every Rose note as written by Ivan in her voice, and has all seven", () => {
-    const notes = [IDEA.note, ...["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"].map((id) => MILESTONES[id].note), GOT_WRONG.note];
+  it("marks every Rose note as written by Ivan in her voice, and has all eight", () => {
+    const notes = [IDEA.note, IDEA.nameNote, ...["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"].map((id) => MILESTONES[id].note), GOT_WRONG.note];
     expect(ROSE_NOTE_LABEL).toBe("Rose's note (written by Ivan in her voice)");
     for (const n of notes) expect(md).toContain(`**${ROSE_NOTE_LABEL}**\n\n${n}\n`);
     expect(md.split(`**${ROSE_NOTE_LABEL}**`)).toHaveLength(notes.length + 1);
