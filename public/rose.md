@@ -2,7 +2,7 @@
 
 Case study · Rose
 
-Status: Live Text · Voice in pilot
+Status: Live, voice in pilot
 
 Last updated 2026-11-21.
 

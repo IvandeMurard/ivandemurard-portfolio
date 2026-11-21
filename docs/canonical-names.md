@@ -54,7 +54,7 @@ Nothing below was changed. The portfolio's project statuses (`src/content/status
 | `statuses.ts` aetherix | "Pre-pilot". "Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet." (note changed on 16 Nov 2026, with the same sentence on the Aetherix page and its mirrors) | "Built: private repo, 0 real users, staging on Fly.io." |
 | `statuses.ts` tacet | "Maintenance". "...Built; in maintenance mode since July 2026." | "Built: public repo, paused / maintenance mode since July 2026." |
 | `statuses.ts` anima | "Compliance Gated". "Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears." | "Synthetic PoC: DPIA-gated, never run on a real guest." |
-| `statuses.ts` sonor, rose, lore, compass | Own labels (MVP shipped, Live Text · Voice in pilot, Evaluated, Partial) | Not in the table: these are portfolio projects, not nodes of the architecture. |
+| `statuses.ts` sonor, rose, lore, compass | Own labels (MVP shipped, Live, voice in pilot, Evaluated, Partial) | Not in the table: these are portfolio projects, not nodes of the architecture. |
 | Mesh diagram (Aetherix page), Tacet | "Built · maintenance mode since July 2026" | "Built: public repo, paused / maintenance mode since July 2026." |
 | Mesh diagram, Peritia | "Design" | "Design: contracts specified, not implemented." |
 | Mesh diagram, Orchestrator | "Synthetic PoC · in shadow" (changed on 19 Nov 2026 from "Design · proto-stub") | "Synthetic PoC: runs in the shadow of the F&B node's daily recommendation and never changes or sends it; run once on staging on synthetic input. Becoming the only way to the manager is Design." |

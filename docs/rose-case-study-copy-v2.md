@@ -25,7 +25,7 @@ The hero says one thing and shows Rose answering. The kicker chain, the meta lin
 | Element | v2 copy |
 |---|---|
 | Label | Case study · Rose |
-| Status badge | Live Text · Voice in pilot (decided by Ivan on 21 Nov 2026; was "Live, text only") |
+| Status badge | Live, voice in pilot (decided by Ivan on 21 Nov 2026; was "Live, text only") |
 | Headline | A portfolio you can question. (the page's only italic) |
 | Lead | Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn. |
 | Demo, exchange 1 | Reformulation. Visitor: Say it more simply. Rose: When you ask me something, I also receive the page you are on, so I answer about what you are reading. Source: chapter 03. |
@@ -159,7 +159,7 @@ The two contracts keep their validated wording. The intro's chiasmus and the max
 | Intro | One contract covers data: what is kept and what is sent. The other covers knowledge: what Rose may assert or infer. I keep them apart so that a privacy promise is never read as proof of accuracy. |
 | Data, title | What is kept and sent |
 | Data, items | Unchanged and validated: the conversation sentence, the storage and masking sentences, and "Booking opens the calendar and nothing else. No transcript travels with it." |
-| Data, item 4 (Built) | Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files. (Added 21 Nov 2026, wording by Ivan. The case study status became "Live Text · Voice in pilot" on 21 Nov 2026; the same sentence is on /privacy.) |
+| Data, item 4 (Built) | Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files. (Added 21 Nov 2026, wording by Ivan. The case study status became "Live, voice in pilot" on 21 Nov 2026; the same sentence is on /privacy.) |
 | Data, sources | Retention and masking: mask-pii.ts and the purge migration (links as built) |
 | Knowledge, title | What Rose may assert or infer |
 | Knowledge, item 1 (Built) | Rose answers from the same Markdown pages the MCP server reads, with one or two links to them. |

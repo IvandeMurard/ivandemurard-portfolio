@@ -38,44 +38,5 @@ SELECT cron.schedule('purge-old-rose-listen-usage', '0 3 * * *', $$DELETE FROM p
 -- Private: the function reads and writes with the service role and hands out signed links.
 INSERT INTO storage.buckets (id, name, public) VALUES ('rose-listen', 'rose-listen', false) ON CONFLICT (id) DO NOTHING;
 
--- Cache retention: objects of the rose-listen bucket are purged after 90 days, like the questions.
--- A plain DELETE on storage.objects would only drop the row and leave the file in the backing store (Supabase: delete
--- objects through the Storage API, never in SQL), so the "kept for 90 days" on /privacy would not be true. The job
--- therefore asks the Storage API to delete each expired object, through pg_net. It needs two Vault secrets that
--- Ivan creates once (see the PR): `project_url` and `service_role_key`. The key never appears in a file. If a secret
--- is missing the function raises, so the failure shows in cron.job_run_details instead of passing silently.
--- A purged text is simply paid again the next time it is asked.
-CREATE EXTENSION IF NOT EXISTS pg_net;
-
-CREATE OR REPLACE FUNCTION public.purge_rose_listen_cache() RETURNS integer
-LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp
-AS $$
-DECLARE
-  base_url text := (SELECT decrypted_secret FROM vault.decrypted_secrets WHERE name = 'project_url' LIMIT 1);
-  api_key text := (SELECT decrypted_secret FROM vault.decrypted_secrets WHERE name = 'service_role_key' LIMIT 1);
-  expired integer := 0;
-  o record;
-BEGIN
-  IF base_url IS NULL OR api_key IS NULL THEN
-    RAISE EXCEPTION 'Vault secrets project_url and service_role_key are required to purge the rose-listen bucket';
-  END IF;
-  FOR o IN SELECT name FROM storage.objects WHERE bucket_id = 'rose-listen' AND created_at < now() - interval '90 days' LOOP
-    PERFORM net.http_delete(
-      url := rtrim(base_url, '/') || '/storage/v1/object/rose-listen/' || o.name,
-      headers := jsonb_build_object('Authorization', 'Bearer ' || api_key)
-    );
-    expired := expired + 1;
-  END LOOP;
-  RETURN expired;
-END
-$$;
-REVOKE ALL ON FUNCTION public.purge_rose_listen_cache() FROM PUBLIC, anon, authenticated;
-
-DO $$
-BEGIN
-  IF EXISTS (SELECT 1 FROM cron.job WHERE jobname = 'purge-old-rose-listen-cache') THEN
-    PERFORM cron.unschedule('purge-old-rose-listen-cache');
-  END IF;
-END
-$$;
-SELECT cron.schedule('purge-old-rose-listen-cache', '0 3 * * *', $$SELECT public.purge_rose_listen_cache()$$);
+-- Retention of the cached audio is not done here: rose-listen deletes expired objects of this bucket through the Storage API
+-- (see _shared/listen-core.ts, purgeExpiredListenCache). Nothing in the database does it.

@@ -87,7 +87,7 @@ describe("02 · Selected projects", () => {
   it("shows Rose with her status, her fragment, her line and a link to the case", () => {
     page();
     const rose = within(cards()[0]);
-    expect(rose.getByText("Live Text · Voice in pilot")).toBeTruthy();
+    expect(rose.getByText("Live, voice in pilot")).toBeTruthy();
     expect(rose.getByText(FRAGMENT)).toBeTruthy();
     expect(rose.getByText(LINE)).toBeTruthy();
     expect(rose.getByRole("link", { name: "Read the case" }).getAttribute("href")).toBe("/rose");
@@ -95,9 +95,9 @@ describe("02 · Selected projects", () => {
 });
 
 describe("Status and project entries", () => {
-  it("adds a rose status: signal go, word 'Live Text · Voice in pilot'", () => {
+  it("adds a rose status: signal go, word 'Live, voice in pilot'", () => {
     expect(STATUSES.rose.signal).toBe("go");
-    expect(STATUSES.rose.word).toBe("Live Text · Voice in pilot");
+    expect(STATUSES.rose.word).toBe("Live, voice in pilot");
     expect(STATUSES.rose.note).toContain("Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book.");
   });
 
@@ -117,7 +117,7 @@ describe("The mirrors quote the same words", () => {
     expect(index).toContain(`## ${HEADLINE}`);
     expect(index).toContain(SUBLINE);
     expect(index).not.toContain("Now I build AI solutions");
-    const rose = index.indexOf("### Rose (GO · Live Text · Voice in pilot)");
+    const rose = index.indexOf("### Rose (GO · Live, voice in pilot)");
     expect(rose).toBeGreaterThan(index.indexOf("## 02 · Selected projects"));
     expect(rose).toBeLessThan(index.indexOf("### Lore"));
     expect(index).toContain(FRAGMENT);

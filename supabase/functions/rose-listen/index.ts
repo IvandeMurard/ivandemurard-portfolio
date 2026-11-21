@@ -3,7 +3,7 @@
 // (session id, time, characters) for the caps. Secrets: ELEVENLABS_API_KEY, LISTEN_DAILY_CHAR_CAP, ROSE_HISTORY_KEY.
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { handleListen, type ListenStore } from "../_shared/listen-handler.ts";
-import type { ListenWord } from "../_shared/listen-core.ts";
+import { purgeExpiredListenCache, type ListenWord } from "../_shared/listen-core.ts";
 
 const BUCKET = "rose-listen";
 const SIGNED_URL_SECONDS = 60 * 60;
@@ -45,12 +45,35 @@ const storeFor = (url: string, serviceKey: string): ListenStore => {
     async record(sessionId, chars, cached) {
       await db.from("rose_listen_usage").insert({ session_id: sessionId, chars, cached });
     },
+    // Retention: through the Storage API (a SQL delete on storage.objects would leave the files behind). Oldest first,
+    // so the first 100 listed are the only candidates a purge of at most 20 needs.
+    purgeExpired(now) {
+      const bucket = db.storage.from(BUCKET);
+      return purgeExpiredListenCache({
+        async list() {
+          const { data, error } = await bucket.list("", { limit: 100, sortBy: { column: "created_at", order: "asc" } });
+          if (error) throw error;
+          return (data ?? []).map((o: { name: string; created_at?: string | null }) => ({ name: o.name, created_at: o.created_at }));
+        },
+        async remove(names) {
+          const { error } = await bucket.remove(names);
+          if (error) throw error;
+        },
+      }, now);
+    },
   };
 };
+
+// Supabase Edge Runtime: keeps a promise running after the response has been sent.
+declare const EdgeRuntime: { waitUntil(task: Promise<unknown>): void } | undefined;
 
 Deno.serve((req) => {
   const url = Deno.env.get("SUPABASE_URL");
   const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   if (!url || !key) return new Response(JSON.stringify({ error: "Unavailable", fallback: "speech" }), { status: 503, headers: { "Content-Type": "application/json" } });
-  return handleListen(req, { env: (n) => Deno.env.get(n), store: storeFor(url, key) });
+  return handleListen(req, {
+    env: (n) => Deno.env.get(n),
+    store: storeFor(url, key),
+    background: (task) => { if (typeof EdgeRuntime !== "undefined") EdgeRuntime.waitUntil(task); },
+  });
 });

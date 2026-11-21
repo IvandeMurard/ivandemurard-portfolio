@@ -60,7 +60,7 @@ Outside the architecture: the assistant of this site, the same thesis in aviatio
 
 ### Rose
 
-The assistant of this site · Status: Live Text · Voice in pilot
+The assistant of this site · Status: Live, voice in pilot
 
 Rose answers questions about the page you are reading, from the site's own text.
 

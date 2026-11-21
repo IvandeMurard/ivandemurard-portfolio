@@ -32,6 +32,8 @@ export interface ListenStore {
   /** Characters sent to ElevenLabs since the given time, all sessions. */
   charsSince(sinceMs: number): Promise<number>;
   record(sessionId: string, chars: number, cached: boolean): Promise<void>;
+  /** Deletes cached objects older than 90 days, at most 20 (purgeExpiredListenCache). Must not throw. */
+  purgeExpired(now: number): Promise<unknown>;
 }
 
 export type ListenDeps = {
@@ -39,6 +41,8 @@ export type ListenDeps = {
   store: ListenStore;
   now?: () => number;
   synthesize?: (text: string, apiKey: string) => Promise<ListenSynthesis>;
+  /** Keeps a task alive after the response is sent (EdgeRuntime.waitUntil). Without it the task still starts, unawaited. */
+  background?: (task: Promise<unknown>) => void;
 };
 
 type Body = {
@@ -123,5 +127,8 @@ export async function handleListen(req: Request, deps: ListenDeps): Promise<Resp
   // The cache is keyed on the configured model; the model actually used is stored with the files.
   const audioUrl = await deps.store.putCached(key, text, result);
   await deps.store.record(sessionId, result.billedChars, false);
+  // Retention: after a new text is stored, expired objects are deleted in the background. The response never waits for it.
+  const purge = (async () => { try { await deps.store.purgeExpired(now); } catch { /* the next purge retries */ } })();
+  if (deps.background) deps.background(purge);
   return json({ text, words: result.words, audio_url: audioUrl, duration_ms: result.durationMs, model: result.model, cached: false } satisfies ListenResult);
 }

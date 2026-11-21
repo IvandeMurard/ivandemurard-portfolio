@@ -26,7 +26,7 @@ describe("Rose mirror: what it contains", () => {
     expect(lines[0]).toBe(`# ${HERO.headline.join("")}`);
     expect(lines[1]).toBe(HERO.label);
     expect(lines[2]).toBe(`Status: ${HERO.status}`);
-    expect(`Status: ${HERO.status}`).toBe("Status: Live Text · Voice in pilot");
+    expect(`Status: ${HERO.status}`).toBe("Status: Live, voice in pilot");
     expect(STATUSES.rose.word).toBe(HERO.status);
     expect(lines[3]).toBe(`Last updated ${DATE}.`);
     expect(lines[4]).toBe(HERO_LEAD);

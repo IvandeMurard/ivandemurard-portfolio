@@ -50,7 +50,7 @@ export const LEGEND = [
 ] as const;
 
 /* §6.1 Hero. Copy verbatim from docs/rose-case-study-copy-v2.md. The demo is in RoseDemos.tsx. */
-export const HERO = { label: "Case study · Rose", status: "Live Text · Voice in pilot", headline: ["A portfolio ", "you can question."] } as const;
+export const HERO = { label: "Case study · Rose", status: "Live, voice in pilot", headline: ["A portfolio ", "you can question."] } as const;
 /** The sentence under the legend; the repository is linked. */
 export const LEGEND_NOTE = { before: "Milestones come from ", link: "the repository", after: ": commit dates, archived plans, the original prompt. Readings of the design are mine." } as const;
 export const HERO_LEAD = "Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.";

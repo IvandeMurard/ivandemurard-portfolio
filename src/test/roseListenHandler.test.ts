@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { signRoseTurn } from "../../supabase/functions/_shared/rose-history-signature";
 import { handleListen, type CachedListen, type ListenDeps, type ListenStore } from "../../supabase/functions/_shared/listen-handler";
-import { LISTEN_MODEL, LISTEN_SESSION_LIMIT, listenCacheKey, type ListenSynthesis } from "../../supabase/functions/_shared/listen-core";
+import { LISTEN_MODEL, LISTEN_SESSION_LIMIT, listenCacheKey, purgeExpiredListenCache, type ListenBucket, type ListenSynthesis } from "../../supabase/functions/_shared/listen-core";
 
 const HISTORY_KEY = "test-only-history-key";
 const SESSION = "session-1";
@@ -19,8 +19,10 @@ const memoryStore = () => {
     sessionReads: async (session, since) => usage.filter((u) => u.session === session && u.at >= since).length,
     charsSince: async (since) => usage.filter((u) => u.at >= since).reduce((n, u) => n + u.chars, 0),
     record: async (session, chars, cached) => { usage.push({ session, at: clock, chars, cached }); },
+    purgeExpired: async (now) => purges.push(now),
   };
-  return { store, cache, usage, setClock: (t: number) => { clock = t; } };
+  const purges: number[] = [];
+  return { store, cache, usage, purges, setClock: (t: number) => { clock = t; } };
 };
 
 const synthesis = (text: string): ListenSynthesis => ({
@@ -160,6 +162,86 @@ describe("rose-listen: caps", () => {
     const res = await handleListen(request(await signed([long])), deps());
     expect(res.status).toBe(413);
     expect(synth).not.toHaveBeenCalled();
+  });
+});
+
+describe("rose-listen: cache retention never slows an answer and only deletes what expired", () => {
+  const DAY = 86_400_000;
+  /** A bucket twin that records what is asked to be deleted. */
+  const bucket = (objects: { name: string; created_at?: string | null }[], opts: { fail?: "list" | "remove" } = {}) => {
+    const removed: string[][] = [];
+    const b: ListenBucket = {
+      list: async () => { if (opts.fail === "list") throw new Error("list failed"); return objects; },
+      remove: async (names) => { if (opts.fail === "remove") throw new Error("remove failed"); removed.push(names); },
+    };
+    return { b, removed };
+  };
+  const ago = (days: number) => new Date(NOW - days * DAY).toISOString();
+
+  it("a purge that never finishes does not hold the response", async () => {
+    mem.store.purgeExpired = () => new Promise(() => {});
+    const background = vi.fn();
+    const res = await handleListen(request(await signed()), { ...deps(), background });
+    expect(res.status).toBe(200);
+    expect((await res.json()).cached).toBe(false);
+    expect(background).toHaveBeenCalledTimes(1);
+  });
+
+  it("a purge that fails does not change the answer, and nothing is left unhandled", async () => {
+    mem.store.purgeExpired = async () => { throw new Error("storage down"); };
+    let task: Promise<unknown> | undefined;
+    const res = await handleListen(request(await signed()), { ...deps(), background: (t) => { task = t; } });
+    expect(res.status).toBe(200);
+    await expect(task).resolves.toBeUndefined();
+  });
+
+  it("is started after a new text is stored, with the clock of the request, and not on a cache hit or a refusal", async () => {
+    const stored = vi.fn(mem.store.putCached);
+    mem.store.putCached = stored;
+    const bg = vi.fn();
+    await handleListen(request(await signed()), { ...deps(), background: bg });
+    expect(mem.purges).toEqual([NOW]);
+    expect(stored.mock.invocationCallOrder[0]).toBeLessThan(bg.mock.invocationCallOrder[0]);
+    // The same text again is a cache hit: nothing new is stored, no purge.
+    await handleListen(request(await signed([TEXT], { id: "m2" })), { ...deps(), background: bg });
+    // An unsigned request is refused before anything happens.
+    await handleListen(request({ ...(await signed()), sig: "" }), { ...deps(), background: bg });
+    expect(mem.purges).toEqual([NOW]);
+    expect(bg).toHaveBeenCalledTimes(1);
+  });
+
+  it("deletes only objects older than 90 days, oldest first", async () => {
+    const { b, removed } = bucket([
+      { name: "fresh.mp3", created_at: ago(1) },
+      { name: "edge.json", created_at: ago(89) },
+      { name: "old-b.mp3", created_at: ago(120) },
+      { name: "old-a.json", created_at: ago(200) },
+      { name: "just-over.mp3", created_at: ago(91) },
+    ]);
+    expect(await purgeExpiredListenCache(b, NOW)).toBe(3);
+    expect(removed).toEqual([["old-a.json", "old-b.mp3", "just-over.mp3"]]);
+  });
+
+  it("deletes at most 20 per call", async () => {
+    const many = Array.from({ length: 35 }, (_, i) => ({ name: `o${i}`, created_at: ago(100 + i) }));
+    const { b, removed } = bucket(many);
+    expect(await purgeExpiredListenCache(b, NOW)).toBe(20);
+    expect(removed).toHaveLength(1);
+    expect(removed[0]).toHaveLength(20);
+    // The oldest twenty: o34 is the oldest.
+    expect(removed[0][0]).toBe("o34");
+    expect(removed[0]).not.toContain("o0");
+  });
+
+  it("keeps an object whose age is unknown, and deletes nothing when nothing expired", async () => {
+    const { b, removed } = bucket([{ name: "no-date" }, { name: "null-date", created_at: null }, { name: "bad-date", created_at: "not a date" }, { name: "fresh", created_at: ago(2) }]);
+    expect(await purgeExpiredListenCache(b, NOW)).toBe(0);
+    expect(removed).toEqual([]);
+  });
+
+  it("never throws when the storage listing or the deletion fails", async () => {
+    expect(await purgeExpiredListenCache(bucket([{ name: "x", created_at: ago(100) }], { fail: "list" }).b, NOW)).toBe(0);
+    expect(await purgeExpiredListenCache(bucket([{ name: "x", created_at: ago(100) }], { fail: "remove" }).b, NOW)).toBe(0);
   });
 });
 

@@ -35,6 +35,47 @@ export const LISTEN_SESSION_LIMIT = 5;
 export const LISTEN_SESSION_WINDOW_MS = 60 * 60 * 1000;
 export const LISTEN_MAX_CHARS = 1800;
 
+/** Cached audio and timings are kept for about 90 days, then deleted (said on /privacy). */
+export const LISTEN_CACHE_MAX_AGE_MS = 90 * 24 * 60 * 60 * 1000;
+/** Objects deleted per purge. Each cached text is two objects (.mp3 and .json), so this is ten texts at most. */
+export const LISTEN_PURGE_BATCH = 20;
+
+/** What the purge needs from the bucket. rose-listen adapts the Supabase Storage client to it; the tests use a memory twin. */
+export interface ListenBucket {
+  /** Objects of the bucket with their creation time (ISO string), oldest first when the backend can sort. */
+  list(): Promise<{ name: string; created_at?: string | null }[]>;
+  remove(names: string[]): Promise<void>;
+}
+
+/** Names to delete now: only objects older than the limit, oldest first, at most `max`. An object with no usable date is kept. */
+export const expiredListenObjects = (
+  objects: { name: string; created_at?: string | null }[],
+  now: number,
+  maxAgeMs = LISTEN_CACHE_MAX_AGE_MS,
+  max = LISTEN_PURGE_BATCH,
+): string[] =>
+  objects
+    .flatMap((o) => {
+      const t = o.created_at ? Date.parse(o.created_at) : NaN;
+      return Number.isFinite(t) && now - t > maxAgeMs ? [{ name: o.name, t }] : [];
+    })
+    .sort((a, b) => a.t - b.t)
+    .slice(0, max)
+    .map((o) => o.name);
+
+/** Deletes expired cache objects through the Storage API. Resolves to how many were asked for deletion. Never throws. */
+export const purgeExpiredListenCache = async (bucket: ListenBucket, now: number): Promise<number> => {
+  try {
+    const names = expiredListenObjects(await bucket.list(), now);
+    if (!names.length) return 0;
+    await bucket.remove(names);
+    return names.length;
+  } catch {
+    // A failed purge only means the objects stay until the next one.
+    return 0;
+  }
+};
+
 export type ListenWord = { w: string; s: number; e: number };
 export type CharAlignment = { characters: string[]; character_start_times_seconds: number[]; character_end_times_seconds: number[] };
 
