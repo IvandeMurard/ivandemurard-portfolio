@@ -112,6 +112,12 @@ export const ROSE_HISTORY: RoseHistoryEntry[] = [
     notThis: "Rose is proven to help visitors.",
   },
   {
+    id: "name", date: null, claim: "implemented",
+    text: "The Rose case study (chapter 00) states where her name comes from: the compass rose, the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon and chose one heading among all the possible ones; that is her job here, to give a visitor a heading through work not yet explored. Her margin note there reads: named for a heading. The same chapter says Ivan gave her a name before he gave her a job. The site states no other origin for the name and does not say when or why he chose it.",
+    provenance: { commits: [], plans: [], files: ["src/components/rose/RoseCaseStudy.tsx", "docs/rose-case-study-copy-v2.md"] },
+    notThis: "Any other origin, reason or intent for the name (a flower, a person, a brand, a story about Ivan's choice). Never speculate: say the site does not say. Never present the name as a person's.",
+  },
+  {
     id: "design-lab", date: "2026-10-24", claim: "lab",
     text: "An unlinked design-lab route was added for reviewing Rose's retrospective case study; its historical transition and later chapters are prototype UI, not evidence of shipped adaptive-reading capabilities. The route is excluded from standard discovery, but unlinked does not mean access-controlled.",
     provenance: { commits: ["2a6dd1b", "fdb2388"], plans: [], files: ["src/pages/RoseDesignLab.tsx", "src/components/rose/RoseLaterChapters.tsx"] },

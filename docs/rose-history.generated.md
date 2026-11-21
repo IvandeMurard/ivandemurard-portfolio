@@ -1,4 +1,4 @@
-<!-- Generated. Private review artifact, excluded from public content. v1 sha256:aad45c15b130c85323a79805c9ef85f44bd4d4a59323099dcd821b449755bafa -->
+<!-- Generated. Private review artifact, excluded from public content. v1 sha256:5ca00198522a4fe247598cc262f7a56b78cbb20b05f39c3cd70b72b605681872 -->
 
 Rose historical reference, v1. Repository evidence, not verified deployment parity. No measured visitor-value claim is established. Source paths and commit IDs are provenance, not public reading URLs. Do not invent a public Rose history page or link to the private reference.
 
@@ -77,6 +77,11 @@ Provenance: 9f0f721; src/pages/AdminRose.tsx; src/components/rose/roseMeasuremen
 The October 24 risk-based release decision used a final sample of 15 synthetic model conversations, alongside other checks. Accepted limitations included one sample per scenario and several overlong answers. This supports only bounded test-case conclusions, not consistency across all visitors or demonstrated visitor value.
 Provenance: 34f66a1; 1ff9a63; 4ce6b8a; scripts/rose-quality-check.ts; docs/rose-p5-verification.md; docs/rose-p5-results.json
 Unsupported wording: Rose is proven to help visitors.
+
+## name (date unverified, implemented)
+The Rose case study (chapter 00) states where her name comes from: the compass rose, the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon and chose one heading among all the possible ones; that is her job here, to give a visitor a heading through work not yet explored. Her margin note there reads: named for a heading. The same chapter says Ivan gave her a name before he gave her a job. The site states no other origin for the name and does not say when or why he chose it.
+Provenance: src/components/rose/RoseCaseStudy.tsx; docs/rose-case-study-copy-v2.md
+Unsupported wording: Any other origin, reason or intent for the name (a flower, a person, a brand, a story about Ivan's choice). Never speculate: say the site does not say. Never present the name as a person's.
 
 ## design-lab (2026-10-24, lab)
 An unlinked design-lab route was added for reviewing Rose's retrospective case study; its historical transition and later chapters are prototype UI, not evidence of shipped adaptive-reading capabilities. The route is excluded from standard discovery, but unlinked does not mean access-controlled.

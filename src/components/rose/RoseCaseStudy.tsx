@@ -154,6 +154,8 @@ export const IDEA = {
     after: ". I changed her goal. Rose explains, rephrases and puts the work in context; she does not sell.",
   },
   note: "He gave me a name before he gave me a job.",
+  name: "Her name comes from the compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.",
+  nameNote: "Named for a heading.",
 };
 
 // The underline is the only thing that sets a link apart from the line around it: at 75% it is 4.5:1 or more against every
@@ -165,7 +167,7 @@ const ExternalLink = ({ href, children }: { href: string; children: string }) =>
 );
 
 const IdeaBody = ({ reduced }: { reduced: boolean }) => {
-  const { p1, p2, p3, note } = IDEA;
+  const { p1, p2, p3, note, name, nameNote } = IDEA;
   return (
     <div className="mt-8 space-y-5 font-body text-base text-on-surface">
       <p>{p1}</p>
@@ -179,6 +181,10 @@ const IdeaBody = ({ reduced }: { reduced: boolean }) => {
           {p3.after}
         </p>
         <RoseCue id="ch-00" note={note} className="mt-3" />
+      </div>
+      <div className="relative">
+        <p>{name}</p>
+        <RoseCue id="ch-00-name" note={nameNote} className="mt-3" />
       </div>
     </div>
   );

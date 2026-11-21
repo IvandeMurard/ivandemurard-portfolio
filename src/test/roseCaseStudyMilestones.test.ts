@@ -44,11 +44,18 @@ describe("Rose case study §6.3 chapters 01 to 05", () => {
 describe("Rose case study §6.2 chapter 00", () => {
   const p3 = Object.values(IDEA.p3).map((v) => (typeof v === "string" ? v : v.text)).join("");
   it("uses only text that appears in the copy deck", () => {
-    for (const s of [IDEA.p1, IDEA.p2, p3, IDEA.note, IDEA.p3.anchor.text]) expect(deck, s).toContain(norm(s));
+    for (const s of [IDEA.p1, IDEA.p2, p3, IDEA.note, IDEA.p3.anchor.text, IDEA.name, IDEA.nameNote]) expect(deck, s).toContain(norm(s));
   });
-  it("writes the Rose note as a single sentence", () => {
-    expect(IDEA.note).toMatch(/[.!?]$/);
-    expect(IDEA.note.slice(0, -1)).not.toMatch(/[.!?]/);
+  it("writes each Rose note as a single sentence", () => {
+    for (const n of [IDEA.note, IDEA.nameNote]) {
+      expect(n).toMatch(/[.!?]$/);
+      expect(n.slice(0, -1)).not.toMatch(/[.!?]/);
+    }
+  });
+  it("gives the name's meaning word for word, and keeps the userose.ai credit", () => {
+    expect(IDEA.name).toBe("Her name comes from the compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.");
+    expect(IDEA.nameNote).toBe("Named for a heading.");
+    expect(IDEA.p3.anchor).toEqual({ text: "userose.ai's website agent", href: "https://userose.ai" });
   });
   it("links to https addresses and contains no em-dashes", () => {
     expect([IDEA.p3.anchor.href, IDEA.p3.second.href].every((h) => h.startsWith("https://"))).toBe(true);

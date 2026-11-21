@@ -37,12 +37,14 @@ const marker = (id: string) => (CHAPTER_MARK[id] ? `Marker: ${CHAPTER_MARK[id]}`
 
 function chapterBody(id: string): string[] {
   if (id === "ch-00") {
-    const { p1, p2, p3, note: n } = IDEA;
+    const { p1, p2, p3, note: n, name, nameNote } = IDEA;
     return [
       p1,
       `(Built) ${p2}`,
       `${p3.before}${link(p3.anchor.text, p3.anchor.href)}${p3.middle}${link(p3.second.text, p3.second.href)}${p3.after}`,
       note(n),
+      name,
+      note(nameNote),
     ];
   }
   const m = MILESTONES[id];
