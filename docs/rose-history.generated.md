@@ -1,4 +1,4 @@
-<!-- Generated. Private review artifact, excluded from public content. v1 sha256:5bd3e3db2e44f8432ef0f0aa37686f8a8b151f59190c5abf854ec520a37bb9d1 -->
+<!-- Generated. Private review artifact, excluded from public content. v1 sha256:c042703d1fc008cd04989ba626753d7287930a8ffbcade33599f82a606f026ea -->
 
 Rose historical reference, v1. Repository evidence, not verified deployment parity. No measured visitor-value claim is established. Source paths and commit IDs are provenance, not public reading URLs. Do not invent a public Rose history page or link to the private reference.
 
@@ -11,6 +11,7 @@ Current repository capabilities:
 - Link to the relevant pages of the site and suggest follow-up questions.
 - Show a booking card that opens Ivan's calendar, without sending the conversation.
 - Keep the conversation across pages within one tab, and let the visitor clear it.
+- Offer a recorded summary, written by Ivan and validated on 21 Nov 2026, on three pages: the Field Notes /journal/harnesses-graders-closed-loops and /journal/one-text-three-readers, and the Rose case study /rose. On those pages the dock proposes "Listen to a summary of this page", and the page carries a "Listen summary" block with the full text.
 
 Limits:
 - Rose receives page metadata per message and has no direct access to the full screen, cursor, scroll position, private browser state or arbitrary DOM.

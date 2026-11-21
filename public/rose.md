@@ -6,7 +6,7 @@ Status: Live, voice in pilot
 
 Last updated 2026-11-21.
 
-Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.
+Rose answers visitors' questions from the site's own pages. This is how I designed her, the six decisions that changed her, and what I still need to learn.
 
 ## How to read this case study
 
@@ -19,11 +19,17 @@ Milestones come from [the repository](https://github.com/IvandeMurard/ivandemura
 ## TL;DR
 
 - The problem: A case study shows the work, but it cannot answer a visitor's own question.
-- Five decisions: Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust.
-- Today: Rose is live. She answers in text and, in pilot, reads two page summaries and her factual answers aloud. She sends nothing when you book.
+- Six decisions: Between July and November 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock, earn trust and read aloud.
+- Today: Rose is live. She answers in text and, in pilot, reads three page summaries and her factual answers aloud. She sends nothing when you book.
 - Still open: Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle.
 
 Scripted demo with three built exchanges, in a loop: "Say it more simply.", "Is Aetherix in production?", "What has Ivan built?".
+
+## Listen summary
+
+Recorded summary, written by Ivan in Rose's voice, validated 21 Nov 2026 · 1 min 14
+
+Most case studies describe their subject. This one is introduced by it. Hi, I'm Rose, Ivan's contextual agent, and this case study is, well, about me. I started as a funnel with a simple idea: I asked who you were, and I led you to book a call. Then Ivan changed my job: now I explain his work, rephrase it, and put it in context. To do that, I know the page and the section you're reading, I answer from the site's own text, I link the passage I used, and I quote every project's status exactly as published. I went through a lot of testing, so now I only name what the pages name. Oh, and this recording is new: it's a summary of the case study, written by Ivan in my voice. What comes next is still on the drawing board. Ivan is designing me to take you straight to the passage that answers you, to show how one project connects to another, and to sketch a diagram when a page gets too dense or technical. The same idea could serve any documentation where readers bring their own questions. One more thing: when you book a call, the calendar opens but the conversation stays here. So the question is yours: what would you ask me? I am right below.
 
 ## A portfolio that can answer questions
 
@@ -242,9 +248,50 @@ Shipped: booking request
 
 Source: privacy, memory and evaluation work, 24 Oct
 
+## Read aloud
+
+06 · 21 Nov 2026
+
+Marker: Built (pilot)
+
+**The brief**
+
+Let readers listen to the work, on the move or away from the screen.
+
+**The tension**
+
+A voice on a public site is an open door: anyone could use it as free speech synthesis on my account. And a dry line that works in writing can sound wrong once a synthetic voice says it.
+
+**What I decided**
+
+Rose reads three page summaries I wrote and validated, recorded once, and her own factual answers. The server reads only an answer Rose really gave in this conversation, in the last hour. The written answer stays on screen, and each word lights up as she says it.
+
+**Rose's note (written by Ivan in her voice)**
+
+He gave me a voice, then told me when to keep it to myself.
+
+**The trade-off**
+
+A summary costs once and plays for free. Each new answer read aloud costs a little, within a daily cap; past it, your device's voice takes over. Light answers stay silent.
+
+**What a reader gets**
+
+Before: text only
+
+- Text only.
+
+After: Listen, in pilot
+
+- Listen to a summary of this page
+- A Listen button under factual answers, with the spoken word highlighted.
+
+The summary and the page come from the same text. Why that matters for every reader of a site: [What is agent experience (AX)?](https://ivandemurard.com/journal/one-text-three-readers)
+
+Source: pull requests #76, #77 and #78
+
 ## Answers that point into the page
 
-06 · Answer formats
+07 · Answer formats
 
 Marker: Design
 
@@ -313,7 +360,7 @@ Rose links what the site's pages say about each project. A dashed label marks an
 
 ## Trust has two separate contracts.
 
-07 · Trust
+08 · Trust
 
 Marker: Built
 
@@ -334,7 +381,7 @@ Retention and masking: [mask-pii.ts](https://github.com/IvandeMurard/ivandemurar
 
 ### What Rose may assert or infer
 
-- (Built) Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.
+- (Built) Rose answers from the same Markdown pages the MCP server reads, with one or two links to them. [What is agent experience (AX)?](https://ivandemurard.com/journal/one-text-three-readers)
 - (Built) Rose keeps each project's delivery status: she never turns planned into done, or sandbox into production.
 - (Validation) Released on 24 Oct after 15 synthetic cases. Since 29 Oct, each change is [tested](https://github.com/IvandeMurard/ivandemurard-portfolio/blob/main/docs/rose-eval-2026-10-29.md) with 5 samples per case and 20 per high-risk case.
 
@@ -360,7 +407,7 @@ From Rose’s answer contract: “A verifiable fact unrelated to the question is
 
 ## Caught in testing
 
-08 · What she got wrong
+09 · What she got wrong
 
 Marker: Validation
 
@@ -408,7 +455,7 @@ Sources: [docs/rose-p4-evaluation.md](https://github.com/IvandeMurard/ivandemura
 
 ## Next: help readers move across the whole site
 
-09 · Next steps
+10 · Next steps
 
 Marker: Design
 
@@ -416,14 +463,14 @@ The direction is a contextual assistant for the whole site. Rose would locate pa
 
 - An automatic map of the whole site. Today I write the map by hand, and it grows only when I can state the reason for each link.
 - Diagrams for the complex parts. A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked.
-- Answers read aloud. A spoken version of a written answer, for readers who prefer to listen; the written answer stays the reference.
+- More pages to listen to. More pages get a recorded summary, if readers use the first three.
 - Context for any passage. Relating what you read to the rest of the page and the site, beyond the passages I marked.
 
 The same pattern fits any site where readers bring their own questions to dense pages, such as product documentation, onboarding guides and B2B offer pages.
 
 ## Four questions that have yet to be answered. Have an answer to one of them? Tell me.
 
-10 · Open questions
+11 · Open questions
 
 ### 01 · Value
 
@@ -497,11 +544,11 @@ When would voice reduce navigation work rather than add spectacle?
 
 **Hypothesis**
 
-Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about.
+Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026.
 
 **Signal**
 
-Requests to summarise in the logs, then use of a simple Listen button before any custom voice.
+Listens started and finished, page by page.
 
 **Decision**
 

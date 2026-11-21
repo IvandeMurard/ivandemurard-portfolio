@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { readFileSync } from "node:fs";
 import {
-  CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, MILESTONES, NEXT, QUESTIONS, ROSE_CHAPTERS, RoseCaseStudy, SIX, TLDR, TRUST, CHAPTER_MARK,
+  CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, MILESTONES, NEXT, QUESTIONS, ROSE_CHAPTERS, RoseCaseStudy, SIX, TLDR, TRUST, CHAPTER_MARK, CHAPTER_MARK_QUALIFIER,
 } from "@/components/rose/RoseCaseStudy";
 import { DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "@/components/rose/roseDemoData";
 import { CONTACT } from "@/content/site";
@@ -37,8 +37,8 @@ describe("Rose mirror: what it contains", () => {
     for (const [t, d] of TLDR) expect(md).toContain(`- ${t}: ${d}`);
   });
 
-  it("has every chapter heading, 00 to 10, in order, each with its kicker", () => {
-    expect(ROSE_CHAPTERS).toHaveLength(11);
+  it("has every chapter heading, 00 to 11, in order, each with its kicker", () => {
+    expect(ROSE_CHAPTERS).toHaveLength(12);
     let from = 0;
     for (const c of ROSE_CHAPTERS) {
       const at = md.indexOf(`## ${c.heading}\n\n${c.kicker}\n`, from);
@@ -54,7 +54,8 @@ describe("Rose mirror: what it contains", () => {
       expect(at, c.id).toBeGreaterThan(-1);
       const after = md.slice(at + base.length);
       const expected = CHAPTER_MARK[c.id];
-      if (expected) expect(after.startsWith(`Marker: ${expected}\n`), c.id).toBe(true);
+      const qualifier = CHAPTER_MARK_QUALIFIER[c.id] ? ` (${CHAPTER_MARK_QUALIFIER[c.id]})` : "";
+      if (expected) expect(after.startsWith(`Marker: ${expected}${qualifier}\n`), c.id).toBe(true);
       else expect(after.startsWith("Marker:"), c.id).toBe(false);
     }
     expect(CHAPTER_MARK["ch-06"]).toBe("Design");
@@ -62,16 +63,19 @@ describe("Rose mirror: what it contains", () => {
   });
 
   it("carries the source line of each chapter 01 to 05", () => {
-    for (const id of ["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"]) {
+    for (const id of ["ch-01", "ch-02", "ch-03", "ch-04", "ch-05", "ch-voice"]) {
       const m = MILESTONES[id];
       expect(md).toContain(`Source: ${m.source}`);
-      for (const text of [m.brief, m.tension, m.decision, m.result]) expect(md).toContain(text);
+      for (const text of [m.brief, m.tension, m.decision, ...(m.result ? [m.result] : [])]) expect(md).toContain(text);
     }
     expect(md).toContain(MILESTONES["ch-01"].tradeoff);
+    expect(md).toContain(MILESTONES["ch-voice"].tradeoff);
+    // The closing link of the sixth decision, with its address made absolute.
+    expect(md).toContain("[What is agent experience (AX)?](https://ivandemurard.com/journal/one-text-three-readers)");
   });
 
-  it("marks every Rose note as written by Ivan in her voice, and has all eight", () => {
-    const notes = [IDEA.note, IDEA.nameNote, ...["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"].map((id) => MILESTONES[id].note), GOT_WRONG.note];
+  it("marks every Rose note as written by Ivan in her voice, and has all nine", () => {
+    const notes = [IDEA.note, IDEA.nameNote, ...["ch-01", "ch-02", "ch-03", "ch-04", "ch-05", "ch-voice"].map((id) => MILESTONES[id].note), GOT_WRONG.note];
     expect(ROSE_NOTE_LABEL).toBe("Rose's note (written by Ivan in her voice)");
     for (const n of notes) expect(md).toContain(`**${ROSE_NOTE_LABEL}**\n\n${n}\n`);
     expect(md.split(`**${ROSE_NOTE_LABEL}**`)).toHaveLength(notes.length + 1);
@@ -163,7 +167,7 @@ describe("Rose mirror: no text that is not on the page", () => {
       // Structural lines the mirror adds: status, date, markers, the label of Rose's notes, the demo lines, table header.
       if (raw.startsWith("Status: ")) { check(raw.slice(8)); continue; }
       if (raw.startsWith("Last updated ")) continue;
-      if (raw.startsWith("Marker: ")) { expect(["Built", "Validation", "Design"]).toContain(raw.slice(8)); continue; }
+      if (raw.startsWith("Marker: ")) { expect(["Built", "Validation", "Design", "Built (pilot)"]).toContain(raw.slice(8)); continue; }
       if (plain(raw) === ROSE_NOTE_LABEL) continue;
       if (raw.startsWith("Scripted demo")) {
         for (const quoted of raw.match(/"[^"]+"/g) ?? []) check(quoted);

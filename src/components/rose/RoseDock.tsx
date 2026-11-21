@@ -25,7 +25,7 @@ import { ExternalMark } from "@/components/ui/ExternalMark";
 import { RoseWelcome, useRoseWelcome } from "./RoseWelcome";
 import { ListenPlayer } from "./listen/ListenPlayer";
 import { canListen, loadSummaryAudio, requestAnswerAudio } from "./listen/listenClient";
-import { estimateListenSeconds, formatListenDuration, listenSummaryFor } from "@/content/listenSummaries";
+import { formatListenDuration, listenSummaryFor } from "@/content/listenSummaries";
 import { textToSend } from "../../../supabase/functions/_shared/listen-core";
 
 const SESSION_KEY = "rose_session";
@@ -348,6 +348,9 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     // A source link was followed: on a narrow screen the dock folds to its bar so the page it points to is in view.
     const onMinimise = () => { if (window.matchMedia?.("(max-width: 767px)").matches) setOpen(false); };
     const onEcho = (e: Event) => setEcho(Boolean((e as CustomEvent<boolean>).detail));
+    // The "Listen summary" block of a page: open the dock on the audiogram of that page's summary (never when Rose is paused).
+    const onListen = () => { if (paused || !summary) return; setOpen(true); setSummaryOpen(true); };
+    window.addEventListener("rose:listen", onListen);
     window.addEventListener("rose:ask", onAsk as EventListener);
     window.addEventListener("rose:open", onOpen);
     window.addEventListener("rose:prefill", onPrefill);
@@ -356,6 +359,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     window.addEventListener("rose:echo", onEcho);
     return () => {
       window.removeEventListener("rose:echo", onEcho);
+      window.removeEventListener("rose:listen", onListen);
       window.removeEventListener("rose:ask", onAsk as EventListener);
       window.removeEventListener("rose:open", onOpen);
       window.removeEventListener("rose:prefill", onPrefill);
@@ -643,7 +647,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                   className="inline-flex items-center gap-1 rounded-full border border-secondary bg-surface-container-lowest px-3.5 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
                 >
                   <Icon name="play_arrow" className="text-base" />
-                  Listen to a summary of this page · {formatListenDuration(estimateListenSeconds(summary.summary.text))}
+                  Listen to a summary of this page · {formatListenDuration(summary.summary.durationMs / 1000)}
                 </button>
               ) : null}
               {prompts.map((chip) => (

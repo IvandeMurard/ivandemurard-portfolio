@@ -1,4 +1,5 @@
 import { Fragment, memo, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { registerRail } from "@/lib/railRegistry";
 import { ChapterBar, ChapterRail, KICKER, LABEL, LEGEND_TONE, MARK_GLYPH, ReadingThread, useActiveChapter } from "@/components/case/reading";
@@ -9,6 +10,7 @@ import { AnswerFormats, HeroDock, TestLoop } from "@/components/rose/RoseDemos";
 import { HowRoseWorks } from "@/components/rose/HowRoseWorks";
 import { RelationsMap } from "@/components/rose/RelationsMap";
 import { ExternalMark } from "@/components/ui/ExternalMark";
+import { ListenSummaryBlock } from "@/components/listen/ListenSummaryBlock";
 
 /**
  * Rose case study, single page (docs/rose-case-study.md §6). Only §6.0
@@ -27,18 +29,24 @@ export const ROSE_CHAPTERS: Chapter[] = [
   { id: "ch-03", toc: "03 Know where you are", kicker: "03 · 10 Aug 2026", heading: "Know where you are" },
   { id: "ch-04", toc: "04 One dock", kicker: "04 · 14 Oct 2026", heading: "One dock" },
   { id: "ch-05", toc: "05 Earn trust", kicker: "05 · 24 Oct 2026", heading: "Earn trust" },
-  { id: "ch-06", toc: "06 Answer formats", kicker: "06 · Answer formats", heading: "Answers that point into the page" },
-  { id: "ch-07", toc: "07 Trust", kicker: "07 · Trust", heading: "Trust has two separate contracts." },
-  { id: "ch-08", toc: "08 What she got wrong", kicker: "08 · What she got wrong", heading: "Caught in testing" },
-  { id: "ch-09", toc: "09 Next steps", kicker: "09 · Next steps", heading: "Next: help readers move across the whole site" },
-  { id: "ch-10", toc: "10 Open questions", kicker: "10 · Open questions", heading: "Four questions that have yet to be answered. Have an answer to one of them? Tell me." },
+  // The sixth decision. The chapters after it keep their ids (ch-06 to ch-10), so every link and anchor that already
+  // exists still reaches the same content; only the number they display moves down by one (07 to 11).
+  { id: "ch-voice", toc: "06 Read aloud", kicker: "06 · 21 Nov 2026", heading: "Read aloud" },
+  { id: "ch-06", toc: "07 Answer formats", kicker: "07 · Answer formats", heading: "Answers that point into the page" },
+  { id: "ch-07", toc: "08 Trust", kicker: "08 · Trust", heading: "Trust has two separate contracts." },
+  { id: "ch-08", toc: "09 What she got wrong", kicker: "09 · What she got wrong", heading: "Caught in testing" },
+  { id: "ch-09", toc: "10 Next steps", kicker: "10 · Next steps", heading: "Next: help readers move across the whole site" },
+  { id: "ch-10", toc: "11 Open questions", kicker: "11 · Open questions", heading: "Four questions that have yet to be answered. Have an answer to one of them? Tell me." },
 ];
 
 /** The marker printed after a chapter kicker. */
 export const CHAPTER_MARK: Record<string, "Built" | "Validation" | "Design"> = {
-  "ch-01": "Built", "ch-02": "Built", "ch-03": "Built", "ch-04": "Built", "ch-05": "Built",
+  "ch-01": "Built", "ch-02": "Built", "ch-03": "Built", "ch-04": "Built", "ch-05": "Built", "ch-voice": "Built",
   "ch-06": "Design", "ch-07": "Built", "ch-08": "Validation", "ch-09": "Design",
 };
+
+/** A qualifier printed after the marker: "Built (pilot)". The marker itself stays one of the three of the legend. */
+export const CHAPTER_MARK_QUALIFIER: Record<string, string> = { "ch-voice": "pilot" };
 
 /** Rose's notes come from co-existence.ai's AI cursor. Printed above chapter 01. */
 export const NOTES_INTRO = "Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Yes, they break the fourth wall. Rose knows she's the subject here, and has opinions about it.";
@@ -53,11 +61,11 @@ export const LEGEND = [
 export const HERO = { label: "Case study · Rose", status: "Live, voice in pilot", headline: ["A portfolio ", "you can question."] } as const;
 /** The sentence under the legend; the repository is linked. */
 export const LEGEND_NOTE = { before: "Milestones come from ", link: "the repository", after: ": commit dates, archived plans, the original prompt. Readings of the design are mine." } as const;
-export const HERO_LEAD = "Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.";
+export const HERO_LEAD = "Rose answers visitors' questions from the site's own pages. This is how I designed her, the six decisions that changed her, and what I still need to learn.";
 export const TLDR = [
   ["The problem", "A case study shows the work, but it cannot answer a visitor's own question."],
-  ["Five decisions", "Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust."],
-  ["Today", "Rose is live. She answers in text and, in pilot, reads two page summaries and her factual answers aloud. She sends nothing when you book."],
+  ["Six decisions", "Between July and November 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock, earn trust and read aloud."],
+  ["Today", "Rose is live. She answers in text and, in pilot, reads three page summaries and her factual answers aloud. She sends nothing when you book."],
   ["Still open", "Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle."],
 ] as const;
 
@@ -69,9 +77,13 @@ type VItem =
   | { t: "q"; text: string }
   | { t: "a"; text: string };
 type Vignette = { caption: string; b: string; a: string; mb: string; ma: string; before: VItem[]; after: VItem[] };
-type Milestone = { brief: string; tension: string; decision: string; result: string; tradeoff?: string; source: string; note: string; vignette: Vignette };
+/** `result` is the line after the decision and the note: decisions 01 to 05 have one; decision 06 says all of it in the decision. `link` closes a decision with a link to a page of the site. */
+type Milestone = { brief: string; tension: string; decision: string; result?: string; tradeoff?: string; source: string; note: string; vignette: Vignette; link?: { before: string; text: string; to: string } };
 
 const FOUR_INTENTS = ["Product expertise", "Technical profile", "Culture fit", "Just exploring"];
+
+/** The pull requests that built decision 06. Kept in one place: the page and the mirror print the same line. */
+const VOICE_SOURCE = "pull requests #76, #77 and #78";
 
 export const MILESTONES: Record<string, Milestone> = {
   "ch-01": {
@@ -138,6 +150,24 @@ export const MILESTONES: Record<string, Milestone> = {
       caption: "What a booking carries", b: "Planned", a: "Shipped", mb: "booking request", ma: "booking request",
       before: [{ t: "card", text: "conversation attached" }],
       after: [{ t: "card", text: "opens the calendar, nothing else" }],
+    },
+  },
+  // The sixth decision, 21 Nov 2026. Text proposed for Ivan's validation in the pull request.
+  "ch-voice": {
+    brief: "Let readers listen to the work, on the move or away from the screen.",
+    tension: "A voice on a public site is an open door: anyone could use it as free speech synthesis on my account. And a dry line that works in writing can sound wrong once a synthetic voice says it.",
+    decision: "Rose reads three page summaries I wrote and validated, recorded once, and her own factual answers. The server reads only an answer Rose really gave in this conversation, in the last hour. The written answer stays on screen, and each word lights up as she says it.",
+    tradeoff: "A summary costs once and plays for free. Each new answer read aloud costs a little, within a daily cap; past it, your device's voice takes over. Light answers stay silent.",
+    source: VOICE_SOURCE,
+    note: "He gave me a voice, then told me when to keep it to myself.",
+    link: { before: "The summary and the page come from the same text. Why that matters for every reader of a site: ", text: "What is agent experience (AX)?", to: "/journal/one-text-three-readers" },
+    vignette: {
+      caption: "What a reader gets", b: "Before", a: "After", mb: "text only", ma: "Listen, in pilot",
+      before: [{ t: "note", text: "Text only." }],
+      after: [
+        { t: "chips", chips: ["Listen to a summary of this page"] },
+        { t: "note", text: "A Listen button under factual answers, with the spoken word highlighted." },
+      ],
     },
   },
 };
@@ -249,7 +279,7 @@ const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: 
       </p>
       <RoseCue id={id} note={m.note} className="mt-3" />
     </div>
-    <p className="mt-4 font-body text-base text-on-surface">{m.result}</p>
+    {m.result && <p className="mt-4 font-body text-base text-on-surface">{m.result}</p>}
     {m.tradeoff && (
       <div className="mt-6">
         <p className={cn(LABEL, "text-secondary")}>The trade-off</p>
@@ -257,6 +287,7 @@ const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: 
       </div>
     )}
     <MilestoneVignette v={m.vignette} />
+    {m.link && <p className="mt-6 font-body text-base text-on-surface">{m.link.before}<Link to={m.link.to} className={QUIET_LINK}>{m.link.text}</Link></p>}
     <p className="mt-4 font-label text-xs text-on-surface-variant">Source: {m.source}</p>
   </div>
 );
@@ -291,7 +322,7 @@ const RoseHero = memo(({ reduced }: { reduced: boolean }) => (
 ));
 
 /* §6.5 Chapter 07. Copy verbatim from docs/rose-case-study-copy-v2.md. */
-type TrustItem = { mark: "Built" | "Validation"; parts: string[] };
+type TrustItem = { mark: "Built" | "Validation"; parts: string[]; /** A link to a page of the site, after the sentence. */ see?: { text: string; to: string } };
 export const TRUST = {
   intro: "One contract covers data: what is kept and what is sent. The other covers knowledge: what Rose may assert or infer. I keep them apart so that a privacy promise is never read as proof of accuracy.",
   contracts: [
@@ -315,7 +346,8 @@ export const TRUST = {
       kicker: "Knowledge",
       title: "What Rose may assert or infer",
       items: [
-        { mark: "Built", parts: ["Rose answers from the same Markdown pages the MCP server reads, with one or two links to them."] },
+        // The same text feeds the page, the mirrors, MCP and Rose: the Field Note on agent experience explains why.
+        { mark: "Built", parts: ["Rose answers from the same Markdown pages the MCP server reads, with one or two links to them."], see: { text: "What is agent experience (AX)?", to: "/journal/one-text-three-readers" } },
         { mark: "Built", parts: ["Rose keeps each project's delivery status: she never turns planned into done, or sandbox into production."] },
         // The middle part is the linked word: docs/rose-eval-2026-10-29.md.
         { mark: "Validation", parts: ["Released on 24 Oct after 15 synthetic cases. Since 29 Oct, each change is ", "tested", " with 5 samples per case and 20 per high-risk case."] },
@@ -362,6 +394,7 @@ const TrustBody = () => {
                     {it.parts.length === 3
                       ? <>{it.parts[0]}<ExternalLink href={REPO_FILE(t.evalDoc)}>{it.parts[1]}</ExternalLink>{it.parts[2]}</>
                       : it.parts[0]}
+                    {it.see && <> <Link to={it.see.to} className={QUIET_LINK}>{it.see.text}</Link></>}
                   </span>
                 </li>
               ))}
@@ -553,7 +586,7 @@ export const NEXT = {
   items: [
     ["An automatic map of the whole site.", "Today I write the map by hand, and it grows only when I can state the reason for each link."],
     ["Diagrams for the complex parts.", "A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked."],
-    ["Answers read aloud.", "A spoken version of a written answer, for readers who prefer to listen; the written answer stays the reference."],
+    ["More pages to listen to.", "More pages get a recorded summary, if readers use the first three."],
     ["Context for any passage.", "Relating what you read to the rest of the page and the site, beyond the passages I marked."],
   ],
   transfers: "The same pattern fits any site where readers bring their own questions to dense pages, such as product documentation, onboarding guides and B2B offer pages.",
@@ -600,8 +633,8 @@ export const QUESTIONS = [
   {
     n: "04", title: "Modality",
     question: "When would voice reduce navigation work rather than add spectacle?",
-    hypothesis: "Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about.",
-    signal: "Requests to summarise in the logs, then use of a simple Listen button before any custom voice.",
+    hypothesis: "Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026.",
+    signal: "Listens started and finished, page by page.",
     decision: "If Listen gets used, I invest in a voice matching the site. If not, voice leaves the roadmap.",
     cost: "I would maintain a feature that nobody uses.",
   },
@@ -665,7 +698,7 @@ const Chapters = memo(({ reduced }: { reduced: boolean }) => (
         <Fragment key={c.id}>
           {c.id === "ch-01" && <p className="max-w-2xl pt-20 font-body text-base text-on-surface md:pt-24 xl:max-w-[40rem]">{NOTES_INTRO}</p>}
           <section id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : c.id === "ch-07" || c.id === "ch-08" ? "max-w-none" : "max-w-3xl")}>
-            <p className={KICKER}>{c.kicker}{mark && <span className="ml-3"><span aria-hidden="true">{MARK_GLYPH[mark]} </span>{mark}</span>}</p>
+            <p className={KICKER}>{c.kicker}{mark && <span className="ml-3"><span aria-hidden="true">{MARK_GLYPH[mark]} </span>{mark}{CHAPTER_MARK_QUALIFIER[c.id] ? ` (${CHAPTER_MARK_QUALIFIER[c.id]})` : ""}</span>}</p>
             <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-heading [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>
             {c.id === "ch-00" && <IdeaBody reduced={reduced} />}
             {MILESTONES[c.id] && <MilestoneBody id={c.id} m={MILESTONES[c.id]} reduced={reduced} />}
@@ -697,6 +730,7 @@ export const RoseCaseStudy = ({ reduced }: { reduced: boolean }) => {
 
       <div className="mx-auto max-w-7xl px-8 pt-16 md:px-12">
         <RoseHero reduced={reduced} />
+        <ListenSummaryBlock slug="rose" className="mt-12 max-w-3xl" />
         <section aria-labelledby="rose-legend" className="mt-16 max-w-3xl">
           <h2 id="rose-legend" className={cn(LABEL, "text-on-surface-variant")}>How to read this case study</h2>
           <dl className="mt-3 space-y-1 font-body text-sm text-on-surface">
