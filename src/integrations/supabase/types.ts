@@ -96,6 +96,7 @@ export type Database = {
           id: string
           kind: string
           label_or_question: string | null
+          listen_source: string | null
           outcome: string | null
           path: string
           request_id: string | null
@@ -110,6 +111,7 @@ export type Database = {
           id?: string
           kind: string
           label_or_question?: string | null
+          listen_source?: string | null
           outcome?: string | null
           path: string
           request_id?: string | null
@@ -124,6 +126,7 @@ export type Database = {
           id?: string
           kind?: string
           label_or_question?: string | null
+          listen_source?: string | null
           outcome?: string | null
           path?: string
           request_id?: string | null
@@ -131,6 +134,30 @@ export type Database = {
           session_id?: string
           target_path?: string | null
           used_chip?: boolean
+        }
+        Relationships: []
+      }
+      rose_listen_usage: {
+        Row: {
+          cached: boolean
+          chars: number
+          created_at: string
+          id: string
+          session_id: string
+        }
+        Insert: {
+          cached?: boolean
+          chars?: number
+          created_at?: string
+          id?: string
+          session_id: string
+        }
+        Update: {
+          cached?: boolean
+          chars?: number
+          created_at?: string
+          id?: string
+          session_id?: string
         }
         Relationships: []
       }

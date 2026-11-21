@@ -1,0 +1,1 @@
+COMMENT ON TABLE public.rose_listen_usage IS 'Listen caps: session id, time, characters sent. No text. Service role only.';
