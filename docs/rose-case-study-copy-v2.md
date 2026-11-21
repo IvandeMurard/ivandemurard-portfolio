@@ -25,7 +25,7 @@ The hero says one thing and shows Rose answering. The kicker chain, the meta lin
 | Element | v2 copy |
 |---|---|
 | Label | Case study · Rose |
-| Status badge | Live, text only |
+| Status badge | Live Text · Voice in pilot (decided by Ivan on 21 Nov 2026; was "Live, text only") |
 | Headline | A portfolio you can question. (the page's only italic) |
 | Lead | Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn. |
 | Demo, exchange 1 | Reformulation. Visitor: Say it more simply. Rose: When you ask me something, I also receive the page you are on, so I answer about what you are reading. Source: chapter 03. |
@@ -39,7 +39,7 @@ TL;DR, four short rows under the hero:
 |---|---|
 | The problem | A case study shows the work, but it cannot answer a visitor's own question. |
 | Five decisions | Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust. |
-| Today | Rose is live and text only. She knows the page and section in view, answers from the site's own text and sends nothing when you book. |
+| Today | Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book. |
 | Still open | Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle. |
 
 Chapter 04 changes title from "One quiet dock" to "One dock", because "quiet" is on the banned mood-word list.
@@ -73,7 +73,7 @@ Answer sources and booking line (design, decided 3 Nov). Each claim in Rose's an
 
 Source links, journey (decided 3 Nov). Two signs: § + section name for a passage on this site (same tab); ↗ only for links that leave the site (new tab). A § click on another page navigates in the same tab, the dock and the conversation follow, the page scrolls so the section heading and the passage are both in view, and the passage is highlighted. Only after such a jump, the dock shows one fixed context line built from the page and section titles (e.g. "Aetherix · How the forecast is checked"), not written by the model, and a return link "← Back to Rose's case study, chapter 08" (pattern: Back to {page title}, {section}) that restores the exact place and its highlight; the browser Back button does the same. A reader who arrives by normal reading never sees the context line or the return link. The return position is kept in the tab only and never sent. On mobile the dock minimises on the jump so it does not cover the passage. A § link to the same page only scrolls and highlights, with no return link.
 
-Demos, decided 4 Nov. Hero exchanges show the page read and the source: 1 reads /rose · 03, source chapter 03; 2 reads /aetherix, source /aetherix status, link to the case study; 3 reads /case-studies, source the case studies. Chapter 06 demo caption: "These formats are in design. Live Rose answers in text only." Both demos have a Pause / Play button (WCAG 2.2.2); with reduced motion they show the first exchange, still. Chapter 08 test loop, seven steps: 1 Write cases before the run; 2 Run 5 or 20 samples; 3 Automatic checks: tests, unsourced figures; 4 Grade every answer against the sources; 5 Pass? If not, back to 2; 6 Deploy with my approval; 7 Live check on the site. Caption: "A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case."
+Demos, decided 4 Nov. Hero exchanges show the page read and the source: 1 reads /rose · 03, source chapter 03; 2 reads /aetherix, source /aetherix status, link to the case study; 3 reads /case-studies, source the case studies. Chapter 06 demo caption: "These formats are in design. Live Rose answers in text, and reads aloud in pilot." Both demos have a Pause / Play button (WCAG 2.2.2); with reduced motion they show the first exchange, still. Chapter 08 test loop, seven steps: 1 Write cases before the run; 2 Run 5 or 20 samples; 3 Automatic checks: tests, unsourced figures; 4 Grade every answer against the sources; 5 Pass? If not, back to 2; 6 Deploy with my approval; 7 Live check on the site. Caption: "A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case."
 
 | Ch. | Field | v2 copy |
 |---|---|---|
@@ -159,7 +159,7 @@ The two contracts keep their validated wording. The intro's chiasmus and the max
 | Intro | One contract covers data: what is kept and what is sent. The other covers knowledge: what Rose may assert or infer. I keep them apart so that a privacy promise is never read as proof of accuracy. |
 | Data, title | What is kept and sent |
 | Data, items | Unchanged and validated: the conversation sentence, the storage and masking sentences, and "Booking opens the calendar and nothing else. No transcript travels with it." |
-| Data, item 4 (Built) | Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files. (Added 21 Nov 2026, wording by Ivan. The case study status stays "Live, text only" until Ivan changes it after Listen is live; the same sentence is on /privacy.) |
+| Data, item 4 (Built) | Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files. (Added 21 Nov 2026, wording by Ivan. The case study status became "Live Text · Voice in pilot" on 21 Nov 2026; the same sentence is on /privacy.) |
 | Data, sources | Retention and masking: mask-pii.ts and the purge migration (links as built) |
 | Knowledge, title | What Rose may assert or infer |
 | Knowledge, item 1 (Built) | Rose answers from the same Markdown pages the MCP server reads, with one or two links to them. |
@@ -205,7 +205,7 @@ The heading loses its "not just", the map item loses its maxim, and one sentence
 |---|---|
 | Kicker | 09 · Next steps (Design) |
 | Heading | Next: help readers move across the whole site |
-| Intro | The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text only. |
+| Intro | The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text and, in pilot, reads aloud. |
 | Item 1 | An automatic map of the whole site. Today I write the map by hand, and it grows only when I can state the reason for each link. |
 | Item 2 | Diagrams for the complex parts. A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked. |
 | Item 3 | Answers read aloud. A spoken version of a written answer, for readers who prefer to listen; the written answer stays the reference. |

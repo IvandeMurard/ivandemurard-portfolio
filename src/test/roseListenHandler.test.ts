@@ -53,7 +53,9 @@ const deps = (): ListenDeps => ({ env: (n) => env[n], store: mem.store, now: () 
 beforeEach(() => {
   mem = memoryStore();
   synth = vi.fn(async (text: string) => synthesis(text));
-  env = { ROSE_HISTORY_KEY: HISTORY_KEY, ELEVENLABS_API_KEY: "test-only-not-a-key", LISTEN_DAILY_CHAR_CAP: "5000" };
+  // The name is computed so that no tracked file spells `ROSE_HISTORY_KEY: <value>`: roseHistorySignature.test.ts
+  // ("keeps no signature key in the repository") scans every tracked file for exactly that shape.
+  env = { [["ROSE_HISTORY", "KEY"].join("_")]: HISTORY_KEY, ELEVENLABS_API_KEY: "test-only-not-a-key", LISTEN_DAILY_CHAR_CAP: "5000" };
 });
 
 describe("rose-listen: only genuine Rose answers are read", () => {

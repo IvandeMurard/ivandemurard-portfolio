@@ -278,7 +278,7 @@ Outside the architecture: the assistant of this site, the same thesis in aviatio
 
 ### Rose
 
-The assistant of this site · Status: Live, text only
+The assistant of this site · Status: Live Text · Voice in pilot
 
 Rose answers questions about the page you are reading, from the site's own text.
 
@@ -327,7 +327,7 @@ Markdown: https://ivandemurard.com/rose.md
 
 Case study · Rose
 
-Status: Live, text only
+Status: Live Text · Voice in pilot
 
 Last updated 2026-11-21.
 
@@ -345,7 +345,7 @@ Milestones come from [the repository](https://github.com/IvandeMurard/ivandemura
 
 - The problem: A case study shows the work, but it cannot answer a visitor's own question.
 - Five decisions: Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust.
-- Today: Rose is live and text only. She knows the page and section in view, answers from the site’s own text and sends nothing when you book.
+- Today: Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book.
 - Still open: Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle.
 
 Scripted demo with three built exchanges, in a loop: "Say it more simply.", "Is Aetherix in production?", "What has Ivan built?".
@@ -577,7 +577,7 @@ Rose knows the page, the section in view and the passages I marked. She answers 
 
 The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on.
 
-Scripted demo with four exchanges: Reformulate (Built), Locate (Design), Connect (Design), Sketch (Design). These formats are in design. Live Rose answers in text only.
+Scripted demo with four exchanges: Reformulate (Built), Locate (Design), Connect (Design), Sketch (Design). These formats are in design. Live Rose answers in text, and reads aloud in pilot.
 
 - Locate (Design): Where did he decide this?
 - Reformulate (Built): Say it more simply
@@ -737,7 +737,7 @@ Sources: [docs/rose-p4-evaluation.md](https://github.com/IvandeMurard/ivandemura
 
 Marker: Design
 
-The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text only.
+The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text and, in pilot, reads aloud.
 
 - An automatic map of the whole site. Today I write the map by hand, and it grows only when I can state the reason for each link.
 - Diagrams for the complex parts. A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked.

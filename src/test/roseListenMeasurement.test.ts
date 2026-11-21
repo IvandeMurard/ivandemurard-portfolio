@@ -34,6 +34,23 @@ describe("Listen measurement", () => {
     expect(migration).toContain("interval '7 days'");
     expect(migration).toContain("'rose-listen', 'rose-listen', false");
   });
+  it("purges the cache bucket after 90 days with pg_cron, through the Storage API, so the files really go", () => {
+    expect(migration).toContain("cron.schedule('purge-old-rose-listen-cache', '0 3 * * *'");
+    expect(migration).toContain("created_at < now() - interval '90 days'");
+    expect(migration).toContain("bucket_id = 'rose-listen'");
+    // A SQL delete on storage.objects orphans the files: the job must call the Storage API instead.
+    expect(migration).not.toMatch(/DELETE\s+FROM\s+storage\.objects/i);
+    expect(migration).toContain("net.http_delete");
+    expect(migration).toContain("/storage/v1/object/rose-listen/");
+    // The key comes from the Vault and is never written in the file; a missing secret fails loudly.
+    expect(migration).toContain("vault.decrypted_secrets");
+    expect(migration).not.toMatch(/eyJ[A-Za-z0-9_-]{20,}/);
+    expect(migration).toContain("RAISE EXCEPTION");
+    expect(migration).toContain("REVOKE ALL ON FUNCTION public.purge_rose_listen_cache()");
+  });
+  it("/privacy says the private store keeps the text and audio for 90 days, the same number as the job", () => {
+    expect(readFileSync("src/pages/Privacy.tsx", "utf8").replace(/\s+/g, " ")).toContain("its audio are also kept for 90 days in a private store of this site");
+  });
   it("is the next drizzle migration and is in the journal", () => {
     expect(readFileSync("drizzle/migrations/meta/_journal.json", "utf8")).toContain('"tag": "0012_rose_listen"');
   });

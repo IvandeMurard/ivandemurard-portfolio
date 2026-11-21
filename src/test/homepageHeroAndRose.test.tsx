@@ -12,7 +12,7 @@ import { scanSource } from "../../scripts/style-check";
 // Homepage v2 (5 Nov): the new hero, and Rose as the first of the selected projects.
 const HEADLINE = "I build AI services for operations, and measure what they change. Before that, SaaS product manager and co-founder.";
 const SUBLINE = "Every project on this site states what runs today, what was tested and what is not proven yet.";
-const FRAGMENT = "Contextual assistant · knows the page you are reading · answers from the site's own text · text only today";
+const FRAGMENT = "Contextual assistant · knows the page you are reading · answers from the site's own text · voice in pilot";
 const LINE = "Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made. Agents can read the same site through a public MCP endpoint and native Markdown.";
 
 class NoopObserver { observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } }
@@ -87,7 +87,7 @@ describe("02 · Selected projects", () => {
   it("shows Rose with her status, her fragment, her line and a link to the case", () => {
     page();
     const rose = within(cards()[0]);
-    expect(rose.getByText("Live, text only")).toBeTruthy();
+    expect(rose.getByText("Live Text · Voice in pilot")).toBeTruthy();
     expect(rose.getByText(FRAGMENT)).toBeTruthy();
     expect(rose.getByText(LINE)).toBeTruthy();
     expect(rose.getByRole("link", { name: "Read the case" }).getAttribute("href")).toBe("/rose");
@@ -95,10 +95,10 @@ describe("02 · Selected projects", () => {
 });
 
 describe("Status and project entries", () => {
-  it("adds a rose status: signal go, word 'Live, text only'", () => {
+  it("adds a rose status: signal go, word 'Live Text · Voice in pilot'", () => {
     expect(STATUSES.rose.signal).toBe("go");
-    expect(STATUSES.rose.word).toBe("Live, text only");
-    expect(STATUSES.rose.note).toContain("Rose is live and text only");
+    expect(STATUSES.rose.word).toBe("Live Text · Voice in pilot");
+    expect(STATUSES.rose.note).toContain("Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book.");
   });
 
   it("adds PROJECTS.rose with the slug of the case study and the same status", () => {
@@ -117,7 +117,7 @@ describe("The mirrors quote the same words", () => {
     expect(index).toContain(`## ${HEADLINE}`);
     expect(index).toContain(SUBLINE);
     expect(index).not.toContain("Now I build AI solutions");
-    const rose = index.indexOf("### Rose (GO · Live, text only)");
+    const rose = index.indexOf("### Rose (GO · Live Text · Voice in pilot)");
     expect(rose).toBeGreaterThan(index.indexOf("## 02 · Selected projects"));
     expect(rose).toBeLessThan(index.indexOf("### Lore"));
     expect(index).toContain(FRAGMENT);

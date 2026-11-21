@@ -138,7 +138,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 - The bottom dock stays hidden while the hero (which already shows the dock) is in view.
 
 ### 6.1 Hero
-- Status badge: "Live · text only" (to confirm once the current version is pushed and validated).
+- Status badge: "Live Text · Voice in pilot" (Ivan, 21 Nov 2026; replaces "Live · text only"). Source of the word and its note: `src/content/statuses.ts`.
 - Headline: "A portfolio you can question."
 - Lead: "The story behind Rose: why I built her, the five decisions that reshaped her, and the questions I am leaving open."
 - Right: the real dock playing one exchange, with a Locate button that triggers the gesture.

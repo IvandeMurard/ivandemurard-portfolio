@@ -39,7 +39,7 @@ const Privacy = () => (
       </P>
       <P>
         Only the text of the answer is sent: not your question, your session number or your IP address. To pay once for
-        the same answer, the masked text and its audio are also kept in a private store of this site. The site records
+        the same answer, the masked text and its audio are also kept for 90 days in a private store of this site. The site records
         that a reading started or finished, and whether it was a page summary or an answer, never the text. When Listen
         is unavailable, your browser reads the answer with its own voice; that voice belongs to your browser or
         device, and its own terms apply.

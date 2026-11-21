@@ -70,5 +70,11 @@
     "pattern": "theatrical-fragment",
     "text": "Tell me.",
     "reason": "validated copy, 3 Nov 2026: the chapter 10 heading of the page"
+  },
+  {
+    "file": "public/index.md",
+    "pattern": "dot-chain",
+    "text": "### Rose (GO · Live Text · Voice in pilot)",
+    "reason": "project status heading: the status word chosen by Ivan on 21 Nov 2026 carries its own middle dot (statuses.ts), as Sonor's does with a year; for Ivan's review"
   }
 ]
