@@ -1404,7 +1404,7 @@ var AGENTS_DOC = {
 };
 
 // src/content/journalAxFigures.ts
-var AX_NOTE_MCP_CALLS = 2;
+var AX_NOTE_MCP_CALLS = null;
 var SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var axShortDate = (iso) => {
   const [y, m, d] = iso.split("-").map(Number);
@@ -1494,12 +1494,19 @@ var AX_ENTRY = {
   mirror: "/one-text-three-readers.md",
   excerpt: 'The site said Pre-pilot. The browser showed Pre-pilot. A machine reading the raw homepage got "Pilot-ready".',
   glance: {
-    audience: "want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that people, assistants and AI agents all read; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares."
+    audience: "you want to see what agent experience (AX) means in practice, on a site that had to get it right; you publish pages that people, assistants and AI agents all read; you run an assistant that answers from your own content; you are tempted to show agent traffic as proof that anyone cares."
   },
   takeaways: [
     "**Check what a machine actually receives, byte by byte.** What the browser shows proves nothing.",
     "**One source per fact, every surface generated from it,** and a test that fails when a surface drifts.",
     "**Count only what you can verify,** and show what it counts and since when."
+  ],
+  updates: [
+    {
+      date: "2026-11-21",
+      summary: "Counter emptied: its first value included a test call and had no reading date.",
+      reason: "It will be filled with a dated count."
+    }
   ],
   related: [
     { role: "method", label: "What is an LLM evaluation harness?", to: "/journal/harnesses-graders-closed-loops", why: "The method behind Rose's release tests." },
