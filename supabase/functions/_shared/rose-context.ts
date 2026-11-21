@@ -5,7 +5,10 @@
 import { roseLanguageRule } from "./rose-language.ts";
 import { ROSE_PERSONA,ROSE_SELF_CONTRACT, roseHistoryLayer, selectRoseHistory } from "./rose-self-context.ts";
 import { aetherixEvidenceRegistryMatches, aetherixMeasurementEvidenceContext } from "./rose-aetherix-evidence.ts";
-import { isRoseExplicitMeetingRequest, isRoseTechnicalEvaluationQuestion, ROSE_NO_BOOKING_NOTICE, ROSE_NO_FOLLOWUPS_NOTICE, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
+import { isRoseCareerQuestion, isRoseCodeAccessRequest, isRoseExplicitMeetingRequest, isRoseTechnicalEvaluationQuestion, ROSE_NO_BOOKING_NOTICE, ROSE_NO_FOLLOWUPS_NOTICE, roseRegisterLine, shouldSuppressRoseFollowups } from "./rose-tool-contract.ts";
+
+// These two classifiers live in rose-tool-contract.ts (roseRegister reuses them); re-exported so existing imports keep working.
+export { isRoseCareerQuestion, isRoseCodeAccessRequest };
 
 export const ROSE_BASE_PROMPT = `You are Rose, a concise agent embedded on Ivan de Murard's portfolio site.
 
@@ -140,13 +143,6 @@ const FOCUSED_CLAIM_GUARDS: Partial<Record<Slug, string>> = {
   compass: "Compass: standalone commercial location data product, separate from hospitality agents. Its read-only corpus and MCP are live; its web demo uses a frozen sample and does not contain a live AI layer.",
   cv: "Career facts: distinguish an achieved result from a target or planned rollout. Bouygues receivables total 1.9M EUR targeted with 40% recovered; for DomusVi the POC and the migration were done, but the deployment to 500+ users was planned, not live when Ivan left. Use /cv for the human page and never invent a phone number.",
 };
-
-/** A request for Rose to access, inspect, review or test the visitor's code, files, repositories or systems. */
-export function isRoseCodeAccessRequest(question: string): boolean {
-  const verb = /\b(?:access|accessing|inspect|inspecting|review|reviewing|audit|auditing|test|testing|check|checking|look at|looking at|read|reading|scan|scanning|run|running|debug|debugging|analy[sz]e|analy[sz]ing)\b/i;
-  const target = /\b(?:my|our|this|the|a|private)\s+(?:own\s+)?(?:private\s+)?(?:code(?:base)?|files?|repo(?:sitory|sitories|s)?|systems?|project|pull requests?|PRs?|app(?:lication)?)\b|\bgithub\.com\/|\bgitlab\.com\//i;
-  return verb.test(question) && target.test(question);
-}
 
 export const ROSE_SITE_TRUTH_RULES = `On graders and failures, stay within what the sources say; details that are in the source (such as the required-content grader satisfied by the word NORMAL, section 12 of the harness note) may be quoted; anything not in the source may not.
 Project statuses, quoted never paraphrased: asked which projects are live, built or working, name each project with its exact status word: Aetherix "Pre-pilot", Tacet "Maintenance", Anima "Compliance Gated", Rose "Live, text only", Lore "Evaluated", Compass "Partial", Sonor "MVP shipped · stopped 2022". Only Rose is live. Never call Compass "live"; Lore is "Evaluated".
@@ -329,18 +325,6 @@ function assembleReference(slugs: readonly Slug[] = CASE_STUDY_SLUGS): string {
   }
   return parts.join("\n\n");
 }
-
-/**
- * A question about Ivan's profile: the roles he wants, his background, skills or how he describes his work.
- * Matches on any page, including Rose's own, where no CV is otherwise loaded.
- */
-export function isRoseCareerQuestion(question: string): boolean {
-  return /\b(?:roles?|looking for|hiring|hire|jobs?|positions?|open to|available|background|experience|skills?|cv|resume|résumé|what does (?:he|ivan) do|work with (?:him|ivan)|describe (?:his|ivan.s) work)\b/i.test(question)
-    || FRENCH_CAREER.test(question);
-}
-
-/** The same profile questions in French (the visitor's language, 15 Nov): poste, rôle, parcours, ouvert à, son travail... */
-const FRENCH_CAREER = /(?<![\p{L}])(?:postes?|rôles?|emplois?|embauch\p{L}*|recrut\p{L}*|parcours|expériences?|compétences?|disponibles?|ouverte?s? à|ouverte?s? aux|que fait (?:ivan|il)|(?:son|ses) (?:travail|métier|profil)|décrit-il|recherche-t-il|cherche-t-il)(?![\p{L}])/iu;
 
 /** Booking is offered unless the turn is a profile question without an explicit call or meeting request. */
 export const shouldOfferRoseBooking = (question: string): boolean =>
@@ -593,7 +577,7 @@ export async function getRoseSystemPrompt(ctx?: RoseTurnContext): Promise<string
   const aetherixGuard = selectedStudies === undefined || selectedStudies.includes("aetherix") ? `\n\n${AETHERIX_TURN_GUARD}` : "";
   const career = roseCareerGuidance(ctx?.question ?? "");
   const language = roseLanguageRule(ctx?.question ?? "");
-  const contract = `${TURN_CONTRACT}${aetherixGuard}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${career ? `\n\n${career}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}${language ? `\n\n${language}` : ""}`;
+  const contract = `${TURN_CONTRACT}${aetherixGuard}${self ? `\n\n${ROSE_SELF_CONTRACT}` : ""}${REFERENT_GUIDANCE}${scopedSubject ? `\n\n${scopedSubject}` : ""}${career ? `\n\n${career}` : ""}${measurementEvidence ? `\n\n${measurementEvidence}` : ""}${technicalAnswerAnchor}${noFollowups}${language ? `\n\n${language}` : ""}\n\n${roseRegisterLine({ question: ctx?.question ?? "", pagePath: ctx?.page?.path })}`;
   const reference = [self, assembleReference(selectedStudies), notes.length ? await noteReference(notes) : "",
     missing.length ? `References unavailable right now: ${missing.join(", ")}. Do not describe their details; link to their pages.` : ""]
     .filter(Boolean).join("\n\n");
