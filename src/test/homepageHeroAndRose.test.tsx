@@ -98,7 +98,7 @@ describe("Status and project entries", () => {
   it("adds a rose status: signal go, word 'Live, voice in pilot'", () => {
     expect(STATUSES.rose.signal).toBe("go");
     expect(STATUSES.rose.word).toBe("Live, voice in pilot");
-    expect(STATUSES.rose.note).toContain("Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book.");
+    expect(STATUSES.rose.note).toContain("Rose is live. She answers in text and, in pilot, reads two page summaries and her factual answers aloud. She sends nothing when you book.");
   });
 
   it("adds PROJECTS.rose with the slug of the case study and the same status", () => {

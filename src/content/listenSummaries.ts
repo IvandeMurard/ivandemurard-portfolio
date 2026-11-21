@@ -1,5 +1,5 @@
 /**
- * Page summaries Rose reads aloud (Listen). Pilot: the Harness Field Note only.
+ * Page summaries Rose reads aloud (Listen). Pilot: two Field Notes (Harness, One text three readers).
  *
  * The text below was validated word for word by Ivan. Changing a word changes its hash, and the audio in
  * public/listen/<slug>.mp3 and .json is then stale until Ivan runs `bun scripts/generate-listen-audio.ts` locally
@@ -24,6 +24,19 @@ First, 61 answers right out of 64, and the release still failed. Think of a driv
 Then, 64 out of 64, all green, with a dangerous answer inside. An assistant for aircraft mechanics told a technician that a worrying reading was normal. The test only checked for a word. Reading the answers caught it, and the fix moved the rule into the code: when the model contradicts the manual, the manual wins.
 
 What to take away: before you test, write down the one mistake you will never accept. After you test, read what passed.`,
+  },
+  "one-text-three-readers": {
+    path: "/journal/one-text-three-readers",
+    validatedOn: "2026-11-21",
+    text: `Who reads your website? You, of course. But also an assistant answering questions about it, and AI agents fetching it on someone else's behalf. This Field Note follows one page and its three readers, and what each of them actually got.
+
+First, the promise. On screen, one of Ivan's projects was clearly marked as not yet piloted. A machine reading the same address received an old copy nobody had refreshed, announcing it was ready for a pilot. Nobody had lied: a forgotten file had.
+
+Then, the missing room. Agents asking for the list of projects were quietly handed the homepage instead. In a browser, it fixed itself in a blink. For a machine, the projects simply did not exist.
+
+The cure is simple to say: one source for every fact, every version built from it, and tests that fail the moment one drifts. Rose reads that same text, so she never knows more than the page.
+
+So open three of your pages the way a machine does. What comes back?`,
   },
 };
 

@@ -1,0 +1,861 @@
+{
+ "slug": "one-text-three-readers",
+ "audio": "one-text-three-readers.mp3",
+ "durationMs": 64993,
+ "voiceId": "Vl85IetVjyVUJuJgGjDR",
+ "model": "eleven_v4",
+ "alignment": "word timings measured on the recorded take (faster-whisper base.en), mapped one to one onto the validated text",
+ "text": "Who reads your website? You, of course. But also an assistant answering questions about it, and AI agents fetching it on someone else's behalf. This Field Note follows one page and its three readers, and what each of them actually got. First, the promise. On screen, one of Ivan's projects was clearly marked as not yet piloted. A machine reading the same address received an old copy nobody had refreshed, announcing it was ready for a pilot. Nobody had lied: a forgotten file had. Then, the missing room. Agents asking for the list of projects were quietly handed the homepage instead. In a browser, it fixed itself in a blink. For a machine, the projects simply did not exist. The cure is simple to say: one source for every fact, every version built from it, and tests that fail the moment one drifts. Rose reads that same text, so she never knows more than the page. So open three of your pages the way a machine does. What comes back?",
+ "words": [
+  {
+   "w": "Who",
+   "start": 0,
+   "end": 340
+  },
+  {
+   "w": "reads",
+   "start": 340,
+   "end": 560
+  },
+  {
+   "w": "your",
+   "start": 560,
+   "end": 780
+  },
+  {
+   "w": "website?",
+   "start": 780,
+   "end": 1160
+  },
+  {
+   "w": "You,",
+   "start": 2220,
+   "end": 2500
+  },
+  {
+   "w": "of",
+   "start": 2600,
+   "end": 2760
+  },
+  {
+   "w": "course.",
+   "start": 2760,
+   "end": 2940
+  },
+  {
+   "w": "But",
+   "start": 3480,
+   "end": 3740
+  },
+  {
+   "w": "also",
+   "start": 3740,
+   "end": 4100
+  },
+  {
+   "w": "an",
+   "start": 4100,
+   "end": 4320
+  },
+  {
+   "w": "assistant",
+   "start": 4320,
+   "end": 4660
+  },
+  {
+   "w": "answering",
+   "start": 4660,
+   "end": 5220
+  },
+  {
+   "w": "questions",
+   "start": 5220,
+   "end": 5620
+  },
+  {
+   "w": "about",
+   "start": 5620,
+   "end": 6080
+  },
+  {
+   "w": "it,",
+   "start": 6080,
+   "end": 6320
+  },
+  {
+   "w": "and",
+   "start": 6700,
+   "end": 6820
+  },
+  {
+   "w": "AI",
+   "start": 6820,
+   "end": 7180
+  },
+  {
+   "w": "agents",
+   "start": 7180,
+   "end": 7700
+  },
+  {
+   "w": "fetching",
+   "start": 7700,
+   "end": 8260
+  },
+  {
+   "w": "it",
+   "start": 8260,
+   "end": 8380
+  },
+  {
+   "w": "on",
+   "start": 8380,
+   "end": 8500
+  },
+  {
+   "w": "someone",
+   "start": 8500,
+   "end": 8740
+  },
+  {
+   "w": "else's",
+   "start": 8740,
+   "end": 9100
+  },
+  {
+   "w": "behalf.",
+   "start": 9100,
+   "end": 9320
+  },
+  {
+   "w": "This",
+   "start": 10220,
+   "end": 10340
+  },
+  {
+   "w": "Field",
+   "start": 10340,
+   "end": 10640
+  },
+  {
+   "w": "Note",
+   "start": 10640,
+   "end": 10920
+  },
+  {
+   "w": "follows",
+   "start": 10920,
+   "end": 11280
+  },
+  {
+   "w": "one",
+   "start": 11280,
+   "end": 11600
+  },
+  {
+   "w": "page",
+   "start": 11600,
+   "end": 11980
+  },
+  {
+   "w": "and",
+   "start": 11980,
+   "end": 12280
+  },
+  {
+   "w": "its",
+   "start": 12280,
+   "end": 12500
+  },
+  {
+   "w": "three",
+   "start": 12500,
+   "end": 12780
+  },
+  {
+   "w": "readers,",
+   "start": 12780,
+   "end": 13200
+  },
+  {
+   "w": "and",
+   "start": 13700,
+   "end": 13800
+  },
+  {
+   "w": "what",
+   "start": 13800,
+   "end": 13960
+  },
+  {
+   "w": "each",
+   "start": 13960,
+   "end": 14180
+  },
+  {
+   "w": "of",
+   "start": 14180,
+   "end": 14400
+  },
+  {
+   "w": "them",
+   "start": 14400,
+   "end": 14540
+  },
+  {
+   "w": "actually",
+   "start": 14540,
+   "end": 14960
+  },
+  {
+   "w": "got.",
+   "start": 14960,
+   "end": 15400
+  },
+  {
+   "w": "First,",
+   "start": 16560,
+   "end": 16560
+  },
+  {
+   "w": "the",
+   "start": 16880,
+   "end": 17080
+  },
+  {
+   "w": "promise.",
+   "start": 17080,
+   "end": 17360
+  },
+  {
+   "w": "On",
+   "start": 18200,
+   "end": 18300
+  },
+  {
+   "w": "screen,",
+   "start": 18300,
+   "end": 18600
+  },
+  {
+   "w": "one",
+   "start": 19180,
+   "end": 19260
+  },
+  {
+   "w": "of",
+   "start": 19260,
+   "end": 19400
+  },
+  {
+   "w": "Ivan's",
+   "start": 19400,
+   "end": 19860
+  },
+  {
+   "w": "projects",
+   "start": 19860,
+   "end": 20260
+  },
+  {
+   "w": "was",
+   "start": 20260,
+   "end": 20520
+  },
+  {
+   "w": "clearly",
+   "start": 20520,
+   "end": 20880
+  },
+  {
+   "w": "marked",
+   "start": 20880,
+   "end": 21240
+  },
+  {
+   "w": "as",
+   "start": 21240,
+   "end": 21540
+  },
+  {
+   "w": "not",
+   "start": 21540,
+   "end": 21960
+  },
+  {
+   "w": "yet",
+   "start": 21960,
+   "end": 22240
+  },
+  {
+   "w": "piloted.",
+   "start": 22240,
+   "end": 22800
+  },
+  {
+   "w": "A",
+   "start": 23460,
+   "end": 23560
+  },
+  {
+   "w": "machine",
+   "start": 23560,
+   "end": 23800
+  },
+  {
+   "w": "reading",
+   "start": 23800,
+   "end": 24120
+  },
+  {
+   "w": "the",
+   "start": 24120,
+   "end": 24380
+  },
+  {
+   "w": "same",
+   "start": 24380,
+   "end": 24580
+  },
+  {
+   "w": "address",
+   "start": 24580,
+   "end": 24940
+  },
+  {
+   "w": "received",
+   "start": 24940,
+   "end": 25460
+  },
+  {
+   "w": "an",
+   "start": 25460,
+   "end": 25660
+  },
+  {
+   "w": "old",
+   "start": 25660,
+   "end": 25900
+  },
+  {
+   "w": "copy",
+   "start": 25900,
+   "end": 26220
+  },
+  {
+   "w": "nobody",
+   "start": 26220,
+   "end": 26700
+  },
+  {
+   "w": "had",
+   "start": 26700,
+   "end": 27100
+  },
+  {
+   "w": "refreshed,",
+   "start": 27100,
+   "end": 27480
+  },
+  {
+   "w": "announcing",
+   "start": 27480,
+   "end": 28200
+  },
+  {
+   "w": "it",
+   "start": 28200,
+   "end": 28620
+  },
+  {
+   "w": "was",
+   "start": 28620,
+   "end": 28740
+  },
+  {
+   "w": "ready",
+   "start": 28740,
+   "end": 29020
+  },
+  {
+   "w": "for",
+   "start": 29020,
+   "end": 29180
+  },
+  {
+   "w": "a",
+   "start": 29180,
+   "end": 29280
+  },
+  {
+   "w": "pilot.",
+   "start": 29280,
+   "end": 29580
+  },
+  {
+   "w": "Nobody",
+   "start": 30480,
+   "end": 31080
+  },
+  {
+   "w": "had",
+   "start": 31080,
+   "end": 31460
+  },
+  {
+   "w": "lied:",
+   "start": 31460,
+   "end": 31740
+  },
+  {
+   "w": "a",
+   "start": 32440,
+   "end": 32460
+  },
+  {
+   "w": "forgotten",
+   "start": 32460,
+   "end": 32720
+  },
+  {
+   "w": "file",
+   "start": 32720,
+   "end": 33240
+  },
+  {
+   "w": "had.",
+   "start": 33240,
+   "end": 33680
+  },
+  {
+   "w": "Then,",
+   "start": 34420,
+   "end": 34720
+  },
+  {
+   "w": "the",
+   "start": 35040,
+   "end": 35180
+  },
+  {
+   "w": "missing",
+   "start": 35180,
+   "end": 35500
+  },
+  {
+   "w": "room.",
+   "start": 35500,
+   "end": 35820
+  },
+  {
+   "w": "Agents",
+   "start": 36440,
+   "end": 36800
+  },
+  {
+   "w": "asking",
+   "start": 36800,
+   "end": 37160
+  },
+  {
+   "w": "for",
+   "start": 37160,
+   "end": 37520
+  },
+  {
+   "w": "the",
+   "start": 37520,
+   "end": 37620
+  },
+  {
+   "w": "list",
+   "start": 37620,
+   "end": 37780
+  },
+  {
+   "w": "of",
+   "start": 37780,
+   "end": 37940
+  },
+  {
+   "w": "projects",
+   "start": 37940,
+   "end": 38340
+  },
+  {
+   "w": "were",
+   "start": 38340,
+   "end": 38680
+  },
+  {
+   "w": "quietly",
+   "start": 38680,
+   "end": 39040
+  },
+  {
+   "w": "handed",
+   "start": 39040,
+   "end": 39500
+  },
+  {
+   "w": "the",
+   "start": 39500,
+   "end": 39740
+  },
+  {
+   "w": "homepage",
+   "start": 39740,
+   "end": 40300
+  },
+  {
+   "w": "instead.",
+   "start": 40300,
+   "end": 40540
+  },
+  {
+   "w": "In",
+   "start": 41340,
+   "end": 41500
+  },
+  {
+   "w": "a",
+   "start": 41500,
+   "end": 41560
+  },
+  {
+   "w": "browser,",
+   "start": 41560,
+   "end": 41760
+  },
+  {
+   "w": "it",
+   "start": 42260,
+   "end": 42360
+  },
+  {
+   "w": "fixed",
+   "start": 42360,
+   "end": 42580
+  },
+  {
+   "w": "itself",
+   "start": 42580,
+   "end": 43000
+  },
+  {
+   "w": "in",
+   "start": 43000,
+   "end": 43220
+  },
+  {
+   "w": "a",
+   "start": 43220,
+   "end": 43300
+  },
+  {
+   "w": "blink.",
+   "start": 43300,
+   "end": 43460
+  },
+  {
+   "w": "For",
+   "start": 44140,
+   "end": 44280
+  },
+  {
+   "w": "a",
+   "start": 44280,
+   "end": 44360
+  },
+  {
+   "w": "machine,",
+   "start": 44360,
+   "end": 44660
+  },
+  {
+   "w": "the",
+   "start": 45140,
+   "end": 45220
+  },
+  {
+   "w": "projects",
+   "start": 45220,
+   "end": 45560
+  },
+  {
+   "w": "simply",
+   "start": 45560,
+   "end": 45940
+  },
+  {
+   "w": "did",
+   "start": 45940,
+   "end": 46320
+  },
+  {
+   "w": "not",
+   "start": 46320,
+   "end": 46560
+  },
+  {
+   "w": "exist.",
+   "start": 46560,
+   "end": 46900
+  },
+  {
+   "w": "The",
+   "start": 47700,
+   "end": 47800
+  },
+  {
+   "w": "cure",
+   "start": 47800,
+   "end": 48020
+  },
+  {
+   "w": "is",
+   "start": 48020,
+   "end": 48300
+  },
+  {
+   "w": "simple",
+   "start": 48300,
+   "end": 48560
+  },
+  {
+   "w": "to",
+   "start": 48560,
+   "end": 48900
+  },
+  {
+   "w": "say:",
+   "start": 48900,
+   "end": 49160
+  },
+  {
+   "w": "one",
+   "start": 49900,
+   "end": 49920
+  },
+  {
+   "w": "source",
+   "start": 49920,
+   "end": 50200
+  },
+  {
+   "w": "for",
+   "start": 50200,
+   "end": 50580
+  },
+  {
+   "w": "every",
+   "start": 50580,
+   "end": 50820
+  },
+  {
+   "w": "fact,",
+   "start": 50820,
+   "end": 51240
+  },
+  {
+   "w": "every",
+   "start": 51640,
+   "end": 51800
+  },
+  {
+   "w": "version",
+   "start": 51800,
+   "end": 52320
+  },
+  {
+   "w": "built",
+   "start": 52320,
+   "end": 52560
+  },
+  {
+   "w": "from",
+   "start": 52560,
+   "end": 52860
+  },
+  {
+   "w": "it,",
+   "start": 52860,
+   "end": 53020
+  },
+  {
+   "w": "and",
+   "start": 53260,
+   "end": 53420
+  },
+  {
+   "w": "tests",
+   "start": 53420,
+   "end": 53700
+  },
+  {
+   "w": "that",
+   "start": 53700,
+   "end": 54060
+  },
+  {
+   "w": "fail",
+   "start": 54060,
+   "end": 54340
+  },
+  {
+   "w": "the",
+   "start": 54340,
+   "end": 54680
+  },
+  {
+   "w": "moment",
+   "start": 54680,
+   "end": 55040
+  },
+  {
+   "w": "one",
+   "start": 55040,
+   "end": 55300
+  },
+  {
+   "w": "drifts.",
+   "start": 55300,
+   "end": 55740
+  },
+  {
+   "w": "Rose",
+   "start": 55740,
+   "end": 56620
+  },
+  {
+   "w": "reads",
+   "start": 56620,
+   "end": 56980
+  },
+  {
+   "w": "that",
+   "start": 56980,
+   "end": 57220
+  },
+  {
+   "w": "same",
+   "start": 57220,
+   "end": 57500
+  },
+  {
+   "w": "text,",
+   "start": 57500,
+   "end": 57920
+  },
+  {
+   "w": "so",
+   "start": 57920,
+   "end": 58480
+  },
+  {
+   "w": "she",
+   "start": 58480,
+   "end": 58620
+  },
+  {
+   "w": "never",
+   "start": 58620,
+   "end": 58860
+  },
+  {
+   "w": "knows",
+   "start": 58860,
+   "end": 59200
+  },
+  {
+   "w": "more",
+   "start": 59200,
+   "end": 59500
+  },
+  {
+   "w": "than",
+   "start": 59500,
+   "end": 59720
+  },
+  {
+   "w": "the",
+   "start": 59720,
+   "end": 59800
+  },
+  {
+   "w": "page.",
+   "start": 59800,
+   "end": 60100
+  },
+  {
+   "w": "So",
+   "start": 60800,
+   "end": 60940
+  },
+  {
+   "w": "open",
+   "start": 60940,
+   "end": 61160
+  },
+  {
+   "w": "three",
+   "start": 61160,
+   "end": 61540
+  },
+  {
+   "w": "of",
+   "start": 61540,
+   "end": 61680
+  },
+  {
+   "w": "your",
+   "start": 61680,
+   "end": 61860
+  },
+  {
+   "w": "pages",
+   "start": 61860,
+   "end": 62180
+  },
+  {
+   "w": "the",
+   "start": 62180,
+   "end": 62580
+  },
+  {
+   "w": "way",
+   "start": 62580,
+   "end": 62720
+  },
+  {
+   "w": "a",
+   "start": 62720,
+   "end": 62820
+  },
+  {
+   "w": "machine",
+   "start": 62820,
+   "end": 63060
+  },
+  {
+   "w": "does.",
+   "start": 63060,
+   "end": 63400
+  },
+  {
+   "w": "What",
+   "start": 63880,
+   "end": 64080
+  },
+  {
+   "w": "comes",
+   "start": 64080,
+   "end": 64260
+  },
+  {
+   "w": "back?",
+   "start": 64260,
+   "end": 64600
+  }
+ ]
+}
