@@ -155,7 +155,7 @@ export const IDEA = {
   },
   note: "He gave me a name before he gave me a job.",
   name: "Her name. Rose, as in compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.",
-  nameNote: "Named for a heading, not a flower.",
+  nameNote: "Named for a heading.",
 };
 
 // The underline is the only thing that sets a link apart from the line around it: at 75% it is 4.5:1 or more against every

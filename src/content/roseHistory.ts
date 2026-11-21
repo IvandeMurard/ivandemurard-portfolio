@@ -113,7 +113,7 @@ export const ROSE_HISTORY: RoseHistoryEntry[] = [
   },
   {
     id: "name", date: null, claim: "implemented",
-    text: "The Rose case study (chapter 00) states the meaning of her name: Rose, as in compass rose, the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon and chose one heading among all the possible ones; that is her job here, to give a visitor a heading through work not yet explored. Her margin note there says the name stands for a heading rather than a flower. The same chapter says Ivan gave her a name before he gave her a job. The site states no other origin for the name and does not say when or why he chose it.",
+    text: "The Rose case study (chapter 00) states the meaning of her name: Rose, as in compass rose, the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon and chose one heading among all the possible ones; that is her job here, to give a visitor a heading through work not yet explored. Her margin note there reads: named for a heading. The same chapter says Ivan gave her a name before he gave her a job. The site states no other origin for the name and does not say when or why he chose it.",
     provenance: { commits: [], plans: [], files: ["src/components/rose/RoseCaseStudy.tsx", "docs/rose-case-study-copy-v2.md"] },
     notThis: "Any other origin, reason or intent for the name (a flower, a person, a brand, a story about Ivan's choice). Never speculate: say the site does not say. Never present the name as a person's.",
   },

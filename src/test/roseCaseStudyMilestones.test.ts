@@ -54,7 +54,7 @@ describe("Rose case study §6.2 chapter 00", () => {
   });
   it("gives the name's meaning word for word, and keeps the userose.ai credit", () => {
     expect(IDEA.name).toBe("Her name. Rose, as in compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.");
-    expect(IDEA.nameNote).toBe("Named for a heading, not a flower.");
+    expect(IDEA.nameNote).toBe("Named for a heading.");
     expect(IDEA.p3.anchor).toEqual({ text: "userose.ai's website agent", href: "https://userose.ai" });
   });
   it("links to https addresses and contains no em-dashes", () => {

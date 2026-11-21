@@ -1,4 +1,4 @@
-<!-- Generated. Private review artifact, excluded from public content. v1 sha256:1e4fb037917e995345280fdcef9f3cebaeadca2951d4764a7b12db248eaa654a -->
+<!-- Generated. Private review artifact, excluded from public content. v1 sha256:383844bf163c8720b84c80f11082bf94bb206f73e2dcc6b4ecd0c2e5ada1a463 -->
 
 Rose historical reference, v1. Repository evidence, not verified deployment parity. No measured visitor-value claim is established. Source paths and commit IDs are provenance, not public reading URLs. Do not invent a public Rose history page or link to the private reference.
 
@@ -79,7 +79,7 @@ Provenance: 34f66a1; 1ff9a63; 4ce6b8a; scripts/rose-quality-check.ts; docs/rose-
 Unsupported wording: Rose is proven to help visitors.
 
 ## name (date unverified, implemented)
-The Rose case study (chapter 00) states the meaning of her name: Rose, as in compass rose, the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon and chose one heading among all the possible ones; that is her job here, to give a visitor a heading through work not yet explored. Her margin note there says the name stands for a heading rather than a flower. The same chapter says Ivan gave her a name before he gave her a job. The site states no other origin for the name and does not say when or why he chose it.
+The Rose case study (chapter 00) states the meaning of her name: Rose, as in compass rose, the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon and chose one heading among all the possible ones; that is her job here, to give a visitor a heading through work not yet explored. Her margin note there reads: named for a heading. The same chapter says Ivan gave her a name before he gave her a job. The site states no other origin for the name and does not say when or why he chose it.
 Provenance: src/components/rose/RoseCaseStudy.tsx; docs/rose-case-study-copy-v2.md
 Unsupported wording: Any other origin, reason or intent for the name (a flower, a person, a brand, a story about Ivan's choice). Never speculate: say the site does not say. Never present the name as a person's.
 
