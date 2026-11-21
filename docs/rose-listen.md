@@ -55,7 +55,7 @@ A plan is skipped only when ElevenLabs refuses the request outright (400, 404 or
 
 | Where | Name | Note |
 |---|---|---|
-| Supabase function secrets | `ELEVENLABS_API_KEY` | never in a file or in the browser. **Whether it is set on the live project is unverified**: Lovable reported only `LISTEN_DAILY_CHAR_CAP` |
+| Supabase function secrets | `ELEVENLABS_API_KEY` | never in a file or in the browser. **Set**: Ivan reported on 21 Nov 2026 that Lovable confirmed it stored the key encrypted, readable by the functions through `Deno.env.get`. Claude did not see that confirmation and cannot read secrets, so the proof that it works is the first read of an answer (section 9) |
 | Supabase function secrets | `LISTEN_DAILY_CHAR_CAP` | set to `20000` characters per UTC day by Lovable on 21 Nov 2026 |
 | Supabase function secrets | `ROSE_HISTORY_KEY` | already used by `rose-chat`; the same value signs and verifies |
 
@@ -77,7 +77,7 @@ Without `ELEVENLABS_API_KEY`, answers fall back to the browser voice (503). The 
 | PR #77 merged (second summary, AX) | Claude, on Ivan's request | synced by Lovable |
 | PR #78 merged (third summary, "Listen summary" blocks, decision 06, status note "three page summaries") | Claude, on Ivan's request | synced by Lovable |
 | MCP bundle regenerated (`00afc8f`, manifest `35247c8`) and `rose-chat`, `rose-event`, `rose-listen` deployed | Lovable's agent, on Claude's request | no migration pending (0000 to 0013 applied); `mcp` is deployed by the platform at publication |
-| Site published | Claude, through Lovable (`deploy_project`) | deployment `5adfff3b-251d-4119-9b30-1169f5cd3822` |
+| Site published | Claude, through Lovable (`deploy_project`), **on Ivan's explicit request** | Ivan chose the option "Fusionner #77 puis #78, puis publier" when asked what "deploy" covered (merge, then publish). Deployment `5adfff3b-251d-4119-9b30-1169f5cd3822`, 21 Nov 2026 |
 
 Why Lovable does the deploy: functions, migrations and the MCP bundle go through Lovable, with Ivan's explicit approval (see `CLAUDE.md`).
 
@@ -101,8 +101,8 @@ Why Lovable does the deploy: functions, migrations and the MCP bundle go through
 ## 8. Known limits
 
 - **The register is not signed.** `rose_register` sits beside the signature but is not covered by it, so a visitor can relabel a light answer as factual and have it read. No extra cost (the answer is genuine, same session, under an hour), but "factual only" is not tamper-proof. Fixing it means signing the register, which invalidates conversations in progress.
-- **The status is a claim about the pilot.** "Voice in pilot" is true for the summaries now; for answers it depends on `ELEVENLABS_API_KEY`.
-- **Two temporary style allowlist entries** (`docs/style-allowlist.json`): the AX summary says "quietly", which the recorded take says too; the entries for `src/content/listenSummaries.ts` and `public/one-text-three-readers.md` go when the take is re-recorded without that word.
+- **The status is a claim about the pilot.** "Voice in pilot" is true for the summaries now. For answers, the key is in place (see section 5) but no answer has been read through the function yet, so that half is built and deployed, not yet seen working.
+- **The rule "no style exception" is not met today.** `docs/style-allowlist.json` holds two entries, both for the word "quietly" (a mood word in the style linter) in the validated AX summary: one for `src/content/listenSummaries.ts`, one for `public/one-text-three-readers.md`, which prints the same text. The recorded AX take says that word, so the text cannot change without a new recording. The first was chosen by Ivan in the PR #77 session, the second in the PR #78 session, each as a stop-gap. They are exceptions to Ivan's rule, not a settled state: they go, and the sentence becomes "Agents asking for the list of projects were handed the homepage instead.", as soon as the new AX take is dropped (`public/listen/one-text-three-readers.mp3` and `.json`). Until then the style baseline holds at 581 only because of them.
 - The browser voice (fallback) is the browser's: on some browsers it may use a cloud voice under that vendor's terms.
 - Chapter anchors: the case study shows 07 to 11 for chapters whose ids stay `#ch-06` to `#ch-10`; the sixth decision is `#ch-voice`.
 
