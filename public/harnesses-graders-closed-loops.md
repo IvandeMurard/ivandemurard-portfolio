@@ -457,6 +457,18 @@ Structure your answer in five parts: Verified findings (with the file or evidenc
 Do not bypass approvals and do not change production systems without my explicit authorisation.
 ```
 
+## Listen summary
+
+Recorded summary, written by Ivan, validated 21 Nov 2026 · 1 min 04
+
+How do you know your AI is working? Most teams look at a score. This Field Note shows how a score can mislead, in both directions, with two moments from a system Ivan built.
+
+First, 61 answers right out of 64, and the release still failed. Think of a driving test, where one rolled stop sign fails a flawless route: the rule was agreed before the engine started. Some mistakes outweigh everything else, and writing that down in advance is what turns a number into a decision.
+
+Then, 64 out of 64, all green, with a dangerous answer inside. An assistant for aircraft mechanics told a technician that a worrying reading was normal. The test only checked for a word. Reading the answers caught it, and the fix moved the rule into the code: when the model contradicts the manual, the manual wins.
+
+What to take away: before you test, write down the one mistake you will never accept. After you test, read what passed.
+
 ## Continue exploring
 
 - Understand the design decision: [Where should an agent's responsibility end?](https://ivandemurard.com/journal/agent-boundaries-aetherix) - Why Aetherix splits forecasting from action, so each failure gets its own check.

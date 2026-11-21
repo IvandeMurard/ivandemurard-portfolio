@@ -39,6 +39,8 @@ import { McpEndpoint } from "@/components/McpEndpoint";
 import { RecommendationLine } from "@/components/journal/RecommendationLine";
 import { SignalLamp } from "@/components/journal/SignalLamp";
 import { firstSentence } from "@/content/readingTime";
+import { ListenSummaryBlock } from "@/components/listen/ListenSummaryBlock";
+import { listenSummaryFor } from "@/content/listenSummaries";
 import type { Signal } from "@/content/recoLine";
 
 const VERDICT_SIGNAL: Record<string, Signal> = { PASS: "go", WARN: "warn", FAIL: "stop", ERROR: "dark" };
@@ -586,6 +588,7 @@ const JournalEntry = () => {
               <div className="mt-8">
                 <EntryActions title={entry.title} markdownPath={`/journal/${entry.slug}.md`} />
               </div>
+              {listenSummaryFor(`/journal/${entry.slug}`) ? <ListenSummaryBlock slug={listenSummaryFor(`/journal/${entry.slug}`)!.slug} className="mt-8" /> : null}
               {entry.glance || entry.takeaways?.length ? (
                 <EntryOpening glance={entry.glance} takeaways={entry.takeaways} punch={entry.takeawayPunch} />
               ) : null}

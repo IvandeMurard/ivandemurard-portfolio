@@ -1,4 +1,4 @@
-**Read this first.** `docs/rose-case-study-copy-v2.md` replaces the copy quoted in this file (headings, transition sentences, contact block, open-question wording). The brief still holds structure, rules and facts; where its wording differs from v2, v2 wins.
+**Read this first.** `docs/rose-case-study-copy-v2.md` replaces the copy quoted in this file (headings, transition sentences, contact block, open-question wording). The brief still holds structure, rules and facts; where its wording differs from v2, v2 wins. A sixth decision, "Read aloud" (21 Nov 2026), was added after chapter 05: the chapters numbered 06 to 10 below are now displayed 07 to 11 and keep their anchors (#ch-06 to #ch-10); the new one is #ch-voice.
 
 # Rose case study: single source of truth
 

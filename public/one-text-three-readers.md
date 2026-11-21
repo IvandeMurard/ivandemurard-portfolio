@@ -171,6 +171,20 @@ Writing these notes ahead, then publishing them as the work moves, is an idea bo
 - [PR #50, static stubs for /journeys](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/50) and [PR #51, keeping anchors](https://github.com/IvandeMurard/ivandemurard-portfolio/pull/51)
 - [The site's repository](https://github.com/IvandeMurard/ivandemurard-portfolio)
 
+## Listen summary
+
+Recorded summary, written by Ivan, validated 21 Nov 2026 · 1 min 05
+
+Who reads your website? You, of course. But also an assistant answering questions about it, and AI agents fetching it on someone else's behalf. This Field Note follows one page and its three readers, and what each of them actually got.
+
+First, the promise. On screen, one of Ivan's projects was clearly marked as not yet piloted. A machine reading the same address received an old copy nobody had refreshed, announcing it was ready for a pilot. Nobody had lied: a forgotten file had.
+
+Then, the missing room. Agents asking for the list of projects were quietly handed the homepage instead. In a browser, it fixed itself in a blink. For a machine, the projects simply did not exist.
+
+The cure is simple to say: one source for every fact, every version built from it, and tests that fail the moment one drifts. Rose reads that same text, so she never knows more than the page.
+
+So open three of your pages the way a machine does. What comes back?
+
 ## Continue exploring
 
 - Read the method: [What is an LLM evaluation harness?](https://ivandemurard.com/journal/harnesses-graders-closed-loops) - The method behind Rose's release tests.

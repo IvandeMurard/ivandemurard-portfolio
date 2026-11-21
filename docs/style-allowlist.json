@@ -76,5 +76,11 @@
     "pattern": "mood-word",
     "text": "quietly",
     "reason": "validated spoken summary, 21 Nov 2026: the recorded take says this word, so the text cannot change without a new recording"
+  },
+  {
+    "file": "public/one-text-three-readers.md",
+    "pattern": "mood-word",
+    "text": "quietly",
+    "reason": "temporary, same as the entry for listenSummaries.ts: the mirror prints the validated spoken summary; both entries go when the new take without this word is recorded"
   }
 ]

@@ -6,7 +6,7 @@
 // "Status:", "Last updated", "Marker:", "Scripted demo", and the label that marks Rose's notes.
 // Labels sit on a line of their own (bold), so no "Label: text" line reads like a colon reveal.
 import {
-  CHAPTER_MARK, CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, LEGEND, LEGEND_NOTE, MILESTONES, NEXT, NOTES_INTRO, QUESTIONS,
+  CHAPTER_MARK, CHAPTER_MARK_QUALIFIER, CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, LEGEND, LEGEND_NOTE, MILESTONES, NEXT, NOTES_INTRO, QUESTIONS,
   REPO_FILE, REPO_URL, ROSE_CHAPTERS, SIX, TLDR, TRUST, replyHref,
 } from "../src/components/rose/RoseCaseStudy";
 import { DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "../src/components/rose/roseDemoData";
@@ -14,6 +14,7 @@ import { CONTACT, SOCIAL_LINKS } from "../src/content/site";
 import { ASK_AI, ASSISTANTS } from "../src/content/askAi";
 import { HOW_ROSE_WORKS } from "../src/content/howRoseWorks";
 import { GRAPH_STANDALONE, RELATIONS_MAP, nodeMarkdown, relationRows, relationSentence } from "../src/content/relationsMap";
+import { LISTEN_SECTION_HEADING, listenSummaryBySlug, listenSummaryNotice } from "../src/content/listenSummaries";
 
 /** The label that marks Rose's notes: Ivan writes them in her voice. */
 export const ROSE_NOTE_LABEL = "Rose's note (written by Ivan in her voice)";
@@ -33,7 +34,8 @@ const vignetteLines = (item: (typeof MILESTONES)[string]["vignette"]["before"][n
   }
 };
 
-const marker = (id: string) => (CHAPTER_MARK[id] ? `Marker: ${CHAPTER_MARK[id]}` : null);
+const marker = (id: string) => (CHAPTER_MARK[id] ? `Marker: ${CHAPTER_MARK[id]}${CHAPTER_MARK_QUALIFIER[id] ? ` (${CHAPTER_MARK_QUALIFIER[id]})` : ""}` : null);
+const SITE = "https://ivandemurard.com";
 
 function chapterBody(id: string): string[] {
   if (id === "ch-00") {
@@ -55,11 +57,12 @@ function chapterBody(id: string): string[] {
       label("The tension"), m.tension,
       label("What I decided"), m.decision,
       note(m.note),
-      m.result,
+      ...(m.result ? [m.result] : []),
       ...(m.tradeoff ? [label("The trade-off"), m.tradeoff] : []),
       label(v.caption),
       `${v.b}: ${v.mb}\n\n${bullets(v.before.flatMap(vignetteLines))}`,
       `${v.a}: ${v.ma}\n\n${bullets(v.after.flatMap(vignetteLines))}`,
+      ...(m.link ? [`${m.link.before}${link(m.link.text, `${SITE}${m.link.to}`)}`] : []),
       `Source: ${m.source}`,
     ];
   }
@@ -83,7 +86,7 @@ function chapterBody(id: string): string[] {
   if (id === "ch-07") {
     const t = TRUST;
     const parts = t.contracts.flatMap((c) => {
-      const items = c.items.map((it) => `(${it.mark}) ${it.parts.length === 3 ? `${it.parts[0]}${link(it.parts[1], REPO_FILE(t.evalDoc))}${it.parts[2]}` : it.parts[0]}`);
+      const items = c.items.map((it) => `(${it.mark}) ${it.parts.length === 3 ? `${it.parts[0]}${link(it.parts[1], REPO_FILE(t.evalDoc))}${it.parts[2]}` : it.parts[0]}${it.see ? ` ${link(it.see.text, `${SITE}${it.see.to}`)}` : ""}`);
       const sources = "sources" in c && c.sources
         ? [`${c.sourcesLead}${c.sources.map((s) => link(s.label, REPO_FILE(s.path))).join(" and ")}`]
         : [];
@@ -150,6 +153,10 @@ export function renderRoseMirror(date: string): string {
     bullets(TLDR.map(([t, d]) => `${t}: ${d}`)),
     `Scripted demo with three built exchanges, in a loop: ${HERO_EXCHANGES.map((e) => `"${e.q}"`).join(", ")}.`,
   ];
+
+  // The recorded summary of this page, from the same source as the page block, the dock and MCP.
+  const listen = listenSummaryBySlug("rose");
+  if (listen) blocks.push(`## ${LISTEN_SECTION_HEADING}`, listenSummaryNotice(listen), listen.text);
 
   for (const c of ROSE_CHAPTERS) {
     if (c.id === "ch-01") blocks.push(NOTES_INTRO);

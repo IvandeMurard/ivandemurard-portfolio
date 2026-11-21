@@ -17,18 +17,19 @@ const vignetteStrings = (m: (typeof MILESTONES)[string]) => [
   ...[...m.vignette.before, ...m.vignette.after].flatMap((i) => ("chips" in i ? i.chips : [i.text])),
 ];
 
-describe("Rose case study §6.3 chapters 01 to 05", () => {
-  it("has exactly the five milestones, in order", () => {
-    expect(Object.keys(MILESTONES)).toEqual(["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"]);
+describe("Rose case study §6.3 chapters 01 to 05, and the sixth decision", () => {
+  it("has exactly the six milestones, in order", () => {
+    expect(Object.keys(MILESTONES)).toEqual(["ch-01", "ch-02", "ch-03", "ch-04", "ch-05", "ch-voice"]);
   });
   it("uses only copy that appears in deck v2, and vignettes and sources as in v1", () => {
-    for (const m of Object.values(MILESTONES)) {
-      for (const s of [m.brief, m.tension, m.decision, m.result, m.note, ...(m.tradeoff ? [m.tradeoff] : [])]) expect(deck, s).toContain(norm(s));
-      for (const s of vignetteStrings(m)) expect(deckV1, s).toContain(s);
+    for (const [id, m] of Object.entries(MILESTONES)) {
+      for (const s of [m.brief, m.tension, m.decision, ...(m.result ? [m.result] : []), m.note, ...(m.tradeoff ? [m.tradeoff] : [])]) expect(deck, s).toContain(norm(s));
+      // Decisions 01 to 05 keep their v1 vignettes; decision 06 is new in v2.
+      for (const s of vignetteStrings(m)) expect(id === "ch-voice" ? deck : deckV1, s).toContain(s);
     }
   });
-  it("adds the business trade-off to chapter 01 only", () => {
-    expect(Object.entries(MILESTONES).filter(([, m]) => m.tradeoff).map(([id]) => id)).toEqual(["ch-01"]);
+  it("gives a trade-off to chapter 01 and to the sixth decision only", () => {
+    expect(Object.entries(MILESTONES).filter(([, m]) => m.tradeoff).map(([id]) => id)).toEqual(["ch-01", "ch-voice"]);
   });
   it("writes each Rose note as a single sentence", () => {
     for (const m of Object.values(MILESTONES)) {
@@ -200,9 +201,13 @@ describe("Rose case study chapters 06, 09 and 10", () => {
   it("prints the chapter 06 and 09 words of deck v2", () => {
     for (const x of [SIX.intro, SIX.influence, NEXT.intro, NEXT.transfers, ...NEXT.items.map(([t, d]) => `${t} ${d}`)]) expect(deck, x).toContain(norm(x));
   });
-  it("keeps the four questions as in the brief, with the two v2 rewrites", () => {
+  it("keeps the four questions as in the brief, with the v2 rewrites", () => {
     expect(QUESTIONS.map((q) => q.title)).toEqual(["Value", "Measure", "Role", "Modality"]);
-    const rewritten = new Set(["The numbers would flatter Rose and hide how narrow her real use is.", "I would maintain a feature that nobody uses."]);
+    const rewritten = new Set([
+      "The numbers would flatter Rose and hide how narrow her real use is.", "I would maintain a feature that nobody uses.",
+      // Question 04 after the pilot of Listen (21 Nov 2026).
+      "Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026.", "Listens started and finished, page by page.",
+    ]);
     for (const q of QUESTIONS) {
       for (const x of [q.question, q.hypothesis, q.signal, q.decision, q.cost]) {
         if (rewritten.has(x)) expect(deck, x).toContain(x);

@@ -1,0 +1,1116 @@
+{
+ "slug": "rose",
+ "audio": "rose.mp3",
+ "durationMs": 73796,
+ "voiceId": "Vl85IetVjyVUJuJgGjDR",
+ "model": "eleven_v4",
+ "alignment": "word timings measured on the recorded take (faster-whisper small.en), mapped one to one onto the validated text",
+ "text": "Most case studies describe their subject. This one is introduced by it. Hi, I'm Rose, Ivan's contextual agent, and this case study is, well, about me. I started as a funnel with a simple idea: I asked who you were, and I led you to book a call. Then Ivan changed my job: now I explain his work, rephrase it, and put it in context. To do that, I know the page and the section you're reading, I answer from the site's own text, I link the passage I used, and I quote every project's status exactly as published. I went through a lot of testing, so now I only name what the pages name. Oh, and this recording is new: it's a summary of the case study, written by Ivan in my voice. What comes next is still on the drawing board. Ivan is designing me to take you straight to the passage that answers you, to show how one project connects to another, and to sketch a diagram when a page gets too dense or technical. The same idea could serve any documentation where readers bring their own questions. One more thing: when you book a call, the calendar opens but the conversation stays here. So the question is yours: what would you ask me? I am right below.",
+ "words": [
+  {
+   "w": "Most",
+   "start": 0,
+   "end": 480
+  },
+  {
+   "w": "case",
+   "start": 480,
+   "end": 820
+  },
+  {
+   "w": "studies",
+   "start": 820,
+   "end": 1260
+  },
+  {
+   "w": "describe",
+   "start": 1260,
+   "end": 1840
+  },
+  {
+   "w": "their",
+   "start": 1840,
+   "end": 2140
+  },
+  {
+   "w": "subject.",
+   "start": 2140,
+   "end": 2580
+  },
+  {
+   "w": "This",
+   "start": 3380,
+   "end": 3560
+  },
+  {
+   "w": "one",
+   "start": 3560,
+   "end": 3840
+  },
+  {
+   "w": "is",
+   "start": 3840,
+   "end": 4120
+  },
+  {
+   "w": "introduced",
+   "start": 4120,
+   "end": 4560
+  },
+  {
+   "w": "by",
+   "start": 4560,
+   "end": 4920
+  },
+  {
+   "w": "it.",
+   "start": 4920,
+   "end": 5340
+  },
+  {
+   "w": "Hi,",
+   "start": 5720,
+   "end": 5800
+  },
+  {
+   "w": "I'm",
+   "start": 6020,
+   "end": 6340
+  },
+  {
+   "w": "Rose,",
+   "start": 6340,
+   "end": 6620
+  },
+  {
+   "w": "Ivan's",
+   "start": 7180,
+   "end": 7460
+  },
+  {
+   "w": "contextual",
+   "start": 7460,
+   "end": 7860
+  },
+  {
+   "w": "agent,",
+   "start": 7860,
+   "end": 8380
+  },
+  {
+   "w": "and",
+   "start": 8800,
+   "end": 8900
+  },
+  {
+   "w": "this",
+   "start": 8900,
+   "end": 9100
+  },
+  {
+   "w": "case",
+   "start": 9100,
+   "end": 9320
+  },
+  {
+   "w": "study",
+   "start": 9320,
+   "end": 9660
+  },
+  {
+   "w": "is,",
+   "start": 9660,
+   "end": 9940
+  },
+  {
+   "w": "well,",
+   "start": 10140,
+   "end": 10460
+  },
+  {
+   "w": "about",
+   "start": 10860,
+   "end": 11000
+  },
+  {
+   "w": "me.",
+   "start": 11000,
+   "end": 11320
+  },
+  {
+   "w": "I",
+   "start": 11900,
+   "end": 11980
+  },
+  {
+   "w": "started",
+   "start": 11980,
+   "end": 12300
+  },
+  {
+   "w": "as",
+   "start": 12300,
+   "end": 12540
+  },
+  {
+   "w": "a",
+   "start": 12540,
+   "end": 12720
+  },
+  {
+   "w": "funnel",
+   "start": 12720,
+   "end": 12960
+  },
+  {
+   "w": "with",
+   "start": 12960,
+   "end": 13200
+  },
+  {
+   "w": "a",
+   "start": 13200,
+   "end": 13380
+  },
+  {
+   "w": "simple",
+   "start": 13380,
+   "end": 13680
+  },
+  {
+   "w": "idea:",
+   "start": 13680,
+   "end": 14120
+  },
+  {
+   "w": "I",
+   "start": 14600,
+   "end": 14740
+  },
+  {
+   "w": "asked",
+   "start": 14740,
+   "end": 14980
+  },
+  {
+   "w": "who",
+   "start": 14980,
+   "end": 15200
+  },
+  {
+   "w": "you",
+   "start": 15200,
+   "end": 15340
+  },
+  {
+   "w": "were,",
+   "start": 15340,
+   "end": 15660
+  },
+  {
+   "w": "and",
+   "start": 15660,
+   "end": 15980
+  },
+  {
+   "w": "I",
+   "start": 15980,
+   "end": 16120
+  },
+  {
+   "w": "led",
+   "start": 16120,
+   "end": 16300
+  },
+  {
+   "w": "you",
+   "start": 16300,
+   "end": 16520
+  },
+  {
+   "w": "to",
+   "start": 16520,
+   "end": 16640
+  },
+  {
+   "w": "book",
+   "start": 16640,
+   "end": 16760
+  },
+  {
+   "w": "a",
+   "start": 16760,
+   "end": 16920
+  },
+  {
+   "w": "call.",
+   "start": 16920,
+   "end": 17180
+  },
+  {
+   "w": "Then",
+   "start": 17660,
+   "end": 17920
+  },
+  {
+   "w": "Ivan",
+   "start": 17920,
+   "end": 18300
+  },
+  {
+   "w": "changed",
+   "start": 18300,
+   "end": 18740
+  },
+  {
+   "w": "my",
+   "start": 18740,
+   "end": 19040
+  },
+  {
+   "w": "job:",
+   "start": 19040,
+   "end": 19340
+  },
+  {
+   "w": "now",
+   "start": 19840,
+   "end": 20060
+  },
+  {
+   "w": "I",
+   "start": 20060,
+   "end": 20380
+  },
+  {
+   "w": "explain",
+   "start": 20380,
+   "end": 20800
+  },
+  {
+   "w": "his",
+   "start": 20800,
+   "end": 21040
+  },
+  {
+   "w": "work,",
+   "start": 21040,
+   "end": 21420
+  },
+  {
+   "w": "rephrase",
+   "start": 21800,
+   "end": 22160
+  },
+  {
+   "w": "it,",
+   "start": 22160,
+   "end": 22480
+  },
+  {
+   "w": "and",
+   "start": 22480,
+   "end": 22780
+  },
+  {
+   "w": "put",
+   "start": 22780,
+   "end": 22940
+  },
+  {
+   "w": "it",
+   "start": 22940,
+   "end": 23060
+  },
+  {
+   "w": "in",
+   "start": 23060,
+   "end": 23220
+  },
+  {
+   "w": "context.",
+   "start": 23220,
+   "end": 23640
+  },
+  {
+   "w": "To",
+   "start": 24160,
+   "end": 24320
+  },
+  {
+   "w": "do",
+   "start": 24320,
+   "end": 24500
+  },
+  {
+   "w": "that,",
+   "start": 24500,
+   "end": 24820
+  },
+  {
+   "w": "I",
+   "start": 25080,
+   "end": 25220
+  },
+  {
+   "w": "know",
+   "start": 25220,
+   "end": 25400
+  },
+  {
+   "w": "the",
+   "start": 25400,
+   "end": 25540
+  },
+  {
+   "w": "page",
+   "start": 25540,
+   "end": 25860
+  },
+  {
+   "w": "and",
+   "start": 25860,
+   "end": 26080
+  },
+  {
+   "w": "the",
+   "start": 26080,
+   "end": 26200
+  },
+  {
+   "w": "section",
+   "start": 26200,
+   "end": 26500
+  },
+  {
+   "w": "you're",
+   "start": 26500,
+   "end": 26840
+  },
+  {
+   "w": "reading,",
+   "start": 26840,
+   "end": 27140
+  },
+  {
+   "w": "I",
+   "start": 27480,
+   "end": 27680
+  },
+  {
+   "w": "answer",
+   "start": 27680,
+   "end": 27960
+  },
+  {
+   "w": "from",
+   "start": 27960,
+   "end": 28220
+  },
+  {
+   "w": "the",
+   "start": 28220,
+   "end": 28360
+  },
+  {
+   "w": "site's",
+   "start": 28360,
+   "end": 28700
+  },
+  {
+   "w": "own",
+   "start": 28700,
+   "end": 28900
+  },
+  {
+   "w": "text,",
+   "start": 28900,
+   "end": 29380
+  },
+  {
+   "w": "I",
+   "start": 29380,
+   "end": 29860
+  },
+  {
+   "w": "link",
+   "start": 29860,
+   "end": 30080
+  },
+  {
+   "w": "the",
+   "start": 30080,
+   "end": 30300
+  },
+  {
+   "w": "passage",
+   "start": 30300,
+   "end": 30580
+  },
+  {
+   "w": "I",
+   "start": 30580,
+   "end": 30800
+  },
+  {
+   "w": "used,",
+   "start": 30800,
+   "end": 31220
+  },
+  {
+   "w": "and",
+   "start": 31220,
+   "end": 31600
+  },
+  {
+   "w": "I",
+   "start": 31600,
+   "end": 31740
+  },
+  {
+   "w": "quote",
+   "start": 31740,
+   "end": 31940
+  },
+  {
+   "w": "every",
+   "start": 31940,
+   "end": 32380
+  },
+  {
+   "w": "project's",
+   "start": 32380,
+   "end": 33000
+  },
+  {
+   "w": "status",
+   "start": 33000,
+   "end": 33360
+  },
+  {
+   "w": "exactly",
+   "start": 33360,
+   "end": 33880
+  },
+  {
+   "w": "as",
+   "start": 33880,
+   "end": 34240
+  },
+  {
+   "w": "published.",
+   "start": 34240,
+   "end": 34620
+  },
+  {
+   "w": "I",
+   "start": 35320,
+   "end": 35320
+  },
+  {
+   "w": "went",
+   "start": 35320,
+   "end": 35480
+  },
+  {
+   "w": "through",
+   "start": 35480,
+   "end": 35700
+  },
+  {
+   "w": "a",
+   "start": 35700,
+   "end": 35820
+  },
+  {
+   "w": "lot",
+   "start": 35820,
+   "end": 36060
+  },
+  {
+   "w": "of",
+   "start": 36060,
+   "end": 36240
+  },
+  {
+   "w": "testing,",
+   "start": 36240,
+   "end": 36680
+  },
+  {
+   "w": "so",
+   "start": 36980,
+   "end": 37180
+  },
+  {
+   "w": "now",
+   "start": 37180,
+   "end": 37480
+  },
+  {
+   "w": "I",
+   "start": 37480,
+   "end": 37820
+  },
+  {
+   "w": "only",
+   "start": 37820,
+   "end": 38120
+  },
+  {
+   "w": "name",
+   "start": 38120,
+   "end": 38440
+  },
+  {
+   "w": "what",
+   "start": 38440,
+   "end": 38600
+  },
+  {
+   "w": "the",
+   "start": 38600,
+   "end": 38740
+  },
+  {
+   "w": "pages",
+   "start": 38740,
+   "end": 39160
+  },
+  {
+   "w": "name.",
+   "start": 39160,
+   "end": 39380
+  },
+  {
+   "w": "Oh,",
+   "start": 39840,
+   "end": 40020
+  },
+  {
+   "w": "and",
+   "start": 40220,
+   "end": 40400
+  },
+  {
+   "w": "this",
+   "start": 40400,
+   "end": 40560
+  },
+  {
+   "w": "recording",
+   "start": 40560,
+   "end": 40900
+  },
+  {
+   "w": "is",
+   "start": 40900,
+   "end": 41160
+  },
+  {
+   "w": "new:",
+   "start": 41160,
+   "end": 41440
+  },
+  {
+   "w": "it's",
+   "start": 41800,
+   "end": 41980
+  },
+  {
+   "w": "a",
+   "start": 41980,
+   "end": 42100
+  },
+  {
+   "w": "summary",
+   "start": 42100,
+   "end": 42380
+  },
+  {
+   "w": "of",
+   "start": 42380,
+   "end": 42640
+  },
+  {
+   "w": "the",
+   "start": 42640,
+   "end": 42760
+  },
+  {
+   "w": "case",
+   "start": 42760,
+   "end": 42940
+  },
+  {
+   "w": "study,",
+   "start": 42940,
+   "end": 43300
+  },
+  {
+   "w": "written",
+   "start": 43620,
+   "end": 43760
+  },
+  {
+   "w": "by",
+   "start": 43760,
+   "end": 44080
+  },
+  {
+   "w": "Ivan",
+   "start": 44080,
+   "end": 44400
+  },
+  {
+   "w": "in",
+   "start": 44400,
+   "end": 44720
+  },
+  {
+   "w": "my",
+   "start": 44720,
+   "end": 45020
+  },
+  {
+   "w": "voice.",
+   "start": 45020,
+   "end": 45380
+  },
+  {
+   "w": "What",
+   "start": 45940,
+   "end": 46060
+  },
+  {
+   "w": "comes",
+   "start": 46060,
+   "end": 46280
+  },
+  {
+   "w": "next",
+   "start": 46280,
+   "end": 46720
+  },
+  {
+   "w": "is",
+   "start": 46720,
+   "end": 46960
+  },
+  {
+   "w": "still",
+   "start": 46960,
+   "end": 47260
+  },
+  {
+   "w": "on",
+   "start": 47260,
+   "end": 47420
+  },
+  {
+   "w": "the",
+   "start": 47420,
+   "end": 47520
+  },
+  {
+   "w": "drawing",
+   "start": 47520,
+   "end": 47780
+  },
+  {
+   "w": "board.",
+   "start": 47780,
+   "end": 48120
+  },
+  {
+   "w": "Ivan",
+   "start": 48800,
+   "end": 48940
+  },
+  {
+   "w": "is",
+   "start": 48940,
+   "end": 49180
+  },
+  {
+   "w": "designing",
+   "start": 49180,
+   "end": 49600
+  },
+  {
+   "w": "me",
+   "start": 49600,
+   "end": 49960
+  },
+  {
+   "w": "to",
+   "start": 49960,
+   "end": 50120
+  },
+  {
+   "w": "take",
+   "start": 50120,
+   "end": 50300
+  },
+  {
+   "w": "you",
+   "start": 50300,
+   "end": 50500
+  },
+  {
+   "w": "straight",
+   "start": 50500,
+   "end": 50840
+  },
+  {
+   "w": "to",
+   "start": 50840,
+   "end": 51040
+  },
+  {
+   "w": "the",
+   "start": 51040,
+   "end": 51160
+  },
+  {
+   "w": "passage",
+   "start": 51160,
+   "end": 51480
+  },
+  {
+   "w": "that",
+   "start": 51480,
+   "end": 51700
+  },
+  {
+   "w": "answers",
+   "start": 51700,
+   "end": 52080
+  },
+  {
+   "w": "you,",
+   "start": 52080,
+   "end": 52420
+  },
+  {
+   "w": "to",
+   "start": 52600,
+   "end": 52780
+  },
+  {
+   "w": "show",
+   "start": 52780,
+   "end": 52980
+  },
+  {
+   "w": "how",
+   "start": 52980,
+   "end": 53200
+  },
+  {
+   "w": "one",
+   "start": 53200,
+   "end": 53480
+  },
+  {
+   "w": "project",
+   "start": 53480,
+   "end": 53920
+  },
+  {
+   "w": "connects",
+   "start": 53920,
+   "end": 54280
+  },
+  {
+   "w": "to",
+   "start": 54280,
+   "end": 54540
+  },
+  {
+   "w": "another,",
+   "start": 54540,
+   "end": 54820
+  },
+  {
+   "w": "and",
+   "start": 55200,
+   "end": 55360
+  },
+  {
+   "w": "to",
+   "start": 55360,
+   "end": 55480
+  },
+  {
+   "w": "sketch",
+   "start": 55480,
+   "end": 55720
+  },
+  {
+   "w": "a",
+   "start": 55720,
+   "end": 55920
+  },
+  {
+   "w": "diagram",
+   "start": 55920,
+   "end": 56340
+  },
+  {
+   "w": "when",
+   "start": 56340,
+   "end": 56600
+  },
+  {
+   "w": "a",
+   "start": 56600,
+   "end": 56720
+  },
+  {
+   "w": "page",
+   "start": 56720,
+   "end": 56960
+  },
+  {
+   "w": "gets",
+   "start": 56960,
+   "end": 57180
+  },
+  {
+   "w": "too",
+   "start": 57180,
+   "end": 57440
+  },
+  {
+   "w": "dense",
+   "start": 57440,
+   "end": 57820
+  },
+  {
+   "w": "or",
+   "start": 57820,
+   "end": 58060
+  },
+  {
+   "w": "technical.",
+   "start": 58060,
+   "end": 58480
+  },
+  {
+   "w": "The",
+   "start": 58480,
+   "end": 59140
+  },
+  {
+   "w": "same",
+   "start": 59140,
+   "end": 59420
+  },
+  {
+   "w": "idea",
+   "start": 59420,
+   "end": 59760
+  },
+  {
+   "w": "could",
+   "start": 59760,
+   "end": 59980
+  },
+  {
+   "w": "serve",
+   "start": 59980,
+   "end": 60240
+  },
+  {
+   "w": "any",
+   "start": 60240,
+   "end": 60580
+  },
+  {
+   "w": "documentation",
+   "start": 60580,
+   "end": 61220
+  },
+  {
+   "w": "where",
+   "start": 61220,
+   "end": 61660
+  },
+  {
+   "w": "readers",
+   "start": 61660,
+   "end": 61960
+  },
+  {
+   "w": "bring",
+   "start": 61960,
+   "end": 62200
+  },
+  {
+   "w": "their",
+   "start": 62200,
+   "end": 62400
+  },
+  {
+   "w": "own",
+   "start": 62400,
+   "end": 62600
+  },
+  {
+   "w": "questions.",
+   "start": 62600,
+   "end": 63060
+  },
+  {
+   "w": "One",
+   "start": 63760,
+   "end": 63880
+  },
+  {
+   "w": "more",
+   "start": 63880,
+   "end": 64060
+  },
+  {
+   "w": "thing:",
+   "start": 64060,
+   "end": 64340
+  },
+  {
+   "w": "when",
+   "start": 64780,
+   "end": 64900
+  },
+  {
+   "w": "you",
+   "start": 64900,
+   "end": 65020
+  },
+  {
+   "w": "book",
+   "start": 65020,
+   "end": 65160
+  },
+  {
+   "w": "a",
+   "start": 65160,
+   "end": 65320
+  },
+  {
+   "w": "call,",
+   "start": 65320,
+   "end": 65640
+  },
+  {
+   "w": "the",
+   "start": 65940,
+   "end": 66020
+  },
+  {
+   "w": "calendar",
+   "start": 66020,
+   "end": 66380
+  },
+  {
+   "w": "opens",
+   "start": 66380,
+   "end": 66840
+  },
+  {
+   "w": "but",
+   "start": 67160,
+   "end": 67320
+  },
+  {
+   "w": "the",
+   "start": 67320,
+   "end": 67440
+  },
+  {
+   "w": "conversation",
+   "start": 67440,
+   "end": 67920
+  },
+  {
+   "w": "stays",
+   "start": 67920,
+   "end": 68480
+  },
+  {
+   "w": "here.",
+   "start": 68480,
+   "end": 68960
+  },
+  {
+   "w": "So",
+   "start": 69400,
+   "end": 69520
+  },
+  {
+   "w": "the",
+   "start": 69520,
+   "end": 69660
+  },
+  {
+   "w": "question",
+   "start": 69660,
+   "end": 69940
+  },
+  {
+   "w": "is",
+   "start": 69940,
+   "end": 70200
+  },
+  {
+   "w": "yours:",
+   "start": 70200,
+   "end": 70440
+  },
+  {
+   "w": "what",
+   "start": 70940,
+   "end": 71040
+  },
+  {
+   "w": "would",
+   "start": 71040,
+   "end": 71180
+  },
+  {
+   "w": "you",
+   "start": 71180,
+   "end": 71380
+  },
+  {
+   "w": "ask",
+   "start": 71380,
+   "end": 71680
+  },
+  {
+   "w": "me?",
+   "start": 71680,
+   "end": 71940
+  },
+  {
+   "w": "I",
+   "start": 72380,
+   "end": 72560
+  },
+  {
+   "w": "am",
+   "start": 72560,
+   "end": 72700
+  },
+  {
+   "w": "right",
+   "start": 72700,
+   "end": 72920
+  },
+  {
+   "w": "below.",
+   "start": 72920,
+   "end": 73320
+  }
+ ]
+}

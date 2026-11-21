@@ -148,6 +148,7 @@ export const ROSE_CAPABILITIES = [
   "Link to the relevant pages of the site and suggest follow-up questions.",
   "Show a booking card that opens Ivan's calendar, without sending the conversation.",
   "Keep the conversation across pages within one tab, and let the visitor clear it.",
+  "Offer a recorded summary, written by Ivan and validated on 21 Nov 2026, on three pages: the Field Notes /journal/harnesses-graders-closed-loops and /journal/one-text-three-readers, and the Rose case study /rose. On those pages the dock proposes \"Listen to a summary of this page\", and the page carries a \"Listen summary\" block with the full text.",
 ];
 
 export const ROSE_LIMITS = [

@@ -7,6 +7,7 @@ import { APPLY_GUIDES, applyMarkdown } from "../../../content/journalApply";
 import { readingLabel } from "../../../content/readingTime";
 import { axFigureMarkdown } from "../../../content/journalAxFigures";
 import { displayOrder } from "../../journalOrder";
+import { listenSummaryFor, listenSummarySection } from "../../../content/listenSummaries";
 import { outline, section as pickSection } from "../sections";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
@@ -149,7 +150,10 @@ export function renderEntryBody(entry: JournalEntry): string {
       : "";
     // In the order the page shows the sections (a note can move one; its heading ids do not change).
     const shown = displayOrder(entry.body, entry.moves).map((i) => entry.body[i]);
-    const bodyText = absolutize([...renderBlocks(shown), related].filter(Boolean).join("\n\n"));
+    // A recorded summary, when the note has one: the same section the page shows, from the same source (listenSummaries.ts).
+    const listen = listenSummaryFor(`/journal/${entry.slug}`);
+    const listenSection = listen ? listenSummarySection(listen.summary).trimEnd() : "";
+    const bodyText = absolutize([...renderBlocks(shown), listenSection, related].filter(Boolean).join("\n\n"));
     const url = `${SITE_ORIGIN}/journal/${entry.slug}`;
     return [
       entry.tldr ? `**TL;DR** - ${entry.tldr}` : "",

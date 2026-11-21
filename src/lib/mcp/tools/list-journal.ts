@@ -1,5 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { JOURNAL_ENTRIES, JOURNAL_KNOWLEDGE_QUESTIONS } from "../../../content/journal";
+import { listenSummaryFor } from "../../../content/listenSummaries";
 
 const SITE_ORIGIN = "https://ivandemurard.com";
 
@@ -7,7 +8,7 @@ export default defineTool({
   name: "list_journal_entries",
   title: "List Field Notes",
   description:
-    "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn) and evidence case studies. The text starts with fixed 'Key: value' lines (Index URL, Corpus URL, Reading note), a blank line, then the entries as JSON. Use get_journal_entry with a slug from this list to read the full body.",
+    "List Ivan de Murard's Field Notes (journal) entries with slug, title, date, category, excerpt, Markdown URL, the question each note answers (01 Evaluate, 02 Set boundaries, 03 Learn), evidence case studies, and listen_summary (true when a recorded summary exists, returned by get_journal_entry as the section 'Listen summary'). The text starts with fixed 'Key: value' lines (Index URL, Corpus URL, Reading note), a blank line, then the entries as JSON. Use get_journal_entry with a slug from this list to read the full body.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
@@ -22,6 +23,8 @@ export default defineTool({
       excerpt: e.excerpt,
       url: `${SITE_ORIGIN}/journal/${e.slug}`,
       markdown_url: `${SITE_ORIGIN}/journal/${e.slug}.md`,
+      // A recorded summary exists: get_journal_entry returns it as the section "Listen summary".
+      listen_summary: listenSummaryFor(`/journal/${e.slug}`) !== null,
       question: q ? { number: q.number, label: q.label, text: q.question, outcome: q.description } : null,
       evidence: q ? q.cases.map((c) => ({ label: c.label, url: `${SITE_ORIGIN}${c.to}` })) : [],
       };

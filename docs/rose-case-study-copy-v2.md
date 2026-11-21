@@ -6,6 +6,8 @@
 
 ## How to read this deck
 
+Chapter numbers in this deck are the numbers the page prints. The sixth decision (21 Nov 2026) was added after chapter 05, so the chapters that followed moved down by one: Answer formats 07, Trust 08, What she got wrong 09, Next steps 10, Open questions 11. Their anchors did not change (#ch-06 to #ch-10 still reach the same content); the sixth decision is #ch-voice.
+
 This deck rewrites every word of the Rose case study under docs/style.md, validated on 2 November. Validate it section by section; the prototype in the Design canvas comes after, and code after that.
 
 What changed from v1:
@@ -14,8 +16,8 @@ What changed from v1:
 - Italic appears once, in the hero headline. Rose's notes are set in roman and recognised by their bubble (dock surface and border), the compass and the name Rose. Their text is ink, not copper.
 - Fragments, maxims, self-aware asides and colon reveals are gone.
 - The page stays on design and product. Technical detail lives on the evaluation page and in the repository, one link away.
-- Three business points are added: the trade-off in chapter 01, the cost of an answer in chapter 08, and where the pattern transfers in chapter 09.
-- co-existence.ai is credited in chapter 00, and its influence is named where it shows: the notes in chapters 01 to 05 and the passage questions in chapter 06.
+- Three business points are added: the trade-off in chapters 01 and 06, the cost of an answer in chapter 09, and where the pattern transfers in chapter 10.
+- co-existence.ai is credited in chapter 00, and its influence is named where it shows: the notes in chapters 01 to 05 and the passage questions in chapter 07.
 Kept, as short as possible: the Built, Validation and Design markers, the status badge, the source lines and the data notice.
 
 ## Hero and TL;DR
@@ -27,7 +29,7 @@ The hero says one thing and shows Rose answering. The kicker chain, the meta lin
 | Label | Case study · Rose |
 | Status badge | Live, voice in pilot (decided by Ivan on 21 Nov 2026; was "Live, text only") |
 | Headline | A portfolio you can question. (the page's only italic) |
-| Lead | Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn. |
+| Lead | Rose answers visitors' questions from the site's own pages. This is how I designed her, the six decisions that changed her, and what I still need to learn. |
 | Demo, exchange 1 | Reformulation. Visitor: Say it more simply. Rose: When you ask me something, I also receive the page you are on, so I answer about what you are reading. Source: chapter 03. |
 | Demo, exchange 2 | Sourced answer. Visitor: Is Aetherix in production? Rose: No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet. Link: /aetherix. |
 | Demo, exchange 3 | Follow-up questions. Visitor: What has Ivan built? Rose: Seven projects, each with its status. Aetherix is pre-pilot, Tacet is built and in maintenance, and Anima is a synthetic proof of concept. Suggested: What happens when it's wrong? Which ones are live? Every exchange in the hero shows a built behaviour; the formats in design are shown in chapter 06 with their marker. |
@@ -38,8 +40,8 @@ TL;DR, four short rows under the hero:
 | Row | v2 copy |
 |---|---|
 | The problem | A case study shows the work, but it cannot answer a visitor's own question. |
-| Five decisions | Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust. |
-| Today | Rose is live. She answers in text and, in pilot, reads two page summaries and her factual answers aloud. She sends nothing when you book. |
+| Six decisions | Between July and November 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock, earn trust and read aloud. |
+| Today | Rose is live. She answers in text and, in pilot, reads three page summaries and her factual answers aloud. She sends nothing when you book. |
 | Still open | Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle. |
 
 Chapter 04 changes title from "One quiet dock" to "One dock", because "quiet" is on the banned mood-word list.
@@ -67,7 +69,7 @@ Each chapter keeps its date, its Built marker, its vignette and its source line.
 
 Intro line above chapter 01 (new): Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Yes, they break the fourth wall. Rose knows she's the subject here, and has opinions about it. Form: each note is a bubble under its passage, always visible; the copper compass tip moves to the passage when it enters the reading zone, one at a time, on desktop only; on mobile and with reduced motion there is no tip and no movement. The first note of a page carries a footer ("Written by Ivan in my voice. My answers in the bar are live.") with a "Hide notes" button; the dock has a "Page notes: on/off" button.
 
-Rose's marks, one meaning each, one at a time, drawn by the copper tip and absent with reduced motion: underline = the decision she comments on (chapters 01 to 05); circle = a figure and what it is compared with (chapter 08, cost); strike and replace = the first brief, crossed out, with the decision that replaced it. In her answers (design), Locate draws the mark on the page instead of only giving a link.
+Rose's marks, one meaning each, one at a time, drawn by the copper tip and absent with reduced motion: underline = the decision she comments on (chapters 01 to 05); circle = a figure and what it is compared with (chapter 09, cost); strike and replace = the first brief, crossed out, with the decision that replaced it. In her answers (design), Locate draws the mark on the page instead of only giving a link.
 
 Answer sources and booking line (design, decided 3 Nov). Each claim in Rose's answer ends with a source link (↗ + the section name). A click scrolls to the exact passage, sentence or diagram and highlights it for a moment: highlight = the passage Rose cited (a fourth mark, one meaning). On a question about Ivan's profile, no booking card unless the visitor asks; instead one line under the answer, set apart by a thin copper rule and the compass: "If this fits a role you are hiring for, book a call with Ivan." Follow-up questions are polite questions with Ivan in the third person, e.g. "Would you tell me more about his AI-native projects?"
 
@@ -106,13 +108,32 @@ Demos, decided 4 Nov. Hero exchanges show the page read and the source: 1 reads 
 
 Vignettes keep their v1 contents. The five notes are the validated provisional versions, unchanged.
 
-## Chapter 06: Answer formats
+## Chapter 06: Read aloud
+
+The sixth decision, 21 Nov 2026, in the format of decisions 01 to 05. Proposed text, for Ivan's validation in the pull request. Its anchor is #ch-voice.
+
+| Element | v2 copy |
+|---|---|
+| Kicker | 06 · 21 Nov 2026 (Built, pilot). TOC: 06 Read aloud |
+| Heading | Read aloud |
+| Brief | Let readers listen to the work, on the move or away from the screen. |
+| Tension | A voice on a public site is an open door: anyone could use it as free speech synthesis on my account. And a dry line that works in writing can sound wrong once a synthetic voice says it. |
+| Decision | Rose reads three page summaries I wrote and validated, recorded once, and her own factual answers. The server reads only an answer Rose really gave in this conversation, in the last hour. The written answer stays on screen, and each word lights up as she says it. |
+| Note | He gave me a voice, then told me when to keep it to myself. |
+| Trade-off | A summary costs once and plays for free. Each new answer read aloud costs a little, within a daily cap; past it, your device's voice takes over. Light answers stay silent. |
+| Vignette | What a reader gets |
+| Before, meta: text only | Text only. |
+| After, meta: Listen, in pilot | Listen to a summary of this page. A Listen button under factual answers, with the spoken word highlighted. |
+| Closing link | The summary and the page come from the same text. Why that matters for every reader of a site: What is agent experience (AX)? (a link to /journal/one-text-three-readers) |
+| Source | pull requests #76, #77 and #78 |
+
+## Chapter 07: Answer formats
 
 The chapter stays at a product manager's level: the architecture loses its file and tool names, and the map of relations becomes the single source shared by the site, Rose and the MCP.
 
 | Element | v2 copy |
 |---|---|
-| Kicker | 06 · Answer formats (Design). TOC: 06 Answer formats |
+| Kicker | 07 · Answer formats (Design). TOC: 07 Answer formats |
 | Heading | Answers that point into the page |
 | Intro | Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plainer words, a link to other work or a diagram. |
 | Influence | The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on. |
@@ -133,11 +154,11 @@ The chapter stays at a product manager's level: the architecture loses its file 
 
 ### Relations, decided 3 Nov
 
-One source, portfolio-graph.json, read by the case studies index (projects only), chapter 06 (Rose and her sources) and the MCP tool get_relations. Every reason is already stated on a published page. Rose → /agents is dropped: it is infrastructure, already shown in the How Rose works diagram.
+One source, portfolio-graph.json, read by the case studies index (projects only), chapter 07 (Rose and her sources) and the MCP tool get_relations. Every reason is already stated on a published page. Rose → /agents is dropped: it is infrastructure, already shown in the How Rose works diagram.
 
 | From | Link | To | Reason | Source |
 |---|---|---|---|---|
-| Rose | answers from | Every page | Rose answers from the page you are on first, then from the rest of the site. | Chapter 06 |
+| Rose | answers from | Every page | Rose answers from the page you are on first, then from the rest of the site. | Chapter 07 |
 | Rose | how she is tested | Evaluation | Caught in testing shows how every change to Rose is tested before it reaches visitors. | Validated |
 | Evaluation | uses the method of | Field Notes (evaluation harness) | The campaign applies the harness and grading method this Field Note describes. | Validated |
 | Aetherix, Tacet, Anima | part of, built | Orchestrator | One of the agents of the Hospitality Multi-Agent Architecture. Every exchange goes over MCP; going through the orchestrator is the target (Design). | architecture.md |
@@ -148,13 +169,13 @@ One source, portfolio-graph.json, read by the case studies index (projects only)
 | Rose | how she reads the site | Field Notes (agent experience) | This Field Note shows how one source serves Rose, visitors and outside agents, each in the form they need. | one-text-three-readers.md |
 | Compass | none |  | Standalone project. | MCP instructions |
 
-## Chapter 07: Trust
+## Chapter 08: Trust
 
 The two contracts keep their validated wording. The intro's chiasmus and the maxim heading of the answer rule are rewritten.
 
 | Element | v2 copy |
 |---|---|
-| Kicker | 07 · Trust (Built) |
+| Kicker | 08 · Trust (Built) |
 | Heading | Trust has two separate contracts. |
 | Intro | One contract covers data: what is kept and what is sent. The other covers knowledge: what Rose may assert or infer. I keep them apart so that a privacy promise is never read as proof of accuracy. |
 | Data, title | What is kept and sent |
@@ -162,7 +183,7 @@ The two contracts keep their validated wording. The intro's chiasmus and the max
 | Data, item 4 (Built) | Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files. (Added 21 Nov 2026, wording by Ivan. The case study status became "Live, voice in pilot" on 21 Nov 2026; the same sentence is on /privacy.) |
 | Data, sources | Retention and masking: mask-pii.ts and the purge migration (links as built) |
 | Knowledge, title | What Rose may assert or infer |
-| Knowledge, item 1 (Built) | Rose answers from the same Markdown pages the MCP server reads, with one or two links to them. |
+| Knowledge, item 1 (Built) | Rose answers from the same Markdown pages the MCP server reads, with one or two links to them. A link follows: What is agent experience (AX)? (to /journal/one-text-three-readers) |
 | Knowledge, item 2 (Built) | Rose keeps each project's delivery status: she never turns planned into done, or sandbox into production. |
 | Knowledge, item 3 (Validation) | Released on 24 Oct after 15 synthetic cases. Since 29 Oct, each change is tested with 5 samples per case and 20 per high-risk case. ("tested" links to the evaluation page once it exists) |
 | Answer rule, heading | A true answer can still be useless |
@@ -172,13 +193,13 @@ The two contracts keep their validated wording. The intro's chiasmus and the max
 | Useful answer | "No. It was built and tested on the Apaleo sandbox and on public restaurant data, and is being made pilot-ready. No hotel yet." Note: It uses the same sources and answers the decision behind the question. |
 | Caption | From Rose's answer contract: "A verifiable fact unrelated to the question is still a poor answer." (validated) |
 
-## Chapter 08: What she got wrong
+## Chapter 09: What she got wrong
 
 The three cases and the validated changes stay. One fragment goes, and the cost of an answer is added after case 2, because it follows from the same decision.
 
 | Element | v2 copy |
 |---|---|
-| Kicker | 08 · What she got wrong (Validation) |
+| Kicker | 09 · What she got wrong (Validation) |
 | Heading | Caught in testing |
 | Intro | Many of Rose's rules started as a mistake caught in testing, before any visitor saw it. Here are three, from synthetic test runs in October. |
 | Cases 1 to 3 | One table, one sentence per cell (validated 3 Nov, below). Dates and result links as on the live page. The Cost block follows the table. How a case is judged becomes the highlighted part, with the test loop diagram from the evaluation document. |
@@ -197,22 +218,22 @@ Chapter 08 cases, validated 3 Nov:
 | Asked about herself, she answered with Aetherix figures. | She loads only what the question needs. | The 29 Oct rerun passed 9 of 10. |
 | Invented precise error rates for Aetherix. | Two checked answers for high-precision questions; every other figure carries its model, metric and scope. | On 29 Oct, 15 open-ended answers kept every figure with its model and scope. |
 
-## Chapter 09: Next steps
+## Chapter 10: Next steps
 
 The heading loses its "not just", the map item loses its maxim, and one sentence says where the pattern transfers.
 
 | Element | v2 copy |
 |---|---|
-| Kicker | 09 · Next steps (Design) |
+| Kicker | 10 · Next steps (Design) |
 | Heading | Next: help readers move across the whole site |
 | Intro | The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text and, in pilot, reads aloud. |
 | Item 1 | An automatic map of the whole site. Today I write the map by hand, and it grows only when I can state the reason for each link. |
 | Item 2 | Diagrams for the complex parts. A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked. |
-| Item 3 | Answers read aloud. A spoken version of a written answer, for readers who prefer to listen; the written answer stays the reference. |
+| Item 3 | More pages to listen to. More pages get a recorded summary, if readers use the first three. (Replaces "Answers read aloud", now built in pilot: chapter 06.) |
 | Item 4 | Context for any passage. Relating what you read to the rest of the page and the site, beyond the passages I marked. |
 | Where it transfers (new) | The same pattern fits any site where readers bring their own questions to dense pages, such as product documentation, onboarding guides and B2B offer pages. |
 
-## Chapter 10: Open questions
+## Chapter 11: Open questions
 
 Your four questions and their reasoning stay. Only the heading and two fragments change, and a reply link is added, shown below; every other line is your validated text.
 
@@ -221,6 +242,7 @@ Your four questions and their reasoning stay. Only the heading and two fragments
 | Heading | Questions I am leaving open, rather than calling them features. | Four questions that have yet to be answered. Have an answer to one of them? Tell me. |
 | 02 Measure, cost of being wrong | Flattering numbers that hide how narrow the real use is. | The numbers would flatter Rose and hide how narrow her real use is. |
 | 04 Modality, cost of being wrong | A demonstrative feature, without use, to maintain. | I would maintain a feature that nobody uses. |
+| 04 Modality, hypothesis and signal (21 Nov 2026) | Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026. / Signal: Listens started and finished, page by page. |
 | Reply link, under each question | None | Reply by email: a mailto link with the subject prefilled as "Open question 01" to "Open question 04". No form, nothing stored on the site. The Contact section follows unchanged. |
 
 Kept as written: "An invented critique costs more credibility than no critique at all." It reads like a maxim, but it is the actual argument of question 03.
