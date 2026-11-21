@@ -13,7 +13,8 @@ const EventSchema = z.object({
   session_id: z.string().min(1).max(64),
   path: z.string().min(1).max(200),
   section_id: z.string().max(120).nullable().optional(),
-  kind: z.enum(["opened", "chip", "question", "followup", "booking_proposed", "booking_clicked", "rose_request_started", "rose_answer_completed", "rose_answer_failed", "rose_link_clicked", "rose_conversation_cleared"]),
+  kind: z.enum(["opened", "chip", "question", "followup", "booking_proposed", "booking_clicked", "rose_request_started", "rose_answer_completed", "rose_answer_failed", "rose_link_clicked", "rose_conversation_cleared", "listen", "listen_complete"]),
+  listen_source: z.enum(["summary", "answer"]).optional(),
   label_or_question: z.string().max(2000).nullable().optional(),
   used_chip: z.boolean().optional(),
   request_id: z.string().min(1).max(128).optional(),
@@ -45,6 +46,11 @@ Deno.serve(async (req) => {
   if (!url || !key) return json({ error: "Unavailable" }, 503);
   if (e.kind.startsWith("rose_") && (e.label_or_question || e.section_id || e.used_chip)) return json({ error: "Measurement must be content-free" }, 400);
   if (["rose_request_started", "rose_answer_completed", "rose_answer_failed"].includes(e.kind) && !e.request_id) return json({ error: "request_id required" }, 400);
+  // Listen events carry the source of the reading and nothing else: no text, no section, no request id.
+  if (e.kind.startsWith("listen")) {
+    if (!e.listen_source) return json({ error: "listen_source required" }, 400);
+    if (e.label_or_question || e.section_id || e.used_chip || e.request_id || e.target_path || e.booking_source) return json({ error: "Measurement must be content-free" }, 400);
+  } else if (e.listen_source) return json({ error: "listen_source only on listen events" }, 400);
   if (e.kind === "rose_link_clicked" && !e.target_path) return json({ error: "target_path required" }, 400);
   const supabase = createClient(url, key);
   const { error } = await supabase.from("rose_events").insert({
@@ -57,6 +63,7 @@ Deno.serve(async (req) => {
     request_id: e.request_id ?? null,
     target_path: e.target_path ?? null,
     booking_source: e.booking_source ?? null,
+    listen_source: e.listen_source ?? null,
   });
   if (error) {
     if (error.code === "23505") return json({ ok: true });

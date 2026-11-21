@@ -47,7 +47,7 @@ const NOTES = notesInOrder();
 const SELECTED = [
   {
     p: PROJECTS.rose,
-    fragment: "Contextual assistant · knows the page you are reading · answers from the site's own text · text only today",
+    fragment: "Contextual assistant · knows the page you are reading · answers from the site's own text · voice in pilot",
     line: PROJECTS.rose.tagline,
     isRose: true,
   },

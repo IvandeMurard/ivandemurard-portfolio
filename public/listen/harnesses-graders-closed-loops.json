@@ -1,0 +1,835 @@
+{
+ "slug": "harnesses-graders-closed-loops",
+ "audio": "harnesses-graders-closed-loops.mp3",
+ "durationMs": 63556,
+ "voiceId": "Vl85IetVjyVUJuJgGjDR",
+ "model": "eleven_v4",
+ "alignment": "word timings measured on the recorded take (faster-whisper base.en), mapped one to one onto the validated text",
+ "words": [
+  {
+   "w": "How",
+   "start": 0,
+   "end": 400
+  },
+  {
+   "w": "do",
+   "start": 400,
+   "end": 560
+  },
+  {
+   "w": "you",
+   "start": 560,
+   "end": 640
+  },
+  {
+   "w": "know",
+   "start": 640,
+   "end": 840
+  },
+  {
+   "w": "your",
+   "start": 840,
+   "end": 1100
+  },
+  {
+   "w": "AI",
+   "start": 1100,
+   "end": 1360
+  },
+  {
+   "w": "is",
+   "start": 1360,
+   "end": 1680
+  },
+  {
+   "w": "working?",
+   "start": 1680,
+   "end": 2000
+  },
+  {
+   "w": "Most",
+   "start": 2820,
+   "end": 3040
+  },
+  {
+   "w": "teams",
+   "start": 3040,
+   "end": 3340
+  },
+  {
+   "w": "look",
+   "start": 3340,
+   "end": 3720
+  },
+  {
+   "w": "at",
+   "start": 3720,
+   "end": 3860
+  },
+  {
+   "w": "a",
+   "start": 3860,
+   "end": 3920
+  },
+  {
+   "w": "score.",
+   "start": 3920,
+   "end": 4240
+  },
+  {
+   "w": "This",
+   "start": 5080,
+   "end": 5720
+  },
+  {
+   "w": "Field",
+   "start": 5720,
+   "end": 6060
+  },
+  {
+   "w": "Note",
+   "start": 6060,
+   "end": 6320
+  },
+  {
+   "w": "shows",
+   "start": 6320,
+   "end": 6600
+  },
+  {
+   "w": "how",
+   "start": 6600,
+   "end": 6960
+  },
+  {
+   "w": "a",
+   "start": 6960,
+   "end": 7060
+  },
+  {
+   "w": "score",
+   "start": 7060,
+   "end": 7320
+  },
+  {
+   "w": "can",
+   "start": 7320,
+   "end": 7560
+  },
+  {
+   "w": "mislead,",
+   "start": 7560,
+   "end": 7840
+  },
+  {
+   "w": "in",
+   "start": 8240,
+   "end": 8560
+  },
+  {
+   "w": "both",
+   "start": 8560,
+   "end": 8740
+  },
+  {
+   "w": "directions,",
+   "start": 8740,
+   "end": 9300
+  },
+  {
+   "w": "with",
+   "start": 9300,
+   "end": 9880
+  },
+  {
+   "w": "two",
+   "start": 9880,
+   "end": 10160
+  },
+  {
+   "w": "moments",
+   "start": 10160,
+   "end": 10540
+  },
+  {
+   "w": "from",
+   "start": 10540,
+   "end": 10840
+  },
+  {
+   "w": "a",
+   "start": 10840,
+   "end": 10920
+  },
+  {
+   "w": "system",
+   "start": 10920,
+   "end": 11260
+  },
+  {
+   "w": "Ivan",
+   "start": 11260,
+   "end": 11600
+  },
+  {
+   "w": "built.",
+   "start": 11600,
+   "end": 12000
+  },
+  {
+   "w": "First,",
+   "start": 13020,
+   "end": 13020
+  },
+  {
+   "w": "61",
+   "start": 13900,
+   "end": 13900
+  },
+  {
+   "w": "answers",
+   "start": 13900,
+   "end": 14440
+  },
+  {
+   "w": "right",
+   "start": 14440,
+   "end": 14760
+  },
+  {
+   "w": "out",
+   "start": 14760,
+   "end": 15140
+  },
+  {
+   "w": "of",
+   "start": 15140,
+   "end": 15260
+  },
+  {
+   "w": "64,",
+   "start": 15260,
+   "end": 15620
+  },
+  {
+   "w": "and",
+   "start": 15620,
+   "end": 16500
+  },
+  {
+   "w": "the",
+   "start": 16500,
+   "end": 16600
+  },
+  {
+   "w": "release",
+   "start": 16600,
+   "end": 16860
+  },
+  {
+   "w": "still",
+   "start": 16860,
+   "end": 17340
+  },
+  {
+   "w": "failed.",
+   "start": 17340,
+   "end": 17800
+  },
+  {
+   "w": "Think",
+   "start": 18500,
+   "end": 18660
+  },
+  {
+   "w": "of",
+   "start": 18660,
+   "end": 18800
+  },
+  {
+   "w": "a",
+   "start": 18800,
+   "end": 18880
+  },
+  {
+   "w": "driving",
+   "start": 18880,
+   "end": 19120
+  },
+  {
+   "w": "test,",
+   "start": 19120,
+   "end": 19580
+  },
+  {
+   "w": "where",
+   "start": 19580,
+   "end": 20120
+  },
+  {
+   "w": "one",
+   "start": 20120,
+   "end": 20420
+  },
+  {
+   "w": "rolled",
+   "start": 20420,
+   "end": 20720
+  },
+  {
+   "w": "stop",
+   "start": 20720,
+   "end": 21020
+  },
+  {
+   "w": "sign",
+   "start": 21020,
+   "end": 21420
+  },
+  {
+   "w": "fails",
+   "start": 21420,
+   "end": 21740
+  },
+  {
+   "w": "a",
+   "start": 21740,
+   "end": 22020
+  },
+  {
+   "w": "flawless",
+   "start": 22020,
+   "end": 22340
+  },
+  {
+   "w": "route:",
+   "start": 22340,
+   "end": 22880
+  },
+  {
+   "w": "the",
+   "start": 23440,
+   "end": 23500
+  },
+  {
+   "w": "rule",
+   "start": 23500,
+   "end": 23720
+  },
+  {
+   "w": "was",
+   "start": 23720,
+   "end": 23980
+  },
+  {
+   "w": "agreed",
+   "start": 23980,
+   "end": 24260
+  },
+  {
+   "w": "before",
+   "start": 24260,
+   "end": 24640
+  },
+  {
+   "w": "the",
+   "start": 24640,
+   "end": 25060
+  },
+  {
+   "w": "engine",
+   "start": 25060,
+   "end": 25280
+  },
+  {
+   "w": "started.",
+   "start": 25280,
+   "end": 25740
+  },
+  {
+   "w": "Some",
+   "start": 26300,
+   "end": 26660
+  },
+  {
+   "w": "mistakes",
+   "start": 26660,
+   "end": 27000
+  },
+  {
+   "w": "outweigh",
+   "start": 27000,
+   "end": 27480
+  },
+  {
+   "w": "everything",
+   "start": 27480,
+   "end": 28280
+  },
+  {
+   "w": "else,",
+   "start": 28280,
+   "end": 28560
+  },
+  {
+   "w": "and",
+   "start": 28560,
+   "end": 29080
+  },
+  {
+   "w": "writing",
+   "start": 29080,
+   "end": 29280
+  },
+  {
+   "w": "that",
+   "start": 29280,
+   "end": 29560
+  },
+  {
+   "w": "down",
+   "start": 29560,
+   "end": 29860
+  },
+  {
+   "w": "in",
+   "start": 29860,
+   "end": 29980
+  },
+  {
+   "w": "advance",
+   "start": 29980,
+   "end": 30240
+  },
+  {
+   "w": "is",
+   "start": 30240,
+   "end": 30780
+  },
+  {
+   "w": "what",
+   "start": 30780,
+   "end": 30940
+  },
+  {
+   "w": "turns",
+   "start": 30940,
+   "end": 31240
+  },
+  {
+   "w": "a",
+   "start": 31240,
+   "end": 31400
+  },
+  {
+   "w": "number",
+   "start": 31400,
+   "end": 31800
+  },
+  {
+   "w": "into",
+   "start": 31800,
+   "end": 32180
+  },
+  {
+   "w": "a",
+   "start": 32180,
+   "end": 32320
+  },
+  {
+   "w": "decision.",
+   "start": 32320,
+   "end": 32680
+  },
+  {
+   "w": "Then,",
+   "start": 33440,
+   "end": 33660
+  },
+  {
+   "w": "64",
+   "start": 34060,
+   "end": 34480
+  },
+  {
+   "w": "out",
+   "start": 34480,
+   "end": 35000
+  },
+  {
+   "w": "of",
+   "start": 35000,
+   "end": 35120
+  },
+  {
+   "w": "64,",
+   "start": 35120,
+   "end": 35480
+  },
+  {
+   "w": "all",
+   "start": 36120,
+   "end": 36380
+  },
+  {
+   "w": "green,",
+   "start": 36380,
+   "end": 36700
+  },
+  {
+   "w": "with",
+   "start": 37180,
+   "end": 37320
+  },
+  {
+   "w": "a",
+   "start": 37320,
+   "end": 37400
+  },
+  {
+   "w": "dangerous",
+   "start": 37400,
+   "end": 37880
+  },
+  {
+   "w": "answer",
+   "start": 37880,
+   "end": 38240
+  },
+  {
+   "w": "inside.",
+   "start": 38240,
+   "end": 38660
+  },
+  {
+   "w": "An",
+   "start": 39480,
+   "end": 39540
+  },
+  {
+   "w": "assistant",
+   "start": 39540,
+   "end": 39840
+  },
+  {
+   "w": "for",
+   "start": 39840,
+   "end": 40200
+  },
+  {
+   "w": "aircraft",
+   "start": 40200,
+   "end": 40420
+  },
+  {
+   "w": "mechanics",
+   "start": 40420,
+   "end": 41120
+  },
+  {
+   "w": "told",
+   "start": 41120,
+   "end": 41540
+  },
+  {
+   "w": "a",
+   "start": 41540,
+   "end": 41680
+  },
+  {
+   "w": "technician",
+   "start": 41680,
+   "end": 42020
+  },
+  {
+   "w": "that",
+   "start": 42020,
+   "end": 42460
+  },
+  {
+   "w": "a",
+   "start": 42460,
+   "end": 42540
+  },
+  {
+   "w": "worrying",
+   "start": 42540,
+   "end": 42880
+  },
+  {
+   "w": "reading",
+   "start": 42880,
+   "end": 43260
+  },
+  {
+   "w": "was",
+   "start": 43260,
+   "end": 43660
+  },
+  {
+   "w": "normal.",
+   "start": 43660,
+   "end": 43940
+  },
+  {
+   "w": "The",
+   "start": 44660,
+   "end": 44700
+  },
+  {
+   "w": "test",
+   "start": 44700,
+   "end": 44920
+  },
+  {
+   "w": "only",
+   "start": 44920,
+   "end": 45460
+  },
+  {
+   "w": "checked",
+   "start": 45460,
+   "end": 45740
+  },
+  {
+   "w": "for",
+   "start": 45740,
+   "end": 46040
+  },
+  {
+   "w": "a",
+   "start": 46040,
+   "end": 46160
+  },
+  {
+   "w": "word.",
+   "start": 46160,
+   "end": 46440
+  },
+  {
+   "w": "Reading",
+   "start": 47040,
+   "end": 47240
+  },
+  {
+   "w": "the",
+   "start": 47240,
+   "end": 47480
+  },
+  {
+   "w": "answers",
+   "start": 47480,
+   "end": 47780
+  },
+  {
+   "w": "caught",
+   "start": 47780,
+   "end": 48140
+  },
+  {
+   "w": "it,",
+   "start": 48140,
+   "end": 48400
+  },
+  {
+   "w": "and",
+   "start": 48400,
+   "end": 48820
+  },
+  {
+   "w": "the",
+   "start": 48820,
+   "end": 48940
+  },
+  {
+   "w": "fix",
+   "start": 48940,
+   "end": 49160
+  },
+  {
+   "w": "moved",
+   "start": 49160,
+   "end": 49560
+  },
+  {
+   "w": "the",
+   "start": 49560,
+   "end": 49760
+  },
+  {
+   "w": "rule",
+   "start": 49760,
+   "end": 49940
+  },
+  {
+   "w": "into",
+   "start": 49940,
+   "end": 50260
+  },
+  {
+   "w": "the",
+   "start": 50260,
+   "end": 50440
+  },
+  {
+   "w": "code:",
+   "start": 50440,
+   "end": 50700
+  },
+  {
+   "w": "when",
+   "start": 51300,
+   "end": 51380
+  },
+  {
+   "w": "the",
+   "start": 51380,
+   "end": 51500
+  },
+  {
+   "w": "model",
+   "start": 51500,
+   "end": 51740
+  },
+  {
+   "w": "contradicts",
+   "start": 51740,
+   "end": 52200
+  },
+  {
+   "w": "the",
+   "start": 52200,
+   "end": 52500
+  },
+  {
+   "w": "manual,",
+   "start": 52500,
+   "end": 52780
+  },
+  {
+   "w": "the",
+   "start": 53300,
+   "end": 53440
+  },
+  {
+   "w": "manual",
+   "start": 53440,
+   "end": 53800
+  },
+  {
+   "w": "wins.",
+   "start": 53800,
+   "end": 54160
+  },
+  {
+   "w": "What",
+   "start": 54870,
+   "end": 55180
+  },
+  {
+   "w": "to",
+   "start": 55180,
+   "end": 55340
+  },
+  {
+   "w": "take",
+   "start": 55340,
+   "end": 55500
+  },
+  {
+   "w": "away:",
+   "start": 55500,
+   "end": 55840
+  },
+  {
+   "w": "before",
+   "start": 56700,
+   "end": 56700
+  },
+  {
+   "w": "you",
+   "start": 56700,
+   "end": 56940
+  },
+  {
+   "w": "test,",
+   "start": 56940,
+   "end": 57240
+  },
+  {
+   "w": "write",
+   "start": 57700,
+   "end": 57920
+  },
+  {
+   "w": "down",
+   "start": 57920,
+   "end": 58260
+  },
+  {
+   "w": "the",
+   "start": 58260,
+   "end": 58420
+  },
+  {
+   "w": "one",
+   "start": 58420,
+   "end": 58660
+  },
+  {
+   "w": "mistake",
+   "start": 58660,
+   "end": 59100
+  },
+  {
+   "w": "you",
+   "start": 59100,
+   "end": 59460
+  },
+  {
+   "w": "will",
+   "start": 59460,
+   "end": 59580
+  },
+  {
+   "w": "never",
+   "start": 59580,
+   "end": 59980
+  },
+  {
+   "w": "accept.",
+   "start": 59980,
+   "end": 60320
+  },
+  {
+   "w": "After",
+   "start": 61160,
+   "end": 61280
+  },
+  {
+   "w": "you",
+   "start": 61280,
+   "end": 61580
+  },
+  {
+   "w": "test,",
+   "start": 61580,
+   "end": 61820
+  },
+  {
+   "w": "read",
+   "start": 62260,
+   "end": 62480
+  },
+  {
+   "w": "what",
+   "start": 62480,
+   "end": 62800
+  },
+  {
+   "w": "passed.",
+   "start": 62800,
+   "end": 63040
+  }
+ ]
+}

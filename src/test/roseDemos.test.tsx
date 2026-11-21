@@ -105,7 +105,7 @@ describe("Chapter 06 demo: Reformulate (built), then Locate, Connect and Sketch 
   it("uses the deck's questions, answers and caption", () => {
     expect(DESIGN_EXCHANGES.map((e) => [e.format, e.mark])).toEqual([["Reformulate", "Built"], ["Locate", "Design"], ["Connect", "Design"], ["Sketch", "Design"]]);
     // The caption is Ivan's wording of 4 Nov, set in review: it is in neither the deck nor the prototype.
-    expect(DESIGN_CAPTION).toBe("These formats are in design. Live Rose answers in text only.");
+    expect(DESIGN_CAPTION).toBe("These formats are in design. Live Rose answers in text, and reads aloud in pilot.");
     expect(DESIGN_EXCHANGES[0].q).toBe("Say it more simply.");
     expect(DESIGN_EXCHANGES[0].a).toBe("When you ask me something, I also receive the page you are on, so I answer about what you are reading rather than about Ivan in general.");
     for (const e of DESIGN_EXCHANGES.filter((x) => x.format !== "Connect")) {

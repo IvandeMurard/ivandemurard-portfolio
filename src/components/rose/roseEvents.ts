@@ -9,7 +9,9 @@ export type RoseEventKind =
   | "rose_answer_completed"
   | "rose_answer_failed"
   | "rose_link_clicked"
-  | "rose_conversation_cleared";
+  | "rose_conversation_cleared"
+  | "listen"
+  | "listen_complete";
 
 export const measurementAllowed = (dev: boolean, hostname: string) =>
   !dev && ["ivandemurard.com", "www.ivandemurard.com", "ivandemurard.lovable.app"].includes(hostname);
@@ -24,9 +26,12 @@ export type RoseEventPayload = {
   request_id?: string;
   target_path?: string;
   booking_source?: "card" | "chip";
+  /** Listen events only: what was read aloud. Never the text. */
+  listen_source?: "summary" | "answer";
 };
 
 export const measurementPayload = (e: RoseEventPayload): RoseEventPayload => {
+  if (e.kind.startsWith("listen")) return { session_id: e.session_id, path: e.path, kind: e.kind, ...(e.listen_source ? { listen_source: e.listen_source } : {}) };
   if (!e.kind.startsWith("rose_")) return e;
   return {
     session_id: e.session_id, path: e.path, kind: e.kind,

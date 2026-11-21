@@ -2,7 +2,7 @@
 
 Case study · Rose
 
-Status: Live, text only
+Status: Live, voice in pilot
 
 Last updated 2026-11-21.
 
@@ -20,7 +20,7 @@ Milestones come from [the repository](https://github.com/IvandeMurard/ivandemura
 
 - The problem: A case study shows the work, but it cannot answer a visitor's own question.
 - Five decisions: Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust.
-- Today: Rose is live and text only. She knows the page and section in view, answers from the site’s own text and sends nothing when you book.
+- Today: Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book.
 - Still open: Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle.
 
 Scripted demo with three built exchanges, in a loop: "Say it more simply.", "Is Aetherix in production?", "What has Ivan built?".
@@ -252,7 +252,7 @@ Rose knows the page, the section in view and the passages I marked. She answers 
 
 The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on.
 
-Scripted demo with four exchanges: Reformulate (Built), Locate (Design), Connect (Design), Sketch (Design). These formats are in design. Live Rose answers in text only.
+Scripted demo with four exchanges: Reformulate (Built), Locate (Design), Connect (Design), Sketch (Design). These formats are in design. Live Rose answers in text, and reads aloud in pilot.
 
 - Locate (Design): Where did he decide this?
 - Reformulate (Built): Say it more simply
@@ -326,6 +326,7 @@ One contract covers data: what is kept and what is sent. The other covers knowle
 - (Built) Your conversation stays in this tab for 60 minutes, or until you reload the page.
 - (Built) Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
 - (Built) Booking opens the calendar and nothing else. No transcript travels with it.
+- (Built) Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files.
 
 Retention and masking: [mask-pii.ts](https://github.com/IvandeMurard/ivandemurard-portfolio/blob/main/supabase/functions/_shared/mask-pii.ts) and [the purge migration](https://github.com/IvandeMurard/ivandemurard-portfolio/blob/main/drizzle/migrations/0004_rose_retention_cron.sql)
 
@@ -411,7 +412,7 @@ Sources: [docs/rose-p4-evaluation.md](https://github.com/IvandeMurard/ivandemura
 
 Marker: Design
 
-The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text only.
+The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text and, in pilot, reads aloud.
 
 - An automatic map of the whole site. Today I write the map by hand, and it grows only when I can state the reason for each link.
 - Diagrams for the complex parts. A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked.

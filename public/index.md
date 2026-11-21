@@ -36,8 +36,8 @@ Hero: Aetherix · WhatsApp · mock-up. Three days at Maison Lumen, a fictional h
 
 ## 02 · Selected projects
 
-### Rose (GO · Live, text only)
-Contextual assistant · knows the page you are reading · answers from the site's own text · text only today.
+### Rose (GO · Live, voice in pilot)
+Contextual assistant · knows the page you are reading · answers from the site's own text · voice in pilot.
 Rose answers questions about the page you are reading, from the site's own text. Next, she will locate passages, rephrase them and connect pages across the site. The case study shows how I built her and the decisions I made. Agents can read the same site through a public MCP endpoint and native Markdown. [Read the case](https://ivandemurard.com/rose)
 
 ### Lore (GO · Evaluated)

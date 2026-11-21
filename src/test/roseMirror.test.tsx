@@ -26,7 +26,7 @@ describe("Rose mirror: what it contains", () => {
     expect(lines[0]).toBe(`# ${HERO.headline.join("")}`);
     expect(lines[1]).toBe(HERO.label);
     expect(lines[2]).toBe(`Status: ${HERO.status}`);
-    expect(`Status: ${HERO.status}`).toBe("Status: Live, text only");
+    expect(`Status: ${HERO.status}`).toBe("Status: Live, voice in pilot");
     expect(STATUSES.rose.word).toBe(HERO.status);
     expect(lines[3]).toBe(`Last updated ${DATE}.`);
     expect(lines[4]).toBe(HERO_LEAD);
@@ -167,7 +167,7 @@ describe("Rose mirror: no text that is not on the page", () => {
       if (plain(raw) === ROSE_NOTE_LABEL) continue;
       if (raw.startsWith("Scripted demo")) {
         for (const quoted of raw.match(/"[^"]+"/g) ?? []) check(quoted);
-        if (raw.includes("four exchanges")) check("These formats are in design. Live Rose answers in text only.");
+        if (raw.includes("four exchanges")) check("These formats are in design. Live Rose answers in text, and reads aloud in pilot.");
         continue;
       }
       if (raw.startsWith("| Run |")) { raw.split("|").map((c) => c.trim()).filter((c) => c && c !== "Run").forEach(check); continue; }

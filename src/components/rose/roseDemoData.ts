@@ -15,7 +15,7 @@ export const HERO_EXCHANGES: HeroExchange[] = [
 
 /* ---------------------------------------------------------------- Chapter 06: three formats in design */
 
-export const DESIGN_CAPTION = "These formats are in design. Live Rose answers in text only.";
+export const DESIGN_CAPTION = "These formats are in design. Live Rose answers in text, and reads aloud in pilot.";
 
 export type DesignExchange = { format: "Reformulate" | "Locate" | "Connect" | "Sketch"; mark: "Built" | "Design"; q: string; a: string };
 

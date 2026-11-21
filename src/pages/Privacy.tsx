@@ -32,6 +32,19 @@ const Privacy = () => (
         requests, or the interaction records described below.
       </P>
 
+      <H2 id="listen">Listen</H2>
+      <P>
+        Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard
+        retention. Page summaries are recorded once and served as files.
+      </P>
+      <P>
+        Only the text of the answer is sent: not your question, your session number or your IP address. To pay once for
+        the same answer, the masked text and its audio are also kept for about 90 days, then deleted, in a private store of this site. The site records
+        that a reading started or finished, and whether it was a page summary or an answer, never the text. When Listen
+        is unavailable, your browser reads the answer with its own voice; that voice belongs to your browser or
+        device, and its own terms apply.
+      </P>
+
       <H2 id="events">Interaction records</H2>
       <P>
         The site records interaction events: that Rose was opened, which suggestion was chosen, the questions you

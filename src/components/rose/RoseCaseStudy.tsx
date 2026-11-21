@@ -50,14 +50,14 @@ export const LEGEND = [
 ] as const;
 
 /* §6.1 Hero. Copy verbatim from docs/rose-case-study-copy-v2.md. The demo is in RoseDemos.tsx. */
-export const HERO = { label: "Case study · Rose", status: "Live, text only", headline: ["A portfolio ", "you can question."] } as const;
+export const HERO = { label: "Case study · Rose", status: "Live, voice in pilot", headline: ["A portfolio ", "you can question."] } as const;
 /** The sentence under the legend; the repository is linked. */
 export const LEGEND_NOTE = { before: "Milestones come from ", link: "the repository", after: ": commit dates, archived plans, the original prompt. Readings of the design are mine." } as const;
 export const HERO_LEAD = "Rose answers visitors' questions from the site's own pages. This is how I designed her, the five decisions that changed her, and what I still need to learn.";
 export const TLDR = [
   ["The problem", "A case study shows the work, but it cannot answer a visitor's own question."],
   ["Five decisions", "Between July and October 2026, I made Rose qualify visitors, then listen to the page, know the section in view, live in one dock and earn trust."],
-  ["Today", "Rose is live and text only. She knows the page and section in view, answers from the site’s own text and sends nothing when you book."],
+  ["Today", "Rose is live. She answers in text and, in pilot, reads one page summary and her factual answers aloud. She sends nothing when you book."],
   ["Still open", "Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle."],
 ] as const;
 
@@ -302,6 +302,8 @@ export const TRUST = {
         { mark: "Built", parts: ["Your conversation stays in this tab for 60 minutes, or until you reload the page."] },
         { mark: "Built", parts: ["Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage."] },
         { mark: "Built", parts: ["Booking opens the calendar and nothing else. No transcript travels with it."] },
+        // Listen (voice). Wording given by Ivan on 21 Nov 2026; keep it identical on /privacy and in docs/rose-case-study-copy-v2.md.
+        { mark: "Built", parts: ["Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files."] },
       ] as TrustItem[],
       sourcesLead: "Retention and masking: ",
       sources: [
@@ -547,7 +549,7 @@ const SixBody = ({ reduced }: { reduced: boolean }) => (
 
 /* §6.7 Chapter 09. Copy verbatim from docs/rose-case-study-copy-v2.md. */
 export const NEXT = {
-  intro: "The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text only.",
+  intro: "The direction is a contextual assistant for the whole site. Rose would locate passages, rephrase them and show how pages relate, while keeping the original sources and their limits. Today she answers in text and, in pilot, reads aloud.",
   items: [
     ["An automatic map of the whole site.", "Today I write the map by hand, and it grows only when I can state the reason for each link."],
     ["Diagrams for the complex parts.", "A visual rewording of a dense passage, drawn from a fixed set of diagrams I checked."],

@@ -159,7 +159,9 @@ describe("Rose case study §6.5 chapter 07", () => {
       expect(deck, c.title).toContain(c.title);
     }
     expect(t.contracts.map((c) => c.kicker)).toEqual(["Data", "Knowledge"]);
-    for (const it of t.contracts[0].items) expect(deckV1, it.parts.join("")).toContain(it.parts.join(""));
+    // The first three data items are unchanged from v1; the Listen item (4th) was added in v2.
+    for (const it of t.contracts[0].items.slice(0, 3)) expect(deckV1, it.parts.join("")).toContain(it.parts.join(""));
+    for (const it of t.contracts[0].items.slice(3)) expect(deck, it.parts.join("")).toContain(norm(it.parts.join("")));
     for (const it of t.contracts[1].items) expect(deck, it.parts.join("")).toContain(norm(it.parts.join("")));
     const r = t.rule;
     expect(deck).toContain(r.heading);
@@ -172,8 +174,8 @@ describe("Rose case study §6.5 chapter 07", () => {
     }
     expect(deck).toContain(norm(r.caption));
   });
-  it("marks the chapter items as in the deck: Built, Built, Built, Built, Built, Validation", () => {
-    expect(t.contracts.flatMap((c) => c.items.map((i) => i.mark))).toEqual(["Built", "Built", "Built", "Built", "Built", "Validation"]);
+  it("marks the chapter items as in the deck: four Built data items, two Built knowledge items, Validation", () => {
+    expect(t.contracts.flatMap((c) => c.items.map((i) => i.mark))).toEqual(["Built", "Built", "Built", "Built", "Built", "Built", "Validation"]);
   });
   it("states the validation item and links only the word tested, to the evaluation file", () => {
     const v = t.contracts[1].items[2].parts;

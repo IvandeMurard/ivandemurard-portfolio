@@ -138,7 +138,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 - The bottom dock stays hidden while the hero (which already shows the dock) is in view.
 
 ### 6.1 Hero
-- Status badge: "Live · text only" (to confirm once the current version is pushed and validated).
+- Status badge: "Live, voice in pilot" (Ivan, 21 Nov 2026; replaces "Live · text only"). Source of the word and its note: `src/content/statuses.ts`.
 - Headline: "A portfolio you can question."
 - Lead: "The story behind Rose: why I built her, the five decisions that reshaped her, and the questions I am leaving open."
 - Right: the real dock playing one exchange, with a Locate button that triggers the gesture.
@@ -159,7 +159,7 @@ Reference prototype: artboards D1 and D2 of the Design canvas. Exact copy: `docs
 - "In use": the whole block stays hidden below 33 conversations (no placeholder line). From 33: count since a date, plus a few real questions chosen by Ivan from the logs, personal details removed.
 
 ### 6.5 Chapter 07: Trust (Built)
-- Two contracts. Data: conversation kept in the tab for 60 minutes, or until the page is reloaded; questions stored, then purged after 90 days, with emails, phone numbers, addresses, card and bank numbers masked before storage; nothing sent with a booking. Knowledge: answers from the same Markdown the MCP reads, with links; delivery status preserved; released on 24 Oct after 15 synthetic cases; since 29 Oct, each change is tested with 5 samples per case and 20 per high-risk case (Validation).
+- Two contracts. Data: conversation kept in the tab for 60 minutes, or until the page is reloaded; questions stored, then purged after 90 days, with emails, phone numbers, addresses, card and bank numbers masked before storage; nothing sent with a booking; Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention, and page summaries are recorded once and served as files (added 21 Nov 2026). Knowledge: answers from the same Markdown the MCP reads, with links; delivery status preserved; released on 24 Oct after 15 synthetic cases; since 29 Oct, each change is tested with 5 samples per case and 20 per high-risk case (Validation).
 - The answer rule: "A correct answer can still be the wrong answer", with the Aetherix example.
 
 ### 6.6 Chapter 08: What she got wrong, and how I check her (Validation)

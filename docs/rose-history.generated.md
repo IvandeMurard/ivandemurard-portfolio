@@ -1,4 +1,4 @@
-<!-- Generated. Private review artifact, excluded from public content. v1 sha256:5ca00198522a4fe247598cc262f7a56b78cbb20b05f39c3cd70b72b605681872 -->
+<!-- Generated. Private review artifact, excluded from public content. v1 sha256:5bd3e3db2e44f8432ef0f0aa37686f8a8b151f59190c5abf854ec520a37bb9d1 -->
 
 Rose historical reference, v1. Repository evidence, not verified deployment parity. No measured visitor-value claim is established. Source paths and commit IDs are provenance, not public reading URLs. Do not invent a public Rose history page or link to the private reference.
 
@@ -56,6 +56,10 @@ Provenance: 12c03fb; src/components/rose/RoseBookingCard.tsx; supabase/functions
 Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage. Typed questions and selected chip labels are both stored, so Ivan can see how visitors use Rose, which topics they ask about and where her answers fail. Links and IP addresses are masked too; masking works by pattern, so names are not masked and unusual formats can slip through. Rose application event records do not include IP addresses or user agents, but providers and hosting may process separate network data. Generated answers are not saved in the current application event table; request-lifecycle events are content-free. Deprecated booking-transcript rows may remain until the scheduled 90-day purge. Access to Rose event records is restricted to the site admin.
 Provenance: ccad61e; 475b2ed; supabase/functions/rose-event/index.ts; supabase/functions/_shared/mask-pii.ts; drizzle/migrations/0004_rose_retention_cron.sql; src/components/rose/roseEvents.ts; drizzle/migrations/0002_rose_sessions_retention.sql; src/pages/Privacy.tsx
 Unsupported wording: Nothing you type is stored.
+
+## listen (2026-11-21, implemented)
+In the repository, Listen reads a validated page summary and Rose's own factual answers aloud, with the written answer always shown. Listen sends Rose's answer, with contact details masked, to ElevenLabs, which keeps it under its standard retention. Page summaries are recorded once and served as files. Only genuine, signed answers of the same session, less than 60 minutes old, are read; a per-session and a daily limit apply, and beyond them the browser reads with its own voice. This entry does not say that Listen is deployed or open to visitors.
+Provenance: supabase/functions/rose-listen/index.ts; supabase/functions/_shared/listen-handler.ts; src/components/rose/listen/ListenPlayer.tsx; drizzle/migrations/0012_rose_listen.sql
 
 ## dom-integrity (2026-10-24, implemented)
 Nested buttons in a diagram corrupted pre-rendered pages and produced a phantom dock; they were removed and guarded by a regression test.
