@@ -39,7 +39,7 @@ The dock is modelled on [userose.ai's website agent](https://userose.ai), and th
 
 He gave me a name before he gave me a job.
 
-Her name. Rose, as in compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.
+Her name comes from the compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.
 
 **Rose's note (written by Ivan in her voice)**
 

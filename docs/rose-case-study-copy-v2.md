@@ -56,7 +56,7 @@ The rhetorical question in the heading becomes a statement, and the third paragr
 | P2 (Built) | The first version shipped on 21 July 2026. Its brief was narrower: help a visitor decide whether to book a conversation with me. |
 | P3 | The dock is modelled on userose.ai's website agent, and the idea of an agent that comments on the page it lives on comes from co-existence.ai. I changed her goal. Rose explains, rephrases and puts the work in context; she does not sell. |
 | Rose note | He gave me a name before he gave me a job. (validated, unchanged) |
-| P4 (new, 21 Nov 2026) | Her name. Rose, as in compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet. |
+| P4 (new, 21 Nov 2026) | Her name comes from the compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet. |
 | Rose note on P4 (new) | Named for a heading. |
 
 Links: userose.ai and co-existence.ai stay quiet external links, as built.

@@ -154,7 +154,7 @@ export const IDEA = {
     after: ". I changed her goal. Rose explains, rephrases and puts the work in context; she does not sell.",
   },
   note: "He gave me a name before he gave me a job.",
-  name: "Her name. Rose, as in compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.",
+  name: "Her name comes from the compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.",
   nameNote: "Named for a heading.",
 };
 
