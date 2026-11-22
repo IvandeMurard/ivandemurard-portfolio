@@ -96,6 +96,7 @@ export type Database = {
           id: string
           kind: string
           label_or_question: string | null
+          listen_entry: string | null
           listen_source: string | null
           outcome: string | null
           path: string
@@ -111,6 +112,7 @@ export type Database = {
           id?: string
           kind: string
           label_or_question?: string | null
+          listen_entry?: string | null
           listen_source?: string | null
           outcome?: string | null
           path: string
@@ -126,6 +128,7 @@ export type Database = {
           id?: string
           kind?: string
           label_or_question?: string | null
+          listen_entry?: string | null
           listen_source?: string | null
           outcome?: string | null
           path?: string
