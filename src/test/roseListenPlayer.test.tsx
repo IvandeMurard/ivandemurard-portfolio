@@ -134,10 +134,12 @@ describe("Listen waveform data", () => {
     expect(await barsFromAudio(new Uint8Array(4), undefined)).toBeNull();
     expect(await barsFromAudio(new Uint8Array(4), async () => new Float32Array(100))).toBeNull();
   });
-  it("every recorded take that has bars has 72 of them", () => {
+  it("every summary in listenSummaries.ts has a .json with 72 bars, each between 0 and 1", () => {
     for (const slug of Object.keys(LISTEN_SUMMARIES)) {
+      expect(existsSync(`public/listen/${slug}.json`), `${slug}.json`).toBe(true);
       const j = JSON.parse(readFileSync(`public/listen/${slug}.json`, "utf8")) as { bars?: unknown };
-      if (j.bars !== undefined) expect(isBars(j.bars), slug).toBe(true);
+      expect(Array.isArray(j.bars) ? j.bars.length : null, `${slug}: bars`).toBe(72);
+      expect(isBars(j.bars), `${slug}: values from 0 to 1`).toBe(true);
     }
   });
 });
