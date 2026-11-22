@@ -69,3 +69,20 @@ describe("Listen secrets", () => {
     expect(readFileSync("package.json", "utf8")).not.toContain("generate-listen-audio");
   });
 });
+
+describe("listen_entry", () => {
+  const entries = readFileSync("drizzle/migrations/0014_rose_listen_entry.sql", "utf8");
+  it("is a closed list in the migration, like listen_source, and in rose-event, and the two agree", () => {
+    expect(entries).toContain("listen_entry IS NULL OR listen_entry IN ('row', 'contents', 'index_card', 'dock_starter', 'answer')");
+    expect(fn).toContain('listen_entry: z.enum(["row", "contents", "index_card", "dock_starter", "answer"])');
+    expect(entries).not.toMatch(/ALTER TABLE public\.rose_events DROP CONSTRAINT IF EXISTS rose_events_kind_check/);
+  });
+  it("rejects listen_entry on any kind that is not a listen event", () => {
+    expect(fn).toContain("e.listen_source || e.listen_entry");
+  });
+  it("a Listen event carries the entry beside the source, still no content", () => {
+    expect(measurementPayload({
+      session_id: "s", path: "/rose", kind: "listen", listen_source: "summary", listen_entry: "index_card", label_or_question: "private",
+    })).toEqual({ session_id: "s", path: "/rose", kind: "listen", listen_source: "summary", listen_entry: "index_card" });
+  });
+});

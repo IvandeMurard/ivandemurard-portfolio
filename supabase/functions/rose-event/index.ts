@@ -15,6 +15,7 @@ const EventSchema = z.object({
   section_id: z.string().max(120).nullable().optional(),
   kind: z.enum(["opened", "chip", "question", "followup", "booking_proposed", "booking_clicked", "rose_request_started", "rose_answer_completed", "rose_answer_failed", "rose_link_clicked", "rose_conversation_cleared", "listen", "listen_complete"]),
   listen_source: z.enum(["summary", "answer"]).optional(),
+  listen_entry: z.enum(["row", "contents", "index_card", "dock_starter", "answer"]).optional(),
   label_or_question: z.string().max(2000).nullable().optional(),
   used_chip: z.boolean().optional(),
   request_id: z.string().min(1).max(128).optional(),
@@ -50,7 +51,7 @@ Deno.serve(async (req) => {
   if (e.kind.startsWith("listen")) {
     if (!e.listen_source) return json({ error: "listen_source required" }, 400);
     if (e.label_or_question || e.section_id || e.used_chip || e.request_id || e.target_path || e.booking_source) return json({ error: "Measurement must be content-free" }, 400);
-  } else if (e.listen_source) return json({ error: "listen_source only on listen events" }, 400);
+  } else if (e.listen_source || e.listen_entry) return json({ error: "listen_source and listen_entry only on listen events" }, 400);
   if (e.kind === "rose_link_clicked" && !e.target_path) return json({ error: "target_path required" }, 400);
   const supabase = createClient(url, key);
   const { error } = await supabase.from("rose_events").insert({
@@ -64,6 +65,7 @@ Deno.serve(async (req) => {
     target_path: e.target_path ?? null,
     booking_source: e.booking_source ?? null,
     listen_source: e.listen_source ?? null,
+    listen_entry: e.listen_entry ?? null,
   });
   if (error) {
     if (error.code === "23505") return json({ ok: true });

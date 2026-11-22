@@ -14,19 +14,19 @@
 import { verifyRoseTurn } from "./rose-history-signature.ts";
 import {
   LISTEN_MAX_CHARS, LISTEN_MODEL, LISTEN_PINNED_PLAN, LISTEN_SESSION_LIMIT, LISTEN_SESSION_WINDOW_MS,
-  ListenProviderError, listenCacheKey, synthesizeListen, textToSend,
+  ListenProviderError, barsFromAudio, isBars, listenCacheKey, synthesizeListen, textToSend, type ListenDecoder,
   type ListenSynthesis, type ListenWord,
 } from "./listen-core.ts";
 
 export const LISTEN_ORIGINS = ["https://ivandemurard.com", "https://www.ivandemurard.com", "https://ivandemurard.lovable.app"];
 const MAX_BODY_BYTES = 12_000;
 
-export type ListenResult = { text: string; words: ListenWord[]; audio_url: string; duration_ms: number; model: string; cached: boolean };
-export type CachedListen = { audioUrl: string; text: string; words: ListenWord[]; durationMs: number; model: string };
+export type ListenResult = { text: string; words: ListenWord[]; audio_url: string; duration_ms: number; model: string; cached: boolean; bars?: number[] };
+export type CachedListen = { audioUrl: string; text: string; words: ListenWord[]; durationMs: number; model: string; bars?: number[] };
 
 export interface ListenStore {
   getCached(key: string): Promise<CachedListen | null>;
-  putCached(key: string, text: string, s: ListenSynthesis): Promise<string>;
+  putCached(key: string, text: string, s: ListenSynthesis, bars?: number[] | null): Promise<string>;
   /** Reads this session has made since the given time (cached or not). */
   sessionReads(sessionId: string, sinceMs: number): Promise<number>;
   /** Characters sent to ElevenLabs since the given time, all sessions. */
@@ -41,6 +41,8 @@ export type ListenDeps = {
   store: ListenStore;
   now?: () => number;
   synthesize?: (text: string, apiKey: string) => Promise<ListenSynthesis>;
+  /** mp3 to mono samples, for the waveform. Without it, or when it fails, the answer has no `bars` and the player draws a progress line. */
+  decode?: ListenDecoder;
   /** Keeps a task alive after the response is sent (EdgeRuntime.waitUntil). Without it the task still starts, unawaited. */
   background?: (task: Promise<unknown>) => void;
 };
@@ -109,7 +111,7 @@ export async function handleListen(req: Request, deps: ListenDeps): Promise<Resp
   const hit = await deps.store.getCached(key);
   if (hit) {
     await deps.store.record(sessionId, 0, true);
-    return json({ text: hit.text, words: hit.words, audio_url: hit.audioUrl, duration_ms: hit.durationMs, model: hit.model, cached: true } satisfies ListenResult);
+    return json({ text: hit.text, words: hit.words, audio_url: hit.audioUrl, duration_ms: hit.durationMs, model: hit.model, cached: true, ...(isBars(hit.bars) ? { bars: hit.bars } : {}) } satisfies ListenResult);
   }
 
   const cap = Number(deps.env("LISTEN_DAILY_CHAR_CAP"));
@@ -125,10 +127,11 @@ export async function handleListen(req: Request, deps: ListenDeps): Promise<Resp
     return speech(502, "Voice unavailable");
   }
   // The cache is keyed on the configured model; the model actually used is stored with the files.
-  const audioUrl = await deps.store.putCached(key, text, result);
+  const bars = await barsFromAudio(result.audio, deps.decode);
+  const audioUrl = await deps.store.putCached(key, text, result, bars);
   await deps.store.record(sessionId, result.billedChars, false);
   // Retention: after a new text is stored, expired objects are deleted in the background. The response never waits for it.
   const purge = (async () => { try { await deps.store.purgeExpired(now); } catch { /* the next purge retries */ } })();
   if (deps.background) deps.background(purge);
-  return json({ text, words: result.words, audio_url: audioUrl, duration_ms: result.durationMs, model: result.model, cached: false } satisfies ListenResult);
+  return json({ text, words: result.words, audio_url: audioUrl, duration_ms: result.durationMs, model: result.model, cached: false, ...(bars ? { bars } : {}) } satisfies ListenResult);
 }

@@ -16,6 +16,9 @@ export type RoseEventKind =
 export const measurementAllowed = (dev: boolean, hostname: string) =>
   !dev && ["ivandemurard.com", "www.ivandemurard.com", "ivandemurard.lovable.app"].includes(hostname);
 
+export const LISTEN_ENTRIES = ["row", "contents", "index_card", "dock_starter", "answer"] as const;
+export type ListenEntry = (typeof LISTEN_ENTRIES)[number];
+
 export type RoseEventPayload = {
   session_id: string;
   path: string;
@@ -28,10 +31,12 @@ export type RoseEventPayload = {
   booking_source?: "card" | "chip";
   /** Listen events only: what was read aloud. Never the text. */
   listen_source?: "summary" | "answer";
+  /** Listen events only: where the reading was started from. A closed list, never the text. */
+  listen_entry?: ListenEntry;
 };
 
 export const measurementPayload = (e: RoseEventPayload): RoseEventPayload => {
-  if (e.kind.startsWith("listen")) return { session_id: e.session_id, path: e.path, kind: e.kind, ...(e.listen_source ? { listen_source: e.listen_source } : {}) };
+  if (e.kind.startsWith("listen")) return { session_id: e.session_id, path: e.path, kind: e.kind, ...(e.listen_source ? { listen_source: e.listen_source } : {}), ...(e.listen_entry ? { listen_entry: e.listen_entry } : {}) };
   if (!e.kind.startsWith("rose_")) return e;
   return {
     session_id: e.session_id, path: e.path, kind: e.kind,

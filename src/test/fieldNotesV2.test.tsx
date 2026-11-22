@@ -9,6 +9,7 @@ import Journal from "@/pages/Journal";
 import JournalEntry from "@/pages/JournalEntry";
 import { JOURNAL_ENTRIES, type JournalBlock, type PeakBlock } from "@/content/journal";
 import { CARDS, INDEX_COPY, INDEX_HERO, LEAD, REFERENCE_ZONE, heroMeta, metaLine, revisedLabel, testedOn, joinNames } from "@/content/journalIndex";
+import { metaLineWithListen } from "@/content/listenMeta";
 import { visibleMinutes } from "@/content/readingTime";
 import { SECTION_INDEX } from "@/content/sectionIndex.generated";
 import { journalHeadingIds } from "@/lib/journalHeadingIds";
@@ -149,7 +150,7 @@ describe("The index", () => {
   it("says the computed meta of each note, and the hero line", () => {
     index();
     expect(document.body.textContent).toContain(heroMeta());
-    for (const e of JOURNAL_ENTRIES) expect(document.body.textContent).toContain(metaLine(e));
+    for (const e of JOURNAL_ENTRIES) expect(document.body.textContent).toContain(metaLineWithListen(e));
   });
 
   it("quotes Lore only in verbatim fragments of the recorded answer in section 12", () => {

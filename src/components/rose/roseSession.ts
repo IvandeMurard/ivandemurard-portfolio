@@ -149,3 +149,21 @@ export const resetRoseChat = (id: string): Chat<UIMessage> => {
 export const getRoseOpen = () => openState;
 export const setRoseOpen = (v: boolean) => { openState = v; };
 
+
+export const SESSION_KEY = "rose_session";
+
+/** The anonymous id of this tab, shared by the dock and the Listen provider. */
+export const getSessionId = (): string => {
+  if (typeof window === "undefined") return "";
+  try {
+    let id = window.sessionStorage.getItem(SESSION_KEY);
+    if (!id) {
+      id = (crypto.randomUUID?.() ??
+        `s_${Date.now()}_${Math.random().toString(36).slice(2)}`).slice(0, 64);
+      window.sessionStorage.setItem(SESSION_KEY, id);
+    }
+    return id;
+  } catch {
+    return "";
+  }
+};

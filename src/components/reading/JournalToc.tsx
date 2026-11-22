@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TransitionLink as Link } from "@/hooks/useViewTransition";
+import { ListenTocLine } from "@/components/listen/ListenTocLine";
 
 export type TocItem = { id: string; text: string };
 
@@ -20,9 +21,11 @@ interface JournalTocProps {
   meta?: string;
   /** A link above the list, e.g. back to the index: "All Field Notes · 3". */
   topLink?: { to: string; label: string };
+  /** The page has a recorded summary: its "Listen" line opens the desktop list. */
+  listenSlug?: string;
 }
 
-export const JournalToc = ({ items, label = "Contents", variant = "desktop", meta, topLink }: JournalTocProps) => {
+export const JournalToc = ({ items, label = "Contents", variant = "desktop", meta, topLink, listenSlug }: JournalTocProps) => {
   const [activeId, setActiveId] = useState<string | null>(items[0]?.id ?? null);
   const [open, setOpen] = useState(false);
   // The sidebar list stays out of the way until the reader has actually
@@ -173,6 +176,7 @@ export const JournalToc = ({ items, label = "Contents", variant = "desktop", met
         {label}
         {meta && <span className="text-on-surface-variant"> · {meta}</span>}
       </div>
+      {listenSlug ? <ListenTocLine slug={listenSlug} /> : null}
       {top}
       {list}
     </nav>
