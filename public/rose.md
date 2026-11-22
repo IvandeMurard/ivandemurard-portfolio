@@ -4,7 +4,7 @@ Case study · Rose
 
 Status: Live, voice in pilot
 
-Last updated 2026-11-21.
+Last updated 2026-11-22.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the six decisions that changed her, and what I still need to learn.
 
@@ -41,17 +41,7 @@ A case study shows the work but cannot anticipate every question a reader brings
 
 The dock is modelled on [userose.ai's website agent](https://userose.ai), and the idea of an agent that comments on the page it lives on comes from [co-existence.ai](https://co-existence.ai). I changed her goal. Rose explains, rephrases and puts the work in context; she does not sell.
 
-**Rose's note (written by Ivan in her voice)**
-
-He gave me a name before he gave me a job.
-
 Her name comes from the compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.
-
-**Rose's note (written by Ivan in her voice)**
-
-Named for a heading.
-
-Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Yes, they break the fourth wall. Rose knows she's the subject here, and has opinions about it.
 
 ## Qualify
 
@@ -70,10 +60,6 @@ Four intent chips asked visitors who they were before showing them anything.
 **What I decided**
 
 Ship a small dock with four intents and a booking card.
-
-**Rose's note (written by Ivan in her voice)**
-
-My first job was to sort you into four boxes: his idea, and he admits it.
 
 Rose worked as a qualification funnel with one destination.
 
@@ -115,10 +101,6 @@ The same four intents appeared on every page, whatever the visitor was reading.
 
 Replace the fixed intents with three questions written for each page, and keep Book a call as a constant exit.
 
-**Rose's note (written by Ivan in her voice)**
-
-He stopped me asking who you are and had me ask what you were reading.
-
 Questions now start from the work the visitor is reading.
 
 **Dock starters on /aetherix**
@@ -156,10 +138,6 @@ A question about one page deserves an answer about that page.
 
 Pass the current page and intent into Rose’s context.
 
-**Rose's note (written by Ivan in her voice)**
-
-I know which page you’re on, not who you are: he drew that line.
-
 Answers refer to the case study being read.
 
 **What Rose receives with a question**
@@ -194,10 +172,6 @@ A dock competing with the page reads as a sales widget.
 
 Keep one dock, discreet at rest and full contrast in use, with questions written for each page.
 
-**Rose's note (written by Ivan in her voice)**
-
-I used to sit in the nav bar, where nobody found me, so he moved me.
-
 Rose stays out of the way until asked.
 
 **Where Rose lives**
@@ -230,10 +204,6 @@ A transcript is more than a visitor agreed to share.
 
 Booking opens the calendar and nothing else.
 
-**Rose's note (written by Ivan in her voice)**
-
-When you book, I send nothing, not even this conversation: his call.
-
 Contact is an optional outcome, not the goal of every answer.
 
 **What a booking carries**
@@ -265,10 +235,6 @@ A voice on a public site is an open door: anyone could use it as free speech syn
 **What I decided**
 
 Rose reads three page summaries I wrote and validated, recorded once, and her own factual answers. The server reads only an answer Rose really gave in this conversation, in the last hour. The written answer stays on screen, and each word lights up as she says it.
-
-**Rose's note (written by Ivan in her voice)**
-
-He gave me a voice, then told me when to keep it to myself.
 
 **The trade-off**
 
@@ -422,10 +388,6 @@ Many of Rose's rules started as a mistake caught in testing, before any visitor 
 Loading only what the question needs also made answers cheaper: a typical answer costs about 0.015 Lovable credits, less than half the cost of one that loads a full Field Note. Nearly all of the cost comes from what Rose reads.
 
 Source: Lovable AI gateway logs, the 20 most recent calls, 2 Nov 2026; costs stated in credits, because the Lite plan's price per credit is not published.
-
-**Rose's note (written by Ivan in her voice)**
-
-Asked about myself on my own page, I talked about Aetherix, so he gave me less to read.
 
 ### How a case is judged
 

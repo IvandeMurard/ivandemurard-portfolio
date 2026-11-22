@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { registerRail } from "@/lib/railRegistry";
 import { ChapterBar, ChapterRail, KICKER, LABEL, LEGEND_TONE, MARK_GLYPH, ReadingThread, useActiveChapter } from "@/components/case/reading";
-import { RoseCue, RoseMark } from "@/components/rose/RoseKinetic";
+import { RoseMark } from "@/components/rose/RoseKinetic";
 import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
 import { AnswerFormats, HeroDock, TestLoop } from "@/components/rose/RoseDemos";
@@ -197,7 +197,7 @@ const ExternalLink = ({ href, children }: { href: string; children: string }) =>
 );
 
 const IdeaBody = ({ reduced }: { reduced: boolean }) => {
-  const { p1, p2, p3, note, name, nameNote } = IDEA;
+  const { p1, p2, p3, name } = IDEA;
   return (
     <div className="mt-8 space-y-5 font-body text-base text-on-surface">
       <p>{p1}</p>
@@ -210,11 +210,9 @@ const IdeaBody = ({ reduced }: { reduced: boolean }) => {
           <ExternalLink href={p3.second.href}>{p3.second.text}</ExternalLink>
           {p3.after}
         </p>
-        <RoseCue id="ch-00" note={note} className="mt-3" />
       </div>
       <div className="relative">
         <p>{name}</p>
-        <RoseCue id="ch-00-name" note={nameNote} className="mt-3" />
       </div>
     </div>
   );
@@ -277,7 +275,6 @@ const MilestoneBody = ({ id, m, reduced }: { id: string; m: Milestone; reduced: 
       <p id={`${id}-decision`} className="mt-1 scroll-mt-40 font-headline text-2xl leading-snug text-on-surface">
         <RoseMark cue={id} reduced={reduced} skipWhenReduced tip>{m.decision}</RoseMark>
       </p>
-      <RoseCue id={id} note={m.note} className="mt-3" />
     </div>
     {m.result && <p className="mt-4 font-body text-base text-on-surface">{m.result}</p>}
     {m.tradeoff && (
@@ -534,7 +531,6 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
           {g.cost.text.split(g.cost.figure)[1]}
         </p>
         <p className="mt-2 font-label text-xs text-on-surface-variant">{g.cost.sourceLead}{g.cost.source}</p>
-        <RoseCue id="ch-08" note={g.note} className="mt-4" />
       </div>
 
       <div className="mt-12 border-t border-on-surface-variant/60 pt-8">
@@ -677,7 +673,7 @@ const RoseClose = () => (
     <div aria-hidden="true" className="section-inverse relative h-32 md:h-40">
       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(var(--case-tint)), hsl(var(--case-tint) / 0))" }} />
     </div>
-    <section aria-label={CLOSE.askLabel} className="section-inverse px-8 pb-10 pt-4 text-center md:px-12">
+    <section aria-label={CLOSE.askLabel} className="section-inverse px-8 pb-0 pt-4 text-center md:px-12">
       <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
         <span className="border-b border-primary/30 pb-0.5 font-label text-kicker uppercase tracking-[0.12em] text-secondary">{CLOSE.askLabel}</span>
         <button type="button" onClick={() => window.dispatchEvent(new CustomEvent("rose:ask", { detail: { text: CLOSE.askQuestion } }))}
@@ -685,7 +681,7 @@ const RoseClose = () => (
       </p>
       <p className="mt-6 font-body text-[15px] text-on-surface-variant">{CLOSE.line}</p>
     </section>
-    <ContactBlock />
+    <ContactBlock blendFrom={null} />
   </>
 );
 
@@ -696,7 +692,6 @@ const Chapters = memo(({ reduced }: { reduced: boolean }) => (
       const mark = CHAPTER_MARK[c.id];
       return (
         <Fragment key={c.id}>
-          {c.id === "ch-01" && <p className="max-w-2xl pt-20 font-body text-base text-on-surface md:pt-24 xl:max-w-[40rem]">{NOTES_INTRO}</p>}
           <section id={c.id} data-ch={i} aria-labelledby={`${c.id}-h`} className={cn("scroll-mt-32 pt-24 md:pt-32", MILESTONES[c.id] || c.id === "ch-00" ? "max-w-2xl xl:max-w-[40rem]" : c.id === "ch-07" || c.id === "ch-08" ? "max-w-none" : "max-w-3xl")}>
             <p className={KICKER}>{c.kicker}{mark && <span className="ml-3"><span aria-hidden="true">{MARK_GLYPH[mark]} </span>{mark}{CHAPTER_MARK_QUALIFIER[c.id] ? ` (${CHAPTER_MARK_QUALIFIER[c.id]})` : ""}</span>}</p>
             <h2 id={`${c.id}-h`} className="mt-3 font-headline text-4xl leading-tight text-heading [[data-mood=dusk]_&]:text-on-surface md:text-5xl">{c.heading}</h2>

@@ -149,7 +149,8 @@ describe("Notes off leave no trace in the layout; notes on are always visible", 
     expect(container.innerHTML).toBe("");
   });
 
-  it("on the case study page, after Hide notes, no note, no cue wrapper and no reserved height is left", () => {
+  // Rose's notes were removed from the case study page on 23 Nov 2026 (Ivan): this behaviour no longer exists there.
+  it.skip("on the case study page, after Hide notes, no note, no cue wrapper and no reserved height is left", () => {
     render(<MemoryRouter><RoseCaseStudy reduced={false} /></MemoryRouter>);
     expect(document.querySelectorAll("[data-rose-cue]").length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole("button", { name: "Hide notes" }));

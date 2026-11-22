@@ -230,7 +230,8 @@ describe("On the case study page", () => {
     expect(document.querySelector(".xl\\:left-full")).toBeNull();
   });
 
-  it("strikes The brief while the decision is underlined and carries the tip, chapters 01 to 05", () => {
+  // Rose's notes were removed from the case study page on 23 Nov 2026 (Ivan): this behaviour no longer exists there.
+  it.skip("strikes The brief while the decision is underlined and carries the tip, chapters 01 to 05", () => {
     page(DESKTOP);
     for (const id of ["ch-01", "ch-02", "ch-03", "ch-04", "ch-05"]) {
       const m = MILESTONES[id];
@@ -244,7 +245,8 @@ describe("On the case study page", () => {
     }
   });
 
-  it("chapter 08: the cue is the cost figure, circled, and the note follows the Cost block", () => {
+  // Rose's notes were removed from the case study page on 23 Nov 2026 (Ivan): this behaviour no longer exists there.
+  it.skip("chapter 08: the cue is the cost figure, circled, and the note follows the Cost block", () => {
     page(DESKTOP);
     const figure = screen.getByText(GOT_WRONG.cost.figure);
     expect(figure.getAttribute("data-mark")).toBe("circle");
@@ -267,7 +269,8 @@ describe("On the case study page", () => {
     expect(document.querySelector('[data-mark="highlight"]')).toBeNull();
   });
 
-  it("with reduced motion shows the notes and draws no mark", () => {
+  // Rose's notes were removed from the case study page on 23 Nov 2026 (Ivan): this behaviour no longer exists there.
+  it.skip("with reduced motion shows the notes and draws no mark", () => {
     page(REDUCED);
     expect(document.querySelector('[data-rose-cue="ch-01"] p')).not.toBeNull();
     expect(document.querySelector('[data-rose-cue="ch-01"] p')?.getAttribute("style")).toBeNull();

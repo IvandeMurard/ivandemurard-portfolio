@@ -74,11 +74,10 @@ describe("Rose mirror: what it contains", () => {
     expect(md).toContain("[What is agent experience (AX)?](https://ivandemurard.com/journal/one-text-three-readers)");
   });
 
-  it("marks every Rose note as written by Ivan in her voice, and has all nine", () => {
-    const notes = [IDEA.note, IDEA.nameNote, ...["ch-01", "ch-02", "ch-03", "ch-04", "ch-05", "ch-voice"].map((id) => MILESTONES[id].note), GOT_WRONG.note];
-    expect(ROSE_NOTE_LABEL).toBe("Rose's note (written by Ivan in her voice)");
-    for (const n of notes) expect(md).toContain(`**${ROSE_NOTE_LABEL}**\n\n${n}\n`);
-    expect(md.split(`**${ROSE_NOTE_LABEL}**`)).toHaveLength(notes.length + 1);
+  it("carries none of Rose's notes, removed from the page on 23 Nov 2026", () => {
+    expect(md).not.toContain(ROSE_NOTE_LABEL);
+    expect(md).not.toContain(IDEA.note);
+    expect(md).not.toContain(GOT_WRONG.note);
   });
 
   it("describes each demo in one line, marked as scripted", () => {

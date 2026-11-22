@@ -1260,3 +1260,13 @@
 /* Field Notes cards on the homepage (v2): a pale veil on the peach room by day, a faint lift at dusk. Tokens only. */
 .field-card { background-color: hsl(var(--surface-container-lowest) / 0.6); }
 [data-mood="dusk"] .field-card { background-color: hsl(var(--on-surface) / 0.04); }
+
+/* Long reading in case studies: Newsreader text cut for running prose, Manrope stays for interface and labels. */
+.case-bg .font-body.text-base,
+.case-bg .font-body.text-lg {
+  font-family: "Newsreader", serif;
+  font-size: 1.1875rem;
+  line-height: 1.7;
+  font-optical-sizing: auto;
+  letter-spacing: 0;
+}

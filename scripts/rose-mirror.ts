@@ -6,7 +6,7 @@
 // "Status:", "Last updated", "Marker:", "Scripted demo", and the label that marks Rose's notes.
 // Labels sit on a line of their own (bold), so no "Label: text" line reads like a colon reveal.
 import {
-  CHAPTER_MARK, CHAPTER_MARK_QUALIFIER, CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, LEGEND, LEGEND_NOTE, MILESTONES, NEXT, NOTES_INTRO, QUESTIONS,
+  CHAPTER_MARK, CHAPTER_MARK_QUALIFIER, CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, LEGEND, LEGEND_NOTE, MILESTONES, NEXT, QUESTIONS,
   REPO_FILE, REPO_URL, ROSE_CHAPTERS, SIX, TLDR, TRUST, replyHref,
 } from "../src/components/rose/RoseCaseStudy";
 import { DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "../src/components/rose/roseDemoData";
@@ -39,14 +39,12 @@ const SITE = "https://ivandemurard.com";
 
 function chapterBody(id: string): string[] {
   if (id === "ch-00") {
-    const { p1, p2, p3, note: n, name, nameNote } = IDEA;
+    const { p1, p2, p3, name } = IDEA;
     return [
       p1,
       `(Built) ${p2}`,
       `${p3.before}${link(p3.anchor.text, p3.anchor.href)}${p3.middle}${link(p3.second.text, p3.second.href)}${p3.after}`,
-      note(n),
       name,
-      note(nameNote),
     ];
   }
   const m = MILESTONES[id];
@@ -56,7 +54,6 @@ function chapterBody(id: string): string[] {
       label("The brief"), m.brief,
       label("The tension"), m.tension,
       label("What I decided"), m.decision,
-      note(m.note),
       ...(m.result ? [m.result] : []),
       ...(m.tradeoff ? [label("The trade-off"), m.tradeoff] : []),
       label(v.caption),
@@ -109,7 +106,6 @@ function chapterBody(id: string): string[] {
       ["| Run | " + g.labels.join(" | ") + " |", "| --- | --- | --- | --- |", ...rows].join("\n"),
       g.cost.text,
       `${g.cost.sourceLead}${g.cost.source}`,
-      note(g.note),
       `### ${g.judgedLabel}`,
       g.judged,
       g.loop.map((step, i) => `${i + 1}. ${step}`).join("\n"),
@@ -159,7 +155,6 @@ export function renderRoseMirror(date: string): string {
   if (listen) blocks.push(`## ${LISTEN_SECTION_HEADING}`, listenSummaryNotice(listen), listen.text);
 
   for (const c of ROSE_CHAPTERS) {
-    if (c.id === "ch-01") blocks.push(NOTES_INTRO);
     blocks.push(`## ${c.heading}`, c.kicker);
     const mark = marker(c.id);
     if (mark) blocks.push(mark);
