@@ -329,7 +329,7 @@ Case study · Rose
 
 Status: Live, voice in pilot
 
-Last updated 2026-11-21.
+Last updated 2026-11-23.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the six decisions that changed her, and what I still need to learn.
 
@@ -366,17 +366,7 @@ A case study shows the work but cannot anticipate every question a reader brings
 
 The dock is modelled on [userose.ai's website agent](https://userose.ai), and the idea of an agent that comments on the page it lives on comes from [co-existence.ai](https://co-existence.ai). I changed her goal. Rose explains, rephrases and puts the work in context; she does not sell.
 
-**Rose's note (written by Ivan in her voice)**
-
-He gave me a name before he gave me a job.
-
 Her name comes from the compass rose: the star drawn on the charts that navigators steered by, from the Middle Ages to the Renaissance. They crossed uncertain seas toward lands no one had mapped, read the horizon, and chose one heading among all the possible ones. That is her job here: give you a heading through work you have not explored yet.
-
-**Rose's note (written by Ivan in her voice)**
-
-Named for a heading.
-
-Rose's notes come from co-existence.ai's AI cursor, an agent that comments on the page it lives on. Yes, they break the fourth wall. Rose knows she's the subject here, and has opinions about it.
 
 ## Qualify
 
@@ -395,10 +385,6 @@ Four intent chips asked visitors who they were before showing them anything.
 **What I decided**
 
 Ship a small dock with four intents and a booking card.
-
-**Rose's note (written by Ivan in her voice)**
-
-My first job was to sort you into four boxes: his idea, and he admits it.
 
 Rose worked as a qualification funnel with one destination.
 
@@ -440,10 +426,6 @@ The same four intents appeared on every page, whatever the visitor was reading.
 
 Replace the fixed intents with three questions written for each page, and keep Book a call as a constant exit.
 
-**Rose's note (written by Ivan in her voice)**
-
-He stopped me asking who you are and had me ask what you were reading.
-
 Questions now start from the work the visitor is reading.
 
 **Dock starters on /aetherix**
@@ -481,10 +463,6 @@ A question about one page deserves an answer about that page.
 
 Pass the current page and intent into Rose’s context.
 
-**Rose's note (written by Ivan in her voice)**
-
-I know which page you’re on, not who you are: he drew that line.
-
 Answers refer to the case study being read.
 
 **What Rose receives with a question**
@@ -519,10 +497,6 @@ A dock competing with the page reads as a sales widget.
 
 Keep one dock, discreet at rest and full contrast in use, with questions written for each page.
 
-**Rose's note (written by Ivan in her voice)**
-
-I used to sit in the nav bar, where nobody found me, so he moved me.
-
 Rose stays out of the way until asked.
 
 **Where Rose lives**
@@ -555,10 +529,6 @@ A transcript is more than a visitor agreed to share.
 
 Booking opens the calendar and nothing else.
 
-**Rose's note (written by Ivan in her voice)**
-
-When you book, I send nothing, not even this conversation: his call.
-
 Contact is an optional outcome, not the goal of every answer.
 
 **What a booking carries**
@@ -590,10 +560,6 @@ A voice on a public site is an open door: anyone could use it as free speech syn
 **What I decided**
 
 Rose reads three page summaries I wrote and validated, recorded once, and her own factual answers. The server reads only an answer Rose really gave in this conversation, in the last hour. The written answer stays on screen, and each word lights up as she says it.
-
-**Rose's note (written by Ivan in her voice)**
-
-He gave me a voice, then told me when to keep it to myself.
 
 **The trade-off**
 
@@ -748,10 +714,6 @@ Loading only what the question needs also made answers cheaper: a typical answer
 
 Source: Lovable AI gateway logs, the 20 most recent calls, 2 Nov 2026; costs stated in credits, because the Lite plan's price per credit is not published.
 
-**Rose's note (written by Ivan in her voice)**
-
-Asked about myself on my own page, I talked about Aetherix, so he gave me less to read.
-
 ### How a case is judged
 
 Each synthetic question is written before the run, with the behaviour it requires and the failure that would block release. Answers are graded with AI assistance against the published sources, then reviewed by me.
@@ -766,7 +728,16 @@ Each synthetic question is written before the run, with the behaviour it require
 
 A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case.
 
-Eight dimensions: accuracy, context, directness, evidence, visitor value, judgment, booking discipline, trust and privacy.
+Eight dimensions
+
+- Accuracy
+- Context
+- Directness
+- Evidence
+- Visitor value
+- Judgment
+- Booking discipline
+- Trust and privacy
 
 - Verdict · Pass, fail or unclear, with the quoted answer as evidence.
 - Critical · An invented fact or a privacy slip fails the case. It is never averaged away.
@@ -793,97 +764,33 @@ The direction is a contextual assistant for the whole site. Rose would locate pa
 
 The same pattern fits any site where readers bring their own questions to dense pages, such as product documentation, onboarding guides and B2B offer pages.
 
-## Four questions that have yet to be answered. Have an answer to one of them? Tell me.
+## Frequently asked questions
 
-11 · Open questions
+11 · FAQ
 
-### 01 · Value
+### What does Rose answer from?
 
-Does a source-faithful answer help each reader understand the work from their own angle?
+Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.
 
-**Hypothesis**
+### What can Rose do today?
 
-One page every reader can question beats separate versions per audience, which failed in my previous portfolio.
+Rose is live. She answers in text and, in pilot, reads three page summaries and her factual answers aloud. She sends nothing when you book.
 
-**Signal**
+### Is my conversation kept?
 
-The same question asked twice in one session, and what readers write in an optional feedback form.
+Your conversation stays in this tab for 60 minutes, or until you reload the page. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
 
-**Decision**
+### What happens when I book a call?
 
-If it holds, Rose gets more context and scope. If not, I narrow her to navigation.
+Booking opens the calendar and nothing else. No transcript travels with it.
 
-**Cost of being wrong**
+### Can Rose overstate a project?
 
-Rose adds noise to the content she was built to serve, and costs me credibility.
+Rose keeps each project's delivery status: she never turns planned into done, or sandbox into production.
 
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2001)
+### What is still unproven?
 
-### 02 · Measure
-
-What should count as Rose helping, if booking is an outcome rather than the goal?
-
-**Hypothesis**
-
-Booking stays possible, but value comes first: Rose helps when readers use her and go to the sources.
-
-**Signal**
-
-Share of visits that open Rose, then answers whose source link is followed, page by page.
-
-**Decision**
-
-If few readers open her, I rethink how the dock invites a first question before adding any capability.
-
-**Cost of being wrong**
-
-The numbers would flatter Rose and hide how narrow her real use is.
-
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2002)
-
-### 03 · Role
-
-Should Rose remain an index of the site, or become a critical discussion partner?
-
-**Hypothesis**
-
-Rose is more useful when she connects content and questions my choices, never the reader's, from trade-offs I documented.
-
-**Signal**
-
-Whether questions ask "where" or "why", and whether answers link beyond the current page.
-
-**Decision**
-
-If it holds, she questions my choices from documented limits. If not, she returns to a stricter index.
-
-**Cost of being wrong**
-
-An invented critique costs more credibility than no critique at all.
-
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2003)
-
-### 04 · Modality
-
-When would voice reduce navigation work rather than add spectacle?
-
-**Hypothesis**
-
-Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026.
-
-**Signal**
-
-Listens started and finished, page by page.
-
-**Decision**
-
-If Listen gets used, I invest in a voice matching the site. If not, voice leaves the roadmap.
-
-**Cost of being wrong**
-
-I would maintain a feature that nobody uses.
-
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2004)
+Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle.
 
 ## Contact
 
@@ -2507,10 +2414,12 @@ Most site assistants live in an airlock: a chat bubble sealed off from the page,
 
 Four things make that work.
 
-- **The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.
+- **Answers that can be audited.** Rose answers from the Markdown the MCP server serves. An outside agent can fetch those sources and compare her answer with them. She can still misread, omit or add something the source does not say.
 - **Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](https://ivandemurard.com/rose#ch-08).
-- **A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.
-- **A character with rules.** She breaks the fourth wall, as [her notes](https://ivandemurard.com/rose#ch-00) show. Her jokes are tone, never hidden facts, and her instructions stay hers.
+- **A signed conversation.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. The server does not save the conversation as a transcript; a content-free line counts the drops.
+- **A character with rules.** Her jokes are tone, never hidden facts, and her instructions stay hers.
+
+Separate interaction records include the questions visitors type, with contact details, links and IP addresses masked by pattern. They are kept for 90 days so I can review usage and failures. No IP address or browser fingerprint is stored in those records, and masking does not guarantee anonymity: names and unusual formats may remain. Listen also keeps the masked answer text and its audio for about 90 days to avoid paying twice for the same reading. [Privacy](https://ivandemurard.com/privacy) explains these records and the providers' retention separately from the conversation in the tab.
 
 The character taught one lesson the hard way. Her self-description once held a sample line, to show the tone. She said it word for word in a live answer. Models copy examples. The sample went; the tone is now described by its qualities, with a word limit.
 
@@ -2544,7 +2453,7 @@ A number about agents is only worth what it counts. So each figure here says wha
 
 - **MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 20 November 2026. The unit is the call: one script can make many.
 
-MCP calls since 20 Nov 2026: not filled in yet
+MCP calls since 20 Nov 2026. No verified count is published here yet. A call does not identify an agent or prove that the content was read.
 
 The first counter did not survive a review: it could be written through the site's public key, by anyone. Its numbers are not used here or anywhere else. Counting moved to the server, where a visitor cannot reach it.
 

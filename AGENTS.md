@@ -1,4 +1,5 @@
 # Project rules
+- The AX note's dated MCP scope note uses `axCounterText` for both the page and Markdown, so an unpublished count cannot become a visual traffic claim.
 - Explicit standalone light commands are handled locally in the Rose dock and excluded from model history, so changing the mood needs no model request or signed answer.
 - Music uses gesture-unlocked Web Audio gain nodes with replaceable fades, so software volume works on mobile Safari and old fades cannot overwrite live adjustments.
 - Rose Answer formats uses visitor-controlled tabs for authored examples, with the static relations graph inside Connect and accessible reasons from the shared graph source; no live prompt or automatic cycling, so design evidence cannot be mistaken for a delivered capability.

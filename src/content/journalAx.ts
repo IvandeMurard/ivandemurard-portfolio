@@ -1,9 +1,9 @@
 import type { JournalEntry } from "./journal";
 import { AX_PEAK_PANES } from "./journalAxFigures";
 
-// The fourth Field Note, "One text, three readers". The text is Ivan's draft of 20 Nov 2026, as validated: it is not
-// reworded here. What this file adds to the draft is only the structure the other notes have (decision line, excerpt,
-// "Read this if" card, figures, related links). The links to the Rose case study carry the real chapter ids of /rose.
+// The fourth Field Note, "One text, three readers", from Ivan's validated draft of 20 Nov 2026.
+// Privacy and auditability wording was aligned with the published privacy policy on 23 Nov 2026.
+// The links to the Rose case study carry the real chapter ids of /rose.
 
 export const AX_ENTRY: JournalEntry = {
   slug: "one-text-three-readers",
@@ -128,11 +128,15 @@ export const AX_ENTRY: JournalEntry = {
     {
       kind: "list",
       items: [
-        "**The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.",
+        "**Answers that can be audited.** Rose answers from the Markdown the MCP server serves. An outside agent can fetch those sources and compare her answer with them. She can still misread, omit or add something the source does not say.",
         "**Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](/rose#ch-08).",
-        "**A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.",
+        "**A signed conversation.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. The server does not save the conversation as a transcript; a content-free line counts the drops.",
         "**A character with rules.** Her jokes are tone, never hidden facts, and her instructions stay hers.",
       ],
+    },
+    {
+      kind: "p",
+      text: "Separate interaction records include the questions visitors type, with contact details, links and IP addresses masked by pattern. They are kept for 90 days so I can review usage and failures. No IP address or browser fingerprint is stored in those records, and masking does not guarantee anonymity: names and unusual formats may remain. Listen also keeps the masked answer text and its audio for about 90 days to avoid paying twice for the same reading. [Privacy](/privacy) explains these records and the providers' retention separately from the conversation in the tab.",
     },
     {
       kind: "p",

@@ -1404,7 +1404,6 @@ var AGENTS_DOC = {
 };
 
 // src/content/journalAxFigures.ts
-var AX_NOTE_MCP_CALLS = null;
 var SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var axShortDate = (iso) => {
   const [y, m, d] = iso.split("-").map(Number);
@@ -1412,8 +1411,7 @@ var axShortDate = (iso) => {
 };
 var AX_COUNTER = {
   label: MCP_TRACKING_SINCE ? `MCP calls since ${axShortDate(MCP_TRACKING_SINCE)}` : "MCP calls",
-  /** The dash the figure shows while the count is null (code 8212, written as a code so no source file carries the character). */
-  empty: String.fromCharCode(8212)
+  scope: "No verified count is published here yet. A call does not identify an agent or prove that the content was read."
 };
 var AX_PEAK_PANES = {
   person: { label: "What a person saw", via: "In the browser", card: "Aetherix", badge: "Pre-pilot" },
@@ -1459,7 +1457,7 @@ var AX_SIZES = [
 ];
 var AX_SIZES_CAPTION = "Sizes as downloaded with curl; the outline and the section through the MCP server.";
 var table = (head, rows) => [`| ${head.join(" | ")} |`, `| ${head.map(() => "---").join(" | ")} |`, ...rows.map((r) => `| ${r.join(" | ")} |`)].join("\n");
-var axCounterText = () => `${AX_COUNTER.label}: ${AX_NOTE_MCP_CALLS === null ? "not filled in yet" : AX_NOTE_MCP_CALLS.toLocaleString("en-US")}`;
+var axCounterText = () => `${AX_COUNTER.label}. ${AX_COUNTER.scope}`;
 var axFigureMarkdown = (id) => {
   switch (id) {
     case "bricks":
@@ -1598,11 +1596,15 @@ var AX_ENTRY = {
     {
       kind: "list",
       items: [
-        "**The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.",
+        "**Answers that can be audited.** Rose answers from the Markdown the MCP server serves. An outside agent can fetch those sources and compare her answer with them. She can still misread, omit or add something the source does not say.",
         "**Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](/rose#ch-08).",
-        "**A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.",
+        "**A signed conversation.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. The server does not save the conversation as a transcript; a content-free line counts the drops.",
         "**A character with rules.** Her jokes are tone, never hidden facts, and her instructions stay hers."
       ]
+    },
+    {
+      kind: "p",
+      text: "Separate interaction records include the questions visitors type, with contact details, links and IP addresses masked by pattern. They are kept for 90 days so I can review usage and failures. No IP address or browser fingerprint is stored in those records, and masking does not guarantee anonymity: names and unusual formats may remain. Listen also keeps the masked answer text and its audio for about 90 days to avoid paying twice for the same reading. [Privacy](/privacy) explains these records and the providers' retention separately from the conversation in the tab."
     },
     {
       kind: "p",

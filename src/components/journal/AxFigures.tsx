@@ -3,15 +3,14 @@ import {
   AX_BRICKS,
   AX_BRICKS_CAPTION,
   AX_BRICKS_RANGE,
-  AX_COUNTER,
   AX_FANOUT,
-  AX_NOTE_MCP_CALLS,
   AX_READERS_HEAD,
   AX_READERS_ROWS,
   AX_SIZES,
   AX_SIZES_CAPTION,
   AX_SIZES_DATE,
   axBrickPosition,
+  axCounterText,
   axMonthTicks,
   axShortDate,
   type AxFigureId,
@@ -166,21 +165,11 @@ export const AxSizes = () => {
 
 // ---------------------------------------------------------------------------------------------------------------
 
-/** Section 6: the MCP call counter. The number is a constant filled in at publication; a dash until then. */
+/** Section 6: a dated scope note, shared verbatim with the machine-readable surfaces. */
 export const AxCounter = () => (
-  <Fig name="counter">
-    <p className="m-0 font-headline text-6xl leading-none text-heading md:text-7xl">
-      {AX_NOTE_MCP_CALLS === null ? (
-        <>
-          <span aria-hidden="true">{AX_COUNTER.empty}</span>
-          <span className="sr-only">Not filled in yet</span>
-        </>
-      ) : (
-        AX_NOTE_MCP_CALLS.toLocaleString("en-US")
-      )}
-    </p>
-    <p className="m-0 mt-3 font-mono text-meta text-on-surface-variant">{AX_COUNTER.label}</p>
-  </Fig>
+  <p data-ax-figure="counter" className="m-0 font-body text-base leading-relaxed text-on-surface-variant">
+    {axCounterText()}
+  </p>
 );
 
 export const AxFigure = ({ id }: { id: AxFigureId }) => {

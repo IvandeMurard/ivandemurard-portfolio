@@ -1,3 +1,9 @@
+# AX trust corrections
+- [x] Distinguish the tab conversation from 90-day masked question records and Listen caching, using the published privacy policy.
+- [x] Describe Rose's answers as auditable against sources, not guaranteed source-faithful.
+- [x] Replace the oversized MCP counter with a dated scope note shared with machine readers, without inventing a count.
+- [ ] Refresh derived content and verify the note in Day and Dusk on mobile and desktop, without publishing or deploying.
+
 # Mobile controls
 - [x] Handle explicit light commands locally in Rose, without changing or deploying functions; acknowledgements persist in the dock but stay outside signed model history.
 - [x] Route music volume through Web Audio and unlock detent feedback from touch gestures; serve the existing soundtrack through an asset pointer because its old URL returned 404.

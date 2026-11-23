@@ -92,10 +92,12 @@ Most site assistants live in an airlock: a chat bubble sealed off from the page,
 
 Four things make that work.
 
-- **The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.
+- **Answers that can be audited.** Rose answers from the Markdown the MCP server serves. An outside agent can fetch those sources and compare her answer with them. She can still misread, omit or add something the source does not say.
 - **Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](https://ivandemurard.com/rose#ch-08).
-- **A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.
-- **A character with rules.** She breaks the fourth wall, as [her notes](https://ivandemurard.com/rose#ch-00) show. Her jokes are tone, never hidden facts, and her instructions stay hers.
+- **A signed conversation.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. The server does not save the conversation as a transcript; a content-free line counts the drops.
+- **A character with rules.** Her jokes are tone, never hidden facts, and her instructions stay hers.
+
+Separate interaction records include the questions visitors type, with contact details, links and IP addresses masked by pattern. They are kept for 90 days so I can review usage and failures. No IP address or browser fingerprint is stored in those records, and masking does not guarantee anonymity: names and unusual formats may remain. Listen also keeps the masked answer text and its audio for about 90 days to avoid paying twice for the same reading. [Privacy](https://ivandemurard.com/privacy) explains these records and the providers' retention separately from the conversation in the tab.
 
 The character taught one lesson the hard way. Her self-description once held a sample line, to show the tone. She said it word for word in a live answer. Models copy examples. The sample went; the tone is now described by its qualities, with a word limit.
 
@@ -129,7 +131,7 @@ A number about agents is only worth what it counts. So each figure here says wha
 
 - **MCP calls.** Counted by the server itself, one content-free line per call: which tool, when. Counted since 20 November 2026. The unit is the call: one script can make many.
 
-MCP calls since 20 Nov 2026: not filled in yet
+MCP calls since 20 Nov 2026. No verified count is published here yet. A call does not identify an agent or prove that the content was read.
 
 The first counter did not survive a review: it could be written through the site's public key, by anyone. Its numbers are not used here or anywhere else. Counting moved to the server, where a visitor cannot reach it.
 

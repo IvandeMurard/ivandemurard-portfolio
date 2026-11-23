@@ -7,9 +7,6 @@ import { MCP_TRACKING_SINCE } from "./agents";
 
 export type AxFigureId = "bricks" | "readers" | "fanout" | "sizes" | "counter";
 
-/** The value shown in the counter figure. Ivan fills it at publication. While it is null the figure shows a dash. No live read of the database. */
-export const AX_NOTE_MCP_CALLS: number | null = null;
-
 /** "20 Nov 2026" from the one tracking date of the site (agents.ts), so the figure and the guarantees say the same day. */
 const SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 export const axShortDate = (iso: string): string => {
@@ -18,8 +15,7 @@ export const axShortDate = (iso: string): string => {
 };
 export const AX_COUNTER = {
   label: MCP_TRACKING_SINCE ? `MCP calls since ${axShortDate(MCP_TRACKING_SINCE)}` : "MCP calls",
-  /** The dash the figure shows while the count is null (code 8212, written as a code so no source file carries the character). */
-  empty: String.fromCharCode(8212),
+  scope: "No verified count is published here yet. A call does not identify an agent or prove that the content was read.",
 };
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -122,7 +118,7 @@ const table = (head: string[], rows: string[][]) =>
   [`| ${head.join(" | ")} |`, `| ${head.map(() => "---").join(" | ")} |`, ...rows.map((r) => `| ${r.join(" | ")} |`)].join("\n");
 
 export const axCounterText = (): string =>
-  `${AX_COUNTER.label}: ${AX_NOTE_MCP_CALLS === null ? "not filled in yet" : AX_NOTE_MCP_CALLS.toLocaleString("en-US")}`;
+  `${AX_COUNTER.label}. ${AX_COUNTER.scope}`;
 
 export const axFigureMarkdown = (id: AxFigureId): string => {
   switch (id) {
