@@ -125,18 +125,19 @@ export const AnswerFormats = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
-/** The test loop of chapter 08. Step 5 is the loop back to step 2. */
+/** The test loop of chapter 08. Step 5 is the loop back to step 2. Vertical rail on mobile, connected track on desktop. */
 export const TestLoop = ({ steps, caption }: { steps: readonly string[]; caption: ReactNode }) => (
-  <figure className="mt-6">
-    <div role="region" aria-label="The test loop, seven steps" tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
-      <ol className="grid min-w-[48rem] list-none grid-cols-7 gap-2 p-0">
-        {steps.map((t, i) => (
-          <li key={t} className={cn("rounded-md border bg-surface-container-lowest px-3 py-2.5 font-body text-sm leading-snug text-on-surface", i === 4 ? "border-secondary" : "border-outline-variant")}>
-            <span className="block font-label text-xs text-secondary">{i + 1}</span>{t}
-          </li>
-        ))}
-      </ol>
-    </div>
-    <figcaption className="mt-3 font-label text-xs text-on-surface-variant">{caption}</figcaption>
+  <figure className="mt-10">
+    <ol aria-label="The test loop, seven steps" className="relative m-0 grid list-none gap-0 p-0 md:grid-cols-7 md:gap-3">
+      <span aria-hidden="true" className="absolute bottom-3 left-[0.6875rem] top-3 w-px bg-outline-variant md:bottom-auto md:left-3 md:right-3 md:top-[0.6875rem] md:h-px md:w-auto" />
+      {steps.map((t, i) => (
+        <li key={t} className="relative flex gap-4 pb-6 font-body text-sm leading-snug text-on-surface md:flex-col md:gap-3 md:pb-0">
+          <span className={cn("relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-label text-xs",
+            i === 4 ? "border-secondary bg-secondary text-on-secondary" : "border-outline-variant bg-surface text-secondary")}>{i + 1}</span>
+          <span className={cn("pt-0.5 md:pt-0", i === 4 && "text-secondary")}>{t}</span>
+        </li>
+      ))}
+    </ol>
+    <figcaption className="mt-4 max-w-2xl border-l-2 border-secondary pl-4 font-body text-sm text-on-surface-variant">{caption}</figcaption>
   </figure>
 );

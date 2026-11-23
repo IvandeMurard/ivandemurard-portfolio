@@ -491,39 +491,55 @@ export const GOT_WRONG = {
 
 const ValidationBody = ({ reduced }: { reduced: boolean }) => {
   const g = GOT_WRONG;
+  const [v, setV] = useState(0);
+  const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const n = g.cases.length;
+  const go = (i: number) => { setV(i); refs.current[i]?.focus(); };
   return (
     <div className="mt-8">
       <p className="max-w-xl font-body text-base text-on-surface">{g.intro}</p>
 
-      <div role="region" aria-label="Three cases caught in testing" tabIndex={0} className="mt-8 overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
-        <table className="w-full min-w-[40rem] border-collapse text-left font-body text-base text-on-surface">
-          <thead>
-            <tr>
-              {g.labels.map((l, i) => (
-                <th key={l} scope="col" className={cn("w-1/3 border-b border-on-surface-variant/60 pb-3 pr-8 font-label text-xs font-normal", i === 1 ? "text-secondary" : "text-on-surface-variant")}>{l}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {g.cases.map((c, i) => (
-              <tr key={c.meta} className="align-top">
-                <td className="border-b border-outline-variant py-5 pr-8">
-                  <span className="block font-label text-xs text-on-surface-variant">{c.meta}</span>
-                  <span className="mt-1 block">{c.said}</span>
-                </td>
-                <td className="border-b border-outline-variant py-5 pr-8">{c.changed}</td>
-                <td className="border-b border-outline-variant py-5">
-                  {c.result.length === 3
-                    ? <>{c.result[0]}<ExternalLink href={REPO_FILE(g.evalDoc)}>{c.result[1]}</ExternalLink>{c.result[2]}</>
-                    : c.result[0]}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="mt-10">
+        <div data-got-wrong role="tablist" aria-label="Three cases caught in testing" className="grid grid-cols-3 border-b border-outline-variant">
+          {g.cases.map((x, i) => (
+            <button key={x.meta} ref={(el) => { refs.current[i] = el; }} type="button" role="tab" id={`got-tab-${i}`}
+              aria-selected={v === i} aria-controls={`got-panel-${i}`} tabIndex={v === i ? 0 : -1} onClick={() => setV(i)}
+              onKeyDown={(e) => {
+                const map: Record<string, number> = { ArrowRight: (v + 1) % n, ArrowLeft: (v - 1 + n) % n, Home: 0, End: n - 1 };
+                if (e.key in map) { e.preventDefault(); go(map[e.key]); }
+              }}
+              className={cn("-mb-px min-h-14 border-b-2 px-2 py-3 text-left transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+                v === i ? "border-secondary text-primary" : "border-transparent text-on-surface-variant")}>
+              <span className="block font-label text-xs text-secondary">Case {i + 1}</span>
+              <span className="mt-1 block font-label text-xs">{x.meta}</span>
+            </button>
+          ))}
+        </div>
+        {g.cases.map((c, ci) => (
+        <div key={c.meta} hidden={ci !== v} role="tabpanel" id={`got-panel-${ci}`} aria-labelledby={`got-tab-${ci}`} tabIndex={0} className={cn(ci !== v && "hidden", "gap-8 py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-start md:gap-6", ci === v && "grid")}>
+          <div>
+            <p className="font-label text-xs text-on-surface-variant">{g.labels[0]}</p>
+            <p className="mt-3 font-headline text-2xl leading-snug text-on-surface-variant line-through decoration-outline-variant decoration-1">{c.said}</p>
+          </div>
+          <span aria-hidden="true" className="hidden pt-8 text-secondary md:block">→</span>
+          <div>
+            <p className="font-label text-xs text-secondary">{g.labels[1]}</p>
+            <p className="mt-3 font-body text-lg text-on-surface">{c.changed}</p>
+          </div>
+          <span aria-hidden="true" className="hidden pt-8 text-secondary md:block">→</span>
+          <div>
+            <p className="font-label text-xs text-on-surface-variant">{g.labels[2]}</p>
+            <p className="mt-3 font-headline text-2xl leading-snug text-heading [[data-mood=dusk]_&]:text-on-surface">
+              {c.result.length === 3
+                ? <>{c.result[0]}<ExternalLink href={REPO_FILE(g.evalDoc)}>{c.result[1]}</ExternalLink>{c.result[2]}</>
+                : c.result[0]}
+            </p>
+          </div>
+        </div>
+        ))}
       </div>
 
-      <div className="mt-10 max-w-2xl">
+      <div className="mt-4 max-w-2xl">
         <p className="font-body text-base text-on-surface">
           {g.cost.text.split(g.cost.figure)[0]}
           <RoseMark kind="circle" cue="ch-08" reduced={reduced} skipWhenReduced tip>{g.cost.figure}</RoseMark>
@@ -532,18 +548,34 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
         <p className="mt-2 font-label text-xs text-on-surface-variant">{g.cost.sourceLead}{g.cost.source}</p>
       </div>
 
-      <div className="mt-12 border-t border-on-surface-variant/60 pt-8">
+      <div className="mt-20 md:mt-24">
         <h3 className="font-headline text-3xl leading-tight text-heading [[data-mood=dusk]_&]:text-on-surface md:text-4xl">{g.judgedLabel}</h3>
-        <p className="mt-3 max-w-2xl font-body text-base text-on-surface">{g.judged}</p>
+        <p className="mt-4 max-w-2xl font-body text-base text-on-surface">{g.judged}</p>
         <TestLoop steps={g.loop} caption={g.loopCaption} />
-        <p className="mt-6 max-w-2xl font-body text-base text-on-surface">Eight dimensions: {g.dimensions.map((d) => d.toLowerCase()).join(", ")}.</p>
-        <dl className="mt-4 max-w-2xl space-y-3 font-body text-base text-on-surface">
-          {g.rules.map(([t, d]) => (
-            <div key={t}><dt className={cn(LABEL, "inline text-on-surface-variant")}>{t}</dt><dd className="inline"> · {d}</dd></div>
-          ))}
-        </dl>
-        <p className="mt-6 font-label text-xs text-on-surface-variant">{g.campaign}</p>
-        <p className="mt-1 font-body text-sm text-on-surface"><ExternalLink href={REPO_FILE(g.evalDoc)}>{g.campaignLink}</ExternalLink></p>
+
+        <div className="mt-14 grid gap-12 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-16">
+          <div>
+            <p className="font-label text-xs text-on-surface-variant">Eight dimensions</p>
+            <ul className="m-0 mt-4 flex list-none flex-wrap gap-2 p-0">
+              {g.dimensions.map((d) => (
+                <li key={d} className="rounded-full border border-outline-variant px-3 py-1 font-label text-xs text-on-surface">{d}</li>
+              ))}
+            </ul>
+          </div>
+          <dl className="m-0 space-y-6">
+            {g.rules.map(([t, d]) => (
+              <div key={t} className="grid gap-1 md:grid-cols-[6rem_1fr] md:gap-4">
+                <dt className="font-label text-xs uppercase tracking-[0.18em] text-secondary">{t}<span className="sr-only"> · </span></dt>
+                <dd className="m-0 font-body text-base text-on-surface">{d}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-1 border-t border-outline-variant pt-6 md:flex-row md:items-baseline md:justify-between md:gap-6">
+          <p className="font-label text-xs text-on-surface-variant">{g.campaign}</p>
+          <p className="shrink-0 font-body text-sm text-on-surface"><ExternalLink href={REPO_FILE(g.evalDoc)}>{g.campaignLink}</ExternalLink></p>
+        </div>
       </div>
 
       <p className="mt-6 font-label text-xs text-on-surface-variant">

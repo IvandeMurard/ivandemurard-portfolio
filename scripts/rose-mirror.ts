@@ -110,7 +110,7 @@ function chapterBody(id: string): string[] {
       g.judged,
       g.loop.map((step, i) => `${i + 1}. ${step}`).join("\n"),
       g.loopCaption,
-      `Eight dimensions: ${g.dimensions.map((d) => d.toLowerCase()).join(", ")}.`,
+      `Eight dimensions\n\n${bullets(g.dimensions)}`,
       bullets(g.rules.map(([t, d]) => `${t} · ${d}`)),
       g.campaign,
       link(g.campaignLink, REPO_FILE(g.evalDoc)),

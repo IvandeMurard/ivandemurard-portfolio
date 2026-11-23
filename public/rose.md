@@ -4,7 +4,7 @@ Case study · Rose
 
 Status: Live, voice in pilot
 
-Last updated 2026-11-22.
+Last updated 2026-11-23.
 
 Rose answers visitors' questions from the site's own pages. This is how I designed her, the six decisions that changed her, and what I still need to learn.
 
@@ -403,7 +403,16 @@ Each synthetic question is written before the run, with the behaviour it require
 
 A failed grade goes back to step 2 with one bounded change. A new failure in the live check becomes a new case.
 
-Eight dimensions: accuracy, context, directness, evidence, visitor value, judgment, booking discipline, trust and privacy.
+Eight dimensions
+
+- Accuracy
+- Context
+- Directness
+- Evidence
+- Visitor value
+- Judgment
+- Booking discipline
+- Trust and privacy
 
 - Verdict · Pass, fail or unclear, with the quoted answer as evidence.
 - Critical · An invented fact or a privacy slip fails the case. It is never averaged away.

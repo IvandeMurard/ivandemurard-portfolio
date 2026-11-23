@@ -42,7 +42,7 @@ describe("/rose/lab is the lab", () => {
   it("keeps the banner and the six tabs, and is noindex", () => {
     at("/rose/lab", <RoseDesignLab />);
     expect(screen.getByText(/Design lab · unlinked prototype/)).toBeTruthy();
-    const tabs = screen.getAllByRole("tab").filter((t) => !t.closest("[data-answer-formats]"));
+    const tabs = screen.getAllByRole("tab").filter((t) => !t.closest("[data-answer-formats]") && !t.closest("[data-got-wrong]"));
     expect(tabs.map((t) => t.textContent?.[0])).toEqual(["C", "A", "B", "C", "D", "E"]);
     expect(document.head.querySelector('meta[name="robots"][content*="noindex"]')).toBeTruthy();
   });
