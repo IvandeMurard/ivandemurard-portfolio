@@ -3,6 +3,9 @@ import { setRoseNotes, useRoseNotes } from "@/lib/roseNotes";
 import { useChat } from "@ai-sdk/react";
 import type { UIMessage } from "ai";
 import { Icon } from "@/components/ui/Icon";
+import { Button } from "@/components/ui/button";
+import { useMoodOptional } from "@/components/MoodProvider";
+import { roseLightCommand } from "./roseLightCommand";
 import { cn } from "@/lib/utils";
 import { getRosePrompts, type RosePrompt } from "@/content/rosePrompts";
 import { Link, useLocation } from "react-router-dom";
@@ -107,6 +110,8 @@ const RosePausedNotice = () => (
 export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus }) => {
   // Paused: no request to rose-chat or rose-event, no input, no starters.
   const paused = roseStatus === "paused";
+  const moodControl = useMoodOptional();
+  const foldGesture = useRef<{ x: number; y: number; id: number } | null>(null);
   const notesOn = useRoseNotes();
   const notesHintId = useId();
   const [open, setOpenState] = useState(getRoseOpen);
@@ -160,7 +165,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const listenRef = useRef(L);
   listenRef.current = L;
   const listenActive = !!L && L.current !== null && !paused;
-  const playerView = listenActive && L!.playerOpen;
+  const playerView = listenActive && !!L?.playerOpen;
   const miniView = listenActive && !playerView && !open;
 
   const [chat, setChat] = useState(() => getRoseChat(sessionId));
@@ -259,8 +264,19 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
     if (!open) setOpen(true);
     setInputValue("");
     const section = sectionRef.current;
-    log(kind, suggested?.label ?? trimmed, !!suggested || kind === "followup");
     const activeChat = fresh ?? chat;
+    const light = roseLightCommand(trimmed);
+    if (light && moodControl) {
+      moodControl.setPreview(null);
+      moodControl.setMood(light.mood);
+      activeChat.messages = [...activeChat.messages,
+        { id: crypto.randomUUID(), role: "user", parts: [{ type: "text", text: trimmed }], metadata: { rose_local_control: true } },
+        { id: crypto.randomUUID(), role: "assistant", parts: [{ type: "text", text: light.answer }], metadata: { rose_local_control: true } },
+      ];
+      saveMessages(activeChat.messages);
+      return;
+    }
+    log(kind, suggested?.label ?? trimmed, !!suggested || kind === "followup");
     startRoseRequest(sessionId, pathname, activeChat.id);
     void activeChat.sendMessage(
       { text: trimmed },
@@ -400,7 +416,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   useEffect(() => { if (open) void loadSourceLabels(); }, [open]);
 
   // On the homepage the dock waits for the hero to scroll away, except while its welcome bar is shown.
-  const hidden = !open && !pastHero && !welcome.visible && !listenActive;
+  const hidden = !open && messages.length === 0 && !pastHero && !welcome.visible && !listenActive;
   const showChips = open ? messages.length === 0 : focusWithin && !welcome.candidate;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
   const askedTexts = new Set(messages.filter((m) => m.role === "user").map((m) => renderText(m)));
@@ -454,7 +470,22 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           )}
         >
           {open ? (
-            <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
+            <div
+              data-rose-fold-handle
+              onPointerDown={(e) => {
+                if (e.pointerType !== "touch" || (e.target as HTMLElement).closest("button")) return;
+                foldGesture.current = { x: e.clientX, y: e.clientY, id: e.pointerId };
+                e.currentTarget.setPointerCapture(e.pointerId);
+              }}
+              onPointerUp={(e) => {
+                const gesture = foldGesture.current;
+                foldGesture.current = null;
+                if (gesture?.id === e.pointerId && e.clientY - gesture.y > 56 && e.clientY - gesture.y > Math.abs(e.clientX - gesture.x)) fold();
+              }}
+              onPointerCancel={() => { foldGesture.current = null; }}
+              className="relative flex shrink-0 touch-none items-center justify-between border-b border-outline-variant px-3 pb-2 pt-5 md:px-5 md:py-3"
+            >
+              <span aria-hidden="true" className="absolute left-1/2 top-2 h-1 w-9 -translate-x-1/2 rounded-full bg-outline-variant md:hidden" />
               <div className="flex items-center gap-2.5">
                 <CompassMark className="h-7 w-7 text-primary" />
                 <div className="flex flex-col">
@@ -481,14 +512,17 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                   </button>
                 )
               ) : null}
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 type="button"
                 onClick={fold}
                 aria-label="Minimise Rose and keep the conversation"
-                className="rounded-full p-1.5 text-on-surface-variant hover:bg-surface-container hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                title="Minimise Rose and keep the conversation"
+                className="h-11 w-11 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
               >
                 <Icon name="expand_more" className="text-lg" />
-              </button>
+              </Button>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -542,7 +576,8 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                     pagePath: pathname,
                   });
                   // Fallback: page starters the visitor has not asked yet, never booking.
-                  const items = (suppressFollowups || booking ? [] : modelItems.length ? allowedModelItems : fallbackFollowups).slice(0, 2).map(normalizeRoseText);
+                  const localControl = (m.metadata as { rose_local_control?: boolean } | undefined)?.rose_local_control;
+                  const items = (localControl || suppressFollowups || booking ? [] : modelItems.length ? allowedModelItems : fallbackFollowups).slice(0, 2).map(normalizeRoseText);
                   return (
                     <div key={m.id} className="mr-auto max-w-[92%]">
                       {(() => {
@@ -695,7 +730,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                 placeholder="Ask Rose anything"
                 rows={1}
                 aria-label="Message Rose"
-                className="flex-1 resize-none bg-transparent px-2 py-1.5 text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none"
+                className="min-w-0 flex-1 resize-none bg-transparent px-2 py-1.5 text-base md:text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none"
                 disabled={isLoading}
               />
             ) : paused ? (
@@ -720,7 +755,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
                 }}
                 placeholder="Ask Rose anything"
                 aria-label="Message Rose"
-                className="flex-1 bg-transparent px-2 py-1.5 text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none"
+                className="min-w-0 flex-1 bg-transparent px-2 py-1.5 text-base md:text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none"
                 tabIndex={hidden ? -1 : 0}
               />
             )}

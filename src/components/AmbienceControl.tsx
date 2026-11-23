@@ -160,13 +160,13 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
             >
               <VinylRecord size={88} playing={playing} pitch={pitch} sleeve />
             </button>
-            <div className="flex flex-1 flex-col gap-4">
-              <div className="flex items-center gap-3">
+            <div className="flex min-w-0 flex-1 flex-col gap-2">
+              <div className="grid min-w-0 grid-cols-[1fr_auto] items-center gap-x-3">
                 <span className="w-12 font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant">Pitch</span>
-                <span className="flex-1">
+                <span className="col-span-2 row-start-2 min-w-0">
                   <SteelFader
                     label="Pitch"
-                    length={150}
+                    length={220}
                     min={-PITCH_RANGE * 100}
                     max={PITCH_RANGE * 100}
                     step={0.1}
@@ -191,12 +191,12 @@ export const AmbienceControl = ({ size = "md" }: { size?: "sm" | "md" }) => {
                   {pct.toFixed(1)}
                 </button>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="grid min-w-0 grid-cols-[1fr_auto] items-center gap-x-3">
                 <span className="w-12 font-mono text-kicker uppercase tracking-[0.14em] text-on-surface-variant">Volume</span>
-                <span className="flex-1">
+                <span className="col-span-2 row-start-2 min-w-0">
                   <SteelFader
                     label="Volume"
-                    length={150}
+                    length={220}
                     min={0}
                     max={100}
                     step={1}

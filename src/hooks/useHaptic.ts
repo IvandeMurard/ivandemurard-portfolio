@@ -19,6 +19,18 @@ const PATTERNS: Record<Pattern, number | number[]> = {
 };
 
 let audio: AudioContext | null = null;
+let lastTick = -Infinity;
+
+/** Called from the initial touch, not after a slider's React update. */
+export const unlockHapticFeedback = () => {
+  if (typeof window === "undefined" || !window.matchMedia?.("(hover: none)").matches || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+  try {
+    const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!Ctx) return;
+    audio ??= new Ctx();
+    if (audio.state === "suspended") void audio.resume().catch(() => {});
+  } catch { /* Optional feedback must never block a control. */ }
+};
 
 /**
  * Touch devices without vibration (iOS Safari): a muffled 3 ms tick at about 90 Hz
@@ -26,10 +38,9 @@ let audio: AudioContext | null = null;
  */
 const tick = () => {
   try {
-    const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-    if (!Ctx) return;
-    audio ??= new Ctx();
-    if (audio.state === "suspended") void audio.resume();
+    unlockHapticFeedback();
+    if (!audio || performance.now() - lastTick < 40) return;
+    lastTick = performance.now();
     const t = audio.currentTime;
     const osc = audio.createOscillator();
     const gain = audio.createGain();
@@ -49,6 +60,8 @@ const tick = () => {
 export const useHaptic = () => {
   return (pattern: Pattern = "tap") => {
     if (typeof window === "undefined") return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches || window.matchMedia?.("(hover: hover)").matches) return;
+    unlockHapticFeedback();
     if (typeof navigator === "undefined" || typeof navigator.vibrate !== "function") {
       if (pattern === "detent" && window.matchMedia?.("(hover: none)").matches) tick();
       return;
@@ -56,7 +69,8 @@ export const useHaptic = () => {
     try {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       if (window.matchMedia("(hover: hover)").matches) return;
-      navigator.vibrate(PATTERNS[pattern]);
+      const vibrated = navigator.vibrate(PATTERNS[pattern]);
+      if (!vibrated && pattern === "detent") tick();
     } catch {
       // ignore, vibration is purely enhancement
     }

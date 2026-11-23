@@ -94,7 +94,8 @@ clearOnReload();
 
 /** Most recent messages, starting on a user turn, capped for the model. */
 export const selectRecent = (messages: UIMessage[], max = MAX_SENT_MESSAGES): UIMessage[] => {
-  const recent = messages.slice(-max);
+  // Local light acknowledgements are not model answers and must not enter signed model history.
+  const recent = messages.filter(m => !(m.metadata as { rose_local_control?: boolean } | undefined)?.rose_local_control).slice(-max);
   const firstUser = recent.findIndex((m) => m.role === "user");
   return firstUser > 0 ? recent.slice(firstUser) : recent;
 };

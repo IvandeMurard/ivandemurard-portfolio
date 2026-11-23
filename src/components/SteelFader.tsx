@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useHaptic } from "@/hooks/useHaptic";
+import { unlockHapticFeedback, useHaptic } from "@/hooks/useHaptic";
 /**
  * SteelFader: Technics SL-1200 style fader.
  * A native range input (transparent, on top) keeps keyboard, screen reader
@@ -31,7 +31,7 @@ const BRUSH = "repeating-linear-gradient(90deg, hsl(var(--fader-mark)/0.18) 0 1p
 
 export const SteelFader = ({ label, min, max, step, value, onChange, orientation = "horizontal", length, ticks = [], valueText, detentEvery, snap }: Props) => {
   const haptic = useHaptic();
-  const drag = useRef<{ start: number; origin: number; id: number } | null>(null);
+  const drag = useRef<{ start: number; origin: number; id: number; travel: number } | null>(null);
   const lastNotch = useRef<number | null>(null);
   const v = orientation === "vertical";
   const t = (value - min) / (max - min); // 0..1
@@ -55,26 +55,28 @@ export const SteelFader = ({ label, min, max, step, value, onChange, orientation
 
   // Pointer drags are relative and damped: no jump to the finger, a heavier cap.
   const onPointerDown = (e: React.PointerEvent<HTMLInputElement>) => {
+    unlockHapticFeedback();
     if (e.pointerType === "mouse") return; // desktop keeps the native behaviour
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
     e.currentTarget.focus();
-    drag.current = { start: v ? e.clientY : e.clientX, origin: value, id: e.pointerId };
+    const bounds = e.currentTarget.getBoundingClientRect();
+    drag.current = { start: v ? e.clientY : e.clientX, origin: value, id: e.pointerId, travel: Math.max(1, (v ? bounds.height : bounds.width) - capShort) };
     lastNotch.current = detentEvery ? Math.round(value / detentEvery) : null;
   };
   const onPointerMove = (e: React.PointerEvent<HTMLInputElement>) => {
     const d = drag.current;
     if (!d || d.id !== e.pointerId) return;
     const px = (v ? e.clientY : e.clientX) - d.start;
-    emit(d.origin + (px / travel) * (max - min) * DAMPING);
+    emit(d.origin + (px / d.travel) * (max - min) * DAMPING);
   };
   const onPointerEnd = () => {
     drag.current = null;
   };
 
   return (
-    <div className={v ? "relative flex gap-1.5" : "relative"} style={v ? { height: length } : { width: length, height: capLong }}>
-      <div className="relative" style={v ? { width: capLong, height: length } : { width: length, height: capLong }}>
+    <div className={v ? "relative flex gap-1.5" : "relative max-w-full"} style={v ? { height: length } : { width: length, height: 44 }}>
+      <div className={v ? "relative" : "relative top-[11px] max-w-full"} style={v ? { width: capLong, height: length } : { width: length, height: capLong }}>
         {/* felt slot */}
         <div
           aria-hidden="true"
@@ -87,7 +89,7 @@ export const SteelFader = ({ label, min, max, step, value, onChange, orientation
           className="pointer-events-none absolute rounded-[2px] shadow-[0_3px_4px_-1px_hsl(var(--vinyl)/0.8)] transition-[top,left] duration-75"
           style={{
             background: `${BRUSH}, ${CAP}`,
-            ...(v ? { left: 0, width: capLong, height: capShort, top: offset } : { top: 0, height: capLong, width: capShort, left: offset }),
+            ...(v ? { left: 0, width: capLong, height: capShort, top: offset } : { top: 0, height: capLong, width: capShort, left: `calc(${t * 100}% - ${t * capShort}px)` }),
           }}
         >
           <span
@@ -113,7 +115,8 @@ export const SteelFader = ({ label, min, max, step, value, onChange, orientation
           data-vaul-no-drag
           className={[
             "touch-none",
-            "absolute inset-0 m-0 h-full w-full cursor-pointer opacity-0 peer",
+            "absolute m-0 w-full cursor-pointer opacity-0 peer",
+            v ? "inset-0 h-full" : "-top-[11px] left-0 h-11",
             v ? "[writing-mode:vertical-lr] cursor-ns-resize" : "cursor-ew-resize",
           ].join(" ")}
         />

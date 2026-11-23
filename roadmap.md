@@ -1,3 +1,9 @@
+# Mobile controls
+- [x] Handle explicit light commands locally in Rose, without changing or deploying functions; acknowledgements persist in the dock but stay outside signed model history.
+- [x] Route music volume through Web Audio and unlock detent feedback from touch gestures; serve the existing soundtrack through an asset pointer because its old URL returned 404.
+- [x] Make the dock easy to fold and reopen while keeping the conversation and draft; 44px minimise control, downward header swipe, mobile inputs without automatic zoom.
+- [x] Verify Day and Dusk commands, draft/conversation retention, keyboard volume and downstream gain at 390, 800, 1280 and 1440; real touch events verify folding and fader movement at 390, no runtime errors or rose-chat requests. Build telemetry OK. 1344 tests pass, 4 existing skipped; axRoseAnchors and generatedMirrorDates still fail on stale mirrors outside this request. Physical iPhone volume/feedback and real screen readers unverified. Nothing published or deployed.
+
 # Reading and Rose welcome cleanup
 - [x] Generalize the approved running-text typography without changing interface labels.
 - [x] Remove the obsolete fourth-wall sentence from the AX Field Note; derived sources refreshed locally, generated files excluded from commit.

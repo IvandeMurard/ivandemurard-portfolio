@@ -1,5 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { useMood } from "./MoodProvider";
+import { MusicOutput } from "@/lib/musicOutput";
+import soundtrack from "@/assets/dusk.mp3.asset.json";
 
 /**
  * AmbienceProvider
@@ -40,8 +42,9 @@ const FADE_MS = 800;
 const TARGET_VOLUME = 0.55;
 export const PITCH_RANGE = 0.08;
 // Day mode uses the same track as dusk (single soundtrack).
-const DAY_SRC = "/audio/dusk.mp3";
-const DUSK_SRC = "/audio/dusk.mp3";
+export const AMBIENCE_SRC = soundtrack.url;
+const DAY_SRC = AMBIENCE_SRC;
+const DUSK_SRC = AMBIENCE_SRC;
 
 const readInitialMuted = (): boolean => {
   if (typeof window === "undefined") return true;
@@ -52,35 +55,6 @@ const readInitialMuted = (): boolean => {
     // ignore
   }
   return true; // default: muted
-};
-
-/** Animate audio volume to `target` over `duration` ms. Resolves when done. */
-const fadeVolume = (el: HTMLAudioElement, target: number, duration: number) => {
-  return new Promise<void>((resolve) => {
-    const start = el.volume;
-    const delta = target - start;
-    if (Math.abs(delta) < 0.01 || duration <= 0) {
-      el.volume = target;
-      resolve();
-      return;
-    }
-    const startedAt = performance.now();
-    let raf = 0;
-    const step = (now: number) => {
-      const t = Math.min(1, (now - startedAt) / duration);
-      // ease-in-out cubic
-      const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      el.volume = Math.max(0, Math.min(1, start + delta * eased));
-      if (t < 1) {
-        raf = requestAnimationFrame(step);
-      } else {
-        resolve();
-      }
-    };
-    raf = requestAnimationFrame(step);
-    // safety cleanup
-    setTimeout(() => cancelAnimationFrame(raf), duration + 200);
-  });
 };
 
 /** HEAD-check a static asset. Returns true if it responds 200-299. */
@@ -101,6 +75,8 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
   const [pitch, setPitchState] = useState(1);
   const [volume, setVolumeState] = useState(TARGET_VOLUME);
   const volumeRef = useRef(TARGET_VOLUME);
+  const outputRef = useRef<MusicOutput | null>(null);
+  const [unlocked, setUnlocked] = useState(false);
 
   const dayRef = useRef<HTMLAudioElement | null>(null);
   const duskRef = useRef<HTMLAudioElement | null>(null);
@@ -124,6 +100,15 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
     dusk.volume = 0;
     duskRef.current = dusk;
 
+    // Connect once; resume and first play are still unlocked synchronously by the reader's tap.
+    const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    try {
+      outputRef.current = new MusicOutput(Ctx ? new Ctx() : null, [day, dusk]);
+      setUnlocked(true);
+    } catch {
+      setMuted(true);
+    }
+
     Promise.all([checkAvailable(DAY_SRC), checkAvailable(DUSK_SRC)]).then(([d, k]) => {
       if (cancelled) return;
       setAvailable(d && k);
@@ -133,6 +118,8 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
       cancelled = true;
       day.pause();
       dusk.pause();
+      outputRef.current?.close();
+      outputRef.current = null;
       dayRef.current = null;
       duskRef.current = null;
     };
@@ -149,50 +136,32 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
 
   // React to mood + mute changes: pick which track plays, crossfade, fade to mute.
   useEffect(() => {
-    if (!available) return;
+    if (!available || !unlocked) return;
     const day = dayRef.current;
     const dusk = duskRef.current;
     if (!day || !dusk) return;
 
-    const active = dusk; // one soundtrack for both moods
-    const inactive = day;
-
-    const run = async () => {
-      if (muted || suspended) {
-        // Fade everything down, then pause.
-        await Promise.all([fadeVolume(day, 0, FADE_MS), fadeVolume(dusk, 0, FADE_MS)]);
-        day.pause();
-        dusk.pause();
-        return;
-      }
-
-      // Unmuted: start active track, fade in. Crossfade out the other if it was playing.
-      try {
-        if (active.paused) {
-          active.currentTime = active.currentTime || 0;
-          await active.play();
-        }
-      } catch {
-        // Autoplay blocked or decode error. Bail out silently; the user can re-tap mute.
-        return;
-      }
-
-      const fades: Promise<void>[] = [fadeVolume(active, volumeRef.current, FADE_MS)];
-      if (!inactive.paused) {
-        fades.push(fadeVolume(inactive, 0, FADE_MS).then(() => inactive.pause()));
-      }
-      await Promise.all(fades);
-    };
-
-    run();
-  }, [mood, muted, suspended, available]);
+    const output = outputRef.current;
+    if (!output) return;
+    let cancelled = false;
+    output.level(0, 0);
+    day.pause();
+    if (muted || suspended) {
+      output.level(1, 0, FADE_MS / 1000);
+      const timer = window.setTimeout(() => dusk.pause(), FADE_MS);
+      return () => window.clearTimeout(timer);
+    }
+    void output.resume().then(() => dusk.play()).then(() => {
+      if (!cancelled) output.level(1, volumeRef.current, FADE_MS / 1000);
+    }).catch(() => { if (!cancelled) setMuted(true); });
+    return () => { cancelled = true; };
+  }, [mood, muted, suspended, available, unlocked]);
 
   // Live volume while playing.
   useEffect(() => {
     volumeRef.current = volume;
-    const el = duskRef.current;
-    if (el && !muted && !el.paused) el.volume = volume;
-  }, [volume, muted]);
+    if (!muted && !suspended) outputRef.current?.level(1, volume, 0.03);
+  }, [volume, muted, suspended]);
 
   // Analog pitch: speed and key move together, like a real platter.
   useEffect(() => {
@@ -207,8 +176,22 @@ export const AmbienceProvider = ({ children }: { children: ReactNode }) => {
   }, [pitch, available]);
 
   const toggleMute = useCallback(() => {
+    const day = dayRef.current;
+    const dusk = duskRef.current;
+    if (!day || !dusk) return;
+    try {
+      const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      outputRef.current ??= new MusicOutput(Ctx ? new Ctx() : null, [day, dusk]);
+      // Both calls happen during the tap, before React effects or promises, for iOS gesture policy.
+      void outputRef.current.resume().catch(() => setMuted(true));
+      if (muted && !suspended) void dusk.play().catch(() => setMuted(true));
+      setUnlocked(true);
+    } catch {
+      setMuted(true);
+      return;
+    }
     setMuted((m) => !m);
-  }, []);
+  }, [muted, suspended]);
 
   const setPitch = useCallback((p: number) => {
     setPitchState(Math.max(1 - PITCH_RANGE, Math.min(1 + PITCH_RANGE, p)));

@@ -11,7 +11,7 @@ import { activeWordIndex, segmentsOf, seekFromKey, sentencesOf } from "@/compone
 import { ListenProvider, useListen, type ListenControls, type ListenRequest } from "@/components/listen/ListenProvider";
 import { ListenBadge } from "@/components/listen/ListenBadge";
 import { ListenTocLine } from "@/components/listen/ListenTocLine";
-import { AmbienceProvider } from "@/components/AmbienceProvider";
+import { AMBIENCE_SRC, AmbienceProvider } from "@/components/AmbienceProvider";
 import AmbienceControl from "@/components/AmbienceControl";
 import { MoodProvider } from "@/components/MoodProvider";
 import { RoseDock } from "@/components/rose/RoseDock";
@@ -328,7 +328,7 @@ describe("One reader for the whole site", () => {
     window.localStorage.setItem("ambience-muted", "false");
     vi.stubGlobal("fetch", vi.fn(async () => new Response("", { status: 200 })));
     mount(<AmbienceControl />, { ambience: true });
-    const record = () => FakeAudio.all.filter((a) => a.src.includes("/audio/"));
+    const record = () => FakeAudio.all.filter((a) => a.src === AMBIENCE_SRC);
     await waitFor(() => expect(record().some((a) => !a.paused)).toBe(true), { timeout: 3000 });
     await begin();
     await waitFor(() => expect(record().every((a) => a.paused)).toBe(true), { timeout: 4000 });
@@ -344,7 +344,7 @@ describe("One reader for the whole site", () => {
     await begin();
     await act(async () => { FakeAudio.last.onended?.(); });
     await new Promise((r) => setTimeout(r, 100));
-    expect(FakeAudio.all.filter((a) => a.src.includes("/audio/")).every((a) => a.paused)).toBe(true);
+    expect(FakeAudio.all.filter((a) => a.src === AMBIENCE_SRC).every((a) => a.paused)).toBe(true);
   });
 });
 
