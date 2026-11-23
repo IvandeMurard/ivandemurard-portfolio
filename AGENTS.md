@@ -1,4 +1,6 @@
 # Project rules
+- Running prose uses the shared global reading treatment; labels, captions, figures and controls retain interface typography so editorial changes do not restyle tools.
+- Rose's scripted welcome replaces the resting bar and claims the first tab-session page view before checking its route, so a later homepage visit cannot replay it.
 - Rose's off-site-fact QA uses all root public Markdown documents with semantic claim review and exact evidence validation; fixed forbidden-fact lists cannot establish source fidelity.
 - Rose self-knowledge is generated privately from roseHistory.ts facts and rosePersona.ts behavior into a Deno-local artifact; check drift before builds and select history from bounded user turns so cross-page continuation works without publishing lab content.
 - Rose lab participation uses the existing rose:open event without submitting a prompt; keep its desktop margin outside the centered dock footprint and enable sticky positioning only with sufficient viewport height, preserving visitor-led continuity.

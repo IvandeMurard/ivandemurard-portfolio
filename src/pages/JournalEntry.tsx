@@ -144,7 +144,7 @@ const Block = ({
   const t = createTermTaker(marks);
   switch (block.kind) {
     case "p":
-      return <p className="font-body">{t(block.text)}</p>;
+      return <p className="font-body reading-prose">{t(block.text)}</p>;
     case "h2":
       return (
         <h2
@@ -192,7 +192,7 @@ const Block = ({
       );
     case "list":
       return (
-        <ul className="space-y-3 font-body">
+        <ul className="space-y-3 font-body reading-prose">
           {block.items.map((item, i) => (
             <li key={i} className="flex gap-3">
               <span aria-hidden="true" className="text-secondary select-none">

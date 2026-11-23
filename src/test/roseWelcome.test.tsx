@@ -60,10 +60,25 @@ describe("When Rose's welcome shows", () => {
     expect(window.sessionStorage.getItem(WELCOME_KEY)).toBe("seen");
   });
 
-  it("on any page, not only the homepage", async () => {
+  it("never on a case study or another non-homepage route", async () => {
+    render(wrap(<RoseDock />, "/rose"));
+    await flush();
+    expect(welcome()).toBeNull();
+    cleanup();
+    resetRoseWelcome();
+    window.sessionStorage.clear();
     render(wrap(<RoseDock />, "/contact"));
     await flush();
-    expect(shown()).toBe(true);
+    expect(welcome()).toBeNull();
+  });
+
+  it("does not greet on the homepage after a first visit to a case study", async () => {
+    const first = render(wrap(<RoseDock />, "/rose"));
+    await flush();
+    first.unmount();
+    render(wrap(<Index />));
+    await flush();
+    expect(welcome()).toBeNull();
   });
 
   it("not on a later page view of the same session (a route change, then a reload)", async () => {
@@ -159,12 +174,12 @@ describe("What the buttons do", () => {
     expect(document.documentElement.dataset.mood).toBe("dusk");
   });
 
-  it("typing a question to Rose dismisses it", async () => {
+  it("opening Rose to type a question dismisses the welcome", async () => {
     render(wrap(<Index />));
     await flush();
-    const input = document.querySelector("[data-rose-dock] input, [data-rose-dock] textarea") as HTMLInputElement;
-    fireEvent.input(input, { target: { value: "H" } });
+    fireEvent.click(within(welcome()!).getByRole("button", { name: "Open Rose" }));
     expect(welcome()).toBeNull();
+    expect(screen.getByRole("textbox", { name: "Message Rose" })).toBeTruthy();
   });
 
   it("'No thanks' closes it and changes nothing else", async () => {
@@ -251,13 +266,14 @@ describe("Where it sits, and the phone", () => {
     vi.stubGlobal("innerHeight", 844);
   };
 
-  it("sits in the dock, above the bar", async () => {
+  it("replaces the resting bar inside the dock", async () => {
     render(wrap(<Index />));
     await flush();
     const dock = document.querySelector("[data-rose-dock]") as HTMLElement;
     expect(dock.contains(welcome())).toBe(true);
     const bar = dock.querySelector("[data-rose-bar]")!;
-    expect(welcome()!.compareDocumentPosition(bar) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(bar).toBe(welcome());
+    expect(dock.querySelector("input")).toBeNull();
     // The dock is up while the welcome is, though the hero is still on screen; it goes back to waiting after.
     expect(dock.getAttribute("aria-hidden")).toBeNull();
     fireEvent.click(within(welcome()!).getByRole("button", { name: "No thanks" }));

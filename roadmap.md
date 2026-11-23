@@ -1,3 +1,10 @@
+# Reading and Rose welcome cleanup
+- [x] Generalize the approved running-text typography without changing interface labels.
+- [x] Remove the obsolete fourth-wall sentence from the AX Field Note; derived sources refreshed locally, generated files excluded from commit.
+- [x] Show the scripted welcome inside the dock, on the homepage only, once per session; route and dismissal verified at 390, 800, 1280 and 1440 in Day and Dusk. All 1337 active tests pass. Real screen reader and numerical contrast audit not verified.
+- [ ] Redesign section 07 and integrate the relations graph into Connect without the duplicate visible list. Blocked: the brief still requires non-clickable examples and a visible relation list; confirmation to replace those rules requested.
+- [ ] Improve How a case is judged with the existing factual evaluation pipeline. Blocked: the Rose brief limits each request to one section; do after section 07 in a separate request.
+
 # Rose fourth-wall corrections
 - [x] Align Aetherix private-work names and statuses across published sources.
 - [x] Remove Rose's tone example and tighten fourth-wall/corpus-based graders.

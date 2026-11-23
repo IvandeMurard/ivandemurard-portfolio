@@ -1261,12 +1261,15 @@
 .field-card { background-color: hsl(var(--surface-container-lowest) / 0.6); }
 [data-mood="dusk"] .field-card { background-color: hsl(var(--on-surface) / 0.04); }
 
-/* Long reading in case studies: Newsreader text cut for running prose, Manrope stays for interface and labels. */
-.case-bg .font-body.text-base,
-.case-bg .font-body.text-lg {
+/* Running prose site-wide. Labels, captions, figures and controls retain their interface type. */
+main p:not(.font-mono, .font-label, .font-headline, .text-sm, .text-xs, .text-meta, .text-kicker):not(:where(figure p, table p, [role="tablist"] p)),
+main .reading-prose,
+.case-bg ul.font-body.text-base,
+.case-bg ul.font-body.text-lg {
   font-family: "Newsreader", serif;
   font-size: 1.1875rem;
   line-height: 1.7;
+  font-weight: 400;
   font-optical-sizing: auto;
   letter-spacing: 0;
 }

@@ -3,15 +3,18 @@ import { useMoodOptional } from "@/components/MoodProvider";
 import { useAmbienceOptional } from "@/components/AmbienceProvider";
 import { useRoseNotes } from "@/lib/roseNotes";
 import { ROSE_WELCOME } from "@/content/roseWelcome";
+import { useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { CompassMark } from "./CompassMark";
 
 /**
  * Rose's welcome (homepage v2, part B). Scripted UI, not a chat message: no model call, nothing added to the conversation
  * history, no event, nothing sent to the server. It offers two things the page can do by itself, dimming the lights and
  * putting on the record, and each button does it.
  *
- * It shows once, on the first page view of a browser session, on any page, and never when Page notes are off. The two
+ * It shows once, on the first page view of a browser session, on the homepage only, and never when Page notes are off. The two
  * buttons are toggles that show the current state and never dismiss it. "No thanks", Escape, typing a question to Rose or
- * the opening of the dock end it for the rest of the session. It is the dock's first row, above the bar.
+ * the opening of the dock end it for the rest of the session. It replaces the resting dock bar.
  * On a phone (under 768 px), or when it would cover the hero's call to action, it waits for the first scroll.
  */
 export const WELCOME_KEY = "rose_welcome";
@@ -46,6 +49,7 @@ const overlaps = (a: DOMRect, b: { left: number; right: number; top: number; bot
 type Args = { dockOpen: boolean; dockRef: RefObject<HTMLElement> };
 
 export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
+  const { pathname } = useLocation();
   const mood = useMoodOptional();
   const ambience = useAmbienceOptional();
   const notesOn = useRoseNotes();
@@ -55,13 +59,15 @@ export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
   const hasProviders = !!mood;
 
   useEffect(() => {
-    if (hasProviders && claimWelcome()) setClaimed(true);
-  }, [hasProviders]);
+    if (hasProviders && claimWelcome() && pathname === "/") setClaimed(true);
+  }, [hasProviders, pathname]);
+
+  useEffect(() => { if (pathname !== "/") setDismissed(true); }, [pathname]);
 
   // The dock opening, from anywhere (the bar, Ask Rose, Ctrl+K, a chip), ends the welcome.
   useEffect(() => { if (dockOpen) { setDismissed(true); markSeen(); } }, [dockOpen]);
 
-  const candidate = claimed && !dismissed && notesOn && !dockOpen;
+  const candidate = pathname === "/" && claimed && !dismissed && notesOn && !dockOpen;
 
   // Typing a question to Rose ends it: any text typed in the dock, outside the welcome itself.
   useEffect(() => {
@@ -114,7 +120,7 @@ export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
 
   const isDusk = mood?.mood === "dusk";
   const canPlay = !!ambience && ambience.available;
-  const playing = canPlay && !ambience!.muted;
+  const playing = canPlay && ambience?.muted === false;
 
   return {
     /** Rendered inside the dock (so it can be measured); `visible` is when the visitor can see it. */
@@ -130,40 +136,45 @@ export const useRoseWelcome = ({ dockOpen, dockRef }: Args) => {
   };
 };
 
-type WelcomeProps = { welcome: ReturnType<typeof useRoseWelcome> };
+type WelcomeProps = { welcome: ReturnType<typeof useRoseWelcome>; onOpen: () => void };
 
 const button = "inline-flex min-h-[44px] items-center rounded-full border border-outline-variant px-3.5 text-[14px] text-on-surface transition-colors hover:border-secondary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary";
 
 // A pointer press must not focus the dock: focusing it reflows the bar under the pointer and the click would be lost.
 const keepLayout = (e: React.MouseEvent) => e.preventDefault();
 
-export const RoseWelcome = ({ welcome }: WelcomeProps) => {
+export const RoseWelcome = ({ welcome, onOpen }: WelcomeProps) => {
   const tab = welcome.visible ? undefined : -1;
   return (
     <div
       role="status"
       aria-live="polite"
       data-rose-welcome
+      data-rose-bar
       {...(welcome.visible ? {} : { "aria-hidden": true, style: { visibility: "hidden" as const } })}
-      className="border-b border-outline-variant px-4 py-3"
+      className="px-4 py-3"
     >
-      <p className="font-body text-[14px] leading-snug text-on-surface">
-        <span className="font-mono text-meta text-secondary">Rose · </span>
+      <div className="flex items-start gap-3">
+      <Button type="button" variant="ghost" size="icon" onMouseDown={keepLayout} onClick={onOpen} aria-label="Open Rose" tabIndex={tab} className="min-h-[44px] shrink-0 text-secondary">
+        <CompassMark className="h-6 w-6" />
+      </Button>
+      <p className="font-body text-[14px] leading-relaxed text-on-surface">
         {welcome.playing ? ROSE_WELCOME.playing : ROSE_WELCOME.text}
       </p>
+      </div>
       <div className="mt-2 flex flex-wrap items-center gap-2">
-        <button type="button" onMouseDown={keepLayout} onClick={welcome.dim} aria-pressed={welcome.isDusk} className={button} tabIndex={tab}>
+        <Button variant="ghost" type="button" onMouseDown={keepLayout} onClick={welcome.dim} aria-pressed={welcome.isDusk} className={button} tabIndex={tab}>
           {welcome.isDusk ? ROSE_WELCOME.up : ROSE_WELCOME.dim}
-        </button>
+        </Button>
         {welcome.canPlay ? (
-          <button type="button" onMouseDown={keepLayout} onClick={welcome.record} aria-pressed={welcome.playing} className={button} tabIndex={tab}>
+          <Button variant="ghost" type="button" onMouseDown={keepLayout} onClick={welcome.record} aria-pressed={welcome.playing} className={button} tabIndex={tab}>
             {welcome.playing ? ROSE_WELCOME.stop : ROSE_WELCOME.record}
-          </button>
+          </Button>
         ) : null}
-        <button type="button" onMouseDown={keepLayout} onClick={welcome.dismiss} tabIndex={tab}
+        <Button variant="ghost" type="button" onMouseDown={keepLayout} onClick={welcome.dismiss} tabIndex={tab}
           className="ml-auto inline-flex min-h-[44px] items-center border-b border-outline-variant px-1 text-[14px] text-on-surface transition-colors hover:border-secondary hover:text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
           {ROSE_WELCOME.decline}
-        </button>
+        </Button>
       </div>
     </div>
   );

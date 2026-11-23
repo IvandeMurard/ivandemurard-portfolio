@@ -125,7 +125,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   const [focusWithin, setFocusWithin] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const dockRef = useRef<HTMLDivElement>(null);
-  // Rose's welcome: scripted, once per session, above the bar. It is not part of the conversation.
+  // Rose's welcome replaces the resting homepage bar once per session, outside the conversation.
   const welcome = useRoseWelcome({ dockOpen: open, dockRef });
   // Echo from the homepage Rose card: the same compass, answering from the dock.
   const [echo, setEcho] = useState(false);
@@ -399,9 +399,9 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
   // The labels of source links come from a registry kept in its own chunk: it starts loading when the dock opens.
   useEffect(() => { if (open) void loadSourceLabels(); }, [open]);
 
-  // On the homepage the dock waits for the hero to scroll away, except while the welcome is shown above its bar.
+  // On the homepage the dock waits for the hero to scroll away, except while its welcome bar is shown.
   const hidden = !open && !pastHero && !welcome.visible && !listenActive;
-  const showChips = open ? messages.length === 0 : focusWithin;
+  const showChips = open ? messages.length === 0 : focusWithin && !welcome.candidate;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
   const askedTexts = new Set(messages.filter((m) => m.role === "user").map((m) => renderText(m)));
   const fallbackFollowups = prompts
@@ -453,7 +453,6 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
             pulse && "border-secondary shadow-2xl shadow-secondary/30 motion-reduce:border-outline-variant motion-reduce:shadow-xl motion-reduce:shadow-primary/10",
           )}
         >
-          {welcome.candidate ? <RoseWelcome welcome={welcome} /> : null}
           {open ? (
             <div className="flex items-center justify-between border-b border-outline-variant px-5 py-3">
               <div className="flex items-center gap-2.5">
@@ -657,7 +656,9 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           ) : null}
 
           {miniView ? <ListenMini onAsk={() => setOpen(true)} tabIndex={hidden ? -1 : undefined} /> : null}
-          {(paused && open) || miniView ? null : (
+          {(paused && open) || miniView ? null : welcome.candidate ? (
+            <RoseWelcome welcome={welcome} onOpen={() => setOpen(true)} />
+          ) : (
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -740,7 +741,7 @@ export const RoseDock = ({ roseStatus = ROSE_STATUS }: { roseStatus?: RoseStatus
           </form>
           )}
           {/* Wherever the bar or the input is rendered (open or at rest), under it and on one line. */}
-          <div className={cn("whitespace-nowrap px-5 text-meta text-on-surface-variant max-[380px]:whitespace-normal", miniView && "hidden", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
+          <div className={cn("whitespace-normal px-5 text-meta text-on-surface-variant md:whitespace-nowrap", miniView && "hidden", paused && open ? "pt-3 pb-2.5" : open ? "-mt-1 pb-2.5" : "pb-2")}>
             <p className="inline whitespace-nowrap">
               {ROSE_DATA_SHORT.text} ·{" "}
               <Link
