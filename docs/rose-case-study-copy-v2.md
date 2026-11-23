@@ -233,19 +233,9 @@ The heading loses its "not just", the map item loses its maxim, and one sentence
 | Item 4 | Context for any passage. Relating what you read to the rest of the page and the site, beyond the passages I marked. |
 | Where it transfers (new) | The same pattern fits any site where readers bring their own questions to dense pages, such as product documentation, onboarding guides and B2B offer pages. |
 
-## Chapter 11: Open questions
+## Chapter 11: FAQ (23 Nov 2026)
 
-Your four questions and their reasoning stay. Only the heading and two fragments change, and a reply link is added, shown below; every other line is your validated text.
-
-| Element | v1 | v2 |
-|---|---|---|
-| Heading | Questions I am leaving open, rather than calling them features. | Four questions that have yet to be answered. Have an answer to one of them? Tell me. |
-| 02 Measure, cost of being wrong | Flattering numbers that hide how narrow the real use is. | The numbers would flatter Rose and hide how narrow her real use is. |
-| 04 Modality, cost of being wrong | A demonstrative feature, without use, to maintain. | I would maintain a feature that nobody uses. |
-| 04 Modality, hypothesis and signal (21 Nov 2026) | Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026. / Signal: Listens started and finished, page by page. |
-| Reply link, under each question | None | Reply by email: a mailto link with the subject prefilled as "Open question 01" to "Open question 04". No form, nothing stored on the site. The Contact section follows unchanged. |
-
-Kept as written: "An invented critique costs more credibility than no critique at all." It reads like a maxim, but it is the actual argument of question 03.
+Replaces "Open questions" at Ivan's request. Kicker "11 · FAQ", heading "Frequently asked questions". Six folded questions; every answer reuses a sentence already printed in the TL;DR or Trust chapter, so the FAQ adds no new claim: sources, what Rose does today, conversation retention, booking, delivery status, what is still unproven.
 
 ## Close and contact
 

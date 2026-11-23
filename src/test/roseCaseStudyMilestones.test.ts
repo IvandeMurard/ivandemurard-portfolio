@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { existsSync } from "node:fs";
-import { CLOSE, GOT_WRONG, IDEA, MILESTONES, NEXT, QUESTIONS, REPO_URL, SIX, TRUST, replyHref } from "@/components/rose/RoseCaseStudy";
+import { CLOSE, GOT_WRONG, IDEA, MILESTONES, NEXT, FAQ, REPO_URL, SIX, TRUST, TLDR } from "@/components/rose/RoseCaseStudy";
 import { CONTACT } from "@/content/site";
 
 // Copy deck v2 is the copy source. What v2 leaves unchanged (vignettes, source lines, dates, the evaluation block,
@@ -201,21 +201,8 @@ describe("Rose case study chapters 06, 09 and 10", () => {
   it("prints the chapter 06 and 09 words of deck v2", () => {
     for (const x of [SIX.intro, SIX.influence, NEXT.intro, NEXT.transfers, ...NEXT.items.map(([t, d]) => `${t} ${d}`)]) expect(deck, x).toContain(norm(x));
   });
-  it("keeps the four questions as in the brief, with the v2 rewrites", () => {
-    expect(QUESTIONS.map((q) => q.title)).toEqual(["Value", "Measure", "Role", "Modality"]);
-    const rewritten = new Set([
-      "The numbers would flatter Rose and hide how narrow her real use is.", "I would maintain a feature that nobody uses.",
-      // Question 04 after the pilot of Listen (21 Nov 2026).
-      "Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026.", "Listens started and finished, page by page.",
-    ]);
-    for (const q of QUESTIONS) {
-      for (const x of [q.question, q.hypothesis, q.signal, q.decision, q.cost]) {
-        if (rewritten.has(x)) expect(deck, x).toContain(x);
-        else expect(brief, x).toContain(x);
-      }
-    }
-  });
-  it("replies by mailto with the subject Open question 01 to 04, and stores nothing", () => {
-    expect(QUESTIONS.map((q) => replyHref(q.n))).toEqual([1, 2, 3, 4].map((n) => `mailto:ivandemurard@gmail.com?subject=Open%20question%200${n}`));
+  it("answers the FAQ only with facts already printed on the page", () => {
+    const published = [...TLDR.map(([, d]) => d), ...TRUST.contracts.flatMap((c) => c.items.flatMap((x) => x.parts))].join(" ");
+    for (const f of FAQ) for (const sentence of f.a.split(/(?<=\.) /)) expect(published, sentence).toContain(sentence);
   });
 });

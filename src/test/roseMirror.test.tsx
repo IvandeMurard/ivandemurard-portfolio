@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { readFileSync } from "node:fs";
 import {
-  CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, MILESTONES, NEXT, QUESTIONS, ROSE_CHAPTERS, RoseCaseStudy, SIX, TLDR, TRUST, CHAPTER_MARK, CHAPTER_MARK_QUALIFIER,
+  CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, MILESTONES, NEXT, FAQ, ROSE_CHAPTERS, RoseCaseStudy, SIX, TLDR, TRUST, CHAPTER_MARK, CHAPTER_MARK_QUALIFIER,
 } from "@/components/rose/RoseCaseStudy";
 import { DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "@/components/rose/roseDemoData";
 import { CONTACT } from "@/content/site";
@@ -109,11 +109,7 @@ describe("Rose mirror: what it contains", () => {
   it("has the next steps, the four open questions with their reply link, and the contact", () => {
     expect(md).toContain(NEXT.intro);
     expect(md).toContain(NEXT.transfers);
-    for (const q of QUESTIONS) {
-      expect(md).toContain(`### ${q.n} · ${q.title}`);
-      for (const t of [q.question, q.hypothesis, q.signal, q.decision, q.cost]) expect(md).toContain(t);
-      expect(md).toContain(`(mailto:ivandemurard@gmail.com?subject=Open%20question%20${q.n})`);
-    }
+    for (const f of FAQ) { expect(md).toContain(`### ${f.q}`); expect(md).toContain(f.a); }
     for (const t of [CLOSE.askQuestion, CLOSE.line, CONTACT.heading, CONTACT.subline, SIX.intro]) expect(md).toContain(t);
   });
 });

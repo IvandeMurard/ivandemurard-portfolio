@@ -439,97 +439,33 @@ The direction is a contextual assistant for the whole site. Rose would locate pa
 
 The same pattern fits any site where readers bring their own questions to dense pages, such as product documentation, onboarding guides and B2B offer pages.
 
-## Four questions that have yet to be answered. Have an answer to one of them? Tell me.
+## Frequently asked questions
 
-11 · Open questions
+11 · FAQ
 
-### 01 · Value
+### What does Rose answer from?
 
-Does a source-faithful answer help each reader understand the work from their own angle?
+Rose answers from the same Markdown pages the MCP server reads, with one or two links to them.
 
-**Hypothesis**
+### What can Rose do today?
 
-One page every reader can question beats separate versions per audience, which failed in my previous portfolio.
+Rose is live. She answers in text and, in pilot, reads three page summaries and her factual answers aloud. She sends nothing when you book.
 
-**Signal**
+### Is my conversation kept?
 
-The same question asked twice in one session, and what readers write in an optional feedback form.
+Your conversation stays in this tab for 60 minutes, or until you reload the page. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage.
 
-**Decision**
+### What happens when I book a call?
 
-If it holds, Rose gets more context and scope. If not, I narrow her to navigation.
+Booking opens the calendar and nothing else. No transcript travels with it.
 
-**Cost of being wrong**
+### Can Rose overstate a project?
 
-Rose adds noise to the content she was built to serve, and costs me credibility.
+Rose keeps each project's delivery status: she never turns planned into done, or sandbox into production.
 
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2001)
+### What is still unproven?
 
-### 02 · Measure
-
-What should count as Rose helping, if booking is an outcome rather than the goal?
-
-**Hypothesis**
-
-Booking stays possible, but value comes first: Rose helps when readers use her and go to the sources.
-
-**Signal**
-
-Share of visits that open Rose, then answers whose source link is followed, page by page.
-
-**Decision**
-
-If few readers open her, I rethink how the dock invites a first question before adding any capability.
-
-**Cost of being wrong**
-
-The numbers would flatter Rose and hide how narrow her real use is.
-
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2002)
-
-### 03 · Role
-
-Should Rose remain an index of the site, or become a critical discussion partner?
-
-**Hypothesis**
-
-Rose is more useful when she connects content and questions my choices, never the reader's, from trade-offs I documented.
-
-**Signal**
-
-Whether questions ask "where" or "why", and whether answers link beyond the current page.
-
-**Decision**
-
-If it holds, she questions my choices from documented limits. If not, she returns to a stricter index.
-
-**Cost of being wrong**
-
-An invented critique costs more credibility than no critique at all.
-
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2003)
-
-### 04 · Modality
-
-When would voice reduce navigation work rather than add spectacle?
-
-**Hypothesis**
-
-Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026.
-
-**Signal**
-
-Listens started and finished, page by page.
-
-**Decision**
-
-If Listen gets used, I invest in a voice matching the site. If not, voice leaves the roadmap.
-
-**Cost of being wrong**
-
-I would maintain a feature that nobody uses.
-
-[Reply by email](mailto:ivandemurard@gmail.com?subject=Open%20question%2004)
+Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle.
 
 ## Contact
 

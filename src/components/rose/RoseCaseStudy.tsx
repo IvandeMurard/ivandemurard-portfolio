@@ -35,7 +35,7 @@ export const ROSE_CHAPTERS: Chapter[] = [
   { id: "ch-07", toc: "08 Trust", kicker: "08 · Trust", heading: "Trust has two separate contracts." },
   { id: "ch-08", toc: "09 What she got wrong", kicker: "09 · What she got wrong", heading: "Caught in testing" },
   { id: "ch-09", toc: "10 Next steps", kicker: "10 · Next steps", heading: "Next: help readers move across the whole site" },
-  { id: "ch-10", toc: "11 Open questions", kicker: "11 · Open questions", heading: "Four questions that have yet to be answered. Have an answer to one of them? Tell me." },
+  { id: "ch-10", toc: "11 FAQ", kicker: "11 · FAQ", heading: "Frequently asked questions" },
 ];
 
 /** The marker printed after a chapter kicker. */
@@ -636,60 +636,27 @@ const NextBody = () => (
 );
 
 /* §6.8 Chapter 10. The four questions are Ivan's validated text (docs/rose-case-study.md §6.8), with the v2 changes of docs/rose-case-study-copy-v2.md. */
-export const QUESTIONS = [
-  {
-    n: "01", title: "Value",
-    question: "Does a source-faithful answer help each reader understand the work from their own angle?",
-    hypothesis: "One page every reader can question beats separate versions per audience, which failed in my previous portfolio.",
-    signal: "The same question asked twice in one session, and what readers write in an optional feedback form.",
-    decision: "If it holds, Rose gets more context and scope. If not, I narrow her to navigation.",
-    cost: "Rose adds noise to the content she was built to serve, and costs me credibility.",
-  },
-  {
-    n: "02", title: "Measure",
-    question: "What should count as Rose helping, if booking is an outcome rather than the goal?",
-    hypothesis: "Booking stays possible, but value comes first: Rose helps when readers use her and go to the sources.",
-    signal: "Share of visits that open Rose, then answers whose source link is followed, page by page.",
-    decision: "If few readers open her, I rethink how the dock invites a first question before adding any capability.",
-    cost: "The numbers would flatter Rose and hide how narrow her real use is.",
-  },
-  {
-    n: "03", title: "Role",
-    question: "Should Rose remain an index of the site, or become a critical discussion partner?",
-    hypothesis: "Rose is more useful when she connects content and questions my choices, never the reader's, from trade-offs I documented.",
-    signal: "Whether questions ask \"where\" or \"why\", and whether answers link beyond the current page.",
-    decision: "If it holds, she questions my choices from documented limits. If not, she returns to a stricter index.",
-    cost: "An invented critique costs more credibility than no critique at all.",
-  },
-  {
-    n: "04", title: "Modality",
-    question: "When would voice reduce navigation work rather than add spectacle?",
-    hypothesis: "Voice helps on long pages: a spoken summary while Rose shows the passage she is talking about. Listen is in pilot since 21 Nov 2026.",
-    signal: "Listens started and finished, page by page.",
-    decision: "If Listen gets used, I invest in a voice matching the site. If not, voice leaves the roadmap.",
-    cost: "I would maintain a feature that nobody uses.",
-  },
-];
+/* §6.8 FAQ. Every answer reuses a fact already published on this page (TL;DR, Trust); nothing new is claimed. */
+export const FAQ = [
+  { q: "What does Rose answer from?", a: "Rose answers from the same Markdown pages the MCP server reads, with one or two links to them." },
+  { q: "What can Rose do today?", a: "Rose is live. She answers in text and, in pilot, reads three page summaries and her factual answers aloud. She sends nothing when you book." },
+  { q: "Is my conversation kept?", a: "Your conversation stays in this tab for 60 minutes, or until you reload the page. Questions are stored, then purged after 90 days. Emails, phone numbers, addresses, card and bank numbers are masked before storage." },
+  { q: "What happens when I book a call?", a: "Booking opens the calendar and nothing else. No transcript travels with it." },
+  { q: "Can Rose overstate a project?", a: "Rose keeps each project's delivery status: she never turns planned into done, or sandbox into production." },
+  { q: "What is still unproven?", a: "Whether an answer that stays faithful to the sources helps each reader understand the work from their own angle." },
+] as const;
 
-export const replyHref = (n: string) => `${SOCIAL_LINKS.email}?subject=${encodeURIComponent(`Open question ${n}`)}`;
-
-const QuestionsBody = () => (
-  <ol className="mt-10 list-none space-y-12 p-0">
-    {QUESTIONS.map((q) => (
-      <li key={q.n} className="border-t border-outline-variant pt-6">
-        <p className={cn(LABEL, "text-secondary")}>{q.n} · {q.title}</p>
-        <h3 className="mt-2 font-headline text-2xl leading-snug text-heading [[data-mood=dusk]_&]:text-on-surface">{q.question}</h3>
-        <dl className="mt-5 space-y-3 font-body text-base text-on-surface">
-          {([["Hypothesis", q.hypothesis], ["Signal", q.signal], ["Decision", q.decision], ["Cost of being wrong", q.cost]] as const).map(([t, d]) => (
-            <div key={t}><dt className={cn(LABEL, "text-on-surface-variant")}>{t}</dt><dd className="mt-0.5">{d}</dd></div>
-          ))}
-        </dl>
-        <p className="mt-5 font-body text-base">
-          <a href={replyHref(q.n)} className={QUIET_LINK}>Reply by email<span className="sr-only"> about open question {q.n}</span></a>
-        </p>
-      </li>
+const FaqBody = () => (
+  <div className="mt-10 border-t border-outline-variant">
+    {FAQ.map((f) => (
+      <details key={f.q} className="group border-b border-outline-variant">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 py-5 font-headline text-xl text-heading [[data-mood=dusk]_&]:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary [&::-webkit-details-marker]:hidden">
+          {f.q}<span aria-hidden="true" className="font-label text-secondary transition-transform group-open:rotate-45 motion-reduce:transition-none">+</span>
+        </summary>
+        <p className="pb-6 font-body text-base text-on-surface md:text-[17px]">{f.a}</p>
+      </details>
     ))}
-  </ol>
+  </div>
 );
 
 /* §6.9 Close. Copy verbatim from docs/rose-case-study-copy-v2.md. The Contact block is shared (src/components/case/ContactBlock.tsx). */
@@ -736,7 +703,7 @@ const Chapters = memo(({ reduced }: { reduced: boolean }) => (
             {c.id === "ch-07" && <TrustBody />}
             {c.id === "ch-08" && <ValidationBody reduced={reduced} />}
             {c.id === "ch-09" && <NextBody />}
-            {c.id === "ch-10" && <QuestionsBody />}
+            {c.id === "ch-10" && <FaqBody />}
           </section>
         </Fragment>
       );

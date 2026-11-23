@@ -6,8 +6,8 @@
 // "Status:", "Last updated", "Marker:", "Scripted demo", and the label that marks Rose's notes.
 // Labels sit on a line of their own (bold), so no "Label: text" line reads like a colon reveal.
 import {
-  CHAPTER_MARK, CHAPTER_MARK_QUALIFIER, CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, LEGEND, LEGEND_NOTE, MILESTONES, NEXT, QUESTIONS,
-  REPO_FILE, REPO_URL, ROSE_CHAPTERS, SIX, TLDR, TRUST, replyHref,
+  CHAPTER_MARK, CHAPTER_MARK_QUALIFIER, CLOSE, GOT_WRONG, HERO, HERO_LEAD, IDEA, LEGEND, LEGEND_NOTE, MILESTONES, NEXT, FAQ,
+  REPO_FILE, REPO_URL, ROSE_CHAPTERS, SIX, TLDR, TRUST,
 } from "../src/components/rose/RoseCaseStudy";
 import { DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS } from "../src/components/rose/roseDemoData";
 import { CONTACT, SOCIAL_LINKS } from "../src/content/site";
@@ -120,17 +120,7 @@ function chapterBody(id: string): string[] {
   if (id === "ch-09") {
     return [NEXT.intro, bullets(NEXT.items.map(([title, text]) => `${title} ${text}`)), NEXT.transfers];
   }
-  if (id === "ch-10") {
-    return QUESTIONS.flatMap((q) => [
-      `### ${q.n} · ${q.title}`,
-      q.question,
-      label("Hypothesis"), q.hypothesis,
-      label("Signal"), q.signal,
-      label("Decision"), q.decision,
-      label("Cost of being wrong"), q.cost,
-      link("Reply by email", `${replyHref(q.n)}`),
-    ]);
-  }
+  if (id === "ch-10") return FAQ.flatMap((f) => [`### ${f.q}`, f.a]);
   return [];
 }
 
