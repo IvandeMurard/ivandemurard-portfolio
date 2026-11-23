@@ -1601,7 +1601,7 @@ var AX_ENTRY = {
         "**The same text as the agents.** Rose answers from the Markdown the MCP server serves. Whatever she says, an outside agent can check.",
         "**Only what the question needs.** A selector picks the notes to load from the address and the words of the question, and the section in view travels with it. What that changed in accuracy and cost is in [Caught in testing](/rose#ch-08).",
         "**A memory nobody can rewrite.** The conversation lives in the visitor's tab, so it could be edited. Each answer Rose finishes is signed by the server (HMAC-SHA256 over the session, the message, its text and the time). A turn that comes back unsigned, altered, from another session or older than 60 minutes is dropped before the model sees it. No conversation content is stored; a content-free line counts the drops.",
-        "**A character with rules.** She breaks the fourth wall, as [her notes](/rose#ch-00) show. Her jokes are tone, never hidden facts, and her instructions stay hers."
+        "**A character with rules.** Her jokes are tone, never hidden facts, and her instructions stay hers."
       ]
     },
     {
