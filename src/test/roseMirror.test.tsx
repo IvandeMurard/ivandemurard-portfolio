@@ -145,7 +145,12 @@ describe("Rose mirror: no text that is not on the page", () => {
     const { container } = render(<MemoryRouter><RoseCaseStudy reduced /></MemoryRouter>);
     const first = container.textContent ?? "";
     container.querySelectorAll('figure button[aria-pressed="false"]').forEach((b) => fireEvent.click(b));
-    const second = container.textContent ?? "";
+    let second = container.textContent ?? "";
+    // Collect each visitor-selected example, including Connect's accessible relation reasons.
+    container.querySelectorAll('[role="tab"]').forEach((tab) => {
+      fireEvent.mouseDown(tab, { button: 0, ctrlKey: false });
+      second += " " + (container.textContent ?? "");
+    });
     // The demos play data of their own; the exchanges and formats are on the page as the loop runs.
     const demo = [...HERO_EXCHANGES.map((e) => `${e.q} ${e.a}`), ...DESIGN_EXCHANGES.map((e) => `${e.format} ${e.q} ${e.a}`)].join(" ");
     return norm(`${first} ${second} ${demo}`).replace(/, opens in a new tab↗/g, "").replace(/ \((?:PDF, )?opens in a new tab\)/g, "");

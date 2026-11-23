@@ -25,7 +25,8 @@ describe("/rose is the case study", () => {
     expect(meta('link[rel="canonical"]')).toBe("https://ivandemurard.com/rose");
     expect(document.head.querySelector('meta[name="robots"][content*="noindex"]')).toBeNull();
     expect(screen.queryByText(/Design lab · unlinked prototype/)).toBeNull();
-    expect(screen.queryByRole("tablist")).toBeNull();
+    expect(screen.getByRole("tablist", { name: "Answer formats" })).toBeTruthy();
+    expect(screen.queryByRole("tab", { name: "A" })).toBeNull();
   });
 });
 
@@ -41,7 +42,7 @@ describe("/rose/lab is the lab", () => {
   it("keeps the banner and the six tabs, and is noindex", () => {
     at("/rose/lab", <RoseDesignLab />);
     expect(screen.getByText(/Design lab · unlinked prototype/)).toBeTruthy();
-    const tabs = screen.getAllByRole("tab");
+    const tabs = screen.getAllByRole("tab").filter((t) => !t.closest("[data-answer-formats]"));
     expect(tabs.map((t) => t.textContent?.[0])).toEqual(["C", "A", "B", "C", "D", "E"]);
     expect(document.head.querySelector('meta[name="robots"][content*="noindex"]')).toBeTruthy();
   });

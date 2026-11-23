@@ -2,7 +2,7 @@
 - [x] Generalize the approved running-text typography without changing interface labels.
 - [x] Remove the obsolete fourth-wall sentence from the AX Field Note; derived sources refreshed locally, generated files excluded from commit.
 - [x] Show the scripted welcome inside the dock, on the homepage only, once per session; route and dismissal verified at 390, 800, 1280 and 1440 in Day and Dusk. All 1337 active tests pass. Real screen reader and numerical contrast audit not verified.
-- [ ] Redesign section 07 and integrate the relations graph into Connect without the duplicate visible list. Blocked: the brief still requires non-clickable examples and a visible relation list; confirmation to replace those rules requested.
+- [x] Redesign section 07 with the approved tabs, graph inside Connect and no duplicate visible list; brief updated. Keyboard, Locate, graph scrolling, disclosure and reduced motion checked at 390, 800, 1280 and 1440 in Day/Dusk; no Rose requests. 1327 tests pass, 4 existing skipped tests. Measured section text contrast at least 7.51:1 Day and 8.07:1 Dusk; real screen readers unverified. Nothing published or deployed; generated files excluded from commit.
 - [ ] Improve How a case is judged with the existing factual evaluation pipeline. Blocked: the Rose brief limits each request to one section; do after section 07 in a separate request.
 
 # Rose fourth-wall corrections

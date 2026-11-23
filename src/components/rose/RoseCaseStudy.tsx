@@ -8,7 +8,6 @@ import { SOCIAL_LINKS } from "@/content/site";
 import { ContactBlock } from "@/components/case/ContactBlock";
 import { AnswerFormats, HeroDock, TestLoop } from "@/components/rose/RoseDemos";
 import { HowRoseWorks } from "@/components/rose/HowRoseWorks";
-import { RelationsMap } from "@/components/rose/RelationsMap";
 import { ExternalMark } from "@/components/ui/ExternalMark";
 import { ListenRow } from "@/components/listen/ListenRow";
 
@@ -558,7 +557,7 @@ const ValidationBody = ({ reduced }: { reduced: boolean }) => {
   );
 };
 
-/* §6.4 Chapter 06. The demo and the passage questions are in RoseDemos.tsx. The "How Rose works" loop (HowRoseWorks.tsx) follows the demo; the map of relations (RelationsMap.tsx, read from src/content/portfolio-graph.json) follows the loop. */
+/* §6.4, displayed 07. Authored format tabs include Connect's graph; the detailed loop is disclosed. */
 export const SIX = {
   intro: "Rose knows the page, the section in view and the passages I marked. She answers in the dock, in the format the question needs: a passage to jump to, plainer words, a link to other work or a diagram.",
   influence: "The passage questions extend co-existence.ai's idea of an agent that comments on the page it lives on.",
@@ -566,13 +565,17 @@ export const SIX = {
 
 const SixBody = ({ reduced }: { reduced: boolean }) => (
   <div className="mt-8">
-    <div className="space-y-4 font-body text-base text-on-surface">
-      <p>{SIX.intro}</p>
-      <p>{SIX.influence}</p>
-    </div>
+    <p className="max-w-2xl font-body text-base text-on-surface">{SIX.intro}</p>
+    <blockquote className="m-0 mt-6 max-w-2xl border-l border-outline-variant pl-5">
+      <p className="font-body text-sm text-on-surface">{MILESTONES["ch-03"].decision} {MILESTONES["ch-03"].result}</p>
+      <cite className="mt-2 block font-label text-xs not-italic text-on-surface-variant">03 · 10 Aug 2026</cite>
+    </blockquote>
     <AnswerFormats reduced={reduced} />
-    <HowRoseWorks />
-    <RelationsMap />
+    <details className="border-t border-outline-variant py-5 text-on-surface">
+      <summary className="w-fit cursor-pointer font-body text-sm underline decoration-secondary underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">How Rose works</summary>
+      <HowRoseWorks />
+    </details>
+    <p className="mt-2 font-label text-xs text-on-surface-variant">{SIX.influence}</p>
   </div>
 );
 

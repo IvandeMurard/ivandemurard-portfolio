@@ -179,7 +179,7 @@ describe("In chapter 06 and in the mirror", () => {
     const figure = screen.getByRole("figure", { name: /How Rose works/ });
     const six = document.getElementById("ch-06") as HTMLElement;
     expect(six.contains(figure)).toBe(true);
-    const lastQuestion = screen.getByText("Draw how it works");
+    const lastQuestion = screen.getByRole("tab", { name: "Sketch" });
     expect(lastQuestion.compareDocumentPosition(figure) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 

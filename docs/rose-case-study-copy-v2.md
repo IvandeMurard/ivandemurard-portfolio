@@ -129,7 +129,7 @@ The sixth decision, 21 Nov 2026, in the format of decisions 01 to 05. Proposed t
 
 ## Chapter 07: Answer formats
 
-The chapter stays at a product manager's level: the architecture loses its file and tool names, and the map of relations becomes the single source shared by the site, Rose and the MCP.
+The chapter stays at a product manager's level: the architecture loses its file and tool names, and the map of relations becomes the single source shared by the site, Rose and the MCP. Ivan approved visitor-controlled tabs for this chapter, replacing the non-clickable examples. All existing question, answer and status wording stays unchanged. The detailed loop moves into a disclosure; Connect contains the static graph without a duplicate visible list. The full reasons remain available to assistive technology and machine readers.
 
 | Element | v2 copy |
 |---|---|
@@ -141,7 +141,7 @@ The chapter stays at a product manager's level: the architecture loses its file 
 | Diagram, the loop (variant B, canvas board F, 13 Nov; component `HowRoseWorks`, after the demo) | Two rules, the centre, five steps clockwise. Rule 1, Tested before every release: Each change runs on fixed questions. A critical failure blocks it. Rule 2, Questions kept 90 days: Contact details are masked before they are stored. Centre, The site's text (in the list layout: At the centre: The site's text): Case studies, Field Notes, CV. The same text AI agents read through the MCP server. 01 You read a page: The section in view and the passages Ivan marked travel with your question. 02 You ask in the dock: In your words, or with a starter question written for that page. 03 Rose reads the site: A language model, under rules Ivan wrote: answer from the pages, cite them. 04 She answers with sources: With follow-up questions, and the booking line on a profile question. Two dashed tags, Next: relations and Next: diagrams (step 04 only). 05 A source opens the passage: Highlighted, with a way back to where you were. Step 05 is filled with the highlight colour of the "passage cited" mark. Under 1000px of room the figure becomes a list in reading order (rules, centre, steps 01 to 05; the tags align left). The board's intro sentence and its note under the ring are not page copy. |
 | Marked passage | Pass the current page and intent into Rose's context, so answers refer to the case study being read. Decision of 10 Aug 2026. |
 | Questions | Locate: Where did he decide this? Reformulate: Say it more simply. Connect: How does this relate to his other work? Sketch: Draw how it works. |
-| Under the questions | None. The four questions are non-clickable examples (decided 4 Nov): three of the four formats are in design, so live Rose could not answer them in that format. |
+| Under the questions | None. Locate, Reformulate, Connect and Sketch are tabs selecting authored examples, never live prompts. No automatic cycling. Reformulate is the initial tab. |
 | Answer formats (new component) | Each of the four questions shows its answer format with a marker: Reformulate (Built), Locate, Connect and Sketch (Design). |
 | Answer, Locate | Ivan made this call on 10 August, in chapter 03, Know where you are. Button: Locate, show me. |
 | Answer, Reformulate | When you ask me something, I also receive the page you are on, so I answer about what you are reading rather than about Ivan in general. |
@@ -149,7 +149,7 @@ The chapter stays at a product manager's level: the architecture loses its file 
 | Answer, Sketch | Page, then section in view, then marked passage, then answer. |
 | Map caption | What Rose can relate. I write these links by hand, and each carries a one-line reason. |
 | Under the map | Rose links what the site's pages say about each project. A dashed label marks an indirect link. |
-| Map, the component (13 Nov; `RelationsMap`, after the loop) | Read from `src/content/portfolio-graph.json`, the nine rows of "Relations, decided 3 Nov" below, with Compass as a standalone node. Over 720px of room: a drawing (nodes, solid lines, dashed lines for the indirect links) above the list. Under it: the list alone. The list is the reading order: from, link, to, then the reason. Edges that share a link, a target and a reason are one row (Aetherix, Tacet, Anima, part of, built, Orchestrator). Three dashed lines: Tacet to Aetherix, Sonor and Lore. Peritia (part of, design) is not indirect: its label carries the status (15 Nov). |
+| Map, the component (13 Nov; `RelationsMap`, after the loop) | Read from `src/content/portfolio-graph.json`, the nine rows of "Relations, decided 3 Nov" below, with Compass as a standalone node. Inside Connect: a drawing (nodes, solid lines, dashed lines for indirect links), horizontally scrollable when needed. The list is available to assistive technology, not repeated visually: from, link, to, then the reason. Edges that share a link, a target and a reason are one row (Aetherix, Tacet, Anima, part of, built, Orchestrator). Three dashed lines: Tacet to Aetherix, Sonor and Lore. Peritia (part of, design) is not indirect: its label carries the status (15 Nov). |
 | In use | Hidden below 33 conversations, as in v1. |
 
 ### Relations, decided 3 Nov

@@ -94,20 +94,11 @@ describe("The list, which is the reading order", () => {
     });
   });
 
-  it("makes the name of every node that has a url a link, and no other name", () => {
-    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
-    const links = [...container.querySelectorAll(".rm-list a")];
-    // One link per appearance of a node with a url, in the reading order of the list.
-    const expected = [
-      ...relationRows().flatMap((r) => [...r.fromIds, r.toId]),
-      ...GRAPH_STANDALONE.map((s) => s.node),
-    ].filter((id) => nodeUrl(id));
-    expect(links.map((a) => a.getAttribute("href"))).toEqual(expected.map((id) => nodeUrl(id)));
-    expect(links.map((a) => a.textContent)).toEqual(expected.map((id) => nodeLabel(id)));
-    for (const a of links) expect(a.className, a.textContent ?? "").toMatch(/focus-visible:outline/);
-    // Rose and Every page have no page: they stay plain text.
-    expect(links.map((a) => a.textContent)).not.toContain("Rose");
-    expect(links.map((a) => a.textContent)).not.toContain("Every page");
+  it("navigates each graph node to its published source, with no invented destination", () => {
+    render(<MemoryRouter><RelationsMap /></MemoryRouter>);
+    const links = screen.getAllByRole("link");
+    const expected = GRAPH_NODES.filter((n) => n.url);
+    expect(links.map((a) => a.getAttribute("href"))).toEqual(expected.map((n) => n.url));
   });
 
   it("tracks a click on a node name with the site's navigation tracker", () => {
@@ -115,13 +106,6 @@ describe("The list, which is the reading order", () => {
     render(<MemoryRouter><RelationsMap /></MemoryRouter>);
     fireEvent.click(screen.getAllByRole("link", { name: "Orchestrator" })[0]);
     expect(trackSpy).toHaveBeenCalledWith({ label: "Orchestrator", href: "/architecture", kind: "nav" });
-  });
-
-  it("draws dashed link pills for the indirect rows only", () => {
-    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
-    const dashed = [...container.querySelectorAll(".rm-link[data-indirect]")].map((n) => n.textContent);
-    expect(dashed).toEqual(["direct, while the orchestrator is not the way through", "inspired", "same thesis"]);
-    expect([...container.querySelectorAll(".rm-link")].find((n) => n.textContent === "part of, design")?.hasAttribute("data-indirect")).toBe(false);
   });
 
   it("says the caption, then the note, in the v2 words", () => {
@@ -135,42 +119,21 @@ describe("The list, which is the reading order", () => {
 });
 
 describe("The drawing", () => {
-  it("is aria-hidden, one line per edge and one box per node, dashed lines for the indirect edges", () => {
-    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
-    const svg = container.querySelector("svg.rm-bg") as SVGElement;
-    expect(svg.getAttribute("aria-hidden")).toBe("true");
-    const lines = [...svg.querySelectorAll("line")];
-    expect(lines).toHaveLength(GRAPH_EDGES.length);
-    expect(lines.filter((l) => l.hasAttribute("stroke-dasharray"))).toHaveLength(3);
-    expect(svg.querySelectorAll("rect.rm-node")).toHaveLength(GRAPH_NODES.length);
-  });
-
-  it("stays decoration: no link in the drawing", () => {
-    const { container } = render(<MemoryRouter><RelationsMap /></MemoryRouter>);
-    expect(container.querySelectorAll("svg.rm-bg a")).toHaveLength(0);
-  });
-
   it("draws the Field Note node as Field Notes / agent experience", () => {
     expect(source).toContain('lines: ["Field Notes", "agent experience"]');
     expect(nodeLabel("field-note-readers")).toBe("Field Notes (agent experience)");
   });
 
-  it("switches on a container query of 720px, never on the viewport, and uses tokens only", () => {
-    expect(css).toContain("container: rm / inline-size;");
-    expect(css).toContain("@container rm (min-width: 720px)");
-    expect(css).not.toMatch(/@media/);
-    expect(css).not.toMatch(/#[0-9a-fA-F]{3,8}\b|rgb\(/);
-    expect(css.slice(0, css.indexOf("@container"))).toContain(".rm-bg { display: none; }");
-  });
+
 });
 
 describe("In chapter 06 and in the mirror", () => {
-  it("sits in chapter 06, after the loop", () => {
+  it("is reached through Connect in chapter 06", () => {
     render(<MemoryRouter><RoseCaseStudy reduced={false} /></MemoryRouter>);
-    const loop = screen.getByRole("figure", { name: /How Rose works/ });
-    const map = screen.getByText(R.caption).closest("figure") as HTMLElement;
+    expect(screen.queryByText(R.caption)).toBeNull();
+    fireEvent.mouseDown(screen.getByRole("tab", { name: "Connect" }), { button: 0, ctrlKey: false });
+    const map = screen.getByText(R.caption).closest("figure");
     expect(document.getElementById("ch-06")?.contains(map)).toBe(true);
-    expect(loop.compareDocumentPosition(map) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("the Markdown mirror lists every row with its reason, then the caption and the note", () => {

@@ -1,10 +1,14 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { CompassRose } from "@/components/rose/CompassRose";
 import { CONNECT_LINKS, DESIGN_CAPTION, DESIGN_EXCHANGES, HERO_EXCHANGES, PASSAGE_QUESTIONS, SKETCH_STEPS } from "@/components/rose/roseDemoData";
 import { useDemoLoop } from "@/components/rose/useDemoLoop";
 import { ExternalMark } from "@/components/ui/ExternalMark";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RelationsMap } from "@/components/rose/RelationsMap";
+import { MapPin, MessageSquare, Network, Workflow, ArrowUp } from "lucide-react";
 
 /**
  * The three demos of copy deck v2 (docs/rose-case-study-copy-v2.md). Layout and loop logic follow
@@ -80,93 +84,44 @@ export const HeroDock = ({ reduced }: { reduced: boolean }) => {
 const locateChapter03 = (reduced: boolean) =>
   document.getElementById("ch-03-decision")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
 
-type DemoLoop = ReturnType<typeof useDemoLoop>;
-
-/** The same dock as the hero: Reformulate (built), then Locate, Connect and Sketch (design), each marked in its header. */
-export const DesignDemo = ({ reduced, loop }: { reduced: boolean; loop: DemoLoop }) => {
-  const { ex, step, paused, toggle } = loop;
-  const e = DESIGN_EXCHANGES[ex];
-  return (
-    <figure className={cn("mt-8 max-w-xl rounded-2xl p-5", DEMO_PANEL)}>
-      <DemoHeader right={`${e.mark === "Built" ? "●" : "○"} ${e.mark} · ${e.format}`} />
-      <div className="mt-5 flex min-h-[13rem] flex-col gap-3" aria-live="off">
-        <Bubble text={e.q} reduced={reduced} on={step >= 1} />
-        {step >= 3 && (
-          <div className="flex flex-col gap-3 font-body text-sm leading-relaxed" style={fade(true, reduced)}>
-            <p>{e.a}</p>
-            {e.format === "Locate" && (
-              <button type="button" onClick={() => locateChapter03(reduced)}
-                className={cn("self-start rounded-full border px-4 py-2 font-label text-xs hover:bg-on-primary/10 [[data-mood=dusk]_&]:hover:bg-on-surface/10", DEMO_GOLD, DEMO_RING)}>Locate, show me <span aria-hidden="true">↑</span></button>
-            )}
-            {e.format === "Connect" && (
-              <ul className="flex list-none flex-col gap-2 p-0">
-                {CONNECT_LINKS.map((l) => (
-                  <li key={l.href}>
-                    <span className="font-label text-xs opacity-80">{l.kind} · </span>
-                    {l.external
-                      ? <a href={l.href} target="_blank" rel="noopener noreferrer" className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}><ExternalMark>{l.text}</ExternalMark></a>
-                      : <Link to={l.href} className={cn("underline underline-offset-4 hover:opacity-80", DEMO_RING)}>{l.text}</Link>}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {e.format === "Sketch" && (
-              <ol className="flex list-none flex-wrap items-center gap-2 p-0 font-label text-xs">
-                {SKETCH_STEPS.map((s, i) => (
-                  <li key={s} className="flex items-center gap-2">
-                    {i > 0 && <span aria-hidden="true" className="opacity-80">→</span>}
-                    <span className={cn("rounded-md px-3 py-2", i === SKETCH_STEPS.length - 1 ? "bg-on-primary text-primary [[data-mood=dusk]_&]:bg-on-surface [[data-mood=dusk]_&]:text-inverse-primary" : cn("border", DEMO_OUTLINE))}>{s}</span>
-                  </li>
-                ))}
-              </ol>
-            )}
-          </div>
-        )}
-      </div>
-      <div className="mt-4 flex items-center justify-between gap-3">
-        <figcaption className="font-label text-xs opacity-80">{DESIGN_CAPTION}</figcaption>
-        {!reduced && <PauseButton paused={paused} onToggle={toggle} className="shrink-0" />}
-      </div>
-    </figure>
-  );
-};
-
-/**
- * The four passage questions, each with its marker. They control the demo above, never Rose: the one matching the
- * running exchange is highlighted, and choosing one shows that exchange complete and pauses the loop.
- */
-export const PassageQuestions = ({ current, onSelect }: { current: string; onSelect: (format: string) => void }) => (
-  <ul aria-label="The four passage questions" className="mt-8 max-w-xl list-none space-y-2 p-0 font-body text-base text-on-surface">
-    {PASSAGE_QUESTIONS.map((p) => {
-      const on = p.format === current;
-      return (
-        <li key={p.format}>
-          <button type="button" aria-current={on ? "true" : undefined} onClick={() => onSelect(p.format)}
-            className={cn("flex w-full flex-col gap-1 rounded-md border px-3 py-2.5 text-left transition-colors sm:flex-row sm:items-baseline sm:gap-x-3 hover:bg-surface-container focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
-              on ? "border-secondary bg-surface-container-low" : "border-outline-variant")}>
-            <span className={cn("w-28 shrink-0 font-label text-xs", p.mark === "Built" ? "text-secondary" : "text-on-surface-variant")}>
-              <span aria-hidden="true">{p.mark === "Built" ? "●" : "○"} </span><span className="sr-only">{p.mark}: </span>{p.format}
-            </span>
-            <span>{p.q}</span>
-          </button>
-        </li>
-      );
-    })}
-  </ul>
-);
-
-/** Chapter 06: the demo and the four questions share one loop. */
+/** Visitor-controlled authored examples. Selecting a tab never calls the live Rose. */
 export const AnswerFormats = ({ reduced }: { reduced: boolean }) => {
-  const loop = useDemoLoop(DESIGN_EXCHANGES.length, reduced);
-  const select = (format: string) => {
-    const index = DESIGN_EXCHANGES.findIndex((e) => e.format === format);
-    if (index >= 0) loop.select(index);
-  };
+  const [format, setFormat] = useState("Reformulate");
+  const icons = { Locate: MapPin, Reformulate: MessageSquare, Connect: Network, Sketch: Workflow };
   return (
-    <>
-      <DesignDemo reduced={reduced} loop={loop} />
-      <PassageQuestions current={DESIGN_EXCHANGES[loop.ex].format} onSelect={select} />
-    </>
+    <Tabs value={format} onValueChange={setFormat} className="mt-8 min-w-0" data-answer-formats>
+      <TabsList aria-label="Answer formats" className="grid h-auto w-full grid-cols-4 rounded-none border-b border-outline-variant bg-transparent p-0 text-on-surface-variant">
+        {PASSAGE_QUESTIONS.map((p) => {
+          const Icon = icons[p.format];
+          return <TabsTrigger key={p.format} value={p.format} className="min-h-14 min-w-0 gap-2 rounded-none border-b-2 border-transparent px-1 py-3 font-label text-[13px] font-normal data-[state=active]:border-secondary data-[state=active]:bg-transparent data-[state=active]:text-on-surface data-[state=active]:shadow-none sm:px-3 sm:text-sm">
+            <Icon aria-hidden="true" className="hidden h-4 w-4 sm:block" />{p.format}
+          </TabsTrigger>;
+        })}
+      </TabsList>
+      {DESIGN_EXCHANGES.map((e) => <TabsContent key={e.format} value={e.format} className="mt-0 min-h-[22rem] py-7 sm:py-8">
+        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-10">
+          <div>
+            <p className="font-label text-xs text-on-surface-variant">{e.mark === "Built" ? "●" : "○"} {e.mark} · {e.format}</p>
+            <h3 className="mt-3 font-headline text-3xl leading-tight text-on-surface">{e.q}</h3>
+          </div>
+          <div className="border-l-2 border-secondary pl-5 sm:pl-6">
+            <span className="flex items-center gap-2 font-headline text-lg text-on-surface"><CompassRose reduced heading={0} className="h-5 w-5" />Rose</span>
+            <p className="mt-3 font-body text-base text-on-surface">{e.a}</p>
+            {e.format === "Locate" && <Button type="button" variant="outline" onClick={() => locateChapter03(reduced)} className="mt-5 border-outline-variant bg-transparent text-on-surface">Locate, show me <ArrowUp aria-hidden="true" /></Button>}
+            {e.format === "Connect" && <ul className="mt-4 flex list-none flex-col gap-2 p-0 font-body text-sm text-on-surface">
+              {CONNECT_LINKS.map((l) => <li key={l.href}>{l.external
+                ? <a href={l.href} target="_blank" rel="noopener noreferrer" className="underline decoration-secondary underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary"><ExternalMark>{l.text}</ExternalMark></a>
+                : <Link to={l.href} className="underline decoration-secondary underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary">{l.text}</Link>}</li>)}
+            </ul>}
+          </div>
+        </div>
+        {e.format === "Sketch" && <ol aria-label="From page to answer" className="mt-8 grid list-none grid-cols-2 gap-4 p-0 font-body text-sm text-on-surface sm:grid-cols-4">
+          {SKETCH_STEPS.map((s, i) => <li key={s} className="border-t border-outline-variant pt-4"><span className="mb-2 block font-mono text-xs text-on-surface-variant">0{i + 1}</span><span className="flex items-center justify-between gap-2">{s}{i < SKETCH_STEPS.length - 1 && <span aria-hidden="true">→</span>}</span></li>)}
+        </ol>}
+        {e.format === "Connect" && <RelationsMap />}
+      </TabsContent>)}
+      <p className="sr-only">{DESIGN_CAPTION}</p>
+    </Tabs>
   );
 };
 

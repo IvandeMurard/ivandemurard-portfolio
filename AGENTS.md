@@ -1,4 +1,5 @@
 # Project rules
+- Rose Answer formats uses visitor-controlled tabs for authored examples, with the static relations graph inside Connect and accessible reasons from the shared graph source; no live prompt or automatic cycling, so design evidence cannot be mistaken for a delivered capability.
 - Running prose uses the shared global reading treatment; labels, captions, figures and controls retain interface typography so editorial changes do not restyle tools.
 - Rose's scripted welcome replaces the resting bar and claims the first tab-session page view before checking its route, so a later homepage visit cannot replay it.
 - Rose's off-site-fact QA uses all root public Markdown documents with semantic claim review and exact evidence validation; fixed forbidden-fact lists cannot establish source fidelity.
