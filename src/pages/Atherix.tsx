@@ -186,21 +186,26 @@ const How = () => (
 const Strategy = () => (
   <>
     <p className={cn(bodyCls, "mt-5 max-w-2xl")}>{STRATEGY.intro}</p>
-    <ol className="mt-6 list-none border-t border-primary p-0">
-      {STRATEGY.decisions.map(([n, title, why]) => (
-        <li key={n} className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-x-3 gap-y-1 border-b border-outline-variant py-3 md:grid-cols-[2rem_13rem_minmax(0,1fr)] md:gap-x-4">
-          <span className="font-body text-[15px] text-secondary">{n}</span>
-          <h3 className="font-body text-[15px] font-semibold text-heading">
-            {title === STRATEGY.underlined ? <span className="border-b-[1.5px] border-secondary">{title}</span> : title}
-          </h3>
-          <p className="col-start-2 font-body text-[15px] text-on-surface md:col-start-auto">{why}</p>
-        </li>
-      ))}
-    </ol>
+    <div className="mt-10 max-w-2xl md:mt-12">
+      <h3 className={subheadCls}>{STRATEGY.decisions[0][1]}</h3>
+      <p className={cn(bodyCls, "mt-3")}>{STRATEGY.decisions[0][2]}</p>
+    </div>
     <AetherixWhoFigure />
-    <div className={cn(noteBoxCls, "mt-8 max-w-xl")}>
-      <p className="font-semibold text-primary">{STRATEGY.unprovenLabel}</p>
-      <ul className="mt-1.5 list-disc space-y-1 pl-5 text-[15px] marker:text-secondary">{STRATEGY.unproven.map((u) => <li key={u}>{u}</li>)}</ul>
+    <div className="mt-10 max-w-2xl border-l-2 border-outline-variant pl-5">
+      <h3 className="font-body text-base font-semibold text-heading">{STRATEGY.unprovenLabel}</h3>
+      <ul className="mt-3 list-disc space-y-2 pl-5 font-body text-base text-on-surface-variant marker:text-secondary">{STRATEGY.unproven.map((u) => <li key={u}>{u}</li>)}</ul>
+    </div>
+    <div className="mt-8">
+      <AetherixDisclosure id="product-decisions" title="Product decisions">
+        <ol start={2} className="max-w-2xl list-decimal space-y-6 pl-5 marker:text-secondary">
+          {STRATEGY.decisions.slice(1).map(([n, title, why]) => (
+            <li key={n} className="pl-2">
+              <h3 className="font-body text-base font-semibold text-heading">{title}</h3>
+              <p className="mt-2 font-body text-base text-on-surface">{why}</p>
+            </li>
+          ))}
+        </ol>
+      </AetherixDisclosure>
     </div>
   </>
 );

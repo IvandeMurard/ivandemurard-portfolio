@@ -1,6 +1,7 @@
 # Aetherix reading rhythm
 - [x] Replace chapter 02's four-column grid with one connected reading sequence, keeping the published steps and pilot limits unchanged. Checked at 390/800/1280/1440 in Day/Dusk with reduced motion, no horizontal overflow or runtime errors; build telemetry OK. Suite: 1344 passed, 4 existing skips, one pre-existing obsolete Rose style allowlist failure. No publication or deployment; physical devices unverified.
-- [ ] Chapters 03 to 06: continue in a later request after review of chapter 02, within the daily credit budget.
+- [ ] Chapter 03: emphasize distribution, unframe the shared parties diagram and disclose the remaining product decisions without changing facts; verify Day/Dusk and mobile.
+- [ ] Chapters 04 to 06: continue in a later request after review of chapter 03, within the daily credit budget.
 
 # AX trust corrections
 - [x] Distinguish the tab conversation from 90-day masked question records and Listen caching, using the published privacy policy.

@@ -7,10 +7,10 @@ const Arrow = ({ d, className = "", viewBox = "0 0 64 20", w = "w-16" }: { d: st
 );
 
 const Party = ({ role, name, text }: { role: string; name: string; text: string }) => (
-  <div className="rounded-xl border-[1.5px] border-primary bg-surface-container-lowest px-4 py-3">
+  <div className="min-w-0 py-3">
     <p className="font-label text-xs text-secondary">{role}</p>
-    <p className="mt-1 font-headline text-[22px] leading-tight text-heading">{name}</p>
-    <p className="mt-0.5 text-[13.5px] text-on-surface-variant">{text}</p>
+    <p className="mt-2 font-headline text-2xl leading-tight text-heading">{name}</p>
+    <p className="mt-2 font-body text-base text-on-surface-variant">{text}</p>
   </div>
 );
 
@@ -22,12 +22,12 @@ const Party = ({ role, name, text }: { role: string; name: string; text: string 
 export const AetherixWhoFigure = () => {
   const [pms, manager, payer] = STRATEGY.who;
   return (
-    <figure className="mt-10" aria-label={STRATEGY.whoCaption}>
-      <div className="flex max-w-3xl flex-col items-stretch gap-2 md:grid md:grid-cols-[1fr_4rem_1fr_4rem_1fr] md:items-center md:gap-0">
+    <figure className="my-12 md:my-16" aria-label={STRATEGY.whoCaption}>
+      <div className="flex w-full flex-col items-stretch gap-3 md:grid md:grid-cols-[minmax(0,1fr)_4rem_minmax(0,1fr)_4rem_minmax(0,1fr)] md:items-center md:gap-0">
         <Party {...pms} />
         <Arrow d="M2 10h56M52 5l6 5-6 5" className="self-center rotate-90 md:rotate-0" />
-        <div className="rounded-xl border-[1.5px] border-secondary bg-surface-container-low px-4 py-4 text-center">
-          <p className="font-headline text-[26px] leading-tight text-heading">Aetherix</p>
+        <div className="border-y border-secondary px-2 py-6 text-center">
+          <p className="font-headline text-3xl leading-tight text-heading">Aetherix</p>
         </div>
         <Arrow d="M2 8h56M52 3l6 5-6 5M62 20H6M12 15l-6 5 6 5" viewBox="0 0 64 28" className="self-center rotate-90 md:rotate-0" />
         <Party {...manager} />
