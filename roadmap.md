@@ -2,7 +2,7 @@
 - [x] Distinguish the tab conversation from 90-day masked question records and Listen caching, using the published privacy policy.
 - [x] Describe Rose's answers as auditable against sources, not guaranteed source-faithful.
 - [x] Replace the oversized MCP counter with a dated scope note shared with machine readers, without inventing a count.
-- [ ] Refresh derived content and verify the note in Day and Dusk on mobile and desktop, without publishing or deploying.
+- [x] Refresh the Markdown/LLM corpus and AX article pre-render; check 390, 800, 1280 and 1440 px in Day/Dusk with reduced motion, no overflow or runtime errors. 80 targeted tests pass; full suite: 1344 pass, 4 existing skips, one pre-existing stale style allowlist failure for the removed Rose heading "Tell me." Generated public files and MCP bundle stay out of the commit per repository rules and regenerate at build time. Nothing published or deployed; live Rose replies and physical devices unverified.
 
 # Mobile controls
 - [x] Handle explicit light commands locally in Rose, without changing or deploying functions; acknowledgements persist in the dock but stay outside signed model history.
