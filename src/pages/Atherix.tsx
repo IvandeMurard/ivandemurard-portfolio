@@ -162,15 +162,24 @@ const Problem = () => (
 const How = () => (
   <>
     <p className={cn(bodyCls, "mt-5 max-w-2xl")}>{HOW.intro}</p>
-    <ol className="mt-7 grid list-none grid-cols-1 border-t border-primary p-0 sm:grid-cols-2 lg:grid-cols-4">
-      {HOW.steps.map(([label, text]) => (
-        <li key={label} className="border-b border-outline-variant py-4 pr-5 lg:border-b-0 lg:border-r lg:px-5 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
-          <p className={cn(LABEL, "text-secondary")}>{label}</p>
-          <p className="mt-1.5 font-body text-[15px] text-on-surface">{text}</p>
+    <ol className="mt-10 max-w-3xl list-none p-0 md:mt-12">
+      {HOW.steps.map(([label, text], i) => (
+        <li key={label} className="relative grid grid-cols-[2rem_minmax(0,1fr)] gap-x-4 pb-9 last:pb-0 md:grid-cols-[2.5rem_10rem_minmax(0,1fr)] md:gap-x-6 md:pb-10">
+          <div aria-hidden="true" className="relative row-span-2 flex justify-center md:row-span-1">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-secondary font-label text-sm text-secondary">{i + 1}</span>
+            {i < HOW.steps.length - 1 && (
+              <div className="absolute bottom-2 left-1/2 top-10 flex -translate-x-1/2 flex-col items-center text-secondary">
+                <span className="min-h-0 w-px flex-1 bg-outline-variant" />
+                <Icon name="arrow_downward" className="text-base" />
+              </div>
+            )}
+          </div>
+          <h3 className="pt-0.5 font-body text-lg font-semibold leading-snug text-heading">{label.slice(label.indexOf("·") + 1).trim()}</h3>
+          <p className="col-start-2 mt-2 font-body text-base text-on-surface md:col-start-3 md:mt-0">{text}</p>
         </li>
       ))}
     </ol>
-    <p className="mt-4 max-w-2xl font-body text-[14.5px] text-on-surface-variant">{HOW.note}</p>
+    <p className="mt-8 max-w-2xl border-l-2 border-outline-variant pl-5 font-body text-base text-on-surface-variant">{HOW.note}</p>
   </>
 );
 
