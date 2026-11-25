@@ -267,16 +267,15 @@ const Ledger = () => (
   <>
     <p className={cn(bodyCls, "mt-5 max-w-2xl")}>{LEDGER.intro} <span className="border-b-[1.5px] border-secondary">{LEDGER.bet}</span></p>
     <AetherixLedger />
-    <div className="mt-7 grid gap-7 md:grid-cols-2 md:gap-8">
-      <div className="min-w-0">
-        <h3 className={subheadCls}>{LEDGER.whyLabel}</h3>
-        <p className="mt-2 font-body text-[15.5px] text-on-surface">{LEDGER.why}</p>
-        <p className="mt-2.5 font-label text-xs text-on-surface-variant">{LEDGER.whyNote}</p>
-      </div>
-      <div className={cn(noteBoxCls, "min-w-0 self-start")}>
-        <p className="font-semibold text-primary">{LEDGER.sharedLabel}</p>
-        <ul className="mt-1.5 list-disc space-y-1 pl-5 text-[15px] marker:text-secondary">{LEDGER.shared.map((u) => <li key={u}>{u}</li>)}</ul>
-      </div>
+    <div className="mt-12 max-w-2xl">
+      <h3 className={subheadCls}>{LEDGER.whyLabel}</h3>
+      <p className={cn(bodyCls, "mt-3")}>{LEDGER.why}</p>
+      <p className="mt-4 border-l-2 border-outline-variant pl-5 font-body text-base text-on-surface-variant">{LEDGER.whyNote}</p>
+    </div>
+    <div className="mt-8 max-w-2xl">
+      <AetherixDisclosure id="shared-layer-limits" title={LEDGER.sharedLabel}>
+        <ul className="list-disc space-y-2 pl-5 font-body text-base text-on-surface-variant marker:text-secondary">{LEDGER.shared.map((u) => <li key={u}>{u}</li>)}</ul>
+      </AetherixDisclosure>
     </div>
   </>
 );

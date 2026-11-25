@@ -2,7 +2,8 @@
 - [x] Replace chapter 02's four-column grid with one connected reading sequence, keeping the published steps and pilot limits unchanged. Checked at 390/800/1280/1440 in Day/Dusk with reduced motion, no horizontal overflow or runtime errors; build telemetry OK. Suite: 1344 passed, 4 existing skips, one pre-existing obsolete Rose style allowlist failure. No publication or deployment; physical devices unverified.
 - [x] Chapter 03: emphasize distribution, unframe the shared parties diagram and disclose the remaining product decisions without changing facts. Keyboard disclosure, no overflow or runtime errors at 390/800/1280/1440 in Day/Dusk; suite unchanged (one pre-existing Rose allowlist failure).
 - [x] Chapter 04: forecast test promoted first as a large comparison with its limit; checked 390/800/1280/1440 Day/Dusk, Aetherix tests pass.
-- [ ] Chapters 05 and 06: next request.
+- [x] Chapter 05: ledger kept, why-it-matters as prose, shared-layer limits in a keyboard disclosure; checked 390/800/1280/1440 Day/Dusk, Aetherix tests pass.
+- [ ] Chapter 06: next request.
 
 # AX trust corrections
 - [x] Distinguish the tab conversation from 90-day masked question records and Listen caching, using the published privacy policy.
