@@ -1,6 +1,6 @@
 # Aetherix reading rhythm
 - [x] Replace chapter 02's four-column grid with one connected reading sequence, keeping the published steps and pilot limits unchanged. Checked at 390/800/1280/1440 in Day/Dusk with reduced motion, no horizontal overflow or runtime errors; build telemetry OK. Suite: 1344 passed, 4 existing skips, one pre-existing obsolete Rose style allowlist failure. No publication or deployment; physical devices unverified.
-- [ ] Chapter 03: emphasize distribution, unframe the shared parties diagram and disclose the remaining product decisions without changing facts; verify Day/Dusk and mobile.
+- [x] Chapter 03: emphasize distribution, unframe the shared parties diagram and disclose the remaining product decisions without changing facts. Keyboard disclosure, no overflow or runtime errors at 390/800/1280/1440 in Day/Dusk; suite unchanged (one pre-existing Rose allowlist failure).
 - [ ] Chapters 04 to 06: continue in a later request after review of chapter 03, within the daily credit budget.
 
 # AX trust corrections
