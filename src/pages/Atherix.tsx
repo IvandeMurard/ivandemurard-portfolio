@@ -212,8 +212,8 @@ const Strategy = () => (
 
 const Proven = () => (
   <>
-    <div className="mt-7 grid gap-8 md:grid-cols-2 md:gap-10">
-      <div className="min-w-0">
+    <div className="mt-10 flex max-w-3xl flex-col gap-14">
+      <div className="order-2 min-w-0">
         <h3 className={subheadCls}>{PROVEN.workingLabel}</h3>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 font-body text-[15px] text-on-surface marker:text-secondary">
           {PROVEN.working.map((w) => (
@@ -222,10 +222,10 @@ const Proven = () => (
         </ul>
         <p className="mt-3 font-label text-xs text-on-surface-variant">{PROVEN.workingNote}</p>
       </div>
-      <div className="min-w-0">
+      <div className="order-1 min-w-0">
         <h3 className={subheadCls}>{PROVEN.testLabel}</h3>
-        <p className="mt-3 font-body text-[15px] text-on-surface">{PROVEN.test[0]}<Circled>{PROVEN.test[1]}</Circled>{PROVEN.test[2]}<Circled>{PROVEN.test[3]}</Circled>{PROVEN.test[4]}</p>
-        <p className="mt-3 font-body text-[15px] text-on-surface-variant">{PROVEN.testLimit}</p>
+        <p className="mt-4 font-headline text-2xl leading-snug text-heading md:text-[28px]">{PROVEN.test[0]}<Circled>{PROVEN.test[1]}</Circled>{PROVEN.test[2]}<Circled>{PROVEN.test[3]}</Circled>{PROVEN.test[4]}</p>
+        <p className="mt-4 border-l-2 border-outline-variant pl-5 font-body text-base text-on-surface-variant">{PROVEN.testLimit}</p>
         <div className="mt-4">
           <AetherixDisclosure id="the-numbers" title="The numbers"><p className="max-w-3xl text-sm leading-relaxed text-on-surface-variant">Kaggle Recruit, 30 Japanese restaurants out of 829, 1,193 scored points, deterministic rerun. Prophet against a naive same-weekday baseline (the mean of the last four same weekdays): mean MAPE 49.71% vs 55.86%, passing the pre-set 5-point rule. MdAPE 27.0% vs 27.6%. At J+1, 28.5% vs 27.9%. A gradient-boosted model reaches 25.6% on the median. The protocol was not pre-registered for this run.</p><p className="mt-3 max-w-3xl text-sm leading-relaxed text-on-surface-variant"><strong className="font-semibold text-on-surface">MAPE.</strong> Mean absolute percentage error. The average gap between a forecast and what actually happened, expressed as a percentage, which makes errors comparable across covers, revenue, or volumes.</p></AetherixDisclosure>
         </div>
