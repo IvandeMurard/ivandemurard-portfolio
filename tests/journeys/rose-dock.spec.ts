@@ -44,8 +44,11 @@ test("homepage card, dock closed: Ask Rose opens the dock with the prefill selec
   const input = dockInput(page);
   await expect(input).toHaveValue(PREFILL);
   await expect(input).toBeFocused();
-  const selection = await input.evaluate((el: HTMLTextAreaElement) => [el.selectionStart, el.selectionEnd]);
-  expect(selection).toEqual([0, PREFILL.length]);
+  // The opening dock focuses the input one frame before the prefill handler selects the text (two frames): read the
+  // selection until it lands, not once, or a fast runner reads the caret at 0 in between. Still bounded to one second.
+  await expect
+    .poll(() => input.evaluate((el: HTMLTextAreaElement) => [el.selectionStart, el.selectionEnd]), { timeout: 1000 })
+    .toEqual([0, PREFILL.length]);
   await page.waitForTimeout(600);
   expect(backendCalls.filter((u) => /rose-chat/.test(u))).toHaveLength(0);
   expect(backendCalls.length - calls).toBeLessThanOrEqual(1); // at most the "opened" event; never a question

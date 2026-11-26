@@ -1,4 +1,4 @@
-import { expect, moodToggle, record, test } from "./helpers";
+import { dockInput, expect, moodToggle, record, test } from "./helpers";
 
 // Rose's welcome (scripted, once per session) and the header record.
 
@@ -30,9 +30,16 @@ test("Rose's welcome: 'No thanks' dismisses it", async ({ page }) => {
   await expect(page.locator("[data-rose-welcome]")).toHaveCount(0);
 });
 
-test("Rose's welcome: typing a question dismisses it", async ({ page }) => {
+// Since 23 Nov (2ca0134) the welcome replaces the resting bar, so there is no field to type in while it shows: the reader
+// opens Rose from the welcome's compass, which ends the welcome, then types. Same contract as src/test/roseWelcome.test.tsx.
+test("Rose's welcome: opening Rose to type a question dismisses it", async ({ page }) => {
   await showWelcome(page);
-  await page.locator("[data-rose-dock] input, [data-rose-dock] textarea").first().pressSequentially("Hi");
+  const w = page.locator("[data-rose-welcome]");
+  await expect(page.locator("[data-rose-dock] input, [data-rose-dock] textarea")).toHaveCount(0);
+  await w.getByRole("button", { name: "Open Rose" }).click();
+  await expect(page.locator("[data-rose-welcome]")).toHaveCount(0);
+  await dockInput(page).pressSequentially("Hi");
+  await expect(dockInput(page)).toHaveValue("Hi");
   await expect(page.locator("[data-rose-welcome]")).toHaveCount(0);
 });
 
