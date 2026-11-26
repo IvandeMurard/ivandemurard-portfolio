@@ -4,7 +4,7 @@
 //
 //   node tests/journeys/serve-dist.mjs [port]
 import { createServer } from "node:http";
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize, resolve } from "node:path";
 
 const DIST = resolve("dist");
@@ -18,11 +18,36 @@ const TYPES = {
 
 const isFile = (p) => existsSync(p) && statSync(p).isFile();
 
+// Files uploaded to Lovable (src/assets/*.asset.json) are served by the host at /__l5e/assets-v1/<id>/<name>, not from
+// dist/. Map each one to the copy of the same name and size committed under public/; a missing one is a 404, as on the
+// host, never the single-page shell (an HTML page that answers 200 to an audio request).
+const ASSETS = resolve("src/assets");
+const PUBLIC = resolve("public");
+const findInPublic = (name, size, dir = PUBLIC) => {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, entry.name);
+    if (entry.isDirectory()) { const hit = findInPublic(name, size, p); if (hit) return hit; }
+    else if (entry.name === name && statSync(p).size === size) return p;
+  }
+  return null;
+};
+const HOSTED = new Map(
+  readdirSync(ASSETS).filter((f) => f.endsWith(".asset.json")).flatMap((f) => {
+    const a = JSON.parse(readFileSync(join(ASSETS, f), "utf8"));
+    const local = findInPublic(a.original_filename, a.size);
+    return local ? [[a.url, local]] : [];
+  }),
+);
+
 createServer((req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
   let rel = normalize(decodeURIComponent(url.pathname)).replace(/^([/\\])+/, "");
   if (rel.startsWith("..")) { res.writeHead(403).end(); return; }
   let file = join(DIST, rel);
+  if (url.pathname.startsWith("/__l5e/")) {
+    file = HOSTED.get(url.pathname);
+    if (!file) { res.writeHead(404).end(); return; }
+  }
   if (!isFile(file)) file = join(DIST, rel, "index.html");
   if (!isFile(file)) file = join(DIST, "index.html"); // the single-page fallback
   const body = readFileSync(file);
