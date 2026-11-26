@@ -23,7 +23,7 @@ Canonical across this repo, the execution-node repos and https://ivandemurard.co
 - Tacet (environment node): Built — public repo, paused / maintenance mode since July 2026.
 - Anima (guest node): Synthetic PoC — DPIA-gated, never run on a real guest.
 - Peritia (house-knowledge node): Design — contracts specified, not implemented.
-- Bespoke Orchestrator: Synthetic PoC — runs in the shadow of the F&B node's daily recommendation and never changes or sends it; run once on staging on synthetic input. Becoming the only way to the manager is Design.
+- Bespoke Orchestrator: Synthetic PoC — runs in the shadow of the F&B node's daily recommendation and never changes or sends it; run twice on staging on synthetic input; the model never answered, and such a run is now marked degraded. Becoming the only way to the manager is Design.
 - Meta-Learner & Hive priors: Research — no substrate yet.
 - Model portability (nodes ask for a capability tier, not a model; any model that passes the eval gate is admissible): Design — Claude is the primary model, and no second provider has been run through the eval gate yet.
 
@@ -57,7 +57,7 @@ Nothing below was changed. The portfolio's project statuses (`src/content/status
 | `statuses.ts` sonor, rose, lore, compass | Own labels (MVP shipped, Live, voice in pilot, Evaluated, Partial) | Not in the table: these are portfolio projects, not nodes of the architecture. |
 | Mesh diagram (Aetherix page), Tacet | "Built · maintenance mode since July 2026" | "Built: public repo, paused / maintenance mode since July 2026." |
 | Mesh diagram, Peritia | "Design" | "Design: contracts specified, not implemented." |
-| Mesh diagram, Orchestrator | "Synthetic PoC · in shadow" (changed on 19 Nov 2026 from "Design · proto-stub") | "Synthetic PoC: runs in the shadow of the F&B node's daily recommendation and never changes or sends it; run once on staging on synthetic input. Becoming the only way to the manager is Design." |
+| Mesh diagram, Orchestrator | "Synthetic PoC · in shadow" (changed on 19 Nov 2026 from "Design · proto-stub") | "Synthetic PoC: runs in the shadow of the F&B node's daily recommendation and never changes or sends it; run twice on staging on synthetic input; the model never answered, and such a run is now marked degraded. Becoming the only way to the manager is Design." |
 | Mesh diagram, Anima | "Synthetic PoC, hackathon prototype; production DPIA-gated" | "Synthetic PoC: DPIA-gated, never run on a real guest." |
 | Aetherix forecast | No "Shadow-mode" label on any page; the forecast console says "Illustrative figures from shadow-mode runs, not a signed pilot" | "Shadow-mode: benchmarked on real public data, no manager decision delivered on it yet." That console line uses the word for sandbox figures; the definition (real data) does not fit them. |
 | Decision Ledger | Had no status on the site | "Built: inside the F&B node." Added on the Aetherix page: "Built inside Aetherix, 0 real users." |

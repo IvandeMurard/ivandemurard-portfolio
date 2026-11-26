@@ -49,7 +49,7 @@ Shows: privacy by design: consent, decay, and a data-protection gate before laun
 
 ### No page yet
 
-- Orchestrator · routing and business rules · Status: Synthetic PoC, in shadow
+- Orchestrator · coordination and business rules · Status: Synthetic PoC, in shadow
 - Peritia · house knowledge · Status: Design
 
 Both are described in the architecture note.

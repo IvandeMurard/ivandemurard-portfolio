@@ -267,7 +267,7 @@ Shows: privacy by design: consent, decay, and a data-protection gate before laun
 
 ### No page yet
 
-- Orchestrator · routing and business rules · Status: Synthetic PoC, in shadow
+- Orchestrator · coordination and business rules · Status: Synthetic PoC, in shadow
 - Peritia · house knowledge · Status: Design
 
 Both are described in the architecture note.
@@ -998,7 +998,7 @@ Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real serv
 
 Aetherix is one agent of the Hospitality Multi-Agent Architecture (https://ivandemurard.com/architecture). It executes F&B; it does not orchestrate. Every exchange goes through MCP.
 
-- Orchestrator: Routing and business rules (Synthetic PoC, in shadow).
+- Orchestrator: Coordination and business rules (Synthetic PoC, in shadow).
 - Aetherix (this page): F&B execution (Built · forecast in shadow mode).
 - Tacet: Sensory: weather, noise, open data (Built · maintenance).
 - Anima: Guest memory (Synthetic PoC · DPIA-gated).
@@ -1787,7 +1787,7 @@ Public meta-repository: https://github.com/IvandeMurard/Hospitality-Multi-agent-
 - **Tacet** (Built, maintenance mode since July 2026). The environmental node: turns street, weather and event signals into structured risk. Consumed by other agents through MCP, not by humans. https://ivandemurard.com/tacet
 - **Anima** (Synthetic PoC. Architecture ready, deployment frozen until the data-protection impact assessment (DPIA) clears). The guest memory node: it keeps what a guest said and what happened, so nobody has to ask twice. https://ivandemurard.com/anima
 - **Peritia** (Design). The trade agent: a house's know-how, held by the house rather than by whoever is on shift. Named in the contract, no code. No page of its own.
-- **Orchestrator** (Synthetic PoC). The supervisory agent: a stateless router with no memory of its own. In Design, it routes between the others and holds the decision.
+- **Orchestrator** (Synthetic PoC). The supervisory agent, with no memory of its own. Meant as the only way out to the manager: nodes take the initiative, it takes none.
 
 ## 1. Why several agents and not one
 
@@ -1825,7 +1825,7 @@ most in memory.
 | Tacet | Built, maintenance mode since July 2026 | External signal: weather, street, events, ray-traced acoustic impact, yield rules | Deciding anything. It publishes rules for approval |
 | Anima | Synthetic PoC, production DPIA-gated | Guest memory: what a guest said and what happened, four layers, each claim with source, confidence and age | Acting on it, or returning a whole person: every query declares one layer |
 | Peritia | Design | House knowledge: what the people who work in a property know and never wrote down | Everything. It is a named slot in the contract, and no code |
-| Orchestrator | Runs in the shadow of the F&B node's daily recommendation and never changes or sends it. Run once on staging, on synthetic input: its model step failed yet the run reported success. Becoming the only way to the manager is Design. | Supervisory routing and business rules across agents | Domain logic and memory. It routes, it does not compute and it stores nothing |
+| Orchestrator | Runs in the shadow of the F&B node's daily recommendation and never changes or sends it. Run twice on staging, on synthetic input: the model never answered, and such a run is now marked degraded. Becoming the only way to the manager is Design. | Coordination and business rules across agents | Domain logic and memory. It coordinates, it does not compute and it stores nothing |
 
 Fig. 3.1, on the web page, wires the four domain agents to the orchestrator at the centre: a solid spoke for what is built, a dashed spoke for what is a Synthetic PoC or designed and not written. The orchestrator holds no memory of its own; state stays with the agent that owns it, and no agent talks to another. Selecting a mark shows what that agent owns and what it does not own, with the same wording as the table above.
 

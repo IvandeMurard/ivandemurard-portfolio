@@ -246,7 +246,7 @@ export const MeshBlueprint = () => {
             role="button"
             tabIndex={0}
             aria-pressed={coreActive}
-            aria-label="Orchestrator, Synthetic PoC, in shadow, stateless router with no memory. Show details."
+            aria-label="Orchestrator, Synthetic PoC, in shadow, supervisory agent with no memory. Show details."
             className="cursor-pointer focus:outline-none [&:focus-visible_.mesh-core]:stroke-secondary"
             onMouseEnter={() => setHovered(ORCHESTRATOR)}
             onMouseLeave={() => setHovered(null)}
@@ -296,7 +296,7 @@ export const MeshBlueprint = () => {
               className={coreLit ? "fill-secondary" : "fill-on-surface-variant"}
               style={{ fontSize: smallSize }}
             >
-              Stateless router
+              Supervisor
             </text>
             <text
               x={g.cx}
@@ -422,7 +422,7 @@ export const MeshBlueprint = () => {
           </div>
         ) : (
           <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-            Four domain agents, one supervisory router at the centre. {CORE_NODE.node} holds no
+            Four domain agents, one supervisory agent at the centre. {CORE_NODE.node} holds no
             memory of its own: state stays with the agent that owns it, and no agent talks to
             another. Select a mark to read what it owns and what it does not.
           </p>

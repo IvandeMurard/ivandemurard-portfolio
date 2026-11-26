@@ -338,7 +338,7 @@ const Architecture = () => {
                 id="the-nodes"
                 number="03"
                 title="The five agents"
-                keyLine="Four domain agents around one supervisory router, which holds no memory of its own."
+                keyLine="Four domain agents around one supervisory agent, which holds no memory of its own."
                 concrete="Select a mark on the figure to read what that agent owns, and what it is not allowed to own."
               >
                 <MeshBlueprint />
