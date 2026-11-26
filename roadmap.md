@@ -143,3 +143,6 @@
 - [x] MCP: case studies readable section by section (outline_only, section).
 - [ ] MCP Resources and Prompts: blocked, the MCP toolkit (up to 3.6) does not support them.
 - [ ] Publish to put the section reading live.
+
+## Rose sync (pending)
+- [ ] Update Rose (prompt, references, curated answers) and MCP with the recent Aetherix changes (chapter 01 new title, subtitle, two sides, operational toll; chapters 02 to 06 layout), then regenerate prerendered pages. Needs deployment approval.
