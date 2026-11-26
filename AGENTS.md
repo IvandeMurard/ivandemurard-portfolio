@@ -1,4 +1,5 @@
 # Project rules
+- Aetherix chapter 06 keeps its agent demonstration in the reading flow and its architecture in an anchor-aware disclosure, so technical detail remains reachable without repeating the main story.
 - The AX note's dated MCP scope note uses `axCounterText` for both the page and Markdown, so an unpublished count cannot become a visual traffic claim.
 - Explicit standalone light commands are handled locally in the Rose dock and excluded from model history, so changing the mood needs no model request or signed answer.
 - Music uses gesture-unlocked Web Audio gain nodes with replaceable fades, so software volume works on mobile Safari and old fades cannot overwrite live adjustments.

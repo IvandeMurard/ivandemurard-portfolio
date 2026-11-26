@@ -248,10 +248,10 @@ const Technical = () => (
     <AetherixDisclosure id="technical-reader" title={TECH_LABEL}>
       <h3 className={subheadCls}>Pipeline and stack</h3>
       <p className="mb-6 mt-3 max-w-3xl text-sm leading-relaxed text-on-surface-variant">Apaleo (OAuth2 and MCP read) + Open-Meteo + PredictHQ → Prophet forecast and staffing → pgvector memory recall (Operational Memory + Cold-start prior, research) → Claude Sonnet reasoning → WhatsApp or Email.</p>
-      <div className="mb-8 overflow-hidden rounded-sm border border-outline-variant bg-surface"><AetherixArchitectureDiagram /></div>
+      <div className="mb-8 min-w-0 overflow-hidden"><AetherixArchitectureDiagram /></div>
       <AetherixStackChips />
       <h3 className={cn(subheadCls, "mt-12")}>Built to be trusted</h3>
-      <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-3">{TRUST.map((item) => <div key={item.title} className="flex flex-col gap-4 rounded-sm border border-outline-variant bg-surface-container-low p-6"><Icon name={item.icon} className="text-3xl text-secondary" /><h4 className="font-headline text-2xl leading-tight text-heading">{item.title}</h4><p className="text-sm leading-relaxed text-on-surface-variant">{item.body}</p></div>)}</div>
+      <dl className="mt-6 max-w-3xl space-y-7">{TRUST.map((item) => <div key={item.title} className="grid gap-2 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6"><dt className="font-body text-base font-semibold text-heading">{item.title}</dt><dd className="font-body text-base text-on-surface-variant">{item.body}</dd></div>)}</dl>
       <h3 className={cn(subheadCls, "mt-12")}>More</h3>
       <div className="mt-5"><AetherixWhatRemainsPrivate /></div>
       <div className="mt-8 max-w-3xl text-sm leading-relaxed text-on-surface-variant">
@@ -282,15 +282,18 @@ const Ledger = () => (
 
 const Built = () => (
   <>
-    <ul className="mt-5 flex max-w-2xl list-disc flex-col gap-2.5 pl-5 font-body text-base text-on-surface marker:text-secondary">
-      {METHOD.map(([lead, rest]) => <li key={lead}><strong className="font-semibold text-primary">{lead}</strong> {rest}</li>)}
-    </ul>
+    <dl className="mt-8 max-w-3xl space-y-6 md:mt-10">
+      {METHOD.map(([lead, rest]) => <div key={lead} className="grid gap-2 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-8"><dt className="font-body text-base font-semibold text-heading">{lead}</dt><dd className="font-body text-base text-on-surface">{rest}</dd></div>)}
+    </dl>
     <h3 id={INSIDE.anchor} className={cn(subheadCls, "mt-12 scroll-mt-28")}>{INSIDE.heading}</h3>
     <p className="mt-2 max-w-2xl font-body text-[15.5px] text-on-surface-variant">{INSIDE.intro}</p>
     <AetherixAgentAccordion />
-    <h3 id={ARCH.anchor} className={cn(subheadCls, "mt-12 scroll-mt-28")}>{ARCH.heading}</h3>
-    <p className="mt-2 max-w-2xl font-body text-[15.5px] text-on-surface-variant">{ARCH.intro[0]}<Link to="/architecture" className={linkCls}>{ARCH.intro[1]}</Link>{ARCH.intro[2]}</p>
-    <AetherixArchitectureFigure />
+    <div className="mt-12">
+      <AetherixDisclosure id={ARCH.anchor} title={ARCH.heading}>
+        <p className="max-w-2xl font-body text-base text-on-surface-variant">{ARCH.intro[0]}<Link to="/architecture" className={linkCls}>{ARCH.intro[1]}</Link>{ARCH.intro[2]}</p>
+        <AetherixArchitectureFigure />
+      </AetherixDisclosure>
+    </div>
     <Technical />
   </>
 );

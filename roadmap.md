@@ -3,7 +3,7 @@
 - [x] Chapter 03: emphasize distribution, unframe the shared parties diagram and disclose the remaining product decisions without changing facts. Keyboard disclosure, no overflow or runtime errors at 390/800/1280/1440 in Day/Dusk; suite unchanged (one pre-existing Rose allowlist failure).
 - [x] Chapter 04: forecast test promoted first as a large comparison with its limit; checked 390/800/1280/1440 Day/Dusk, Aetherix tests pass.
 - [x] Chapter 05: ledger kept, why-it-matters as prose, shared-layer limits in a keyboard disclosure; checked 390/800/1280/1440 Day/Dusk, Aetherix tests pass.
-- [ ] Chapter 06: next request.
+- [x] Chapter 06: editorial method rows, agent demonstration retained, architecture in an anchored disclosure and technical trust details unframed. Checked 390/800/1280/1440 Day/Dusk with reduced motion, keyboard disclosure and no overflow or runtime errors; build OK. Full suite: 1344 passed, 4 existing skips, one pre-existing obsolete Rose style allowlist failure. Physical devices and numerical contrast unverified; nothing published or deployed.
 
 # AX trust corrections
 - [x] Distinguish the tab conversation from 90-day masked question records and Listen caching, using the published privacy policy.
