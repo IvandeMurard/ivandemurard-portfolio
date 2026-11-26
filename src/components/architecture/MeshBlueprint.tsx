@@ -296,7 +296,7 @@ export const MeshBlueprint = () => {
               className={coreLit ? "fill-secondary" : "fill-on-surface-variant"}
               style={{ fontSize: smallSize }}
             >
-              Supervisory agent
+              Supervisor
             </text>
             <text
               x={g.cx}
