@@ -50,7 +50,7 @@ export const PROBLEM = {
   gap: "Neither side talks to the other. At 4 PM, someone has to bridge that gap on the fly, guessing tomorrow's covers before the prep shift begins.",
   costsLabel: "The operational toll",
   costs: [
-    ["Food cost and margin leakage", "Fresh prep discarded after quiet shifts, or mid-service 86s that force servers to apologize for missing specials. Margin is lost at both ends."],
+    ["Food cost and margin leakage", "Fresh prep discarded after slow shifts, or mid-service 86s that force servers to apologize for missing specials. Margin is lost at both ends."],
     ["Guest and team friction", "Under-staffed teams take the brunt of sudden rushes: ticket times climb, service becomes transactional, and staff burn out. Over-staffed shifts leave extras idle and frustrated."],
     ["Missed covers and cognitive drag", "Doors closed early to walk-ins and room service capped out of caution. Meanwhile, the manager spends the last hour of their shift hunting through tabs instead of supporting the team during setup."],
   ],

@@ -83,7 +83,8 @@ describe("The retitled note", () => {
     expect(route.title).toBe(`${NEW_TITLE} · Ivan de Murard`);
     expect(JSON.stringify(route.jsonLd)).toContain(NEW_TITLE);
     expect(JSON.stringify(route.jsonLd)).not.toContain(OLD_TITLE);
-    expect(readFileSync(`public/${BOUNDARIES}.md`, "utf8").split("\n")[0]).toBe(`# ${NEW_TITLE}`);
+    // \r?\n: a Windows checkout (core.autocrlf) gives the file CRLF endings; the first line is the same.
+    expect(readFileSync(`public/${BOUNDARIES}.md`, "utf8").split(/\r?\n/)[0]).toBe(`# ${NEW_TITLE}`);
     expect(SECTION_INDEX.find((e) => e.path === `/journal/${BOUNDARIES}`)!.title).toBe(NEW_TITLE);
     for (const f of ["public/llms.txt", "public/llms-full.txt", "scripts/llms-full-preamble.txt"]) {
       const t = readFileSync(f, "utf8");
