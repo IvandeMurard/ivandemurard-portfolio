@@ -54,12 +54,6 @@
     "reason": "metadata line: middle dots allowed by docs/style.md §2"
   },
   {
-    "file": "public/rose.md",
-    "pattern": "theatrical-fragment",
-    "text": "Tell me.",
-    "reason": "validated copy, 3 Nov 2026: the chapter 10 heading of the page"
-  },
-  {
     "file": "src/content/listenSummaries.ts",
     "pattern": "mood-word",
     "text": "quietly",

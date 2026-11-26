@@ -850,7 +850,7 @@ How to read the status marks:
 
 ### Accurate records, floor instincts, and a daily blind spot
 
-_Reconciling hotel data and floor experience before the evening shift_
+Reconciling hotel data and floor experience before the evening shift
 
 Boutique hotels run on two distinct sources of truth.
 
@@ -862,7 +862,7 @@ Neither side talks to the other. At 4 PM, someone has to bridge that gap on the 
 
 **The operational toll**
 
-- **Food cost and margin leakage.** Fresh prep discarded after quiet shifts, or mid-service 86s that force servers to apologize for missing specials. Margin is lost at both ends.
+- **Food cost and margin leakage.** Fresh prep discarded after slow shifts, or mid-service 86s that force servers to apologize for missing specials. Margin is lost at both ends.
 
 - **Guest and team friction.** Under-staffed teams take the brunt of sudden rushes: ticket times climb, service becomes transactional, and staff burn out. Over-staffed shifts leave extras idle and frustrated.
 

@@ -153,7 +153,7 @@ const Hero = () => (
 
 const Problem = () => (
   <div className="mt-5 max-w-2xl">
-    <p className="font-headline text-xl italic text-on-surface-variant md:text-2xl">{PROBLEM.subtitle}</p>
+    <p className="font-headline text-xl text-on-surface-variant md:text-2xl">{PROBLEM.subtitle}</p>
     <div className="mt-8 space-y-4">
       <p className={bodyCls}>{PROBLEM.intro}</p>
       <p className={bodyCls}>{PROBLEM.side1}</p>
