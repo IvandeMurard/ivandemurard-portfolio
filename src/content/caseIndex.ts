@@ -74,7 +74,7 @@ export const GROUP_ARCH = {
   noPage: {
     kicker: "No page yet",
     items: [
-      { name: "Orchestrator", role: "routing and business rules", status: "Synthetic PoC, in shadow" },
+      { name: "Orchestrator", role: "coordination and business rules", status: "Synthetic PoC, in shadow" },
       { name: "Peritia", role: "house knowledge", status: "Design" },
     ],
     note: "Both are described in the architecture note.",

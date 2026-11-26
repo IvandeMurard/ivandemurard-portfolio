@@ -175,7 +175,7 @@ Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real serv
 
 Aetherix is one agent of the Hospitality Multi-Agent Architecture (https://ivandemurard.com/architecture). It executes F&B; it does not orchestrate. Every exchange goes through MCP.
 
-- Orchestrator: Routing and business rules (Synthetic PoC, in shadow).
+- Orchestrator: Coordination and business rules (Synthetic PoC, in shadow).
 - Aetherix (this page): F&B execution (Built · forecast in shadow mode).
 - Tacet: Sensory: weather, noise, open data (Built · maintenance).
 - Anima: Guest memory (Synthetic PoC · DPIA-gated).
