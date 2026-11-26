@@ -10,7 +10,7 @@ export type Mark = "Built" | "Validation" | "Design";
 export type AetherixChapter = { id: string; toc: string; kicker: string; heading: string; marks?: Mark[]; markNote?: Partial<Record<Mark, string>> };
 
 export const AETHERIX_CHAPTERS: AetherixChapter[] = [
-  { id: "the-problem", toc: "01 The problem", kicker: "01 · The problem", heading: "The knowledge leaves with the manager" },
+  { id: "the-problem", toc: "01 The problem", kicker: "01 · The problem", heading: "Accurate records, floor instincts, and a daily blind spot" },
   { id: "how-it-works", toc: "02 How it works", kicker: "02 · How it works", heading: "One record a day", marks: ["Built"] },
   { id: "product-strategy", toc: "03 Product strategy", kicker: "03 · Product strategy", heading: "Understand a property the way its manager does", marks: ["Design"] },
   { id: "where-it-stands", toc: "04 What is proven", kicker: "04 · What is proven, what is not", heading: "The loop is built. The forecast is not yet proven on hotels.", marks: ["Validation"] },
@@ -30,7 +30,7 @@ export const HERO = {
 };
 
 export const TLDR = [
-  ["The problem", "What a hotel knows about its own service lives in a manager's head, and leaves with them."],
+  ["The problem", "Hotel data sits in the PMS and POS, floor experience sits with the team, and tomorrow's covers are decided by bridging the two by hand."],
   ["The bet", "One recommendation a day in WhatsApp, checked against what happened the next morning."],
   ["Today", "The loop runs daily on Maison Lumen, a fictional hotel in the Apaleo sandbox. The product is being made ready for a first pilot; no hotel yet."],
   ["Still open", "The forecast is not yet proven on hotels. No pilot hotel has signed."],
@@ -43,8 +43,17 @@ export const LEGEND = [
 ] as const;
 
 export const PROBLEM = {
-  p1: "Tomorrow's covers and staffing depend on what one person remembers: last year's conference week, the regulars, the weather. The result is over or under-staffing, avoidable waste and decisions made on the day.",
-  p2: "The data exists. What is missing is the synthesis: occupancy, sales history, weather and local events turned into one recommendation for this property.",
+  subtitle: "Reconciling hotel data and floor experience before the evening shift",
+  intro: "Boutique hotels run on two distinct sources of truth.",
+  side1: "On one side, the software: the PMS logs reservations, arrivals and guest histories, while the POS tallies table receipts and beverage sales.",
+  side2: "On the other side, the floor: the head waiter knows that rainy afternoons pack the bar, the chef sees prep times stretch on large tables, and the manager tracks nearby events that never show up in hotel software.",
+  gap: "Neither side talks to the other. At 4 PM, someone has to bridge that gap on the fly, guessing tomorrow's covers before the prep shift begins.",
+  costsLabel: "The operational toll",
+  costs: [
+    ["Food cost and margin leakage", "Fresh prep discarded after quiet shifts, or mid-service 86s that force servers to apologize for missing specials. Margin is lost at both ends."],
+    ["Guest and team friction", "Under-staffed teams take the brunt of sudden rushes: ticket times climb, service becomes transactional, and staff burn out. Over-staffed shifts leave extras idle and frustrated."],
+    ["Missed covers and cognitive drag", "Doors closed early to walk-ins and room service capped out of caution. Meanwhile, the manager spends the last hour of their shift hunting through tabs instead of supporting the team during setup."],
+  ],
   originLabel: "Where this comes from.",
   origin: "Informal conversations with product managers who built staffing and scheduling software for restaurants and hotels. No F&B manager has been interviewed yet; that is part of the pilot.",
 };

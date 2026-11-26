@@ -12,7 +12,7 @@ const same = (id: string, label: string): PageSection => ({ id, label, heading: 
 
 // Chapter 04 keeps the id "where-it-stands" (its old anchor, still named in Rose's instructions and in links already shared).
 export const AETHERIX_SECTIONS: PageSection[] = [
-  { id: "the-problem", label: "The problem", heading: "The knowledge leaves with the manager" },
+  { id: "the-problem", label: "The problem", heading: "Accurate records, floor instincts, and a daily blind spot" },
   { id: "how-it-works", label: "How it works", heading: "One record a day" },
   { id: "product-strategy", label: "Product strategy", heading: "Understand a property the way its manager does" },
   { id: "where-it-stands", label: "What is proven", heading: "The loop is built. The forecast is not yet proven on hotels." },

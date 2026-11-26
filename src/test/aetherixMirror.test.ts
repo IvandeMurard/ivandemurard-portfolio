@@ -25,7 +25,7 @@ describe("Aetherix Markdown mirror", () => {
   });
 
   it("carries chapters 01 to 04 word for word", () => {
-    for (const s of [PROBLEM.p1, PROBLEM.p2, PROBLEM.origin, HOW.intro, HOW.note, STRATEGY.intro, PROVEN.workingNote, PROVEN.testLimit]) expect(md, s).toContain(s);
+    for (const s of [PROBLEM.subtitle, PROBLEM.intro, PROBLEM.side1, PROBLEM.side2, PROBLEM.gap, ...PROBLEM.costs.map(([, d]) => d), PROBLEM.origin, HOW.intro, HOW.note, STRATEGY.intro, PROVEN.workingNote, PROVEN.testLimit]) expect(md, s).toContain(s);
     for (const [label, text] of HOW.steps) expect(md).toContain(`${label.replace(/^\d · /, "")}: ${text}`);
     for (const [, title, why] of STRATEGY.decisions) expect(md).toContain(`| ${title} | ${why} |`);
     for (const u of STRATEGY.unproven) expect(md, u).toContain(u);

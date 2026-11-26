@@ -152,10 +152,24 @@ const Hero = () => (
 );
 
 const Problem = () => (
-  <div className="mt-5 max-w-2xl space-y-4">
-    <p className={bodyCls}>{PROBLEM.p1}</p>
-    <p className={bodyCls}>{PROBLEM.p2}</p>
-    <p className={cn(noteBoxCls, "mt-5")}><strong className="font-semibold text-primary">{PROBLEM.originLabel}</strong> {PROBLEM.origin}</p>
+  <div className="mt-5 max-w-2xl">
+    <p className="font-headline text-xl italic text-on-surface-variant md:text-2xl">{PROBLEM.subtitle}</p>
+    <div className="mt-8 space-y-4">
+      <p className={bodyCls}>{PROBLEM.intro}</p>
+      <p className={bodyCls}>{PROBLEM.side1}</p>
+      <p className={bodyCls}>{PROBLEM.side2}</p>
+      <p className={bodyCls}>{PROBLEM.gap}</p>
+    </div>
+    <h3 className="mt-12 font-label text-xs uppercase tracking-[0.14em] text-secondary">{PROBLEM.costsLabel}</h3>
+    <dl className="mt-5 divide-y divide-outline-variant/60 border-y border-outline-variant/60">
+      {PROBLEM.costs.map(([t, d]) => (
+        <div key={t} className="py-5 md:grid md:grid-cols-[14rem_1fr] md:gap-8">
+          <dt className="font-headline text-lg text-on-surface">{t}</dt>
+          <dd className={cn(bodyCls, "mt-2 md:mt-0")}>{d}</dd>
+        </div>
+      ))}
+    </dl>
+    <p className={cn(noteBoxCls, "mt-10")}><strong className="font-semibold text-primary">{PROBLEM.originLabel}</strong> {PROBLEM.origin}</p>
   </div>
 );
 
