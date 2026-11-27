@@ -994,6 +994,14 @@ Around every step: evaluation gates that block a change, one hotel's data never 
 
 Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real services, seed 42. The figures come from the run; the bubbles word them for display.
 
+### Evaluation harness · CI gate
+
+#### Evaluation as a contract
+
+Qonto-inspired. Versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge. A hard CI gate, not a habit.
+
+Field Note: https://ivandemurard.com/journal/harnesses-graders-closed-loops
+
 ### Where it sits
 
 Aetherix is one agent of the Hospitality Multi-Agent Architecture (https://ivandemurard.com/architecture). It executes F&B; it does not orchestrate. Every exchange goes through MCP.
@@ -1021,7 +1029,6 @@ Stack: FastAPI, Python 3.12, Prophet, pgvector (Mistral 1024d, HNSW), Claude Son
 
 #### Built to be trusted
 
-- Evaluation as a contract: Qonto-inspired. Versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge. A hard CI gate, not a habit.
 - Observability & metering: Every MCP tool call is one structured event. Auditable, queryable, priceable. The product is operable, not opaque.
 - Multi-tenant security: hotel_id scoped at every layer (RLS, Python guards, MCP token binding), resolved server-side, never a tool input. Read-only PMS access. GDPR: Supabase EU, Hive Memory is anonymized aggregates only.
 

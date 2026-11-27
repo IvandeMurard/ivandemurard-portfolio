@@ -21,6 +21,23 @@ var STATUSES = {
 var statusLine = (slug) => `Status: ${STATUSES[slug].word} \xB7 ${STATUSES[slug].note}`;
 var COMPASS_SOURCES_LINE = "APUR BDCom 2023 shopfront census \xB7 BODACC legal notices \xB7 INSEE Sirene \xB7 85,418 units \xB7 every figure with its source, licence and date";
 
+// src/content/aetherixCase.ts
+var HERO = {
+  label: "Case study \xB7 Aetherix",
+  headline: ["The F&B agent for ", "boutique hotels."],
+  lead: "It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs.",
+  role: "AI Product Manager and Product Builder, solo \xB7 2026",
+  /** Never written here: the status line is the one in src/content/statuses.ts. */
+  status: STATUSES.aetherix.note,
+  primary: "How it decides"
+};
+var TLDR = [
+  ["The problem", "Hotel data sits in the PMS and POS, floor experience sits with the team, and tomorrow's covers are decided by bridging the two by hand."],
+  ["The bet", "One recommendation a day in WhatsApp, checked against what happened the next morning."],
+  ["Today", "The loop runs daily on Maison Lumen, a fictional hotel in the Apaleo sandbox. The product is being made ready for a first pilot; no hotel yet."],
+  ["Still open", "The forecast is not yet proven on hotels. No pilot hotel has signed."]
+];
+
 // src/lib/mcp/tools/list-case-studies.ts
 var BASE = [
   {
@@ -35,7 +52,7 @@ var BASE = [
     slug: "aetherix",
     name: "Aetherix",
     label: "AI Agent \xB7 Boutique Hotel Operations \xB7 2026",
-    tagline: "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.",
+    tagline: `${HERO.headline.join("")} ${TLDR[0][1]} ${HERO.lead} ${STATUSES.aetherix.note}`,
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md"
   },

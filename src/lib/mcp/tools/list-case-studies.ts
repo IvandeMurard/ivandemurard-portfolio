@@ -1,5 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { STATUSES, COMPASS_SOURCES_LINE } from "../../../content/statuses";
+import { HERO as AETHERIX_HERO, TLDR as AETHERIX_TLDR } from "../../../content/aetherixCase";
 
 const BASE = [
   {
@@ -16,7 +17,7 @@ const BASE = [
     name: "Aetherix",
     label: "AI Agent · Boutique Hotel Operations · 2026",
     tagline:
-      "The F&B agent for boutique hotels. It works inside the tools the hotel already runs, its PMS and WhatsApp: one recommendation a day, the manager's reply, the outcome recorded next to it. Built to improve with every day it runs. Built and tested on the Apaleo sandbox and on public restaurant data. 0 real users. Being made pilot-ready; no hotel yet.",
+      `${AETHERIX_HERO.headline.join("")} ${AETHERIX_TLDR[0][1]} ${AETHERIX_HERO.lead} ${STATUSES.aetherix.note}`,
     url: "https://ivandemurard.com/aetherix",
     markdown_path: "/aetherix.md",
   },

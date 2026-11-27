@@ -144,5 +144,7 @@
 - [ ] MCP Resources and Prompts: blocked, the MCP toolkit (up to 3.6) does not support them.
 - [ ] Publish to put the section reading live.
 
-## Rose sync (pending)
-- [ ] Update Rose (prompt, references, curated answers) and MCP with the recent Aetherix changes (chapter 01 new title, subtitle, two sides, operational toll; chapters 02 to 06 layout), then regenerate prerendered pages. Needs deployment approval.
+## Rose and MCP sync
+- [ ] Synchronize the Aetherix mirror, Rose's focused guidance and MCP listing with chapters 01 to 06 and the visible evaluation harness; verify existing curated answers without changing their evidence.
+- [ ] Regenerate the LLM corpus, MCP catalog and Aetherix pre-render; test source parity.
+- [ ] Deploy rose-chat only with explicit approval; publishing the site and revised MCP remains a separate approval.
