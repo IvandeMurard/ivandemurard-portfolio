@@ -265,7 +265,7 @@ const Technical = () => (
       <div className="mb-8 min-w-0 overflow-hidden"><AetherixArchitectureDiagram /></div>
       <AetherixStackChips />
       <h3 className={cn(subheadCls, "mt-12")}>Built to be trusted</h3>
-      <dl className="mt-6 max-w-3xl space-y-7">{TRUST.map((item) => <div key={item.title} className="grid gap-2 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6"><dt className="font-body text-base font-semibold text-heading">{item.title}</dt><dd className="font-body text-base text-on-surface-variant">{item.body}</dd></div>)}</dl>
+      <dl className="mt-6 max-w-3xl space-y-7">{TRUST.slice(1).map((item) => <div key={item.title} className="grid gap-2 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6"><dt className="font-body text-base font-semibold text-heading">{item.title}</dt><dd className="font-body text-base text-on-surface-variant">{item.body}</dd></div>)}</dl>
       <h3 className={cn(subheadCls, "mt-12")}>More</h3>
       <div className="mt-5"><AetherixWhatRemainsPrivate /></div>
       <div className="mt-8 max-w-3xl text-sm leading-relaxed text-on-surface-variant">
@@ -302,6 +302,12 @@ const Built = () => (
     <h3 id={INSIDE.anchor} className={cn(subheadCls, "mt-12 scroll-mt-28")}>{INSIDE.heading}</h3>
     <p className="mt-2 max-w-2xl font-body text-[15.5px] text-on-surface-variant">{INSIDE.intro}</p>
     <AetherixAgentAccordion />
+    <aside aria-labelledby="aetherix-eval-gate" className="mt-8 max-w-[56rem] rounded-2xl border border-outline-variant bg-surface-container-low px-6 py-6 md:px-8">
+      <p className="font-label text-kicker uppercase tracking-[0.12em] text-on-surface-variant">Evaluation harness · CI gate</p>
+      <h4 id="aetherix-eval-gate" className="mt-2 font-headline text-2xl text-heading">{TRUST[0].title}</h4>
+      <p className="mt-3 max-w-2xl font-body text-base text-on-surface">{TRUST[0].body}</p>
+      <p className="mt-4"><Link to="/journal/harnesses-graders-closed-loops" className={linkCls}>How this kind of harness works: graders, protocols and closed loops</Link></p>
+    </aside>
     <div className="mt-12">
       <AetherixDisclosure id={ARCH.anchor} title={ARCH.heading}>
         <p className="max-w-2xl font-body text-base text-on-surface-variant">{ARCH.intro[0]}<Link to="/architecture" className={linkCls}>{ARCH.intro[1]}</Link>{ARCH.intro[2]}</p>

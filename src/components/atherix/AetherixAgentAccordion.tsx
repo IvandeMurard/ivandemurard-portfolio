@@ -46,21 +46,22 @@ export const AetherixAgentAccordion = () => {
                   aria-controls={`inside-p-${s.n}`}
                   aria-label={`${s.n} ${s.title}`}
                   onClick={() => setOpen(i)}
+                  onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(i); }}
                   onKeyDown={onKey(i)}
                   className={cn(
                     "flex w-full text-left outline-none after:absolute after:-inset-4 after:rounded-2xl after:content-[''] md:after:-inset-5 focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:-outline-offset-4 focus-visible:after:outline-secondary",
                     isOpen ? "items-baseline gap-3" : "min-h-[3.5rem] flex-1 items-start justify-between md:min-h-0 md:flex-col md:justify-between",
                   )}
                 >
-                  <span aria-hidden="true" className="font-label text-xs text-on-surface-variant">{s.n}</span>
+                  <span aria-hidden="true" className={cn("font-label text-xs text-on-surface-variant", !isOpen && "md:hidden")}>{s.n}</span>
                   <span
                     aria-hidden="true"
                     className={cn(
                       "font-headline leading-tight text-heading",
-                      isOpen ? "text-2xl" : "text-lg md:[writing-mode:vertical-rl] md:rotate-180",
+                      isOpen ? "text-2xl" : "text-base md:whitespace-nowrap md:text-lg md:[writing-mode:vertical-rl] md:rotate-180",
                     )}
                   >
-                    {isOpen ? s.title : s.label}
+                    {isOpen ? s.title : <><span className="hidden md:inline">{s.n} · </span>{s.title}</>}
                   </span>
                 </button>
               </h4>
