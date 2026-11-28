@@ -173,9 +173,7 @@ Maison Lumen, a fictional hotel in the Apaleo sandbox: synthetic data, real serv
 
 ### Evaluation harness · CI gate
 
-#### Evaluation as a contract
-
-Qonto-inspired. Versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge. A hard CI gate, not a habit.
+**Evaluation as a contract:** Qonto-inspired. Versioned golden datasets. Any change to forecasting, providers, memory or prompts needs a green eval pipeline to merge. A hard CI gate, not a habit.
 
 Field Note: https://ivandemurard.com/journal/harnesses-graders-closed-loops
 

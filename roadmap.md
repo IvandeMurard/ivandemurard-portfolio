@@ -145,6 +145,7 @@
 - [ ] Publish to put the section reading live.
 
 ## Rose and MCP sync
-- [ ] Synchronize the Aetherix mirror, Rose's focused guidance and MCP listing with chapters 01 to 06 and the visible evaluation harness; verify existing curated answers without changing their evidence.
-- [ ] Regenerate the LLM corpus, MCP catalog and Aetherix pre-render; test source parity.
-- [ ] Deploy rose-chat only with explicit approval; publishing the site and revised MCP remains a separate approval.
+- [x] Synchronize the Aetherix mirror, Rose's focused guidance and MCP listing with chapters 01 to 06 and the visible evaluation harness; existing curated answers verified unchanged. 60 targeted tests pass.
+- [x] Regenerate the LLM corpus, MCP catalog (5 tools) and Aetherix pre-render; source parity and visible harness link verified in preview, no runtime errors. Generated LLM corpus is regenerated at prebuild, excluded from the final commit per repository rules.
+- [x] Redeploy rose-chat, explicitly approved by Ivan on 28 Nov 2026. Real question through the preview returns HTTP 200 and an answer with the new evaluation anchor, but still uses the older published block label. No services enabled, existing Cloud retained. Full suite: 1345 passed, 4 existing skips, 2 pre-existing style failures for one colon-reveal in src/pages/Atherix.tsx; no test or page copy changed to hide them. Build telemetry OK.
+- [ ] Republish the site to release the revised MCP and evaluation-harness Markdown, then recheck Rose's location answer against the released source. Blocked: publication not authorized; nothing published.
